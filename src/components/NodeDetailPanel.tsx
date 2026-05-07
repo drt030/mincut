@@ -1,6 +1,6 @@
 "use client";
 
-import { bottlenecksForNode, downstream, evidenceForNode, metricsForNode, routesForModule, upstream } from "@/lib/graphTraversal";
+import { bottlenecksForNode, downstream, evidenceForNode, metricsForNode, upstream } from "@/lib/graphTraversal";
 import type { GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 
@@ -15,7 +15,6 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const up = upstream(graph, node.id);
   const down = downstream(graph, node.id);
   const metrics = metricsForNode(graph, node.id);
-  const routes = routesForModule(graph, node.id);
   const bottlenecks = bottlenecksForNode(graph, node.id);
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
@@ -60,7 +59,6 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         </div>
       ) : null}
       <NodeList title={t("metrics")} nodes={metrics} onSelectNode={onSelectNode} />
-      <NodeList title={t("routes")} nodes={routes} onSelectNode={onSelectNode} />
       <NodeList title={t("bottlenecks")} nodes={bottlenecks} onSelectNode={onSelectNode} />
       <NodeList title={t("upstream")} nodes={up} onSelectNode={onSelectNode} />
       <NodeList title={t("downstream")} nodes={down} onSelectNode={onSelectNode} />

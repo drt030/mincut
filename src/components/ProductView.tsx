@@ -1,8 +1,7 @@
 "use client";
 
-import { RouteComparisonView } from "./RouteComparisonView";
 import { useLanguage } from "./LanguageProvider";
-import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, routesForProduct, uniqueNodes } from "@/lib/graphTraversal";
+import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, uniqueNodes } from "@/lib/graphTraversal";
 import { productMaturity } from "@/lib/maturity";
 import type { GraphData, Node } from "@/lib/schema";
 
@@ -14,7 +13,6 @@ type Props = {
 export function ProductView({ graph, product }: Props) {
   const { nodeName, t } = useLanguage();
   const modules = requiredModules(graph, product.id);
-  const routes = routesForProduct(graph, product.id);
   const metrics = metricsForNode(graph, product.id);
   const bottlenecks = uniqueNodes([...bottlenecksForNode(graph, product.id), ...modules.flatMap((module) => bottlenecksForNode(graph, module.id))]);
   const evidence = evidenceForNode(graph, product.id);
@@ -52,10 +50,6 @@ export function ProductView({ graph, product }: Props) {
         <SummaryCard title={t("keyMetrics")} nodes={metrics} />
         <SummaryCard title={t("bottlenecks")} nodes={bottlenecks} />
         <SummaryCard title={t("evidence")} nodes={evidence.map((item) => ({ id: item.id, name: item.title }))} />
-      </section>
-      <section className="panel" style={{ marginTop: 18 }}>
-        <h2>{t("routeComparison")}</h2>
-        <RouteComparisonView graph={graph} routes={routes} />
       </section>
     </div>
   );

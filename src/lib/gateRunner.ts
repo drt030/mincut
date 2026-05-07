@@ -146,26 +146,6 @@ function answerQuestion(context: GateContext, question: GateQuestion): GateRepor
     }
     case "required_modules":
       return listResult(question.question, modules, "required modules", requiredParcelModules.filter((id) => !modules.some((node) => node.id === id)));
-    case "known_routes":
-      return scoreResult(
-        question.question,
-        `Per ADR-0004, intra-product technical routes are retired in v0; the product commits to one fixed architecture (vacuum-suction end-effector for ${target.id}). Architectural alternatives live as sibling Product nodes under the affordable_small_warehouse_automation capability.`,
-        5,
-        undefined,
-        undefined,
-        undefined,
-        "Routes are no longer modelled within a single Product; this question is preserved for backward compatibility with historical gate reports.",
-      );
-    case "route_enablers":
-      return scoreResult(
-        question.question,
-        `Per ADR-0004, the product's enablers are its direct requires-edges (see required_modules). Routes are retired, so per-route enabler tabulation is not applicable.`,
-        5,
-        undefined,
-        undefined,
-        undefined,
-        "Routes are no longer modelled within a single Product; this question is preserved for backward compatibility with historical gate reports.",
-      );
     case "main_bottlenecks":
       return listResult(question.question, allBottlenecks, "bottlenecks");
     case "key_metrics":

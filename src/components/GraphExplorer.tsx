@@ -16,7 +16,6 @@ import {
 } from "@xyflow/react";
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
-import { routesForProduct } from "@/lib/graphTraversal";
 import type { Edge, EdgeRelation, GraphData, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -193,7 +192,6 @@ export function GraphExplorer({ graph }: Props) {
   const domains = useMemo(() => [...new Set(graph.nodes.flatMap((node) => node.domain))].sort(), [graph.nodes]);
   const kinds = useMemo(() => [...new Set(graph.nodes.map((node) => node.kind))].sort(), [graph.nodes]);
   const relations = useMemo(() => [...new Set(graph.edges.map((edge) => edge.relation))].sort(), [graph.edges]);
-  const routes = useMemo(() => routesForProduct(graph, rootNodeId).sort(compareNodes), [graph]);
   const focusIds = useMemo(() => routeFocusIds(graph, routeFocus), [graph, routeFocus]);
 
   const visibleIds = useMemo(() => {
@@ -482,22 +480,6 @@ export function GraphExplorer({ graph }: Props) {
           <option value="30">{t("score")} &gt;= 30</option>
           <option value="50">{t("score")} &gt;= 50</option>
           <option value="70">{t("score")} &gt;= 70</option>
-        </select>
-        <select
-          value={routeFocus}
-          onChange={(event) => {
-            const next = event.target.value;
-            setRouteFocus(next);
-            if (next !== "all") setSelectedId(next);
-            if (next !== "all") setMode("full");
-          }}
-        >
-          <option value="all">{t("allRoutes")}</option>
-          {routes.map((route) => (
-            <option key={route.id} value={route.id}>
-              {nodeName(route.id, route.name)}
-            </option>
-          ))}
         </select>
       </div>
       <div className="graph-layout">

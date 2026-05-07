@@ -11,8 +11,8 @@ const latestReportByTarget = latestReportsByTarget(reports);
 const latestReports = new Set(latestReportByTarget.values());
 const reportsById = new Map(reports.map((report) => [gateReportId(report), report]));
 
-if (questions.length !== 20) {
-  errors.push(`Expected 20 gate questions, found ${questions.length}`);
+if (questions.length !== 18) {
+  errors.push(`Expected 18 gate questions, found ${questions.length}`);
 }
 
 for (const task of tasks) {

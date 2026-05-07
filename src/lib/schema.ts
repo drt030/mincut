@@ -52,6 +52,7 @@ export const nodeSchema = z.object({
       targetUseCase: z.string().optional(),
       targetEnvironment: z.string().optional(),
       targetDate: z.string().optional(),
+      targetEndEffector: z.string().optional(),
     })
     .optional(),
   metrics: z
