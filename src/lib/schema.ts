@@ -43,6 +43,10 @@ export const nodeSchema = z.object({
   description: z.string().optional(),
   maturityScore: z.number().min(0).max(100).optional(),
   maturityLabel: maturityLabelSchema.optional(),
+  maturityAsOf: z
+    .string()
+    .regex(/^\d{4}-\d{2}(?:-\d{2})?$/, "maturityAsOf must be ISO YYYY-MM or YYYY-MM-DD")
+    .optional(),
   confidence: confidenceSchema.optional(),
   targetContext: z
     .object({

@@ -1,7 +1,7 @@
 "use client";
 
 import { bottlenecksForNode, downstream, evidenceForNode, metricsForNode, upstream } from "@/lib/graphTraversal";
-import { maturityVisualFor } from "@/lib/maturityVisual";
+import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import type { GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 
@@ -45,21 +45,35 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         <div className="maturity-pill-row">
           {(() => {
             const visual = maturityVisualFor(node);
+            const asOf = maturityAsOfVisualFor(node);
+            const asOfTooltip = asOf.hasValue
+              ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
+              : t("maturityAsOfMissing");
             return (
-              <span
-                className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
-                style={{
-                  background: visual.bg,
-                  color: visual.fg,
-                  opacity: visual.hasLabel ? 1 : 0.65,
-                }}
-                title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
-              >
-                {visual.label}
-                {typeof node.maturityScore === "number" ? (
-                  <span className="maturity-pill-score">· {node.maturityScore}</span>
-                ) : null}
-              </span>
+              <>
+                <span
+                  className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
+                  style={{
+                    background: visual.bg,
+                    color: visual.fg,
+                    opacity: visual.hasLabel ? 1 : 0.65,
+                  }}
+                  title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
+                >
+                  {visual.label}
+                  {typeof node.maturityScore === "number" ? (
+                    <span className="maturity-pill-score">· {node.maturityScore}</span>
+                  ) : null}
+                </span>
+                <span
+                  className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+                  title={asOfTooltip}
+                  aria-label={asOfTooltip}
+                >
+                  <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
+                  {t("maturityAsOf")}: {asOf.label}
+                </span>
+              </>
             );
           })()}
           {node.confidence ? (

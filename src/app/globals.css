@@ -333,6 +333,57 @@ li {
   border-style: dashed;
 }
 
+.graph-node-meta .graph-node-asof-pill {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.graph-node-meta .graph-node-asof-pill.missing {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.graph-node-asof-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.maturity-asof-pill {
+  align-items: center;
+  background: #e2e8f0;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  border-radius: 999px;
+  color: #334155;
+  display: inline-flex;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  gap: 5px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 5px 9px;
+  white-space: nowrap;
+}
+
+.maturity-asof-pill.missing {
+  border-style: dashed;
+  opacity: 0.65;
+}
+
+.maturity-asof-icon {
+  font-size: 11px;
+  line-height: 1;
+}
+
 .maturity-pill {
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.18);

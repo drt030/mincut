@@ -6,9 +6,16 @@ import { useLanguage } from "./LanguageProvider";
 type Props = {
   reports: GateReport[];
   targetNodeId: string;
+  /**
+   * Target Product node's `maturityAsOf` (per ADR-0002). Surfaced in the
+   * report's product-summary block as a separate "Maturity as of" line so
+   * a learner can see *when* the maturity claim was last assessed —
+   * distinct from the report's own `Generated at` timestamp.
+   */
+  targetMaturityAsOf?: string;
 };
 
-export function GateReportView({ reports, targetNodeId }: Props) {
+export function GateReportView({ reports, targetNodeId, targetMaturityAsOf }: Props) {
   const { t } = useLanguage();
   const [latestReport, ...historicalReports] = selectGateReportsForTarget(reports, targetNodeId);
 
@@ -20,7 +27,7 @@ export function GateReportView({ reports, targetNodeId }: Props) {
     <div className="detail-list">
       <section className="panel" key={`${latestReport.targetNodeId}-${latestReport.generatedAt}`}>
         <p className="muted">{t("latestGateReport")}</p>
-        <GateReportDetails report={latestReport} />
+        <GateReportDetails report={latestReport} targetMaturityAsOf={targetMaturityAsOf} />
       </section>
 
       {historicalReports.length > 0 ? (
@@ -59,7 +66,15 @@ function timestampForSort(value: string): number {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
-function GateReportDetails({ report, compact = false }: { report: GateReport; compact?: boolean }) {
+function GateReportDetails({
+  report,
+  compact = false,
+  targetMaturityAsOf,
+}: {
+  report: GateReport;
+  compact?: boolean;
+  targetMaturityAsOf?: string;
+}) {
   const { t } = useLanguage();
 
   return (
@@ -71,6 +86,10 @@ function GateReportDetails({ report, compact = false }: { report: GateReport; co
       </p>
       <p className="muted">
         {t("generatedAt")}: {report.generatedAt}
+      </p>
+      <p className="muted">
+        {t("maturity")} {t("maturityAsOf")}:{" "}
+        {targetMaturityAsOf ? <strong>{targetMaturityAsOf}</strong> : <span className="muted">—</span>}
       </p>
       {!compact ? (
         <>

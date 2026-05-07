@@ -16,7 +16,7 @@ import {
 } from "@xyflow/react";
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
-import { maturityVisualFor } from "@/lib/maturityVisual";
+import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import type { Edge, EdgeRelation, GraphData, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -69,6 +69,9 @@ type CapabilityNodeData = {
   maturityPillBg: string;
   maturityPillFg: string;
   maturityPillHasLabel: boolean;
+  asOfPillLabel: string;
+  asOfPillHasValue: boolean;
+  asOfPillTooltip: string;
   selectedMetricId?: string;
   foldedMetrics: FoldedMetricEntry[];
   onSelect: (nodeId: string) => void;
@@ -140,6 +143,19 @@ const nodeTypes = {
             >
               {data.maturityPillLabel}
               {typeof data.maturityScore === "number" ? ` · ${data.maturityScore}` : ""}
+            </span>
+            <span
+              className={[
+                "graph-node-asof-pill",
+                data.asOfPillHasValue ? "" : "missing",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              title={data.asOfPillTooltip}
+              aria-label={data.asOfPillTooltip}
+            >
+              <span className="graph-node-asof-icon" aria-hidden="true">🕒</span>
+              {data.asOfPillLabel}
             </span>
           </div>
           {data.foldedMetrics.length > 0 ? (
@@ -316,7 +332,11 @@ export function GraphExplorer({ graph }: Props) {
       graph.edges
         .filter((edge) => filteredIds.has(edge.source) && filteredIds.has(edge.target))
         .filter((edge) => relation === "all" || edge.relation === relation)
-        .filter((edge) => mode === "full" || layeredRelations.has(edge.relation)),
+        // In Layered / Bottleneck modes, allow `measured_by` edges through
+        // when the metric is rendered as a standalone node (showMetricsAsNodes
+        // toggle is on). When metrics fold into the parent's strip the metric
+        // node is removed from filteredIds and the edge is dropped naturally.
+        .filter((edge) => mode === "full" || layeredRelations.has(edge.relation) || edge.relation === "measured_by"),
     [filteredIds, graph.edges, mode, relation],
   );
 
@@ -361,6 +381,10 @@ export function GraphExplorer({ graph }: Props) {
           name: nodeName(metric.id, metric.name),
         }));
         const visual = maturityVisualFor(node);
+        const asOfVisual = maturityAsOfVisualFor(node);
+        const asOfTooltip = asOfVisual.hasValue
+          ? t("maturityAsOfTooltip").replace("{date}", asOfVisual.label)
+          : t("maturityAsOfMissing");
         const isBottleneck = node.kind === "bottleneck";
         const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
         return {
@@ -386,6 +410,9 @@ export function GraphExplorer({ graph }: Props) {
           maturityPillBg: visual.bg,
           maturityPillFg: visual.fg,
           maturityPillHasLabel: visual.hasLabel,
+          asOfPillLabel: asOfVisual.label,
+          asOfPillHasValue: asOfVisual.hasValue,
+          asOfPillTooltip: asOfTooltip,
           selectedMetricId: selectedId,
           foldedMetrics: localizedFolded,
           onSelect: setSelectedId,
@@ -604,6 +631,7 @@ function layeredVisibleIds(graph: GraphData, expandedIds: Set<string>) {
     }
   }
 
+  addReachableMetrics(graph, ids);
   return ids;
 }
 
@@ -636,7 +664,27 @@ function bottleneckVisibleIds(graph: GraphData, expandedIds: Set<string>) {
     }
   }
 
+  addReachableMetrics(graph, ids);
   return ids;
+}
+
+/**
+ * Pull metric nodes into the visible set when at least one of their
+ * `measured_by` parents is already visible. Layered and Bottleneck
+ * modes don't traverse `measured_by` for layout (metrics shouldn't
+ * deepen the dependency tree), but the metric-fold strip needs the
+ * metric data present so it can fold inline. Without this step the
+ * KPI strip silently disappears outside Full graph mode.
+ */
+function addReachableMetrics(graph: GraphData, ids: Set<string>) {
+  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+  for (const edge of graph.edges) {
+    if (edge.relation !== "measured_by") continue;
+    if (!ids.has(edge.source)) continue;
+    const target = nodesById.get(edge.target);
+    if (!target || target.kind !== "metric") continue;
+    ids.add(edge.target);
+  }
 }
 
 function routeFocusIds(graph: GraphData, routeId: string) {

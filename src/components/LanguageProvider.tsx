@@ -114,6 +114,9 @@ const uiText: Record<Language, Record<string, string>> = {
     testProducts: "Test Products",
     bottleneckedByGlyphTooltip: "Bottlenecked by {count} item(s)",
     maturityLabelMissing: "Maturity label not set",
+    maturityAsOf: "as of",
+    maturityAsOfMissing: "as-of date not set",
+    maturityAsOfTooltip: "Maturity assessment as of {date}",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -211,6 +214,9 @@ const uiText: Record<Language, Record<string, string>> = {
     testProducts: "测试产品",
     bottleneckedByGlyphTooltip: "受 {count} 个瓶颈限制",
     maturityLabelMissing: "未设置成熟度标签",
+    maturityAsOf: "截至",
+    maturityAsOfMissing: "未设置评估日期",
+    maturityAsOfTooltip: "成熟度评估截至 {date}",
   },
 };
 

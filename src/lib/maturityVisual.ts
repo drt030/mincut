@@ -42,3 +42,26 @@ export function maturityVisualFor(node: Pick<Node, "maturityLabel">): MaturityVi
   const colors = labelColors[raw] ?? missingColors;
   return { label: formatMaturityLabel(raw), bg: colors.bg, fg: colors.fg, hasLabel: true };
 }
+
+export type MaturityAsOfVisual = {
+  /** Display string ("2026-04" when present, "—" when missing). */
+  label: string;
+  /** Whether the underlying node has a `maturityAsOf` set. */
+  hasValue: boolean;
+};
+
+/**
+ * Resolve the visual treatment for a node's `maturityAsOf` time stamp.
+ *
+ * Per ADR-0002, every maturity assessment carries an `as of` date.
+ * The graph cards, NodeDetailPanel, ProductView and gate report all
+ * surface that date as a small "as of YYYY-MM" pill so a learner can
+ * scan when each maturity claim was last assessed. A faded "—" pill is
+ * rendered when the date is missing, matching the iter-6 treatment of
+ * a missing `maturityLabel`.
+ */
+export function maturityAsOfVisualFor(node: Pick<Node, "maturityAsOf">): MaturityAsOfVisual {
+  const raw = node.maturityAsOf?.trim();
+  if (!raw) return { label: "—", hasValue: false };
+  return { label: raw, hasValue: true };
+}

@@ -7,6 +7,7 @@
     "description": "Apple's 2010 smartphone product architecture combining a Retina display, glass-and-stainless-steel enclosure, A4 application processor, cellular radios, cameras, battery, sensors, iOS software, and high-volume precision assembly.",
     "maturityScore": 92,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetScale": "mass-market smartphone product launched in 2010",
@@ -25,6 +26,7 @@
     "description": "High-density LCD/touch/display module requiring cover glass, display panel, touch sensing, backlight, driver electronics, optical bonding, and final calibration.",
     "maturityScore": 88,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_apple_iphone4_specs"],
     "tags": ["display", "decomposition_frontier"]
@@ -37,6 +39,7 @@
     "description": "Application processor and memory subsystem that runs iOS, graphics, media, sensor, camera, and app workloads.",
     "maturityScore": 86,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_apple_iphone4_specs"],
     "tags": ["soc", "semiconductor"]
@@ -49,6 +52,7 @@
     "description": "Baseband, RF front end, antennas, SIM, GPS, Wi-Fi, Bluetooth, and EMC integration for mobile connectivity.",
     "maturityScore": 84,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": ["rf", "antenna", "decomposition_frontier"]
   },
@@ -60,6 +64,7 @@
     "description": "Front/back glass and stainless-steel structural band requiring precision machining, surface finishing, bonding, antenna isolation, and drop robustness.",
     "maturityScore": 82,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_apple_iphone4_environment"],
     "tags": ["enclosure", "materials", "manufacturing"]
@@ -72,6 +77,7 @@
     "description": "Rechargeable battery pack with cell chemistry, protection circuitry, packaging, thermal limits, and safety certification requirements.",
     "maturityScore": 84,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "tags": ["battery", "safety", "material"],
@@ -85,6 +91,7 @@
     "description": "Rear and front camera modules integrating image sensor, optics, package, autofocus or fixed-focus mechanics, image processing, and calibration.",
     "maturityScore": 84,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_apple_iphone4_specs"],
     "tags": ["camera", "optics"]
@@ -97,6 +104,7 @@
     "description": "Mobile operating system, application framework, drivers, power management, media stack, browser, and App Store distribution integration.",
     "maturityScore": 90,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "tags": ["software", "platform"],
@@ -110,6 +118,7 @@
     "description": "High-volume final assembly, adhesive/bonding, display fitting, board installation, RF test, camera calibration, functional test, and packaging flow.",
     "maturityScore": 86,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["manufacturing", "assembly", "decomposition_frontier"],
     "notes": "Unreviewed high-level process node; avoid treating it as a factory work instruction."
@@ -122,6 +131,7 @@
     "description": "Strengthened cover-glass material chain from silica/alumina inputs through glass melting, sheet forming, cutting, chemical strengthening, coating, and inspection.",
     "maturityScore": 82,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "glass", "process_frontier"]
   },
@@ -133,6 +143,7 @@
     "description": "Battery raw-material and cell-process chain including lithium salts, cobalt-bearing cathode materials, graphite anode materials, electrolyte, separator, coating, winding/stacking, formation, and testing.",
     "maturityScore": 74,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "battery", "supply_chain", "decomposition_frontier"]
   },
@@ -163,6 +174,7 @@
     "description": "Antenna, enclosure, hand-effect, EMC, and carrier-certification integration can bottleneck a compact smartphone architecture.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["rf", "bottleneck"]
   },
@@ -174,6 +186,7 @@
     "description": "Prescription anti-obesity drug products based on GLP-1 receptor agonism, represented as a regulated pharmaceutical product family rather than a single molecule.",
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetPerformance": "clinically meaningful chronic weight management benefit with acceptable safety monitoring",
@@ -191,6 +204,7 @@
     "description": "Peptide or incretin-mimetic active pharmaceutical ingredient that activates the GLP-1 receptor and drives appetite and metabolic effects.",
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_fda_wegovy_label"],
     "tags": ["api", "peptide", "pharmacology"]
@@ -203,6 +217,7 @@
     "description": "API production route using amino-acid building blocks, protected peptide synthesis or related peptide manufacturing, purification, analytical release, and batch documentation.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["manufacturing", "api", "process_frontier"]
   },
@@ -214,6 +229,7 @@
     "description": "Finished drug formulation, sterile fill-finish, prefilled pen or injector, cold-chain packaging, instructions, and device quality system.",
     "maturityScore": 76,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_fda_wegovy_label"],
     "tags": ["formulation", "device", "cold_chain"]
@@ -226,6 +242,7 @@
     "description": "Randomized clinical evidence, safety warnings, contraindications, discontinuation evidence, and long-term monitoring requirements.",
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_fda_wegovy_label", "ev_nejm_step1_semaglutide"],
     "tags": ["clinical", "safety"]
@@ -238,6 +255,7 @@
     "description": "Approval, indication, contraindications, warnings, medication guide, post-market monitoring, and label-change process for obesity therapeutics.",
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_fda_wegovy_label"],
     "tags": ["fda", "regulated"]
@@ -250,6 +268,7 @@
     "description": "Raw and intermediate chemical supply chain for protected amino acids, coupling reagents, solvents, resins, sterile excipients, and analytical reference materials.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "api", "supply_chain", "decomposition_frontier"]
   },
@@ -261,6 +280,7 @@
     "description": "Scale-up bottleneck covering sterile fill-finish capacity, injector-device supply, cold-chain storage, demand forecasting, and quality release.",
     "maturityScore": 62,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["capacity", "cold_chain", "bottleneck"]
   },
@@ -293,6 +313,7 @@
     "description": "Access can be limited by price, payer coverage, manufacturing capacity, injector supply, cold chain, and long-term treatment adherence.",
     "maturityScore": 54,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["cost", "access", "capacity"]
   },
@@ -304,6 +325,7 @@
     "description": "A target reusable orbital transport capability/product architecture that lowers launch cost toward roughly 1,000 USD per kilogram through high reuse, rapid operations, high reliability, and large payload throughput.",
     "maturityScore": 46,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetCost": "approximately 1,000 USD/kg to orbit",
@@ -322,6 +344,7 @@
     "description": "Recoverable booster stage requiring restartable engines, landing guidance, thermal/structural margins, inspection access, and reflight certification.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_spacex_falcon9_reuse"],
     "tags": ["booster", "reuse"]
@@ -334,6 +357,7 @@
     "description": "Upper-stage/orbiter reuse branch requiring orbital reentry, thermal protection, landing, propellant management, inspection, and payload integration.",
     "maturityScore": 38,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["upper_stage", "reentry", "bottleneck"]
   },
@@ -345,6 +369,7 @@
     "description": "Reusable high-thrust propulsion stack using cryogenic propellants, turbopumps, combustion chambers, engine controllers, valves, and qualification testing.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["propulsion", "cryogenic"]
   },
@@ -356,6 +381,7 @@
     "description": "High-speed pumps, turbines, bearings, seals, and rotating machinery required for reusable launch propulsion.",
     "maturityScore": 56,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["turbomachinery", "decomposition_frontier"]
   },
@@ -367,6 +393,7 @@
     "description": "Engine-part manufacturing route using high-temperature alloys, precision machining, welding/brazing, additive manufacturing where appropriate, nondestructive inspection, and hot-fire qualification.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["manufacturing", "superalloy", "process_frontier"]
   },
@@ -378,6 +405,7 @@
     "description": "Reusable thermal protection, aerosurfaces, guidance, structural margins, inspection, repair, and reentry operations.",
     "maturityScore": 44,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["thermal", "reentry"]
   },
@@ -389,6 +417,7 @@
     "description": "Fleet operations capability covering inspection, refurbishment, propellant loading, range coordination, launch cadence, software checkout, and anomaly closure.",
     "maturityScore": 48,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["operations", "cost", "bottleneck"]
   },
@@ -400,6 +429,7 @@
     "description": "Propellant supply chain from natural-gas or methane production and air-separation oxygen through purification, liquefaction, storage, transfer, boiloff management, and launch-site handling.",
     "maturityScore": 72,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "propellant", "cryogenic"]
   },
@@ -411,6 +441,7 @@
     "description": "High-temperature alloy and stainless material chain for rocket engines, tanks, structures, valves, heat shields, weld qualification, and inspection.",
     "maturityScore": 68,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "superalloy", "steel"]
   },
@@ -441,6 +472,7 @@
     "description": "Placeholder for the unresolved combination of upper-stage reuse, low refurbishment labor, high launch cadence, high reliability, and regulatory throughput needed for the cost target.",
     "maturityScore": 34,
     "maturityLabel": "hypothesis",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["breakthrough", "cost"]
   },
@@ -452,6 +484,7 @@
     "description": "A commercial electric power product/capability based on controlled fusion, requiring net plant-level energy gain, durable plasma-facing systems, tritium/fuel cycle closure, regulatory approval, maintainability, and affordable plant construction.",
     "maturityScore": 28,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetScale": "grid-relevant commercial power plant",
@@ -470,6 +503,7 @@
     "description": "Fusion route using toroidal magnetic confinement, superconducting magnets, plasma heating/current drive, divertor, breeding blanket concepts, remote maintenance, and power conversion.",
     "maturityScore": 34,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_iter_tokamak_overview"],
     "tags": ["tokamak", "route"]
@@ -482,6 +516,7 @@
     "description": "Plasma stability, heating, current drive, fueling, impurity control, disruption mitigation, and diagnostic/control software needed for sustained operation.",
     "maturityScore": 36,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "tags": ["plasma", "control", "bottleneck"],
@@ -495,6 +530,7 @@
     "description": "Toroidal/poloidal field coils, central solenoid, superconducting cable, cryostat, quench protection, power supplies, and cryogenic plant.",
     "maturityScore": 46,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_iter_tokamak_overview"],
     "tags": ["magnet", "cryogenic"]
@@ -507,6 +543,7 @@
     "description": "First wall, divertor, armor, cooling channels, neutron damage tolerance, erosion control, and remote replacement strategy.",
     "maturityScore": 30,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "tags": ["materials", "divertor", "bottleneck"],
@@ -520,6 +557,7 @@
     "description": "Fuel-cycle branch requiring lithium-bearing breeding material, neutron multiplier concepts, tritium extraction, inventory control, containment, and regulatory safeguards.",
     "maturityScore": 24,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["tritium", "fuel_cycle", "bottleneck"]
   },
@@ -531,6 +569,7 @@
     "description": "Remote inspection, component replacement, hot-cell logistics, activation handling, maintenance scheduling, and plant-availability engineering.",
     "maturityScore": 30,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["remote_maintenance", "operations"]
   },
@@ -542,6 +581,7 @@
     "description": "Superconducting-material chain for high-field magnets, including niobium/tin feedstock, strand fabrication, cable-in-conduit conductor, heat treatment, insulation, winding, and cryogenic qualification.",
     "maturityScore": 56,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "superconductor", "process_frontier"]
   },
@@ -553,6 +593,7 @@
     "description": "Material chain for plasma-facing armor and breeding concepts, including tungsten mining/refining/powder metallurgy, lithium-bearing ceramics or liquids, neutron irradiation testing, and compatibility screening.",
     "maturityScore": 34,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "lithium", "tungsten", "decomposition_frontier"]
   },
@@ -582,6 +623,7 @@
     "description": "Placeholder for unresolved commercial-scale tritium self-sufficiency, neutron damage, divertor heat flux, maintainability, and regulatory integration.",
     "maturityScore": 20,
     "maturityLabel": "hypothesis",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["breakthrough", "materials"]
   },
@@ -593,6 +635,7 @@
     "description": "A microreactor-class nuclear power product intended for factory fabrication, transportable deployment, long refueling intervals, passive safety, secure operation, and regulated site licensing.",
     "maturityScore": 42,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetScale": "microreactor-scale electricity or heat supply",
@@ -611,6 +654,7 @@
     "description": "Compact reactor core and qualified fuel system, including enrichment limits, fuel form, cladding or particle fuel, burnup, heat removal, and safeguards.",
     "maturityScore": 42,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_nrc_microreactors"],
     "tags": ["fuel", "core", "regulated"]
@@ -623,6 +667,7 @@
     "description": "Fuel-material chain for TRISO-style particles, including uranium feed, enrichment, kernel fabrication, coating layers, compaction, irradiation qualification, and quality assurance.",
     "maturityScore": 48,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["fuel", "material", "process_frontier"]
   },
@@ -634,6 +679,7 @@
     "description": "Heat pipe, gas, molten-salt, or other heat-transport branch connecting the core to power conversion while preserving passive safety margins.",
     "maturityScore": 40,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["thermal", "passive_safety"]
   },
@@ -645,6 +691,7 @@
     "description": "Turbomachinery or engine/generator module converting heat to electricity with controls, grid interface, backup power, and maintainability constraints.",
     "maturityScore": 52,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["power_conversion"]
   },
@@ -656,6 +703,7 @@
     "description": "Factory-controlled nuclear module fabrication, welding, nondestructive examination, code documentation, transport preparation, acceptance testing, and traceability.",
     "maturityScore": 44,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["manufacturing", "qa", "regulated"]
   },
@@ -667,6 +715,7 @@
     "description": "Regulatory pathway covering safety case, emergency planning, physical security, safeguards, transportation, spent fuel, and site-specific approvals.",
     "maturityScore": 38,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_nrc_microreactors"],
     "tags": ["regulatory", "security"]
@@ -679,6 +728,7 @@
     "description": "Material chain for reactor vessel, heat exchangers, structural internals, graphite moderators or reflectors where applicable, corrosion control, irradiation qualification, and code acceptance.",
     "maturityScore": 46,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "graphite", "alloy"]
   },
@@ -708,6 +758,7 @@
     "description": "Commercial deployment can be bottlenecked by fuel qualification, supply availability, licensing novelty, emergency planning, security, waste handling, and site acceptance.",
     "maturityScore": 34,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["fuel", "regulatory", "bottleneck"]
   },
@@ -719,6 +770,7 @@
     "description": "A high-level historical industrial case studying how a durable small-arms product became manufacturable, standardized, robust, maintainable, and widely diffused. This graph is for historical industrial analysis, not construction guidance.",
     "maturityScore": 88,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetScale": "large-scale historical military production and licensed or copied manufacture",
@@ -737,6 +789,7 @@
     "description": "Non-procedural architecture node covering reliability-oriented mechanism concepts, part standardization, tolerances, maintainability, and environmental robustness at a high level.",
     "maturityScore": 86,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_britannica_ak47"],
     "tags": ["architecture", "restricted_detail"]
@@ -749,6 +802,7 @@
     "description": "Historical high-level route comparison between machined and stamped/fabricated receiver production as an industrial manufacturability issue, without operational dimensions or work instructions.",
     "maturityScore": 82,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["manufacturing", "route", "restricted_detail"]
   },
@@ -760,6 +814,7 @@
     "description": "High-level industrial node for alloy steel, forging/machining routes, heat treatment, surface protection, inspection, and proof/acceptance systems. No manufacturing parameters are modeled.",
     "maturityScore": 82,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "heat_treatment", "restricted_detail"]
   },
@@ -771,6 +826,7 @@
     "description": "Wood, laminate, or polymer furniture materials and finishing processes considered as durability, climate, supply, and cost factors.",
     "maturityScore": 82,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "wood", "polymer"]
   },
@@ -782,6 +838,7 @@
     "description": "Gauge, inspection, lot acceptance, standardization, training, repair logistics, and documentation system that supports mass production and field maintenance at a high level.",
     "maturityScore": 82,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["quality", "standardization", "restricted_detail"]
   },
@@ -793,6 +850,7 @@
     "description": "Industrial material chain for sheet steel, alloy steel forging stock, heat-treatment inputs, protective finishes, and wood/laminate/polymer furniture supply.",
     "maturityScore": 84,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["material", "steel", "wood", "polymer"]
   },
@@ -822,6 +880,7 @@
     "description": "Historical bottleneck covering reliable mass manufacture, interchangeability, training, quality control, tooling capacity, and supply of suitable steels and finishes.",
     "maturityScore": 78,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["manufacturing", "standardization", "restricted_detail"]
   }

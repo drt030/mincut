@@ -3,6 +3,7 @@
 import { useLanguage } from "./LanguageProvider";
 import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, uniqueNodes } from "@/lib/graphTraversal";
 import { productMaturity } from "@/lib/maturity";
+import { maturityAsOfVisualFor } from "@/lib/maturityVisual";
 import type { GraphData, Node } from "@/lib/schema";
 
 type Props = {
@@ -17,6 +18,10 @@ export function ProductView({ graph, product }: Props) {
   const bottlenecks = uniqueNodes([...bottlenecksForNode(graph, product.id), ...modules.flatMap((module) => bottlenecksForNode(graph, module.id))]);
   const evidence = evidenceForNode(graph, product.id);
   const maturity = productMaturity(graph, product);
+  const asOf = maturityAsOfVisualFor(product);
+  const asOfTooltip = asOf.hasValue
+    ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
+    : t("maturityAsOfMissing");
 
   return (
     <div>
@@ -28,6 +33,16 @@ export function ProductView({ graph, product }: Props) {
           <p>
             <strong>{maturity.label}</strong> · {maturity.score}/100
           </p>
+          <div className="maturity-pill-row">
+            <span
+              className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+              title={asOfTooltip}
+              aria-label={asOfTooltip}
+            >
+              <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
+              {t("maturityAsOf")}: {asOf.label}
+            </span>
+          </div>
           <p className="muted">{maturity.explanation}</p>
         </div>
         <div className="card">

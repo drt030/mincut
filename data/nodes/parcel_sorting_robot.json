@@ -10,6 +10,7 @@
     "description": "An industrial robot-arm sorting cell that commits to a vacuum-suction end-effector, a single robot arm, a single vision system, and a conveyor-based induction. Targets approximately 300,000 RMB total system cost for logistics parcel sorting. Per ADR-0004, alternative architectures (e.g. a mechanical-gripper end-effector) live as sibling Product nodes under the affordable_small_warehouse_automation capability rather than as intra-product routes.",
     "maturityScore": 54,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
       "targetCost": "approximately 300,000 RMB total system cost",
@@ -39,6 +40,7 @@
     "description": "Camera, lighting, barcode scanning, OCR, and label localization capability for identifying parcels and destinations.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "perception"
@@ -56,6 +58,7 @@
     "description": "Industrial camera used to capture parcel images for label reading, barcode recognition, and visual inspection under conveyor motion.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_vision_control_machine_vision_components"
@@ -78,6 +81,7 @@
     "description": "Lens and optical configuration that focus the parcel field of view onto the camera sensor with sufficient sharpness and depth of field.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_vision_control_machine_vision_components"
@@ -101,6 +105,7 @@
     "description": "Lighting hardware and control strategy that make labels, barcodes, and parcel edges visible and repeatable despite ambient variation.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_vision_control_machine_vision_components"
@@ -124,6 +129,7 @@
     "description": "Industrial PC, smart camera, embedded processor, or accelerator that runs barcode/OCR, detection, tracking, and integration logic.",
     "maturityScore": 64,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_vision_control_machine_vision_components"
@@ -147,6 +153,7 @@
     "description": "Software pipeline for reading barcodes, labels, and OCR fields from parcel images and outputting a parcel identity or destination token.",
     "maturityScore": 62,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors"
@@ -170,6 +177,7 @@
     "description": "Detects parcel position, velocity, orientation, and identity as parcels move through the sorting cell.",
     "maturityScore": 65,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "perception",
@@ -187,6 +195,7 @@
     "description": "The industrial robot-arm based manipulation subsystem that physically picks, pushes, or places parcels into the selected output lane or bin.",
     "maturityScore": 52,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "mechanism",
@@ -206,6 +215,7 @@
     "description": "The robot body for the sorting cell, including joints, links, actuators, reducers, servo drives, controller interfaces, cabling, and mounting structure.",
     "maturityScore": 68,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "robot_arm",
@@ -224,6 +234,7 @@
     "description": "The parcel-contacting end effector, using a gripper, suction cup, or similar low-cost mechanism suitable for variable parcel packaging.",
     "maturityScore": 50,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "end_effector",
@@ -245,6 +256,7 @@
     "description": "Array of suction cups used to contact parcel surfaces, with selectable cup patterns for different parcel sizes and positions.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper",
@@ -269,6 +281,7 @@
     "description": "Vacuum source, often a venturi/ejector or pump, that creates suction for parcel pickup through the end effector.",
     "maturityScore": 62,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_vacuforce_vacuum_components"
@@ -293,6 +306,7 @@
     "description": "Valves and blow-off controls used to turn suction on/off and release parcels quickly and predictably.",
     "maturityScore": 60,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper",
@@ -318,6 +332,7 @@
     "description": "Pressure or vacuum sensing used to detect whether enough suction cups have sealed correctly to a parcel before transport.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper"
@@ -343,6 +358,7 @@
     "description": "Calibration of suction cup positions and tool-center-point patterns so the robot can choose cup combinations and motion paths.",
     "maturityScore": 52,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper"
@@ -366,6 +382,7 @@
     "description": "Servo drive electronics and control loops that command robot joint motion under timing, accuracy, and cost constraints.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "servo",
@@ -387,6 +404,7 @@
     "description": "Power electronics stage that converts DC bus power into controlled motor phase currents for each robot joint servo motor.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_mitsubishi_servo_drive_safety"
@@ -410,6 +428,7 @@
     "description": "Current sensing and feedback path used by the servo drive to regulate torque and detect overload or fault conditions.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_siemens_servo_motion_control"
@@ -434,6 +453,7 @@
     "description": "Servo control firmware and tuning that close current, velocity, and position loops for robot joint motion.",
     "maturityScore": 68,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_siemens_servo_motion_control"
@@ -459,6 +479,7 @@
     "description": "Safety-rated stop function in the servo drive that removes torque-producing output without fully powering down the control electronics.",
     "maturityScore": 74,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_mitsubishi_servo_drive_safety",
@@ -484,6 +505,7 @@
     "description": "Thermal management, enclosure layout, grounding, shielding, and EMC design needed for reliable multi-axis robot servo operation.",
     "maturityScore": 60,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_siemens_servo_motion_control"
@@ -508,6 +530,7 @@
     "description": "Joint reducers or gearboxes that provide torque multiplication, positional repeatability, durability, and acceptable cost for the robot arm.",
     "maturityScore": 62,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "reducer",
@@ -530,6 +553,7 @@
     "description": "Elliptical wave-generator assembly that deforms the flexspline and drives the meshing action in a strain-wave reducer.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_harmonic_drive_reducer_components"
@@ -554,6 +578,7 @@
     "description": "Thin flexible externally toothed spline that elastically deforms and meshes with the circular spline to transmit reducer output.",
     "maturityScore": 62,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_harmonic_drive_reducer_components"
@@ -579,6 +604,7 @@
     "description": "Rigid internally toothed circular spline that meshes with the flexspline and defines the gear ratio in a strain-wave reducer.",
     "maturityScore": 64,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_harmonic_drive_reducer_components"
@@ -603,6 +629,7 @@
     "description": "High-capacity output bearing, such as cross-roller or four-point bearing, that supports robot joint loads and tilting moments.",
     "maturityScore": 60,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_harmonic_drive_reducer_components"
@@ -627,6 +654,7 @@
     "description": "Lubrication, endurance testing, backlash verification, and life testing needed to qualify a precision robot joint reducer.",
     "maturityScore": 48,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_harmonic_drive_reducer_components"
@@ -650,6 +678,7 @@
     "description": "Servo motors sized for the arm payload, speed, duty cycle, and total cost target.",
     "maturityScore": 76,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "motor",
@@ -671,6 +700,7 @@
     "description": "Stationary magnetic core of the servo motor that carries windings and helps create the rotating magnetic field for torque generation.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
@@ -696,6 +726,7 @@
     "description": "Copper windings that carry current to create the rotating magnetic field in the servo motor.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
@@ -721,6 +752,7 @@
     "description": "Rotor assembly using permanent magnets, usually rare-earth magnets in compact industrial servo motors, to produce high torque density and low inertia.",
     "maturityScore": 68,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
@@ -748,6 +780,7 @@
     "description": "Integrated encoder or resolver feedback used to measure shaft position and speed for closed-loop servo control.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
@@ -774,6 +807,7 @@
     "description": "Ball bearings and output shaft that support the rotor and transmit motor output power to the robot joint or reducer.",
     "maturityScore": 74,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure"
@@ -799,6 +833,7 @@
     "description": "Motor frame, housing, mounting interface, protection level, and thermal path that affect size, heat rise, reliability, and integration.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_stober_synchronous_servo_motors",
@@ -825,6 +860,7 @@
     "description": "Motor power cable, encoder cable, and connectors that link the servo motor to the drive and controller.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure"
@@ -848,6 +884,7 @@
     "description": "Rare-earth permanent magnet material, commonly neodymium-iron-boron in compact servo motor rotors, supporting high torque density and low inertia.",
     "maturityScore": 62,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_elmeq_servo_motor_options"
@@ -874,6 +911,7 @@
     "description": "Assembly, encoder alignment, electrical testing, torque/speed testing, balancing, and final inspection needed to produce a reliable industrial servo motor.",
     "maturityScore": 60,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_mitsubishi_ac_servo_structure",
@@ -899,6 +937,7 @@
     "description": "Engineering method for aligning encoder feedback with rotor position so the servo drive can commutate and control the motor accurately.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_mitsubishi_ac_servo_structure",
@@ -925,6 +964,7 @@
     "description": "Optional holding or safety brake integrated with a servo motor where the robot joint must hold position during power loss or emergency stop.",
     "maturityScore": 65,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_mitsubishi_ac_servo_structure",
@@ -948,6 +988,7 @@
     "description": "Mechanical arm links, joints, bearings, covers, and structural elements that define reach, stiffness, repeatability, and maintainability.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "mechanical_structure",
@@ -967,6 +1008,7 @@
     "description": "Robot controller, I/O, fieldbus, and integration interfaces connecting the arm to vision, conveyor, safety, and sorting decision systems.",
     "maturityScore": 68,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "controller",
@@ -987,6 +1029,7 @@
     "description": "Power supplies, cabling, cable routing, connectors, and service access needed for reliable robot-arm operation in a sorting cell.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "power",
@@ -1006,6 +1049,7 @@
     "description": "Robot base, mounting frame, alignment structure, and floor or conveyor attachment needed for stable operation and installation.",
     "maturityScore": 64,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "mounting",
@@ -1025,6 +1069,7 @@
     "description": "Assembly, calibration, wiring, joint testing, reducer installation, and final inspection processes for the robot body.",
     "maturityScore": 62,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "manufacturing",
@@ -1043,6 +1088,7 @@
     "description": "Mechanical, electrical, and controls integration with conveyor flow, induction, sensors, spacing, and downstream chutes.",
     "maturityScore": 62,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "manufacturing",
@@ -1061,6 +1107,7 @@
     "description": "Photoelectric or background-suppression sensors used to detect parcels entering, leaving, spacing, or jamming in the sorting cell.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors"
@@ -1083,6 +1130,7 @@
     "description": "Encoder or drive feedback that maps parcel detections into conveyor position so vision, robot motion, and destination timing stay synchronized.",
     "maturityScore": 64,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors"
@@ -1106,6 +1154,7 @@
     "description": "Controls logic and line setup that keep parcel spacing and presentation stable enough for scanning and robot-arm intervention.",
     "maturityScore": 54,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors",
@@ -1131,6 +1180,7 @@
     "description": "PLC, robot controller, warehouse control system, and I/O integration that turns parcel identity into synchronized sorting actions.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors",
@@ -1156,6 +1206,7 @@
     "description": "Physical outputs, chutes, bins, or lanes that receive parcels after the robot-arm sorting action.",
     "maturityScore": 66,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_interroll_sorter_platform"
@@ -1180,6 +1231,7 @@
     "description": "Detection logic, alerts, and recovery workflow for parcels stuck in conveyor, chute, or robot-handling areas.",
     "maturityScore": 45,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors"
@@ -1203,6 +1255,7 @@
     "description": "Software that maps parcel identity and destination rules to a route or output action.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "software"
@@ -1219,6 +1272,7 @@
     "description": "Plans robot or actuator motion under timing, collision, parcel stability, and throughput constraints.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "robotics"
@@ -1235,6 +1289,7 @@
     "description": "Guards, emergency stops, interlocks, sensors, and safety-rated controls suitable for warehouse operation.",
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "safety",
@@ -1252,6 +1307,7 @@
     "description": "Frame, mounts, actuated elements, bins, chutes, cable routing, and service access structure.",
     "maturityScore": 68,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "manufacturing"
@@ -1268,6 +1324,7 @@
     "description": "Inspection, jam clearing, spare parts, cleaning, calibration, and operator escalation workflow.",
     "maturityScore": 46,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": [
       "maintenance",
@@ -1284,6 +1341,7 @@
     "description": "Hardware selection and integration that keeps cameras, compute, actuators, controls, frame, safety, and install cost inside the 300,000 RMB target.",
     "maturityScore": 42,
     "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": [
       "cost",
@@ -1300,6 +1358,7 @@
     "description": "Use a high-speed delta robot for lightweight parcels where reach, payload, and object variability fit the mechanism.",
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
@@ -1314,6 +1373,7 @@
     "description": "Use lower-cost conveyor diverters, pushers, belts, or actuated guides instead of robotic picking.",
     "maturityScore": 70,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
@@ -1328,6 +1388,7 @@
     "description": "Use mobile robots to carry parcels or bins between induction and destinations.",
     "maturityScore": 60,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
@@ -1342,6 +1403,7 @@
     "description": "Use automation for recognition, routing, and assistive motion while humans handle difficult parcels or exceptions.",
     "maturityScore": 64,
     "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
@@ -1355,6 +1417,7 @@
     ],
     "description": "Full deployed cost of the sorting cell, including hardware, integration, and installation.",
     "maturityScore": 45,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1377,6 +1440,7 @@
     ],
     "description": "Sustained parcel throughput under realistic parcel mix and exception rates.",
     "maturityScore": 40,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1396,6 +1460,7 @@
     ],
     "description": "Share of parcels routed to the correct output without human correction.",
     "maturityScore": 50,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1415,6 +1480,7 @@
     ],
     "description": "Supported parcel weight envelope for reliable sorting.",
     "maturityScore": 35,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1434,6 +1500,7 @@
     ],
     "description": "Supported parcel dimensions and shape variability.",
     "maturityScore": 35,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1453,6 +1520,7 @@
     ],
     "description": "Rate of jams, failed picks, failed diverts, or stoppages.",
     "maturityScore": 30,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1472,6 +1540,7 @@
     ],
     "description": "Share of parcels or operating time requiring manual intervention.",
     "maturityScore": 32,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1491,6 +1560,7 @@
     ],
     "description": "Time required to install and commission one sorting cell.",
     "maturityScore": 45,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1513,6 +1583,7 @@
     ],
     "description": "Ongoing maintenance cost including labor, spares, downtime, and recalibration.",
     "maturityScore": 35,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1536,6 +1607,7 @@
     ],
     "description": "Time needed for labor savings or throughput value to recover deployed cost.",
     "maturityScore": 32,
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "metrics": [
       {
@@ -1560,6 +1632,7 @@
     "description": "A missing or uncertain capability for manipulating diverse parcels cheaply with low jam and intervention rates.",
     "maturityScore": 30,
     "maturityLabel": "hypothesis",
+    "maturityAsOf": "2026-04",
     "confidence": "low"
   },
   {
@@ -1572,6 +1645,7 @@
     "description": "Robust perception across reflective labels, damage, occlusion, variable lighting, parcel deformation, and high-speed conveyor motion.",
     "maturityScore": 38,
     "maturityLabel": "lab_proven",
+    "maturityAsOf": "2026-04",
     "confidence": "low"
   },
   {
@@ -1583,6 +1657,7 @@
     ],
     "description": "Integration cost and commissioning time can dominate the economics of a low-cost sorting cell.",
     "maturityScore": 45,
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "cost",
@@ -1599,6 +1674,7 @@
     ],
     "description": "The system must handle varied parcel sizes, weights, materials, and shapes without frequent stoppages.",
     "maturityScore": 35,
+    "maturityAsOf": "2026-04",
     "confidence": "medium"
   },
   {
@@ -1610,6 +1686,7 @@
     ],
     "description": "Low deployed cost is not enough if calibration, wear, cleaning, and jam-clearing labor erase ROI.",
     "maturityScore": 34,
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "maintenance",
@@ -1626,6 +1703,7 @@
     ],
     "description": "Computer vision and sensing principles that support parcel localization and label recognition.",
     "maturityScore": 78,
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },
@@ -1638,6 +1716,7 @@
     ],
     "description": "Parcel arrival variability, spacing, and exception distribution determine whether throughput targets are realistic.",
     "maturityScore": 55,
+    "maturityAsOf": "2026-04",
     "confidence": "low"
   },
   {
@@ -1649,6 +1728,7 @@
     ],
     "description": "Build the sorting cell from repeatable modules that can be assembled, installed, serviced, and costed predictably.",
     "maturityScore": 58,
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "manufacturing"
@@ -1664,6 +1744,7 @@
     ],
     "description": "Local machine safety, guarding, emergency-stop, and operator protection requirements for warehouse automation.",
     "maturityScore": 75,
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
       "safety",
@@ -1682,6 +1763,7 @@
     "description": "Refined copper used in motor windings, power cabling, PCBs, connectors, servo drives, sensors, and control cabinets.",
     "maturityScore": 78,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_mcs_2026_minerals"
@@ -1706,6 +1788,7 @@
     "description": "Mining, concentrating, smelting, refining, and recycling chain that supplies refined copper for robot electrical systems.",
     "maturityScore": 70,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_mcs_2026_minerals"
@@ -1731,6 +1814,7 @@
     "description": "Electrical steel sheet used in servo motor stator laminations to carry magnetic flux with controlled losses.",
     "maturityScore": 72,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_doe_iron_steel_manufacturing",
@@ -1756,6 +1840,7 @@
     "description": "Alloy steel used in reducer splines, shafts, bearings, gears, arm joints, and load-bearing robot structures.",
     "maturityScore": 74,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_doe_iron_steel_manufacturing",
@@ -1782,6 +1867,7 @@
     "description": "Iron ore mining, steelmaking, alloying, recycling, and rolling chain that supplies structural and precision steels for the robot.",
     "maturityScore": 76,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_doe_iron_steel_manufacturing",
@@ -1809,6 +1895,7 @@
     "description": "Bauxite mining, alumina refining, aluminum smelting, recycling, extrusion, casting, and machining chain for lightweight robot and conveyor structures.",
     "maturityScore": 72,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_mcs_2026_minerals"
@@ -1834,6 +1921,7 @@
     "description": "Aluminum castings, extrusions, plates, and machined parts used where low mass, corrosion resistance, or easy assembly matters.",
     "maturityScore": 72,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_mcs_2026_minerals"
@@ -1859,6 +1947,7 @@
     "description": "Quartz or quartzite mining, silicon metal production, and high-purity silicon processing chain used for semiconductors, sensors, and some industrial materials.",
     "maturityScore": 70,
     "maturityLabel": "mature",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_silicon_statistics"
@@ -1886,6 +1975,7 @@
     "description": "High-purity silicon and electronics supply chain used in image sensors, processors, power semiconductors, encoders, PLCs, and servo-drive control electronics.",
     "maturityScore": 68,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_silicon_statistics"
@@ -1911,6 +2001,7 @@
     "description": "Neodymium-praseodymium rare-earth feedstock used in high-strength permanent magnets for compact servo motors.",
     "maturityScore": 58,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_rare_earth_elements",
@@ -1938,6 +2029,7 @@
     "description": "Heavy rare-earth additives used where NdFeB magnets need higher temperature performance or coercivity.",
     "maturityScore": 48,
     "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_rare_earth_elements",
@@ -1965,6 +2057,7 @@
     "description": "Iron and boron-containing matrix material used with neodymium/praseodymium in NdFeB permanent magnets.",
     "maturityScore": 68,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_iea_rare_earth_magnets",
@@ -1991,6 +2084,7 @@
     "description": "Polymer and elastomer feedstock used for suction cups, seals, hoses, cable jackets, and protective covers.",
     "maturityScore": 70,
     "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
       "ev_vacuforce_vacuum_components"
@@ -2013,6 +2107,7 @@
     ],
     "description": "Lower-cost automation for warehouses that cannot justify large centralized sortation systems.",
     "maturityScore": 45,
+    "maturityAsOf": "2026-04",
     "confidence": "low"
   },
   {
