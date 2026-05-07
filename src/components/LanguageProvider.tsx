@@ -117,6 +117,12 @@ const uiText: Record<Language, Record<string, string>> = {
     maturityAsOf: "as of",
     maturityAsOfMissing: "as-of date not set",
     maturityAsOfTooltip: "Maturity assessment as of {date}",
+    gateOverallLabel: "Gate overall (evidence/coverage)",
+    nodeMaturityLabel: "Node maturity",
+    scaleSeparationNote:
+      "Gate overall measures graph-modelling completeness. Node maturity measures real-world readiness. They are independent.",
+    nonMetricChildrenHint: "non-metric children",
+    nodeMaturityScoreMissing: "score not set",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -217,6 +223,11 @@ const uiText: Record<Language, Record<string, string>> = {
     maturityAsOf: "截至",
     maturityAsOfMissing: "未设置评估日期",
     maturityAsOfTooltip: "成熟度评估截至 {date}",
+    gateOverallLabel: "Gate 总分（证据 / 覆盖度）",
+    nodeMaturityLabel: "节点成熟度",
+    scaleSeparationNote: "Gate 总分衡量图谱建模的完整度，节点成熟度衡量产品在现实世界的就绪度。两者相互独立。",
+    nonMetricChildrenHint: "非指标子节点",
+    nodeMaturityScoreMissing: "未设置成熟度分数",
   },
 };
 

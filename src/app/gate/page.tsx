@@ -17,7 +17,7 @@ export default function GatePage() {
       <GateReportView
         reports={reports}
         targetNodeId={V0_TARGET_NODE_ID}
-        targetMaturityAsOf={targetNode?.maturityAsOf}
+        targetNode={targetNode}
       />
     </div>
   );

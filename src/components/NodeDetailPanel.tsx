@@ -14,9 +14,14 @@ type Props = {
 export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const { kindName, nodeName, t } = useLanguage();
   const up = upstream(graph, node.id);
-  const down = downstream(graph, node.id);
+  // Metrics already render in the dedicated "Metrics" section below (and in
+  // the per-node metric-fold strip on graph cards). Filtering them out of
+  // Downstream + Bottlenecks keeps each list scoped to its semantic role and
+  // avoids the iter-5 punch-list duplication where "Total system cost" /
+  // "Parcels per hour" appeared twice.
+  const down = downstream(graph, node.id).filter((child) => child.kind !== "metric");
   const metrics = metricsForNode(graph, node.id);
-  const bottlenecks = bottlenecksForNode(graph, node.id);
+  const bottlenecks = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
 
@@ -98,7 +103,12 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
       <NodeList title={t("metrics")} nodes={metrics} onSelectNode={onSelectNode} />
       <NodeList title={t("bottlenecks")} nodes={bottlenecks} onSelectNode={onSelectNode} />
       <NodeList title={t("upstream")} nodes={up} onSelectNode={onSelectNode} />
-      <NodeList title={t("downstream")} nodes={down} onSelectNode={onSelectNode} />
+      <NodeList
+        title={t("downstream")}
+        nodes={down}
+        onSelectNode={onSelectNode}
+        subtitle={t("nonMetricChildrenHint")}
+      />
       <div>
         <strong>{t("evidence")}</strong>
         {evidence.length ? (
@@ -117,11 +127,22 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   );
 }
 
-function NodeList({ title, nodes, onSelectNode }: { title: string; nodes: Node[]; onSelectNode?: (nodeId: string) => void }) {
+function NodeList({
+  title,
+  nodes,
+  onSelectNode,
+  subtitle,
+}: {
+  title: string;
+  nodes: Node[];
+  onSelectNode?: (nodeId: string) => void;
+  subtitle?: string;
+}) {
   const { nodeName, t } = useLanguage();
   return (
     <div>
       <strong>{title}</strong>
+      {subtitle ? <span className="muted node-list-subtitle"> ({subtitle})</span> : null}
       {nodes.length ? (
         <ul>
           {nodes.map((node) => (

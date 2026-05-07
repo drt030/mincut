@@ -1,21 +1,22 @@
 "use client";
 
-import type { GateReport } from "@/lib/schema";
+import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
+import type { GateReport, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 
 type Props = {
   reports: GateReport[];
   targetNodeId: string;
   /**
-   * Target Product node's `maturityAsOf` (per ADR-0002). Surfaced in the
-   * report's product-summary block as a separate "Maturity as of" line so
-   * a learner can see *when* the maturity claim was last assessed —
-   * distinct from the report's own `Generated at` timestamp.
+   * Target Product node, used to render the paired "Node maturity" stat
+   * (`maturityScore` / `maturityLabel` / `maturityAsOf`) alongside the
+   * report's own "Gate overall" score so a learner cannot confuse the
+   * two scales (per CONTEXT.md "Gate overall score").
    */
-  targetMaturityAsOf?: string;
+  targetNode?: Node;
 };
 
-export function GateReportView({ reports, targetNodeId, targetMaturityAsOf }: Props) {
+export function GateReportView({ reports, targetNodeId, targetNode }: Props) {
   const { t } = useLanguage();
   const [latestReport, ...historicalReports] = selectGateReportsForTarget(reports, targetNodeId);
 
@@ -27,7 +28,7 @@ export function GateReportView({ reports, targetNodeId, targetMaturityAsOf }: Pr
     <div className="detail-list">
       <section className="panel" key={`${latestReport.targetNodeId}-${latestReport.generatedAt}`}>
         <p className="muted">{t("latestGateReport")}</p>
-        <GateReportDetails report={latestReport} targetMaturityAsOf={targetMaturityAsOf} />
+        <GateReportDetails report={latestReport} targetNode={targetNode} />
       </section>
 
       {historicalReports.length > 0 ? (
@@ -39,7 +40,7 @@ export function GateReportView({ reports, targetNodeId, targetMaturityAsOf }: Pr
               <details key={`${report.targetNodeId}-${report.generatedAt}`}>
                 <summary>
                   <span className="pill">{t("staleReport")}</span>{" "}
-                  <strong>{report.generatedAt}</strong> · {t("score")}: {report.overallScore}/5 ·{" "}
+                  <strong>{report.generatedAt}</strong> · {t("gateOverallLabel")}: {report.overallScore}/5 ·{" "}
                   <span className={report.passed ? "" : "danger"}>{report.passed ? t("passed") : t("failed")}</span>
                 </summary>
                 <div className="details-body">
@@ -69,27 +70,25 @@ function timestampForSort(value: string): number {
 function GateReportDetails({
   report,
   compact = false,
-  targetMaturityAsOf,
+  targetNode,
 }: {
   report: GateReport;
   compact?: boolean;
-  targetMaturityAsOf?: string;
+  targetNode?: Node;
 }) {
   const { t } = useLanguage();
 
   return (
     <>
       <h2>{report.targetNodeId}</h2>
-      <p>
-        {t("score")}: <strong>{report.overallScore}/5</strong> · {t("status")}:{" "}
+      <p className="gate-scale-stat">
+        <strong>{t("gateOverallLabel")}:</strong> <strong>{report.overallScore}/5</strong> · {t("status")}:{" "}
         <span className={report.passed ? "" : "danger"}>{report.passed ? t("passed") : t("failed")}</span>
       </p>
+      {targetNode ? <NodeMaturityStat node={targetNode} /> : null}
+      {!compact ? <p className="muted scale-separation-note">{t("scaleSeparationNote")}</p> : null}
       <p className="muted">
         {t("generatedAt")}: {report.generatedAt}
-      </p>
-      <p className="muted">
-        {t("maturity")} {t("maturityAsOf")}:{" "}
-        {targetMaturityAsOf ? <strong>{targetMaturityAsOf}</strong> : <span className="muted">—</span>}
       </p>
       {!compact ? (
         <>
@@ -119,6 +118,40 @@ function GateReportDetails({
         </tbody>
       </table>
     </>
+  );
+}
+
+function NodeMaturityStat({ node }: { node: Node }) {
+  const { t } = useLanguage();
+  const visual = maturityVisualFor(node);
+  const asOf = maturityAsOfVisualFor(node);
+  const asOfTooltip = asOf.hasValue
+    ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
+    : t("maturityAsOfMissing");
+  const scoreText = typeof node.maturityScore === "number" ? `${node.maturityScore}/100` : t("nodeMaturityScoreMissing");
+  return (
+    <p className="gate-scale-stat node-maturity-stat">
+      <strong>{t("nodeMaturityLabel")}:</strong> <strong>{scoreText}</strong>{" "}
+      <span
+        className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
+        style={{
+          background: visual.bg,
+          color: visual.fg,
+          opacity: visual.hasLabel ? 1 : 0.65,
+        }}
+        title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
+      >
+        {visual.label}
+      </span>{" "}
+      <span
+        className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+        title={asOfTooltip}
+        aria-label={asOfTooltip}
+      >
+        <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
+        {t("maturityAsOf")}: {asOf.label}
+      </span>
+    </p>
   );
 }
 

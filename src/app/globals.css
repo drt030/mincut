@@ -416,6 +416,29 @@ li {
   margin-top: 4px;
 }
 
+.gate-scale-stat {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0.4em 0;
+}
+
+.gate-scale-stat.node-maturity-stat {
+  margin-top: 0.25em;
+}
+
+.scale-separation-note {
+  font-size: 13px;
+  margin-top: 0.25em;
+}
+
+.node-list-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
 .graph-node-handle {
   background: transparent;
   border: 0;
