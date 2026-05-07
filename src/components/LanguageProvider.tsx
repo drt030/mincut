@@ -269,7 +269,7 @@ const nodeTextZh: Record<string, string> = {
   mechanical_structure: "机械结构",
   maintenance_workflow: "维护流程",
   cost_optimized_hardware_stack: "成本优化硬件栈",
-  industrial_robot_arm_sorting_route: "工业机器人臂路线",
+  parcel_sorting_robot_with_gripper_300k_rmb: "30 万 RMB 包裹分拣机器人（夹爪变体）",
   delta_robot_sorting_route: "Delta 机器人路线",
   conveyor_diverter_sorting_route: "输送线分流器路线",
   mobile_robot_sorting_route: "移动机器人分拣路线",

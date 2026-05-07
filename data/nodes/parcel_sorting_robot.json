@@ -7,7 +7,7 @@
       "parcel_sorting_robot",
       "logistics_automation"
     ],
-    "description": "An industrial robot-arm and computer-vision based parcel-sorting robot or sorting cell, mainly using grippers or suction cups, that can be sold or deployed at approximately 300,000 RMB total system cost for logistics parcel sorting.",
+    "description": "An industrial robot-arm sorting cell that commits to a vacuum-suction end-effector, a single robot arm, a single vision system, and a conveyor-based induction. Targets approximately 300,000 RMB total system cost for logistics parcel sorting. Per ADR-0004, alternative architectures (e.g. a mechanical-gripper end-effector) live as sibling Product nodes under the affordable_small_warehouse_automation capability rather than as intra-product routes.",
     "maturityScore": 54,
     "maturityLabel": "prototype",
     "confidence": "medium",
@@ -16,7 +16,8 @@
       "targetScale": "single logistics sorting cell or small line segment",
       "targetPerformance": "commercially useful parcel throughput with low jam and intervention rates",
       "targetUseCase": "parcel sorting in logistics warehouses",
-      "targetEnvironment": "conveyor-based parcel flow with variable labels, packaging, sizes, and weights"
+      "targetEnvironment": "conveyor-based parcel flow with variable labels, packaging, sizes, and weights",
+      "targetEndEffector": "vacuum_suction"
     },
     "evidenceIds": [
       "ev_internal_product_target",
@@ -1290,62 +1291,6 @@
     ]
   },
   {
-    "id": "industrial_robot_arm_sorting_route",
-    "name": "Industrial robot arm sorting route",
-    "kind": "technical_route",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Use an industrial arm with an end effector to pick, push, or place parcels into destinations.",
-    "maturityScore": 56,
-    "maturityLabel": "prototype",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "notes": "Flexible but can be cost- and throughput-constrained for low-cost parcel sorting."
-  },
-  {
-    "id": "industrial_robot_arm_gripper_route",
-    "name": "Industrial robot arm gripper route",
-    "kind": "technical_route",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Use the industrial robot arm with a mechanical or compliant gripper variant for parcels that cannot be reliably handled by suction alone.",
-    "maturityScore": 48,
-    "maturityLabel": "prototype",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "notes": "Inside the v0 product boundary because it keeps the industrial arm + vision sorting-cell architecture and varies the end effector."
-  },
-  {
-    "id": "industrial_robot_arm_suction_route",
-    "name": "Industrial robot arm suction route",
-    "kind": "technical_route",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Use the industrial robot arm with vacuum suction cups, vacuum generation, pressure sensing, and blow-off control for parcel pickup and release.",
-    "maturityScore": 52,
-    "maturityLabel": "prototype",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "notes": "Inside the v0 product boundary because it keeps the industrial arm + vision sorting-cell architecture and varies the end effector."
-  },
-  {
-    "id": "integrated_robot_arm_sorting_cell_route",
-    "name": "Integrated robot-arm sorting cell route",
-    "kind": "technical_route",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Package the industrial robot arm, vision, end effector, conveyor interface, safety, frame, controls, and maintenance workflow as a repeatable sorting-cell variant.",
-    "maturityScore": 50,
-    "maturityLabel": "prototype",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "notes": "Inside the v0 product boundary because it keeps the same robot-arm + computer-vision product architecture and varies integration packaging."
-  },
-  {
     "id": "delta_robot_sorting_route",
     "name": "Delta robot sorter candidate",
     "kind": "product",
@@ -2069,5 +2014,20 @@
     "description": "Lower-cost automation for warehouses that cannot justify large centralized sortation systems.",
     "maturityScore": 45,
     "confidence": "low"
+  },
+  {
+    "id": "parcel_sorting_robot_with_gripper_300k_rmb",
+    "name": "300,000 RMB parcel-sorting robot (gripper variant)",
+    "kind": "product",
+    "domain": [
+      "parcel_sorting_robot",
+      "logistics_automation"
+    ],
+    "description": "Deferred-expansion sibling Product candidate to low_cost_parcel_sorting_robot_300k_rmb. Same Capability target (affordable_small_warehouse_automation), but uses a mechanical gripper end-effector instead of vacuum suction. Not expanded in v0; preserved here so its substantive sub-tree from the retired industrial_robot_arm_gripper_route has a home.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Created per ADR-0004 step 5 (route retirement). Stays out of active graph scope: there is no inbound edge from any node reachable from low_cost_parcel_sorting_robot_300k_rmb, only outbound edges from this Product to shared modules and to the Capability."
   }
 ]

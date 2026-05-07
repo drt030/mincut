@@ -5,10 +5,8 @@ import {
   evidenceForScope,
   metricsForNode,
   nodeById,
-  outgoingEdges,
   reachableNodeIdsFrom,
   requiredModules,
-  routesForProduct,
   targets,
   uniqueNodes,
 } from "./graphTraversal";
@@ -20,7 +18,6 @@ type GateContext = {
   target: Node;
   questions: GateQuestion[];
   modules: Node[];
-  routes: Node[];
   bottlenecks: Node[];
   metrics: Node[];
   scopedNodeIds: Set<string>;
@@ -42,13 +39,6 @@ const requiredParcelModules = [
   "mechanical_structure",
   "maintenance_workflow",
   "cost_optimized_hardware_stack",
-];
-
-const requiredParcelRoutes = [
-  "industrial_robot_arm_sorting_route",
-  "industrial_robot_arm_gripper_route",
-  "industrial_robot_arm_suction_route",
-  "integrated_robot_arm_sorting_cell_route",
 ];
 
 const requiredParcelMetrics = [
@@ -80,7 +70,6 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
     target,
     questions,
     modules: requiredModules(graph, targetNodeId),
-    routes: routesForProduct(graph, targetNodeId),
     bottlenecks: bottlenecksForNode(graph, targetNodeId),
     metrics: metricsForNode(graph, targetNodeId),
     scopedNodeIds,
@@ -92,7 +81,6 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
   const questionResults = questions.map((question) => answerQuestion(context, question));
   const overallScore = round(questionResults.reduce((sum, result) => sum + result.score, 0) / questionResults.length);
   const missingCriticalModules = requiredParcelModules.filter((id) => !context.modules.some((node) => node.id === id));
-  const routesWithoutBottlenecks = context.routes.filter((route) => bottlenecksForNode(graph, route.id).length === 0);
   const highConfidenceEdgesWithoutEvidence = context.scopedEdges.filter(
     (edge) =>
       edge.confidence === "high" &&
@@ -104,7 +92,6 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
   const passed =
     overallScore >= 4 &&
     missingCriticalModules.length === 0 &&
-    routesWithoutBottlenecks.length === 0 &&
     highConfidenceEdgesWithoutEvidence.length === 0 &&
     criticalMetricsMissing.length === 0 &&
     evidenceFindings.weakEvidence.length === 0 &&
@@ -120,7 +107,6 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
     passed,
     recommendedNextTasks: recommendedTasks(context, {
       missingCriticalModules,
-      routesWithoutBottlenecks,
       highConfidenceEdgesWithoutEvidence,
       criticalMetricsMissing,
       evidenceFindings,
@@ -129,13 +115,11 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
 }
 
 function answerQuestion(context: GateContext, question: GateQuestion): GateReport["questionResults"][number] {
-  const { graph, target, modules, routes, metrics } = context;
+  const { graph, target, modules, metrics } = context;
   const maturity = productMaturity(graph, target);
   const evidence = evidenceForNode(graph, target.id);
   const evidenceFindings = evidenceFindingsForContext(context);
-  const routeBottlenecks = routes.flatMap((route) => bottlenecksForNode(graph, route.id));
-  const allBottlenecks = uniqueNodes([...context.bottlenecks, ...routeBottlenecks]);
-  const routeEnablerEdges = routes.flatMap((route) => outgoingEdges(graph, route.id, "requires"));
+  const allBottlenecks = uniqueNodes(context.bottlenecks);
 
   switch (question.id) {
     case "definition":
@@ -163,17 +147,24 @@ function answerQuestion(context: GateContext, question: GateQuestion): GateRepor
     case "required_modules":
       return listResult(question.question, modules, "required modules", requiredParcelModules.filter((id) => !modules.some((node) => node.id === id)));
     case "known_routes":
-      return listResult(question.question, routes, "technical routes", requiredParcelRoutes.filter((id) => !routes.some((node) => node.id === id)));
+      return scoreResult(
+        question.question,
+        `Per ADR-0004, intra-product technical routes are retired in v0; the product commits to one fixed architecture (vacuum-suction end-effector for ${target.id}). Architectural alternatives live as sibling Product nodes under the affordable_small_warehouse_automation capability.`,
+        5,
+        undefined,
+        undefined,
+        undefined,
+        "Routes are no longer modelled within a single Product; this question is preserved for backward compatibility with historical gate reports.",
+      );
     case "route_enablers":
       return scoreResult(
         question.question,
-        routeEnablerEdges.length
-          ? routeEnablerEdges.map((edge) => `${edge.source} requires ${edge.target}`).join("; ")
-          : "No route enabler edges are present.",
-        routeEnablerEdges.length >= routes.length ? evidenceAwareScore(context, routeEnablerEdges, 4) : routeEnablerEdges.length ? 2 : 0,
+        `Per ADR-0004, the product's enablers are its direct requires-edges (see required_modules). Routes are retired, so per-route enabler tabulation is not applicable.`,
+        5,
         undefined,
-        routeEnablerEdges.length ? undefined : ["Add route requires enabler edges."],
-        evidenceNotesForEdges(context, routeEnablerEdges),
+        undefined,
+        undefined,
+        "Routes are no longer modelled within a single Product; this question is preserved for backward compatibility with historical gate reports.",
       );
     case "main_bottlenecks":
       return listResult(question.question, allBottlenecks, "bottlenecks");
@@ -309,7 +300,6 @@ function recommendedTasks(
   context: GateContext,
   findings: {
     missingCriticalModules: string[];
-    routesWithoutBottlenecks: Node[];
     highConfidenceEdgesWithoutEvidence: Edge[];
     criticalMetricsMissing: string[];
     evidenceFindings: EvidenceFindings;
@@ -330,15 +320,6 @@ function recommendedTasks(
       reason: "The validation gate requires explicit product-level metrics.",
       suggestedNodeKind: "metric",
       priority: "high",
-    });
-  }
-  for (const route of findings.routesWithoutBottlenecks) {
-    tasks.push({
-      title: `Add bottleneck information for ${route.id}`,
-      reason: `Route node ID: ${route.id}. Add bottleneck nodes and edges explaining what limits maturity, deployment, cost, reliability, or field performance for this route.`,
-      targetNodeId: route.id,
-      suggestedNodeKind: "bottleneck",
-      priority: "medium",
     });
   }
   if (findings.highConfidenceEdgesWithoutEvidence.length) {
@@ -479,18 +460,6 @@ function isWeakEvidence(item: Evidence): boolean {
   return item.reviewStatus !== "reviewed" || item.confidence !== "high" || item.type === "vendor_claim" || item.type === "internal_note";
 }
 
-function evidenceAwareScore(context: GateContext, edges: Edge[], maxScore: number): number {
-  const hasWeakOrMissingEvidence = edges.some(
-    (edge) => edge.reviewStatus === "unreviewed" || trustedEvidenceForClaim(context.graph, edge).length === 0,
-  );
-  return hasWeakOrMissingEvidence ? Math.min(maxScore, 3) : maxScore;
-}
-
-function evidenceNotesForEdges(context: GateContext, edges: Edge[]): string[] | undefined {
-  const weak = edges.filter((edge) => edge.reviewStatus === "unreviewed" || trustedEvidenceForClaim(context.graph, edge).length === 0);
-  return weak.length ? [`Route enabler edges need reviewed supporting evidence: ${weak.map((edge) => edge.id).join(", ")}`] : undefined;
-}
-
 function formatEvidenceList(evidence: Evidence[]): string {
   return evidence
     .map((item) => `${item.id}: ${item.title} [${item.reviewStatus ?? "unreviewed"}, ${item.confidence ?? "unknown"}, ${item.type}]`)
@@ -516,7 +485,6 @@ function researchNextResult(
 ): GateReport["questionResults"][number] {
   const tasks = recommendedTasks(context, {
     missingCriticalModules: requiredParcelModules.filter((id) => !context.modules.some((node) => node.id === id)),
-    routesWithoutBottlenecks: context.routes.filter((route) => bottlenecksForNode(context.graph, route.id).length === 0),
     highConfidenceEdgesWithoutEvidence: context.scopedEdges.filter(
       (edge) => edge.confidence === "high" && evidenceForEdge(context.graph, edge.id).length === 0,
     ),
@@ -542,12 +510,10 @@ function excludedClaimsResult(
   question: string,
   findings: EvidenceFindings,
 ): GateReport["questionResults"][number] {
-  const boundaryOffenders = context.graph.nodes.filter(
-    (node) =>
-      node.kind === "technical_route" &&
-      ["delta_robot_sorting_route", "conveyor_diverter_sorting_route", "mobile_robot_sorting_route", "hybrid_human_robot_assisted_sorting_route"].includes(
-        node.id,
-      ),
+  const boundaryOffenders = context.graph.nodes.filter((node) =>
+    ["delta_robot_sorting_route", "conveyor_diverter_sorting_route", "mobile_robot_sorting_route", "hybrid_human_robot_assisted_sorting_route"].includes(
+      node.id,
+    ),
   );
   const unsupported = [...findings.unreviewedClaims, ...findings.vendorOrInternalOnlyClaims, ...boundaryOffenders];
   const answer = unsupported.length

@@ -218,38 +218,6 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_manipulation_has_arm_route",
-    "source": "parcel_manipulation_or_diverter",
-    "target": "industrial_robot_arm_sorting_route",
-    "relation": "has_route",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_manipulation_has_gripper_route",
-    "source": "parcel_manipulation_or_diverter",
-    "target": "industrial_robot_arm_gripper_route",
-    "relation": "has_route",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_manipulation_has_suction_route",
-    "source": "parcel_manipulation_or_diverter",
-    "target": "industrial_robot_arm_suction_route",
-    "relation": "has_route",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_manipulation_has_integrated_cell_route",
-    "source": "parcel_manipulation_or_diverter",
-    "target": "integrated_robot_arm_sorting_cell_route",
-    "relation": "has_route",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
     "id": "e_manipulation_requires_robot_arm_body",
     "source": "parcel_manipulation_or_diverter",
     "target": "industrial_robot_arm_body",
@@ -266,172 +234,67 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_arm_route_requires_motion",
-    "source": "industrial_robot_arm_sorting_route",
+    "id": "e_manipulation_requires_motion",
+    "source": "parcel_manipulation_or_diverter",
     "target": "motion_planning",
     "relation": "requires",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "Migrated from retired industrial_robot_arm_sorting_route per ADR-0004; motion-planning is a generic manipulation control concern and now lives on the manipulation module."
   },
   {
-    "id": "e_arm_route_requires_vision",
-    "source": "industrial_robot_arm_sorting_route",
-    "target": "vision_barcode_label_recognition",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_arm_route_requires_robot_arm_body",
-    "source": "industrial_robot_arm_sorting_route",
-    "target": "industrial_robot_arm_body",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_arm_route_requires_end_effector",
-    "source": "industrial_robot_arm_sorting_route",
-    "target": "end_effector_gripper_or_suction",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_arm_route_bottlenecked_manipulation",
-    "source": "industrial_robot_arm_sorting_route",
-    "target": "low_cost_high_reliability_parcel_manipulation",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_arm_route_measured_throughput",
-    "source": "industrial_robot_arm_sorting_route",
-    "target": "parcels_per_hour",
-    "relation": "measured_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_gripper_route_requires_motion",
-    "source": "industrial_robot_arm_gripper_route",
+    "id": "e_gripper_sibling_requires_motion",
+    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
     "target": "motion_planning",
     "relation": "requires",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; preserves the gripper sibling's substantive sub-tree."
   },
   {
-    "id": "e_gripper_route_requires_vision",
-    "source": "industrial_robot_arm_gripper_route",
+    "id": "e_gripper_sibling_requires_vision",
+    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
     "target": "vision_barcode_label_recognition",
     "relation": "requires",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; preserves the gripper sibling's substantive sub-tree."
   },
   {
-    "id": "e_gripper_route_requires_robot_arm_body",
-    "source": "industrial_robot_arm_gripper_route",
+    "id": "e_gripper_sibling_requires_robot_arm_body",
+    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
     "target": "industrial_robot_arm_body",
     "relation": "requires",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; preserves the gripper sibling's substantive sub-tree."
   },
   {
-    "id": "e_gripper_route_requires_end_effector",
-    "source": "industrial_robot_arm_gripper_route",
+    "id": "e_gripper_sibling_requires_end_effector",
+    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
     "target": "end_effector_gripper_or_suction",
     "relation": "requires",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; the gripper variant's mechanical end-effector lives under this shared module node until a gripper-specific child is modelled."
   },
   {
-    "id": "e_gripper_route_bottlenecked_manipulation",
-    "source": "industrial_robot_arm_gripper_route",
+    "id": "e_gripper_sibling_bottlenecked_manipulation",
+    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
     "target": "low_cost_high_reliability_parcel_manipulation",
     "relation": "bottlenecked_by",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; the gripper sibling shares the same manipulation breakthrough bottleneck."
   },
   {
-    "id": "e_suction_route_requires_motion",
-    "source": "industrial_robot_arm_suction_route",
-    "target": "motion_planning",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_suction_route_requires_vision",
-    "source": "industrial_robot_arm_suction_route",
-    "target": "vision_barcode_label_recognition",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_suction_route_requires_robot_arm_body",
-    "source": "industrial_robot_arm_suction_route",
-    "target": "industrial_robot_arm_body",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_suction_route_requires_end_effector",
-    "source": "industrial_robot_arm_suction_route",
-    "target": "end_effector_gripper_or_suction",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_suction_route_bottlenecked_manipulation",
-    "source": "industrial_robot_arm_suction_route",
-    "target": "low_cost_high_reliability_parcel_manipulation",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_integrated_cell_route_requires_conveyor",
-    "source": "integrated_robot_arm_sorting_cell_route",
-    "target": "conveyor_integration",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_integrated_cell_route_requires_safety",
-    "source": "integrated_robot_arm_sorting_cell_route",
-    "target": "safety_system",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_integrated_cell_route_requires_structure",
-    "source": "integrated_robot_arm_sorting_cell_route",
-    "target": "mechanical_structure",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_integrated_cell_route_manufactured_by_modular_cell",
-    "source": "integrated_robot_arm_sorting_cell_route",
-    "target": "modular_cell_manufacturing",
-    "relation": "manufactured_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_integrated_cell_route_bottlenecked_conveyor",
-    "source": "integrated_robot_arm_sorting_cell_route",
-    "target": "low_cost_conveyor_integration",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "id": "e_gripper_sibling_enables_capability",
+    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Per ADR-0004, the gripper sibling Product is grouped under the same Capability as low_cost_parcel_sorting_robot_300k_rmb. Edge direction (Product -> Capability) keeps the gripper sibling out of the V0 target's reachable subgraph."
   },
   {
     "id": "e_robot_arm_body_requires_servo_drive",
