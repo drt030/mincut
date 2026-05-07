@@ -289,6 +289,55 @@ li {
   width: 1px;
 }
 
+.graph-node-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.graph-node-metric-chip {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  gap: 6px;
+  justify-content: space-between;
+  line-height: 1.2;
+  padding: 3px 6px;
+  text-align: left;
+  width: 100%;
+}
+
+.graph-node-metric-chip:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.graph-node-metric-chip.selected {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.graph-node-metric-name {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.graph-node-metric-value {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.92;
+}
+
 .react-flow__node {
   background: transparent;
   border: 0;

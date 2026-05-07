@@ -65,6 +65,17 @@ Nodes are compact research cards.
 - If ambient motion is reintroduced later, apply it to inner content only. The outer node shell must remain stationary so hover cannot flicker at node edges.
 - Use `nodeName(id, fallback)` for display names.
 
+## Metric Folding
+
+`metric`-kind nodes are first-class data but should not visually compete with the parent they describe. The graph view folds them when their relationship is unambiguous:
+
+- A metric whose incoming `measured_by` edges resolve to **exactly one** visible non-metric parent node renders as a row in that parent's compact metrics strip (name, current/target value, unit). It does not render as a standalone graph node.
+- A metric with **multiple** visible non-metric parents (shared metric) keeps its standalone node — folding into one parent would hide the cross-cutting relationship.
+- A metric with **zero** visible non-metric parents (the parent is filtered or collapsed away) keeps its standalone node so the user can still reach it.
+- Clicking a folded metric chip selects the metric node and opens the standard node detail panel (evidence, confidence, history) — folding is purely a display-layer choice; the underlying graph data is unchanged.
+- The metrics strip is height-bounded (~60px) and lives inside the parent card so the outer hover/select hitbox stays stable per the Node Rules.
+- A "Show metrics as nodes" toggle in the toolbar (default off) opts out of folding and reverts to the legacy behavior. This is the audit/debug escape hatch; the folded view is the research default.
+
 ## Interaction Rules
 
 Primary interactions:

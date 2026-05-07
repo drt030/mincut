@@ -36,11 +36,21 @@ const kindColors: Record<string, string> = {
 const NODE_WIDTH = 232;
 const DEFAULT_NODE_HEIGHT = 104;
 const TALL_NODE_HEIGHT = 124;
+const METRICS_STRIP_HEIGHT = 60;
 const INCREMENTAL_LAYER_GAP = 156;
 const INCREMENTAL_NODE_GAP = 28;
 let elk: InstanceType<typeof ELK> | null = null;
+let activeFoldCountById: Map<string, number> = new Map();
 
 type GraphPoint = { x: number; y: number };
+
+type FoldedMetricEntry = {
+  id: string;
+  name: string;
+  unit?: string;
+  currentValue?: string | number;
+  targetValue?: string | number;
+};
 
 type CapabilityNodeData = {
   id: string;
@@ -53,8 +63,11 @@ type CapabilityNodeData = {
   related: boolean;
   risk: boolean;
   scoreLabel: string;
+  selectedMetricId?: string;
+  foldedMetrics: FoldedMetricEntry[];
   onSelect: (nodeId: string) => void;
   onToggle: (nodeId: string) => void;
+  onSelectMetric: (metricId: string) => void;
 };
 
 const nodeTypes = {
@@ -88,12 +101,59 @@ const nodeTypes = {
             <span>{data.kindLabel}</span>
             {typeof data.maturityScore === "number" ? <span>{data.scoreLabel} {data.maturityScore}</span> : null}
           </div>
+          {data.foldedMetrics.length > 0 ? (
+            <div className="graph-node-metrics" role="list">
+              {data.foldedMetrics.map((metric) => (
+                <button
+                  key={metric.id}
+                  type="button"
+                  role="listitem"
+                  className={[
+                    "graph-node-metric-chip",
+                    data.selectedMetricId === metric.id ? "selected" : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    data.onSelectMetric(metric.id);
+                  }}
+                  onDoubleClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    data.onSelectMetric(metric.id);
+                  }}
+                  title={formatMetricTooltip(metric)}
+                >
+                  <span className="graph-node-metric-name">{metric.name}</span>
+                  <span className="graph-node-metric-value">{formatMetricValue(metric)}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
         <Handle className="graph-node-handle" type="source" position={Position.Right} />
       </div>
     );
   }),
 };
+
+function formatMetricValue(metric: FoldedMetricEntry) {
+  const current = metric.currentValue;
+  const target = metric.targetValue;
+  const unit = metric.unit ? ` ${metric.unit}` : "";
+  if (current !== undefined && target !== undefined) return `${current} / ${target}${unit}`;
+  if (current !== undefined) return `${current}${unit}`;
+  if (target !== undefined) return `→ ${target}${unit}`;
+  return metric.unit ?? "—";
+}
+
+function formatMetricTooltip(metric: FoldedMetricEntry) {
+  const parts = [metric.name];
+  if (metric.currentValue !== undefined) parts.push(`current: ${metric.currentValue}${metric.unit ? ` ${metric.unit}` : ""}`);
+  if (metric.targetValue !== undefined) parts.push(`target: ${metric.targetValue}${metric.unit ? ` ${metric.unit}` : ""}`);
+  return parts.join(" · ");
+}
 
 type Props = {
   graph: GraphData;
@@ -122,6 +182,7 @@ export function GraphExplorer({ graph }: Props) {
   const [maturity, setMaturity] = useState("all");
   const [routeFocus, setRouteFocus] = useState("all");
   const [mode, setMode] = useState<ExplorationMode>("layered");
+  const [showMetricsAsNodes, setShowMetricsAsNodes] = useState(false);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
@@ -141,7 +202,7 @@ export function GraphExplorer({ graph }: Props) {
     return layeredVisibleIds(graph, expandedIds);
   }, [expandedBottleneckIds, expandedIds, graph, mode]);
 
-  const filteredNodes = useMemo(
+  const prefilteredNodes = useMemo(
     () =>
       graph.nodes.filter((node) => {
         if (visibleIds && !visibleIds.has(node.id)) return false;
@@ -152,6 +213,52 @@ export function GraphExplorer({ graph }: Props) {
         return true;
       }),
     [domain, focusIds, graph.nodes, kind, maturity, visibleIds],
+  );
+
+  // Step 8: fold metric-kind nodes whose visible non-metric `measured_by` parents
+  // resolve to exactly one. Shared metrics (multiple visible parents) stay as nodes.
+  const { foldedMetricIds, foldedMetricsByParent } = useMemo(() => {
+    const foldedIds = new Set<string>();
+    const byParent = new Map<string, FoldedMetricEntry[]>();
+    if (showMetricsAsNodes) return { foldedMetricIds: foldedIds, foldedMetricsByParent: byParent };
+
+    const prefilteredIds = new Set(prefilteredNodes.map((node) => node.id));
+    const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+
+    for (const node of prefilteredNodes) {
+      if (node.kind !== "metric") continue;
+      const visibleNonMetricParents: string[] = [];
+      for (const edge of graph.edges) {
+        if (edge.relation !== "measured_by") continue;
+        if (edge.target !== node.id) continue;
+        if (!prefilteredIds.has(edge.source)) continue;
+        const parent = nodesById.get(edge.source);
+        if (!parent || parent.kind === "metric") continue;
+        visibleNonMetricParents.push(edge.source);
+      }
+      const uniqueParents = [...new Set(visibleNonMetricParents)];
+      if (uniqueParents.length !== 1) continue;
+      const parentId = uniqueParents[0];
+      foldedIds.add(node.id);
+      const inline = node.metrics?.[0];
+      const entry: FoldedMetricEntry = {
+        id: node.id,
+        name: inline?.name ?? node.name,
+        unit: inline?.unit,
+        currentValue: inline?.currentValue,
+        targetValue: inline?.targetValue,
+      };
+      const list = byParent.get(parentId) ?? [];
+      list.push(entry);
+      byParent.set(parentId, list);
+    }
+
+    return { foldedMetricIds: foldedIds, foldedMetricsByParent: byParent };
+  }, [graph.edges, graph.nodes, prefilteredNodes, showMetricsAsNodes]);
+
+  const filteredNodes = useMemo(
+    () => prefilteredNodes.filter((node) => !foldedMetricIds.has(node.id)),
+    [foldedMetricIds, prefilteredNodes],
   );
 
   const filteredIds = useMemo(() => new Set(filteredNodes.map((node) => node.id)), [filteredNodes]);
@@ -189,6 +296,11 @@ export function GraphExplorer({ graph }: Props) {
     () =>
       filteredNodes.map((node) => {
         const related = selectedNeighbors.has(node.id);
+        const folded = foldedMetricsByParent.get(node.id) ?? [];
+        const localizedFolded: FoldedMetricEntry[] = folded.map((metric) => ({
+          ...metric,
+          name: nodeName(metric.id, metric.name),
+        }));
         return {
         id: node.id,
         type: "capability",
@@ -206,16 +318,19 @@ export function GraphExplorer({ graph }: Props) {
           related,
           risk: node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
           scoreLabel: t("score"),
+          selectedMetricId: selectedId,
+          foldedMetrics: localizedFolded,
           onSelect: setSelectedId,
           onToggle: toggleSelectedExpansion,
+          onSelectMetric: setSelectedId,
         },
         style: {
           width: NODE_WIDTH,
-          height: heightForNode(node),
+          height: heightForNode(node, localizedFolded.length),
         },
       };
       }),
-    [filteredNodes, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
+    [filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
@@ -242,11 +357,17 @@ export function GraphExplorer({ graph }: Props) {
     [layoutEdges, relation, relationName, selectedId, selectedNeighbors],
   );
 
+  const foldCountById = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const [parentId, metrics] of foldedMetricsByParent) map.set(parentId, metrics.length);
+    return map;
+  }, [foldedMetricsByParent]);
+
   useEffect(() => {
     let cancelled = false;
 
     async function applyLayout() {
-      const nextPositions = await layoutWithElk(filteredNodes, layoutEdges, selectedIdRef.current, layoutPositionsRef.current);
+      const nextPositions = await layoutWithElk(filteredNodes, layoutEdges, selectedIdRef.current, layoutPositionsRef.current, foldCountById);
       if (!cancelled) {
         layoutPositionsRef.current = nextPositions;
         setLayoutPositions(nextPositions);
@@ -257,7 +378,7 @@ export function GraphExplorer({ graph }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [filteredNodes, layoutEdges]);
+  }, [filteredNodes, foldCountById, layoutEdges]);
 
   const selectedNode = graph.nodes.find((node) => node.id === selectedId) ?? graph.nodes[0];
   const selectedDependencyCount = graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length;
@@ -299,6 +420,15 @@ export function GraphExplorer({ graph }: Props) {
             }}
           >
             {t("showBottlenecks")} ({selectedBottleneckCount})
+          </button>
+          <button
+            className={["small-button", "secondary-button", showMetricsAsNodes ? "active" : ""].filter(Boolean).join(" ")}
+            type="button"
+            aria-pressed={showMetricsAsNodes}
+            onClick={() => setShowMetricsAsNodes((value) => !value)}
+            title={t("showMetricsAsNodesHint")}
+          >
+            {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
           </button>
           <button
             className="small-button secondary-button"
@@ -480,7 +610,14 @@ function routeFocusIds(graph: GraphData, routeId: string) {
   return ids;
 }
 
-async function layoutWithElk(nodes: Node[], edges: Edge[], anchorId: string, previousPositions: Map<string, GraphPoint>) {
+async function layoutWithElk(
+  nodes: Node[],
+  edges: Edge[],
+  anchorId: string,
+  previousPositions: Map<string, GraphPoint>,
+  foldCountById: Map<string, number> = new Map(),
+) {
+  activeFoldCountById = foldCountById;
   const incrementalPositions = incrementalLayout(nodes, edges, anchorId, previousPositions);
   if (incrementalPositions) return incrementalPositions;
 
@@ -502,7 +639,7 @@ async function layoutWithElk(nodes: Node[], edges: Edge[], anchorId: string, pre
     children: nodes.map((node) => ({
       id: node.id,
       width: NODE_WIDTH,
-      height: heightForNode(node),
+      height: heightForNode(node, foldCountById.get(node.id) ?? 0),
     })),
     edges: edges
       .filter((edge) => nodeIds.has(edge.source) && nodeIds.has(edge.target))
@@ -530,6 +667,7 @@ async function layoutWithElk(nodes: Node[], edges: Edge[], anchorId: string, pre
 function incrementalLayout(nodes: Node[], edges: Edge[], anchorId: string, previousPositions: Map<string, GraphPoint>) {
   if (!previousPositions.size) return null;
 
+  const foldCountById = activeFoldCountById;
   const nodesById = new Map(nodes.map((node) => [node.id, node]));
   const visibleIds = new Set(nodes.map((node) => node.id));
   const nextPositions = new Map<string, GraphPoint>();
@@ -553,8 +691,10 @@ function incrementalLayout(nodes: Node[], edges: Edge[], anchorId: string, previ
   for (const [parentId, children] of groupedByParent) {
     const parentNode = nodesById.get(parentId);
     const parentPosition = nextPositions.get(parentId) ?? nextPositions.get(anchorId) ?? { x: 40, y: 40 };
-    const parentHeight = parentNode ? heightForNode(parentNode) : DEFAULT_NODE_HEIGHT;
-    const totalHeight = children.reduce((sum, child) => sum + heightForNode(child), 0) + Math.max(0, children.length - 1) * INCREMENTAL_NODE_GAP;
+    const parentHeight = parentNode ? heightForNode(parentNode, foldCountById.get(parentId) ?? 0) : DEFAULT_NODE_HEIGHT;
+    const totalHeight =
+      children.reduce((sum, child) => sum + heightForNode(child, foldCountById.get(child.id) ?? 0), 0) +
+      Math.max(0, children.length - 1) * INCREMENTAL_NODE_GAP;
     let cursorY = parentPosition.y + parentHeight / 2 - totalHeight / 2;
 
     for (const child of children) {
@@ -563,7 +703,7 @@ function incrementalLayout(nodes: Node[], edges: Edge[], anchorId: string, previ
         y: cursorY,
       };
       nextPositions.set(child.id, firstOpenPosition(proposed, child, nextPositions, nodesById));
-      cursorY += heightForNode(child) + INCREMENTAL_NODE_GAP;
+      cursorY += heightForNode(child, foldCountById.get(child.id) ?? 0) + INCREMENTAL_NODE_GAP;
     }
   }
 
@@ -609,7 +749,7 @@ function firstOpenPosition(
 ) {
   const next = { ...proposed };
   while (overlapsExisting(next, node, positions, nodesById)) {
-    next.y += heightForNode(node) + INCREMENTAL_NODE_GAP;
+    next.y += heightForNode(node, activeFoldCountById.get(node.id) ?? 0) + INCREMENTAL_NODE_GAP;
   }
   return next;
 }
@@ -620,11 +760,11 @@ function overlapsExisting(
   positions: Map<string, GraphPoint>,
   nodesById: Map<string, Node>,
 ) {
-  const nodeHeight = heightForNode(node);
+  const nodeHeight = heightForNode(node, activeFoldCountById.get(node.id) ?? 0);
   for (const [id, position] of positions) {
     const existing = nodesById.get(id);
     if (!existing) continue;
-    const existingHeight = heightForNode(existing);
+    const existingHeight = heightForNode(existing, activeFoldCountById.get(id) ?? 0);
     const horizontallyOverlaps = proposed.x < position.x + NODE_WIDTH + INCREMENTAL_NODE_GAP && proposed.x + NODE_WIDTH + INCREMENTAL_NODE_GAP > position.x;
     const verticallyOverlaps = proposed.y < position.y + existingHeight + INCREMENTAL_NODE_GAP && proposed.y + nodeHeight + INCREMENTAL_NODE_GAP > position.y;
     if (horizontallyOverlaps && verticallyOverlaps) return true;
@@ -632,8 +772,9 @@ function overlapsExisting(
   return false;
 }
 
-function heightForNode(node: Node) {
-  return node.kind === "technical_route" || node.kind === "product" ? TALL_NODE_HEIGHT : DEFAULT_NODE_HEIGHT;
+function heightForNode(node: Node, foldedMetricCount = 0) {
+  const base = node.kind === "technical_route" || node.kind === "product" ? TALL_NODE_HEIGHT : DEFAULT_NODE_HEIGHT;
+  return foldedMetricCount > 0 ? base + METRICS_STRIP_HEIGHT : base;
 }
 
 function shouldShowEdgeLabel(edge: Edge, selectedId: string, relation: EdgeRelation | "all") {
