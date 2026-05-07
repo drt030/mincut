@@ -17,7 +17,8 @@ import {
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
-import type { Edge, EdgeRelation, GraphData, MetricValue, Node, NodeKind } from "@/lib/schema";
+import { formatMetricValue } from "@/lib/metricValueFormat";
+import type { Edge, EdgeRelation, GraphData, MetricCurrency, MetricValue, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
   product: "#0f766e",
@@ -49,12 +50,17 @@ type FoldedMetricEntry = {
   name: string;
   unit?: string;
   // Per ADR-0003 the metric value union accepts a `{min, typical, max}`
-  // range in addition to scalar number/string. The display layer (range
-  // rendering, gate-panel coverage gap) is the next backlog iter; for now
-  // the format helpers below collapse a range to its `typical` value so
-  // the existing strip stays correct without leaking `[object Object]`.
+  // range in addition to scalar number/string. Range rendering happens via
+  // the shared `formatMetricValue` helper (compact form for the strip,
+  // full form for the detail panel).
   currentValue?: MetricValue;
   targetValue?: MetricValue;
+  /** Per ADR-0003: year the cost (or other time-sensitive) reading is stated in. */
+  costAsOf?: string;
+  /** Per ADR-0003: explicit currency for cost-bearing metrics. */
+  currency?: MetricCurrency;
+  /** Pre-computed: true iff this metric is cost-bearing — drives costAsOf pill. */
+  isCostBearing: boolean;
 };
 
 type CapabilityNodeData = {
@@ -201,7 +207,16 @@ const nodeTypes = {
                   title={formatMetricTooltip(metric)}
                 >
                   <span className="graph-node-metric-name">{metric.name}</span>
-                  <span className="graph-node-metric-value">{formatMetricValue(metric)}</span>
+                  <span className="graph-node-metric-value">{formatMetricChipValue(metric)}</span>
+                  {metric.isCostBearing && metric.costAsOf ? (
+                    <span
+                      className="graph-node-metric-asof"
+                      title={`Cost as of ${metric.costAsOf}`}
+                      aria-label={`Cost as of ${metric.costAsOf}`}
+                    >
+                      {metric.costAsOf}
+                    </span>
+                  ) : null}
                 </button>
               ))}
             </div>
@@ -214,33 +229,45 @@ const nodeTypes = {
 };
 
 /**
- * Per ADR-0003 a metric value may now be a `{min, typical, max}` range.
- * The full range-aware strip rendering ships in the next backlog iter; for
- * this dispatch we collapse a range to its `typical` value so the strip
- * stays human-readable.
+ * Per ADR-0003, the value union accepts `{min, typical, max}` in addition to
+ * scalar number/string. The shared `formatMetricValue` helper handles all three
+ * shapes. The strip uses the `compact` form (≤24 chars target).
  */
-function metricValueDisplay(value: MetricValue | undefined): string | undefined {
-  if (value === undefined) return undefined;
-  if (typeof value === "number" || typeof value === "string") return String(value);
-  return String(value.typical);
-}
-
-function formatMetricValue(metric: FoldedMetricEntry) {
-  const current = metricValueDisplay(metric.currentValue);
-  const target = metricValueDisplay(metric.targetValue);
-  const unit = metric.unit ? ` ${metric.unit}` : "";
-  if (current !== undefined && target !== undefined) return `${current} / ${target}${unit}`;
-  if (current !== undefined) return `${current}${unit}`;
-  if (target !== undefined) return `→ ${target}${unit}`;
+function formatMetricChipValue(metric: FoldedMetricEntry): string {
+  const current = formatMetricValue(metric.currentValue, metric.unit, metric.currency);
+  const target = formatMetricValue(metric.targetValue, metric.unit, metric.currency);
+  if (current.compact !== "—" && target.compact !== "—") {
+    return `${current.compact} / ${target.compact}`;
+  }
+  if (current.compact !== "—") return current.compact;
+  if (target.compact !== "—") return `→ ${target.compact}`;
   return metric.unit ?? "—";
 }
 
-function formatMetricTooltip(metric: FoldedMetricEntry) {
+/**
+ * Per ADR-0003 a metric is cost-bearing if its inline reading carries a
+ * recognized currency or its `unit` parses as a currency code. Used to drive
+ * the small `costAsOf` year pill on the strip and detail rows.
+ */
+const COST_CURRENCY_CODES = new Set(["RMB", "USD", "EUR", "JPY"]);
+function isCostBearingMetricEntry(metric: { unit?: string; currency?: string } | undefined): boolean {
+  if (!metric) return false;
+  if (metric.currency && COST_CURRENCY_CODES.has(metric.currency)) return true;
+  const unit = metric.unit?.trim().toUpperCase();
+  if (!unit) return false;
+  for (const code of COST_CURRENCY_CODES) {
+    if (unit === code || unit.startsWith(`${code}/`) || unit.startsWith(`${code} `)) return true;
+  }
+  return false;
+}
+
+function formatMetricTooltip(metric: FoldedMetricEntry): string {
   const parts = [metric.name];
-  const current = metricValueDisplay(metric.currentValue);
-  const target = metricValueDisplay(metric.targetValue);
-  if (current !== undefined) parts.push(`current: ${current}${metric.unit ? ` ${metric.unit}` : ""}`);
-  if (target !== undefined) parts.push(`target: ${target}${metric.unit ? ` ${metric.unit}` : ""}`);
+  const current = formatMetricValue(metric.currentValue, metric.unit, metric.currency);
+  const target = formatMetricValue(metric.targetValue, metric.unit, metric.currency);
+  if (current.full !== "—") parts.push(`current: ${current.full}`);
+  if (target.full !== "—") parts.push(`target: ${target.full}`);
+  if (metric.costAsOf) parts.push(`as of ${metric.costAsOf}`);
   return parts.join(" · ");
 }
 
@@ -346,6 +373,9 @@ export function GraphExplorer({ graph }: Props) {
         unit: inline?.unit,
         currentValue: inline?.currentValue,
         targetValue: inline?.targetValue,
+        costAsOf: inline?.costAsOf,
+        currency: inline?.currency,
+        isCostBearing: isCostBearingMetricEntry(inline),
       };
       const list = byParent.get(parentId) ?? [];
       list.push(entry);

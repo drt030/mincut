@@ -652,6 +652,292 @@ li {
   opacity: 0.92;
 }
 
+/*
+ * Per ADR-0003: tiny grey "as of YYYY" pill on cost-bearing metric chips
+ * inside the graph-card metrics strip. Mirrors the iter-7 maturityAsOf
+ * pill but lives inside the strip chip rather than the card meta row.
+ */
+.graph-node-metric-asof {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  flex: 0 0 auto;
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-left: 2px;
+  padding: 1px 4px;
+  white-space: nowrap;
+}
+
+/*
+ * Per ADR-0003 cost UI: detail-panel metric rows surface the formatted
+ * current/target values plus a `costAsOf` pill on cost-bearing metrics and
+ * a `currency` pill when the authored currency is non-default.
+ */
+.metric-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.metric-detail-row {
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+}
+
+.metric-detail-row-head {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.metric-detail-row-values {
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 13px;
+  gap: 14px;
+}
+
+.metric-detail-row-values strong {
+  color: var(--foreground);
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.cost-asof-pill {
+  align-items: center;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 999px;
+  color: #78350f;
+  display: inline-flex;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  gap: 4px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.cost-asof-pill.missing {
+  border-style: dashed;
+  opacity: 0.65;
+}
+
+.cost-asof-pill-icon {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.currency-pill {
+  background: #1e3a8a;
+  border: 1px solid #1e40af;
+  border-radius: 999px;
+  color: #e0e7ff;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+}
+
+.metric-value-detail {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.metric-value-detail-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.metric-value-detail ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.metric-value-detail li {
+  margin-bottom: 4px;
+}
+
+/*
+ * Per ADR-0003 cost UI: the rollup card surfaces the rolled-up range, a
+ * small green/amber/red coverage dot, the target reference, and a one-line
+ * hint so a learner knows what the number means.
+ */
+.cost-rollup-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+}
+
+.cost-rollup-card h2 {
+  margin: 0 0 6px;
+}
+
+.cost-rollup-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cost-rollup-value {
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.cost-rollup-value-line {
+  font-size: 18px;
+  margin: 0;
+}
+
+.cost-rollup-target {
+  margin: 4px 0 0;
+}
+
+.cost-rollup-hint {
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+
+.cost-coverage-dot {
+  border-radius: 999px;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  vertical-align: middle;
+}
+
+.cost-coverage-dot.green {
+  background: #16a34a;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);
+}
+
+.cost-coverage-dot.amber {
+  background: #d97706;
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.18);
+}
+
+.cost-coverage-dot.red {
+  background: #b91c1c;
+  box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.18);
+}
+
+.cost-coverage-text {
+  font-size: 13px;
+}
+
+/*
+ * Per ADR-0003 cost UI: gate-report cost-question coverage-gap collapsible
+ * lists subsystems whose subtree contributed nothing to the rollup. Closed
+ * state shows the count + dot; expanded state lists each node + kind +
+ * "add cost" hint so the call to action reads clearly.
+ */
+.cost-coverage-gap {
+  border: 1px solid #fed7aa;
+  border-radius: 8px;
+  background: #fffbeb;
+  margin-top: 10px;
+  padding: 10px 12px;
+}
+
+.cost-coverage-gap > summary {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cost-coverage-gap > summary strong {
+  color: #7c2d12;
+}
+
+.cost-coverage-gap-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.cost-coverage-gap-list li {
+  align-items: center;
+  border-bottom: 1px dashed rgba(180, 83, 9, 0.25);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 2px;
+}
+
+.cost-coverage-gap-list li:last-child {
+  border-bottom: 0;
+}
+
+.cost-coverage-gap-name {
+  flex: 1 1 auto;
+  font-weight: 600;
+}
+
+.cost-coverage-gap-kind {
+  background: #fef3c7;
+  border: 1px solid #b45309;
+  border-radius: 999px;
+  color: #78350f;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+}
+
+.cost-coverage-gap-cta {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.cost-coverage-gap-notes {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.cost-coverage-complete {
+  align-items: center;
+  background: rgba(22, 163, 74, 0.08);
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  color: #166534;
+  display: inline-flex;
+  font-weight: 600;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 10px;
+}
+
 .react-flow__node {
   background: transparent;
   border: 0;

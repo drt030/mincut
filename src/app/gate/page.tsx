@@ -18,6 +18,7 @@ export default function GatePage() {
         reports={reports}
         targetNodeId={V0_TARGET_NODE_ID}
         targetNode={targetNode}
+        graph={graph}
       />
     </div>
   );

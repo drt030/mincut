@@ -1,7 +1,7 @@
 "use client";
 
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
-import type { GateReport, Node } from "@/lib/schema";
+import type { GateReport, GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 
 type Props = {
@@ -14,9 +14,14 @@ type Props = {
    * two scales (per CONTEXT.md "Gate overall score").
    */
   targetNode?: Node;
+  /**
+   * Active graph, used to resolve coverage-gap node ids on the cost question
+   * into human-readable names + kinds (per ADR-0003 cost UI iter).
+   */
+  graph?: GraphData;
 };
 
-export function GateReportView({ reports, targetNodeId, targetNode }: Props) {
+export function GateReportView({ reports, targetNodeId, targetNode, graph }: Props) {
   const { t } = useLanguage();
   const [latestReport, ...historicalReports] = selectGateReportsForTarget(reports, targetNodeId);
 
@@ -28,7 +33,7 @@ export function GateReportView({ reports, targetNodeId, targetNode }: Props) {
     <div className="detail-list">
       <section className="panel" key={`${latestReport.targetNodeId}-${latestReport.generatedAt}`}>
         <p className="muted">{t("latestGateReport")}</p>
-        <GateReportDetails report={latestReport} targetNode={targetNode} />
+        <GateReportDetails report={latestReport} targetNode={targetNode} graph={graph} />
       </section>
 
       {historicalReports.length > 0 ? (
@@ -44,7 +49,7 @@ export function GateReportView({ reports, targetNodeId, targetNode }: Props) {
                   <span className={report.passed ? "" : "danger"}>{report.passed ? t("passed") : t("failed")}</span>
                 </summary>
                 <div className="details-body">
-                  <GateReportDetails report={report} compact />
+                  <GateReportDetails report={report} compact graph={graph} />
                 </div>
               </details>
             ))}
@@ -71,10 +76,12 @@ function GateReportDetails({
   report,
   compact = false,
   targetNode,
+  graph,
 }: {
   report: GateReport;
   compact?: boolean;
   targetNode?: Node;
+  graph?: GraphData;
 }) {
   const { t } = useLanguage();
 
@@ -116,7 +123,11 @@ function GateReportDetails({
               <td>
                 <strong>{result.question}</strong>
                 <p>{result.answer}</p>
-                <GateResultGaps result={result} />
+                {isCostConstraintsQuestion(result.question) ? (
+                  <CostCoverageGapSection result={result} graph={graph} />
+                ) : (
+                  <GateResultGaps result={result} />
+                )}
               </td>
             </tr>
           ))}
@@ -170,6 +181,72 @@ function taskKindClass(kind: GateReport["recommendedNextTasks"][number]["kind"])
   if (kind === "resolve_dispute") return "task-kind-row task-kind-row-resolve-dispute";
   if (kind === "human_review") return "task-kind-row task-kind-row-human-review";
   return "";
+}
+
+/**
+ * Per ADR-0003 the cost-constraints question's score is dominated by the
+ * coverage-gap fraction. Surface a learner-friendly collapsible listing the
+ * subsystems whose subtree contributed nothing to the rolled-up cost — so
+ * "0/5 because no data" reads as "the rolled-up number is unreliable
+ * because we have no cost data on these N subsystems."
+ */
+const COST_CONSTRAINTS_QUESTION_TEXT = "What cost constraints dominate the product's feasibility?";
+function isCostConstraintsQuestion(question: string): boolean {
+  return question.trim() === COST_CONSTRAINTS_QUESTION_TEXT;
+}
+
+function CostCoverageGapSection({
+  result,
+  graph,
+}: {
+  result: GateReport["questionResults"][number];
+  graph?: GraphData;
+}) {
+  const { kindName, nodeName, t } = useLanguage();
+  const gapIds = result.missingNodeIds ?? [];
+  if (gapIds.length === 0) {
+    return (
+      <div className="cost-coverage-complete">
+        <span className="cost-coverage-dot green" aria-hidden="true" />
+        {t("costCoverageComplete")}
+      </div>
+    );
+  }
+  const resolved = gapIds.map((id) => {
+    const node = graph?.nodes.find((entry) => entry.id === id);
+    return {
+      id,
+      displayName: node ? nodeName(node.id, node.name) : id,
+      kind: node?.kind,
+    };
+  });
+  return (
+    <details className="cost-coverage-gap">
+      <summary>
+        <span className="cost-coverage-dot red" aria-hidden="true" />
+        <strong>
+          {t("costCoverageGapTitle").replace("{count}", String(gapIds.length))}
+        </strong>
+        <span className="muted"> · {t("costCoverageGapHint")}</span>
+      </summary>
+      <ul className="cost-coverage-gap-list">
+        {resolved.map((entry) => (
+          <li key={entry.id}>
+            <span className="cost-coverage-gap-name">{entry.displayName}</span>
+            {entry.kind ? (
+              <span className="cost-coverage-gap-kind">{kindName(entry.kind)}</span>
+            ) : null}
+            <span className="muted cost-coverage-gap-cta">{t("costAddCostHint")}</span>
+          </li>
+        ))}
+      </ul>
+      {result.notes ? (
+        <p className="muted cost-coverage-gap-notes">
+          <strong>{t("notes")}:</strong> {result.notes}
+        </p>
+      ) : null}
+    </details>
+  );
 }
 
 function GateResultGaps({ result }: { result: GateReport["questionResults"][number] }) {

@@ -10,7 +10,9 @@ import {
   upstream,
 } from "@/lib/graphTraversal";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
-import type { GraphData, Node } from "@/lib/schema";
+import { isCostBearingMetric, rollupCost, targetCostFor, type CostRollupResult } from "@/lib/costRollup";
+import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
+import type { GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 
 type Props = {
@@ -173,7 +175,9 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
           </ul>
         </div>
       ) : null}
-      <NodeList title={t("metrics")} nodes={metrics} onSelectNode={onSelectNode} />
+      <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
+      {node.kind === "product" ? <ProductCostRollupCard graph={graph} product={node} /> : null}
+      {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
       <NodeList
         title={t("bottlenecks")}
         nodes={bottlenecks}
@@ -213,6 +217,249 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
       </div>
     </aside>
   );
+}
+
+/**
+ * Per ADR-0003, the metric list on the detail panel surfaces the formatted
+ * `currentValue` / `targetValue` (range-aware) along with a small `costAsOf`
+ * year pill for cost-bearing metrics. The pill mirrors the iter-7
+ * `maturityAsOf` treatment so a learner can scan the freshness of every cost
+ * claim.
+ */
+function MetricNodeList({
+  title,
+  metrics,
+  onSelectNode,
+}: {
+  title: string;
+  metrics: Node[];
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  return (
+    <div>
+      <strong>{title}</strong>
+      {metrics.length ? (
+        <ul className="metric-detail-list">
+          {metrics.map((metricNode) => (
+            <MetricNodeListItem
+              key={metricNode.id}
+              metric={metricNode}
+              displayName={nodeName(metricNode.id, metricNode.name)}
+              onSelectNode={onSelectNode}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p className="muted">{t("none")}</p>
+      )}
+    </div>
+  );
+}
+
+function MetricNodeListItem({
+  metric,
+  displayName,
+  onSelectNode,
+}: {
+  metric: Node;
+  displayName: string;
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { t } = useLanguage();
+  const inline = metric.metrics?.[0];
+  const unit = inline?.unit;
+  const currency = inline?.currency;
+  const isCost = isCostBearingMetric(metric);
+  const asOf = costAsOfVisualFor(inline?.costAsOf);
+  const current = formatMetricValue(inline?.currentValue, unit, currency);
+  const target = formatMetricValue(inline?.targetValue, unit, currency);
+  return (
+    <li className="metric-detail-row">
+      <div className="metric-detail-row-head">
+        {onSelectNode ? (
+          <button type="button" className="link-button" onClick={() => onSelectNode(metric.id)}>
+            {displayName}
+          </button>
+        ) : (
+          <span>{displayName}</span>
+        )}
+        {isCost ? (
+          <span
+            className={["cost-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+            title={asOf.hasValue ? `${t("costAsOfTooltip")} ${asOf.label}` : t("costAsOfMissing")}
+            aria-label={asOf.hasValue ? `${t("costAsOfTooltip")} ${asOf.label}` : t("costAsOfMissing")}
+          >
+            <span className="cost-asof-pill-icon" aria-hidden="true">¥</span>
+            {t("costAsOf")}: {asOf.label}
+          </span>
+        ) : null}
+        {currency && currency !== "RMB" ? (
+          <span className="currency-pill" title={`Currency: ${currency}`}>
+            {currency}
+          </span>
+        ) : null}
+      </div>
+      <div className="metric-detail-row-values">
+        {current.full !== "—" ? (
+          <span>
+            <strong>{t("current")}:</strong> {current.full}
+          </span>
+        ) : null}
+        {target.full !== "—" ? (
+          <span>
+            <strong>{t("target")}:</strong> {target.full}
+          </span>
+        ) : null}
+        {current.full === "—" && target.full === "—" ? (
+          <span className="muted">{t("metricNoValue")}</span>
+        ) : null}
+      </div>
+    </li>
+  );
+}
+
+/**
+ * Per ADR-0003, when a `metric` node is selected its detail panel surfaces
+ * the formatted current/target values plus a `costAsOf` year pill if
+ * cost-bearing. Mirrors the iter-7 `maturityAsOf` treatment.
+ */
+function MetricValueDetailRow({ node }: { node: Node }) {
+  const { t } = useLanguage();
+  const inline = node.metrics?.[0];
+  if (!inline) return null;
+  const isCost = isCostBearingMetric(node);
+  const asOf = costAsOfVisualFor(inline.costAsOf);
+  const current = formatMetricValue(inline.currentValue as MetricValue | undefined, inline.unit, inline.currency);
+  const target = formatMetricValue(inline.targetValue as MetricValue | undefined, inline.unit, inline.currency);
+  const currency = inline.currency as MetricCurrency | undefined;
+  return (
+    <div className="metric-value-detail">
+      <strong>{t("metricValue")}</strong>
+      <div className="metric-value-detail-pills">
+        {isCost ? (
+          <span
+            className={["cost-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+            title={asOf.hasValue ? `${t("costAsOfTooltip")} ${asOf.label}` : t("costAsOfMissing")}
+            aria-label={asOf.hasValue ? `${t("costAsOfTooltip")} ${asOf.label}` : t("costAsOfMissing")}
+          >
+            <span className="cost-asof-pill-icon" aria-hidden="true">¥</span>
+            {t("costAsOf")}: {asOf.label}
+          </span>
+        ) : null}
+        {currency && currency !== "RMB" ? (
+          <span className="currency-pill" title={`Currency: ${currency}`}>
+            {currency}
+          </span>
+        ) : null}
+      </div>
+      <ul>
+        {current.full !== "—" ? (
+          <li>
+            <strong>{t("current")}:</strong> {current.full}
+          </li>
+        ) : null}
+        {target.full !== "—" ? (
+          <li>
+            <strong>{t("target")}:</strong> {target.full}
+          </li>
+        ) : null}
+      </ul>
+    </div>
+  );
+}
+
+/**
+ * Per ADR-0003 the bottom-up cost rollup is exposed at the product level so
+ * a learner sees the rolled-up range, the coverage-gap dot (green / amber /
+ * red), and the reference target sitting next to each other. The rollup
+ * walker is pure and cheap; we run it on every render.
+ */
+function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: Node }) {
+  const { t } = useLanguage();
+  let rollup: CostRollupResult | null = null;
+  try {
+    rollup = rollupCost(graph, product.id);
+  } catch {
+    rollup = null;
+  }
+  const target = targetCostFor(graph, product.id);
+  // Total subsystems = nodes reachable from this product that the rollup
+  // walker would consider "eligible" for cost (mirrors gateRunner.costConstraints).
+  const reachable = reachableEligibleSubsystems(graph, product.id);
+  const denominator = Math.max(reachable.size, rollup ? rollup.coverageGap.length : 0, 1);
+  const gapCount = rollup ? rollup.coverageGap.length : 0;
+  const gapFraction = gapCount / denominator;
+  const dotClass = coverageDotClass(gapFraction);
+  const rolledUp = rollup
+    ? formatMetricValue(rollup.rolledUp, "RMB", "RMB")
+    : { compact: "—", full: "—", isRange: false };
+  const targetFull = target ? formatMetricValue(target.range, "RMB", "RMB").full : null;
+  const targetCostString = product.targetContext?.targetCost?.trim();
+  return (
+    <div className="cost-rollup-card">
+      <strong>{t("costRollupTitle")}</strong>
+      <div className="cost-rollup-row">
+        <span className="cost-rollup-value">{rolledUp.full}</span>
+        <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true" />
+        <span className="muted cost-coverage-text">
+          {t("costCoverageGapStat")
+            .replace("{gap}", String(gapCount))
+            .replace("{total}", String(denominator))}
+        </span>
+      </div>
+      {targetFull ? (
+        <p className="muted cost-rollup-target">
+          <strong>{t("target")}:</strong> {targetFull}
+          {target?.costAsOf ? <> · {t("costAsOf")} {target.costAsOf}</> : null}
+        </p>
+      ) : targetCostString ? (
+        <p className="muted cost-rollup-target">
+          <strong>{t("target")}:</strong> {targetCostString}
+        </p>
+      ) : null}
+      {rollup?.costAsOf ? (
+        <p className="muted">
+          <em>{t("costAsOfEarliest")}:</em> {rollup.costAsOf}
+        </p>
+      ) : null}
+      <p className="muted cost-rollup-hint">{t("costRollupHint")}</p>
+    </div>
+  );
+}
+
+function reachableEligibleSubsystems(graph: GraphData, productId: string): Set<string> {
+  const ids = new Set<string>();
+  const queue: string[] = [productId];
+  const seen = new Set<string>();
+  while (queue.length) {
+    const nodeId = queue.shift();
+    if (!nodeId || seen.has(nodeId)) continue;
+    seen.add(nodeId);
+    for (const edge of graph.edges) {
+      if (edge.source !== nodeId || edge.relation !== "requires") continue;
+      const child = graph.nodes.find((node) => node.id === edge.target);
+      if (!child) continue;
+      if (
+        child.kind === "metric" ||
+        child.kind === "evidence" ||
+        child.kind === "bottleneck" ||
+        child.kind === "placeholder_breakthrough"
+      ) {
+        continue;
+      }
+      if (child.reviewStatus === "deprecated") continue;
+      ids.add(child.id);
+      queue.push(child.id);
+    }
+  }
+  return ids;
+}
+
+function coverageDotClass(gapFraction: number): string {
+  if (gapFraction <= 0.1) return "green";
+  if (gapFraction <= 0.5) return "amber";
+  return "red";
 }
 
 function NodeList({
