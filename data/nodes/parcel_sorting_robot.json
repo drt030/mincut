@@ -2144,7 +2144,15 @@
     "maturityScore": 45,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
-    "confidence": "low"
+    "confidence": "low",
+    "targetContext": {
+      "facilitySize": "1,000–5,000 m² floor area, 1–2 sorting cells, single shift to two shifts depending on volume",
+      "dailyThroughput": "Up to ~30,000 parcels/day per cell at sustained operation; typical small-warehouse demand 5,000–20,000 parcels/day",
+      "parcelSpecRange": "Cuboid + soft pack mixed flow, 0.05–25 kg, longest dimension up to 700 mm; weight/size envelopes per existing allowed_parcel_weight/size_range metrics",
+      "environment": "Indoor logistics warehouse in 2025-China context, ambient temperature 5–35 °C, dust acceptable, no explosion-proofing required",
+      "region": "China (2025)",
+      "shiftPattern": "Single + extended evening shift typical; 24/7 not assumed at this price point"
+    }
   },
   {
     "id": "parcel_sorting_robot_with_gripper_300k_rmb",

@@ -7,8 +7,10 @@ import {
   edgeSchema,
   evidenceSchema,
   type GraphData,
-  nodeSchema,
+  maturityAsOfRequiredMessage,
+  maturityAsOfRequiredWhenSet,
   researchTaskSchema,
+  strictNodeSchemaLoose,
   type Edge,
   type Evidence,
   type Node,
@@ -31,7 +33,11 @@ const candidateTaskSchema = researchTaskSchema
   .strict();
 
 const candidateImportSchema = z.object({
-  nodes: z.array(nodeSchema.strict()).optional().default([]),
+  // Loose at read-time (no maturityAsOf-required refine) so we can default
+  // `maturityAsOf` to the current YYYY-MM during `withImportDefaults` before
+  // validating the conditional rule. The post-default validation pass below
+  // applies `maturityAsOfRequiredWhenSet` on the filled-in nodes.
+  nodes: z.array(strictNodeSchemaLoose).optional().default([]),
   edges: z.array(edgeSchema.strict()).optional().default([]),
   evidence: z.array(evidenceSchema.strict()).optional().default([]),
   tasks: z
@@ -117,10 +123,28 @@ function withImportDefaults(candidate: CandidateImport, importedAt: string): {
   tasks: ResearchTask[];
 } {
   const compactTime = importedAt.replace(/[^0-9]/g, "").slice(0, 14);
+  /**
+   * Per ADR-0002 "maturityAsOf required when any maturity field is set", an
+   * agent-imported candidate that carries maturity data without a
+   * `maturityAsOf` is silently undated. Defaulting to the current YYYY-MM
+   * here (rather than rejecting at the schema level) keeps imports working
+   * for cost-bearing candidates that already carry `costAsOf`, while
+   * preserving the audit trail: the defaulted month equals the import month,
+   * which is the most defensible answer when the agent omits one. Hand-
+   * authored data still has to backfill `maturityAsOf` explicitly because
+   * `validate:data` runs the same refine on the live graph.
+   */
+  const importedMonth = importedAt.slice(0, 7);
   return {
     nodes: candidate.nodes.map((node) => ({
       ...node,
       reviewStatus: node.reviewStatus ?? "unreviewed",
+      maturityAsOf:
+        node.maturityAsOf ??
+        ((node.maturityScore !== undefined ||
+          (node.maturityLabel !== undefined && node.maturityLabel !== "unknown"))
+          ? importedMonth
+          : undefined),
     })),
     edges: candidate.edges.map((edge) => ({
       ...edge,
@@ -162,6 +186,13 @@ function validateCandidateImport(
 
   for (const node of candidate.nodes) {
     if (existingNodeIds.has(node.id)) errors.push(`Node id already exists: ${node.id}`);
+    if (!maturityAsOfRequiredWhenSet(node)) {
+      // Defense in depth: the loose-schema read path defaults `maturityAsOf`
+      // to the import month, so this should be unreachable. Keep the error
+      // so a refactor that drops the default still fails loudly with the
+      // same ADR-0002 message instead of silently writing undated maturity.
+      errors.push(`Node ${node.id}: ${maturityAsOfRequiredMessage}`);
+    }
     if (node.reviewStatus === "reviewed" && !options.allowReviewed) {
       errors.push(reviewedStatusError("Node", node.id));
     }

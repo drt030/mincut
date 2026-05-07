@@ -56,7 +56,36 @@ export const metricValueSchema = z.union([z.number(), z.string(), metricRangeSch
  */
 export const metricCurrencySchema = z.enum(["RMB", "USD", "EUR", "JPY"]);
 
-export const nodeSchema = z.object({
+/**
+ * Per ADR-0002, `maturityAsOf` is required whenever any maturity field is
+ * set so a maturity claim is never undated. Zod can't easily express
+ * "required when X is set", so we keep `maturityAsOf` `.optional()` at the
+ * shape level and enforce the conditional via `.refine()` below. The
+ * `maturityLabel: "unknown"` value escapes the rule (per ADR-0002 it
+ * encodes "we don't know yet" — there is nothing to date).
+ *
+ * Returned as a function so callers can apply it after `.strict()` (which
+ * is not available on `ZodEffects`). Both `nodeSchema` and the strict
+ * variant used by `scripts/import-candidates.ts` chain this on top.
+ */
+type NodeShape = {
+  maturityScore?: number;
+  maturityLabel?: string;
+  maturityAsOf?: string;
+};
+
+export const maturityAsOfRequiredWhenSet = (node: NodeShape): boolean => {
+  const hasMaturityClaim =
+    node.maturityScore !== undefined ||
+    (node.maturityLabel !== undefined && node.maturityLabel !== "unknown");
+  if (!hasMaturityClaim) return true;
+  return Boolean(node.maturityAsOf);
+};
+
+export const maturityAsOfRequiredMessage =
+  "maturityAsOf is required when any maturity field is set (per ADR-0002)";
+
+const nodeBaseSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
   kind: nodeKindSchema,
@@ -78,6 +107,20 @@ export const nodeSchema = z.object({
       targetEnvironment: z.string().optional(),
       targetDate: z.string().optional(),
       targetEndEffector: z.string().optional(),
+      /**
+       * Per CONTEXT.md "Capability node" L8, a Capability's `targetContext`
+       * captures the total scenario (facility size, daily throughput,
+       * parcel-spec range, environment, region, shift pattern) that future
+       * capability-level scoring will need as input. These fields are
+       * free-form strings, optional everywhere, and are populated on
+       * Capability nodes now even though scoring is deferred.
+       */
+      facilitySize: z.string().optional(),
+      dailyThroughput: z.string().optional(),
+      parcelSpecRange: z.string().optional(),
+      environment: z.string().optional(),
+      region: z.string().optional(),
+      shiftPattern: z.string().optional(),
     })
     .optional(),
   metrics: z
@@ -108,6 +151,29 @@ export const nodeSchema = z.object({
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 });
+
+export const nodeSchema = nodeBaseSchema.refine(maturityAsOfRequiredWhenSet, {
+  message: maturityAsOfRequiredMessage,
+  path: ["maturityAsOf"],
+});
+
+/**
+ * Strict variants for `scripts/import-candidates.ts`. The "loose" form (no
+ * refine) is used for the initial read so the import script can default
+ * `maturityAsOf` to the current YYYY-MM on agent imports before the
+ * required-when-set rule is enforced. The "checked" form re-applies the
+ * rule after defaults are filled in. `.strict()` lives on `ZodObject` not
+ * `ZodEffects`, so we apply it before chaining the refine.
+ */
+export const strictNodeSchemaLoose = nodeBaseSchema.strict();
+
+export const strictNodeSchema = strictNodeSchemaLoose.refine(
+  maturityAsOfRequiredWhenSet,
+  {
+    message: maturityAsOfRequiredMessage,
+    path: ["maturityAsOf"],
+  },
+);
 
 export const edgeRelationSchema = z.enum([
   "requires",

@@ -1,4 +1,10 @@
+import fs from "node:fs";
+import path from "node:path";
 import { loadGateQuestions, loadGateReports, loadGraphData, loadTasks, validateGraphReferences } from "../src/lib/graphLoader";
+import {
+  maturityAsOfRequiredMessage,
+  maturityAsOfRequiredWhenSet,
+} from "../src/lib/schema";
 import type { Edge, GateReport, GraphData, Node, ResearchTask } from "../src/lib/schema";
 
 /**
@@ -7,6 +13,35 @@ import type { Edge, GateReport, GraphData, Node, ResearchTask } from "../src/lib
  * an `errors.push(...)` line that runs at module-init time.
  */
 const COST_CURRENCY_CODES = new Set(["RMB", "USD", "EUR", "JPY"]);
+
+/**
+ * Per ADR-0002, `maturityAsOf` is required whenever any maturity field is
+ * set. The schema enforces this via `.refine()` on `nodeSchema`, which would
+ * throw a ZodError at `loadGraphData()` time without naming the offending
+ * node id. Run an explicit pre-pass over the raw JSON files first so the
+ * error message names the node id directly. The schema refine still runs
+ * (defense in depth) on the second pass through `loadGraphData()` below.
+ */
+const preErrors: string[] = [];
+const nodesDir = path.join(process.cwd(), "data", "nodes");
+if (fs.existsSync(nodesDir)) {
+  for (const file of fs.readdirSync(nodesDir).filter((name) => name.endsWith(".json")).sort()) {
+    const filePath = path.join(nodesDir, file);
+    const rawNodes = JSON.parse(fs.readFileSync(filePath, "utf8")) as Array<Partial<Node>>;
+    for (const node of rawNodes) {
+      if (!maturityAsOfRequiredWhenSet(node)) {
+        preErrors.push(
+          `Node ${node.id ?? "(unknown)"}: ${maturityAsOfRequiredMessage}`,
+        );
+      }
+    }
+  }
+}
+if (preErrors.length) {
+  console.error("Data validation failed:");
+  for (const error of preErrors) console.error(`- ${error}`);
+  process.exit(1);
+}
 
 const graph = loadGraphData();
 const questions = loadGateQuestions();
