@@ -4,6 +4,33 @@ Capability Graph Explorer is an interactive graph-based research tool for unders
 
 The project goal is not to draw a pretty graph after the fact. The graph is the reasoning substrate: products, modules, technical routes, metrics, bottlenecks, placeholder breakthroughs, evidence, maturity estimates, validation reports, and research tasks should all be represented as structured local data.
 
+## Project purpose (north star)
+
+This tool exists for a learner studying manufacturing — how products of industry are built, where the **bottlenecks** sit in the dependency tree, and **how those bottlenecks evolve over time**. Two modes drive every design decision:
+
+1. **Forward-looking**: for an emerging product, surface the key bottlenecks that gate its arrival.
+2. **Retrospective**: for a mature product, replay the bottleneck sequence stage by stage.
+
+The time dimension is core, not decorative. UX, content, and modelling decisions serve those two learning modes; a feature that is correct but does not help a learner trace bottlenecks ranks below one that does. See `CONTEXT.md` for the canonical language and `docs/adr/` for design decisions.
+
+### Visual signals
+
+Three glyphs render across the graph and product views and mean the same thing everywhere:
+
+- **⚠ Bottleneck** — currently gating progress; rendered with a dashed amber border.
+- **🔑 Key technology** — intrinsically hard to develop; a quantitative-vs-qualitative difference for any product depending on it.
+- **🔭 Decomposition frontier** — research goes here next; decomposition stopped but the subtree is known to be incomplete (per ADR-0005).
+
+### What's new in v0 modelling
+
+These ADRs codify the v0 model and are reflected in the schema, gate, and UI:
+
+- **Capability ⇆ Product layering** (ADR-0004). Capability nodes group sibling Product candidates; boundary distinctions live at this layer, not inside a single Product's decomposition.
+- **Review-status ladder** (ADR-0001). `unreviewed` / `reviewed` / `disputed` / `deprecated` carry distinct gate semantics; `disputed` is capped *below* `unreviewed` to keep the honest signal.
+- **Time-stamped maturity + future time slider** (ADR-0002). Every maturity assessment carries a `maturityAsOf`. `maturityHistory` is reserved for the time-slider that powers retrospective mode.
+- **Decomposition stop = commodified leaves** (ADR-0005). Stop decomposing when a node represents a commodified input in the Product's region/era, unless an explicit override reason is recorded. Frontier nodes mark deliberate expansion candidates.
+- **Cost model with range-valued metrics + RMB primary** (ADR-0003). Costs are `{min, typical, max}` with a per-layer 15% integration overhead, multi-currency leaves, and a green/amber/red coverage dot in the rollup.
+
 ## Current Focus
 
 v0 intentionally starts with one complete domain:
