@@ -1015,9 +1015,11 @@ li {
 .explorer-toolbar {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   justify-content: space-between;
   margin-bottom: 10px;
+  row-gap: 10px;
 }
 
 .segmented-control {
@@ -1054,6 +1056,17 @@ li {
   flex-wrap: wrap;
   gap: 8px;
   justify-content: flex-end;
+  row-gap: 8px;
+}
+
+/*
+ * Iter-23: count pill ships at the same vertical baseline as the
+ * adjacent buttons. Buttons are 33px tall (font-size 13px + padding
+ * 9px*2 + ~3px line-height); pillbox padding sized to match so the
+ * baseline reads clean when the row wraps.
+ */
+.toolbar-actions .frontier-count-status {
+  padding: 7px 11px;
 }
 
 /*

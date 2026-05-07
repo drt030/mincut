@@ -51,6 +51,9 @@ const uiText: Record<Language, Record<string, string>> = {
     showDeprecated: "Show deprecated",
     showDeprecatedHint:
       "When off, deprecated nodes and edges are hidden from default render. When on, they re-appear so a learner can audit soft-deleted history.",
+    showFrontiersToggle: "Show frontiers",
+    showFrontiersToggleHint:
+      "When on, the 🔭 telescope glyph marks every decomposition-frontier card on the canvas. Turn off to hide the per-card glyph when v0's mid-maturity state makes it noisy. The frontier-count pill always stays visible — it's a separate signal.",
     deprecatedBadge: "Deprecated",
     deprecatedBadgeTooltip:
       "This node is marked deprecated — soft-deleted but kept for graph history. See the supersession reason below.",
@@ -200,6 +203,9 @@ const uiText: Record<Language, Record<string, string>> = {
     showMetricsAsNodesHint: "关闭时，仅有一个可见父节点的指标会折叠进父节点的指标条；开启时，指标节点独立显示。",
     showDeprecated: "显示已废弃",
     showDeprecatedHint: "关闭时默认隐藏 deprecated 节点与边；开启后恢复显示，便于查看软删除历史。",
+    showFrontiersToggle: "显示前沿",
+    showFrontiersToggleHint:
+      "开启时，🔭 望远镜标记会出现在每个分解前沿节点卡片上。当 v0 默认状态下大多数子系统都是前沿时，关闭可以减少视觉噪声。工具栏中的前沿计数 pill 始终保留 —— 它是独立的总览信号。",
     deprecatedBadge: "已废弃",
     deprecatedBadgeTooltip: "该节点标记为 deprecated —— 软删除但保留图谱历史。下方为废弃原因。",
     disputedBadge: "存在争议",

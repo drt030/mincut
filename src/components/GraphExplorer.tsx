@@ -330,6 +330,12 @@ export function GraphExplorer({ graph }: Props) {
   // render — soft-deleted records pollute the active dependency view. The
   // toggle restores them so a learner can audit history when needed.
   const [showDeprecated, setShowDeprecated] = useState(false);
+  // Iter-23: per-card 🔭 frontier glyph density made the signal noisy in
+  // the v0 graph (73-of-112 cards qualified). The toggle defaults ON to
+  // preserve iter-22 behaviour; turning it OFF hides the per-card glyph
+  // while leaving the toolbar count pill alone — count is a separate
+  // signal from per-card decoration.
+  const [showFrontiers, setShowFrontiers] = useState(true);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
@@ -527,7 +533,11 @@ export function GraphExplorer({ graph }: Props) {
         const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
         const isAlternativeSibling = capabilityCluster.siblingProductIds.has(node.id);
         const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
-        const isFrontier = frontierIds.has(node.id);
+        // Per iter-23, the per-card 🔭 glyph is gated by the toolbar
+        // toggle. The frontier-count pill upstream still uses
+        // `frontierIds` directly so the count is independent of toggle
+        // state.
+        const isFrontier = showFrontiers && frontierIds.has(node.id);
         return {
         id: node.id,
         type: "capability",
@@ -573,7 +583,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
@@ -699,14 +709,15 @@ export function GraphExplorer({ graph }: Props) {
           >
             {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
           </button>
-          <span
-            className="frontier-count-status"
-            title={t("frontierCountInScopeTooltip")}
-            aria-label={t("frontierCountInScopeTooltip")}
+          <button
+            className={["small-button", "secondary-button", showFrontiers ? "active" : ""].filter(Boolean).join(" ")}
+            type="button"
+            aria-pressed={showFrontiers}
+            onClick={() => setShowFrontiers((value) => !value)}
+            title={t("showFrontiersToggleHint")}
           >
-            <span className="frontier-count-icon" aria-hidden="true">🔭</span>
-            {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
-          </span>
+            {t("showFrontiersToggle")}{showFrontiers ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+          </button>
           <button
             className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
             type="button"
@@ -716,6 +727,14 @@ export function GraphExplorer({ graph }: Props) {
           >
             {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
           </button>
+          <span
+            className="frontier-count-status"
+            title={t("frontierCountInScopeTooltip")}
+            aria-label={t("frontierCountInScopeTooltip")}
+          >
+            <span className="frontier-count-icon" aria-hidden="true">🔭</span>
+            {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
+          </span>
           <button
             className="small-button secondary-button"
             type="button"
