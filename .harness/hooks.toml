@@ -1,0 +1,28 @@
+[stages.plan]
+required = ["AGENTS.md", "README.md", "docs/ARCHITECTURE.md", "docs/plans/parcel-sorting-robot-v0.md"]
+optional = ["docs/roadmap.md", "docs/agent-memory.md", "docs/agent-learn.md", "docs/feedback-log.md"]
+blocking_checks = ["preserve_v0_boundary", "clarify_new_product_boundary", "keep_graph_claims_explicit"]
+
+[stages.verify]
+required = ["AGENTS.md", "README.md", "docs/ARCHITECTURE.md", ".harness/config.toml"]
+optional = ["docs/agent-memory.md"]
+blocking_checks = ["run_relevant_npm_commands", "report_generated_gate_artifacts", "do_not_use_external_knowledge_in_gate"]
+
+[stages.handoff]
+required = ["AGENTS.md", "docs/agent-memory.md", "docs/agent-learn.md"]
+optional = ["docs/feedback-log.md", "docs/promotion-backlog.md"]
+blocking_checks = ["summarize_changed_files", "summarize_verification", "record_remaining_risks"]
+
+[stages.learn]
+required = ["docs/agent-learn.md", "docs/feedback-log.md", "docs/promotion-backlog.md"]
+optional = ["AGENTS.md", ".harness/config.toml"]
+blocking_checks = ["classify_feedback_scope", "route_reusable_feedback", "define_validation_needed"]
+
+[profiles.minimal]
+description = "Lifecycle and safety reminders only."
+
+[profiles.standard]
+description = "Default profile for normal implementation and review."
+
+[profiles.strict]
+description = "Adds stronger pre-verify and handoff reminders before broad changes."

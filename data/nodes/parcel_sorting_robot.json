@@ -1,0 +1,2073 @@
+[
+  {
+    "id": "low_cost_parcel_sorting_robot_300k_rmb",
+    "name": "300,000 RMB parcel-sorting robot",
+    "kind": "product",
+    "domain": [
+      "parcel_sorting_robot",
+      "logistics_automation"
+    ],
+    "description": "An industrial robot-arm and computer-vision based parcel-sorting robot or sorting cell, mainly using grippers or suction cups, that can be sold or deployed at approximately 300,000 RMB total system cost for logistics parcel sorting.",
+    "maturityScore": 54,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "targetContext": {
+      "targetCost": "approximately 300,000 RMB total system cost",
+      "targetScale": "single logistics sorting cell or small line segment",
+      "targetPerformance": "commercially useful parcel throughput with low jam and intervention rates",
+      "targetUseCase": "parcel sorting in logistics warehouses",
+      "targetEnvironment": "conveyor-based parcel flow with variable labels, packaging, sizes, and weights"
+    },
+    "evidenceIds": [
+      "ev_internal_product_target",
+      "ev_vendor_sorting_cells"
+    ],
+    "tags": [
+      "cost",
+      "logistics",
+      "robotics"
+    ]
+  },
+  {
+    "id": "vision_barcode_label_recognition",
+    "name": "Vision / barcode / label recognition",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Camera, lighting, barcode scanning, OCR, and label localization capability for identifying parcels and destinations.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "perception"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "industrial_area_scan_camera",
+    "name": "Industrial area-scan camera",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
+    "description": "Industrial camera used to capture parcel images for label reading, barcode recognition, and visual inspection under conveyor motion.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "tags": [
+      "camera",
+      "perception",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include sensor size, shutter type, frame rate, interface, trigger timing, enclosure, and cost constraints."
+  },
+  {
+    "id": "machine_vision_lens_and_optics",
+    "name": "Machine vision lens and optics",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
+    "description": "Lens and optical configuration that focus the parcel field of view onto the camera sensor with sufficient sharpness and depth of field.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "tags": [
+      "lens",
+      "optics",
+      "perception",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include focal length, working distance, field of view, aperture, filter, focus lock, and vibration sensitivity."
+  },
+  {
+    "id": "controlled_machine_vision_lighting",
+    "name": "Controlled machine-vision lighting",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
+    "description": "Lighting hardware and control strategy that make labels, barcodes, and parcel edges visible and repeatable despite ambient variation.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "tags": [
+      "lighting",
+      "perception",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include ring/bar/back/dome lighting, strobe timing, glare control, wavelength, diffuser, and dust/heat constraints."
+  },
+  {
+    "id": "vision_processing_compute",
+    "name": "Vision processing compute",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
+    "description": "Industrial PC, smart camera, embedded processor, or accelerator that runs barcode/OCR, detection, tracking, and integration logic.",
+    "maturityScore": 64,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "tags": [
+      "compute",
+      "perception",
+      "software",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include CPU/GPU/NPU choice, latency, thermal design, software stack, camera SDK, and cost."
+  },
+  {
+    "id": "barcode_ocr_reading_software",
+    "name": "Barcode / OCR reading software",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
+    "description": "Software pipeline for reading barcodes, labels, and OCR fields from parcel images and outputting a parcel identity or destination token.",
+    "maturityScore": 62,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "tags": [
+      "barcode",
+      "ocr",
+      "software",
+      "perception",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include barcode symbologies, OCR model, no-read handling, label localization, glare/occlusion handling, and benchmark metrics."
+  },
+  {
+    "id": "parcel_detection_and_tracking",
+    "name": "Parcel detection and tracking",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Detects parcel position, velocity, orientation, and identity as parcels move through the sorting cell.",
+    "maturityScore": 65,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "tags": [
+      "perception",
+      "tracking"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "parcel_manipulation_or_diverter",
+    "name": "Robot-arm parcel manipulation subsystem",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "The industrial robot-arm based manipulation subsystem that physically picks, pushes, or places parcels into the selected output lane or bin.",
+    "maturityScore": 52,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "tags": [
+      "mechanism",
+      "throughput",
+      "robot_arm"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "industrial_robot_arm_body",
+    "name": "Industrial robot arm body",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "The robot body for the sorting cell, including joints, links, actuators, reducers, servo drives, controller interfaces, cabling, and mounting structure.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "robot_arm",
+      "hardware"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "end_effector_gripper_or_suction",
+    "name": "End effector: gripper or suction cup",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "The parcel-contacting end effector, using a gripper, suction cup, or similar low-cost mechanism suitable for variable parcel packaging.",
+    "maturityScore": 50,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "tags": [
+      "end_effector",
+      "hardware",
+      "robot_arm",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer should separate suction cup, vacuum generator, gripper fingers, compliance, sensors, materials, wear parts, and parcel-contact reliability constraints."
+  },
+  {
+    "id": "vacuum_suction_cup_array",
+    "name": "Vacuum suction cup array",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Array of suction cups used to contact parcel surfaces, with selectable cup patterns for different parcel sizes and positions.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_vacuforce_vacuum_components"
+    ],
+    "tags": [
+      "suction_cup",
+      "end_effector",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include cup diameter, material, lip geometry, wear, parcel surface compatibility, and replacement cost."
+  },
+  {
+    "id": "vacuum_generator_or_ejector",
+    "name": "Vacuum generator or ejector",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Vacuum source, often a venturi/ejector or pump, that creates suction for parcel pickup through the end effector.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vacuforce_vacuum_components"
+    ],
+    "tags": [
+      "vacuum",
+      "end_effector",
+      "pneumatic",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include compressed-air consumption, flow rate, vacuum level, noise, filters, and energy cost."
+  },
+  {
+    "id": "vacuum_valves_and_blowoff",
+    "name": "Vacuum valves and blow-off control",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Valves and blow-off controls used to turn suction on/off and release parcels quickly and predictably.",
+    "maturityScore": 60,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_vacuforce_vacuum_components"
+    ],
+    "tags": [
+      "vacuum",
+      "valve",
+      "end_effector",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include valve response time, per-cup control, leakage, contamination, and timing with robot motion."
+  },
+  {
+    "id": "vacuum_pressure_sensing",
+    "name": "Vacuum pressure sensing",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Pressure or vacuum sensing used to detect whether enough suction cups have sealed correctly to a parcel before transport.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper"
+    ],
+    "tags": [
+      "sensor",
+      "vacuum",
+      "end_effector",
+      "reliability",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include pressure thresholds, false positives, leak detection, response time, and failure recovery."
+  },
+  {
+    "id": "gripper_tcp_pattern_calibration",
+    "name": "Gripper TCP pattern calibration",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Calibration of suction cup positions and tool-center-point patterns so the robot can choose cup combinations and motion paths.",
+    "maturityScore": 52,
+    "maturityLabel": "prototype",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper"
+    ],
+    "tags": [
+      "calibration",
+      "end_effector",
+      "robot_motion",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: needs better evidence for calibration workflow, tolerance, operator time, and impact on parcel pickup success."
+  },
+  {
+    "id": "servo_drive_controller",
+    "name": "Servo drive / controller",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Servo drive electronics and control loops that command robot joint motion under timing, accuracy, and cost constraints.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "servo",
+      "control",
+      "robot_arm",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer should cover power electronics, encoder feedback, control firmware, thermal management, safety functions, and cost/reliability constraints."
+  },
+  {
+    "id": "servo_drive_power_stage",
+    "name": "Servo drive power stage",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive"
+    ],
+    "description": "Power electronics stage that converts DC bus power into controlled motor phase currents for each robot joint servo motor.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_servo_drive_safety"
+    ],
+    "tags": [
+      "servo_drive",
+      "power_electronics",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include rectifier/DC bus, inverter devices, gate drivers, protection, EMC filtering, and heat sinking."
+  },
+  {
+    "id": "servo_drive_current_sensing",
+    "name": "Servo drive current sensing",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive"
+    ],
+    "description": "Current sensing and feedback path used by the servo drive to regulate torque and detect overload or fault conditions.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "tags": [
+      "servo_drive",
+      "sensor",
+      "control",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include shunt or Hall sensing, ADC, isolation, bandwidth, calibration, and fault thresholds."
+  },
+  {
+    "id": "servo_drive_motion_control_loop",
+    "name": "Servo drive motion-control loop",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive"
+    ],
+    "description": "Servo control firmware and tuning that close current, velocity, and position loops for robot joint motion.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "tags": [
+      "servo_drive",
+      "motion_control",
+      "firmware",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include loop rates, encoder protocols, tuning parameters, torque limits, vibration suppression, and robot payload changes."
+  },
+  {
+    "id": "servo_drive_safety_sto",
+    "name": "Servo drive Safe Torque Off",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive",
+      "safety"
+    ],
+    "description": "Safety-rated stop function in the servo drive that removes torque-producing output without fully powering down the control electronics.",
+    "maturityScore": 74,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_servo_drive_safety",
+      "ev_siemens_servo_motion_control"
+    ],
+    "tags": [
+      "servo_drive",
+      "safety",
+      "sto",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include safety inputs, diagnostics, SIL/PL claims, restart behavior, and safety PLC integration."
+  },
+  {
+    "id": "servo_drive_thermal_emc_design",
+    "name": "Servo drive thermal and EMC design",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive"
+    ],
+    "description": "Thermal management, enclosure layout, grounding, shielding, and EMC design needed for reliable multi-axis robot servo operation.",
+    "maturityScore": 60,
+    "maturityLabel": "early_deployment",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "tags": [
+      "servo_drive",
+      "thermal",
+      "emc",
+      "reliability",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: needs better evidence for low-cost multi-axis cabinet layout, cooling margin, conducted emissions, and field failure modes."
+  },
+  {
+    "id": "precision_reducer_gearbox",
+    "name": "Precision reducer / gearbox",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Joint reducers or gearboxes that provide torque multiplication, positional repeatability, durability, and acceptable cost for the robot arm.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "reducer",
+      "gearbox",
+      "robot_arm",
+      "cost",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer should cover reducer type, precision gears, bearings, lubrication, heat treatment, precision machining, inspection equipment, backlash, life, and supplier constraints."
+  },
+  {
+    "id": "strain_wave_wave_generator",
+    "name": "Strain-wave reducer wave generator",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Elliptical wave-generator assembly that deforms the flexspline and drives the meshing action in a strain-wave reducer.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "reducer",
+      "strain_wave",
+      "wave_generator",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include elliptical hub, wave generator bearing, preload, assembly position, and fatigue constraints."
+  },
+  {
+    "id": "strain_wave_flexspline",
+    "name": "Strain-wave reducer flexspline",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Thin flexible externally toothed spline that elastically deforms and meshes with the circular spline to transmit reducer output.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "reducer",
+      "strain_wave",
+      "flexspline",
+      "cost",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include tooth machining, thin-wall forming, heat treatment, fatigue life, crack risk, and inspection."
+  },
+  {
+    "id": "strain_wave_circular_spline",
+    "name": "Strain-wave reducer circular spline",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Rigid internally toothed circular spline that meshes with the flexspline and defines the gear ratio in a strain-wave reducer.",
+    "maturityScore": 64,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "reducer",
+      "strain_wave",
+      "circular_spline",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include internal tooth accuracy, material, heat treatment, concentricity, and assembly tolerance."
+  },
+  {
+    "id": "reducer_output_cross_roller_bearing",
+    "name": "Reducer output bearing",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "High-capacity output bearing, such as cross-roller or four-point bearing, that supports robot joint loads and tilting moments.",
+    "maturityScore": 60,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "bearing",
+      "reducer",
+      "robot_joint",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include bearing type, preload, sealing, lubrication, moment load, runout, and lifetime."
+  },
+  {
+    "id": "reducer_lubrication_and_life_test",
+    "name": "Reducer lubrication and life testing",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Lubrication, endurance testing, backlash verification, and life testing needed to qualify a precision robot joint reducer.",
+    "maturityScore": 48,
+    "maturityLabel": "prototype",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "reducer",
+      "testing",
+      "maintenance",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost."
+  },
+  {
+    "id": "industrial_servo_motor",
+    "name": "Industrial servo motor",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Servo motors sized for the arm payload, speed, duty cycle, and total cost target.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "motor",
+      "servo",
+      "robot_arm",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: industrial servo motors are not terminal nodes. Next layer should cover stator, rotor, magnets, windings, encoder, housing, bearings, thermal design, motor control interface, manufacturing process, and cost/supply constraints."
+  },
+  {
+    "id": "servo_motor_stator_core",
+    "name": "Servo motor stator core",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Stationary magnetic core of the servo motor that carries windings and helps create the rotating magnetic field for torque generation.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure"
+    ],
+    "tags": [
+      "motor",
+      "stator",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include lamination steel, stamping/stacking, insulation, slot fill, winding layout, and thermal limits."
+  },
+  {
+    "id": "servo_motor_windings",
+    "name": "Servo motor windings",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Copper windings that carry current to create the rotating magnetic field in the servo motor.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure"
+    ],
+    "tags": [
+      "motor",
+      "winding",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include copper wire, insulation, winding method, impregnation, heat rise, and automated winding process constraints."
+  },
+  {
+    "id": "servo_motor_permanent_magnet_rotor",
+    "name": "Permanent-magnet rotor",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Rotor assembly using permanent magnets, usually rare-earth magnets in compact industrial servo motors, to produce high torque density and low inertia.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_elmeq_servo_motor_options",
+      "ev_stober_synchronous_servo_motors"
+    ],
+    "tags": [
+      "motor",
+      "rotor",
+      "permanent_magnet",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include magnet grade, rotor shaft, magnet bonding/retention, balancing, demagnetization risk, and rotor thermal limits."
+  },
+  {
+    "id": "servo_motor_encoder_feedback",
+    "name": "Servo motor encoder feedback",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Integrated encoder or resolver feedback used to measure shaft position and speed for closed-loop servo control.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "tags": [
+      "encoder",
+      "feedback",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include optical/magnetic/inductive encoder disk or ring, sensor IC, signal processing, mounting tolerance, cable, protocol, and calibration."
+  },
+  {
+    "id": "servo_motor_bearings_and_shaft",
+    "name": "Servo motor bearings and shaft",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Ball bearings and output shaft that support the rotor and transmit motor output power to the robot joint or reducer.",
+    "maturityScore": 74,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure"
+    ],
+    "tags": [
+      "bearing",
+      "shaft",
+      "motor",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include bearing life, preload, lubrication, shaft material, seal design, runout, vibration, and duty-cycle constraints."
+  },
+  {
+    "id": "servo_motor_housing_and_thermal_design",
+    "name": "Servo motor housing and thermal design",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Motor frame, housing, mounting interface, protection level, and thermal path that affect size, heat rise, reliability, and integration.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_stober_synchronous_servo_motors",
+      "ev_elmeq_servo_motor_options"
+    ],
+    "tags": [
+      "housing",
+      "thermal",
+      "motor",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include die casting or machining, coatings, seals, heat dissipation, compact mounting, and washdown/environment options."
+  },
+  {
+    "id": "servo_motor_cables_and_connectors",
+    "name": "Servo motor cables and connectors",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Motor power cable, encoder cable, and connectors that link the servo motor to the drive and controller.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure"
+    ],
+    "tags": [
+      "cabling",
+      "connector",
+      "servo",
+      "integration"
+    ]
+  },
+  {
+    "id": "rare_earth_permanent_magnet_material",
+    "name": "Rare-earth permanent magnet material",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Rare-earth permanent magnet material, commonly neodymium-iron-boron in compact servo motor rotors, supporting high torque density and low inertia.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_elmeq_servo_motor_options"
+    ],
+    "tags": [
+      "material",
+      "rare_earth",
+      "permanent_magnet",
+      "cost",
+      "supply_chain",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include NdFeB supply, magnet grade, coating, machining, thermal class, price volatility, and geopolitical supply constraints."
+  },
+  {
+    "id": "servo_motor_assembly_and_test_process",
+    "name": "Servo motor assembly and test process",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Assembly, encoder alignment, electrical testing, torque/speed testing, balancing, and final inspection needed to produce a reliable industrial servo motor.",
+    "maturityScore": 60,
+    "maturityLabel": "early_deployment",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "tags": [
+      "manufacturing",
+      "testing",
+      "servo",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer needs better evidence for actual factory process flow, quality gates, yield, and cost drivers."
+  },
+  {
+    "id": "servo_motor_feedback_alignment",
+    "name": "Servo motor feedback alignment",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Engineering method for aligning encoder feedback with rotor position so the servo drive can commutate and control the motor accurately.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "tags": [
+      "encoder",
+      "calibration",
+      "servo",
+      "manufacturing",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: needs source-backed process detail for encoder mounting, offset calibration, signal verification, and robot-joint integration."
+  },
+  {
+    "id": "servo_motor_integrated_brake_option",
+    "name": "Servo motor integrated brake option",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Optional holding or safety brake integrated with a servo motor where the robot joint must hold position during power loss or emergency stop.",
+    "maturityScore": 65,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_elmeq_servo_motor_options"
+    ],
+    "tags": [
+      "brake",
+      "safety",
+      "servo",
+      "robot_arm"
+    ]
+  },
+  {
+    "id": "arm_links_and_joints",
+    "name": "Arm links and joints",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Mechanical arm links, joints, bearings, covers, and structural elements that define reach, stiffness, repeatability, and maintainability.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "mechanical_structure",
+      "robot_arm",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer should cover link materials, castings/extrusions, bearing seats, joint covers, stiffness, tolerance stack-up, machining, surface treatment, and assembly constraints."
+  },
+  {
+    "id": "robot_controller_io",
+    "name": "Robot controller and I/O",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Robot controller, I/O, fieldbus, and integration interfaces connecting the arm to vision, conveyor, safety, and sorting decision systems.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "controller",
+      "integration",
+      "robot_arm",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer should cover controller hardware, real-time control software, fieldbus, safety I/O, vision/conveyor integration, diagnostics, and maintainability."
+  },
+  {
+    "id": "robot_cabling_and_power",
+    "name": "Robot cabling and power",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Power supplies, cabling, cable routing, connectors, and service access needed for reliable robot-arm operation in a sorting cell.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "power",
+      "cabling",
+      "robot_arm"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "robot_base_mounting_structure",
+    "name": "Robot base / mounting structure",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Robot base, mounting frame, alignment structure, and floor or conveyor attachment needed for stable operation and installation.",
+    "maturityScore": 64,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "tags": [
+      "mounting",
+      "installation",
+      "robot_arm"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "robot_arm_assembly_process",
+    "name": "Robot arm assembly process",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Assembly, calibration, wiring, joint testing, reducer installation, and final inspection processes for the robot body.",
+    "maturityScore": 62,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "tags": [
+      "manufacturing",
+      "assembly",
+      "robot_arm"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "conveyor_integration",
+    "name": "Conveyor integration",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Mechanical, electrical, and controls integration with conveyor flow, induction, sensors, spacing, and downstream chutes.",
+    "maturityScore": 62,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "tags": [
+      "manufacturing",
+      "deployment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "conveyor_photoelectric_sensors",
+    "name": "Conveyor photoelectric sensors",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Photoelectric or background-suppression sensors used to detect parcels entering, leaving, spacing, or jamming in the sorting cell.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "tags": [
+      "sensor",
+      "conveyor",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include sensor mode, mounting brackets, dust immunity, reflectivity issues, trigger timing, and maintenance."
+  },
+  {
+    "id": "conveyor_speed_encoder_tracking",
+    "name": "Conveyor speed encoder tracking",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Encoder or drive feedback that maps parcel detections into conveyor position so vision, robot motion, and destination timing stay synchronized.",
+    "maturityScore": 64,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "tags": [
+      "encoder",
+      "tracking",
+      "conveyor",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include encoder resolution, belt slip, tracking origin, PLC scan timing, and calibration against camera coordinates."
+  },
+  {
+    "id": "parcel_induction_spacing_control",
+    "name": "Parcel induction and spacing control",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Controls logic and line setup that keep parcel spacing and presentation stable enough for scanning and robot-arm intervention.",
+    "maturityScore": 54,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_interroll_sorter_platform"
+    ],
+    "tags": [
+      "conveyor",
+      "flow_control",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include singulation, merge logic, gaps, parcel orientation, speed transitions, and exception handling."
+  },
+  {
+    "id": "plc_and_wcs_integration",
+    "name": "PLC and WCS integration",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "software"
+    ],
+    "description": "PLC, robot controller, warehouse control system, and I/O integration that turns parcel identity into synchronized sorting actions.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_interroll_sorter_platform"
+    ],
+    "tags": [
+      "plc",
+      "wcs",
+      "integration",
+      "software",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include fieldbus, message schema, sort plan handoff, fault recovery, logging, and commissioning workflow."
+  },
+  {
+    "id": "sortation_chutes_and_bins",
+    "name": "Sortation chutes and bins",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Physical outputs, chutes, bins, or lanes that receive parcels after the robot-arm sorting action.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_interroll_sorter_platform"
+    ],
+    "tags": [
+      "chute",
+      "bin",
+      "mechanical_structure",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: next layer may include chute geometry, jam risk, destination capacity, operator ergonomics, and parcel damage constraints."
+  },
+  {
+    "id": "jam_detection_and_recovery",
+    "name": "Jam detection and recovery",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "maintenance"
+    ],
+    "description": "Detection logic, alerts, and recovery workflow for parcels stuck in conveyor, chute, or robot-handling areas.",
+    "maturityScore": 45,
+    "maturityLabel": "prototype",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "tags": [
+      "jam",
+      "maintenance",
+      "reliability",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "notes": "Expansion frontier: needs field evidence for jam modes, sensor coverage, recovery time, false alarms, and operator intervention rate."
+  },
+  {
+    "id": "sorting_decision_system",
+    "name": "Sorting decision system",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Software that maps parcel identity and destination rules to a route or output action.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "software"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "motion_planning",
+    "name": "Motion planning",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Plans robot or actuator motion under timing, collision, parcel stability, and throughput constraints.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "tags": [
+      "robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "safety_system",
+    "name": "Safety system",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Guards, emergency stops, interlocks, sensors, and safety-rated controls suitable for warehouse operation.",
+    "maturityScore": 78,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "tags": [
+      "safety",
+      "deployment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "mechanical_structure",
+    "name": "Mechanical structure",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Frame, mounts, actuated elements, bins, chutes, cable routing, and service access structure.",
+    "maturityScore": 68,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "tags": [
+      "manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "maintenance_workflow",
+    "name": "Maintenance workflow",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Inspection, jam clearing, spare parts, cleaning, calibration, and operator escalation workflow.",
+    "maturityScore": 46,
+    "maturityLabel": "prototype",
+    "confidence": "low",
+    "tags": [
+      "maintenance",
+      "deployment"
+    ]
+  },
+  {
+    "id": "cost_optimized_hardware_stack",
+    "name": "Cost-optimized hardware stack",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Hardware selection and integration that keeps cameras, compute, actuators, controls, frame, safety, and install cost inside the 300,000 RMB target.",
+    "maturityScore": 42,
+    "maturityLabel": "prototype",
+    "confidence": "low",
+    "tags": [
+      "cost",
+      "hardware"
+    ]
+  },
+  {
+    "id": "industrial_robot_arm_sorting_route",
+    "name": "Industrial robot arm sorting route",
+    "kind": "technical_route",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Use an industrial arm with an end effector to pick, push, or place parcels into destinations.",
+    "maturityScore": 56,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Flexible but can be cost- and throughput-constrained for low-cost parcel sorting."
+  },
+  {
+    "id": "industrial_robot_arm_gripper_route",
+    "name": "Industrial robot arm gripper route",
+    "kind": "technical_route",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Use the industrial robot arm with a mechanical or compliant gripper variant for parcels that cannot be reliably handled by suction alone.",
+    "maturityScore": 48,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Inside the v0 product boundary because it keeps the industrial arm + vision sorting-cell architecture and varies the end effector."
+  },
+  {
+    "id": "industrial_robot_arm_suction_route",
+    "name": "Industrial robot arm suction route",
+    "kind": "technical_route",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Use the industrial robot arm with vacuum suction cups, vacuum generation, pressure sensing, and blow-off control for parcel pickup and release.",
+    "maturityScore": 52,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Inside the v0 product boundary because it keeps the industrial arm + vision sorting-cell architecture and varies the end effector."
+  },
+  {
+    "id": "integrated_robot_arm_sorting_cell_route",
+    "name": "Integrated robot-arm sorting cell route",
+    "kind": "technical_route",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Package the industrial robot arm, vision, end effector, conveyor interface, safety, frame, controls, and maintenance workflow as a repeatable sorting-cell variant.",
+    "maturityScore": 50,
+    "maturityLabel": "prototype",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Inside the v0 product boundary because it keeps the same robot-arm + computer-vision product architecture and varies integration packaging."
+  },
+  {
+    "id": "delta_robot_sorting_route",
+    "name": "Delta robot sorter candidate",
+    "kind": "product",
+    "domain": [
+      "parcel_sorting_adjacent_candidate"
+    ],
+    "description": "Use a high-speed delta robot for lightweight parcels where reach, payload, and object variability fit the mechanism.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+  },
+  {
+    "id": "conveyor_diverter_sorting_route",
+    "name": "Conveyor diverter sorter candidate",
+    "kind": "product",
+    "domain": [
+      "parcel_sorting_adjacent_candidate"
+    ],
+    "description": "Use lower-cost conveyor diverters, pushers, belts, or actuated guides instead of robotic picking.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+  },
+  {
+    "id": "mobile_robot_sorting_route",
+    "name": "Mobile robot sorter candidate",
+    "kind": "product",
+    "domain": [
+      "parcel_sorting_adjacent_candidate"
+    ],
+    "description": "Use mobile robots to carry parcels or bins between induction and destinations.",
+    "maturityScore": 60,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+  },
+  {
+    "id": "hybrid_human_robot_assisted_sorting_route",
+    "name": "Hybrid human-robot assisted sorter candidate",
+    "kind": "product",
+    "domain": [
+      "parcel_sorting_adjacent_candidate"
+    ],
+    "description": "Use automation for recognition, routing, and assistive motion while humans handle difficult parcels or exceptions.",
+    "maturityScore": 64,
+    "maturityLabel": "early_deployment",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+  },
+  {
+    "id": "total_system_cost",
+    "name": "Total system cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Full deployed cost of the sorting cell, including hardware, integration, and installation.",
+    "maturityScore": 45,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Cost",
+        "unit": "RMB",
+        "targetValue": 300000,
+        "progressScore": 45
+      }
+    ],
+    "tags": [
+      "cost"
+    ]
+  },
+  {
+    "id": "parcels_per_hour",
+    "name": "Parcels per hour",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Sustained parcel throughput under realistic parcel mix and exception rates.",
+    "maturityScore": 40,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Throughput",
+        "unit": "parcels/hour",
+        "targetValue": "to be defined",
+        "progressScore": 35
+      }
+    ]
+  },
+  {
+    "id": "sorting_accuracy",
+    "name": "Sorting accuracy",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Share of parcels routed to the correct output without human correction.",
+    "maturityScore": 50,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Accuracy",
+        "unit": "%",
+        "targetValue": "to be defined",
+        "progressScore": 45
+      }
+    ]
+  },
+  {
+    "id": "allowed_parcel_weight_range",
+    "name": "Allowed parcel weight range",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Supported parcel weight envelope for reliable sorting.",
+    "maturityScore": 35,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Weight range",
+        "unit": "kg",
+        "targetValue": "to be defined",
+        "progressScore": 30
+      }
+    ]
+  },
+  {
+    "id": "allowed_parcel_size_range",
+    "name": "Allowed parcel size range",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Supported parcel dimensions and shape variability.",
+    "maturityScore": 35,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Size range",
+        "unit": "mm",
+        "targetValue": "to be defined",
+        "progressScore": 30
+      }
+    ]
+  },
+  {
+    "id": "failure_jam_rate",
+    "name": "Failure / jam rate",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Rate of jams, failed picks, failed diverts, or stoppages.",
+    "maturityScore": 30,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Jam rate",
+        "unit": "events/1000 parcels",
+        "targetValue": "to be defined",
+        "progressScore": 25
+      }
+    ]
+  },
+  {
+    "id": "human_intervention_rate",
+    "name": "Human intervention rate",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Share of parcels or operating time requiring manual intervention.",
+    "maturityScore": 32,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Intervention rate",
+        "unit": "%",
+        "targetValue": "to be defined",
+        "progressScore": 25
+      }
+    ]
+  },
+  {
+    "id": "installation_time",
+    "name": "Installation time",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Time required to install and commission one sorting cell.",
+    "maturityScore": 45,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Install time",
+        "unit": "days",
+        "targetValue": "to be defined",
+        "progressScore": 40
+      }
+    ],
+    "tags": [
+      "deployment"
+    ]
+  },
+  {
+    "id": "maintenance_cost",
+    "name": "Maintenance cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Ongoing maintenance cost including labor, spares, downtime, and recalibration.",
+    "maturityScore": 35,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Maintenance cost",
+        "unit": "RMB/year",
+        "targetValue": "to be defined",
+        "progressScore": 30
+      }
+    ],
+    "tags": [
+      "cost",
+      "maintenance"
+    ]
+  },
+  {
+    "id": "payback_period",
+    "name": "Payback period",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Time needed for labor savings or throughput value to recover deployed cost.",
+    "maturityScore": 32,
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Payback",
+        "unit": "months",
+        "targetValue": "to be defined",
+        "progressScore": 25
+      }
+    ],
+    "tags": [
+      "cost",
+      "roi"
+    ]
+  },
+  {
+    "id": "low_cost_high_reliability_parcel_manipulation",
+    "name": "Low-cost high-reliability parcel manipulation",
+    "kind": "placeholder_breakthrough",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "A missing or uncertain capability for manipulating diverse parcels cheaply with low jam and intervention rates.",
+    "maturityScore": 30,
+    "maturityLabel": "hypothesis",
+    "confidence": "low"
+  },
+  {
+    "id": "robust_parcel_perception_under_real_logistics_conditions",
+    "name": "Robust parcel perception under real logistics conditions",
+    "kind": "placeholder_breakthrough",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Robust perception across reflective labels, damage, occlusion, variable lighting, parcel deformation, and high-speed conveyor motion.",
+    "maturityScore": 38,
+    "maturityLabel": "lab_proven",
+    "confidence": "low"
+  },
+  {
+    "id": "low_cost_conveyor_integration",
+    "name": "Low-cost conveyor integration",
+    "kind": "bottleneck",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Integration cost and commissioning time can dominate the economics of a low-cost sorting cell.",
+    "maturityScore": 45,
+    "confidence": "medium",
+    "tags": [
+      "cost",
+      "deployment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "low_jam_rate_under_parcel_variability",
+    "name": "Low jam rate under parcel variability",
+    "kind": "bottleneck",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "The system must handle varied parcel sizes, weights, materials, and shapes without frequent stoppages.",
+    "maturityScore": 35,
+    "confidence": "medium"
+  },
+  {
+    "id": "maintenance_cost_control",
+    "name": "Maintenance cost control",
+    "kind": "bottleneck",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Low deployed cost is not enough if calibration, wear, cleaning, and jam-clearing labor erase ROI.",
+    "maturityScore": 34,
+    "confidence": "medium",
+    "tags": [
+      "maintenance",
+      "cost"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "real_time_machine_vision",
+    "name": "Real-time machine vision",
+    "kind": "scientific_principle",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Computer vision and sensing principles that support parcel localization and label recognition.",
+    "maturityScore": 78,
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "queuing_and_flow_variability",
+    "name": "Queuing and flow variability",
+    "kind": "empirical_principle",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Parcel arrival variability, spacing, and exception distribution determine whether throughput targets are realistic.",
+    "maturityScore": 55,
+    "confidence": "low"
+  },
+  {
+    "id": "modular_cell_manufacturing",
+    "name": "Modular cell manufacturing",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Build the sorting cell from repeatable modules that can be assembled, installed, serviced, and costed predictably.",
+    "maturityScore": 58,
+    "confidence": "medium",
+    "tags": [
+      "manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "warehouse_machine_safety_standard",
+    "name": "Warehouse machine safety standard",
+    "kind": "standard_or_regulation",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Local machine safety, guarding, emergency-stop, and operator protection requirements for warehouse automation.",
+    "maturityScore": 75,
+    "confidence": "medium",
+    "tags": [
+      "safety",
+      "deployment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "refined_copper_conductor_material",
+    "name": "Refined copper conductor material",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials"
+    ],
+    "description": "Refined copper used in motor windings, power cabling, PCBs, connectors, servo drives, sensors, and control cabinets.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "tags": [
+      "material",
+      "copper",
+      "conductors",
+      "cost",
+      "supply_chain"
+    ]
+  },
+  {
+    "id": "copper_ore_mining_and_refining_chain",
+    "name": "Copper ore mining and refining chain",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mining"
+    ],
+    "description": "Mining, concentrating, smelting, refining, and recycling chain that supplies refined copper for robot electrical systems.",
+    "maturityScore": 70,
+    "maturityLabel": "mature",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "tags": [
+      "mining",
+      "copper",
+      "raw_material",
+      "supply_chain",
+      "decomposition_frontier"
+    ],
+    "notes": "Mineral-level frontier: next layer may model ore grade, mine permitting, smelting/refining capacity, recycled copper, sulfuric acid constraints, and regional supply risk."
+  },
+  {
+    "id": "electrical_steel_lamination_material",
+    "name": "Electrical steel lamination material",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "industrial_servo_motor"
+    ],
+    "description": "Electrical steel sheet used in servo motor stator laminations to carry magnetic flux with controlled losses.",
+    "maturityScore": 72,
+    "maturityLabel": "widely_adopted",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing",
+      "ev_usgs_silicon_statistics"
+    ],
+    "tags": [
+      "material",
+      "steel",
+      "motor",
+      "decomposition_frontier"
+    ],
+    "notes": "Material frontier: next layer may include silicon steel grade, rolling, annealing, coating, stamping, stack bonding, and loss testing."
+  },
+  {
+    "id": "alloy_steel_precision_material",
+    "name": "Alloy steel precision material",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "precision_reducer"
+    ],
+    "description": "Alloy steel used in reducer splines, shafts, bearings, gears, arm joints, and load-bearing robot structures.",
+    "maturityScore": 74,
+    "maturityLabel": "widely_adopted",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing",
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "tags": [
+      "material",
+      "steel",
+      "reducer",
+      "structure",
+      "decomposition_frontier"
+    ],
+    "notes": "Material frontier: next layer may include steel grade, heat treatment, cleanliness, forging/casting/rolling route, machining stock, and bearing steel requirements."
+  },
+  {
+    "id": "iron_ore_steelmaking_chain",
+    "name": "Iron ore and steelmaking chain",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mining"
+    ],
+    "description": "Iron ore mining, steelmaking, alloying, recycling, and rolling chain that supplies structural and precision steels for the robot.",
+    "maturityScore": 76,
+    "maturityLabel": "mature",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing",
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "tags": [
+      "mining",
+      "iron_ore",
+      "steelmaking",
+      "raw_material",
+      "supply_chain",
+      "decomposition_frontier"
+    ],
+    "notes": "Mineral-level frontier: next layer may model iron ore, scrap supply, alloying elements, blast furnace/basic oxygen furnace route, electric-arc furnace route, energy intensity, and emissions."
+  },
+  {
+    "id": "bauxite_alumina_aluminum_chain",
+    "name": "Bauxite, alumina, and aluminum chain",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mining"
+    ],
+    "description": "Bauxite mining, alumina refining, aluminum smelting, recycling, extrusion, casting, and machining chain for lightweight robot and conveyor structures.",
+    "maturityScore": 72,
+    "maturityLabel": "mature",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "tags": [
+      "mining",
+      "bauxite",
+      "aluminum",
+      "raw_material",
+      "supply_chain",
+      "decomposition_frontier"
+    ],
+    "notes": "Mineral-level frontier: next layer may model bauxite ore, Bayer alumina refining, Hall-Heroult smelting, recycled aluminum, energy cost, and extrusion/casting capacity."
+  },
+  {
+    "id": "aluminum_structural_material",
+    "name": "Aluminum structural material",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials"
+    ],
+    "description": "Aluminum castings, extrusions, plates, and machined parts used where low mass, corrosion resistance, or easy assembly matters.",
+    "maturityScore": 72,
+    "maturityLabel": "widely_adopted",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "tags": [
+      "material",
+      "aluminum",
+      "structure",
+      "decomposition_frontier"
+    ],
+    "notes": "Material frontier: next layer may include alloy series, extrusion die, casting route, CNC machining, surface treatment, and recycling."
+  },
+  {
+    "id": "quartz_silica_silicon_chain",
+    "name": "Quartz, silica, and silicon chain",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mining",
+      "electronics"
+    ],
+    "description": "Quartz or quartzite mining, silicon metal production, and high-purity silicon processing chain used for semiconductors, sensors, and some industrial materials.",
+    "maturityScore": 70,
+    "maturityLabel": "mature",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "tags": [
+      "mining",
+      "silica",
+      "silicon",
+      "semiconductor",
+      "raw_material",
+      "supply_chain",
+      "decomposition_frontier"
+    ],
+    "notes": "Mineral-level frontier: next layer may model quartz quality, submerged-arc furnace silicon metal, polysilicon, wafer fabrication, chip packaging, and supply concentration."
+  },
+  {
+    "id": "semiconductor_grade_silicon_and_electronics",
+    "name": "Semiconductor-grade silicon and electronics",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "electronics"
+    ],
+    "description": "High-purity silicon and electronics supply chain used in image sensors, processors, power semiconductors, encoders, PLCs, and servo-drive control electronics.",
+    "maturityScore": 68,
+    "maturityLabel": "widely_adopted",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "tags": [
+      "material",
+      "silicon",
+      "semiconductor",
+      "electronics",
+      "decomposition_frontier"
+    ],
+    "notes": "Material frontier: next layer may include wafer fab, power device process, image sensor process, IC packaging, PCB assembly, and export-control or capacity constraints."
+  },
+  {
+    "id": "ndpr_rare_earth_feedstock",
+    "name": "NdPr rare-earth feedstock",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "rare_earth"
+    ],
+    "description": "Neodymium-praseodymium rare-earth feedstock used in high-strength permanent magnets for compact servo motors.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_rare_earth_elements",
+      "ev_iea_rare_earth_magnets"
+    ],
+    "tags": [
+      "material",
+      "rare_earth",
+      "magnet",
+      "supply_chain",
+      "cost",
+      "decomposition_frontier"
+    ],
+    "notes": "Mineral-level frontier: next layer may include bastnaesite/monazite mining, separation, oxide-to-metal conversion, magnet alloying, and regional supply concentration."
+  },
+  {
+    "id": "dysprosium_terbium_heavy_ree_additives",
+    "name": "Dysprosium / terbium heavy rare-earth additives",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "rare_earth"
+    ],
+    "description": "Heavy rare-earth additives used where NdFeB magnets need higher temperature performance or coercivity.",
+    "maturityScore": 48,
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_rare_earth_elements",
+      "ev_iea_rare_earth_magnets"
+    ],
+    "tags": [
+      "material",
+      "rare_earth",
+      "magnet",
+      "supply_chain",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "notes": "Mineral-level frontier: next layer may include heavy-rare-earth ore sources, separation capacity, diffusion process, substitution, recycling, and price volatility."
+  },
+  {
+    "id": "boron_and_iron_magnet_matrix_material",
+    "name": "Boron and iron magnet matrix material",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "rare_earth"
+    ],
+    "description": "Iron and boron-containing matrix material used with neodymium/praseodymium in NdFeB permanent magnets.",
+    "maturityScore": 68,
+    "maturityLabel": "widely_adopted",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_iea_rare_earth_magnets",
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "tags": [
+      "material",
+      "magnet",
+      "iron",
+      "boron",
+      "decomposition_frontier"
+    ],
+    "notes": "Material frontier: next layer may include ferroboron/borates, iron powder or alloy feedstock, powder metallurgy, sintering, coating, and magnet recycling."
+  },
+  {
+    "id": "petrochemical_elastomer_feedstock",
+    "name": "Petrochemical elastomer feedstock",
+    "kind": "material",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "end_effector"
+    ],
+    "description": "Polymer and elastomer feedstock used for suction cups, seals, hoses, cable jackets, and protective covers.",
+    "maturityScore": 70,
+    "maturityLabel": "widely_adopted",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuforce_vacuum_components"
+    ],
+    "tags": [
+      "material",
+      "polymer",
+      "elastomer",
+      "end_effector",
+      "decomposition_frontier"
+    ],
+    "notes": "Raw-material frontier: next layer may include silicone, nitrile, polyurethane, rubber compounding, wear additives, molding, petrochemical feedstock, and recycling/disposal."
+  },
+  {
+    "id": "affordable_small_warehouse_automation",
+    "name": "Affordable small warehouse automation",
+    "kind": "capability",
+    "domain": [
+      "logistics_automation"
+    ],
+    "description": "Lower-cost automation for warehouses that cannot justify large centralized sortation systems.",
+    "maturityScore": 45,
+    "confidence": "low"
+  }
+]

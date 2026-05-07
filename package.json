@@ -1,0 +1,43 @@
+{
+  "name": "capability-graph-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "check:graph-ux": "node scripts/check-graph-ux.mjs",
+    "verify:ui": "npm run check:graph-ux && npm run lint && npm run build",
+    "validate:data": "tsx scripts/validate-data.ts",
+    "check:active-graph-scope": "tsx scripts/check-active-graph-scope.ts",
+    "import:candidates": "tsx scripts/import-candidates.ts",
+    "gate": "tsx scripts/run-gate.ts",
+    "agent:detect": "node scripts/agent-harness.mjs detect",
+    "agent:doctor": "node scripts/agent-harness.mjs doctor",
+    "agent:briefing": "node scripts/agent-harness.mjs briefing",
+    "agent:context": "node scripts/agent-harness.mjs context",
+    "agent:verify": "node scripts/agent-harness.mjs verify",
+    "agent:audit": "node scripts/agent-harness.mjs audit",
+    "agent:handoff": "node scripts/agent-harness.mjs handoff",
+    "agent:start": "node scripts/agent-harness.mjs start",
+    "agent:finish": "node scripts/agent-harness.mjs finish"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.8.4",
+    "elkjs": "^0.11.1",
+    "next": "^15.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.2",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.25.1",
+    "eslint-config-next": "^15.3.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}

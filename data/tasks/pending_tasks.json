@@ -1,0 +1,238 @@
+[
+  {
+    "id": "task_low_cost_parcel_sorting_robot_300k_rmb_1_20260426041036",
+    "title": "Add reviewed field evidence for the product target",
+    "reason": "Node ID: low_cost_parcel_sorting_robot_300k_rmb. The product target currently lacks at least two reviewed high-confidence non-vendor evidence records. Add field cases, benchmark data, standards, or cost evidence directly supporting the product boundary and target context.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "evidence",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-04-26T04:10:36.093Z",
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-04-29T16:26:01.744Z"
+  },
+  {
+    "id": "task_industrial_servo_motor_decomposition_20260427032500",
+    "title": "Decompose industrial servo motor for robot arm maturity",
+    "reason": "The industrial servo motor is currently a decomposition frontier, not a terminal node. Add stator, rotor, magnets, windings, encoder, housing, bearings, thermal design, motor-control interface, manufacturing processes, cost/supply constraints, and evidence.",
+    "targetNodeId": "industrial_servo_motor",
+    "suggestedNodeKind": "module",
+    "priority": "medium",
+    "status": "done",
+    "createdAt": "2026-04-27T03:25:00.000Z"
+  },
+  {
+    "id": "task_servo_motor_cost_supply_evidence_20260427034000",
+    "title": "Add cost and supply evidence for industrial servo motor components",
+    "reason": "The first agent-assisted import decomposed the servo motor, but cost, supplier concentration, magnet supply, manufacturing yield, encoder alignment process, and robot-duty reliability are still weakly evidenced.",
+    "targetNodeId": "industrial_servo_motor",
+    "suggestedNodeKind": "evidence",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-04-27T03:40:00.000Z"
+  },
+  {
+    "id": "task_whole_robot_import_review_20260427042000",
+    "title": "Review whole robot agent-assisted decomposition import",
+    "reason": "The whole parcel-sorting robot has now been expanded across vision, end effector, reducer, servo drive, conveyor integration, and decision/control branches. The imported claims are unreviewed and need human review before being treated as settled product knowledge.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T04:20:00.000Z"
+  },
+  {
+    "id": "task_end_effector_reliability_evidence_20260427042000",
+    "title": "Add parcel end-effector reliability evidence",
+    "reason": "The suction/gripper branch is structurally decomposed, but pickup success, leakage, surface compatibility, blow-off timing, wear parts, and maintenance cost still need field or benchmark evidence.",
+    "targetNodeId": "end_effector_gripper_or_suction",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T04:20:00.000Z"
+  },
+  {
+    "id": "task_vision_field_benchmark_evidence_20260427042000",
+    "title": "Add field benchmark evidence for parcel vision",
+    "reason": "The vision branch now has camera, optics, lighting, compute, and barcode/OCR software, but no-read rate, glare/occlusion robustness, latency, and parcel mix performance remain weakly evidenced.",
+    "targetNodeId": "vision_barcode_label_recognition",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T04:20:00.000Z"
+  },
+  {
+    "id": "task_conveyor_integration_field_evidence_20260427042000",
+    "title": "Add conveyor integration and jam-rate evidence",
+    "reason": "The conveyor branch now includes sensors, speed tracking, spacing, PLC/WCS integration, chutes, and jam recovery, but installed cost, commissioning time, jam modes, and operator recovery time still need field evidence.",
+    "targetNodeId": "conveyor_integration",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T04:20:00.000Z"
+  },
+  {
+    "id": "task_reducer_life_cost_evidence_20260427042000",
+    "title": "Add reducer life, machining, and cost evidence",
+    "reason": "The reducer branch now separates wave generator, flexspline, circular spline, output bearing, and life testing, but precision machining, fatigue, lubrication interval, backlash growth, and cost evidence remain incomplete.",
+    "targetNodeId": "precision_reducer_gearbox",
+    "suggestedNodeKind": "evidence",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-04-27T04:20:00.000Z"
+  },
+  {
+    "id": "task_raw_material_quantity_and_supplier_model_20260427051000",
+    "title": "Add raw-material quantity and supplier model for the robot BOM",
+    "reason": "The robot graph now reaches copper, steel, aluminum, silicon, rare-earth, and elastomer feedstock chains, but it still lacks per-system quantities, supplier choices, price sensitivity, import dependence, and recycling assumptions.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T05:10:00.000Z"
+  },
+  {
+    "id": "task_rare_earth_magnet_supply_chain_depth_20260427051000",
+    "title": "Deepen rare-earth magnet supply chain evidence",
+    "reason": "The magnet branch now reaches NdPr and heavy rare-earth feedstocks, but it needs evidence for separation/refining, metal/alloy conversion, magnet sintering, coating, recycling, substitution, and price volatility.",
+    "targetNodeId": "rare_earth_permanent_magnet_material",
+    "suggestedNodeKind": "material",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T05:10:00.000Z"
+  },
+  {
+    "id": "task_test_products_import_review_20260427090000",
+    "title": "Review imported test-product decomposition batch",
+    "reason": "Six roadmap test products were added with recursive product-to-material/process decomposition. The claims are intentionally unreviewed and need human review before promotion.",
+    "targetNodeId": "iphone_4",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_iphone4_supply_process_evidence_20260427090000",
+    "title": "Add detailed iPhone 4 supplier and process evidence",
+    "reason": "The iPhone 4 graph reaches glass, semiconductor, battery, steel, and final assembly branches, but needs reviewed evidence for actual BOM suppliers, material mass, display/touch stack process, RF/enclosure issue history, and high-volume assembly yield.",
+    "targetNodeId": "iphone_4",
+    "suggestedNodeKind": "evidence",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_glp1_manufacturing_capacity_evidence_20260427090000",
+    "title": "Add GLP-1 API, fill-finish, and access evidence",
+    "reason": "The GLP-1 product graph reaches API synthesis, formulation, delivery devices, clinical package, and cold-chain capacity, but lacks reviewed evidence for peptide manufacturing routes, sterile fill-finish capacity, pen-device constraints, payer access, and long-term adherence.",
+    "targetNodeId": "glp1_weight_loss_drugs",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_reusable_space_cost_model_evidence_20260427090000",
+    "title": "Add reusable launch cost and turnaround evidence",
+    "reason": "The reusable space transport graph reaches booster reuse, upper-stage reuse, propulsion, materials, propellant, TPS, and operations, but the 1,000 USD/kg target needs reviewed cost, cadence, refurbishment, payload, reliability, and regulatory-throughput evidence.",
+    "targetNodeId": "reusable_space_transport_1000_usd_per_kg",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_fusion_materials_tritium_evidence_20260427090000",
+    "title": "Add fusion tritium, materials, and availability evidence",
+    "reason": "The fusion graph reaches tokamak route, plasma control, magnets, plasma-facing components, tritium cycle, superconductor and tungsten/lithium material chains, but lacks plant-level evidence for tritium breeding, neutron damage, divertor lifetime, remote maintenance, and net electric availability.",
+    "targetNodeId": "commercial_controlled_nuclear_fusion",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_microreactor_fuel_license_cost_evidence_20260427090000",
+    "title": "Add microreactor fuel, licensing, and lifecycle cost evidence",
+    "reason": "The microreactor graph reaches core/fuel, TRISO fuel chain, heat transport, factory fabrication, power conversion, licensing, and high-temperature materials, but needs design-specific fuel qualification, security, transport, waste, refueling interval, and cost evidence.",
+    "targetNodeId": "ultra_small_nuclear_reactor",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_ak47_historical_industrial_sources_20260427090000",
+    "title": "Add reviewed historical sources for AK-47 industrial case",
+    "reason": "The AK-47 graph is intentionally high-level and non-procedural, but needs reviewed historical evidence for production transitions, quality systems, material constraints, standardization, diffusion, and logistics impact without adding operational manufacturing instructions.",
+    "targetNodeId": "ak47_rifle_historical_industrial_case",
+    "suggestedNodeKind": "evidence",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-04-27T09:00:00.000Z"
+  },
+  {
+    "id": "task_test_product_material_depth_source_review_20260428090000",
+    "title": "Review source evidence for second-pass material-depth decomposition",
+    "reason": "The roadmap test products now continue past summary material-chain nodes into feedstocks, process equipment, manufacturing processes, and validation steps. Most of this second-pass structure is still supported only by low-confidence internal modeling and needs source-specific evidence before claims are promoted.",
+    "targetNodeId": "reusable_space_transport_1000_usd_per_kg",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-28T09:00:00.000Z"
+  },
+  {
+    "id": "task_low_cost_parcel_sorting_robot_300k_rmb_1_20260429043150",
+    "title": "Review or replace weak parcel evidence records",
+    "reason": "22 scoped evidence records are unreviewed, low/medium confidence, vendor-only, internal-only, or placeholders. Evidence IDs: ev_internal_product_target, ev_vendor_sorting_cells, ev_field_case_placeholder, ev_cost_model_placeholder, ev_oriental_motor_servo_structure (+17 more). Review these records; promote only if source quality supports it, otherwise replace them with reviewed high-confidence non-vendor field cases, benchmarks, standards, papers, or cost evidence.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-29T04:31:50.510Z",
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-04-29T16:26:01.744Z"
+  },
+  {
+    "id": "task_low_cost_parcel_sorting_robot_300k_rmb_2_20260429043150",
+    "title": "Add reviewed field or benchmark evidence to unsupported parcel claims",
+    "reason": "197 scoped medium/high-confidence claims lack reviewed non-vendor supporting evidence. Node IDs: low_cost_parcel_sorting_robot_300k_rmb, vision_barcode_label_recognition, industrial_area_scan_camera, machine_vision_lens_and_optics, controlled_machine_vision_lighting (+66 more). Edge IDs: e_product_requires_vision (low_cost_parcel_sorting_robot_300k_rmb->vision_barcode_label_recognition), e_product_requires_tracking (low_cost_parcel_sorting_robot_300k_rmb->parcel_detection_and_tracking), e_product_requires_manipulation (low_cost_parcel_sorting_robot_300k_rmb->parcel_manipulation_or_diverter), e_product_requires_robot_arm_body (low_cost_parcel_sorting_robot_300k_rmb->industrial_robot_arm_body), e_product_requires_end_effector (low_cost_parcel_sorting_robot_300k_rmb->end_effector_gripper_or_suction) (+121 more). Add reviewed evidence to the listed claims, or lower confidence/deprecate claims that cannot be supported.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-29T04:31:50.510Z",
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-04-29T16:26:01.744Z"
+  },
+  {
+    "id": "task_low_cost_parcel_sorting_robot_300k_rmb_3_20260429043150",
+    "title": "Human-review unreviewed high and medium confidence parcel claims",
+    "reason": "142 scoped claims are explicitly marked unreviewed and must not be treated as established. Node IDs: vision_barcode_label_recognition, parcel_detection_and_tracking, parcel_manipulation_or_diverter, industrial_robot_arm_body, robot_cabling_and_power (+16 more). Edge IDs: e_product_requires_robot_arm_body (low_cost_parcel_sorting_robot_300k_rmb->industrial_robot_arm_body), e_product_requires_end_effector (low_cost_parcel_sorting_robot_300k_rmb->end_effector_gripper_or_suction), e_product_requires_decision (low_cost_parcel_sorting_robot_300k_rmb->sorting_decision_system), e_product_requires_motion (low_cost_parcel_sorting_robot_300k_rmb->motion_planning), e_product_requires_safety (low_cost_parcel_sorting_robot_300k_rmb->safety_system) (+116 more). Human-review these node/edge claims, then mark them reviewed, disputed, deprecated, or keep them unreviewed with clearer limitations.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-04-29T04:31:50.510Z",
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-04-29T16:26:01.744Z"
+  },
+  {
+    "id": "task_low_cost_parcel_sorting_robot_300k_rmb_4_20260429043150",
+    "title": "Decompose important parcel subsystem frontiers",
+    "reason": "The scoped graph still marks decomposition frontiers such as industrial_area_scan_camera, machine_vision_lens_and_optics, controlled_machine_vision_lighting, vision_processing_compute, barcode_ocr_reading_software. Expand the next layer where it affects maturity, cost, manufacturability, or reliability.",
+    "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
+    "suggestedNodeKind": "module",
+    "priority": "medium",
+    "status": "wont_do",
+    "createdAt": "2026-04-29T04:31:50.510Z",
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-04-29T15:10:22.222Z"
+  },
+  {
+    "id": "task_low_cost_parcel_sorting_robot_300k_rmb_4_20260429162601",
+    "title": "Decompose important parcel subsystem frontiers",
+    "reason": "Frontier node IDs: industrial_area_scan_camera, machine_vision_lens_and_optics, controlled_machine_vision_lighting, vision_processing_compute, barcode_ocr_reading_software (+48 more). Expected node kinds: module, equipment, material, manufacturing_process, engineering_method, metric, bottleneck, evidence. Expand industrial_area_scan_camera first, adding the next layer where it affects maturity, cost, manufacturability, reliability, or deployment; add evidence where claims are medium/high confidence or leave explicit follow-up tasks for unsupported branches.",
+    "targetNodeId": "industrial_area_scan_camera",
+    "suggestedNodeKind": "module",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-04-29T16:26:01.744Z",
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-04-29T16:26:01.744Z"
+  }
+]

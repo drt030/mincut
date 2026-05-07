@@ -1,0 +1,33 @@
+[repo]
+name = "capability-graph-explorer"
+bootstrap_mode = "surface-existing-workflow"
+capability_state = "plan_light"
+default_target = "low_cost_parcel_sorting_robot_300k_rmb"
+
+[surfaces]
+policy = "AGENTS.md"
+architecture = "docs/ARCHITECTURE.md"
+roadmap = "docs/roadmap.md"
+current_plan = "docs/plans/parcel-sorting-robot-v0.md"
+memory = "docs/agent-memory.md"
+learn = "docs/agent-learn.md"
+feedback_log = "docs/feedback-log.md"
+promotion_backlog = "docs/promotion-backlog.md"
+
+[verification]
+data = "npm run validate:data"
+active_graph_scope = "npm run check:active-graph-scope"
+gate = "npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run"
+lint = "npm run lint"
+build = "npm run build"
+
+[boundaries]
+v0_scope = "local graph loop for low_cost_parcel_sorting_robot_300k_rmb"
+no_backend = true
+# Keep the existing key for harness parsers. In v0 this means the harness
+# should not add a database by default. A database boundary change should be
+# explicit and should directly support graph KB/import/review/provenance.
+no_database = true
+no_auth = true
+no_autonomous_crawling = true
+no_llm_features = true

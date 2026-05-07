@@ -1,0 +1,22 @@
+[
+  { "id": "definition", "question": "What is this product or capability?" },
+  { "id": "target_context", "question": "What cost, scale, use-case, or performance target defines it?" },
+  { "id": "separate_product_node", "question": "Why should this be treated as a separate product node rather than a generic category?" },
+  { "id": "scientific_principles", "question": "What are the key scientific principles behind it?" },
+  { "id": "empirical_assumptions", "question": "What empirical assumptions must hold?" },
+  { "id": "required_modules", "question": "What are the required modules?" },
+  { "id": "known_routes", "question": "What are the known technical routes?" },
+  { "id": "route_enablers", "question": "For each route, what are the required enablers?" },
+  { "id": "main_bottlenecks", "question": "What are the main bottlenecks?" },
+  { "id": "key_metrics", "question": "What key metrics determine progress?" },
+  { "id": "estimated_maturity", "question": "What is the current estimated maturity?" },
+  { "id": "missing_breakthroughs", "question": "What breakthrough nodes are missing or only placeholders?" },
+  { "id": "important_evidence", "question": "What evidence supports the most important claims?" },
+  { "id": "weak_evidence", "question": "What evidence is weak, missing, outdated, or only vendor-claimed?" },
+  { "id": "cost_constraints", "question": "What cost constraints dominate the product's feasibility?" },
+  { "id": "manufacturing_constraints", "question": "What manufacturing constraints dominate the product's feasibility?" },
+  { "id": "safety_regulatory_deployment", "question": "What safety, regulatory, or deployment constraints matter?" },
+  { "id": "downstream_unlocked", "question": "What downstream capabilities would be unlocked if a key bottleneck is solved?" },
+  { "id": "research_next", "question": "What should be researched or added next?" },
+  { "id": "excluded_claims", "question": "What claims should not be included because they are unsupported, over-specific, or outside v0 evidence?" }
+]

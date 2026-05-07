@@ -1,0 +1,1482 @@
+[
+  {
+    "id": "e_product_requires_vision",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "vision_barcode_label_recognition",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_internal_product_target"
+    ]
+  },
+  {
+    "id": "e_product_requires_tracking",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "parcel_detection_and_tracking",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_internal_product_target"
+    ]
+  },
+  {
+    "id": "e_product_requires_manipulation",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "parcel_manipulation_or_diverter",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_internal_product_target"
+    ]
+  },
+  {
+    "id": "e_product_requires_robot_arm_body",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "industrial_robot_arm_body",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_end_effector",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "end_effector_gripper_or_suction",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_conveyor",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "conveyor_integration",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_internal_product_target"
+    ]
+  },
+  {
+    "id": "e_product_requires_decision",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "sorting_decision_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_motion",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "motion_planning",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_safety",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "safety_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_structure",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "mechanical_structure",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_maintenance",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "maintenance_workflow",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_cost_stack",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "cost_optimized_hardware_stack",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_total_cost",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "total_system_cost",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_internal_product_target"
+    ]
+  },
+  {
+    "id": "e_product_measured_throughput",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "parcels_per_hour",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_accuracy",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "sorting_accuracy",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_weight",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "allowed_parcel_weight_range",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_size",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "allowed_parcel_size_range",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_jam",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "failure_jam_rate",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_intervention",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "human_intervention_rate",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_install",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "installation_time",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_maintenance",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "maintenance_cost",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_measured_payback",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "payback_period",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_vision_principle",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "real_time_machine_vision",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_requires_flow_assumption",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "queuing_and_flow_variability",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_manufactured_by_modular_cell",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "modular_cell_manufacturing",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_regulated_by_safety",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "warehouse_machine_safety_standard",
+    "relation": "regulated_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_has_arm_route",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "industrial_robot_arm_sorting_route",
+    "relation": "has_route",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_has_gripper_route",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "industrial_robot_arm_gripper_route",
+    "relation": "has_route",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_has_suction_route",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "industrial_robot_arm_suction_route",
+    "relation": "has_route",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_has_integrated_cell_route",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "integrated_robot_arm_sorting_cell_route",
+    "relation": "has_route",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_requires_robot_arm_body",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "industrial_robot_arm_body",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_requires_end_effector",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "end_effector_gripper_or_suction",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_route_requires_motion",
+    "source": "industrial_robot_arm_sorting_route",
+    "target": "motion_planning",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_route_requires_vision",
+    "source": "industrial_robot_arm_sorting_route",
+    "target": "vision_barcode_label_recognition",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_route_requires_robot_arm_body",
+    "source": "industrial_robot_arm_sorting_route",
+    "target": "industrial_robot_arm_body",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_route_requires_end_effector",
+    "source": "industrial_robot_arm_sorting_route",
+    "target": "end_effector_gripper_or_suction",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_route_bottlenecked_manipulation",
+    "source": "industrial_robot_arm_sorting_route",
+    "target": "low_cost_high_reliability_parcel_manipulation",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_route_measured_throughput",
+    "source": "industrial_robot_arm_sorting_route",
+    "target": "parcels_per_hour",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_gripper_route_requires_motion",
+    "source": "industrial_robot_arm_gripper_route",
+    "target": "motion_planning",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_gripper_route_requires_vision",
+    "source": "industrial_robot_arm_gripper_route",
+    "target": "vision_barcode_label_recognition",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_gripper_route_requires_robot_arm_body",
+    "source": "industrial_robot_arm_gripper_route",
+    "target": "industrial_robot_arm_body",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_gripper_route_requires_end_effector",
+    "source": "industrial_robot_arm_gripper_route",
+    "target": "end_effector_gripper_or_suction",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_gripper_route_bottlenecked_manipulation",
+    "source": "industrial_robot_arm_gripper_route",
+    "target": "low_cost_high_reliability_parcel_manipulation",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_suction_route_requires_motion",
+    "source": "industrial_robot_arm_suction_route",
+    "target": "motion_planning",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_suction_route_requires_vision",
+    "source": "industrial_robot_arm_suction_route",
+    "target": "vision_barcode_label_recognition",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_suction_route_requires_robot_arm_body",
+    "source": "industrial_robot_arm_suction_route",
+    "target": "industrial_robot_arm_body",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_suction_route_requires_end_effector",
+    "source": "industrial_robot_arm_suction_route",
+    "target": "end_effector_gripper_or_suction",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_suction_route_bottlenecked_manipulation",
+    "source": "industrial_robot_arm_suction_route",
+    "target": "low_cost_high_reliability_parcel_manipulation",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_integrated_cell_route_requires_conveyor",
+    "source": "integrated_robot_arm_sorting_cell_route",
+    "target": "conveyor_integration",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_integrated_cell_route_requires_safety",
+    "source": "integrated_robot_arm_sorting_cell_route",
+    "target": "safety_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_integrated_cell_route_requires_structure",
+    "source": "integrated_robot_arm_sorting_cell_route",
+    "target": "mechanical_structure",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_integrated_cell_route_manufactured_by_modular_cell",
+    "source": "integrated_robot_arm_sorting_cell_route",
+    "target": "modular_cell_manufacturing",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_integrated_cell_route_bottlenecked_conveyor",
+    "source": "integrated_robot_arm_sorting_cell_route",
+    "target": "low_cost_conveyor_integration",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_servo_drive",
+    "source": "industrial_robot_arm_body",
+    "target": "servo_drive_controller",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_reducer",
+    "source": "industrial_robot_arm_body",
+    "target": "precision_reducer_gearbox",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_motor",
+    "source": "industrial_robot_arm_body",
+    "target": "industrial_servo_motor",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_links_joints",
+    "source": "industrial_robot_arm_body",
+    "target": "arm_links_and_joints",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_controller_io",
+    "source": "industrial_robot_arm_body",
+    "target": "robot_controller_io",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_cabling_power",
+    "source": "industrial_robot_arm_body",
+    "target": "robot_cabling_and_power",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_requires_mounting",
+    "source": "industrial_robot_arm_body",
+    "target": "robot_base_mounting_structure",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_body_manufactured_by_assembly",
+    "source": "industrial_robot_arm_body",
+    "target": "robot_arm_assembly_process",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_requires_area_scan_camera",
+    "source": "vision_barcode_label_recognition",
+    "target": "industrial_area_scan_camera",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_requires_lens_optics",
+    "source": "vision_barcode_label_recognition",
+    "target": "machine_vision_lens_and_optics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_requires_lighting",
+    "source": "vision_barcode_label_recognition",
+    "target": "controlled_machine_vision_lighting",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_requires_processing_compute",
+    "source": "vision_barcode_label_recognition",
+    "target": "vision_processing_compute",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_implemented_by_barcode_ocr",
+    "source": "vision_barcode_label_recognition",
+    "target": "barcode_ocr_reading_software",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tracking_requires_camera",
+    "source": "parcel_detection_and_tracking",
+    "target": "industrial_area_scan_camera",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tracking_requires_conveyor_speed_encoder",
+    "source": "parcel_detection_and_tracking",
+    "target": "conveyor_speed_encoder_tracking",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_end_effector_requires_suction_cup_array",
+    "source": "end_effector_gripper_or_suction",
+    "target": "vacuum_suction_cup_array",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_vacuforce_vacuum_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_end_effector_requires_vacuum_generator",
+    "source": "end_effector_gripper_or_suction",
+    "target": "vacuum_generator_or_ejector",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vacuforce_vacuum_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_end_effector_requires_valves_blowoff",
+    "source": "end_effector_gripper_or_suction",
+    "target": "vacuum_valves_and_blowoff",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_vacuforce_vacuum_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_end_effector_requires_vacuum_sensing",
+    "source": "end_effector_gripper_or_suction",
+    "target": "vacuum_pressure_sensing",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_end_effector_implemented_by_tcp_calibration",
+    "source": "end_effector_gripper_or_suction",
+    "target": "gripper_tcp_pattern_calibration",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_requires_power_stage",
+    "source": "servo_drive_controller",
+    "target": "servo_drive_power_stage",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_servo_drive_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_requires_current_sensing",
+    "source": "servo_drive_controller",
+    "target": "servo_drive_current_sensing",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_implemented_by_motion_loop",
+    "source": "servo_drive_controller",
+    "target": "servo_drive_motion_control_loop",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_requires_sto",
+    "source": "servo_drive_controller",
+    "target": "servo_drive_safety_sto",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_servo_drive_safety",
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_implemented_by_thermal_emc",
+    "source": "servo_drive_controller",
+    "target": "servo_drive_thermal_emc_design",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_requires_wave_generator",
+    "source": "precision_reducer_gearbox",
+    "target": "strain_wave_wave_generator",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_requires_flexspline",
+    "source": "precision_reducer_gearbox",
+    "target": "strain_wave_flexspline",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_requires_circular_spline",
+    "source": "precision_reducer_gearbox",
+    "target": "strain_wave_circular_spline",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_requires_output_bearing",
+    "source": "precision_reducer_gearbox",
+    "target": "reducer_output_cross_roller_bearing",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_manufactured_by_life_test",
+    "source": "precision_reducer_gearbox",
+    "target": "reducer_lubrication_and_life_test",
+    "relation": "manufactured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_stator_core",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_stator_core",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_windings",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_windings",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_pm_rotor",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_permanent_magnet_rotor",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_elmeq_servo_motor_options",
+      "ev_stober_synchronous_servo_motors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_encoder_feedback",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_encoder_feedback",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure",
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_bearings_shaft",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_bearings_and_shaft",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_housing_thermal",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_housing_and_thermal_design",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_stober_synchronous_servo_motors",
+      "ev_elmeq_servo_motor_options"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_cables_connectors",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_cables_and_connectors",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_oriental_motor_servo_structure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_pm_rotor_requires_rare_earth",
+    "source": "servo_motor_permanent_magnet_rotor",
+    "target": "rare_earth_permanent_magnet_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_elmeq_servo_motor_options"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_stator_core_requires_electrical_steel",
+    "source": "servo_motor_stator_core",
+    "target": "electrical_steel_lamination_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing",
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_windings_require_refined_copper",
+    "source": "servo_motor_windings",
+    "target": "refined_copper_conductor_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_pm_rotor_requires_ndpr_feedstock",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "ndpr_rare_earth_feedstock",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_rare_earth_elements",
+      "ev_iea_rare_earth_magnets"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_pm_rotor_requires_heavy_ree_additives",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "dysprosium_terbium_heavy_ree_additives",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_rare_earth_elements",
+      "ev_iea_rare_earth_magnets"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_pm_rotor_requires_boron_iron_matrix",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "boron_and_iron_magnet_matrix_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_iea_rare_earth_magnets"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_motor_bearings_require_alloy_steel",
+    "source": "servo_motor_bearings_and_shaft",
+    "target": "alloy_steel_precision_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_motor_housing_requires_aluminum_or_steel",
+    "source": "servo_motor_housing_and_thermal_design",
+    "target": "aluminum_structural_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_manufactured_by_assembly_test",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_assembly_and_test_process",
+    "relation": "manufactured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_implemented_by_feedback_alignment",
+    "source": "servo_motor_encoder_feedback",
+    "target": "servo_motor_feedback_alignment",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_requires_brake_option_for_safety",
+    "source": "industrial_servo_motor",
+    "target": "servo_motor_integrated_brake_option",
+    "relation": "requires",
+    "confidence": "low",
+    "context": "Optional depending on robot joint safety and holding requirements.",
+    "evidenceIds": [
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_elmeq_servo_motor_options"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_delta_route_requires_tracking",
+    "source": "delta_robot_sorting_route",
+    "target": "parcel_detection_and_tracking",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_delta_route_requires_motion",
+    "source": "delta_robot_sorting_route",
+    "target": "motion_planning",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_delta_route_bottlenecked_variability",
+    "source": "delta_robot_sorting_route",
+    "target": "low_jam_rate_under_parcel_variability",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_delta_route_measured_weight",
+    "source": "delta_robot_sorting_route",
+    "target": "allowed_parcel_weight_range",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_diverter_route_requires_conveyor",
+    "source": "conveyor_diverter_sorting_route",
+    "target": "conveyor_integration",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_diverter_route_requires_decision",
+    "source": "conveyor_diverter_sorting_route",
+    "target": "sorting_decision_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_diverter_route_bottlenecked_integration",
+    "source": "conveyor_diverter_sorting_route",
+    "target": "low_cost_conveyor_integration",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_diverter_route_measured_jam",
+    "source": "conveyor_diverter_sorting_route",
+    "target": "failure_jam_rate",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_mobile_route_requires_decision",
+    "source": "mobile_robot_sorting_route",
+    "target": "sorting_decision_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_mobile_route_requires_maintenance",
+    "source": "mobile_robot_sorting_route",
+    "target": "maintenance_workflow",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_mobile_route_bottlenecked_cost",
+    "source": "mobile_robot_sorting_route",
+    "target": "maintenance_cost_control",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_mobile_route_measured_cost",
+    "source": "mobile_robot_sorting_route",
+    "target": "total_system_cost",
+    "relation": "measured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_hybrid_route_requires_workflow",
+    "source": "hybrid_human_robot_assisted_sorting_route",
+    "target": "maintenance_workflow",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_hybrid_route_requires_safety",
+    "source": "hybrid_human_robot_assisted_sorting_route",
+    "target": "safety_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_hybrid_route_bottlenecked_intervention",
+    "source": "hybrid_human_robot_assisted_sorting_route",
+    "target": "human_intervention_rate",
+    "relation": "depends_on_metric",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_hybrid_route_bottlenecked_maintenance",
+    "source": "hybrid_human_robot_assisted_sorting_route",
+    "target": "maintenance_cost_control",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
+  },
+  {
+    "id": "e_conveyor_requires_photoelectric_sensors",
+    "source": "conveyor_integration",
+    "target": "conveyor_photoelectric_sensors",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_conveyor_requires_speed_encoder_tracking",
+    "source": "conveyor_integration",
+    "target": "conveyor_speed_encoder_tracking",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_conveyor_implemented_by_induction_spacing",
+    "source": "conveyor_integration",
+    "target": "parcel_induction_spacing_control",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_interroll_sorter_platform"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_conveyor_requires_plc_wcs",
+    "source": "conveyor_integration",
+    "target": "plc_and_wcs_integration",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_interroll_sorter_platform"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_conveyor_requires_chutes_bins",
+    "source": "conveyor_integration",
+    "target": "sortation_chutes_and_bins",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_interroll_sorter_platform"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_conveyor_implemented_by_jam_recovery",
+    "source": "conveyor_integration",
+    "target": "jam_detection_and_recovery",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_decision_requires_plc_wcs",
+    "source": "sorting_decision_system",
+    "target": "plc_and_wcs_integration",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_interroll_sorter_platform"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_decision_requires_barcode_ocr",
+    "source": "sorting_decision_system",
+    "target": "barcode_ocr_reading_software",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_power_stage_requires_semiconductors",
+    "source": "servo_drive_power_stage",
+    "target": "semiconductor_grade_silicon_and_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_power_stage_requires_copper",
+    "source": "servo_drive_power_stage",
+    "target": "refined_copper_conductor_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_current_sensing_requires_semiconductors",
+    "source": "servo_drive_current_sensing",
+    "target": "semiconductor_grade_silicon_and_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_controller_io_requires_semiconductors",
+    "source": "robot_controller_io",
+    "target": "semiconductor_grade_silicon_and_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_plc_wcs_requires_semiconductors",
+    "source": "plc_and_wcs_integration",
+    "target": "semiconductor_grade_silicon_and_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_camera_requires_semiconductors",
+    "source": "industrial_area_scan_camera",
+    "target": "semiconductor_grade_silicon_and_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_compute_requires_semiconductors",
+    "source": "vision_processing_compute",
+    "target": "semiconductor_grade_silicon_and_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_semiconductors_require_quartz_silicon_chain",
+    "source": "semiconductor_grade_silicon_and_electronics",
+    "target": "quartz_silica_silicon_chain",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_electrical_steel_requires_iron_steel_chain",
+    "source": "electrical_steel_lamination_material",
+    "target": "iron_ore_steelmaking_chain",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing",
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_electrical_steel_requires_silicon_chain",
+    "source": "electrical_steel_lamination_material",
+    "target": "quartz_silica_silicon_chain",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_alloy_steel_requires_iron_steel_chain",
+    "source": "alloy_steel_precision_material",
+    "target": "iron_ore_steelmaking_chain",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing",
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_aluminum_requires_bauxite_chain",
+    "source": "aluminum_structural_material",
+    "target": "bauxite_alumina_aluminum_chain",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_copper_material_requires_copper_chain",
+    "source": "refined_copper_conductor_material",
+    "target": "copper_ore_mining_and_refining_chain",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_wave_generator_requires_alloy_steel",
+    "source": "strain_wave_wave_generator",
+    "target": "alloy_steel_precision_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_flexspline_requires_alloy_steel",
+    "source": "strain_wave_flexspline",
+    "target": "alloy_steel_precision_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_circular_spline_requires_alloy_steel",
+    "source": "strain_wave_circular_spline",
+    "target": "alloy_steel_precision_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_bearing_requires_alloy_steel",
+    "source": "reducer_output_cross_roller_bearing",
+    "target": "alloy_steel_precision_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_arm_links_require_structural_materials",
+    "source": "arm_links_and_joints",
+    "target": "aluminum_structural_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_base_mounting_requires_alloy_steel",
+    "source": "robot_base_mounting_structure",
+    "target": "alloy_steel_precision_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_doe_iron_steel_manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_chutes_bins_require_aluminum_material",
+    "source": "sortation_chutes_and_bins",
+    "target": "aluminum_structural_material",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_usgs_mcs_2026_minerals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_suction_cups_require_elastomer_feedstock",
+    "source": "vacuum_suction_cup_array",
+    "target": "petrochemical_elastomer_feedstock",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuforce_vacuum_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_valves_require_elastomer_feedstock",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "petrochemical_elastomer_feedstock",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuforce_vacuum_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_bottlenecked_robust_perception",
+    "source": "vision_barcode_label_recognition",
+    "target": "robust_parcel_perception_under_real_logistics_conditions",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_bottlenecked_low_cost",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "low_cost_high_reliability_parcel_manipulation",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_conveyor_bottlenecked_low_cost",
+    "source": "conveyor_integration",
+    "target": "low_cost_conveyor_integration",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_maintenance_bottlenecked_cost",
+    "source": "maintenance_workflow",
+    "target": "maintenance_cost_control",
+    "relation": "bottlenecked_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_manipulation_breakthrough_enables_affordable",
+    "source": "low_cost_high_reliability_parcel_manipulation",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "low"
+  },
+  {
+    "id": "e_robust_perception_enables_affordable",
+    "source": "robust_parcel_perception_under_real_logistics_conditions",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "low"
+  }
+]

@@ -1,0 +1,199 @@
+import { z } from "zod";
+
+export const nodeKindSchema = z.enum([
+  "product",
+  "capability",
+  "module",
+  "technical_route",
+  "scientific_principle",
+  "empirical_principle",
+  "engineering_method",
+  "manufacturing_process",
+  "equipment",
+  "material",
+  "metric",
+  "bottleneck",
+  "placeholder_breakthrough",
+  "standard_or_regulation",
+  "organization",
+  "evidence",
+]);
+
+export const confidenceSchema = z.enum(["low", "medium", "high"]);
+
+export const maturityLabelSchema = z.enum([
+  "unknown",
+  "hypothesis",
+  "lab_proven",
+  "prototype",
+  "early_deployment",
+  "commercially_available",
+  "widely_adopted",
+  "mature",
+  "blocked",
+]);
+
+export const metricValueSchema = z.union([z.number(), z.string()]);
+
+export const nodeSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  kind: nodeKindSchema,
+  domain: z.array(z.string().min(1)).min(1),
+  description: z.string().optional(),
+  maturityScore: z.number().min(0).max(100).optional(),
+  maturityLabel: maturityLabelSchema.optional(),
+  confidence: confidenceSchema.optional(),
+  targetContext: z
+    .object({
+      targetCost: z.string().optional(),
+      targetScale: z.string().optional(),
+      targetPerformance: z.string().optional(),
+      targetUseCase: z.string().optional(),
+      targetEnvironment: z.string().optional(),
+      targetDate: z.string().optional(),
+    })
+    .optional(),
+  metrics: z
+    .array(
+      z.object({
+        name: z.string().min(1),
+        unit: z.string().optional(),
+        currentValue: metricValueSchema.optional(),
+        targetValue: metricValueSchema.optional(),
+        progressScore: z.number().min(0).max(100).optional(),
+        description: z.string().optional(),
+      }),
+    )
+    .optional(),
+  evidenceIds: z.array(z.string()).optional(),
+  tags: z.array(z.string()).optional(),
+  notes: z.string().optional(),
+  reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+});
+
+export const edgeRelationSchema = z.enum([
+  "requires",
+  "enables",
+  "improves",
+  "substitutes",
+  "bottlenecked_by",
+  "measured_by",
+  "validated_by",
+  "manufactured_by",
+  "regulated_by",
+  "part_of",
+  "has_route",
+  "implemented_by",
+  "depends_on_metric",
+]);
+
+export const edgeSchema = z.object({
+  id: z.string().min(1),
+  source: z.string().min(1),
+  target: z.string().min(1),
+  relation: edgeRelationSchema,
+  claim: z.string().optional(),
+  context: z.string().optional(),
+  confidence: confidenceSchema.optional(),
+  evidenceIds: z.array(z.string()).optional(),
+  routeId: z.string().optional(),
+  weight: z.number().min(0).optional(),
+  reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),
+});
+
+export const evidenceTypeSchema = z.enum([
+  "paper",
+  "patent",
+  "product_page",
+  "standard",
+  "field_case",
+  "benchmark",
+  "clinical_trial",
+  "regulatory_approval",
+  "expert_review",
+  "vendor_claim",
+  "news",
+  "internal_note",
+  "historical_source",
+]);
+
+export const evidenceSchema = z.object({
+  id: z.string().min(1),
+  type: evidenceTypeSchema,
+  title: z.string().min(1),
+  url: z.string().url().optional(),
+  sourceName: z.string().optional(),
+  date: z.string().optional(),
+  summary: z.string().optional(),
+  excerpt: z.string().optional(),
+  supportsNodeIds: z.array(z.string()).optional(),
+  supportsEdgeIds: z.array(z.string()).optional(),
+  limitations: z.string().optional(),
+  confidence: confidenceSchema.optional(),
+  reviewStatus: z.enum(["unreviewed", "reviewed", "disputed"]).optional(),
+});
+
+export const gateQuestionSchema = z.object({
+  id: z.string().min(1),
+  question: z.string().min(1),
+});
+
+export const gateReportSchema = z.object({
+  graphVersion: z.string(),
+  targetNodeId: z.string(),
+  generatedAt: z.string(),
+  questionResults: z.array(
+    z.object({
+      question: z.string(),
+      answer: z.string(),
+      score: z.number().min(0).max(5),
+      missingNodeIds: z.array(z.string()).optional(),
+      missingEdgeDescriptions: z.array(z.string()).optional(),
+      missingEvidenceDescriptions: z.array(z.string()).optional(),
+      safetyNotes: z.array(z.string()).optional(),
+      notes: z.string().optional(),
+    }),
+  ),
+  overallScore: z.number().min(0).max(5),
+  passed: z.boolean(),
+  recommendedNextTasks: z.array(
+    z.object({
+      title: z.string(),
+      reason: z.string(),
+      targetNodeId: z.string().optional(),
+      suggestedNodeKind: nodeKindSchema.optional(),
+      priority: z.enum(["low", "medium", "high"]),
+    }),
+  ),
+});
+
+export const researchTaskSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  reason: z.string().min(1),
+  targetNodeId: z.string().optional(),
+  suggestedNodeKind: nodeKindSchema.optional(),
+  priority: z.enum(["low", "medium", "high"]),
+  status: z.enum(["pending", "in_progress", "done", "wont_do"]),
+  createdAt: z.string(),
+  sourceGateReportId: z.string().optional(),
+});
+
+export type NodeKind = z.infer<typeof nodeKindSchema>;
+export type Node = z.infer<typeof nodeSchema>;
+export type EdgeRelation = z.infer<typeof edgeRelationSchema>;
+export type Edge = z.infer<typeof edgeSchema>;
+export type Evidence = z.infer<typeof evidenceSchema>;
+export type GateQuestion = z.infer<typeof gateQuestionSchema>;
+export type GateReport = z.infer<typeof gateReportSchema>;
+export type ResearchTask = z.infer<typeof researchTaskSchema>;
+
+export type GraphData = {
+  graphVersion: string;
+  nodes: Node[];
+  edges: Edge[];
+  evidence: Evidence[];
+};
