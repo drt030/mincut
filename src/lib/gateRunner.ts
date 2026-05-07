@@ -727,7 +727,7 @@ function excludedClaimsResult(
   findings: EvidenceFindings,
 ): GateReport["questionResults"][number] {
   const boundaryOffenders = context.graph.nodes.filter((node) =>
-    ["delta_robot_sorting_route", "conveyor_diverter_sorting_route", "mobile_robot_sorting_route", "hybrid_human_robot_assisted_sorting_route"].includes(
+    ["delta_robot_sorting", "conveyor_diverter_sorting", "mobile_robot_sorting", "hybrid_human_robot_assisted_sorting"].includes(
       node.id,
     ),
   );

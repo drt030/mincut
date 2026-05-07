@@ -820,7 +820,7 @@
   },
   {
     "id": "e_delta_route_requires_tracking",
-    "source": "delta_robot_sorting_route",
+    "source": "delta_robot_sorting",
     "target": "parcel_detection_and_tracking",
     "relation": "requires",
     "confidence": "medium",
@@ -829,7 +829,7 @@
   },
   {
     "id": "e_delta_route_requires_motion",
-    "source": "delta_robot_sorting_route",
+    "source": "delta_robot_sorting",
     "target": "motion_planning",
     "relation": "requires",
     "confidence": "medium",
@@ -838,7 +838,7 @@
   },
   {
     "id": "e_delta_route_bottlenecked_variability",
-    "source": "delta_robot_sorting_route",
+    "source": "delta_robot_sorting",
     "target": "low_jam_rate_under_parcel_variability",
     "relation": "bottlenecked_by",
     "confidence": "medium",
@@ -847,7 +847,7 @@
   },
   {
     "id": "e_delta_route_measured_weight",
-    "source": "delta_robot_sorting_route",
+    "source": "delta_robot_sorting",
     "target": "allowed_parcel_weight_range",
     "relation": "measured_by",
     "confidence": "medium",
@@ -856,7 +856,7 @@
   },
   {
     "id": "e_diverter_route_requires_conveyor",
-    "source": "conveyor_diverter_sorting_route",
+    "source": "conveyor_diverter_sorting",
     "target": "conveyor_integration",
     "relation": "requires",
     "confidence": "medium",
@@ -865,7 +865,7 @@
   },
   {
     "id": "e_diverter_route_requires_decision",
-    "source": "conveyor_diverter_sorting_route",
+    "source": "conveyor_diverter_sorting",
     "target": "sorting_decision_system",
     "relation": "requires",
     "confidence": "medium",
@@ -874,7 +874,7 @@
   },
   {
     "id": "e_diverter_route_bottlenecked_integration",
-    "source": "conveyor_diverter_sorting_route",
+    "source": "conveyor_diverter_sorting",
     "target": "low_cost_conveyor_integration",
     "relation": "bottlenecked_by",
     "confidence": "medium",
@@ -883,7 +883,7 @@
   },
   {
     "id": "e_diverter_route_measured_jam",
-    "source": "conveyor_diverter_sorting_route",
+    "source": "conveyor_diverter_sorting",
     "target": "failure_jam_rate",
     "relation": "measured_by",
     "confidence": "medium",
@@ -892,7 +892,7 @@
   },
   {
     "id": "e_mobile_route_requires_decision",
-    "source": "mobile_robot_sorting_route",
+    "source": "mobile_robot_sorting",
     "target": "sorting_decision_system",
     "relation": "requires",
     "confidence": "medium",
@@ -901,7 +901,7 @@
   },
   {
     "id": "e_mobile_route_requires_maintenance",
-    "source": "mobile_robot_sorting_route",
+    "source": "mobile_robot_sorting",
     "target": "maintenance_workflow",
     "relation": "requires",
     "confidence": "medium",
@@ -910,7 +910,7 @@
   },
   {
     "id": "e_mobile_route_bottlenecked_cost",
-    "source": "mobile_robot_sorting_route",
+    "source": "mobile_robot_sorting",
     "target": "maintenance_cost_control",
     "relation": "bottlenecked_by",
     "confidence": "medium",
@@ -919,7 +919,7 @@
   },
   {
     "id": "e_mobile_route_measured_cost",
-    "source": "mobile_robot_sorting_route",
+    "source": "mobile_robot_sorting",
     "target": "total_system_cost",
     "relation": "measured_by",
     "confidence": "medium",
@@ -928,7 +928,7 @@
   },
   {
     "id": "e_hybrid_route_requires_workflow",
-    "source": "hybrid_human_robot_assisted_sorting_route",
+    "source": "hybrid_human_robot_assisted_sorting",
     "target": "maintenance_workflow",
     "relation": "requires",
     "confidence": "medium",
@@ -937,7 +937,7 @@
   },
   {
     "id": "e_hybrid_route_requires_safety",
-    "source": "hybrid_human_robot_assisted_sorting_route",
+    "source": "hybrid_human_robot_assisted_sorting",
     "target": "safety_system",
     "relation": "requires",
     "confidence": "medium",
@@ -946,7 +946,7 @@
   },
   {
     "id": "e_hybrid_route_bottlenecked_intervention",
-    "source": "hybrid_human_robot_assisted_sorting_route",
+    "source": "hybrid_human_robot_assisted_sorting",
     "target": "human_intervention_rate",
     "relation": "depends_on_metric",
     "confidence": "medium",
@@ -955,7 +955,7 @@
   },
   {
     "id": "e_hybrid_route_bottlenecked_maintenance",
-    "source": "hybrid_human_robot_assisted_sorting_route",
+    "source": "hybrid_human_robot_assisted_sorting",
     "target": "maintenance_cost_control",
     "relation": "bottlenecked_by",
     "confidence": "medium",
@@ -1353,7 +1353,7 @@
   },
   {
     "id": "e_delta_route_enables_capability",
-    "source": "delta_robot_sorting_route",
+    "source": "delta_robot_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
     "confidence": "high",
@@ -1362,7 +1362,7 @@
   },
   {
     "id": "e_diverter_route_enables_capability",
-    "source": "conveyor_diverter_sorting_route",
+    "source": "conveyor_diverter_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
     "confidence": "high",
@@ -1371,7 +1371,7 @@
   },
   {
     "id": "e_mobile_route_enables_capability",
-    "source": "mobile_robot_sorting_route",
+    "source": "mobile_robot_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
     "confidence": "high",
@@ -1380,7 +1380,7 @@
   },
   {
     "id": "e_hybrid_route_enables_capability",
-    "source": "hybrid_human_robot_assisted_sorting_route",
+    "source": "hybrid_human_robot_assisted_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
     "confidence": "high",

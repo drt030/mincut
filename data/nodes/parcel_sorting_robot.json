@@ -1357,7 +1357,7 @@
     ]
   },
   {
-    "id": "delta_robot_sorting_route",
+    "id": "delta_robot_sorting",
     "name": "Delta robot sorter candidate",
     "kind": "product",
     "domain": [
@@ -1372,7 +1372,7 @@
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
   },
   {
-    "id": "conveyor_diverter_sorting_route",
+    "id": "conveyor_diverter_sorting",
     "name": "Conveyor diverter sorter candidate",
     "kind": "product",
     "domain": [
@@ -1387,7 +1387,7 @@
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
   },
   {
-    "id": "mobile_robot_sorting_route",
+    "id": "mobile_robot_sorting",
     "name": "Mobile robot sorter candidate",
     "kind": "product",
     "domain": [
@@ -1402,7 +1402,7 @@
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
   },
   {
-    "id": "hybrid_human_robot_assisted_sorting_route",
+    "id": "hybrid_human_robot_assisted_sorting",
     "name": "Hybrid human-robot assisted sorter candidate",
     "kind": "product",
     "domain": [
