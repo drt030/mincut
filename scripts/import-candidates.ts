@@ -165,12 +165,16 @@ function validateCandidateImport(
     if (node.reviewStatus === "reviewed" && !options.allowReviewed) {
       errors.push(reviewedStatusError("Node", node.id));
     }
+    if (node.reviewStatus === "disputed") errors.push(humanOnlyStatusError("Node", node.id, "disputed"));
+    if (node.reviewStatus === "deprecated") errors.push(humanOnlyStatusError("Node", node.id, "deprecated"));
   }
   for (const edge of candidate.edges) {
     if (existingEdgeIds.has(edge.id)) errors.push(`Edge id already exists: ${edge.id}`);
     if (edge.reviewStatus === "reviewed" && !options.allowReviewed) {
       errors.push(reviewedStatusError("Edge", edge.id));
     }
+    if (edge.reviewStatus === "disputed") errors.push(humanOnlyStatusError("Edge", edge.id, "disputed"));
+    if (edge.reviewStatus === "deprecated") errors.push(humanOnlyStatusError("Edge", edge.id, "deprecated"));
     if (!existingNodeIds.has(edge.source) && !candidateNodeIds.has(edge.source)) errors.push(`Edge ${edge.id} source is missing: ${edge.source}`);
     if (!existingNodeIds.has(edge.target) && !candidateNodeIds.has(edge.target)) errors.push(`Edge ${edge.id} target is missing: ${edge.target}`);
     for (const evidenceId of edge.evidenceIds ?? []) {
@@ -184,6 +188,8 @@ function validateCandidateImport(
     if (item.reviewStatus === "reviewed" && !options.allowReviewed) {
       errors.push(reviewedStatusError("Evidence", item.id));
     }
+    if (item.reviewStatus === "disputed") errors.push(humanOnlyStatusError("Evidence", item.id, "disputed"));
+    if (item.reviewStatus === "deprecated") errors.push(humanOnlyStatusError("Evidence", item.id, "deprecated"));
     for (const nodeId of item.supportsNodeIds ?? []) {
       if (!existingNodeIds.has(nodeId) && !candidateNodeIds.has(nodeId)) errors.push(`Evidence ${item.id} supports missing node: ${nodeId}`);
     }
@@ -237,6 +243,25 @@ function activeScopeExpansionErrors(
 
 function reviewedStatusError(label: "Node" | "Edge" | "Evidence", id: string): string {
   return `${label} ${id} is marked reviewed. Candidate imports default to unreviewed; use --dry-run --allow-reviewed only to inspect records that have already been human reviewed.`;
+}
+
+/**
+ * Per ADR-0001, `disputed` and `deprecated` reviewStatus values both imply a
+ * human has already engaged with the record (found counter-evidence, or
+ * superseded it). Neither is a legitimate state for fresh agent-imported
+ * candidates. The `--allow-reviewed` flag does NOT lift these — that flag
+ * only relaxes the "reviewed" check.
+ */
+function humanOnlyStatusError(
+  label: "Node" | "Edge" | "Evidence",
+  id: string,
+  status: "disputed" | "deprecated",
+): string {
+  const reason =
+    status === "disputed"
+      ? "implies a human has actively engaged and found counter-evidence"
+      : "implies a human has soft-deleted a once-accepted record";
+  return `${label} ${id} is marked reviewStatus: "${status}". This status ${reason} (per ADR-0001). Fresh agent-imported candidates cannot carry it; --allow-reviewed does not lift this check. Hand-edit the live data files to apply this status.`;
 }
 
 function duplicateErrors(label: string, ids: string[]): string[] {

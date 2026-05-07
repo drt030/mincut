@@ -253,6 +253,10 @@ export function GraphExplorer({ graph }: Props) {
   const [routeFocus, setRouteFocus] = useState("all");
   const [mode, setMode] = useState<ExplorationMode>("layered");
   const [showMetricsAsNodes, setShowMetricsAsNodes] = useState(false);
+  // Per ADR-0001, deprecated nodes/edges are excluded from the default
+  // render — soft-deleted records pollute the active dependency view. The
+  // toggle restores them so a learner can audit history when needed.
+  const [showDeprecated, setShowDeprecated] = useState(false);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
@@ -284,9 +288,11 @@ export function GraphExplorer({ graph }: Props) {
         if (domain !== "all" && !node.domain.includes(domain)) return false;
         if (kind !== "all" && node.kind !== kind) return false;
         if (maturity !== "all" && (node.maturityScore ?? 0) < Number(maturity)) return false;
+        // Per ADR-0001, hide deprecated records from default render.
+        if (!showDeprecated && node.reviewStatus === "deprecated") return false;
         return true;
       }),
-    [domain, focusIds, graph.nodes, kind, maturity, visibleIds],
+    [domain, focusIds, graph.nodes, kind, maturity, showDeprecated, visibleIds],
   );
 
   // Step 8: fold metric-kind nodes whose visible non-metric `measured_by` parents
@@ -348,6 +354,10 @@ export function GraphExplorer({ graph }: Props) {
   const layoutEdges = useMemo(
     () =>
       graph.edges
+        // Per ADR-0001, hide deprecated edges from default render. The
+        // toggle restores them alongside deprecated nodes so the entire
+        // soft-deleted slice surfaces together.
+        .filter((edge) => showDeprecated || edge.reviewStatus !== "deprecated")
         .filter((edge) => filteredIds.has(edge.source) && filteredIds.has(edge.target))
         .filter((edge) => relation === "all" || edge.relation === relation)
         // In Layered / Bottleneck modes, allow `measured_by` edges through
@@ -363,7 +373,7 @@ export function GraphExplorer({ graph }: Props) {
             edge.relation === "measured_by" ||
             (edge.relation === "enables" && capabilityCluster.allClusterIds.has(edge.source) && capabilityCluster.capabilityIds.has(edge.target)),
         ),
-    [capabilityCluster, filteredIds, graph.edges, mode, relation],
+    [capabilityCluster, filteredIds, graph.edges, mode, relation, showDeprecated],
   );
 
   const toggleSelectedExpansion = useCallback((nodeId: string) => {
@@ -569,6 +579,15 @@ export function GraphExplorer({ graph }: Props) {
             title={t("showMetricsAsNodesHint")}
           >
             {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+          </button>
+          <button
+            className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
+            type="button"
+            aria-pressed={showDeprecated}
+            onClick={() => setShowDeprecated((value) => !value)}
+            title={t("showDeprecatedHint")}
+          >
+            {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
           </button>
           <button
             className="small-button secondary-button"

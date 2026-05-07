@@ -22,14 +22,18 @@ type Props = {
 export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const { kindName, nodeName, t } = useLanguage();
   const up = upstream(graph, node.id);
-  // Metrics already render in the dedicated "Metrics" section below (and in
-  // the per-node metric-fold strip on graph cards). Filtering them out of
-  // Downstream + Bottlenecks keeps each list scoped to its semantic role and
-  // avoids the iter-5 punch-list duplication where "Total system cost" /
-  // "Parcels per hour" appeared twice.
-  const down = downstream(graph, node.id).filter((child) => child.kind !== "metric");
-  const metrics = metricsForNode(graph, node.id);
-  const bottlenecks = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
+  // Per ADR-0001: exclude deprecated children from the auto-rendered child
+  // lists (Downstream / Bottlenecks / Sibling). The selected node itself is
+  // always shown — the user explicitly clicked through — but its child
+  // lists hide deprecated entries by default and surface a count.
+  const downRawAll = downstream(graph, node.id);
+  const downRaw = downRawAll.filter((child) => child.kind !== "metric");
+  const down = downRaw.filter((child) => child.reviewStatus !== "deprecated");
+  const downDeprecatedCount = downRaw.length - down.length;
+  const metrics = metricsForNode(graph, node.id).filter((child) => child.reviewStatus !== "deprecated");
+  const bottlenecksAll = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
+  const bottlenecks = bottlenecksAll.filter((child) => child.reviewStatus !== "deprecated");
+  const bottlenecksDeprecatedCount = bottlenecksAll.length - bottlenecks.length;
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
   // Per ADR-0005, the broader frontier judgment is: explicit `decomposition_frontier`
@@ -37,12 +41,36 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   // The Frontier pill below surfaces that judgment for the learner.
   const isFrontierByJudgment = isDecompositionFrontier(graph, node);
   const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
-  const siblingCandidates = node.kind === "product" ? siblingProductsForProduct(graph, node.id) : [];
+  const siblingCandidatesAll = node.kind === "product" ? siblingProductsForProduct(graph, node.id) : [];
+  const siblingCandidates = siblingCandidatesAll.filter((child) => child.reviewStatus !== "deprecated");
+  const siblingDeprecatedCount = siblingCandidatesAll.length - siblingCandidates.length;
+  const isDeprecated = node.reviewStatus === "deprecated";
+  const isDisputed = node.reviewStatus === "disputed";
 
   return (
     <aside className="panel detail-list">
       <div>
-        <h2>{nodeName(node.id, node.name)}</h2>
+        <h2>
+          {nodeName(node.id, node.name)}
+          {isDeprecated ? (
+            <span
+              className="deprecated-badge"
+              title={t("deprecatedBadgeTooltip")}
+              aria-label={t("deprecatedBadgeTooltip")}
+            >
+              {t("deprecatedBadge")}
+            </span>
+          ) : null}
+          {isDisputed ? (
+            <span
+              className="disputed-badge"
+              title={t("disputedBadgeTooltip")}
+              aria-label={t("disputedBadgeTooltip")}
+            >
+              {t("disputedBadge")}
+            </span>
+          ) : null}
+        </h2>
         <div className="pill-row">
           <span className="pill">{kindName(node.kind)}</span>
           {node.domain.map((item) => (
@@ -53,6 +81,18 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         </div>
       </div>
       <p>{node.description ?? t("noDescription")}</p>
+      {isDeprecated && node.notes?.trim() ? (
+        <div className="deprecated-callout">
+          <strong>{t("supersessionReason")}</strong>
+          <p>{node.notes}</p>
+        </div>
+      ) : null}
+      {isDisputed && node.notes?.trim() ? (
+        <div className="disputed-callout">
+          <strong>{t("disputeReason")}</strong>
+          <p>{node.notes}</p>
+        </div>
+      ) : null}
       {isExpansionFrontier ? (
         <div className="frontier-callout">
           <strong>{t("expansionFrontier")}</strong>
@@ -134,13 +174,19 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         </div>
       ) : null}
       <NodeList title={t("metrics")} nodes={metrics} onSelectNode={onSelectNode} />
-      <NodeList title={t("bottlenecks")} nodes={bottlenecks} onSelectNode={onSelectNode} />
+      <NodeList
+        title={t("bottlenecks")}
+        nodes={bottlenecks}
+        onSelectNode={onSelectNode}
+        deprecatedHiddenCount={bottlenecksDeprecatedCount}
+      />
       <NodeList title={t("upstream")} nodes={up} onSelectNode={onSelectNode} />
       <NodeList
         title={t("downstream")}
         nodes={down}
         onSelectNode={onSelectNode}
         subtitle={t("nonMetricChildrenHint")}
+        deprecatedHiddenCount={downDeprecatedCount}
       />
       {node.kind === "product" ? (
         <NodeList
@@ -148,6 +194,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
           nodes={siblingCandidates}
           onSelectNode={onSelectNode}
           subtitle={t("siblingCandidatesHint")}
+          deprecatedHiddenCount={siblingDeprecatedCount}
         />
       ) : null}
       <div>
@@ -173,17 +220,29 @@ function NodeList({
   nodes,
   onSelectNode,
   subtitle,
+  deprecatedHiddenCount = 0,
 }: {
   title: string;
   nodes: Node[];
   onSelectNode?: (nodeId: string) => void;
   subtitle?: string;
+  deprecatedHiddenCount?: number;
 }) {
   const { nodeName, t } = useLanguage();
+  // Per ADR-0001, deprecated children are excluded from the auto-rendered
+  // child lists by default. We surface a count inline so the learner knows
+  // soft-deleted records exist without burying it in the tree.
+  const deprecatedNote =
+    deprecatedHiddenCount > 0
+      ? t("deprecatedHiddenChildrenSuffix").replace("{count}", String(deprecatedHiddenCount))
+      : null;
   return (
     <div>
       <strong>{title}</strong>
       {subtitle ? <span className="muted node-list-subtitle"> ({subtitle})</span> : null}
+      {deprecatedNote ? (
+        <span className="muted node-list-deprecated-note"> ({deprecatedNote})</span>
+      ) : null}
       {nodes.length ? (
         <ul>
           {nodes.map((node) => (

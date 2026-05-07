@@ -138,7 +138,7 @@ export const evidenceSchema = z.object({
   supportsEdgeIds: z.array(z.string()).optional(),
   limitations: z.string().optional(),
   confidence: confidenceSchema.optional(),
-  reviewStatus: z.enum(["unreviewed", "reviewed", "disputed"]).optional(),
+  reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),
 });
 
 export const gateQuestionSchema = z.object({
@@ -171,6 +171,15 @@ export const gateReportSchema = z.object({
       targetNodeId: z.string().optional(),
       suggestedNodeKind: nodeKindSchema.optional(),
       priority: z.enum(["low", "medium", "high"]),
+      /**
+       * Discriminator for surfacing distinct task families in the UI per
+       * ADR-0001. `resolve_dispute` tasks come from `disputed`-status records
+       * and need separate styling so a learner can see at a glance that a
+       * human is needed to break the tie. `human_review` tasks come from
+       * `unreviewed`-status records. Other tasks (missing modules / metrics /
+       * evidence backfill) are kindless.
+       */
+      kind: z.enum(["resolve_dispute", "human_review"]).optional(),
     }),
   ),
 });

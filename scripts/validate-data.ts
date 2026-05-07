@@ -54,6 +54,8 @@ for (const report of reports) {
 errors.push(...validateParcelCoreProvenance(graph));
 errors.push(...validateHardToDevelopExplainability(graph));
 errors.push(...validateMaturityLabelPresence(graph));
+errors.push(...validateDisputedHasNotes(graph));
+errors.push(...validateDeprecatedHasNotes(graph));
 
 if (errors.length) {
   console.error("Data validation failed:");
@@ -71,6 +73,80 @@ console.log(`Data validation passed: ${graph.nodes.length} nodes, ${graph.edges.
  * gate's frontier judgment cannot decide whether decomposition has legitimately
  * stopped or is incompletely modeled.
  */
+/**
+ * Per ADR-0001 (review-status ladder), a `disputed` record asserts a human
+ * looked AND found counter-evidence. The dispute reason MUST be captured
+ * inline (otherwise the ladder collapses to "we don't know why this was
+ * disputed", which loses the signal that justified the 2/5 cap). For nodes
+ * the canonical place is `notes`; for edges `context`; for evidence
+ * `limitations` is the closest existing field, falling back to `summary`.
+ */
+function validateDisputedHasNotes(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    if (node.reviewStatus !== "disputed") continue;
+    if (!node.notes?.trim()) {
+      errors.push(
+        `Node ${node.id} has reviewStatus: "disputed" but no notes. Per ADR-0001 the dispute reason must be captured in notes.`,
+      );
+    }
+  }
+  for (const edge of graph.edges) {
+    if (edge.reviewStatus !== "disputed") continue;
+    if (!edge.context?.trim()) {
+      errors.push(
+        `Edge ${edge.id} has reviewStatus: "disputed" but no context. Per ADR-0001 the dispute reason must be captured in context.`,
+      );
+    }
+  }
+  for (const item of graph.evidence) {
+    if (item.reviewStatus !== "disputed") continue;
+    const text = (item.limitations?.trim() ?? "") || (item.summary?.trim() ?? "");
+    if (!text) {
+      errors.push(
+        `Evidence ${item.id} has reviewStatus: "disputed" but no limitations or summary. Per ADR-0001 the dispute reason must be captured in one of those fields.`,
+      );
+    }
+  }
+  return errors;
+}
+
+/**
+ * Per ADR-0001, `deprecated` means a record was once true / once accepted but
+ * is now superseded or no longer applicable. The supersession reason must be
+ * captured inline so deprecation is not a silent soft-delete — graph history
+ * stays auditable.
+ */
+function validateDeprecatedHasNotes(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    if (node.reviewStatus !== "deprecated") continue;
+    if (!node.notes?.trim()) {
+      errors.push(
+        `Node ${node.id} has reviewStatus: "deprecated" but no notes. Per ADR-0001 the supersession reason must be captured in notes.`,
+      );
+    }
+  }
+  for (const edge of graph.edges) {
+    if (edge.reviewStatus !== "deprecated") continue;
+    if (!edge.context?.trim()) {
+      errors.push(
+        `Edge ${edge.id} has reviewStatus: "deprecated" but no context. Per ADR-0001 the supersession reason must be captured in context.`,
+      );
+    }
+  }
+  for (const item of graph.evidence) {
+    if (item.reviewStatus !== "deprecated") continue;
+    const text = (item.limitations?.trim() ?? "") || (item.summary?.trim() ?? "");
+    if (!text) {
+      errors.push(
+        `Evidence ${item.id} has reviewStatus: "deprecated" but no limitations or summary. Per ADR-0001 the supersession reason must be captured in one of those fields.`,
+      );
+    }
+  }
+  return errors;
+}
+
 function validateMaturityLabelPresence(graph: GraphData): string[] {
   const errors: string[] = [];
   for (const node of graph.nodes) {

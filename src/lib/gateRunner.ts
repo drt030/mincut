@@ -25,7 +25,21 @@ type GateContext = {
   scopedNodes: Node[];
   scopedEdges: Edge[];
   scopedEvidence: Evidence[];
+  /**
+   * Per ADR-0001, `deprecated` records are completely excluded from gate
+   * scoring (not counted in trusted, weak, or coverage tallies). The
+   * `*Active*` collections drop deprecated nodes/edges/evidence before any
+   * downstream bucketing or coverage logic runs. The original `scoped*`
+   * collections remain available for diagnostics, but every gate-effect
+   * computation must read the active collections.
+   */
+  scopedNodesActive: Node[];
+  scopedEdgesActive: Edge[];
+  scopedEvidenceActive: Evidence[];
 };
+
+const DISPUTED_CAP = 2;
+const UNREVIEWED_CAP = 3;
 
 const requiredParcelModules = [
   "vision_barcode_label_recognition",
@@ -66,29 +80,40 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
   const scopedEdges = graph.edges.filter((edge) => scopedNodeIds.has(edge.source) && scopedNodeIds.has(edge.target));
   const scopedEvidence = evidenceForScope(graph, scopedNodes, scopedEdges);
 
+  // Per ADR-0001, `deprecated` records are fully excluded from gate
+  // scoring. We strip them once here so every downstream bucket
+  // (trusted / weak / coverage / scopedClaims) reads from the active
+  // collections without per-call filtering.
+  const scopedNodesActive = scopedNodes.filter((node) => node.reviewStatus !== "deprecated");
+  const scopedEdgesActive = scopedEdges.filter((edge) => edge.reviewStatus !== "deprecated");
+  const scopedEvidenceActive = scopedEvidence.filter((item) => item.reviewStatus !== "deprecated");
+
   const context: GateContext = {
     graph,
     target,
     questions,
-    modules: requiredModules(graph, targetNodeId),
-    bottlenecks: bottlenecksForNode(graph, targetNodeId),
-    metrics: metricsForNode(graph, targetNodeId),
+    modules: requiredModules(graph, targetNodeId).filter((node) => node.reviewStatus !== "deprecated"),
+    bottlenecks: bottlenecksForNode(graph, targetNodeId).filter((node) => node.reviewStatus !== "deprecated"),
+    metrics: metricsForNode(graph, targetNodeId).filter((node) => node.reviewStatus !== "deprecated"),
     scopedNodeIds,
     scopedNodes,
     scopedEdges,
     scopedEvidence,
+    scopedNodesActive,
+    scopedEdgesActive,
+    scopedEvidenceActive,
   };
 
-  const questionResults = questions.map((question) => answerQuestion(context, question));
+  const evidenceFindings = evidenceFindingsForContext(context);
+  const questionResults = questions.map((question) => answerQuestion(context, question, evidenceFindings));
   const overallScore = round(questionResults.reduce((sum, result) => sum + result.score, 0) / questionResults.length);
   const missingCriticalModules = requiredParcelModules.filter((id) => !context.modules.some((node) => node.id === id));
-  const highConfidenceEdgesWithoutEvidence = context.scopedEdges.filter(
+  const highConfidenceEdgesWithoutEvidence = context.scopedEdgesActive.filter(
     (edge) =>
       edge.confidence === "high" &&
       evidenceForEdge(graph, edge.id).length === 0,
   );
   const criticalMetricsMissing = requiredParcelMetrics.filter((id) => !context.metrics.some((node) => node.id === id));
-  const evidenceFindings = evidenceFindingsForContext(context);
 
   const passed =
     overallScore >= 4 &&
@@ -115,14 +140,40 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
   };
 }
 
-function answerQuestion(context: GateContext, question: GateQuestion): GateReport["questionResults"][number] {
+function answerQuestion(
+  context: GateContext,
+  question: GateQuestion,
+  evidenceFindings: EvidenceFindings,
+): GateReport["questionResults"][number] {
   const { graph, target, modules, metrics } = context;
   const maturity = productMaturity(graph, target);
-  const evidence = evidenceForNode(graph, target.id);
-  const evidenceFindings = evidenceFindingsForContext(context);
+  // Per ADR-0001, deprecated evidence is fully excluded from the gate.
+  const evidence = evidenceForNode(graph, target.id).filter((item) => item.reviewStatus !== "deprecated");
   const allBottlenecks = uniqueNodes(context.bottlenecks);
+  const reviewStatusCap = applyReviewStatusCap(evidenceFindings);
 
-  switch (question.id) {
+  const result = answerQuestionInner();
+  // Per ADR-0001, the reviewStatus ladder caps *relevant* question scores.
+  // "Relevant" means the question's answer leans on the evidence/claim
+  // ladder — definition / target_context / scientific_principles etc. are
+  // structural and untouched by the cap, while evidence-bearing questions
+  // (estimated_maturity, important_evidence, weak_evidence, research_next,
+  // excluded_claims) MUST be capped when disputed claims are present.
+  // The disputed cap (2/5) is *lower* than the unreviewed cap (3/5) — the
+  // asymmetry is intentional, see CONTEXT.md "Review status ladder" L50:
+  // "we looked and found a problem" must not lift the score above
+  // "unknown".
+  if (
+    typeof reviewStatusCap === "number" &&
+    isReviewStatusCapRelevant(question.id) &&
+    result.score > reviewStatusCap
+  ) {
+    return { ...result, score: reviewStatusCap };
+  }
+  return result;
+
+  function answerQuestionInner(): GateReport["questionResults"][number] {
+    switch (question.id) {
     case "definition":
       return scoreResult(question.question, target.description ?? "No description is present.", target.description ? 5 : 1);
     case "target_context":
@@ -183,11 +234,11 @@ function answerQuestion(context: GateContext, question: GateQuestion): GateRepor
       );
     }
     case "cost_constraints": {
-      const costNodes = context.scopedNodes.filter((node) => node.tags?.includes("cost") || node.id.includes("cost") || node.id.includes("payback"));
+      const costNodes = context.scopedNodesActive.filter((node) => node.tags?.includes("cost") || node.id.includes("cost") || node.id.includes("payback"));
       return listResult(question.question, costNodes, "cost constraint nodes");
     }
     case "manufacturing_constraints": {
-      const manufacturing = context.scopedNodes.filter(
+      const manufacturing = context.scopedNodesActive.filter(
         (node) =>
           node.kind === "manufacturing_process" ||
           node.tags?.includes("manufacturing") ||
@@ -197,13 +248,15 @@ function answerQuestion(context: GateContext, question: GateQuestion): GateRepor
       return listResult(question.question, manufacturing, "manufacturing constraint nodes");
     }
     case "safety_regulatory_deployment": {
-      const nodes = context.scopedNodes.filter(
+      const nodes = context.scopedNodesActive.filter(
         (node) => node.kind === "standard_or_regulation" || node.tags?.includes("safety") || node.tags?.includes("deployment"),
       );
       return listResult(question.question, nodes, "safety, regulatory, or deployment nodes");
     }
     case "downstream_unlocked": {
-      const enabled = targets(graph, "low_cost_high_reliability_parcel_manipulation", "enables");
+      const enabled = targets(graph, "low_cost_high_reliability_parcel_manipulation", "enables").filter(
+        (node) => node.reviewStatus !== "deprecated",
+      );
       return listResult(question.question, enabled, "downstream unlocked nodes");
     }
     case "research_next":
@@ -212,6 +265,7 @@ function answerQuestion(context: GateContext, question: GateQuestion): GateRepor
       return excludedClaimsResult(context, question.question, evidenceFindings);
     default:
       return scoreResult(question.question, "No handler exists for this question yet.", 0);
+    }
   }
 }
 
@@ -333,6 +387,30 @@ function recommendedTasks(
       reason: `${findings.evidenceFindings.unreviewedClaims.length} scoped claims are explicitly marked unreviewed and must not be treated as established. ${formatClaimSamples(findings.evidenceFindings.unreviewedClaims)} Human-review these node/edge claims, then mark them reviewed, disputed, deprecated, or keep them unreviewed with clearer limitations.`,
       suggestedNodeKind: "evidence",
       priority: "high",
+      kind: "human_review",
+    });
+  }
+  // Per ADR-0001, every disputed claim/evidence record is surfaced as its
+  // own "Resolve dispute" auto-task — these need human resolution one at a
+  // time and are kept distinct from generic review backlog so the UI can
+  // style them differently. The disputed cap (2/5) already pushed the
+  // gate score down; the task here is the call to action.
+  for (const claim of findings.evidenceFindings.disputedClaims) {
+    const id = "relation" in claim ? `${claim.id} (${claim.source}->${claim.target})` : claim.id;
+    tasks.push({
+      title: `Resolve dispute on ${id}`,
+      reason: `${id} is marked reviewStatus: "disputed". Per ADR-0001, disputed claims cap relevant gate scores at 2/5 (lower than unreviewed) until a human resolves the dispute by marking it reviewed (with counter-evidence integrated), deprecated (superseded), or otherwise. See record notes for the dispute reason.`,
+      targetNodeId: "relation" in claim ? undefined : claim.id,
+      priority: "high",
+      kind: "resolve_dispute",
+    });
+  }
+  for (const item of findings.evidenceFindings.disputedEvidence) {
+    tasks.push({
+      title: `Resolve dispute on ${item.id}`,
+      reason: `Evidence ${item.id} (${item.title}) is marked reviewStatus: "disputed". Per ADR-0001, disputed evidence caps relevant gate scores at 2/5 until a human resolves the dispute. See record notes for the dispute reason.`,
+      priority: "high",
+      kind: "resolve_dispute",
     });
   }
   if (findings.evidenceFindings.frontiers.length) {
@@ -398,6 +476,14 @@ type EvidenceFindings = {
   weakEvidence: Evidence[];
   missingReviewedEvidence: Array<Node | Edge>;
   unreviewedClaims: Array<Node | Edge>;
+  /**
+   * Per ADR-0001, `disputed` claims (and disputed-status evidence)
+   * lower the relevant gate score to 2/5. They count toward coverage,
+   * so they remain in `scopedClaims`, but they are surfaced separately
+   * to drive the "Resolve dispute" auto-task.
+   */
+  disputedClaims: Array<Node | Edge>;
+  disputedEvidence: Evidence[];
   vendorOrInternalOnlyClaims: Array<Node | Edge>;
   frontiers: Node[];
 };
@@ -405,21 +491,65 @@ type EvidenceFindings = {
 function evidenceFindingsForContext(context: GateContext): EvidenceFindings {
   const claims = scopedClaims(context);
   return {
-    trustedEvidence: context.scopedEvidence.filter(isTrustedEvidence),
-    weakEvidence: context.scopedEvidence.filter(isWeakEvidence),
-    missingReviewedEvidence: claims.filter((claim) => trustedEvidenceForClaim(context.graph, claim).length === 0),
+    trustedEvidence: context.scopedEvidenceActive.filter(isTrustedEvidence),
+    weakEvidence: context.scopedEvidenceActive.filter(isWeakEvidence),
+    missingReviewedEvidence: claims.filter(
+      (claim) =>
+        trustedEvidenceForClaim(context.graph, claim).length === 0 && claim.reviewStatus !== "disputed",
+    ),
     unreviewedClaims: claims.filter((claim) => claim.reviewStatus === "unreviewed"),
+    disputedClaims: claims.filter((claim) => claim.reviewStatus === "disputed"),
+    disputedEvidence: context.scopedEvidenceActive.filter((item) => item.reviewStatus === "disputed"),
     vendorOrInternalOnlyClaims: claims.filter((claim) => {
-      const evidence = evidenceForClaim(context.graph, claim);
+      const evidence = evidenceForClaim(context.graph, claim).filter((item) => item.reviewStatus !== "deprecated");
       return evidence.length > 0 && evidence.every((item) => item.type === "vendor_claim" || item.type === "internal_note");
     }),
-    frontiers: context.scopedNodes.filter((node) => isDecompositionFrontier(context.graph, node)),
+    frontiers: context.scopedNodesActive.filter((node) => isDecompositionFrontier(context.graph, node)),
   };
 }
 
+/**
+ * Per ADR-0001, the cap returned here applies to *every* question's score
+ * once it has been computed by the question-specific logic. Deprecated
+ * records are already excluded from `scopedClaims`, so they cannot raise
+ * this cap. If both disputed and unreviewed claims are present, the
+ * lower (disputed = 2/5) cap wins, since the asymmetry intentionally
+ * pulls the score down — see CONTEXT.md "Review status ladder" L50.
+ */
+function applyReviewStatusCap(findings: EvidenceFindings): number | undefined {
+  if (findings.disputedClaims.length > 0 || findings.disputedEvidence.length > 0) return DISPUTED_CAP;
+  if (findings.unreviewedClaims.length > 0) return UNREVIEWED_CAP;
+  return undefined;
+}
+
+/**
+ * Per ADR-0001, the reviewStatus cap only applies to questions that lean on
+ * the local-evidence ladder. Structural questions (definition, target
+ * context, scientific principles, etc.) are unaffected — their answer comes
+ * from the structural shape of the graph, not from claims supported by
+ * evidence whose review status matters. The set below is intentionally
+ * narrow: each entry is a question whose answer would otherwise be elevated
+ * past the cap by graph-level coverage even when the underlying claims are
+ * disputed or unreviewed.
+ */
+const REVIEW_STATUS_CAPPED_QUESTIONS = new Set<string>([
+  "estimated_maturity",
+  "important_evidence",
+  "weak_evidence",
+  "research_next",
+  "excluded_claims",
+]);
+
+function isReviewStatusCapRelevant(questionId: string): boolean {
+  return REVIEW_STATUS_CAPPED_QUESTIONS.has(questionId);
+}
+
 function scopedClaims(context: GateContext): Array<Node | Edge> {
-  const confidentNodes = context.scopedNodes.filter((node) => node.confidence === "medium" || node.confidence === "high");
-  const confidentEdges = context.scopedEdges.filter((edge) => edge.confidence === "medium" || edge.confidence === "high");
+  // Per ADR-0001, deprecated nodes/edges are fully excluded from
+  // `scopedClaims` — they should not raise coverage, weak, or trusted
+  // tallies. Disputed/unreviewed claims still count toward coverage.
+  const confidentNodes = context.scopedNodesActive.filter((node) => node.confidence === "medium" || node.confidence === "high");
+  const confidentEdges = context.scopedEdgesActive.filter((edge) => edge.confidence === "medium" || edge.confidence === "high");
   return [...confidentNodes, ...confidentEdges];
 }
 
@@ -432,10 +562,17 @@ function trustedEvidenceForClaim(graph: GraphData, claim: Node | Edge): Evidence
 }
 
 function isTrustedEvidence(item: Evidence): boolean {
+  // Per ADR-0001, deprecated evidence is fully excluded — it cannot count as
+  // trusted. Callers that pass `scopedEvidenceActive` already filter
+  // deprecated, but we re-check here so callers using the raw graph
+  // evidence (e.g. `evidenceForNode`) get the same answer.
+  if (item.reviewStatus === "deprecated") return false;
   return item.reviewStatus === "reviewed" && item.confidence === "high" && item.type !== "vendor_claim" && item.type !== "internal_note";
 }
 
 function isWeakEvidence(item: Evidence): boolean {
+  // Deprecated evidence is excluded from BOTH trusted and weak — see ADR-0001.
+  if (item.reviewStatus === "deprecated") return false;
   return item.reviewStatus !== "reviewed" || item.confidence !== "high" || item.type === "vendor_claim" || item.type === "internal_note";
 }
 
@@ -464,7 +601,7 @@ function researchNextResult(
 ): GateReport["questionResults"][number] {
   const tasks = recommendedTasks(context, {
     missingCriticalModules: requiredParcelModules.filter((id) => !context.modules.some((node) => node.id === id)),
-    highConfidenceEdgesWithoutEvidence: context.scopedEdges.filter(
+    highConfidenceEdgesWithoutEvidence: context.scopedEdgesActive.filter(
       (edge) => edge.confidence === "high" && evidenceForEdge(context.graph, edge.id).length === 0,
     ),
     criticalMetricsMissing: requiredParcelMetrics.filter((id) => !context.metrics.some((node) => node.id === id)),

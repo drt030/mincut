@@ -95,7 +95,12 @@ function GateReportDetails({
           <h3>{t("recommendedTasks")}</h3>
           <ul>
             {report.recommendedNextTasks.map((task) => (
-              <li key={task.title}>
+              <li key={task.title} className={taskKindClass(task.kind)}>
+                {task.kind === "resolve_dispute" ? (
+                  <span className="task-kind-chip task-kind-resolve-dispute">{t("resolveDisputeChip")}</span>
+                ) : task.kind === "human_review" ? (
+                  <span className="task-kind-chip task-kind-human-review">{t("humanReviewChip")}</span>
+                ) : null}
                 {task.title} <span className="muted">({task.priority})</span>
               </li>
             ))}
@@ -153,6 +158,18 @@ function NodeMaturityStat({ node }: { node: Node }) {
       </span>
     </p>
   );
+}
+
+/**
+ * Per ADR-0001, "Resolve dispute" tasks need human resolution and are
+ * surfaced distinctly from the rest of the gate-derived task backlog.
+ * "Human review" tasks come from `unreviewed`-status records and are also
+ * called out, though less urgently than disputes.
+ */
+function taskKindClass(kind: GateReport["recommendedNextTasks"][number]["kind"]): string {
+  if (kind === "resolve_dispute") return "task-kind-row task-kind-row-resolve-dispute";
+  if (kind === "human_review") return "task-kind-row task-kind-row-human-review";
+  return "";
 }
 
 function GateResultGaps({ result }: { result: GateReport["questionResults"][number] }) {
