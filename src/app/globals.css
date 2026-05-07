@@ -235,6 +235,22 @@ li {
   opacity: 0.34;
 }
 
+/*
+ * Sibling Product candidates from the capability cluster (per ADR-0004).
+ * Rendered as visible-but-secondary "alternative architectures" so they
+ * read as context rather than competing with the active Product.
+ */
+.graph-node-card.alt-sibling {
+  opacity: 0.62;
+  filter: saturate(0.6);
+  transform: scale(0.92);
+  transform-origin: center;
+}
+
+.graph-node-card.alt-sibling:hover {
+  opacity: 0.85;
+}
+
 .graph-node-card.risk {
   box-shadow:
     0 0 0 1px rgba(248, 113, 113, 0.34),

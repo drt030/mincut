@@ -1341,5 +1341,50 @@
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
     "confidence": "low"
+  },
+  {
+    "id": "e_v0_product_enables_capability",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Product candidate satisfying the capability per ADR-0004. Mirrors the gripper sibling pattern so the capability cluster surfaces directly in the layered graph view."
+  },
+  {
+    "id": "e_delta_route_enables_capability",
+    "source": "delta_robot_sorting_route",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
+  },
+  {
+    "id": "e_diverter_route_enables_capability",
+    "source": "conveyor_diverter_sorting_route",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
+  },
+  {
+    "id": "e_mobile_route_enables_capability",
+    "source": "mobile_robot_sorting_route",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
+  },
+  {
+    "id": "e_hybrid_route_enables_capability",
+    "source": "hybrid_human_robot_assisted_sorting_route",
+    "target": "affordable_small_warehouse_automation",
+    "relation": "enables",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
   }
 ]

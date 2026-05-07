@@ -123,6 +123,8 @@ const uiText: Record<Language, Record<string, string>> = {
       "Gate overall measures graph-modelling completeness. Node maturity measures real-world readiness. They are independent.",
     nonMetricChildrenHint: "non-metric children",
     nodeMaturityScoreMissing: "score not set",
+    siblingCandidates: "Sibling candidates",
+    siblingCandidatesHint: "other Products under the same Capability",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -228,6 +230,8 @@ const uiText: Record<Language, Record<string, string>> = {
     scaleSeparationNote: "Gate 总分衡量图谱建模的完整度，节点成熟度衡量产品在现实世界的就绪度。两者相互独立。",
     nonMetricChildrenHint: "非指标子节点",
     nodeMaturityScoreMissing: "未设置成熟度分数",
+    siblingCandidates: "兄弟候选产品",
+    siblingCandidatesHint: "同一能力下的其他产品",
   },
 };
 

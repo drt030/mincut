@@ -63,6 +63,7 @@ type CapabilityNodeData = {
   related: boolean;
   risk: boolean;
   isBottleneck: boolean;
+  isAlternativeSibling: boolean;
   bottleneckedByCount: number;
   bottleneckedByTooltip: string;
   maturityPillLabel: string;
@@ -96,6 +97,7 @@ const nodeTypes = {
           data.related ? "related" : "",
           data.risk ? "risk" : "",
           data.isBottleneck ? "is-bottleneck" : "",
+          data.isAlternativeSibling && !data.selected ? "alt-sibling" : "",
         ]
           .filter(Boolean)
           .join(" ")}
@@ -252,11 +254,16 @@ export function GraphExplorer({ graph }: Props) {
   const relations = useMemo(() => [...new Set(graph.edges.map((edge) => edge.relation))].sort(), [graph.edges]);
   const focusIds = useMemo(() => routeFocusIds(graph, routeFocus), [graph, routeFocus]);
 
+  const capabilityCluster = useMemo(() => capabilityClusterFor(graph, rootNodeId), [graph]);
+
   const visibleIds = useMemo(() => {
     if (mode === "full") return null;
-    if (mode === "bottleneck") return bottleneckVisibleIds(graph, expandedBottleneckIds);
-    return layeredVisibleIds(graph, expandedIds);
-  }, [expandedBottleneckIds, expandedIds, graph, mode]);
+    const baseIds = mode === "bottleneck"
+      ? bottleneckVisibleIds(graph, expandedBottleneckIds)
+      : layeredVisibleIds(graph, expandedIds);
+    for (const id of capabilityCluster.allClusterIds) baseIds.add(id);
+    return baseIds;
+  }, [capabilityCluster, expandedBottleneckIds, expandedIds, graph, mode]);
 
   const prefilteredNodes = useMemo(
     () =>
@@ -336,8 +343,16 @@ export function GraphExplorer({ graph }: Props) {
         // when the metric is rendered as a standalone node (showMetricsAsNodes
         // toggle is on). When metrics fold into the parent's strip the metric
         // node is removed from filteredIds and the edge is dropped naturally.
-        .filter((edge) => mode === "full" || layeredRelations.has(edge.relation) || edge.relation === "measured_by"),
-    [filteredIds, graph.edges, mode, relation],
+        // Also allow `enables` edges that participate in the capability cluster
+        // (product -> capability) so the cluster wiring renders in non-Full modes.
+        .filter(
+          (edge) =>
+            mode === "full" ||
+            layeredRelations.has(edge.relation) ||
+            edge.relation === "measured_by" ||
+            (edge.relation === "enables" && capabilityCluster.allClusterIds.has(edge.source) && capabilityCluster.capabilityIds.has(edge.target)),
+        ),
+    [capabilityCluster, filteredIds, graph.edges, mode, relation],
   );
 
   const toggleSelectedExpansion = useCallback((nodeId: string) => {
@@ -387,6 +402,7 @@ export function GraphExplorer({ graph }: Props) {
           : t("maturityAsOfMissing");
         const isBottleneck = node.kind === "bottleneck";
         const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
+        const isAlternativeSibling = capabilityCluster.siblingProductIds.has(node.id);
         return {
         id: node.id,
         type: "capability",
@@ -404,6 +420,7 @@ export function GraphExplorer({ graph }: Props) {
           related,
           risk: node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
           isBottleneck,
+          isAlternativeSibling,
           bottleneckedByCount,
           bottleneckedByTooltip: bottleneckedByCount > 0 ? t("bottleneckedByGlyphTooltip").replace("{count}", String(bottleneckedByCount)) : "",
           maturityPillLabel: visual.label,
@@ -425,7 +442,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
@@ -462,7 +479,21 @@ export function GraphExplorer({ graph }: Props) {
     let cancelled = false;
 
     async function applyLayout() {
-      const nextPositions = await layoutWithElk(filteredNodes, layoutEdges, selectedIdRef.current, layoutPositionsRef.current, foldCountById);
+      // Flip cluster edges (product -> capability) for ELK layout so the
+      // capability sits in a layer LEFT of the active product. Sibling
+      // products land in the same layer as the active product. The visible
+      // `flowEdges` keep their natural direction.
+      const elkEdges: Edge[] = layoutEdges.map((edge) => {
+        if (
+          edge.relation === "enables" &&
+          capabilityCluster.allClusterIds.has(edge.source) &&
+          capabilityCluster.capabilityIds.has(edge.target)
+        ) {
+          return { ...edge, source: edge.target, target: edge.source };
+        }
+        return edge;
+      });
+      const nextPositions = await layoutWithElk(filteredNodes, elkEdges, selectedIdRef.current, layoutPositionsRef.current, foldCountById);
       if (!cancelled) {
         layoutPositionsRef.current = nextPositions;
         setLayoutPositions(nextPositions);
@@ -473,7 +504,7 @@ export function GraphExplorer({ graph }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [filteredNodes, foldCountById, layoutEdges]);
+  }, [capabilityCluster, filteredNodes, foldCountById, layoutEdges]);
 
   const selectedNode = graph.nodes.find((node) => node.id === selectedId) ?? graph.nodes[0];
   const selectedDependencyCount = graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length;
@@ -609,6 +640,36 @@ export function GraphExplorer({ graph }: Props) {
       </div>
     </div>
   );
+}
+
+/**
+ * The capability cluster surrounding a Product, per ADR-0004:
+ * - capabilityIds: Capabilities the Product `enables` (one hop).
+ * - siblingProductIds: Other Products that `enables` the same Capabilities.
+ *
+ * Used by the Layered builder to surface the boundary structure on-graph
+ * even though sibling Products and the Capability are not in the active
+ * Product's reachable subtree.
+ */
+function capabilityClusterFor(
+  graph: GraphData,
+  productId: string,
+): { capabilityIds: Set<string>; siblingProductIds: Set<string>; allClusterIds: Set<string> } {
+  const capabilityIds = new Set<string>();
+  for (const edge of graph.edges) {
+    if (edge.source !== productId || edge.relation !== "enables") continue;
+    const targetNode = graph.nodes.find((node) => node.id === edge.target);
+    if (targetNode?.kind === "capability") capabilityIds.add(edge.target);
+  }
+  const siblingProductIds = new Set<string>();
+  for (const edge of graph.edges) {
+    if (edge.relation !== "enables" || !capabilityIds.has(edge.target)) continue;
+    if (edge.source === productId) continue;
+    const sourceNode = graph.nodes.find((node) => node.id === edge.source);
+    if (sourceNode?.kind === "product") siblingProductIds.add(edge.source);
+  }
+  const allClusterIds = new Set<string>([productId, ...capabilityIds, ...siblingProductIds]);
+  return { capabilityIds, siblingProductIds, allClusterIds };
 }
 
 function layeredVisibleIds(graph: GraphData, expandedIds: Set<string>) {

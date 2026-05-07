@@ -1,6 +1,13 @@
 "use client";
 
-import { bottlenecksForNode, downstream, evidenceForNode, metricsForNode, upstream } from "@/lib/graphTraversal";
+import {
+  bottlenecksForNode,
+  downstream,
+  evidenceForNode,
+  metricsForNode,
+  siblingProductsForProduct,
+  upstream,
+} from "@/lib/graphTraversal";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import type { GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
@@ -24,6 +31,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const bottlenecks = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
+  const siblingCandidates = node.kind === "product" ? siblingProductsForProduct(graph, node.id) : [];
 
   return (
     <aside className="panel detail-list">
@@ -109,6 +117,14 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         onSelectNode={onSelectNode}
         subtitle={t("nonMetricChildrenHint")}
       />
+      {node.kind === "product" ? (
+        <NodeList
+          title={t("siblingCandidates")}
+          nodes={siblingCandidates}
+          onSelectNode={onSelectNode}
+          subtitle={t("siblingCandidatesHint")}
+        />
+      ) : null}
       <div>
         <strong>{t("evidence")}</strong>
         {evidence.length ? (

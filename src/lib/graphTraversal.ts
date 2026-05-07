@@ -70,6 +70,31 @@ export function downstream(graph: GraphData, nodeId: string): Node[] {
   return targets(graph, nodeId);
 }
 
+/**
+ * Other Product nodes that share at least one Capability target with the
+ * given Product, via the `enables` relation. Encodes the ADR-0004 boundary:
+ * alternative Product architectures live as siblings under one Capability.
+ */
+export function siblingProductsForProduct(graph: GraphData, productId: string): Node[] {
+  const productNode = nodeById(graph, productId);
+  if (!productNode || productNode.kind !== "product") return [];
+  const capabilityIds = new Set(
+    outgoingEdges(graph, productId, "enables")
+      .filter((edge) => nodeById(graph, edge.target)?.kind === "capability")
+      .map((edge) => edge.target),
+  );
+  if (capabilityIds.size === 0) return [];
+  const siblingIds = new Set<string>();
+  for (const edge of graph.edges) {
+    if (edge.relation !== "enables" || !capabilityIds.has(edge.target)) continue;
+    if (edge.source === productId) continue;
+    if (nodeById(graph, edge.source)?.kind === "product") siblingIds.add(edge.source);
+  }
+  return [...siblingIds]
+    .map((id) => nodeById(graph, id))
+    .filter((node): node is Node => Boolean(node));
+}
+
 export function upstream(graph: GraphData, nodeId: string): Node[] {
   return sources(graph, nodeId);
 }
@@ -123,6 +148,27 @@ export function evidenceForScope(graph: GraphData, nodes: Node[], edges: Edge[])
 
 export function scopeGraphToReachableNodes(graph: GraphData, targetNodeId: string = V0_TARGET_NODE_ID): GraphData {
   const nodeIds = reachableNodeIdsFrom(graph, targetNodeId);
+
+  // Per ADR-0004, the Capability that the active Product `enables` and the
+  // *other* sibling Products that share that Capability are part of the
+  // boundary structure a learner must see on-graph. They are not reached by
+  // following outgoing edges from the Product (sibling Products are sources,
+  // not targets). We pull them in at scope time, but we do NOT pull in any
+  // of the sibling Products' inner subtrees — only the sibling Product nodes
+  // themselves and the cluster `enables` edges. This keeps the active graph
+  // small while letting the Layered builder render the cluster.
+  for (const edge of graph.edges) {
+    if (edge.source !== targetNodeId || edge.relation !== "enables") continue;
+    const targetNode = graph.nodes.find((node) => node.id === edge.target);
+    if (targetNode?.kind !== "capability") continue;
+    nodeIds.add(edge.target);
+    for (const inboundEdge of graph.edges) {
+      if (inboundEdge.target !== edge.target || inboundEdge.relation !== "enables") continue;
+      const sourceNode = graph.nodes.find((node) => node.id === inboundEdge.source);
+      if (sourceNode?.kind === "product") nodeIds.add(inboundEdge.source);
+    }
+  }
+
   const nodes = graph.nodes.filter((node) => nodeIds.has(node.id));
   const edges = graph.edges.filter((edge) => nodeIds.has(edge.source) && nodeIds.has(edge.target));
   const evidence = evidenceForScope(graph, nodes, edges);
