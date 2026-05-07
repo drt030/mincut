@@ -1,6 +1,13 @@
 import { loadGateQuestions, loadGateReports, loadGraphData, loadTasks, validateGraphReferences } from "../src/lib/graphLoader";
 import type { Edge, GateReport, GraphData, Node, ResearchTask } from "../src/lib/schema";
 
+/**
+ * Per ADR-0003, these are the supported leaf-cost currencies. Hoisted to
+ * module top so the cost-freshness rule below can call into the helper from
+ * an `errors.push(...)` line that runs at module-init time.
+ */
+const COST_CURRENCY_CODES = new Set(["RMB", "USD", "EUR", "JPY"]);
+
 const graph = loadGraphData();
 const questions = loadGateQuestions();
 const reports = loadGateReports();
@@ -56,6 +63,8 @@ errors.push(...validateHardToDevelopExplainability(graph));
 errors.push(...validateMaturityLabelPresence(graph));
 errors.push(...validateDisputedHasNotes(graph));
 errors.push(...validateDeprecatedHasNotes(graph));
+errors.push(...validateCostMetricFreshness(graph));
+errors.push(...validateProductTargetCostHasNoNumbers(graph));
 
 if (errors.length) {
   console.error("Data validation failed:");
@@ -141,6 +150,70 @@ function validateDeprecatedHasNotes(graph: GraphData): string[] {
     if (!text) {
       errors.push(
         `Evidence ${item.id} has reviewStatus: "deprecated" but no limitations or summary. Per ADR-0001 the supersession reason must be captured in one of those fields.`,
+      );
+    }
+  }
+  return errors;
+}
+
+/**
+ * Per ADR-0003, cost-bearing metrics (those whose `unit` denominates a
+ * supported currency, or whose explicit `currency` field is set) MUST carry
+ * `costAsOf` (year string). The freshness anchor is required so the rollup's
+ * `costAsOf` output is meaningful and so a future time-slider can interpolate
+ * cost claims. `currency` defaults to RMB when absent — that's a warning, not
+ * a hard error — but a missing `costAsOf` on a cost number leaves the year
+ * undefined and is hard-rejected.
+ */
+function isCostBearingMetricEntry(entry: { unit?: string; currency?: string }): boolean {
+  if (entry.currency && COST_CURRENCY_CODES.has(entry.currency)) return true;
+  if (!entry.unit) return false;
+  const upper = entry.unit.toUpperCase();
+  for (const code of COST_CURRENCY_CODES) {
+    if (upper === code || upper.startsWith(`${code}/`) || upper.startsWith(`${code} `)) return true;
+  }
+  return false;
+}
+
+function validateCostMetricFreshness(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    if (!node.metrics?.length) continue;
+    for (const [index, entry] of node.metrics.entries()) {
+      if (!isCostBearingMetricEntry(entry)) continue;
+      if (!entry.costAsOf) {
+        errors.push(
+          `Node ${node.id} metrics[${index}] (${entry.name}) is cost-bearing (unit ${entry.unit ?? "?"} / currency ${entry.currency ?? "?"}) but is missing costAsOf. Per ADR-0003 every cost-bearing metric must carry a 4-digit year string.`,
+        );
+      }
+      // currency defaults to RMB when absent; warn rather than error so
+      // existing RMB-only data does not require a hard backfill. We still
+      // log a console warning so the gap is visible to the maintainer.
+      if (!entry.currency) {
+        console.warn(
+          `warn: Node ${node.id} metrics[${index}] (${entry.name}) is cost-bearing but has no explicit currency; treating as RMB per ADR-0003 default.`,
+        );
+      }
+    }
+  }
+  return errors;
+}
+
+/**
+ * Per ADR-0003, `Product.targetContext.targetCost` is a description-only
+ * string post-migration; the authoritative number lives on the
+ * `total_system_cost` (or equivalent) metric. Any digit in the string would
+ * imply a second source of truth and risk drift between the description and
+ * the metric.
+ */
+function validateProductTargetCostHasNoNumbers(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    const targetCost = node.targetContext?.targetCost;
+    if (!targetCost) continue;
+    if (/\d/.test(targetCost)) {
+      errors.push(
+        `Node ${node.id} targetContext.targetCost contains numeric digits ("${targetCost}"). Per ADR-0003 the targetCost field is description-only — move the number to a measured_by metric (e.g. total_system_cost.metrics[0].targetValue).`,
       );
     }
   }

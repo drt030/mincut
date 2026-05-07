@@ -336,7 +336,7 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "targetContext": {
-      "targetCost": "approximately 1,000 USD/kg to orbit",
+      "targetCost": "Approximately the per-kilogram launch cost target to orbit (see reusable_space_transport_launch_cost metric for the authoritative value)",
       "targetPerformance": "orbital payload delivery with high reuse and reliable turnaround",
       "targetUseCase": "commercial, civil, and industrial orbital logistics",
       "targetEnvironment": "regulated launch operations, reusable launch vehicle fleet, ground infrastructure, and range constraints"
@@ -459,7 +459,7 @@
     "kind": "metric",
     "domain": ["reusable_space_transport"],
     "description": "Primary cost target for reusable space transport.",
-    "metrics": [{ "name": "launch cost", "unit": "USD/kg", "targetValue": 1000 }],
+    "metrics": [{ "name": "launch cost", "unit": "USD/kg", "currency": "USD", "costAsOf": "2025", "targetValue": 1000 }],
     "maturityLabel": "unknown",
     "maturityAsOf": "2026-04",
     "confidence": "low",

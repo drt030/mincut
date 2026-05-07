@@ -33,7 +33,28 @@ export const maturityLabelSchema = z.enum([
   "blocked",
 ]);
 
-export const metricValueSchema = z.union([z.number(), z.string()]);
+/**
+ * Per ADR-0003, metric values extend from `number | string` to a union that
+ * additionally accepts a `{min, typical, max}` range. Cost-bearing metrics
+ * carry ranges on `currentValue` to capture supplier variance honestly;
+ * `targetValue` is typically scalar (the design target) but is allowed to be
+ * range-valued too. Existing scalar entries remain valid — the schema is
+ * forward-compatible.
+ */
+export const metricRangeSchema = z.object({
+  min: z.number(),
+  typical: z.number(),
+  max: z.number(),
+});
+
+export const metricValueSchema = z.union([z.number(), z.string(), metricRangeSchema]);
+
+/**
+ * Per ADR-0003, the supported leaf-cost currencies. `currency` defaults to
+ * `"RMB"` when missing on a cost-bearing metric — see `scripts/fx-constants.ts`
+ * for the FX→RMB conversion table consumed by the rollup walker.
+ */
+export const metricCurrencySchema = z.enum(["RMB", "USD", "EUR", "JPY"]);
 
 export const nodeSchema = z.object({
   id: z.string().min(1),
@@ -66,7 +87,16 @@ export const nodeSchema = z.object({
         unit: z.string().optional(),
         currentValue: metricValueSchema.optional(),
         targetValue: metricValueSchema.optional(),
-        progressScore: z.number().min(0).max(100).optional(),
+        /**
+         * Per ADR-0003, the year a cost (or other time-sensitive) metric is
+         * stated in. Year precision (e.g. `"2025"`); mirrors `maturityAsOf`
+         * but coarser. Required by `validate:data` on cost-bearing metrics.
+         */
+        costAsOf: z
+          .string()
+          .regex(/^\d{4}$/, "costAsOf must be a 4-digit year string, e.g. \"2025\"")
+          .optional(),
+        currency: metricCurrencySchema.optional(),
         description: z.string().optional(),
       }),
     )
@@ -197,6 +227,9 @@ export const researchTaskSchema = z.object({
 });
 
 export type NodeKind = z.infer<typeof nodeKindSchema>;
+export type MetricRange = z.infer<typeof metricRangeSchema>;
+export type MetricCurrency = z.infer<typeof metricCurrencySchema>;
+export type MetricValue = z.infer<typeof metricValueSchema>;
 export type Node = z.infer<typeof nodeSchema>;
 export type EdgeRelation = z.infer<typeof edgeRelationSchema>;
 export type Edge = z.infer<typeof edgeSchema>;

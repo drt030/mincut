@@ -167,6 +167,11 @@ function validateCandidateImport(
     }
     if (node.reviewStatus === "disputed") errors.push(humanOnlyStatusError("Node", node.id, "disputed"));
     if (node.reviewStatus === "deprecated") errors.push(humanOnlyStatusError("Node", node.id, "deprecated"));
+    if (isCostBearingCandidateNode(node) && !(node.evidenceIds?.length)) {
+      errors.push(
+        `cost candidate without evidence rejected: node ${node.id} carries a cost-bearing metric but has no evidenceIds. Per ADR-0003, agent-imported cost candidates must carry provenance.`,
+      );
+    }
   }
   for (const edge of candidate.edges) {
     if (existingEdgeIds.has(edge.id)) errors.push(`Edge id already exists: ${edge.id}`);
@@ -239,6 +244,28 @@ function activeScopeExpansionErrors(
   }
 
   return errors;
+}
+
+/**
+ * Per ADR-0003, agent-imported cost candidates MUST carry `evidenceIds`.
+ * "Cost-bearing" means the node carries a `metric` whose unit is a recognized
+ * currency or whose `currency` field is set. The check fires on any candidate
+ * node — even non-`metric` kinds — because cost claims sometimes attach as
+ * inline `metrics` arrays on subsystem nodes.
+ */
+const COST_CURRENCY_CODES = new Set(["RMB", "USD", "EUR", "JPY"]);
+
+function isCostBearingCandidateNode(node: Node): boolean {
+  if (!node.metrics?.length) return false;
+  return node.metrics.some((entry) => {
+    if (entry.currency && COST_CURRENCY_CODES.has(entry.currency)) return true;
+    if (!entry.unit) return false;
+    const upper = entry.unit.toUpperCase();
+    for (const code of COST_CURRENCY_CODES) {
+      if (upper === code || upper.startsWith(`${code}/`) || upper.startsWith(`${code} `)) return true;
+    }
+    return false;
+  });
 }
 
 function reviewedStatusError(label: "Node" | "Edge" | "Evidence", id: string): string {

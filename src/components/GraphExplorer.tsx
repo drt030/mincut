@@ -17,7 +17,7 @@ import {
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
-import type { Edge, EdgeRelation, GraphData, Node, NodeKind } from "@/lib/schema";
+import type { Edge, EdgeRelation, GraphData, MetricValue, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
   product: "#0f766e",
@@ -48,8 +48,13 @@ type FoldedMetricEntry = {
   id: string;
   name: string;
   unit?: string;
-  currentValue?: string | number;
-  targetValue?: string | number;
+  // Per ADR-0003 the metric value union accepts a `{min, typical, max}`
+  // range in addition to scalar number/string. The display layer (range
+  // rendering, gate-panel coverage gap) is the next backlog iter; for now
+  // the format helpers below collapse a range to its `typical` value so
+  // the existing strip stays correct without leaking `[object Object]`.
+  currentValue?: MetricValue;
+  targetValue?: MetricValue;
 };
 
 type CapabilityNodeData = {
@@ -208,9 +213,21 @@ const nodeTypes = {
   }),
 };
 
+/**
+ * Per ADR-0003 a metric value may now be a `{min, typical, max}` range.
+ * The full range-aware strip rendering ships in the next backlog iter; for
+ * this dispatch we collapse a range to its `typical` value so the strip
+ * stays human-readable.
+ */
+function metricValueDisplay(value: MetricValue | undefined): string | undefined {
+  if (value === undefined) return undefined;
+  if (typeof value === "number" || typeof value === "string") return String(value);
+  return String(value.typical);
+}
+
 function formatMetricValue(metric: FoldedMetricEntry) {
-  const current = metric.currentValue;
-  const target = metric.targetValue;
+  const current = metricValueDisplay(metric.currentValue);
+  const target = metricValueDisplay(metric.targetValue);
   const unit = metric.unit ? ` ${metric.unit}` : "";
   if (current !== undefined && target !== undefined) return `${current} / ${target}${unit}`;
   if (current !== undefined) return `${current}${unit}`;
@@ -220,8 +237,10 @@ function formatMetricValue(metric: FoldedMetricEntry) {
 
 function formatMetricTooltip(metric: FoldedMetricEntry) {
   const parts = [metric.name];
-  if (metric.currentValue !== undefined) parts.push(`current: ${metric.currentValue}${metric.unit ? ` ${metric.unit}` : ""}`);
-  if (metric.targetValue !== undefined) parts.push(`target: ${metric.targetValue}${metric.unit ? ` ${metric.unit}` : ""}`);
+  const current = metricValueDisplay(metric.currentValue);
+  const target = metricValueDisplay(metric.targetValue);
+  if (current !== undefined) parts.push(`current: ${current}${metric.unit ? ` ${metric.unit}` : ""}`);
+  if (target !== undefined) parts.push(`target: ${target}${metric.unit ? ` ${metric.unit}` : ""}`);
   return parts.join(" · ");
 }
 

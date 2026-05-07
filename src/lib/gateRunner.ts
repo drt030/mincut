@@ -1,3 +1,4 @@
+import { rollupCost, targetCostFor, type CostRollupResult } from "./costRollup";
 import {
   bottlenecksForNode,
   evidenceForEdge,
@@ -233,10 +234,8 @@ function answerQuestion(
           : undefined,
       );
     }
-    case "cost_constraints": {
-      const costNodes = context.scopedNodesActive.filter((node) => node.tags?.includes("cost") || node.id.includes("cost") || node.id.includes("payback"));
-      return listResult(question.question, costNodes, "cost constraint nodes");
-    }
+    case "cost_constraints":
+      return costConstraintsResult(context, question.question);
     case "manufacturing_constraints": {
       const manufacturing = context.scopedNodesActive.filter(
         (node) =>
@@ -538,6 +537,12 @@ const REVIEW_STATUS_CAPPED_QUESTIONS = new Set<string>([
   "weak_evidence",
   "research_next",
   "excluded_claims",
+  // Per ADR-0003 + ADR-0001, the cost competency question consumes the
+  // cost-rollup walker, which depends on cost-bearing metrics whose review
+  // status determines whether the rolled-up number can be trusted. An
+  // unreviewed cost claim caps the cost question at 3/5, a disputed one at
+  // 2/5 — same ladder as evidence-bearing questions.
+  "cost_constraints",
 ]);
 
 function isReviewStatusCapRelevant(questionId: string): boolean {
@@ -652,6 +657,113 @@ function excludedClaimsResult(
       ? "Flagged claims can remain in local data as candidates, but gate output must not treat them as reviewed established facts."
       : undefined,
   };
+}
+
+/**
+ * Per ADR-0003, the cost competency question consumes the cost-rollup
+ * walker rather than a flat tag-or-id keyword filter. Scoring formula
+ * (documented inline so future tweaks don't drift from intent):
+ *
+ *   - We compute the rolled-up cost (interval RMB) for the target product
+ *     and the target cost the gate is grading against.
+ *   - **Coverage component (0–3 points)**: gap fraction = coverageGap.length
+ *     divided by the total cost-relevant nodes touched (gap + nodes that
+ *     contributed cost). Score scales linearly: 0% gap → 3, 50% gap → 1.5,
+ *     ≥75% gap → 0. A 50% gap caps the question at ~3.5 even with a
+ *     perfect target match — per dispatch instructions, "a coverage gap of
+ *     50% should not score 5/5".
+ *   - **Target proximity component (0–2 points)**: if both the rolled-up
+ *     typical and the target typical are present, distance = |rolled - target|
+ *     / target. distance ≤ 0.05 → 2; ≤ 0.20 → 1.5; ≤ 0.50 → 1; > 0.50 → 0.
+ *     If either side is missing, this component is 0 (we cannot honestly
+ *     judge proximity).
+ *   - Sum is rounded to nearest integer in 0–5.
+ *   - The reviewStatus cap (3 for unreviewed, 2 for disputed) from
+ *     `applyReviewStatusCap` already runs at the end of `answerQuestion`,
+ *     so we don't double-cap here. We DO surface coverageGap details in
+ *     missingNodeIds so the gate report explains the score.
+ */
+function costConstraintsResult(
+  context: GateContext,
+  question: string,
+): GateReport["questionResults"][number] {
+  let rollup: CostRollupResult;
+  try {
+    rollup = rollupCost(context.graph, context.target.id);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return scoreResult(
+      question,
+      `Cost rollup failed: ${message}`,
+      0,
+      undefined,
+      undefined,
+      undefined,
+      "Cost rollup walker bailed out. Inspect the graph for circular requires edges or other structural errors.",
+    );
+  }
+
+  const target = targetCostFor(context.graph, context.target.id);
+  const coverageNodesTouched = rollup.coverageGap.length;
+  // Total scope = the visited count is approximated as the count of
+  // `requires`-reachable subsystem nodes that were eligible for cost
+  // (excluding metric/evidence/bottleneck/placeholder/deprecated). This
+  // mirrors the walker's filtering in `costRollup.ts`.
+  const eligibleNodeCount = context.scopedNodesActive.filter(
+    (node) =>
+      node.kind !== "metric" &&
+      node.kind !== "evidence" &&
+      node.kind !== "bottleneck" &&
+      node.kind !== "placeholder_breakthrough" &&
+      node.kind !== "capability" &&
+      node.id !== context.target.id,
+  ).length;
+  const totalForGap = Math.max(eligibleNodeCount, coverageNodesTouched, 1);
+  const gapFraction = coverageNodesTouched / totalForGap;
+
+  // Coverage component: 0% gap → 3.0, 50% → 1.5, ≥75% → 0.
+  const coverageScore = Math.max(0, Math.min(3, 3 * (1 - gapFraction / 0.75)));
+
+  // Proximity component.
+  let proximityScore = 0;
+  let proximityNote = "";
+  if (target && rollup.rolledUp.typical > 0 && target.range.typical > 0) {
+    const distance = Math.abs(rollup.rolledUp.typical - target.range.typical) / target.range.typical;
+    if (distance <= 0.05) proximityScore = 2;
+    else if (distance <= 0.2) proximityScore = 1.5;
+    else if (distance <= 0.5) proximityScore = 1;
+    else proximityScore = 0;
+    proximityNote = `Rolled-up typical ${formatRmb(rollup.rolledUp.typical)} vs target typical ${formatRmb(target.range.typical)} → distance ${(distance * 100).toFixed(1)}%.`;
+  } else if (!target) {
+    proximityNote = "No target cost metric found on the product (looked for a measured_by metric with a currency unit and a numeric targetValue).";
+  } else {
+    proximityNote = "Cost rollup produced no typical value (no cost data reachable in the requires subtree).";
+  }
+
+  const score = Math.max(0, Math.min(5, Math.round(coverageScore + proximityScore)));
+
+  const answer = [
+    `Rolled-up cost (RMB): min=${formatRmb(rollup.rolledUp.min)}, typical=${formatRmb(rollup.rolledUp.typical)}, max=${formatRmb(rollup.rolledUp.max)}`,
+    target ? `Target cost (RMB): typical=${formatRmb(target.range.typical)}` : "No target cost on product.",
+    `Coverage gap: ${rollup.coverageGap.length} node(s)${rollup.coverageGap.length ? ` — ${sampleIds(rollup.coverageGap)}` : ""}`,
+    rollup.costAsOf ? `Earliest costAsOf: ${rollup.costAsOf}` : "No costAsOf year recorded.",
+    proximityNote,
+  ].join(" ");
+
+  return {
+    question,
+    answer,
+    score,
+    missingNodeIds: rollup.coverageGap.length ? rollup.coverageGap : undefined,
+    notes: `Coverage component ${coverageScore.toFixed(2)}/3 (gap ${(gapFraction * 100).toFixed(1)}%) + proximity component ${proximityScore.toFixed(2)}/2 → score ${score}/5. Per ADR-0003, ${rollup.coverageGap.length} subsystem(s) had no reachable cost data.`,
+  };
+}
+
+function formatRmb(value: number): string {
+  if (!Number.isFinite(value)) return "n/a";
+  if (value === 0) return "0";
+  if (value >= 1000) return `${(value / 1000).toFixed(1)}k`;
+  return value.toFixed(0);
 }
 
 function round(value: number): number {
