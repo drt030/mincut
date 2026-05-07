@@ -11,6 +11,12 @@
     "maturityScore": 54,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
+    "maturityHistory": [
+      { "asOf": "2022-06", "score": 15, "label": "hypothesis", "source": "ralph_iter34_stub" },
+      { "asOf": "2024-01", "score": 35, "label": "lab_proven", "source": "ralph_iter34_stub" },
+      { "asOf": "2025-06", "score": 48, "label": "prototype", "source": "ralph_iter34_stub" },
+      { "asOf": "2026-04", "score": 54, "label": "prototype", "source": "ralph_iter34_stub" }
+    ],
     "confidence": "medium",
     "targetContext": {
       "targetCost": "Approximately the entry-level total system cost target (see total_system_cost metric for the authoritative value)",
@@ -180,6 +186,12 @@
     "maturityScore": 65,
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-04",
+    "maturityHistory": [
+      { "asOf": "2020-01", "score": 10, "label": "hypothesis", "source": "ralph_iter34_stub" },
+      { "asOf": "2022-06", "score": 30, "label": "lab_proven", "source": "ralph_iter34_stub" },
+      { "asOf": "2024-06", "score": 50, "label": "prototype", "source": "ralph_iter34_stub" },
+      { "asOf": "2026-04", "score": 65, "label": "early_deployment", "source": "ralph_iter34_stub" }
+    ],
     "confidence": "medium",
     "tags": [
       "perception",
@@ -1095,6 +1107,12 @@
     "maturityScore": 62,
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-04",
+    "maturityHistory": [
+      { "asOf": "2015-01", "score": 45, "label": "prototype", "source": "ralph_iter34_stub" },
+      { "asOf": "2020-01", "score": 55, "label": "early_deployment", "source": "ralph_iter34_stub" },
+      { "asOf": "2024-01", "score": 60, "label": "early_deployment", "source": "ralph_iter34_stub" },
+      { "asOf": "2026-04", "score": 62, "label": "early_deployment", "source": "ralph_iter34_stub" }
+    ],
     "confidence": "medium",
     "tags": [
       "manufacturing",
@@ -1279,6 +1297,12 @@
     "maturityScore": 58,
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-04",
+    "maturityHistory": [
+      { "asOf": "2018-01", "score": 30, "label": "lab_proven", "source": "ralph_iter34_stub" },
+      { "asOf": "2021-06", "score": 45, "label": "prototype", "source": "ralph_iter34_stub" },
+      { "asOf": "2024-01", "score": 52, "label": "prototype", "source": "ralph_iter34_stub" },
+      { "asOf": "2026-04", "score": 58, "label": "early_deployment", "source": "ralph_iter34_stub" }
+    ],
     "confidence": "medium",
     "tags": [
       "robotics",
@@ -1717,6 +1741,13 @@
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
+    "maturityHistory": [
+      { "asOf": "2018-01", "score": 15, "label": "hypothesis", "source": "ralph_iter34_stub" },
+      { "asOf": "2020-06", "score": 35, "label": "lab_proven", "source": "ralph_iter34_stub" },
+      { "asOf": "2022-06", "score": 55, "label": "prototype", "source": "ralph_iter34_stub" },
+      { "asOf": "2024-01", "score": 65, "label": "early_deployment", "source": "ralph_iter34_stub" },
+      { "asOf": "2026-04", "score": 78, "label": "commercially_available", "source": "ralph_iter34_stub" }
+    ],
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "tags": [

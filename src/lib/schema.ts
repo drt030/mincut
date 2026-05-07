@@ -85,6 +85,23 @@ export const maturityAsOfRequiredWhenSet = (node: NodeShape): boolean => {
 export const maturityAsOfRequiredMessage =
   "maturityAsOf is required when any maturity field is set (per ADR-0002)";
 
+/**
+ * Per ADR-0002, `maturityHistory` is the reserved time-series field for the
+ * future time-slider. Each entry carries an `asOf` ISO date (YYYY-MM or
+ * YYYY-MM-DD) plus optional `score`, `label`, and `source` (provenance tag,
+ * e.g. agent run id or `"ralph_iter34_stub"` for stub data). v0 leaves this
+ * empty on most nodes; iter-34 populated it on a handful of representative
+ * nodes to demonstrate the time dimension in stub form.
+ */
+export const maturityHistoryEntrySchema = z.object({
+  asOf: z
+    .string()
+    .regex(/^\d{4}-\d{2}(?:-\d{2})?$/, "maturityHistory[].asOf must be ISO YYYY-MM or YYYY-MM-DD"),
+  score: z.number().min(0).max(100).optional(),
+  label: maturityLabelSchema.optional(),
+  source: z.string().optional(),
+});
+
 const nodeBaseSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
@@ -97,6 +114,14 @@ const nodeBaseSchema = z.object({
     .string()
     .regex(/^\d{4}-\d{2}(?:-\d{2})?$/, "maturityAsOf must be ISO YYYY-MM or YYYY-MM-DD")
     .optional(),
+  /**
+   * Per ADR-0002, reserved time-series of historical maturity assessments.
+   * v0 leaves this empty on most nodes; populated on a handful of
+   * representative nodes to demonstrate the time dimension. The latest
+   * entry, when present, should match the current scalar
+   * `maturityAsOf`/`maturityScore`/`maturityLabel` triple.
+   */
+  maturityHistory: z.array(maturityHistoryEntrySchema).optional(),
   confidence: confidenceSchema.optional(),
   targetContext: z
     .object({
@@ -302,6 +327,7 @@ export const researchTaskSchema = z.object({
 });
 
 export type NodeKind = z.infer<typeof nodeKindSchema>;
+export type MaturityHistoryEntry = z.infer<typeof maturityHistoryEntrySchema>;
 export type MetricRange = z.infer<typeof metricRangeSchema>;
 export type MetricCurrency = z.infer<typeof metricCurrencySchema>;
 export type MetricValue = z.infer<typeof metricValueSchema>;

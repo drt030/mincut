@@ -10,7 +10,7 @@ import {
   siblingProductsForProduct,
   upstream,
 } from "@/lib/graphTraversal";
-import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
+import { formatMaturityLabel, maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import {
   eligibleCostSubsystemIds,
   isCostBearingMetric,
@@ -169,6 +169,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
             </span>
           ) : null}
         </div>
+        <MaturityHistoryTimeline node={node} />
       </div>
       {node.targetContext ? (
         <div>
@@ -223,6 +224,61 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         )}
       </div>
     </aside>
+  );
+}
+
+/**
+ * Per ADR-0002, `maturityHistory` is the reserved time-series field for the
+ * future time-slider. Iter-34 surfaces it in stub form: when a node has a
+ * non-empty history, render a compact chronological list (oldest -> newest)
+ * inside the Maturity subsection. Color-coded label pills match the existing
+ * `maturityVisual.ts` ramp; an `as of` pill mirrors the scalar treatment;
+ * source provenance ("source: ...") trails each row so stub data is auditable.
+ * Silently absent on the 230 nodes without history.
+ */
+function MaturityHistoryTimeline({ node }: { node: Node }) {
+  const { t } = useLanguage();
+  const history = node.maturityHistory;
+  if (!history || history.length === 0) return null;
+  return (
+    <div className="maturity-history">
+      <div className="maturity-history-head">
+        <strong>{t("maturityHistoryHeader")}</strong>
+        <span className="muted maturity-history-hint">{t("maturityHistoryHint")}</span>
+      </div>
+      <ul className="maturity-history-list">
+        {history.map((entry, index) => {
+          const visual = maturityVisualFor({ maturityLabel: entry.label });
+          const labelText = entry.label ? formatMaturityLabel(entry.label) : "—";
+          return (
+            <li className="maturity-history-row" key={`${entry.asOf}-${index}`}>
+              <span className="maturity-history-asof" title={entry.asOf}>
+                {entry.asOf}
+              </span>
+              <span
+                className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
+                style={{
+                  background: visual.bg,
+                  color: visual.fg,
+                  opacity: visual.hasLabel ? 1 : 0.65,
+                }}
+                title={labelText}
+              >
+                {labelText}
+                {typeof entry.score === "number" ? (
+                  <span className="maturity-pill-score">· {entry.score}</span>
+                ) : null}
+              </span>
+              {entry.source ? (
+                <span className="muted maturity-history-source">
+                  {t("maturityHistorySource")}: {entry.source}
+                </span>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 

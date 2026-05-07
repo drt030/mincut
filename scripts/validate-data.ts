@@ -100,6 +100,7 @@ errors.push(...validateDisputedHasNotes(graph));
 errors.push(...validateDeprecatedHasNotes(graph));
 errors.push(...validateCostMetricFreshness(graph));
 errors.push(...validateProductTargetCostHasNoNumbers(graph));
+errors.push(...validateMaturityHistoryOrdering(graph));
 
 if (errors.length) {
   console.error("Data validation failed:");
@@ -250,6 +251,41 @@ function validateProductTargetCostHasNoNumbers(graph: GraphData): string[] {
       errors.push(
         `Node ${node.id} targetContext.targetCost contains numeric digits ("${targetCost}"). Per ADR-0003 the targetCost field is description-only — move the number to a measured_by metric (e.g. total_system_cost.metrics[0].targetValue).`,
       );
+    }
+  }
+  return errors;
+}
+
+/**
+ * Per ADR-0002, `maturityHistory` entries must be in non-decreasing temporal
+ * order, and no entry's `asOf` may be later than the scalar `maturityAsOf`
+ * (the scalar always represents the latest assessment). This is the v0
+ * substrate for the future time-slider — silent disorder here would corrupt
+ * the slider's cursor when the field is promoted from "reserved" to "read".
+ */
+function validateMaturityHistoryOrdering(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    if (!node.maturityHistory?.length) continue;
+    const entries = node.maturityHistory;
+    for (let i = 1; i < entries.length; i += 1) {
+      const prev = entries[i - 1];
+      const curr = entries[i];
+      if (Date.parse(`${prev.asOf}-01`) > Date.parse(`${curr.asOf}-01`)) {
+        errors.push(
+          `Node ${node.id} maturityHistory[${i}] (${curr.asOf}) is earlier than maturityHistory[${i - 1}] (${prev.asOf}). Per ADR-0002 history must be non-decreasing.`,
+        );
+      }
+    }
+    if (node.maturityAsOf) {
+      const scalarTs = Date.parse(`${node.maturityAsOf}-01`);
+      for (const [i, entry] of entries.entries()) {
+        if (Date.parse(`${entry.asOf}-01`) > scalarTs) {
+          errors.push(
+            `Node ${node.id} maturityHistory[${i}] (${entry.asOf}) is later than scalar maturityAsOf (${node.maturityAsOf}). Per ADR-0002 the scalar is always the latest assessment.`,
+          );
+        }
+      }
     }
   }
   return errors;

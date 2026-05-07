@@ -190,6 +190,10 @@ const uiText: Record<Language, Record<string, string>> = {
     frontierCountInScope: "{count} frontiers in scope",
     frontierCountInScopeTooltip:
       "Number of currently-rendered nodes that satisfy isDecompositionFrontier (per ADR-0005). Telescope glyph 🔭 marks each one on the canvas.",
+    maturityHistoryHeader: "Maturity over time",
+    maturityHistoryHint:
+      "Per ADR-0002, reserved time-series of historical maturity assessments. Stub data — see source below each row.",
+    maturityHistorySource: "source",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -357,6 +361,10 @@ const uiText: Record<Language, Record<string, string>> = {
     frontierCountInScope: "当前范围内有 {count} 个前沿节点",
     frontierCountInScopeTooltip:
       "当前画布中满足 isDecompositionFrontier 判定（见 ADR-0005）的节点数量。每个前沿节点上有 🔭 望远镜标记。",
+    maturityHistoryHeader: "成熟度演化",
+    maturityHistoryHint:
+      "按 ADR-0002 预留的成熟度历史时序。当前为 stub 数据 —— 每行下方标注 source。",
+    maturityHistorySource: "来源",
   },
 };
 
