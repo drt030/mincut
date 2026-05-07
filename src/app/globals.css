@@ -14,6 +14,25 @@
   box-sizing: border-box;
 }
 
+/*
+ * Per iter-43 a11y audit (MAJOR): default browser focus rings have
+ * inconsistent contrast across the dark graph cards and the light
+ * panels. Project-wide :focus-visible rule gives every focusable
+ * element a visible ring. Amber works on the dark graph canvas and
+ * graph node cards; light panels (.panel, .toolbar-actions) use
+ * burnt-orange so the ring stays visible on near-white backgrounds.
+ */
+*:focus-visible {
+  outline: 2px solid #fde68a;
+  outline-offset: 2px;
+}
+
+.panel *:focus-visible,
+.toolbar-actions *:focus-visible,
+.filters *:focus-visible {
+  outline-color: #b45309;
+}
+
 body {
   margin: 0;
   background: var(--background);

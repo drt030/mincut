@@ -114,6 +114,14 @@ const nodeTypes = {
       color: data.maturityPillFg,
       opacity: data.maturityPillHasLabel ? 1 : 0.65,
     };
+    // Per iter-43 a11y audit: graph node cards are interactive (onClick selects,
+    // onDoubleClick toggles expansion) but the React Flow wrapper announces
+    // "group" with no accessible name. We expose the card itself as a button
+    // with a composed aria-label so SR users hear node name + kind + maturity,
+    // and KB users can Tab to the card and activate via Enter / Space.
+    const ariaLabel = [data.name, data.kindLabel, data.maturityPillLabel]
+      .filter((part) => part && part.length > 0)
+      .join(" · ");
     return (
       <div
         className={[
@@ -127,6 +135,10 @@ const nodeTypes = {
           .filter(Boolean)
           .join(" ")}
         style={{ "--node-color": data.color } as CSSProperties}
+        role="button"
+        tabIndex={0}
+        aria-label={ariaLabel}
+        aria-pressed={data.selected}
         onClick={(event) => {
           event.stopPropagation();
           data.onSelect(data.id);
@@ -136,6 +148,18 @@ const nodeTypes = {
           event.stopPropagation();
           data.onSelect(data.id);
           data.onToggle(data.id);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            event.stopPropagation();
+            data.onSelect(data.id);
+            data.onToggle(data.id);
+          } else if (event.key === " " || event.key === "Spacebar") {
+            event.preventDefault();
+            event.stopPropagation();
+            data.onSelect(data.id);
+          }
         }}
       >
         <Handle className="graph-node-handle" type="target" position={Position.Left} />
@@ -758,7 +782,11 @@ export function GraphExplorer({ graph }: Props) {
         {mode === "layered" ? t("layeredModeHint") : mode === "bottleneck" ? t("bottleneckModeHint") : t("fullModeHint")}
       </div>
       <div className="filters">
-        <select value={domain} onChange={(event) => setDomain(event.target.value)}>
+        <select
+          aria-label={t("filterDomainLabel")}
+          value={domain}
+          onChange={(event) => setDomain(event.target.value)}
+        >
           <option value="all">{t("allDomains")}</option>
           {domains.map((item) => (
             <option key={item} value={item}>
@@ -766,7 +794,11 @@ export function GraphExplorer({ graph }: Props) {
             </option>
           ))}
         </select>
-        <select value={kind} onChange={(event) => setKind(event.target.value as NodeKind | "all")}>
+        <select
+          aria-label={t("filterKindLabel")}
+          value={kind}
+          onChange={(event) => setKind(event.target.value as NodeKind | "all")}
+        >
           <option value="all">{t("allNodeKinds")}</option>
           {kinds.map((item) => (
             <option key={item} value={item}>
@@ -774,7 +806,11 @@ export function GraphExplorer({ graph }: Props) {
             </option>
           ))}
         </select>
-        <select value={relation} onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}>
+        <select
+          aria-label={t("filterRelationLabel")}
+          value={relation}
+          onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}
+        >
           <option value="all">{t("allRelations")}</option>
           {relations.map((item) => (
             <option key={item} value={item}>
@@ -782,7 +818,11 @@ export function GraphExplorer({ graph }: Props) {
             </option>
           ))}
         </select>
-        <select value={maturity} onChange={(event) => setMaturity(event.target.value)}>
+        <select
+          aria-label={t("filterMaturityLabel")}
+          value={maturity}
+          onChange={(event) => setMaturity(event.target.value)}
+        >
           <option value="all">{t("allMaturity")}</option>
           <option value="30">{t("score")} &gt;= 30</option>
           <option value="50">{t("score")} &gt;= 50</option>

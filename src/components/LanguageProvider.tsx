@@ -30,6 +30,10 @@ const uiText: Record<Language, Record<string, string>> = {
     allRelations: "All relations",
     allMaturity: "All maturity",
     allRoutes: "All routes",
+    filterDomainLabel: "Filter by domain",
+    filterKindLabel: "Filter by node kind",
+    filterRelationLabel: "Filter by relation",
+    filterMaturityLabel: "Filter by maturity",
     homeIntro:
       "Capability Graph Explorer is a research tool for tracing manufacturing bottlenecks — where they sit in dependency trees, why they're hard, and how they evolve over time.",
     homeIntroLearnerNote:
@@ -209,6 +213,10 @@ const uiText: Record<Language, Record<string, string>> = {
     allRelations: "全部关系",
     allMaturity: "全部成熟度",
     allRoutes: "全部路线",
+    filterDomainLabel: "按领域筛选",
+    filterKindLabel: "按节点类型筛选",
+    filterRelationLabel: "按关系筛选",
+    filterMaturityLabel: "按成熟度筛选",
     homeIntro: "能力图谱探索器是一个用于追踪制造瓶颈的研究工具 —— 瓶颈在依赖树中位于何处、为什么难、如何随时间演变。",
     homeIntroLearnerNote: "两种学习模式：前瞻模式（哪些瓶颈在阻碍新兴产品？）与回溯模式（重放成熟产品的瓶颈解锁顺序）。",
     homeV0Focus: "当前研究对象：",
