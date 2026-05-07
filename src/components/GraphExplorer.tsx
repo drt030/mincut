@@ -369,7 +369,6 @@ export function GraphExplorer({ graph }: Props) {
   const [kind, setKind] = useState<NodeKind | "all">("all");
   const [relation, setRelation] = useState<EdgeRelation | "all">("all");
   const [maturity, setMaturity] = useState("all");
-  const [routeFocus, setRouteFocus] = useState("all");
   const [mode, setMode] = useState<ExplorationMode>("layered");
   const [showMetricsAsNodes, setShowMetricsAsNodes] = useState(false);
   // Per ADR-0001, deprecated nodes/edges are excluded from the default
@@ -392,7 +391,6 @@ export function GraphExplorer({ graph }: Props) {
   const domains = useMemo(() => [...new Set(graph.nodes.flatMap((node) => node.domain))].sort(), [graph.nodes]);
   const kinds = useMemo(() => [...new Set(graph.nodes.map((node) => node.kind))].sort(), [graph.nodes]);
   const relations = useMemo(() => [...new Set(graph.edges.map((edge) => edge.relation))].sort(), [graph.edges]);
-  const focusIds = useMemo(() => routeFocusIds(graph, routeFocus), [graph, routeFocus]);
 
   const capabilityCluster = useMemo(() => capabilityClusterFor(graph, rootNodeId), [graph]);
 
@@ -423,7 +421,6 @@ export function GraphExplorer({ graph }: Props) {
     () =>
       graph.nodes.filter((node) => {
         if (visibleIds && !visibleIds.has(node.id)) return false;
-        if (focusIds && !focusIds.has(node.id)) return false;
         if (domain !== "all" && !node.domain.includes(domain)) return false;
         if (kind !== "all" && node.kind !== kind) return false;
         if (maturity !== "all" && (node.maturityScore ?? 0) < Number(maturity)) return false;
@@ -431,7 +428,7 @@ export function GraphExplorer({ graph }: Props) {
         if (!showDeprecated && node.reviewStatus === "deprecated") return false;
         return true;
       }),
-    [domain, focusIds, graph.nodes, kind, maturity, showDeprecated, visibleIds],
+    [domain, graph.nodes, kind, maturity, showDeprecated, visibleIds],
   );
 
   // Pre-index `measured_by` edges by their target metric id so the fold
@@ -573,9 +570,9 @@ export function GraphExplorer({ graph }: Props) {
   const fallbackLayoutContext = useMemo(() => {
     const sorted = [...filteredNodes].sort(compareNodes);
     const laneById = depthMap(graph.edges, sorted);
-    const starts = laneStarts(sorted, graph.edges, routeFocus, laneById);
+    const starts = laneStarts(sorted, graph.edges, "all", laneById);
     return { sorted, laneById, starts };
-  }, [filteredNodes, graph.edges, routeFocus]);
+  }, [filteredNodes, graph.edges]);
 
   const flowNodes: FlowNode[] = useMemo(
     () =>
@@ -603,7 +600,7 @@ export function GraphExplorer({ graph }: Props) {
         return {
         id: node.id,
         type: "capability",
-        position: layoutPositions.get(node.id) ?? fallbackPositionFor(node, graph.edges, routeFocus, fallbackLayoutContext),
+        position: layoutPositions.get(node.id) ?? fallbackPositionFor(node, graph.edges, "all", fallbackLayoutContext),
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
         data: {
@@ -646,7 +643,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
@@ -751,7 +748,6 @@ export function GraphExplorer({ graph }: Props) {
               type="button"
               onClick={() => {
                 setMode(item);
-                setRouteFocus("all");
               }}
             >
               {t(`${item}Mode`)}
@@ -823,7 +819,6 @@ export function GraphExplorer({ graph }: Props) {
               setMaturity("all");
               setExpandedIds(new Set([rootNodeId]));
               setExpandedBottleneckIds(new Set([rootNodeId]));
-              setRouteFocus("all");
             }}
           >
             {t("resetExpansion")}
@@ -1017,29 +1012,6 @@ function addReachableMetrics(graph: GraphData, ids: Set<string>) {
     if (!target || target.kind !== "metric") continue;
     ids.add(edge.target);
   }
-}
-
-function routeFocusIds(graph: GraphData, routeId: string) {
-  if (routeId === "all") return null;
-
-  const ids = new Set<string>([routeId]);
-  const routeSources = graph.edges.filter((edge) => edge.relation === "has_route" && edge.target === routeId).map((edge) => edge.source);
-
-  for (const source of routeSources) {
-    ids.add(source);
-    for (const edge of graph.edges) {
-      if (edge.target === source && edge.relation === "requires") ids.add(edge.source);
-    }
-  }
-
-  for (const edge of graph.edges) {
-    if (edge.source === routeId || edge.target === routeId) {
-      ids.add(edge.source);
-      ids.add(edge.target);
-    }
-  }
-
-  return ids;
 }
 
 async function layoutWithElk(
