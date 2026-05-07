@@ -16,6 +16,7 @@ import {
 } from "@xyflow/react";
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
+import { maturityVisualFor } from "@/lib/maturityVisual";
 import type { Edge, EdgeRelation, GraphData, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -61,7 +62,13 @@ type CapabilityNodeData = {
   selected: boolean;
   related: boolean;
   risk: boolean;
-  scoreLabel: string;
+  isBottleneck: boolean;
+  bottleneckedByCount: number;
+  bottleneckedByTooltip: string;
+  maturityPillLabel: string;
+  maturityPillBg: string;
+  maturityPillFg: string;
+  maturityPillHasLabel: boolean;
   selectedMetricId?: string;
   foldedMetrics: FoldedMetricEntry[];
   onSelect: (nodeId: string) => void;
@@ -71,6 +78,13 @@ type CapabilityNodeData = {
 
 const nodeTypes = {
   capability: memo(function CapabilityNode({ data }: NodeProps<FlowNode<CapabilityNodeData>>) {
+    const showWarningGlyph = data.isBottleneck || data.bottleneckedByCount > 0;
+    const glyphTooltip = data.isBottleneck ? data.kindLabel : data.bottleneckedByTooltip;
+    const pillStyle: CSSProperties = {
+      background: data.maturityPillBg,
+      color: data.maturityPillFg,
+      opacity: data.maturityPillHasLabel ? 1 : 0.65,
+    };
     return (
       <div
         className={[
@@ -78,6 +92,7 @@ const nodeTypes = {
           data.selected ? "selected" : "",
           data.related ? "related" : "",
           data.risk ? "risk" : "",
+          data.isBottleneck ? "is-bottleneck" : "",
         ]
           .filter(Boolean)
           .join(" ")}
@@ -94,11 +109,38 @@ const nodeTypes = {
         }}
       >
         <Handle className="graph-node-handle" type="target" position={Position.Left} />
+        {showWarningGlyph ? (
+          <span
+            className={["graph-node-warning-glyph", data.isBottleneck ? "self" : "downstream"].join(" ")}
+            title={glyphTooltip}
+            aria-label={glyphTooltip}
+          >
+            ⚠
+          </span>
+        ) : null}
         <div className="graph-node-inner">
           <div className="graph-node-title">{data.name}</div>
           <div className="graph-node-meta">
             <span>{data.kindLabel}</span>
-            {typeof data.maturityScore === "number" ? <span>{data.scoreLabel} {data.maturityScore}</span> : null}
+            <span
+              className={[
+                "graph-node-maturity-pill",
+                data.maturityPillHasLabel ? "" : "missing",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              style={pillStyle}
+              title={
+                data.maturityPillHasLabel
+                  ? typeof data.maturityScore === "number"
+                    ? `${data.maturityPillLabel} · ${data.maturityScore}`
+                    : data.maturityPillLabel
+                  : "Maturity label not set"
+              }
+            >
+              {data.maturityPillLabel}
+              {typeof data.maturityScore === "number" ? ` · ${data.maturityScore}` : ""}
+            </span>
           </div>
           {data.foldedMetrics.length > 0 ? (
             <div className="graph-node-metrics" role="list">
@@ -290,6 +332,25 @@ export function GraphExplorer({ graph }: Props) {
     else setExpandedIds(toggle);
   }, [mode]);
 
+  const visibleBottleneckIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const node of filteredNodes) {
+      if (node.kind === "bottleneck") ids.add(node.id);
+    }
+    return ids;
+  }, [filteredNodes]);
+
+  const bottleneckedByCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    if (visibleBottleneckIds.size === 0) return counts;
+    for (const edge of graph.edges) {
+      if (edge.relation !== "bottlenecked_by") continue;
+      if (!visibleBottleneckIds.has(edge.target)) continue;
+      counts.set(edge.source, (counts.get(edge.source) ?? 0) + 1);
+    }
+    return counts;
+  }, [graph.edges, visibleBottleneckIds]);
+
   const flowNodes: FlowNode[] = useMemo(
     () =>
       filteredNodes.map((node) => {
@@ -299,6 +360,9 @@ export function GraphExplorer({ graph }: Props) {
           ...metric,
           name: nodeName(metric.id, metric.name),
         }));
+        const visual = maturityVisualFor(node);
+        const isBottleneck = node.kind === "bottleneck";
+        const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
         return {
         id: node.id,
         type: "capability",
@@ -315,7 +379,13 @@ export function GraphExplorer({ graph }: Props) {
           selected: selectedId === node.id,
           related,
           risk: node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
-          scoreLabel: t("score"),
+          isBottleneck,
+          bottleneckedByCount,
+          bottleneckedByTooltip: bottleneckedByCount > 0 ? t("bottleneckedByGlyphTooltip").replace("{count}", String(bottleneckedByCount)) : "",
+          maturityPillLabel: visual.label,
+          maturityPillBg: visual.bg,
+          maturityPillFg: visual.fg,
+          maturityPillHasLabel: visual.hasLabel,
           selectedMetricId: selectedId,
           foldedMetrics: localizedFolded,
           onSelect: setSelectedId,
@@ -328,7 +398,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
