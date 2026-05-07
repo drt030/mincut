@@ -64,6 +64,8 @@ type CapabilityNodeData = {
   risk: boolean;
   isBottleneck: boolean;
   isAlternativeSibling: boolean;
+  isHardToDevelop: boolean;
+  hardToDevelopTooltip: string;
   bottleneckedByCount: number;
   bottleneckedByTooltip: string;
   maturityPillLabel: string;
@@ -114,6 +116,15 @@ const nodeTypes = {
         }}
       >
         <Handle className="graph-node-handle" type="target" position={Position.Left} />
+        {data.isHardToDevelop ? (
+          <span
+            className="graph-node-key-glyph"
+            title={data.hardToDevelopTooltip}
+            aria-label={data.hardToDevelopTooltip}
+          >
+            🔑
+          </span>
+        ) : null}
         {showWarningGlyph ? (
           <span
             className={["graph-node-warning-glyph", data.isBottleneck ? "self" : "downstream"].join(" ")}
@@ -403,6 +414,7 @@ export function GraphExplorer({ graph }: Props) {
         const isBottleneck = node.kind === "bottleneck";
         const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
         const isAlternativeSibling = capabilityCluster.siblingProductIds.has(node.id);
+        const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
         return {
         id: node.id,
         type: "capability",
@@ -421,6 +433,8 @@ export function GraphExplorer({ graph }: Props) {
           risk: node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
           isBottleneck,
           isAlternativeSibling,
+          isHardToDevelop,
+          hardToDevelopTooltip: isHardToDevelop ? t("hardToDevelopGlyphTooltip") : "",
           bottleneckedByCount,
           bottleneckedByTooltip: bottleneckedByCount > 0 ? t("bottleneckedByGlyphTooltip").replace("{count}", String(bottleneckedByCount)) : "",
           maturityPillLabel: visual.label,

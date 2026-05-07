@@ -294,6 +294,24 @@ li {
   background: #b45309;
 }
 
+.graph-node-key-glyph {
+  align-items: center;
+  background: #0f766e;
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 11px;
+  height: 18px;
+  justify-content: center;
+  left: 6px;
+  line-height: 1;
+  pointer-events: auto;
+  position: absolute;
+  top: 6px;
+  width: 18px;
+  z-index: 2;
+}
+
 .graph-node-card {
   position: relative;
 }
@@ -393,6 +411,27 @@ li {
 .maturity-asof-pill.missing {
   border-style: dashed;
   opacity: 0.65;
+}
+
+.key-technology-pill {
+  align-items: center;
+  background: #134e4a;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: #ccfbf1;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 5px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 5px 9px;
+  white-space: nowrap;
+}
+
+.key-technology-pill-icon {
+  font-size: 11px;
+  line-height: 1;
 }
 
 .maturity-asof-icon {

@@ -52,6 +52,7 @@ for (const report of reports) {
 }
 
 errors.push(...validateParcelCoreProvenance(graph));
+errors.push(...validateHardToDevelopExplainability(graph));
 
 if (errors.length) {
   console.error("Data validation failed:");
@@ -60,6 +61,28 @@ if (errors.length) {
 }
 
 console.log(`Data validation passed: ${graph.nodes.length} nodes, ${graph.edges.length} edges, ${graph.evidence.length} evidence items.`);
+
+/**
+ * Per ADR-0005: any node tagged `hard_to_develop` MUST carry a non-empty
+ * `notes` or `description` so the explainability of "what makes this hard"
+ * is captured next to the tag. This is the v0 substrate for a future
+ * `developmentDifficulty` schema field, so missing rationale here would
+ * silently lose information when the field is promoted.
+ */
+function validateHardToDevelopExplainability(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    if (!node.tags?.includes("hard_to_develop")) continue;
+    const hasDescription = Boolean(node.description?.trim());
+    const hasNotes = Boolean(node.notes?.trim());
+    if (!hasDescription && !hasNotes) {
+      errors.push(
+        `Node ${node.id} carries tag "hard_to_develop" (per ADR-0005) but has no notes or description explaining what makes it hard.`,
+      );
+    }
+  }
+  return errors;
+}
 
 function validateParcelCoreProvenance(graph: GraphData): string[] {
   const targetId = "low_cost_parcel_sorting_robot_300k_rmb";

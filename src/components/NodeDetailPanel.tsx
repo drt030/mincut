@@ -31,6 +31,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const bottlenecks = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
+  const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
   const siblingCandidates = node.kind === "product" ? siblingProductsForProduct(graph, node.id) : [];
 
   return (
@@ -86,6 +87,16 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
                   <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
                   {t("maturityAsOf")}: {asOf.label}
                 </span>
+                {isHardToDevelop ? (
+                  <span
+                    className="key-technology-pill"
+                    title={t("hardToDevelopGlyphTooltip")}
+                    aria-label={t("hardToDevelopGlyphTooltip")}
+                  >
+                    <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
+                    {t("keyTechnologyPill")}
+                  </span>
+                ) : null}
               </>
             );
           })()}

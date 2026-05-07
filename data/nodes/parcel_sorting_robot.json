@@ -43,9 +43,11 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
-      "perception"
+      "perception",
+      "hard_to_develop"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "notes": "Hard-to-develop (per ADR-0005): CV-based label localization and OCR must work under reflective/wrinkled labels, parcel deformation, glare, occlusion, and high-speed conveyor motion. Off-the-shelf barcode readers handle clean labels; the hard part is the long tail where vision degrades."
   },
   {
     "id": "industrial_area_scan_camera",
@@ -181,9 +183,11 @@
     "confidence": "medium",
     "tags": [
       "perception",
-      "tracking"
+      "tracking",
+      "hard_to_develop"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "notes": "Hard-to-develop (per ADR-0005): real-time pose estimation of variable parcels (size, packaging, deformation, stacking, occlusion) under conveyor motion is at the frontier of CV-based object recognition. Failure mode is qualitative — robust tracking enables pick reliability; weak tracking collapses throughput."
   },
   {
     "id": "parcel_manipulation_or_diverter",
@@ -575,7 +579,7 @@
       "industrial_robot_arm",
       "precision_reducer"
     ],
-    "description": "Thin flexible externally toothed spline that elastically deforms and meshes with the circular spline to transmit reducer output.",
+    "description": "Thin flexible externally toothed spline that elastically deforms and meshes with the circular spline to transmit reducer output. Hard-to-develop (per ADR-0005): manufacturing process with low yield and high tolerances — thin-wall steel parts must achieve precision tooth geometry while surviving cyclic elastic deformation. Long-standing supplier concentration in Japan reflects the difficulty of matching fatigue life at low cost.",
     "maturityScore": 62,
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
@@ -588,9 +592,10 @@
       "strain_wave",
       "flexspline",
       "cost",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "hard_to_develop"
     ],
-    "notes": "Expansion frontier: next layer may include tooth machining, thin-wall forming, heat treatment, fatigue life, crack risk, and inspection."
+    "notes": "Expansion frontier: next layer may include tooth machining, thin-wall forming, heat treatment, fatigue life, crack risk, and inspection. Hard-to-develop rationale: thin-wall fatigue-life tooth manufacturing is the bottleneck behind robot reducer cost; replicating Japanese-supplier quality at low cost remains a real R&D pipeline."
   },
   {
     "id": "strain_wave_circular_spline",
@@ -651,7 +656,7 @@
       "industrial_robot_arm",
       "precision_reducer"
     ],
-    "description": "Lubrication, endurance testing, backlash verification, and life testing needed to qualify a precision robot joint reducer.",
+    "description": "Lubrication, endurance testing, backlash verification, and life testing needed to qualify a precision robot joint reducer. Hard-to-develop (per ADR-0005): qualifying low-cost reducers for industrial duty-cycle life requires long-running endurance test fixtures, statistically valid sample sizes, and tight backlash-growth criteria — a manufacturing-process capability with low yield and slow feedback that distinguishes incumbents from new domestic suppliers.",
     "maturityScore": 48,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
@@ -663,9 +668,10 @@
       "reducer",
       "testing",
       "maintenance",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "hard_to_develop"
     ],
-    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost."
+    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost. Hard-to-develop rationale: long-cycle endurance testing capability is itself a barrier — without it, low-cost reducers cannot be qualified for industrial duty cycles."
   },
   {
     "id": "industrial_servo_motor",
@@ -1275,9 +1281,11 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "tags": [
-      "robotics"
+      "robotics",
+      "hard_to_develop"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "notes": "Hard-to-develop (per ADR-0005): real-time motion planning under uncertainty (parcel pose noise, conveyor speed variation, multi-arm collision risk, and tight cycle-time targets) is a known frontier in industrial robotics. A naive planner cannot meet both throughput and reliability simultaneously."
   },
   {
     "id": "safety_system",
@@ -1629,11 +1637,14 @@
     "domain": [
       "parcel_sorting_robot"
     ],
-    "description": "A missing or uncertain capability for manipulating diverse parcels cheaply with low jam and intervention rates.",
+    "description": "A missing or uncertain capability for manipulating diverse parcels cheaply with low jam and intervention rates. Hard-to-develop (per ADR-0005): combines unsolved sub-problems in pose perception, end-effector compliance, motion planning, and exception recovery; no commodified solution exists at the 300k RMB price point.",
     "maturityScore": 30,
     "maturityLabel": "hypothesis",
     "maturityAsOf": "2026-04",
-    "confidence": "low"
+    "confidence": "low",
+    "tags": [
+      "hard_to_develop"
+    ]
   },
   {
     "id": "robust_parcel_perception_under_real_logistics_conditions",
@@ -1642,11 +1653,14 @@
     "domain": [
       "parcel_sorting_robot"
     ],
-    "description": "Robust perception across reflective labels, damage, occlusion, variable lighting, parcel deformation, and high-speed conveyor motion.",
+    "description": "Robust perception across reflective labels, damage, occlusion, variable lighting, parcel deformation, and high-speed conveyor motion. Hard-to-develop (per ADR-0005): the long-tail of real-world logistics imagery is the core CV research frontier driving sortation reliability; lab-proven techniques degrade qualitatively when deployed.",
     "maturityScore": 38,
     "maturityLabel": "lab_proven",
     "maturityAsOf": "2026-04",
-    "confidence": "low"
+    "confidence": "low",
+    "tags": [
+      "hard_to_develop"
+    ]
   },
   {
     "id": "low_cost_conveyor_integration",
