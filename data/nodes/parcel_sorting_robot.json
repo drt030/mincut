@@ -2168,5 +2168,327 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Created per ADR-0004 step 5 (route retirement). Stays out of active graph scope: there is no inbound edge from any node reachable from low_cost_parcel_sorting_robot_300k_rmb, only outbound edges from this Product to shared modules and to the Capability."
+  },
+  {
+    "id": "industrial_robot_arm_body_cost",
+    "name": "Industrial robot arm body cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm"],
+    "description": "Installed-component cost contribution of the bare 6-axis robot arm body (joints, links, reducers, servo motors, controller interfaces) to the v0 parcel-sorting cell. Mid-tier 2025-China industrial pricing for arms in the 5-10 kg payload, sub-1 m reach class.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 35000, "typical": 60000, "max": 95000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China industrial estimate based on common vendor catalog ranges (e.g. Inovance, Estun, Han's Robot mid-tier vs. import equivalents). Marked unreviewed for human verification per ADR-0001.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "end_effector_gripper_or_suction_cost",
+    "name": "End effector module cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "end_effector"],
+    "description": "Installed-component cost contribution of the vacuum suction end-of-arm tooling module (cup array, ejector or pump, valves, pressure sensing) to the v0 parcel-sorting cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 5000, "typical": 10000, "max": 18000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China industrial estimate. Pricing the end-effector as a bundled module intercepts recursion through cup-array / ejector / valves / pressure-sensing leaves. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_end_effector_gripper_or_suction_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "parcel_manipulation_or_diverter_cost",
+    "name": "Parcel manipulation subsystem integration cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot"],
+    "description": "Integration-only cost premium for the manipulation subsystem (cabling, brackets, sequencing/calibration) above the per-component cost of arm body, end-effector, and motion planning that the rollup walker counts via the product-level requires edges.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 2000, "typical": 4000, "max": 8000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough integration-only premium. Pricing this aggregator node directly stops recursion through it, which avoids double-counting of arm_body, end_effector, and motion_planning that the product also requires directly. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_parcel_manipulation_or_diverter_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "industrial_area_scan_camera_cost",
+    "name": "Industrial area-scan camera cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "description": "Installed-component cost contribution of an industrial global-shutter area-scan camera (mid-resolution, GigE/USB3) plus IO and mounting, in the v0 parcel-sorting cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 9000, "typical": 17000, "max": 30000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China industrial estimate. Reflects Hikrobot / Daheng / Basler-equivalent ranges suitable for parcel-label imaging at conveyor speed. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_industrial_area_scan_camera_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "machine_vision_lens_and_optics_cost",
+    "name": "Machine vision lens and optics cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "description": "Installed-component cost contribution of the C-mount industrial lens and optics needed to focus parcel labels onto the camera sensor.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 1500, "typical": 3000, "max": 6000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 estimate covering standard fixed-focal-length C-mount lenses. High-end metrology lenses can be much more expensive; this range is utility imaging only. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_machine_vision_lens_and_optics_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "controlled_machine_vision_lighting_cost",
+    "name": "Controlled machine-vision lighting cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "description": "Installed-component cost contribution of an industrial LED lighting fixture (bar / ring / dome) plus controller, sized for parcel-label illumination on one cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 1500, "typical": 3000, "max": 5000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China estimate per fixture. Multi-fixture deployments and strobed controllers can push higher. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_controlled_machine_vision_lighting_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "vision_processing_compute_cost",
+    "name": "Vision processing compute cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "description": "Installed-component cost contribution of a fanless industrial PC with mid-tier GPU/accelerator, suitable for real-time barcode/OCR plus light detection inference at conveyor speed.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 9000, "typical": 16000, "max": 24000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China estimate. Smart-camera embedded options sit at the lower end; high-end perception stacks land well above this range. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_vision_processing_compute_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "conveyor_integration_cost",
+    "name": "Conveyor integration hardware cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot"],
+    "description": "Installed-component cost contribution of the conveyor section, photoelectric sensors, speed encoder, PLC, and chutes/lanes hardware integrated into one sorting cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 30000, "typical": 55000, "max": 85000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China estimate scoped to a single small sorting cell. Conveyor cost scales strongly with length, lane count, and chute geometry. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "safety_system_cost",
+    "name": "Safety system cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "safety"],
+    "description": "Installed-component cost contribution of perimeter guarding, light curtains, e-stop circuitry, safety relays/PLC, and interlocked-door hardware for one cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 6000, "typical": 12000, "max": 22000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China estimate. Safety scope varies by site standard and risk-assessment outcome. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_safety_system_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "mechanical_structure_cost",
+    "name": "Mechanical structure cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot"],
+    "description": "Installed-component cost contribution of the cell frame, robot pedestal, electrical cabinet enclosure, cable trays, and structural sheet-metal/extrusion parts outside the conveyor and arm proper.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 8000, "typical": 18000, "max": 30000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China estimate. Custom mechanical work (specialty frame, tooling) can push cost higher. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_mechanical_structure_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "sorting_decision_system_cost",
+    "name": "Sorting decision system cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "software"],
+    "description": "Allocated cost contribution of the sorting decision software (rule engine, destination mapping, WCS interface, basic dashboard) per cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 6000, "typical": 12000, "max": 22000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 estimate per cell. Either a vendor license fee or an internal-build allocation amortized to one cell. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_sorting_decision_system_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "motion_planning_cost",
+    "name": "Motion planning software cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot"],
+    "description": "Allocated cost contribution of motion-planning software per cell — slice of an in-house planner or vendor pick-and-place library, amortized to a single sorting cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 4000, "typical": 8000, "max": 15000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 amortized per-cell estimate. R&D for novel planners is not captured here. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_motion_planning_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "parcel_detection_and_tracking_cost",
+    "name": "Parcel detection and tracking cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot"],
+    "description": "Allocated cost contribution of parcel detection-and-tracking software components (detection model integration, parcel pose tracker, conveyor-coordinate pipeline) per cell. Compute hardware is separately costed under vision_processing_compute.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 5000, "typical": 10000, "max": 18000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 allocated estimate per cell. Proprietary model training and labelling cost not allocated here. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_parcel_detection_and_tracking_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "maintenance_workflow_cost",
+    "name": "Maintenance workflow first-year spares and tooling cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "maintenance"],
+    "description": "Cost contribution of the initial spares kit, basic maintenance tooling, and operator training materials shipped with one cell. Recurring annual maintenance is tracked separately under the maintenance_cost metric.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 2000, "typical": 5000, "max": 10000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025-China estimate for initial spares plus operator tooling. Annual recurring maintenance lives on the maintenance_cost metric. Marked unreviewed for human verification.",
+    "evidenceIds": ["ev_maintenance_workflow_cost_2025"],
+    "tags": ["cost", "cost_research", "ralph_iter18"]
   }
 ]

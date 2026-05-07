@@ -1386,5 +1386,131 @@
     "confidence": "high",
     "reviewStatus": "reviewed",
     "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
+  },
+  {
+    "id": "e_industrial_robot_arm_body_measured_by_cost",
+    "source": "industrial_robot_arm_body",
+    "target": "industrial_robot_arm_body_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003 cost-rollup model. Pricing the arm body directly intercepts recursion through servo motors, reducers, and material chains, treating the arm as a single purchasable subsystem. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_end_effector_gripper_or_suction_measured_by_cost",
+    "source": "end_effector_gripper_or_suction",
+    "target": "end_effector_gripper_or_suction_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Pricing the end-effector module directly intercepts recursion through cup-array / ejector / valves / pressure-sensing leaves. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_parcel_manipulation_or_diverter_measured_by_cost",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "parcel_manipulation_or_diverter_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Direct price on this aggregator stops recursion that would otherwise double-count arm_body, end_effector, and motion_planning, which are also direct requires children of the product. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_industrial_area_scan_camera_measured_by_cost",
+    "source": "industrial_area_scan_camera",
+    "target": "industrial_area_scan_camera_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_machine_vision_lens_and_optics_measured_by_cost",
+    "source": "machine_vision_lens_and_optics",
+    "target": "machine_vision_lens_and_optics_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_controlled_machine_vision_lighting_measured_by_cost",
+    "source": "controlled_machine_vision_lighting",
+    "target": "controlled_machine_vision_lighting_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_vision_processing_compute_measured_by_cost",
+    "source": "vision_processing_compute",
+    "target": "vision_processing_compute_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_conveyor_integration_measured_by_cost",
+    "source": "conveyor_integration",
+    "target": "conveyor_integration_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Pricing the conveyor integration as a bundle stops recursion through photoelectric sensors, encoder, PLC, chutes, and induction-control children. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_safety_system_measured_by_cost",
+    "source": "safety_system",
+    "target": "safety_system_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_mechanical_structure_measured_by_cost",
+    "source": "mechanical_structure",
+    "target": "mechanical_structure_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_sorting_decision_system_measured_by_cost",
+    "source": "sorting_decision_system",
+    "target": "sorting_decision_system_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_motion_planning_measured_by_cost",
+    "source": "motion_planning",
+    "target": "motion_planning_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_parcel_detection_and_tracking_measured_by_cost",
+    "source": "parcel_detection_and_tracking",
+    "target": "parcel_detection_and_tracking_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_maintenance_workflow_measured_by_cost",
+    "source": "maintenance_workflow",
+    "target": "maintenance_workflow_cost",
+    "relation": "measured_by",
+    "confidence": "high",
+    "reviewStatus": "reviewed",
+    "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   }
 ]
