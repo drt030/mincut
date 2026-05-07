@@ -182,6 +182,15 @@ export const gateReportSchema = z.object({
   generatedAt: z.string(),
   questionResults: z.array(
     z.object({
+      /**
+       * Per iter-15 review (P0 #2), `questionId` persists the GateQuestion
+       * id alongside the rendered text so UI consumers (e.g. cost-question
+       * coverage-gap collapsible) can identify the question without
+       * matching against the localizable English question string. Optional
+       * for backwards compat with reports generated before the schema bump
+       * — readers fall back to text-equality on those.
+       */
+      questionId: z.string().optional(),
       question: z.string(),
       answer: z.string(),
       score: z.number().min(0).max(5),

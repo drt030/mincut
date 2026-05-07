@@ -4,7 +4,13 @@ import { useLanguage } from "./LanguageProvider";
 import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, uniqueNodes } from "@/lib/graphTraversal";
 import { productMaturity } from "@/lib/maturity";
 import { maturityAsOfVisualFor } from "@/lib/maturityVisual";
-import { isCostBearingMetric, rollupCost, targetCostFor, type CostRollupResult } from "@/lib/costRollup";
+import {
+  eligibleCostSubsystemIds,
+  isCostBearingMetric,
+  rollupCost,
+  targetCostFor,
+  type CostRollupResult,
+} from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import type { GraphData, Node } from "@/lib/schema";
 
@@ -84,21 +90,32 @@ function ProductCostRollupSummary({ graph, product }: { graph: GraphData; produc
     rollup = null;
   }
   const target = targetCostFor(graph, product.id);
-  const reachable = reachableEligibleSubsystems(graph, product.id);
+  // Per iter-15 review (P0 #3), use the shared gate-aligned eligibility set.
+  const reachable = eligibleCostSubsystemIds(graph, product.id);
   const denominator = Math.max(reachable.size, rollup ? rollup.coverageGap.length : 0, 1);
   const gapCount = rollup ? rollup.coverageGap.length : 0;
   const gapFraction = gapCount / denominator;
   const dotClass = coverageDotClass(gapFraction);
-  const rolledUp = rollup
-    ? formatMetricValue(rollup.rolledUp, "RMB", "RMB")
-    : { compact: "—", full: "—", isRange: false };
+  // Per iter-15 review (P0 #1), avoid surfacing "0 RMB" when no child
+  // contributed cost data — see ProductCostRollupCard for the rationale.
+  const hasRollupValue = rollup ? rollup.anyChildContributed : false;
+  const rolledUpFull = hasRollupValue && rollup
+    ? formatMetricValue(rollup.rolledUp, "RMB", "RMB").full
+    : t("metricNoValue");
+  const rolledUpTooltip = hasRollupValue ? undefined : t("costRollupNoData");
   const targetFull = target ? formatMetricValue(target.range, "RMB", "RMB").full : null;
   const targetCostString = product.targetContext?.targetCost?.trim();
   return (
     <div className="card cost-rollup-card">
       <h2>{t("costRollupTitle")}</h2>
       <p className="cost-rollup-value-line">
-        <strong>{rolledUp.full}</strong>{" "}
+        <strong
+          className={hasRollupValue ? undefined : "missing"}
+          title={rolledUpTooltip}
+          aria-label={rolledUpTooltip}
+        >
+          {rolledUpFull}
+        </strong>{" "}
         <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true" />
       </p>
       <p className="muted">
@@ -124,34 +141,6 @@ function ProductCostRollupSummary({ graph, product }: { graph: GraphData; produc
       <p className="muted">{t("costRollupHint")}</p>
     </div>
   );
-}
-
-function reachableEligibleSubsystems(graph: GraphData, productId: string): Set<string> {
-  const ids = new Set<string>();
-  const queue: string[] = [productId];
-  const seen = new Set<string>();
-  while (queue.length) {
-    const nodeId = queue.shift();
-    if (!nodeId || seen.has(nodeId)) continue;
-    seen.add(nodeId);
-    for (const edge of graph.edges) {
-      if (edge.source !== nodeId || edge.relation !== "requires") continue;
-      const child = graph.nodes.find((node) => node.id === edge.target);
-      if (!child) continue;
-      if (
-        child.kind === "metric" ||
-        child.kind === "evidence" ||
-        child.kind === "bottleneck" ||
-        child.kind === "placeholder_breakthrough"
-      ) {
-        continue;
-      }
-      if (child.reviewStatus === "deprecated") continue;
-      ids.add(child.id);
-      queue.push(child.id);
-    }
-  }
-  return ids;
 }
 
 function coverageDotClass(gapFraction: number): string {
@@ -188,7 +177,11 @@ function KeyMetricsCard({ title, metrics }: { title: string; metrics: Node[] }) 
                     </span>
                   ) : null}
                   {inline?.currency && inline.currency !== "RMB" ? (
-                    <span className="currency-pill" title={`Currency: ${inline.currency}`}>
+                    <span
+                      className="currency-pill"
+                      title={t("currencyPillTooltip").replace("{currency}", inline.currency)}
+                      aria-label={t("currencyPillTooltip").replace("{currency}", inline.currency)}
+                    >
                       {inline.currency}
                     </span>
                   ) : null}

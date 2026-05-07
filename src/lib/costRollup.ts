@@ -35,6 +35,16 @@ export type CostRollupResult = {
   costAsOf: string;
   /** Always RMB after FX conversion. */
   currency: "RMB";
+  /**
+   * True iff at least one node in the requires subtree contributed real
+   * cost data. When false, `rolledUp` is the degenerate `{0,0,0}` sum and
+   * MUST NOT be displayed as a real number — UI consumers should render
+   * "—" / "no subsystem cost data" instead. Per iter-15 review (P0): a
+   * "0 RMB" rolled-up display next to a "300,000 RMB" target reads as
+   * "we summed to zero", which is the wrong message when in fact no
+   * cost data has been entered yet.
+   */
+  anyChildContributed: boolean;
 };
 
 const INTEGRATION_OVERHEAD = 1.15;
@@ -63,7 +73,55 @@ export function rollupCost(graph: GraphData, productNodeId: string): CostRollupR
     coverageGap: dedupePreservingOrder(coverageGap),
     costAsOf: earliestYear(costAsOfYears),
     currency: "RMB",
+    // `range` is non-null iff some node in the subtree contributed real cost
+    // data. A null range means we returned the degenerate `{0,0,0}` sum and
+    // the UI must surface this as "no data" rather than "0 RMB".
+    anyChildContributed: range !== null,
   };
+}
+
+/**
+ * Per iter-15 review (P0): the cost-eligibility filter is shared between the
+ * gate (cost-question scoring) and the panel/product-view UIs (rolled-up
+ * card denominator). The three sites used to drift — the gate excluded
+ * `capability` and the target itself; the components didn't. As a result,
+ * "60 of 60 subsystems lack cost data" on the panel did not match the gate
+ * denominator. Hoisting the helper here keeps the cost-domain logic in one
+ * place and prevents future drift.
+ *
+ * The set returned mirrors `walk()`'s child filter exactly: `requires`
+ * children only; metric / evidence / bottleneck / placeholder_breakthrough /
+ * capability nodes excluded; deprecated nodes excluded; the target product
+ * itself excluded.
+ */
+export function eligibleCostSubsystemIds(graph: GraphData, productNodeId: string): Set<string> {
+  const ids = new Set<string>();
+  const queue: string[] = [productNodeId];
+  const seen = new Set<string>();
+  while (queue.length) {
+    const nodeId = queue.shift();
+    if (!nodeId || seen.has(nodeId)) continue;
+    seen.add(nodeId);
+    for (const edge of graph.edges) {
+      if (edge.source !== nodeId || edge.relation !== "requires") continue;
+      const child = nodeById(graph, edge.target);
+      if (!child) continue;
+      if (
+        child.kind === "metric" ||
+        child.kind === "evidence" ||
+        child.kind === "bottleneck" ||
+        child.kind === "placeholder_breakthrough" ||
+        child.kind === "capability"
+      ) {
+        continue;
+      }
+      if (child.reviewStatus === "deprecated") continue;
+      if (child.id === productNodeId) continue;
+      ids.add(child.id);
+      queue.push(child.id);
+    }
+  }
+  return ids;
 }
 
 function dedupePreservingOrder(items: string[]): string[] {

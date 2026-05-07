@@ -123,7 +123,7 @@ function GateReportDetails({
               <td>
                 <strong>{result.question}</strong>
                 <p>{result.answer}</p>
-                {isCostConstraintsQuestion(result.question) ? (
+                {isCostConstraintsResult(result) ? (
                   <CostCoverageGapSection result={result} graph={graph} />
                 ) : (
                   <GateResultGaps result={result} />
@@ -189,10 +189,17 @@ function taskKindClass(kind: GateReport["recommendedNextTasks"][number]["kind"])
  * subsystems whose subtree contributed nothing to the rolled-up cost — so
  * "0/5 because no data" reads as "the rolled-up number is unreliable
  * because we have no cost data on these N subsystems."
+ *
+ * Per iter-15 review (P0 #2), identification routes through the persisted
+ * `questionId === "cost_constraints"`; older gate-report files predating
+ * the schema bump lack `questionId` and fall back to literal text-match
+ * against the canonical English question text.
  */
+const COST_CONSTRAINTS_QUESTION_ID = "cost_constraints";
 const COST_CONSTRAINTS_QUESTION_TEXT = "What cost constraints dominate the product's feasibility?";
-function isCostConstraintsQuestion(question: string): boolean {
-  return question.trim() === COST_CONSTRAINTS_QUESTION_TEXT;
+function isCostConstraintsResult(result: GateReport["questionResults"][number]): boolean {
+  if (result.questionId) return result.questionId === COST_CONSTRAINTS_QUESTION_ID;
+  return result.question.trim() === COST_CONSTRAINTS_QUESTION_TEXT;
 }
 
 function CostCoverageGapSection({

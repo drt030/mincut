@@ -1,4 +1,4 @@
-import { rollupCost, targetCostFor, type CostRollupResult } from "./costRollup";
+import { eligibleCostSubsystemIds, rollupCost, targetCostFor, type CostRollupResult } from "./costRollup";
 import {
   bottlenecksForNode,
   evidenceForEdge,
@@ -106,7 +106,13 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
   };
 
   const evidenceFindings = evidenceFindingsForContext(context);
-  const questionResults = questions.map((question) => answerQuestion(context, question, evidenceFindings));
+  // Per iter-15 review (P0 #2), every questionResult carries `questionId`
+  // so downstream UI doesn't need to string-match the localized question
+  // text to identify a specific question (e.g. cost_constraints).
+  const questionResults = questions.map((question) => ({
+    questionId: question.id,
+    ...answerQuestion(context, question, evidenceFindings),
+  }));
   const overallScore = round(questionResults.reduce((sum, result) => sum + result.score, 0) / questionResults.length);
   const missingCriticalModules = requiredParcelModules.filter((id) => !context.modules.some((node) => node.id === id));
   const highConfidenceEdgesWithoutEvidence = context.scopedEdgesActive.filter(
@@ -705,29 +711,27 @@ function costConstraintsResult(
 
   const target = targetCostFor(context.graph, context.target.id);
   const coverageNodesTouched = rollup.coverageGap.length;
-  // Total scope = the visited count is approximated as the count of
-  // `requires`-reachable subsystem nodes that were eligible for cost
-  // (excluding metric/evidence/bottleneck/placeholder/deprecated). This
-  // mirrors the walker's filtering in `costRollup.ts`.
-  const eligibleNodeCount = context.scopedNodesActive.filter(
-    (node) =>
-      node.kind !== "metric" &&
-      node.kind !== "evidence" &&
-      node.kind !== "bottleneck" &&
-      node.kind !== "placeholder_breakthrough" &&
-      node.kind !== "capability" &&
-      node.id !== context.target.id,
-  ).length;
+  // Per iter-15 review (P0 #3), the eligibility filter is hoisted into
+  // `eligibleCostSubsystemIds` so the gate denominator and the
+  // panel/ProductView denominators match exactly. The set walks `requires`
+  // children and excludes metric / evidence / bottleneck /
+  // placeholder_breakthrough / capability nodes, deprecated nodes, and the
+  // target product itself — same as the rollup walker.
+  const eligibleNodeCount = eligibleCostSubsystemIds(context.graph, context.target.id).size;
   const totalForGap = Math.max(eligibleNodeCount, coverageNodesTouched, 1);
   const gapFraction = coverageNodesTouched / totalForGap;
 
   // Coverage component: 0% gap → 3.0, 50% → 1.5, ≥75% → 0.
   const coverageScore = Math.max(0, Math.min(3, 3 * (1 - gapFraction / 0.75)));
 
-  // Proximity component.
+  // Proximity component. Per iter-15 review (P0 #1), when no subsystem
+  // contributed real cost data (`anyChildContributed === false`), the
+  // rolled-up `{0,0,0}` is meaningless and proximity must be 0 — and the
+  // answer text must say so honestly rather than implying `typical=0` is
+  // a real number.
   let proximityScore = 0;
   let proximityNote = "";
-  if (target && rollup.rolledUp.typical > 0 && target.range.typical > 0) {
+  if (target && rollup.anyChildContributed && rollup.rolledUp.typical > 0 && target.range.typical > 0) {
     const distance = Math.abs(rollup.rolledUp.typical - target.range.typical) / target.range.typical;
     if (distance <= 0.05) proximityScore = 2;
     else if (distance <= 0.2) proximityScore = 1.5;
@@ -736,14 +740,20 @@ function costConstraintsResult(
     proximityNote = `Rolled-up typical ${formatRmb(rollup.rolledUp.typical)} vs target typical ${formatRmb(target.range.typical)} → distance ${(distance * 100).toFixed(1)}%.`;
   } else if (!target) {
     proximityNote = "No target cost metric found on the product (looked for a measured_by metric with a currency unit and a numeric targetValue).";
+  } else if (!rollup.anyChildContributed) {
+    proximityNote = "No subsystem cost data was entered, so proximity to the target cannot be judged.";
   } else {
     proximityNote = "Cost rollup produced no typical value (no cost data reachable in the requires subtree).";
   }
 
   const score = Math.max(0, Math.min(5, Math.round(coverageScore + proximityScore)));
 
+  const rollupSummary = rollup.anyChildContributed
+    ? `Rolled-up cost (RMB): min=${formatRmb(rollup.rolledUp.min)}, typical=${formatRmb(rollup.rolledUp.typical)}, max=${formatRmb(rollup.rolledUp.max)}`
+    : "No subsystem cost data has been entered, so no rolled-up cost is available.";
+
   const answer = [
-    `Rolled-up cost (RMB): min=${formatRmb(rollup.rolledUp.min)}, typical=${formatRmb(rollup.rolledUp.typical)}, max=${formatRmb(rollup.rolledUp.max)}`,
+    rollupSummary,
     target ? `Target cost (RMB): typical=${formatRmb(target.range.typical)}` : "No target cost on product.",
     `Coverage gap: ${rollup.coverageGap.length} node(s)${rollup.coverageGap.length ? ` — ${sampleIds(rollup.coverageGap)}` : ""}`,
     rollup.costAsOf ? `Earliest costAsOf: ${rollup.costAsOf}` : "No costAsOf year recorded.",

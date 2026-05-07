@@ -10,7 +10,13 @@ import {
   upstream,
 } from "@/lib/graphTraversal";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
-import { isCostBearingMetric, rollupCost, targetCostFor, type CostRollupResult } from "@/lib/costRollup";
+import {
+  eligibleCostSubsystemIds,
+  isCostBearingMetric,
+  rollupCost,
+  targetCostFor,
+  type CostRollupResult,
+} from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import type { GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
@@ -295,7 +301,11 @@ function MetricNodeListItem({
           </span>
         ) : null}
         {currency && currency !== "RMB" ? (
-          <span className="currency-pill" title={`Currency: ${currency}`}>
+          <span
+            className="currency-pill"
+            title={t("currencyPillTooltip").replace("{currency}", currency)}
+            aria-label={t("currencyPillTooltip").replace("{currency}", currency)}
+          >
             {currency}
           </span>
         ) : null}
@@ -348,7 +358,11 @@ function MetricValueDetailRow({ node }: { node: Node }) {
           </span>
         ) : null}
         {currency && currency !== "RMB" ? (
-          <span className="currency-pill" title={`Currency: ${currency}`}>
+          <span
+            className="currency-pill"
+            title={t("currencyPillTooltip").replace("{currency}", currency)}
+            aria-label={t("currencyPillTooltip").replace("{currency}", currency)}
+          >
             {currency}
           </span>
         ) : null}
@@ -384,23 +398,37 @@ function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: 
     rollup = null;
   }
   const target = targetCostFor(graph, product.id);
-  // Total subsystems = nodes reachable from this product that the rollup
-  // walker would consider "eligible" for cost (mirrors gateRunner.costConstraints).
-  const reachable = reachableEligibleSubsystems(graph, product.id);
+  // Per iter-15 review (P0 #3), the eligible-subsystem filter is hoisted to
+  // costRollup.eligibleCostSubsystemIds so panel + ProductView + gate share
+  // a single denominator (excludes capability nodes and the target itself).
+  const reachable = eligibleCostSubsystemIds(graph, product.id);
   const denominator = Math.max(reachable.size, rollup ? rollup.coverageGap.length : 0, 1);
   const gapCount = rollup ? rollup.coverageGap.length : 0;
   const gapFraction = gapCount / denominator;
   const dotClass = coverageDotClass(gapFraction);
-  const rolledUp = rollup
-    ? formatMetricValue(rollup.rolledUp, "RMB", "RMB")
-    : { compact: "—", full: "—", isRange: false };
+  // Per iter-15 review (P0 #1), when no subsystem contributed real cost data
+  // the rolled-up sum is structurally meaningless `{0,0,0}` — render "—"
+  // (the existing metricNoValue treatment) instead of "0 RMB" so a learner
+  // does not read it as a real number. The coverage-gap dot stays red and
+  // a tooltip explains the empty state.
+  const hasRollupValue = rollup ? rollup.anyChildContributed : false;
+  const rolledUpFull = hasRollupValue && rollup
+    ? formatMetricValue(rollup.rolledUp, "RMB", "RMB").full
+    : t("metricNoValue");
+  const rolledUpTooltip = hasRollupValue ? undefined : t("costRollupNoData");
   const targetFull = target ? formatMetricValue(target.range, "RMB", "RMB").full : null;
   const targetCostString = product.targetContext?.targetCost?.trim();
   return (
     <div className="cost-rollup-card">
       <strong>{t("costRollupTitle")}</strong>
       <div className="cost-rollup-row">
-        <span className="cost-rollup-value">{rolledUp.full}</span>
+        <span
+          className={["cost-rollup-value", hasRollupValue ? "" : "missing"].filter(Boolean).join(" ")}
+          title={rolledUpTooltip}
+          aria-label={rolledUpTooltip}
+        >
+          {rolledUpFull}
+        </span>
         <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true" />
         <span className="muted cost-coverage-text">
           {t("costCoverageGapStat")
@@ -426,34 +454,6 @@ function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: 
       <p className="muted cost-rollup-hint">{t("costRollupHint")}</p>
     </div>
   );
-}
-
-function reachableEligibleSubsystems(graph: GraphData, productId: string): Set<string> {
-  const ids = new Set<string>();
-  const queue: string[] = [productId];
-  const seen = new Set<string>();
-  while (queue.length) {
-    const nodeId = queue.shift();
-    if (!nodeId || seen.has(nodeId)) continue;
-    seen.add(nodeId);
-    for (const edge of graph.edges) {
-      if (edge.source !== nodeId || edge.relation !== "requires") continue;
-      const child = graph.nodes.find((node) => node.id === edge.target);
-      if (!child) continue;
-      if (
-        child.kind === "metric" ||
-        child.kind === "evidence" ||
-        child.kind === "bottleneck" ||
-        child.kind === "placeholder_breakthrough"
-      ) {
-        continue;
-      }
-      if (child.reviewStatus === "deprecated") continue;
-      ids.add(child.id);
-      queue.push(child.id);
-    }
-  }
-  return ids;
 }
 
 function coverageDotClass(gapFraction: number): string {

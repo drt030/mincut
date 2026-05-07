@@ -159,6 +159,10 @@ const uiText: Record<Language, Record<string, string>> = {
       "These subsystems have no cost data, so the rolled-up estimate is unreliable until they are filled in.",
     costCoverageComplete: "Cost coverage complete",
     costAddCostHint: "add cost",
+    costRollupNoData: "No subsystem cost data entered yet.",
+    metricTooltipAsOf: "as of {year}",
+    metricChipCostAsOfTooltip: "Cost as of {year}",
+    currencyPillTooltip: "Currency: {currency}",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -296,6 +300,10 @@ const uiText: Record<Language, Record<string, string>> = {
     costCoverageGapHint: "这些子系统没有成本数据，汇总成本在补齐之前不可靠。",
     costCoverageComplete: "成本覆盖完整",
     costAddCostHint: "添加成本",
+    costRollupNoData: "尚未录入子系统成本数据。",
+    metricTooltipAsOf: "截至 {year}",
+    metricChipCostAsOfTooltip: "成本数据截至 {year}",
+    currencyPillTooltip: "币种：{currency}",
   },
 };
 

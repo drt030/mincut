@@ -88,6 +88,16 @@ type CapabilityNodeData = {
   asOfPillTooltip: string;
   selectedMetricId?: string;
   foldedMetrics: FoldedMetricEntry[];
+  /**
+   * Per iter-15 review (P1 #5), the metric chip tooltip and the chip
+   * `costAsOf` micro-pill route through `t()` so zh-mode users no longer
+   * see hardcoded English (`Cost as of 2024`, `current: …, target: …`).
+   * `t` is captured at flowNodes-build time and passed through node data
+   * because the inner `CapabilityNode` is a `memo`'d render-time component
+   * that doesn't have access to `useLanguage()` directly.
+   */
+  formatMetricChipTooltip: (metric: FoldedMetricEntry) => string;
+  formatCostAsOfChipTooltip: (year: string) => string;
   onSelect: (nodeId: string) => void;
   onToggle: (nodeId: string) => void;
   onSelectMetric: (metricId: string) => void;
@@ -204,15 +214,15 @@ const nodeTypes = {
                     event.stopPropagation();
                     data.onSelectMetric(metric.id);
                   }}
-                  title={formatMetricTooltip(metric)}
+                  title={data.formatMetricChipTooltip(metric)}
                 >
                   <span className="graph-node-metric-name">{metric.name}</span>
                   <span className="graph-node-metric-value">{formatMetricChipValue(metric)}</span>
                   {metric.isCostBearing && metric.costAsOf ? (
                     <span
                       className="graph-node-metric-asof"
-                      title={`Cost as of ${metric.costAsOf}`}
-                      aria-label={`Cost as of ${metric.costAsOf}`}
+                      title={data.formatCostAsOfChipTooltip(metric.costAsOf)}
+                      aria-label={data.formatCostAsOfChipTooltip(metric.costAsOf)}
                     >
                       {metric.costAsOf}
                     </span>
@@ -261,13 +271,19 @@ function isCostBearingMetricEntry(metric: { unit?: string; currency?: string } |
   return false;
 }
 
-function formatMetricTooltip(metric: FoldedMetricEntry): string {
+/**
+ * Per iter-15 review (P1 #5), chip tooltips route through `t()` so zh-mode
+ * users see Chinese tooltip text. The labels `current` / `target` already
+ * exist in LanguageProvider; `metricTooltipAsOf` is a new key for the
+ * "as of YYYY" suffix, mirroring the iter-7 maturity-as-of pattern.
+ */
+function formatMetricTooltip(metric: FoldedMetricEntry, t: (key: string) => string): string {
   const parts = [metric.name];
   const current = formatMetricValue(metric.currentValue, metric.unit, metric.currency);
   const target = formatMetricValue(metric.targetValue, metric.unit, metric.currency);
-  if (current.full !== "—") parts.push(`current: ${current.full}`);
-  if (target.full !== "—") parts.push(`target: ${target.full}`);
-  if (metric.costAsOf) parts.push(`as of ${metric.costAsOf}`);
+  if (current.full !== "—") parts.push(`${t("current")}: ${current.full}`);
+  if (target.full !== "—") parts.push(`${t("target")}: ${target.full}`);
+  if (metric.costAsOf) parts.push(t("metricTooltipAsOf").replace("{year}", metric.costAsOf));
   return parts.join(" · ");
 }
 
@@ -505,6 +521,8 @@ export function GraphExplorer({ graph }: Props) {
           asOfPillTooltip: asOfTooltip,
           selectedMetricId: selectedId,
           foldedMetrics: localizedFolded,
+          formatMetricChipTooltip: (metric: FoldedMetricEntry) => formatMetricTooltip(metric, t),
+          formatCostAsOfChipTooltip: (year: string) => t("metricChipCostAsOfTooltip").replace("{year}", year),
           onSelect: setSelectedId,
           onToggle: toggleSelectedExpansion,
           onSelectMetric: setSelectedId,
