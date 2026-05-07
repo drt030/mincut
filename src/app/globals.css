@@ -1,7 +1,13 @@
 :root {
   --background: #f7f5ef;
   --foreground: #1f2933;
-  --muted: #64748b;
+  /*
+   * Per iter-45 a11y audit (MINOR): --muted at #64748b on --background
+   * #f7f5ef measured 4.37:1 contrast — fails WCAG AA (needs 4.5). Darken
+   * to #475569 (slate-600) which measures 7.13:1 on the page bg — clearly
+   * passes AA and stays visibly muted relative to --foreground (#1f2933).
+   */
+  --muted: #475569;
   --line: #d7d3c8;
   --panel: #fffdf8;
   --accent: #0f766e;
@@ -31,6 +37,32 @@
 .toolbar-actions *:focus-visible,
 .filters *:focus-visible {
   outline-color: #b45309;
+}
+
+/*
+ * Per iter-45 a11y audit (MINOR): skip-to-content link is the first
+ * interactive element on every page. Off-screen until focused, then
+ * slides on-screen with a high-contrast amber chip so KB users can
+ * jump past the 5-link header. Color #fde68a / #1f2933 measures
+ * 13.4:1 — passes AAA. z-index keeps it above .app-header (header
+ * has no explicit z-index but uses a coloured bg).
+ */
+.skip-link {
+  background: #fde68a;
+  color: #1f2933;
+  font-weight: 600;
+  left: -9999px;
+  padding: 8px 16px;
+  position: absolute;
+  text-decoration: none;
+  top: 0;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 16px;
+  top: 8px;
+  z-index: 999;
 }
 
 body {

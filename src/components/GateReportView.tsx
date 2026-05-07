@@ -33,7 +33,7 @@ export function GateReportView({ reports, targetNodeId, targetNode, graph }: Pro
     <div className="detail-list">
       <section className="panel" key={`${latestReport.targetNodeId}-${latestReport.generatedAt}`}>
         <p className="muted">{t("latestGateReport")}</p>
-        <GateReportDetails report={latestReport} targetNode={targetNode} graph={graph} />
+        <GateReportDetails report={latestReport} targetNode={targetNode} graph={graph} headingLevel={2} />
       </section>
 
       {historicalReports.length > 0 ? (
@@ -49,7 +49,15 @@ export function GateReportView({ reports, targetNodeId, targetNode, graph }: Pro
                   <span className={report.passed ? "" : "danger"}>{report.passed ? t("passed") : t("failed")}</span>
                 </summary>
                 <div className="details-body">
-                  <GateReportDetails report={report} compact graph={graph} />
+                  {/*
+                   * Per iter-45 a11y audit (MINOR): historical reports nest
+                   * inside the parent `<section>` (already an h2-context via
+                   * "Historical Reports"). Bump the inner heading level from
+                   * h2 -> h3 so SR-mode hierarchy reads h1 -> h2 -> h3, not
+                   * h1 -> h2 -> h2. The non-historical (latest) report sits
+                   * directly under the page h1 so it keeps headingLevel=2.
+                   */}
+                  <GateReportDetails report={report} compact graph={graph} headingLevel={3} />
                 </div>
               </details>
             ))}
@@ -77,17 +85,32 @@ function GateReportDetails({
   compact = false,
   targetNode,
   graph,
+  headingLevel = 2,
 }: {
   report: GateReport;
   compact?: boolean;
   targetNode?: Node;
   graph?: GraphData;
+  /**
+   * Per iter-45 a11y audit (MINOR): the report renders the same heading
+   * tags whether nested under an h1 (latest, sibling to "Historical
+   * Reports" h2) or under an h2 (each historical-row inside `<details>`,
+   * which is itself inside an h2-section). Pass the depth so SR mode
+   * sees a sane hierarchy (h2/h3 for latest, h3/h4 for historical-row).
+   */
+  headingLevel?: 2 | 3;
 }) {
   const { t } = useLanguage();
+  // Per iter-45: render the section heading and the sub-headings at
+  // headingLevel and headingLevel+1, respectively. We keep the JSX
+  // explicit (rather than React.createElement at render time) so the
+  // call sites read like normal h2/h3 markup.
+  const SectionHeading = headingLevel === 2 ? "h2" : "h3";
+  const SubHeading = headingLevel === 2 ? "h3" : "h4";
 
   return (
     <>
-      <h2>{report.targetNodeId}</h2>
+      <SectionHeading>{report.targetNodeId}</SectionHeading>
       <p className="gate-scale-stat">
         <strong>{t("gateOverallLabel")}:</strong> <strong>{report.overallScore}/5</strong> · {t("status")}:{" "}
         <span className={report.passed ? "" : "danger"}>{report.passed ? t("passed") : t("failed")}</span>
@@ -99,7 +122,7 @@ function GateReportDetails({
       </p>
       {!compact ? (
         <>
-          <h3>{t("recommendedTasks")}</h3>
+          <SubHeading>{t("recommendedTasks")}</SubHeading>
           <ul>
             {report.recommendedNextTasks.map((task) => (
               <li key={task.title} className={taskKindClass(task.kind)}>
@@ -114,7 +137,7 @@ function GateReportDetails({
           </ul>
         </>
       ) : null}
-      <h3>{t("questions")}</h3>
+      <SubHeading>{t("questions")}</SubHeading>
       <table>
         <tbody>
           {report.questionResults.map((result) => (

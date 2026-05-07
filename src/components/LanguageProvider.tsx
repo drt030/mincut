@@ -199,6 +199,7 @@ const uiText: Record<Language, Record<string, string>> = {
     maturityHistoryHint:
       "Per ADR-0002, reserved time-series of historical maturity assessments. Stub data — see source below each row.",
     maturityHistorySource: "source",
+    skipToContent: "Skip to content",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -375,6 +376,7 @@ const uiText: Record<Language, Record<string, string>> = {
     maturityHistoryHint:
       "按 ADR-0002 预留的成熟度历史时序。当前为 stub 数据 —— 每行下方标注 source。",
     maturityHistorySource: "来源",
+    skipToContent: "跳转到主要内容",
   },
 };
 

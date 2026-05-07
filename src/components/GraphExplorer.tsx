@@ -170,9 +170,17 @@ const nodeTypes = {
         }}
       >
         <Handle className="graph-node-handle" type="target" position={Position.Left} />
+        {/*
+         * Per iter-45 a11y audit (MINOR): glyph spans gain role="img" so
+         * AT explicitly announces them as image-with-alt-equivalent text
+         * (the aria-label) instead of the raw emoji + the aria-label
+         * (which some screen readers double-announce). The role makes
+         * the alt-text contract explicit.
+         */}
         {data.isHardToDevelop ? (
           <span
             className="graph-node-key-glyph"
+            role="img"
             title={data.hardToDevelopTooltip}
             aria-label={data.hardToDevelopTooltip}
           >
@@ -182,6 +190,7 @@ const nodeTypes = {
         {showWarningGlyph ? (
           <span
             className={["graph-node-warning-glyph", data.isBottleneck ? "self" : "downstream"].join(" ")}
+            role="img"
             title={glyphTooltip}
             aria-label={glyphTooltip}
           >
@@ -191,6 +200,7 @@ const nodeTypes = {
         {data.isFrontier ? (
           <span
             className="graph-node-frontier-glyph"
+            role="img"
             title={data.frontierTooltip}
             aria-label={data.frontierTooltip}
           >
