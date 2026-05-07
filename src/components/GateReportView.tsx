@@ -214,7 +214,8 @@ function CostCoverageGapSection({
   if (gapIds.length === 0) {
     return (
       <div className="cost-coverage-complete">
-        <span className="cost-coverage-dot green" aria-hidden="true" />
+        {/* Per iter-44 a11y: glyph alongside color so the signal is not color-only. */}
+        <span className="cost-coverage-dot green" aria-hidden="true">✓</span>
         {t("costCoverageComplete")}
       </div>
     );
@@ -230,7 +231,8 @@ function CostCoverageGapSection({
   return (
     <details className="cost-coverage-gap">
       <summary>
-        <span className="cost-coverage-dot red" aria-hidden="true" />
+        {/* Per iter-44 a11y: glyph alongside color so the signal is not color-only. */}
+        <span className="cost-coverage-dot red" aria-hidden="true">⨯</span>
         <strong>
           {t("costCoverageGapTitle").replace("{count}", String(gapIds.length))}
         </strong>

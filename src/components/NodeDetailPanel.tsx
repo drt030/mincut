@@ -57,9 +57,21 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const isDisputed = node.reviewStatus === "disputed";
 
   return (
-    <aside className="panel detail-list">
+    /*
+     * Per iter-44 a11y audit (MAJOR): selecting a different node silently
+     * rerendered this aside. role="region" + aria-live="polite" wires it
+     * up as a live region so SR users hear the new node name when
+     * selection changes. aria-labelledby points at the h2 below so the
+     * region is announced as e.g. "{node-name}, region".
+     */
+    <aside
+      className="panel detail-list"
+      role="region"
+      aria-live="polite"
+      aria-labelledby="detail-heading"
+    >
       <div>
-        <h2>
+        <h2 id="detail-heading">
           {nodeName(node.id, node.name)}
           {isDeprecated ? (
             <span
@@ -489,7 +501,17 @@ function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: 
         >
           {rolledUpFull}
         </span>
-        <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true" />
+        {/*
+          Per iter-44 a11y audit (MAJOR): the green/amber/red dot was the
+          only visual signal of coverage state — color-blind users saw
+          three identical grey dots. We now overlay a glyph (✓ / ⚠ / ⨯)
+          so the signal is non-color-dependent. The text "{n}/{total}
+          subsystems missing cost data" already provides redundancy; the
+          dot+glyph is reinforcement.
+        */}
+        <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true">
+          {coverageDotGlyph(dotClass)}
+        </span>
         <span className="muted cost-coverage-text">
           {t("costCoverageGapStat")
             .replace("{gap}", String(gapCount))
@@ -520,6 +542,18 @@ function coverageDotClass(gapFraction: number): string {
   if (gapFraction <= 0.1) return "green";
   if (gapFraction <= 0.5) return "amber";
   return "red";
+}
+
+/**
+ * Per iter-44 a11y audit, the cost-coverage dot pairs its color with a
+ * glyph so color-blind users get the same signal. ✓ for good coverage,
+ * ⚠ for partial, ⨯ for sparse. The glyph sits inside the dot via
+ * `.cost-coverage-dot` flex layout in globals.css.
+ */
+function coverageDotGlyph(dotClass: string): string {
+  if (dotClass === "green") return "✓";
+  if (dotClass === "amber") return "⚠";
+  return "⨯";
 }
 
 function NodeList({

@@ -121,7 +121,14 @@ function ProductCostRollupSummary({ graph, product }: { graph: GraphData; produc
         >
           {rolledUpFull}
         </strong>{" "}
-        <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true" />
+        {/*
+          Per iter-44 a11y audit (MAJOR): paired with a glyph so the
+          coverage signal does not depend on color alone. See
+          NodeDetailPanel.coverageDotGlyph for parity.
+        */}
+        <span className={["cost-coverage-dot", dotClass].join(" ")} aria-hidden="true">
+          {coverageDotGlyph(dotClass)}
+        </span>
       </p>
       <p className="muted">
         {t("costCoverageGapStat")
@@ -152,6 +159,17 @@ function coverageDotClass(gapFraction: number): string {
   if (gapFraction <= 0.1) return "green";
   if (gapFraction <= 0.5) return "amber";
   return "red";
+}
+
+/**
+ * Per iter-44 a11y audit, the cost-coverage dot pairs its color with a
+ * glyph so color-blind viewers get the same signal. Mirrors the helper
+ * in NodeDetailPanel.tsx.
+ */
+function coverageDotGlyph(dotClass: string): string {
+  if (dotClass === "green") return "✓";
+  if (dotClass === "amber") return "⚠";
+  return "⨯";
 }
 
 function KeyMetricsCard({ title, metrics }: { title: string; metrics: Node[] }) {

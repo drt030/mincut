@@ -209,8 +209,8 @@ nav a {
 }
 
 .signal-glyph-bottleneck {
-  background: #d97706;
-  border: 1px dashed #92400e;
+  background: #b45309;
+  border: 1px dashed #78350f;
 }
 
 .signal-glyph-keytech {
@@ -301,7 +301,15 @@ li {
 
 .graph-node-card {
   --node-color: #64748b;
-  background: color-mix(in srgb, var(--node-color) 92%, #111827);
+  /*
+   * Per iter-44 a11y audit (MAJOR): 5 of 11 kind-colors failed AA 4.5:1
+   * with white 15px text at the previous 92%/8% mix (metric 3.36,
+   * placeholder_breakthrough 4.04, scientific_principle 4.17,
+   * empirical_principle 4.23, capability 3.74). Mixing more #0f172a in
+   * (70%/30%) drops every kind below ~5:1 against white while keeping
+   * the kind hue visible.
+   */
+  background: color-mix(in srgb, var(--node-color) 70%, #0f172a);
   border: 1px solid color-mix(in srgb, var(--node-color) 70%, #ffffff);
   border-radius: 8px;
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16);
@@ -379,9 +387,14 @@ li {
     0 18px 36px rgba(15, 23, 42, 0.24);
 }
 
+/*
+ * Per iter-44 a11y audit (MAJOR): white-on-#d97706 fails 3.19 against
+ * the 11px ⚠ glyph. Darken to #b45309 (5.02) so AA holds. The downstream
+ * variant already used #b45309 — it is unchanged here.
+ */
 .graph-node-warning-glyph {
   align-items: center;
-  background: #d97706;
+  background: #b45309;
   border-radius: 999px;
   color: #ffffff;
   display: inline-flex;
@@ -399,7 +412,7 @@ li {
 }
 
 .graph-node-warning-glyph.downstream {
-  background: #b45309;
+  background: #92400e;
 }
 
 .graph-node-key-glyph {
@@ -1014,22 +1027,35 @@ li {
   margin: 4px 0 0;
 }
 
+/*
+ * Per iter-44 a11y audit (MAJOR): coverage state was previously signalled
+ * by colour alone (green / amber / red dot). A small glyph (✓ / ⚠ / ⨯)
+ * sits inside the dot so the signal carries through to colour-blind
+ * viewers. Dot grew 12px → 16px to fit the glyph cleanly. Backgrounds
+ * darkened (#15803d / #b45309 / #b91c1c) so white glyph passes WCAG AA.
+ */
 .cost-coverage-dot {
+  align-items: center;
   border-radius: 999px;
-  display: inline-block;
-  height: 12px;
-  width: 12px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 800;
+  height: 16px;
+  justify-content: center;
+  line-height: 1;
   vertical-align: middle;
+  width: 16px;
 }
 
 .cost-coverage-dot.green {
-  background: #16a34a;
-  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);
+  background: #15803d;
+  box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.18);
 }
 
 .cost-coverage-dot.amber {
-  background: #d97706;
-  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.18);
+  background: #b45309;
+  box-shadow: 0 0 0 2px rgba(180, 83, 9, 0.18);
 }
 
 .cost-coverage-dot.red {

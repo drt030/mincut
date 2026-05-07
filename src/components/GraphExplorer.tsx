@@ -91,6 +91,13 @@ type CapabilityNodeData = {
   selectedMetricId?: string;
   foldedMetrics: FoldedMetricEntry[];
   /**
+   * Per iter-44 a11y audit, the metric chip strip uses role="group" with
+   * an `aria-label` so SR users hear "metric chips, group" before the
+   * individual chip buttons. Localized at flowNodes-build time so the
+   * label switches with the language toggle.
+   */
+  metricsStripLabel: string;
+  /**
    * Per iter-15 review (P1 #5), the metric chip tooltip and the chip
    * `costAsOf` micro-pill route through `t()` so zh-mode users no longer
    * see hardcoded English (`Cost as of 2024`, `current: …, target: …`).
@@ -228,12 +235,17 @@ const nodeTypes = {
             </span>
           </div>
           {data.foldedMetrics.length > 0 ? (
-            <div className="graph-node-metrics" role="list">
+            // Per iter-44 a11y audit (MAJOR): role="list"/"listitem" was
+            // misused — `<button>`'s implicit role overrides the
+            // `listitem` role, leaving SR users without list semantics.
+            // Switch to role="group" + aria-label so the chip cluster is
+            // announced as a labelled group; the button children keep
+            // their implicit button role.
+            <div className="graph-node-metrics" role="group" aria-label={data.metricsStripLabel}>
               {data.foldedMetrics.map((metric) => (
                 <button
                   key={metric.id}
                   type="button"
-                  role="listitem"
                   className={[
                     "graph-node-metric-chip",
                     data.selectedMetricId === metric.id ? "selected" : "",
@@ -595,6 +607,7 @@ export function GraphExplorer({ graph }: Props) {
           asOfPillTooltip: asOfTooltip,
           selectedMetricId: selectedId,
           foldedMetrics: localizedFolded,
+          metricsStripLabel: t("metricsStrip"),
           formatMetricChipTooltip: (metric: FoldedMetricEntry) => formatMetricTooltip(metric, t),
           formatCostAsOfChipTooltip: (year: string) => t("metricChipCostAsOfTooltip").replace("{year}", year),
           onSelect: setSelectedId,

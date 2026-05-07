@@ -11,16 +11,21 @@ export type MaturityVisual = {
   hasLabel: boolean;
 };
 
+// Per iter-44 a11y audit (MAJOR): 5 of 9 maturity backgrounds failed
+// WCAG AA 4.5:1 with white foreground (orange #d97706 → 3.19, light-green
+// #65a30d → 3.09, green #16a34a → 3.30, grey #94a3b8 → 2.56). Darkened
+// each so white text passes AA. Red #dc2626 (5.94) and yellow-on-dark
+// #ca8a04+#1f2933 (8.6) already passed and are unchanged.
 const labelColors: Record<string, { bg: string; fg: string }> = {
   blocked: { bg: "#dc2626", fg: "#ffffff" },
   hypothesis: { bg: "#dc2626", fg: "#ffffff" },
-  lab_proven: { bg: "#d97706", fg: "#ffffff" },
-  prototype: { bg: "#d97706", fg: "#ffffff" },
+  lab_proven: { bg: "#b45309", fg: "#ffffff" },
+  prototype: { bg: "#b45309", fg: "#ffffff" },
   early_deployment: { bg: "#ca8a04", fg: "#1f2933" },
-  commercially_available: { bg: "#65a30d", fg: "#ffffff" },
-  widely_adopted: { bg: "#16a34a", fg: "#ffffff" },
-  mature: { bg: "#16a34a", fg: "#ffffff" },
-  unknown: { bg: "#94a3b8", fg: "#ffffff" },
+  commercially_available: { bg: "#4d7c0f", fg: "#ffffff" },
+  widely_adopted: { bg: "#15803d", fg: "#ffffff" },
+  mature: { bg: "#15803d", fg: "#ffffff" },
+  unknown: { bg: "#475569", fg: "#ffffff" },
 };
 
 const missingColors = { bg: "#cbd5e1", fg: "#475569" };
