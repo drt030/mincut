@@ -18,6 +18,7 @@ import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import { formatMetricValue } from "@/lib/metricValueFormat";
+import { isDecompositionFrontier } from "@/lib/graphTraversal";
 import type { Edge, EdgeRelation, GraphData, MetricCurrency, MetricValue, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -76,6 +77,8 @@ type CapabilityNodeData = {
   isAlternativeSibling: boolean;
   isHardToDevelop: boolean;
   hardToDevelopTooltip: string;
+  isFrontier: boolean;
+  frontierTooltip: string;
   bottleneckedByCount: number;
   bottleneckedByTooltip: string;
   maturityPillLabel: string;
@@ -152,6 +155,15 @@ const nodeTypes = {
             aria-label={glyphTooltip}
           >
             ⚠
+          </span>
+        ) : null}
+        {data.isFrontier ? (
+          <span
+            className="graph-node-frontier-glyph"
+            title={data.frontierTooltip}
+            aria-label={data.frontierTooltip}
+          >
+            🔭
           </span>
         ) : null}
         <div className="graph-node-inner">
@@ -332,6 +344,20 @@ export function GraphExplorer({ graph }: Props) {
 
   const capabilityCluster = useMemo(() => capabilityClusterFor(graph, rootNodeId), [graph]);
 
+  // Per ADR-0005, isDecompositionFrontier is a per-node judgment over the
+  // graph (tag override OR maturity-not-stop AND no expanded children).
+  // We memoize this once per graph change — keeping the cost O(N) by
+  // walking nodes once instead of recomputing inside every flowNodes pass
+  // (which would be O(N) per render and re-evaluate hasExpandedChildren's
+  // edge scan for each node, ~N*E in the worst case).
+  const frontierIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const node of graph.nodes) {
+      if (isDecompositionFrontier(graph, node)) ids.add(node.id);
+    }
+    return ids;
+  }, [graph]);
+
   const visibleIds = useMemo(() => {
     if (mode === "full") return null;
     const baseIds = mode === "bottleneck"
@@ -501,6 +527,7 @@ export function GraphExplorer({ graph }: Props) {
         const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
         const isAlternativeSibling = capabilityCluster.siblingProductIds.has(node.id);
         const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
+        const isFrontier = frontierIds.has(node.id);
         return {
         id: node.id,
         type: "capability",
@@ -521,6 +548,8 @@ export function GraphExplorer({ graph }: Props) {
           isAlternativeSibling,
           isHardToDevelop,
           hardToDevelopTooltip: isHardToDevelop ? t("hardToDevelopGlyphTooltip") : "",
+          isFrontier,
+          frontierTooltip: isFrontier ? t("frontierGlyphTooltip") : "",
           bottleneckedByCount,
           bottleneckedByTooltip: bottleneckedByCount > 0 ? t("bottleneckedByGlyphTooltip").replace("{count}", String(bottleneckedByCount)) : "",
           maturityPillLabel: visual.label,
@@ -544,7 +573,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
@@ -608,6 +637,18 @@ export function GraphExplorer({ graph }: Props) {
     };
   }, [capabilityCluster, filteredNodes, foldCountById, layoutEdges]);
 
+  // In-scope frontier count: nodes currently rendered on the canvas that
+  // satisfy isDecompositionFrontier. This is shown read-only next to the
+  // metrics-as-nodes toggle so a learner gets a quick scan of "how much
+  // research is queued in this graph". We count the post-filter set
+  // (filteredNodes) so the number tracks Layered/Bottleneck expansion as
+  // well as kind/maturity filters. Folded metric children are excluded
+  // because they aren't rendered as cards in the default view.
+  const frontierCountInScope = useMemo(
+    () => filteredNodes.reduce((count, node) => count + (frontierIds.has(node.id) ? 1 : 0), 0),
+    [filteredNodes, frontierIds],
+  );
+
   const selectedNode = graph.nodes.find((node) => node.id === selectedId) ?? graph.nodes[0];
   const selectedDependencyCount = graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length;
   const selectedBottleneckCount = graph.edges.filter((edge) => edge.source === selectedNode?.id && edge.relation === "bottlenecked_by").length;
@@ -658,6 +699,14 @@ export function GraphExplorer({ graph }: Props) {
           >
             {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
           </button>
+          <span
+            className="frontier-count-status"
+            title={t("frontierCountInScopeTooltip")}
+            aria-label={t("frontierCountInScopeTooltip")}
+          >
+            <span className="frontier-count-icon" aria-hidden="true">🔭</span>
+            {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
+          </span>
           <button
             className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
             type="button"

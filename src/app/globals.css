@@ -312,6 +312,34 @@ li {
   z-index: 2;
 }
 
+/*
+ * Iter-22: third visual signal alongside ⚠ (upper-right, bottleneck /
+ * bottlenecked-by) and 🔑 (upper-left, hard-to-develop key technology).
+ * 🔭 telescope sits at the upper-center top edge, half-overlapping the
+ * card border so it reads as a marker pinned to the card. Color is the
+ * frontier "research" cyan/indigo — distinct from the bottleneck amber
+ * and the key-tech teal so all three glyphs stay legible together.
+ */
+.graph-node-frontier-glyph {
+  align-items: center;
+  background: #1e3a8a;
+  border: 1px solid #93c5fd;
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 11px;
+  height: 18px;
+  justify-content: center;
+  left: 50%;
+  line-height: 1;
+  pointer-events: auto;
+  position: absolute;
+  top: -9px;
+  transform: translateX(-50%);
+  width: 22px;
+  z-index: 2;
+}
+
 .graph-node-card {
   position: relative;
 }
@@ -1021,10 +1049,36 @@ li {
 }
 
 .toolbar-actions {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: flex-end;
+}
+
+/*
+ * Iter-22: small read-only status pill that surfaces the in-scope
+ * frontier count next to the metrics-as-nodes toggle. Indigo to match
+ * the frontier glyph so the two read as the same signal — one on
+ * canvas, one in the toolbar. Not a button: no click handler.
+ */
+.frontier-count-status {
+  align-items: center;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  color: #1e3a8a;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 5px;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+.frontier-count-icon {
+  font-size: 12px;
+  line-height: 1;
 }
 
 .small-button {

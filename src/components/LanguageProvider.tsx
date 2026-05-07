@@ -163,6 +163,10 @@ const uiText: Record<Language, Record<string, string>> = {
     metricTooltipAsOf: "as of {year}",
     metricChipCostAsOfTooltip: "Cost as of {year}",
     currencyPillTooltip: "Currency: {currency}",
+    frontierGlyphTooltip: "Decomposition frontier — research goes here next",
+    frontierCountInScope: "{count} frontiers in scope",
+    frontierCountInScopeTooltip:
+      "Number of currently-rendered nodes that satisfy isDecompositionFrontier (per ADR-0005). Telescope glyph 🔭 marks each one on the canvas.",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -304,6 +308,10 @@ const uiText: Record<Language, Record<string, string>> = {
     metricTooltipAsOf: "截至 {year}",
     metricChipCostAsOfTooltip: "成本数据截至 {year}",
     currencyPillTooltip: "币种：{currency}",
+    frontierGlyphTooltip: "分解前沿 —— 下一步研究方向",
+    frontierCountInScope: "当前范围内有 {count} 个前沿节点",
+    frontierCountInScopeTooltip:
+      "当前画布中满足 isDecompositionFrontier 判定（见 ADR-0005）的节点数量。每个前沿节点上有 🔭 望远镜标记。",
   },
 };
 
