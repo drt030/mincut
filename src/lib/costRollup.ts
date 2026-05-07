@@ -65,8 +65,21 @@ export function rollupCost(graph: GraphData, productNodeId: string): CostRollupR
   const visiting = new Set<string>();
   const coverageGap: string[] = [];
   const costAsOfYears: string[] = [];
+  // Per iter-19 review (P1): the requires graph is a DAG, not a tree. Two
+  // siblings can each `requires` the same shared dependency (e.g. both the
+  // product and `parcel_manipulation_or_diverter` requires `industrial_robot_arm_body`).
+  // Without memoization, a full sub-walk runs for every parent of a shared
+  // node and that node's cost is summed once per parent. Memoizing per
+  // invocation makes the cost contribute exactly once on the first walk;
+  // subsequent visits short-circuit (returning the same range, but it is
+  // NOT re-summed because the second parent's loop sees the cached range
+  // and adds it once at its own layer — which is the standard DAG-cost
+  // behaviour: each shared subsystem's cost rolls into both ancestor sums).
+  // The gate cap on `coverageGap` and `costAsOfYears` also no longer
+  // double-counts the same node.
+  const memo = new Map<string, CostRange | null>();
 
-  const range = walk(graph, productNodeId, visiting, coverageGap, costAsOfYears);
+  const range = walk(graph, productNodeId, visiting, coverageGap, costAsOfYears, memo);
 
   return {
     rolledUp: range ?? { min: 0, typical: 0, max: 0 },
@@ -139,6 +152,13 @@ function dedupePreservingOrder(items: string[]): string[] {
  * Returns the rolled-up RMB range for the subtree rooted at `nodeId`, or
  * `null` if no cost data was reachable. `coverageGap` accumulates ids whose
  * subtree contributed nothing.
+ *
+ * `memo` makes the walker DAG-aware: a node already walked once in this
+ * invocation contributes to the first parent's sum but to no subsequent
+ * parent. The first walk caches the computed range (or null); subsequent
+ * visits return null so the shared subsystem's cost rolls up exactly once
+ * regardless of how many parents reach it. `visiting` (path set) still
+ * detects true cycles. Per iter-19 review (P1).
  */
 function walk(
   graph: GraphData,
@@ -146,16 +166,24 @@ function walk(
   visiting: Set<string>,
   coverageGap: string[],
   costAsOfYears: string[],
+  memo: Map<string, CostRange | null>,
 ): CostRange | null {
   if (visiting.has(nodeId)) {
     const cycle = [...visiting, nodeId].join(" -> ");
     throw new Error(`rollupCost: circular requires cycle detected: ${cycle}`);
   }
+  // Memo hit: already walked once in this invocation. The first parent
+  // received this node's contribution (range or coverageGap entry); the
+  // second parent must not double-count, so we return null here. The
+  // node's coverageGap status was already recorded on the first walk and
+  // dedupePreservingOrder() at the top level keeps a single entry.
+  if (memo.has(nodeId)) return null;
   visiting.add(nodeId);
   try {
     const node = nodeById(graph, nodeId);
     if (!node) {
       coverageGap.push(nodeId);
+      memo.set(nodeId, null);
       return null;
     }
 
@@ -165,7 +193,9 @@ function walk(
     const direct = directCostForNode(graph, node);
     if (direct) {
       if (direct.costAsOf) costAsOfYears.push(direct.costAsOf);
-      return rangeToRmb(direct.range, direct.currency);
+      const range = rangeToRmb(direct.range, direct.currency);
+      memo.set(nodeId, range);
+      return range;
     }
 
     // Priority 2: commodified leaf — `mature` or `widely_adopted`. By
@@ -173,6 +203,7 @@ function walk(
     // node is a coverage gap.
     if (node.maturityLabel && COMMODIFIED_LABELS.has(node.maturityLabel)) {
       coverageGap.push(node.id);
+      memo.set(nodeId, null);
       return null;
     }
 
@@ -197,29 +228,36 @@ function walk(
     if (requiresChildren.length === 0) {
       // Node is itself a coverage gap: no direct cost, no children to sum.
       coverageGap.push(node.id);
+      memo.set(nodeId, null);
       return null;
     }
 
     let summed: CostRange = { min: 0, typical: 0, max: 0 };
     let anyChildContributed = false;
     for (const childId of requiresChildren) {
-      const childRange = walk(graph, childId, visiting, coverageGap, costAsOfYears);
+      const childRange = walk(graph, childId, visiting, coverageGap, costAsOfYears, memo);
       if (childRange) {
         summed = addRange(summed, childRange);
         anyChildContributed = true;
       }
-      // If childRange is null, it's already in coverageGap (added by the
-      // recursive call) and contributes 0 — we still apply the 15% overhead
-      // to the layer below.
+      // If childRange is null, it's either an already-memoized DAG-shared
+      // node (contributing nothing here, since some other parent already
+      // got its cost), or a real coverage gap. In both cases the layer
+      // overhead below is applied to whatever DID contribute at this layer.
     }
 
     if (!anyChildContributed) {
-      // Whole subtree had no cost data; surface this node too as a gap.
+      // Whole subtree had no cost data (or only DAG-shared children that
+      // contributed elsewhere); surface this node too as a gap so the gate
+      // doesn't credit it for nothing.
       coverageGap.push(node.id);
+      memo.set(nodeId, null);
       return null;
     }
 
-    return scaleRange(summed, INTEGRATION_OVERHEAD);
+    const result = scaleRange(summed, INTEGRATION_OVERHEAD);
+    memo.set(nodeId, result);
+    return result;
   } finally {
     visiting.delete(nodeId);
   }

@@ -41,7 +41,6 @@ const METRICS_STRIP_HEIGHT = 60;
 const INCREMENTAL_LAYER_GAP = 156;
 const INCREMENTAL_NODE_GAP = 28;
 let elk: InstanceType<typeof ELK> | null = null;
-let activeFoldCountById: Map<string, number> = new Map();
 
 type GraphPoint = { x: number; y: number };
 
@@ -472,6 +471,18 @@ export function GraphExplorer({ graph }: Props) {
     return counts;
   }, [graph.edges, visibleBottleneckIds]);
 
+  // Per iter-19 review (P1): the fallback layout pre-computes its lane and
+  // start data once per render, instead of recomputing it for every node
+  // missing a layout position. With ~235 nodes and ~580 edges, the previous
+  // shape ran depthMap (a BFS over all edges) per node-without-position —
+  // ~135k edge traversals on first paint until ELK populates positions.
+  const fallbackLayoutContext = useMemo(() => {
+    const sorted = [...filteredNodes].sort(compareNodes);
+    const laneById = depthMap(graph.edges, sorted);
+    const starts = laneStarts(sorted, graph.edges, routeFocus, laneById);
+    return { sorted, laneById, starts };
+  }, [filteredNodes, graph.edges, routeFocus]);
+
   const flowNodes: FlowNode[] = useMemo(
     () =>
       filteredNodes.map((node) => {
@@ -493,7 +504,7 @@ export function GraphExplorer({ graph }: Props) {
         return {
         id: node.id,
         type: "capability",
-        position: layoutPositions.get(node.id) ?? fallbackPositionFor(node, filteredNodes, graph.edges, routeFocus),
+        position: layoutPositions.get(node.id) ?? fallbackPositionFor(node, graph.edges, routeFocus, fallbackLayoutContext),
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
         data: {
@@ -533,7 +544,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, graph.edges, kindName, layoutPositions, nodeName, routeFocus, selectedId, selectedNeighbors, t, toggleSelectedExpansion],
   );
 
   const flowEdges: FlowEdge[] = useMemo(
@@ -878,8 +889,12 @@ async function layoutWithElk(
   previousPositions: Map<string, GraphPoint>,
   foldCountById: Map<string, number> = new Map(),
 ) {
-  activeFoldCountById = foldCountById;
-  const incrementalPositions = incrementalLayout(nodes, edges, anchorId, previousPositions);
+  // Per iter-19 review (P1): `foldCountById` is threaded through the call
+  // chain instead of stored in a module-level mutable map. The previous
+  // shape risked cross-instance leak if two GraphExplorers ever rendered
+  // simultaneously (unlikely in current callers, but the wiring was a
+  // module-scope mutable Map shared by every call site).
+  const incrementalPositions = incrementalLayout(nodes, edges, anchorId, previousPositions, foldCountById);
   if (incrementalPositions) return incrementalPositions;
 
   const nodeIds = new Set(nodes.map((node) => node.id));
@@ -925,10 +940,15 @@ async function layoutWithElk(
   return anchorLayout(nextPositions, previousPositions, anchorId);
 }
 
-function incrementalLayout(nodes: Node[], edges: Edge[], anchorId: string, previousPositions: Map<string, GraphPoint>) {
+function incrementalLayout(
+  nodes: Node[],
+  edges: Edge[],
+  anchorId: string,
+  previousPositions: Map<string, GraphPoint>,
+  foldCountById: Map<string, number>,
+) {
   if (!previousPositions.size) return null;
 
-  const foldCountById = activeFoldCountById;
   const nodesById = new Map(nodes.map((node) => [node.id, node]));
   const visibleIds = new Set(nodes.map((node) => node.id));
   const nextPositions = new Map<string, GraphPoint>();
@@ -963,7 +983,7 @@ function incrementalLayout(nodes: Node[], edges: Edge[], anchorId: string, previ
         x: parentPosition.x + NODE_WIDTH + INCREMENTAL_LAYER_GAP,
         y: cursorY,
       };
-      nextPositions.set(child.id, firstOpenPosition(proposed, child, nextPositions, nodesById));
+      nextPositions.set(child.id, firstOpenPosition(proposed, child, nextPositions, nodesById, foldCountById));
       cursorY += heightForNode(child, foldCountById.get(child.id) ?? 0) + INCREMENTAL_NODE_GAP;
     }
   }
@@ -1007,10 +1027,11 @@ function firstOpenPosition(
   node: Node,
   positions: Map<string, GraphPoint>,
   nodesById: Map<string, Node>,
+  foldCountById: Map<string, number>,
 ) {
   const next = { ...proposed };
-  while (overlapsExisting(next, node, positions, nodesById)) {
-    next.y += heightForNode(node, activeFoldCountById.get(node.id) ?? 0) + INCREMENTAL_NODE_GAP;
+  while (overlapsExisting(next, node, positions, nodesById, foldCountById)) {
+    next.y += heightForNode(node, foldCountById.get(node.id) ?? 0) + INCREMENTAL_NODE_GAP;
   }
   return next;
 }
@@ -1020,12 +1041,13 @@ function overlapsExisting(
   node: Node,
   positions: Map<string, GraphPoint>,
   nodesById: Map<string, Node>,
+  foldCountById: Map<string, number>,
 ) {
-  const nodeHeight = heightForNode(node, activeFoldCountById.get(node.id) ?? 0);
+  const nodeHeight = heightForNode(node, foldCountById.get(node.id) ?? 0);
   for (const [id, position] of positions) {
     const existing = nodesById.get(id);
     if (!existing) continue;
-    const existingHeight = heightForNode(existing, activeFoldCountById.get(id) ?? 0);
+    const existingHeight = heightForNode(existing, foldCountById.get(id) ?? 0);
     const horizontallyOverlaps = proposed.x < position.x + NODE_WIDTH + INCREMENTAL_NODE_GAP && proposed.x + NODE_WIDTH + INCREMENTAL_NODE_GAP > position.x;
     const verticallyOverlaps = proposed.y < position.y + existingHeight + INCREMENTAL_NODE_GAP && proposed.y + nodeHeight + INCREMENTAL_NODE_GAP > position.y;
     if (horizontallyOverlaps && verticallyOverlaps) return true;
@@ -1043,13 +1065,23 @@ function shouldShowEdgeLabel(edge: Edge, selectedId: string, relation: EdgeRelat
   return edge.source === selectedId || edge.target === selectedId;
 }
 
-function fallbackPositionFor(node: Node, nodes: Node[], edges: Edge[], routeFocus: string) {
-  const sorted = [...nodes].sort(compareNodes);
-  const laneById = depthMap(edges, sorted);
+type FallbackLayoutContext = {
+  sorted: Node[];
+  laneById: Map<string, number>;
+  starts: number[];
+};
+
+function fallbackPositionFor(
+  node: Node,
+  edges: Edge[],
+  routeFocus: string,
+  context: FallbackLayoutContext,
+) {
+  const { sorted, laneById, starts } = context;
   const lane = laneById.get(node.id) ?? laneFor(node, edges, routeFocus);
   const sameLane = sorted.filter((item) => (laneById.get(item.id) ?? laneFor(item, edges, routeFocus)) === lane);
   const index = sameLane.findIndex((item) => item.id === node.id);
-  const laneStart = laneStarts(sorted, edges, routeFocus, laneById)[lane] ?? 40;
+  const laneStart = starts[lane] ?? 40;
   const xOffset = 0;
   const rowHeight = heightForNode(node) + 28;
   const columns = 1;

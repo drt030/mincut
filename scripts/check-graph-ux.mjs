@@ -24,7 +24,7 @@ requireMatch("React Flow node single-click fallback should only select.", /onNod
 requireMatch("React Flow double-click viewport zoom must stay disabled because double-click expands nodes.", /zoomOnDoubleClick=\{false\}/.test(graphExplorer));
 requireMatch("Layout effect should not depend on selection-only state.", !/\bselectedId\b/.test(layoutDeps));
 requireMatch("Layout effect should depend on structural nodes and edges.", /\bfilteredNodes\b/.test(layoutDeps) && /\blayoutEdges\b/.test(layoutDeps));
-requireMatch("Graph expansion should use incremental layout before falling back to ELK.", /incrementalLayout\(nodes, edges, anchorId, previousPositions\)/.test(graphExplorer));
+requireMatch("Graph expansion should use incremental layout before falling back to ELK.", /incrementalLayout\(nodes, edges, anchorId, previousPositions(?:, foldCountById)?\)/.test(graphExplorer));
 requireMatch("Hover hitbox must not move the outer graph node.", !/\btranslate\b|\btransform\b/.test(cardHoverBody));
 requireMatch("Main graph nodes should not use ambient float animation.", !/graphNodeFloat|animation:\s*graphNodeFloat/.test(globals));
 requireMatch("ELK worker should be served as a static asset.", fs.existsSync("public/elk-worker.min.js"));

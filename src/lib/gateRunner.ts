@@ -1,4 +1,4 @@
-import { eligibleCostSubsystemIds, rollupCost, targetCostFor, type CostRollupResult } from "./costRollup";
+import { eligibleCostSubsystemIds, isCostBearingMetric, rollupCost, targetCostFor, type CostRollupResult } from "./costRollup";
 import {
   bottlenecksForNode,
   evidenceForEdge,
@@ -7,6 +7,7 @@ import {
   isDecompositionFrontier,
   metricsForNode,
   nodeById,
+  outgoingEdges,
   reachableNodeIdsFrom,
   requiredModules,
   targets,
@@ -170,6 +171,22 @@ function answerQuestion(
   // asymmetry is intentional, see CONTEXT.md "Review status ladder" L50:
   // "we looked and found a problem" must not lift the score above
   // "unknown".
+  //
+  // Per iter-19 review (P1): the `cost_constraints` cap MUST be scoped to
+  // cost-relevant records only. The global `reviewStatusCap` reflects every
+  // unreviewed/disputed claim in the target's reachable scope — including
+  // bottleneck descriptions, requires-edges, and module nodes whose review
+  // status has nothing to do with cost-question correctness. Per ADR-0003 +
+  // ADR-0001 intent, "An *unreviewed cost claim* caps the cost question."
+  // So we delegate to a cost-scoped cap function that walks the same
+  // eligible cost subsystems the rollup walker uses.
+  if (question.id === "cost_constraints") {
+    const costCap = costScopedReviewStatusCap(graph, target.id);
+    if (typeof costCap === "number" && result.score > costCap) {
+      return { ...result, score: costCap };
+    }
+    return result;
+  }
   if (
     typeof reviewStatusCap === "number" &&
     isReviewStatusCapRelevant(question.id) &&
@@ -536,6 +553,14 @@ function applyReviewStatusCap(findings: EvidenceFindings): number | undefined {
  * narrow: each entry is a question whose answer would otherwise be elevated
  * past the cap by graph-level coverage even when the underlying claims are
  * disputed or unreviewed.
+ *
+ * Per iter-19 review (P1): `cost_constraints` is NOT in this set because
+ * the global cap pool (every unreviewed/disputed scoped claim) is too
+ * broad to honestly cap the cost question. A bottleneck description left
+ * unreviewed should not pull the cost-question score down. Cost is handled
+ * by `costScopedReviewStatusCap` instead, which inspects only the cost
+ * metric nodes and their evidence — same ladder, scoped to cost-domain
+ * records.
  */
 const REVIEW_STATUS_CAPPED_QUESTIONS = new Set<string>([
   "estimated_maturity",
@@ -543,16 +568,80 @@ const REVIEW_STATUS_CAPPED_QUESTIONS = new Set<string>([
   "weak_evidence",
   "research_next",
   "excluded_claims",
-  // Per ADR-0003 + ADR-0001, the cost competency question consumes the
-  // cost-rollup walker, which depends on cost-bearing metrics whose review
-  // status determines whether the rolled-up number can be trusted. An
-  // unreviewed cost claim caps the cost question at 3/5, a disputed one at
-  // 2/5 — same ladder as evidence-bearing questions.
-  "cost_constraints",
 ]);
 
 function isReviewStatusCapRelevant(questionId: string): boolean {
   return REVIEW_STATUS_CAPPED_QUESTIONS.has(questionId);
+}
+
+/**
+ * Per iter-19 review (P1): the cost-question reviewStatus cap is computed
+ * from cost-relevant records only, NOT from the global scoped pool. The
+ * inspected set is:
+ *   - the target product's `measured_by` cost metric nodes (e.g.
+ *     `total_system_cost`), and
+ *   - every eligible cost subsystem's `measured_by` cost metric nodes
+ *     (i.e. metric nodes whose unit/currency identifies them as cost-bearing
+ *     per `isCostBearingMetric`), and
+ *   - the linked evidence (via the metric's `evidenceIds` and any
+ *     `supportsNodeIds` evidence pointing at the metric).
+ *
+ * If ANY of those records is `disputed` → cap at 2.
+ * If ANY is `unreviewed` (and none disputed) → cap at 3.
+ * If all are `reviewed` → no cap (caller's score stands, capped only by 5).
+ *
+ * The cap is intentionally narrower than the global ladder: ADR-0003 +
+ * ADR-0001 intent is "an unreviewed *cost claim* caps the cost question,"
+ * not "any unreviewed claim in the scope caps it."
+ */
+function costScopedReviewStatusCap(graph: GraphData, productNodeId: string): number | undefined {
+  const metricIds = new Set<string>();
+
+  // Target-level cost metrics (e.g. total_system_cost).
+  for (const edge of outgoingEdges(graph, productNodeId, "measured_by")) {
+    const metric = nodeById(graph, edge.target);
+    if (!metric || metric.kind !== "metric") continue;
+    if (metric.reviewStatus === "deprecated") continue;
+    if (!isCostBearingMetric(metric)) continue;
+    metricIds.add(metric.id);
+  }
+
+  // Subsystem-level cost metrics for every eligible cost subsystem.
+  for (const subsystemId of eligibleCostSubsystemIds(graph, productNodeId)) {
+    for (const edge of outgoingEdges(graph, subsystemId, "measured_by")) {
+      const metric = nodeById(graph, edge.target);
+      if (!metric || metric.kind !== "metric") continue;
+      if (metric.reviewStatus === "deprecated") continue;
+      if (!isCostBearingMetric(metric)) continue;
+      metricIds.add(metric.id);
+    }
+  }
+
+  if (metricIds.size === 0) return undefined;
+
+  let anyDisputed = false;
+  let anyUnreviewed = false;
+
+  for (const metricId of metricIds) {
+    const metric = nodeById(graph, metricId);
+    if (!metric) continue;
+    if (metric.reviewStatus === "disputed") anyDisputed = true;
+    else if (metric.reviewStatus === "unreviewed" || !metric.reviewStatus) anyUnreviewed = true;
+
+    // Linked evidence — both via `evidenceIds` on the metric and any
+    // evidence whose `supportsNodeIds` includes the metric.
+    const linkedEvidence = evidenceForNode(graph, metricId).filter(
+      (item) => item.reviewStatus !== "deprecated",
+    );
+    for (const item of linkedEvidence) {
+      if (item.reviewStatus === "disputed") anyDisputed = true;
+      else if (item.reviewStatus === "unreviewed" || !item.reviewStatus) anyUnreviewed = true;
+    }
+  }
+
+  if (anyDisputed) return DISPUTED_CAP;
+  if (anyUnreviewed) return UNREVIEWED_CAP;
+  return undefined;
 }
 
 function scopedClaims(context: GateContext): Array<Node | Edge> {
@@ -685,9 +774,13 @@ function excludedClaimsResult(
  *     judge proximity).
  *   - Sum is rounded to nearest integer in 0–5.
  *   - The reviewStatus cap (3 for unreviewed, 2 for disputed) from
- *     `applyReviewStatusCap` already runs at the end of `answerQuestion`,
- *     so we don't double-cap here. We DO surface coverageGap details in
- *     missingNodeIds so the gate report explains the score.
+ *     `costScopedReviewStatusCap` runs at the end of `answerQuestion` and
+ *     is scoped to cost-relevant records only (cost metric nodes + linked
+ *     evidence). Per iter-19 review (P1), this replaces the previous global
+ *     `applyReviewStatusCap` so an unreviewed bottleneck description doesn't
+ *     mask cost-question correctness. We don't double-cap here. We DO
+ *     surface coverageGap details in missingNodeIds so the gate report
+ *     explains the score.
  */
 function costConstraintsResult(
   context: GateContext,
