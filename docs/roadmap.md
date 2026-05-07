@@ -7,7 +7,7 @@ Build an interactive research system for mapping how real-world products, techno
 The app should help a human understand:
 
 - What a product or capability depends on.
-- Which technical routes could implement it.
+- Which sibling Product candidates under the Capability could satisfy it (per ADR-0004).
 - Which scientific or empirical assumptions support it.
 - Which engineering and manufacturing capabilities are required.
 - Which metrics determine maturity.
@@ -51,7 +51,7 @@ Status: in progress.
 
 - Build complete data around `low_cost_parcel_sorting_robot_300k_rmb`.
 - Render the graph in `/graph`.
-- Show node detail, product view, route comparison, metrics, bottlenecks, and evidence.
+- Show node detail, product view, sibling-Product comparison under the Capability (per ADR-0004), metrics, bottlenecks, and evidence.
 - Run the validation gate dry-run with:
 
 ```bash
@@ -75,8 +75,10 @@ Current known gap:
 Exit criteria:
 
 - The graph clearly explains cost, throughput, perception, manipulation/diverter, conveyor integration, safety, ROI, and maintenance dependencies.
-- Every route has required enablers, bottlenecks, metrics, and evidence coverage.
+- Each sibling Product candidate under the active Capability has required enablers, bottlenecks, metrics, and evidence coverage (per ADR-0004 sibling-Product layering).
 - Gate **overall score** (0–5 scale, the average across competency-question scores) reaches at least 4.0 without hiding missing evidence. This is *graph-modelling completeness*, not the Product's `maturityScore` (0–100, world-state maturity); the Product is expected to remain in prototype/early-deployment range (≈45–60 maturityScore) at v0 exit.
+
+  Current gate overall: **2.94/5** — capped at 3 by unreviewed cost data per the ADR-0001 cost-scoped review cap. Reviewing cost evidence (promoting cost claims from `unreviewed` to `reviewed`) is the path from 2.94 to 4.0; modelling-completeness gaps are smaller than the review-status gap.
 - Given a target product and boundary, an agent can search online sources and import a reviewable batch of candidate graph records.
 - Agent-imported records are marked `unreviewed` and include evidence/provenance or explicit gaps.
 
@@ -112,11 +114,11 @@ Purpose:
 
 - Validate historical product integration analysis with `iphone_4`.
 - Validate biomedical product maturity analysis with GLP-1 drugs and derivatives.
-- Test whether current node kinds, route modeling, metrics, and evidence records generalize beyond logistics automation.
+- Test whether current node kinds, sibling-Product layering (per ADR-0004), metrics, and evidence records generalize beyond logistics automation.
 
 Exit criteria:
 
-- Each target has product/capability nodes, modules, routes, metrics, bottlenecks, evidence, gate reports, and generated research tasks.
+- Each target has Capability and sibling Product nodes, modules, metrics, bottlenecks, evidence, gate reports, and generated research tasks.
 
 ## Phase 4: High-Complexity Industrial Capabilities
 
@@ -138,7 +140,7 @@ Purpose:
 
 Exit criteria:
 
-- Each capability has route comparisons and gate reports.
+- Each Capability has its sibling Product candidates modelled (per ADR-0004) and gate reports for the active Product.
 - The graph remains high-level capability and industrial maturity analysis, not detailed construction or operational guidance.
 
 ## Phase 5: Historical Industrial Case

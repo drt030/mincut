@@ -2,7 +2,7 @@
 
 Capability Graph Explorer is an interactive graph-based research tool for understanding how products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and widely adopted.
 
-The project goal is not to draw a pretty graph after the fact. The graph is the reasoning substrate: products, modules, technical routes, metrics, bottlenecks, placeholder breakthroughs, evidence, maturity estimates, validation reports, and research tasks should all be represented as structured local data.
+The project goal is not to draw a pretty graph after the fact. The graph is the reasoning substrate: capabilities, sibling products, modules, metrics, bottlenecks, placeholder breakthroughs, evidence, maturity estimates, validation reports, and research tasks should all be represented as structured local data.
 
 ## Project purpose (north star)
 
@@ -63,7 +63,7 @@ Default next-task selection is scoped to the active v0 graph; deferred fixture t
 - Domain, node kind, relation, and maturity filters.
 - Node detail panel.
 - Product view for the parcel-sorting robot node.
-- Route comparison table.
+- Capability-grouped sibling Product layout (per ADR-0004): alternative architectures render as sibling Products under one Capability rather than as routes within a single Product.
 - Validation gate CLI and report viewer.
 - Research task queue.
 - Controlled local JSON candidate import for agent-assisted research batches.

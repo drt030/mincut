@@ -54,7 +54,7 @@ low_cost_parcel_sorting_robot_300k_rmb
 
 This target is a concrete product node, not the general demand for low-cost parcel sorting. In v0 it refers to an industrial robot-arm and computer-vision based parcel-sorting robot/cell, mainly using grippers or suction cups. Adjacent solutions such as delta robot sorters, humanoid robot sorters, conveyor diverter systems, mobile robot sorting systems, and human-robot assisted workflows should be modeled as separate product candidates unless the product boundary is explicitly changed.
 
-The graph currently includes product, module, route, metric, bottleneck, placeholder breakthrough, principle, manufacturing, regulation, capability, and evidence nodes.
+The graph currently includes product, module, metric, bottleneck, placeholder breakthrough, principle, manufacturing, regulation, capability, and evidence nodes. (The schema retains `has_route` and a legacy `technical_route` kind for back-compat, but no `kind: "route"` exists, and per ADR-0004 alternative architectures are modelled as sibling Products under one Capability rather than as routes within a Product.)
 
 v0 should support a graph expansion loop where an agent can use online search to propose and import additional nodes, edges, evidence, metrics, bottlenecks, and research tasks for a target product. Imported agent records should be treated as candidate knowledge, not trusted facts.
 
@@ -94,7 +94,7 @@ The same node can be both a component of a larger system and an inspectable syst
 Recommended relation usage:
 
 - Use `requires` for functional or compositional dependencies that are needed for the source node to work.
-- Use `has_route` for mutually distinguishable implementation routes inside the already-clarified product boundary.
+- `has_route` is schema-preserved but **not used in v0 data** per ADR-0004; alternative architectures are modelled as sibling Products under one Capability, not as routes within a Product.
 - Use `manufactured_by` for manufacturing and assembly processes.
 - Use `implemented_by` for concrete engineering methods or software methods.
 - Use `measured_by` for metrics rather than treating metrics as ordinary components.
@@ -192,9 +192,9 @@ UI and gate logic should use these helpers instead of rewriting graph traversal 
 
 Current rules:
 
-- Route maturity combines route score, required enablers, metric progress, and bottleneck caps.
-- Module maturity uses the best available route when routes exist.
-- Product maturity combines product score, module maturity, route maturity, and active bottlenecks.
+- Route maturity (legacy `technical_route` kind) combines route score, required enablers, metric progress, and bottleneck caps. Schema-preserved for back-compat; v0 data does not contain route nodes per ADR-0004.
+- Module maturity uses the best available route when routes exist; otherwise it falls back to required-enabler / metric / bottleneck rollups.
+- Product maturity combines product score, module maturity, any present route maturity, and active bottlenecks.
 - Placeholder breakthroughs cap maturity more aggressively.
 
 This is intentionally an explanatory heuristic, not a claim of objective truth. The UI should show the reasoning, not only the score.
@@ -237,8 +237,7 @@ Important components:
 
 - `GraphExplorer.tsx`
 - `NodeDetailPanel.tsx`
-- `ProductView.tsx`
-- `RouteComparisonView.tsx`
+- `ProductView.tsx` (renders sibling-Product candidates grouped by Capability per ADR-0004)
 - `GateReportView.tsx`
 - `TaskQueueView.tsx`
 - `LanguageProvider.tsx`
@@ -265,7 +264,7 @@ This is necessary because real product graphs are directed dependency graphs, no
 Progressive disclosure rules:
 
 - Do not show all known nodes at once unless the user chooses full graph mode.
-- Prefer direct `requires`, `has_route`, `implemented_by`, `manufactured_by`, and `regulated_by` links for composition/dependency expansion.
+- Prefer direct `requires`, `implemented_by`, `manufactured_by`, and `regulated_by` links for composition/dependency expansion. (`has_route` is schema-preserved but not used in v0 data per ADR-0004.)
 - Keep `measured_by` metrics visible in detail panels and full graph mode by default; avoid flooding the first layer with every metric.
 - Show `bottlenecked_by` links as first-class blockers, not as generic related nodes.
 - A high-level bottleneck should be shown before its detailed internal causes. Detailed causes should appear only after the user expands that bottleneck or subsystem.
@@ -333,7 +332,7 @@ Recommended next domain order:
 5. `ultra_small_nuclear_reactor`
 6. `ak47_rifle_historical_industrial_case`
 
-Each new domain should include product/capability nodes, required modules, technical routes, key metrics, bottlenecks, placeholder breakthroughs, evidence, and gate results.
+Each new domain should include Capability and sibling Product nodes (per ADR-0004), required modules, key metrics, bottlenecks, placeholder breakthroughs, evidence, and gate results.
 
 ## Known Limitations
 

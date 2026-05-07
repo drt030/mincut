@@ -2,7 +2,7 @@
 
 ## Goal
 
-Use `low_cost_parcel_sorting_robot_300k_rmb` as the first complete product graph. The user should be able to inspect dependencies, routes, metrics, bottlenecks, evidence, maturity, gate output, and follow-up tasks.
+Use `low_cost_parcel_sorting_robot_300k_rmb` as the first complete product graph. The user should be able to inspect dependencies, sibling Products under the parent Capability (per ADR-0004), metrics, bottlenecks, evidence, maturity, gate output, and follow-up tasks.
 
 ## Product Target
 
@@ -17,7 +17,7 @@ Neighboring products such as delta robot sorters, humanoid robot sorters, convey
 - Open the graph explorer.
 - Select the product node.
 - Inspect cost, throughput, perception, manipulation, conveyor integration, safety, ROI, and maintenance dependencies.
-- Compare technical routes.
+- Compare sibling Products under the Capability (per ADR-0004) — the v0 Product is fixed to a single architecture, so comparison is across neighbor Products, not across routes within this Product.
 - Use agent-assisted online research to expand incomplete frontier nodes into candidate nodes, edges, evidence, bottlenecks, metrics, and tasks.
 - Run the validation gate.
 - See missing data, weak evidence, missing metrics, and recommended next research tasks.
@@ -149,7 +149,7 @@ This Product is committed to **one fixed architecture**: industrial robot arm + 
 
 - `low_cost_parcel_sorting_robot_300k_rmb` — **this Product**, suction-based, the v0 target.
 - `parcel_sorting_robot_with_gripper_300k_rmb` — sibling Product, gripper-based variant. Created as a placeholder under the Capability but **not expanded in v0**; deferred neighbor candidate for future comparison.
-- `delta_robot_sorting_route`, `conveyor_diverter_sorting_route`, `mobile_robot_sorting_route`, `hybrid_human_robot_assisted_sorting_route` — sibling Products with different core architectures (different Key technologies). Names retain the legacy `_route` suffix for now; they are Products, not routes, and live under the same Capability.
+- `delta_robot_sorting`, `conveyor_diverter_sorting`, `mobile_robot_sorting`, `hybrid_human_robot_assisted_sorting` — sibling Products with different core architectures (different Key technologies). The legacy `_route` suffix was dropped in commit 3b392b3; they are Products, not routes, and live under the same Capability.
 
 Conveyor integration, sensing, and control choices are modelled as `engineering_method`, `module`, or `metric` nodes inside this Product, not as routes. Hybrid end effectors (gripper + suction tool changer on one arm) would be a separate sibling Product if ever modelled.
 

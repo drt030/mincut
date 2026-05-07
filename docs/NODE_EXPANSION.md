@@ -134,7 +134,7 @@ Do not use `decomposition_frontier` for metrics, evidence, or deliberately termi
 
 4. Add typed edges to `data/edges/*.json`.
    - `requires`: functional or compositional dependency.
-   - `has_route`: implementation route inside the current product boundary.
+   - `has_route`: schema-preserved, **not used in v0 data** per ADR-0004. Alternative architectures are modelled as sibling Products under one Capability, not as routes within a Product. Do not add `has_route` edges to v0 data; route comparison is via sibling Products.
    - `manufactured_by`: manufacturing or assembly process.
    - `implemented_by`: engineering/software method.
    - `measured_by`: metric.

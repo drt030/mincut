@@ -95,7 +95,7 @@ Future graph work should keep these conceptual modes separate:
 - Dependency Map: default layered dependency view.
 - Bottleneck Map: reduced graph emphasizing blockers and risk paths.
 - Maturity Map: color and badges emphasize maturity, evidence coverage, and review status.
-- Route Compare: routes compared in a table or structured lane view rather than a dense all-edge graph.
+- Sibling-Product Compare: alternative Product candidates under one Capability compared in a table or structured lane view rather than a dense all-edge graph (per ADR-0004; replaces the earlier "Route Compare" framing now that intra-Product routes are not used in v0 data).
 - Overview: full graph inspection for audit and debugging, not the default research workflow.
 
 ## Implementation Guardrails
