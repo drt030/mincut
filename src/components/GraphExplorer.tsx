@@ -434,6 +434,24 @@ export function GraphExplorer({ graph }: Props) {
     [domain, focusIds, graph.nodes, kind, maturity, showDeprecated, visibleIds],
   );
 
+  // Pre-index `measured_by` edges by their target metric id so the fold
+  // computation below (and any other consumer that needs "edges measuring
+  // this metric") can do an O(1) lookup instead of a full edge scan per
+  // metric. Rebuilds only when the edge list changes. Iter-52 perf cleanup
+  // — replaces an O(N·E) walk inside the foldedMetricIds memo that
+  // dominated "Show metrics as nodes" toggle latency (130-180ms total
+  // mutations on the production graph).
+  const measuredByByTarget = useMemo(() => {
+    const map = new Map<string, Edge[]>();
+    for (const edge of graph.edges) {
+      if (edge.relation !== "measured_by") continue;
+      const list = map.get(edge.target);
+      if (list) list.push(edge);
+      else map.set(edge.target, [edge]);
+    }
+    return map;
+  }, [graph.edges]);
+
   // Step 8: fold metric-kind nodes whose visible non-metric `measured_by` parents
   // resolve to exactly one. Shared metrics (multiple visible parents) stay as nodes.
   const { foldedMetricIds, foldedMetricsByParent } = useMemo(() => {
@@ -447,9 +465,7 @@ export function GraphExplorer({ graph }: Props) {
     for (const node of prefilteredNodes) {
       if (node.kind !== "metric") continue;
       const visibleNonMetricParents: string[] = [];
-      for (const edge of graph.edges) {
-        if (edge.relation !== "measured_by") continue;
-        if (edge.target !== node.id) continue;
+      for (const edge of measuredByByTarget.get(node.id) ?? []) {
         if (!prefilteredIds.has(edge.source)) continue;
         const parent = nodesById.get(edge.source);
         if (!parent || parent.kind === "metric") continue;
@@ -476,7 +492,7 @@ export function GraphExplorer({ graph }: Props) {
     }
 
     return { foldedMetricIds: foldedIds, foldedMetricsByParent: byParent };
-  }, [graph.edges, graph.nodes, prefilteredNodes, showMetricsAsNodes]);
+  }, [graph.nodes, measuredByByTarget, prefilteredNodes, showMetricsAsNodes]);
 
   const filteredNodes = useMemo(
     () => prefilteredNodes.filter((node) => !foldedMetricIds.has(node.id)),
@@ -706,9 +722,22 @@ export function GraphExplorer({ graph }: Props) {
     [filteredNodes, frontierIds],
   );
 
-  const selectedNode = graph.nodes.find((node) => node.id === selectedId) ?? graph.nodes[0];
-  const selectedDependencyCount = graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length;
-  const selectedBottleneckCount = graph.edges.filter((edge) => edge.source === selectedNode?.id && edge.relation === "bottlenecked_by").length;
+  // Iter-52 perf cleanup: memoize selected* derivations so they don't re-run
+  // graph.nodes.find / graph.edges.filter on every render (incl. pure prop
+  // updates from React Flow). Trivial today (~0.05ms each at current graph
+  // size), but each is ~1ms at 1000 nodes / 3000 edges.
+  const selectedNode = useMemo(
+    () => graph.nodes.find((node) => node.id === selectedId) ?? graph.nodes[0],
+    [graph.nodes, selectedId],
+  );
+  const selectedDependencyCount = useMemo(
+    () => graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length,
+    [graph, selectedNode?.id],
+  );
+  const selectedBottleneckCount = useMemo(
+    () => graph.edges.filter((edge) => edge.source === selectedNode?.id && edge.relation === "bottlenecked_by").length,
+    [graph.edges, selectedNode?.id],
+  );
   const selectedExpanded = mode === "bottleneck" ? expandedBottleneckIds.has(selectedNode.id) : expandedIds.has(selectedNode.id);
 
   return (
