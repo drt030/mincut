@@ -33,6 +33,8 @@ Tracked handoff memory for unfinished work. Add entries only when useful for con
 
 **Cost rollup** lands honestly: rolled-up typical 274.7k RMB vs 300k target, 3 of 64 subsystems still gap. Gate overall 2.94/5 (capped by unreviewed cost data per ADR-0001 cost-scoped cap).
 
+**Final session state** (post iter 35 review pass 4): trust ~1% bug probability. 25 commits / ~6000 lines net since baseline 26a3acb. 4 review passes (iter 15, 20, 31, 35) all clean for last 2. Step 6 (44680bb naming + 3b392b3 _route rename) and step 2 schema-tightening (6c61479) shipped. Time-evolution stub: 5 nodes carry `maturityHistory` (b28aa0c) — schema field promoted from ADR-0002 reserved. Three review-pass-1 P0s (cost UI honesty, questionId, denominator drift, --allow-reviewed) and 4 P1s (DAG memo, module-globals, fallback memo, cost-scoped review cap) all fixed. Dev server clean on :3000 PID 81065 / 95625, serving HEAD code post iter-26 restart and iter-34 sub-agent bounce. Out-of-scope deferred: interactive time-slider (b28aa0c is the data + static timeline stub; slider component is the next ADR-class work).
+
 
 - owner: tbd
 - branch: master (no branch yet)
