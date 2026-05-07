@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import {
   bottlenecksForNode,
   downstream,
@@ -386,17 +387,20 @@ function MetricValueDetailRow({ node }: { node: Node }) {
 /**
  * Per ADR-0003 the bottom-up cost rollup is exposed at the product level so
  * a learner sees the rolled-up range, the coverage-gap dot (green / amber /
- * red), and the reference target sitting next to each other. The rollup
- * walker is pure and cheap; we run it on every render.
+ * red), and the reference target sitting next to each other. The walker is
+ * pure but iterates O(N·E) over the eligible-subsystem closure on every
+ * call, so we memoize on [graph, product.id] to avoid redoing it on each
+ * render of the parent panel (per iter-20 P1 review).
  */
 function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: Node }) {
   const { t } = useLanguage();
-  let rollup: CostRollupResult | null = null;
-  try {
-    rollup = rollupCost(graph, product.id);
-  } catch {
-    rollup = null;
-  }
+  const rollup = useMemo<CostRollupResult | null>(() => {
+    try {
+      return rollupCost(graph, product.id);
+    } catch {
+      return null;
+    }
+  }, [graph, product.id]);
   const target = targetCostFor(graph, product.id);
   // Per iter-15 review (P0 #3), the eligible-subsystem filter is hoisted to
   // costRollup.eligibleCostSubsystemIds so panel + ProductView + gate share

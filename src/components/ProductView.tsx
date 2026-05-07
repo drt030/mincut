@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, uniqueNodes } from "@/lib/graphTraversal";
 import { productMaturity } from "@/lib/maturity";
@@ -83,12 +84,16 @@ export function ProductView({ graph, product }: Props) {
 
 function ProductCostRollupSummary({ graph, product }: { graph: GraphData; product: Node }) {
   const { t } = useLanguage();
-  let rollup: CostRollupResult | null = null;
-  try {
-    rollup = rollupCost(graph, product.id);
-  } catch {
-    rollup = null;
-  }
+  // Memoize on [graph, product.id] per iter-20 P1 review — the walker is
+  // pure but iterates O(N·E) over the eligible-subsystem closure, and the
+  // parent ProductView re-renders frequently in client navigation.
+  const rollup = useMemo<CostRollupResult | null>(() => {
+    try {
+      return rollupCost(graph, product.id);
+    } catch {
+      return null;
+    }
+  }, [graph, product.id]);
   const target = targetCostFor(graph, product.id);
   // Per iter-15 review (P0 #3), use the shared gate-aligned eligibility set.
   const reachable = eligibleCostSubsystemIds(graph, product.id);

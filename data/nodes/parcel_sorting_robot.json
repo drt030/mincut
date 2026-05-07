@@ -2234,7 +2234,7 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "reviewStatus": "unreviewed",
-    "notes": "Rough integration-only premium. Pricing this aggregator node directly stops recursion through it, which avoids double-counting of arm_body, end_effector, and motion_planning that the product also requires directly. Marked unreviewed for human verification.",
+    "notes": "Integration cost premium for the manipulation module — wiring, calibration, fixturing on top of the bare arm + end-effector + planning subsystems. Marked unreviewed for human verification.",
     "evidenceIds": ["ev_parcel_manipulation_or_diverter_cost_2025"],
     "tags": ["cost", "cost_research", "ralph_iter18"]
   },
