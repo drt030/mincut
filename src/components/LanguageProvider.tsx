@@ -127,6 +127,8 @@ const uiText: Record<Language, Record<string, string>> = {
     nodeMaturityScoreMissing: "score not set",
     siblingCandidates: "Sibling candidates",
     siblingCandidatesHint: "other Products under the same Capability",
+    frontierPill: "Frontier",
+    frontierPillTooltip: "Decomposition frontier — research candidate, may expand further",
   },
   zh: {
     brand: "能力图谱探索器",
@@ -236,6 +238,8 @@ const uiText: Record<Language, Record<string, string>> = {
     nodeMaturityScoreMissing: "未设置成熟度分数",
     siblingCandidates: "兄弟候选产品",
     siblingCandidatesHint: "同一能力下的其他产品",
+    frontierPill: "前沿",
+    frontierPillTooltip: "分解前沿 —— 研究候选节点，可能继续向下展开",
   },
 };
 

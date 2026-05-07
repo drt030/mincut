@@ -154,6 +154,8 @@
     "domain": ["iphone_4"],
     "description": "Adoption and production-scale proxy for the historical product.",
     "metrics": [{ "name": "units sold", "unit": "units", "description": "Needs reviewed shipment or sales evidence." }],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["adoption"]
   },
@@ -163,6 +165,8 @@
     "kind": "metric",
     "domain": ["iphone_4"],
     "description": "Proxy metric for display, battery, SoC, RF, camera, sensor, and enclosure integration in a compact handheld product.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["integration"]
   },
@@ -291,6 +295,8 @@
     "domain": ["glp1_weight_loss_drugs"],
     "description": "Clinical efficacy metric for weight-loss drug products.",
     "metrics": [{ "name": "body weight change", "unit": "%", "description": "Trial endpoint comparing treatment and placebo groups." }],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_nejm_step1_semaglutide"],
     "tags": ["clinical", "efficacy"]
@@ -301,6 +307,8 @@
     "kind": "metric",
     "domain": ["glp1_weight_loss_drugs"],
     "description": "Safety and tolerability metric for long-term treatment adherence.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": ["ev_fda_wegovy_label"],
     "tags": ["clinical", "safety"]
@@ -452,6 +460,8 @@
     "domain": ["reusable_space_transport"],
     "description": "Primary cost target for reusable space transport.",
     "metrics": [{ "name": "launch cost", "unit": "USD/kg", "targetValue": 1000 }],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["cost"]
   },
@@ -461,6 +471,8 @@
     "kind": "metric",
     "domain": ["reusable_space_transport"],
     "description": "Time from vehicle landing/recovery to next qualified launch.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["operations"]
   },
@@ -603,6 +615,8 @@
     "kind": "metric",
     "domain": ["commercial_fusion"],
     "description": "Plant-level metric comparing usable electric output to recirculating and input power over realistic operating cycles.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["energy", "economics"]
   },
@@ -612,6 +626,8 @@
     "kind": "metric",
     "domain": ["commercial_fusion"],
     "description": "Economic maturity metric for how often a plant can generate electricity after accounting for maintenance and component replacement.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["operations", "economics"]
   },
@@ -738,6 +754,8 @@
     "kind": "metric",
     "domain": ["ultra_small_nuclear_reactor"],
     "description": "Capital and lifecycle cost metric normalized by electric output.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["cost"]
   },
@@ -747,6 +765,8 @@
     "kind": "metric",
     "domain": ["ultra_small_nuclear_reactor"],
     "description": "Deployment and operations metric for how long a reactor can operate before fuel replacement or return-to-factory service.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["operations", "fuel"]
   },
@@ -860,6 +880,8 @@
     "kind": "metric",
     "domain": ["ak47_industrial_case"],
     "description": "Historical industrial metrics for cost, output, standardization, acceptance rate, and logistics burden. Requires reviewed historical production evidence.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["cost", "production"]
   },
@@ -869,6 +891,8 @@
     "kind": "metric",
     "domain": ["ak47_industrial_case"],
     "description": "High-level robustness and maintenance metric for historical comparison; not a performance-optimization recipe.",
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["reliability"]
   },

@@ -48,6 +48,52 @@ export function bottlenecksForNode(graph: GraphData, nodeId: string): Node[] {
   return targets(graph, nodeId, "bottlenecked_by").filter((node) => node.kind === "bottleneck" || node.kind === "placeholder_breakthrough");
 }
 
+/**
+ * Per ADR-0005, "no expanded children" means: the node has no outgoing
+ * decomposition-relation edges to a substantive child node. Decomposition
+ * relations are `requires`, `part_of`, `has_route`, and `implemented_by`.
+ * A child is "substantive" if it is itself a decomposable subsystem rather
+ * than only a measurement / annotation node. We exclude `metric`, `bottleneck`,
+ * `placeholder_breakthrough`, `standard_or_regulation`, `organization`, and
+ * `evidence` from "expanded children" because their presence does not
+ * constitute decomposition further into the technology tree.
+ */
+const decompositionRelations: Edge["relation"][] = ["requires", "part_of", "has_route", "implemented_by"];
+const nonExpandableChildKinds = new Set([
+  "metric",
+  "bottleneck",
+  "placeholder_breakthrough",
+  "standard_or_regulation",
+  "organization",
+  "evidence",
+]);
+
+export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
+  for (const edge of graph.edges) {
+    if (edge.source !== nodeId) continue;
+    if (!decompositionRelations.includes(edge.relation)) continue;
+    const target = nodeById(graph, edge.target);
+    if (!target) continue;
+    if (nonExpandableChildKinds.has(target.kind)) continue;
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Per ADR-0005, a node is a decomposition frontier if EITHER it carries the
+ * explicit `decomposition_frontier` tag, OR its `maturityLabel` is not in
+ * {mature, widely_adopted} AND it has no expanded children. The first arm is
+ * an authored override; the second arm catches incomplete decomposition where
+ * the stop condition (commodified-at-industrial-scale) has not been met.
+ */
+export function isDecompositionFrontier(graph: GraphData, node: Node): boolean {
+  if (node.tags?.includes("decomposition_frontier")) return true;
+  const stopLabels = new Set(["mature", "widely_adopted"]);
+  if (node.maturityLabel && stopLabels.has(node.maturityLabel)) return false;
+  return !hasExpandedChildren(graph, node.id);
+}
+
 export function metricsForNode(graph: GraphData, nodeId: string): Node[] {
   return targets(graph, nodeId, "measured_by").filter((node) => node.kind === "metric");
 }

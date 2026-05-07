@@ -4,6 +4,7 @@ import {
   bottlenecksForNode,
   downstream,
   evidenceForNode,
+  isDecompositionFrontier,
   metricsForNode,
   siblingProductsForProduct,
   upstream,
@@ -31,6 +32,10 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const bottlenecks = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
+  // Per ADR-0005, the broader frontier judgment is: explicit `decomposition_frontier`
+  // tag OR (maturityLabel ∉ {mature, widely_adopted} AND no expanded children).
+  // The Frontier pill below surfaces that judgment for the learner.
+  const isFrontierByJudgment = isDecompositionFrontier(graph, node);
   const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
   const siblingCandidates = node.kind === "product" ? siblingProductsForProduct(graph, node.id) : [];
 
@@ -95,6 +100,15 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
                   >
                     <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
                     {t("keyTechnologyPill")}
+                  </span>
+                ) : null}
+                {isFrontierByJudgment ? (
+                  <span
+                    className="frontier-pill"
+                    title={t("frontierPillTooltip")}
+                    aria-label={t("frontierPillTooltip")}
+                  >
+                    {t("frontierPill")}
                   </span>
                 ) : null}
               </>

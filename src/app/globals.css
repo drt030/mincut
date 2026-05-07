@@ -434,6 +434,21 @@ li {
   line-height: 1;
 }
 
+.frontier-pill {
+  align-items: center;
+  background: #fef3c7;
+  border: 1px dashed #b45309;
+  border-radius: 999px;
+  color: #78350f;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
 .maturity-asof-icon {
   font-size: 11px;
   line-height: 1;

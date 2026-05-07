@@ -53,6 +53,7 @@ for (const report of reports) {
 
 errors.push(...validateParcelCoreProvenance(graph));
 errors.push(...validateHardToDevelopExplainability(graph));
+errors.push(...validateMaturityLabelPresence(graph));
 
 if (errors.length) {
   console.error("Data validation failed:");
@@ -61,6 +62,26 @@ if (errors.length) {
 }
 
 console.log(`Data validation passed: ${graph.nodes.length} nodes, ${graph.edges.length} edges, ${graph.evidence.length} evidence items.`);
+
+/**
+ * Per ADR-0005 (decomposition stop condition): every node MUST carry a
+ * non-null `maturityLabel`. The stop condition is "commodified at industrial
+ * scale" operationalized as `maturityLabel ∈ {mature, widely_adopted}`. If
+ * the label is unset, the stop condition is undefined for that node and the
+ * gate's frontier judgment cannot decide whether decomposition has legitimately
+ * stopped or is incompletely modeled.
+ */
+function validateMaturityLabelPresence(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const node of graph.nodes) {
+    if (!node.maturityLabel) {
+      errors.push(
+        `Node ${node.id} is missing maturityLabel. Per ADR-0005 every node must carry a maturityLabel so the decomposition stop condition is defined.`,
+      );
+    }
+  }
+  return errors;
+}
 
 /**
  * Per ADR-0005: any node tagged `hard_to_develop` MUST carry a non-empty

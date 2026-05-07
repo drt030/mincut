@@ -3,6 +3,7 @@ import {
   evidenceForEdge,
   evidenceForNode,
   evidenceForScope,
+  isDecompositionFrontier,
   metricsForNode,
   nodeById,
   reachableNodeIdsFrom,
@@ -412,9 +413,7 @@ function evidenceFindingsForContext(context: GateContext): EvidenceFindings {
       const evidence = evidenceForClaim(context.graph, claim);
       return evidence.length > 0 && evidence.every((item) => item.type === "vendor_claim" || item.type === "internal_note");
     }),
-    frontiers: context.scopedNodes.filter(
-      (node) => node.tags?.includes("decomposition_frontier") || node.notes?.toLowerCase().includes("frontier"),
-    ),
+    frontiers: context.scopedNodes.filter((node) => isDecompositionFrontier(context.graph, node)),
   };
 }
 
