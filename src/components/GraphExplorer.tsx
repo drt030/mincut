@@ -36,9 +36,16 @@ const kindColors: Record<string, string> = {
 };
 
 const NODE_WIDTH = 232;
-const DEFAULT_NODE_HEIGHT = 104;
-const TALL_NODE_HEIGHT = 124;
-const METRICS_STRIP_HEIGHT = 60;
+// Per iter-loop 2026-05-10 P0: previous heights (104 default / 124 tall, 60 strip)
+// squeezed `.graph-node-title` to ~13px because the inner flex column ran
+// `justify-content: space-between` against meta + metrics that demanded more
+// space than the card had. Title now has `flex-shrink: 0`; the heights below
+// give the title a guaranteed 3-line clamp plus a 2-row meta wrap, and let
+// the metric strip wrap to ~3 chip rows on the flagship product without
+// clipping the bottom chip row.
+const DEFAULT_NODE_HEIGHT = 160;
+const TALL_NODE_HEIGHT = 160;
+const METRICS_STRIP_HEIGHT = 160;
 const INCREMENTAL_LAYER_GAP = 156;
 const INCREMENTAL_NODE_GAP = 28;
 let elk: InstanceType<typeof ELK> | null = null;
