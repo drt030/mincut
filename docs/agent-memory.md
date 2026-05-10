@@ -75,3 +75,12 @@ Tracked handoff memory for unfinished work. Add entries only when useful for con
 - feedback scope: `one-off` (this batch); the *patterns* (capture in CONTEXT.md/ADRs first, code later) is `candidate default` for future grilling sessions.
 - promotion candidates: -
 - canonical doc follow-up: CONTEXT.md and ADRs are already up to date; no doc work pending other than what's listed above.
+
+## 2026-05-10 ralph-loop iter-01 (HEAD 1689f4b)
+- P0 fix: node title was being squeezed to ~13px by flex space-between against an unconstrained title element. Added `flex-shrink: 0` on `.graph-node-title`; bumped `DEFAULT_NODE_HEIGHT` 104 → 160, `TALL_NODE_HEIGHT` 124 → 160, `METRICS_STRIP_HEIGHT` 60 → 160, and `.graph-node-metrics { max-height: 60 → 160 }`. Verified: 0/22 titles truncated, 0/22 cards overflow inner, 0/17 chip names ellipsised.
+- side effect: cards now visibly taller (flagship product 184 → 304px). ELK relayout absorbs this; canvas pans wider on default zoom. Will revisit in a later iter if the taller cards crowd the layered view.
+- next iter (02): take observe-screenshot of /graph at 1.0 zoom (post-fitView) and identify the single highest-leverage UX nudge from the design指北 candidates a–g.
+
+## 2026-05-10 ralph-loop iter-03 stumble
+- mistake: ran `npm run build` while `npm run dev` (PID 38848) was active. The build wiped/replaced `.next/` with prod artifacts; dev server's chunk references 404'd; home rendered blank. Had to kill dev pid + `rm -rf .next` + restart `npm run dev` (now PID 7806).
+- guidance: while ralph-loop runs against the live dev server, **only run `npm run lint`** and `npm run check:graph-ux` for verification. Skip `npm run build` per iter; one final `build` pass at end of session is enough.

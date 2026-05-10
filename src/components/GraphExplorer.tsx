@@ -1194,9 +1194,25 @@ function overlapsExisting(
   return false;
 }
 
+// Per ralph-loop 2026-05-10 iter-3: the strip CSS already caps at 160px and
+// chips render as a vertical column ~22px each + 3px gaps + 6px padding. Most
+// cards (subsystem modules) carry just one cost chip — adding a flat
+// METRICS_STRIP_HEIGHT (160) made the bbox 3300+ tall and pushed fit-view to
+// ~12% scale. Compute the strip's actual height from chip count and clamp at
+// the CSS max so multi-chip cards (flagship product = 7 chips) still get room.
+function metricsStripHeight(foldedMetricCount: number): number {
+  if (foldedMetricCount <= 0) return 0;
+  const PER_CHIP = 22;
+  const GAP = 3;
+  const STRIP_PADDING = 6;
+  const intrinsic =
+    PER_CHIP * foldedMetricCount + GAP * Math.max(0, foldedMetricCount - 1) + STRIP_PADDING;
+  return Math.min(intrinsic, METRICS_STRIP_HEIGHT);
+}
+
 function heightForNode(node: Node, foldedMetricCount = 0) {
   const base = node.kind === "technical_route" || node.kind === "product" ? TALL_NODE_HEIGHT : DEFAULT_NODE_HEIGHT;
-  return foldedMetricCount > 0 ? base + METRICS_STRIP_HEIGHT : base;
+  return base + metricsStripHeight(foldedMetricCount);
 }
 
 function shouldShowEdgeLabel(edge: Edge, selectedId: string, relation: EdgeRelation | "all") {
