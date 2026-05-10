@@ -13,6 +13,7 @@ import {
   type Edge as FlowEdge,
   type Node as FlowNode,
   type NodeProps,
+  type ReactFlowInstance,
 } from "@xyflow/react";
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
@@ -394,6 +395,17 @@ export function GraphExplorer({ graph }: Props) {
   const layoutPositionsRef = useRef(layoutPositions);
   const selectedIdRef = useRef(selectedId);
   selectedIdRef.current = selectedId;
+  // Per ralph-loop 2026-05-10 iter-5: the natural ELK bbox for this graph
+  // is ~1264 × 3634, taller than any reasonable canvas. Without explicit
+  // viewport control React Flow lands at translate(0,0) scale(1) and the
+  // user sees an empty canvas because the flagship product card sits at
+  // y≈600. Capture the ReactFlow instance via onInit and centre on the
+  // selected node once layout completes — gives "land on /graph and see
+  // the active product" without forcing the auto-fit prop (which cannot
+  // shrink past minZoom 0.55 anyway).
+  const flowInstanceRef = useRef<ReactFlowInstance<FlowNode, FlowEdge> | null>(null);
+  const [flowInstanceReady, setFlowInstanceReady] = useState(false);
+  const initialCenterDoneRef = useRef(false);
 
   const domains = useMemo(() => [...new Set(graph.nodes.flatMap((node) => node.domain))].sort(), [graph.nodes]);
   const kinds = useMemo(() => [...new Set(graph.nodes.map((node) => node.kind))].sort(), [graph.nodes]);
@@ -714,6 +726,27 @@ export function GraphExplorer({ graph }: Props) {
     };
   }, [capabilityCluster, filteredNodes, foldCountById, layoutEdges]);
 
+  // Per iter-5 P1: once positions are ready, centre the viewport on the
+  // active product so the canvas opens with something useful. Only fires
+  // on the first layout-complete; later selects don't move the viewport
+  // (the user clicked them and is now reading the side panel — yanking
+  // the canvas would be jarring).
+  useEffect(() => {
+    if (initialCenterDoneRef.current) return;
+    if (!flowInstanceReady) return;
+    const instance = flowInstanceRef.current;
+    if (!instance) return;
+    // Read the position React Flow itself has for the selected node — works
+    // whether the position came from ELK (state) or the fallback. Wait one
+    // tick after first instance-ready render so the node positions have
+    // been computed.
+    const fnode = instance.getNode(selectedId);
+    if (!fnode) return;
+    const h = (fnode.measured?.height ?? fnode.height ?? DEFAULT_NODE_HEIGHT) as number;
+    instance.setCenter(fnode.position.x + NODE_WIDTH / 2, fnode.position.y + h / 2, { zoom: 0.7, duration: 0 });
+    initialCenterDoneRef.current = true;
+  }, [flowInstanceReady, layoutPositions, selectedId, flowNodes]);
+
   // In-scope frontier count: nodes currently rendered on the canvas that
   // satisfy isDecompositionFrontier. This is shown read-only next to the
   // metrics-as-nodes toggle so a learner gets a quick scan of "how much
@@ -889,6 +922,10 @@ export function GraphExplorer({ graph }: Props) {
             nodes={flowNodes}
             edges={flowEdges}
             nodeTypes={nodeTypes}
+            onInit={(instance) => {
+              flowInstanceRef.current = instance;
+              setFlowInstanceReady(true);
+            }}
             fitViewOptions={{ maxZoom: 1, minZoom: 0.55, padding: 0.12 }}
             minZoom={0.35}
             panOnScroll
