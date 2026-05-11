@@ -98,7 +98,7 @@ Verifies that explorationLayout reflows cleanly when a deeper subsystem is expan
 | --- | --- | --- | --- |
 | 5.1 | `/graph` overview | 13 nodes, grid wrap (2 rows of 6 + 1 row of 1 below flagship) | / |
 | 5.2 | Double-click `parcel_manipulation_or_diverter` to expand | Its 3 requires children (industrial_robot_arm_body, end_effector, motion_planning) appear at y = depth+1 below it; canvas reflows | / |
-| 5.3 | Verify no sibling jumps UP — every other module's y is ≥ previous y | DOM-evaluate; assertion holds | / |
+| 5.3 | DOM check: new focus is positioned at (0, 0); its substantive `requires` children at y = ROW_HEIGHT; old focus's siblings present in DOM with `.out-of-context` class | Layout reorganizes around new focus, old context preserved via dimming | / |
 | 5.4 | Collapse via double-click again | The 3 children disappear; layout returns to step 5.1's positions | / |
 | 5.5 | Expand `industrial_robot_arm_body` (3 layers deep) | Layout still legible; cards don't overlap | / |
 
