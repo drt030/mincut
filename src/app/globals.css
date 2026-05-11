@@ -1540,6 +1540,13 @@ li {
   font-weight: 700;
 }
 
+/* Per v3 iter-29 a11y polish: small toolbar buttons get a visible
+   focus ring so keyboard users see where they are. */
+.small-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
 .segmented-control button {
   background: transparent;
   color: #334155;
