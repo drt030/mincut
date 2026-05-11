@@ -87,3 +87,55 @@ test("explorationLayout: deeper layer has greater x than parent layer", () => {
   assert.ok(xB > xA, `B.x ${xB} should be > A.x ${xA}`);
   assert.ok(xB1 > xB, `B1.x ${xB1} should be > B.x ${xB}`);
 });
+
+test("explorationLayout: focusId not in graph returns empty map without throwing", () => {
+  const graph = loadFixture("tiny-5node.json");
+  const positions = explorationLayout({
+    graph,
+    focusId: "Z_does_not_exist",
+    expandedIds: new Set(["Z_does_not_exist"]),
+    stage: "focused",
+  });
+  // The function shouldn't throw; missing focus = no positioned nodes.
+  assert.ok(positions instanceof Map);
+});
+
+test("explorationLayout: collapsed focus shows only the focus itself", () => {
+  const graph = loadFixture("tiny-5node.json");
+  const positions = explorationLayout({
+    graph,
+    focusId: "A",
+    expandedIds: new Set(),
+    stage: "focused",
+  });
+  // expandedIds empty → focus is positioned but no descendants.
+  assert.equal(positions.size, 1);
+  assert.ok(positions.has("A"));
+});
+
+test("explorationLayout: cycle in requires terminates (defensive)", () => {
+  // Hand-built cyclic graph: X requires Y, Y requires X. The walker
+  // uses a visited Set so it should terminate.
+  const cyclic = {
+    graphVersion: "test",
+    nodes: [
+      { id: "X", name: "X", kind: "module" as const, domain: ["t"] },
+      { id: "Y", name: "Y", kind: "module" as const, domain: ["t"] },
+    ],
+    edges: [
+      { id: "exy", source: "X", target: "Y", relation: "requires" as const },
+      { id: "eyx", source: "Y", target: "X", relation: "requires" as const },
+    ],
+    evidence: [],
+  };
+  const positions = explorationLayout({
+    graph: cyclic,
+    focusId: "X",
+    expandedIds: new Set(["X", "Y"]),
+    stage: "focused",
+  });
+  // Both should be positioned exactly once; no infinite recursion.
+  assert.equal(positions.size, 2);
+  assert.ok(positions.has("X"));
+  assert.ok(positions.has("Y"));
+});
