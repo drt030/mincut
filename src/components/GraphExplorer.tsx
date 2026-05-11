@@ -895,10 +895,14 @@ export function GraphExplorer({ graph }: Props) {
   }, [flowInstanceReady, stage, selectedId, flowNodes]);
 
   // Slice 4: keyboard navigation. ESC returns to overview from focused.
+  // Per UX Flow 1.7 (2026-05-10): ESC also resets selectedId to the
+  // root product so "回到全局" really means "全图", not "上次点击的模块的
+  // 子树". The toolbar's `↩ 回到全局` button does the same.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") {
         setStage("overview");
+        setSelectedId(rootNodeId);
       }
     }
     window.addEventListener("keydown", onKey);
@@ -1009,7 +1013,10 @@ export function GraphExplorer({ graph }: Props) {
             <button
               className="small-button secondary-button"
               type="button"
-              onClick={() => setStage("overview")}
+              onClick={() => {
+                setStage("overview");
+                setSelectedId(rootNodeId);
+              }}
               title={t("backToOverviewHint")}
               aria-label={t("backToOverview")}
             >
