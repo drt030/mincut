@@ -404,6 +404,17 @@ li {
 }
 
 /*
+ * Slice 4 polish: in compact mode, the top `::before` strip widens into
+ * a heat block painted with the colorMode tint (cost / maturity /
+ * overall / bottleneck). Gives the user a heat map at fit-to-screen
+ * zoom even when titles are illegible.
+ */
+.graph-node-card.compact::before {
+  background: var(--heat-color, rgba(255, 255, 255, 0.2));
+  height: 14px;
+}
+
+/*
  * Sibling Product candidates from the capability cluster (per ADR-0004).
  * Rendered as visible-but-secondary "alternative architectures" so they
  * read as context rather than competing with the active Product.

@@ -122,6 +122,13 @@ type CapabilityNodeData = {
   onSelectMetric: (metricId: string) => void;
   /** Slice 4: e.g. "compact" when stage="overview"; undefined in focused mode. */
   semanticClass?: string;
+  /**
+   * Slice 4 polish: a CSS color encoding the same property the user
+   * picked in ColorModeSelect, but applied to a heat-block on the card
+   * itself. Used to make compact mode legible at fit-to-screen — the
+   * user sees a heat map of 22 tiles rather than 22 tiny titles.
+   */
+  heatColor?: string;
 };
 
 const nodeTypes = {
@@ -154,7 +161,10 @@ const nodeTypes = {
         ]
           .filter(Boolean)
           .join(" ")}
-        style={{ "--node-color": data.color } as CSSProperties}
+        style={{
+          "--node-color": data.color,
+          ...(data.heatColor ? { "--heat-color": data.heatColor } : {}),
+        } as CSSProperties}
         role="button"
         tabIndex={0}
         aria-label={ariaLabel}
@@ -697,6 +707,10 @@ export function GraphExplorer({ graph }: Props) {
           onToggle: toggleSelectedExpansion,
           onSelectMetric: setSelectedId,
           semanticClass: stage === "overview" ? "compact" : undefined,
+          heatColor:
+            colorMode === "relation"
+              ? undefined
+              : edgeTintFor(node, colorMode, graph),
         },
         style: {
           width: NODE_WIDTH,
@@ -704,7 +718,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, explorationPositions, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, colorMode, explorationPositions, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion],
   );
 
   const nodeById = useMemo(() => {
