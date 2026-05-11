@@ -1265,6 +1265,10 @@ export function GraphExplorer({ graph }: Props) {
             className="small-button secondary-button"
             type="button"
             onClick={() => {
+              // Per v3 iter-30: full reset now includes stage and
+              // colorMode so the canvas truly returns to first-load
+              // state. Previously Reset left these on the user's
+              // last-clicked value which was surprising.
               setMode("layered");
               setSelectedId(rootNodeId);
               setDomain("all");
@@ -1273,6 +1277,8 @@ export function GraphExplorer({ graph }: Props) {
               setMaturity("all");
               setExpandedIds(new Set([rootNodeId]));
               setExpandedBottleneckIds(new Set([rootNodeId]));
+              setStage("overview");
+              setColorMode("bottleneck");
             }}
           >
             {t("resetExpansion")}
