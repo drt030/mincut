@@ -965,15 +965,21 @@ export function GraphExplorer({ graph }: Props) {
       const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
       if (!btn) return;
       btn.click();
-      requestAnimationFrame(() => {
-        if (cancelled) return;
-        const after = inst.getViewport();
-        if (after.x !== before.x || after.y !== before.y || after.zoom !== before.zoom) {
-          initialCenterDoneRef.current = true;
-        }
-      });
+      // Check 120ms after click — React Flow animates the fit over
+      // its `duration` (default ~500ms) but the viewport state has
+      // updated by ~100ms. requestAnimationFrame fires too early
+      // sometimes and we miss the success signal.
+      timeouts.push(
+        setTimeout(() => {
+          if (cancelled) return;
+          const after = inst.getViewport();
+          if (after.x !== before.x || after.y !== before.y || after.zoom !== before.zoom) {
+            initialCenterDoneRef.current = true;
+          }
+        }, 120),
+      );
     };
-    [80, 200, 500, 1000].forEach((delay) => {
+    [80, 200, 500, 1000, 1800].forEach((delay) => {
       timeouts.push(setTimeout(tryFit, delay));
     });
     return () => {
