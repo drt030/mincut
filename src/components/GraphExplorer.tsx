@@ -21,6 +21,7 @@ import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import { formatMetricValue } from "@/lib/metricValueFormat";
 import { isDecompositionFrontier } from "@/lib/graphTraversal";
 import { edgeTintFor, type ColorMode } from "@/lib/edgeTint";
+import { explorationLayout } from "@/lib/explorationLayout";
 import type { Edge, EdgeRelation, GraphData, MetricCurrency, MetricValue, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -598,6 +599,23 @@ export function GraphExplorer({ graph }: Props) {
     return { sorted, laneById, starts };
   }, [filteredNodes, graph.edges]);
 
+  // Slice 3 (2026-05-10 graph redesign): replace the buggy ELK pipeline
+  // (incrementalLayout's early-return-on-empty-Map was hanging the whole
+  // session) with a deterministic pre-order layout anchored at the
+  // selected node. Nodes outside the selected node's `requires` subtree
+  // (alt-siblings, capabilities, frontier-ranked metrics) fall back to
+  // the existing fallbackPositionFor algorithm.
+  const explorationPositions = useMemo(
+    () =>
+      explorationLayout({
+        graph,
+        focusId: selectedId,
+        expandedIds,
+        stage: "focused",
+      }),
+    [graph, selectedId, expandedIds],
+  );
+
   const flowNodes: FlowNode[] = useMemo(
     () =>
       filteredNodes.map((node) => {
@@ -624,7 +642,10 @@ export function GraphExplorer({ graph }: Props) {
         return {
         id: node.id,
         type: "capability",
-        position: layoutPositions.get(node.id) ?? fallbackPositionFor(node, graph.edges, "all", fallbackLayoutContext),
+        position:
+          explorationPositions.get(node.id) ??
+          layoutPositions.get(node.id) ??
+          fallbackPositionFor(node, graph.edges, "all", fallbackLayoutContext),
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
         data: {
@@ -667,7 +688,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, explorationPositions, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
   );
 
   const nodeById = useMemo(() => {
