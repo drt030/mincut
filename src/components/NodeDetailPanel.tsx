@@ -518,6 +518,32 @@ function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: 
             .replace("{total}", String(denominator))}
         </span>
       </div>
+      {rollup && (rollup.directOnly || rollup.fromChildren) ? (
+        <div className="cost-rollup-breakdown">
+          {rollup.directOnly ? (
+            <span className="cost-rollup-breakdown-chunk">
+              <em>{t("costBreakdownDirect")}:</em>{" "}
+              {formatMetricValue(rollup.directOnly, "RMB", "RMB").compact}
+            </span>
+          ) : null}
+          {rollup.fromChildren ? (
+            <span className="cost-rollup-breakdown-chunk">
+              <em>{t("costBreakdownChildren")}:</em>{" "}
+              {formatMetricValue(rollup.fromChildren, "RMB", "RMB").compact}
+            </span>
+          ) : null}
+          {rollup.directLowerThanChildren ? (
+            <span
+              className="cost-rollup-inversion-warning"
+              role="img"
+              aria-label={t("costInversionWarning")}
+              title={t("costInversionWarning")}
+            >
+              ⚠ {t("costInversionWarning")}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
       {targetFull ? (
         <p className="muted cost-rollup-target">
           <strong>{t("target")}:</strong> {targetFull}

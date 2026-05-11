@@ -1188,6 +1188,37 @@ li {
   box-shadow: none;
 }
 
+.cost-rollup-breakdown {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  gap: 10px 14px;
+  margin: 4px 0 0;
+}
+
+.cost-rollup-breakdown-chunk {
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+}
+
+.cost-rollup-breakdown-chunk em {
+  color: #64748b;
+  font-style: normal;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.cost-rollup-inversion-warning {
+  background: #fef3c7;
+  border: 1px solid #b45309;
+  border-radius: 999px;
+  color: #78350f;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+}
+
 .react-flow__edge-path {
   stroke: #94a3b8;
   transition:
