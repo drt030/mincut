@@ -330,6 +330,20 @@ function MaturityHistoryTimeline({ node }: { node: Node }) {
  * `maturityAsOf` treatment so a learner can scan the freshness of every cost
  * claim.
  */
+/**
+ * Per UX Flow v3 iter-9 (progressive disclosure): a metric without a
+ * recorded current or target value is "empty" and lands rather low
+ * in the user's signal-to-noise calculus. Split metrics into the two
+ * groups; show the recorded ones inline and stuff the empties inside
+ * a collapsed <details> so they're auditable without dominating the
+ * panel.
+ */
+function metricHasValue(node: Node): boolean {
+  const inline = node.metrics?.[0];
+  if (!inline) return false;
+  return inline.currentValue !== undefined || inline.targetValue !== undefined;
+}
+
 function MetricNodeList({
   title,
   metrics,
@@ -340,12 +354,15 @@ function MetricNodeList({
   onSelectNode?: (nodeId: string) => void;
 }) {
   const { nodeName, t } = useLanguage();
+  const recorded = metrics.filter(metricHasValue);
+  const empty = metrics.filter((n) => !metricHasValue(n));
   return (
     <div>
       <strong>{title}</strong>
-      {metrics.length ? (
+      {metrics.length === 0 ? <p className="muted">{t("none")}</p> : null}
+      {recorded.length > 0 ? (
         <ul className="metric-detail-list">
-          {metrics.map((metricNode) => (
+          {recorded.map((metricNode) => (
             <MetricNodeListItem
               key={metricNode.id}
               metric={metricNode}
@@ -354,9 +371,26 @@ function MetricNodeList({
             />
           ))}
         </ul>
-      ) : (
-        <p className="muted">{t("none")}</p>
-      )}
+      ) : null}
+      {empty.length > 0 ? (
+        <details className="panel-section-collapsible">
+          <summary>
+            <span className="muted">
+              {empty.length} {t("metricsEmptyCount")}
+            </span>
+          </summary>
+          <ul className="metric-detail-list">
+            {empty.map((metricNode) => (
+              <MetricNodeListItem
+                key={metricNode.id}
+                metric={metricNode}
+                displayName={nodeName(metricNode.id, metricNode.name)}
+                onSelectNode={onSelectNode}
+              />
+            ))}
+          </ul>
+        </details>
+      ) : null}
     </div>
   );
 }
