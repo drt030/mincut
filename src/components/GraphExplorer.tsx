@@ -120,6 +120,8 @@ type CapabilityNodeData = {
   onSelect: (nodeId: string) => void;
   onToggle: (nodeId: string) => void;
   onSelectMetric: (metricId: string) => void;
+  /** Slice 4: e.g. "compact" when stage="overview"; undefined in focused mode. */
+  semanticClass?: string;
 };
 
 const nodeTypes = {
@@ -148,6 +150,7 @@ const nodeTypes = {
           data.risk ? "risk" : "",
           data.isBottleneck ? "is-bottleneck" : "",
           data.isAlternativeSibling && !data.selected ? "alt-sibling" : "",
+          data.semanticClass ?? "",
         ]
           .filter(Boolean)
           .join(" ")}
@@ -395,6 +398,13 @@ export function GraphExplorer({ graph }: Props) {
   // `bottleneck-risk` because that's the user's primary "一眼看到瓶颈
   // 线" ask. `relation` keeps the legacy CSS class behaviour.
   const [colorMode, setColorMode] = useState<ColorMode>("bottleneck");
+  // Slice 4 (2026-05-10 graph redesign): two-stage exploration. `overview`
+  // = fit-to-screen with cards in compact mode so the user sees the whole
+  // graph + bottleneck/cost heatmap at a glance. `focused` = zoom 0.8
+  // centred on the selected node with full cards visible. Click any node
+  // to focus; press ESC (or click the global-view button) to return to
+  // overview.
+  const [stage, setStage] = useState<"overview" | "focused">("overview");
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
@@ -678,9 +688,15 @@ export function GraphExplorer({ graph }: Props) {
           metricsStripLabel: t("metricsStrip"),
           formatMetricChipTooltip: (metric: FoldedMetricEntry) => formatMetricTooltip(metric, t),
           formatCostAsOfChipTooltip: (year: string) => t("metricChipCostAsOfTooltip").replace("{year}", year),
-          onSelect: setSelectedId,
+          onSelect: (id: string) => {
+            // Slice 4: clicking a card both selects and focuses (single
+            // click is the "drill in" gesture; ESC returns to overview).
+            setSelectedId(id);
+            setStage("focused");
+          },
           onToggle: toggleSelectedExpansion,
           onSelectMetric: setSelectedId,
+          semanticClass: stage === "overview" ? "compact" : undefined,
         },
         style: {
           width: NODE_WIDTH,
@@ -688,7 +704,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, explorationPositions, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, explorationPositions, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion],
   );
 
   const nodeById = useMemo(() => {
@@ -768,26 +784,45 @@ export function GraphExplorer({ graph }: Props) {
     };
   }, [capabilityCluster, filteredNodes, foldCountById, layoutEdges]);
 
-  // Per iter-5 P1: once positions are ready, centre the viewport on the
-  // active product so the canvas opens with something useful. Only fires
-  // on the first layout-complete; later selects don't move the viewport
-  // (the user clicked them and is now reading the side panel — yanking
-  // the canvas would be jarring).
+  // Slice 4 (2026-05-10 graph redesign): viewport behaviour follows the
+  // two-stage exploration state. Overview = pack-the-whole-graph so the
+  // user sees the global bottleneck / cost heatmap. Focused = setCenter
+  // on the selected node at zoom 0.8 so a learner can read full cards.
+  // Iter-5's "centre once on first load" effect is subsumed by the
+  // overview default; the initialCenterDoneRef now just guards against
+  // fighting the user's manual pan/zoom afterwards.
   useEffect(() => {
-    if (initialCenterDoneRef.current) return;
     if (!flowInstanceReady) return;
     const instance = flowInstanceRef.current;
     if (!instance) return;
-    // Read the position React Flow itself has for the selected node — works
-    // whether the position came from ELK (state) or the fallback. Wait one
-    // tick after first instance-ready render so the node positions have
-    // been computed.
+    if (stage === "overview") {
+      // The minZoom option caps how far we can shrink — let it bottom
+      // out at 0.18 so the natural 3634×1264 bbox still packs.
+      instance.fitView({ padding: 0.12, minZoom: 0.18, maxZoom: 0.9, duration: 350 });
+      initialCenterDoneRef.current = true;
+      return;
+    }
+    // focused
     const fnode = instance.getNode(selectedId);
     if (!fnode) return;
     const h = (fnode.measured?.height ?? fnode.height ?? DEFAULT_NODE_HEIGHT) as number;
-    instance.setCenter(fnode.position.x + NODE_WIDTH / 2, fnode.position.y + h / 2, { zoom: 0.7, duration: 0 });
+    instance.setCenter(fnode.position.x + NODE_WIDTH / 2, fnode.position.y + h / 2, {
+      zoom: 0.8,
+      duration: 350,
+    });
     initialCenterDoneRef.current = true;
-  }, [flowInstanceReady, layoutPositions, selectedId, flowNodes]);
+  }, [flowInstanceReady, stage, selectedId, flowNodes]);
+
+  // Slice 4: keyboard navigation. ESC returns to overview from focused.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setStage("overview");
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // In-scope frontier count: nodes currently rendered on the canvas that
   // satisfy isDecompositionFrontier. This is shown read-only next to the
@@ -889,6 +924,17 @@ export function GraphExplorer({ graph }: Props) {
             <span className="frontier-count-icon" aria-hidden="true">🔭</span>
             {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
           </span>
+          {stage === "focused" ? (
+            <button
+              className="small-button secondary-button"
+              type="button"
+              onClick={() => setStage("overview")}
+              title={t("backToOverviewHint")}
+              aria-label={t("backToOverview")}
+            >
+              ↩ {t("backToOverview")}
+            </button>
+          ) : null}
           <label className="color-mode-select-wrapper" title={t("colorModeHint")}>
             <span className="color-mode-select-label">{t("colorModeLabel")}</span>
             <select
@@ -992,10 +1038,12 @@ export function GraphExplorer({ graph }: Props) {
             nodesDraggable={false}
             onNodeClick={(_, node) => {
               setSelectedId(node.id);
+              setStage("focused");
             }}
             onNodeDoubleClick={(event, node) => {
               event.preventDefault();
               setSelectedId(node.id);
+              setStage("focused");
               toggleSelectedExpansion(node.id);
             }}
           >

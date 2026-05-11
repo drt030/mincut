@@ -380,6 +380,30 @@ li {
 }
 
 /*
+ * Slice 4 (2026-05-10 graph redesign): semantic zoom. In "overview"
+ * stage all cards collapse to title + maturity pill only; the metrics
+ * strip, frontier glyph, and meta pills (kind, asof) hide. Lets the
+ * user scan 22 cards at fit-to-screen without text becoming illegible.
+ * Click any compact card to enter focused stage and re-render full.
+ */
+.graph-node-card.compact .graph-node-meta .graph-node-asof-pill,
+.graph-node-card.compact .graph-node-meta > span:first-child,
+.graph-node-card.compact .graph-node-metrics,
+.graph-node-card.compact .graph-node-frontier-glyph {
+  display: none;
+}
+
+.graph-node-card.compact .graph-node-title {
+  font-size: 13px;
+  -webkit-line-clamp: 2;
+}
+
+.graph-node-card.compact .graph-node-inner {
+  gap: 6px;
+  padding: 8px 9px 9px;
+}
+
+/*
  * Sibling Product candidates from the capability cluster (per ADR-0004).
  * Rendered as visible-but-secondary "alternative architectures" so they
  * read as context rather than competing with the active Product.
