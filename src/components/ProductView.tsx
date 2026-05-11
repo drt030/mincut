@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, uniqueNodes } from "@/lib/graphTraversal";
 import { productMaturity } from "@/lib/maturity";
-import { maturityAsOfVisualFor } from "@/lib/maturityVisual";
+import { maturityAsOfVisualFor, formatMaturityLabel } from "@/lib/maturityVisual";
+import { nodeRisk } from "@/lib/nodeRisk";
 import {
   eligibleCostSubsystemIds,
   isCostBearingMetric,
@@ -69,6 +70,9 @@ export function ProductView({ graph, product }: Props) {
           )}
         </div>
       </section>
+      {/* v3 iter-27 parity: Top blockers callout, surfaces top 3
+          highest-risk requires children for the product. */}
+      <ProductViewTopBlockers graph={graph} product={product} />
       <section className="card-grid">
         <ProductCostRollupSummary graph={graph} product={product} />
       </section>
@@ -284,6 +288,64 @@ function SummaryCard({ title, nodes }: { title: string; nodes: Array<{ id: strin
       ) : (
         <p className="muted">{t("none")}</p>
       )}
+    </div>
+  );
+}
+
+/**
+ * Top blockers callout for /product/... view (parity with the
+ * version in NodeDetailPanel). Surfaces the top 3 highest-risk
+ * substantive requires-children so a learner can drill from the
+ * product page directly to the blocker subsystem.
+ */
+function ProductViewTopBlockers({ graph, product }: { graph: GraphData; product: Node }) {
+  const { nodeName, t } = useLanguage();
+  const ranked = useMemo(() => {
+    const out: { id: string; child: Node; risk: number }[] = [];
+    for (const edge of graph.edges) {
+      if (edge.source !== product.id || edge.relation !== "requires") continue;
+      const child = graph.nodes.find((n) => n.id === edge.target);
+      if (!child) continue;
+      if (
+        child.kind === "metric" ||
+        child.kind === "evidence" ||
+        child.kind === "bottleneck" ||
+        child.kind === "placeholder_breakthrough"
+      ) {
+        continue;
+      }
+      if (child.reviewStatus === "deprecated") continue;
+      out.push({ id: child.id, child, risk: nodeRisk(child, graph) });
+    }
+    out.sort((a, b) => b.risk - a.risk);
+    return out.slice(0, 3).filter((entry) => entry.risk > 0.1);
+  }, [graph, product.id]);
+  if (ranked.length === 0) return null;
+  return (
+    <div className="top-blockers">
+      <strong>🎯 {t("topBlockersTitle")}</strong>
+      <ol className="top-blockers-list">
+        {ranked.map((entry) => {
+          const maturityLabel = entry.child.maturityLabel ?? "unknown";
+          const maturityText = formatMaturityLabel(maturityLabel);
+          return (
+            <li key={entry.id}>
+              <a
+                className="link-button top-blockers-link"
+                href={`/graph?stage=focused&focus=${encodeURIComponent(entry.id)}`}
+                title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
+                aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · risk ${Math.round(entry.risk * 100)}%`}
+              >
+                <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
+                <span className="top-blockers-meta muted">{maturityText}</span>
+              </a>
+              <span className="top-blockers-risk" aria-hidden="true">
+                {Math.round(entry.risk * 100)}%
+              </span>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }
