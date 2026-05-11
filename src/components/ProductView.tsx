@@ -135,6 +135,15 @@ function ProductCostRollupSummary({ graph, product }: { graph: GraphData; produc
           .replace("{gap}", String(gapCount))
           .replace("{total}", String(denominator))}
       </p>
+      {/* Parity with NodeDetailPanel v3 iter-20: surface a warning
+          banner when > 50% of subsystems lack cost data so the
+          rolled-up number reads as "lower bound", not "estimate". */}
+      {gapFraction > 0.5 && hasRollupValue ? (
+        <p className="cost-coverage-warning" role="alert">
+          ⚠ {t("costCoverageHighGapWarning")
+            .replace("{percent}", String(Math.round(gapFraction * 100)))}
+        </p>
+      ) : null}
       {rollup && (rollup.directOnly || rollup.fromChildren) ? (
         <div className="cost-rollup-breakdown">
           {rollup.directOnly ? (
