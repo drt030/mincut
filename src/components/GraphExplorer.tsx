@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useSearchParams } from "next/navigation";
 import ELK, { type ElkExtendedEdge, type ElkNode } from "elkjs/lib/elk-api.js";
 import {
   Background,
@@ -386,9 +387,31 @@ const dependencyRelations = new Set<EdgeRelation>([
 
 const layeredRelations = new Set<EdgeRelation>([...dependencyRelations, "bottlenecked_by"]);
 const bottleneckPathRelations = new Set<EdgeRelation>(["requires", "has_route", "bottlenecked_by"]);
+// Valid ColorMode values for URL parsing — keep in sync with edgeTint's
+// ColorMode type. Used to filter ?color= query string values.
+const VALID_COLOR_MODES = new Set<ColorMode>(["relation", "cost", "maturity", "overall", "bottleneck"]);
+
 export function GraphExplorer({ graph }: Props) {
   const { kindName, nodeName, relationName, t } = useLanguage();
-  const [selectedId, setSelectedId] = useState(rootNodeId);
+  // Per UX Flow follow-up v3 iter-3: read initial state from URL query
+  // so a learner can bookmark / share a specific view. Updates write
+  // back via history.replaceState so back/forward isn't spammed.
+  const searchParams = useSearchParams();
+  const initialColorMode = (() => {
+    const raw = searchParams?.get("color");
+    if (raw && VALID_COLOR_MODES.has(raw as ColorMode)) return raw as ColorMode;
+    return "bottleneck" as ColorMode;
+  })();
+  const initialStage = (() => {
+    const raw = searchParams?.get("stage");
+    return raw === "focused" ? "focused" : "overview";
+  })();
+  const initialFocus = (() => {
+    const raw = searchParams?.get("focus");
+    if (raw && graph.nodes.some((n) => n.id === raw)) return raw;
+    return rootNodeId;
+  })();
+  const [selectedId, setSelectedId] = useState(initialFocus);
   const [domain, setDomain] = useState("all");
   const [kind, setKind] = useState<NodeKind | "all">("all");
   const [relation, setRelation] = useState<EdgeRelation | "all">("all");
@@ -408,14 +431,14 @@ export function GraphExplorer({ graph }: Props) {
   // Slice 2 (2026-05-10 graph redesign): edge color mode. Default
   // `bottleneck-risk` because that's the user's primary "一眼看到瓶颈
   // 线" ask. `relation` keeps the legacy CSS class behaviour.
-  const [colorMode, setColorMode] = useState<ColorMode>("bottleneck");
+  const [colorMode, setColorMode] = useState<ColorMode>(initialColorMode);
   // Slice 4 (2026-05-10 graph redesign): two-stage exploration. `overview`
   // = fit-to-screen with cards in compact mode so the user sees the whole
   // graph + bottleneck/cost heatmap at a glance. `focused` = zoom 0.8
   // centred on the selected node with full cards visible. Click any node
   // to focus; press ESC (or click the global-view button) to return to
   // overview.
-  const [stage, setStage] = useState<"overview" | "focused">("overview");
+  const [stage, setStage] = useState<"overview" | "focused">(initialStage);
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
@@ -939,6 +962,25 @@ export function GraphExplorer({ graph }: Props) {
       duration: 350,
     });
   }, [flowInstanceReady, stage, selectedId]);
+
+  // Per UX Flow v3 iter-3: persist colorMode + stage + selectedId in URL
+  // so the view is bookmarkable / shareable. Uses replaceState (not
+  // pushState) so back/forward isn't bloated by every click.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (colorMode === "bottleneck") params.delete("color");
+    else params.set("color", colorMode);
+    if (stage === "overview") params.delete("stage");
+    else params.set("stage", stage);
+    if (selectedId === rootNodeId) params.delete("focus");
+    else params.set("focus", selectedId);
+    const query = params.toString();
+    const next = `${window.location.pathname}${query ? `?${query}` : ""}`;
+    if (next !== `${window.location.pathname}${window.location.search}`) {
+      window.history.replaceState(null, "", next);
+    }
+  }, [colorMode, stage, selectedId]);
 
   // Slice 4: keyboard navigation. ESC returns to overview from focused.
   // Per UX Flow 1.7 (2026-05-10): ESC also resets selectedId to the
