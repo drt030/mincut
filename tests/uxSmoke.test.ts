@@ -49,7 +49,7 @@ test("ux smoke: /graph ships ColorModeSelect dropdown markup", async (t) => {
   assert.match(html, /value="relation"/);
 });
 
-test("ux smoke: /product page shows cost rollup section + new typical 283.5k", async (t) => {
+test("ux smoke: /product page shows cost rollup section + new typical 283.5k + breakdown row", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/product/low_cost_parcel_sorting_robot_300k_rmb");
   // Slice 1 changed the typical rollup from 274.7k → 283.5k. Smoke-check
@@ -57,6 +57,9 @@ test("ux smoke: /product page shows cost rollup section + new typical 283.5k", a
   // serving build (not just in tests).
   assert.match(html, /cost-rollup-card/);
   assert.match(html, /283,532/, "/product should show the new max-of rolled-up typical");
+  // Slice-4 polish: ProductView now also shows the direct/children
+  // breakdown row.
+  assert.match(html, /cost-rollup-breakdown/);
 });
 
 test("ux smoke: /graph default selection surfaces flagship rolled-up in detail panel", async (t) => {

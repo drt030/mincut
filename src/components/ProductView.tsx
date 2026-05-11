@@ -135,6 +135,32 @@ function ProductCostRollupSummary({ graph, product }: { graph: GraphData; produc
           .replace("{gap}", String(gapCount))
           .replace("{total}", String(denominator))}
       </p>
+      {rollup && (rollup.directOnly || rollup.fromChildren) ? (
+        <div className="cost-rollup-breakdown">
+          {rollup.directOnly ? (
+            <span className="cost-rollup-breakdown-chunk">
+              <em>{t("costBreakdownDirect")}:</em>{" "}
+              {formatMetricValue(rollup.directOnly, "RMB", "RMB").compact}
+            </span>
+          ) : null}
+          {rollup.fromChildren ? (
+            <span className="cost-rollup-breakdown-chunk">
+              <em>{t("costBreakdownChildren")}:</em>{" "}
+              {formatMetricValue(rollup.fromChildren, "RMB", "RMB").compact}
+            </span>
+          ) : null}
+          {rollup.directLowerThanChildren ? (
+            <span
+              className="cost-rollup-inversion-warning"
+              role="img"
+              aria-label={t("costInversionWarning")}
+              title={t("costInversionWarning")}
+            >
+              ⚠ {t("costInversionWarning")}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
       {targetFull ? (
         <p>
           <strong>{t("target")}:</strong> {targetFull}
