@@ -1,0 +1,52 @@
+{
+  "graphVersion": "test-1.0.0",
+  "nodes": [
+    {
+      "id": "high_risk_node",
+      "name": "Low-maturity expensive part",
+      "kind": "module",
+      "domain": ["test"],
+      "maturityScore": 20,
+      "maturityLabel": "hypothesis",
+      "maturityAsOf": "2025"
+    },
+    {
+      "id": "high_risk_cost",
+      "name": "Cost",
+      "kind": "metric",
+      "domain": ["test"],
+      "metrics": [
+        { "name": "Cost", "unit": "RMB", "currentValue": { "min": 80000, "typical": 90000, "max": 100000 }, "costAsOf": "2025", "currency": "RMB" }
+      ]
+    },
+    {
+      "id": "low_risk_node",
+      "name": "High-maturity cheap part",
+      "kind": "module",
+      "domain": ["test"],
+      "maturityScore": 90,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2025"
+    },
+    {
+      "id": "low_risk_cost",
+      "name": "Cost",
+      "kind": "metric",
+      "domain": ["test"],
+      "metrics": [
+        { "name": "Cost", "unit": "RMB", "currentValue": { "min": 1000, "typical": 2000, "max": 4000 }, "costAsOf": "2025", "currency": "RMB" }
+      ]
+    },
+    {
+      "id": "no_data_node",
+      "name": "Node with no maturity or cost",
+      "kind": "module",
+      "domain": ["test"]
+    }
+  ],
+  "edges": [
+    { "id": "e1", "source": "high_risk_node", "target": "high_risk_cost", "relation": "measured_by" },
+    { "id": "e2", "source": "low_risk_node", "target": "low_risk_cost", "relation": "measured_by" }
+  ],
+  "evidence": []
+}
