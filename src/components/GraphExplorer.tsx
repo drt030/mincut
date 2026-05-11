@@ -815,8 +815,17 @@ export function GraphExplorer({ graph }: Props) {
           onSelect: (id: string) => {
             // Slice 4: clicking a card both selects and focuses (single
             // click is the "drill in" gesture; ESC returns to overview).
+            // Per v3 iter-22: also auto-expand the clicked node so the
+            // user immediately sees its requires-children rather than
+            // having to double-click to expand them.
             setSelectedId(id);
             setStage("focused");
+            setExpandedIds((current) => {
+              if (current.has(id)) return current;
+              const next = new Set(current);
+              next.add(id);
+              return next;
+            });
           },
           onToggle: toggleSelectedExpansion,
           onSelectMetric: setSelectedId,
@@ -1323,6 +1332,12 @@ export function GraphExplorer({ graph }: Props) {
             onNodeClick={(_, node) => {
               setSelectedId(node.id);
               setStage("focused");
+              setExpandedIds((current) => {
+                if (current.has(node.id)) return current;
+                const next = new Set(current);
+                next.add(node.id);
+                return next;
+              });
             }}
             onNodeDoubleClick={(event, node) => {
               event.preventDefault();
