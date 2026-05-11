@@ -880,18 +880,57 @@ export function GraphExplorer({ graph }: Props) {
   // Iter-5's "centre once on first load" effect is subsumed by the
   // overview default; the initialCenterDoneRef now just guards against
   // fighting the user's manual pan/zoom afterwards.
+  // Per UX Flow 1.2 + v3 iter-1: split into two effects:
+  // (1) initial-fit poller, runs once flowInstanceReady becomes true
+  //     and polls until at least one node is measured. Does NOT depend
+  //     on flowNodes (which is a new array ref on every render) — that
+  //     was canceling all the deferred timeouts before they fired.
+  // (2) stage / selection transitions, run only when those change.
   useEffect(() => {
     if (!flowInstanceReady) return;
+    if (initialCenterDoneRef.current) return;
+    // Programmatic instance.fitView() never moved the viewport on this
+    // graph even with retries — likely because React Flow v12's
+    // ResizeObserver hadn't populated `measured` on nodes by the time
+    // we polled, and the helper silently bails out without measurements.
+    // The built-in Controls fit-view button DOES work (it computes
+    // bounds from positions, not measurements). Simulate a click on
+    // it after mount as a reliable workaround.
+    let cancelled = false;
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    const tryClickFitButton = () => {
+      if (cancelled || initialCenterDoneRef.current) return;
+      const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
+      if (!btn) return;
+      const before = flowInstanceRef.current?.getViewport();
+      btn.click();
+      requestAnimationFrame(() => {
+        if (cancelled) return;
+        const after = flowInstanceRef.current?.getViewport();
+        if (!before || !after) return;
+        if (after.x !== before.x || after.y !== before.y || after.zoom !== before.zoom) {
+          initialCenterDoneRef.current = true;
+        }
+      });
+    };
+    [80, 200, 500, 1000].forEach((delay) => {
+      timeouts.push(setTimeout(tryClickFitButton, delay));
+    });
+    return () => {
+      cancelled = true;
+      timeouts.forEach((t) => clearTimeout(t));
+    };
+  }, [flowInstanceReady]);
+
+  useEffect(() => {
+    if (!flowInstanceReady) return;
+    if (!initialCenterDoneRef.current) return;
     const instance = flowInstanceRef.current;
     if (!instance) return;
     if (stage === "overview") {
-      // The minZoom option caps how far we can shrink — let it bottom
-      // out at 0.18 so the natural 3634×1264 bbox still packs.
       instance.fitView({ padding: 0.12, minZoom: 0.18, maxZoom: 0.9, duration: 350 });
-      initialCenterDoneRef.current = true;
       return;
     }
-    // focused
     const fnode = instance.getNode(selectedId);
     if (!fnode) return;
     const h = (fnode.measured?.height ?? fnode.height ?? DEFAULT_NODE_HEIGHT) as number;
@@ -899,8 +938,7 @@ export function GraphExplorer({ graph }: Props) {
       zoom: 0.8,
       duration: 350,
     });
-    initialCenterDoneRef.current = true;
-  }, [flowInstanceReady, stage, selectedId, flowNodes]);
+  }, [flowInstanceReady, stage, selectedId]);
 
   // Slice 4: keyboard navigation. ESC returns to overview from focused.
   // Per UX Flow 1.7 (2026-05-10): ESC also resets selectedId to the
