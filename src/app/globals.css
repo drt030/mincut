@@ -380,6 +380,30 @@ li {
 }
 
 /*
+ * Per UX Flow v3 iter-8 (user feedback "传送感"): in focused stage,
+ * nodes outside the current focus's context (the focus's requires
+ * subtree + capability) are mini-rendered at reduced scale + opacity.
+ * Preserves the spatial mental model when the user drills in — the
+ * previous context is still THERE, just shrunk so the new focus
+ * dominates. Click the mini node to re-focus on it.
+ */
+.graph-node-card.out-of-context {
+  opacity: 0.25;
+  filter: saturate(0.45);
+  transform: scale(0.55);
+  transform-origin: center;
+  transition:
+    opacity 320ms ease,
+    filter 320ms ease,
+    transform 320ms ease;
+}
+
+.graph-node-card.out-of-context:hover {
+  opacity: 0.7;
+  transform: scale(0.85);
+}
+
+/*
  * Slice 4 (2026-05-10 graph redesign): semantic zoom. In "overview"
  * stage all cards collapse to title + maturity pill only; the metrics
  * strip, frontier glyph, and meta pills (kind, asof) hide. Lets the

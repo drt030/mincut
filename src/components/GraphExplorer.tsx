@@ -125,6 +125,13 @@ type CapabilityNodeData = {
   /** Slice 4: e.g. "compact" when stage="overview"; undefined in focused mode. */
   semanticClass?: string;
   /**
+   * Per UX Flow v3 iter-8: true when this node is OUTSIDE the
+   * current focus's context (requires subtree + capability). CSS
+   * miniaturizes these so the previous-focus's spatial context stays
+   * visible when the user drills in — avoids the "teleport" feel.
+   */
+  outOfContext?: boolean;
+  /**
    * Slice 4 polish: a CSS color encoding the same property the user
    * picked in ColorModeSelect, but applied to a heat-block on the card
    * itself. Used to make compact mode legible at fit-to-screen — the
@@ -160,6 +167,7 @@ const nodeTypes = {
           data.isBottleneck ? "is-bottleneck" : "",
           data.isAlternativeSibling && !data.selected ? "alt-sibling" : "",
           data.semanticClass ?? "",
+          data.outOfContext ? "out-of-context" : "",
         ]
           .filter(Boolean)
           .join(" ")}
@@ -708,22 +716,35 @@ export function GraphExplorer({ graph }: Props) {
   // right panel (sibling product list + the metrics chip strip on the
   // focus card). Keep only the capability(ies) the focus enables —
   // that's the umbrella, semantically useful in both stages.
+  // Per UX Flow v3 iter-8 (user feedback "缺少连贯性，传送感"):
+  //   - overview stage: requires-subtree only (clean heat scan)
+  //   - focused stage: render ALL filteredNodes, but mark
+  //     non-context nodes with `outOfContext` so CSS can mini-render
+  //     them at 30% opacity + 45% scale. Preserves spatial continuity
+  //     when the user drills in — the previous focus's siblings don't
+  //     vanish, they just shrink.
+  //   - bottleneck mode: full filteredNodes (bottleneck nodes are
+  //     outside requires-subtree).
+  const focusContextIds = useMemo(() => {
+    const ids = new Set<string>([selectedId]);
+    for (const id of requiresTreeIds) ids.add(id);
+    for (const id of capabilityCluster.capabilityIds) ids.add(id);
+    return ids;
+  }, [selectedId, requiresTreeIds, capabilityCluster.capabilityIds]);
+
   const visibleNodes = useMemo(() => {
-    // Per UX Flow v3 iter-6: when the user clicks "Show bottlenecks"
-    // we switch to mode="bottleneck" and expect bottleneck nodes to
-    // appear on canvas. The visibleNodes filter must NOT clip them
-    // out — bottleneck nodes are reached via `bottlenecked_by` edges,
-    // not `requires`, so they sit outside the requires-subtree set.
-    // Fall back to the original (filteredNodes ∪ capability) when
-    // in bottleneck mode.
     if (mode === "bottleneck") return filteredNodes;
-    const requiresAndCapability = filteredNodes.filter(
-      (n) => requiresTreeIds.has(n.id) || capabilityCluster.capabilityIds.has(n.id),
-    );
-    return stage === "overview"
-      ? filteredNodes.filter((n) => requiresTreeIds.has(n.id))
-      : requiresAndCapability;
-  }, [stage, mode, filteredNodes, requiresTreeIds, capabilityCluster.capabilityIds]);
+    if (stage === "overview") {
+      return filteredNodes.filter((n) => requiresTreeIds.has(n.id));
+    }
+    // focused: include everything but reorder so context comes first
+    // (helps z-index since later-rendered sit above earlier).
+    return [...filteredNodes].sort((a, b) => {
+      const aIn = focusContextIds.has(a.id) ? 1 : 0;
+      const bIn = focusContextIds.has(b.id) ? 1 : 0;
+      return aIn - bIn;
+    });
+  }, [stage, mode, filteredNodes, requiresTreeIds, focusContextIds]);
 
   const flowNodes: FlowNode[] = useMemo(
     () =>
@@ -796,6 +817,7 @@ export function GraphExplorer({ graph }: Props) {
           onToggle: toggleSelectedExpansion,
           onSelectMetric: setSelectedId,
           semanticClass: stage === "overview" ? "compact" : undefined,
+          outOfContext: stage === "focused" && !focusContextIds.has(node.id),
           heatColor:
             colorMode === "relation"
               ? undefined
@@ -929,47 +951,51 @@ export function GraphExplorer({ graph }: Props) {
     // it after mount as a reliable workaround.
     let cancelled = false;
     const timeouts: ReturnType<typeof setTimeout>[] = [];
-    const tryClickFitButton = () => {
+    const tryFit = () => {
       if (cancelled || initialCenterDoneRef.current) return;
+      const inst = flowInstanceRef.current;
+      if (!inst) return;
+      const before = inst.getViewport();
+      // Per UX Flow v3 iter-8: continuity over hard zoom-in. Both
+      // stages use the same fit-bounds framing so the user always
+      // sees the whole reachable graph; focus is emphasized via the
+      // .selected card style + .out-of-context dimming on everything
+      // else. The previous focused=setCenter@zoom-0.8 created a
+      // "teleport" feel that broke spatial continuity.
       const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
       if (!btn) return;
-      const before = flowInstanceRef.current?.getViewport();
       btn.click();
       requestAnimationFrame(() => {
         if (cancelled) return;
-        const after = flowInstanceRef.current?.getViewport();
-        if (!before || !after) return;
+        const after = inst.getViewport();
         if (after.x !== before.x || after.y !== before.y || after.zoom !== before.zoom) {
           initialCenterDoneRef.current = true;
         }
       });
     };
     [80, 200, 500, 1000].forEach((delay) => {
-      timeouts.push(setTimeout(tryClickFitButton, delay));
+      timeouts.push(setTimeout(tryFit, delay));
     });
     return () => {
       cancelled = true;
       timeouts.forEach((t) => clearTimeout(t));
     };
-  }, [flowInstanceReady]);
+  }, [flowInstanceReady, stage, selectedId]);
 
   useEffect(() => {
     if (!flowInstanceReady) return;
     if (!initialCenterDoneRef.current) return;
     const instance = flowInstanceRef.current;
     if (!instance) return;
-    if (stage === "overview") {
-      instance.fitView({ padding: 0.12, minZoom: 0.18, maxZoom: 0.9, duration: 350 });
-      return;
-    }
-    const fnode = instance.getNode(selectedId);
-    if (!fnode) return;
-    const h = (fnode.measured?.height ?? fnode.height ?? DEFAULT_NODE_HEIGHT) as number;
-    instance.setCenter(fnode.position.x + NODE_WIDTH / 2, fnode.position.y + h / 2, {
-      zoom: 0.8,
-      duration: 350,
-    });
-  }, [flowInstanceReady, stage, selectedId]);
+    // Per UX Flow v3 iter-8: both stages share the same wide-fit
+    // framing for continuity. Out-of-context CSS handles focus
+    // emphasis; we don't yank the viewport between drill levels.
+    // Use the controls button (works reliably) instead of the
+    // programmatic-call variant (silent no-op before measurements).
+    void instance;
+    const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
+    btn?.click();
+  }, [flowInstanceReady, stage, selectedId, visibleNodes]);
 
   // Per UX Flow v3 iter-3: persist colorMode + stage + selectedId in URL
   // so the view is bookmarkable / shareable. Uses replaceState (not
