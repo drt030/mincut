@@ -108,3 +108,11 @@ Spec `docs/superpowers/specs/2026-05-10-graph-redesign.md` shipped via 4 RED+GRE
 - chrome-devtools MCP died early in session; could not be revived. Visual UX tour not run — user does the 7-step tour from `docs/morning-handoff-2026-05-11.md` tomorrow.
 
 29 commits this session. Files map in the hand-off doc.
+
+## 2026-05-10 evening — iter-22 user-reported layout chaos fix
+- User report: "整个结构图很乱，节点之间甚至有重叠，边也非常乱". Cost OK confirmed.
+- Root cause: 3 layout systems competing for same x-lanes. explorationLayout (focus subtree) at x∈[-1820, 1260]; fallbackPositionFor placed alt-product siblings at x=356 (lane-1), orphan metrics at x=854 (lane-3), capability at x=12 (below focus). All on same canvas with conflicting y.
+- Fix HEAD 7874b43:
+  1. switched explorationLayout from vertical-stack (depth→x) to top-down tree (depth→y) at 4129eb8
+  2. extended explorationLayout to accept visibleIds; non-tree visibles placed in "context band" at y=-ROW_HEIGHT, sorted by kind (capability centre, products around, metrics outside)
+- Result: clean 3-row band — context above, focus mid, deps below. No more overlap. 28/28 tests pass. User-visible improvement confirmed via screenshot.
