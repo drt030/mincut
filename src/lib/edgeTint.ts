@@ -1,6 +1,7 @@
 import type { GraphData, Node } from "./schema";
 import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
 import { outgoingEdges } from "./graphTraversal";
+import { nodeRisk } from "./nodeRisk";
 
 /**
  * Per spec docs/superpowers/specs/2026-05-10-graph-redesign.md slice 2,
@@ -74,7 +75,7 @@ export function edgeTintFor(target: Node, mode: ColorMode, graph: GraphData): st
     case "overall":
       return tintFromMaturityScore(target);
     case "bottleneck":
-      return tintFromBottleneckRisk(target);
+      return tintFromBottleneckRisk(target, graph);
     default:
       return NEUTRAL_TINT;
   }
@@ -98,15 +99,14 @@ function tintFromMaturityScore(target: Node): string {
   return interpolateRamp(OVERALL_RAMP, t);
 }
 
-function tintFromBottleneckRisk(target: Node): string {
-  // Per spec §5, risk formula is (1 - maturity/100) × cost_share. cost_share
-  // requires a parent context (the rollup denominator), which isn't passed
-  // here — use the simpler "1 - maturity/100" floor for the per-node tint.
-  // The rich version lives in `nodeRisk(node, graph)` (slice 4 wires it).
+function tintFromBottleneckRisk(target: Node, graph: GraphData): string {
+  // Per spec §5, risk = (1 - maturity/100) × cost_share, computed in
+  // `nodeRisk(node, graph)`. Returns 0 when maturity data is missing
+  // — surface that as NEUTRAL_TINT (rather than the ramp's 0-endpoint
+  // green) so "unknown" reads as "no signal" not "safe".
   if (typeof target.maturityScore !== "number") return NEUTRAL_TINT;
-  const risk = 1 - target.maturityScore / 100;
-  const t = Math.min(1, Math.max(0, risk));
-  return interpolateRamp(BOTTLENECK_RAMP, t);
+  const risk = nodeRisk(target, graph);
+  return interpolateRamp(BOTTLENECK_RAMP, risk);
 }
 
 /**
