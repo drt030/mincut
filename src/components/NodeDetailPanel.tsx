@@ -201,7 +201,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         // collapsed so the panel surfaces cost / maturity / bottlenecks
         // first; user expands when curious.
         <details className="panel-section panel-section-collapsible">
-          <summary>
+          <summary aria-label={`${t("targetContext")} (${Object.keys(node.targetContext).length})`}>
             <strong>{t("targetContext")}</strong>{" "}
             <span className="muted">({Object.keys(node.targetContext).length})</span>
           </summary>
@@ -300,7 +300,7 @@ function MaturityHistoryTimeline({ node }: { node: Node }) {
   // entry count in the summary.
   return (
     <details className="maturity-history panel-section-collapsible">
-      <summary>
+      <summary aria-label={`${t("maturityHistoryHeader")} (${history.length})`}>
         <strong>{t("maturityHistoryHeader")}</strong>{" "}
         <span className="muted">({history.length})</span>
       </summary>
@@ -394,7 +394,7 @@ function MetricNodeList({
       ) : null}
       {empty.length > 0 ? (
         <details className="panel-section-collapsible">
-          <summary>
+          <summary aria-label={`${empty.length} ${t("metricsEmptyCount")}`}>
             <span className="muted">
               {empty.length} {t("metricsEmptyCount")}
             </span>
@@ -739,7 +739,7 @@ function NodeListBody({
         ))}
       </ul>
       <details className="panel-section-collapsible">
-        <summary>
+        <summary aria-label={`${tail.length} ${t("nodeListMoreSuffix")}`}>
           <span className="muted">
             {tail.length} {t("nodeListMoreSuffix")}
           </span>
@@ -817,6 +817,11 @@ function TopBlockers({
                 type="button"
                 onClick={() => onSelectNode(entry.id)}
                 title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
+                // a11y: bake the risk into the accessible name so SR
+                // users hear "<name>, risk 38 percent" rather than
+                // just the name. The visible % pill stays aria-hidden
+                // to avoid double announcement.
+                aria-label={`${nodeName(entry.id, entry.child.name)} — risk ${Math.round(entry.risk * 100)}%`}
               >
                 {nodeName(entry.id, entry.child.name)}
               </button>

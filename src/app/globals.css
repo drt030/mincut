@@ -388,8 +388,12 @@ li {
  * dominates. Click the mini node to re-focus on it.
  */
 .graph-node-card.out-of-context {
-  opacity: 0.25;
-  filter: saturate(0.45);
+  /* Per a11y audit 2026-05-11: 0.25 opacity over a dark canvas
+     gave card text a ~1.5:1 contrast ratio — well below WCAG AA's
+     4.5:1. Raised to 0.45 so out-of-context cards still read as
+     "secondary" without becoming unreadable. */
+  opacity: 0.45;
+  filter: saturate(0.55);
   transform: scale(0.55);
   transform-origin: center;
   transition:
@@ -398,9 +402,11 @@ li {
     transform 320ms ease;
 }
 
-.graph-node-card.out-of-context:hover {
-  opacity: 0.7;
-  transform: scale(0.85);
+.graph-node-card.out-of-context:hover,
+.graph-node-card.out-of-context:focus-within {
+  opacity: 0.95;
+  filter: none;
+  transform: scale(0.9);
 }
 
 /*

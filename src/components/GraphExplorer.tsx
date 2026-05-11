@@ -178,6 +178,10 @@ const nodeTypes = {
         role="button"
         tabIndex={0}
         aria-label={ariaLabel}
+        // a11y: compact-mode cards hide title visually at fit-view
+        // zoom; the title attribute gives screen-reader + mouse-hover
+        // users the full label without needing to expand.
+        title={ariaLabel}
         aria-pressed={data.selected}
         onClick={(event) => {
           event.stopPropagation();
