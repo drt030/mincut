@@ -135,3 +135,30 @@ Spec `docs/superpowers/specs/2026-05-10-graph-redesign.md` shipped via 4 RED+GRE
 - HMR is extremely slow tonight (30-60s sometimes); some iter-6 bottleneck-mode behaviour can't be re-verified until HMR catches up
 - Detail panel still has long un-collapsible sections (metrics with "No value recorded yet" should hide by default)
 - "Show metrics as nodes" toggle and ColorMode aren't both persisted yet
+
+## 2026-05-11 v3 iter-9 through iter-27 (overnight optimization continued)
+- iter-9 001a491: empty metrics collapse "+N unset"
+- iter-10 c88c4c2: long node lists collapse "+M more"
+- iter-11 8a0de58: "🎯 Top blockers" callout — top 3 risk-ranked children
+- iter-12,13 f5a76aa,7b649fb: fitView timing fixes (timer + onNodesChange)
+- iter-14 c452d85: detail panel scroll-to-top on selection change
+- iter-15 f30b81a: a11y batch — opacity 0.45 (WCAG), aria-labels on 4 details, top-blockers risk in aria, compact-card title attribute
+- iter-16 772e95e: Flow 4-8 playbook definitions
+- iter-17 113a087: selected card 3-tier amplification (focused stage)
+- iter-18 bcd4a94: Flow 4 run report (color-mode consistency, avg 4.67/5)
+- iter-19 3f09920: Top blockers show maturity label inline
+- iter-20 0efd3ae: cost coverage > 50% warning callout
+- iter-21 81281ab: morning hand-off draft
+- iter-22 104c728: click auto-expands (single-click select+focus+expand)
+- iter-23 2c275f6: Flow 5 report — caught assertion design flaw, re-spec'd
+- iter-24 b5e6d94: ColorMode legend strip (5-swatch ramp)
+- iter-25 (flow-6 report committed at iter-25-ish): keyboard nav audit, 0 missing labels / 4-of-4 details good
+- iter-26 b573e8c: ProductView coverage-warning parity
+- iter-27 d8ece5b: ProductView Top blockers parity (anchor-link to graph)
+
+### v3 session totals (since baseline 25bf0b4)
+- 28 substantive iters, 28 commits
+- 3 UX flow reports (Flow 1, 4, 5, 6 — 4 actually)
+- 28 unit tests still passing
+- a11y audit pass (subagent-driven, 4 issues found + fixed)
+- Open follow-ups: Maturity mode produces only 3 distinct edge colors due to limited data variance (flagged for data-coverage future work). No code regressions outstanding.
