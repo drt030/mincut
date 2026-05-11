@@ -368,6 +368,19 @@ li {
   filter: saturate(1.08);
 }
 
+/* Per v3 iter-17: amplify the selected card in focused stage so
+   it's unmistakably the centre of attention. Bigger ring + scale
+   nudge. In overview the selected card still gets the regular
+   subtle ring above. */
+.graph-node-card.selected:not(.compact) {
+  box-shadow:
+    0 0 0 4px rgba(15, 23, 42, 0.35),
+    0 24px 48px rgba(15, 23, 42, 0.3);
+  transform: scale(1.04);
+  transform-origin: center;
+  z-index: 1;
+}
+
 .graph-node-card.related:not(.selected) {
   border-color: #fde68a;
   box-shadow:
