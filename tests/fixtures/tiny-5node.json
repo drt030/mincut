@@ -1,0 +1,23 @@
+{
+  "graphVersion": "test-1.0.0",
+  "nodes": [
+    { "id": "A", "name": "Root product", "kind": "product", "domain": ["test"] },
+    { "id": "B", "name": "Child B", "kind": "module", "domain": ["test"] },
+    { "id": "C", "name": "Child C", "kind": "module", "domain": ["test"] },
+    { "id": "D", "name": "Child D", "kind": "module", "domain": ["test"] },
+    { "id": "E", "name": "Child E", "kind": "module", "domain": ["test"] },
+    { "id": "F", "name": "Child F", "kind": "module", "domain": ["test"] },
+    { "id": "B1", "name": "Grandchild B1", "kind": "module", "domain": ["test"] },
+    { "id": "B2", "name": "Grandchild B2", "kind": "module", "domain": ["test"] }
+  ],
+  "edges": [
+    { "id": "eAB", "source": "A", "target": "B", "relation": "requires" },
+    { "id": "eAC", "source": "A", "target": "C", "relation": "requires" },
+    { "id": "eAD", "source": "A", "target": "D", "relation": "requires" },
+    { "id": "eAE", "source": "A", "target": "E", "relation": "requires" },
+    { "id": "eAF", "source": "A", "target": "F", "relation": "requires" },
+    { "id": "eBB1", "source": "B", "target": "B1", "relation": "requires" },
+    { "id": "eBB2", "source": "B", "target": "B2", "relation": "requires" }
+  ],
+  "evidence": []
+}
