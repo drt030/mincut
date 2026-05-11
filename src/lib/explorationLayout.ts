@@ -52,6 +52,14 @@ export type ExplorationLayoutInput = {
 export const COL_WIDTH = 280;
 /** Per-row vertical stride. */
 export const ROW_HEIGHT = 240;
+/**
+ * When the focus's immediate-children count exceeds this threshold,
+ * wrap the children into multiple rows in a grid instead of one long
+ * row. Keeps the per-row width within ~CHILDREN_MAX_PER_ROW × COL_WIDTH
+ * so fit-view zoom doesn't crush card titles below readability.
+ * Per UX Flow follow-up 2026-05-10 v3 iter-2.
+ */
+export const CHILDREN_MAX_PER_ROW = 6;
 
 export function explorationLayout(input: ExplorationLayoutInput): Map<string, GraphPoint> {
   const { graph, focusId, expandedIds } = input;
@@ -105,9 +113,15 @@ export function explorationLayout(input: ExplorationLayoutInput): Map<string, Gr
   if (!focusNode) return positions;
   computeWidth(focusId, new Set());
 
-  // Pass 2: place each node. `slot` is the x-position in slot units;
-  // we shift it left by half the subtree width so the parent sits
-  // visually centred above its children.
+  // Pass 2: place each node. Two layout modes:
+  //   - default: subtree-width tree fan-out (parent centred above
+  //     children, children fan left-to-right with subtree-width spacing)
+  //   - grid mode (kicks in when a parent has > CHILDREN_MAX_PER_ROW
+  //     immediate children AND every child is a leaf — typical for the
+  //     parcel-sorting flagship's 12 modules): children wrap into a
+  //     grid of CHILDREN_MAX_PER_ROW per row, parent sits centred
+  //     above the grid. Halves the horizontal span on wide product
+  //     graphs so fit-view zoom doesn't crush card titles.
   function place(nodeId: string, depth: number, slot: number, ancestors: Set<string>): void {
     if (positions.has(nodeId)) return;
     if (ancestors.has(nodeId)) return;
@@ -115,12 +129,35 @@ export function explorationLayout(input: ExplorationLayoutInput): Map<string, Gr
     if (!expandedIds.has(nodeId)) return;
     const children = childrenByParent.get(nodeId) ?? [];
     if (children.length === 0) return;
-    const myWidth = widths.get(nodeId) ?? 1;
-    // Children fan out left-to-right; cursor tracks the *left edge*
-    // (in slot units) of the next child's subtree.
-    let cursor = slot - (myWidth - 1) / 2;
+
     const nextAncestors = new Set(ancestors);
     nextAncestors.add(nodeId);
+
+    const allLeaves = children.every((c) => (widths.get(c) ?? 1) === 1);
+    if (allLeaves && children.length > CHILDREN_MAX_PER_ROW) {
+      // Grid mode: wrap into rows of up to CHILDREN_MAX_PER_ROW.
+      const cols = Math.min(CHILDREN_MAX_PER_ROW, children.length);
+      const rows = Math.ceil(children.length / cols);
+      for (let i = 0; i < children.length; i++) {
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        // Each row's child count may be smaller on the last row.
+        const childrenInRow = Math.min(cols, children.length - row * cols);
+        const localOffset = col - (childrenInRow - 1) / 2;
+        const childSlot = slot + localOffset;
+        const childDepth = depth + 1 + row;
+        positions.set(children[i], {
+          x: childSlot * COL_WIDTH,
+          y: childDepth * ROW_HEIGHT,
+        });
+      }
+      void rows;
+      return;
+    }
+
+    // Default: subtree-width tree fan-out.
+    const myWidth = widths.get(nodeId) ?? 1;
+    let cursor = slot - (myWidth - 1) / 2;
     for (const child of children) {
       const w = widths.get(child) ?? 1;
       const childCenter = cursor + (w - 1) / 2;
