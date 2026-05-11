@@ -3,27 +3,29 @@ import type { GraphData } from "./schema";
 /**
  * Per spec docs/superpowers/specs/2026-05-10-graph-redesign.md slice 3,
  * `explorationLayout` is a deterministic pure function that places nodes
- * in (x, y) coordinates based on the user's *exploration state* (focus +
+ * in (x, y) coordinates from the user's *exploration state* (focus +
  * expansion set) rather than an opaque layout engine. Replacing ELK's
- * incremental-layout step with this function:
+ * incremental-layout step:
  *
- *   1. Eliminates the empty-Map early-return bug that's been showing
- *      cards in fallback positions all session.
- *   2. Makes "reflow on expand" trivial — the layout is recomputed on
- *      every state change because the function is pure and fast.
- *   3. Is testable as a unit (slice-3 RED → GREEN above).
+ *   1. Eliminates the empty-Map early-return bug that shipped fallback
+ *      positions all session.
+ *   2. Makes "reflow on expand" trivial — pure useMemo recomputation.
+ *   3. Is testable as a unit (tests/explorationLayout.test.ts).
  *
- * Algorithm: pre-order traversal of the `requires`-induced tree starting
- * at `focusId`. Each visited node gets x = depth × COL_WIDTH and
- * y = cursor × ROW_HEIGHT, where cursor advances one slot per visited
- * node. The traversal descends into a child IFF it is in `expandedIds`.
- * A child not in `expandedIds` is still positioned (so the user can see
- * "you have N un-expanded children"); only its descendants are skipped.
+ * Layout algorithm (top-down tree, post 2026-05-10 redesign):
+ *   - Focus at (0, 0)
+ *   - Each layer occupies one row at y = depth × ROW_HEIGHT
+ *   - Within a row, siblings spread horizontally centered on their
+ *     parent. The horizontal span of a subtree is proportional to its
+ *     leaf count, so subtrees don't crash into each other when the
+ *     tree is deep
+ *   - A collapsed (not-in-expandedIds) node contributes width 1 but
+ *     does not descend
  *
- * Why pre-order: it gives a natural "expanding B pushes B's siblings
- * down" behaviour without bespoke shifting logic — when B's children
- * occupy y slots immediately after B, every later sibling of B is
- * shifted down by exactly the size of B's subtree.
+ * The previous (pre-2026-05-10) variant stacked every child vertically
+ * at x = depth × COL_WIDTH, which crushed 12+ direct children into a
+ * single tall column and made the graph unreadable. The user reported
+ * the chaos; this rewrite addresses it.
  */
 
 export type GraphPoint = { x: number; y: number };
@@ -37,37 +39,86 @@ export type ExplorationLayoutInput = {
   stage: ExplorationStage;
 };
 
-export const COL_WIDTH = 320;
-export const ROW_HEIGHT = 200;
+/** Per-slot horizontal stride. One slot = one card slot (card width + gap). */
+export const COL_WIDTH = 280;
+/** Per-row vertical stride. */
+export const ROW_HEIGHT = 240;
 
 export function explorationLayout(input: ExplorationLayoutInput): Map<string, GraphPoint> {
   const { graph, focusId, expandedIds } = input;
   const positions = new Map<string, GraphPoint>();
-  const visited = new Set<string>();
-  // requires-induced child lookup (skipped non-substantive kinds match
-  // costRollup's filter — metric/evidence/bottleneck/placeholder_breakthrough
-  // are positioned via their own paths, not the main layered tree).
+
+  // `requires`-induced child lookup; non-substantive kinds (metric /
+  // evidence / bottleneck / placeholder_breakthrough) are skipped so the
+  // tree mirrors the cost-rollup walker's substantive-only descent.
   const childrenByParent = new Map<string, string[]>();
   for (const edge of graph.edges) {
     if (edge.relation !== "requires") continue;
+    const childNode = graph.nodes.find((n) => n.id === edge.target);
+    if (!childNode) continue;
+    if (
+      childNode.kind === "metric" ||
+      childNode.kind === "evidence" ||
+      childNode.kind === "bottleneck" ||
+      childNode.kind === "placeholder_breakthrough"
+    ) {
+      continue;
+    }
+    if (childNode.reviewStatus === "deprecated") continue;
     if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
     childrenByParent.get(edge.source)!.push(edge.target);
   }
 
-  let cursor = 0;
+  // Pass 1: subtree width per node (counted in slots, where one leaf = 1).
+  const widths = new Map<string, number>();
+  function computeWidth(nodeId: string, ancestors: Set<string>): number {
+    if (widths.has(nodeId)) return widths.get(nodeId)!;
+    if (ancestors.has(nodeId)) return 1;
+    if (!expandedIds.has(nodeId)) {
+      widths.set(nodeId, 1);
+      return 1;
+    }
+    const children = childrenByParent.get(nodeId) ?? [];
+    if (children.length === 0) {
+      widths.set(nodeId, 1);
+      return 1;
+    }
+    const next = new Set(ancestors);
+    next.add(nodeId);
+    let sum = 0;
+    for (const child of children) sum += computeWidth(child, next);
+    const result = Math.max(1, sum);
+    widths.set(nodeId, result);
+    return result;
+  }
+  // Guard: focus must exist in the graph or we return an empty map.
+  const focusNode = graph.nodes.find((n) => n.id === focusId);
+  if (!focusNode) return positions;
+  computeWidth(focusId, new Set());
 
-  function visit(nodeId: string, depth: number): void {
-    if (visited.has(nodeId)) return;
-    visited.add(nodeId);
-    positions.set(nodeId, { x: depth * COL_WIDTH, y: cursor * ROW_HEIGHT });
-    cursor += 1;
+  // Pass 2: place each node. `slot` is the x-position in slot units;
+  // we shift it left by half the subtree width so the parent sits
+  // visually centred above its children.
+  function place(nodeId: string, depth: number, slot: number, ancestors: Set<string>): void {
+    if (positions.has(nodeId)) return;
+    if (ancestors.has(nodeId)) return;
+    positions.set(nodeId, { x: slot * COL_WIDTH, y: depth * ROW_HEIGHT });
     if (!expandedIds.has(nodeId)) return;
     const children = childrenByParent.get(nodeId) ?? [];
-    for (const childId of children) {
-      visit(childId, depth + 1);
+    if (children.length === 0) return;
+    const myWidth = widths.get(nodeId) ?? 1;
+    // Children fan out left-to-right; cursor tracks the *left edge*
+    // (in slot units) of the next child's subtree.
+    let cursor = slot - (myWidth - 1) / 2;
+    const nextAncestors = new Set(ancestors);
+    nextAncestors.add(nodeId);
+    for (const child of children) {
+      const w = widths.get(child) ?? 1;
+      const childCenter = cursor + (w - 1) / 2;
+      place(child, depth + 1, childCenter, nextAncestors);
+      cursor += w;
     }
   }
-
-  visit(focusId, 0);
+  place(focusId, 0, 0, new Set());
   return positions;
 }

@@ -73,7 +73,10 @@ test("explorationLayout: focusId itself is positioned", () => {
   assert.ok(positions.has("A"), "focusId must be in positions map");
 });
 
-test("explorationLayout: deeper layer has greater x than parent layer", () => {
+test("explorationLayout: deeper layer has greater y (top-down tree)", () => {
+  // The 2026-05-10 redesign switched from left-to-right stacked layout
+  // (chaotic for 12+ children) to a top-down tree where depth → y and
+  // siblings spread horizontally. Verifies the new direction.
   const graph = loadFixture("tiny-5node.json");
   const positions = explorationLayout({
     graph,
@@ -81,11 +84,28 @@ test("explorationLayout: deeper layer has greater x than parent layer", () => {
     expandedIds: new Set(["A", "B"]),
     stage: "focused",
   });
-  const xA = positions.get("A")!.x;
-  const xB = positions.get("B")!.x;
-  const xB1 = positions.get("B1")!.x;
-  assert.ok(xB > xA, `B.x ${xB} should be > A.x ${xA}`);
-  assert.ok(xB1 > xB, `B1.x ${xB1} should be > B.x ${xB}`);
+  const yA = positions.get("A")!.y;
+  const yB = positions.get("B")!.y;
+  const yB1 = positions.get("B1")!.y;
+  assert.ok(yB > yA, `B.y ${yB} should be > A.y ${yA}`);
+  assert.ok(yB1 > yB, `B1.y ${yB1} should be > B.y ${yB}`);
+});
+
+test("explorationLayout: siblings of focus spread horizontally (different x)", () => {
+  const graph = loadFixture("tiny-5node.json");
+  const positions = explorationLayout({
+    graph,
+    focusId: "A",
+    expandedIds: new Set(["A"]),
+    stage: "focused",
+  });
+  const xs = ["B", "C", "D", "E", "F"]
+    .map((id) => positions.get(id)?.x)
+    .filter((v): v is number => typeof v === "number");
+  // All siblings should be on the same y (one layer below focus) but
+  // with distinct x positions so they don't overlap.
+  const uniqueXs = new Set(xs);
+  assert.equal(uniqueXs.size, xs.length, `siblings should have distinct x; got ${JSON.stringify(xs)}`);
 });
 
 test("explorationLayout: focusId not in graph returns empty map without throwing", () => {
