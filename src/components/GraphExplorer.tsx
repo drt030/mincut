@@ -678,13 +678,21 @@ export function GraphExplorer({ graph }: Props) {
     return ids;
   }, [graph, selectedId]);
 
-  const visibleNodes = useMemo(
-    () =>
-      stage === "overview"
-        ? filteredNodes.filter((n) => requiresTreeIds.has(n.id))
-        : filteredNodes,
-    [stage, filteredNodes, requiresTreeIds],
-  );
+  // Per user feedback 2026-05-10: the context band above the focus
+  // (alt-sibling products, orphan metrics, capability) was reading as
+  // visual noise — "上面一排节点都是干什么的？感觉意义很不明". The
+  // alt-products and orphan metrics duplicate what's already in the
+  // right panel (sibling product list + the metrics chip strip on the
+  // focus card). Keep only the capability(ies) the focus enables —
+  // that's the umbrella, semantically useful in both stages.
+  const visibleNodes = useMemo(() => {
+    const requiresAndCapability = filteredNodes.filter(
+      (n) => requiresTreeIds.has(n.id) || capabilityCluster.capabilityIds.has(n.id),
+    );
+    return stage === "overview"
+      ? filteredNodes.filter((n) => requiresTreeIds.has(n.id))
+      : requiresAndCapability;
+  }, [stage, filteredNodes, requiresTreeIds, capabilityCluster.capabilityIds]);
 
   const flowNodes: FlowNode[] = useMemo(
     () =>
