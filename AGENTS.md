@@ -87,6 +87,7 @@ The first goal is to make one product domain work end to end before expanding. D
 - `docs/plans/parcel-sorting-robot-v0.md`: current product-domain plan and validation focus.
 - `docs/agent-memory.md`: tracked handoff memory for unfinished work.
 - `docs/agent-learn.md`: durable learn log for repeated feedback and prevention items.
+- `docs/ux-flow-tours.md`: three end-to-end UX flow playbooks. After a **significant user-visible change** (layout / state machine / new affordance / user-facing bugfix), the agent walks one or more flows via `chrome-devtools` MCP, scores 0–5 per step on clarity / responsiveness / fit-for-purpose, and commits the scored report under `docs/ux-flow-reports/`. See the "when to run" table in that doc — refactor / test-only / docs-only commits don't trigger a run. Cap: at most one full run per ~3 significant commits, to stay token-cheap.
 
 ## Handoff Checklist
 
@@ -94,6 +95,8 @@ The first goal is to make one product domain work end to end before expanding. D
 - Run `npm run validate:data` if graph data changed.
 - Run `npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run` if gate logic or parcel data changed.
 - Run `npm run check:graph-ux` if graph UI, layout, hover, click, expansion, or visual behavior changed.
+- Run `npm run verify` (lint + check:graph-ux + node --test) for any code change. Replaces ad-hoc check sequencing for slice work.
+- Walk a UX flow tour (`docs/ux-flow-tours.md`) after a significant user-visible change. Pick the flow most directly affected by the diff; commit the scored report under `docs/ux-flow-reports/`. Skip if the commit is refactor / test-only / docs-only.
 - Run `npm run verify:ui` for meaningful UI or app-router changes.
 - Run `npm run lint` if TypeScript or React code changed.
 - Run `npm run build` for UI or app-router changes.
