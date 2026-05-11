@@ -633,8 +633,14 @@ export function GraphExplorer({ graph }: Props) {
         focusId: selectedId,
         expandedIds,
         stage: "focused",
+        // Per iter-22 fix: hand the visible-node set to the layout so
+        // alt-sibling products, capability cluster, and orphan metrics
+        // get positioned in the context band above the focus instead
+        // of falling through to fallbackPositionFor (which uses kind-
+        // based lanes at x=0/344/etc and visually crashes the canvas).
+        visibleIds: new Set(filteredNodes.map((n) => n.id)),
       }),
-    [graph, selectedId, expandedIds],
+    [graph, selectedId, expandedIds, filteredNodes],
   );
 
   const flowNodes: FlowNode[] = useMemo(

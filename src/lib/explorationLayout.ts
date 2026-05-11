@@ -37,6 +37,15 @@ export type ExplorationLayoutInput = {
   focusId: string;
   expandedIds: ReadonlySet<string>;
   stage: ExplorationStage;
+  /**
+   * Optional set of node ids that should be visible on the canvas.
+   * Used to position non-tree visible nodes (alt-sibling products,
+   * capability cluster, frontier-ranked metrics, etc.) so they don't
+   * fall back to `fallbackPositionFor` which uses kind-based lanes
+   * that overlap the focus tree's x range. When omitted, only the
+   * focus's `requires` subtree is positioned.
+   */
+  visibleIds?: ReadonlySet<string>;
 };
 
 /** Per-slot horizontal stride. One slot = one card slot (card width + gap). */
@@ -120,5 +129,47 @@ export function explorationLayout(input: ExplorationLayoutInput): Map<string, Gr
     }
   }
   place(focusId, 0, 0, new Set());
+
+  // Pass 3: place visible non-tree nodes in a "context band" above the
+  // focus. Catches alt-sibling products, the capability cluster, and
+  // orphan metrics that aren't in the focus's requires subtree but are
+  // still rendered (e.g. `showMetricsAsNodes` on, or a metric with two
+  // visible parents). Without this they'd fall through to
+  // fallbackPositionFor which places products at x=0 (same column as
+  // focus) → overlap chaos.
+  if (input.visibleIds) {
+    const nonTree: string[] = [];
+    for (const id of input.visibleIds) {
+      if (positions.has(id)) continue;
+      // Verify node exists; skip silently if not.
+      if (!graph.nodes.find((n) => n.id === id)) continue;
+      nonTree.push(id);
+    }
+    // Sort by kind so capability sits in the centre, products around it,
+    // metrics on the outside. Deterministic but readable layout.
+    const kindOrder: Record<string, number> = {
+      capability: 0,
+      product: 1,
+      module: 2,
+      metric: 3,
+      placeholder_breakthrough: 4,
+      bottleneck: 5,
+    };
+    nonTree.sort((a, b) => {
+      const na = graph.nodes.find((n) => n.id === a);
+      const nb = graph.nodes.find((n) => n.id === b);
+      const ka = kindOrder[na?.kind ?? ""] ?? 9;
+      const kb = kindOrder[nb?.kind ?? ""] ?? 9;
+      return ka - kb || a.localeCompare(b);
+    });
+    const halfCount = (nonTree.length - 1) / 2;
+    nonTree.forEach((id, i) => {
+      positions.set(id, {
+        x: (i - halfCount) * COL_WIDTH,
+        y: -ROW_HEIGHT,
+      });
+    });
+  }
+
   return positions;
 }
