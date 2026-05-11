@@ -4,21 +4,21 @@ Three end-to-end user flows the agent walks through using `chrome-devtools` MCP 
 
 ## When to run
 
-Run flows after a commit that materially affects user-visible behavior:
+Tours are **expensive** (one full run is ~10–15 minutes and burns serious token budget on screenshots + DOM inspection + agent self-scoring). They are **not** a per-commit ritual.
 
-| Change type | Run? |
-| --- | --- |
-| Layout algorithm change | yes |
-| State machine (stage / colorMode / expansion) | yes |
-| Visible CSS / animation | yes |
-| New UI affordance (button, dropdown) | yes |
-| Bug fix to user-facing behavior | yes |
-| ADR amendment that surfaces in UI | yes |
-| Pure refactor / type / variable rename | no |
-| Test-only / docs-only commit | no |
-| Backend / data validation tweak with no UI surface | no |
+**Run only when one of these is true**:
 
-To keep token cost reasonable: at most one full run per ~3 significant commits. If three significant commits are tightly coupled (one feature shipped in three pieces), run once after the third.
+1. **The user asks for one.** Direct request always wins.
+2. **It's been a long stretch without a run** AND multiple user-visible commits have landed in between. Default threshold: at least 8–10 substantive UI commits since the last tour report under `docs/ux-flow-reports/`. Use git log: `git log --oneline <last-tour-HEAD>..HEAD -- src/ public/ | grep -vE "^(test|docs|chore|refactor)"`.
+3. **You're suspicious a recent change broke a flow path.** E.g., you touched the stage state machine, the position pipeline, or the rendering gate for the detail panel — go verify the affected flow before claiming "done".
+
+**Do NOT run** if:
+
+- The commit is refactor / test-only / docs-only.
+- You already ran a tour within the last few commits and nothing material has changed in the relevant flow.
+- The agent is mid-iteration and there's no reason to think anything visible regressed.
+
+Verification commands (`npm run lint`, `npm run check:graph-ux`, `npm test`, `npm run verify`) are cheap — run them aggressively. UX flow tours are expensive — run them sparingly.
 
 ## Score axes (0–5 per step)
 

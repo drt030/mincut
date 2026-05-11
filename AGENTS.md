@@ -87,7 +87,7 @@ The first goal is to make one product domain work end to end before expanding. D
 - `docs/plans/parcel-sorting-robot-v0.md`: current product-domain plan and validation focus.
 - `docs/agent-memory.md`: tracked handoff memory for unfinished work.
 - `docs/agent-learn.md`: durable learn log for repeated feedback and prevention items.
-- `docs/ux-flow-tours.md`: three end-to-end UX flow playbooks. After a **significant user-visible change** (layout / state machine / new affordance / user-facing bugfix), the agent walks one or more flows via `chrome-devtools` MCP, scores 0–5 per step on clarity / responsiveness / fit-for-purpose, and commits the scored report under `docs/ux-flow-reports/`. See the "when to run" table in that doc — refactor / test-only / docs-only commits don't trigger a run. Cap: at most one full run per ~3 significant commits, to stay token-cheap.
+- `docs/ux-flow-tours.md`: three end-to-end UX flow playbooks. The agent runs **only when necessary**: user requested, OR ~8–10 substantive UI commits have landed since the last report under `docs/ux-flow-reports/`, OR the agent has a specific reason to suspect a flow regressed. **Not per-commit.** Tours are expensive (~10–15 min and serious token budget); the cheap verification (`npm run verify`) is the per-commit gate. See "when to run" inside the doc for the full rule.
 
 ## Handoff Checklist
 
@@ -96,7 +96,7 @@ The first goal is to make one product domain work end to end before expanding. D
 - Run `npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run` if gate logic or parcel data changed.
 - Run `npm run check:graph-ux` if graph UI, layout, hover, click, expansion, or visual behavior changed.
 - Run `npm run verify` (lint + check:graph-ux + node --test) for any code change. Replaces ad-hoc check sequencing for slice work.
-- Walk a UX flow tour (`docs/ux-flow-tours.md`) after a significant user-visible change. Pick the flow most directly affected by the diff; commit the scored report under `docs/ux-flow-reports/`. Skip if the commit is refactor / test-only / docs-only.
+- Walk a UX flow tour (`docs/ux-flow-tours.md`) **only when necessary** (user-requested, long stretch since last run, or you suspect a regression in a specific flow). Skip per-commit; the cheap `npm run verify` is the per-commit gate.
 - Run `npm run verify:ui` for meaningful UI or app-router changes.
 - Run `npm run lint` if TypeScript or React code changed.
 - Run `npm run build` for UI or app-router changes.
