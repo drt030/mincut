@@ -1021,10 +1021,35 @@ export function GraphExplorer({ graph }: Props) {
     () => graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length,
     [graph, selectedNode?.id],
   );
-  const selectedBottleneckCount = useMemo(
-    () => graph.edges.filter((edge) => edge.source === selectedNode?.id && edge.relation === "bottlenecked_by").length,
-    [graph.edges, selectedNode?.id],
-  );
+  // Per UX Flow v3 iter-5: the previous count was *direct*
+  // bottlenecked_by edges out of the selected node only. For a
+  // product-level focus that's almost always 0 because bottlenecks
+  // live on subsystem modules, not on the product itself. Count
+  // unique bottleneck targets reachable through the requires
+  // subtree so a learner reading "Show bottlenecks (4)" sees the
+  // real number of bottlenecks gating their product.
+  const selectedBottleneckCount = useMemo(() => {
+    if (!selectedNode) return 0;
+    const reachable = new Set<string>([selectedNode.id]);
+    const queue: string[] = [selectedNode.id];
+    while (queue.length) {
+      const cur = queue.shift();
+      if (!cur) continue;
+      for (const edge of graph.edges) {
+        if (edge.source !== cur || edge.relation !== "requires") continue;
+        if (reachable.has(edge.target)) continue;
+        reachable.add(edge.target);
+        queue.push(edge.target);
+      }
+    }
+    const bottleneckTargets = new Set<string>();
+    for (const edge of graph.edges) {
+      if (edge.relation !== "bottlenecked_by") continue;
+      if (!reachable.has(edge.source)) continue;
+      bottleneckTargets.add(edge.target);
+    }
+    return bottleneckTargets.size;
+  }, [graph.edges, selectedNode]);
   const selectedExpanded = mode === "bottleneck" ? expandedBottleneckIds.has(selectedNode.id) : expandedIds.has(selectedNode.id);
 
   return (
