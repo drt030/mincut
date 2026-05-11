@@ -1188,6 +1188,34 @@ li {
   box-shadow: none;
 }
 
+.color-mode-select-wrapper {
+  align-items: center;
+  display: inline-flex;
+  font-size: 12px;
+  gap: 6px;
+  margin-left: 6px;
+}
+
+.color-mode-select-label {
+  color: #475569;
+  font-weight: 600;
+}
+
+.color-mode-select {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #0f172a;
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.color-mode-select:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
 .cost-rollup-breakdown {
   align-items: center;
   display: flex;

@@ -20,6 +20,7 @@ import { useLanguage } from "./LanguageProvider";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import { formatMetricValue } from "@/lib/metricValueFormat";
 import { isDecompositionFrontier } from "@/lib/graphTraversal";
+import { edgeTintFor, type ColorMode } from "@/lib/edgeTint";
 import type { Edge, EdgeRelation, GraphData, MetricCurrency, MetricValue, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -389,6 +390,10 @@ export function GraphExplorer({ graph }: Props) {
   // while leaving the toolbar count pill alone — count is a separate
   // signal from per-card decoration.
   const [showFrontiers, setShowFrontiers] = useState(true);
+  // Slice 2 (2026-05-10 graph redesign): edge color mode. Default
+  // `bottleneck-risk` because that's the user's primary "一眼看到瓶颈
+  // 线" ask. `relation` keeps the legacy CSS class behaviour.
+  const [colorMode, setColorMode] = useState<ColorMode>("bottleneck");
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
   const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
@@ -665,9 +670,23 @@ export function GraphExplorer({ graph }: Props) {
     [bottleneckedByCounts, capabilityCluster, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph.edges, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, t, toggleSelectedExpansion],
   );
 
+  const nodeById = useMemo(() => {
+    const map = new Map<string, Node>();
+    for (const node of graph.nodes) map.set(node.id, node);
+    return map;
+  }, [graph.nodes]);
+
   const flowEdges: FlowEdge[] = useMemo(
     () =>
-      layoutEdges.map((edge) => ({
+      layoutEdges.map((edge) => {
+        const targetNode = nodeById.get(edge.target);
+        // Slice 2: when colorMode !== "relation" we paint the edge by an
+        // attribute of the *target* node. relation mode falls back to
+        // the existing class-based CSS stroke.
+        const tint = colorMode === "relation" || !targetNode
+          ? undefined
+          : edgeTintFor(targetNode, colorMode, graph);
+        return {
           id: edge.id,
           source: edge.source,
           target: edge.target,
@@ -684,9 +703,11 @@ export function GraphExplorer({ graph }: Props) {
             .join(" "),
           style: {
             strokeWidth: edge.source === selectedId || edge.target === selectedId ? 2.6 : 1.4,
+            ...(tint ? { stroke: tint } : {}),
           },
-        })),
-    [layoutEdges, relation, relationName, selectedId, selectedNeighbors],
+        };
+      }),
+    [layoutEdges, relation, relationName, selectedId, selectedNeighbors, colorMode, graph, nodeById],
   );
 
   const foldCountById = useMemo(() => {
@@ -847,6 +868,21 @@ export function GraphExplorer({ graph }: Props) {
             <span className="frontier-count-icon" aria-hidden="true">🔭</span>
             {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
           </span>
+          <label className="color-mode-select-wrapper" title={t("colorModeHint")}>
+            <span className="color-mode-select-label">{t("colorModeLabel")}</span>
+            <select
+              className="color-mode-select"
+              value={colorMode}
+              onChange={(event) => setColorMode(event.target.value as ColorMode)}
+              aria-label={t("colorModeLabel")}
+            >
+              <option value="bottleneck">{t("colorModeBottleneck")}</option>
+              <option value="cost">{t("colorModeCost")}</option>
+              <option value="maturity">{t("colorModeMaturity")}</option>
+              <option value="overall">{t("colorModeOverall")}</option>
+              <option value="relation">{t("colorModeRelation")}</option>
+            </select>
+          </label>
           <button
             className="small-button secondary-button"
             type="button"
