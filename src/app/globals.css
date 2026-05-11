@@ -1251,6 +1251,46 @@ li {
   outline-offset: 2px;
 }
 
+/*
+ * Per UX Flow v3 iter-7: progressive disclosure on detail-panel
+ * sections (target context, maturity history, etc.). The native
+ * <details> + <summary> elements give us accessible disclosure
+ * with zero JS state. Style summary so it reads as a clickable
+ * heading row with a chevron indicator.
+ */
+.panel-section-collapsible {
+  margin: 8px 0;
+}
+
+.panel-section-collapsible > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 4px 0;
+}
+
+.panel-section-collapsible > summary::-webkit-details-marker {
+  display: none;
+}
+
+.panel-section-collapsible > summary::before {
+  content: "▸";
+  color: #64748b;
+  display: inline-block;
+  font-size: 11px;
+  margin-right: 6px;
+  transition: transform 120ms ease;
+}
+
+.panel-section-collapsible[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.panel-section-collapsible > summary:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .cost-rollup-breakdown {
   align-items: center;
   display: flex;

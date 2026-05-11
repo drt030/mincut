@@ -184,8 +184,16 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         <MaturityHistoryTimeline node={node} />
       </div>
       {node.targetContext ? (
-        <div>
-          <strong>{t("targetContext")}</strong>
+        // Per UX Flow v3 iter-7 (progressive disclosure): target
+        // context is reference detail (6 fields of free-form text),
+        // useful to read but not first-glance signal. Default
+        // collapsed so the panel surfaces cost / maturity / bottlenecks
+        // first; user expands when curious.
+        <details className="panel-section panel-section-collapsible">
+          <summary>
+            <strong>{t("targetContext")}</strong>{" "}
+            <span className="muted">({Object.keys(node.targetContext).length})</span>
+          </summary>
           <ul>
             {Object.entries(node.targetContext).map(([key, value]) => (
               <li key={key}>
@@ -193,7 +201,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
               </li>
             ))}
           </ul>
-        </div>
+        </details>
       ) : null}
       <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
       {/*
@@ -265,10 +273,18 @@ function MaturityHistoryTimeline({ node }: { node: Node }) {
   const { t } = useLanguage();
   const history = node.maturityHistory;
   if (!history || history.length === 0) return null;
+  // Per UX Flow v3 iter-7 (progressive disclosure): the current
+  // maturity scalar (label + score + asOf) is already shown directly
+  // above; the historical timeline is "why we say so" reference detail
+  // and shouldn't dominate the panel. Default collapsed with the
+  // entry count in the summary.
   return (
-    <div className="maturity-history">
+    <details className="maturity-history panel-section-collapsible">
+      <summary>
+        <strong>{t("maturityHistoryHeader")}</strong>{" "}
+        <span className="muted">({history.length})</span>
+      </summary>
       <div className="maturity-history-head">
-        <strong>{t("maturityHistoryHeader")}</strong>
         <span className="muted maturity-history-hint">{t("maturityHistoryHint")}</span>
       </div>
       <ul className="maturity-history-list">
@@ -303,7 +319,7 @@ function MaturityHistoryTimeline({ node }: { node: Node }) {
           );
         })}
       </ul>
-    </div>
+    </details>
   );
 }
 
