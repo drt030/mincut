@@ -30,6 +30,17 @@ Average all three, then average across steps. **Average ≥ 3.5 = pass, < 3.5 = 
 
 The agent runs the steps via MCP and *self-scores honestly*. Score 3 if you'd see a friction in real use; don't give 5 for "works".
 
+## Honest-scoring checklist (avoid agent self-bias)
+
+After each step that involves visible UI, **before scoring** ask each of these questions out loud:
+
+1. **Information necessity**: every card / pill / chip / row currently on screen — would a first-time user understand why it's there? If "no" for ≥ 2 elements, fit-for-purpose ≤ 3.
+2. **Visual crowding**: any two visible elements that look like they overlap or touch at the current zoom? clarity ≤ 3.
+3. **Semantic role**: can the user tell each card's *role* in the graph (focus / dependency / sibling / metric / context) without reading any text? If three different roles render with identical visual treatment, clarity ≤ 3.
+4. **Surprise on screenshot**: if you sent the screenshot to the user without explanation, would they immediately ask "what's X?" That X is the problem; don't paper over it with a 5.
+
+The agent missed exactly these in the first Flow 1 run — the focused-stage context band had 9 mystery cards and was scored 5/5/4. Don't repeat this. **When in doubt, score lower and flag the friction; the user can override upward but can't override downward.**
+
 ## Flow 1 — New user finds a bottleneck
 
 | # | Action | Expected | Score |
