@@ -116,3 +116,22 @@ Spec `docs/superpowers/specs/2026-05-10-graph-redesign.md` shipped via 4 RED+GRE
   1. switched explorationLayout from vertical-stack (depth→x) to top-down tree (depth→y) at 4129eb8
   2. extended explorationLayout to accept visibleIds; non-tree visibles placed in "context band" at y=-ROW_HEIGHT, sorted by kind (capability centre, products around, metrics outside)
 - Result: clean 3-row band — context above, focus mid, deps below. No more overlap. 28/28 tests pass. User-visible improvement confirmed via screenshot.
+
+## 2026-05-11 v3 iter-1~8 — overnight optimization run
+- iter-1 0582456: initial fitView fix via timeout-poll + controls button (programmatic instance.fitView is silent no-op pre-measurement)
+- iter-2 9a0164b: grid wrap for ≥6 leaf children; bbox 3640→1632 wide; fit zoom 0.24→0.5
+- iter-3 f7103fd: URL state persistence (?color=, ?stage=, ?focus=)
+- iter-5 52f1aaa: bottleneck count via requires-subtree BFS (was 0, now 4 for flagship)
+- iter-6 010a077: clicking "Show bottlenecks" now expands full ancestor chain so bottleneck nodes appear
+- iter-7 f576647: progressive disclosure — target-context + maturity-history default collapsed
+- iter-8 4aa0f6f: continuity — focused stage keeps out-of-context cards visible at 55% scale + 25% opacity (no more "teleport" feel)
+
+### Tool evaluation note (user asked)
+- Current: React Flow v12 (@xyflow/react). Solid for declarative React-y graph rendering, edge routing, panning, controls.
+- Pain: incrementalLayout returns empty Map; ResizeObserver lag breaks programmatic fitView; no built-in fish-eye / level-of-detail.
+- Alternatives worth a look if pain compounds: Cytoscape.js (richer layout algos + LoD), Reaflow (smoother dagre transitions), Sigma.js (WebGL, large-graph scale). For now React Flow + custom CSS handles the use case; don't switch unless we want fish-eye or > 200 nodes.
+
+### Open follow-ups (next ralph session)
+- HMR is extremely slow tonight (30-60s sometimes); some iter-6 bottleneck-mode behaviour can't be re-verified until HMR catches up
+- Detail panel still has long un-collapsible sections (metrics with "No value recorded yet" should hide by default)
+- "Show metrics as nodes" toggle and ColorMode aren't both persisted yet
