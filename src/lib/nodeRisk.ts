@@ -1,6 +1,7 @@
 import type { GraphData, Node } from "./schema";
 import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
 import { outgoingEdges } from "./graphTraversal";
+import { rollupCost } from "./costRollup";
 
 /**
  * Per spec docs/superpowers/specs/2026-05-10-graph-redesign.md §5:
@@ -28,16 +29,46 @@ export function nodeRisk(node: Node, graph: GraphData): number {
 }
 
 function costShareInGraph(node: Node, graph: GraphData): number {
-  const ownTypical = nodeTypicalCostRmb(node, graph);
-  if (ownTypical === null || ownTypical <= 0) return 0;
-  let maxTypical = ownTypical;
-  for (const candidate of graph.nodes) {
-    if (candidate.id === node.id) continue;
-    const c = nodeTypicalCostRmb(candidate, graph);
-    if (c !== null && c > maxTypical) maxTypical = c;
+  // Per spec §5: cost_share reflects how much of the graph's cost the node
+  // is responsible for. We use the node's *rolled-up* cost (max of direct
+  // and children-sum × overhead, per ADR-0003 amendment) rather than its
+  // raw direct reading — otherwise a node like
+  // `parcel_manipulation_or_diverter` whose direct 4k hides a 89k children
+  // chain would score artificially low and the bottleneck-mode heat block
+  // would mislead. The walker is memoized per call, so the cost is bounded.
+  const ownRolled = rolledUpTypical(node, graph);
+  if (ownRolled === null || ownRolled <= 0) {
+    // Fall back to the direct reading so nodes outside the requires DAG
+    // (e.g. capability nodes) still get *some* signal.
+    const directOnly = nodeTypicalCostRmb(node, graph);
+    if (directOnly === null || directOnly <= 0) return 0;
+    return Math.min(1, directOnly / maxTypicalInGraph(graph));
   }
-  if (maxTypical <= 0) return 0;
-  return ownTypical / maxTypical;
+  const max = maxTypicalInGraph(graph);
+  if (max <= 0) return 0;
+  return Math.min(1, ownRolled / max);
+}
+
+function rolledUpTypical(node: Node, graph: GraphData): number | null {
+  try {
+    const result = rollupCost(graph, node.id);
+    if (!result.anyChildContributed && (result.directOnly?.typical ?? 0) === 0) return null;
+    return result.rolledUp.typical;
+  } catch {
+    return null;
+  }
+}
+
+let cachedMax: { graph: GraphData; value: number } | null = null;
+function maxTypicalInGraph(graph: GraphData): number {
+  if (cachedMax && cachedMax.graph === graph) return cachedMax.value;
+  let max = 0;
+  for (const node of graph.nodes) {
+    const direct = nodeTypicalCostRmb(node, graph);
+    if (direct !== null && direct > max) max = direct;
+  }
+  cachedMax = { graph, value: max };
+  return max;
 }
 
 function nodeTypicalCostRmb(node: Node, graph: GraphData): number | null {

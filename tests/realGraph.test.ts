@@ -1,0 +1,58 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { loadGraphData } from "../src/lib/graphLoader";
+import { rollupCost } from "../src/lib/costRollup";
+import { nodeRisk } from "../src/lib/nodeRisk";
+import { edgeTintFor } from "../src/lib/edgeTint";
+
+/**
+ * Integration tests against the real parcel-sorting graph. Unlike the
+ * unit tests with hand-built fixtures, these load the actual production
+ * data and assert that the slice-1/2/4 outputs behave as expected on
+ * the live content. If anyone tweaks data/nodes/parcel_sorting_robot.json
+ * in a way that flips these assertions, they should re-read the spec
+ * to make sure the change is intentional.
+ */
+
+const graph = loadGraphData();
+
+test("real graph: parcel_manipulation_or_diverter surfaces the cost inversion", () => {
+  // The headline user-reported bug. parent direct 4k vs child rollup 60k+
+  // should now resolve to (a) rolled-up ≥ 69k, (b) directLowerThanChildren
+  // = true.
+  const result = rollupCost(graph, "parcel_manipulation_or_diverter");
+  assert.ok(result.rolledUp.typical >= 60_000 * 1.15, `expected rolled-up ≥ 69k, got ${result.rolledUp.typical}`);
+  assert.equal(result.directLowerThanChildren, true, "inversion badge should fire on this node");
+  assert.ok(result.directOnly?.typical === 4_000, `direct 4k preserved; got ${result.directOnly?.typical}`);
+});
+
+test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", () => {
+  // Slice 1's headline number: 274.7k (old walker) → 283.5k (new walker).
+  // Lock the new value in so a future change that accidentally reverts
+  // to the priority-1-wins walker is caught.
+  const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
+  assert.ok(
+    result.rolledUp.typical > 280_000 && result.rolledUp.typical < 290_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~283.5k)`,
+  );
+});
+
+test("real graph: parcel_manipulation_or_diverter is high risk in bottleneck mode", () => {
+  // The cost-inversion subsystem should rank high on the risk ramp:
+  // maturity is prototype (~50/100) and the children-side cost share
+  // is substantial.
+  const node = graph.nodes.find((n) => n.id === "parcel_manipulation_or_diverter");
+  assert.ok(node, "fixture: parcel_manipulation_or_diverter must exist");
+  const risk = nodeRisk(node!, graph);
+  assert.ok(risk > 0.15, `expected nodeRisk > 0.15, got ${risk}`);
+});
+
+test("real graph: edgeTint produces non-default warm colors in cost mode", () => {
+  // The expensive industrial_robot_arm_body (60k) should not tint to
+  // NEUTRAL_TINT or to the cheap-end blue — it should be visibly warm.
+  const arm = graph.nodes.find((n) => n.id === "industrial_robot_arm_body");
+  assert.ok(arm, "fixture: industrial_robot_arm_body must exist");
+  const tint = edgeTintFor(arm!, "cost", graph);
+  assert.notEqual(tint, "#94a3b8", "should not be NEUTRAL_TINT — arm has real cost data");
+  assert.match(tint, /^#[0-9a-f]{6}$/i, "should be a hex color");
+});
