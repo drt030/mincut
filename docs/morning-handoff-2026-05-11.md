@@ -1,6 +1,52 @@
 # Morning Hand-off — 2026-05-11
 
-Session: ralph-loop v2, 2026-05-10 evening → overnight. HEAD `7b8e9ab`. Baseline `6c3ddae` (earlier hand-off). **22 commits this session**.
+Session: ralph-loop **v3** overnight (after v2 paused). HEAD `0efd3ae`. Baseline `25bf0b4`. **20 v3 commits + 33 from earlier v2 = 53 total this 2026-05-10/11 push**.
+
+## v3 changes since last hand-off
+
+The user re-fired ralph-loop late evening (2026-05-10 23:00 EDT) with three high-level asks:
+- "进 /graph 看起来很乱，整体效果非常差" → fix the layout chaos
+- "上行那么多节点 / 意义不明" → reduce visual noise
+- "点进子系统后上层消失，传送感，缺连贯性" → spatial continuity
+- "信息渐进披露" → each layer reveals only what's needed
+- "整夜跑，没活干增加 UX flow tour，提高对自己要求"
+
+All four major asks shipped over 20 v3 iters. Highlights:
+
+| iter | HEAD | What changed |
+| --- | --- | --- |
+| 1 | `0582456` | Initial fitView auto-fires (was stuck at translate(0,0) scale(1)) |
+| 2 | `9a0164b` | Children wrap into grid (≥6 leaves) — bbox 3640 → 1632 wide, zoom 0.24 → 0.5 |
+| 3 | `f7103fd` | URL state for colorMode / stage / focus (bookmarkable) |
+| 5 | `52f1aaa` | "Show bottlenecks (N)" now counts subtree-reachable, not direct |
+| 6 | `010a077` | Clicking "Show bottlenecks" expands the full ancestor chain |
+| 7 | `f576647` | Progressive disclosure on target-context + maturity-history |
+| 8 | `4aa0f6f` | Continuity — focused stage keeps out-of-context cards at 45% opacity / 55% scale |
+| 9 | `001a491` | Empty metrics collapse into "+ N unset" expander |
+| 10 | `c88c4c2` | Long node lists collapse past 5 entries with "+N more" |
+| 11 | `8a0de58` | "🎯 Top blockers" callout — top 3 highest-risk children, one-click drill |
+| 12-13 | `f5a76aa`, `7b649fb` | fitView timing improvements (timer + onNodesChange) |
+| 14 | `c452d85` | Detail panel auto-scrolls to top when selected node changes |
+| 15 | `f30b81a` | a11y batch — out-of-context opacity 0.25 → 0.45 (WCAG), 4 details aria-labels, top-blockers risk in aria-label, compact-card title attribute |
+| 16 | `772e95e` | UX flow playbook Flow 4-8 defined |
+| 17 | `113a087` | Selected card 3-tier amplification (scale 1.04 + heavier ring in focused) |
+| 18 | `bcd4a94` | Flow 4 run report — color-mode consistency, avg 4.67/5 |
+| 19 | `3f09920` | Top blockers show maturity label inline |
+| 20 | `0efd3ae` | Cost coverage > 50% gap → amber warning callout |
+
+## What you'll see at `/graph` (tomorrow)
+
+Overview (default):
+- Auto-fit at ~1.8s on cold paint (timer-based retry + onNodesChange fallback)
+- Flagship product centered top, 13 children in 2-row grid below
+- 14px heat-block at top of each card (color = current colorMode)
+- Right panel: Top blockers callout (amber), cost rollup with breakdown, progressive-disclosure collapsibles below
+
+Focused stage (after clicking a child):
+- Selected card scales to 1.04 with heavy ring — clearly the centre
+- 4-5 neighbor cards full-size in context (focus's requires-subtree + capability)
+- Other 17 nodes minified at 45% opacity / 55% scale — spatial continuity preserved
+- ESC → returns to overview with focus reset to root
 
 ## TL;DR
 
