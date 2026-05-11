@@ -709,13 +709,21 @@ export function GraphExplorer({ graph }: Props) {
   // focus card). Keep only the capability(ies) the focus enables —
   // that's the umbrella, semantically useful in both stages.
   const visibleNodes = useMemo(() => {
+    // Per UX Flow v3 iter-6: when the user clicks "Show bottlenecks"
+    // we switch to mode="bottleneck" and expect bottleneck nodes to
+    // appear on canvas. The visibleNodes filter must NOT clip them
+    // out — bottleneck nodes are reached via `bottlenecked_by` edges,
+    // not `requires`, so they sit outside the requires-subtree set.
+    // Fall back to the original (filteredNodes ∪ capability) when
+    // in bottleneck mode.
+    if (mode === "bottleneck") return filteredNodes;
     const requiresAndCapability = filteredNodes.filter(
       (n) => requiresTreeIds.has(n.id) || capabilityCluster.capabilityIds.has(n.id),
     );
     return stage === "overview"
       ? filteredNodes.filter((n) => requiresTreeIds.has(n.id))
       : requiresAndCapability;
-  }, [stage, filteredNodes, requiresTreeIds, capabilityCluster.capabilityIds]);
+  }, [stage, mode, filteredNodes, requiresTreeIds, capabilityCluster.capabilityIds]);
 
   const flowNodes: FlowNode[] = useMemo(
     () =>
@@ -1082,7 +1090,33 @@ export function GraphExplorer({ graph }: Props) {
             type="button"
             onClick={() => {
               setMode("bottleneck");
-              setExpandedBottleneckIds((current) => new Set(current).add(selectedNode.id));
+              // Per UX Flow v3 iter-6: expand the FULL ancestor set
+              // from selectedNode down to every reachable bottleneck.
+              // The previous behaviour only marked selectedNode as
+              // expanded, which left intermediate modules collapsed
+              // so the bottleneck nodes never appeared on canvas.
+              setExpandedBottleneckIds((current) => {
+                const next = new Set(current);
+                next.add(selectedNode.id);
+                const queue: string[] = [selectedNode.id];
+                const visited = new Set<string>();
+                while (queue.length) {
+                  const cur = queue.shift();
+                  if (!cur || visited.has(cur)) continue;
+                  visited.add(cur);
+                  next.add(cur);
+                  for (const edge of graph.edges) {
+                    if (edge.source !== cur) continue;
+                    if (edge.relation === "bottlenecked_by") {
+                      next.add(edge.target);
+                    } else if (edge.relation === "requires") {
+                      // descend so descendants' bottlenecks surface
+                      queue.push(edge.target);
+                    }
+                  }
+                }
+                return next;
+              });
             }}
           >
             {t("showBottlenecks")} ({selectedBottleneckCount})
