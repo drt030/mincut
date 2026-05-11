@@ -84,3 +84,27 @@ Tracked handoff memory for unfinished work. Add entries only when useful for con
 ## 2026-05-10 ralph-loop iter-03 stumble
 - mistake: ran `npm run build` while `npm run dev` (PID 38848) was active. The build wiped/replaced `.next/` with prod artifacts; dev server's chunk references 404'd; home rendered blank. Had to kill dev pid + `rm -rf .next` + restart `npm run dev` (now PID 7806).
 - guidance: while ralph-loop runs against the live dev server, **only run `npm run lint`** and `npm run check:graph-ux` for verification. Skip `npm run build` per iter; one final `build` pass at end of session is enough.
+
+## 2026-05-10 ralph-loop iter-03 (HEAD f6378ce)
+- dynamic `metricsStripHeight(count)` replaces flat METRICS_STRIP_HEIGHT add. Cards with 1 chip: 188 (was 320). Avg 240 → 180. Bbox H unchanged at 3634 because ELK spacing dominates, not card height.
+- false alarm explored: thought iter-1 made the graph "too tall" (3634 px) so default viewport showed nothing. git-stash test confirmed pre-iter-1 bbox is also 3634 — it's always been this tall, ELK spacing controls layout extent. The "default zoom shows nothing" is a pre-existing UX issue.
+- next iter (04): real P1 — pick from candidates a/b/c/d/e/f/g. With current layout being naturally tall, the most-leverage might be (a) "Bottlenecks" view mode showing only relevant nodes (data has 0 right now though) OR (b) detail-panel "next-action" hint.
+
+## 2026-05-10 ralph-loop iter-05 (HEAD 6c3ddae) — paused for user review
+- /graph default landing: viewport now setCenter on selected (flagship) at zoom 0.7. Replaces translate(0,0)/scale(1) which showed empty canvas because flagship sits at y≈600 in a 3634-tall bbox.
+- learning: ELK layout was returning early via `incrementalLayout` with empty Map for cold starts; cards on canvas were using fallback positions. So my first attempt to read `layoutPositions` state for selected coordinates always saw size=0. Switched to `instance.getNode(selectedId).position` which works regardless of which layout produced the positions.
+- gotcha: `check:graph-ux` regex `/\sfitView(?:\s|>|$)/` matches the literal word "fitView" in comments too, not just the prop. Reworded the comment.
+- pending review: visually flagship is centred but lots of empty space top/left; layered children extend RIGHT (out of frame). Iter-6 candidate: bias the centre target slightly leftward so the right-extending children fit on screen.
+
+## 2026-05-10 ralph-loop v2 session — final state (HEAD c4fa7c1)
+Spec `docs/superpowers/specs/2026-05-10-graph-redesign.md` shipped via 4 RED+GREEN slice pairs + polish:
+- Slice 1: cost walker max(direct, sum × 1.15) + breakdown row + ⚠ badge + ADR-0003 amendment + CONTEXT.md cost line update
+- Slice 2: edgeTint pure function + ColorModeSelect dropdown + 5 modes
+- Slice 3: explorationLayout pre-order pure function replacing broken ELK pipeline
+- Slice 4: overview/focused state machine + ESC handler + compact-mode 14px heat block + bottleneck-path stroke boost
+- Polish: nodeRisk integration tests caught real bug (cost_share used direct not rolled-up → fixed); ProductView parity; gate report regen 2.94 → 2.89; CONTEXT.md graph visualization section
+- Tests: 27/27 pass via `node --test` via `tsx --test`. Test runner is built into Node 18+, zero new deps.
+- Smoke tour: tests/uxSmoke.test.ts HTTP-checks 4 routes for slice markup; skips gracefully when dev server is down.
+- chrome-devtools MCP died early in session; could not be revived. Visual UX tour not run — user does the 7-step tour from `docs/morning-handoff-2026-05-11.md` tomorrow.
+
+29 commits this session. Files map in the hand-off doc.
