@@ -94,7 +94,7 @@ The schema's `has_route` relation remains, but **a Product is committed to a sin
 
 Per the 2026-05-10 graph redesign (`docs/superpowers/specs/2026-05-10-graph-redesign.md`):
 
-- **Two-stage exploration**: `/graph` is a state machine over `{stage: "overview" | "focused"}`. **Overview** = fitView the whole graph at zoom ~0.2–0.55; every card is in `.compact` mode (title + 14px heat block only). **Focused** = setCenter on the selected node at zoom 0.8 with full cards. Click any card to enter focused; ESC returns to overview. The "↩ Global view" toolbar button appears only in focused stage.
+- **Two-stage exploration**: `/graph` is a state machine over `{stage: "overview" | "focused"}`. **Overview** = fit-bounds on the focus's `requires` subtree (13 nodes for the parcel-sorting flagship), every card in `.compact` mode (title + 14px heat block only). **Focused** = same fit-bounds framing for continuity, but renders the full visible set (~22 nodes); the focus's substantive `requires` subtree + capability stay full-sized while everything else gets the `.out-of-context` mini treatment (opacity 0.45, scale 0.55, saturate 0.55). 3-tier hierarchy in focused: Tier 1 selected card (scale 1.04 + heavy ring), Tier 2 context cards (default style), Tier 3 out-of-context (mini). Click any card to drill — that also auto-expands it. ESC returns to overview AND resets selection to root.
 - **Color modes (`ColorModeSelect`)** — five values for the toolbar dropdown; the choice sets each edge's `style.stroke` to a tint derived from the *target node*:
   - `relation` — legacy class-based stroke (the original behaviour; default gray)
   - `cost` — blue → amber → red heat by typical RMB cost (normalized to 100k cap)
