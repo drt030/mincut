@@ -643,9 +643,52 @@ export function GraphExplorer({ graph }: Props) {
     [graph, selectedId, expandedIds, filteredNodes],
   );
 
+  // Per iter-23 user feedback: overview stage was rendering 9 context
+  // nodes (capability + 5 alt-products + 3 orphan metrics) on top of
+  // the focus's substantive requires tree. Useful for ADR-0004 context
+  // when reading the active product, but pure noise when scanning for
+  // bottlenecks. Compute the subset of nodes that belong to the
+  // focus's substantive `requires` subtree (no metric / evidence /
+  // bottleneck / placeholder_breakthrough kinds, no deprecated) so we
+  // can hide the context band when stage="overview".
+  const requiresTreeIds = useMemo(() => {
+    const ids = new Set<string>([selectedId]);
+    const queue: string[] = [selectedId];
+    while (queue.length) {
+      const cur = queue.shift();
+      if (!cur) continue;
+      for (const edge of graph.edges) {
+        if (edge.source !== cur || edge.relation !== "requires") continue;
+        const child = graph.nodes.find((n) => n.id === edge.target);
+        if (!child) continue;
+        if (
+          child.kind === "metric" ||
+          child.kind === "evidence" ||
+          child.kind === "bottleneck" ||
+          child.kind === "placeholder_breakthrough"
+        ) {
+          continue;
+        }
+        if (child.reviewStatus === "deprecated") continue;
+        if (ids.has(child.id)) continue;
+        ids.add(child.id);
+        queue.push(child.id);
+      }
+    }
+    return ids;
+  }, [graph, selectedId]);
+
+  const visibleNodes = useMemo(
+    () =>
+      stage === "overview"
+        ? filteredNodes.filter((n) => requiresTreeIds.has(n.id))
+        : filteredNodes,
+    [stage, filteredNodes, requiresTreeIds],
+  );
+
   const flowNodes: FlowNode[] = useMemo(
     () =>
-      filteredNodes.map((node) => {
+      visibleNodes.map((node) => {
         const related = selectedNeighbors.has(node.id);
         const folded = foldedMetricsByParent.get(node.id) ?? [];
         const localizedFolded: FoldedMetricEntry[] = folded.map((metric) => ({
@@ -725,7 +768,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, colorMode, explorationPositions, fallbackLayoutContext, filteredNodes, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion],
+    [bottleneckedByCounts, capabilityCluster, colorMode, explorationPositions, fallbackLayoutContext, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion, visibleNodes],
   );
 
   const nodeById = useMemo(() => {
