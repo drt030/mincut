@@ -1,0 +1,61 @@
+{
+  "graphVersion": "test-1.0.0",
+  "nodes": [
+    {
+      "id": "parent_module",
+      "name": "Parent assembly subsystem",
+      "kind": "module",
+      "domain": ["test"],
+      "description": "Direct integration price 4k RMB (suspiciously low). Has one child priced at 60k.",
+      "maturityScore": 50,
+      "maturityLabel": "prototype",
+      "maturityAsOf": "2025"
+    },
+    {
+      "id": "parent_cost_metric",
+      "name": "Cost (parent direct)",
+      "kind": "metric",
+      "domain": ["test"],
+      "metrics": [
+        {
+          "name": "Cost",
+          "unit": "RMB",
+          "currentValue": { "min": 2000, "typical": 4000, "max": 8000 },
+          "costAsOf": "2025",
+          "currency": "RMB"
+        }
+      ]
+    },
+    {
+      "id": "child_module",
+      "name": "Heavy hardware part",
+      "kind": "module",
+      "domain": ["test"],
+      "description": "A single chunky hardware component priced at 60k RMB.",
+      "maturityScore": 80,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2025"
+    },
+    {
+      "id": "child_cost_metric",
+      "name": "Cost (child direct)",
+      "kind": "metric",
+      "domain": ["test"],
+      "metrics": [
+        {
+          "name": "Cost",
+          "unit": "RMB",
+          "currentValue": { "min": 35000, "typical": 60000, "max": 95000 },
+          "costAsOf": "2025",
+          "currency": "RMB"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    { "id": "e1", "source": "parent_module", "target": "child_module", "relation": "requires" },
+    { "id": "e2", "source": "parent_module", "target": "parent_cost_metric", "relation": "measured_by" },
+    { "id": "e3", "source": "child_module", "target": "child_cost_metric", "relation": "measured_by" }
+  ],
+  "evidence": []
+}

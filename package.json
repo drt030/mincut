@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "check:graph-ux": "node scripts/check-graph-ux.mjs",
+    "test": "tsx --test tests/**/*.test.ts",
     "verify:ui": "npm run check:graph-ux && npm run lint && npm run build",
     "validate:data": "tsx scripts/validate-data.ts",
     "check:active-graph-scope": "tsx scripts/check-active-graph-scope.ts",
