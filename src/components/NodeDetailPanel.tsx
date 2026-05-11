@@ -809,30 +809,31 @@ function TopBlockers({
     <div className="top-blockers">
       <strong>🎯 {t("topBlockersTitle")}</strong>
       <ol className="top-blockers-list">
-        {ranked.map((entry) => (
-          <li key={entry.id}>
-            {onSelectNode ? (
-              <button
-                className="link-button"
-                type="button"
-                onClick={() => onSelectNode(entry.id)}
-                title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
-                // a11y: bake the risk into the accessible name so SR
-                // users hear "<name>, risk 38 percent" rather than
-                // just the name. The visible % pill stays aria-hidden
-                // to avoid double announcement.
-                aria-label={`${nodeName(entry.id, entry.child.name)} — risk ${Math.round(entry.risk * 100)}%`}
-              >
-                {nodeName(entry.id, entry.child.name)}
-              </button>
-            ) : (
-              nodeName(entry.id, entry.child.name)
-            )}
-            <span className="top-blockers-risk" aria-hidden="true">
-              {Math.round(entry.risk * 100)}%
-            </span>
-          </li>
-        ))}
+        {ranked.map((entry) => {
+          const maturityLabel = entry.child.maturityLabel ?? "unknown";
+          const maturityText = formatMaturityLabel(maturityLabel);
+          return (
+            <li key={entry.id}>
+              {onSelectNode ? (
+                <button
+                  className="link-button top-blockers-link"
+                  type="button"
+                  onClick={() => onSelectNode(entry.id)}
+                  title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
+                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · risk ${Math.round(entry.risk * 100)}%`}
+                >
+                  <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
+                  <span className="top-blockers-meta muted">{maturityText}</span>
+                </button>
+              ) : (
+                <span>{nodeName(entry.id, entry.child.name)}</span>
+              )}
+              <span className="top-blockers-risk" aria-hidden="true">
+                {Math.round(entry.risk * 100)}%
+              </span>
+            </li>
+          );
+        })}
       </ol>
     </div>
   );
