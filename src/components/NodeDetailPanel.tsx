@@ -601,6 +601,16 @@ function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: 
             .replace("{total}", String(denominator))}
         </span>
       </div>
+      {/* Per v3 iter-20: when coverage gap > 50%, the rolled-up
+          number is misleading at first glance — surface the warning
+          as a callout banner so reviewers know to treat the number
+          as a lower bound, not an estimate. */}
+      {gapFraction > 0.5 && hasRollupValue ? (
+        <p className="cost-coverage-warning" role="alert">
+          ⚠ {t("costCoverageHighGapWarning")
+            .replace("{percent}", String(Math.round(gapFraction * 100)))}
+        </p>
+      ) : null}
       {rollup && (rollup.directOnly || rollup.fromChildren) ? (
         <div className="cost-rollup-breakdown">
           {rollup.directOnly ? (

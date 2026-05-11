@@ -1307,6 +1307,23 @@ li {
  * highest-risk requires-children so a learner can drill in 1 click.
  * Colored amber-warning to distinguish from the rest of the panel.
  */
+/*
+ * Per v3 iter-20: cost-coverage warning callout, shown when > 50%
+ * of subsystems lack cost data so the rolled-up number is more
+ * "lower bound" than "estimate". Dashed amber border so it reads
+ * as advisory rather than blocking.
+ */
+.cost-coverage-warning {
+  background: #fef3c7;
+  border: 1px dashed #b45309;
+  border-radius: 6px;
+  color: #78350f;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 6px 0 0;
+  padding: 6px 10px;
+}
+
 .top-blockers {
   background: #fef3c7;
   border: 1px solid #fbbf24;
