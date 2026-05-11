@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import {
   bottlenecksForNode,
   downstream,
@@ -31,6 +31,15 @@ type Props = {
 
 export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const { kindName, nodeName, t } = useLanguage();
+  // Per v3 iter-14: when the user clicks a different node, the previous
+  // scroll position in the panel was preserved → they could land
+  // mid-Evidence section and miss the headline cost / maturity /
+  // bottleneck info at the top. Scroll the panel to top whenever the
+  // selected node changes.
+  const panelRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    panelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [node.id]);
   const up = upstream(graph, node.id);
   // Per ADR-0001: exclude deprecated children from the auto-rendered child
   // lists (Downstream / Bottlenecks / Sibling). The selected node itself is
@@ -66,6 +75,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
      * region is announced as e.g. "{node-name}, region".
      */
     <aside
+      ref={panelRef}
       className="panel detail-list"
       role="region"
       aria-live="polite"
