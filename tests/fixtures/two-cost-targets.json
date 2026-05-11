@@ -1,0 +1,58 @@
+{
+  "graphVersion": "test-1.0.0",
+  "nodes": [
+    {
+      "id": "cheap_part",
+      "name": "Cheap component",
+      "kind": "module",
+      "domain": ["test"],
+      "maturityScore": 30,
+      "maturityLabel": "prototype",
+      "maturityAsOf": "2025"
+    },
+    {
+      "id": "cheap_cost",
+      "name": "Cheap cost",
+      "kind": "metric",
+      "domain": ["test"],
+      "metrics": [
+        {
+          "name": "Cost",
+          "unit": "RMB",
+          "currentValue": { "min": 3000, "typical": 5000, "max": 8000 },
+          "costAsOf": "2025",
+          "currency": "RMB"
+        }
+      ]
+    },
+    {
+      "id": "pricey_part",
+      "name": "Pricey component",
+      "kind": "module",
+      "domain": ["test"],
+      "maturityScore": 85,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2025"
+    },
+    {
+      "id": "pricey_cost",
+      "name": "Pricey cost",
+      "kind": "metric",
+      "domain": ["test"],
+      "metrics": [
+        {
+          "name": "Cost",
+          "unit": "RMB",
+          "currentValue": { "min": 70000, "typical": 95000, "max": 130000 },
+          "costAsOf": "2025",
+          "currency": "RMB"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    { "id": "e1", "source": "cheap_part", "target": "cheap_cost", "relation": "measured_by" },
+    { "id": "e2", "source": "pricey_part", "target": "pricey_cost", "relation": "measured_by" }
+  ],
+  "evidence": []
+}
