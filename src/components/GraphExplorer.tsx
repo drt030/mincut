@@ -1296,6 +1296,19 @@ export function GraphExplorer({ graph }: Props) {
               flowInstanceRef.current = instance;
               setFlowInstanceReady(true);
             }}
+            onNodesChange={(changes) => {
+              // Per v3 iter-13: when React Flow's ResizeObserver
+              // reports node dimensions for the first time, trigger
+              // the initial fit-bounds click. Replaces the
+              // setTimeout-poll which had a 1.8s tail latency.
+              if (initialCenterDoneRef.current) return;
+              const dim = changes.find((c) => c.type === "dimensions");
+              if (!dim) return;
+              const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
+              if (!btn) return;
+              btn.click();
+              initialCenterDoneRef.current = true;
+            }}
             fitViewOptions={{ maxZoom: 1, minZoom: 0.55, padding: 0.12 }}
             minZoom={0.35}
             panOnScroll
