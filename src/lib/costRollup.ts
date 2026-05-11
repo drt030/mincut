@@ -45,6 +45,27 @@ export type CostRollupResult = {
    * cost data has been entered yet.
    */
   anyChildContributed: boolean;
+  /**
+   * Per ADR-0003 amendment (2026-05-10 graph redesign): the target node's
+   * own direct cost reading, in RMB, isolated from its `requires` children.
+   * `null` when no direct reading was authored. Surfaced so the UI can
+   * render a direct/children breakdown next to `rolledUp`.
+   */
+  directOnly: CostRange | null;
+  /**
+   * Per ADR-0003 amendment: the bottom-up sum of the target node's
+   * `requires` children (each child's own rolled-up max), scaled by the
+   * 15% integration overhead. `null` when no child contributed cost data.
+   */
+  fromChildren: CostRange | null;
+  /**
+   * Per ADR-0003 amendment: true when the target's direct reading is
+   * authored but lower than its children-summed estimate. Drives the
+   * ⚠ "录入直接成本低于子件 rollup" badge in NodeDetailPanel — almost
+   * always a data-entry mistake (a parent should not be cheaper than
+   * the sum of its parts).
+   */
+  directLowerThanChildren: boolean;
 };
 
 const INTEGRATION_OVERHEAD = 1.15;
@@ -78,8 +99,30 @@ export function rollupCost(graph: GraphData, productNodeId: string): CostRollupR
   // The gate cap on `coverageGap` and `costAsOfYears` also no longer
   // double-counts the same node.
   const memo = new Map<string, CostRange | null>();
+  // Per ADR-0003 amendment: track each node's children-branch value
+  // (children-sum × overhead, pre-max-with-direct) separately so the
+  // top-level result can surface `fromChildren` for the target without
+  // re-summing memos at the top (which would double-count DAG-shared
+  // grandchildren — walk's internal sum is already DAG-aware via memo).
+  const memoChildrenBranch = new Map<string, CostRange | null>();
 
-  const range = walk(graph, productNodeId, visiting, coverageGap, costAsOfYears, memo);
+  const range = walk(graph, productNodeId, visiting, coverageGap, costAsOfYears, memo, memoChildrenBranch);
+
+  // Per ADR-0003 amendment: surface a direct/children breakdown for the
+  // target node so the UI can render both values side-by-side. The walker
+  // itself already returns max(direct, children × overhead) at every layer
+  // (including the target), so `range` is already the honest rolled-up.
+  // What we add here is just the per-branch decomposition for display.
+  const targetNode = nodeById(graph, productNodeId);
+  let directOnly: CostRange | null = null;
+  let fromChildren: CostRange | null = null;
+  if (targetNode) {
+    const direct = directCostForNode(graph, targetNode);
+    if (direct) {
+      directOnly = rangeToRmb(direct.range, direct.currency);
+    }
+    fromChildren = memoChildrenBranch.get(productNodeId) ?? null;
+  }
 
   return {
     rolledUp: range ?? { min: 0, typical: 0, max: 0 },
@@ -90,6 +133,11 @@ export function rollupCost(graph: GraphData, productNodeId: string): CostRollupR
     // data. A null range means we returned the degenerate `{0,0,0}` sum and
     // the UI must surface this as "no data" rather than "0 RMB".
     anyChildContributed: range !== null,
+    directOnly,
+    fromChildren,
+    directLowerThanChildren: Boolean(
+      directOnly && fromChildren && directOnly.typical < fromChildren.typical,
+    ),
   };
 }
 
@@ -167,6 +215,7 @@ function walk(
   coverageGap: string[],
   costAsOfYears: string[],
   memo: Map<string, CostRange | null>,
+  memoChildrenBranch: Map<string, CostRange | null>,
 ): CostRange | null {
   if (visiting.has(nodeId)) {
     const cycle = [...visiting, nodeId].join(" -> ");
@@ -187,80 +236,94 @@ function walk(
       return null;
     }
 
-    // Priority 1: direct subsystem price — node has its own cost-bearing
-    // metric (a `measured_by` edge to a `metric` node whose unit is a
-    // currency). Use it and do NOT recurse.
+    // Per ADR-0003 amendment (2026-05-10 graph redesign): the walker no
+    // longer "prefers" the direct reading over children. Both branches are
+    // evaluated and the larger one wins. This restores the intuition that
+    // a parent system is never cheaper than the sum of its parts. The
+    // commodified-leaf rule (ADR-0005) still short-circuits before
+    // children-decomposition kicks in.
     const direct = directCostForNode(graph, node);
+    let directRange: CostRange | null = null;
     if (direct) {
       if (direct.costAsOf) costAsOfYears.push(direct.costAsOf);
-      const range = rangeToRmb(direct.range, direct.currency);
-      memo.set(nodeId, range);
-      return range;
+      directRange = rangeToRmb(direct.range, direct.currency);
     }
 
-    // Priority 2: commodified leaf — `mature` or `widely_adopted`. By
-    // ADR-0005 we stop decomposing here; if no cost metric was attached, the
-    // node is a coverage gap.
-    if (node.maturityLabel && COMMODIFIED_LABELS.has(node.maturityLabel)) {
+    // Commodified leaf short-circuit: `mature` or `widely_adopted` nodes
+    // stop decomposing per ADR-0005. If a direct reading is present we
+    // return it; otherwise this node is a coverage gap (the upstream
+    // commodity-price source hasn't been recorded yet).
+    const isCommodified =
+      node.maturityLabel && COMMODIFIED_LABELS.has(node.maturityLabel);
+    if (isCommodified) {
+      if (directRange) {
+        memo.set(nodeId, directRange);
+        return directRange;
+      }
       coverageGap.push(node.id);
       memo.set(nodeId, null);
       return null;
     }
 
-    // Priority 3: bottom-up fallback — sum requires children, multiply by
-    // 15% integration overhead. Children with no cost data contribute 0 but
-    // are recorded in coverageGap.
+    // Sum `requires` children. Non-substantive kinds (metric / evidence /
+    // bottleneck / placeholder_breakthrough) are skipped per ADR-0003;
+    // deprecated records per ADR-0001.
     const requiresChildren = outgoingEdges(graph, node.id, "requires")
       .map((edge) => edge.target)
       .filter((targetId) => {
         const child = nodeById(graph, targetId);
-        // Skip non-substantive children (metrics, evidence, etc.) — those
-        // don't decompose further into cost-bearing subsystems.
         if (!child) return false;
         if (child.kind === "metric" || child.kind === "evidence") return false;
         if (child.kind === "bottleneck" || child.kind === "placeholder_breakthrough") return false;
-        // Per ADR-0001, deprecated records are excluded from gate scoring,
-        // including cost rollup.
         if (child.reviewStatus === "deprecated") return false;
         return true;
       });
 
-    if (requiresChildren.length === 0) {
-      // Node is itself a coverage gap: no direct cost, no children to sum.
-      coverageGap.push(node.id);
-      memo.set(nodeId, null);
-      return null;
-    }
-
-    let summed: CostRange = { min: 0, typical: 0, max: 0 };
-    let anyChildContributed = false;
-    for (const childId of requiresChildren) {
-      const childRange = walk(graph, childId, visiting, coverageGap, costAsOfYears, memo);
-      if (childRange) {
-        summed = addRange(summed, childRange);
-        anyChildContributed = true;
+    let childrenRange: CostRange | null = null;
+    if (requiresChildren.length > 0) {
+      let summed: CostRange = { min: 0, typical: 0, max: 0 };
+      let anyChildContributed = false;
+      for (const childId of requiresChildren) {
+        const childRange = walk(graph, childId, visiting, coverageGap, costAsOfYears, memo, memoChildrenBranch);
+        if (childRange) {
+          summed = addRange(summed, childRange);
+          anyChildContributed = true;
+        }
       }
-      // If childRange is null, it's either an already-memoized DAG-shared
-      // node (contributing nothing here, since some other parent already
-      // got its cost), or a real coverage gap. In both cases the layer
-      // overhead below is applied to whatever DID contribute at this layer.
+      if (anyChildContributed) {
+        childrenRange = scaleRange(summed, INTEGRATION_OVERHEAD);
+      }
     }
+    memoChildrenBranch.set(nodeId, childrenRange);
 
-    if (!anyChildContributed) {
-      // Whole subtree had no cost data (or only DAG-shared children that
-      // contributed elsewhere); surface this node too as a gap so the gate
-      // doesn't credit it for nothing.
+    // Combine: max(direct, children × overhead). If only one branch
+    // produced a number, use it. If neither did, surface this node as a
+    // coverage gap.
+    let result: CostRange | null;
+    if (directRange && childrenRange) {
+      result = maxRange(directRange, childrenRange);
+    } else if (directRange) {
+      result = directRange;
+    } else if (childrenRange) {
+      result = childrenRange;
+    } else {
       coverageGap.push(node.id);
-      memo.set(nodeId, null);
-      return null;
+      result = null;
     }
 
-    const result = scaleRange(summed, INTEGRATION_OVERHEAD);
     memo.set(nodeId, result);
     return result;
   } finally {
     visiting.delete(nodeId);
   }
+}
+
+function maxRange(a: CostRange, b: CostRange): CostRange {
+  return {
+    min: Math.max(a.min, b.min),
+    typical: Math.max(a.typical, b.typical),
+    max: Math.max(a.max, b.max),
+  };
 }
 
 /**
