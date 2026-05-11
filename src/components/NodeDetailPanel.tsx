@@ -673,23 +673,84 @@ function NodeList({
       {deprecatedNote ? (
         <span className="muted node-list-deprecated-note"> ({deprecatedNote})</span>
       ) : null}
-      {nodes.length ? (
+      {nodes.length === 0 ? <p className="muted">{t("none")}</p> : null}
+      {nodes.length > 0 ? (
+        // Per UX Flow v3 iter-10 (progressive disclosure): when a list
+        // has > NODE_LIST_VISIBLE_LIMIT items, render the first N
+        // inline and hide the rest behind a "+M more" expander so the
+        // panel stays scannable on the flagship product (which has
+        // 17+ Downstream children).
+        <NodeListBody nodes={nodes} onSelectNode={onSelectNode} />
+      ) : null}
+    </div>
+  );
+}
+
+const NODE_LIST_VISIBLE_LIMIT = 5;
+
+function NodeListBody({
+  nodes,
+  onSelectNode,
+}: {
+  nodes: Node[];
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  if (nodes.length <= NODE_LIST_VISIBLE_LIMIT) {
+    return (
+      <ul>
+        {nodes.map((node) => (
+          <li key={node.id}>
+            <NodeListLink node={node} displayName={nodeName(node.id, node.name)} onSelectNode={onSelectNode} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  const head = nodes.slice(0, NODE_LIST_VISIBLE_LIMIT);
+  const tail = nodes.slice(NODE_LIST_VISIBLE_LIMIT);
+  return (
+    <>
+      <ul>
+        {head.map((node) => (
+          <li key={node.id}>
+            <NodeListLink node={node} displayName={nodeName(node.id, node.name)} onSelectNode={onSelectNode} />
+          </li>
+        ))}
+      </ul>
+      <details className="panel-section-collapsible">
+        <summary>
+          <span className="muted">
+            {tail.length} {t("nodeListMoreSuffix")}
+          </span>
+        </summary>
         <ul>
-          {nodes.map((node) => (
+          {tail.map((node) => (
             <li key={node.id}>
-              {onSelectNode ? (
-                <button className="link-button" type="button" onClick={() => onSelectNode(node.id)}>
-                  {nodeName(node.id, node.name)}
-                </button>
-              ) : (
-                nodeName(node.id, node.name)
-              )}
+              <NodeListLink node={node} displayName={nodeName(node.id, node.name)} onSelectNode={onSelectNode} />
             </li>
           ))}
         </ul>
-      ) : (
-        <p className="muted">{t("none")}</p>
-      )}
-    </div>
+      </details>
+    </>
   );
+}
+
+function NodeListLink({
+  node,
+  displayName,
+  onSelectNode,
+}: {
+  node: Node;
+  displayName: string;
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  if (onSelectNode) {
+    return (
+      <button className="link-button" type="button" onClick={() => onSelectNode(node.id)}>
+        {displayName}
+      </button>
+    );
+  }
+  return <>{displayName}</>;
 }
