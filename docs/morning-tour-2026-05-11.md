@@ -77,6 +77,10 @@ The URL state persists across reload (iter-3).
 - `docs/ux-flow-tours.md` — 8 flow playbooks
 - `docs/ux-flow-reports/` — 4 actual run reports
 
+## Screenshot reference
+
+A snapshot of the final overview state is saved at `.tmp/civ-ralph/final-overview.png` for quick comparison if anything looks different in your browser tomorrow.
+
 ## Total commits since last hand-off
 
 31 substantive iters this v3 push. 28 unit tests pass. lint + check:graph-ux green throughout.
