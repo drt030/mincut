@@ -19,6 +19,7 @@ import {
   type CostRollupResult,
 } from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
+import { nodeRisk } from "@/lib/nodeRisk";
 import type { GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 
@@ -202,6 +203,15 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
             ))}
           </ul>
         </details>
+      ) : null}
+      {/*
+        Per UX Flow v3 iter-11: surface the top-3 highest-risk
+        `requires` children directly at the top of the panel so the
+        user has a one-click drill-target for "what's gating my
+        product". Only shown for kinds where requires makes sense.
+      */}
+      {(node.kind === "product" || node.kind === "module") ? (
+        <TopBlockers graph={graph} parent={node} onSelectNode={onSelectNode} />
       ) : null}
       <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
       {/*
@@ -733,6 +743,83 @@ function NodeListBody({
         </ul>
       </details>
     </>
+  );
+}
+
+/**
+ * Per UX Flow v3 iter-11: a learner's first question is usually
+ * "what's gating this thing?" — show the top-3 highest-risk
+ * `requires` children at the top of the detail panel as a clickable
+ * shortcut so they can drill in one click instead of scanning the
+ * 12-row Downstream list and guessing.
+ *
+ * Risk uses nodeRisk(child, graph) = (1 - maturity/100) × cost_share.
+ * If no child has risk > 0.1 we render nothing (avoids a useless
+ * "top blockers: ..." row when everything is mature).
+ */
+function TopBlockers({
+  graph,
+  parent,
+  onSelectNode,
+}: {
+  graph: GraphData;
+  parent: Node;
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  const ranked = useMemo(() => {
+    const childIds = new Set<string>();
+    for (const edge of graph.edges) {
+      if (edge.source !== parent.id || edge.relation !== "requires") continue;
+      const child = graph.nodes.find((n) => n.id === edge.target);
+      if (!child) continue;
+      if (
+        child.kind === "metric" ||
+        child.kind === "evidence" ||
+        child.kind === "bottleneck" ||
+        child.kind === "placeholder_breakthrough"
+      ) {
+        continue;
+      }
+      if (child.reviewStatus === "deprecated") continue;
+      childIds.add(child.id);
+    }
+    const scored = Array.from(childIds)
+      .map((id) => {
+        const child = graph.nodes.find((n) => n.id === id);
+        if (!child) return null;
+        return { id, child, risk: nodeRisk(child, graph) };
+      })
+      .filter((entry): entry is { id: string; child: Node; risk: number } => entry !== null);
+    scored.sort((a, b) => b.risk - a.risk);
+    return scored.slice(0, 3).filter((entry) => entry.risk > 0.1);
+  }, [graph, parent.id]);
+  if (ranked.length === 0) return null;
+  return (
+    <div className="top-blockers">
+      <strong>🎯 {t("topBlockersTitle")}</strong>
+      <ol className="top-blockers-list">
+        {ranked.map((entry) => (
+          <li key={entry.id}>
+            {onSelectNode ? (
+              <button
+                className="link-button"
+                type="button"
+                onClick={() => onSelectNode(entry.id)}
+                title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
+              >
+                {nodeName(entry.id, entry.child.name)}
+              </button>
+            ) : (
+              nodeName(entry.id, entry.child.name)
+            )}
+            <span className="top-blockers-risk" aria-hidden="true">
+              {Math.round(entry.risk * 100)}%
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
