@@ -77,3 +77,35 @@ Rollup output is `{ rolledUp: range, coverageGap: missingNodeIds[], costAsOf, cu
 - The 15% per-layer integration overhead diverges from observed integration costs by a meaningful margin in the parcel-sorting domain (then per-domain or per-kind overhead constants).
 - Range arithmetic loses fidelity (e.g., when correlated variances matter — supplier shared across subsystems means min/max aren't independent).
 - The time-slider lands and cost needs `costHistory` parallel to `maturityHistory`.
+
+## Amendment — 2026-05-10: cost walker uses max(direct, children × 1.15)
+
+Original ADR-0003 specified the walker as a priority cascade: prefer the direct cost reading attached via `measured_by`, fall back to commodified-leaf treatment, and only otherwise sum the `requires` children with a 15% integration overhead. **Direct reading "wins" against children whenever both are present.**
+
+This produced an honest-looking but counter-intuitive output for the parcel-sorting graph: `parcel_manipulation_or_diverter` carried a direct reading of typical 4,000 RMB while its `requires` child `industrial_robot_arm_body` priced at typical 60,000 RMB rolled up to a children-summed estimate of typical 89,700 RMB. The flagship product's UI listed both subsystems side-by-side as siblings of equal billing, so the **parent system read cheaper than its single hardware component** — a textbook data-integrity flag the user surfaced as "成本核算明显有问题 / 子系统价格比总价还贵".
+
+### Decision
+
+The walker now evaluates **both** branches at every layer and returns `max(direct, children-summed × 1.15)`. The commodified-leaf short-circuit (ADR-0005) still applies before children-decomposition kicks in (a `mature` / `widely_adopted` node with a direct reading still returns that reading without descending).
+
+`CostRollupResult` gains three fields so the UI can surface the breakdown:
+
+- `directOnly: CostRange | null` — the target's own direct reading (or null when not authored).
+- `fromChildren: CostRange | null` — the target's children-branch value (children-sum × 1.15, or null when no child contributed).
+- `directLowerThanChildren: boolean` — true when both are present and `directOnly.typical < fromChildren.typical`. Drives a ⚠ "direct < children" badge in `NodeDetailPanel` so a reviewer is nudged toward fixing the under-priced direct reading.
+
+### Why max() not min() and not always-children
+
+- **Why not "always children"** — many leaves (servo motors, cables, etc.) have a real upstream commodity price recorded as a direct reading and *no* children. The walker still needs a direct-reading path.
+- **Why not min()** — under-priced direct readings are common data-entry errors (a typo, or a quote that only covers integration not parts). Picking the smaller estimate would silently hide that error.
+- **Why max()** — a system is never cheaper than the sum of its parts. The larger of the two estimates is always the safer floor for downstream gate scoring; the breakdown row + ⚠ badge surface the discrepancy so the data error gets fixed at the source.
+
+### Implementation notes
+
+- `walk()` now tracks a sibling `memoChildrenBranch: Map<string, CostRange | null>` so the top-level `rollupCost()` can surface `fromChildren` for the target by lookup instead of re-summing memos at the top — a naive re-sum would double-count DAG-shared grandchildren (the original walk's internal sum was already DAG-aware via the shared memo).
+- Coverage-gap accounting expanded: the OLD walker stopped descending past a direct-cost ancestor, so leaves under that ancestor were never gap-counted. The NEW walker descends both branches and counts gaps everywhere. On the parcel-sorting graph, this moved the headline from "3 of 64 subsystems lack cost data" to "44 of 64". That is more honest but may temporarily move gate scores — accept the move; do not paper over by changing the eligibility filter.
+
+### Revisit when
+
+- Real data shows direct readings consistently undershoot children-summed in the same kind of node (then the breakdown's "direct" column is mostly a stale lower bound, and the ⚠ badge becomes noise rather than signal — at which point we may want to demote `directOnly` to a tooltip).
+- Per-layer integration overhead diverges from 15% in a measurable way for the parcel-sorting domain.
