@@ -403,6 +403,17 @@ const bottleneckPathRelations = new Set<EdgeRelation>(["requires", "has_route", 
 // ColorMode type. Used to filter ?color= query string values.
 const VALID_COLOR_MODES = new Set<ColorMode>(["relation", "cost", "maturity", "overall", "bottleneck"]);
 
+// Per v3 iter-24: 5-swatch mini-legend strips shown next to the
+// ColorMode dropdown so the user can read the ramp direction at a
+// glance. Endpoint colors match edgeTint.ts ramps (which see for
+// the source-of-truth).
+const RAMP_LEGEND: Record<Exclude<ColorMode, "relation">, string[]> = {
+  cost: ["#3b82f6", "#84cc16", "#f59e0b", "#ef4444", "#dc2626"],
+  maturity: ["#ef4444", "#f97316", "#f59e0b", "#84cc16", "#16a34a"],
+  overall: ["#dc2626", "#f97316", "#f59e0b", "#84cc16", "#22c55e"],
+  bottleneck: ["#22c55e", "#84cc16", "#f59e0b", "#ef4444", "#dc2626"],
+};
+
 export function GraphExplorer({ graph }: Props) {
   const { kindName, nodeName, relationName, t } = useLanguage();
   // Per UX Flow follow-up v3 iter-3: read initial state from URL query
@@ -1230,6 +1241,26 @@ export function GraphExplorer({ graph }: Props) {
               <option value="relation">{t("colorModeRelation")}</option>
             </select>
           </label>
+          {/* Per v3 iter-24: inline mini-legend so the user doesn't
+              have to memorize the ramp direction. Strip of 5 swatches
+              that matches the active mode's ramp endpoints. Hidden
+              when mode === "relation" (no continuous ramp there). */}
+          {colorMode !== "relation" ? (
+            <span
+              className="color-mode-legend"
+              aria-label={t(`colorModeLegend_${colorMode}` as `colorModeLegend_${typeof colorMode}`)}
+              title={t(`colorModeLegend_${colorMode}` as `colorModeLegend_${typeof colorMode}`)}
+            >
+              {RAMP_LEGEND[colorMode].map((c, i) => (
+                <span
+                  key={i}
+                  className="color-mode-legend-swatch"
+                  style={{ background: c }}
+                  aria-hidden="true"
+                />
+              ))}
+            </span>
+          ) : null}
           <button
             className="small-button secondary-button"
             type="button"

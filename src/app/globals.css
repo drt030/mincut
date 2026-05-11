@@ -1294,6 +1294,23 @@ li {
   outline-offset: 2px;
 }
 
+/* Per v3 iter-24: inline 5-swatch legend strip beside the dropdown
+   showing the active mode's color ramp direction. */
+.color-mode-legend {
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  display: inline-flex;
+  height: 16px;
+  overflow: hidden;
+  margin-left: 4px;
+}
+
+.color-mode-legend-swatch {
+  flex: 1 0 14px;
+  height: 100%;
+}
+
 /*
  * Per UX Flow v3 iter-7: progressive disclosure on detail-panel
  * sections (target context, maturity history, etc.). The native
