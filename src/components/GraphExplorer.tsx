@@ -22,6 +22,7 @@ import { formatMetricValue } from "@/lib/metricValueFormat";
 import { isDecompositionFrontier } from "@/lib/graphTraversal";
 import { edgeTintFor, type ColorMode } from "@/lib/edgeTint";
 import { explorationLayout } from "@/lib/explorationLayout";
+import { nodeRisk } from "@/lib/nodeRisk";
 import type { Edge, EdgeRelation, GraphData, MetricCurrency, MetricValue, Node, NodeKind } from "@/lib/schema";
 
 const kindColors: Record<string, string> = {
@@ -730,6 +731,7 @@ export function GraphExplorer({ graph }: Props) {
   const flowEdges: FlowEdge[] = useMemo(
     () =>
       layoutEdges.map((edge) => {
+        const sourceNode = nodeById.get(edge.source);
         const targetNode = nodeById.get(edge.target);
         // Slice 2: when colorMode !== "relation" we paint the edge by an
         // attribute of the *target* node. relation mode falls back to
@@ -737,6 +739,21 @@ export function GraphExplorer({ graph }: Props) {
         const tint = colorMode === "relation" || !targetNode
           ? undefined
           : edgeTintFor(targetNode, colorMode, graph);
+        // Slice 4 polish: in bottleneck mode, thicken edges whose BOTH
+        // endpoints are high-risk so the "bottleneck path" stands out
+        // visually from low-risk noise. Threshold 0.4 is empirical — it
+        // catches the parcel-sorting graph's actual risky chains
+        // (vision / manipulation / safety subsystems) without painting
+        // every requires-edge thick.
+        let bottleneckPathBoost = 0;
+        if (colorMode === "bottleneck" && sourceNode && targetNode) {
+          const sourceRisk = nodeRisk(sourceNode, graph);
+          const targetRisk = nodeRisk(targetNode, graph);
+          if (sourceRisk >= 0.4 && targetRisk >= 0.4) {
+            bottleneckPathBoost = 2;
+          }
+        }
+        const isSelectedEdge = edge.source === selectedId || edge.target === selectedId;
         return {
           id: edge.id,
           source: edge.source,
@@ -747,13 +764,14 @@ export function GraphExplorer({ graph }: Props) {
           className: [
             "graph-edge",
             `relation-${edge.relation}`,
-            edge.source === selectedId || edge.target === selectedId ? "selected" : "",
+            isSelectedEdge ? "selected" : "",
+            bottleneckPathBoost > 0 ? "bottleneck-path" : "",
             !selectedNeighbors.has(edge.source) && !selectedNeighbors.has(edge.target) ? "dimmed" : "",
           ]
             .filter(Boolean)
             .join(" "),
           style: {
-            strokeWidth: edge.source === selectedId || edge.target === selectedId ? 2.6 : 1.4,
+            strokeWidth: (isSelectedEdge ? 2.6 : 1.4) + bottleneckPathBoost,
             ...(tint ? { stroke: tint } : {}),
           },
         };
