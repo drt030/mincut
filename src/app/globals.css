@@ -205,6 +205,60 @@ nav a {
   padding: 4px 6px;
 }
 
+.product-view {
+  display: grid;
+  gap: 14px;
+}
+
+.product-summary-band {
+  align-items: stretch;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+.product-summary-main,
+.product-summary-stat {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-width: 0;
+  padding: 14px;
+}
+
+.product-summary-main h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.product-summary-main p {
+  display: -webkit-box;
+  line-height: 1.45;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.product-summary-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.product-summary-stat > span:first-child {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.product-summary-stat strong {
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 /*
  * Home page visual-signals legend. Mirrors the three on-canvas glyphs
  * (⚠ bottleneck, 🔑 key tech, 🔭 frontier) so a first-time visitor knows
@@ -2006,7 +2060,8 @@ code {
 
 @media (max-width: 900px) {
   .hero,
-  .graph-layout {
+  .graph-layout,
+  .product-summary-band {
     grid-template-columns: 1fr;
   }
 

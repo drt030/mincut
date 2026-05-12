@@ -32,41 +32,33 @@ export function ProductView({ graph, product }: Props) {
   const asOfTooltip = asOf.hasValue
     ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
     : t("maturityAsOfMissing");
+  const targetEntries = product.targetContext ? Object.entries(product.targetContext) : [];
 
   return (
-    <div>
-      <h1>{nodeName(product.id, product.name)}</h1>
-      <p>{product.description}</p>
-      <section className="card-grid">
-        <div className="card">
-          <h2>{t("maturity")}</h2>
-          <p>
-            <strong>{maturity.label}</strong> · {maturity.score}/100
-          </p>
-          <div className="maturity-pill-row">
-            <span
-              className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
-              title={asOfTooltip}
-              aria-label={asOfTooltip}
-            >
-              <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
-              {t("maturityAsOf")}: {asOf.label}
-            </span>
-          </div>
-          <p className="muted">{maturity.explanation}</p>
+    <div className="product-view">
+      <section className="product-summary-band">
+        <div className="product-summary-main">
+          <h1>{nodeName(product.id, product.name)}</h1>
+          <p>{product.description}</p>
         </div>
-        <div className="card">
-          <h2>{t("target")}</h2>
-          {product.targetContext ? (
-            <ul>
-              {Object.entries(product.targetContext).map(([key, value]) => (
-                <li key={key}>
-                  {key}: {value}
-                </li>
-              ))}
-            </ul>
+        <div className="product-summary-stat">
+          <span>{t("maturity")}</span>
+          <strong>{maturity.label} · {maturity.score}/100</strong>
+          <span
+            className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+            title={asOfTooltip}
+            aria-label={asOfTooltip}
+          >
+            <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
+            {t("maturityAsOf")}: {asOf.label}
+          </span>
+        </div>
+        <div className="product-summary-stat">
+          <span>{t("target")}</span>
+          {targetEntries.length ? (
+            <strong>{targetEntries.slice(0, 2).map(([key, value]) => `${key}: ${value}`).join(" · ")}</strong>
           ) : (
-            <p className="warning">{t("noTargetContext")}</p>
+            <strong className="warning">{t("noTargetContext")}</strong>
           )}
         </div>
       </section>
