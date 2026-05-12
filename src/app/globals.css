@@ -696,6 +696,26 @@ li {
   height: 14px;
 }
 
+.research-map-focused .graph-node-card:not(.selected) .graph-node-inner {
+  gap: 9px;
+  justify-content: flex-start;
+}
+
+.research-map-focused .graph-node-card:not(.selected) .graph-node-title {
+  font-size: 17px;
+  line-height: 1.22;
+}
+
+.research-map-focused .graph-node-card:not(.selected) .graph-node-impact-row span {
+  font-size: 11px;
+  padding: 5px 7px;
+}
+
+.research-map-focused .graph-node-card:not(.selected) .graph-node-meta .graph-node-asof-pill,
+.research-map-focused .graph-node-card:not(.selected) .graph-node-metrics {
+  display: none;
+}
+
 /*
  * Sibling Product candidates from the capability cluster (per ADR-0004).
  * Rendered as visible-but-secondary "alternative architectures" so they
