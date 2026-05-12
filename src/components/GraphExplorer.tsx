@@ -1358,8 +1358,8 @@ export function GraphExplorer({ graph }: Props) {
   // unique bottleneck targets reachable through the requires
   // subtree so a learner reading "Show bottlenecks (4)" sees the
   // real number of bottlenecks gating their product.
-  const selectedBottleneckCount = useMemo(() => {
-    if (!selectedNode) return 0;
+  const selectedBottleneckNodes = useMemo(() => {
+    if (!selectedNode) return [];
     const reachable = new Set<string>([selectedNode.id]);
     const queue: string[] = [selectedNode.id];
     while (queue.length) {
@@ -1378,8 +1378,12 @@ export function GraphExplorer({ graph }: Props) {
       if (!reachable.has(edge.source)) continue;
       bottleneckTargets.add(edge.target);
     }
-    return bottleneckTargets.size;
-  }, [graph.edges, selectedNode]);
+    return [...bottleneckTargets]
+      .map((id) => graph.nodes.find((node) => node.id === id))
+      .filter((node): node is Node => node !== undefined && node.reviewStatus !== "deprecated")
+      .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || nodeName(a.id, a.name).localeCompare(nodeName(b.id, b.name)));
+  }, [graph, nodeName, selectedNode]);
+  const selectedBottleneckCount = selectedBottleneckNodes.length;
   const selectedExpanded = mode === "bottleneck" ? expandedBottleneckIds.has(selectedNode.id) : expandedIds.has(selectedNode.id);
   const directDependencyNodes = useMemo(() => {
     const visibleSet = new Set(prefilteredNodes.map((node) => node.id));
@@ -1432,6 +1436,7 @@ export function GraphExplorer({ graph }: Props) {
             type="button"
             onClick={() => {
               setMode("bottleneck");
+              const primaryBottleneck = selectedBottleneckNodes[0];
               // Per UX Flow v3 iter-6: expand the FULL ancestor set
               // from selectedNode down to every reachable bottleneck.
               // The previous behaviour only marked selectedNode as
@@ -1459,6 +1464,11 @@ export function GraphExplorer({ graph }: Props) {
                 }
                 return next;
               });
+              if (primaryBottleneck) {
+                setSelectedId(primaryBottleneck.id);
+                setStage("focused");
+                scrollDetailIntoView();
+              }
             }}
           >
             {t("showBottlenecks")} ({selectedBottleneckCount})
