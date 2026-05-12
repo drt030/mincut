@@ -642,6 +642,7 @@ li {
  */
 .graph-node-card.compact .graph-node-meta .graph-node-asof-pill,
 .graph-node-card.compact .graph-node-meta > span:first-child,
+.graph-node-card.compact .graph-node-impact-row,
 .graph-node-card.compact .graph-node-metrics,
 .graph-node-card.compact .graph-node-frontier-glyph {
   display: none;
@@ -805,6 +806,31 @@ li {
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+
+.graph-node-impact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.graph-node-impact-row span {
+  background: rgba(15, 23, 42, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  line-height: 1;
+  padding: 4px 6px;
+  white-space: nowrap;
+}
+
+.graph-node-impact-row .graph-node-risk-score.high {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #78350f;
 }
 
 .graph-node-meta {

@@ -85,6 +85,12 @@ type CapabilityNodeData = {
   selected: boolean;
   related: boolean;
   risk: boolean;
+  riskScore: number;
+  directDependencyCount: number;
+  riskLabel: string;
+  directDependenciesLabel: string;
+  bottlenecksLabel: string;
+  impactSummaryLabel: string;
   isBottleneck: boolean;
   isAlternativeSibling: boolean;
   isHardToDevelop: boolean;
@@ -253,6 +259,13 @@ function GraphNodeCard({ data, withHandles = false }: { data: CapabilityNodeData
         ) : null}
         <div className="graph-node-inner">
           <div className="graph-node-title">{data.name}</div>
+          <div className="graph-node-impact-row" aria-label={data.impactSummaryLabel}>
+            <span className={["graph-node-risk-score", data.riskScore >= 0.4 ? "high" : ""].filter(Boolean).join(" ")}>
+              {data.riskLabel}: {Math.round(data.riskScore * 100)}%
+            </span>
+            <span>{data.directDependenciesLabel}: {data.directDependencyCount}</span>
+            {data.bottleneckedByCount > 0 ? <span>{data.bottlenecksLabel}: {data.bottleneckedByCount}</span> : null}
+          </div>
           <div className="graph-node-meta">
             <span>{data.kindLabel}</span>
             <span
@@ -933,6 +946,15 @@ export function GraphExplorer({ graph }: Props) {
     return filteredNodes.filter((n) => focusContextIds.has(n.id));
   }, [stage, mode, filteredNodes, requiresTreeIds, focusContextIds]);
 
+  const directDependencyCountById = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const edge of graph.edges) {
+      if (!shouldShowLayeredEdge(graph, edge)) continue;
+      counts.set(edge.source, (counts.get(edge.source) ?? 0) + 1);
+    }
+    return counts;
+  }, [graph]);
+
   const flowNodes: FlowNode[] = useMemo(
     () =>
       visibleNodes.map((node) => {
@@ -949,6 +971,8 @@ export function GraphExplorer({ graph }: Props) {
           : t("maturityAsOfMissing");
         const isBottleneck = node.kind === "bottleneck";
         const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
+        const riskScore = nodeRisk(node, graph);
+        const directDependencyCount = directDependencyCountById.get(node.id) ?? 0;
         const isAlternativeSibling = capabilityCluster.siblingProductIds.has(node.id);
         const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
         // Per iter-23, the per-card 🔭 glyph is gated by the toolbar
@@ -975,6 +999,12 @@ export function GraphExplorer({ graph }: Props) {
           selected: selectedId === node.id,
           related,
           risk: node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
+          riskScore,
+          directDependencyCount,
+          riskLabel: t("risk"),
+          directDependenciesLabel: t("directDependencies"),
+          bottlenecksLabel: t("bottlenecks"),
+          impactSummaryLabel: t("graphNodeImpactSummary"),
           isBottleneck,
           isAlternativeSibling,
           isHardToDevelop,
@@ -1026,7 +1056,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, colorMode, explorationPositions, fallbackLayoutContext, focusContextIds, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, scrollDetailIntoView, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion, visibleNodes],
+    [bottleneckedByCounts, capabilityCluster, colorMode, directDependencyCountById, explorationPositions, fallbackLayoutContext, focusContextIds, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, scrollDetailIntoView, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion, visibleNodes],
   );
 
   const nodeById = useMemo(() => {
