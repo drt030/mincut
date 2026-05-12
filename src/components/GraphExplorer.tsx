@@ -1543,6 +1543,7 @@ export function GraphExplorer({ graph }: Props) {
         </div>
         {selectedBottleneckNodes.length > 0 ? (
           <div className="graph-context-jumps graph-context-bottleneck-jumps" aria-label={t("bottleneckJumps")}>
+            <span className="graph-context-jump-row-label">{t("bottleneckShortcuts")}</span>
             {selectedBottleneckNodes.slice(0, 4).map((node) => (
               <a
                 key={node.id}
@@ -1559,6 +1560,7 @@ export function GraphExplorer({ graph }: Props) {
         ) : null}
         {directDependencyNodes.length > 0 ? (
           <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
+            <span className="graph-context-jump-row-label">{t("riskyDependencyShortcuts")}</span>
             {directDependencyNodes.map((node) => (
               (() => {
                 const risk = nodeRisk(node, graph);

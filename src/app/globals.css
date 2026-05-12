@@ -529,6 +529,7 @@ li {
 
 .graph-context-jumps {
   align-content: center;
+  align-items: center;
   display: flex;
   flex-wrap: nowrap;
   gap: 6px;
@@ -536,6 +537,18 @@ li {
   min-width: 0;
   overflow-x: auto;
   padding-bottom: 1px;
+}
+
+.graph-context-jump-row-label {
+  color: #475569;
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1;
+  padding: 0 4px 0 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .graph-context-jumps a {
