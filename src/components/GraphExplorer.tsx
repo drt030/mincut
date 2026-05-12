@@ -374,16 +374,27 @@ function ResearchMapCanvas({
 }) {
   const padding = 40;
   const positioned = stage === "overview" ? buildOverviewMapNodes(nodes, edges) : buildFocusedMapNodes(nodes);
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
-  if (!positioned.length) return null;
-
-  const minX = Math.min(...positioned.map((node) => node.x));
-  const minY = Math.min(...positioned.map((node) => node.y));
-  const maxX = Math.max(...positioned.map((node) => node.x + node.width));
-  const maxY = Math.max(...positioned.map((node) => node.y + node.height));
+  const minX = positioned.length ? Math.min(...positioned.map((node) => node.x)) : 0;
+  const minY = positioned.length ? Math.min(...positioned.map((node) => node.y)) : 0;
+  const maxX = positioned.length ? Math.max(...positioned.map((node) => node.x + node.width)) : 0;
+  const maxY = positioned.length ? Math.max(...positioned.map((node) => node.y + node.height)) : 0;
   const width = Math.max(640, maxX - minX + padding * 2);
   const height = Math.max(stage === "focused" ? 340 : 460, maxY - minY + padding * 2);
   const byId = new Map(positioned.map((node) => [node.id, node]));
+  const selectedMapNode = positioned.find((node) => node.data.selected);
+  const selectedMapNodeId = selectedMapNode?.id;
+  const selectedScrollLeft = selectedMapNode ? selectedMapNode.x - minX + padding : 0;
+  useEffect(() => {
+    if (stage !== "focused" || !selectedMapNodeId || !mapRef.current) return;
+    const viewport = mapRef.current;
+    viewport.scrollTo({
+      left: Math.max(0, selectedScrollLeft - viewport.clientWidth * 0.34),
+      behavior: "smooth",
+    });
+  }, [selectedMapNodeId, selectedScrollLeft, stage]);
+  if (!positioned.length) return null;
   const columnHeaders = stage === "overview"
     ? [...new Map(positioned.map((node) => {
       const labelIndex = node.labelIndex ?? Math.round(node.x / 252);
@@ -401,7 +412,7 @@ function ResearchMapCanvas({
     : [];
 
   return (
-    <div className={["research-map", `research-map-${stage}`].join(" ")}>
+    <div ref={mapRef} className={["research-map", `research-map-${stage}`].join(" ")}>
       <div className="research-map-inner" style={{ width, height }}>
         <svg className="research-map-edges" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
           <defs>
