@@ -506,12 +506,17 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
 }
 
 function buildFocusedMapNodes(nodes: FlowNode<CapabilityNodeData>[]) {
+  const columnWidth = 260;
+  const sortedColumns = [...new Set(nodes.map((node) => Math.round(node.position.x)))]
+    .sort((a, b) => a - b);
+  const columnByX = new Map(sortedColumns.map((x, index) => [x, index]));
+
   return nodes.map((node) => ({
     id: node.id,
     data: node.data,
     height: numberStyle(node.style?.height, DEFAULT_NODE_HEIGHT),
     width: numberStyle(node.style?.width, NODE_WIDTH),
-    x: node.position.x,
+    x: (columnByX.get(Math.round(node.position.x)) ?? 0) * columnWidth,
     y: node.position.y,
   }));
 }
