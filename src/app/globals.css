@@ -144,12 +144,12 @@ nav a {
 }
 
 .graph-page {
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .graph-page h1 {
-  font-size: 28px;
-  margin-bottom: 8px;
+  font-size: 22px;
+  margin-bottom: 5px;
 }
 
 .hero {
@@ -385,8 +385,8 @@ li {
     linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
-  height: clamp(460px, calc(100vh - 245px), 620px);
-  min-height: 460px;
+  height: clamp(500px, calc(100vh - 220px), 680px);
+  min-height: 500px;
   overflow: hidden;
 }
 
@@ -1867,10 +1867,10 @@ li {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   justify-content: flex-start;
-  margin-bottom: 6px;
-  row-gap: 6px;
+  margin-bottom: 4px;
+  row-gap: 5px;
 }
 
 .explorer-toolbar .toolbar-actions {
