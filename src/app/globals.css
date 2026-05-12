@@ -1936,6 +1936,57 @@ input {
   margin-bottom: 8px;
 }
 
+.detail-priority-strip {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+}
+
+.detail-priority-tile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 9px 10px;
+}
+
+.detail-priority-tile span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-priority-tile strong {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.detail-priority-tile.danger {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+.detail-priority-tile.danger strong {
+  color: #b91c1c;
+}
+
+.detail-priority-tile.warning {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.detail-priority-tile.warning strong {
+  color: #92400e;
+}
+
 .detail-list > p {
   display: -webkit-box;
   line-height: 1.45;

@@ -65,6 +65,8 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
   const siblingDeprecatedCount = siblingCandidatesAll.length - siblingCandidates.length;
   const isDeprecated = node.reviewStatus === "deprecated";
   const isDisputed = node.reviewStatus === "disputed";
+  const dependencyCount = down.length;
+  const evidenceCount = evidence.length;
 
   return (
     /*
@@ -112,6 +114,13 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
           ))}
         </div>
       </div>
+      <DetailPrioritySummary
+        graph={graph}
+        node={node}
+        dependencyCount={dependencyCount}
+        bottleneckCount={bottlenecks.length}
+        evidenceCount={evidenceCount}
+      />
       {isDeprecated && node.notes?.trim() ? (
         <div className="deprecated-callout">
           <strong>{t("supersessionReason")}</strong>
@@ -202,10 +211,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         the inversion. Expand to all "physical thing" kinds where cost
         rollup is semantically meaningful.
       */}
-      {(node.kind === "product" ||
-        node.kind === "module" ||
-        node.kind === "equipment" ||
-        node.kind === "material") ? (
+      {isCostSummaryNode(node) ? (
         <ProductCostRollupCard graph={graph} product={node} />
       ) : null}
       <p>{node.description ?? t("noDescription")}</p>
@@ -278,6 +284,65 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
       </div>
     </aside>
   );
+}
+
+function DetailPrioritySummary({
+  graph,
+  node,
+  dependencyCount,
+  bottleneckCount,
+  evidenceCount,
+}: {
+  graph: GraphData;
+  node: Node;
+  dependencyCount: number;
+  bottleneckCount: number;
+  evidenceCount: number;
+}) {
+  const { t } = useLanguage();
+  const rollup = useMemo<CostRollupResult | null>(() => {
+    if (!isCostSummaryNode(node)) return null;
+    try {
+      return rollupCost(graph, node.id);
+    } catch {
+      return null;
+    }
+  }, [graph, node]);
+  const maturity = typeof node.maturityScore === "number" ? `${node.maturityScore}/100` : t("nodeMaturityScoreMissing");
+  const cost =
+    rollup && rollup.anyChildContributed
+      ? formatMetricValue(rollup.rolledUp, "RMB", "RMB").compact
+      : t("metricNoValue");
+  return (
+    <div className="detail-priority-strip" aria-label={t("detailPrioritySummary")}>
+      <div className="detail-priority-tile">
+        <span>{t("maturity")}</span>
+        <strong>{maturity}</strong>
+      </div>
+      {isCostSummaryNode(node) ? (
+        <div className="detail-priority-tile">
+          <span>{t("costRollupTitle")}</span>
+          <strong>{cost}</strong>
+        </div>
+      ) : null}
+      <div className={["detail-priority-tile", bottleneckCount > 0 ? "danger" : ""].filter(Boolean).join(" ")}>
+        <span>{t("bottlenecks")}</span>
+        <strong>{bottleneckCount}</strong>
+      </div>
+      <div className="detail-priority-tile">
+        <span>{t("downstream")}</span>
+        <strong>{dependencyCount}</strong>
+      </div>
+      <div className={["detail-priority-tile", evidenceCount === 0 ? "warning" : ""].filter(Boolean).join(" ")}>
+        <span>{t("evidence")}</span>
+        <strong>{evidenceCount}</strong>
+      </div>
+    </div>
+  );
+}
+
+function isCostSummaryNode(node: Node): boolean {
+  return node.kind === "product" || node.kind === "module" || node.kind === "equipment" || node.kind === "material";
 }
 
 /**
