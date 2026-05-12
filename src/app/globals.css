@@ -2192,6 +2192,20 @@ input {
   color: #92400e;
 }
 
+.evidence-gap-callout {
+  background: #fffbeb;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  color: #78350f;
+  padding: 10px 12px;
+}
+
+.evidence-gap-callout p {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 4px 0 0;
+}
+
 .detail-list > p {
   display: -webkit-box;
   line-height: 1.45;

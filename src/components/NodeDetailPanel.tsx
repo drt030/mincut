@@ -121,6 +121,12 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         bottleneckCount={bottlenecks.length}
         evidenceCount={evidenceCount}
       />
+      {evidenceCount === 0 ? (
+        <div className="evidence-gap-callout">
+          <strong>{t("evidenceGapTitle")}</strong>
+          <p>{t("evidenceGapHint")}</p>
+        </div>
+      ) : null}
       {/*
         Keep the next drill target directly below the summary. The graph
         surface is a research workflow, so after "what is this node?" the
