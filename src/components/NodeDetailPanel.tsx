@@ -112,7 +112,6 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
           ))}
         </div>
       </div>
-      <p>{node.description ?? t("noDescription")}</p>
       {isDeprecated && node.notes?.trim() ? (
         <div className="deprecated-callout">
           <strong>{t("supersessionReason")}</strong>
@@ -194,6 +193,22 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         </div>
         <MaturityHistoryTimeline node={node} />
       </div>
+      <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
+      {/*
+        Slice-1 follow-up (2026-05-10 ux-flow Flow 1.5/1.6): the cost
+        rollup card + ⚠ inversion badge were gated to `product` kind
+        only — which meant the very node the user reported the bug on
+        (parcel_manipulation_or_diverter, kind=module) couldn't surface
+        the inversion. Expand to all "physical thing" kinds where cost
+        rollup is semantically meaningful.
+      */}
+      {(node.kind === "product" ||
+        node.kind === "module" ||
+        node.kind === "equipment" ||
+        node.kind === "material") ? (
+        <ProductCostRollupCard graph={graph} product={node} />
+      ) : null}
+      <p>{node.description ?? t("noDescription")}</p>
       {node.targetContext ? (
         // Per UX Flow v3 iter-7 (progressive disclosure): target
         // context is reference detail (6 fields of free-form text),
@@ -222,21 +237,6 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
       */}
       {(node.kind === "product" || node.kind === "module") ? (
         <TopBlockers graph={graph} parent={node} onSelectNode={onSelectNode} />
-      ) : null}
-      <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
-      {/*
-        Slice-1 follow-up (2026-05-10 ux-flow Flow 1.5/1.6): the cost
-        rollup card + ⚠ inversion badge were gated to `product` kind
-        only — which meant the very node the user reported the bug on
-        (parcel_manipulation_or_diverter, kind=module) couldn't surface
-        the inversion. Expand to all "physical thing" kinds where cost
-        rollup is semantically meaningful.
-      */}
-      {(node.kind === "product" ||
-        node.kind === "module" ||
-        node.kind === "equipment" ||
-        node.kind === "material") ? (
-        <ProductCostRollupCard graph={graph} product={node} />
       ) : null}
       {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
       <NodeList

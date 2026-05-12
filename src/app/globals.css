@@ -1866,11 +1866,29 @@ input {
 
 .detail-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
+}
+
+.detail-list.panel {
+  padding: 14px 18px;
 }
 
 .detail-list > * {
   min-width: 0;
+}
+
+.detail-list h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.detail-list > p {
+  display: -webkit-box;
+  line-height: 1.45;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 details {
