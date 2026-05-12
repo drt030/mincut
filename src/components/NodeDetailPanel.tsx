@@ -838,13 +838,13 @@ function NodeListBody({
 
 /**
  * Per UX Flow v3 iter-11: a learner's first question is usually
- * "what's gating this thing?" — show the top-3 highest-risk
- * `requires` children at the top of the detail panel as a clickable
- * shortcut so they can drill in one click instead of scanning the
- * 12-row Downstream list and guessing.
+ * "what's gating this thing?" Put explicit `bottlenecked_by` nodes first,
+ * then fill with the highest-risk `requires` children. This keeps the
+ * top action aligned with the graph's bottleneck edge semantics instead
+ * of making the user scan the lower Bottlenecks list.
  *
  * Risk uses nodeRisk(child, graph) = (1 - maturity/100) × cost_share.
- * If no child has risk > 0.1 we render nothing (avoids a useless
+ * If no bottleneck and no child has risk > 0.1 we render nothing (avoids a useless
  * "top blockers: ..." row when everything is mature).
  */
 function TopBlockers({
@@ -858,11 +858,21 @@ function TopBlockers({
 }) {
   const { nodeName, t } = useLanguage();
   const ranked = useMemo(() => {
+    const explicitBottlenecks = bottlenecksForNode(graph, parent.id)
+      .filter((child) => child.reviewStatus !== "deprecated")
+      .map((child) => ({
+        id: child.id,
+        child,
+        risk: nodeRisk(child, graph),
+        source: "explicit" as const,
+      }));
+    const explicitIds = new Set(explicitBottlenecks.map((entry) => entry.id));
     const childIds = new Set<string>();
     for (const edge of graph.edges) {
       if (edge.source !== parent.id || edge.relation !== "requires") continue;
       const child = graph.nodes.find((n) => n.id === edge.target);
       if (!child) continue;
+      if (explicitIds.has(child.id)) continue;
       if (
         child.kind === "metric" ||
         child.kind === "evidence" ||
@@ -878,11 +888,16 @@ function TopBlockers({
       .map((id) => {
         const child = graph.nodes.find((n) => n.id === id);
         if (!child) return null;
-        return { id, child, risk: nodeRisk(child, graph) };
+        return {
+          id,
+          child,
+          risk: nodeRisk(child, graph),
+          source: "dependency" as const,
+        };
       })
-      .filter((entry): entry is { id: string; child: Node; risk: number } => entry !== null);
+      .filter((entry): entry is { id: string; child: Node; risk: number; source: "dependency" } => entry !== null);
     scored.sort((a, b) => b.risk - a.risk);
-    return scored.slice(0, 3).filter((entry) => entry.risk > 0.1);
+    return [...explicitBottlenecks, ...scored.filter((entry) => entry.risk > 0.1)].slice(0, 3);
   }, [graph, parent.id]);
   if (ranked.length === 0) return null;
   return (
@@ -892,6 +907,8 @@ function TopBlockers({
         {ranked.map((entry) => {
           const maturityLabel = entry.child.maturityLabel ?? "unknown";
           const maturityText = formatMaturityLabel(maturityLabel);
+          const sourceText = entry.source === "explicit" ? t("explicitBottleneck") : maturityText;
+          const badgeText = entry.source === "explicit" ? t("bottleneckBadge") : `${Math.round(entry.risk * 100)}%`;
           return (
             <li key={entry.id}>
               {onSelectNode ? (
@@ -900,16 +917,16 @@ function TopBlockers({
                   type="button"
                   onClick={() => onSelectNode(entry.id)}
                   title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
-                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · risk ${Math.round(entry.risk * 100)}%`}
+                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${sourceText} · risk ${Math.round(entry.risk * 100)}%`}
                 >
                   <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
-                  <span className="top-blockers-meta muted">{maturityText}</span>
+                  <span className="top-blockers-meta muted">{sourceText}</span>
                 </button>
               ) : (
                 <span>{nodeName(entry.id, entry.child.name)}</span>
               )}
-              <span className="top-blockers-risk" aria-hidden="true">
-                {Math.round(entry.risk * 100)}%
+              <span className={["top-blockers-risk", entry.source === "explicit" ? "explicit" : ""].filter(Boolean).join(" ")} aria-hidden="true">
+                {badgeText}
               </span>
             </li>
           );
