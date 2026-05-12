@@ -143,6 +143,15 @@ nav a {
   padding: 28px;
 }
 
+.graph-page {
+  padding-top: 20px;
+}
+
+.graph-page h1 {
+  font-size: 34px;
+  margin-bottom: 14px;
+}
+
 .hero {
   display: grid;
   gap: 18px;
@@ -322,9 +331,22 @@ li {
     linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
-  height: calc(100vh - 150px);
-  min-height: 680px;
+  height: clamp(460px, calc(100vh - 245px), 620px);
+  min-height: 460px;
   overflow: hidden;
+}
+
+.graph-canvas-focused {
+  height: clamp(300px, calc(100vh - 330px), 460px);
+  min-height: 300px;
+}
+
+.graph-layout-focused {
+  grid-template-columns: 1fr;
+}
+
+.graph-layout-focused > .panel {
+  order: -1;
 }
 
 .graph-node-card {
@@ -437,7 +459,7 @@ li {
 }
 
 .graph-node-card.compact .graph-node-title {
-  font-size: 13px;
+  font-size: 14px;
   -webkit-line-clamp: 2;
 }
 
@@ -474,9 +496,10 @@ li {
 }
 
 .graph-node-card.risk {
+  border-color: #f59e0b;
   box-shadow:
-    0 0 0 1px rgba(248, 113, 113, 0.34),
-    0 12px 30px rgba(127, 29, 29, 0.18);
+    0 0 0 2px rgba(245, 158, 11, 0.46),
+    0 12px 30px rgba(127, 29, 29, 0.2);
 }
 
 .graph-node-card.is-bottleneck {
@@ -587,7 +610,7 @@ li {
 .graph-node-title {
   display: -webkit-box;
   flex-shrink: 0;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   line-height: 1.23;
   overflow: hidden;
@@ -1518,9 +1541,60 @@ li {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 10px;
   row-gap: 10px;
+}
+
+.explorer-toolbar .toolbar-actions {
+  flex: 1 1 420px;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.graph-control-drawer,
+.graph-filter-drawer {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  margin: 0 0 6px;
+  padding: 0;
+}
+
+.graph-control-drawer > summary,
+.graph-filter-drawer > summary {
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 800;
+  list-style: none;
+  margin-bottom: 4px;
+  padding: 0;
+}
+
+.graph-control-drawer > summary::-webkit-details-marker,
+.graph-filter-drawer > summary::-webkit-details-marker {
+  display: none;
+}
+
+.graph-control-drawer > summary::before,
+.graph-filter-drawer > summary::before {
+  color: #64748b;
+  content: "▸";
+  display: inline-block;
+  font-size: 11px;
+  margin-right: 6px;
+  transition: transform 120ms ease;
+}
+
+.graph-control-drawer[open] > summary::before,
+.graph-filter-drawer[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.graph-secondary-actions {
+  justify-content: flex-start;
 }
 
 .segmented-control {
@@ -1618,9 +1692,9 @@ li {
 
 .explorer-hint {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.45;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   max-width: 920px;
 }
 
@@ -1628,7 +1702,7 @@ li {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 select,
@@ -1802,6 +1876,7 @@ code {
 
   .toolbar-actions {
     justify-content: flex-start;
+    width: 100%;
   }
 
   .segmented-control {
@@ -1815,9 +1890,18 @@ code {
   }
 
   .graph-canvas {
-    height: 640px;
-    min-height: 640px;
+    height: 430px;
+    min-height: 430px;
     width: calc(100vw - 36px);
+  }
+
+  .graph-layout-focused > .panel {
+    order: -1;
+  }
+
+  .graph-layout-focused .graph-canvas {
+    height: 360px;
+    min-height: 360px;
   }
 
   table {

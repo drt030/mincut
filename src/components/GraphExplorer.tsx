@@ -479,6 +479,11 @@ export function GraphExplorer({ graph }: Props) {
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode, FlowEdge> | null>(null);
   const [flowInstanceReady, setFlowInstanceReady] = useState(false);
   const initialCenterDoneRef = useRef(false);
+  const scrollDetailIntoView = useCallback(() => {
+    window.setTimeout(() => {
+      document.getElementById("detail-heading")?.scrollIntoView({ block: "start", behavior: "smooth" });
+    }, 0);
+  }, []);
 
   const domains = useMemo(() => [...new Set(graph.nodes.flatMap((node) => node.domain))].sort(), [graph.nodes]);
   const kinds = useMemo(() => [...new Set(graph.nodes.map((node) => node.kind))].sort(), [graph.nodes]);
@@ -731,34 +736,21 @@ export function GraphExplorer({ graph }: Props) {
   // right panel (sibling product list + the metrics chip strip on the
   // focus card). Keep only the capability(ies) the focus enables —
   // that's the umbrella, semantically useful in both stages.
-  // Per UX Flow v3 iter-8 (user feedback "缺少连贯性，传送感"):
-  //   - overview stage: requires-subtree only (clean heat scan)
-  //   - focused stage: render ALL filteredNodes, but mark
-  //     non-context nodes with `outOfContext` so CSS can mini-render
-  //     them at 30% opacity + 45% scale. Preserves spatial continuity
-  //     when the user drills in — the previous focus's siblings don't
-  //     vanish, they just shrink.
-  //   - bottleneck mode: full filteredNodes (bottleneck nodes are
-  //     outside requires-subtree).
+  // Focused stage should behave like an inspection view, not a tiny
+  // global minimap. Keep only the selected node's immediate graph
+  // context so labels remain readable and the active path is clear.
   const focusContextIds = useMemo(() => {
-    const ids = new Set<string>([selectedId]);
-    for (const id of requiresTreeIds) ids.add(id);
+    const ids = new Set<string>(selectedNeighbors);
     for (const id of capabilityCluster.capabilityIds) ids.add(id);
     return ids;
-  }, [selectedId, requiresTreeIds, capabilityCluster.capabilityIds]);
+  }, [selectedNeighbors, capabilityCluster.capabilityIds]);
 
   const visibleNodes = useMemo(() => {
     if (mode === "bottleneck") return filteredNodes;
     if (stage === "overview") {
       return filteredNodes.filter((n) => requiresTreeIds.has(n.id));
     }
-    // focused: include everything but reorder so context comes first
-    // (helps z-index since later-rendered sit above earlier).
-    return [...filteredNodes].sort((a, b) => {
-      const aIn = focusContextIds.has(a.id) ? 1 : 0;
-      const bIn = focusContextIds.has(b.id) ? 1 : 0;
-      return aIn - bIn;
-    });
+    return filteredNodes.filter((n) => focusContextIds.has(n.id));
   }, [stage, mode, filteredNodes, requiresTreeIds, focusContextIds]);
 
   const flowNodes: FlowNode[] = useMemo(
@@ -831,6 +823,7 @@ export function GraphExplorer({ graph }: Props) {
             // having to double-click to expand them.
             setSelectedId(id);
             setStage("focused");
+            scrollDetailIntoView();
             setExpandedIds((current) => {
               if (current.has(id)) return current;
               const next = new Set(current);
@@ -853,7 +846,7 @@ export function GraphExplorer({ graph }: Props) {
         },
       };
       }),
-    [bottleneckedByCounts, capabilityCluster, colorMode, explorationPositions, fallbackLayoutContext, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion, visibleNodes],
+    [bottleneckedByCounts, capabilityCluster, colorMode, explorationPositions, fallbackLayoutContext, focusContextIds, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, scrollDetailIntoView, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion, visibleNodes],
   );
 
   const nodeById = useMemo(() => {
@@ -862,9 +855,13 @@ export function GraphExplorer({ graph }: Props) {
     return map;
   }, [graph.nodes]);
 
+  const visibleFlowNodeIds = useMemo(() => new Set(visibleNodes.map((node) => node.id)), [visibleNodes]);
+
   const flowEdges: FlowEdge[] = useMemo(
     () =>
-      layoutEdges.map((edge) => {
+      layoutEdges
+      .filter((edge) => visibleFlowNodeIds.has(edge.source) && visibleFlowNodeIds.has(edge.target))
+      .map((edge) => {
         const sourceNode = nodeById.get(edge.source);
         const targetNode = nodeById.get(edge.target);
         // Slice 2: when colorMode !== "relation" we paint the edge by an
@@ -910,7 +907,7 @@ export function GraphExplorer({ graph }: Props) {
           },
         };
       }),
-    [layoutEdges, relation, relationName, selectedId, selectedNeighbors, colorMode, graph, nodeById],
+    [layoutEdges, visibleFlowNodeIds, relation, relationName, selectedId, selectedNeighbors, colorMode, graph, nodeById],
   );
 
   const foldCountById = useMemo(() => {
@@ -1023,8 +1020,17 @@ export function GraphExplorer({ graph }: Props) {
     // Use the controls button (works reliably) instead of the
     // programmatic-call variant (silent no-op before measurements).
     void instance;
-    const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
-    btn?.click();
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    const fit = () => {
+      const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
+      btn?.click();
+    };
+    [0, 120, 320].forEach((delay) => {
+      timeouts.push(setTimeout(fit, delay));
+    });
+    return () => {
+      timeouts.forEach((timeout) => clearTimeout(timeout));
+    };
   }, [flowInstanceReady, stage, selectedId, visibleNodes]);
 
   // Per UX Flow v3 iter-3: persist colorMode + stage + selectedId in URL
@@ -1177,41 +1183,6 @@ export function GraphExplorer({ graph }: Props) {
           >
             {t("showBottlenecks")} ({selectedBottleneckCount})
           </button>
-          <button
-            className={["small-button", "secondary-button", showMetricsAsNodes ? "active" : ""].filter(Boolean).join(" ")}
-            type="button"
-            aria-pressed={showMetricsAsNodes}
-            onClick={() => setShowMetricsAsNodes((value) => !value)}
-            title={t("showMetricsAsNodesHint")}
-          >
-            {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-          </button>
-          <button
-            className={["small-button", "secondary-button", showFrontiers ? "active" : ""].filter(Boolean).join(" ")}
-            type="button"
-            aria-pressed={showFrontiers}
-            onClick={() => setShowFrontiers((value) => !value)}
-            title={t("showFrontiersToggleHint")}
-          >
-            {t("showFrontiersToggle")}{showFrontiers ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-          </button>
-          <button
-            className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
-            type="button"
-            aria-pressed={showDeprecated}
-            onClick={() => setShowDeprecated((value) => !value)}
-            title={t("showDeprecatedHint")}
-          >
-            {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-          </button>
-          <span
-            className="frontier-count-status"
-            title={t("frontierCountInScopeTooltip")}
-            aria-label={t("frontierCountInScopeTooltip")}
-          >
-            <span className="frontier-count-icon" aria-hidden="true">🔭</span>
-            {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
-          </span>
           {stage === "focused" ? (
             <button
               className="small-button secondary-button"
@@ -1261,6 +1232,11 @@ export function GraphExplorer({ graph }: Props) {
               ))}
             </span>
           ) : null}
+        </div>
+      </div>
+      <details className="graph-control-drawer">
+        <summary>{t("displayOptions")}</summary>
+        <div className="toolbar-actions graph-secondary-actions">
           <button
             className="small-button secondary-button"
             type="button"
@@ -1283,61 +1259,99 @@ export function GraphExplorer({ graph }: Props) {
           >
             {t("resetExpansion")}
           </button>
+          <button
+            className={["small-button", "secondary-button", showMetricsAsNodes ? "active" : ""].filter(Boolean).join(" ")}
+            type="button"
+            aria-pressed={showMetricsAsNodes}
+            onClick={() => setShowMetricsAsNodes((value) => !value)}
+            title={t("showMetricsAsNodesHint")}
+          >
+            {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+          </button>
+          <button
+            className={["small-button", "secondary-button", showFrontiers ? "active" : ""].filter(Boolean).join(" ")}
+            type="button"
+            aria-pressed={showFrontiers}
+            onClick={() => setShowFrontiers((value) => !value)}
+            title={t("showFrontiersToggleHint")}
+          >
+            {t("showFrontiersToggle")}{showFrontiers ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+          </button>
+          <button
+            className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
+            type="button"
+            aria-pressed={showDeprecated}
+            onClick={() => setShowDeprecated((value) => !value)}
+            title={t("showDeprecatedHint")}
+          >
+            {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+          </button>
+          <span
+            className="frontier-count-status"
+            title={t("frontierCountInScopeTooltip")}
+            aria-label={t("frontierCountInScopeTooltip")}
+          >
+            <span className="frontier-count-icon" aria-hidden="true">🔭</span>
+            {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
+          </span>
         </div>
-      </div>
+      </details>
       <div className="explorer-hint">
         {mode === "layered" ? t("layeredModeHint") : mode === "bottleneck" ? t("bottleneckModeHint") : t("fullModeHint")}
       </div>
-      <div className="filters">
-        <select
-          aria-label={t("filterDomainLabel")}
-          value={domain}
-          onChange={(event) => setDomain(event.target.value)}
-        >
-          <option value="all">{t("allDomains")}</option>
-          {domains.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-        <select
-          aria-label={t("filterKindLabel")}
-          value={kind}
-          onChange={(event) => setKind(event.target.value as NodeKind | "all")}
-        >
-          <option value="all">{t("allNodeKinds")}</option>
-          {kinds.map((item) => (
-            <option key={item} value={item}>
-              {kindName(item)}
-            </option>
-          ))}
-        </select>
-        <select
-          aria-label={t("filterRelationLabel")}
-          value={relation}
-          onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}
-        >
-          <option value="all">{t("allRelations")}</option>
-          {relations.map((item) => (
-            <option key={item} value={item}>
-              {relationName(item)}
-            </option>
-          ))}
-        </select>
-        <select
-          aria-label={t("filterMaturityLabel")}
-          value={maturity}
-          onChange={(event) => setMaturity(event.target.value)}
-        >
-          <option value="all">{t("allMaturity")}</option>
-          <option value="30">{t("score")} &gt;= 30</option>
-          <option value="50">{t("score")} &gt;= 50</option>
-          <option value="70">{t("score")} &gt;= 70</option>
-        </select>
-      </div>
-      <div className="graph-layout">
-        <div className="graph-canvas">
+      <details className="graph-filter-drawer">
+        <summary>{t("advancedFilters")}</summary>
+        <div className="filters">
+          <select
+            aria-label={t("filterDomainLabel")}
+            value={domain}
+            onChange={(event) => setDomain(event.target.value)}
+          >
+            <option value="all">{t("allDomains")}</option>
+            {domains.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+          <select
+            aria-label={t("filterKindLabel")}
+            value={kind}
+            onChange={(event) => setKind(event.target.value as NodeKind | "all")}
+          >
+            <option value="all">{t("allNodeKinds")}</option>
+            {kinds.map((item) => (
+              <option key={item} value={item}>
+                {kindName(item)}
+              </option>
+            ))}
+          </select>
+          <select
+            aria-label={t("filterRelationLabel")}
+            value={relation}
+            onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}
+          >
+            <option value="all">{t("allRelations")}</option>
+            {relations.map((item) => (
+              <option key={item} value={item}>
+                {relationName(item)}
+              </option>
+            ))}
+          </select>
+          <select
+            aria-label={t("filterMaturityLabel")}
+            value={maturity}
+            onChange={(event) => setMaturity(event.target.value)}
+          >
+            <option value="all">{t("allMaturity")}</option>
+            <option value="30">{t("score")} &gt;= 30</option>
+            <option value="50">{t("score")} &gt;= 50</option>
+            <option value="70">{t("score")} &gt;= 70</option>
+          </select>
+        </div>
+      </details>
+      <div className={`graph-layout graph-layout-${stage}`}>
+        <div className={`graph-canvas graph-canvas-${stage}`}>
           <ReactFlow
             nodes={flowNodes}
             edges={flowEdges}
@@ -1369,6 +1383,7 @@ export function GraphExplorer({ graph }: Props) {
             onNodeClick={(_, node) => {
               setSelectedId(node.id);
               setStage("focused");
+              scrollDetailIntoView();
               setExpandedIds((current) => {
                 if (current.has(node.id)) return current;
                 const next = new Set(current);
@@ -1380,6 +1395,7 @@ export function GraphExplorer({ graph }: Props) {
               event.preventDefault();
               setSelectedId(node.id);
               setStage("focused");
+              scrollDetailIntoView();
               toggleSelectedExpansion(node.id);
             }}
           >
@@ -1387,7 +1403,15 @@ export function GraphExplorer({ graph }: Props) {
             <Controls />
           </ReactFlow>
         </div>
-        <NodeDetailPanel graph={graph} node={selectedNode} onSelectNode={setSelectedId} />
+        <NodeDetailPanel
+          graph={graph}
+          node={selectedNode}
+          onSelectNode={(id) => {
+            setSelectedId(id);
+            setStage("focused");
+            scrollDetailIntoView();
+          }}
+        />
       </div>
     </div>
   );

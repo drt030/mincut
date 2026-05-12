@@ -5,7 +5,7 @@ import { loadActiveGraphData } from "@/lib/graphLoader";
 export default function GraphPage() {
   const graph = loadActiveGraphData();
   return (
-    <div className="page">
+    <div className="page graph-page">
       <TranslatedHeading textKey="graphExplorer" />
       <GraphExplorer graph={graph} />
     </div>

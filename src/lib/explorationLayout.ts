@@ -49,9 +49,9 @@ export type ExplorationLayoutInput = {
 };
 
 /** Per-slot horizontal stride. One slot = one card slot (card width + gap). */
-export const COL_WIDTH = 280;
+export const COL_WIDTH = 260;
 /** Per-row vertical stride. */
-export const ROW_HEIGHT = 240;
+export const ROW_HEIGHT = 210;
 /**
  * When the focus's immediate-children count exceeds this threshold,
  * wrap the children into multiple rows in a grid instead of one long
@@ -59,7 +59,8 @@ export const ROW_HEIGHT = 240;
  * so fit-view zoom doesn't crush card titles below readability.
  * Per UX Flow follow-up 2026-05-10 v3 iter-2.
  */
-export const CHILDREN_MAX_PER_ROW = 6;
+export const CHILDREN_MAX_PER_ROW = 4;
+const GRID_WRAP_MIN_CHILDREN = 8;
 
 export function explorationLayout(input: ExplorationLayoutInput): Map<string, GraphPoint> {
   const { graph, focusId, expandedIds } = input;
@@ -134,7 +135,7 @@ export function explorationLayout(input: ExplorationLayoutInput): Map<string, Gr
     nextAncestors.add(nodeId);
 
     const allLeaves = children.every((c) => (widths.get(c) ?? 1) === 1);
-    if (allLeaves && children.length > CHILDREN_MAX_PER_ROW) {
+    if (allLeaves && children.length >= GRID_WRAP_MIN_CHILDREN && children.length > CHILDREN_MAX_PER_ROW) {
       // Grid mode: wrap into rows of up to CHILDREN_MAX_PER_ROW.
       const cols = Math.min(CHILDREN_MAX_PER_ROW, children.length);
       const rows = Math.ceil(children.length / cols);
