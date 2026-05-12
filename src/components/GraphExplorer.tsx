@@ -1541,6 +1541,22 @@ export function GraphExplorer({ graph }: Props) {
           <span>{t("bottlenecks")}</span>
           <strong>{selectedBottleneckCount}</strong>
         </div>
+        {selectedBottleneckNodes.length > 0 ? (
+          <div className="graph-context-jumps graph-context-bottleneck-jumps" aria-label={t("bottleneckJumps")}>
+            {selectedBottleneckNodes.slice(0, 4).map((node) => (
+              <a
+                key={node.id}
+                aria-label={`${t("focusBottleneck")}: ${nodeName(node.id, node.name)}`}
+                href={`?stage=focused&focus=${encodeURIComponent(node.id)}${colorMode === "bottleneck" ? "" : `&color=${encodeURIComponent(colorMode)}`}`}
+                onClick={() => focusNode(node.id)}
+                title={t("focusBottleneck")}
+              >
+                <span className="graph-context-jump-label">{nodeName(node.id, node.name)}</span>
+                <span className="graph-context-jump-risk">{t("bottleneckBadge")}</span>
+              </a>
+            ))}
+          </div>
+        ) : null}
         {directDependencyNodes.length > 0 ? (
           <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
             {directDependencyNodes.map((node) => (

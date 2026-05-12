@@ -573,6 +573,20 @@ li {
   color: #9a3412;
 }
 
+.graph-context-bottleneck-jumps a {
+  background: #fff7ed;
+  border-color: #fb923c;
+  color: #9a3412;
+}
+
+.graph-context-bottleneck-jumps .graph-context-jump-risk {
+  background: #9a3412;
+  border-color: #9a3412;
+  color: #fff7ed;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
 .graph-context-jump-label {
   overflow: hidden;
   text-overflow: ellipsis;
