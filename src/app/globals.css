@@ -475,7 +475,7 @@ li {
   border-radius: 8px;
   display: grid;
   gap: 6px;
-  grid-template-columns: minmax(220px, 260px) repeat(3, 108px);
+  grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(92px, 112px));
   margin: 6px 0 8px;
   padding: 6px;
 }
@@ -2306,6 +2306,48 @@ code {
   .color-mode-legend {
     justify-self: start;
     margin-left: 0;
+  }
+
+  .graph-context-strip {
+    gap: 5px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 5px 0 7px;
+    padding: 5px;
+  }
+
+  .graph-context-stat:first-child,
+  .graph-context-jumps {
+    grid-column: 1 / -1;
+  }
+
+  .graph-context-stat {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: flex-start;
+    padding: 5px 6px;
+  }
+
+  .graph-context-stat:first-child {
+    flex-direction: row;
+  }
+
+  .graph-context-stat span {
+    font-size: 9px;
+  }
+
+  .graph-context-stat strong {
+    font-size: 11px;
+  }
+
+  .graph-context-jumps {
+    gap: 5px;
+    padding-bottom: 0;
+  }
+
+  .graph-context-jumps a {
+    max-width: min(76vw, 220px);
+    padding: 5px 7px;
   }
 
   .segmented-control {
