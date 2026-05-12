@@ -386,37 +386,37 @@ li {
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
-  gap: 8px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 8px 0 10px;
-  padding: 7px;
+  gap: 6px;
+  grid-template-columns: minmax(220px, 260px) repeat(3, 108px);
+  margin: 6px 0 8px;
+  padding: 6px;
 }
 
 .graph-context-stat:first-child {
-  grid-column: span 2;
+  grid-column: auto;
 }
 
 .graph-context-stat {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  display: inline-flex;
+  gap: 6px;
   justify-content: center;
   min-width: 0;
-  padding: 6px 9px;
+  padding: 5px 8px;
 }
 
 .graph-context-stat span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .graph-context-stat strong {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.25;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -430,10 +430,12 @@ li {
 .graph-context-jumps {
   align-content: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 6px;
   grid-column: 1 / -1;
   min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 1px;
 }
 
 .graph-context-jumps a {
@@ -2020,10 +2022,6 @@ code {
     flex: 1 1 100%;
   }
 
-  .graph-context-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .segmented-control {
     overflow-x: auto;
     width: 100%;
@@ -2071,7 +2069,4 @@ code {
     flex-basis: 100%;
   }
 
-  .graph-context-strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
