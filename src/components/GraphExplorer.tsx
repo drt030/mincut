@@ -56,6 +56,15 @@ const INCREMENTAL_NODE_GAP = 28;
 let elk: InstanceType<typeof ELK> | null = null;
 
 type GraphPoint = { x: number; y: number };
+type PositionedMapNode = {
+  id: string;
+  data: CapabilityNodeData;
+  height: number;
+  width: number;
+  x: number;
+  y: number;
+  labelIndex?: number;
+};
 
 type FoldedMetricEntry = {
   id: string;
@@ -375,18 +384,17 @@ function ResearchMapCanvas({
   const height = Math.max(stage === "focused" ? 340 : 460, maxY - minY + padding * 2);
   const byId = new Map(positioned.map((node) => [node.id, node]));
   const columnHeaders = stage === "overview"
-    ? [...new Set(positioned.map((node) => Math.round(node.x / 252)))]
-      .sort((a, b) => a - b)
-      .map((column) => {
-        const columnNodes = positioned.filter((node) => Math.round(node.x / 252) === column);
-        const first = columnNodes[0];
-        return {
-          column,
-          label: columnLabels[column] ?? columnLabels[columnLabels.length - 1] ?? "",
-          left: first ? first.x - minX + padding : padding,
-          width: first?.width ?? NODE_WIDTH,
-        };
-      })
+    ? [...new Map(positioned.map((node) => {
+      const labelIndex = node.labelIndex ?? Math.round(node.x / 252);
+      const key = `${labelIndex}:${node.x}`;
+      return [key, {
+        key,
+        label: columnLabels[labelIndex] ?? columnLabels[columnLabels.length - 1] ?? "",
+        left: node.x - minX + padding,
+        width: node.width,
+      }];
+    })).values()]
+      .sort((a, b) => a.left - b.left)
     : [];
 
   return (
@@ -422,7 +430,7 @@ function ResearchMapCanvas({
         </svg>
         {columnHeaders.map((header) => (
           <div
-            key={header.column}
+            key={header.key}
             className="research-map-column-label"
             style={{
               left: header.left,
@@ -452,7 +460,7 @@ function ResearchMapCanvas({
   );
 }
 
-function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: FlowEdge[]) {
+function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: FlowEdge[]): PositionedMapNode[] {
   const byId = new Map(nodes.map((node) => [node.id, node]));
   const outgoing = new Map<string, string[]>();
   for (const edge of edges) {
@@ -490,22 +498,32 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
   const columnWidth = 252;
   const rowHeight = 124;
   const headerOffset = 30;
+  const maxRowsPerLane = 6;
   const sortedColumns = [...columns.entries()].sort(([a], [b]) => a - b);
-  return sortedColumns.flatMap(([column, columnNodes]) =>
-    columnNodes
-      .sort((a, b) => Number(b.data.risk || b.data.isBottleneck) - Number(a.data.risk || a.data.isBottleneck) || a.data.name.localeCompare(b.data.name))
-      .map((node, row) => ({
+  const positioned: PositionedMapNode[] = [];
+  let visualColumn = 0;
+  for (const [column, columnNodes] of sortedColumns) {
+    const sortedNodes = columnNodes
+      .sort((a, b) => b.data.riskScore - a.data.riskScore || a.data.name.localeCompare(b.data.name));
+    for (const [index, node] of sortedNodes.entries()) {
+      const lane = Math.floor(index / maxRowsPerLane);
+      const row = index % maxRowsPerLane;
+      positioned.push({
         id: node.id,
         data: node.data,
         height: node.data.selected ? 132 : 108,
         width: 220,
-        x: column * columnWidth,
+        x: (visualColumn + lane) * columnWidth,
         y: headerOffset + row * rowHeight,
-      })),
-  );
+        labelIndex: column,
+      });
+    }
+    visualColumn += Math.max(1, Math.ceil(sortedNodes.length / maxRowsPerLane));
+  }
+  return positioned;
 }
 
-function buildFocusedMapNodes(nodes: FlowNode<CapabilityNodeData>[]) {
+function buildFocusedMapNodes(nodes: FlowNode<CapabilityNodeData>[]): PositionedMapNode[] {
   const columnWidth = 260;
   const sortedColumns = [...new Set(nodes.map((node) => Math.round(node.position.x)))]
     .sort((a, b) => a - b);
