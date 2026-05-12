@@ -517,8 +517,8 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
     columns.set(column, list);
   }
 
-  const columnWidth = 252;
-  const rowHeight = 124;
+  const columnWidth = 236;
+  const rowHeight = 104;
   const headerOffset = 30;
   const maxRowsPerLane = 6;
   const sortedColumns = [...columns.entries()].sort(([a], [b]) => a - b);
@@ -533,8 +533,8 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
       positioned.push({
         id: node.id,
         data: node.data,
-        height: node.data.selected ? 132 : 108,
-        width: 220,
+        height: node.data.selected ? 120 : 92,
+        width: 208,
         x: (visualColumn + lane) * columnWidth,
         y: headerOffset + row * rowHeight,
         labelIndex: column,
