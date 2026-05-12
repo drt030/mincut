@@ -121,6 +121,14 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
         bottleneckCount={bottlenecks.length}
         evidenceCount={evidenceCount}
       />
+      {/*
+        Keep the next drill target directly below the summary. The graph
+        surface is a research workflow, so after "what is this node?" the
+        next visible answer should be "what should I inspect next?"
+      */}
+      {(node.kind === "product" || node.kind === "module") ? (
+        <TopBlockers graph={graph} parent={node} onSelectNode={onSelectNode} />
+      ) : null}
       {isDeprecated && node.notes?.trim() ? (
         <div className="deprecated-callout">
           <strong>{t("supersessionReason")}</strong>
@@ -234,15 +242,6 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
             ))}
           </ul>
         </details>
-      ) : null}
-      {/*
-        Per UX Flow v3 iter-11: surface the top-3 highest-risk
-        `requires` children directly at the top of the panel so the
-        user has a one-click drill-target for "what's gating my
-        product". Only shown for kinds where requires makes sense.
-      */}
-      {(node.kind === "product" || node.kind === "module") ? (
-        <TopBlockers graph={graph} parent={node} onSelectNode={onSelectNode} />
       ) : null}
       {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
       <NodeList
