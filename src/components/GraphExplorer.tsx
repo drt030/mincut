@@ -338,7 +338,17 @@ function GraphNodeCard({ data, withHandles = false }: { data: CapabilityNodeData
     );
 }
 
-function ResearchMapCanvas({ edges, nodes, stage }: { edges: FlowEdge[]; nodes: FlowNode<CapabilityNodeData>[]; stage: "overview" | "focused" }) {
+function ResearchMapCanvas({
+  columnLabels,
+  edges,
+  nodes,
+  stage,
+}: {
+  columnLabels: string[];
+  edges: FlowEdge[];
+  nodes: FlowNode<CapabilityNodeData>[];
+  stage: "overview" | "focused";
+}) {
   const padding = 40;
   const positioned = stage === "overview" ? buildOverviewMapNodes(nodes, edges) : buildFocusedMapNodes(nodes);
 
@@ -351,6 +361,20 @@ function ResearchMapCanvas({ edges, nodes, stage }: { edges: FlowEdge[]; nodes: 
   const width = Math.max(640, maxX - minX + padding * 2);
   const height = Math.max(stage === "focused" ? 340 : 460, maxY - minY + padding * 2);
   const byId = new Map(positioned.map((node) => [node.id, node]));
+  const columnHeaders = stage === "overview"
+    ? [...new Set(positioned.map((node) => Math.round(node.x / 252)))]
+      .sort((a, b) => a - b)
+      .map((column) => {
+        const columnNodes = positioned.filter((node) => Math.round(node.x / 252) === column);
+        const first = columnNodes[0];
+        return {
+          column,
+          label: columnLabels[column] ?? columnLabels[columnLabels.length - 1] ?? "",
+          left: first ? first.x - minX + padding : padding,
+          width: first?.width ?? NODE_WIDTH,
+        };
+      })
+    : [];
 
   return (
     <div className={["research-map", `research-map-${stage}`].join(" ")}>
@@ -383,6 +407,19 @@ function ResearchMapCanvas({ edges, nodes, stage }: { edges: FlowEdge[]; nodes: 
             );
           })}
         </svg>
+        {columnHeaders.map((header) => (
+          <div
+            key={header.column}
+            className="research-map-column-label"
+            style={{
+              left: header.left,
+              top: 10,
+              width: header.width,
+            }}
+          >
+            {header.label}
+          </div>
+        ))}
         {positioned.map((node) => (
           <div
             key={node.id}
@@ -439,6 +476,7 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
 
   const columnWidth = 252;
   const rowHeight = 124;
+  const headerOffset = 30;
   const sortedColumns = [...columns.entries()].sort(([a], [b]) => a - b);
   return sortedColumns.flatMap(([column, columnNodes]) =>
     columnNodes
@@ -449,7 +487,7 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
         height: node.data.selected ? 132 : 108,
         width: 220,
         x: column * columnWidth,
-        y: row * rowHeight,
+        y: headerOffset + row * rowHeight,
       })),
   );
 }
@@ -1481,7 +1519,12 @@ export function GraphExplorer({ graph }: Props) {
               <Controls />
             </ReactFlow>
           ) : (
-            <ResearchMapCanvas edges={flowEdges} nodes={flowNodes as FlowNode<CapabilityNodeData>[]} stage={stage} />
+            <ResearchMapCanvas
+              columnLabels={[t("mapColumnFocus"), t("mapColumnDirect"), t("mapColumnNext"), t("mapColumnDeeper")]}
+              edges={flowEdges}
+              nodes={flowNodes as FlowNode<CapabilityNodeData>[]}
+              stage={stage}
+            />
           )}
         </div>
         <NodeDetailPanel

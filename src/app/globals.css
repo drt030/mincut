@@ -376,6 +376,23 @@ li {
   position: absolute;
 }
 
+.research-map-column-label {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid #dbe3ee;
+  border-radius: 999px;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+  overflow: hidden;
+  padding: 4px 8px;
+  position: absolute;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 2;
+}
+
 .research-map .graph-node-card {
   min-height: 100%;
 }
