@@ -1263,6 +1263,25 @@ export function GraphExplorer({ graph }: Props) {
     return bottleneckTargets.size;
   }, [graph.edges, selectedNode]);
   const selectedExpanded = mode === "bottleneck" ? expandedBottleneckIds.has(selectedNode.id) : expandedIds.has(selectedNode.id);
+  const directDependencyNodes = useMemo(() => {
+    const visibleSet = new Set(prefilteredNodes.map((node) => node.id));
+    return graph.edges
+      .filter((edge) => edge.source === selectedNode.id && shouldShowLayeredEdge(graph, edge) && visibleSet.has(edge.target))
+      .map((edge) => graph.nodes.find((node) => node.id === edge.target))
+      .filter((node): node is Node => Boolean(node))
+      .slice(0, 8);
+  }, [graph, prefilteredNodes, selectedNode.id]);
+  const focusNode = useCallback((nodeId: string) => {
+    setSelectedId(nodeId);
+    setStage("focused");
+    scrollDetailIntoView();
+    setExpandedIds((current) => {
+      if (current.has(nodeId)) return current;
+      const next = new Set(current);
+      next.add(nodeId);
+      return next;
+    });
+  }, [scrollDetailIntoView]);
 
   return (
     <div>
@@ -1440,6 +1459,38 @@ export function GraphExplorer({ graph }: Props) {
       </details>
       <div className="explorer-hint">
         {mode === "layered" ? t("layeredModeHint") : mode === "bottleneck" ? t("bottleneckModeHint") : t("fullModeHint")}
+      </div>
+      <div className="graph-context-strip" aria-label={t("graphContextStrip")}>
+        <div className="graph-context-stat">
+          <span>{t("currentFocus")}</span>
+          <strong>{nodeName(selectedNode.id, selectedNode.name)}</strong>
+        </div>
+        <div className="graph-context-stat">
+          <span>{t("visibleNodes")}</span>
+          <strong>{filteredNodes.length}</strong>
+        </div>
+        <div className="graph-context-stat">
+          <span>{t("directDependencies")}</span>
+          <strong>{selectedDependencyCount}</strong>
+        </div>
+        <div className="graph-context-stat danger">
+          <span>{t("bottlenecks")}</span>
+          <strong>{selectedBottleneckCount}</strong>
+        </div>
+        {directDependencyNodes.length > 0 ? (
+          <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
+            {directDependencyNodes.map((node) => (
+              <button
+                key={node.id}
+                type="button"
+                aria-label={`${t("focusDependency")}: ${nodeName(node.id, node.name)}`}
+                onClick={() => focusNode(node.id)}
+              >
+                {nodeName(node.id, node.name)}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
       <details className="graph-filter-drawer">
         <summary>{t("advancedFilters")}</summary>
