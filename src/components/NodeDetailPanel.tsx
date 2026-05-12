@@ -312,8 +312,14 @@ function DetailPrioritySummary({
     rollup && rollup.anyChildContributed
       ? formatMetricValue(rollup.rolledUp, "RMB", "RMB").compact
       : t("metricNoValue");
+  const riskScore = nodeRisk(node, graph);
+  const risk = `${Math.round(riskScore * 100)}%`;
   return (
     <div className="detail-priority-strip" aria-label={t("detailPrioritySummary")}>
+      <div className={["detail-priority-tile", riskScore >= 0.4 ? "danger" : riskScore >= 0.2 ? "warning" : ""].filter(Boolean).join(" ")}>
+        <span>{t("risk")}</span>
+        <strong>{risk}</strong>
+      </div>
       <div className="detail-priority-tile">
         <span>{t("maturity")}</span>
         <strong>{maturity}</strong>
