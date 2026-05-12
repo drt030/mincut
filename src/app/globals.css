@@ -418,12 +418,20 @@ li {
 .research-map-edge {
   fill: none;
   marker-end: url("#research-map-arrow");
-  opacity: 0.82;
+  opacity: 0.5;
   stroke-linecap: round;
 }
 
-.research-map-edges marker path {
-  fill: #64748b;
+.research-map-edge.selected {
+  opacity: 0.94;
+}
+
+.research-map-edge.dimmed {
+  opacity: 0.18;
+}
+
+.research-map-edge.bottleneck-path {
+  stroke-dasharray: 0;
 }
 
 .research-map-node {

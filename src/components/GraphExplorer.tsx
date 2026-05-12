@@ -406,7 +406,7 @@ function ResearchMapCanvas({
         <svg className="research-map-edges" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
           <defs>
             <marker id="research-map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" />
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
             </marker>
           </defs>
           {edges.map((edge) => {
@@ -423,7 +423,7 @@ function ResearchMapCanvas({
             return (
               <path
                 key={edge.id}
-                className="research-map-edge"
+                className={["research-map-edge", edge.className].filter(Boolean).join(" ")}
                 d={`M ${sourceX} ${sourceY} C ${midX} ${sourceY}, ${midX} ${targetY}, ${targetX} ${targetY}`}
                 markerEnd="url(#research-map-arrow)"
                 style={{ stroke, strokeWidth }}
