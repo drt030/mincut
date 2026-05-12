@@ -418,7 +418,7 @@ function ResearchMapCanvas({
               <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
             </marker>
           </defs>
-          {edges.map((edge) => {
+          {[...edges].sort((a, b) => researchMapEdgeRank(a) - researchMapEdgeRank(b)).map((edge) => {
             const source = byId.get(edge.source);
             const target = byId.get(edge.target);
             if (!source || !target) return null;
@@ -470,6 +470,14 @@ function ResearchMapCanvas({
       </div>
     </div>
   );
+}
+
+function researchMapEdgeRank(edge: FlowEdge): number {
+  const className = edge.className ?? "";
+  if (className.includes("bottleneck-path")) return 3;
+  if (className.includes("selected")) return 2;
+  if (className.includes("dimmed")) return 0;
+  return 1;
 }
 
 function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: FlowEdge[]): PositionedMapNode[] {
