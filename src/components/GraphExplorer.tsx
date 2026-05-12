@@ -53,6 +53,7 @@ const TALL_NODE_HEIGHT = 160;
 const METRICS_STRIP_HEIGHT = 160;
 const INCREMENTAL_LAYER_GAP = 156;
 const INCREMENTAL_NODE_GAP = 28;
+const CONTEXT_RISKY_DEPENDENCY_LIMIT = 5;
 let elk: InstanceType<typeof ELK> | null = null;
 
 type GraphPoint = { x: number; y: number };
@@ -1391,9 +1392,10 @@ export function GraphExplorer({ graph }: Props) {
       .filter((edge) => edge.source === selectedNode.id && shouldShowLayeredEdge(graph, edge) && visibleSet.has(edge.target))
       .map((edge) => graph.nodes.find((node) => node.id === edge.target))
       .filter((node): node is Node => Boolean(node))
-      .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || nodeName(a.id, a.name).localeCompare(nodeName(b.id, b.name)))
-      .slice(0, 8);
+      .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || nodeName(a.id, a.name).localeCompare(nodeName(b.id, b.name)));
   }, [graph, nodeName, prefilteredNodes, selectedNode.id]);
+  const visibleDirectDependencyNodes = directDependencyNodes.slice(0, CONTEXT_RISKY_DEPENDENCY_LIMIT);
+  const hiddenDirectDependencyCount = Math.max(0, directDependencyNodes.length - visibleDirectDependencyNodes.length);
   const focusNode = useCallback((nodeId: string) => {
     setSelectedId(nodeId);
     setStage("focused");
@@ -1561,7 +1563,7 @@ export function GraphExplorer({ graph }: Props) {
         {directDependencyNodes.length > 0 ? (
           <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
             <span className="graph-context-jump-row-label">{t("riskyDependencyShortcuts")}</span>
-            {directDependencyNodes.map((node) => (
+            {visibleDirectDependencyNodes.map((node) => (
               (() => {
                 const risk = nodeRisk(node, graph);
                 const riskClass = risk >= 0.4 ? "high-risk" : risk >= 0.2 ? "medium-risk" : "";
@@ -1581,6 +1583,11 @@ export function GraphExplorer({ graph }: Props) {
                 );
               })()
             ))}
+            {hiddenDirectDependencyCount > 0 ? (
+              <span className="graph-context-more-chip">
+                {t("moreShort").replace("{count}", String(hiddenDirectDependencyCount))}
+              </span>
+            ) : null}
           </div>
         ) : null}
       </div>

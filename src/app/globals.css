@@ -586,6 +586,19 @@ li {
   color: #9a3412;
 }
 
+.graph-context-more-chip {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 999px;
+  color: #64748b;
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+
 .graph-context-bottleneck-jumps a {
   background: #fff7ed;
   border-color: #fb923c;
