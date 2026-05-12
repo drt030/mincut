@@ -1520,7 +1520,11 @@ export function GraphExplorer({ graph }: Props) {
             </ReactFlow>
           ) : (
             <ResearchMapCanvas
-              columnLabels={[t("mapColumnFocus"), t("mapColumnDirect"), t("mapColumnNext"), t("mapColumnDeeper")]}
+              columnLabels={
+                mode === "bottleneck"
+                  ? [t("mapColumnFocus"), t("mapColumnBottleneckPath"), t("mapColumnBottleneck"), t("mapColumnDeeper")]
+                  : [t("mapColumnFocus"), t("mapColumnDirect"), t("mapColumnNext"), t("mapColumnDeeper")]
+              }
               edges={flowEdges}
               nodes={flowNodes as FlowNode<CapabilityNodeData>[]}
               stage={stage}
