@@ -619,6 +619,32 @@ li {
   z-index: 1;
 }
 
+.research-map-focused .graph-node-card.selected {
+  border-color: #fef3c7;
+  box-shadow:
+    0 0 0 3px rgba(254, 243, 199, 0.92),
+    0 0 0 7px rgba(15, 23, 42, 0.34),
+    0 24px 50px rgba(15, 23, 42, 0.34);
+}
+
+.research-map-focused .graph-node-card.selected::after {
+  background: #fef3c7;
+  border: 1px solid rgba(146, 64, 14, 0.32);
+  border-radius: 999px;
+  color: #78350f;
+  content: "Focus";
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 4px 7px;
+  position: absolute;
+  right: 7px;
+  text-transform: uppercase;
+  top: 7px;
+  z-index: 3;
+}
+
 .graph-node-card.related:not(.selected) {
   border-color: #fde68a;
   box-shadow:
