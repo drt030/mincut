@@ -386,14 +386,16 @@ function ResearchMapCanvas({
   const selectedMapNode = positioned.find((node) => node.data.selected);
   const selectedMapNodeId = selectedMapNode?.id;
   const selectedScrollLeft = selectedMapNode ? selectedMapNode.x - minX + padding : 0;
+  const selectedScrollTop = selectedMapNode ? selectedMapNode.y - minY + padding : 0;
   useEffect(() => {
     if (stage !== "focused" || !selectedMapNodeId || !mapRef.current) return;
     const viewport = mapRef.current;
     viewport.scrollTo({
       left: Math.max(0, selectedScrollLeft - viewport.clientWidth * 0.34),
+      top: Math.max(0, selectedScrollTop - viewport.clientHeight * 0.34),
       behavior: "smooth",
     });
-  }, [selectedMapNodeId, selectedScrollLeft, stage]);
+  }, [selectedMapNodeId, selectedScrollLeft, selectedScrollTop, stage]);
   if (!positioned.length) return null;
   const columnHeaders = [...new Map(positioned.map((node) => {
       const labelIndex = node.labelIndex ?? Math.round(node.x / 252);
