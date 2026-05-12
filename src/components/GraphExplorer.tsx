@@ -395,12 +395,11 @@ function ResearchMapCanvas({
     });
   }, [selectedMapNodeId, selectedScrollLeft, stage]);
   if (!positioned.length) return null;
-  const columnHeaders = stage === "overview"
-    ? [...new Map(positioned.map((node) => {
+  const columnHeaders = [...new Map(positioned.map((node) => {
       const labelIndex = node.labelIndex ?? Math.round(node.x / 252);
       const key = `${labelIndex}:${node.x}`;
       const baseLabel = columnLabels[labelIndex] ?? columnLabels[columnLabels.length - 1] ?? "";
-      const continuation = typeof node.laneIndex === "number" && node.laneIndex > 0 ? ` ${node.laneIndex + 1}` : "";
+      const continuation = stage === "overview" && typeof node.laneIndex === "number" && node.laneIndex > 0 ? ` ${node.laneIndex + 1}` : "";
       return [key, {
         key,
         label: `${baseLabel}${continuation}`,
@@ -408,8 +407,7 @@ function ResearchMapCanvas({
         width: node.width,
       }];
     })).values()]
-      .sort((a, b) => a.left - b.left)
-    : [];
+    .sort((a, b) => a.left - b.left);
 
   return (
     <div ref={mapRef} className={["research-map", `research-map-${stage}`].join(" ")}>
@@ -539,19 +537,23 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
 }
 
 function buildFocusedMapNodes(nodes: FlowNode<CapabilityNodeData>[]): PositionedMapNode[] {
-  const columnWidth = 260;
+  const columnWidth = 332;
   const sortedColumns = [...new Set(nodes.map((node) => Math.round(node.position.x)))]
     .sort((a, b) => a - b);
   const columnByX = new Map(sortedColumns.map((x, index) => [x, index]));
 
-  return nodes.map((node) => ({
-    id: node.id,
-    data: node.data,
-    height: numberStyle(node.style?.height, DEFAULT_NODE_HEIGHT),
-    width: numberStyle(node.style?.width, NODE_WIDTH),
-    x: (columnByX.get(Math.round(node.position.x)) ?? 0) * columnWidth,
-    y: node.position.y,
-  }));
+  return nodes.map((node) => {
+    const column = columnByX.get(Math.round(node.position.x)) ?? 0;
+    return {
+      id: node.id,
+      data: node.data,
+      height: numberStyle(node.style?.height, DEFAULT_NODE_HEIGHT),
+      width: numberStyle(node.style?.width, NODE_WIDTH),
+      x: column * columnWidth,
+      y: node.position.y,
+      labelIndex: column,
+    };
+  });
 }
 
 function numberStyle(value: CSSProperties["width"], fallback: number): number {
