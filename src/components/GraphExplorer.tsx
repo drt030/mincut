@@ -64,6 +64,7 @@ type PositionedMapNode = {
   x: number;
   y: number;
   labelIndex?: number;
+  laneIndex?: number;
 };
 
 type FoldedMetricEntry = {
@@ -387,9 +388,11 @@ function ResearchMapCanvas({
     ? [...new Map(positioned.map((node) => {
       const labelIndex = node.labelIndex ?? Math.round(node.x / 252);
       const key = `${labelIndex}:${node.x}`;
+      const baseLabel = columnLabels[labelIndex] ?? columnLabels[columnLabels.length - 1] ?? "";
+      const continuation = typeof node.laneIndex === "number" && node.laneIndex > 0 ? ` ${node.laneIndex + 1}` : "";
       return [key, {
         key,
-        label: columnLabels[labelIndex] ?? columnLabels[columnLabels.length - 1] ?? "",
+        label: `${baseLabel}${continuation}`,
         left: node.x - minX + padding,
         width: node.width,
       }];
@@ -516,6 +519,7 @@ function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: Flo
         x: (visualColumn + lane) * columnWidth,
         y: headerOffset + row * rowHeight,
         labelIndex: column,
+        laneIndex: lane,
       });
     }
     visualColumn += Math.max(1, Math.ceil(sortedNodes.length / maxRowsPerLane));
