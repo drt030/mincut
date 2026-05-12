@@ -144,12 +144,12 @@ nav a {
 }
 
 .graph-page {
-  padding-top: 20px;
+  padding-top: 12px;
 }
 
 .graph-page h1 {
-  font-size: 34px;
-  margin-bottom: 14px;
+  font-size: 28px;
+  margin-bottom: 8px;
 }
 
 .hero {
@@ -388,8 +388,8 @@ li {
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
-  margin: 10px 0 12px;
-  padding: 8px;
+  margin: 8px 0 10px;
+  padding: 7px;
 }
 
 .graph-context-stat:first-child {
@@ -405,7 +405,7 @@ li {
   gap: 2px;
   justify-content: center;
   min-width: 0;
-  padding: 7px 9px;
+  padding: 6px 9px;
 }
 
 .graph-context-stat span {
@@ -436,7 +436,7 @@ li {
   min-width: 0;
 }
 
-.graph-context-jumps button {
+.graph-context-jumps a {
   background: #eef2ff;
   border: 1px solid #c7d2fe;
   border-radius: 999px;
@@ -447,12 +447,12 @@ li {
   line-height: 1.2;
   max-width: 220px;
   overflow: hidden;
-  padding: 6px 9px;
+  padding: 5px 8px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.graph-context-jumps button:hover {
+.graph-context-jumps a:hover {
   background: #dbeafe;
   border-color: #93c5fd;
 }
@@ -1656,10 +1656,10 @@ li {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
   justify-content: flex-start;
-  margin-bottom: 10px;
-  row-gap: 10px;
+  margin-bottom: 6px;
+  row-gap: 6px;
 }
 
 .explorer-toolbar .toolbar-actions {
@@ -1673,7 +1673,7 @@ li {
   background: transparent;
   border: 0;
   border-radius: 0;
-  margin: 0 0 6px;
+  margin: 0;
   padding: 0;
 }
 
@@ -1711,6 +1711,13 @@ li {
 
 .graph-secondary-actions {
   justify-content: flex-start;
+}
+
+.graph-below-canvas-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
 }
 
 .segmented-control {

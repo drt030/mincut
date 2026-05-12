@@ -1395,71 +1395,6 @@ export function GraphExplorer({ graph }: Props) {
           ) : null}
         </div>
       </div>
-      <details className="graph-control-drawer">
-        <summary>{t("displayOptions")}</summary>
-        <div className="toolbar-actions graph-secondary-actions">
-          <button
-            className="small-button secondary-button"
-            type="button"
-            onClick={() => {
-              // Per v3 iter-30: full reset now includes stage and
-              // colorMode so the canvas truly returns to first-load
-              // state. Previously Reset left these on the user's
-              // last-clicked value which was surprising.
-              setMode("layered");
-              setSelectedId(rootNodeId);
-              setDomain("all");
-              setKind("all");
-              setRelation("all");
-              setMaturity("all");
-              setExpandedIds(new Set([rootNodeId]));
-              setExpandedBottleneckIds(new Set([rootNodeId]));
-              setStage("overview");
-              setColorMode("bottleneck");
-            }}
-          >
-            {t("resetExpansion")}
-          </button>
-          <button
-            className={["small-button", "secondary-button", showMetricsAsNodes ? "active" : ""].filter(Boolean).join(" ")}
-            type="button"
-            aria-pressed={showMetricsAsNodes}
-            onClick={() => setShowMetricsAsNodes((value) => !value)}
-            title={t("showMetricsAsNodesHint")}
-          >
-            {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-          </button>
-          <button
-            className={["small-button", "secondary-button", showFrontiers ? "active" : ""].filter(Boolean).join(" ")}
-            type="button"
-            aria-pressed={showFrontiers}
-            onClick={() => setShowFrontiers((value) => !value)}
-            title={t("showFrontiersToggleHint")}
-          >
-            {t("showFrontiersToggle")}{showFrontiers ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-          </button>
-          <button
-            className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
-            type="button"
-            aria-pressed={showDeprecated}
-            onClick={() => setShowDeprecated((value) => !value)}
-            title={t("showDeprecatedHint")}
-          >
-            {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-          </button>
-          <span
-            className="frontier-count-status"
-            title={t("frontierCountInScopeTooltip")}
-            aria-label={t("frontierCountInScopeTooltip")}
-          >
-            <span className="frontier-count-icon" aria-hidden="true">🔭</span>
-            {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
-          </span>
-        </div>
-      </details>
-      <div className="explorer-hint">
-        {mode === "layered" ? t("layeredModeHint") : mode === "bottleneck" ? t("bottleneckModeHint") : t("fullModeHint")}
-      </div>
       <div className="graph-context-strip" aria-label={t("graphContextStrip")}>
         <div className="graph-context-stat">
           <span>{t("currentFocus")}</span>
@@ -1480,69 +1415,18 @@ export function GraphExplorer({ graph }: Props) {
         {directDependencyNodes.length > 0 ? (
           <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
             {directDependencyNodes.map((node) => (
-              <button
+              <a
                 key={node.id}
-                type="button"
                 aria-label={`${t("focusDependency")}: ${nodeName(node.id, node.name)}`}
+                href={`?stage=focused&focus=${encodeURIComponent(node.id)}${colorMode === "bottleneck" ? "" : `&color=${encodeURIComponent(colorMode)}`}`}
                 onClick={() => focusNode(node.id)}
               >
                 {nodeName(node.id, node.name)}
-              </button>
+              </a>
             ))}
           </div>
         ) : null}
       </div>
-      <details className="graph-filter-drawer">
-        <summary>{t("advancedFilters")}</summary>
-        <div className="filters">
-          <select
-            aria-label={t("filterDomainLabel")}
-            value={domain}
-            onChange={(event) => setDomain(event.target.value)}
-          >
-            <option value="all">{t("allDomains")}</option>
-            {domains.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label={t("filterKindLabel")}
-            value={kind}
-            onChange={(event) => setKind(event.target.value as NodeKind | "all")}
-          >
-            <option value="all">{t("allNodeKinds")}</option>
-            {kinds.map((item) => (
-              <option key={item} value={item}>
-                {kindName(item)}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label={t("filterRelationLabel")}
-            value={relation}
-            onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}
-          >
-            <option value="all">{t("allRelations")}</option>
-            {relations.map((item) => (
-              <option key={item} value={item}>
-                {relationName(item)}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label={t("filterMaturityLabel")}
-            value={maturity}
-            onChange={(event) => setMaturity(event.target.value)}
-          >
-            <option value="all">{t("allMaturity")}</option>
-            <option value="30">{t("score")} &gt;= 30</option>
-            <option value="50">{t("score")} &gt;= 50</option>
-            <option value="70">{t("score")} &gt;= 70</option>
-          </select>
-        </div>
-      </details>
       <div className={`graph-layout graph-layout-${stage}`}>
         <div className={`graph-canvas graph-canvas-${stage}`}>
           {mode === "full" ? (
@@ -1609,6 +1493,121 @@ export function GraphExplorer({ graph }: Props) {
             scrollDetailIntoView();
           }}
         />
+      </div>
+      <div className="graph-below-canvas-controls">
+        <details className="graph-control-drawer">
+          <summary>{t("displayOptions")}</summary>
+          <div className="toolbar-actions graph-secondary-actions">
+            <button
+              className="small-button secondary-button"
+              type="button"
+              onClick={() => {
+                // Per v3 iter-30: full reset now includes stage and
+                // colorMode so the canvas truly returns to first-load
+                // state. Previously Reset left these on the user's
+                // last-clicked value which was surprising.
+                setMode("layered");
+                setSelectedId(rootNodeId);
+                setDomain("all");
+                setKind("all");
+                setRelation("all");
+                setMaturity("all");
+                setExpandedIds(new Set([rootNodeId]));
+                setExpandedBottleneckIds(new Set([rootNodeId]));
+                setStage("overview");
+                setColorMode("bottleneck");
+              }}
+            >
+              {t("resetExpansion")}
+            </button>
+            <button
+              className={["small-button", "secondary-button", showMetricsAsNodes ? "active" : ""].filter(Boolean).join(" ")}
+              type="button"
+              aria-pressed={showMetricsAsNodes}
+              onClick={() => setShowMetricsAsNodes((value) => !value)}
+              title={t("showMetricsAsNodesHint")}
+            >
+              {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+            </button>
+            <button
+              className={["small-button", "secondary-button", showFrontiers ? "active" : ""].filter(Boolean).join(" ")}
+              type="button"
+              aria-pressed={showFrontiers}
+              onClick={() => setShowFrontiers((value) => !value)}
+              title={t("showFrontiersToggleHint")}
+            >
+              {t("showFrontiersToggle")}{showFrontiers ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+            </button>
+            <button
+              className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
+              type="button"
+              aria-pressed={showDeprecated}
+              onClick={() => setShowDeprecated((value) => !value)}
+              title={t("showDeprecatedHint")}
+            >
+              {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
+            </button>
+            <span
+              className="frontier-count-status"
+              title={t("frontierCountInScopeTooltip")}
+              aria-label={t("frontierCountInScopeTooltip")}
+            >
+              <span className="frontier-count-icon" aria-hidden="true">🔭</span>
+              {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
+            </span>
+          </div>
+        </details>
+        <details className="graph-filter-drawer">
+          <summary>{t("advancedFilters")}</summary>
+          <div className="filters">
+            <select
+              aria-label={t("filterDomainLabel")}
+              value={domain}
+              onChange={(event) => setDomain(event.target.value)}
+            >
+              <option value="all">{t("allDomains")}</option>
+              {domains.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            <select
+              aria-label={t("filterKindLabel")}
+              value={kind}
+              onChange={(event) => setKind(event.target.value as NodeKind | "all")}
+            >
+              <option value="all">{t("allNodeKinds")}</option>
+              {kinds.map((item) => (
+                <option key={item} value={item}>
+                  {kindName(item)}
+                </option>
+              ))}
+            </select>
+            <select
+              aria-label={t("filterRelationLabel")}
+              value={relation}
+              onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}
+            >
+              <option value="all">{t("allRelations")}</option>
+              {relations.map((item) => (
+                <option key={item} value={item}>
+                  {relationName(item)}
+                </option>
+              ))}
+            </select>
+            <select
+              aria-label={t("filterMaturityLabel")}
+              value={maturity}
+              onChange={(event) => setMaturity(event.target.value)}
+            >
+              <option value="all">{t("allMaturity")}</option>
+              <option value="30">{t("score")} &gt;= 30</option>
+              <option value="50">{t("score")} &gt;= 50</option>
+              <option value="70">{t("score")} &gt;= 70</option>
+            </select>
+          </div>
+        </details>
       </div>
     </div>
   );
