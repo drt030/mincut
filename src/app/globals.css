@@ -443,6 +443,18 @@ li {
   opacity: 0.08;
 }
 
+.research-map-overview .research-map-edge {
+  opacity: 0.34;
+}
+
+.research-map-overview .research-map-edge.selected {
+  opacity: 0.66;
+}
+
+.research-map-overview .research-map-edge.selected.bottleneck-path {
+  opacity: 1;
+}
+
 .research-map-node {
   position: absolute;
 }
