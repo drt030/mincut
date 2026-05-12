@@ -1387,8 +1387,9 @@ export function GraphExplorer({ graph }: Props) {
       .filter((edge) => edge.source === selectedNode.id && shouldShowLayeredEdge(graph, edge) && visibleSet.has(edge.target))
       .map((edge) => graph.nodes.find((node) => node.id === edge.target))
       .filter((node): node is Node => Boolean(node))
+      .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || nodeName(a.id, a.name).localeCompare(nodeName(b.id, b.name)))
       .slice(0, 8);
-  }, [graph, prefilteredNodes, selectedNode.id]);
+  }, [graph, nodeName, prefilteredNodes, selectedNode.id]);
   const focusNode = useCallback((nodeId: string) => {
     setSelectedId(nodeId);
     setStage("focused");
@@ -1533,14 +1534,24 @@ export function GraphExplorer({ graph }: Props) {
         {directDependencyNodes.length > 0 ? (
           <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
             {directDependencyNodes.map((node) => (
-              <a
-                key={node.id}
-                aria-label={`${t("focusDependency")}: ${nodeName(node.id, node.name)}`}
-                href={`?stage=focused&focus=${encodeURIComponent(node.id)}${colorMode === "bottleneck" ? "" : `&color=${encodeURIComponent(colorMode)}`}`}
-                onClick={() => focusNode(node.id)}
-              >
-                {nodeName(node.id, node.name)}
-              </a>
+              (() => {
+                const risk = nodeRisk(node, graph);
+                const riskClass = risk >= 0.4 ? "high-risk" : risk >= 0.2 ? "medium-risk" : "";
+                const riskText = `${t("risk")}: ${Math.round(risk * 100)}%`;
+                return (
+                  <a
+                    key={node.id}
+                    className={riskClass}
+                    aria-label={`${t("focusDependency")}: ${nodeName(node.id, node.name)} · ${riskText}`}
+                    href={`?stage=focused&focus=${encodeURIComponent(node.id)}${colorMode === "bottleneck" ? "" : `&color=${encodeURIComponent(colorMode)}`}`}
+                    onClick={() => focusNode(node.id)}
+                    title={riskText}
+                  >
+                    <span className="graph-context-jump-label">{nodeName(node.id, node.name)}</span>
+                    <span className="graph-context-jump-risk">{Math.round(risk * 100)}%</span>
+                  </a>
+                );
+              })()
             ))}
           </div>
         ) : null}

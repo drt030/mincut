@@ -527,24 +527,55 @@ li {
 }
 
 .graph-context-jumps a {
+  align-items: center;
   background: #eef2ff;
   border: 1px solid #c7d2fe;
   border-radius: 999px;
   color: #1e3a8a;
   cursor: pointer;
+  display: inline-flex;
   font-size: 12px;
   font-weight: 700;
+  gap: 6px;
   line-height: 1.2;
   max-width: 220px;
   overflow: hidden;
   padding: 5px 8px;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .graph-context-jumps a:hover {
   background: #dbeafe;
   border-color: #93c5fd;
+}
+
+.graph-context-jumps a.medium-risk {
+  background: #fffbeb;
+  border-color: #fbbf24;
+  color: #92400e;
+}
+
+.graph-context-jumps a.high-risk {
+  background: #fff7ed;
+  border-color: #f97316;
+  color: #9a3412;
+}
+
+.graph-context-jump-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.graph-context-jump-risk {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  line-height: 1;
+  padding: 3px 5px;
 }
 
 .graph-layout-focused {
