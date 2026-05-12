@@ -2043,6 +2043,17 @@ li {
   background: var(--danger);
 }
 
+.primary-risk-action {
+  background: #9a3412;
+  box-shadow:
+    0 0 0 2px rgba(254, 243, 199, 0.9),
+    0 8px 18px rgba(154, 52, 18, 0.24);
+}
+
+.primary-risk-action:hover {
+  background: #7c2d12;
+}
+
 .explorer-hint {
   color: var(--muted);
   font-size: 13px;

@@ -1428,7 +1428,7 @@ export function GraphExplorer({ graph }: Props) {
             {selectedExpanded ? t("collapseSelected") : t("expandSelected")} ({selectedDependencyCount})
           </button>
           <button
-            className="small-button danger-button"
+            className={["small-button", "danger-button", selectedBottleneckCount > 0 ? "primary-risk-action" : ""].filter(Boolean).join(" ")}
             type="button"
             onClick={() => {
               setMode("bottleneck");
