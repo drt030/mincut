@@ -142,6 +142,13 @@ type CapabilityNodeData = {
 
 const nodeTypes = {
   capability: memo(function CapabilityNode({ data }: NodeProps<FlowNode<CapabilityNodeData>>) {
+    return (
+      <GraphNodeCard data={data} withHandles />
+    );
+  }),
+};
+
+function GraphNodeCard({ data, withHandles = false }: { data: CapabilityNodeData; withHandles?: boolean }) {
     const showWarningGlyph = data.isBottleneck || data.bottleneckedByCount > 0;
     const glyphTooltip = data.isBottleneck ? data.kindLabel : data.bottleneckedByTooltip;
     const pillStyle: CSSProperties = {
@@ -206,7 +213,7 @@ const nodeTypes = {
           }
         }}
       >
-        <Handle className="graph-node-handle" type="target" position={Position.Left} />
+        {withHandles ? <Handle className="graph-node-handle" type="target" position={Position.Left} /> : null}
         {/*
          * Per iter-45 a11y audit (MINOR): glyph spans gain role="img" so
          * AT explicitly announces them as image-with-alt-equivalent text
@@ -326,11 +333,146 @@ const nodeTypes = {
             </div>
           ) : null}
         </div>
-        <Handle className="graph-node-handle" type="source" position={Position.Right} />
+        {withHandles ? <Handle className="graph-node-handle" type="source" position={Position.Right} /> : null}
       </div>
     );
-  }),
-};
+}
+
+function ResearchMapCanvas({ edges, nodes, stage }: { edges: FlowEdge[]; nodes: FlowNode<CapabilityNodeData>[]; stage: "overview" | "focused" }) {
+  const padding = 40;
+  const positioned = stage === "overview" ? buildOverviewMapNodes(nodes, edges) : buildFocusedMapNodes(nodes);
+
+  if (!positioned.length) return null;
+
+  const minX = Math.min(...positioned.map((node) => node.x));
+  const minY = Math.min(...positioned.map((node) => node.y));
+  const maxX = Math.max(...positioned.map((node) => node.x + node.width));
+  const maxY = Math.max(...positioned.map((node) => node.y + node.height));
+  const width = Math.max(640, maxX - minX + padding * 2);
+  const height = Math.max(stage === "focused" ? 340 : 460, maxY - minY + padding * 2);
+  const byId = new Map(positioned.map((node) => [node.id, node]));
+
+  return (
+    <div className={["research-map", `research-map-${stage}`].join(" ")}>
+      <div className="research-map-inner" style={{ width, height }}>
+        <svg className="research-map-edges" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
+          <defs>
+            <marker id="research-map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" />
+            </marker>
+          </defs>
+          {edges.map((edge) => {
+            const source = byId.get(edge.source);
+            const target = byId.get(edge.target);
+            if (!source || !target) return null;
+            const sourceX = source.x - minX + padding + source.width;
+            const sourceY = source.y - minY + padding + source.height / 2;
+            const targetX = target.x - minX + padding;
+            const targetY = target.y - minY + padding + target.height / 2;
+            const midX = sourceX + Math.max(48, (targetX - sourceX) / 2);
+            const stroke = edge.style && "stroke" in edge.style ? String(edge.style.stroke) : "#94a3b8";
+            const strokeWidth = edge.style && "strokeWidth" in edge.style ? Number(edge.style.strokeWidth) || 1.5 : 1.5;
+            return (
+              <path
+                key={edge.id}
+                className="research-map-edge"
+                d={`M ${sourceX} ${sourceY} C ${midX} ${sourceY}, ${midX} ${targetY}, ${targetX} ${targetY}`}
+                markerEnd="url(#research-map-arrow)"
+                style={{ stroke, strokeWidth }}
+              />
+            );
+          })}
+        </svg>
+        {positioned.map((node) => (
+          <div
+            key={node.id}
+            className="research-map-node"
+            style={{
+              height: node.height,
+              left: node.x - minX + padding,
+              top: node.y - minY + padding,
+              width: node.width,
+            }}
+          >
+            <GraphNodeCard data={node.data} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: FlowEdge[]) {
+  const byId = new Map(nodes.map((node) => [node.id, node]));
+  const outgoing = new Map<string, string[]>();
+  for (const edge of edges) {
+    if (!byId.has(edge.source) || !byId.has(edge.target)) continue;
+    const targets = outgoing.get(edge.source) ?? [];
+    targets.push(edge.target);
+    outgoing.set(edge.source, targets);
+  }
+
+  const selectedId = nodes.find((node) => node.data.selected)?.id ?? nodes[0]?.id;
+  const depth = new Map<string, number>();
+  if (selectedId) {
+    const queue = [selectedId];
+    depth.set(selectedId, 0);
+    for (let index = 0; index < queue.length; index += 1) {
+      const id = queue[index];
+      const nextDepth = (depth.get(id) ?? 0) + 1;
+      for (const target of outgoing.get(id) ?? []) {
+        if (depth.has(target)) continue;
+        depth.set(target, nextDepth);
+        queue.push(target);
+      }
+    }
+  }
+
+  const fallbackDepth = Math.max(1, ...depth.values()) + 1;
+  const columns = new Map<number, FlowNode<CapabilityNodeData>[]>();
+  for (const node of nodes) {
+    const column = depth.get(node.id) ?? fallbackDepth;
+    const list = columns.get(column) ?? [];
+    list.push(node);
+    columns.set(column, list);
+  }
+
+  const columnWidth = 252;
+  const rowHeight = 124;
+  const sortedColumns = [...columns.entries()].sort(([a], [b]) => a - b);
+  return sortedColumns.flatMap(([column, columnNodes]) =>
+    columnNodes
+      .sort((a, b) => Number(b.data.risk || b.data.isBottleneck) - Number(a.data.risk || a.data.isBottleneck) || a.data.name.localeCompare(b.data.name))
+      .map((node, row) => ({
+        id: node.id,
+        data: node.data,
+        height: node.data.selected ? 132 : 108,
+        width: 220,
+        x: column * columnWidth,
+        y: row * rowHeight,
+      })),
+  );
+}
+
+function buildFocusedMapNodes(nodes: FlowNode<CapabilityNodeData>[]) {
+  return nodes.map((node) => ({
+    id: node.id,
+    data: node.data,
+    height: numberStyle(node.style?.height, DEFAULT_NODE_HEIGHT),
+    width: numberStyle(node.style?.width, NODE_WIDTH),
+    x: node.position.x,
+    y: node.position.y,
+  }));
+}
+
+function numberStyle(value: CSSProperties["width"], fallback: number): number {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const parsed = Number.parseFloat(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return fallback;
+}
 
 /**
  * Per ADR-0003, the value union accepts `{min, typical, max}` in addition to
@@ -1352,56 +1494,60 @@ export function GraphExplorer({ graph }: Props) {
       </details>
       <div className={`graph-layout graph-layout-${stage}`}>
         <div className={`graph-canvas graph-canvas-${stage}`}>
-          <ReactFlow
-            nodes={flowNodes}
-            edges={flowEdges}
-            nodeTypes={nodeTypes}
-            onInit={(instance) => {
-              flowInstanceRef.current = instance;
-              setFlowInstanceReady(true);
-            }}
-            onNodesChange={(changes) => {
-              // Per v3 iter-13: when React Flow's ResizeObserver
-              // reports node dimensions for the first time, trigger
-              // the initial fit-bounds click. Replaces the
-              // setTimeout-poll which had a 1.8s tail latency.
-              if (initialCenterDoneRef.current) return;
-              const dim = changes.find((c) => c.type === "dimensions");
-              if (!dim) return;
-              const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
-              if (!btn) return;
-              btn.click();
-              initialCenterDoneRef.current = true;
-            }}
-            fitViewOptions={{ maxZoom: 1, minZoom: 0.55, padding: 0.12 }}
-            minZoom={0.35}
-            panOnScroll
-            panOnScrollMode={PanOnScrollMode.Free}
-            zoomOnPinch
-            zoomOnDoubleClick={false}
-            nodesDraggable={false}
-            onNodeClick={(_, node) => {
-              setSelectedId(node.id);
-              setStage("focused");
-              scrollDetailIntoView();
-              setExpandedIds((current) => {
-                if (current.has(node.id)) return current;
-                const next = new Set(current);
-                next.add(node.id);
-                return next;
-              });
-            }}
-            onNodeDoubleClick={(event, node) => {
-              event.preventDefault();
-              setSelectedId(node.id);
-              setStage("focused");
-              scrollDetailIntoView();
-              toggleSelectedExpansion(node.id);
-            }}
-          >
-            <Background />
-            <Controls />
-          </ReactFlow>
+          {mode === "full" ? (
+            <ReactFlow
+              nodes={flowNodes}
+              edges={flowEdges}
+              nodeTypes={nodeTypes}
+              onInit={(instance) => {
+                flowInstanceRef.current = instance;
+                setFlowInstanceReady(true);
+              }}
+              onNodesChange={(changes) => {
+                // Per v3 iter-13: when React Flow's ResizeObserver
+                // reports node dimensions for the first time, trigger
+                // the initial fit-bounds click. Replaces the
+                // setTimeout-poll which had a 1.8s tail latency.
+                if (initialCenterDoneRef.current) return;
+                const dim = changes.find((c) => c.type === "dimensions");
+                if (!dim) return;
+                const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
+                if (!btn) return;
+                btn.click();
+                initialCenterDoneRef.current = true;
+              }}
+              fitViewOptions={{ maxZoom: 1, minZoom: 0.55, padding: 0.12 }}
+              minZoom={0.35}
+              panOnScroll
+              panOnScrollMode={PanOnScrollMode.Free}
+              zoomOnPinch
+              zoomOnDoubleClick={false}
+              nodesDraggable={false}
+              onNodeClick={(_, node) => {
+                setSelectedId(node.id);
+                setStage("focused");
+                scrollDetailIntoView();
+                setExpandedIds((current) => {
+                  if (current.has(node.id)) return current;
+                  const next = new Set(current);
+                  next.add(node.id);
+                  return next;
+                });
+              }}
+              onNodeDoubleClick={(event, node) => {
+                event.preventDefault();
+                setSelectedId(node.id);
+                setStage("focused");
+                scrollDetailIntoView();
+                toggleSelectedExpansion(node.id);
+              }}
+            >
+              <Background />
+              <Controls />
+            </ReactFlow>
+          ) : (
+            <ResearchMapCanvas edges={flowEdges} nodes={flowNodes as FlowNode<CapabilityNodeData>[]} stage={stage} />
+          )}
         </div>
         <NodeDetailPanel
           graph={graph}

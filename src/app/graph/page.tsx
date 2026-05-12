@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { GraphExplorer } from "@/components/GraphExplorer";
 import { TranslatedHeading } from "@/components/TranslatedText";
 import { loadActiveGraphData } from "@/lib/graphLoader";
@@ -7,7 +8,9 @@ export default function GraphPage() {
   return (
     <div className="page graph-page">
       <TranslatedHeading textKey="graphExplorer" />
-      <GraphExplorer graph={graph} />
+      <Suspense fallback={<div className="panel">Loading graph...</div>}>
+        <GraphExplorer graph={graph} />
+      </Suspense>
     </div>
   );
 }
