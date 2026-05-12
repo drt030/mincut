@@ -539,11 +539,21 @@ li {
 }
 
 .graph-layout-focused {
-  grid-template-columns: 1fr;
+  align-items: start;
+  grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
 }
 
 .graph-layout-focused > .panel {
   order: -1;
+  max-height: calc(100vh - 150px);
+  overflow: auto;
+  position: sticky;
+  top: 12px;
+}
+
+.graph-layout-focused .graph-canvas {
+  height: clamp(430px, calc(100vh - 250px), 640px);
+  min-height: 430px;
 }
 
 .graph-node-card {
@@ -2230,6 +2240,9 @@ code {
 
   .graph-layout-focused > .panel {
     order: -1;
+    max-height: none;
+    overflow: visible;
+    position: static;
   }
 
   .graph-layout-focused .graph-canvas {
