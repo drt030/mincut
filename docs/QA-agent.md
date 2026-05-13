@@ -124,19 +124,21 @@ Minimum user tasks:
    - Are the available workflows obvious without reading docs?
 
 2. Inspect the product graph.
-   - Open the graph view.
-   - Find or focus the `low_cost_parcel_sorting_robot_300k_rmb` product.
-   - Inspect immediate dependencies.
-   - Select nodes and verify the detail panel updates meaningfully.
-   - Expand a relevant subsystem and judge whether recursive decomposition works.
+   - Open the graph view. Per ADR-0006 (2026-05-13), `/graph` is a single radial canvas — there is no "overview" vs "focused" stage, no mode tabs, no advanced filter dropdowns.
+   - Verify the focal product (`low_cost_parcel_sorting_robot_300k_rmb`) is at canvas origin and 12 first-layer subsystems are visible as a ring of small colored markers at the lowest zoom.
+   - At the default zoom (LOD band 1), all 77 structural nodes should be visible as 5px dots; descriptive nodes (metric, bottleneck-kind, breakthrough, principles, regulations, capabilities) should NOT appear on canvas.
+   - Click a node and verify its sector expands (30° → 120°) while the focal product stays at canvas origin, viewport softly zooms, and the focused subtree stays saturated while everything else desaturates.
+   - Verify the right-edge detail rail (64px by default) updates with the focused node's name + badge; clicking the rail expands it to 400px showing description, metrics, evidence, etc.
+   - Press Esc / click empty space and verify the view returns to the higher focus level (eventually full overview).
 
 3. Evaluate graph usability.
-   - Check whether layout is readable.
-   - Check whether hover is stable.
-   - Check whether click selection preserves spatial memory.
-   - Check whether double-click expansion changes graph content without accidental viewport zoom.
-   - Try filters for domain, node kind, relation, and maturity when present.
-   - Judge whether edge and node semantics are understandable.
+   - Check whether the radial geometry alone tells the user "which subsystem is most complex" without reading any labels.
+   - Check whether the focal product stays at canvas origin across all interactions (spatial memory).
+   - Check whether zoom transitions across LOD bands (band 1 → 2 → 3) reveal labels progressively without flicker.
+   - Check whether the floating color-mode button (bottom-left) cycles correctly through the 5 modes and the K4 layering reads at each mode: node fill stays subsystem hue, edges change color + thickness in alignment, sector background tints faintly, node outlines (band 2+) match.
+   - Verify Cmd+K opens a search field; typing fuzzy-matches node names and metric/evidence text; Enter flies to the result.
+   - Confirm there is no advanced-filter UI (domain / kind / relation / maturity dropdowns are deprecated).
+   - Judge whether edge style (solid within sector / dashed cross-sector / dotted to material ring) and node hue (subsystem identity) are understandable without legends.
 
 4. Inspect product maturity and routes.
    - Look for route comparison, maturity scores, bottlenecks, and supporting metrics.

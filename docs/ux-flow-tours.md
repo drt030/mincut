@@ -1,6 +1,14 @@
 # UX Flow Tours — manual playbook for the agent
 
-Three end-to-end user flows the agent walks through using `chrome-devtools` MCP after **significant changes**. Output a scored markdown report under `docs/ux-flow-reports/<HEAD>-<flow>.md` (committed) so we have a history.
+> **2026-05-13 status**: The UX model behind these flows changes substantially under ADR-0006 (`docs/adr/0006-radial-progressive-disclosure-graph.md`). Until the radial-progressive-disclosure spec lands phase-by-phase (`docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`), each flow below has a **post-ADR-0006 validity tag**:
+>
+> - **STILL VALID**: applies to current production AND to the radial model with minimal edits.
+> - **PARTIAL**: some steps survive, some assume the deprecated stage-machine. Use with judgment.
+> - **OBSOLETE**: assumes the two-stage exploration model, mode tabs, advanced filters, or `bottleneck`-kind nodes. Do not run; will be rewritten when the relevant phase ships.
+>
+> When a phase of the radial spec lands, replace the obsolete flows with their radial-model equivalents (sector elastic expansion, greyscale focus, K4 color mode K4 redundancy, LOD band transitions, cmd+K, detail rail).
+
+End-to-end user flows the agent walks through using `chrome-devtools` MCP after **significant changes**. Output a scored markdown report under `docs/ux-flow-reports/<HEAD>-<flow>.md` (committed) so we have a history.
 
 ## When to run
 
@@ -43,6 +51,8 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 
 ## Flow 1 — New user finds a bottleneck
 
+**Post-ADR-0006: OBSOLETE.** Uses stage="overview"/"focused", `↩ Global view` button, and `bottleneck`-kind nodes — all deprecated. Rewrite when Phase B of the radial spec lands: replace stage assertions with "click-to-elastic-expand sector"; replace "Global view" button with Esc; replace bottleneck-kind references with `bottleneckOf` attribute checks.
+
 | # | Action | Expected | Score |
 | --- | --- | --- | --- |
 | 1.1 | `navigate_page /` | Hero "Capability Graph Explorer", current product callout | / |
@@ -55,6 +65,8 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 
 ## Flow 2 — Compare cost mode and maturity mode
 
+**Post-ADR-0006: PARTIAL.** The 5 color modes survive, but K4 layering changes what to verify: per-mode assertions should check node fill (always subsystem hue, never changes with mode), sector background tint (changes per mode aggregate), edge color (changes per target-node mode band), edge thickness (aligned to edge color binning). Rewrite when Phase B-1 lands.
+
 | # | Action | Expected | Score |
 | --- | --- | --- | --- |
 | 2.1 | `navigate_page /graph` | Bottleneck mode by default — heat colors per `nodeRisk` | / |
@@ -65,6 +77,8 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 | 2.6 | Change back to `bottleneck` | Same colors as 2.1 (sanity check, deterministic) | / |
 
 ## Flow 3 — Drill into the cost-inversion node
+
+**Post-ADR-0006: PARTIAL.** Cost-inversion (direct < children) survives as a data-model concern and detail-panel badge. But step 3.6's double-click-to-expand and 3.7's Escape-returns-to-overview semantics change: double-click is a focus exit (returns to higher level), and single-click triggers elastic expansion. Rewrite when Phase B lands.
 
 | # | Action | Expected | Score |
 | --- | --- | --- | --- |
@@ -77,6 +91,8 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 | 3.7 | Press Escape | Returns to overview | / |
 
 ## Flow 4 — Color-mode consistency
+
+**Post-ADR-0006: PARTIAL.** The 5-mode selector survives (relocated to floating button bottom-left); switching mode should re-render edges + sector tints + node outlines (band 2+) within ~200ms. Re-verify post-Phase-B-1 with K4 layering checks. The "no visual artifacts" assertion stays valid.
 
 Verifies the 5-mode dropdown changes edge colors as expected, and that switching modes produces no visual artifacts.
 
@@ -92,6 +108,8 @@ Verifies the 5-mode dropdown changes edge colors as expected, and that switching
 
 ## Flow 5 — Multi-layer expand drill-down
 
+**Post-ADR-0006: OBSOLETE.** `explorationLayout` is removed; the radial layout is computed once at mount and never recomputed on expand. Rewrite as a "Level 1 → Level 2 recursive elastic" flow when Phase C-1 lands: click a subsystem (sector → 120°), then click a sub-subsystem inside (sub-angle → 80°), verify the focal product remains at canvas origin throughout.
+
 Verifies that explorationLayout reflows cleanly when a deeper subsystem is expanded, and that the grid wrap kicks in only when needed.
 
 | # | Action | Expected | Score |
@@ -103,6 +121,8 @@ Verifies that explorationLayout reflows cleanly when a deeper subsystem is expan
 | 5.5 | Expand `industrial_robot_arm_body` (3 layers deep) | Layout still legible; cards don't overlap | / |
 
 ## Flow 6 — Keyboard navigation
+
+**Post-ADR-0006: PARTIAL.** Tab focus traversal stays in scope, but the specific surfaces it visits change: no more mode tabs, no advanced filters, no Top Blockers list (the latter is transitional exception only). Step 6.4's Esc-to-overview semantic still applies (with the radial Esc collapsing one focus level at a time). Step 6.5 needs to be rewritten when the high-risk pill banner retires in Phase C-3. Add: cmd+K opens search, +/-/0 keyboard zoom, double-click exits focus.
 
 Verifies a11y of all interactive surfaces.
 
@@ -117,6 +137,8 @@ Verifies a11y of all interactive surfaces.
 
 ## Flow 7 — Language switch (i18n completeness)
 
+**Post-ADR-0006: STILL VALID.** Language toggle is unchanged. Re-run as-is after each phase to catch i18n regressions on the new components (RadialNode, ColorModeFloatingButton, detail rail, cmd+K results).
+
 Verifies no missing i18n keys after switching to English.
 
 | # | Action | Expected | Score |
@@ -126,6 +148,8 @@ Verifies no missing i18n keys after switching to English.
 | 7.3 | Switch back to 中文 | All en strings flip back | / |
 
 ## Flow 8 — Gate report sync
+
+**Post-ADR-0006: PARTIAL.** Step 8.3's deep-link from gate report to graph still applies, but the URL shape changes: `?focus=<id>` (no stage parameter — stages are gone). The expected landing state is the radial overview with `<id>`'s sector elastically expanded. Rewrite when Phase B-2 lands.
 
 Verifies the gate score + coverage gap on `/gate` matches the latest report after a cost-rollup-affecting change.
 

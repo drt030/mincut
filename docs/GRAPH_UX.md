@@ -2,109 +2,123 @@
 
 This document defines the interaction and visualization rules for graph-facing product work. It applies to `GraphExplorer.tsx` and future graph views unless a task explicitly documents a different UX goal.
 
+> **2026-05-13 update**: Sections below were rewritten to match the radial progressive-disclosure model accepted in `docs/adr/0006-radial-progressive-disclosure-graph.md`. The implementation rollout lives in `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`. The three design principles that govern this surface live in `docs/design-principles.md` — read those first.
+
 ## Product Goal
 
 Capability Graph Explorer is a research workspace, not a decorative network map. The graph should help a user answer concrete research questions:
 
 - What is this product made of?
-- Which subsystem, route, component, process, metric, or capability blocks maturity?
+- Which subsystem, component, process, or material blocks maturity?
 - What evidence supports a claim?
 - What should be expanded or researched next?
 
-Visual polish is valuable only when it improves orientation, comparison, or trust.
+Visual polish is valuable only when it improves orientation, comparison, or trust. Where this document conflicts with the three design principles in `docs/design-principles.md`, the principles win.
 
 ## Default View Model
 
-Do not default to a full graph. Default to a focused dependency canvas:
+The default `/graph` view is a **radial progressive-disclosure canvas**:
 
-- Start from one concrete product node.
-- Show the immediate dependency layer first.
-- Expand one selected subsystem, route, component, or bottleneck at a time.
-- Keep full graph inspection available as an explicit mode.
-- Keep the selected node visible and visually stable across interactions.
+- The focal product sits at canvas origin (0, 0).
+- All 77 structural nodes (product, module, material, engineering_method, manufacturing_process) of the product's full `requires` decomposition are rendered simultaneously as small markers (~5px at the lowest zoom level), arranged in a polar layout around the product.
+- Each of the 12 first-layer subsystems owns a 30° angular sector. Its descendants live in concentric radial layers inside that sector.
+- Materials (10 nodes) sit on the outermost ring, rendered in neutral grey, with dotted cross-sector links to the subsystems that consume them.
+- Shared structural nodes (19 nodes with 2+ `requires` parents) are assigned a canonical primary parent's sector; their other parents render as dashed cross-sector arcs.
 
-The graph should preserve spatial memory. Filtering, expanding, and focusing should update the layout without remounting the whole canvas whenever possible.
+The graph **preserves spatial memory absolutely**: node canvas coordinates never change. Only the angular distribution of sectors (under elastic focus), the viewport (under zoom/pan), and visual saturation (under focus) change.
+
+The 33 descriptive nodes (metric, bottleneck-status, frontier-status, principles, regulations, capability) do not render on canvas. They are surfaced as text in the detail panel for whichever structural node they describe.
 
 ## Layout Rules
 
-Use algorithmic layout for graph positions. Hand-written lane heuristics are not acceptable for production graph views.
+Use a deterministic, pure-function radial layout (`src/lib/radialLayout.ts` per the slice spec). Hand-written lane heuristics are not acceptable.
 
-For directed product-dependency graphs, prefer a layered layout:
+- Polar coordinates: product at r=0; first-layer subsystems at r=R₁; descendants at increasing r within each sector; materials on the outermost ring at r=R_outer.
+- Sector angles for the 12 first-layer subsystems are equal (30°) at rest. Under focus, they redistribute elastically (focused sector = 120°, others compress proportionally) but the *content* of each sector — which nodes live in it and at what radius — does not change.
+- Position is computed once for the full DAG at render time and **never recomputed on focus**. Focus changes geometry only via the angle map; nodes follow the recomputed angles via CSS transition (`transform 600ms cubic-out`).
+- Shared-node assignment is deterministic: by parent count, ties broken by node-id hash. Cross-sector edges are explicit dashed arcs to the canonical position.
 
-- Main flow: product -> module -> route/component -> process/material/software/metric/bottleneck.
-- Use generous node-to-node and layer spacing.
-- Avoid node overlap by giving the layout engine real node dimensions.
-- Keep coordinates stable; any ambient motion must happen inside the rendered node, not by changing graph coordinates.
-- Keep the pointer hitbox stable. Hover effects must not translate, resize, or otherwise move the element that receives mouse events.
-
-Current v0 implementation uses React Flow plus ELK. The ELK worker is served as a static asset from `public/elk-worker.min.js` so Next.js does not bundle the worker into the React graph route. If the project later evaluates yFiles, the UX contract stays the same: focused dependency canvas, incremental expansion, edge-label-on-demand, and semantic zoom.
-
-## Edge Rules
-
-Edges should explain structure without becoming visual noise.
-
-- Do not show every edge label by default.
-- Show edge labels when an edge is selected, hovered, connected to the selected/hovered node, or when the user filters to one relation type.
-- Dim unrelated edges during hover or selection.
-- Use relation-specific styling:
-  - `requires`: primary dependency line.
-  - `bottlenecked_by`: risk line, visually warm/red.
-  - `measured_by`: subdued metric line.
-  - `manufactured_by` / `regulated_by`: dashed support lines.
-- Prefer path highlighting over persistent labels.
+Do not re-root the layout around the user's current focus. Do not call ELK or any layout engine on focus changes.
 
 ## Node Rules
 
-Nodes are compact research cards.
+Nodes are progressive-disclosure markers, not research cards.
 
-- Show the localized node name, kind, and maturity score when available.
-- Show risk state on bottleneck and placeholder breakthrough nodes.
-- Show selected state with a stable border, not a continuous animation.
-- Avoid ambient float effects in the main research canvas. Stability is more important than decorative motion.
-- Do not animate real layout positions for ambience.
-- If ambient motion is reintroduced later, apply it to inner content only. The outer node shell must remain stationary so hover cannot flicker at node edges.
-- Use `nodeName(id, fallback)` for display names.
+- LOD band 1 (zoom < 0.5): 5px circle, fill = subsystem hue family, no text.
+- LOD band 2 (0.5 ≤ zoom < 1.5): 12px marker, truncated name, lightness gradient by depth, outline color = current mode band, sector name label visible at the sector's outer perimeter.
+- LOD band 3 (zoom ≥ 1.5): 80×40 card, full name + 1 mode-relevant badge (cost or maturity), cross-edges show arrowheads.
+- Node fill encodes subsystem identity (hue family) and is never overridden by color mode. Color mode is encoded through outline (band 2+) and edge styling.
+- Materials and arbitrarily-assigned shared nodes use neutral grey fill.
+- Selected / focused state is encoded by *saturation*: focused subtree stays full saturation; everything else desaturates to greyscale. There is no border highlight, no glow, no ambient animation.
 
-## Metric Folding
+## Edge Rules
 
-`metric`-kind nodes are first-class data but should not visually compete with the parent they describe. The graph view folds them when their relationship is unambiguous:
+Edges express dependency structure with color, thickness, style, and opacity — never with text labels at default.
 
-- A metric whose incoming `measured_by` edges resolve to **exactly one** visible non-metric parent node renders as a row in that parent's compact metrics strip (name, current/target value, unit). It does not render as a standalone graph node.
-- A metric with **multiple** visible non-metric parents (shared metric) keeps its standalone node — folding into one parent would hide the cross-cutting relationship.
-- A metric with **zero** visible non-metric parents (the parent is filtered or collapsed away) keeps its standalone node so the user can still reach it.
-- Clicking a folded metric chip selects the metric node and opens the standard node detail panel (evidence, confidence, history) — folding is purely a display-layer choice; the underlying graph data is unchanged.
-- The metrics strip is height-bounded (~60px) and lives inside the parent card so the outer hover/select hitbox stays stable per the Node Rules.
-- A "Show metrics as nodes" toggle in the toolbar (default off) opts out of folding and reverts to the legacy behavior. This is the audit/debug escape hatch; the folded view is the research default.
+- Default edge style: solid within a sector (same subsystem), dashed across sectors (shared structural module), dotted to the material ring.
+- Edge color = the current color mode value of the target node (5 bands, cool→warm gradient).
+- Edge thickness = the same 5 bands (0.5 / 1 / 1.5 / 2.5 / 4 px), aligned to the color binning so a thicker edge is always also the warmer color.
+- Edge opacity follows focus state: full when both endpoints are in the focused subtree, 50% otherwise.
+- Edge labels never render at band 1 or band 2. At band 3, only the edges incident to the currently-focused node show their relation label, dimmed.
+
+## Color Modes
+
+Five color modes (configured via floating button bottom-left):
+
+- **Bottleneck risk** (default): edge stroke + width binned by target node risk = (1 − maturity/100) × cost share.
+- **Cost**: target node cost band (blue cheap → red expensive).
+- **Maturity**: target node maturity band (red low → green high).
+- **Overall**: continuous composite gradient.
+- **Relation** (legacy): edges colored by relation type (`requires`, `manufactured_by`, etc.). This is the only mode where edge color does not encode a numeric property.
+
+Across modes, the K4 layering applies:
+
+| Visual channel | Encodes |
+|---|---|
+| Node fill | Subsystem hue family — permanent |
+| Sector background tint (<15% opacity) | Sector-aggregate mode value |
+| Edge stroke color | Target node mode band |
+| Edge stroke width | Same mode band, redundant for legibility |
+| Node outline (band 2+) | Per-node mode band |
 
 ## Interaction Rules
 
 Primary interactions:
 
-- Click node: select it and update the detail panel.
-- Double-click node: expand or collapse the next dependency layer.
-- Hover node: use local visual feedback only unless the interaction has been tested for flicker on real browsers.
-- Filter relation: show the selected relation clearly and reveal its edge labels.
-- Reset: return to the root product, initial expansion, and broad relation view.
+- **Click a structural node**: focus that node. Its sector expands from 30° to 120° over 600ms (cubic-out). Other 11 sectors compress proportionally. The clicked node and all of its `requires` descendants stay full saturation; everything else desaturates to greyscale. Viewport softly zooms (~1.5×) and pans to roughly center the clicked node. The focal product stays at canvas origin.
+- **Click a node inside an already-expanded sector (Level 2)**: that sub-subsystem's angular sub-range within the parent's 120° expands from ~30° to ~80°. Greyscale and zoom recursion compose.
+- **Click a node from Level 3+**: pure viewport zoom; geometry no longer changes.
+- **Cross-focus** (clicking a node in a different sector): previous sector contracts to 30°, target sector expands to 120°, saturation cross-fades. No camera jump.
+- **Esc / empty click / double-click current focus**: reverse animation, returning to the next-higher focus level.
+- **Zoom (mouse wheel, pinch, keyboard +/-)**: pure viewport zoom. No geometry change. LOD bands transition at zoom = 0.5 and 1.5.
+- **Cmd+K**: open search; type to fuzzy-match across node names and descriptive-node text; Enter flies to the result.
 
-Avoid adding text instructions inside the canvas. The UI should communicate through state, highlighting, layout, and controls.
+Detail panel:
 
-## View Modes
+- A 64px-wide rail on the right edge shows the focused node's name + one critical badge. Clicking the rail expands it to 400px showing the node's full content (description, metrics, evidence, bottleneck/frontier notes, upstream/downstream, sibling products, cost rollup, regulations).
+- Switching focus cross-fades the rail's content; the rail/expanded state persists.
 
-Future graph work should keep these conceptual modes separate:
-
-- Dependency Map: default layered dependency view.
-- Bottleneck Map: reduced graph emphasizing blockers and risk paths.
-- Maturity Map: color and badges emphasize maturity, evidence coverage, and review status.
-- Sibling-Product Compare: alternative Product candidates under one Capability compared in a table or structured lane view rather than a dense all-edge graph (per ADR-0004; replaces the earlier "Route Compare" framing now that intra-Product routes are not used in v0 data).
-- Overview: full graph inspection for audit and debugging, not the default research workflow.
+There is no canvas-internal instructional text. The UI communicates through state, position, color, thickness, and saturation.
 
 ## Implementation Guardrails
 
-- Do not remount React Flow on normal filter changes.
-- Do not run layout from hover-only state. Layout dependencies should be structural: visible nodes, visible edges, filter mode, and expansion state.
-- Do not run layout from selection-only state. Selection should update styling and the detail panel, not node coordinates.
-- Do not keep auto-fit behavior active on every graph update; repeated viewport fitting makes expansion feel like the graph is sliding away.
-- Keep layout code isolated from node rendering code.
-- Keep graph styling driven by node kind, relation, maturity, and review/evidence state.
-- Run `npm run lint` and `npm run build` for UI changes.
-- Update this document when introducing a new graph interaction pattern.
+- Do not remount React Flow on focus changes. Focus updates state; state drives angle map and viewport; positions follow via CSS transitions.
+- Do not call any layout engine (ELK, dagre) at runtime. The radial layout is a pure function; results are memoized at mount.
+- Do not run layout from hover or selection state. Hover updates outline saturation only. Selection updates saturation and detail panel.
+- Do not run auto-fit on every state change. Fit-view runs only on initial load and on the explicit "0" keyboard shortcut.
+- Do not encode the same scalar in two visual channels with *different* binning. If edge thickness and edge color both encode cost, they share thresholds.
+- Do not introduce a list UI alongside the canvas without designing its visual replacement first. See `docs/design-principles.md` for the active exceptions and their retirement criteria.
+- Do not add "advanced filter" dropdowns. Narrowing is a deferred surface; the default view stays progressive-discovery.
+- Run `npm run lint`, `npm run check:graph-ux`, `npm test`, and `npm run verify` for UI changes. Run a full UX-flow tour (`docs/ux-flow-tours.md`) at each phase boundary in the slice spec.
+- Update this document when a slice in the radial spec lands; update `docs/design-principles.md` when an active exception retires.
+
+## Deferred surfaces
+
+The following are explicitly deferred to future specs and do not exist in the default `/graph` view:
+
+- Sibling-product compare (alternative Product candidates under one Capability). Navigate via `/product/<id>` for now.
+- Filter / narrowing UI (kind, domain, maturity, relation filters).
+- Entry animation (radial fan-out from product center).
+- Mobile / small-screen adaptation.
+
+When a deferred surface lands, update this document and the ADR registry.

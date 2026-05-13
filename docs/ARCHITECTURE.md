@@ -242,43 +242,39 @@ Important components:
 - `TaskQueueView.tsx`
 - `LanguageProvider.tsx`
 
-### Recursive Graph Exploration
+### Radial Progressive-Disclosure Graph
 
-The graph UI should support recursive, progressive disclosure rather than showing the whole product dependency graph by default.
+Per ADR-0006 (2026-05-13), `/graph` is a single radial canvas that surfaces all structural nodes simultaneously at the lowest fidelity and reveals detail through zoom, focus, and color mode — not through stage transitions or filtering. The full design contract lives in `docs/GRAPH_UX.md`; the three governing principles in `docs/design-principles.md`; the implementation slices in `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`.
 
-The core interaction model is:
+Key shape:
 
-- Start from one concrete product node.
-- Show only the immediate composition/dependency layer first.
-- Let the user select a node and expand the next layer on demand.
-- Treat each component, module, subsystem, route, process, or capability as both a child of a larger system and a potentially inspectable system with its own dependencies.
-- Keep full graph inspection available, but do not make it the default first impression.
+- All 77 structural nodes (product, module, material, engineering_method, manufacturing_process) for the focal product render simultaneously in polar coordinates: product at origin, 12 first-layer subsystems at equal 30° spacing on a ring, descendants in concentric layers within each sector, 10 materials on a neutral-grey outermost ring. Shared structural nodes (19 with multiple `requires` parents in current data) take a canonical primary-parent position; secondary parents render as dashed cross-sector arcs.
+- The 33 descriptive nodes (`metric`, `bottleneck`, `placeholder_breakthrough`, scientific/empirical principles, regulations, capabilities) never render on canvas. They surface as text in the detail panel of whichever structural node they describe.
+- Bottleneck and frontier status are attributes on structural nodes (`bottleneckOf?: string[]`, `frontierFor?: string[]`), not separate `kind`s; the visual presence of a bottleneck emerges from the current color mode's heat.
+- Position is computed once at mount via `src/lib/radialLayout.ts` (pure function) and never recomputed on focus. Focus changes only sector angles, viewport, and saturation.
 
-This is necessary because real product graphs are directed dependency graphs, not clean trees. A component can be reused by multiple higher-level systems, and a bottleneck may sit several layers below the product. The UI should therefore behave like a layered recursive explorer over a graph:
+What the graph answers, in this model:
 
-- The default view should answer, "What is this product made of?"
-- The selected-node detail panel should answer, "What is this node, what evidence supports it, and what is connected to it?"
-- The expand action should answer, "What does this part depend on next?"
-- The bottleneck view should answer, "What is the highest visible blocker, and what deeper blocker appears if I inspect it?"
+- "What is this product made of?" — visible in the default radial overview without any interaction.
+- "Which subsystem is most complex / most blocked / most expensive?" — encoded geometrically (sector size, internal density) and via the active color mode (edge color + thickness + sector tint).
+- "What does this node depend on / what depends on it?" — appears in the detail panel rail (right edge, 64px collapsed, 400px expanded) when the node is selected.
+- "What blocks this product's maturity?" — encoded by color mode (default `bottleneck-risk`); high-risk nodes glow warm; their `bottleneckOf` attribute surfaces in the detail panel.
 
-Progressive disclosure rules:
+Interaction model:
 
-- Do not show all known nodes at once unless the user chooses full graph mode.
-- Prefer direct `requires`, `implemented_by`, `manufactured_by`, and `regulated_by` links for composition/dependency expansion. (`has_route` is schema-preserved but not used in v0 data per ADR-0004.)
-- Keep `measured_by` metrics visible in detail panels and full graph mode by default; avoid flooding the first layer with every metric.
-- Show `bottlenecked_by` links as first-class blockers, not as generic related nodes.
-- A high-level bottleneck should be shown before its detailed internal causes. Detailed causes should appear only after the user expands that bottleneck or subsystem.
-- If the graph lacks the next layer, expose the gap rather than inventing hidden structure.
+- Click a structural node → its sector expands from 30° to 120° over 600ms; viewport softly zooms ~1.5× and pans to roughly center the node; the focused subtree stays saturated, everything else desaturates to greyscale. Spatial coordinates never change.
+- Click a node inside an already-expanded sector → recursive Level-2 elastic expansion of that sub-subsystem's sub-angle (30° → 80° within the parent's 120°).
+- Esc / empty click / double-click current focus → reverse animation to the next-higher level.
+- Cmd+K → fuzzy search across node names and descriptive-node text; Enter flies to the result.
+- Mouse wheel / pinch / keyboard +/- → pure viewport zoom; LOD bands switch at zoom = 0.5 and 1.5.
 
-Maturity and feasibility display should follow the same recursive pattern:
+Display rules:
 
-- At product level, show whether the whole product is mature, feasible, blocked, or under-specified.
-- If blocked, show the highest-level module, route, metric, process, or capability currently responsible.
-- When the user expands that blocker, reveal the next layer of causes.
-- For mature existing products, emphasize core components, manufacturing processes, metrics, and evidence.
-- For immature or hypothetical products, emphasize the bottleneck chain and missing evidence.
+- `metric`, `bottleneck`, `placeholder_breakthrough` records are surfaced only via the detail panel.
+- `requires`, `manufactured_by`, `implemented_by`, `regulated_by` edges all participate in the radial canvas; `has_route` is schema-preserved but unused in v0 data per ADR-0004; deprecated `bottlenecked_by` edges (replaced by the attribute) are migrated by the slice spec.
+- If the graph lacks the next layer, expose the gap (decomposition frontier attribute) rather than inventing hidden structure.
 
-The graph should remain the source of truth. UI labels, summaries, and bottleneck explanations must derive from nodes, typed edges, metrics, evidence records, maturity fields, and gate output rather than hard-coded narrative.
+The graph remains the source of truth. UI labels, summaries, and bottleneck explanations derive from nodes, typed edges, attributes, evidence records, maturity fields, and gate output — not from hard-coded narrative.
 
 ### Internationalization
 
@@ -301,9 +297,9 @@ The project uses local JSON to make the graph easy to inspect, diff, validate, a
 
 Zod provides runtime validation and TypeScript type inference from the same schema definitions. This keeps data quality visible during early iteration.
 
-### React Flow And ELK For v0 Graph UI
+### React Flow For v0 Graph UI
 
-React Flow is used because it provides a fast path to interactive graph rendering, custom node cards, node click handling, highlighting, and filters. ELK provides the automatic layered layout for dependency graphs. Future graph UX work should follow `docs/GRAPH_UX.md`: focused dependency canvas by default, algorithmic layout, edge labels on demand, stable coordinates, and progressive disclosure rather than full-graph-first rendering.
+`@xyflow/react` v12 is the rendering substrate because it provides interactive canvas (pan/zoom), custom node rendering, viewport state subscriptions (`useStore`), and smooth `setViewport` transitions — all of which the radial progressive-disclosure model depends on. Layout is **not** delegated to a graph-layout engine at runtime: per ADR-0006 (2026-05-13), `src/lib/radialLayout.ts` is a pure function that computes polar coordinates once at mount and never recomputes on focus. ELK is removed from the runtime path. Future graph UX work follows `docs/GRAPH_UX.md` and the three design principles in `docs/design-principles.md`.
 
 ### No Full Ontology Yet
 

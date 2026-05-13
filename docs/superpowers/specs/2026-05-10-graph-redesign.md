@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-10
 **Author**: ralph-loop session (Claude Opus 4.7)
-**Status**: approved, in implementation
+**Status**: **superseded 2026-05-13 by ADR-0006** (`docs/adr/0006-radial-progressive-disclosure-graph.md`). Slice 1 (cost honesty) **landed and remains valid**. Slices 2 (color modes via `edgeTintFor`), 3 (`explorationLayout` recompute-on-focus), and 4 (two-stage overview/focused) are **deprecated** — the radial progressive-disclosure model in `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md` replaces them. The text below is preserved for historical context and should not be acted on.
 
 ## Goal
 

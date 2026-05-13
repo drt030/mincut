@@ -1,0 +1,54 @@
+# UX Design Principles
+
+These principles guide every user-facing surface in the project. They emerged from a 2026-05-13 grilling session on `/graph` and are intentionally generalizable to other views (product, gate, tasks, future surfaces).
+
+When a new feature is proposed, it should be checked against these principles before implementation. When an existing surface accumulates exceptions, the exceptions should be tracked here so future work can retire them.
+
+## 1. Progressive discovery, not known-narrowing
+
+The default view surfaces all signals at low fidelity. Focus, zoom, and color modes reveal additional structure without removing anything from the canvas. New users — who don't yet know what to filter for — gain understanding by watching signals unfold, not by typing the right query.
+
+**Apply:**
+- Default to the full data at lowest fidelity (small uniform markers, geometric arrangement carrying meaning).
+- Reveal labels, metrics, and detail in response to gaze (zoom level), pointer (focus), or shortcut (search).
+- When narrowing is genuinely useful (advanced power-user mode), gate it behind a deliberate gesture so it doesn't run the default flow.
+
+**Anti-pattern:**
+- Dropdown filters that hide nodes / rows not matching a criterion the user must already know.
+- "Show advanced" toggles that the new user never finds and the expert always wants on.
+
+## 2. Geometry is the answer
+
+If a quantity can be encoded by position, shape, color, size, stroke, opacity, or motion, it is encoded that way. Numeric KPI tiles, count badges, and dashboard rows are a compensation for inadequate visual expressiveness — useful as scaffolding while a visual language is being designed, but never the long-term home for a number.
+
+**Apply:**
+- Replace "4 bottlenecks, 12 dependencies" with red-glowing nodes and visible edges in the canvas. The count is geometric — the user counts the glows.
+- Replace "system maturity: 54/100" with a color-coded visual region of the relevant scope.
+- When introducing a new metric, design its visual encoding before its readout.
+
+**Anti-pattern:**
+- Status strips above visualizations that already encode the same information.
+- "Quick stats" panels duplicating canvas state in numbers.
+
+## 3. Visual language, not list UI
+
+Sorted lists of pills, cards, or rows next to a canvas duplicate the canvas's job. They invite the user to read names and click — slow — instead of seeing patterns and selecting — fast. The exception: when no visual language has been designed for some signal yet (e.g., top-N priorities), a transitional list may live alongside the canvas. Such lists are explicit debt, recorded here, and retired when the visual language exists.
+
+**Apply:**
+- Jump-to discovery uses search (cmd+K), not browseable lists.
+- Top-N rankings are color-coded and ordered by gaze direction (e.g., warmer-on-top sectors), not by row.
+- When a list seems unavoidable, ask first: what would the visual replacement look like? If the answer is unknown, ship the list as a documented exception.
+
+**Anti-pattern:**
+- "Top Blockers" or "High Risk Dependencies" rails pinned above a graph that already shows those nodes.
+- Sortable tables alongside visualizations of the same data.
+
+## Active exceptions (transitional)
+
+| Surface | Exception | Why kept | Retire when |
+|---|---|---|---|
+| `/graph` | "High risk dependency" pill banner above canvas | No glyph-language for top-N priorities designed yet | Phase C of the radial graph spec (see `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`) defines a sector-level visual top-N |
+
+## Provenance
+
+These principles are derived from the design discussion captured in `docs/adr/0006-radial-progressive-disclosure-graph.md`. They apply project-wide, but the immediate fixture is the radial graph redesign of 2026-05-13.

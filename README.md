@@ -59,9 +59,9 @@ Default next-task selection is scoped to the active v0 graph; deferred fixture t
 - Next.js App Router application.
 - TypeScript and Zod schemas for graph data.
 - Local JSON graph storage under `/data`.
-- React Flow graph explorer.
-- Domain, node kind, relation, and maturity filters.
-- Node detail panel.
+- Radial progressive-disclosure graph explorer (per ADR-0006): single radial canvas with all 77 structural nodes visible at the lowest zoom; click-to-focus elastically expands the relevant subsystem sector; viewport zoom drives 3-band semantic detail.
+- 5 color modes (bottleneck-risk default, cost, maturity, overall, relation) layered redundantly across node fill, edges (color + thickness), and sector tint.
+- Node detail panel (collapsible right-edge rail) with metrics, evidence, upstream/downstream, cost rollup, sibling products.
 - Product view for the parcel-sorting robot node.
 - Capability-grouped sibling Product layout (per ADR-0004): alternative architectures render as sibling Products under one Capability rather than as routes within a single Product.
 - Validation gate CLI and report viewer.
