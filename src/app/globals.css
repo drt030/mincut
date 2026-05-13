@@ -33,9 +33,7 @@
   outline-offset: 2px;
 }
 
-.panel *:focus-visible,
-.toolbar-actions *:focus-visible,
-.filters *:focus-visible {
+.panel *:focus-visible {
   outline-color: #b45309;
 }
 
@@ -145,11 +143,6 @@ nav a {
 
 .graph-page {
   padding-top: 8px;
-}
-
-.graph-page h1 {
-  font-size: 22px;
-  margin-bottom: 5px;
 }
 
 .hero {
@@ -390,661 +383,51 @@ li {
   overflow: hidden;
 }
 
-.graph-canvas-focused {
-  height: clamp(300px, calc(100vh - 330px), 460px);
-  min-height: 300px;
-}
+/*
+ * Per ADR-0006 §Chrome (toolbar) and slice A3, the legacy chrome
+ * blocks (KPI strip, mode tabs, banners, ColorModeSelect dropdown,
+ * advanced filters, two-stage `.compact` / `.out-of-context` cards,
+ * `.research-map*` fallback canvas, `.graph-layout-focused` two-stage
+ * grid, `.graph-context-*` shortcuts) were deleted here — the radial
+ * canvas is the surface. Phase B will re-add the floating
+ * color-mode button + focus interaction.
+ */
 
-.research-map {
-  height: 100%;
-  overflow: auto;
-  position: relative;
-}
-
-.research-map-inner {
-  min-height: 100%;
-  position: relative;
-}
-
-.research-map-edges {
-  height: 100%;
-  inset: 0;
-  overflow: visible;
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-}
-
-.research-map-edge {
-  fill: none;
-  marker-end: url("#research-map-arrow");
-  opacity: 0.5;
-  stroke-linecap: round;
-}
-
-.research-map-edge.selected {
-  opacity: 0.94;
-}
-
-.research-map-edge.dimmed {
-  opacity: 0.18;
-}
-
-.research-map-edge.bottleneck-path {
-  filter: drop-shadow(0 1px 2px rgba(185, 28, 28, 0.22));
-  stroke-dasharray: 0;
-}
-
-.research-map-focused .research-map-edge.selected {
-  opacity: 1;
-}
-
-.research-map-focused .research-map-edge.dimmed {
-  opacity: 0.08;
-}
-
-.research-map-overview .research-map-edge {
-  opacity: 0.34;
-}
-
-.research-map-overview .research-map-edge.selected {
-  opacity: 0.66;
-}
-
-.research-map-overview .research-map-edge.selected.bottleneck-path {
-  opacity: 1;
-}
-
-.research-map-node {
-  position: absolute;
-}
-
-.research-map-column-label {
-  background: rgba(255, 255, 255, 0.86);
-  border: 1px solid #dbe3ee;
-  border-radius: 999px;
-  color: #334155;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0;
-  overflow: hidden;
-  padding: 4px 8px;
-  position: absolute;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  z-index: 2;
-}
-
-.research-map .graph-node-card {
-  min-height: 100%;
-}
-
-.graph-context-strip {
-  align-items: stretch;
-  background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  display: grid;
-  gap: 6px;
-  grid-template-columns: minmax(220px, 1fr) repeat(3, minmax(92px, 112px));
-  margin: 6px 0 8px;
-  padding: 6px;
-}
-
-.graph-context-stat:first-child {
-  grid-column: auto;
-}
-
-.graph-context-stat {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  display: inline-flex;
-  gap: 6px;
-  justify-content: center;
-  min-width: 0;
-  padding: 5px 8px;
-}
-
-.graph-context-stat span {
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.graph-context-stat strong {
-  color: var(--ink);
-  font-size: 12px;
-  line-height: 1.25;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.graph-context-stat.danger strong {
-  color: #b91c1c;
-}
-
-.graph-context-jumps {
-  align-content: center;
+/* Slice A3: 5px dot rendering for band-1 radial overview. */
+.radial-dot {
   align-items: center;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 6px;
-  grid-column: 1 / -1;
-  min-width: 0;
-  overflow-x: auto;
-  padding-bottom: 1px;
-}
-
-.graph-context-jump-row-label {
-  color: #475569;
-  flex: 0 0 auto;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0;
-  line-height: 1;
-  padding: 0 4px 0 2px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.graph-context-jumps a {
-  align-items: center;
-  background: #eef2ff;
-  border: 1px solid #c7d2fe;
-  border-radius: 999px;
-  color: #1e3a8a;
   cursor: pointer;
   display: inline-flex;
-  font-size: 12px;
-  font-weight: 700;
-  gap: 6px;
-  line-height: 1.2;
-  max-width: 220px;
-  overflow: hidden;
-  padding: 5px 8px;
-  white-space: nowrap;
-}
-
-.graph-context-jumps a:hover {
-  background: #dbeafe;
-  border-color: #93c5fd;
-}
-
-.graph-context-jumps a.medium-risk {
-  background: #fffbeb;
-  border-color: #fbbf24;
-  color: #92400e;
-}
-
-.graph-context-jumps a.high-risk {
-  background: #fff7ed;
-  border-color: #f97316;
-  color: #9a3412;
-}
-
-.graph-context-more-chip {
-  background: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  border-radius: 999px;
-  color: #64748b;
-  flex: 0 0 auto;
-  font-size: 11px;
-  font-weight: 800;
-  line-height: 1.2;
-  padding: 5px 8px;
-  white-space: nowrap;
-}
-
-.graph-context-bottleneck-jumps a {
-  background: #fff7ed;
-  border-color: #fb923c;
-  color: #9a3412;
-}
-
-.graph-context-bottleneck-jumps .graph-context-jump-risk {
-  background: #9a3412;
-  border-color: #9a3412;
-  color: #fff7ed;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.graph-context-jump-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.graph-context-jump-risk {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  flex: 0 0 auto;
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-  font-weight: 900;
-  line-height: 1;
-  padding: 3px 5px;
-}
-
-.graph-layout-focused {
-  align-items: start;
-  grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
-}
-
-.graph-layout-focused > .panel {
-  order: -1;
-  max-height: calc(100vh - 150px);
-  overflow: auto;
-  position: sticky;
-  top: 12px;
-}
-
-.graph-layout-focused .graph-canvas {
-  height: clamp(430px, calc(100vh - 250px), 640px);
-  min-height: 430px;
-}
-
-.graph-node-card {
-  --node-color: #64748b;
-  /*
-   * Per iter-44 a11y audit (MAJOR): 5 of 11 kind-colors failed AA 4.5:1
-   * with white 15px text at the previous 92%/8% mix (metric 3.36,
-   * placeholder_breakthrough 4.04, scientific_principle 4.17,
-   * empirical_principle 4.23, capability 3.74). Mixing more #0f172a in
-   * (70%/30%) drops every kind below ~5:1 against white while keeping
-   * the kind hue visible.
-   */
-  background: color-mix(in srgb, var(--node-color) 70%, #0f172a);
-  border: 1px solid color-mix(in srgb, var(--node-color) 70%, #ffffff);
-  border-radius: 8px;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.16);
-  color: white;
-  height: 100%;
-  overflow: hidden;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    filter 160ms ease,
-    opacity 160ms ease;
-  width: 100%;
-}
-
-.graph-node-card::before {
-  background: rgba(255, 255, 255, 0.2);
-  content: "";
-  display: block;
-  height: 4px;
-  width: 100%;
-}
-
-.graph-node-card.selected {
-  border-color: #0f172a;
-  box-shadow:
-    0 0 0 3px rgba(15, 23, 42, 0.24),
-    0 18px 36px rgba(15, 23, 42, 0.24);
-  filter: saturate(1.08);
-}
-
-/* Per v3 iter-17: amplify the selected card in focused stage so
-   it's unmistakably the centre of attention. Bigger ring + scale
-   nudge. In overview the selected card still gets the regular
-   subtle ring above. */
-.graph-node-card.selected:not(.compact) {
-  box-shadow:
-    0 0 0 4px rgba(15, 23, 42, 0.35),
-    0 24px 48px rgba(15, 23, 42, 0.3);
-  transform: scale(1.04);
-  transform-origin: center;
-  z-index: 1;
-}
-
-.research-map-focused .graph-node-card.selected {
-  border-color: #fef3c7;
-  box-shadow:
-    0 0 0 3px rgba(254, 243, 199, 0.92),
-    0 0 0 7px rgba(15, 23, 42, 0.34),
-    0 24px 50px rgba(15, 23, 42, 0.34);
-}
-
-.research-map-focused .graph-node-card.selected::after {
-  background: #fef3c7;
-  border: 1px solid rgba(146, 64, 14, 0.32);
-  border-radius: 999px;
-  color: #78350f;
-  content: "Focus";
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  padding: 4px 7px;
-  position: absolute;
-  right: 7px;
-  text-transform: uppercase;
-  top: 7px;
-  z-index: 3;
-}
-
-.graph-node-card.related:not(.selected) {
-  border-color: #fde68a;
-  box-shadow:
-    0 0 0 2px rgba(250, 204, 21, 0.32),
-    0 14px 30px rgba(15, 23, 42, 0.18);
-}
-
-.graph-node-card.dimmed {
-  opacity: 0.34;
-}
-
-/*
- * Per UX Flow v3 iter-8 (user feedback "传送感"): in focused stage,
- * nodes outside the current focus's context (the focus's requires
- * subtree + capability) are mini-rendered at reduced scale + opacity.
- * Preserves the spatial mental model when the user drills in — the
- * previous context is still THERE, just shrunk so the new focus
- * dominates. Click the mini node to re-focus on it.
- */
-.graph-node-card.out-of-context {
-  /* Per a11y audit 2026-05-11: 0.25 opacity over a dark canvas
-     gave card text a ~1.5:1 contrast ratio — well below WCAG AA's
-     4.5:1. Raised to 0.45 so out-of-context cards still read as
-     "secondary" without becoming unreadable. */
-  opacity: 0.45;
-  filter: saturate(0.55);
-  transform: scale(0.55);
-  transform-origin: center;
-  transition:
-    opacity 320ms ease,
-    filter 320ms ease,
-    transform 320ms ease;
-}
-
-.graph-node-card.out-of-context:hover,
-.graph-node-card.out-of-context:focus-within {
-  opacity: 0.95;
-  filter: none;
-  transform: scale(0.9);
-}
-
-/*
- * Slice 4 (2026-05-10 graph redesign): semantic zoom. In "overview"
- * stage all cards collapse to title + maturity pill only; the metrics
- * strip, frontier glyph, and meta pills (kind, asof) hide. Lets the
- * user scan 22 cards at fit-to-screen without text becoming illegible.
- * Click any compact card to enter focused stage and re-render full.
- */
-.graph-node-card.compact .graph-node-meta .graph-node-asof-pill,
-.graph-node-card.compact .graph-node-meta > span:first-child,
-.graph-node-card.compact .graph-node-impact-row,
-.graph-node-card.compact .graph-node-metrics,
-.graph-node-card.compact .graph-node-frontier-glyph {
-  display: none;
-}
-
-.graph-node-card.compact .graph-node-title {
-  background: rgba(15, 23, 42, 0.18);
-  border-radius: 6px;
-  font-size: 14px;
-  line-height: 1.2;
-  padding: 5px 6px;
-  text-shadow: 0 1px 1px rgba(15, 23, 42, 0.28);
-  -webkit-line-clamp: 2;
-}
-
-.graph-node-card.compact .graph-node-inner {
-  gap: 5px;
-  padding: 7px 8px 8px;
-}
-
-/*
- * Slice 4 polish: in compact mode, the top `::before` strip widens into
- * a heat block painted with the colorMode tint (cost / maturity /
- * overall / bottleneck). Gives the user a heat map at fit-to-screen
- * zoom even when titles are illegible.
- */
-.graph-node-card.compact::before {
-  background: var(--heat-color, rgba(255, 255, 255, 0.2));
-  height: 14px;
-}
-
-.research-map-focused .graph-node-card:not(.selected) .graph-node-inner {
-  gap: 9px;
-  justify-content: flex-start;
-}
-
-.research-map-focused .graph-node-card:not(.selected) .graph-node-title {
-  font-size: 17px;
-  line-height: 1.22;
-}
-
-.research-map-focused .graph-node-card:not(.selected) .graph-node-impact-row span {
-  font-size: 11px;
-  padding: 5px 7px;
-}
-
-.research-map-focused .graph-node-card:not(.selected) .graph-node-meta .graph-node-asof-pill,
-.research-map-focused .graph-node-card:not(.selected) .graph-node-metrics {
-  display: none;
-}
-
-/*
- * Sibling Product candidates from the capability cluster (per ADR-0004).
- * Rendered as visible-but-secondary "alternative architectures" so they
- * read as context rather than competing with the active Product.
- */
-.graph-node-card.alt-sibling {
-  opacity: 0.62;
-  filter: saturate(0.6);
-  transform: scale(0.92);
-  transform-origin: center;
-}
-
-.graph-node-card.alt-sibling:hover {
-  opacity: 0.85;
-}
-
-.graph-node-card.risk {
-  border-color: #f59e0b;
-  box-shadow:
-    0 0 0 2px rgba(245, 158, 11, 0.46),
-    0 12px 30px rgba(127, 29, 29, 0.2);
-}
-
-.graph-node-card.is-bottleneck {
-  border: 2px dashed #d97706;
-  box-shadow:
-    0 0 0 1px rgba(217, 119, 6, 0.35),
-    0 12px 30px rgba(127, 29, 29, 0.18);
-}
-
-.graph-node-card.is-bottleneck.selected {
-  border: 2px dashed #d97706;
-  box-shadow:
-    0 0 0 3px rgba(15, 23, 42, 0.24),
-    0 18px 36px rgba(15, 23, 42, 0.24);
-}
-
-/*
- * Per iter-44 a11y audit (MAJOR): white-on-#d97706 fails 3.19 against
- * the 11px ⚠ glyph. Darken to #b45309 (5.02) so AA holds. The downstream
- * variant already used #b45309 — it is unchanged here.
- */
-.graph-node-warning-glyph {
-  align-items: center;
-  background: #b45309;
-  border-radius: 999px;
-  color: #ffffff;
-  display: inline-flex;
-  font-size: 11px;
-  font-weight: 800;
-  height: 18px;
   justify-content: center;
-  line-height: 1;
-  pointer-events: auto;
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  width: 18px;
-  z-index: 2;
-}
-
-.graph-node-warning-glyph.downstream {
-  background: #92400e;
-}
-
-.graph-node-key-glyph {
-  align-items: center;
-  background: #0f766e;
-  border-radius: 999px;
-  color: #ffffff;
-  display: inline-flex;
-  font-size: 11px;
-  height: 18px;
-  justify-content: center;
-  left: 6px;
-  line-height: 1;
-  pointer-events: auto;
-  position: absolute;
-  top: 6px;
-  width: 18px;
-  z-index: 2;
-}
-
-/*
- * Iter-22: third visual signal alongside ⚠ (upper-right, bottleneck /
- * bottlenecked-by) and 🔑 (upper-left, hard-to-develop key technology).
- * 🔭 telescope sits at the upper-center top edge, half-overlapping the
- * card border so it reads as a marker pinned to the card. Color is the
- * frontier "research" cyan/indigo — distinct from the bottleneck amber
- * and the key-tech teal so all three glyphs stay legible together.
- */
-.graph-node-frontier-glyph {
-  align-items: center;
-  background: #1e3a8a;
-  border: 1px solid #93c5fd;
-  border-radius: 999px;
-  color: #ffffff;
-  display: inline-flex;
-  font-size: 11px;
-  height: 18px;
-  justify-content: center;
-  left: 50%;
-  line-height: 1;
-  pointer-events: auto;
-  position: absolute;
-  top: -9px;
-  transform: translateX(-50%);
-  width: 22px;
-  z-index: 2;
-}
-
-.graph-node-card {
+  outline: none;
   position: relative;
 }
 
-.graph-node-card:hover {
-  filter: brightness(1.07) saturate(1.08);
+.radial-dot:focus-visible svg circle {
+  stroke: #2563eb;
+  stroke-width: 2;
 }
 
-.graph-node-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: calc(100% - 4px);
-  justify-content: space-between;
-  padding: 12px 13px 13px;
+.radial-dot.selected svg circle {
+  stroke: #0f172a;
+  stroke-width: 2;
 }
 
-.graph-node-title {
-  display: -webkit-box;
-  flex-shrink: 0;
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 1.23;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+.radial-dot.focal svg circle {
+  stroke: #0f172a;
+  stroke-width: 1;
 }
 
-.graph-node-impact-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.graph-node-impact-row span {
-  background: rgba(15, 23, 42, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.94);
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-  font-weight: 800;
-  line-height: 1;
-  padding: 4px 6px;
-  white-space: nowrap;
-}
-
-.graph-node-impact-row .graph-node-risk-score.high {
-  background: #fef3c7;
-  border-color: #f59e0b;
-  color: #78350f;
-}
-
-.graph-node-meta {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.graph-node-meta span {
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-  padding: 5px 7px;
-}
-
-.graph-node-meta .graph-node-maturity-pill {
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
-.graph-node-meta .graph-node-maturity-pill.missing {
-  border-style: dashed;
-}
-
-.graph-node-meta .graph-node-asof-pill {
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: rgba(255, 255, 255, 0.92);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
-.graph-node-meta .graph-node-asof-pill.missing {
-  border-style: dashed;
-  opacity: 0.6;
-}
-
-.graph-node-asof-icon {
-  font-size: 10px;
-  line-height: 1;
-}
+/*
+ * Per slice A3: `.graph-node-card` and all its variants (selected,
+ * related, compact, out-of-context, alt-sibling, risk, is-bottleneck,
+ * impact-row, meta, asof-pill, warning-glyph, key-glyph, frontier-
+ * glyph) were the rectangular card renderer used by the old
+ * Sugiyama / two-stage layout. The radial slice replaces them with
+ * `.radial-dot` (above). Re-introduce these blocks only if a future
+ * slice re-adds a card-shaped node renderer (band 3 in slice A4 may
+ * use a much smaller variant).
+ */
 
 .maturity-asof-pill {
   align-items: center;
@@ -1303,81 +686,12 @@ li {
   padding-left: 6px;
 }
 
-.graph-node-handle {
-  background: transparent;
-  border: 0;
-  height: 1px;
-  opacity: 0;
-  width: 1px;
-}
-
-.graph-node-metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  max-height: 160px;
-  overflow: hidden;
-}
-
-.graph-node-metric-chip {
-  align-items: center;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  font: inherit;
-  font-size: 10px;
-  font-weight: 600;
-  gap: 6px;
-  justify-content: space-between;
-  line-height: 1.2;
-  padding: 3px 6px;
-  text-align: left;
-  width: 100%;
-}
-
-.graph-node-metric-chip:hover {
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.graph-node-metric-chip.selected {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.55);
-}
-
-.graph-node-metric-name {
-  flex: 1 1 auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.graph-node-metric-value {
-  flex: 0 0 auto;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.92;
-}
-
 /*
- * Per ADR-0003: tiny grey "as of YYYY" pill on cost-bearing metric chips
- * inside the graph-card metrics strip. Mirrors the iter-7 maturityAsOf
- * pill but lives inside the strip chip rather than the card meta row.
+ * Per slice A3: `.graph-node-handle`, `.graph-node-metrics`, and
+ * `.graph-node-metric-chip*` were card-internal renderers; removed
+ * alongside `.graph-node-card`. Detail-panel metric rendering uses
+ * the `.metric-detail-*` family below.
  */
-.graph-node-metric-asof {
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 4px;
-  flex: 0 0 auto;
-  font-size: 9px;
-  font-variant-numeric: tabular-nums;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  margin-left: 2px;
-  padding: 1px 4px;
-  white-space: nowrap;
-}
 
 /*
  * Per ADR-0003 cost UI: detail-panel metric rows surface the formatted
@@ -1665,57 +979,12 @@ li {
   box-shadow: none;
 }
 
-.color-mode-select-wrapper {
-  align-items: center;
-  display: inline-flex;
-  flex: 1 0 100%;
-  font-size: 12px;
-  gap: 6px;
-  justify-content: flex-start;
-  margin-left: 0;
-  max-width: 100%;
-  min-width: 0;
-}
-
-.color-mode-select-label {
-  color: #475569;
-  flex: 0 0 auto;
-  font-weight: 600;
-}
-
-.color-mode-select {
-  background: white;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  color: #0f172a;
-  flex: 0 1 220px;
-  font: inherit;
-  font-size: 12px;
-  min-width: 0;
-  padding: 4px 8px;
-}
-
-.color-mode-select:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
-/* Per v3 iter-24: inline 5-swatch legend strip beside the dropdown
-   showing the active mode's color ramp direction. */
-.color-mode-legend {
-  align-items: center;
-  border: 1px solid #cbd5e1;
-  border-radius: 4px;
-  display: inline-flex;
-  flex: 0 0 auto;
-  height: 16px;
-  overflow: hidden;
-  margin-left: 4px;
-}
-
-.color-mode-legend-swatch {
-  flex: 1 0 14px;
-  height: 100%;
+/* Per slice A3: ColorModeSelect dropdown + 5-stop legend strip were
+   relocated to a floating bottom-left button per ADR-0006 §Chrome.
+   Slice B1 introduces the replacement; the styles below were the
+   in-toolbar dropdown rendering and are removed. */
+.color-mode-removed-marker {
+  display: none;
 }
 
 /*
@@ -1887,234 +1156,28 @@ li {
   padding: 3px 9px;
 }
 
+/* Per slice A3, edges render as thin grey 1px lines (stroke is set
+   inline on the FlowEdge `style` so each edge instance carries its
+   own color in case future slices need per-edge variation). Phase B1
+   reintroduces color-mode rendering. */
 .react-flow__edge-path {
-  stroke: #94a3b8;
+  stroke: #cbd5e1;
   transition:
     opacity 160ms ease,
     stroke 160ms ease,
     stroke-width 160ms ease;
 }
 
-.react-flow__edge.graph-edge.dimmed .react-flow__edge-path {
-  opacity: 0.34;
-}
-
-.react-flow__edge.graph-edge.selected .react-flow__edge-path {
-  stroke: #111827;
-}
-
-.react-flow__edge.relation-bottlenecked_by .react-flow__edge-path {
-  stroke: #dc2626;
-}
-
-.react-flow__edge.relation-measured_by .react-flow__edge-path {
-  stroke: #ca8a04;
-  stroke-dasharray: 4 5;
-}
-
-.react-flow__edge.relation-manufactured_by .react-flow__edge-path,
-.react-flow__edge.relation-regulated_by .react-flow__edge-path {
-  stroke: #475569;
-  stroke-dasharray: 7 5;
-}
-
-.react-flow__edge-text {
-  font-size: 13px;
-  font-weight: 800;
-  pointer-events: none;
-  paint-order: stroke;
-  stroke: white;
-  stroke-width: 4px;
-}
-
-.explorer-toolbar {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: flex-start;
-  margin-bottom: 4px;
-  row-gap: 5px;
-}
-
-.explorer-toolbar .toolbar-actions {
-  flex: 1 1 420px;
-  justify-content: flex-start;
-  min-width: 0;
-}
-
-.graph-control-drawer,
-.graph-filter-drawer {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.graph-control-drawer > summary,
-.graph-filter-drawer > summary {
-  color: #334155;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 13px;
-  font-weight: 800;
-  list-style: none;
-  margin-bottom: 4px;
-  padding: 0;
-}
-
-.graph-control-drawer > summary::-webkit-details-marker,
-.graph-filter-drawer > summary::-webkit-details-marker {
-  display: none;
-}
-
-.graph-control-drawer > summary::before,
-.graph-filter-drawer > summary::before {
-  color: #64748b;
-  content: "▸";
-  display: inline-block;
-  font-size: 11px;
-  margin-right: 6px;
-  transition: transform 120ms ease;
-}
-
-.graph-control-drawer[open] > summary::before,
-.graph-filter-drawer[open] > summary::before {
-  transform: rotate(90deg);
-}
-
-.graph-secondary-actions {
-  justify-content: flex-start;
-}
-
-.graph-below-canvas-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 10px;
-}
-
-.segmented-control {
-  background: #e5e7eb;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  display: flex;
-  padding: 3px;
-}
-
-.segmented-control button,
-.small-button {
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-/* Per v3 iter-29 a11y polish: small toolbar buttons get a visible
-   focus ring so keyboard users see where they are. */
-.small-button:focus-visible {
-  outline: 2px solid #2563eb;
-  outline-offset: 2px;
-}
-
-.segmented-control button {
-  background: transparent;
-  color: #334155;
-  padding: 8px 11px;
-}
-
-.segmented-control button.active {
-  background: #14213d;
-  color: white;
-}
-
-.toolbar-actions {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: flex-end;
-  min-width: 0;
-  row-gap: 8px;
-}
-
 /*
- * Iter-23: count pill ships at the same vertical baseline as the
- * adjacent buttons. Buttons are 33px tall (font-size 13px + padding
- * 9px*2 + ~3px line-height); pillbox padding sized to match so the
- * baseline reads clean when the row wraps.
+ * Per slice A3: the entire explorer-toolbar chrome (`.explorer-toolbar`,
+ * `.toolbar-actions`, `.graph-control-drawer`, `.graph-filter-drawer`,
+ * `.graph-secondary-actions`, `.graph-below-canvas-controls`,
+ * `.segmented-control`, `.small-button`, `.secondary-button`,
+ * `.danger-button`, `.primary-risk-action`, `.frontier-count-status`,
+ * `.frontier-count-icon`, `.explorer-hint`, `.filters`) was deleted
+ * alongside the mode tabs, KPI strip, banners and advanced filters
+ * per ADR-0006 §Chrome.
  */
-.toolbar-actions .frontier-count-status {
-  padding: 7px 11px;
-}
-
-/*
- * Iter-22: small read-only status pill that surfaces the in-scope
- * frontier count next to the metrics-as-nodes toggle. Indigo to match
- * the frontier glyph so the two read as the same signal — one on
- * canvas, one in the toolbar. Not a button: no click handler.
- */
-.frontier-count-status {
-  align-items: center;
-  background: #eef2ff;
-  border: 1px solid #c7d2fe;
-  border-radius: 999px;
-  color: #1e3a8a;
-  display: inline-flex;
-  font-size: 12px;
-  font-weight: 700;
-  gap: 5px;
-  padding: 6px 10px;
-  white-space: nowrap;
-}
-
-.frontier-count-icon {
-  font-size: 12px;
-  line-height: 1;
-}
-
-.small-button {
-  background: var(--accent);
-  color: white;
-  max-width: 100%;
-  padding: 9px 11px;
-}
-
-.secondary-button {
-  background: #475569;
-}
-
-.danger-button {
-  background: var(--danger);
-}
-
-.primary-risk-action {
-  background: #9a3412;
-  box-shadow:
-    0 0 0 2px rgba(254, 243, 199, 0.9),
-    0 8px 18px rgba(154, 52, 18, 0.24);
-}
-
-.primary-risk-action:hover {
-  background: #7c2d12;
-}
-
-.explorer-hint {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.45;
-  margin: 0 0 8px;
-  max-width: 920px;
-}
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 6px;
-}
 
 select,
 input {
@@ -2358,113 +1421,10 @@ code {
     width: 100%;
   }
 
-  nav,
-  .filters,
-  .explorer-toolbar {
-    flex-wrap: wrap;
-  }
-
-  .explorer-toolbar {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .toolbar-actions {
-    display: grid;
-    gap: 6px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    justify-content: flex-start;
-    width: 100%;
-  }
-
-  .toolbar-actions .small-button {
-    min-width: 0;
-    white-space: normal;
-  }
-
-  .color-mode-select-wrapper {
-    grid-column: 1 / -1;
-    width: 100%;
-  }
-
-  .color-mode-select {
-    flex: 1 1 auto;
-  }
-
-  .color-mode-legend {
-    justify-self: start;
-    margin-left: 0;
-  }
-
-  .graph-context-strip {
-    gap: 5px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin: 5px 0 7px;
-    padding: 5px;
-  }
-
-  .graph-context-stat:first-child,
-  .graph-context-jumps {
-    grid-column: 1 / -1;
-  }
-
-  .graph-context-stat {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 2px;
-    justify-content: flex-start;
-    padding: 5px 6px;
-  }
-
-  .graph-context-stat:first-child {
-    flex-direction: row;
-  }
-
-  .graph-context-stat span {
-    font-size: 9px;
-  }
-
-  .graph-context-stat strong {
-    font-size: 11px;
-  }
-
-  .graph-context-jumps {
-    gap: 5px;
-    padding-bottom: 0;
-  }
-
-  .graph-context-jumps a {
-    max-width: min(76vw, 220px);
-    padding: 5px 7px;
-  }
-
-  .segmented-control {
-    overflow-x: auto;
-    width: 100%;
-  }
-
-  .filters select {
-    flex: 1 1 180px;
-    min-width: 0;
-  }
-
   .graph-canvas {
     height: 430px;
     min-height: 430px;
     width: calc(100vw - 36px);
-  }
-
-  .graph-layout-focused > .panel {
-    order: -1;
-    max-height: none;
-    overflow: visible;
-    position: static;
-  }
-
-  .graph-layout-focused .graph-canvas {
-    height: 360px;
-    min-height: 360px;
   }
 
   table {
@@ -2472,27 +1432,4 @@ code {
     max-width: 100%;
     overflow-x: auto;
   }
-}
-
-@media (max-width: 560px) {
-  .explorer-toolbar .toolbar-actions {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 1180px) {
-  .explorer-toolbar {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .explorer-toolbar .toolbar-actions {
-    flex: 1 1 auto;
-    width: 100%;
-  }
-
-  .color-mode-select-wrapper {
-    flex-basis: 100%;
-  }
-
 }

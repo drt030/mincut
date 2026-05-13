@@ -1,15 +1,11 @@
 "use client";
 
-import { memo, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import ELK, { type ElkExtendedEdge, type ElkNode } from "elkjs/lib/elk-api.js";
 import {
   Background,
   Controls,
-  Handle,
-  MarkerType,
   PanOnScrollMode,
-  Position,
   ReactFlow,
   type Edge as FlowEdge,
   type Node as FlowNode,
@@ -18,1292 +14,239 @@ import {
 } from "@xyflow/react";
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
-import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
-import { formatMetricValue } from "@/lib/metricValueFormat";
-import { isDecompositionFrontier } from "@/lib/graphTraversal";
-import { edgeTintFor, type ColorMode } from "@/lib/edgeTint";
-import { explorationLayout } from "@/lib/explorationLayout";
-import { nodeRisk } from "@/lib/nodeRisk";
-import type { Edge, EdgeRelation, GraphData, MetricCurrency, MetricValue, Node, NodeKind } from "@/lib/schema";
+import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
+import { subsystemHue } from "@/lib/subsystemHue";
+import type { GraphData, Node } from "@/lib/schema";
 
-const kindColors: Record<string, string> = {
-  product: "#0f766e",
-  module: "#2563eb",
-  technical_route: "#7c3aed",
-  metric: "#ca8a04",
-  bottleneck: "#dc2626",
-  placeholder_breakthrough: "#ea580c",
-  scientific_principle: "#0891b2",
-  empirical_principle: "#0d9488",
-  manufacturing_process: "#475569",
-  standard_or_regulation: "#4b5563",
-  capability: "#16a34a",
-};
+/**
+ * Per ADR-0006 and the 2026-05-13 radial-progressive-disclosure spec
+ * (slice A3), the `/graph` surface is a static radial overview of the
+ * focal product's structural subtree. The chrome (mode tabs, KPI row,
+ * pill banners, advanced filters, color-mode dropdown, page
+ * heading, two-stage state machine) was deleted in this slice — the
+ * canvas is the surface. Phase B will re-add focus interaction,
+ * Phase B1 will add a floating color-mode button.
+ *
+ * Layout: `radialLayout` returns polar `(r, theta)` for every
+ * structural node; we convert to Cartesian and feed React Flow node
+ * positions.
+ *
+ * Color: `subsystemHue` returns the HSL family for a node id. The
+ * focal product, materials, shared modules (>=2 requires parents in
+ * the focal subtree), and orphans get neutral grey (saturation 0).
+ *
+ * Rendering: each node is a 5px SVG circle inside a tiny foreignObject
+ * (React Flow node API uses an HTML wrapper). A4 will expand this with
+ * 12px / 80x40 band-2/3 variants via a LOD subscriber. A3 ships band 1
+ * only.
+ */
 
-const NODE_WIDTH = 232;
-// Per iter-loop 2026-05-10 P0: previous heights (104 default / 124 tall, 60 strip)
-// squeezed `.graph-node-title` to ~13px because the inner flex column ran
-// `justify-content: space-between` against meta + metrics that demanded more
-// space than the card had. Title now has `flex-shrink: 0`; the heights below
-// give the title a guaranteed 3-line clamp plus a 2-row meta wrap, and let
-// the metric strip wrap to ~3 chip rows on the flagship product without
-// clipping the bottom chip row.
-const DEFAULT_NODE_HEIGHT = 160;
-const TALL_NODE_HEIGHT = 160;
-const METRICS_STRIP_HEIGHT = 160;
-const INCREMENTAL_LAYER_GAP = 156;
-const INCREMENTAL_NODE_GAP = 28;
-const CONTEXT_RISKY_DEPENDENCY_LIMIT = 5;
-let elk: InstanceType<typeof ELK> | null = null;
+const DOT_SIZE = 14; // wrapper box; the actual visible circle is 10px diameter
+const FOCAL_DOT_SIZE = 18; // slight emphasis for the focal product
 
-type GraphPoint = { x: number; y: number };
-type PositionedMapNode = {
-  id: string;
-  data: CapabilityNodeData;
-  height: number;
-  width: number;
-  x: number;
-  y: number;
-  labelIndex?: number;
-  laneIndex?: number;
-};
-
-type FoldedMetricEntry = {
+type RadialNodeData = {
   id: string;
   name: string;
-  unit?: string;
-  // Per ADR-0003 the metric value union accepts a `{min, typical, max}`
-  // range in addition to scalar number/string. Range rendering happens via
-  // the shared `formatMetricValue` helper (compact form for the strip,
-  // full form for the detail panel).
-  currentValue?: MetricValue;
-  targetValue?: MetricValue;
-  /** Per ADR-0003: year the cost (or other time-sensitive) reading is stated in. */
-  costAsOf?: string;
-  /** Per ADR-0003: explicit currency for cost-bearing metrics. */
-  currency?: MetricCurrency;
-  /** Pre-computed: true iff this metric is cost-bearing — drives costAsOf pill. */
-  isCostBearing: boolean;
-};
-
-type CapabilityNodeData = {
-  id: string;
-  name: string;
-  kind: string;
   kindLabel: string;
-  maturityScore?: number;
-  color: string;
+  fill: string;
   selected: boolean;
-  related: boolean;
-  risk: boolean;
-  riskScore: number;
-  directDependencyCount: number;
-  riskLabel: string;
-  directDependenciesLabel: string;
-  bottlenecksLabel: string;
-  impactSummaryLabel: string;
-  isBottleneck: boolean;
-  isAlternativeSibling: boolean;
-  isHardToDevelop: boolean;
-  hardToDevelopTooltip: string;
-  isFrontier: boolean;
-  frontierTooltip: string;
-  bottleneckedByCount: number;
-  bottleneckedByTooltip: string;
-  maturityPillLabel: string;
-  maturityPillBg: string;
-  maturityPillFg: string;
-  maturityPillHasLabel: boolean;
-  asOfPillLabel: string;
-  asOfPillHasValue: boolean;
-  asOfPillTooltip: string;
-  selectedMetricId?: string;
-  foldedMetrics: FoldedMetricEntry[];
-  /**
-   * Per iter-44 a11y audit, the metric chip strip uses role="group" with
-   * an `aria-label` so SR users hear "metric chips, group" before the
-   * individual chip buttons. Localized at flowNodes-build time so the
-   * label switches with the language toggle.
-   */
-  metricsStripLabel: string;
-  /**
-   * Per iter-15 review (P1 #5), the metric chip tooltip and the chip
-   * `costAsOf` micro-pill route through `t()` so zh-mode users no longer
-   * see hardcoded English (`Cost as of 2024`, `current: …, target: …`).
-   * `t` is captured at flowNodes-build time and passed through node data
-   * because the inner `CapabilityNode` is a `memo`'d render-time component
-   * that doesn't have access to `useLanguage()` directly.
-   */
-  formatMetricChipTooltip: (metric: FoldedMetricEntry) => string;
-  formatCostAsOfChipTooltip: (year: string) => string;
+  isFocal: boolean;
   onSelect: (nodeId: string) => void;
-  onToggle: (nodeId: string) => void;
-  onSelectMetric: (metricId: string) => void;
-  /** Slice 4: e.g. "compact" when stage="overview"; undefined in focused mode. */
-  semanticClass?: string;
-  /**
-   * Per UX Flow v3 iter-8: true when this node is OUTSIDE the
-   * current focus's context (requires subtree + capability). CSS
-   * miniaturizes these so the previous-focus's spatial context stays
-   * visible when the user drills in — avoids the "teleport" feel.
-   */
-  outOfContext?: boolean;
-  /**
-   * Slice 4 polish: a CSS color encoding the same property the user
-   * picked in ColorModeSelect, but applied to a heat-block on the card
-   * itself. Used to make compact mode legible at fit-to-screen — the
-   * user sees a heat map of 22 tiles rather than 22 tiny titles.
-   */
-  heatColor?: string;
 };
 
-const nodeTypes = {
-  capability: memo(function CapabilityNode({ data }: NodeProps<FlowNode<CapabilityNodeData>>) {
-    return (
-      <GraphNodeCard data={data} withHandles />
-    );
-  }),
-};
-
-function GraphNodeCard({ data, withHandles = false }: { data: CapabilityNodeData; withHandles?: boolean }) {
-    const showWarningGlyph = data.isBottleneck || data.bottleneckedByCount > 0;
-    const glyphTooltip = data.isBottleneck ? data.kindLabel : data.bottleneckedByTooltip;
-    const pillStyle: CSSProperties = {
-      background: data.maturityPillBg,
-      color: data.maturityPillFg,
-      opacity: data.maturityPillHasLabel ? 1 : 0.65,
-    };
-    // Per iter-43 a11y audit: graph node cards are interactive (onClick selects,
-    // onDoubleClick toggles expansion) but the React Flow wrapper announces
-    // "group" with no accessible name. We expose the card itself as a button
-    // with a composed aria-label so SR users hear node name + kind + maturity,
-    // and KB users can Tab to the card and activate via Enter / Space.
-    const ariaLabel = [data.name, data.kindLabel, data.maturityPillLabel]
-      .filter((part) => part && part.length > 0)
-      .join(" · ");
-    return (
-      <div
-        className={[
-          "graph-node-card",
-          data.selected ? "selected" : "",
-          data.related ? "related" : "",
-          data.risk ? "risk" : "",
-          data.isBottleneck ? "is-bottleneck" : "",
-          data.isAlternativeSibling && !data.selected ? "alt-sibling" : "",
-          data.semanticClass ?? "",
-          data.outOfContext ? "out-of-context" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-        style={{
-          "--node-color": data.color,
-          ...(data.heatColor ? { "--heat-color": data.heatColor } : {}),
-        } as CSSProperties}
-        role="button"
-        tabIndex={0}
-        aria-label={ariaLabel}
-        // a11y: compact-mode cards hide title visually at fit-view
-        // zoom; the title attribute gives screen-reader + mouse-hover
-        // users the full label without needing to expand.
-        title={ariaLabel}
-        aria-pressed={data.selected}
-        onClick={(event) => {
-          event.stopPropagation();
-          data.onSelect(data.id);
-        }}
-        onDoubleClick={(event) => {
+const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<RadialNodeData>>) {
+  const size = data.isFocal ? FOCAL_DOT_SIZE : DOT_SIZE;
+  const radius = data.isFocal ? 7 : 5;
+  return (
+    <div
+      className={["radial-dot", data.selected ? "selected" : "", data.isFocal ? "focal" : ""]
+        .filter(Boolean)
+        .join(" ")}
+      style={{ width: size, height: size }}
+      role="button"
+      tabIndex={0}
+      aria-label={`${data.name} · ${data.kindLabel}`}
+      aria-pressed={data.selected}
+      title={data.name}
+      onClick={(event) => {
+        event.stopPropagation();
+        data.onSelect(data.id);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " " || event.key === "Spacebar") {
           event.preventDefault();
           event.stopPropagation();
           data.onSelect(data.id);
-          data.onToggle(data.id);
-        }}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            event.preventDefault();
-            event.stopPropagation();
-            data.onSelect(data.id);
-            data.onToggle(data.id);
-          } else if (event.key === " " || event.key === "Spacebar") {
-            event.preventDefault();
-            event.stopPropagation();
-            data.onSelect(data.id);
-          }
-        }}
-      >
-        {withHandles ? <Handle className="graph-node-handle" type="target" position={Position.Left} /> : null}
-        {/*
-         * Per iter-45 a11y audit (MINOR): glyph spans gain role="img" so
-         * AT explicitly announces them as image-with-alt-equivalent text
-         * (the aria-label) instead of the raw emoji + the aria-label
-         * (which some screen readers double-announce). The role makes
-         * the alt-text contract explicit.
-         */}
-        {data.isHardToDevelop ? (
-          <span
-            className="graph-node-key-glyph"
-            role="img"
-            title={data.hardToDevelopTooltip}
-            aria-label={data.hardToDevelopTooltip}
-          >
-            🔑
-          </span>
-        ) : null}
-        {showWarningGlyph ? (
-          <span
-            className={["graph-node-warning-glyph", data.isBottleneck ? "self" : "downstream"].join(" ")}
-            role="img"
-            title={glyphTooltip}
-            aria-label={glyphTooltip}
-          >
-            ⚠
-          </span>
-        ) : null}
-        {data.isFrontier ? (
-          <span
-            className="graph-node-frontier-glyph"
-            role="img"
-            title={data.frontierTooltip}
-            aria-label={data.frontierTooltip}
-          >
-            🔭
-          </span>
-        ) : null}
-        <div className="graph-node-inner">
-          <div className="graph-node-title">{data.name}</div>
-          <div className="graph-node-impact-row" aria-label={data.impactSummaryLabel}>
-            <span className={["graph-node-risk-score", data.riskScore >= 0.4 ? "high" : ""].filter(Boolean).join(" ")}>
-              {data.riskLabel}: {Math.round(data.riskScore * 100)}%
-            </span>
-            <span>{data.directDependenciesLabel}: {data.directDependencyCount}</span>
-            {data.bottleneckedByCount > 0 ? <span>{data.bottlenecksLabel}: {data.bottleneckedByCount}</span> : null}
-          </div>
-          <div className="graph-node-meta">
-            <span>{data.kindLabel}</span>
-            <span
-              className={[
-                "graph-node-maturity-pill",
-                data.maturityPillHasLabel ? "" : "missing",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              style={pillStyle}
-              title={
-                data.maturityPillHasLabel
-                  ? typeof data.maturityScore === "number"
-                    ? `${data.maturityPillLabel} · ${data.maturityScore}`
-                    : data.maturityPillLabel
-                  : "Maturity label not set"
-              }
-            >
-              {data.maturityPillLabel}
-              {typeof data.maturityScore === "number" ? ` · ${data.maturityScore}` : ""}
-            </span>
-            <span
-              className={[
-                "graph-node-asof-pill",
-                data.asOfPillHasValue ? "" : "missing",
-              ]
-                .filter(Boolean)
-                .join(" ")}
-              title={data.asOfPillTooltip}
-              aria-label={data.asOfPillTooltip}
-            >
-              <span className="graph-node-asof-icon" aria-hidden="true">🕒</span>
-              {data.asOfPillLabel}
-            </span>
-          </div>
-          {data.foldedMetrics.length > 0 ? (
-            // Per iter-44 a11y audit (MAJOR): role="list"/"listitem" was
-            // misused — `<button>`'s implicit role overrides the
-            // `listitem` role, leaving SR users without list semantics.
-            // Switch to role="group" + aria-label so the chip cluster is
-            // announced as a labelled group; the button children keep
-            // their implicit button role.
-            <div className="graph-node-metrics" role="group" aria-label={data.metricsStripLabel}>
-              {data.foldedMetrics.map((metric) => (
-                <button
-                  key={metric.id}
-                  type="button"
-                  className={[
-                    "graph-node-metric-chip",
-                    data.selectedMetricId === metric.id ? "selected" : "",
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    data.onSelectMetric(metric.id);
-                  }}
-                  onDoubleClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    data.onSelectMetric(metric.id);
-                  }}
-                  title={data.formatMetricChipTooltip(metric)}
-                >
-                  <span className="graph-node-metric-name">{metric.name}</span>
-                  <span className="graph-node-metric-value">{formatMetricChipValue(metric)}</span>
-                  {metric.isCostBearing && metric.costAsOf ? (
-                    <span
-                      className="graph-node-metric-asof"
-                      title={data.formatCostAsOfChipTooltip(metric.costAsOf)}
-                      aria-label={data.formatCostAsOfChipTooltip(metric.costAsOf)}
-                    >
-                      {metric.costAsOf}
-                    </span>
-                  ) : null}
-                </button>
-              ))}
-            </div>
-          ) : null}
-        </div>
-        {withHandles ? <Handle className="graph-node-handle" type="source" position={Position.Right} /> : null}
-      </div>
-    );
-}
-
-function ResearchMapCanvas({
-  columnLabels,
-  edges,
-  nodes,
-  stage,
-}: {
-  columnLabels: string[];
-  edges: FlowEdge[];
-  nodes: FlowNode<CapabilityNodeData>[];
-  stage: "overview" | "focused";
-}) {
-  const padding = 40;
-  const positioned = stage === "overview" ? buildOverviewMapNodes(nodes, edges) : buildFocusedMapNodes(nodes);
-  const mapRef = useRef<HTMLDivElement | null>(null);
-
-  const minX = positioned.length ? Math.min(...positioned.map((node) => node.x)) : 0;
-  const minY = positioned.length ? Math.min(...positioned.map((node) => node.y)) : 0;
-  const maxX = positioned.length ? Math.max(...positioned.map((node) => node.x + node.width)) : 0;
-  const maxY = positioned.length ? Math.max(...positioned.map((node) => node.y + node.height)) : 0;
-  const width = Math.max(640, maxX - minX + padding * 2);
-  const height = Math.max(stage === "focused" ? 340 : 460, maxY - minY + padding * 2);
-  const byId = new Map(positioned.map((node) => [node.id, node]));
-  const selectedMapNode = positioned.find((node) => node.data.selected);
-  const selectedMapNodeId = selectedMapNode?.id;
-  const selectedScrollLeft = selectedMapNode ? selectedMapNode.x - minX + padding : 0;
-  const selectedScrollTop = selectedMapNode ? selectedMapNode.y - minY + padding : 0;
-  useEffect(() => {
-    if (stage !== "focused" || !selectedMapNodeId || !mapRef.current) return;
-    const viewport = mapRef.current;
-    viewport.scrollTo({
-      left: Math.max(0, selectedScrollLeft - viewport.clientWidth * 0.34),
-      top: Math.max(0, selectedScrollTop - viewport.clientHeight * 0.34),
-      behavior: "smooth",
-    });
-  }, [selectedMapNodeId, selectedScrollLeft, selectedScrollTop, stage]);
-  if (!positioned.length) return null;
-  const columnHeaders = [...new Map(positioned.map((node) => {
-      const labelIndex = node.labelIndex ?? Math.round(node.x / 252);
-      const key = `${labelIndex}:${node.x}`;
-      const baseLabel = columnLabels[labelIndex] ?? columnLabels[columnLabels.length - 1] ?? "";
-      const continuation = stage === "overview" && typeof node.laneIndex === "number" && node.laneIndex > 0 ? ` ${node.laneIndex + 1}` : "";
-      return [key, {
-        key,
-        label: `${baseLabel}${continuation}`,
-        left: node.x - minX + padding,
-        width: node.width,
-      }];
-    })).values()]
-    .sort((a, b) => a.left - b.left);
-
-  return (
-    <div ref={mapRef} className={["research-map", `research-map-${stage}`].join(" ")}>
-      <div className="research-map-inner" style={{ width, height }}>
-        <svg className="research-map-edges" viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
-          <defs>
-            <marker id="research-map-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-            </marker>
-          </defs>
-          {[...edges].sort((a, b) => researchMapEdgeRank(a) - researchMapEdgeRank(b)).map((edge) => {
-            const source = byId.get(edge.source);
-            const target = byId.get(edge.target);
-            if (!source || !target) return null;
-            const sourceX = source.x - minX + padding + source.width;
-            const sourceY = source.y - minY + padding + source.height / 2;
-            const targetX = target.x - minX + padding;
-            const targetY = target.y - minY + padding + target.height / 2;
-            const midX = sourceX + Math.max(48, (targetX - sourceX) / 2);
-            const stroke = edge.style && "stroke" in edge.style ? String(edge.style.stroke) : "#94a3b8";
-            const strokeWidth = edge.style && "strokeWidth" in edge.style ? Number(edge.style.strokeWidth) || 1.5 : 1.5;
-            return (
-              <path
-                key={edge.id}
-                className={["research-map-edge", edge.className].filter(Boolean).join(" ")}
-                d={`M ${sourceX} ${sourceY} C ${midX} ${sourceY}, ${midX} ${targetY}, ${targetX} ${targetY}`}
-                markerEnd="url(#research-map-arrow)"
-                style={{ stroke, strokeWidth }}
-              />
-            );
-          })}
-        </svg>
-        {columnHeaders.map((header) => (
-          <div
-            key={header.key}
-            className="research-map-column-label"
-            style={{
-              left: header.left,
-              top: 10,
-              width: header.width,
-            }}
-          >
-            {header.label}
-          </div>
-        ))}
-        {positioned.map((node) => (
-          <div
-            key={node.id}
-            className="research-map-node"
-            style={{
-              height: node.height,
-              left: node.x - minX + padding,
-              top: node.y - minY + padding,
-              width: node.width,
-            }}
-          >
-            <GraphNodeCard data={node.data} />
-          </div>
-        ))}
-      </div>
+        }
+      }}
+    >
+      <svg width={size} height={size} aria-hidden="true">
+        <circle cx={size / 2} cy={size / 2} r={radius} fill={data.fill} stroke="#0f172a" strokeWidth={data.selected ? 1.5 : 0.5} />
+      </svg>
     </div>
   );
-}
+});
 
-function researchMapEdgeRank(edge: FlowEdge): number {
-  const className = edge.className ?? "";
-  if (className.includes("bottleneck-path")) return 3;
-  if (className.includes("selected")) return 2;
-  if (className.includes("dimmed")) return 0;
-  return 1;
-}
+const nodeTypes = {
+  radialDot: RadialDotNode,
+};
 
-function buildOverviewMapNodes(nodes: FlowNode<CapabilityNodeData>[], edges: FlowEdge[]): PositionedMapNode[] {
-  const byId = new Map(nodes.map((node) => [node.id, node]));
-  const outgoing = new Map<string, string[]>();
-  for (const edge of edges) {
-    if (!byId.has(edge.source) || !byId.has(edge.target)) continue;
-    const targets = outgoing.get(edge.source) ?? [];
-    targets.push(edge.target);
-    outgoing.set(edge.source, targets);
-  }
+const rootNodeId = "low_cost_parcel_sorting_robot_300k_rmb";
 
-  const selectedId = nodes.find((node) => node.data.selected)?.id ?? nodes[0]?.id;
-  const depth = new Map<string, number>();
-  if (selectedId) {
-    const queue = [selectedId];
-    depth.set(selectedId, 0);
-    for (let index = 0; index < queue.length; index += 1) {
-      const id = queue[index];
-      const nextDepth = (depth.get(id) ?? 0) + 1;
-      for (const target of outgoing.get(id) ?? []) {
-        if (depth.has(target)) continue;
-        depth.set(target, nextDepth);
-        queue.push(target);
-      }
-    }
-  }
-
-  const fallbackDepth = Math.max(1, ...depth.values()) + 1;
-  const columns = new Map<number, FlowNode<CapabilityNodeData>[]>();
-  for (const node of nodes) {
-    const column = depth.get(node.id) ?? fallbackDepth;
-    const list = columns.get(column) ?? [];
-    list.push(node);
-    columns.set(column, list);
-  }
-
-  const columnWidth = 236;
-  const rowHeight = 104;
-  const headerOffset = 30;
-  const maxRowsPerLane = 6;
-  const sortedColumns = [...columns.entries()].sort(([a], [b]) => a - b);
-  const positioned: PositionedMapNode[] = [];
-  let visualColumn = 0;
-  for (const [column, columnNodes] of sortedColumns) {
-    const sortedNodes = columnNodes
-      .sort((a, b) => b.data.riskScore - a.data.riskScore || a.data.name.localeCompare(b.data.name));
-    for (const [index, node] of sortedNodes.entries()) {
-      const lane = Math.floor(index / maxRowsPerLane);
-      const row = index % maxRowsPerLane;
-      positioned.push({
-        id: node.id,
-        data: node.data,
-        height: node.data.selected ? 120 : 92,
-        width: 208,
-        x: (visualColumn + lane) * columnWidth,
-        y: headerOffset + row * rowHeight,
-        labelIndex: column,
-        laneIndex: lane,
-      });
-    }
-    visualColumn += Math.max(1, Math.ceil(sortedNodes.length / maxRowsPerLane));
-  }
-  return positioned;
-}
-
-function buildFocusedMapNodes(nodes: FlowNode<CapabilityNodeData>[]): PositionedMapNode[] {
-  const columnWidth = 332;
-  const sortedColumns = [...new Set(nodes.map((node) => Math.round(node.position.x)))]
-    .sort((a, b) => a - b);
-  const columnByX = new Map(sortedColumns.map((x, index) => [x, index]));
-
-  return nodes.map((node) => {
-    const column = columnByX.get(Math.round(node.position.x)) ?? 0;
-    return {
-      id: node.id,
-      data: node.data,
-      height: numberStyle(node.style?.height, DEFAULT_NODE_HEIGHT),
-      width: numberStyle(node.style?.width, NODE_WIDTH),
-      x: column * columnWidth,
-      y: node.position.y,
-      labelIndex: column,
-    };
-  });
-}
-
-function numberStyle(value: CSSProperties["width"], fallback: number): number {
-  if (typeof value === "number") return value;
-  if (typeof value === "string") {
-    const parsed = Number.parseFloat(value);
-    if (Number.isFinite(parsed)) return parsed;
-  }
-  return fallback;
-}
-
-/**
- * Per ADR-0003, the value union accepts `{min, typical, max}` in addition to
- * scalar number/string. The shared `formatMetricValue` helper handles all three
- * shapes. The strip uses the `compact` form (≤24 chars target).
- */
-function formatMetricChipValue(metric: FoldedMetricEntry): string {
-  const current = formatMetricValue(metric.currentValue, metric.unit, metric.currency);
-  const target = formatMetricValue(metric.targetValue, metric.unit, metric.currency);
-  if (current.compact !== "—" && target.compact !== "—") {
-    return `${current.compact} / ${target.compact}`;
-  }
-  if (current.compact !== "—") return current.compact;
-  if (target.compact !== "—") return `→ ${target.compact}`;
-  return metric.unit ?? "—";
-}
-
-/**
- * Per ADR-0003 a metric is cost-bearing if its inline reading carries a
- * recognized currency or its `unit` parses as a currency code. Used to drive
- * the small `costAsOf` year pill on the strip and detail rows.
- */
-const COST_CURRENCY_CODES = new Set(["RMB", "USD", "EUR", "JPY"]);
-function isCostBearingMetricEntry(metric: { unit?: string; currency?: string } | undefined): boolean {
-  if (!metric) return false;
-  if (metric.currency && COST_CURRENCY_CODES.has(metric.currency)) return true;
-  const unit = metric.unit?.trim().toUpperCase();
-  if (!unit) return false;
-  for (const code of COST_CURRENCY_CODES) {
-    if (unit === code || unit.startsWith(`${code}/`) || unit.startsWith(`${code} `)) return true;
-  }
-  return false;
-}
-
-/**
- * Per iter-15 review (P1 #5), chip tooltips route through `t()` so zh-mode
- * users see Chinese tooltip text. The labels `current` / `target` already
- * exist in LanguageProvider; `metricTooltipAsOf` is a new key for the
- * "as of YYYY" suffix, mirroring the iter-7 maturity-as-of pattern.
- */
-function formatMetricTooltip(metric: FoldedMetricEntry, t: (key: string) => string): string {
-  const parts = [metric.name];
-  const current = formatMetricValue(metric.currentValue, metric.unit, metric.currency);
-  const target = formatMetricValue(metric.targetValue, metric.unit, metric.currency);
-  if (current.full !== "—") parts.push(`${t("current")}: ${current.full}`);
-  if (target.full !== "—") parts.push(`${t("target")}: ${target.full}`);
-  if (metric.costAsOf) parts.push(t("metricTooltipAsOf").replace("{year}", metric.costAsOf));
-  return parts.join(" · ");
-}
+// Px scale: radialLayout returns abstract polar units (R1 = 100,
+// R_STEP = 40, R_OUTER = R1 + (maxDepth+2)*R_STEP). Multiply by a
+// pixel scale so the default viewport puts everything in ~600px box.
+const PX_SCALE = 2.4;
 
 type Props = {
   graph: GraphData;
 };
 
-type ExplorationMode = "layered" | "bottleneck" | "full";
+/**
+ * Compute the focal-subtree set: BFS from the first product node via
+ * `requires` edges. Only nodes in this set are rendered on the canvas
+ * in A3 — orphans (sibling products etc.) are deferred per ADR-0006.
+ */
+function buildFocalSubtree(graph: GraphData): Set<string> {
+  const focal = graph.nodes.find((n) => n.kind === "product");
+  if (!focal) return new Set();
+  const childrenByParent = new Map<string, string[]>();
+  for (const edge of graph.edges) {
+    if (edge.relation !== "requires") continue;
+    if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
+    childrenByParent.get(edge.source)!.push(edge.target);
+  }
+  const subtree = new Set<string>();
+  const queue: string[] = [focal.id];
+  while (queue.length > 0) {
+    const cur = queue.shift()!;
+    if (subtree.has(cur)) continue;
+    subtree.add(cur);
+    for (const child of childrenByParent.get(cur) ?? []) queue.push(child);
+  }
+  return subtree;
+}
 
-const rootNodeId = "low_cost_parcel_sorting_robot_300k_rmb";
-
-const dependencyRelations = new Set<EdgeRelation>([
-  "requires",
-  "has_route",
-  "implemented_by",
-  "manufactured_by",
-  "regulated_by",
-]);
-
-const layeredRelations = new Set<EdgeRelation>([...dependencyRelations, "bottlenecked_by"]);
-const bottleneckPathRelations = new Set<EdgeRelation>(["requires", "has_route", "bottlenecked_by"]);
-// Valid ColorMode values for URL parsing — keep in sync with edgeTint's
-// ColorMode type. Used to filter ?color= query string values.
-const VALID_COLOR_MODES = new Set<ColorMode>(["relation", "cost", "maturity", "overall", "bottleneck"]);
-
-// Per v3 iter-24: 5-swatch mini-legend strips shown next to the
-// ColorMode dropdown so the user can read the ramp direction at a
-// glance. Endpoint colors match edgeTint.ts ramps (which see for
-// the source-of-truth).
-const RAMP_LEGEND: Record<Exclude<ColorMode, "relation">, string[]> = {
-  cost: ["#3b82f6", "#84cc16", "#f59e0b", "#ef4444", "#dc2626"],
-  maturity: ["#ef4444", "#f97316", "#f59e0b", "#84cc16", "#16a34a"],
-  overall: ["#dc2626", "#f97316", "#f59e0b", "#84cc16", "#22c55e"],
-  bottleneck: ["#22c55e", "#84cc16", "#f59e0b", "#ef4444", "#dc2626"],
-};
+function polarToCartesian(polar: PolarPosition): { x: number; y: number } {
+  return {
+    x: polar.r * PX_SCALE * Math.cos(polar.theta),
+    y: polar.r * PX_SCALE * Math.sin(polar.theta),
+  };
+}
 
 export function GraphExplorer({ graph }: Props) {
-  const { kindName, nodeName, relationName, t } = useLanguage();
-  // Per UX Flow follow-up v3 iter-3: read initial state from URL query
-  // so a learner can bookmark / share a specific view. Updates write
-  // back via history.replaceState so back/forward isn't spammed.
+  const { kindName, nodeName } = useLanguage();
   const searchParams = useSearchParams();
-  const initialColorMode = (() => {
-    const raw = searchParams?.get("color");
-    if (raw && VALID_COLOR_MODES.has(raw as ColorMode)) return raw as ColorMode;
-    return "bottleneck" as ColorMode;
-  })();
-  const initialStage = (() => {
-    const raw = searchParams?.get("stage");
-    return raw === "focused" ? "focused" : "overview";
-  })();
+
+  // Initial selection: URL ?focus= if present and valid, otherwise the
+  // focal product (so the detail panel starts on the canonical entry
+  // point rather than nothing).
   const initialFocus = (() => {
     const raw = searchParams?.get("focus");
     if (raw && graph.nodes.some((n) => n.id === raw)) return raw;
     return rootNodeId;
   })();
   const [selectedId, setSelectedId] = useState(initialFocus);
-  const [domain, setDomain] = useState("all");
-  const [kind, setKind] = useState<NodeKind | "all">("all");
-  const [relation, setRelation] = useState<EdgeRelation | "all">("all");
-  const [maturity, setMaturity] = useState("all");
-  const [mode, setMode] = useState<ExplorationMode>("layered");
-  const [showMetricsAsNodes, setShowMetricsAsNodes] = useState(false);
-  // Per ADR-0001, deprecated nodes/edges are excluded from the default
-  // render — soft-deleted records pollute the active dependency view. The
-  // toggle restores them so a learner can audit history when needed.
-  const [showDeprecated, setShowDeprecated] = useState(false);
-  // Iter-23: per-card 🔭 frontier glyph density made the signal noisy in
-  // the v0 graph (73-of-112 cards qualified). The toggle defaults ON to
-  // preserve iter-22 behaviour; turning it OFF hides the per-card glyph
-  // while leaving the toolbar count pill alone — count is a separate
-  // signal from per-card decoration.
-  const [showFrontiers, setShowFrontiers] = useState(true);
-  // Slice 2 (2026-05-10 graph redesign): edge color mode. Default
-  // `bottleneck-risk` because that's the user's primary "一眼看到瓶颈
-  // 线" ask. `relation` keeps the legacy CSS class behaviour.
-  const [colorMode, setColorMode] = useState<ColorMode>(initialColorMode);
-  // Slice 4 (2026-05-10 graph redesign): two-stage exploration. `overview`
-  // = fit-to-screen with cards in compact mode so the user sees the whole
-  // graph + bottleneck/cost heatmap at a glance. `focused` = zoom 0.8
-  // centred on the selected node with full cards visible. Click any node
-  // to focus; press ESC (or click the global-view button) to return to
-  // overview.
-  const [stage, setStage] = useState<"overview" | "focused">(initialStage);
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set([rootNodeId]));
-  const [expandedBottleneckIds, setExpandedBottleneckIds] = useState<Set<string>>(() => new Set([rootNodeId]));
-  const [layoutPositions, setLayoutPositions] = useState<Map<string, GraphPoint>>(() => new Map());
-  const layoutPositionsRef = useRef(layoutPositions);
-  const selectedIdRef = useRef(selectedId);
-  selectedIdRef.current = selectedId;
-  // Per ralph-loop 2026-05-10 iter-5: the natural ELK bbox for this graph
-  // is ~1264 × 3634, taller than any reasonable canvas. Without explicit
-  // viewport control React Flow lands at translate(0,0) scale(1) and the
-  // user sees an empty canvas because the flagship product card sits at
-  // y≈600. Capture the ReactFlow instance via onInit and centre on the
-  // selected node once layout completes — gives "land on /graph and see
-  // the active product" without forcing the auto-fit prop (which cannot
-  // shrink past minZoom 0.55 anyway).
-  const flowInstanceRef = useRef<ReactFlowInstance<FlowNode, FlowEdge> | null>(null);
-  const [flowInstanceReady, setFlowInstanceReady] = useState(false);
-  const initialCenterDoneRef = useRef(false);
-  const scrollDetailIntoView = useCallback(() => {
-    window.setTimeout(() => {
-      document.getElementById("detail-heading")?.scrollIntoView({ block: "start", behavior: "smooth" });
-    }, 0);
+
+  // Focal subtree — A3 renders only these nodes. Orphans (sibling
+  // products) are hidden per spec.
+  const focalSubtree = useMemo(() => buildFocalSubtree(graph), [graph]);
+
+  // Radial layout positions in polar coords. Pure / deterministic per A2.
+  const layout = useMemo(() => radialLayout(graph), [graph]);
+
+  // Focal product id (used so the central dot can render slightly
+  // larger as a visual anchor — optional emphasis per spec).
+  const focalId = useMemo(
+    () => graph.nodes.find((n) => n.kind === "product")?.id ?? null,
+    [graph],
+  );
+
+  const onSelect = useCallback((nodeId: string) => {
+    setSelectedId(nodeId);
   }, []);
 
-  const domains = useMemo(() => [...new Set(graph.nodes.flatMap((node) => node.domain))].sort(), [graph.nodes]);
-  const kinds = useMemo(() => [...new Set(graph.nodes.map((node) => node.kind))].sort(), [graph.nodes]);
-  const relations = useMemo(() => [...new Set(graph.edges.map((edge) => edge.relation))].sort(), [graph.edges]);
-
-  const capabilityCluster = useMemo(() => capabilityClusterFor(graph, rootNodeId), [graph]);
-
-  // Per ADR-0005, isDecompositionFrontier is a per-node judgment over the
-  // graph (tag override OR maturity-not-stop AND no expanded children).
-  // We memoize this once per graph change — keeping the cost O(N) by
-  // walking nodes once instead of recomputing inside every flowNodes pass
-  // (which would be O(N) per render and re-evaluate hasExpandedChildren's
-  // edge scan for each node, ~N*E in the worst case).
-  const frontierIds = useMemo(() => {
-    const ids = new Set<string>();
+  const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
+    const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of graph.nodes) {
-      if (isDecompositionFrontier(graph, node)) ids.add(node.id);
-    }
-    return ids;
-  }, [graph]);
-
-  const visibleIds = useMemo(() => {
-    if (mode === "full") return null;
-    const baseIds = mode === "bottleneck"
-      ? bottleneckVisibleIds(graph, expandedBottleneckIds)
-      : layeredVisibleIds(graph, expandedIds);
-    for (const id of capabilityCluster.allClusterIds) baseIds.add(id);
-    return baseIds;
-  }, [capabilityCluster, expandedBottleneckIds, expandedIds, graph, mode]);
-
-  const prefilteredNodes = useMemo(
-    () =>
-      graph.nodes.filter((node) => {
-        if (visibleIds && !visibleIds.has(node.id)) return false;
-        if (domain !== "all" && !node.domain.includes(domain)) return false;
-        if (kind !== "all" && node.kind !== kind) return false;
-        if (maturity !== "all" && (node.maturityScore ?? 0) < Number(maturity)) return false;
-        // Per ADR-0001, hide deprecated records from default render.
-        if (!showDeprecated && node.reviewStatus === "deprecated") return false;
-        return true;
-      }),
-    [domain, graph.nodes, kind, maturity, showDeprecated, visibleIds],
-  );
-
-  // Pre-index `measured_by` edges by their target metric id so the fold
-  // computation below (and any other consumer that needs "edges measuring
-  // this metric") can do an O(1) lookup instead of a full edge scan per
-  // metric. Rebuilds only when the edge list changes. Iter-52 perf cleanup
-  // — replaces an O(N·E) walk inside the foldedMetricIds memo that
-  // dominated "Show metrics as nodes" toggle latency (130-180ms total
-  // mutations on the production graph).
-  const measuredByByTarget = useMemo(() => {
-    const map = new Map<string, Edge[]>();
-    for (const edge of graph.edges) {
-      if (edge.relation !== "measured_by") continue;
-      const list = map.get(edge.target);
-      if (list) list.push(edge);
-      else map.set(edge.target, [edge]);
-    }
-    return map;
-  }, [graph.edges]);
-
-  // Step 8: fold metric-kind nodes whose visible non-metric `measured_by` parents
-  // resolve to exactly one. Shared metrics (multiple visible parents) stay as nodes.
-  const { foldedMetricIds, foldedMetricsByParent } = useMemo(() => {
-    const foldedIds = new Set<string>();
-    const byParent = new Map<string, FoldedMetricEntry[]>();
-    if (showMetricsAsNodes) return { foldedMetricIds: foldedIds, foldedMetricsByParent: byParent };
-
-    const prefilteredIds = new Set(prefilteredNodes.map((node) => node.id));
-    const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
-
-    for (const node of prefilteredNodes) {
-      if (node.kind !== "metric") continue;
-      const visibleNonMetricParents: string[] = [];
-      for (const edge of measuredByByTarget.get(node.id) ?? []) {
-        if (!prefilteredIds.has(edge.source)) continue;
-        const parent = nodesById.get(edge.source);
-        if (!parent || parent.kind === "metric") continue;
-        visibleNonMetricParents.push(edge.source);
-      }
-      const uniqueParents = [...new Set(visibleNonMetricParents)];
-      if (uniqueParents.length !== 1) continue;
-      const parentId = uniqueParents[0];
-      foldedIds.add(node.id);
-      const inline = node.metrics?.[0];
-      const entry: FoldedMetricEntry = {
+      if (!focalSubtree.has(node.id)) continue;
+      const polar = layout.positions.get(node.id);
+      if (!polar) continue;
+      const { x, y } = polarToCartesian(polar);
+      const hue = subsystemHue(node.id, graph);
+      const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
+      const isFocal = node.id === focalId;
+      const size = isFocal ? FOCAL_DOT_SIZE : DOT_SIZE;
+      nodes.push({
         id: node.id,
-        name: inline?.name ?? node.name,
-        unit: inline?.unit,
-        currentValue: inline?.currentValue,
-        targetValue: inline?.targetValue,
-        costAsOf: inline?.costAsOf,
-        currency: inline?.currency,
-        isCostBearing: isCostBearingMetricEntry(inline),
-      };
-      const list = byParent.get(parentId) ?? [];
-      list.push(entry);
-      byParent.set(parentId, list);
-    }
-
-    return { foldedMetricIds: foldedIds, foldedMetricsByParent: byParent };
-  }, [graph.nodes, measuredByByTarget, prefilteredNodes, showMetricsAsNodes]);
-
-  const filteredNodes = useMemo(
-    () => prefilteredNodes.filter((node) => !foldedMetricIds.has(node.id)),
-    [foldedMetricIds, prefilteredNodes],
-  );
-
-  const filteredIds = useMemo(() => new Set(filteredNodes.map((node) => node.id)), [filteredNodes]);
-  const selectedNeighbors = useMemo(() => {
-    const ids = new Set<string>([selectedId]);
-    for (const edge of graph.edges) {
-      if (edge.source === selectedId) ids.add(edge.target);
-      if (edge.target === selectedId) ids.add(edge.source);
-    }
-    return ids;
-  }, [graph.edges, selectedId]);
-
-  const layoutEdges = useMemo(
-    () =>
-      graph.edges
-        // Per ADR-0001, hide deprecated edges from default render. The
-        // toggle restores them alongside deprecated nodes so the entire
-        // soft-deleted slice surfaces together.
-        .filter((edge) => showDeprecated || edge.reviewStatus !== "deprecated")
-        .filter((edge) => filteredIds.has(edge.source) && filteredIds.has(edge.target))
-        .filter((edge) => relation === "all" || edge.relation === relation)
-        // In Layered / Bottleneck modes, allow `measured_by` edges through
-        // when the metric is rendered as a standalone node (showMetricsAsNodes
-        // toggle is on). When metrics fold into the parent's strip the metric
-        // node is removed from filteredIds and the edge is dropped naturally.
-        // Also allow `enables` edges that participate in the capability cluster
-        // (product -> capability) so the cluster wiring renders in non-Full modes.
-        .filter(
-          (edge) =>
-            mode === "full" ||
-            layeredRelations.has(edge.relation) ||
-            edge.relation === "measured_by" ||
-            (edge.relation === "enables" && capabilityCluster.allClusterIds.has(edge.source) && capabilityCluster.capabilityIds.has(edge.target)),
-        ),
-    [capabilityCluster, filteredIds, graph.edges, mode, relation, showDeprecated],
-  );
-
-  const toggleSelectedExpansion = useCallback((nodeId: string) => {
-    const toggle = (current: Set<string>) => {
-      const next = new Set(current);
-      if (next.has(nodeId)) next.delete(nodeId);
-      else next.add(nodeId);
-      return next;
-    };
-
-    if (mode === "bottleneck") setExpandedBottleneckIds(toggle);
-    else setExpandedIds(toggle);
-  }, [mode]);
-
-  const visibleBottleneckIds = useMemo(() => {
-    const ids = new Set<string>();
-    for (const node of filteredNodes) {
-      if (node.kind === "bottleneck") ids.add(node.id);
-    }
-    return ids;
-  }, [filteredNodes]);
-
-  const bottleneckedByCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-    if (visibleBottleneckIds.size === 0) return counts;
-    for (const edge of graph.edges) {
-      if (edge.relation !== "bottlenecked_by") continue;
-      if (!visibleBottleneckIds.has(edge.target)) continue;
-      counts.set(edge.source, (counts.get(edge.source) ?? 0) + 1);
-    }
-    return counts;
-  }, [graph.edges, visibleBottleneckIds]);
-
-  // Per iter-19 review (P1): the fallback layout pre-computes its lane and
-  // start data once per render, instead of recomputing it for every node
-  // missing a layout position. With ~235 nodes and ~580 edges, the previous
-  // shape ran depthMap (a BFS over all edges) per node-without-position —
-  // ~135k edge traversals on first paint until ELK populates positions.
-  const fallbackLayoutContext = useMemo(() => {
-    const sorted = [...filteredNodes].sort(compareNodes);
-    const laneById = depthMap(graph.edges, sorted);
-    const starts = laneStarts(sorted, graph.edges, "all", laneById);
-    return { sorted, laneById, starts };
-  }, [filteredNodes, graph.edges]);
-
-  // Slice 3 (2026-05-10 graph redesign): replace the buggy ELK pipeline
-  // (incrementalLayout's early-return-on-empty-Map was hanging the whole
-  // session) with a deterministic pre-order layout anchored at the
-  // selected node. Nodes outside the selected node's `requires` subtree
-  // (alt-siblings, capabilities, frontier-ranked metrics) fall back to
-  // the existing fallbackPositionFor algorithm.
-  const explorationPositions = useMemo(
-    () =>
-      explorationLayout({
-        graph,
-        focusId: selectedId,
-        expandedIds,
-        stage: "focused",
-        // Per iter-22 fix: hand the visible-node set to the layout so
-        // alt-sibling products, capability cluster, and orphan metrics
-        // get positioned in the context band above the focus instead
-        // of falling through to fallbackPositionFor (which uses kind-
-        // based lanes at x=0/344/etc and visually crashes the canvas).
-        visibleIds: new Set(filteredNodes.map((n) => n.id)),
-      }),
-    [graph, selectedId, expandedIds, filteredNodes],
-  );
-
-  // Per iter-23 user feedback: overview stage was rendering 9 context
-  // nodes (capability + 5 alt-products + 3 orphan metrics) on top of
-  // the focus's substantive requires tree. Useful for ADR-0004 context
-  // when reading the active product, but pure noise when scanning for
-  // bottlenecks. Compute the subset of nodes that belong to the
-  // focus's substantive `requires` subtree (no metric / evidence /
-  // bottleneck / placeholder_breakthrough kinds, no deprecated) so we
-  // can hide the context band when stage="overview".
-  const requiresTreeIds = useMemo(() => {
-    const ids = new Set<string>([selectedId]);
-    const queue: string[] = [selectedId];
-    while (queue.length) {
-      const cur = queue.shift();
-      if (!cur) continue;
-      for (const edge of graph.edges) {
-        if (edge.source !== cur || edge.relation !== "requires") continue;
-        const child = graph.nodes.find((n) => n.id === edge.target);
-        if (!child) continue;
-        if (
-          child.kind === "metric" ||
-          child.kind === "evidence" ||
-          child.kind === "bottleneck" ||
-          child.kind === "placeholder_breakthrough"
-        ) {
-          continue;
-        }
-        if (child.reviewStatus === "deprecated") continue;
-        if (ids.has(child.id)) continue;
-        ids.add(child.id);
-        queue.push(child.id);
-      }
-    }
-    return ids;
-  }, [graph, selectedId]);
-
-  // Per user feedback 2026-05-10: the context band above the focus
-  // (alt-sibling products, orphan metrics, capability) was reading as
-  // visual noise — "上面一排节点都是干什么的？感觉意义很不明". The
-  // alt-products and orphan metrics duplicate what's already in the
-  // right panel (sibling product list + the metrics chip strip on the
-  // focus card). Keep only the capability(ies) the focus enables —
-  // that's the umbrella, semantically useful in both stages.
-  // Focused stage should behave like an inspection view, not a tiny
-  // global minimap. Keep only the selected node's immediate graph
-  // context so labels remain readable and the active path is clear.
-  const focusContextIds = useMemo(() => {
-    const ids = new Set<string>(selectedNeighbors);
-    for (const id of capabilityCluster.capabilityIds) ids.add(id);
-    return ids;
-  }, [selectedNeighbors, capabilityCluster.capabilityIds]);
-
-  const visibleNodes = useMemo(() => {
-    if (mode === "bottleneck") return filteredNodes;
-    if (stage === "overview") {
-      return filteredNodes.filter((n) => requiresTreeIds.has(n.id));
-    }
-    return filteredNodes.filter((n) => focusContextIds.has(n.id));
-  }, [stage, mode, filteredNodes, requiresTreeIds, focusContextIds]);
-
-  const directDependencyCountById = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const edge of graph.edges) {
-      if (!shouldShowLayeredEdge(graph, edge)) continue;
-      counts.set(edge.source, (counts.get(edge.source) ?? 0) + 1);
-    }
-    return counts;
-  }, [graph]);
-
-  const flowNodes: FlowNode[] = useMemo(
-    () =>
-      visibleNodes.map((node) => {
-        const related = selectedNeighbors.has(node.id);
-        const folded = foldedMetricsByParent.get(node.id) ?? [];
-        const localizedFolded: FoldedMetricEntry[] = folded.map((metric) => ({
-          ...metric,
-          name: nodeName(metric.id, metric.name),
-        }));
-        const visual = maturityVisualFor(node);
-        const asOfVisual = maturityAsOfVisualFor(node);
-        const asOfTooltip = asOfVisual.hasValue
-          ? t("maturityAsOfTooltip").replace("{date}", asOfVisual.label)
-          : t("maturityAsOfMissing");
-        const isBottleneck = node.kind === "bottleneck";
-        const bottleneckedByCount = isBottleneck ? 0 : bottleneckedByCounts.get(node.id) ?? 0;
-        const riskScore = nodeRisk(node, graph);
-        const directDependencyCount = directDependencyCountById.get(node.id) ?? 0;
-        const isAlternativeSibling = capabilityCluster.siblingProductIds.has(node.id);
-        const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
-        // Per iter-23, the per-card 🔭 glyph is gated by the toolbar
-        // toggle. The frontier-count pill upstream still uses
-        // `frontierIds` directly so the count is independent of toggle
-        // state.
-        const isFrontier = showFrontiers && frontierIds.has(node.id);
-        return {
-        id: node.id,
-        type: "capability",
-        position:
-          explorationPositions.get(node.id) ??
-          layoutPositions.get(node.id) ??
-          fallbackPositionFor(node, graph.edges, "all", fallbackLayoutContext),
-        sourcePosition: Position.Right,
-        targetPosition: Position.Left,
+        type: "radialDot",
+        // Center the dot on (x, y): React Flow positions the top-left
+        // of the wrapper, so subtract half the wrapper size.
+        position: { x: x - size / 2, y: y - size / 2 },
         data: {
           id: node.id,
           name: nodeName(node.id, node.name),
-          kind: node.kind,
           kindLabel: kindName(node.kind),
-          maturityScore: node.maturityScore,
-          color: kindColors[node.kind] ?? "#64748b",
+          fill,
           selected: selectedId === node.id,
-          related,
-          risk: node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
-          riskScore,
-          directDependencyCount,
-          riskLabel: t("risk"),
-          directDependenciesLabel: t("directDependencies"),
-          bottlenecksLabel: t("bottlenecks"),
-          impactSummaryLabel: t("graphNodeImpactSummary"),
-          isBottleneck,
-          isAlternativeSibling,
-          isHardToDevelop,
-          hardToDevelopTooltip: isHardToDevelop ? t("hardToDevelopGlyphTooltip") : "",
-          isFrontier,
-          frontierTooltip: isFrontier ? t("frontierGlyphTooltip") : "",
-          bottleneckedByCount,
-          bottleneckedByTooltip: bottleneckedByCount > 0 ? t("bottleneckedByGlyphTooltip").replace("{count}", String(bottleneckedByCount)) : "",
-          maturityPillLabel: visual.label,
-          maturityPillBg: visual.bg,
-          maturityPillFg: visual.fg,
-          maturityPillHasLabel: visual.hasLabel,
-          asOfPillLabel: asOfVisual.label,
-          asOfPillHasValue: asOfVisual.hasValue,
-          asOfPillTooltip: asOfTooltip,
-          selectedMetricId: selectedId,
-          foldedMetrics: localizedFolded,
-          metricsStripLabel: t("metricsStrip"),
-          formatMetricChipTooltip: (metric: FoldedMetricEntry) => formatMetricTooltip(metric, t),
-          formatCostAsOfChipTooltip: (year: string) => t("metricChipCostAsOfTooltip").replace("{year}", year),
-          onSelect: (id: string) => {
-            // Slice 4: clicking a card both selects and focuses (single
-            // click is the "drill in" gesture; ESC returns to overview).
-            // Per v3 iter-22: also auto-expand the clicked node so the
-            // user immediately sees its requires-children rather than
-            // having to double-click to expand them.
-            setSelectedId(id);
-            setStage("focused");
-            scrollDetailIntoView();
-            setExpandedIds((current) => {
-              if (current.has(id)) return current;
-              const next = new Set(current);
-              next.add(id);
-              return next;
-            });
-          },
-          onToggle: toggleSelectedExpansion,
-          onSelectMetric: setSelectedId,
-          semanticClass: stage === "overview" ? "compact" : undefined,
-          outOfContext: stage === "focused" && !focusContextIds.has(node.id),
-          heatColor:
-            colorMode === "relation"
-              ? undefined
-              : edgeTintFor(node, colorMode, graph),
+          isFocal,
+          onSelect,
         },
-        style: {
-          width: NODE_WIDTH,
-          height: heightForNode(node, localizedFolded.length),
-        },
-      };
-      }),
-    [bottleneckedByCounts, capabilityCluster, colorMode, directDependencyCountById, explorationPositions, fallbackLayoutContext, focusContextIds, foldedMetricsByParent, frontierIds, graph, kindName, layoutPositions, nodeName, scrollDetailIntoView, selectedId, selectedNeighbors, showFrontiers, stage, t, toggleSelectedExpansion, visibleNodes],
-  );
-
-  const nodeById = useMemo(() => {
-    const map = new Map<string, Node>();
-    for (const node of graph.nodes) map.set(node.id, node);
-    return map;
-  }, [graph.nodes]);
-
-  const visibleFlowNodeIds = useMemo(() => new Set(visibleNodes.map((node) => node.id)), [visibleNodes]);
-
-  const flowEdges: FlowEdge[] = useMemo(
-    () =>
-      layoutEdges
-      .filter((edge) => visibleFlowNodeIds.has(edge.source) && visibleFlowNodeIds.has(edge.target))
-      .map((edge) => {
-        const sourceNode = nodeById.get(edge.source);
-        const targetNode = nodeById.get(edge.target);
-        // Slice 2: when colorMode !== "relation" we paint the edge by an
-        // attribute of the *target* node. relation mode falls back to
-        // the existing class-based CSS stroke.
-        const tint = colorMode === "relation" || !targetNode
-          ? undefined
-          : edgeTintFor(targetNode, colorMode, graph);
-        // Slice 4 polish: in bottleneck mode, thicken edges whose BOTH
-        // endpoints are high-risk so the "bottleneck path" stands out
-        // visually from low-risk noise. Threshold 0.4 is empirical — it
-        // catches the parcel-sorting graph's actual risky chains
-        // (vision / manipulation / safety subsystems) without painting
-        // every requires-edge thick.
-        let bottleneckPathBoost = 0;
-        if (colorMode === "bottleneck" && sourceNode && targetNode) {
-          const sourceRisk = nodeRisk(sourceNode, graph);
-          const targetRisk = nodeRisk(targetNode, graph);
-          if (sourceRisk >= 0.4 && targetRisk >= 0.4) {
-            bottleneckPathBoost = 2;
-          }
-        }
-        const isSelectedEdge = edge.source === selectedId || edge.target === selectedId;
-        return {
-          id: edge.id,
-          source: edge.source,
-          target: edge.target,
-          type: "smoothstep",
-          label: shouldShowEdgeLabel(edge, selectedId, relation) ? relationName(edge.relation) : undefined,
-          markerEnd: { type: MarkerType.ArrowClosed },
-          className: [
-            "graph-edge",
-            `relation-${edge.relation}`,
-            isSelectedEdge ? "selected" : "",
-            bottleneckPathBoost > 0 ? "bottleneck-path" : "",
-            !selectedNeighbors.has(edge.source) && !selectedNeighbors.has(edge.target) ? "dimmed" : "",
-          ]
-            .filter(Boolean)
-            .join(" "),
-          style: {
-            strokeWidth: (isSelectedEdge ? 2.6 : 1.4) + bottleneckPathBoost,
-            ...(tint ? { stroke: tint } : {}),
-          },
-        };
-      }),
-    [layoutEdges, visibleFlowNodeIds, relation, relationName, selectedId, selectedNeighbors, colorMode, graph, nodeById],
-  );
-
-  const foldCountById = useMemo(() => {
-    const map = new Map<string, number>();
-    for (const [parentId, metrics] of foldedMetricsByParent) map.set(parentId, metrics.length);
-    return map;
-  }, [foldedMetricsByParent]);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function applyLayout() {
-      // Flip cluster edges (product -> capability) for ELK layout so the
-      // capability sits in a layer LEFT of the active product. Sibling
-      // products land in the same layer as the active product. The visible
-      // `flowEdges` keep their natural direction.
-      const elkEdges: Edge[] = layoutEdges.map((edge) => {
-        if (
-          edge.relation === "enables" &&
-          capabilityCluster.allClusterIds.has(edge.source) &&
-          capabilityCluster.capabilityIds.has(edge.target)
-        ) {
-          return { ...edge, source: edge.target, target: edge.source };
-        }
-        return edge;
+        style: { width: size, height: size },
+        draggable: false,
+        selectable: true,
       });
-      const nextPositions = await layoutWithElk(filteredNodes, elkEdges, selectedIdRef.current, layoutPositionsRef.current, foldCountById);
-      if (!cancelled) {
-        layoutPositionsRef.current = nextPositions;
-        setLayoutPositions(nextPositions);
-      }
     }
+    return nodes;
+  }, [graph, focalSubtree, layout, focalId, kindName, nodeName, selectedId, onSelect]);
 
-    void applyLayout();
-    return () => {
-      cancelled = true;
-    };
-  }, [capabilityCluster, filteredNodes, foldCountById, layoutEdges]);
+  const flowEdges: FlowEdge[] = useMemo(() => {
+    const edges: FlowEdge[] = [];
+    for (const edge of graph.edges) {
+      if (edge.relation !== "requires") continue;
+      if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) continue;
+      // Only render edges whose target was actually laid out (defensive
+      // — radialLayout assigns every reachable structural node a
+      // position, but descriptive subtree members are skipped).
+      if (!layout.positions.has(edge.source) || !layout.positions.has(edge.target)) continue;
+      edges.push({
+        id: edge.id,
+        source: edge.source,
+        target: edge.target,
+        type: "straight",
+        // Thin grey 1px lines per spec; B1 will reintroduce color
+        // mode rendering.
+        style: { stroke: "#cbd5e1", strokeWidth: 1 },
+      });
+    }
+    return edges;
+  }, [graph, focalSubtree, layout]);
 
-  // Slice 4 (2026-05-10 graph redesign): viewport behaviour follows the
-  // two-stage exploration state. Overview = pack-the-whole-graph so the
-  // user sees the global bottleneck / cost heatmap. Focused = setCenter
-  // on the selected node at zoom 0.8 so a learner can read full cards.
-  // Iter-5's "centre once on first load" effect is subsumed by the
-  // overview default; the initialCenterDoneRef now just guards against
-  // fighting the user's manual pan/zoom afterwards.
-  // Per UX Flow 1.2 + v3 iter-1: split into two effects:
-  // (1) initial-fit poller, runs once flowInstanceReady becomes true
-  //     and polls until at least one node is measured. Does NOT depend
-  //     on flowNodes (which is a new array ref on every render) — that
-  //     was canceling all the deferred timeouts before they fired.
-  // (2) stage / selection transitions, run only when those change.
+  const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge> | null>(null);
+  const initialFitDoneRef = useRef(false);
+
+  // Fit the radial overview to the viewport once nodes are measured.
   useEffect(() => {
-    if (!flowInstanceReady) return;
-    if (initialCenterDoneRef.current) return;
-    // Programmatic instance.fitView() never moved the viewport on this
-    // graph even with retries — likely because React Flow v12's
-    // ResizeObserver hadn't populated `measured` on nodes by the time
-    // we polled, and the helper silently bails out without measurements.
-    // The built-in Controls fit-view button DOES work (it computes
-    // bounds from positions, not measurements). Simulate a click on
-    // it after mount as a reliable workaround.
-    let cancelled = false;
-    const timeouts: ReturnType<typeof setTimeout>[] = [];
-    const tryFit = () => {
-      if (cancelled || initialCenterDoneRef.current) return;
-      const inst = flowInstanceRef.current;
-      if (!inst) return;
-      const before = inst.getViewport();
-      // Per UX Flow v3 iter-8: continuity over hard zoom-in. Both
-      // stages use the same fit-bounds framing so the user always
-      // sees the whole reachable graph; focus is emphasized via the
-      // .selected card style + .out-of-context dimming on everything
-      // else. The previous focused=setCenter@zoom-0.8 created a
-      // "teleport" feel that broke spatial continuity.
-      const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
-      if (!btn) return;
-      btn.click();
-      // Check 120ms after click — React Flow animates the fit over
-      // its `duration` (default ~500ms) but the viewport state has
-      // updated by ~100ms. requestAnimationFrame fires too early
-      // sometimes and we miss the success signal.
-      timeouts.push(
-        setTimeout(() => {
-          if (cancelled) return;
-          const after = inst.getViewport();
-          if (after.x !== before.x || after.y !== before.y || after.zoom !== before.zoom) {
-            initialCenterDoneRef.current = true;
-          }
-        }, 120),
-      );
-    };
-    [80, 200, 500, 1000, 1800].forEach((delay) => {
-      timeouts.push(setTimeout(tryFit, delay));
-    });
-    return () => {
-      cancelled = true;
-      timeouts.forEach((t) => clearTimeout(t));
-    };
-  }, [flowInstanceReady, stage, selectedId]);
-
-  useEffect(() => {
-    if (!flowInstanceReady) return;
-    if (!initialCenterDoneRef.current) return;
-    const instance = flowInstanceRef.current;
-    if (!instance) return;
-    // Per UX Flow v3 iter-8: both stages share the same wide-fit
-    // framing for continuity. Out-of-context CSS handles focus
-    // emphasis; we don't yank the viewport between drill levels.
-    // Use the controls button (works reliably) instead of the
-    // programmatic-call variant (silent no-op before measurements).
-    void instance;
+    if (initialFitDoneRef.current) return;
+    const inst = flowInstanceRef.current;
+    if (!inst) return;
     const timeouts: ReturnType<typeof setTimeout>[] = [];
     const fit = () => {
       const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
-      btn?.click();
+      if (!btn) return;
+      btn.click();
+      initialFitDoneRef.current = true;
     };
-    [0, 120, 320].forEach((delay) => {
-      timeouts.push(setTimeout(fit, delay));
-    });
+    [80, 240, 600].forEach((d) => timeouts.push(setTimeout(fit, d)));
     return () => {
-      timeouts.forEach((timeout) => clearTimeout(timeout));
+      timeouts.forEach((t) => clearTimeout(t));
     };
-  }, [flowInstanceReady, stage, selectedId, visibleNodes]);
+  }, [flowNodes.length]);
 
-  // Per UX Flow v3 iter-3: persist colorMode + stage + selectedId in URL
-  // so the view is bookmarkable / shareable. Uses replaceState (not
-  // pushState) so back/forward isn't bloated by every click.
+  // Persist selection in URL so a learner can bookmark / share a view.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    if (colorMode === "bottleneck") params.delete("color");
-    else params.set("color", colorMode);
-    if (stage === "overview") params.delete("stage");
-    else params.set("stage", stage);
     if (selectedId === rootNodeId) params.delete("focus");
     else params.set("focus", selectedId);
     const query = params.toString();
@@ -1311,863 +254,48 @@ export function GraphExplorer({ graph }: Props) {
     if (next !== `${window.location.pathname}${window.location.search}`) {
       window.history.replaceState(null, "", next);
     }
-  }, [colorMode, stage, selectedId]);
+  }, [selectedId]);
 
-  // Slice 4: keyboard navigation. ESC returns to overview from focused.
-  // Per UX Flow 1.7 (2026-05-10): ESC also resets selectedId to the
-  // root product so "回到全局" really means "全图", not "上次点击的模块的
-  // 子树". The toolbar's `↩ 回到全局` button does the same.
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        setStage("overview");
-        setSelectedId(rootNodeId);
-      }
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  // In-scope frontier count: nodes currently rendered on the canvas that
-  // satisfy isDecompositionFrontier. This is shown read-only next to the
-  // metrics-as-nodes toggle so a learner gets a quick scan of "how much
-  // research is queued in this graph". We count the post-filter set
-  // (filteredNodes) so the number tracks Layered/Bottleneck expansion as
-  // well as kind/maturity filters. Folded metric children are excluded
-  // because they aren't rendered as cards in the default view.
-  const frontierCountInScope = useMemo(
-    () => filteredNodes.reduce((count, node) => count + (frontierIds.has(node.id) ? 1 : 0), 0),
-    [filteredNodes, frontierIds],
-  );
-
-  // Iter-52 perf cleanup: memoize selected* derivations so they don't re-run
-  // graph.nodes.find / graph.edges.filter on every render (incl. pure prop
-  // updates from React Flow). Trivial today (~0.05ms each at current graph
-  // size), but each is ~1ms at 1000 nodes / 3000 edges.
-  const selectedNode = useMemo(
-    () => graph.nodes.find((node) => node.id === selectedId) ?? graph.nodes[0],
+  const selectedNode: Node = useMemo(
+    () => graph.nodes.find((n) => n.id === selectedId) ?? graph.nodes[0],
     [graph.nodes, selectedId],
   );
-  const selectedDependencyCount = useMemo(
-    () => graph.edges.filter((edge) => edge.source === selectedNode?.id && shouldShowLayeredEdge(graph, edge)).length,
-    [graph, selectedNode?.id],
-  );
-  // Per UX Flow v3 iter-5: the previous count was *direct*
-  // bottlenecked_by edges out of the selected node only. For a
-  // product-level focus that's almost always 0 because bottlenecks
-  // live on subsystem modules, not on the product itself. Count
-  // unique bottleneck targets reachable through the requires
-  // subtree so a learner reading "Show bottlenecks (4)" sees the
-  // real number of bottlenecks gating their product.
-  const selectedBottleneckNodes = useMemo(() => {
-    if (!selectedNode) return [];
-    const reachable = new Set<string>([selectedNode.id]);
-    const queue: string[] = [selectedNode.id];
-    while (queue.length) {
-      const cur = queue.shift();
-      if (!cur) continue;
-      for (const edge of graph.edges) {
-        if (edge.source !== cur || edge.relation !== "requires") continue;
-        if (reachable.has(edge.target)) continue;
-        reachable.add(edge.target);
-        queue.push(edge.target);
-      }
-    }
-    const bottleneckTargets = new Set<string>();
-    for (const edge of graph.edges) {
-      if (edge.relation !== "bottlenecked_by") continue;
-      if (!reachable.has(edge.source)) continue;
-      bottleneckTargets.add(edge.target);
-    }
-    return [...bottleneckTargets]
-      .map((id) => graph.nodes.find((node) => node.id === id))
-      .filter((node): node is Node => node !== undefined && node.reviewStatus !== "deprecated")
-      .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || nodeName(a.id, a.name).localeCompare(nodeName(b.id, b.name)));
-  }, [graph, nodeName, selectedNode]);
-  const selectedBottleneckCount = selectedBottleneckNodes.length;
-  const selectedExpanded = mode === "bottleneck" ? expandedBottleneckIds.has(selectedNode.id) : expandedIds.has(selectedNode.id);
-  const directDependencyNodes = useMemo(() => {
-    const visibleSet = new Set(prefilteredNodes.map((node) => node.id));
-    return graph.edges
-      .filter((edge) => edge.source === selectedNode.id && shouldShowLayeredEdge(graph, edge) && visibleSet.has(edge.target))
-      .map((edge) => graph.nodes.find((node) => node.id === edge.target))
-      .filter((node): node is Node => Boolean(node))
-      .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || nodeName(a.id, a.name).localeCompare(nodeName(b.id, b.name)));
-  }, [graph, nodeName, prefilteredNodes, selectedNode.id]);
-  const visibleDirectDependencyNodes = directDependencyNodes.slice(0, CONTEXT_RISKY_DEPENDENCY_LIMIT);
-  const hiddenDirectDependencyCount = Math.max(0, directDependencyNodes.length - visibleDirectDependencyNodes.length);
-  const focusNode = useCallback((nodeId: string) => {
-    setSelectedId(nodeId);
-    setStage("focused");
-    scrollDetailIntoView();
-    setExpandedIds((current) => {
-      if (current.has(nodeId)) return current;
-      const next = new Set(current);
-      next.add(nodeId);
-      return next;
-    });
-  }, [scrollDetailIntoView]);
 
   return (
     <div>
-      <div className="explorer-toolbar">
-        <div className="segmented-control" aria-label={t("viewMode")}>
-          {(["layered", "bottleneck", "full"] as ExplorationMode[]).map((item) => (
-            <button
-              key={item}
-              className={mode === item ? "active" : ""}
-              type="button"
-              onClick={() => {
-                setMode(item);
-              }}
-            >
-              {t(`${item}Mode`)}
-            </button>
-          ))}
-        </div>
-        <div className="toolbar-actions">
-          <button
-            className="small-button"
-            type="button"
-            onClick={() => toggleSelectedExpansion(selectedNode.id)}
-          >
-            {selectedExpanded ? t("collapseSelected") : t("expandSelected")} ({selectedDependencyCount})
-          </button>
-          <button
-            className={["small-button", "danger-button", selectedBottleneckCount > 0 ? "primary-risk-action" : ""].filter(Boolean).join(" ")}
-            type="button"
-            onClick={() => {
-              setMode("bottleneck");
-              const primaryBottleneck = selectedBottleneckNodes[0];
-              // Per UX Flow v3 iter-6: expand the FULL ancestor set
-              // from selectedNode down to every reachable bottleneck.
-              // The previous behaviour only marked selectedNode as
-              // expanded, which left intermediate modules collapsed
-              // so the bottleneck nodes never appeared on canvas.
-              setExpandedBottleneckIds((current) => {
-                const next = new Set(current);
-                next.add(selectedNode.id);
-                const queue: string[] = [selectedNode.id];
-                const visited = new Set<string>();
-                while (queue.length) {
-                  const cur = queue.shift();
-                  if (!cur || visited.has(cur)) continue;
-                  visited.add(cur);
-                  next.add(cur);
-                  for (const edge of graph.edges) {
-                    if (edge.source !== cur) continue;
-                    if (edge.relation === "bottlenecked_by") {
-                      next.add(edge.target);
-                    } else if (edge.relation === "requires") {
-                      // descend so descendants' bottlenecks surface
-                      queue.push(edge.target);
-                    }
-                  }
-                }
-                return next;
-              });
-              if (primaryBottleneck) {
-                setSelectedId(primaryBottleneck.id);
-                setStage("focused");
-                scrollDetailIntoView();
-              }
+      <div className="graph-layout graph-layout-radial">
+        <div className="graph-canvas graph-canvas-radial">
+          <ReactFlow
+            nodes={flowNodes}
+            edges={flowEdges}
+            nodeTypes={nodeTypes}
+            onInit={(instance) => {
+              flowInstanceRef.current = instance;
+            }}
+            fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
+            minZoom={0.2}
+            maxZoom={2.5}
+            panOnScroll
+            panOnScrollMode={PanOnScrollMode.Free}
+            zoomOnPinch
+            zoomOnDoubleClick={false}
+            nodesDraggable={false}
+            onNodeClick={(_, node) => {
+              setSelectedId(node.id);
             }}
           >
-            {t("showBottlenecks")} ({selectedBottleneckCount})
-          </button>
-          {stage === "focused" ? (
-            <button
-              className="small-button secondary-button"
-              type="button"
-              onClick={() => {
-                setStage("overview");
-                setSelectedId(rootNodeId);
-              }}
-              title={t("backToOverviewHint")}
-              aria-label={t("backToOverview")}
-            >
-              ↩ {t("backToOverview")}
-            </button>
-          ) : null}
-          <label className="color-mode-select-wrapper" title={t("colorModeHint")}>
-            <span className="color-mode-select-label">{t("colorModeLabel")}</span>
-            <select
-              className="color-mode-select"
-              value={colorMode}
-              onChange={(event) => setColorMode(event.target.value as ColorMode)}
-              aria-label={t("colorModeLabel")}
-            >
-              <option value="bottleneck">{t("colorModeBottleneck")}</option>
-              <option value="cost">{t("colorModeCost")}</option>
-              <option value="maturity">{t("colorModeMaturity")}</option>
-              <option value="overall">{t("colorModeOverall")}</option>
-              <option value="relation">{t("colorModeRelation")}</option>
-            </select>
-          </label>
-          {/* Per v3 iter-24: inline mini-legend so the user doesn't
-              have to memorize the ramp direction. Strip of 5 swatches
-              that matches the active mode's ramp endpoints. Hidden
-              when mode === "relation" (no continuous ramp there). */}
-          {colorMode !== "relation" ? (
-            <span
-              className="color-mode-legend"
-              aria-label={t(`colorModeLegend_${colorMode}` as `colorModeLegend_${typeof colorMode}`)}
-              title={t(`colorModeLegend_${colorMode}` as `colorModeLegend_${typeof colorMode}`)}
-            >
-              {RAMP_LEGEND[colorMode].map((c, i) => (
-                <span
-                  key={i}
-                  className="color-mode-legend-swatch"
-                  style={{ background: c }}
-                  aria-hidden="true"
-                />
-              ))}
-            </span>
-          ) : null}
-        </div>
-      </div>
-      <div className="graph-context-strip" aria-label={t("graphContextStrip")}>
-        <div className="graph-context-stat">
-          <span>{t("currentFocus")}</span>
-          <strong>{nodeName(selectedNode.id, selectedNode.name)}</strong>
-        </div>
-        <div className="graph-context-stat">
-          <span>{t("visibleNodes")}</span>
-          <strong>{filteredNodes.length}</strong>
-        </div>
-        <div className="graph-context-stat">
-          <span>{t("directDependencies")}</span>
-          <strong>{selectedDependencyCount}</strong>
-        </div>
-        <div className="graph-context-stat danger">
-          <span>{t("bottlenecks")}</span>
-          <strong>{selectedBottleneckCount}</strong>
-        </div>
-        {selectedBottleneckNodes.length > 0 ? (
-          <div className="graph-context-jumps graph-context-bottleneck-jumps" aria-label={t("bottleneckJumps")}>
-            <span className="graph-context-jump-row-label">{t("bottleneckShortcuts")}</span>
-            {selectedBottleneckNodes.slice(0, 4).map((node) => (
-              <a
-                key={node.id}
-                aria-label={`${t("focusBottleneck")}: ${nodeName(node.id, node.name)}`}
-                href={`?stage=focused&focus=${encodeURIComponent(node.id)}${colorMode === "bottleneck" ? "" : `&color=${encodeURIComponent(colorMode)}`}`}
-                onClick={() => focusNode(node.id)}
-                title={t("focusBottleneck")}
-              >
-                <span className="graph-context-jump-label">{nodeName(node.id, node.name)}</span>
-                <span className="graph-context-jump-risk">{t("bottleneckBadge")}</span>
-              </a>
-            ))}
-          </div>
-        ) : null}
-        {directDependencyNodes.length > 0 ? (
-          <div className="graph-context-jumps" aria-label={t("directDependencyJumps")}>
-            <span className="graph-context-jump-row-label">{t("riskyDependencyShortcuts")}</span>
-            {visibleDirectDependencyNodes.map((node) => (
-              (() => {
-                const risk = nodeRisk(node, graph);
-                const riskClass = risk >= 0.4 ? "high-risk" : risk >= 0.2 ? "medium-risk" : "";
-                const riskText = `${t("risk")}: ${Math.round(risk * 100)}%`;
-                return (
-                  <a
-                    key={node.id}
-                    className={riskClass}
-                    aria-label={`${t("focusDependency")}: ${nodeName(node.id, node.name)} · ${riskText}`}
-                    href={`?stage=focused&focus=${encodeURIComponent(node.id)}${colorMode === "bottleneck" ? "" : `&color=${encodeURIComponent(colorMode)}`}`}
-                    onClick={() => focusNode(node.id)}
-                    title={riskText}
-                  >
-                    <span className="graph-context-jump-label">{nodeName(node.id, node.name)}</span>
-                    <span className="graph-context-jump-risk">{Math.round(risk * 100)}%</span>
-                  </a>
-                );
-              })()
-            ))}
-            {hiddenDirectDependencyCount > 0 ? (
-              <span className="graph-context-more-chip">
-                {t("moreShort").replace("{count}", String(hiddenDirectDependencyCount))}
-              </span>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
-      <div className={`graph-layout graph-layout-${stage}`}>
-        <div className={`graph-canvas graph-canvas-${stage}`}>
-          {mode === "full" ? (
-            <ReactFlow
-              nodes={flowNodes}
-              edges={flowEdges}
-              nodeTypes={nodeTypes}
-              onInit={(instance) => {
-                flowInstanceRef.current = instance;
-                setFlowInstanceReady(true);
-              }}
-              onNodesChange={(changes) => {
-                // Per v3 iter-13: when React Flow's ResizeObserver
-                // reports node dimensions for the first time, trigger
-                // the initial fit-bounds click. Replaces the
-                // setTimeout-poll which had a 1.8s tail latency.
-                if (initialCenterDoneRef.current) return;
-                const dim = changes.find((c) => c.type === "dimensions");
-                if (!dim) return;
-                const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
-                if (!btn) return;
-                btn.click();
-                initialCenterDoneRef.current = true;
-              }}
-              fitViewOptions={{ maxZoom: 1, minZoom: 0.55, padding: 0.12 }}
-              minZoom={0.35}
-              panOnScroll
-              panOnScrollMode={PanOnScrollMode.Free}
-              zoomOnPinch
-              zoomOnDoubleClick={false}
-              nodesDraggable={false}
-              onNodeClick={(_, node) => {
-                setSelectedId(node.id);
-                setStage("focused");
-                scrollDetailIntoView();
-                setExpandedIds((current) => {
-                  if (current.has(node.id)) return current;
-                  const next = new Set(current);
-                  next.add(node.id);
-                  return next;
-                });
-              }}
-              onNodeDoubleClick={(event, node) => {
-                event.preventDefault();
-                setSelectedId(node.id);
-                setStage("focused");
-                scrollDetailIntoView();
-                toggleSelectedExpansion(node.id);
-              }}
-            >
-              <Background />
-              <Controls />
-            </ReactFlow>
-          ) : (
-            <ResearchMapCanvas
-              columnLabels={
-                mode === "bottleneck"
-                  ? [t("mapColumnFocus"), t("mapColumnBottleneckPath"), t("mapColumnBottleneck"), t("mapColumnDeeper")]
-                  : [t("mapColumnFocus"), t("mapColumnDirect"), t("mapColumnNext"), t("mapColumnDeeper")]
-              }
-              edges={flowEdges}
-              nodes={flowNodes as FlowNode<CapabilityNodeData>[]}
-              stage={stage}
-            />
-          )}
+            <Background />
+            <Controls />
+          </ReactFlow>
         </div>
         <NodeDetailPanel
           graph={graph}
           node={selectedNode}
           onSelectNode={(id) => {
             setSelectedId(id);
-            setStage("focused");
-            scrollDetailIntoView();
           }}
         />
       </div>
-      <div className="graph-below-canvas-controls">
-        <details className="graph-control-drawer">
-          <summary>{t("displayOptions")}</summary>
-          <div className="toolbar-actions graph-secondary-actions">
-            <button
-              className="small-button secondary-button"
-              type="button"
-              onClick={() => {
-                // Per v3 iter-30: full reset now includes stage and
-                // colorMode so the canvas truly returns to first-load
-                // state. Previously Reset left these on the user's
-                // last-clicked value which was surprising.
-                setMode("layered");
-                setSelectedId(rootNodeId);
-                setDomain("all");
-                setKind("all");
-                setRelation("all");
-                setMaturity("all");
-                setExpandedIds(new Set([rootNodeId]));
-                setExpandedBottleneckIds(new Set([rootNodeId]));
-                setStage("overview");
-                setColorMode("bottleneck");
-              }}
-            >
-              {t("resetExpansion")}
-            </button>
-            <button
-              className={["small-button", "secondary-button", showMetricsAsNodes ? "active" : ""].filter(Boolean).join(" ")}
-              type="button"
-              aria-pressed={showMetricsAsNodes}
-              onClick={() => setShowMetricsAsNodes((value) => !value)}
-              title={t("showMetricsAsNodesHint")}
-            >
-              {t("showMetricsAsNodes")}{showMetricsAsNodes ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-            </button>
-            <button
-              className={["small-button", "secondary-button", showFrontiers ? "active" : ""].filter(Boolean).join(" ")}
-              type="button"
-              aria-pressed={showFrontiers}
-              onClick={() => setShowFrontiers((value) => !value)}
-              title={t("showFrontiersToggleHint")}
-            >
-              {t("showFrontiersToggle")}{showFrontiers ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-            </button>
-            <button
-              className={["small-button", "secondary-button", showDeprecated ? "active" : ""].filter(Boolean).join(" ")}
-              type="button"
-              aria-pressed={showDeprecated}
-              onClick={() => setShowDeprecated((value) => !value)}
-              title={t("showDeprecatedHint")}
-            >
-              {t("showDeprecated")}{showDeprecated ? ` · ${t("toggleOn")}` : ` · ${t("toggleOff")}`}
-            </button>
-            <span
-              className="frontier-count-status"
-              title={t("frontierCountInScopeTooltip")}
-              aria-label={t("frontierCountInScopeTooltip")}
-            >
-              <span className="frontier-count-icon" aria-hidden="true">🔭</span>
-              {t("frontierCountInScope").replace("{count}", String(frontierCountInScope))}
-            </span>
-          </div>
-        </details>
-        <details className="graph-filter-drawer">
-          <summary>{t("advancedFilters")}</summary>
-          <div className="filters">
-            <select
-              aria-label={t("filterDomainLabel")}
-              value={domain}
-              onChange={(event) => setDomain(event.target.value)}
-            >
-              <option value="all">{t("allDomains")}</option>
-              {domains.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-            <select
-              aria-label={t("filterKindLabel")}
-              value={kind}
-              onChange={(event) => setKind(event.target.value as NodeKind | "all")}
-            >
-              <option value="all">{t("allNodeKinds")}</option>
-              {kinds.map((item) => (
-                <option key={item} value={item}>
-                  {kindName(item)}
-                </option>
-              ))}
-            </select>
-            <select
-              aria-label={t("filterRelationLabel")}
-              value={relation}
-              onChange={(event) => setRelation(event.target.value as EdgeRelation | "all")}
-            >
-              <option value="all">{t("allRelations")}</option>
-              {relations.map((item) => (
-                <option key={item} value={item}>
-                  {relationName(item)}
-                </option>
-              ))}
-            </select>
-            <select
-              aria-label={t("filterMaturityLabel")}
-              value={maturity}
-              onChange={(event) => setMaturity(event.target.value)}
-            >
-              <option value="all">{t("allMaturity")}</option>
-              <option value="30">{t("score")} &gt;= 30</option>
-              <option value="50">{t("score")} &gt;= 50</option>
-              <option value="70">{t("score")} &gt;= 70</option>
-            </select>
-          </div>
-        </details>
-      </div>
     </div>
   );
-}
-
-/**
- * The capability cluster surrounding a Product, per ADR-0004:
- * - capabilityIds: Capabilities the Product `enables` (one hop).
- * - siblingProductIds: Other Products that `enables` the same Capabilities.
- *
- * Used by the Layered builder to surface the boundary structure on-graph
- * even though sibling Products and the Capability are not in the active
- * Product's reachable subtree.
- */
-function capabilityClusterFor(
-  graph: GraphData,
-  productId: string,
-): { capabilityIds: Set<string>; siblingProductIds: Set<string>; allClusterIds: Set<string> } {
-  const capabilityIds = new Set<string>();
-  for (const edge of graph.edges) {
-    if (edge.source !== productId || edge.relation !== "enables") continue;
-    const targetNode = graph.nodes.find((node) => node.id === edge.target);
-    if (targetNode?.kind === "capability") capabilityIds.add(edge.target);
-  }
-  const siblingProductIds = new Set<string>();
-  for (const edge of graph.edges) {
-    if (edge.relation !== "enables" || !capabilityIds.has(edge.target)) continue;
-    if (edge.source === productId) continue;
-    const sourceNode = graph.nodes.find((node) => node.id === edge.source);
-    if (sourceNode?.kind === "product") siblingProductIds.add(edge.source);
-  }
-  const allClusterIds = new Set<string>([productId, ...capabilityIds, ...siblingProductIds]);
-  return { capabilityIds, siblingProductIds, allClusterIds };
-}
-
-function layeredVisibleIds(graph: GraphData, expandedIds: Set<string>) {
-  const ids = new Set<string>([rootNodeId]);
-  const queue = [rootNodeId];
-  const seen = new Set<string>();
-
-  while (queue.length > 0) {
-    const nodeId = queue.shift();
-    if (!nodeId || seen.has(nodeId)) continue;
-    seen.add(nodeId);
-    ids.add(nodeId);
-    if (!expandedIds.has(nodeId)) continue;
-
-    for (const edge of graph.edges) {
-      if (edge.source === nodeId && shouldShowLayeredEdge(graph, edge)) {
-        ids.add(edge.target);
-        queue.push(edge.target);
-      }
-    }
-  }
-
-  addReachableMetrics(graph, ids);
-  return ids;
-}
-
-function shouldShowLayeredEdge(graph: GraphData, edge: Edge) {
-  if (!layeredRelations.has(edge.relation)) return false;
-  if (edge.source !== rootNodeId) return true;
-  if (edge.relation !== "requires") return edge.relation === "bottlenecked_by";
-  return graph.nodes.find((node) => node.id === edge.target)?.kind === "module";
-}
-
-function bottleneckVisibleIds(graph: GraphData, expandedIds: Set<string>) {
-  const ids = new Set<string>([rootNodeId]);
-  const queue = [rootNodeId];
-  const seen = new Set<string>();
-
-  while (queue.length > 0) {
-    const nodeId = queue.shift();
-    if (!nodeId || seen.has(nodeId)) continue;
-    seen.add(nodeId);
-    ids.add(nodeId);
-    if (nodeId !== rootNodeId && !expandedIds.has(nodeId)) continue;
-
-    const outgoing = graph.edges.filter((edge) => edge.source === nodeId && bottleneckPathRelations.has(edge.relation));
-    const directBottlenecks = outgoing.filter((edge) => edge.relation === "bottlenecked_by");
-    const nextEdges = directBottlenecks.length > 0 ? directBottlenecks : outgoing.filter((edge) => edge.relation !== "bottlenecked_by");
-
-    for (const edge of nextEdges) {
-      ids.add(edge.target);
-      if (expandedIds.has(edge.target) || directBottlenecks.length === 0) queue.push(edge.target);
-    }
-  }
-
-  addReachableMetrics(graph, ids);
-  return ids;
-}
-
-/**
- * Pull metric nodes into the visible set when at least one of their
- * `measured_by` parents is already visible. Layered and Bottleneck
- * modes don't traverse `measured_by` for layout (metrics shouldn't
- * deepen the dependency tree), but the metric-fold strip needs the
- * metric data present so it can fold inline. Without this step the
- * KPI strip silently disappears outside Full graph mode.
- */
-function addReachableMetrics(graph: GraphData, ids: Set<string>) {
-  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
-  for (const edge of graph.edges) {
-    if (edge.relation !== "measured_by") continue;
-    if (!ids.has(edge.source)) continue;
-    const target = nodesById.get(edge.target);
-    if (!target || target.kind !== "metric") continue;
-    ids.add(edge.target);
-  }
-}
-
-async function layoutWithElk(
-  nodes: Node[],
-  edges: Edge[],
-  anchorId: string,
-  previousPositions: Map<string, GraphPoint>,
-  foldCountById: Map<string, number> = new Map(),
-) {
-  // Per iter-19 review (P1): `foldCountById` is threaded through the call
-  // chain instead of stored in a module-level mutable map. The previous
-  // shape risked cross-instance leak if two GraphExplorers ever rendered
-  // simultaneously (unlikely in current callers, but the wiring was a
-  // module-scope mutable Map shared by every call site).
-  const incrementalPositions = incrementalLayout(nodes, edges, anchorId, previousPositions, foldCountById);
-  if (incrementalPositions) return incrementalPositions;
-
-  const nodeIds = new Set(nodes.map((node) => node.id));
-  const elkGraph: ElkNode = {
-    id: "root",
-    layoutOptions: {
-      "elk.algorithm": "layered",
-      "elk.direction": "RIGHT",
-      "elk.spacing.nodeNode": "54",
-      "elk.spacing.edgeNode": "30",
-      "elk.layered.spacing.nodeNodeBetweenLayers": "112",
-      "elk.layered.spacing.edgeNodeBetweenLayers": "34",
-      "elk.layered.spacing.edgeEdgeBetweenLayers": "22",
-      "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
-      "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
-      "elk.edgeRouting": "ORTHOGONAL",
-    },
-    children: nodes.map((node) => ({
-      id: node.id,
-      width: NODE_WIDTH,
-      height: heightForNode(node, foldCountById.get(node.id) ?? 0),
-    })),
-    edges: edges
-      .filter((edge) => nodeIds.has(edge.source) && nodeIds.has(edge.target))
-      .map((edge) => ({
-        id: edge.id,
-        sources: [edge.source],
-        targets: [edge.target],
-      })) as ElkExtendedEdge[],
-  };
-
-  const layouted = await elkInstance().layout(elkGraph);
-  const nextPositions = new Map(
-    (layouted.children ?? []).map((node) => [
-      node.id,
-      {
-        x: node.x ?? 0,
-        y: node.y ?? 0,
-      },
-    ]),
-  );
-
-  return anchorLayout(nextPositions, previousPositions, anchorId);
-}
-
-function incrementalLayout(
-  nodes: Node[],
-  edges: Edge[],
-  anchorId: string,
-  previousPositions: Map<string, GraphPoint>,
-  foldCountById: Map<string, number>,
-) {
-  if (!previousPositions.size) return null;
-
-  const nodesById = new Map(nodes.map((node) => [node.id, node]));
-  const visibleIds = new Set(nodes.map((node) => node.id));
-  const nextPositions = new Map<string, GraphPoint>();
-
-  for (const [id, position] of previousPositions) {
-    if (visibleIds.has(id)) nextPositions.set(id, position);
-  }
-
-  const newNodes = nodes.filter((node) => !nextPositions.has(node.id)).sort(compareNodes);
-  if (!newNodes.length) return nextPositions;
-
-  const groupedByParent = new Map<string, Node[]>();
-  for (const node of newNodes) {
-    const incoming = edges.find((edge) => edge.target === node.id && nextPositions.has(edge.source));
-    const parentId = incoming?.source ?? anchorId;
-    const siblings = groupedByParent.get(parentId) ?? [];
-    siblings.push(node);
-    groupedByParent.set(parentId, siblings);
-  }
-
-  for (const [parentId, children] of groupedByParent) {
-    const parentNode = nodesById.get(parentId);
-    const parentPosition = nextPositions.get(parentId) ?? nextPositions.get(anchorId) ?? { x: 40, y: 40 };
-    const parentHeight = parentNode ? heightForNode(parentNode, foldCountById.get(parentId) ?? 0) : DEFAULT_NODE_HEIGHT;
-    const totalHeight =
-      children.reduce((sum, child) => sum + heightForNode(child, foldCountById.get(child.id) ?? 0), 0) +
-      Math.max(0, children.length - 1) * INCREMENTAL_NODE_GAP;
-    let cursorY = parentPosition.y + parentHeight / 2 - totalHeight / 2;
-
-    for (const child of children) {
-      const proposed = {
-        x: parentPosition.x + NODE_WIDTH + INCREMENTAL_LAYER_GAP,
-        y: cursorY,
-      };
-      nextPositions.set(child.id, firstOpenPosition(proposed, child, nextPositions, nodesById, foldCountById));
-      cursorY += heightForNode(child, foldCountById.get(child.id) ?? 0) + INCREMENTAL_NODE_GAP;
-    }
-  }
-
-  return nextPositions;
-}
-
-function elkInstance() {
-  elk ??= new ELK({
-    workerUrl: "/elk-worker.min.js",
-  });
-  return elk;
-}
-
-function anchorLayout(
-  nextPositions: Map<string, GraphPoint>,
-  previousPositions: Map<string, GraphPoint>,
-  anchorId: string,
-) {
-  const previousAnchor = previousPositions.get(anchorId);
-  const nextAnchor = nextPositions.get(anchorId);
-  if (!previousAnchor || !nextAnchor) return nextPositions;
-
-  const dx = previousAnchor.x - nextAnchor.x;
-  const dy = previousAnchor.y - nextAnchor.y;
-  if (dx === 0 && dy === 0) return nextPositions;
-
-  return new Map(
-    [...nextPositions.entries()].map(([id, position]) => [
-      id,
-      {
-        x: position.x + dx,
-        y: position.y + dy,
-      },
-    ]),
-  );
-}
-
-function firstOpenPosition(
-  proposed: GraphPoint,
-  node: Node,
-  positions: Map<string, GraphPoint>,
-  nodesById: Map<string, Node>,
-  foldCountById: Map<string, number>,
-) {
-  const next = { ...proposed };
-  while (overlapsExisting(next, node, positions, nodesById, foldCountById)) {
-    next.y += heightForNode(node, foldCountById.get(node.id) ?? 0) + INCREMENTAL_NODE_GAP;
-  }
-  return next;
-}
-
-function overlapsExisting(
-  proposed: GraphPoint,
-  node: Node,
-  positions: Map<string, GraphPoint>,
-  nodesById: Map<string, Node>,
-  foldCountById: Map<string, number>,
-) {
-  const nodeHeight = heightForNode(node, foldCountById.get(node.id) ?? 0);
-  for (const [id, position] of positions) {
-    const existing = nodesById.get(id);
-    if (!existing) continue;
-    const existingHeight = heightForNode(existing, foldCountById.get(id) ?? 0);
-    const horizontallyOverlaps = proposed.x < position.x + NODE_WIDTH + INCREMENTAL_NODE_GAP && proposed.x + NODE_WIDTH + INCREMENTAL_NODE_GAP > position.x;
-    const verticallyOverlaps = proposed.y < position.y + existingHeight + INCREMENTAL_NODE_GAP && proposed.y + nodeHeight + INCREMENTAL_NODE_GAP > position.y;
-    if (horizontallyOverlaps && verticallyOverlaps) return true;
-  }
-  return false;
-}
-
-// Per ralph-loop 2026-05-10 iter-3: the strip CSS already caps at 160px and
-// chips render as a vertical column ~22px each + 3px gaps + 6px padding. Most
-// cards (subsystem modules) carry just one cost chip — adding a flat
-// METRICS_STRIP_HEIGHT (160) made the bbox 3300+ tall and pushed fit-view to
-// ~12% scale. Compute the strip's actual height from chip count and clamp at
-// the CSS max so multi-chip cards (flagship product = 7 chips) still get room.
-function metricsStripHeight(foldedMetricCount: number): number {
-  if (foldedMetricCount <= 0) return 0;
-  const PER_CHIP = 22;
-  const GAP = 3;
-  const STRIP_PADDING = 6;
-  const intrinsic =
-    PER_CHIP * foldedMetricCount + GAP * Math.max(0, foldedMetricCount - 1) + STRIP_PADDING;
-  return Math.min(intrinsic, METRICS_STRIP_HEIGHT);
-}
-
-function heightForNode(node: Node, foldedMetricCount = 0) {
-  const base = node.kind === "technical_route" || node.kind === "product" ? TALL_NODE_HEIGHT : DEFAULT_NODE_HEIGHT;
-  return base + metricsStripHeight(foldedMetricCount);
-}
-
-function shouldShowEdgeLabel(edge: Edge, selectedId: string, relation: EdgeRelation | "all") {
-  if (relation !== "all") return true;
-  return edge.source === selectedId || edge.target === selectedId;
-}
-
-type FallbackLayoutContext = {
-  sorted: Node[];
-  laneById: Map<string, number>;
-  starts: number[];
-};
-
-function fallbackPositionFor(
-  node: Node,
-  edges: Edge[],
-  routeFocus: string,
-  context: FallbackLayoutContext,
-) {
-  const { sorted, laneById, starts } = context;
-  const lane = laneById.get(node.id) ?? laneFor(node, edges, routeFocus);
-  const sameLane = sorted.filter((item) => (laneById.get(item.id) ?? laneFor(item, edges, routeFocus)) === lane);
-  const index = sameLane.findIndex((item) => item.id === node.id);
-  const laneStart = starts[lane] ?? 40;
-  const xOffset = 0;
-  const rowHeight = heightForNode(node) + 28;
-  const columns = 1;
-  const yOffset = Math.floor(Math.max(index, 0) / columns) * rowHeight;
-
-  return { x: lane * (NODE_WIDTH + 112) + xOffset, y: laneStart + yOffset };
-}
-
-function laneStarts(nodes: Node[], edges: Edge[], routeFocus: string, laneById = depthMap(edges, nodes)) {
-  const starts: number[] = [];
-  let cursor = 40;
-  const maxLane = Math.max(3, ...nodes.map((node) => laneById.get(node.id) ?? laneFor(node, edges, routeFocus)));
-
-  for (let lane = 0; lane <= maxLane; lane += 1) {
-    starts[lane] = cursor;
-    const count = nodes.filter((node) => (laneById.get(node.id) ?? laneFor(node, edges, routeFocus)) === lane).length;
-    const columns = lane === 0 || routeFocus !== "all" ? 1 : 3;
-    const rows = Math.max(1, Math.ceil(count / columns));
-    cursor += rows * (TALL_NODE_HEIGHT + 38) + 58;
-  }
-
-  return starts;
-}
-
-function laneFor(node: Node, edges: Edge[], routeFocus: string) {
-  if (node.kind === "product") return 0;
-  if (node.kind === "module") return 1;
-  if (node.kind === "technical_route") return 2;
-  if (node.kind === "metric") return 3;
-  if (node.kind === "bottleneck" || node.kind === "placeholder_breakthrough") return 3;
-  if (edges.some((edge) => edge.target === node.id && (edge.relation === "manufactured_by" || edge.relation === "regulated_by"))) return 3;
-  if (node.kind === "scientific_principle" || node.kind === "empirical_principle") return 3;
-  return 3;
-}
-
-function depthMap(edges: Edge[], nodes: Node[]) {
-  const nodeIds = new Set(nodes.map((node) => node.id));
-  const depths = new Map<string, number>();
-  if (!nodeIds.has(rootNodeId)) return depths;
-
-  const queue: Array<{ id: string; depth: number }> = [{ id: rootNodeId, depth: 0 }];
-  while (queue.length > 0) {
-    const current = queue.shift();
-    if (!current) continue;
-    const knownDepth = depths.get(current.id);
-    if (knownDepth !== undefined && knownDepth <= current.depth) continue;
-    depths.set(current.id, current.depth);
-
-    for (const edge of edges) {
-      if (edge.source === current.id && nodeIds.has(edge.target) && layeredRelations.has(edge.relation)) {
-        queue.push({ id: edge.target, depth: current.depth + 1 });
-      }
-    }
-  }
-
-  return depths;
-}
-
-function compareNodes(a: Node, b: Node) {
-  const maturityDelta = (b.maturityScore ?? -1) - (a.maturityScore ?? -1);
-  if (a.kind === b.kind && maturityDelta !== 0) return maturityDelta;
-  return a.id.localeCompare(b.id);
 }
