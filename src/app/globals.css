@@ -977,6 +977,16 @@ li {
   background: transparent;
   border: 0;
   box-shadow: none;
+  /* Per ADR-0006 §"Focus interaction" + slice B2: when the focused
+     sector expands elastically, each radial node's `transform`
+     position changes from its previous (x, y) to its new (x, y).
+     This transition makes the change visible as a smooth
+     ~600ms ease-out animation instead of a jump. The cubic-bezier
+     is the spec-pinned curve (0.33, 1, 0.68, 1) — gentle ease-out.
+     `transform` is the property React Flow mutates to position
+     each node host, so transitioning that property is sufficient
+     to animate the elastic expansion. */
+  transition: transform 600ms cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 /* Per slice A3: ColorModeSelect dropdown + 5-stop legend strip were

@@ -112,6 +112,20 @@ requireMatch(
   /from "@\/lib\/sectorAggregate"/.test(graphExplorer),
 );
 
+// B2 invariants introduced by slice B2 (focus interaction).
+requireMatch(
+  "GraphExplorer must compute elastic sector widths via sectorAngles per slice B2.",
+  /from "@\/lib\/sectorAngles"/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must remap node theta via applySectorAngles per slice B2.",
+  /from "@\/lib\/applySectorAngles"/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must track focusedId state for sector focus per slice B2.",
+  /focusedId/.test(graphExplorer) && /setFocusedId/.test(graphExplorer),
+);
+
 if (failures.length) {
   console.error("Graph UX regression checks failed:");
   for (const failure of failures) console.error(`- ${failure}`);

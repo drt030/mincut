@@ -33,6 +33,8 @@ import {
 } from "@/lib/edgeStyleFor";
 import { sectorAggregate } from "@/lib/sectorAggregate";
 import { nodeRisk } from "@/lib/nodeRisk";
+import { sectorAngles, type SectorAngleAssignment } from "@/lib/sectorAngles";
+import { applySectorAngles } from "@/lib/applySectorAngles";
 import type { GraphData, Node } from "@/lib/schema";
 
 /**
@@ -301,6 +303,12 @@ export function GraphExplorer({ graph }: Props) {
   const [colorMode, setColorMode] = useState<ColorMode>("bottleneck-risk");
   const [colorModeExpanded, setColorModeExpanded] = useState(false);
 
+  // B2: focused first-layer subsystem id. `null` = full overview.
+  // Clicking any structural node sets this to the node's first-layer
+  // ancestor (which is just the node itself if it IS a first-layer
+  // subsystem). ESC and empty-canvas clicks clear it.
+  const [focusedId, setFocusedId] = useState<string | null>(null);
+
   // Focal subtree — A3 renders only these nodes. Orphans (sibling
   // products) are hidden per spec.
   const focalSubtree = useMemo(() => buildFocalSubtree(graph), [graph]);
@@ -319,7 +327,9 @@ export function GraphExplorer({ graph }: Props) {
     setSelectedId(nodeId);
   }, []);
 
-  // First-layer subsystems for the sector-tint background layer (B1).
+  // First-layer subsystems for the sector-tint background layer (B1)
+  // and B2 elastic angle assignment. Order-independent: B2 sorts by id
+  // internally; the tint layer also sorts before rendering.
   const firstLayerSubsystems = useMemo(() => {
     const out: string[] = [];
     for (const edge of graph.edges) {
@@ -331,6 +341,51 @@ export function GraphExplorer({ graph }: Props) {
     }
     return out;
   }, [graph]);
+
+  // B2: build a `nodeId → first-layer-ancestor-id` lookup once per
+  // graph so the click handler can map any descendant click to the
+  // sector it belongs to. The same canonical-parent rule used by
+  // `radialLayout` / `subsystemHue` / `applySectorAngles` applies:
+  // smallest sector index wins for shared nodes.
+  const firstLayerAncestorById = useMemo(() => {
+    const childrenByParent = new Map<string, string[]>();
+    for (const edge of graph.edges) {
+      if (edge.relation !== "requires") continue;
+      if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
+      childrenByParent.get(edge.source)!.push(edge.target);
+    }
+    const sortedFirstLayer = [...firstLayerSubsystems].sort();
+    const sectorIndex = new Map<string, number>();
+    sortedFirstLayer.forEach((id, i) => sectorIndex.set(id, i));
+    const ancestorById = new Map<string, string>();
+    for (const sub of sortedFirstLayer) {
+      const visited = new Set<string>();
+      const queue: string[] = [sub];
+      while (queue.length > 0) {
+        const cur = queue.shift()!;
+        if (visited.has(cur)) continue;
+        visited.add(cur);
+        const existing = ancestorById.get(cur);
+        if (existing === undefined || sectorIndex.get(sub)! < sectorIndex.get(existing)!) {
+          ancestorById.set(cur, sub);
+        }
+        for (const child of childrenByParent.get(cur) ?? []) {
+          if (visited.has(child)) continue;
+          queue.push(child);
+        }
+      }
+    }
+    for (const sub of sortedFirstLayer) ancestorById.set(sub, sub);
+    return ancestorById;
+  }, [graph, firstLayerSubsystems]);
+
+  // B2: per-render angle assignment driven by `focusedId`. No focus
+  // → 14 equal sectors (matches A3 behaviour bit-for-bit). With
+  // focus → 120° expanded + (4π/3)/(N-1) compressed siblings.
+  const sectorAssignment: SectorAngleAssignment = useMemo(
+    () => sectorAngles(firstLayerSubsystems, focusedId),
+    [firstLayerSubsystems, focusedId],
+  );
 
   /**
    * Per-node outline colour from the active colour mode. Pure function
@@ -370,11 +425,21 @@ export function GraphExplorer({ graph }: Props) {
     [colorMode, graph],
   );
 
+  // B2: effective positions = static `layout.positions` remapped via
+  // the current sector assignment. With no focus, this is identical
+  // to `layout.positions` (every node falls in its default sector and
+  // the new sector range equals the old). With focus, descendants of
+  // the focused sector spread across 120°; siblings compress.
+  const effectivePositions = useMemo(
+    () => applySectorAngles(layout.positions, graph, sectorAssignment),
+    [layout.positions, graph, sectorAssignment],
+  );
+
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of graph.nodes) {
       if (!focalSubtree.has(node.id)) continue;
-      const polar = layout.positions.get(node.id);
+      const polar = effectivePositions.get(node.id);
       if (!polar) continue;
       const { x, y } = polarToCartesian(polar);
       const hue = subsystemHue(node.id, graph);
@@ -404,7 +469,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [graph, focalSubtree, layout, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor]);
+  }, [graph, focalSubtree, effectivePositions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     const edges: FlowEdge<RadialEdgeData>[] = [];
@@ -439,31 +504,33 @@ export function GraphExplorer({ graph }: Props) {
    * Per-sector translucent background tint. Each first-layer subsystem
    * gets a wedge-shaped path drawn under the nodes. The wedge fill is
    * the sector's K4-band colour at ≤15% opacity per the ADR (we use
-   * 12% for headroom). When the layout has no first-layer sectors
-   * (e.g. fixture with no product node), the sector layer is empty.
+   * 12% for headroom). Slice B2 drives the wedge angles from
+   * `sectorAssignment` so the tint expands and contracts in lockstep
+   * with the elastic sector when a node is focused. With no focus the
+   * 14 wedges are equal-width and identical to the A3 layout.
    */
   const sectorTintWedges = useMemo(() => {
-    if (firstLayerSubsystems.length === 0) return [] as Array<{
+    if (sectorAssignment.angles.size === 0) return [] as Array<{
       id: string;
       d: string;
       fill: string;
     }>;
     const wedges: Array<{ id: string; d: string; fill: string }> = [];
-    const N = firstLayerSubsystems.length;
-    const sortedSubs = [...firstLayerSubsystems].sort((a, b) => a.localeCompare(b));
+    const sortedSubs = [...sectorAssignment.angles.keys()].sort((a, b) => a.localeCompare(b));
     // Match radialLayout's R_OUTER computation: outer ring is roughly
     // R1 + (maxDepth + 2) * R_STEP. We use a generous upper radius
     // (R1 + 10 * R_STEP) so the wedge always covers the entire sector.
     const R_INNER = 0;
     const R_OUTER = 500; // generous bound in layout units
-    for (let i = 0; i < N; i += 1) {
-      const sub = sortedSubs[i];
+    for (const sub of sortedSubs) {
       const node = graph.nodes.find((n) => n.id === sub);
       if (!node) continue;
+      const entry = sectorAssignment.angles.get(sub);
+      if (!entry) continue;
       const { band } = sectorAggregate(sub, colorMode, graph);
       const fill = colorMode === "relation" ? "transparent" : RAMP[band - 1];
-      const startTheta = (i / N) * 2 * Math.PI;
-      const endTheta = ((i + 1) / N) * 2 * Math.PI;
+      const startTheta = entry.center - entry.width / 2;
+      const endTheta = entry.center + entry.width / 2;
       // Build an SVG path describing a wedge (annular sector with
       // R_INNER = 0 → just a triangle to the centre, then an arc).
       const px = (r: number, t: number) => ({
@@ -473,7 +540,8 @@ export function GraphExplorer({ graph }: Props) {
       const p1 = px(R_INNER, startTheta);
       const p2 = px(R_OUTER, startTheta);
       const p3 = px(R_OUTER, endTheta);
-      // Large-arc flag = 0 because each sector subtends < 180° for N ≥ 3.
+      // Large-arc flag: focused sector subtends 120° (< 180°) so the
+      // flag stays 0; but the test is robust to future widening.
       const largeArc = endTheta - startTheta > Math.PI ? 1 : 0;
       const d = [
         `M ${p1.x} ${p1.y}`,
@@ -484,7 +552,7 @@ export function GraphExplorer({ graph }: Props) {
       wedges.push({ id: sub, d, fill });
     }
     return wedges;
-  }, [firstLayerSubsystems, graph, colorMode]);
+  }, [sectorAssignment, graph, colorMode]);
 
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
@@ -535,6 +603,73 @@ export function GraphExplorer({ graph }: Props) {
     }
   }, [selectedId]);
 
+  // B2: ESC clears focus, returning the radial overview to its
+  // equal-angle layout. Document-level listener so a focused node
+  // does not need to hold keyboard focus for the gesture to work.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && focusedId !== null) {
+        setFocusedId(null);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [focusedId]);
+
+  // B2: viewport "soft zoom" on focus change. When `focusedId`
+  // transitions null → id, animate to ~1.5× zoom centred near the
+  // expanded sector's first-layer ring position. When it returns to
+  // null, animate back to the fit-all overview. We rely on React
+  // Flow's `setViewport(target, { duration })` for the easing.
+  useEffect(() => {
+    const inst = flowInstanceRef.current;
+    if (!inst) return;
+    if (focusedId === null) {
+      // Return to fit-all overview.
+      try {
+        inst.fitView({ padding: 0.18, duration: 600, maxZoom: 1.5, minZoom: 0.25 });
+      } catch {
+        // Ignore: React Flow may not be ready immediately.
+      }
+      return;
+    }
+    // Centre roughly on the focused sector's ring position. The
+    // sector center comes from the active assignment; r ≈ R1 layout
+    // units → R1 × PX_SCALE pixels in canvas space.
+    const entry = sectorAssignment.angles.get(focusedId);
+    if (!entry) return;
+    // Convert polar (R1, center) to canvas pixels.
+    // We use a smaller r so the camera centres a bit inward of the
+    // first-layer ring — feels like "zooming into the sector",
+    // not "framing the dot exactly".
+    const R_TARGET = 160; // layout units, ~midway through descendants
+    const cx = R_TARGET * PX_SCALE * Math.cos(entry.center);
+    const cy = R_TARGET * PX_SCALE * Math.sin(entry.center);
+    // React Flow's viewport coords place (x, y) as the screen offset
+    // applied to the canvas origin; we want (cx, cy) at screen
+    // centre, so x = container_w/2 - cx*zoom, y = container_h/2 -
+    // cy*zoom. We approximate using the typical canvas dimensions;
+    // a future improvement could read the actual container size.
+    const zoom = 1.5;
+    // Half-viewport guess: React Flow does not expose the bounds
+    // helper synchronously for non-fit transitions, so we fall back
+    // to an approximate centring that still animates smoothly. If
+    // the guess is slightly off the user gets a slightly off-centre
+    // focus — acceptable for B2 (ADR-0006 §"Focus interaction"
+    // describes a "soft" zoom).
+    const W_HALF = 448;
+    const H_HALF = 294;
+    try {
+      inst.setViewport(
+        { x: W_HALF - cx * zoom, y: H_HALF - cy * zoom, zoom },
+        { duration: 600 },
+      );
+    } catch {
+      // Ignore: React Flow may throw before nodes are measured.
+    }
+  }, [focusedId, sectorAssignment]);
+
   const selectedNode: Node = useMemo(
     () => graph.nodes.find((n) => n.id === selectedId) ?? graph.nodes[0],
     [graph.nodes, selectedId],
@@ -579,6 +714,19 @@ export function GraphExplorer({ graph }: Props) {
                 nodesDraggable={false}
                 onNodeClick={(_, node) => {
                   setSelectedId(node.id);
+                  // B2: clicking any structural node sets focus to
+                  // its first-layer ancestor. If the node IS a
+                  // first-layer subsystem the ancestor is itself
+                  // (precomputed map). Nodes outside the focal
+                  // subtree (sibling products, etc.) have no
+                  // ancestor → leave focus untouched.
+                  const ancestor = firstLayerAncestorById.get(node.id);
+                  if (ancestor !== undefined) setFocusedId(ancestor);
+                }}
+                onPaneClick={() => {
+                  // B2: empty-canvas click clears focus, returning
+                  // the radial view to its overview state.
+                  if (focusedId !== null) setFocusedId(null);
                 }}
               >
                 <Background />
