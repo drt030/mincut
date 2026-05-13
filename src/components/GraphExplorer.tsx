@@ -305,6 +305,66 @@ function polarToCartesian(polar: PolarPosition): { x: number; y: number } {
   };
 }
 
+/**
+ * Resolve which direct `requires`-child of `outerId` is the nearest
+ * ancestor of `clickedId`, or `clickedId` itself if it IS a direct
+ * child. Returns `null` if the click does not resolve to any inner
+ * sub-subsystem of `outerId` (e.g. the click was on the outer dot
+ * itself, or on a node outside the outer's subtree).
+ *
+ * Production data uses `source = parent, target = child` for
+ * `requires`-edges; the C1 unit-test fixture uses the opposite. We
+ * walk in both directions and pick whichever returns a match —
+ * mirrors the dual-direction logic in `sectorAngles` /
+ * `applySectorAngles`.
+ */
+function innerChildContaining(
+  clickedId: string,
+  outerId: string,
+  graph: GraphData,
+): string | null {
+  if (clickedId === outerId) return null;
+  // Collect direct inner children both ways.
+  const innersFwd = new Set<string>();
+  const innersRev = new Set<string>();
+  for (const edge of graph.edges) {
+    if (edge.relation !== "requires") continue;
+    if (edge.source === outerId) innersFwd.add(edge.target);
+    if (edge.target === outerId) innersRev.add(edge.source);
+  }
+  // Try production direction first.
+  const tryFromInners = (inners: Set<string>, forward: boolean): string | null => {
+    for (const inner of inners) {
+      if (inner === clickedId) return inner;
+      const visited = new Set<string>();
+      const queue: string[] = [inner];
+      while (queue.length > 0) {
+        const cur = queue.shift()!;
+        if (visited.has(cur)) continue;
+        visited.add(cur);
+        // Don't cross into another inner branch.
+        if (cur !== inner && (inners.has(cur) || cur === outerId)) continue;
+        if (cur === clickedId) return inner;
+        for (const edge of graph.edges) {
+          if (edge.relation !== "requires") continue;
+          const next = forward
+            ? edge.source === cur
+              ? edge.target
+              : null
+            : edge.target === cur
+              ? edge.source
+              : null;
+          if (next === null) continue;
+          if (visited.has(next)) continue;
+          queue.push(next);
+        }
+      }
+    }
+    return null;
+  };
+  return tryFromInners(innersFwd, true) ?? tryFromInners(innersRev, false);
+}
+
 export function GraphExplorer({ graph }: Props) {
   const { kindName, nodeName } = useLanguage();
   const searchParams = useSearchParams();
@@ -325,11 +385,42 @@ export function GraphExplorer({ graph }: Props) {
   const [colorMode, setColorMode] = useState<ColorMode>("bottleneck-risk");
   const [colorModeExpanded, setColorModeExpanded] = useState(false);
 
-  // B2: focused first-layer subsystem id. `null` = full overview.
-  // Clicking any structural node sets this to the node's first-layer
-  // ancestor (which is just the node itself if it IS a first-layer
-  // subsystem). ESC and empty-canvas clicks clear it.
-  const [focusedId, setFocusedId] = useState<string | null>(null);
+  // B2 + C1: focus path. `[]` = overview. `[outerId]` = Level 1
+  // (focused first-layer subsystem). `[outerId, innerId]` = Level 2
+  // (sub-subsystem expansion inside the outer). Length ≥ 3 keeps
+  // geometry at L2 but viewport zooms deeper.
+  //
+  // Click rules (see `onNodeClick` below):
+  //   - From overview: click any node → push its first-layer ancestor.
+  //   - From L1: click a node in the same outer sector → push its
+  //     direct inner sub-subsystem (the requires-child of path[0]
+  //     that's also an ancestor of the clicked node).
+  //   - From L2+: click a node in the same inner subtree → push the
+  //     clicked node id (deeper viewport only).
+  //   - Click in a different outer sector at any level → reset to
+  //     [newOuter].
+  // Esc pops one level; empty-canvas click pops one level.
+  //
+  // URL sync: `?focus=outerId[,innerId[,deeperId]]` — a single
+  // comma-separated param keeps the URL human-readable and lets a
+  // bookmarked link restore the full path with one parse.
+  const [focusPath, setFocusPath] = useState<string[]>(() => {
+    // Restore the focus path from `?path=<outer>[,<inner>[,<deeper>]]`
+    // on first render so bookmarked / shared links land at the right
+    // expansion level. We trust the URL only when every id is a real
+    // node in this graph; a stale id (e.g. after a data refresh) is
+    // silently dropped to avoid skewing geometry.
+    const raw = searchParams?.get("path");
+    if (!raw) return [];
+    const ids = raw.split(",").map((s) => s.trim()).filter((s) => s.length > 0);
+    if (ids.length === 0) return [];
+    const known = new Set(graph.nodes.map((n) => n.id));
+    if (!ids.every((id) => known.has(id))) return [];
+    return ids;
+  });
+  // Back-compat alias for code that still references a single focused
+  // id (e.g. greyscale dim flag, sector-tint colour, viewport math).
+  const focusedId = focusPath.length > 0 ? focusPath[0] : null;
 
   // Focal subtree — A3 renders only these nodes. Orphans (sibling
   // products) are hidden per spec.
@@ -401,12 +492,14 @@ export function GraphExplorer({ graph }: Props) {
     return ancestorById;
   }, [graph, firstLayerSubsystems]);
 
-  // B2: per-render angle assignment driven by `focusedId`. No focus
-  // → 14 equal sectors (matches A3 behaviour bit-for-bit). With
-  // focus → 120° expanded + (4π/3)/(N-1) compressed siblings.
+  // B2 + C1: per-render angle assignment driven by `focusPath`. No
+  // focus → 14 equal sectors (matches A3 behaviour bit-for-bit). L1
+  // → 120° expanded + (4π/3)/(N-1) compressed siblings. L2 → inner
+  // 80°/40° split within the focused outer 120°. L3+ no geometry
+  // change (handled inside sectorAngles).
   const sectorAssignment: SectorAngleAssignment = useMemo(
-    () => sectorAngles(firstLayerSubsystems, focusedId),
-    [firstLayerSubsystems, focusedId],
+    () => sectorAngles(firstLayerSubsystems, focusPath, graph),
+    [firstLayerSubsystems, focusPath, graph],
   );
 
   /**
@@ -635,42 +728,55 @@ export function GraphExplorer({ graph }: Props) {
     };
   }, [flowNodes.length]);
 
-  // Persist selection in URL so a learner can bookmark / share a view.
+  // Persist selection + focus path in URL so a learner can bookmark
+  // / share a view.
+  //
+  // `?focus=<id>` — selected node id (drives the detail panel).
+  //   Omitted when selection is the canonical root.
+  // `?path=<outer>[,<inner>[,<deeper>]]` — the canvas focus path
+  //   (drives sector expansion + viewport zoom). Comma-separated so
+  //   the URL stays human-readable and one parse restores the full
+  //   stack. Omitted when path is empty (overview).
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     if (selectedId === rootNodeId) params.delete("focus");
     else params.set("focus", selectedId);
+    if (focusPath.length === 0) params.delete("path");
+    else params.set("path", focusPath.join(","));
     const query = params.toString();
     const next = `${window.location.pathname}${query ? `?${query}` : ""}`;
     if (next !== `${window.location.pathname}${window.location.search}`) {
       window.history.replaceState(null, "", next);
     }
-  }, [selectedId]);
+  }, [selectedId, focusPath]);
 
-  // B2: ESC clears focus, returning the radial overview to its
-  // equal-angle layout. Document-level listener so a focused node
-  // does not need to hold keyboard focus for the gesture to work.
+  // B2 + C1: Esc pops one level from the focus path (L2 → L1 → L0).
+  // Document-level listener so a focused node does not need to hold
+  // keyboard focus for the gesture to work.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && focusedId !== null) {
-        setFocusedId(null);
+      if (e.key === "Escape") {
+        setFocusPath((prev) =>
+          prev.length === 0 ? prev : prev.slice(0, prev.length - 1),
+        );
       }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [focusedId]);
+  }, []);
 
-  // B2: viewport "soft zoom" on focus change. When `focusedId`
-  // transitions null → id, animate to ~1.5× zoom centred near the
-  // expanded sector's first-layer ring position. When it returns to
-  // null, animate back to the fit-all overview. We rely on React
-  // Flow's `setViewport(target, { duration })` for the easing.
+  // B2 + C1: viewport "soft zoom" stepped per focus level.
+  //   L0 (overview): fitView.
+  //   L1: zoom 1.5× toward the focused sector's mid-ring.
+  //   L2: zoom 2.25× (1.5²) toward the focused inner sub-subsystem.
+  //   L3+: zoom 3.0× toward the deepest path element.
+  // setViewport easing duration = 600ms each, matching ADR-0006.
   useEffect(() => {
     const inst = flowInstanceRef.current;
     if (!inst) return;
-    if (focusedId === null) {
+    if (focusPath.length === 0) {
       // Return to fit-all overview.
       try {
         inst.fitView({ padding: 0.18, duration: 600, maxZoom: 1.5, minZoom: 0.25 });
@@ -679,30 +785,40 @@ export function GraphExplorer({ graph }: Props) {
       }
       return;
     }
-    // Centre roughly on the focused sector's ring position. The
-    // sector center comes from the active assignment; r ≈ R1 layout
-    // units → R1 × PX_SCALE pixels in canvas space.
-    const entry = sectorAssignment.angles.get(focusedId);
-    if (!entry) return;
-    // Convert polar (R1, center) to canvas pixels.
-    // We use a smaller r so the camera centres a bit inward of the
-    // first-layer ring — feels like "zooming into the sector",
-    // not "framing the dot exactly".
-    const R_TARGET = 160; // layout units, ~midway through descendants
-    const cx = R_TARGET * PX_SCALE * Math.cos(entry.center);
-    const cy = R_TARGET * PX_SCALE * Math.sin(entry.center);
-    // React Flow's viewport coords place (x, y) as the screen offset
-    // applied to the canvas origin; we want (cx, cy) at screen
-    // centre, so x = container_w/2 - cx*zoom, y = container_h/2 -
-    // cy*zoom. We approximate using the typical canvas dimensions;
-    // a future improvement could read the actual container size.
-    const zoom = 1.5;
-    // Half-viewport guess: React Flow does not expose the bounds
-    // helper synchronously for non-fit transitions, so we fall back
-    // to an approximate centring that still animates smoothly. If
-    // the guess is slightly off the user gets a slightly off-centre
-    // focus — acceptable for B2 (ADR-0006 §"Focus interaction"
-    // describes a "soft" zoom).
+    // Pick the (theta, r) target by level.
+    const outerId = focusPath[0];
+    const outerEntry = sectorAssignment.angles.get(outerId);
+    if (!outerEntry) return;
+    let targetTheta = outerEntry.center;
+    let targetR = 160; // L1 default: midway through descendants
+    let zoom = 1.5;
+    if (focusPath.length >= 2) {
+      const innerId = focusPath[1];
+      const innerMap = sectorAssignment.subSectorAngles?.get(outerId);
+      const innerEntry = innerMap?.get(innerId);
+      if (innerEntry) {
+        targetTheta = innerEntry.center;
+        targetR = 200; // a touch further out so the inner subtree fills the view
+      }
+      zoom = 2.25;
+    }
+    if (focusPath.length >= 3) {
+      zoom = 3.0;
+      // For deeper levels we still centre on the inner sub-sector
+      // direction; reading the actual clicked node's polar position
+      // would require effectivePositions, which is already memoised
+      // by the time this effect runs — but adding it as a dep would
+      // re-fire on every layout tick. Centring on the inner sector
+      // angle at a deeper radius reads as "zooming into the same
+      // direction", which matches the ADR's "geometry no longer
+      // changes; only viewport zoom" wording.
+      targetR = 240;
+    }
+    const cx = targetR * PX_SCALE * Math.cos(targetTheta);
+    const cy = targetR * PX_SCALE * Math.sin(targetTheta);
+    // Half-viewport guess; React Flow doesn't expose the container
+    // bounds synchronously for non-fit transitions. Slightly-off
+    // centring is acceptable per ADR-0006 ("soft" zoom).
     const W_HALF = 448;
     const H_HALF = 294;
     try {
@@ -713,7 +829,7 @@ export function GraphExplorer({ graph }: Props) {
     } catch {
       // Ignore: React Flow may throw before nodes are measured.
     }
-  }, [focusedId, sectorAssignment]);
+  }, [focusPath, sectorAssignment]);
 
   const selectedNode: Node = useMemo(
     () => graph.nodes.find((n) => n.id === selectedId) ?? graph.nodes[0],
@@ -759,19 +875,53 @@ export function GraphExplorer({ graph }: Props) {
                 nodesDraggable={false}
                 onNodeClick={(_, node) => {
                   setSelectedId(node.id);
-                  // B2: clicking any structural node sets focus to
-                  // its first-layer ancestor. If the node IS a
-                  // first-layer subsystem the ancestor is itself
-                  // (precomputed map). Nodes outside the focal
-                  // subtree (sibling products, etc.) have no
-                  // ancestor → leave focus untouched.
+                  // B2 + C1: progressive-disclosure click rules.
                   const ancestor = firstLayerAncestorById.get(node.id);
-                  if (ancestor !== undefined) setFocusedId(ancestor);
+                  if (ancestor === undefined) return; // out-of-subtree click
+                  setFocusPath((prev) => {
+                    // L0 → L1: any click sets path to [outerAncestor].
+                    if (prev.length === 0) return [ancestor];
+                    // Cross-sector click at any level: reset to the
+                    // new outer's L1. (No camera jump rule per ADR;
+                    // the viewport effect below animates softly.)
+                    if (ancestor !== prev[0]) return [ancestor];
+                    // Same outer sector. If clicking the outer dot
+                    // itself, stay at L1 (avoid pushing the outer as
+                    // its own inner).
+                    if (node.id === ancestor) return prev;
+                    // L1 → L2: push the direct sub-subsystem of the
+                    // outer that's the clicked node OR an ancestor
+                    // of it. We use the inner-child enumeration from
+                    // sectorAssignment.subSectorAngles when present
+                    // (so the inner child set matches the geometry).
+                    if (prev.length === 1) {
+                      const innerChild = innerChildContaining(
+                        node.id,
+                        ancestor,
+                        graph,
+                      );
+                      if (innerChild === null) return prev;
+                      return [ancestor, innerChild];
+                    }
+                    // L2 → L3+: push the clicked node id for deeper
+                    // viewport zoom. Geometry stays at L2 per the
+                    // sectorAngles contract.
+                    if (prev.length === 2) {
+                      if (node.id === prev[1]) return prev;
+                      return [ancestor, prev[1], node.id];
+                    }
+                    // L3+: replace the deepest element with the new
+                    // click so the viewport target updates.
+                    if (node.id === prev[prev.length - 1]) return prev;
+                    return [...prev.slice(0, prev.length - 1), node.id];
+                  });
                 }}
                 onPaneClick={() => {
-                  // B2: empty-canvas click clears focus, returning
-                  // the radial view to its overview state.
-                  if (focusedId !== null) setFocusedId(null);
+                  // B2 + C1: empty-canvas click pops one level
+                  // (Esc-equivalent). [] stays at overview.
+                  setFocusPath((prev) =>
+                    prev.length === 0 ? prev : prev.slice(0, prev.length - 1),
+                  );
                 }}
               >
                 <Background />

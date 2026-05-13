@@ -122,8 +122,19 @@ requireMatch(
   /from "@\/lib\/applySectorAngles"/.test(graphExplorer),
 );
 requireMatch(
-  "GraphExplorer must track focusedId state for sector focus per slice B2.",
-  /focusedId/.test(graphExplorer) && /setFocusedId/.test(graphExplorer),
+  "GraphExplorer must track focus state for sector focus per slice B2 / C1 — focusedId (B2) or focusPath (C1 generalisation).",
+  (/focusedId/.test(graphExplorer) && /setFocusedId/.test(graphExplorer)) ||
+    (/focusPath/.test(graphExplorer) && /setFocusPath/.test(graphExplorer)),
+);
+
+// C1 invariants introduced by slice C1 (recursive Level-2 elastic).
+requireMatch(
+  "GraphExplorer must drive sector geometry with the C1 focusPath state so Level-2 expansion can trigger.",
+  /focusPath/.test(graphExplorer) && /setFocusPath/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must pass the focusPath array (not just an id) and the graph to sectorAngles so subSectorAngles can populate.",
+  /sectorAngles\(\s*[^,]+,\s*focusPath\s*,\s*graph\s*\)/.test(graphExplorer),
 );
 
 // B3 invariants introduced by slice B3 (greyscale focus).
