@@ -49,6 +49,13 @@ export type RadialEdgeProps = {
    */
   stroke?: string;
   strokeWidth?: number;
+  /**
+   * B3 (greyscale focus): when true, the edge wraps in a `<g>` with
+   * the `.radial-dim` class so CSS animates `filter: saturate(0)`
+   * over 400ms. Defaults to false so the unit tests (which don't
+   * thread focus state) render at full saturation.
+   */
+  dim?: boolean;
 };
 
 const DEFAULT_STROKE = "#cbd5e1";
@@ -65,6 +72,7 @@ export function RadialEdge({
   targetY = 0,
   stroke = DEFAULT_STROKE,
   strokeWidth = DEFAULT_WIDTH,
+  dim = false,
 }: RadialEdgeProps) {
   const band = radialBandFor(zoom);
   const markerId = `arrow-${id}`;
@@ -76,7 +84,7 @@ export function RadialEdge({
   const showLabel = band === 3 && isFocusEndpoint;
 
   return (
-    <g>
+    <g className={dim ? "radial-dim" : undefined}>
       {showArrowhead ? (
         <defs>
           <marker

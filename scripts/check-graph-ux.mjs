@@ -126,6 +126,16 @@ requireMatch(
   /focusedId/.test(graphExplorer) && /setFocusedId/.test(graphExplorer),
 );
 
+// B3 invariants introduced by slice B3 (greyscale focus).
+requireMatch(
+  "GraphExplorer must derive node + edge dim flags via focusedSubset per slice B3.",
+  /from "@\/lib\/focusedSubset"/.test(graphExplorer),
+);
+requireMatch(
+  "globals.css must declare the .radial-dim greyscale rule per slice B3.",
+  /\.radial-dim\s*\{[\s\S]{0,200}filter:\s*saturate\(0\)/.test(globals),
+);
+
 if (failures.length) {
   console.error("Graph UX regression checks failed:");
   for (const failure of failures) console.error(`- ${failure}`);

@@ -35,6 +35,7 @@ import { sectorAggregate } from "@/lib/sectorAggregate";
 import { nodeRisk } from "@/lib/nodeRisk";
 import { sectorAngles, type SectorAngleAssignment } from "@/lib/sectorAngles";
 import { applySectorAngles } from "@/lib/applySectorAngles";
+import { focusedSubset } from "@/lib/focusedSubset";
 import type { GraphData, Node } from "@/lib/schema";
 
 /**
@@ -90,6 +91,14 @@ type RadialNodeData = {
   maturityLabel: string;
   selected: boolean;
   isFocal: boolean;
+  /**
+   * B3: true when this node falls outside the focused `requires`
+   * subtree (or when there is no focus and the node is otherwise
+   * out-of-scope — never the case in current data). The radial-dim
+   * class applies a `filter: saturate(0)` over a 400ms transition so
+   * the cross-fade between focus changes feels smooth.
+   */
+  dim: boolean;
   onSelect: (nodeId: string) => void;
 };
 
@@ -101,7 +110,12 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
     : BAND3_BOX;
   return (
     <div
-      className={["radial-dot", data.selected ? "selected" : "", data.isFocal ? "focal" : ""]
+      className={[
+        "radial-dot",
+        data.selected ? "selected" : "",
+        data.isFocal ? "focal" : "",
+        data.dim ? "radial-dim" : "",
+      ]
         .filter(Boolean)
         .join(" ")}
       style={{ width: box.width, height: box.height }}
@@ -141,6 +155,13 @@ type RadialEdgeData = {
   /** Per-edge stroke + width from `edgeStyleFor` driven by colour mode. */
   stroke: string;
   strokeWidth: number;
+  /**
+   * B3: true when at least one endpoint is outside the focused
+   * `requires` subtree. The `.radial-dim` class wraps the SVG `<g>`
+   * so `filter: saturate(0)` desaturates the stroke + arrowhead
+   * uniformly with the node fade.
+   */
+  dim: boolean;
 };
 
 const RadialEdgeFlow = memo(function RadialEdgeFlow(
@@ -162,6 +183,7 @@ const RadialEdgeFlow = memo(function RadialEdgeFlow(
       targetY={targetY}
       stroke={data?.stroke}
       strokeWidth={data?.strokeWidth}
+      dim={data?.dim ?? false}
     />
   );
 });
@@ -435,6 +457,17 @@ export function GraphExplorer({ graph }: Props) {
     [layout.positions, graph, sectorAssignment],
   );
 
+  // B3: focused-subtree membership (focusedId + its `requires`
+  // descendants). With `focusedId === null` every node + every edge
+  // is in the set — the overview reads "everything bright". The
+  // memoised result becomes the source-of-truth for the per-node
+  // and per-edge `dim` flag below; flipping the flag triggers the
+  // 400ms saturate(0) CSS transition on `.radial-dim`.
+  const subset = useMemo(
+    () => focusedSubset(focusedId, graph),
+    [focusedId, graph],
+  );
+
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of graph.nodes) {
@@ -445,6 +478,11 @@ export function GraphExplorer({ graph }: Props) {
       const hue = subsystemHue(node.id, graph);
       const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const isFocal = node.id === focalId;
+      // B3: dim every node outside the focused subtree. With no focus
+      // (`focusedId === null`), `subset.nodes` contains every node id
+      // so `dim` is always false — the overview stays fully
+      // saturated.
+      const dim = focusedId !== null && !subset.nodes.has(node.id);
       nodes.push({
         id: node.id,
         type: "radialDot",
@@ -462,6 +500,7 @@ export function GraphExplorer({ graph }: Props) {
           maturityLabel: node.maturityLabel ?? "",
           selected: selectedId === node.id,
           isFocal,
+          dim,
           onSelect,
         },
         draggable: false,
@@ -469,7 +508,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [graph, focalSubtree, effectivePositions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor]);
+  }, [graph, focalSubtree, effectivePositions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, focusedId, subset]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     const edges: FlowEdge<RadialEdgeData>[] = [];
@@ -484,6 +523,11 @@ export function GraphExplorer({ graph }: Props) {
       // will replace `selectedId` with a richer focus state.
       const isFocusEndpoint = edge.source === selectedId || edge.target === selectedId;
       const { stroke, width } = edgeStyleFor(edge, colorMode, graph);
+      // B3: dim an edge when at least one endpoint falls outside the
+      // focused subtree. `subset.edges` is the canonical
+      // both-endpoints-in set, so membership check is direct. With no
+      // focus, every edge is in `subset.edges` and `dim` stays false.
+      const dim = focusedId !== null && !subset.edges.has(edge.id);
       edges.push({
         id: edge.id,
         source: edge.source,
@@ -494,11 +538,12 @@ export function GraphExplorer({ graph }: Props) {
           isFocusEndpoint,
           stroke,
           strokeWidth: width,
+          dim,
         },
       });
     }
     return edges;
-  }, [graph, focalSubtree, layout, selectedId, colorMode]);
+  }, [graph, focalSubtree, layout, selectedId, colorMode, focusedId, subset]);
 
   /**
    * Per-sector translucent background tint. Each first-layer subsystem
