@@ -1,68 +1,96 @@
 "use client";
 
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Background,
   Controls,
   PanOnScrollMode,
   ReactFlow,
+  ReactFlowProvider,
+  useStore,
   type Edge as FlowEdge,
+  type EdgeProps,
   type Node as FlowNode,
   type NodeProps,
   type ReactFlowInstance,
+  type ReactFlowState,
 } from "@xyflow/react";
 import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
+import { RadialNode } from "./RadialNode";
+import { RadialEdge } from "./RadialEdge";
+import { radialBandFor } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
 import type { GraphData, Node } from "@/lib/schema";
 
 /**
  * Per ADR-0006 and the 2026-05-13 radial-progressive-disclosure spec
- * (slice A3), the `/graph` surface is a static radial overview of the
- * focal product's structural subtree. The chrome (mode tabs, KPI row,
- * pill banners, advanced filters, color-mode dropdown, page
- * heading, two-stage state machine) was deleted in this slice — the
- * canvas is the surface. Phase B will re-add focus interaction,
- * Phase B1 will add a floating color-mode button.
+ * (slices A3 + A4), the `/graph` surface is a static radial overview of
+ * the focal product's structural subtree. The chrome (mode tabs, KPI
+ * row, pill banners, advanced filters, color-mode dropdown, page
+ * heading, two-stage state machine) was deleted in slice A3 — the
+ * canvas is the surface. Phase B will re-add focus interaction; Phase
+ * B1 will add a floating color-mode button.
  *
- * Layout: `radialLayout` returns polar `(r, theta)` for every
+ * Layout (A2): `radialLayout` returns polar `(r, theta)` for every
  * structural node; we convert to Cartesian and feed React Flow node
  * positions.
  *
- * Color: `subsystemHue` returns the HSL family for a node id. The
- * focal product, materials, shared modules (>=2 requires parents in
- * the focal subtree), and orphans get neutral grey (saturation 0).
+ * Color (A3): `subsystemHue` returns the HSL family for a node id. The
+ * focal product, materials, shared modules (>=2 requires parents in the
+ * focal subtree), and orphans get neutral grey (saturation 0).
  *
- * Rendering: each node is a 5px SVG circle inside a tiny foreignObject
- * (React Flow node API uses an HTML wrapper). A4 will expand this with
- * 12px / 80x40 band-2/3 variants via a LOD subscriber. A3 ships band 1
- * only.
+ * LOD (A4): each node and edge renders one of three band variants
+ * branched by `radialBandFor(zoom)`:
+ *   Band 1 (z < 0.5)   — 5px dot, plain thin edge.
+ *   Band 2 (.5–1.5)    — 12px circle with truncated label + outline;
+ *                        edge gains an arrowhead.
+ *   Band 3 (z ≥ 1.5)   — 80×40 HTML card; edge gains a relation label
+ *                        when one endpoint is the focused node.
+ *
+ * To avoid each child component subscribing to the React Flow store
+ * (and to keep `RadialNode` / `RadialEdge` testable in isolation
+ * without a `<ReactFlow>` provider in scope), a single subscriber
+ * inside `CanvasInner` reads the transform and broadcasts the
+ * quantized zoom via React context. The quantization is
+ * `Math.floor(zoom * 2)` per ADR-0006 §LOD — that integer value only
+ * changes at band boundaries, so the context value is stable between
+ * crossings and React Flow's re-renders don't thrash node/edge subtrees.
  */
 
-const DOT_SIZE = 14; // wrapper box; the actual visible circle is 10px diameter
-const FOCAL_DOT_SIZE = 18; // slight emphasis for the focal product
+const DOT_SIZE = 14; // wrapper box for band-1 hit-area (matches RadialNode band-1 SVG)
+const BAND2_BOX = { width: 72, height: 42 } as const;
+const BAND3_BOX = { width: 80, height: 40 } as const;
+
+const ZoomContext = createContext<number>(1);
+
+const transformSelector = (s: ReactFlowState) => s.transform[2];
 
 type RadialNodeData = {
   id: string;
   name: string;
   kindLabel: string;
   fill: string;
+  maturityLabel: string;
   selected: boolean;
   isFocal: boolean;
   onSelect: (nodeId: string) => void;
 };
 
 const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<RadialNodeData>>) {
-  const size = data.isFocal ? FOCAL_DOT_SIZE : DOT_SIZE;
-  const radius = data.isFocal ? 7 : 5;
+  const zoom = useContext(ZoomContext);
+  const band = radialBandFor(zoom);
+  const box = band === 1 ? { width: DOT_SIZE, height: DOT_SIZE }
+    : band === 2 ? BAND2_BOX
+    : BAND3_BOX;
   return (
     <div
       className={["radial-dot", data.selected ? "selected" : "", data.isFocal ? "focal" : ""]
         .filter(Boolean)
         .join(" ")}
-      style={{ width: size, height: size }}
+      style={{ width: box.width, height: box.height }}
       role="button"
       tabIndex={0}
       aria-label={`${data.name} · ${data.kindLabel}`}
@@ -80,16 +108,69 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         }
       }}
     >
-      <svg width={size} height={size} aria-hidden="true">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill={data.fill} stroke="#0f172a" strokeWidth={data.selected ? 1.5 : 0.5} />
-      </svg>
+      <RadialNode
+        id={data.id}
+        name={data.name}
+        fill={data.fill}
+        maturityLabel={data.maturityLabel}
+        zoom={zoom}
+      />
     </div>
+  );
+});
+
+type RadialEdgeData = {
+  label: string;
+  isFocusEndpoint: boolean;
+};
+
+const RadialEdgeFlow = memo(function RadialEdgeFlow(
+  props: EdgeProps<FlowEdge<RadialEdgeData>>,
+) {
+  const zoom = useContext(ZoomContext);
+  const { id, source, target, sourceX, sourceY, targetX, targetY, data } = props;
+  return (
+    <RadialEdge
+      id={id}
+      source={source}
+      target={target}
+      label={data?.label ?? ""}
+      isFocusEndpoint={data?.isFocusEndpoint ?? false}
+      zoom={zoom}
+      sourceX={sourceX}
+      sourceY={sourceY}
+      targetX={targetX}
+      targetY={targetY}
+    />
   );
 });
 
 const nodeTypes = {
   radialDot: RadialDotNode,
 };
+
+const edgeTypes = {
+  radialEdge: RadialEdgeFlow,
+};
+
+/**
+ * `ZoomBridge` subscribes once to React Flow's transform via `useStore`,
+ * quantizes to `Math.floor(zoom * 2)` per ADR-0006 §LOD so the context
+ * value only mutates at band boundaries, and publishes via context. Must
+ * live inside `<ReactFlowProvider>` (or `<ReactFlow>`) for `useStore` to
+ * resolve.
+ */
+function ZoomBridge({ children }: { children: React.ReactNode }) {
+  const rawZoom = useStore(transformSelector);
+  // Quantize so the context value is stable between band crossings —
+  // React's `===` equality on the context value means subscribers don't
+  // re-render on every pan/zoom delta, only on band transitions.
+  const quantized = Math.floor(rawZoom * 2);
+  // Re-derive a representative zoom *inside* each band so radialBandFor
+  // returns the right band. We use quantized/2 (the band's lower edge).
+  const representative = quantized / 2;
+  return <ZoomContext.Provider value={representative}>{children}</ZoomContext.Provider>;
+}
 
 const rootNodeId = "low_cost_parcel_sorting_robot_300k_rmb";
 
@@ -176,23 +257,24 @@ export function GraphExplorer({ graph }: Props) {
       const hue = subsystemHue(node.id, graph);
       const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const isFocal = node.id === focalId;
-      const size = isFocal ? FOCAL_DOT_SIZE : DOT_SIZE;
       nodes.push({
         id: node.id,
         type: "radialDot",
-        // Center the dot on (x, y): React Flow positions the top-left
-        // of the wrapper, so subtract half the wrapper size.
-        position: { x: x - size / 2, y: y - size / 2 },
+        // Center the dot on (x, y) using the band-1 footprint. Band 2/3
+        // grow inside the wrapper so the layout position stays stable
+        // across zoom (positions are computed once and never moved per
+        // ADR-0006).
+        position: { x: x - DOT_SIZE / 2, y: y - DOT_SIZE / 2 },
         data: {
           id: node.id,
           name: nodeName(node.id, node.name),
           kindLabel: kindName(node.kind),
           fill,
+          maturityLabel: node.maturityLabel ?? "",
           selected: selectedId === node.id,
           isFocal,
           onSelect,
         },
-        style: { width: size, height: size },
         draggable: false,
         selectable: true,
       });
@@ -200,8 +282,8 @@ export function GraphExplorer({ graph }: Props) {
     return nodes;
   }, [graph, focalSubtree, layout, focalId, kindName, nodeName, selectedId, onSelect]);
 
-  const flowEdges: FlowEdge[] = useMemo(() => {
-    const edges: FlowEdge[] = [];
+  const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
+    const edges: FlowEdge<RadialEdgeData>[] = [];
     for (const edge of graph.edges) {
       if (edge.relation !== "requires") continue;
       if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) continue;
@@ -209,20 +291,24 @@ export function GraphExplorer({ graph }: Props) {
       // — radialLayout assigns every reachable structural node a
       // position, but descriptive subtree members are skipped).
       if (!layout.positions.has(edge.source) || !layout.positions.has(edge.target)) continue;
+      // A4 wires `isFocusEndpoint` to the current selection; Phase B
+      // will replace `selectedId` with a richer focus state.
+      const isFocusEndpoint = edge.source === selectedId || edge.target === selectedId;
       edges.push({
         id: edge.id,
         source: edge.source,
         target: edge.target,
-        type: "straight",
-        // Thin grey 1px lines per spec; B1 will reintroduce color
-        // mode rendering.
-        style: { stroke: "#cbd5e1", strokeWidth: 1 },
+        type: "radialEdge",
+        data: {
+          label: edge.relation,
+          isFocusEndpoint,
+        },
       });
     }
     return edges;
-  }, [graph, focalSubtree, layout]);
+  }, [graph, focalSubtree, layout, selectedId]);
 
-  const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge> | null>(null);
+  const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
 
   // Fit the radial overview to the viewport once nodes are measured.
@@ -265,28 +351,33 @@ export function GraphExplorer({ graph }: Props) {
     <div>
       <div className="graph-layout graph-layout-radial">
         <div className="graph-canvas graph-canvas-radial">
-          <ReactFlow
-            nodes={flowNodes}
-            edges={flowEdges}
-            nodeTypes={nodeTypes}
-            onInit={(instance) => {
-              flowInstanceRef.current = instance;
-            }}
-            fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
-            minZoom={0.2}
-            maxZoom={2.5}
-            panOnScroll
-            panOnScrollMode={PanOnScrollMode.Free}
-            zoomOnPinch
-            zoomOnDoubleClick={false}
-            nodesDraggable={false}
-            onNodeClick={(_, node) => {
-              setSelectedId(node.id);
-            }}
-          >
-            <Background />
-            <Controls />
-          </ReactFlow>
+          <ReactFlowProvider>
+            <ZoomBridge>
+              <ReactFlow
+                nodes={flowNodes}
+                edges={flowEdges}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                onInit={(instance) => {
+                  flowInstanceRef.current = instance;
+                }}
+                fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
+                minZoom={0.2}
+                maxZoom={2.5}
+                panOnScroll
+                panOnScrollMode={PanOnScrollMode.Free}
+                zoomOnPinch
+                zoomOnDoubleClick={false}
+                nodesDraggable={false}
+                onNodeClick={(_, node) => {
+                  setSelectedId(node.id);
+                }}
+              >
+                <Background />
+                <Controls />
+              </ReactFlow>
+            </ZoomBridge>
+          </ReactFlowProvider>
         </div>
         <NodeDetailPanel
           graph={graph}
