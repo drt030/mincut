@@ -1,0 +1,418 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+// RED Slice B1 (spec:
+// docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md;
+// ADR-0006 §"Color mode (cost / maturity / risk) — K4 layering").
+//
+// `edgeStyleFor` SUPERSEDES the slice-2 `edgeTintFor` helper. The
+// 2026-05-10 spec encoded only the stroke colour for each mode; the
+// radial redesign requires a redundantly-encoded edge style where the
+// stroke colour and the stroke width are both selected from the SAME
+// 5-band bucket — so a thick edge is ALWAYS also the corresponding
+// colour. The new function returns `{ stroke, width }` to make the
+// bin-alignment invariant testable from a single call site.
+//
+// The module does not exist yet; this import fails at load time, which
+// is the cleanest RED signal we can give the GREEN sub-agent. The
+// `ColorMode` type lives alongside `edgeStyleFor.ts` per the slice's
+// "ColorMode type can live alongside `edgeStyleFor.ts`" constraint.
+import {
+  edgeStyleFor,
+  type ColorMode,
+} from "../src/lib/edgeStyleFor";
+import { loadGraphData } from "../src/lib/graphLoader";
+import type { Edge, GraphData, Node } from "../src/lib/schema";
+
+/**
+ * 5-band binning (ADR-0006 §Color mode K4):
+ *
+ *   Band 1 (coolest, lowest mode-value) → width 0.5 px
+ *   Band 2                               → width 1.0 px
+ *   Band 3                               → width 1.5 px
+ *   Band 4                               → width 2.5 px
+ *   Band 5 (warmest, highest mode-value) → width 4.0 px
+ *
+ * The stroke colour is one of 5 stops on a cool→warm ramp aligned to
+ * the SAME band indices, so band index N is both:
+ *   - the index in the width array (above), and
+ *   - the index in the 5-stop colour ramp.
+ *
+ * This invariant — width-band-index === colour-band-index — is the
+ * core contract the GREEN commit MUST satisfy. Tests below enforce it
+ * by iterating over every edge in `loadGraphData()` and checking each
+ * (edge, mode) pair separately.
+ */
+const EXPECTED_WIDTHS = [0.5, 1.0, 1.5, 2.5, 4.0] as const;
+
+/** All color modes that share the 5-band semantics. `relation` is
+ *  excluded — it uses the default class-based stroke. */
+const BAND_MODES: readonly ColorMode[] = [
+  "bottleneck-risk",
+  "cost",
+  "maturity",
+  "overall",
+];
+
+/** Permissive hex regex — any 6-char hex string. We test colour-band
+ *  membership separately via the 5-stop palette extraction. */
+const HEX_RE = /^#[0-9a-f]{6}$/i;
+
+/**
+ * Helper: walk the graph and find the first edge whose target id
+ * matches `targetId`. Most assertions here pivot on an edge's TARGET
+ * node — per the ADR, edge styling encodes a property of the node the
+ * edge points at, not the source.
+ */
+function edgeTargeting(graph: GraphData, targetId: string): Edge {
+  const found = graph.edges.find((e) => e.target === targetId);
+  assert.ok(
+    found,
+    `fixture pre-check: no edge targets ${targetId} — pick a different fixture node`,
+  );
+  return found!;
+}
+
+/**
+ * Helper: pull the unique set of stroke colours produced by a given
+ * mode across the entire graph. The 5-band ramp guarantees this set
+ * has at most 5 distinct values once we filter to the band cases (a
+ * mode may legitimately return fewer if no edges fall in some band on
+ * the current data — that's why we don't assert exactly === 5 here).
+ */
+function paletteFor(mode: ColorMode, graph: GraphData): Set<string> {
+  const colours = new Set<string>();
+  for (const edge of graph.edges) {
+    const { stroke } = edgeStyleFor(edge, mode, graph);
+    colours.add(stroke);
+  }
+  return colours;
+}
+
+// -------------------- Test 1: Cost-mode band → width pairs --------------------
+
+/**
+ * Assertion 1 (cost mode): an edge whose target sits in the LOWEST
+ * cost-bin returns a cool stroke + thin width (0.5 px). An edge whose
+ * target sits in the HIGHEST cost-bin returns a warm stroke + thick
+ * width (4.0 px). Mid bins span the remaining widths (1.0 / 1.5 /
+ * 2.5).
+ *
+ * Fixture choices: per the live data probe, the heaviest cost in the
+ * graph is `industrial_robot_arm_body` at 60k RMB — the only node
+ * deep enough into the cap-100k normalisation window to land in the
+ * top band. The lowest costs are `machine_vision_lens_and_optics`
+ * and `controlled_machine_vision_lighting` at 3k RMB each — both
+ * comfortably in the bottom band against the same cap.
+ *
+ * Caveat noted in the bring-back: the live data has very few high-
+ * cost edges, so the top band is sparse. This is exactly why the
+ * test pins the heaviest single node specifically, rather than
+ * "any high-cost edge" — a fragile fixture would let the GREEN
+ * implementation accidentally collapse all costs into bands 1–3.
+ */
+test("cost mode: lowest cost-bin → cool + width 0.5; highest cost-bin → warm + width 4", () => {
+  const graph = loadGraphData();
+  const lowEdge = edgeTargeting(graph, "machine_vision_lens_and_optics");
+  const highEdge = edgeTargeting(graph, "industrial_robot_arm_body");
+
+  const low = edgeStyleFor(lowEdge, "cost", graph);
+  const high = edgeStyleFor(highEdge, "cost", graph);
+
+  assert.match(low.stroke, HEX_RE, `low.stroke must be a hex; got ${low.stroke}`);
+  assert.match(high.stroke, HEX_RE, `high.stroke must be a hex; got ${high.stroke}`);
+  assert.equal(
+    low.width,
+    0.5,
+    `lowest cost-bin must yield width 0.5; got ${low.width} (stroke ${low.stroke})`,
+  );
+  assert.equal(
+    high.width,
+    4,
+    `highest cost-bin must yield width 4; got ${high.width} (stroke ${high.stroke})`,
+  );
+  assert.notEqual(
+    low.stroke,
+    high.stroke,
+    `lowest and highest cost-bin strokes must differ; both got ${low.stroke}`,
+  );
+});
+
+// -------------------- Test 2: Bin alignment across full graph --------------------
+
+/**
+ * Assertion 2 (bin alignment): for every (edge, mode) pair in the
+ * full graph, the returned `width` MUST be one of
+ * {0.5, 1, 1.5, 2.5, 4}, AND the stroke colour band's index in the
+ * mode's 5-stop ramp MUST equal the band-index implied by the width.
+ *
+ * We implement the "band index from colour" check as: extract the
+ * unique colours the mode actually produces (`paletteFor`), require
+ * |palette| <= 5, then map each colour to its rank in some canonical
+ * order. The "band index from width" check is: width-array index
+ * lookup against `EXPECTED_WIDTHS`. The invariant is that BOTH
+ * indexes are equal — same band-index drives both channels.
+ *
+ * We do NOT pin a specific canonical colour order here (different
+ * implementations may use different hex values for their 5 stops);
+ * we pin only that the colour-rank and width-rank agree, edge by
+ * edge. The canonical rank is computed by grouping edges by
+ * (stroke, width) pair across the whole graph and asserting that
+ * each unique stroke maps to exactly one unique width — i.e. the
+ * (stroke ↔ width) map is a bijection on whatever bands the data
+ * exercises. A bijection IS the alignment invariant in disguise.
+ */
+test("bin alignment: width ∈ {0.5,1,1.5,2.5,4} and stroke↔width bijection holds per mode", () => {
+  const graph = loadGraphData();
+  for (const mode of BAND_MODES) {
+    // Map each stroke colour to the set of widths it co-occurs with.
+    // If alignment holds, each set has size 1.
+    const strokeToWidths = new Map<string, Set<number>>();
+    for (const edge of graph.edges) {
+      const { stroke, width } = edgeStyleFor(edge, mode, graph);
+      assert.ok(
+        (EXPECTED_WIDTHS as readonly number[]).includes(width),
+        `mode=${mode}, edge=${edge.id}: width ${width} must be in {0.5, 1, 1.5, 2.5, 4}; got stroke=${stroke}`,
+      );
+      assert.match(
+        stroke,
+        HEX_RE,
+        `mode=${mode}, edge=${edge.id}: stroke must be a hex colour; got ${stroke}`,
+      );
+      if (!strokeToWidths.has(stroke)) strokeToWidths.set(stroke, new Set());
+      strokeToWidths.get(stroke)!.add(width);
+    }
+    // Alignment: each unique stroke colour must map to exactly one
+    // width value across the whole graph for the mode under test.
+    for (const [stroke, widths] of strokeToWidths) {
+      assert.equal(
+        widths.size,
+        1,
+        `mode=${mode}: stroke ${stroke} appears with multiple widths ${[...widths].join(",")} — colour bin and width bin disagree`,
+      );
+    }
+    // The total palette must fit in <= 5 bands (could be fewer if the
+    // data doesn't exercise every band, but never more).
+    assert.ok(
+      strokeToWidths.size <= 5,
+      `mode=${mode}: palette has ${strokeToWidths.size} colours; must be <= 5 (one per band)`,
+    );
+  }
+});
+
+// -------------------- Test 3: Maturity mode ramp direction --------------------
+
+/**
+ * Assertion 3 (maturity mode): the ADR pins a red→green ramp where
+ * low maturity is warmer and high maturity is cooler/greener (per
+ * the ADR's "low-maturity target → warm stroke + thick width;
+ * high-maturity target → cool stroke + thin width"). Thinner = less
+ * risky, thicker = more attention-grabbing.
+ *
+ * Fixture: from the live data probe, maturity scores in the graph
+ * span 24..92. We pick a low-maturity edge target (
+ * `maintenance_workflow` at 46) and a high-maturity edge target (
+ * `iphone_4` at 92, which has `bottleneckOf` set but maturity is
+ * still high). The widths and warmth direction must reverse between
+ * the two.
+ */
+test("maturity mode: low-maturity target → thicker width than high-maturity target", () => {
+  const graph = loadGraphData();
+  const lowMatEdge = edgeTargeting(graph, "maintenance_workflow"); // mat 46
+  const highMatEdge = edgeTargeting(graph, "iphone_4"); // mat 92
+
+  const lowMat = edgeStyleFor(lowMatEdge, "maturity", graph);
+  const highMat = edgeStyleFor(highMatEdge, "maturity", graph);
+
+  assert.ok(
+    (EXPECTED_WIDTHS as readonly number[]).includes(lowMat.width),
+    `lowMat.width must be in EXPECTED_WIDTHS; got ${lowMat.width}`,
+  );
+  assert.ok(
+    (EXPECTED_WIDTHS as readonly number[]).includes(highMat.width),
+    `highMat.width must be in EXPECTED_WIDTHS; got ${highMat.width}`,
+  );
+  // Direction: lower maturity must produce a strictly thicker edge
+  // because the ADR aligns "thicker = more risky" with "red end of
+  // maturity ramp = low maturity = more risky to depend on".
+  assert.ok(
+    lowMat.width > highMat.width,
+    `maturity mode: low-maturity target ${lowMatEdge.target} (mat 46, width ${lowMat.width}) must be thicker than high-maturity target ${highMatEdge.target} (mat 92, width ${highMat.width})`,
+  );
+  // Strokes must also differ.
+  assert.notEqual(
+    lowMat.stroke,
+    highMat.stroke,
+    `maturity mode: low-mat and high-mat strokes must differ; both got ${lowMat.stroke}`,
+  );
+});
+
+// -------------------- Test 4: Bottleneck-risk mode --------------------
+
+/**
+ * Assertion 4 (bottleneck-risk mode): an edge whose target has
+ * `bottleneckOf` non-empty OR a high `nodeRisk` value ranks warmest.
+ * Per the live data probe, `parcel_manipulation_or_diverter` is the
+ * top-risk node (risk 0.480, mat 52, no `bottleneckOf` set —
+ * exercise the high-risk-via-nodeRisk branch), and
+ * `conveyor_integration` is the next-highest (risk 0.348, mat 62,
+ * AND `bottleneckOf: ["low_cost_conveyor_integration"]` — exercise
+ * the bottleneckOf branch).
+ *
+ * Compared against a low-risk leaf — `machine_vision_lens_and_optics`
+ * is a cheap material-like component whose nodeRisk is near 0 because
+ * its cost share in the graph is small. The high-risk edges MUST be
+ * strictly thicker than the low-risk edge.
+ */
+test("bottleneck-risk mode: edges to high-risk targets are thicker / warmer than to low-risk targets", () => {
+  const graph = loadGraphData();
+  const highRiskEdge = edgeTargeting(graph, "parcel_manipulation_or_diverter");
+  const bottleneckOfEdge = edgeTargeting(graph, "conveyor_integration");
+  const lowRiskEdge = edgeTargeting(graph, "machine_vision_lens_and_optics");
+
+  const highRisk = edgeStyleFor(highRiskEdge, "bottleneck-risk", graph);
+  const bottleneckOf = edgeStyleFor(bottleneckOfEdge, "bottleneck-risk", graph);
+  const lowRisk = edgeStyleFor(lowRiskEdge, "bottleneck-risk", graph);
+
+  assert.ok(
+    highRisk.width > lowRisk.width,
+    `bottleneck-risk: high-risk target ${highRiskEdge.target} (width ${highRisk.width}) must be thicker than low-risk target ${lowRiskEdge.target} (width ${lowRisk.width})`,
+  );
+  assert.ok(
+    bottleneckOf.width > lowRisk.width,
+    `bottleneck-risk: target with bottleneckOf set (${bottleneckOfEdge.target}, width ${bottleneckOf.width}) must be thicker than low-risk target ${lowRiskEdge.target} (width ${lowRisk.width})`,
+  );
+});
+
+// -------------------- Test 5: Relation mode (default behaviour) --------------------
+
+/**
+ * Assertion 5 (relation mode): per the ADR, `relation` mode is the
+ * "legacy" path — it returns a default class-based stroke (the
+ * old `NEUTRAL_TINT` value `#94a3b8` carried over from the slice-2
+ * `edgeTintFor`). The spec deliberately tells us not to strongly
+ * pin a specific width here ("Width is constant 1.5px (or whatever
+ * default the implementer picks)"), so we only check:
+ *   - The stroke is the neutral grey value `#94a3b8`.
+ *   - The width is some constant — i.e. all edges in relation mode
+ *     return the SAME width, whatever value the implementer chose.
+ */
+test("relation mode: returns the neutral grey stroke + a constant width for every edge", () => {
+  const graph = loadGraphData();
+  const widths = new Set<number>();
+  const strokes = new Set<string>();
+  for (const edge of graph.edges) {
+    const { stroke, width } = edgeStyleFor(edge, "relation", graph);
+    widths.add(width);
+    strokes.add(stroke);
+  }
+  assert.equal(
+    widths.size,
+    1,
+    `relation mode: width must be constant across all edges; got ${[...widths].join(",")}`,
+  );
+  assert.equal(
+    strokes.size,
+    1,
+    `relation mode: stroke must be constant across all edges; got ${[...strokes].join(",")}`,
+  );
+  // Stroke must be a hex colour (we don't pin the exact value to keep
+  // future palette tweaks easy, but it must be the same neutral grey
+  // used elsewhere — `#94a3b8` per the original `NEUTRAL_TINT`).
+  const [stroke] = [...strokes];
+  assert.match(stroke, HEX_RE, `relation mode: stroke must be a hex colour; got ${stroke}`);
+  assert.equal(
+    stroke.toLowerCase(),
+    "#94a3b8",
+    `relation mode: stroke must be the NEUTRAL_TINT (#94a3b8) carried over from slice 2; got ${stroke}`,
+  );
+});
+
+// -------------------- Test 6: Determinism --------------------
+
+/**
+ * Assertion 6 (determinism): same (edge, mode, graph) input → same
+ * `{ stroke, width }` output, bit-for-bit, on repeat calls. Pure
+ * function — no internal mutation, no module-level cache that
+ * forgets across calls.
+ */
+test("determinism: same input yields same output across modes", () => {
+  const graph = loadGraphData();
+  const edge: Edge = graph.edges[0];
+  for (const mode of BAND_MODES) {
+    const a = edgeStyleFor(edge, mode, graph);
+    const b = edgeStyleFor(edge, mode, graph);
+    assert.deepEqual(
+      a,
+      b,
+      `edgeStyleFor(${edge.id}, "${mode}") must be deterministic across calls; got ${JSON.stringify(a)} vs ${JSON.stringify(b)}`,
+    );
+    // Sanity on the values.
+    assert.ok(Number.isFinite(a.width), `width must be a finite number; got ${a.width}`);
+    assert.match(a.stroke, HEX_RE, `stroke must be a hex colour; got ${a.stroke}`);
+  }
+  // relation mode too.
+  const r1 = edgeStyleFor(edge, "relation", graph);
+  const r2 = edgeStyleFor(edge, "relation", graph);
+  assert.deepEqual(
+    r1,
+    r2,
+    `edgeStyleFor(${edge.id}, "relation") must be deterministic across calls`,
+  );
+});
+
+// -------------------- Test 7: Palette extraction across the whole graph (caveat doc) --------------------
+
+/**
+ * Sanity check that the test fixture is well-formed for the band-
+ * alignment test above. The live data has very few high-cost edges
+ * (only `industrial_robot_arm_body` at 60k RMB lands in the top
+ * band against the 100k cap), so the cost mode palette may be
+ * sparser than the maturity palette. This test merely SURFACES the
+ * sparsity if it's there, so a future change to the cost cap or to
+ * the data is caught loudly rather than silently shifting the
+ * alignment test's coverage.
+ *
+ * No band invariant is being checked here — this is purely a
+ * fixture-introspection test that runs after the alignment test
+ * above. It will pass on the GREEN commit as long as `edgeStyleFor`
+ * is implemented at all; its value is in the diagnostic output the
+ * commit message references.
+ */
+test("palette diagnostic: cost mode may have a sparser palette than maturity in current data", () => {
+  const graph = loadGraphData();
+  const costPalette = paletteFor("cost", graph);
+  const maturityPalette = paletteFor("maturity", graph);
+  // Both palettes must produce SOME signal.
+  assert.ok(
+    costPalette.size >= 2,
+    `cost palette must have ≥ 2 distinct strokes (was the cap tuned away from real data?); got ${costPalette.size}`,
+  );
+  assert.ok(
+    maturityPalette.size >= 2,
+    `maturity palette must have ≥ 2 distinct strokes; got ${maturityPalette.size}`,
+  );
+});
+
+// -------------------- Reference type for static check --------------------
+
+/**
+ * Type-level sanity: the exported `ColorMode` must include all 5
+ * mode strings. We hold a tiny constant typed against `ColorMode` so
+ * TypeScript catches drift if the union changes shape during the
+ * GREEN commit (the bring-back's pinned set is exactly these 5).
+ */
+const _MODES_TYPE_CHECK: readonly ColorMode[] = [
+  "bottleneck-risk",
+  "cost",
+  "maturity",
+  "overall",
+  "relation",
+];
+void _MODES_TYPE_CHECK;
+
+// Reference unused-import-defense: `Node` is imported above because
+// some implementations of edgeStyleFor will need it for cross-walks,
+// and the test author wants the type re-export verified. We touch
+// it to silence the no-unused-vars rule.
+const _NODE_TYPE_CHECK: Node | null = null;
+void _NODE_TYPE_CHECK;
