@@ -98,6 +98,20 @@ requireMatch(
   /from "@\/lib\/subsystemHue"/.test(graphExplorer),
 );
 
+// B1 invariants introduced by slice B1.
+requireMatch(
+  "GraphExplorer must mount the ColorModeFloatingButton (replaces the legacy ColorModeSelect dropdown).",
+  /ColorModeFloatingButton/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must drive edge styles from edgeStyleFor per slice B1.",
+  /from "@\/lib\/edgeStyleFor"/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must drive sector tints from sectorAggregate per slice B1.",
+  /from "@\/lib\/sectorAggregate"/.test(graphExplorer),
+);
+
 if (failures.length) {
   console.error("Graph UX regression checks failed:");
   for (const failure of failures) console.error(`- ${failure}`);

@@ -20,9 +20,19 @@ import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
 import { RadialNode } from "./RadialNode";
 import { RadialEdge } from "./RadialEdge";
+import { ColorModeFloatingButton } from "./ColorModeFloatingButton";
 import { radialBandFor } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
+import {
+  bandForValue,
+  edgeStyleFor,
+  RAMP,
+  nodeTypicalCostRmb,
+  type ColorMode,
+} from "@/lib/edgeStyleFor";
+import { sectorAggregate } from "@/lib/sectorAggregate";
+import { nodeRisk } from "@/lib/nodeRisk";
 import type { GraphData, Node } from "@/lib/schema";
 
 /**
@@ -73,6 +83,8 @@ type RadialNodeData = {
   name: string;
   kindLabel: string;
   fill: string;
+  /** Per-node outline colour from the active colour mode (B1). */
+  outlineColor: string;
   maturityLabel: string;
   selected: boolean;
   isFocal: boolean;
@@ -113,6 +125,7 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         name={data.name}
         fill={data.fill}
         maturityLabel={data.maturityLabel}
+        outlineColor={data.outlineColor}
         zoom={zoom}
         withHandles
       />
@@ -123,6 +136,9 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
 type RadialEdgeData = {
   label: string;
   isFocusEndpoint: boolean;
+  /** Per-edge stroke + width from `edgeStyleFor` driven by colour mode. */
+  stroke: string;
+  strokeWidth: number;
 };
 
 const RadialEdgeFlow = memo(function RadialEdgeFlow(
@@ -142,6 +158,8 @@ const RadialEdgeFlow = memo(function RadialEdgeFlow(
       sourceY={sourceY}
       targetX={targetX}
       targetY={targetY}
+      stroke={data?.stroke}
+      strokeWidth={data?.strokeWidth}
     />
   );
 });
@@ -161,6 +179,53 @@ const edgeTypes = {
  * live inside `<ReactFlowProvider>` (or `<ReactFlow>`) for `useStore` to
  * resolve.
  */
+/**
+ * `SectorTintLayer` renders the per-sector translucent K4 background
+ * tint wedges (B1). The layer subscribes to React Flow's transform via
+ * `useStore` so the wedges pan + zoom with the canvas. Mounted inside
+ * `<ReactFlow>` as a child, it overlays the Background grid but stays
+ * below node DOM via `pointerEvents: none` + an explicit `z-index: 0`.
+ *
+ * Wedge fill opacity is capped at ≤15% per ADR-0006 so the tint is a
+ * background hint, not a competing surface. We use 12% (`0.12`) for a
+ * touch of headroom.
+ */
+function SectorTintLayer({
+  wedges,
+}: {
+  wedges: Array<{ id: string; d: string; fill: string }>;
+}) {
+  const transform = useStore((s) => s.transform);
+  if (wedges.length === 0) return null;
+  const [tx, ty, scale] = transform;
+  return (
+    <svg
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+      aria-hidden="true"
+    >
+      <g transform={`translate(${tx} ${ty}) scale(${scale})`}>
+        {wedges.map((w) => (
+          <path
+            key={w.id}
+            d={w.d}
+            fill={w.fill}
+            fillOpacity={0.12}
+            stroke="none"
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 function ZoomBridge({ children }: { children: React.ReactNode }) {
   const rawZoom = useStore(transformSelector);
   // Quantize so the context value is stable between band crossings —
@@ -230,6 +295,12 @@ export function GraphExplorer({ graph }: Props) {
   })();
   const [selectedId, setSelectedId] = useState(initialFocus);
 
+  // B1: colour-mode state lives on the canvas wrapper so the floating
+  // button can toggle modes and every node/edge re-renders against the
+  // shared band thresholds.
+  const [colorMode, setColorMode] = useState<ColorMode>("bottleneck-risk");
+  const [colorModeExpanded, setColorModeExpanded] = useState(false);
+
   // Focal subtree — A3 renders only these nodes. Orphans (sibling
   // products) are hidden per spec.
   const focalSubtree = useMemo(() => buildFocalSubtree(graph), [graph]);
@@ -247,6 +318,57 @@ export function GraphExplorer({ graph }: Props) {
   const onSelect = useCallback((nodeId: string) => {
     setSelectedId(nodeId);
   }, []);
+
+  // First-layer subsystems for the sector-tint background layer (B1).
+  const firstLayerSubsystems = useMemo(() => {
+    const out: string[] = [];
+    for (const edge of graph.edges) {
+      if (edge.relation !== "requires") continue;
+      if (edge.source !== rootNodeId) continue;
+      const target = graph.nodes.find((n) => n.id === edge.target);
+      if (!target || target.kind === "material") continue;
+      out.push(edge.target);
+    }
+    return out;
+  }, [graph]);
+
+  /**
+   * Per-node outline colour from the active colour mode. Pure function
+   * of (node, mode, graph); memoised across the node iteration below.
+   */
+  const outlineColorFor = useCallback(
+    (node: Node): string => {
+      switch (colorMode) {
+        case "relation":
+          return "#888";
+        case "cost": {
+          const cost = nodeTypicalCostRmb(node, graph) ?? 0;
+          return RAMP[bandForValue(cost, "cost", graph) - 1];
+        }
+        case "maturity": {
+          if (typeof node.maturityScore !== "number") return "#888";
+          return RAMP[bandForValue(node.maturityScore, "maturity") - 1];
+        }
+        case "bottleneck-risk": {
+          if (Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0) {
+            return RAMP[4];
+          }
+          const risk = nodeRisk(node, graph);
+          return RAMP[bandForValue(risk, "bottleneck-risk") - 1];
+        }
+        case "overall": {
+          if (Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0) {
+            return RAMP[4];
+          }
+          const risk = nodeRisk(node, graph);
+          return RAMP[bandForValue(risk, "overall") - 1];
+        }
+        default:
+          return "#888";
+      }
+    },
+    [colorMode, graph],
+  );
 
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
@@ -271,6 +393,7 @@ export function GraphExplorer({ graph }: Props) {
           name: nodeName(node.id, node.name),
           kindLabel: kindName(node.kind),
           fill,
+          outlineColor: outlineColorFor(node),
           maturityLabel: node.maturityLabel ?? "",
           selected: selectedId === node.id,
           isFocal,
@@ -281,7 +404,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [graph, focalSubtree, layout, focalId, kindName, nodeName, selectedId, onSelect]);
+  }, [graph, focalSubtree, layout, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     const edges: FlowEdge<RadialEdgeData>[] = [];
@@ -295,6 +418,7 @@ export function GraphExplorer({ graph }: Props) {
       // A4 wires `isFocusEndpoint` to the current selection; Phase B
       // will replace `selectedId` with a richer focus state.
       const isFocusEndpoint = edge.source === selectedId || edge.target === selectedId;
+      const { stroke, width } = edgeStyleFor(edge, colorMode, graph);
       edges.push({
         id: edge.id,
         source: edge.source,
@@ -303,11 +427,64 @@ export function GraphExplorer({ graph }: Props) {
         data: {
           label: edge.relation,
           isFocusEndpoint,
+          stroke,
+          strokeWidth: width,
         },
       });
     }
     return edges;
-  }, [graph, focalSubtree, layout, selectedId]);
+  }, [graph, focalSubtree, layout, selectedId, colorMode]);
+
+  /**
+   * Per-sector translucent background tint. Each first-layer subsystem
+   * gets a wedge-shaped path drawn under the nodes. The wedge fill is
+   * the sector's K4-band colour at ≤15% opacity per the ADR (we use
+   * 12% for headroom). When the layout has no first-layer sectors
+   * (e.g. fixture with no product node), the sector layer is empty.
+   */
+  const sectorTintWedges = useMemo(() => {
+    if (firstLayerSubsystems.length === 0) return [] as Array<{
+      id: string;
+      d: string;
+      fill: string;
+    }>;
+    const wedges: Array<{ id: string; d: string; fill: string }> = [];
+    const N = firstLayerSubsystems.length;
+    const sortedSubs = [...firstLayerSubsystems].sort((a, b) => a.localeCompare(b));
+    // Match radialLayout's R_OUTER computation: outer ring is roughly
+    // R1 + (maxDepth + 2) * R_STEP. We use a generous upper radius
+    // (R1 + 10 * R_STEP) so the wedge always covers the entire sector.
+    const R_INNER = 0;
+    const R_OUTER = 500; // generous bound in layout units
+    for (let i = 0; i < N; i += 1) {
+      const sub = sortedSubs[i];
+      const node = graph.nodes.find((n) => n.id === sub);
+      if (!node) continue;
+      const { band } = sectorAggregate(sub, colorMode, graph);
+      const fill = colorMode === "relation" ? "transparent" : RAMP[band - 1];
+      const startTheta = (i / N) * 2 * Math.PI;
+      const endTheta = ((i + 1) / N) * 2 * Math.PI;
+      // Build an SVG path describing a wedge (annular sector with
+      // R_INNER = 0 → just a triangle to the centre, then an arc).
+      const px = (r: number, t: number) => ({
+        x: r * PX_SCALE * Math.cos(t),
+        y: r * PX_SCALE * Math.sin(t),
+      });
+      const p1 = px(R_INNER, startTheta);
+      const p2 = px(R_OUTER, startTheta);
+      const p3 = px(R_OUTER, endTheta);
+      // Large-arc flag = 0 because each sector subtends < 180° for N ≥ 3.
+      const largeArc = endTheta - startTheta > Math.PI ? 1 : 0;
+      const d = [
+        `M ${p1.x} ${p1.y}`,
+        `L ${p2.x} ${p2.y}`,
+        `A ${R_OUTER * PX_SCALE} ${R_OUTER * PX_SCALE} 0 ${largeArc} 1 ${p3.x} ${p3.y}`,
+        `Z`,
+      ].join(" ");
+      wedges.push({ id: sub, d, fill });
+    }
+    return wedges;
+  }, [firstLayerSubsystems, graph, colorMode]);
 
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
@@ -406,6 +583,14 @@ export function GraphExplorer({ graph }: Props) {
               >
                 <Background />
                 <Controls />
+                {/* Sector tint (B1): translucent SVG wedge layer
+                    rendered as a viewport overlay so it transforms
+                    together with the radial canvas. The wedges sit
+                    behind the React Flow node DOM via a fixed-position
+                    SVG mounted as a sibling in the React Flow viewport,
+                    rather than as a Background pattern, so they pick up
+                    the same pan/zoom transform as the nodes. */}
+                <SectorTintLayer wedges={sectorTintWedges} />
               </ReactFlow>
             </ZoomBridge>
           </ReactFlowProvider>
@@ -418,6 +603,18 @@ export function GraphExplorer({ graph }: Props) {
           }}
         />
       </div>
+      {/* B1: colour-mode floating button (fixed bottom-left). Lives
+          outside the ReactFlow canvas so the fixed positioning survives
+          ReactFlow's viewport transform. */}
+      <ColorModeFloatingButton
+        mode={colorMode}
+        expanded={colorModeExpanded}
+        onSelect={(next) => {
+          setColorMode(next);
+          setColorModeExpanded(false);
+        }}
+        onToggle={() => setColorModeExpanded((prev) => !prev)}
+      />
     </div>
   );
 }

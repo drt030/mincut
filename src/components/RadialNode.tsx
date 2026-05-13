@@ -62,6 +62,13 @@ export type RadialNodeProps = {
    * render this component outside a `<ReactFlowProvider>`.
    */
   withHandles?: boolean;
+  /**
+   * Per-node outline colour driven by the active colour mode (B1). Used
+   * at band 2+ to encode the node's mode band (cost / maturity / risk)
+   * without overriding the subsystem-hue fill. Falls back to a neutral
+   * grey when undefined.
+   */
+  outlineColor?: string;
 };
 
 /**
@@ -102,8 +109,12 @@ function truncateLabel(name: string): string {
   return `${name.slice(0, KEEP_LABEL_CHARS)}${ELLIPSIS}`;
 }
 
-export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = false }: RadialNodeProps) {
+export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = false, outlineColor }: RadialNodeProps) {
   const band = radialBandFor(zoom);
+  // Per ADR-0006 §"Color mode K4 layering", band-2+ node outlines pick
+  // up the active colour mode's band colour. Falls back to the legacy
+  // neutral grey when no mode hint is supplied.
+  const outline = outlineColor ?? "#888";
 
   if (band === 1) {
     // 5px dot, centred in a 14×14 SVG so the wrapper hit-area matches
@@ -135,7 +146,7 @@ export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = fals
             cy={14}
             r={12}
             fill={fill}
-            stroke="#888"
+            stroke={outline}
             strokeWidth={1.5}
           />
           <text
@@ -166,7 +177,7 @@ export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = fals
               width: 80,
               height: 40,
               background: fill,
-              border: "1px solid #0f172a",
+              border: `1px solid ${outline}`,
               borderRadius: 4,
               padding: "2px 4px",
               boxSizing: "border-box",

@@ -42,10 +42,17 @@ export type RadialEdgeProps = {
   sourceY?: number;
   targetX?: number;
   targetY?: number;
+  /**
+   * Per-edge stroke + width chosen by the active colour mode. When
+   * omitted the legacy slate-grey + 1 px combination is used (matches
+   * the slice-A4 default before B1 wired colour-mode K4 layering).
+   */
+  stroke?: string;
+  strokeWidth?: number;
 };
 
-const STROKE_COLOUR = "#cbd5e1";
-const STROKE_WIDTH = 1;
+const DEFAULT_STROKE = "#cbd5e1";
+const DEFAULT_WIDTH = 1;
 
 export function RadialEdge({
   id,
@@ -56,6 +63,8 @@ export function RadialEdge({
   sourceY = 0,
   targetX = 100,
   targetY = 0,
+  stroke = DEFAULT_STROKE,
+  strokeWidth = DEFAULT_WIDTH,
 }: RadialEdgeProps) {
   const band = radialBandFor(zoom);
   const markerId = `arrow-${id}`;
@@ -78,15 +87,15 @@ export function RadialEdge({
             refY={4}
             orient="auto-start-reverse"
           >
-            <path d="M 0 0 L 8 4 L 0 8 z" fill={STROKE_COLOUR} />
+            <path d="M 0 0 L 8 4 L 0 8 z" fill={stroke} />
           </marker>
         </defs>
       ) : null}
       <path
         d={pathD}
         fill="none"
-        stroke={STROKE_COLOUR}
-        strokeWidth={STROKE_WIDTH}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
         markerEnd={showArrowhead ? `url(#${markerId})` : undefined}
       />
       {showLabel ? (
