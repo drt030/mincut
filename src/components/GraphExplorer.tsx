@@ -21,6 +21,7 @@ import { useLanguage } from "./LanguageProvider";
 import { RadialNode } from "./RadialNode";
 import { RadialEdge } from "./RadialEdge";
 import { ColorModeFloatingButton } from "./ColorModeFloatingButton";
+import { CmdKSearch, handleCmdKKeydown } from "./CmdKSearch";
 import { radialBandFor } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
@@ -384,6 +385,13 @@ export function GraphExplorer({ graph }: Props) {
   // shared band thresholds.
   const [colorMode, setColorMode] = useState<ColorMode>("bottleneck-risk");
   const [colorModeExpanded, setColorModeExpanded] = useState(false);
+
+  // C2: Cmd+K search modal. Opened via the global keydown listener
+  // below; closed via Esc, backdrop click, or selecting a result. The
+  // modal is presentational — selecting a result calls our local
+  // `onSelect` which both selects (rail content updates) and focuses
+  // (sector elastically expands toward the chosen node).
+  const [cmdKOpen, setCmdKOpen] = useState(false);
 
   // B2 + C1: focus path. `[]` = overview. `[outerId]` = Level 1
   // (focused first-layer subsystem). `[outerId, innerId]` = Level 2
@@ -754,10 +762,17 @@ export function GraphExplorer({ graph }: Props) {
   // B2 + C1: Esc pops one level from the focus path (L2 → L1 → L0).
   // Document-level listener so a focused node does not need to hold
   // keyboard focus for the gesture to work.
+  //
+  // C2 coexistence rule: when the Cmd+K modal is open, the modal's own
+  // Esc handler closes it first; we skip the focus-path pop so the
+  // user's first Esc dismisses the modal without also collapsing the
+  // sector behind it. Once the modal closes (next Esc), this listener
+  // runs normally and pops the focus path.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (cmdKOpen) return;
         setFocusPath((prev) =>
           prev.length === 0 ? prev : prev.slice(0, prev.length - 1),
         );
@@ -765,6 +780,20 @@ export function GraphExplorer({ graph }: Props) {
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
+  }, [cmdKOpen]);
+
+  // C2: global Cmd+K / Ctrl+K listener. The handler is a pure
+  // dispatcher (`handleCmdKKeydown`) so the open/close logic stays
+  // unit-testable without mounting the component. Esc closing the
+  // modal is handled inside `CmdKSearch` (so the modal's keydown
+  // captures Esc before the document-level rail listener above sees
+  // it), but we also pass Esc through here as a safety net for the
+  // case where the input loses focus.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onKey = (e: KeyboardEvent) => handleCmdKKeydown(e, setCmdKOpen);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   // B2 + C1: viewport "soft zoom" stepped per focus level.
@@ -962,6 +991,38 @@ export function GraphExplorer({ graph }: Props) {
           setColorModeExpanded(false);
         }}
         onToggle={() => setColorModeExpanded((prev) => !prev)}
+      />
+      {/* C2: Cmd+K search modal. Mounted at the top level so the
+          backdrop covers everything (canvas + rail + floating button).
+          Selecting a result both selects the node (rail content
+          updates) and pushes the node's first-layer ancestor onto the
+          focus path (sector elastically expands), then closes the
+          modal. */}
+      <CmdKSearch
+        graph={graph}
+        open={cmdKOpen}
+        onClose={() => setCmdKOpen(false)}
+        onSelect={(nodeId) => {
+          setSelectedId(nodeId);
+          const ancestor = firstLayerAncestorById.get(nodeId);
+          if (ancestor !== undefined) {
+            setFocusPath((prev) => {
+              // If the chosen node IS the outer ancestor, sit at L1.
+              if (nodeId === ancestor) return [ancestor];
+              // If the chosen node lives in the currently-focused
+              // outer sector, push the inner sub-subsystem so the
+              // selection lands at L2 ready to read.
+              if (prev.length >= 1 && prev[0] === ancestor) {
+                const innerChild = innerChildContaining(nodeId, ancestor, graph);
+                if (innerChild === null) return [ancestor];
+                return [ancestor, innerChild];
+              }
+              // Otherwise reset to the new outer's L1 — the viewport
+              // soft-zoom effect animates toward the new sector.
+              return [ancestor];
+            });
+          }
+        }}
       />
     </div>
   );
