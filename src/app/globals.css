@@ -1479,3 +1479,111 @@ code {
     overflow-x: auto;
   }
 }
+
+/*
+ * Slice B4 — Detail panel rail. Per ADR-0006 § "Detail panel" the
+ * detail surface becomes a right-edge rail with two states (64 px /
+ * 400 px) and cross-fades content on focus change. The width
+ * transitions over 300 ms; the inner content cross-fades over 200 ms
+ * via React's key-driven unmount/remount (handled by
+ * `<NodeDetailRail/>` setting `data-content-key={focusedNode.id}`).
+ */
+.node-detail-rail {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: clamp(500px, calc(100vh - 220px), 680px);
+  overflow: hidden;
+  position: relative;
+  transition: width 300ms ease;
+}
+
+.node-detail-rail .rail-header {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-shrink: 0;
+  height: 36px;
+  justify-content: flex-end;
+  padding: 0 6px;
+}
+
+.node-detail-rail .rail-toggle {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 16px;
+  height: 26px;
+  line-height: 1;
+  padding: 0;
+  width: 26px;
+}
+
+.node-detail-rail .rail-toggle:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.node-detail-rail .rail-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.node-detail-rail .rail-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px 12px;
+  transition: opacity 200ms ease;
+}
+
+.node-detail-rail.collapsed .rail-content {
+  padding: 8px 6px;
+}
+
+.node-detail-rail .rail-collapsed {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.node-detail-rail .rail-collapsed-name {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  /* Vertical-text trick: keep the 64 px rail readable when the
+     full node name doesn't fit horizontally. */
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.node-detail-rail .rail-maturity-badge {
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  overflow: hidden;
+  padding: 4px 6px;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.node-detail-rail .rail-empty {
+  color: var(--muted);
+  font-size: 11px;
+  padding: 4px 2px;
+  text-align: center;
+}
+
+.node-detail-rail.expanded .rail-content {
+  padding: 14px 16px;
+}
+

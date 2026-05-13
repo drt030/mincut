@@ -792,7 +792,12 @@ export function GraphExplorer({ graph }: Props) {
           graph={graph}
           node={selectedNode}
           onSelectNode={(id) => {
-            setSelectedId(id);
+            // Esc / explicit close passes `null`; the radial canvas
+            // doesn't have a "no focus" mode yet, so clearing falls
+            // back to the root focal node. This keeps the wiring
+            // contract honest (the panel can ask to clear) without
+            // forcing GraphExplorer state to learn `null`.
+            setSelectedId(id ?? rootNodeId);
           }}
         />
       </div>

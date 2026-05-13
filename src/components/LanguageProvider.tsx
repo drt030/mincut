@@ -688,8 +688,29 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
+/**
+ * The fallback returned by `useLanguage` when no `<LanguageProvider>`
+ * is mounted. Slice B4 adds this so server-side render tests
+ * (`renderToStaticMarkup`) can exercise components that consume the
+ * language hook without wrapping each call in a provider. In the
+ * live app a provider is always present at the root, so this
+ * fallback only ships to tests and the very first paint of a
+ * component rendered outside the layout tree.
+ *
+ * Behaviour parity with the English provider: `t` returns the English
+ * string (or the key when unknown), `nodeName` returns the fallback
+ * passed by the caller, `kindName`/`relationName` echo their inputs.
+ */
+const fallbackLanguageContext: LanguageContextValue = {
+  language: "en",
+  setLanguage: () => {},
+  t: (key: string) => uiText.en[key] ?? key,
+  nodeName: (_id: string, fallback: string) => fallback,
+  kindName: (kind: string) => kind,
+  relationName: (relation: string) => relation,
+};
+
 export function useLanguage() {
   const context = useContext(LanguageContext);
-  if (!context) throw new Error("useLanguage must be used inside LanguageProvider");
-  return context;
+  return context ?? fallbackLanguageContext;
 }

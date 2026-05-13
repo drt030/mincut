@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   bottlenecksForNode,
   downstream,
@@ -22,21 +22,98 @@ import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk } from "@/lib/nodeRisk";
 import type { GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
+import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
 
 type Props = {
   graph: GraphData;
-  node: Node;
-  onSelectNode?: (nodeId: string) => void;
+  /**
+   * Optional focused node. When `null` (or omitted) the rail renders
+   * its no-selection placeholder. Existing callers continue to pass
+   * a default focal node, so backward compatibility is preserved.
+   */
+  node?: Node | null;
+  onSelectNode?: (nodeId: string | null) => void;
 };
 
+/**
+ * Default export. Slice B4 turns this into a thin stateful wrapper:
+ *
+ *   - owns the `expanded` boolean (so a focus change does not collapse
+ *     the rail);
+ *   - listens for global `Escape` keydowns and forwards them through
+ *     the pure `handleRailKeydown` helper to collapse + clear focus;
+ *   - renders `<NodeDetailRail/>` with the focused node, expansion
+ *     state, and the toggle/close callbacks.
+ *
+ * The previous render body (priority strip, metrics, evidence, cost
+ * rollup, …) lives on as `NodeDetailContent` below — the rail slots
+ * it into the expanded state. All reusable subcomponents
+ * (`DetailPrioritySummary`, `ProductCostRollupCard`,
+ * `MaturityHistoryTimeline`, `MetricNodeList`, `NodeList`,
+ * `TopBlockers`) remain in this file and are unchanged behaviourally.
+ */
 export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
+  const [expanded, setExpanded] = useState(false);
+  const focusedNode: Node | null = node ?? null;
+
+  const handleClose = useCallback(() => {
+    setExpanded(false);
+    onSelectNode?.(null);
+  }, [onSelectNode]);
+
+  const handleToggle = useCallback(() => {
+    setExpanded((prev) => !prev);
+  }, []);
+
+  useEffect(() => {
+    const listener = (event: KeyboardEvent) => {
+      // Esc handler must not steal keypresses from editable controls
+      // (text inputs, textareas, contenteditable surfaces inside the
+      // expanded panel). The spec leaves this optional; we filter on
+      // the safe side so global search / future Cmd+K modal don't
+      // accidentally close the rail when the user is typing.
+      const target = event.target as Element | null;
+      if (
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        (target instanceof HTMLElement && target.isContentEditable)
+      ) {
+        return;
+      }
+      handleRailKeydown(event, handleClose);
+    };
+    document.addEventListener("keydown", listener);
+    return () => document.removeEventListener("keydown", listener);
+  }, [handleClose]);
+
+  return (
+    <NodeDetailRail
+      graph={graph}
+      focusedNode={focusedNode}
+      expanded={expanded}
+      onToggleExpand={handleToggle}
+      onClose={handleClose}
+      onSelectNode={(id) => onSelectNode?.(id)}
+    />
+  );
+}
+
+/**
+ * Full detail content (description, priority strip, maturity history,
+ * metrics, cost rollup, bottlenecks, upstream/downstream, sibling
+ * products, evidence). Slotted by `NodeDetailRail` into its expanded
+ * state. Behaviour is identical to the pre-B4 `NodeDetailPanel`
+ * render body — we only renamed the entry point so the rail can host
+ * it.
+ */
+export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphData; node: Node; onSelectNode?: (nodeId: string) => void }) {
   const { kindName, nodeName, t } = useLanguage();
   // Per v3 iter-14: when the user clicks a different node, the previous
   // scroll position in the panel was preserved → they could land
   // mid-Evidence section and miss the headline cost / maturity /
   // bottleneck info at the top. Scroll the panel to top whenever the
   // selected node changes.
-  const panelRef = useRef<HTMLElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     panelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [node.id]);
@@ -76,9 +153,9 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
      * selection changes. aria-labelledby points at the h2 below so the
      * region is announced as e.g. "{node-name}, region".
      */
-    <aside
+    <div
       ref={panelRef}
-      className="panel detail-list"
+      className="detail-list"
       role="region"
       aria-live="polite"
       aria-labelledby="detail-heading"
@@ -287,7 +364,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
           <p className="warning">{t("noDirectEvidence")}</p>
         )}
       </div>
-    </aside>
+    </div>
   );
 }
 
