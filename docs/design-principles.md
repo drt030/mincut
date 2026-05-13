@@ -45,9 +45,15 @@ Sorted lists of pills, cards, or rows next to a canvas duplicate the canvas's jo
 
 ## Active exceptions (transitional)
 
-| Surface | Exception | Why kept | Retire when |
+_None._ The previously-listed `/graph` "High risk dependency" pill banner
+was the last active exception; it retired with slice C3 of the radial
+progressive-disclosure spec (see Retired exceptions below).
+
+## Retired exceptions
+
+| Surface | Exception | Retired | Replacement |
 |---|---|---|---|
-| `/graph` | "High risk dependency" pill banner above canvas | No glyph-language for top-N priorities designed yet | Phase C of the radial graph spec (see `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`) defines a sector-level visual top-N |
+| `/graph` | "High risk dependency" pill banner above canvas | 2026-05-13 (slice C3 of `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`) | `TopNGlyph` — small ringed-number SVG glyph at LOD band 2+ marks the top-5 highest-priority nodes (per current colour mode) directly on the canvas. The chrome banner was removed in slice A3 (no DOM); the glyph language fully replaces the affordance. |
 
 ## Provenance
 

@@ -22,6 +22,7 @@ import { RadialNode } from "./RadialNode";
 import { RadialEdge } from "./RadialEdge";
 import { ColorModeFloatingButton } from "./ColorModeFloatingButton";
 import { CmdKSearch, handleCmdKKeydown } from "./CmdKSearch";
+import { TopNGlyph, selectTopN } from "./TopNGlyph";
 import { radialBandFor } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
@@ -100,6 +101,14 @@ type RadialNodeData = {
    * the cross-fade between focus changes feels smooth.
    */
   dim: boolean;
+  /**
+   * C3: 1-based top-N rank from `selectTopN`. Undefined when the node
+   * isn't in the top-N for the current colour mode + scope. Used by the
+   * RadialDotNode overlay to render a `<TopNGlyph rank band />` in the
+   * top-right corner at band 2+. Hidden at band 1 (the overview must
+   * stay free of per-node decoration — TopNGlyph returns null itself).
+   */
+  topNRank?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   onSelect: (nodeId: string) => void;
 };
 
@@ -109,6 +118,11 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
   const box = band === 1 ? { width: DOT_SIZE, height: DOT_SIZE }
     : band === 2 ? BAND2_BOX
     : BAND3_BOX;
+  // C3: top-N glyph overlay. Anchored to the top-right of the node box
+  // with a small negative offset so the glyph sits in the corner
+  // without overlapping the label / card content. `TopNGlyph` returns
+  // null at band 1, so the overlay is invisible on the overview.
+  const showGlyph = data.topNRank !== undefined && band >= 2;
   return (
     <div
       className={[
@@ -119,7 +133,7 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
       ]
         .filter(Boolean)
         .join(" ")}
-      style={{ width: box.width, height: box.height }}
+      style={{ width: box.width, height: box.height, position: "relative" }}
       role="button"
       tabIndex={0}
       aria-label={`${data.name} · ${data.kindLabel}`}
@@ -146,6 +160,22 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         zoom={zoom}
         withHandles
       />
+      {showGlyph ? (
+        <div
+          style={{
+            position: "absolute",
+            top: -4,
+            right: -4,
+            pointerEvents: "none",
+            lineHeight: 0,
+          }}
+        >
+          <TopNGlyph
+            rank={data.topNRank!}
+            band={band as 2 | 3}
+          />
+        </div>
+      ) : null}
     </div>
   );
 });
@@ -569,6 +599,26 @@ export function GraphExplorer({ graph }: Props) {
     [focusedId, graph],
   );
 
+  /**
+   * C3: top-5 priorities under the active colour mode, scoped to the
+   * currently-focused subtree (or the focal product's subtree when no
+   * sector is focused). Mapped from `nodeId → rank` so the per-node
+   * iteration below is a Map lookup.
+   *
+   * `selectTopN` is pure + memo-stable: same `graph` / `mode` / scope
+   * yields the same result, so the `useMemo` deps mirror its inputs.
+   */
+  const topNRankById = useMemo(() => {
+    const scope = focusedId === null ? null : subset.nodes;
+    const entries = selectTopN(graph, colorMode, 5, scope);
+    const map = new Map<string, 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10>();
+    for (const entry of entries) {
+      // `selectTopN` caps at n=5 here, so rank ∈ 1..5 ⊂ the props type.
+      map.set(entry.nodeId, entry.rank as 1 | 2 | 3 | 4 | 5);
+    }
+    return map;
+  }, [graph, colorMode, focusedId, subset]);
+
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of graph.nodes) {
@@ -602,6 +652,7 @@ export function GraphExplorer({ graph }: Props) {
           selected: selectedId === node.id,
           isFocal,
           dim,
+          topNRank: topNRankById.get(node.id),
           onSelect,
         },
         draggable: false,
@@ -609,7 +660,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [graph, focalSubtree, effectivePositions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, focusedId, subset]);
+  }, [graph, focalSubtree, effectivePositions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, focusedId, subset, topNRankById]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     const edges: FlowEdge<RadialEdgeData>[] = [];
