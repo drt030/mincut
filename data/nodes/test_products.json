@@ -16,7 +16,10 @@
       "targetEnvironment": "global consumer electronics manufacturing and carrier distribution"
     },
     "evidenceIds": ["ev_apple_iphone4_specs", "ev_apple_iphone4_environment"],
-    "tags": ["smartphone", "integration", "historical_case"]
+    "tags": ["smartphone", "integration", "historical_case"],
+    "bottleneckOf": [
+      "iphone4_rf_enclosure_integration_risk"
+    ]
   },
   {
     "id": "iphone4_retina_display_stack",
@@ -171,18 +174,6 @@
     "tags": ["integration"]
   },
   {
-    "id": "iphone4_rf_enclosure_integration_risk",
-    "name": "RF and enclosure integration risk",
-    "kind": "bottleneck",
-    "domain": ["iphone_4", "wireless"],
-    "description": "Antenna, enclosure, hand-effect, EMC, and carrier-certification integration can bottleneck a compact smartphone architecture.",
-    "maturityScore": 72,
-    "maturityLabel": "commercially_available",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["rf", "bottleneck"]
-  },
-  {
     "id": "glp1_weight_loss_drugs",
     "name": "GLP-1 weight-loss drugs",
     "kind": "product",
@@ -198,7 +189,10 @@
       "targetEnvironment": "regulated pharmaceutical manufacturing, prescribing, reimbursement, and pharmacovigilance"
     },
     "evidenceIds": ["ev_fda_wegovy_label", "ev_nejm_step1_semaglutide"],
-    "tags": ["drug", "obesity", "regulated"]
+    "tags": ["drug", "obesity", "regulated"],
+    "bottleneckOf": [
+      "glp1_affordability_and_supply_bottleneck"
+    ]
   },
   {
     "id": "glp1_receptor_agonist_active_ingredient",
@@ -314,18 +308,6 @@
     "tags": ["clinical", "safety"]
   },
   {
-    "id": "glp1_affordability_and_supply_bottleneck",
-    "name": "Affordability and supply bottleneck",
-    "kind": "bottleneck",
-    "domain": ["glp1_weight_loss_drugs"],
-    "description": "Access can be limited by price, payer coverage, manufacturing capacity, injector supply, cold chain, and long-term treatment adherence.",
-    "maturityScore": 54,
-    "maturityLabel": "early_deployment",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["cost", "access", "capacity"]
-  },
-  {
     "id": "reusable_space_transport_1000_usd_per_kg",
     "name": "Reusable space transport at 1,000 USD/kg",
     "kind": "product",
@@ -342,7 +324,10 @@
       "targetEnvironment": "regulated launch operations, reusable launch vehicle fleet, ground infrastructure, and range constraints"
     },
     "evidenceIds": ["ev_spacex_falcon9_reuse", "ev_nasa_reusable_launch_vehicle"],
-    "tags": ["space", "reusable", "cost_target"]
+    "tags": ["space", "reusable", "cost_target"],
+    "frontierFor": [
+      "rapid_full_reuse_breakthrough"
+    ]
   },
   {
     "id": "reusable_first_stage_booster",
@@ -477,18 +462,6 @@
     "tags": ["operations"]
   },
   {
-    "id": "rapid_full_reuse_breakthrough",
-    "name": "Rapid full-reuse operations breakthrough",
-    "kind": "placeholder_breakthrough",
-    "domain": ["reusable_space_transport"],
-    "description": "Placeholder for the unresolved combination of upper-stage reuse, low refurbishment labor, high launch cadence, high reliability, and regulatory throughput needed for the cost target.",
-    "maturityScore": 34,
-    "maturityLabel": "hypothesis",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["breakthrough", "cost"]
-  },
-  {
     "id": "commercial_controlled_nuclear_fusion",
     "name": "Commercial controlled nuclear fusion",
     "kind": "product",
@@ -505,7 +478,10 @@
       "targetEnvironment": "licensed nuclear facility with fuel-cycle, materials, and remote-maintenance constraints"
     },
     "evidenceIds": ["ev_iter_tokamak_overview", "ev_iaea_fusion_power"],
-    "tags": ["fusion", "energy", "long_horizon"]
+    "tags": ["fusion", "energy", "long_horizon"],
+    "frontierFor": [
+      "fusion_tritium_materials_breakthrough"
+    ]
   },
   {
     "id": "tokamak_magnetic_confinement_route",
@@ -632,18 +608,6 @@
     "tags": ["operations", "economics"]
   },
   {
-    "id": "fusion_tritium_materials_breakthrough",
-    "name": "Tritium breeding and neutron-materials breakthrough",
-    "kind": "placeholder_breakthrough",
-    "domain": ["commercial_fusion"],
-    "description": "Placeholder for unresolved commercial-scale tritium self-sufficiency, neutron damage, divertor heat flux, maintainability, and regulatory integration.",
-    "maturityScore": 20,
-    "maturityLabel": "hypothesis",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["breakthrough", "materials"]
-  },
-  {
     "id": "ultra_small_nuclear_reactor",
     "name": "Ultra-small nuclear reactor",
     "kind": "product",
@@ -660,7 +624,10 @@
       "targetEnvironment": "licensed nuclear deployment with fuel qualification, security, safeguards, and waste constraints"
     },
     "evidenceIds": ["ev_nrc_microreactors", "ev_iaea_smr_overview"],
-    "tags": ["nuclear", "microreactor", "regulated"]
+    "tags": ["nuclear", "microreactor", "regulated"],
+    "bottleneckOf": [
+      "microreactor_fuel_licensing_bottleneck"
+    ]
   },
   {
     "id": "microreactor_core_and_fuel",
@@ -771,18 +738,6 @@
     "tags": ["operations", "fuel"]
   },
   {
-    "id": "microreactor_fuel_licensing_bottleneck",
-    "name": "Fuel qualification and licensing bottleneck",
-    "kind": "bottleneck",
-    "domain": ["ultra_small_nuclear_reactor"],
-    "description": "Commercial deployment can be bottlenecked by fuel qualification, supply availability, licensing novelty, emergency planning, security, waste handling, and site acceptance.",
-    "maturityScore": 34,
-    "maturityLabel": "prototype",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["fuel", "regulatory", "bottleneck"]
-  },
-  {
     "id": "ak47_rifle_historical_industrial_case",
     "name": "AK-47 rifle historical industrial case",
     "kind": "product",
@@ -799,7 +754,10 @@
       "targetEnvironment": "state arsenals, military logistics, and Cold War-era manufacturing systems"
     },
     "evidenceIds": ["ev_britannica_ak47", "ev_iwm_ak47_history"],
-    "tags": ["historical_case", "manufacturing", "restricted_detail"]
+    "tags": ["historical_case", "manufacturing", "restricted_detail"],
+    "bottleneckOf": [
+      "ak47_mass_manufacturing_standardization_bottleneck"
+    ]
   },
   {
     "id": "ak47_operating_architecture_high_level",
@@ -895,17 +853,5 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "tags": ["reliability"]
-  },
-  {
-    "id": "ak47_mass_manufacturing_standardization_bottleneck",
-    "name": "Mass manufacturing and standardization bottleneck",
-    "kind": "bottleneck",
-    "domain": ["ak47_industrial_case"],
-    "description": "Historical bottleneck covering reliable mass manufacture, interchangeability, training, quality control, tooling capacity, and supply of suitable steels and finishes.",
-    "maturityScore": 78,
-    "maturityLabel": "mature",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["manufacturing", "standardization", "restricted_detail"]
   }
-]
+  ]

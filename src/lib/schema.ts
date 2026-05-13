@@ -175,6 +175,25 @@ const nodeBaseSchema = z.object({
   reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
+  /**
+   * Per ADR-0006, the dedicated `kind: "bottleneck"` and
+   * `kind: "placeholder_breakthrough"` nodes are deprecated. Structural
+   * nodes (module / material / etc.) now carry these two optional
+   * attributes that fold the former separate-node form into the affected
+   * module itself:
+   *
+   *   - `bottleneckOf`: ids of capabilities / products this node currently
+   *     bottlenecks. Populated by the A1 migration from former
+   *     `bottlenecked_by` edges whose target was a `bottleneck`-kind node.
+   *   - `frontierFor`: ids of capabilities / products this node is a
+   *     decomposition frontier for. Populated by the A1 migration from
+   *     former `bottlenecked_by` edges whose target was a
+   *     `placeholder_breakthrough`-kind node.
+   *
+   * Both stay optional and undefined for the vast majority of nodes.
+   */
+  bottleneckOf: z.array(z.string()).optional(),
+  frontierFor: z.array(z.string()).optional(),
 });
 
 export const nodeSchema = nodeBaseSchema.refine(maturityAsOfRequiredWhenSet, {

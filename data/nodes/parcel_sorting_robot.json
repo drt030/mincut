@@ -53,7 +53,10 @@
       "hard_to_develop"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Hard-to-develop (per ADR-0005): CV-based label localization and OCR must work under reflective/wrinkled labels, parcel deformation, glare, occlusion, and high-speed conveyor motion. Off-the-shelf barcode readers handle clean labels; the hard part is the long tail where vision degrades."
+    "notes": "Hard-to-develop (per ADR-0005): CV-based label localization and OCR must work under reflective/wrinkled labels, parcel deformation, glare, occlusion, and high-speed conveyor motion. Off-the-shelf barcode readers handle clean labels; the hard part is the long tail where vision degrades.",
+    "frontierFor": [
+      "robust_parcel_perception_under_real_logistics_conditions"
+    ]
   },
   {
     "id": "industrial_area_scan_camera",
@@ -218,7 +221,10 @@
       "throughput",
       "robot_arm"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "low_cost_high_reliability_parcel_manipulation"
+    ]
   },
   {
     "id": "industrial_robot_arm_body",
@@ -1118,7 +1124,10 @@
       "manufacturing",
       "deployment"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "low_cost_conveyor_integration"
+    ]
   },
   {
     "id": "conveyor_photoelectric_sensors",
@@ -1361,6 +1370,9 @@
     "tags": [
       "maintenance",
       "deployment"
+    ],
+    "bottleneckOf": [
+      "maintenance_cost_control"
     ]
   },
   {
@@ -1393,7 +1405,10 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
+    "bottleneckOf": [
+      "low_jam_rate_under_parcel_variability"
+    ]
   },
   {
     "id": "conveyor_diverter_sorting",
@@ -1408,7 +1423,10 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
+    "bottleneckOf": [
+      "low_cost_conveyor_integration"
+    ]
   },
   {
     "id": "mobile_robot_sorting",
@@ -1423,7 +1441,10 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
+    "bottleneckOf": [
+      "maintenance_cost_control"
+    ]
   },
   {
     "id": "hybrid_human_robot_assisted_sorting",
@@ -1438,7 +1459,10 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed."
+    "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
+    "bottleneckOf": [
+      "maintenance_cost_control"
+    ]
   },
   {
     "id": "total_system_cost",
@@ -1648,87 +1672,6 @@
       "cost",
       "roi"
     ]
-  },
-  {
-    "id": "low_cost_high_reliability_parcel_manipulation",
-    "name": "Low-cost high-reliability parcel manipulation",
-    "kind": "placeholder_breakthrough",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "A missing or uncertain capability for manipulating diverse parcels cheaply with low jam and intervention rates. Hard-to-develop (per ADR-0005): combines unsolved sub-problems in pose perception, end-effector compliance, motion planning, and exception recovery; no commodified solution exists at the 300k RMB price point.",
-    "maturityScore": 30,
-    "maturityLabel": "hypothesis",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": [
-      "hard_to_develop"
-    ]
-  },
-  {
-    "id": "robust_parcel_perception_under_real_logistics_conditions",
-    "name": "Robust parcel perception under real logistics conditions",
-    "kind": "placeholder_breakthrough",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Robust perception across reflective labels, damage, occlusion, variable lighting, parcel deformation, and high-speed conveyor motion. Hard-to-develop (per ADR-0005): the long-tail of real-world logistics imagery is the core CV research frontier driving sortation reliability; lab-proven techniques degrade qualitatively when deployed.",
-    "maturityScore": 38,
-    "maturityLabel": "lab_proven",
-    "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": [
-      "hard_to_develop"
-    ]
-  },
-  {
-    "id": "low_cost_conveyor_integration",
-    "name": "Low-cost conveyor integration",
-    "kind": "bottleneck",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Integration cost and commissioning time can dominate the economics of a low-cost sorting cell.",
-    "maturityScore": 45,
-    "maturityLabel": "prototype",
-    "maturityAsOf": "2026-04",
-    "confidence": "medium",
-    "tags": [
-      "cost",
-      "deployment"
-    ],
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "low_jam_rate_under_parcel_variability",
-    "name": "Low jam rate under parcel variability",
-    "kind": "bottleneck",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "The system must handle varied parcel sizes, weights, materials, and shapes without frequent stoppages.",
-    "maturityScore": 35,
-    "maturityLabel": "lab_proven",
-    "maturityAsOf": "2026-04",
-    "confidence": "medium"
-  },
-  {
-    "id": "maintenance_cost_control",
-    "name": "Maintenance cost control",
-    "kind": "bottleneck",
-    "domain": [
-      "parcel_sorting_robot"
-    ],
-    "description": "Low deployed cost is not enough if calibration, wear, cleaning, and jam-clearing labor erase ROI.",
-    "maturityScore": 34,
-    "maturityLabel": "lab_proven",
-    "maturityAsOf": "2026-04",
-    "confidence": "medium",
-    "tags": [
-      "maintenance",
-      "cost"
-    ],
-    "reviewStatus": "unreviewed"
   },
   {
     "id": "real_time_machine_vision",
@@ -2189,7 +2132,10 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "reviewStatus": "unreviewed",
-    "notes": "Created per ADR-0004 step 5 (route retirement). Stays out of active graph scope: there is no inbound edge from any node reachable from low_cost_parcel_sorting_robot_300k_rmb, only outbound edges from this Product to shared modules and to the Capability."
+    "notes": "Created per ADR-0004 step 5 (route retirement). Stays out of active graph scope: there is no inbound edge from any node reachable from low_cost_parcel_sorting_robot_300k_rmb, only outbound edges from this Product to shared modules and to the Capability.",
+    "frontierFor": [
+      "low_cost_high_reliability_parcel_manipulation"
+    ]
   },
   {
     "id": "industrial_robot_arm_body_cost",

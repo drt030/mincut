@@ -279,15 +279,6 @@
     "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; the gripper variant's mechanical end-effector lives under this shared module node until a gripper-specific child is modelled."
   },
   {
-    "id": "e_gripper_sibling_bottlenecked_manipulation",
-    "source": "parcel_sorting_robot_with_gripper_300k_rmb",
-    "target": "low_cost_high_reliability_parcel_manipulation",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; the gripper sibling shares the same manipulation breakthrough bottleneck."
-  },
-  {
     "id": "e_gripper_sibling_enables_capability",
     "source": "parcel_sorting_robot_with_gripper_300k_rmb",
     "target": "affordable_small_warehouse_automation",
@@ -837,15 +828,6 @@
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
   },
   {
-    "id": "e_delta_route_bottlenecked_variability",
-    "source": "delta_robot_sorting",
-    "target": "low_jam_rate_under_parcel_variability",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
     "id": "e_delta_route_measured_weight",
     "source": "delta_robot_sorting",
     "target": "allowed_parcel_weight_range",
@@ -873,15 +855,6 @@
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
   },
   {
-    "id": "e_diverter_route_bottlenecked_integration",
-    "source": "conveyor_diverter_sorting",
-    "target": "low_cost_conveyor_integration",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
     "id": "e_diverter_route_measured_jam",
     "source": "conveyor_diverter_sorting",
     "target": "failure_jam_rate",
@@ -904,15 +877,6 @@
     "source": "mobile_robot_sorting",
     "target": "maintenance_workflow",
     "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
-    "id": "e_mobile_route_bottlenecked_cost",
-    "source": "mobile_robot_sorting",
-    "target": "maintenance_cost_control",
-    "relation": "bottlenecked_by",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
@@ -949,15 +913,6 @@
     "source": "hybrid_human_robot_assisted_sorting",
     "target": "human_intervention_rate",
     "relation": "depends_on_metric",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
-    "id": "e_hybrid_route_bottlenecked_maintenance",
-    "source": "hybrid_human_robot_assisted_sorting",
-    "target": "maintenance_cost_control",
-    "relation": "bottlenecked_by",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
@@ -1295,52 +1250,6 @@
       "ev_vacuforce_vacuum_components"
     ],
     "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_vision_bottlenecked_robust_perception",
-    "source": "vision_barcode_label_recognition",
-    "target": "robust_parcel_perception_under_real_logistics_conditions",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_manipulation_bottlenecked_low_cost",
-    "source": "parcel_manipulation_or_diverter",
-    "target": "low_cost_high_reliability_parcel_manipulation",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_conveyor_bottlenecked_low_cost",
-    "source": "conveyor_integration",
-    "target": "low_cost_conveyor_integration",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_maintenance_bottlenecked_cost",
-    "source": "maintenance_workflow",
-    "target": "maintenance_cost_control",
-    "relation": "bottlenecked_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_manipulation_breakthrough_enables_affordable",
-    "source": "low_cost_high_reliability_parcel_manipulation",
-    "target": "affordable_small_warehouse_automation",
-    "relation": "enables",
-    "confidence": "low"
-  },
-  {
-    "id": "e_robust_perception_enables_affordable",
-    "source": "robust_parcel_perception_under_real_logistics_conditions",
-    "target": "affordable_small_warehouse_automation",
-    "relation": "enables",
-    "confidence": "low"
   },
   {
     "id": "e_v0_product_enables_capability",
