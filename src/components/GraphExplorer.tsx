@@ -114,6 +114,7 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         fill={data.fill}
         maturityLabel={data.maturityLabel}
         zoom={zoom}
+        withHandles
       />
     </div>
   );
@@ -312,18 +313,33 @@ export function GraphExplorer({ graph }: Props) {
   const initialFitDoneRef = useRef(false);
 
   // Fit the radial overview to the viewport once nodes are measured.
+  // The radial layout spans roughly 1990×1597 unscaled px; at ReactFlow's
+  // default scale(1) translate(0,0) the focal-subtree extends well past
+  // the ~896×588 canvas so a first-time visitor sees an empty corner.
+  // We call `fitView` after mount via the instance reference. The
+  // `onInit` callback alone is not enough because ReactFlow measures
+  // node dimensions on the next layout effect, so we retry a few times
+  // with short delays (cheap; runs once on mount only) to cover the
+  // race between the instance becoming available and node dimensions
+  // being known. `check:graph-ux` forbids the boolean `fitView` prop
+  // (which would re-fit on every render); imperative `instance.fitView`
+  // calls run only when invoked.
   useEffect(() => {
     if (initialFitDoneRef.current) return;
     const inst = flowInstanceRef.current;
     if (!inst) return;
     const timeouts: ReturnType<typeof setTimeout>[] = [];
     const fit = () => {
-      const btn = document.querySelector<HTMLButtonElement>(".react-flow__controls-fitview");
-      if (!btn) return;
-      btn.click();
-      initialFitDoneRef.current = true;
+      if (initialFitDoneRef.current) return;
+      try {
+        inst.fitView({ padding: 0.18, duration: 0, maxZoom: 1.5, minZoom: 0.25 });
+        initialFitDoneRef.current = true;
+      } catch {
+        // ReactFlow may throw before nodes are measured; the next
+        // scheduled attempt will retry.
+      }
     };
-    [80, 240, 600].forEach((d) => timeouts.push(setTimeout(fit, d)));
+    [0, 80, 240, 600].forEach((d) => timeouts.push(setTimeout(fit, d)));
     return () => {
       timeouts.forEach((t) => clearTimeout(t));
     };
@@ -360,6 +376,21 @@ export function GraphExplorer({ graph }: Props) {
                 edgeTypes={edgeTypes}
                 onInit={(instance) => {
                   flowInstanceRef.current = instance;
+                  // Try to fit immediately; if nodes aren't measured yet,
+                  // the polling useEffect below retries with short
+                  // delays. `requestAnimationFrame` lets React Flow's
+                  // first measurement pass complete first.
+                  if (typeof window !== "undefined") {
+                    window.requestAnimationFrame(() => {
+                      if (initialFitDoneRef.current) return;
+                      try {
+                        instance.fitView({ padding: 0.18, duration: 0, maxZoom: 1.5, minZoom: 0.25 });
+                        initialFitDoneRef.current = true;
+                      } catch {
+                        // Retry path in the useEffect below.
+                      }
+                    });
+                  }
                 }}
                 fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
                 minZoom={0.2}
