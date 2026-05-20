@@ -1,6 +1,6 @@
 # UX Design Principles
 
-These principles guide every user-facing surface in the project. They emerged from a 2026-05-13 grilling session on `/graph` and are intentionally generalizable to other views (product, gate, tasks, future surfaces).
+These principles guide every user-facing surface in the project. They emerged from a 2026-05-13 grilling session on `/graph` and were tightened by the 2026-05-20 Stable Balanced Radial Tree discussion. They are intentionally generalizable to other views (product, gate, tasks, future surfaces).
 
 When a new feature is proposed, it should be checked against these principles before implementation. When an existing surface accumulates exceptions, the exceptions should be tracked here so future work can retire them.
 
@@ -43,6 +43,21 @@ Sorted lists of pills, cards, or rows next to a canvas duplicate the canvas's jo
 - "Top Blockers" or "High Risk Dependencies" rails pinned above a graph that already shows those nodes.
 - Sortable tables alongside visualizations of the same data.
 
+## 4. Stable identity, switchable interpretation
+
+The graph should feel like one persistent product map viewed through different lenses. A user should not lose track of a node because they changed from structure to bottleneck, cost, maturity, or evidence-gap mode.
+
+**Apply:**
+- Keep node names, approximate positions, branch membership, base subsystem colors, and branch order stable.
+- Let analysis modes change overlays: edge color / width, node outline, glyphs, saturation, opacity, and soft background grouping.
+- Treat branch highlight as a state of the same map, not a different graph.
+- Treat node detail as a lens anchored to the map, not an unrelated details page.
+
+**Anti-pattern:**
+- Re-laying out the same nodes into unrelated positions for every analysis mode.
+- Moving a node far from its learned location because a different metric is selected.
+- Making evidence, task, or bottleneck lists the primary navigation path when the same signal can be shown on the map.
+
 ## Active exceptions (transitional)
 
 _None._ The previously-listed `/graph` "High risk dependency" pill banner
@@ -57,4 +72,4 @@ progressive-disclosure spec (see Retired exceptions below).
 
 ## Provenance
 
-These principles are derived from the design discussion captured in `docs/adr/0006-radial-progressive-disclosure-graph.md`. They apply project-wide, but the immediate fixture is the radial graph redesign of 2026-05-13.
+These principles are derived from the design discussions captured in `docs/adr/0006-radial-progressive-disclosure-graph.md` and `docs/adr/0007-stable-balanced-radial-tree.md`. They apply project-wide, but the immediate fixture is the radial graph redesign and its Stable Balanced Radial Tree amendment.

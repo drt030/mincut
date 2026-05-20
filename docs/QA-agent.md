@@ -124,21 +124,21 @@ Minimum user tasks:
    - Are the available workflows obvious without reading docs?
 
 2. Inspect the product graph.
-   - Open the graph view. Per ADR-0006 (2026-05-13), `/graph` is a single radial canvas — there is no "overview" vs "focused" stage, no mode tabs, no advanced filter dropdowns.
-   - Verify the focal product (`low_cost_parcel_sorting_robot_300k_rmb`) is at canvas origin and 12 first-layer subsystems are visible as a ring of small colored markers at the lowest zoom.
-   - At the default zoom (LOD band 1), all 77 structural nodes should be visible as 5px dots; descriptive nodes (metric, bottleneck-kind, breakthrough, principles, regulations, capabilities) should NOT appear on canvas.
-   - Click a node and verify its sector expands (30° → 120°) while the focal product stays at canvas origin, viewport softly zooms, and the focused subtree stays saturated while everything else desaturates.
-   - Verify the right-edge detail rail (64px by default) updates with the focused node's name + badge; clicking the rail expands it to 400px showing description, metrics, evidence, etc.
-   - Press Esc / click empty space and verify the view returns to the higher focus level (eventually full overview).
+   - Open the graph view. Per ADR-0007 (2026-05-20), `/graph` should read as a stable radial product tree: overview first, branch highlight second, node detail lens third.
+   - Verify the focal product (`low_cost_parcel_sorting_robot_300k_rmb`) is visually central and the first viewport communicates the major subsystem branches without requiring a side list.
+   - At the default zoom, structural nodes should be visible at low fidelity; descriptive nodes (metric, bottleneck-kind, breakthrough, principles, regulations, capabilities) should NOT dominate the canvas.
+   - Click a node and verify the relevant branch becomes visually emphasized while non-focus context remains visible enough to preserve orientation.
+   - Verify the detail rail / lens updates with the focused node's role, metrics, evidence, gaps, and tasks without making the user lose the node's map location.
+   - Press Esc / click empty space and verify the view exits or reduces the current focus state.
 
 3. Evaluate graph usability.
-   - Check whether the radial geometry alone tells the user "which subsystem is most complex" without reading any labels.
-   - Check whether the focal product stays at canvas origin across all interactions (spatial memory).
+   - Check whether the radial geometry tells the user "which subsystem is most complex or important" without reading a side list.
+   - Check whether stable node position, branch order, and base subsystem color preserve spatial memory across interactions.
    - Check whether zoom transitions across LOD bands (band 1 → 2 → 3) reveal labels progressively without flicker.
-   - Check whether the floating color-mode button (bottom-left) cycles correctly through the 5 modes and the K4 layering reads at each mode: node fill stays subsystem hue, edges change color + thickness in alignment, sector background tints faintly, node outlines (band 2+) match.
+   - Check whether analysis modes behave as overlays: node identity remains stable while edges, outlines, glyphs, saturation, and soft grouping change.
    - Verify Cmd+K opens a search field; typing fuzzy-matches node names and metric/evidence text; Enter flies to the result.
    - Confirm there is no advanced-filter UI (domain / kind / relation / maturity dropdowns are deprecated).
-   - Judge whether edge style (solid within sector / dashed cross-sector / dotted to material ring) and node hue (subsystem identity) are understandable without legends.
+   - Judge whether bottleneck, evidence gap, frontier, and top-priority signals are visually distinct rather than all appearing as generic red alerts.
 
 4. Inspect product maturity and routes.
    - Look for route comparison, maturity scores, bottlenecks, and supporting metrics.

@@ -2,7 +2,7 @@
 
 This document defines the interaction and visualization rules for graph-facing product work. It applies to `GraphExplorer.tsx` and future graph views unless a task explicitly documents a different UX goal.
 
-> **2026-05-13 update**: Sections below were rewritten to match the radial progressive-disclosure model accepted in `docs/adr/0006-radial-progressive-disclosure-graph.md`. The implementation rollout lives in `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`. The three design principles that govern this surface live in `docs/design-principles.md` — read those first.
+> **2026-05-20 update**: The graph UX direction is now the Stable Balanced Radial Tree captured in `docs/adr/0007-stable-balanced-radial-tree.md` and `docs/superpowers/specs/2026-05-20-stable-balanced-radial-tree-design.md`. This amends the earlier equal-sector radial model from ADR-0006. Keep ADR-0006's radial progressive-disclosure goals, but do not treat fixed equal sectors or recursive sector expansion as the primary design invariant.
 
 ## Product Goal
 
@@ -10,115 +10,197 @@ Capability Graph Explorer is a research workspace, not a decorative network map.
 
 - What is this product made of?
 - Which subsystem, component, process, or material blocks maturity?
-- What evidence supports a claim?
+- Where is evidence missing?
 - What should be expanded or researched next?
 
-Visual polish is valuable only when it improves orientation, comparison, or trust. Where this document conflicts with the three design principles in `docs/design-principles.md`, the principles win.
+Visual polish is valuable only when it improves orientation, comparison, or trust. Where this document conflicts with `docs/design-principles.md`, the principles win.
 
-## Default View Model
+## Core Model
 
-The default `/graph` view is a **radial progressive-disclosure canvas**:
+The default `/graph` view is a **Stable Balanced Radial Tree**:
 
-- The focal product sits at canvas origin (0, 0).
-- All 77 structural nodes (product, module, material, engineering_method, manufacturing_process) of the product's full `requires` decomposition are rendered simultaneously as small markers (~5px at the lowest zoom level), arranged in a polar layout around the product.
-- Each of the 12 first-layer subsystems owns a 30° angular sector. Its descendants live in concentric radial layers inside that sector.
-- Materials (10 nodes) sit on the outermost ring, rendered in neutral grey, with dotted cross-sector links to the subsystems that consume them.
-- Shared structural nodes (19 nodes with 2+ `requires` parents) are assigned a canonical primary parent's sector; their other parents render as dashed cross-sector arcs.
+- The focal product sits at the center.
+- Structural product decomposition radiates outward by depth.
+- Nodes preserve approximate position, branch membership, name, and base subsystem color across interactions.
+- Analysis modes change overlays, not the underlying identity map.
+- Subsystem grouping is a soft visual layer over a readable radial tree, not a hard equal-sector constraint.
 
-The graph **preserves spatial memory absolutely**: node canvas coordinates never change. Only the angular distribution of sectors (under elastic focus), the viewport (under zoom/pan), and visual saturation (under focus) change.
+The graph should feel like one map viewed through different lenses.
 
-The 33 descriptive nodes (metric, bottleneck-status, frontier-status, principles, regulations, capability) do not render on canvas. They are surfaced as text in the detail panel for whichever structural node they describe.
+Stable channels:
+
+| Channel | Encodes |
+|---|---|
+| Approximate node position | Object identity and learned location |
+| Radius | Recursive decomposition depth |
+| Branch membership | Product/subsystem/component lineage |
+| Base node color | Subsystem identity |
+| Node name | Object identity |
+
+Switchable channels:
+
+| Channel | Encodes |
+|---|---|
+| Edge color / width | Current analysis mode value |
+| Node outline | Per-node mode band or status |
+| Glyphs | Bottleneck, evidence gap, frontier, top priority |
+| Saturation / opacity | Focus branch versus context |
+| Soft background grouping | Subsystem or aggregate mode hint |
 
 ## Layout Rules
 
-Use a deterministic, pure-function radial layout (`src/lib/radialLayout.ts` per the slice spec). Hand-written lane heuristics are not acceptable.
+Use deterministic radial layout logic. Do not use runtime physics or hand-tuned one-off lanes.
 
-- Polar coordinates: product at r=0; first-layer subsystems at r=R₁; descendants at increasing r within each sector; materials on the outermost ring at r=R_outer.
-- Sector angles for the 12 first-layer subsystems are equal (30°) at rest. Under focus, they redistribute elastically (focused sector = 120°, others compress proportionally) but the *content* of each sector — which nodes live in it and at what radius — does not change.
-- Position is computed once for the full DAG at render time and **never recomputed on focus**. Focus changes geometry only via the angle map; nodes follow the recomputed angles via CSS transition (`transform 600ms cubic-out`).
-- Shared-node assignment is deterministic: by parent count, ties broken by node-id hash. Cross-sector edges are explicit dashed arcs to the canonical position.
+The layout should optimize for first-glance readability:
 
-Do not re-root the layout around the user's current focus. Do not call ELK or any layout engine on focus changes.
+- Allocate angular space by subtree size, depth, label density, and collision avoidance.
+- Keep branch order stable across runs and small graph edits.
+- Preserve recursive depth through radius.
+- Keep the focal product central.
+- Avoid fixed equal subsystem sectors when they create empty sparse regions or cramped dense branches.
+- Express subsystem grouping through base color, labels, faint region tint, or boundaries after the tree is readable.
 
-## Node Rules
+Shared dependencies must remain DAG-aware:
 
-Nodes are progressive-disclosure markers, not research cards.
+- Overview can keep shared-dependency links low-noise through faint cross-links, glyphs, or delayed display.
+- Focused/high-zoom states may reveal full cross-links.
+- Do not duplicate shared nodes as if the data were a pure tree without making the duplication visually explicit.
 
-- LOD band 1 (zoom < 0.5): 5px circle, fill = subsystem hue family, no text.
-- LOD band 2 (0.5 ≤ zoom < 1.5): 12px marker, truncated name, lightness gradient by depth, outline color = current mode band, sector name label visible at the sector's outer perimeter.
-- LOD band 3 (zoom ≥ 1.5): 80×40 card, full name + 1 mode-relevant badge (cost or maturity), cross-edges show arrowheads.
-- Node fill encodes subsystem identity (hue family) and is never overridden by color mode. Color mode is encoded through outline (band 2+) and edge styling.
-- Materials and arbitrarily-assigned shared nodes use neutral grey fill.
-- Selected / focused state is encoded by *saturation*: focused subtree stays full saturation; everything else desaturates to greyscale. There is no border highlight, no glow, no ambient animation.
+## Stage 1: Overview
 
-## Edge Rules
+Overview teaches identity and structure.
 
-Edges express dependency structure with color, thickness, style, and opacity — never with text labels at default.
+It should show:
 
-- Default edge style: solid within a sector (same subsystem), dashed across sectors (shared structural module), dotted to the material ring.
-- Edge color = the current color mode value of the target node (5 bands, cool→warm gradient).
-- Edge thickness = the same 5 bands (0.5 / 1 / 1.5 / 2.5 / 4 px), aligned to the color binning so a thicker edge is always also the warmer color.
-- Edge opacity follows focus state: full when both endpoints are in the focused subtree, 50% otherwise.
-- Edge labels never render at band 1 or band 2. At band 3, only the edges incident to the currently-focused node show their relation label, dimmed.
+- The full structural product tree at low fidelity.
+- Product center, first-layer subsystems, recursive depth, and branch density.
+- Base subsystem colors.
+- A small number of priority glyphs when useful.
+
+It should not show:
+
+- Long evidence summaries.
+- Metric tables.
+- All edge labels.
+- Task lists.
+- Every review-status detail.
+- Large banners or duplicate list UIs beside the graph.
+
+Density is managed by semantic zoom:
+
+- **Low zoom**: structural nodes as small dots; no labels except possibly product.
+- **Mid zoom**: subsystem labels, important node names, outlines, and priority glyphs.
+- **High zoom / focus**: local labels, badges, and edge labels for the focused branch.
+
+## Stage 2: Branch Highlight
+
+Branch highlight answers bottleneck and evidence-gap questions on the same map.
+
+When a branch is selected:
+
+- The selected branch and its relevant descendants remain saturated.
+- Non-focus branches desaturate or fade but stay visible for orientation.
+- Edges on the important path become thicker or warmer according to the active mode.
+- Bottleneck nodes use warm outlines and strong path emphasis.
+- Evidence gaps use dashed / broken marks or hollow gap glyphs.
+- Frontier nodes use a distinct frontier glyph.
+
+Do not switch to an unrelated layout for bottleneck, cost, maturity, or evidence-gap modes. These are overlays on the same radial product map.
+
+## Stage 3: Node Detail Lens
+
+Selecting a node opens a detail lens while preserving map context.
+
+Desktop default:
+
+- Use a right-side rail / panel.
+- Keep the selected node and branch highlighted on the map.
+- Allow a collapsed rail for light inspection and expanded rail for research.
+
+Quick preview:
+
+- Use inline popovers only for lightweight confirmation: name, role, and one critical status.
+
+Small screens:
+
+- Use a bottom focus sheet rather than forcing a narrow right rail.
+
+Detail content order:
+
+1. Why this node matters in the selected branch.
+2. Role in the product tree.
+3. Metrics and maturity.
+4. Evidence and review status.
+5. Evidence gaps, frontier state, and research tasks.
+6. Longer notes and source limitations.
+
+The detail lens is an explanation layer anchored to the map, not an unrelated details page.
+
+## Signal Vocabulary
+
+Do not make every important signal red.
+
+| Signal | Visual language | Meaning |
+|---|---|---|
+| Bottleneck | Warm outline, thick emphasized path, high saturation | This node is currently blocking progress |
+| Evidence gap | Dashed / broken edge or hollow gap glyph | Important claim lacks sufficient support |
+| Frontier | Hollow diamond / frontier glyph | Decomposition should continue here |
+| Top priority | Small ranked glyph | Current mode ranks this node among the most important |
+| Review status | Subtle badge or rail detail | Trust state of the claim |
+
+Only a small number of high-priority glyphs should appear in overview. Full review details belong in the node lens.
 
 ## Color Modes
 
-Five color modes (configured via floating button bottom-left):
+Color modes are lenses over the stable product map.
 
-- **Bottleneck risk** (default): edge stroke + width binned by target node risk = (1 − maturity/100) × cost share.
-- **Cost**: target node cost band (blue cheap → red expensive).
-- **Maturity**: target node maturity band (red low → green high).
-- **Overall**: continuous composite gradient.
-- **Relation** (legacy): edges colored by relation type (`requires`, `manufactured_by`, etc.). This is the only mode where edge color does not encode a numeric property.
+Supported modes may include:
 
-Across modes, the K4 layering applies:
+- **Bottleneck risk**: combines maturity gap and cost/importance share.
+- **Cost**: emphasizes cost-bearing nodes and paths.
+- **Maturity**: emphasizes low versus high maturity.
+- **Evidence gap**: emphasizes unsupported or weakly supported claims.
+- **Overall**: composite signal when useful.
+- **Relation**: legacy/debug mode for edge relation semantics.
 
-| Visual channel | Encodes |
-|---|---|
-| Node fill | Subsystem hue family — permanent |
-| Sector background tint (<15% opacity) | Sector-aggregate mode value |
-| Edge stroke color | Target node mode band |
-| Edge stroke width | Same mode band, redundant for legibility |
-| Node outline (band 2+) | Per-node mode band |
+Across modes, keep binning aligned when the same scalar is redundantly encoded. For example, if edge color and edge width both encode cost, they must use the same thresholds.
 
 ## Interaction Rules
 
 Primary interactions:
 
-- **Click a structural node**: focus that node. Its sector expands from 30° to 120° over 600ms (cubic-out). Other 11 sectors compress proportionally. The clicked node and all of its `requires` descendants stay full saturation; everything else desaturates to greyscale. Viewport softly zooms (~1.5×) and pans to roughly center the clicked node. The focal product stays at canvas origin.
-- **Click a node inside an already-expanded sector (Level 2)**: that sub-subsystem's angular sub-range within the parent's 120° expands from ~30° to ~80°. Greyscale and zoom recursion compose.
-- **Click a node from Level 3+**: pure viewport zoom; geometry no longer changes.
-- **Cross-focus** (clicking a node in a different sector): previous sector contracts to 30°, target sector expands to 120°, saturation cross-fades. No camera jump.
-- **Esc / empty click / double-click current focus**: reverse animation, returning to the next-higher focus level.
-- **Zoom (mouse wheel, pinch, keyboard +/-)**: pure viewport zoom. No geometry change. LOD bands transition at zoom = 0.5 and 1.5.
-- **Cmd+K**: open search; type to fuzzy-match across node names and descriptive-node text; Enter flies to the result.
+- **Zoom**: changes semantic detail level. It should not change the user's conceptual location.
+- **Click / select a structural node**: highlights the relevant branch and updates the detail lens.
+- **Click outside / Esc**: exits the current focus state or collapses detail, preserving orientation.
+- **Cmd+K**: jumps to a node or descriptive record, then anchors the result on the same map.
+- **Mode switch**: changes overlays without moving nodes into a different layout.
 
-Detail panel:
+Deferred interactions:
 
-- A 64px-wide rail on the right edge shows the focused node's name + one critical badge. Clicking the rail expands it to 400px showing the node's full content (description, metrics, evidence, bottleneck/frontier notes, upstream/downstream, sibling products, cost rollup, regulations).
-- Switching focus cross-fades the rail's content; the rail/expanded state persists.
+- Animated path extraction from radial branch to linear causality path.
+- Time-axis replay of maturity, cost, evidence, and bottleneck state.
+- Sibling-product comparison inside the radial surface.
 
-There is no canvas-internal instructional text. The UI communicates through state, position, color, thickness, and saturation.
+Path extraction, when implemented, must animate from the radial branch into the linear path so the user can track where the path came from.
 
 ## Implementation Guardrails
 
-- Do not remount React Flow on focus changes. Focus updates state; state drives angle map and viewport; positions follow via CSS transitions.
-- Do not call any layout engine (ELK, dagre) at runtime. The radial layout is a pure function; results are memoized at mount.
-- Do not run layout from hover or selection state. Hover updates outline saturation only. Selection updates saturation and detail panel.
-- Do not run auto-fit on every state change. Fit-view runs only on initial load and on the explicit "0" keyboard shortcut.
-- Do not encode the same scalar in two visual channels with *different* binning. If edge thickness and edge color both encode cost, they share thresholds.
-- Do not introduce a list UI alongside the canvas without designing its visual replacement first. See `docs/design-principles.md` for the active exceptions and their retirement criteria.
-- Do not add "advanced filter" dropdowns. Narrowing is a deferred surface; the default view stays progressive-discovery.
-- Run `npm run lint`, `npm run check:graph-ux`, `npm test`, and `npm run verify` for UI changes. Run a full UX-flow tour (`docs/ux-flow-tours.md`) at each phase boundary in the slice spec.
-- Update this document when a slice in the radial spec lands; update `docs/design-principles.md` when an active exception retires.
+- Do not remount React Flow on focus changes.
+- Do not call ELK, dagre, or runtime physics for ordinary graph focus.
+- Do not use fixed equal sectors as the core layout invariant.
+- Do not use advanced filters as the default density solution.
+- Do not introduce a list UI alongside the canvas without first designing the visual replacement.
+- Do not encode the same scalar in two visual channels with different thresholds.
+- Keep local graph data as the source of truth for graph UI and validation.
 
-## Deferred surfaces
+## Deferred Surfaces
 
-The following are explicitly deferred to future specs and do not exist in the default `/graph` view:
+The following are explicitly deferred from the next overview/highlight iteration:
 
-- Sibling-product compare (alternative Product candidates under one Capability). Navigate via `/product/<id>` for now.
-- Filter / narrowing UI (kind, domain, maturity, relation filters).
-- Entry animation (radial fan-out from product center).
-- Mobile / small-screen adaptation.
+- Animated path extraction.
+- Time-axis replay.
+- Sibling-product compare in the radial map.
+- Advanced filter / narrowing UI.
+- Mobile-specific layout beyond the bottom detail-sheet adaptation.
 
 When a deferred surface lands, update this document and the ADR registry.

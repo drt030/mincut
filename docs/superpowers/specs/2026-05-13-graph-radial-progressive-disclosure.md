@@ -2,9 +2,11 @@
 
 **Date**: 2026-05-13
 **Author**: grilling session (Claude Opus 4.7)
-**Status**: approved, not yet started
+**Status**: historical; amended by `docs/superpowers/specs/2026-05-20-stable-balanced-radial-tree-design.md`
 **ADR**: `docs/adr/0006-radial-progressive-disclosure-graph.md`
 **Supersedes**: slices 2/3/4 of `docs/superpowers/specs/2026-05-10-graph-redesign.md`
+
+> **2026-05-20 note**: This spec captured the ADR-0006 rollout and is no longer the current target where it requires equal fixed sectors, click-to-elastic sector expansion as the main focus mechanism, or recursive Level-2 elastic geometry. The current graph UX direction is the Stable Balanced Radial Tree in `docs/superpowers/specs/2026-05-20-stable-balanced-radial-tree-design.md`.
 
 ## Goal
 

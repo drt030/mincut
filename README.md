@@ -59,7 +59,7 @@ Default next-task selection is scoped to the active v0 graph; deferred fixture t
 - Next.js App Router application.
 - TypeScript and Zod schemas for graph data.
 - Local JSON graph storage under `/data`.
-- Radial progressive-disclosure graph explorer (per ADR-0006): single radial canvas with all 77 structural nodes visible at the lowest zoom; click-to-focus elastically expands the relevant subsystem sector; viewport zoom drives 3-band semantic detail.
+- Radial graph explorer: current implementation follows ADR-0006's progressive-disclosure canvas; the next graph UX direction is ADR-0007's Stable Balanced Radial Tree, where overview and branch highlight are prioritized before path extraction or time replay.
 - 5 color modes (bottleneck-risk default, cost, maturity, overall, relation) layered redundantly across node fill, edges (color + thickness), and sector tint.
 - Node detail panel (collapsible right-edge rail) with metrics, evidence, upstream/downstream, cost rollup, sibling products.
 - Product view for the parcel-sorting robot node.

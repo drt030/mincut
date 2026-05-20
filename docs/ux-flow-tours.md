@@ -1,12 +1,12 @@
 # UX Flow Tours — manual playbook for the agent
 
-> **2026-05-13 status**: The UX model behind these flows changes substantially under ADR-0006 (`docs/adr/0006-radial-progressive-disclosure-graph.md`). Until the radial-progressive-disclosure spec lands phase-by-phase (`docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`), each flow below has a **post-ADR-0006 validity tag**:
+> **2026-05-20 status**: ADR-0007 (`docs/adr/0007-stable-balanced-radial-tree.md`) amends the earlier ADR-0006 equal-sector model. Future graph tours should evaluate Stable Balanced Radial Tree behavior: readable overview, branch highlight on the same map, and node detail lens with orientation preserved. Older flows below retain their historical **post-ADR-0006 validity tags** until they are rewritten.
 >
 > - **STILL VALID**: applies to current production AND to the radial model with minimal edits.
 > - **PARTIAL**: some steps survive, some assume the deprecated stage-machine. Use with judgment.
 > - **OBSOLETE**: assumes the two-stage exploration model, mode tabs, advanced filters, or `bottleneck`-kind nodes. Do not run; will be rewritten when the relevant phase ships.
 >
-> When a phase of the radial spec lands, replace the obsolete flows with their radial-model equivalents (sector elastic expansion, greyscale focus, K4 color mode K4 redundancy, LOD band transitions, cmd+K, detail rail).
+> When the Stable Balanced Radial Tree iteration lands, replace the obsolete flows with equivalents for: overview readability, balanced radial layout, branch highlight, semantic zoom, distinct signal vocabulary, cmd+K, and detail lens.
 
 End-to-end user flows the agent walks through using `chrome-devtools` MCP after **significant changes**. Output a scored markdown report under `docs/ux-flow-reports/<HEAD>-<flow>.md` (committed) so we have a history.
 
@@ -108,7 +108,7 @@ Verifies the 5-mode dropdown changes edge colors as expected, and that switching
 
 ## Flow 5 — Multi-layer expand drill-down
 
-**Post-ADR-0006: OBSOLETE.** `explorationLayout` is removed; the radial layout is computed once at mount and never recomputed on expand. Rewrite as a "Level 1 → Level 2 recursive elastic" flow when Phase C-1 lands: click a subsystem (sector → 120°), then click a sub-subsystem inside (sub-angle → 80°), verify the focal product remains at canvas origin throughout.
+**Post-ADR-0007: OBSOLETE.** `explorationLayout` is removed, and ADR-0007 also defers recursive elastic-sector drill-down. Rewrite this as a Stable Balanced Radial Tree flow: default overview readability, branch highlight, node detail lens, and orientation preservation.
 
 Verifies that explorationLayout reflows cleanly when a deeper subsystem is expanded, and that the grid wrap kicks in only when needed.
 

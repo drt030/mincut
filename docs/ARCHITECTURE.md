@@ -242,29 +242,30 @@ Important components:
 - `TaskQueueView.tsx`
 - `LanguageProvider.tsx`
 
-### Radial Progressive-Disclosure Graph
+### Stable Balanced Radial Tree
 
-Per ADR-0006 (2026-05-13), `/graph` is a single radial canvas that surfaces all structural nodes simultaneously at the lowest fidelity and reveals detail through zoom, focus, and color mode — not through stage transitions or filtering. The full design contract lives in `docs/GRAPH_UX.md`; the three governing principles in `docs/design-principles.md`; the implementation slices in `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`.
+Per ADR-0007 (2026-05-20), `/graph` should evolve into a Stable Balanced Radial Tree. It keeps ADR-0006's radial progressive-disclosure direction, but amends the older fixed-sector / recursive elastic-sector model. The full design contract lives in `docs/GRAPH_UX.md`; the governing principles in `docs/design-principles.md`; the current design spec in `docs/superpowers/specs/2026-05-20-stable-balanced-radial-tree-design.md`.
 
 Key shape:
 
-- All 77 structural nodes (product, module, material, engineering_method, manufacturing_process) for the focal product render simultaneously in polar coordinates: product at origin, 12 first-layer subsystems at equal 30° spacing on a ring, descendants in concentric layers within each sector, 10 materials on a neutral-grey outermost ring. Shared structural nodes (19 with multiple `requires` parents in current data) take a canonical primary-parent position; secondary parents render as dashed cross-sector arcs.
+- Structural nodes (product, module, material, engineering_method, manufacturing_process) for the focal product render as a radial product decomposition tree: product at center, recursive dependencies radiating outward by depth. Angular space should be allocated by readability — subtree size, depth, label density, and collision avoidance — before subsystem grouping is drawn.
 - The 33 descriptive nodes (`metric`, `bottleneck`, `placeholder_breakthrough`, scientific/empirical principles, regulations, capabilities) never render on canvas. They surface as text in the detail panel of whichever structural node they describe.
-- Bottleneck and frontier status are attributes on structural nodes (`bottleneckOf?: string[]`, `frontierFor?: string[]`), not separate `kind`s; the visual presence of a bottleneck emerges from the current color mode's heat.
-- Position is computed once at mount via `src/lib/radialLayout.ts` (pure function) and never recomputed on focus. Focus changes only sector angles, viewport, and saturation.
+- Bottleneck and frontier status are attributes on structural nodes (`bottleneckOf?: string[]`, `frontierFor?: string[]`), not separate `kind`s; the visual presence of a bottleneck emerges from branch emphasis, glyphs, and current mode overlays.
+- Subsystem grouping is expressed through base color, labels, faint region tint, or soft boundaries after the tree is readable. It is not the primary layout constraint.
+- Shared dependencies remain DAG-aware through low-noise overview marks and stronger cross-links on focus / higher zoom.
 
 What the graph answers, in this model:
 
 - "What is this product made of?" — visible in the default radial overview without any interaction.
-- "Which subsystem is most complex / most blocked / most expensive?" — encoded geometrically (sector size, internal density) and via the active color mode (edge color + thickness + sector tint).
+- "Which subsystem is most complex / most blocked / most expensive?" — encoded geometrically (branch density, path emphasis) and via the active color mode (edge color + thickness + node outline / soft grouping).
 - "What does this node depend on / what depends on it?" — appears in the detail panel rail (right edge, 64px collapsed, 400px expanded) when the node is selected.
 - "What blocks this product's maturity?" — encoded by color mode (default `bottleneck-risk`); high-risk nodes glow warm; their `bottleneckOf` attribute surfaces in the detail panel.
 
 Interaction model:
 
-- Click a structural node → its sector expands from 30° to 120° over 600ms; viewport softly zooms ~1.5× and pans to roughly center the node; the focused subtree stays saturated, everything else desaturates to greyscale. Spatial coordinates never change.
-- Click a node inside an already-expanded sector → recursive Level-2 elastic expansion of that sub-subsystem's sub-angle (30° → 80° within the parent's 120°).
-- Esc / empty click / double-click current focus → reverse animation to the next-higher level.
+- Click a structural node → highlight the relevant branch, update the detail lens, and keep the broader radial map visible as context.
+- Bottleneck and evidence-gap questions are answered by branch highlight on the same map, not by switching to unrelated layouts.
+- Esc / empty click / double-click current focus → exit or reduce the current focus state.
 - Cmd+K → fuzzy search across node names and descriptive-node text; Enter flies to the result.
 - Mouse wheel / pinch / keyboard +/- → pure viewport zoom; LOD bands switch at zoom = 0.5 and 1.5.
 

@@ -1,8 +1,10 @@
 ---
-status: accepted
+status: accepted, amended by ADR-0007
 ---
 
 # Radial progressive-disclosure graph
+
+> **2026-05-20 amendment**: ADR-0007 (`docs/adr/0007-stable-balanced-radial-tree.md`) supersedes the equal fixed-sector and recursive elastic-sector parts of this ADR. The retained direction is radial progressive disclosure, stable spatial memory, semantic zoom, analysis overlays, and a detail rail/lens. The amended direction is a Stable Balanced Radial Tree: first make the radial tree readable and evenly distributed, then express subsystem grouping as a soft visual layer.
 
 ## Context
 
