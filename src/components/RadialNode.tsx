@@ -9,9 +9,9 @@ import { radialBandFor } from "../lib/lod";
  * `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`,
  * `RadialNode` branches its rendered output on `radialBandFor(zoom)`:
  *
- *   Band 1 (zoom < 0.5):    5px SVG dot, no label, no outline, no card.
- *   Band 2 (0.5 ≤ z < 1.5): 12px circle + truncated label + outline.
- *   Band 3 (zoom ≥ 1.5):    80×40 HTML card with full name + maturity badge.
+ *   Band 1 (zoom < 0.5):    centered overview dot in the detail footprint.
+ *   Band 2 (0.5 ≤ z < 1.5): larger circle + truncated label + outline.
+ *   Band 3 (zoom ≥ 1.5):    136×72 HTML card with full name + maturity badge.
  *
  * The component takes `zoom` as an explicit prop (not subscribed via
  * `useStore` inside the component) so unit tests can render it without
@@ -69,6 +69,14 @@ export type RadialNodeProps = {
    * grey when undefined.
    */
   outlineColor?: string;
+  /**
+   * Stable overview hierarchy. Anchors are first-layer subsystem marks,
+   * branch nodes are ordinary internal nodes, and leaves become quiet
+   * texture until the user zooms in.
+   */
+  visualRole?: "root" | "anchor" | "branch" | "leaf";
+  /** Suppress low-zoom labels for quiet texture nodes. */
+  showLabel?: boolean;
 };
 
 /**
@@ -81,8 +89,11 @@ export type RadialNodeProps = {
  * that don't specify `sourceHandle` / `targetHandle` (which is the case
  * for every radial edge today).
  */
-function HiddenHandles() {
+function HiddenHandles({ top }: { top: number }) {
   const sharedStyle: React.CSSProperties = {
+    left: "50%",
+    top,
+    transform: "translate(-50%, -50%)",
     width: 1,
     height: 1,
     minWidth: 1,
@@ -94,22 +105,41 @@ function HiddenHandles() {
   };
   return (
     <>
-      <Handle type="target" position={Position.Top} style={sharedStyle} isConnectable={false} />
-      <Handle type="source" position={Position.Bottom} style={sharedStyle} isConnectable={false} />
+      <Handle type="target" position={Position.Left} style={sharedStyle} isConnectable={false} />
+      <Handle type="source" position={Position.Left} style={sharedStyle} isConnectable={false} />
     </>
   );
 }
 
-const MAX_LABEL_CHARS = 12;
-const KEEP_LABEL_CHARS = 11;
+const MAX_LABEL_CHARS = 15;
+const KEEP_LABEL_CHARS = 14;
 const ELLIPSIS = "…";
+const BAND2_WIDTH = 108;
+const BAND2_HEIGHT = 64;
+const BAND3_WIDTH = 136;
+const BAND3_HEIGHT = 72;
+const BAND3_CENTER_X = BAND3_WIDTH / 2;
+const BAND3_CENTER_Y = BAND3_HEIGHT / 2;
+const BAND2_OFFSET_X = (BAND3_WIDTH - BAND2_WIDTH) / 2;
+const BAND2_OFFSET_Y = (BAND3_HEIGHT - BAND2_HEIGHT) / 2;
+const BAND2_CENTER_X = BAND2_OFFSET_X + BAND2_WIDTH / 2;
+const BAND2_CIRCLE_Y = BAND2_OFFSET_Y + 20;
 
 function truncateLabel(name: string): string {
   if (name.length <= MAX_LABEL_CHARS) return name;
   return `${name.slice(0, KEEP_LABEL_CHARS)}${ELLIPSIS}`;
 }
 
-export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = false, outlineColor }: RadialNodeProps) {
+export function RadialNode({
+  name,
+  fill,
+  maturityLabel,
+  zoom,
+  withHandles = false,
+  outlineColor,
+  visualRole = "branch",
+  showLabel = true,
+}: RadialNodeProps) {
   const band = radialBandFor(zoom);
   // Per ADR-0006 §"Color mode K4 layering", band-2+ node outlines pick
   // up the active colour mode's band colour. Falls back to the legacy
@@ -117,71 +147,106 @@ export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = fals
   const outline = outlineColor ?? "#888";
 
   if (band === 1) {
-    // 5px dot, centred in a 14×14 SVG so the wrapper hit-area matches
-    // the band-2 outline footprint and band-1 ↔ band-2 transitions
-    // don't reflow the React Flow node box.
+    const radiusByRole = {
+      root: 26,
+      anchor: 22,
+      branch: 15,
+      leaf: 9,
+    } as const;
+    const opacityByRole = {
+      root: 1,
+      anchor: 0.96,
+      branch: 0.82,
+      leaf: 0.46,
+    } as const;
+    const r = radiusByRole[visualRole];
+    const opacity = opacityByRole[visualRole];
     return (
       <>
-        {withHandles ? <HiddenHandles /> : null}
-        <svg width={14} height={14} aria-hidden="true">
-          <circle cx={7} cy={7} r={5} fill={fill} />
+        {withHandles ? <HiddenHandles top={BAND3_CENTER_Y} /> : null}
+        <svg width={BAND3_WIDTH} height={BAND3_HEIGHT} aria-hidden="true">
+          <circle cx={BAND3_CENTER_X} cy={BAND3_CENTER_Y} r={r} fill={fill} opacity={opacity} />
         </svg>
       </>
     );
   }
 
   if (band === 2) {
-    // 12px circle + outline + truncated label below the marker. The
+    // Larger circle + outline + truncated label below the marker. The
     // outline is currently a hard-coded grey; B1 will replace with the
-    // colour-mode band. The SVG canvas is 72×42 — deliberately NOT
-    // 80×40 — so a regex check that band 2 does not render the band-3
-    // card footprint stays unambiguous.
+    // colour-mode band. The visible content stays 108×64, but the outer
+    // SVG reserves the 136×72 detail footprint so every display mode uses
+    // the same layout box.
     const label = truncateLabel(name);
+    const radiusByRole = {
+      root: 18,
+      anchor: 17,
+      branch: 16,
+      leaf: 10,
+    } as const;
+    const opacityByRole = {
+      root: 1,
+      anchor: 0.96,
+      branch: 0.82,
+      leaf: 0.5,
+    } as const;
+    const r = radiusByRole[visualRole];
+    const opacity = opacityByRole[visualRole];
     return (
       <>
-        {withHandles ? <HiddenHandles /> : null}
-        <svg width={72} height={42} aria-hidden="true">
+        {withHandles ? <HiddenHandles top={BAND2_CIRCLE_Y} /> : null}
+        <svg width={BAND3_WIDTH} height={BAND3_HEIGHT} aria-hidden="true">
+          <rect
+            x={BAND2_OFFSET_X}
+            y={BAND2_OFFSET_Y}
+            width={BAND2_WIDTH}
+            height={BAND2_HEIGHT}
+            fill="transparent"
+          />
           <circle
-            cx={36}
-            cy={14}
-            r={12}
+            cx={BAND2_CENTER_X}
+            cy={BAND2_CIRCLE_Y}
+            r={r}
             fill={fill}
+            opacity={opacity}
             stroke={outline}
             strokeWidth={1.5}
           />
-          <text
-            x={36}
-            y={36}
-            textAnchor="middle"
-            fontSize={10}
-            fill="#0f172a"
-          >
-            {label}
-          </text>
+          {showLabel ? (
+            <text
+              x={BAND2_CENTER_X}
+              y={BAND2_OFFSET_Y + 54}
+              textAnchor="middle"
+              fontSize={13}
+              fill="#0f172a"
+            >
+              {label}
+            </text>
+          ) : null}
         </svg>
       </>
     );
   }
 
-  // Band 3: 80×40 HTML card. We mount the HTML inside a foreignObject so
+  // Band 3: 136×72 HTML card. We mount the HTML inside a foreignObject so
   // the component composes naturally under an SVG canvas (React Flow's
   // node-host element is HTML, but we keep the foreignObject so the
   // contract is uniform — band 1 + 2 are SVG, band 3 is HTML-in-SVG).
   return (
     <>
-      {withHandles ? <HiddenHandles /> : null}
-      <svg width={80} height={40}>
-        <foreignObject width={80} height={40}>
+      {withHandles ? <HiddenHandles top={BAND3_CENTER_Y} /> : null}
+      <svg width={BAND3_WIDTH} height={BAND3_HEIGHT}>
+        <foreignObject width={BAND3_WIDTH} height={BAND3_HEIGHT}>
           <div
             style={{
-              width: 80,
-              height: 40,
+              width: BAND3_WIDTH,
+              height: BAND3_HEIGHT,
               background: fill,
               border: `1px solid ${outline}`,
               borderRadius: 4,
-              padding: "2px 4px",
+              padding: "7px 8px",
               boxSizing: "border-box",
-              fontSize: 9,
+              fontSize: 14,
               color: "#0f172a",
               display: "flex",
               flexDirection: "column",
@@ -192,16 +257,19 @@ export function RadialNode({ name, fill, maturityLabel, zoom, withHandles = fals
             <span
               style={{
                 fontWeight: 600,
-                lineHeight: 1.1,
+                lineHeight: 1.15,
                 overflow: "hidden",
                 textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 2,
               }}
             >
               {name}
             </span>
             <span
               style={{
-                fontSize: 8,
+                fontSize: 10,
                 background: "rgba(255,255,255,0.7)",
                 borderRadius: 2,
                 padding: "0 3px",

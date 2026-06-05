@@ -51,9 +51,9 @@ import type { GraphData } from "../src/lib/schema";
 // ------------------------------------------------------------------
 // Fixture: the real loaded dataset.
 //
-// At HEAD ca659f8 (C2 GREEN):
+// At the 2026-05-31 cost-consistency pass:
 //   - The focal product `low_cost_parcel_sorting_robot_300k_rmb` has
-//     65 `requires`-reachable structural nodes (pinned in
+//     72 `requires`-reachable structural nodes (pinned in
 //     tests/focusedSubset.test.ts test 2).
 //   - The full dataset is meaningfully larger than the focal subtree
 //     (siblings: iphone_4, materials only used by the case study,
@@ -280,18 +280,19 @@ test("selectTopN(bottleneck-risk, n=10): returns at most 10 entries", () => {
 // ==================================================================
 //
 // When the caller passes `null`, `selectTopN` MUST scope to the
-// structural focal-subtree (size 65 at HEAD ca659f8), NOT the full
+// structural focal-subtree (size 72 after the cost-consistency
+// backfill), NOT the full
 // loaded dataset. The dataset includes siblings (e.g. `iphone_4`)
 // and materials only the case study uses — those MUST be excluded.
 // ==================================================================
 test("selectTopN(focusedSubsetIds=null): scope is the focal subtree, not the full graph", () => {
   // Oracle: confirm the focal subtree is meaningfully smaller than
-  // the loaded graph at HEAD ca659f8. If this fails, data changed
+  // the loaded graph. If this fails, data changed
   // and the assertion text below must be re-pinned.
   assert.equal(
     focalIds.size,
-    65,
-    `oracle: focal subtree should be 65 at HEAD ca659f8; got ${focalIds.size}`,
+    72,
+    `oracle: focal subtree should be 72 after the cost-consistency backfill; got ${focalIds.size}`,
   );
   assert.ok(
     graph.nodes.length > focalIds.size,
@@ -426,4 +427,87 @@ test("GraphExplorer.tsx regression guard: no legacy banner strings in JSX text",
         "If A3b removed it, this test stays green as a permanent guard.",
     );
   }
+});
+
+test("GraphExplorer.tsx regression guard: sector background radius follows layout envelope", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.ok(
+    !noLineComments.includes("const R_OUTER = 500"),
+    "sector tint wedges must not use a fixed oversized 500-unit radius",
+  );
+  assert.ok(
+    !noLineComments.includes("420 * PX_SCALE"),
+    "guide boundary must not use a fixed oversized 420-unit radius",
+  );
+  assert.ok(
+    noLineComments.includes("backgroundOuterR"),
+    "GraphExplorer should compute a layout-dependent backgroundOuterR",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: sector tint does not depend on color mode aggregates", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const sectorTintBlock = raw.match(/const sectorTintWedges = useMemo\(\(\) => \{[\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ?? "";
+
+  assert.ok(
+    sectorTintBlock.length > 0,
+    "GraphExplorer should keep an explicit sectorTintWedges memo block",
+  );
+  assert.equal(
+    sectorTintBlock.includes("sectorAggregate("),
+    false,
+    "sector background tint should be structural only; edge/color mode aggregates belong on lines and nodes",
+  );
+  assert.equal(
+    /\bcolorMode\b/.test(sectorTintBlock),
+    false,
+    "sector background tint should not change when the user switches line-colouring mode",
+  );
+  assert.equal(
+    sectorTintBlock.includes("subsystemHue("),
+    true,
+    "sector background tint should use stable subsystem hue families rather than a single neutral fill",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: explicit focus query drives initial path before stale path query", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const focusPathStateIndex = noLineComments.indexOf("const [focusPath, setFocusPath]");
+  assert.notEqual(focusPathStateIndex, -1, "GraphExplorer should define focusPath state");
+  const focusIndex = noLineComments.indexOf(
+    "const focusIdFromUrl = searchParams?.get(\"focus\");",
+    focusPathStateIndex,
+  );
+  const pathIndex = noLineComments.indexOf(
+    "const raw = searchParams?.get(\"path\");",
+    focusPathStateIndex,
+  );
+
+  assert.ok(
+    focusIndex !== -1 && pathIndex !== -1 && focusIndex < pathIndex,
+    "initial focusPath restore should honor explicit ?focus before stale ?path",
+  );
 });

@@ -30,22 +30,6 @@
     ]
   },
   {
-    "id": "e_product_requires_robot_arm_body",
-    "source": "low_cost_parcel_sorting_robot_300k_rmb",
-    "target": "industrial_robot_arm_body",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_product_requires_end_effector",
-    "source": "low_cost_parcel_sorting_robot_300k_rmb",
-    "target": "end_effector_gripper_or_suction",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
     "id": "e_product_requires_conveyor",
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "conveyor_integration",
@@ -59,14 +43,6 @@
     "id": "e_product_requires_decision",
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "sorting_decision_system",
-    "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_product_requires_motion",
-    "source": "low_cost_parcel_sorting_robot_300k_rmb",
-    "target": "motion_planning",
     "relation": "requires",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -597,6 +573,18 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_reducer_requires_lubrication_life_test",
+    "source": "precision_reducer_gearbox",
+    "target": "reducer_lubrication_and_life_test",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Low-cost precision reducer maturity and cost depend on life-test and lubrication qualification capability, not only on the physical spline and bearing parts."
+  },
+  {
     "id": "e_servo_motor_requires_stator_core",
     "source": "industrial_servo_motor",
     "target": "servo_motor_stator_core",
@@ -828,6 +816,16 @@
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
   },
   {
+    "id": "e_delta_route_requires_parcel_variability_jam_control",
+    "source": "delta_robot_sorting",
+    "target": "delta_robot_parcel_variability_jam_control",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "claim": "Delta robot sorting's parcel-variability jam bottleneck depends on a delta-specific high-speed pick-window and jam-control method, not only on generic detection or motion-planning modules.",
+    "context": "Adjacent product candidate only; added as a consistency backfill so bottleneck-mode colouring has a direct lower-layer explanation."
+  },
+  {
     "id": "e_delta_route_measured_weight",
     "source": "delta_robot_sorting",
     "target": "allowed_parcel_weight_range",
@@ -952,6 +950,19 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_conveyor_requires_induction_spacing_control",
+    "source": "conveyor_integration",
+    "target": "parcel_induction_spacing_control",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_interroll_sorter_platform"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Low-cost conveyor integration requires stable induction and spacing control; otherwise parcel timing and presentation drive jams, no-reads, and robot intervention misses."
+  },
+  {
     "id": "e_conveyor_requires_plc_wcs",
     "source": "conveyor_integration",
     "target": "plc_and_wcs_integration",
@@ -1063,6 +1074,15 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_plc_wcs_requires_sorting_handshake_fault_recovery",
+    "source": "plc_and_wcs_integration",
+    "target": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "claim": "PLC/WCS integration maturity is constrained by the software-and-controls handshake and fault-recovery loop, not only by electronics availability."
+  },
+  {
     "id": "e_camera_requires_semiconductors",
     "source": "industrial_area_scan_camera",
     "target": "semiconductor_grade_silicon_and_electronics",
@@ -1083,6 +1103,15 @@
       "ev_usgs_silicon_statistics"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vision_compute_requires_realtime_integration",
+    "source": "vision_processing_compute",
+    "target": "low_cost_realtime_vision_compute_integration",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "claim": "Vision processing compute maturity depends on real-time low-cost compute integration, SDK/runtime coupling, thermal design, and latency control."
   },
   {
     "id": "e_semiconductors_require_quartz_silicon_chain",
@@ -1219,6 +1248,15 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_base_mounting_requires_installation_alignment",
+    "source": "robot_base_mounting_structure",
+    "target": "robot_base_installation_alignment_process",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "claim": "Robot base maturity depends on repeatable installation, alignment, anchoring, vibration checking, and commissioning, not only on steel availability."
+  },
+  {
     "id": "e_chutes_bins_require_aluminum_material",
     "source": "sortation_chutes_and_bins",
     "target": "aluminum_structural_material",
@@ -1241,6 +1279,15 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_suction_cups_require_contact_qualification",
+    "source": "vacuum_suction_cup_array",
+    "target": "parcel_suction_cup_contact_qualification",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "claim": "Suction cup array maturity depends on contact qualification across variable parcel surfaces, not only elastomer feedstock availability."
+  },
+  {
     "id": "e_vacuum_valves_require_elastomer_feedstock",
     "source": "vacuum_valves_and_blowoff",
     "target": "petrochemical_elastomer_feedstock",
@@ -1250,6 +1297,15 @@
       "ev_vacuforce_vacuum_components"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_valves_require_blowoff_timing_control",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "vacuum_blowoff_timing_and_contamination_control",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "claim": "Vacuum valve and blow-off maturity depends on dynamic timing, contamination tolerance, leakage handling, and robot-motion synchronization."
   },
   {
     "id": "e_v0_product_enables_capability",
@@ -1304,6 +1360,78 @@
     "confidence": "high",
     "reviewStatus": "reviewed",
     "context": "Cost measurement attached per ADR-0003 cost-rollup model. Pricing the arm body directly intercepts recursion through servo motors, reducers, and material chains, treating the arm as a single purchasable subsystem. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_precision_reducer_gearbox_measured_by_cost",
+    "source": "precision_reducer_gearbox",
+    "target": "precision_reducer_gearbox_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the reducer child so a high-cost arm body has an explanatory high-cost dependency."
+  },
+  {
+    "id": "e_reducer_lubrication_and_life_test_measured_by_cost",
+    "source": "reducer_lubrication_and_life_test",
+    "target": "reducer_lubrication_and_life_test_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates the high-cost precision-reducer driver to life-test and qualification work rather than raw steel availability."
+  },
+  {
+    "id": "e_industrial_servo_motor_measured_by_cost",
+    "source": "industrial_servo_motor",
+    "target": "industrial_servo_motor_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the servo-motor child."
+  },
+  {
+    "id": "e_servo_drive_controller_measured_by_cost",
+    "source": "servo_drive_controller",
+    "target": "servo_drive_controller_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the servo-drive child."
+  },
+  {
+    "id": "e_arm_links_and_joints_measured_by_cost",
+    "source": "arm_links_and_joints",
+    "target": "arm_links_and_joints_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the links-and-joints child."
+  },
+  {
+    "id": "e_robot_controller_io_measured_by_cost",
+    "source": "robot_controller_io",
+    "target": "robot_controller_io_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the controller-I/O child."
+  },
+  {
+    "id": "e_robot_cabling_and_power_measured_by_cost",
+    "source": "robot_cabling_and_power",
+    "target": "robot_cabling_and_power_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the cabling-and-power child."
+  },
+  {
+    "id": "e_robot_base_mounting_structure_measured_by_cost",
+    "source": "robot_base_mounting_structure",
+    "target": "robot_base_mounting_structure_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the base/mounting child."
   },
   {
     "id": "e_end_effector_gripper_or_suction_measured_by_cost",
@@ -1367,6 +1495,51 @@
     "confidence": "high",
     "reviewStatus": "reviewed",
     "context": "Cost measurement attached per ADR-0003. Pricing the conveyor integration as a bundle stops recursion through photoelectric sensors, encoder, PLC, chutes, and induction-control children. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_plc_and_wcs_integration_measured_by_cost",
+    "source": "plc_and_wcs_integration",
+    "target": "plc_and_wcs_integration_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the PLC/WCS child so a high-cost conveyor subsystem has an explanatory high-cost dependency."
+  },
+  {
+    "id": "e_plc_wcs_sorting_handshake_and_fault_recovery_measured_by_cost",
+    "source": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "target": "plc_wcs_sorting_handshake_and_fault_recovery_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates the high-cost PLC/WCS integration driver to handshake, exception, and recovery implementation work."
+  },
+  {
+    "id": "e_sortation_chutes_and_bins_measured_by_cost",
+    "source": "sortation_chutes_and_bins",
+    "target": "sortation_chutes_and_bins_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the chutes-and-bins child."
+  },
+  {
+    "id": "e_conveyor_speed_encoder_tracking_measured_by_cost",
+    "source": "conveyor_speed_encoder_tracking",
+    "target": "conveyor_speed_encoder_tracking_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the speed-encoder child."
+  },
+  {
+    "id": "e_conveyor_photoelectric_sensors_measured_by_cost",
+    "source": "conveyor_photoelectric_sensors",
+    "target": "conveyor_photoelectric_sensors_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the photoelectric-sensor child."
   },
   {
     "id": "e_safety_system_measured_by_cost",

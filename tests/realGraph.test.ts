@@ -28,12 +28,13 @@ test("real graph: parcel_manipulation_or_diverter surfaces the cost inversion", 
 
 test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", () => {
   // Slice 1's headline number: 274.7k (old walker) → 283.5k (new walker).
-  // Lock the new value in so a future change that accidentally reverts
-  // to the priority-1-wins walker is caught.
+  // The 2026-05-31 cost-consistency backfill decomposes arm/conveyor bundle
+  // costs, moving the live rolled-up typical to ~310.0k. Lock that value in
+  // so a future change that accidentally hides child cost drivers is caught.
   const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.ok(
-    result.rolledUp.typical > 280_000 && result.rolledUp.typical < 290_000,
-    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~283.5k)`,
+    result.rolledUp.typical > 305_000 && result.rolledUp.typical < 315_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~310.0k)`,
   );
 });
 

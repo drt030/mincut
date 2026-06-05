@@ -372,6 +372,11 @@ li {
   grid-template-columns: minmax(0, 1fr) 410px;
 }
 
+.graph-layout-radial {
+  display: block;
+  position: relative;
+}
+
 .graph-canvas {
   background:
     radial-gradient(circle at 18% 14%, rgba(20, 184, 166, 0.08), transparent 28%),
@@ -381,6 +386,34 @@ li {
   height: clamp(500px, calc(100vh - 220px), 680px);
   min-height: 500px;
   overflow: hidden;
+}
+
+.graph-canvas-radial {
+  background: #fffefb;
+  border-color: rgba(15, 23, 42, 0.16);
+  height: min(760px, calc(100vh - 156px));
+  min-height: 520px;
+}
+
+.graph-canvas-radial .react-flow__background {
+  opacity: 0;
+}
+
+.graph-layout-radial > .node-detail-rail {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.86);
+  bottom: 14px;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 6;
+}
+
+.graph-layout-radial > .node-detail-rail.collapsed {
+  bottom: auto;
+  height: auto;
+  max-height: 220px;
 }
 
 /*
@@ -452,6 +485,38 @@ li {
 .react-flow__edge .radial-dim,
 .react-flow__edge > g {
   transition: filter 400ms ease;
+}
+
+.radial-guide-ring {
+  fill: none;
+  stroke: rgba(37, 99, 235, 0.15);
+  stroke-dasharray: 3 8;
+  stroke-width: 1;
+}
+
+.radial-guide-boundary {
+  fill: none;
+  stroke: rgba(15, 23, 42, 0.28);
+  stroke-width: 1.2;
+}
+
+.sector-label {
+  fill: #172033;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-linejoin: round;
+  stroke-width: 4px;
+  transition:
+    fill 240ms ease,
+    opacity 240ms ease;
+}
+
+.sector-label.dimmed {
+  fill: #94a3b8;
+  opacity: 0.42;
 }
 
 /*
@@ -1482,7 +1547,7 @@ code {
 
 /*
  * Slice B4 — Detail panel rail. Per ADR-0006 § "Detail panel" the
- * detail surface becomes a right-edge rail with two states (64 px /
+ * detail surface becomes a right-edge rail with two states (112 px /
  * 400 px) and cross-fades content on focus change. The width
  * transitions over 300 ms; the inner content cross-fades over 200 ms
  * via React's key-driven unmount/remount (handled by
@@ -1541,7 +1606,7 @@ code {
 }
 
 .node-detail-rail.collapsed .rail-content {
-  padding: 8px 6px;
+  padding: 10px 8px;
 }
 
 .node-detail-rail .rail-collapsed {
@@ -1552,12 +1617,13 @@ code {
 }
 
 .node-detail-rail .rail-collapsed-name {
-  font-size: 11px;
+  display: -webkit-box;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.28;
   text-align: center;
-  /* Vertical-text trick: keep the 64 px rail readable when the
-     full node name doesn't fit horizontally. */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
   overflow: hidden;
   word-break: break-word;
 }
@@ -1586,4 +1652,3 @@ code {
 .node-detail-rail.expanded .rail-content {
   padding: 14px 16px;
 }
-

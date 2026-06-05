@@ -10,7 +10,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 //
 // The detail panel becomes a right-edge rail with two states:
 //
-//   - Default (collapsed): 64px wide. Shows the focused node's name
+//   - Default (collapsed): 112px wide. Shows the focused node's name
 //     plus one critical badge (maturity). Hints "more detail
 //     available."
 //   - Expanded: 400px wide. Shows description, metrics, evidence,
@@ -91,9 +91,9 @@ function render(props: NodeDetailRailTestProps): string {
 const noop = () => {};
 
 // ==================================================================
-// Test 1 — Default collapsed render: 64px wide, name + maturity badge
+// Test 1 — Default collapsed render: 112px wide, name + maturity badge
 // ==================================================================
-test("collapsed: 64px-wide rail shows the focused node's name and one maturity badge", () => {
+test("collapsed: 112px-wide rail shows the focused node's name and one maturity badge", () => {
   const focused = nodeById(SUBSYSTEM_ID); // maturityLabel = "prototype"
   const html = render({
     graph,
@@ -114,11 +114,11 @@ test("collapsed: 64px-wide rail shows the focused node's name and one maturity b
 
   // Width pinned via a data attribute so we don't have to parse
   // inline style strings or CSS-in-JS. The GREEN commit also wires
-  // up the actual CSS width (64px); the attribute is the test hook.
+  // up the actual CSS width (112px); the attribute is the test hook.
   assert.match(
     html,
-    /data-rail-width=["']64["']/,
-    `collapsed rail must expose data-rail-width="64"; got: ${html}`,
+    /data-rail-width=["']112["']/,
+    `collapsed rail must expose data-rail-width="112"; got: ${html}`,
   );
 
   // The node name must appear somewhere in the rail. Use the
@@ -202,9 +202,9 @@ test("expanded: 400px-wide rail shows description and metric references", () => 
 });
 
 // ==================================================================
-// Test 3 — No focus: placeholder, still 64px wide
+// Test 3 — No focus: placeholder, still 112px wide
 // ==================================================================
-test("no focus: rail renders a 'no selection' placeholder at 64px", () => {
+test("no focus: rail renders a 'no selection' placeholder at 112px", () => {
   const html = render({
     graph,
     focusedNode: null,
@@ -220,14 +220,14 @@ test("no focus: rail renders a 'no selection' placeholder at 64px", () => {
     `no-focus rail must still expose data-testid="node-detail-rail"; got: ${html}`,
   );
 
-  // Width stays at 64 even if `expanded === false`. The contract:
+  // Width stays at 112 even if `expanded === false`. The contract:
   // an empty rail can never be 400px — there's nothing to expand
-  // to. The GREEN commit should either force width=64 in the
+  // to. The GREEN commit should either force width=112 in the
   // no-focus branch or refuse to render the expanded shell.
   assert.match(
     html,
-    /data-rail-width=["']64["']/,
-    `no-focus rail must stay at data-rail-width="64"; got: ${html}`,
+    /data-rail-width=["']112["']/,
+    `no-focus rail must stay at data-rail-width="112"; got: ${html}`,
   );
 
   // Placeholder hook: a discoverable testid for the empty-state.

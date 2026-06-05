@@ -9,7 +9,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 // Helper: pure zoom → band mapping. Picked as a co-located module rather
 // than living inside `radialLayout.ts` because LOD is a rendering concern
 // (the layout itself is band-agnostic) and we want unit-testable purity.
-import { radialBandFor } from "../src/lib/lod";
+import { effectiveLodZoom, radialBandFor } from "../src/lib/lod";
 // Components: A4 extracts the band-1 dot rendering out of
 // `GraphExplorer.tsx` into a dedicated `RadialNode` that branches on
 // band 1 / 2 / 3, and introduces a new `RadialEdge` that does the same
@@ -28,7 +28,7 @@ import { RadialEdge } from "../src/components/RadialEdge";
  *
  * Three discrete LOD bands per ADR-0006:
  *
- *   Band 1 (zoom < 0.5):     5px circular dot, no labels, no outline,
+ *   Band 1 (zoom < 0.5):     15px circular dot, no labels, no outline,
  *                            no foreignObject. Edges are plain thin
  *                            lines, no arrowheads, no labels.
  *   Band 2 (0.5 ≤ z < 1.5):  12px circular marker, fill = subsystem
@@ -37,7 +37,7 @@ import { RadialEdge } from "../src/components/RadialEdge";
  *                            grey in A4 — B1 will wire it to the
  *                            colour-mode band). Edges gain arrowheads
  *                            (`marker-end`) but stay unlabelled.
- *   Band 3 (zoom ≥ 1.5):     80×40 HTML card with full node name and
+ *   Band 3 (zoom ≥ 1.5):     108×56 HTML card with full node name and
  *                            one badge (default: maturity). Edges keep
  *                            arrowheads and gain labels — but the label
  *                            is only visible when the edge's source or
@@ -74,6 +74,8 @@ type RadialNodeTestProps = {
   fill: string;
   maturityLabel: string;
   zoom: number;
+  visualRole?: "root" | "anchor" | "branch" | "leaf";
+  showLabel?: boolean;
 };
 
 type RadialEdgeTestProps = {
@@ -83,6 +85,19 @@ type RadialEdgeTestProps = {
   label: string;
   zoom: number;
   isFocusEndpoint: boolean;
+  sourceX?: number;
+  sourceY?: number;
+  targetX?: number;
+  targetY?: number;
+  sourceAnchorX?: number;
+  sourceAnchorY?: number;
+  targetAnchorX?: number;
+  targetAnchorY?: number;
+  sourceRadius?: number;
+  targetRadius?: number;
+  stroke?: string;
+  edgeKind?: "primary" | "cross";
+  emphasis?: "branch" | "normal";
 };
 
 function renderNode(props: RadialNodeTestProps): string {
@@ -133,6 +148,18 @@ test("radialBandFor B3: zoom ≥ 1.5 returns band 3", () => {
   assert.equal(radialBandFor(3.0), 3, "zoom=3.0 must be band 3");
 });
 
+test("effectiveLodZoom: manual display modes pin the rendered band independent of raw zoom", () => {
+  assert.equal(radialBandFor(effectiveLodZoom(2.4, "overview")), 1);
+  assert.equal(radialBandFor(effectiveLodZoom(0.2, "labels")), 2);
+  assert.equal(radialBandFor(effectiveLodZoom(0.2, "detail")), 3);
+});
+
+test("effectiveLodZoom: auto keeps the existing zoom-threshold behaviour", () => {
+  assert.equal(radialBandFor(effectiveLodZoom(0.3, "auto")), 1);
+  assert.equal(radialBandFor(effectiveLodZoom(1.0, "auto")), 2);
+  assert.equal(radialBandFor(effectiveLodZoom(2.0, "auto")), 3);
+});
+
 // -------------------- RadialNode component output --------------------
 
 const SAMPLE_NODE_PROPS_BASE = {
@@ -142,18 +169,30 @@ const SAMPLE_NODE_PROPS_BASE = {
   maturityLabel: "Lab prototype",
 };
 
-test("RadialNode band 1 (zoom 0.3): 5px SVG dot, no label, no foreignObject", () => {
+test("RadialNode band 1 (zoom 0.3): detail-sized SVG footprint with centered dot, no label, no foreignObject", () => {
   const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 0.3 });
   // SVG circle present.
   assert.match(html, /<svg/, `band-1 must render an <svg> root; got: ${html}`);
+  assert.match(html, /width=["']136["']/, `band-1 must reserve detail width; got: ${html}`);
+  assert.match(html, /height=["']72["']/, `band-1 must reserve detail height; got: ${html}`);
   assert.match(html, /<circle/, `band-1 must contain a <circle>; got: ${html}`);
-  // r="5" (radius 5px). Allow either single or double quotes around the
+  // r="15" (radius 15px). Allow either single or double quotes around the
   // attribute value; renderToStaticMarkup uses double quotes today, but
   // we keep the regex tolerant.
   assert.match(
     html,
-    /r=["']5["']/,
-    `band-1 circle must have r=5; got: ${html}`,
+    /r=["']15["']/,
+    `band-1 circle must have r=15; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /cx=["']68["']/,
+    `band-1 dot must be centered in the detail footprint; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /cy=["']36["']/,
+    `band-1 dot must be centered in the detail footprint; got: ${html}`,
   );
   // No foreignObject (band-1 has no HTML inside SVG).
   assert.doesNotMatch(
@@ -174,14 +213,22 @@ test("RadialNode band 1 (zoom 0.3): 5px SVG dot, no label, no foreignObject", ()
   assert.doesNotMatch(html, /<text[\s>]/, `band-1 must NOT contain a <text> element; got: ${html}`);
 });
 
-test("RadialNode band 2 (zoom 1.0): 12px circle, truncated label, outline element", () => {
+test("RadialNode band 1 visual hierarchy: anchors are larger than readable quiet leaves", () => {
+  const anchorHtml = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 0.3, visualRole: "anchor" });
+  const leafHtml = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 0.3, visualRole: "leaf" });
+  assert.match(anchorHtml, /r=["']22["']/, `anchor overview dot should be r=22; got: ${anchorHtml}`);
+  assert.match(leafHtml, /r=["']9["']/, `leaf overview dot should be r=9; got: ${leafHtml}`);
+  assert.match(leafHtml, /opacity=["']0\.46["']/, `quiet leaf should be low-opacity texture; got: ${leafHtml}`);
+});
+
+test("RadialNode band 2 (zoom 1.0): larger readable label marker, truncated label, outline element", () => {
   const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 1.0 });
   assert.match(html, /<circle/, `band-2 must contain a <circle>; got: ${html}`);
-  // 12px radius.
+  // 16px radius for ordinary branch nodes.
   assert.match(
     html,
-    /r=["']12["']/,
-    `band-2 circle must have r=12; got: ${html}`,
+    /r=["']16["']/,
+    `band-2 circle must have r=16; got: ${html}`,
   );
   // Truncated name visible. The supplied name "Vision Processing
   // Compute Module" is 33 chars; the band-2 truncation rule is "≤ 12
@@ -217,25 +264,62 @@ test("RadialNode band 2 (zoom 1.0): 12px circle, truncated label, outline elemen
     /stroke=/,
     `band-2 must expose a node outline (stroke= attribute somewhere); got: ${html}`,
   );
-  // No 80x40 HTML card at band 2.
+  assert.match(
+    html,
+    /font-size=["']13["']|fontSize:13|font-size:13px/,
+    `band-2 label should use a larger readable 13px font; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /width=["']108["']/,
+    `band-2 content should stay 108px wide inside the detail footprint; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /height=["']64["']/,
+    `band-2 content should stay 64px tall inside the detail footprint; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /<svg width=["']136["'] height=["']72["']/,
+    `band-2 outer SVG must reserve the detail footprint; got: ${html}`,
+  );
+  // No HTML card at band 2; it only reserves the detail-sized SVG footprint.
   assert.doesNotMatch(
     html,
-    /(width=["']80["'][^>]*height=["']40["'])|(height=["']40["'][^>]*width=["']80["'])/,
-    `band-2 must NOT render the 80x40 card; got: ${html}`,
+    /foreignObject/,
+    `band-2 must NOT render the HTML detail card; got: ${html}`,
   );
 });
 
-test("RadialNode band 3 (zoom 2.0): 80×40 HTML card with full name and a badge", () => {
+test("RadialNode band 2: labels can be suppressed for leaf texture nodes", () => {
+  const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 1.0, visualRole: "leaf", showLabel: false });
+  assert.match(html, /<circle/, `band-2 quiet leaf still renders a node marker; got: ${html}`);
+  assert.doesNotMatch(html, /<text[\s>]/, `band-2 quiet leaf should not render a label; got: ${html}`);
+  assert.doesNotMatch(html, /Vision Processing Compute/, `band-2 quiet leaf should not show node name; got: ${html}`);
+});
+
+test("RadialNode band 3 (zoom 2.0): 136×72 HTML card with full name and a badge", () => {
   const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 2.0 });
   // Either a foreignObject (if mounted under SVG) or a plain HTML
-  // wrapper. We accept either, but require a width=80 height=40 pair
+  // wrapper. We accept either, but require a width=136 height=72 pair
   // somewhere in the output. The check allows the two attributes in
   // either order.
-  const hasWidth80 = /width=["']80["']/.test(html);
-  const hasHeight40 = /height=["']40["']/.test(html);
+  const hasWidth136 = /width=["']136["']/.test(html);
+  const hasHeight72 = /height=["']72["']/.test(html);
   assert.ok(
-    hasWidth80 && hasHeight40,
-    `band-3 must render an 80x40 card (width=80 + height=40 somewhere); got: ${html}`,
+    hasWidth136 && hasHeight72,
+    `band-3 must render a 136x72 card (width=136 + height=72 somewhere); got: ${html}`,
+  );
+  assert.match(
+    html,
+    /font-size:14px/,
+    `band-3 card text should use 14px for readability; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /font-size:10px/,
+    `band-3 badge should use 10px for readability; got: ${html}`,
   );
   // Full node name must appear in band 3 (not truncated).
   assert.match(
@@ -291,6 +375,111 @@ test("RadialEdge band 1 (zoom 0.3): thin line, no arrowhead, no label", () => {
   );
 });
 
+test("RadialEdge cross-links stay hidden until detail zoom", () => {
+  const band1 = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 0.3, isFocusEndpoint: false, edgeKind: "cross" });
+  const band2 = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 1.0, isFocusEndpoint: false, edgeKind: "cross" });
+  const band3 = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 2.0, isFocusEndpoint: false, edgeKind: "cross" });
+  assert.equal(band1, "", `cross-link should be hidden in overview band 1; got: ${band1}`);
+  assert.equal(band2, "", `cross-link should be hidden in mid zoom band 2; got: ${band2}`);
+  assert.match(band3, /strokeDasharray|stroke-dasharray/, `cross-link should return as dashed context in band 3; got: ${band3}`);
+});
+
+test("RadialEdge branch emphasis is a thick blue path; selected incident normal edges stay quiet", () => {
+  const branch = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 0.3, isFocusEndpoint: false, emphasis: "branch" });
+  const normal = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 0.3, isFocusEndpoint: false, emphasis: "normal" });
+  assert.match(branch, /stroke=["']#2563eb["']/, `branch emphasis should use focus blue; got: ${branch}`);
+  assert.match(branch, /strokeWidth=["']4\.6["']|stroke-width=["']4\.6["']/, `branch emphasis should be thick; got: ${branch}`);
+  assert.doesNotMatch(normal, /stroke=["']#2563eb["']/, `normal edge should not become blue just because it is incident; got: ${normal}`);
+});
+
+test("RadialEdge arrowhead uses the rendered stroke and follows the path end", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 1.0,
+    isFocusEndpoint: false,
+    emphasis: "branch",
+    stroke: "#ef4444",
+  });
+  assert.match(html, /stroke=["']#2563eb["']/, `branch path should render blue; got: ${html}`);
+  assert.match(html, /fill=["']#2563eb["']/, `arrowhead fill should match rendered path stroke; got: ${html}`);
+  assert.match(html, /orient=["']auto["']/, `marker should follow the outgoing path tangent; got: ${html}`);
+  assert.match(html, /markerUnits=["']userSpaceOnUse["']|marker-units=["']userSpaceOnUse["']/, `marker should use explicit graph-space dimensions; got: ${html}`);
+  assert.match(html, /refX=["']0["']|refX=\{0\}/, `marker reference should place the arrow tail on the path endpoint; got: ${html}`);
+  assert.doesNotMatch(html, /fill=["']#ef4444["']/, `arrowhead must not use the raw pre-emphasis stroke; got: ${html}`);
+});
+
+test("RadialEdge trims endpoints so the line stops at the arrow tail", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 1.0,
+    isFocusEndpoint: false,
+    sourceX: 0,
+    sourceY: 0,
+    targetX: 100,
+    targetY: 0,
+    sourceRadius: 12,
+    targetRadius: 12,
+  });
+  assert.match(html, /d=["']M 12 0 L 80 0["']/, `edge path should stop at the arrow tail while the arrow tip reaches the node rim; got: ${html}`);
+});
+
+test("RadialEdge detail mode trims to the card rectangle, not the overview dot radius", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 2.0,
+    isFocusEndpoint: false,
+    sourceX: 0,
+    sourceY: 0,
+    targetX: 200,
+    targetY: 0,
+    sourceRadius: 12,
+    targetRadius: 12,
+  });
+  assert.match(
+    html,
+    /d=["']M 68 0 L 124 0["']/,
+    `detail edge should run from card edge to arrow tail at target card edge; got: ${html}`,
+  );
+});
+
+test("RadialEdge detail primary edges use smooth port curves so card endpoints stay readable", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 2.0,
+    isFocusEndpoint: false,
+    sourceX: 100,
+    sourceY: 0,
+    targetX: 200,
+    targetY: 100,
+    sourceRadius: 12,
+    targetRadius: 12,
+  });
+  assert.match(html, /<path[^>]+d=["'][^"']+ L [^"']+["']/, `detail primary edge without explicit ports should keep the fallback straight trim; got: ${html}`);
+});
+
+test("RadialEdge detail mode can use explicit card-edge ports", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 2.0,
+    isFocusEndpoint: false,
+    sourceX: 0,
+    sourceY: 0,
+    targetX: 200,
+    targetY: 0,
+    sourceRadius: 12,
+    targetRadius: 12,
+    sourceAnchorX: 68,
+    sourceAnchorY: 10,
+    targetAnchorX: 132,
+    targetAnchorY: 10,
+  });
+  assert.match(
+    html,
+    /d=["']M 75 10 C [^"']+ 117 10["']/,
+    `detail edge should start just outside the assigned source port and curve into the arrow tail outside the assigned target port; got: ${html}`,
+  );
+});
+
 test("RadialEdge band 2 (zoom 1.0): line with arrowhead, no label", () => {
   const html = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 1.0, isFocusEndpoint: false });
   assert.match(
@@ -312,6 +501,25 @@ test("RadialEdge band 2 (zoom 1.0): line with arrowhead, no label", () => {
   );
 });
 
+test("RadialEdge band 2: nearby same-angle child edges still use the curved branch style", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 1.0,
+    isFocusEndpoint: false,
+    sourceX: 100,
+    sourceY: 0,
+    targetX: 200,
+    targetY: 10,
+    sourceRadius: 16,
+    targetRadius: 10,
+  });
+  assert.match(
+    html,
+    /<path[^>]+d=["'][^"']+ C [^"']+["']/,
+    `band-2 child edges should keep the curved branch style instead of switching to odd straight-line ports; got: ${html}`,
+  );
+});
+
 test("RadialEdge band 3 + isFocusEndpoint=false: arrowhead, still no label", () => {
   const html = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 2.0, isFocusEndpoint: false });
   assert.match(
@@ -326,22 +534,16 @@ test("RadialEdge band 3 + isFocusEndpoint=false: arrowhead, still no label", () 
   );
 });
 
-test("RadialEdge band 3 + isFocusEndpoint=true: arrowhead AND a visible label", () => {
+test("RadialEdge band 3 + isFocusEndpoint=true: arrowhead and no label", () => {
   const html = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 2.0, isFocusEndpoint: true });
   assert.match(
     html,
     /marker-end=/,
     `band-3 edge (focus) must have a marker-end (arrowhead); got: ${html}`,
   );
-  // Label text element exists, and the label string appears in it.
-  assert.match(
+  assert.doesNotMatch(
     html,
     /<text[\s>]/,
-    `band-3 edge with isFocusEndpoint=true must contain a <text> label; got: ${html}`,
-  );
-  assert.match(
-    html,
-    /requires/,
-    `band-3 edge (focus) label must contain the label string; got: ${html}`,
+    `band-3 edge with isFocusEndpoint=true must not contain a <text> label; got: ${html}`,
   );
 });

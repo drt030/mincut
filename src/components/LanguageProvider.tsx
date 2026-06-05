@@ -466,7 +466,7 @@ const nodeTextZh: Record<string, string> = {
   vision_processing_compute: "视觉处理计算单元",
   barcode_ocr_reading_software: "条码 / OCR 读取软件",
   parcel_detection_and_tracking: "包裹检测与追踪",
-  parcel_manipulation_or_diverter: "机械臂包裹操作子系统",
+  parcel_manipulation_or_diverter: "包裹抓取与投放执行子系统",
   industrial_robot_arm_body: "工业机械臂本体",
   end_effector_gripper_or_suction: "末端执行器：夹爪或吸盘",
   vacuum_suction_cup_array: "真空吸盘阵列",

@@ -1,6 +1,7 @@
 import type { Edge, GraphData, Node } from "./schema";
 import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
 import { nodeRisk } from "./nodeRisk";
+import { rollupCost } from "./costRollup";
 
 /**
  * Per ADR-0006 §"Color mode (cost / maturity / risk) — K4 layering" and
@@ -97,6 +98,7 @@ function quantizeToBand(normalised: number): 1 | 2 | 3 | 4 | 5 {
  * calls — important because edges call this for every render.
  */
 const costThresholdsCache = new WeakMap<GraphData, number[]>();
+const costSignalCache = new WeakMap<GraphData, Map<string, number | null>>();
 const COST_FALLBACK_CAP_RMB = 100_000;
 
 function bandForCost(cost: number, graph: GraphData): 1 | 2 | 3 | 4 | 5 {
@@ -105,14 +107,14 @@ function bandForCost(cost: number, graph: GraphData): 1 | 2 | 3 | 4 | 5 {
     // Fallback: fixed-cap normalisation.
     return quantizeToBand(cost / COST_FALLBACK_CAP_RMB);
   }
-  // thresholds = [Q20, Q40, Q60, Q80]. cost <= Q20 → band 1, etc.
-  // Use strict <= so a node at exactly Q20 lands in band 1 (matching
-  // the test fixture: machine_vision_lens_and_optics at 3000 RMB is
-  // strictly below Q20, so band 1 is unambiguous).
-  if (cost > thresholds[3]) return 5;
-  if (cost > thresholds[2]) return 4;
-  if (cost > thresholds[1]) return 3;
-  if (cost > thresholds[0]) return 2;
+  // thresholds = [Q20, Q40, Q60, Q80]. Treat threshold equality as
+  // belonging to the warmer upper bucket: a node exactly at Q80 is in
+  // the top-cost cohort, which keeps repeated component estimates from
+  // hiding the direct child that explains a red parent node.
+  if (cost >= thresholds[3]) return 5;
+  if (cost >= thresholds[2]) return 4;
+  if (cost >= thresholds[1]) return 3;
+  if (cost >= thresholds[0]) return 2;
   return 1;
 }
 
@@ -121,7 +123,7 @@ function computeCostThresholds(graph: GraphData): number[] {
   if (cached) return cached;
   const costs: number[] = [];
   for (const node of graph.nodes) {
-    const c = nodeTypicalCostRmb(node, graph);
+    const c = nodeCostSignalRmb(node, graph);
     if (c !== null && c > 0) costs.push(c);
   }
   costs.sort((a, b) => a - b);
@@ -231,7 +233,7 @@ function bandForEdgeTarget(
 ): 1 | 2 | 3 | 4 | 5 {
   switch (mode) {
     case "cost": {
-      const cost = nodeTypicalCostRmb(target, graph) ?? 0;
+      const cost = nodeCostSignalRmb(target, graph) ?? 0;
       return bandForValue(cost, "cost", graph);
     }
     case "maturity": {
@@ -283,6 +285,40 @@ export function nodeTypicalCostRmb(node: Node, graph: GraphData): number | null 
     if (value !== null) return value;
   }
   return null;
+}
+
+/**
+ * Cost-mode visual signal. Direct cost is an authored measurement, but
+ * route colouring should show subsystem burden: max(direct, rolled-up
+ * children cost). Otherwise an aggregator with a stale/partial direct cost
+ * can look cheap while an expensive required child sits immediately below it.
+ */
+export function nodeCostSignalRmb(node: Node, graph: GraphData): number | null {
+  let graphCache = costSignalCache.get(graph);
+  if (!graphCache) {
+    graphCache = new Map<string, number | null>();
+    costSignalCache.set(graph, graphCache);
+  }
+  if (graphCache.has(node.id)) return graphCache.get(node.id)!;
+
+  const direct = nodeTypicalCostRmb(node, graph);
+  let rolled: number | null = null;
+  try {
+    const result = rollupCost(graph, node.id);
+    if (result.anyChildContributed || (result.directOnly?.typical ?? 0) > 0) {
+      rolled = result.rolledUp.typical;
+    }
+  } catch {
+    rolled = null;
+  }
+
+  const value = rolled !== null && rolled > 0
+    ? rolled
+    : direct !== null && direct > 0
+      ? direct
+      : null;
+  graphCache.set(node.id, value);
+  return value;
 }
 
 function typicalCostFromOwnMetrics(node: Node): number | null {

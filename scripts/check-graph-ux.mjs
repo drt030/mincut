@@ -108,33 +108,23 @@ requireMatch(
   /from "@\/lib\/edgeStyleFor"/.test(graphExplorer),
 );
 requireMatch(
-  "GraphExplorer must drive sector tints from sectorAggregate per slice B1.",
-  /from "@\/lib\/sectorAggregate"/.test(graphExplorer),
+  "GraphExplorer must keep sector background tints structural and stable, not driven by color-mode aggregates.",
+  !/from "@\/lib\/sectorAggregate"/.test(graphExplorer) &&
+    /subsystemHue\(sub,/.test(graphExplorer),
 );
 
-// B2 invariants introduced by slice B2 (focus interaction).
+// ADR-0007 invariants introduced by the Stable Balanced Radial Tree.
 requireMatch(
-  "GraphExplorer must compute elastic sector widths via sectorAngles per slice B2.",
-  /from "@\/lib\/sectorAngles"/.test(graphExplorer),
+  "GraphExplorer must not use old elastic sectorAngles geometry; ADR-0007 keeps branch highlight on the stable map.",
+  !/from "@\/lib\/sectorAngles"/.test(graphExplorer),
 );
 requireMatch(
-  "GraphExplorer must remap node theta via applySectorAngles per slice B2.",
-  /from "@\/lib\/applySectorAngles"/.test(graphExplorer),
+  "GraphExplorer must not remap node theta through applySectorAngles; radialLayout is the stable geometry source.",
+  !/from "@\/lib\/applySectorAngles"/.test(graphExplorer),
 );
 requireMatch(
-  "GraphExplorer must track focus state for sector focus per slice B2 / C1 — focusedId (B2) or focusPath (C1 generalisation).",
-  (/focusedId/.test(graphExplorer) && /setFocusedId/.test(graphExplorer)) ||
-    (/focusPath/.test(graphExplorer) && /setFocusPath/.test(graphExplorer)),
-);
-
-// C1 invariants introduced by slice C1 (recursive Level-2 elastic).
-requireMatch(
-  "GraphExplorer must drive sector geometry with the C1 focusPath state so Level-2 expansion can trigger.",
-  /focusPath/.test(graphExplorer) && /setFocusPath/.test(graphExplorer),
-);
-requireMatch(
-  "GraphExplorer must pass the focusPath array (not just an id) and the graph to sectorAngles so subSectorAngles can populate.",
-  /sectorAngles\(\s*[^,]+,\s*focusPath\s*,\s*graph\s*\)/.test(graphExplorer),
+  "GraphExplorer must read balanced first-layer sector metadata from layout.sectors.",
+  /layout\.sectors/.test(graphExplorer),
 );
 
 // B3 invariants introduced by slice B3 (greyscale focus).

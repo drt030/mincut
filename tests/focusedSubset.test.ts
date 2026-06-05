@@ -138,8 +138,8 @@ test("focusId=null: every node and every edge is in the full-saturation subset",
 // everything else (other products, materials only the other products
 // use, the iPhone case study, etc.)".
 //
-// Data probe (HEAD b7de552, ralph iter 35):
-//   - The focal product has exactly 65 `requires`-reachable structural
+// Data probe (2026-05-31 cost-consistency pass):
+//   - The focal product has exactly 72 `requires`-reachable structural
 //     nodes including itself. Pinning that exact size guards against
 //     accidental data growth into the subtree.
 //   - The iPhone test product (`iphone_4`) is a sibling at root level,
@@ -148,24 +148,24 @@ test("focusId=null: every node and every edge is in the full-saturation subset",
 //   - `cover_glass_aluminosilicate_chain` is a material used only by
 //     the iPhone test data, never by the parcel-sorting robot →
 //     MUST be excluded.
-test("focusId=focal product: includes 65-node subtree; iPhone product + iPhone-only material excluded", () => {
+test("focusId=focal product: includes 72-node subtree; iPhone product + iPhone-only material excluded", () => {
   const graph = loadGraphData();
   const adj = buildRequiresAdjacency(graph);
   const expectedSubtree = requiresDescendants(FOCAL_PRODUCT_ID, adj);
 
   const subset = focusedSubset(FOCAL_PRODUCT_ID, graph);
 
-  // Size is pinned: oracle === function-under-test === 65.
+  // Size is pinned: oracle === function-under-test === 72.
   assert.equal(
     expectedSubtree.size,
-    65,
-    `oracle: focal subtree should be 65; got ${expectedSubtree.size}. ` +
+    72,
+    `oracle: focal subtree should be 72; got ${expectedSubtree.size}. ` +
       "If this fails, data changed — adjust the assertion and re-pin the spec.",
   );
   assert.equal(
     subset.nodes.size,
-    65,
-    `focusedSubset must include exactly the 65 requires-descendants of focal; got ${subset.nodes.size}`,
+    72,
+    `focusedSubset must include exactly the 72 requires-descendants of focal; got ${subset.nodes.size}`,
   );
 
   // The focal product itself must be in (focus + descendants).

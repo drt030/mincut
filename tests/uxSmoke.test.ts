@@ -38,15 +38,13 @@ test("ux smoke: home page renders north-star hero", async (t) => {
   assert.match(html, /parcel-sorting robot/i);
 });
 
-test("ux smoke: /graph ships ColorModeSelect dropdown markup", async (t) => {
+test("ux smoke: /graph ships radial canvas chrome", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/graph");
-  assert.match(html, /color-mode-select-wrapper/);
-  assert.match(html, /value="bottleneck"/);
-  assert.match(html, /value="cost"/);
-  assert.match(html, /value="maturity"/);
-  assert.match(html, /value="overall"/);
-  assert.match(html, /value="relation"/);
+  assert.match(html, /data-testid="color-mode-button"/);
+  assert.match(html, /sector-label-layer/);
+  assert.match(html, /Conveyor integration/);
+  assert.match(html, /Vision \/ barcode \/ label recognition/);
 });
 
 test("ux smoke: /product page shows cost rollup section + new typical 283.5k + breakdown row", async (t) => {
@@ -62,14 +60,16 @@ test("ux smoke: /product page shows cost rollup section + new typical 283.5k + b
   assert.match(html, /cost-rollup-breakdown/);
 });
 
-test("ux smoke: /graph default selection surfaces flagship rolled-up in detail panel", async (t) => {
+test("ux smoke: /graph default selection surfaces collapsed detail rail", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/graph");
-  // NodeDetailPanel renders the flagship by default. cost-rollup-breakdown
-  // appears whenever directOnly or fromChildren is non-null — flagship has
-  // fromChildren so the row should be in the SSR'd HTML.
-  assert.match(html, /cost-rollup-card/);
-  assert.match(html, /cost-rollup-breakdown/);
+  // ADR-0006/B4 replaced the always-open detail panel with a 64px
+  // collapsed rail. Cost rollup content appears only after expanding
+  // the rail in the browser; SSR should expose the rail shell and the
+  // focused flagship summary.
+  assert.match(html, /data-testid="node-detail-rail"/);
+  assert.match(html, /data-rail-width="64"/);
+  assert.match(html, /300,000 RMB parcel-sorting robot/);
 });
 
 test("ux smoke: /gate page renders gate report", async (t) => {

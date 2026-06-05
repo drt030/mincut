@@ -1,27 +1,27 @@
 import type { Edge, GraphData, Node, NodeKind } from "./schema";
 
 /**
- * Per ADR-0006 §Layout and spec
- * `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`
- * slice A2, `radialLayout` is a pure deterministic function mapping a
- * `GraphData` to polar coordinates `{ r, theta }` for every *structural*
- * node, plus a parallel edge-style map recording which `requires` edges
- * are the canonical (primary) parent's edge and which are cross-sector
- * secondary edges to a shared node's canonical position.
+ * Per ADR-0007 and
+ * `docs/superpowers/specs/2026-05-20-stable-balanced-radial-tree-design.md`,
+ * `radialLayout` is a pure deterministic function mapping a `GraphData`
+ * to polar coordinates `{ r, theta }` for every *structural* node, plus
+ * first-layer sector metadata and a parallel edge-style map recording
+ * which `requires` edges are canonical tree branches versus low-noise
+ * cross-links to shared nodes.
  *
  * The algorithm in summary:
  *
  *   1. Focal product = first node with `kind === "product"` (graph order)
  *      sits at `(r = 0, theta = 0)`.
  *   2. N first-layer subsystems (focal product's `requires`-children among
- *      structural kinds) sit on a ring at `r = R1`, evenly spaced at
- *      `theta = i * (2π / N)`. The sector-index assignment is
- *      deterministic (sorted by node id).
- *   3. Each subsystem owns a half-open angular sector
- *      `[i * (2π/N), (i+1) * (2π/N))`. All `requires`-descendants of
- *      that subsystem are packed within the sector by DFS depth and
- *      sibling index. Theta strictly stays inside the half-open sector;
- *      `r = R1 + depth * R_STEP`.
+ *      structural kinds) sit on a ring at `r = R1`. Branch order is
+ *      deterministic (sorted by node id), but angular width is weighted
+ *      by canonical subtree size so dense branches get more room than
+ *      sparse branches.
+ *   3. Each subsystem owns a balanced angular sector. All
+ *      `requires`-descendants of that subsystem are packed within that
+ *      sector by DFS depth and sibling index. Theta stays inside the
+ *      sector; `r = R1 + depth * R_STEP`.
  *   4. A *shared* structural node has ≥ 2 incoming `requires` edges among
  *      visited parents. It is given exactly ONE position in its CANONICAL
  *      primary parent's sector — the parent whose first-layer ancestor
@@ -75,10 +75,12 @@ export const R1 = 100;
 export const R_STEP = 40;
 
 export type PolarPosition = { r: number; theta: number };
+export type RadialSector = { center: number; width: number };
 export type EdgeStyle = "primary" | "cross";
 
 export type RadialLayoutResult = {
   positions: Map<string, PolarPosition>;
+  sectors: Map<string, RadialSector>;
   edges: Map<string, { style: EdgeStyle }>;
 };
 
@@ -145,6 +147,7 @@ function buildChildIndex(graph: GraphData): {
 
 export function radialLayout(graph: GraphData): RadialLayoutResult {
   const positions = new Map<string, PolarPosition>();
+  const sectors = new Map<string, RadialSector>();
   const edges = new Map<string, { style: EdgeStyle }>();
 
   const focal = graph.nodes.find((n) => n.kind === "product");
@@ -154,7 +157,7 @@ export function radialLayout(graph: GraphData): RadialLayoutResult {
     // positions map; non-material structural nodes have no anchor and
     // are placed on the fallback ring as well.
     placeOrphansOnFallback(graph, positions);
-    return { positions, edges };
+    return { positions, sectors, edges };
   }
 
   positions.set(focal.id, { r: 0, theta: 0 });
@@ -178,14 +181,6 @@ export function radialLayout(graph: GraphData): RadialLayoutResult {
   // sectorIndex[firstLayerId] = i ∈ [0, N).
   const sectorIndex = new Map<string, number>();
   firstLayer.forEach((id, i) => sectorIndex.set(id, i));
-
-  const sectorSize = N > 0 ? TWO_PI / N : 0;
-
-  // Place first-layer subsystems on R1 ring at theta = i * sectorSize.
-  for (const id of firstLayer) {
-    const i = sectorIndex.get(id)!;
-    positions.set(id, { r: R1, theta: i * sectorSize });
-  }
 
   // For shared-node canonical-parent selection we need to know which
   // first-layer ancestor each candidate parent rolls up to. We compute
@@ -261,54 +256,98 @@ export function radialLayout(graph: GraphData): RadialLayoutResult {
     return firstLayerAncestor.get(id);
   };
 
-  // For each first-layer subsystem, walk its canonical subtree
-  // depth-first and place descendants. We collect (id, depth, dfsIndex)
-  // tuples per depth, then assign theta within the half-open sector
-  // [sub_theta, sub_theta + sectorSize) by distributing siblings evenly
-  // across the sector width at that depth.
+  // ADR-0007 balanced overview: allocate first-layer angular width by
+  // canonical visible subtree size instead of fixed equal sectors.
+  // Use the size directly so sparse first-layer branches do not reserve
+  // large empty wedges at the expense of dense branches.
+  const subtreeWeightByFirstLayer = new Map<string, number>();
   for (const sub of firstLayer) {
-    const subTheta = positions.get(sub)!.theta;
+    let size = 0;
+    for (const id of structuralIds) {
+      if (nodeById.get(id)?.kind === "material") continue;
+      if (canonicalSectorOf(id) === sub) size += 1;
+    }
+    subtreeWeightByFirstLayer.set(sub, Math.max(1, size));
+  }
 
-    // depthBuckets[depth] = list of nodes at that depth in DFS order.
-    // depth=0 corresponds to `sub` itself (already placed); depth=1+
-    // are descendants we still need to place.
-    const depthBuckets = new Map<number, string[]>();
-    depthBuckets.set(0, [sub]);
+  const totalWeight = firstLayer.reduce(
+    (sum, id) => sum + (subtreeWeightByFirstLayer.get(id) ?? 1),
+    0,
+  );
+  let sectorStart = 0;
+  for (const id of firstLayer) {
+    const weight = subtreeWeightByFirstLayer.get(id) ?? 1;
+    const width = N > 0 && totalWeight > 0 ? (weight / totalWeight) * TWO_PI : 0;
+    const center = sectorStart + width / 2;
+    sectors.set(id, { center, width });
+    positions.set(id, { r: R1, theta: center });
+    sectorStart += width;
+  }
 
-    const visited = new Set<string>([sub]);
-    function dfs(nodeId: string, depth: number): void {
-      const children = (childrenByParent.get(nodeId) ?? []).slice();
-      for (const child of children) {
-        if (visited.has(child)) continue;
-        // Only walk into nodes whose canonical sector is this one.
+  // For each first-layer subsystem, walk its canonical subtree and place
+  // descendants recursively. Each parent owns an angular envelope; its
+  // children split that envelope by subtree size, then grandchildren split
+  // the child envelope. This preserves local parent-child structure so a
+  // narrow branch reads as a branch, not as a globally even depth row.
+  for (const sub of firstLayer) {
+    const subSector = sectors.get(sub)!;
+    const subStart = subSector.center - subSector.width / 2;
+
+    const canonicalChildren = (parentId: string): string[] => {
+      const out: string[] = [];
+      for (const child of childrenByParent.get(parentId) ?? []) {
         if (canonicalSectorOf(child) !== sub) continue;
-        // Materials get placed on the outer ring later — skip from sector DFS.
         const childNode = nodeById.get(child);
         if (childNode?.kind === "material") continue;
-        visited.add(child);
-        if (!depthBuckets.has(depth + 1)) depthBuckets.set(depth + 1, []);
-        depthBuckets.get(depth + 1)!.push(child);
-        dfs(child, depth + 1);
+        const canonicalParent = canonicalParentByShared.get(child);
+        if (canonicalParent !== undefined && canonicalParent !== parentId) continue;
+        out.push(child);
       }
-    }
-    dfs(sub, 0);
+      return out;
+    };
 
-    // Assign theta within sector for each depth bucket (excluding 0).
-    for (const [depth, ids] of depthBuckets) {
-      if (depth === 0) continue;
-      const count = ids.length;
-      // Distribute count nodes evenly across the sector, leaving a small
-      // margin on both ends so we stay strictly inside the half-open
-      // sector [subTheta, subTheta + sectorSize). Use centered positions:
-      //   theta_j = subTheta + (j + 1) / (count + 1) × sectorSize
-      // which keeps all nodes in the open interval (subTheta, subTheta +
-      // sectorSize), trivially within the half-open one.
-      ids.forEach((id, j) => {
-        const theta = subTheta + ((j + 1) / (count + 1)) * sectorSize;
-        positions.set(id, { r: R1 + depth * R_STEP, theta });
-      });
-      if (depth > maxDescendantDepth) maxDescendantDepth = depth;
-    }
+    const subtreeSizeMemo = new Map<string, number>();
+    const subtreeSize = (nodeId: string, seen = new Set<string>()): number => {
+      if (seen.has(nodeId)) return 0;
+      const memo = subtreeSizeMemo.get(nodeId);
+      if (memo !== undefined) return memo;
+      seen.add(nodeId);
+      let size = 1;
+      for (const child of canonicalChildren(nodeId)) {
+        size += subtreeSize(child, seen);
+      }
+      seen.delete(nodeId);
+      subtreeSizeMemo.set(nodeId, size);
+      return size;
+    };
+
+    const placeChildren = (
+      parentId: string,
+      depth: number,
+      startTheta: number,
+      width: number,
+      visited: Set<string>,
+    ): void => {
+      const children = canonicalChildren(parentId).filter((id) => !visited.has(id));
+      if (children.length === 0) return;
+      const totalChildWeight = children.reduce((sum, id) => sum + subtreeSize(id), 0);
+      let childStart = startTheta;
+      for (const child of children) {
+        const childWeight = subtreeSize(child);
+        const childWidth = totalChildWeight > 0
+          ? (childWeight / totalChildWeight) * width
+          : width / children.length;
+        const childTheta = childStart + childWidth / 2;
+        positions.set(child, { r: R1 + depth * R_STEP, theta: childTheta });
+        if (depth > maxDescendantDepth) maxDescendantDepth = depth;
+        const nextVisited = new Set(visited);
+        nextVisited.add(child);
+        placeChildren(child, depth + 1, childStart, childWidth, nextVisited);
+        childStart += childWidth;
+      }
+    };
+
+    placeChildren(sub, 1, subStart, subSector.width, new Set([sub]));
   }
 
   // R_OUTER — material ring, strictly outside the deepest non-material
@@ -353,7 +392,7 @@ export function radialLayout(graph: GraphData): RadialLayoutResult {
     }
   }
 
-  return { positions, edges };
+  return { positions, sectors, edges };
 }
 
 /**

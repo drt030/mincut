@@ -96,6 +96,67 @@ function handBuiltFixture(): GraphData {
   };
 }
 
+function unevenTreeFixture(): GraphData {
+  const bigDescendants = Array.from({ length: 14 }, (_, i) => ({
+    id: `B${i}`,
+    name: `Big descendant ${i}`,
+    kind: "module" as const,
+    domain: ["test"],
+  }));
+  return {
+    graphVersion: "test-radial-uneven-tree",
+    nodes: [
+      { id: "P", name: "Focal product", kind: "product", domain: ["test"] },
+      { id: "BIG", name: "Large subsystem", kind: "module", domain: ["test"] },
+      { id: "SMALL", name: "Small subsystem", kind: "module", domain: ["test"] },
+      { id: "TINY", name: "Tiny subsystem", kind: "module", domain: ["test"] },
+      ...bigDescendants,
+      { id: "S0", name: "Small child", kind: "module", domain: ["test"] },
+    ],
+    edges: [
+      { id: "ePBIG", source: "P", target: "BIG", relation: "requires" },
+      { id: "ePSMALL", source: "P", target: "SMALL", relation: "requires" },
+      { id: "ePTINY", source: "P", target: "TINY", relation: "requires" },
+      ...bigDescendants.map((node) => ({
+        id: `eBIG${node.id}`,
+        source: "BIG",
+        target: node.id,
+        relation: "requires" as const,
+      })),
+      { id: "eSMALLS0", source: "SMALL", target: "S0", relation: "requires" },
+    ],
+    evidence: [],
+  };
+}
+
+function nestedTreeFixture(): GraphData {
+  return {
+    graphVersion: "test-radial-nested-tree",
+    nodes: [
+      { id: "P", name: "Focal product", kind: "product", domain: ["test"] },
+      { id: "TREE", name: "Nested subsystem", kind: "module", domain: ["test"] },
+      { id: "OTHER", name: "Other subsystem", kind: "module", domain: ["test"] },
+      { id: "A", name: "Wide branch", kind: "module", domain: ["test"] },
+      { id: "B", name: "Narrow branch", kind: "module", domain: ["test"] },
+      { id: "A1", name: "A child 1", kind: "module", domain: ["test"] },
+      { id: "A2", name: "A child 2", kind: "module", domain: ["test"] },
+      { id: "A3", name: "A child 3", kind: "module", domain: ["test"] },
+      { id: "B1", name: "B only child", kind: "module", domain: ["test"] },
+    ],
+    edges: [
+      { id: "ePTREE", source: "P", target: "TREE", relation: "requires" },
+      { id: "ePOTHER", source: "P", target: "OTHER", relation: "requires" },
+      { id: "eTREEA", source: "TREE", target: "A", relation: "requires" },
+      { id: "eTREEB", source: "TREE", target: "B", relation: "requires" },
+      { id: "eAA1", source: "A", target: "A1", relation: "requires" },
+      { id: "eAA2", source: "A", target: "A2", relation: "requires" },
+      { id: "eAA3", source: "A", target: "A3", relation: "requires" },
+      { id: "eBB1", source: "B", target: "B1", relation: "requires" },
+    ],
+    evidence: [],
+  };
+}
+
 /**
  * Property 1: focal product at (r=0, theta=0).
  *
@@ -114,18 +175,15 @@ test("radialLayout P1: focal product is at r=0, theta=0", () => {
 });
 
 /**
- * Property 2: N first-layer subsystems sit on a ring r = R1 (a constant
- * > 0) at angular spacing 2π/N. With N=4 the expected thetas are
- * { 0, π/2, π, 3π/2 } in some assignment to {S0, S1, S2, S3} consistent
- * with the function's input ordering (we don't pin which S gets which
- * angle index — only that the four thetas are the four multiples of π/2,
- * and they share one common r > 0).
+ * Property 2: first-layer subsystems sit on the R1 ring, but the
+ * angular slots are NOT fixed equal sectors. ADR-0007's Stable Balanced
+ * Radial Tree gives denser canonical subtrees more room while keeping
+ * deterministic branch order.
  */
-test("radialLayout P2: N first-layer subsystems sit on R1 ring at theta = i * (2π/N)", () => {
+test("radialLayout P2: first-layer subsystems use weighted angular slots instead of equal sectors", () => {
   const graph = handBuiltFixture();
   const result = radialLayout(graph);
   const subs = ["S0", "S1", "S2", "S3"] as const;
-  const N = subs.length;
   const r1Values = subs.map((id) => {
     const p = result.positions.get(id);
     assert.ok(p, `subsystem ${id} must be positioned`);
@@ -137,32 +195,90 @@ test("radialLayout P2: N first-layer subsystems sit on R1 ring at theta = i * (2
   for (const r of r1Values) {
     assert.equal(r, r1, `all first-layer subsystems must share r = R1 = ${r1}; got ${r}`);
   }
-  // The four thetas (mod 2π) must equal {0, π/2, π, 3π/2}.
-  const thetasMod = subs
-    .map((id) => ((result.positions.get(id)!.theta % TWO_PI) + TWO_PI) % TWO_PI)
-    .sort((a, b) => a - b);
-  const expected = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
-  for (let i = 0; i < N; i += 1) {
-    assert.ok(
-      Math.abs(thetasMod[i] - expected[i]) < 1e-9,
-      `subsystem theta[${i}] should be ${expected[i]}; got ${thetasMod[i]}`,
+
+  assert.ok(result.sectors instanceof Map, "balanced layout must expose first-layer sector metadata");
+  const s0 = result.sectors.get("S0");
+  const s1 = result.sectors.get("S1");
+  const s2 = result.sectors.get("S2");
+  const s3 = result.sectors.get("S3");
+  assert.ok(s0 && s1 && s2 && s3, "every first-layer subsystem must have a sector");
+
+  const total = s0!.width + s1!.width + s2!.width + s3!.width;
+  assert.ok(Math.abs(total - TWO_PI) < 1e-9, `sector widths must sum to 2π; got ${total}`);
+  assert.ok(
+    s0!.width > s1!.width && s1!.width > s2!.width && Math.abs(s2!.width - s3!.width) < 1e-9,
+    `expected canonical subtree weights S0 > S1 > S2 = S3; got ${JSON.stringify({
+      S0: s0!.width,
+      S1: s1!.width,
+      S2: s2!.width,
+      S3: s3!.width,
+    })}`,
+  );
+  assert.notDeepEqual(
+    [s0!.width, s1!.width, s2!.width, s3!.width].map((w) => Number(w.toFixed(9))),
+    Array(4).fill(Number((TWO_PI / 4).toFixed(9))),
+    "balanced radial tree must not collapse back to equal first-layer sectors",
+  );
+  for (const sub of subs) {
+    const sector = result.sectors.get(sub)!;
+    assert.equal(
+      result.positions.get(sub)!.theta,
+      sector.center,
+      `${sub} should sit at its balanced sector center`,
     );
   }
 });
 
+test("radialLayout gives visibly more angle to large visible subtrees instead of overprotecting tiny sectors", () => {
+  const result = radialLayout(unevenTreeFixture());
+  const big = result.sectors.get("BIG");
+  const small = result.sectors.get("SMALL");
+  const tiny = result.sectors.get("TINY");
+  assert.ok(big && small && tiny, "all first-layer sectors must exist");
+
+  assert.ok(
+    big!.width > small!.width * 4,
+    `large subtree should receive at least 4x the angle of a two-node subtree; got BIG=${big!.width}, SMALL=${small!.width}`,
+  );
+  assert.ok(
+    small!.width > tiny!.width,
+    `two-node subtree should receive more room than a leaf sector; got SMALL=${small!.width}, TINY=${tiny!.width}`,
+  );
+});
+
+test("radialLayout clusters nested descendants under their parent instead of distributing each depth across the whole sector", () => {
+  const result = radialLayout(nestedTreeFixture());
+  const tree = result.sectors.get("TREE");
+  assert.ok(tree, "TREE sector must exist");
+
+  const b = result.positions.get("B");
+  const b1 = result.positions.get("B1");
+  assert.ok(b && b1, "B and B1 must both be positioned");
+  assert.equal(
+    b1!.theta,
+    b!.theta,
+    "a single-child branch should continue along the parent's angle instead of being spread by global depth index",
+  );
+
+  const a = result.positions.get("A");
+  const aChildren = ["A1", "A2", "A3"].map((id) => result.positions.get(id));
+  assert.ok(a && aChildren.every(Boolean), "A and its children must be positioned");
+  const maxChildSpreadFromA = Math.max(
+    ...aChildren.map((pos) => Math.abs(pos!.theta - a!.theta)),
+  );
+  assert.ok(
+    maxChildSpreadFromA < tree!.width / 2,
+    `A's children should occupy A's local branch envelope, not the entire TREE sector; max spread=${maxChildSpreadFromA}, sectorHalf=${tree!.width / 2}`,
+  );
+});
+
 /**
- * Property 3: each descendant of subsystem i has r > R1 and its theta
- * falls within the half-open sector [i × (2π/N), (i+1) × (2π/N)) anchored
- * on its first-layer subsystem's theta.
- *
- * With N=4, sector size is π/2. For each (subsystem, descendant) pair we
- * recover the subsystem's theta S_θ (= sector index × π/2) and assert the
- * descendant's theta lies in [S_θ, S_θ + π/2) when normalized to [0, 2π).
+ * Property 3: descendants stay inside their canonical first-layer
+ * subsystem's balanced angular slot and outside R1.
  */
-test("radialLayout P3: descendants stay within their first-layer subsystem's sector and outside R1", () => {
+test("radialLayout P3: descendants stay within their balanced first-layer sector and outside R1", () => {
   const graph = handBuiltFixture();
   const result = radialLayout(graph);
-  const sectorSize = TWO_PI / 4;
   const r1 = result.positions.get("S0")!.r;
 
   for (const [parentId, descendantId] of [
@@ -179,14 +295,14 @@ test("radialLayout P3: descendants stay within their first-layer subsystem's sec
       desc!.r > r1,
       `${descendantId}.r (${desc!.r}) must be > R1 (${r1})`,
     );
-    // Normalise both thetas to [0, 2π); descendant must fall in
-    // [parent_theta_floor, parent_theta_floor + sectorSize).
-    const parentTheta = ((parent!.theta % TWO_PI) + TWO_PI) % TWO_PI;
+    const sector = result.sectors.get(parentId);
+    assert.ok(sector, `balanced sector for ${parentId} must exist`);
     const descTheta = ((desc!.theta % TWO_PI) + TWO_PI) % TWO_PI;
-    const floor = Math.floor(parentTheta / sectorSize) * sectorSize;
+    const start = sector!.center - sector!.width / 2;
+    const end = sector!.center + sector!.width / 2;
     assert.ok(
-      descTheta >= floor - 1e-9 && descTheta < floor + sectorSize - 1e-9,
-      `${descendantId}.theta (${descTheta}) must be in sector [${floor}, ${floor + sectorSize}) anchored on ${parentId}`,
+      descTheta >= start - 1e-9 && descTheta <= end + 1e-9,
+      `${descendantId}.theta (${descTheta}) must be in balanced sector [${start}, ${end}] anchored on ${parentId}`,
     );
   }
 });
@@ -249,17 +365,17 @@ test("radialLayout P5: shared node has one position; secondary parent edges mark
     `shared node H should have exactly one 'primary' parent edge and one 'cross' edge; got ${JSON.stringify(styles)}`,
   );
 
-  // And H sits inside the canonical parent's sector. The canonical
+  // And H sits inside the canonical parent's balanced sector. The canonical
   // parent is whichever of S0 / S2 owns the 'primary' edge to H.
   const canonicalParentId = s0h!.style === "primary" ? "S0" : "S2";
-  const sectorSize = TWO_PI / 4;
-  const parentTheta =
-    ((result.positions.get(canonicalParentId)!.theta % TWO_PI) + TWO_PI) % TWO_PI;
+  const sector = result.sectors.get(canonicalParentId);
+  assert.ok(sector, `balanced sector for ${canonicalParentId} must exist`);
   const hTheta = ((h!.theta % TWO_PI) + TWO_PI) % TWO_PI;
-  const floor = Math.floor(parentTheta / sectorSize) * sectorSize;
+  const start = sector!.center - sector!.width / 2;
+  const end = sector!.center + sector!.width / 2;
   assert.ok(
-    hTheta >= floor - 1e-9 && hTheta < floor + sectorSize - 1e-9,
-    `H.theta (${hTheta}) must be in canonical parent ${canonicalParentId}'s sector [${floor}, ${floor + sectorSize})`,
+    hTheta >= start - 1e-9 && hTheta <= end + 1e-9,
+    `H.theta (${hTheta}) must be in canonical parent ${canonicalParentId}'s balanced sector [${start}, ${end}]`,
   );
 });
 

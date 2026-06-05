@@ -154,6 +154,33 @@
     "notes": "Expansion frontier: next layer may include CPU/GPU/NPU choice, latency, thermal design, software stack, camera SDK, and cost."
   },
   {
+    "id": "low_cost_realtime_vision_compute_integration",
+    "name": "Low-cost real-time vision compute integration",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Integration method for choosing low-cost edge compute, camera SDKs, inference runtime, thermal envelope, and latency budget so parcel detection and tracking run reliably in the sorting cell.",
+    "maturityScore": 56,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components"
+    ],
+    "tags": [
+      "compute",
+      "perception",
+      "integration",
+      "latency",
+      "decomposition_frontier"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: vision compute was less mature than its semiconductor supply-chain child, so this node captures the missing integration bottleneck: real-time inference, SDK coupling, latency, thermal design, and cost in the parcel-sorting cell."
+  },
+  {
     "id": "barcode_ocr_reading_software",
     "name": "Barcode / OCR reading software",
     "kind": "engineering_method",
@@ -202,16 +229,19 @@
       "hard_to_develop"
     ],
     "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "low_jam_rate_under_parcel_variability"
+    ],
     "notes": "Hard-to-develop (per ADR-0005): real-time pose estimation of variable parcels (size, packaging, deformation, stacking, occlusion) under conveyor motion is at the frontier of CV-based object recognition. Failure mode is qualitative — robust tracking enables pick reliability; weak tracking collapses throughput."
   },
   {
     "id": "parcel_manipulation_or_diverter",
-    "name": "Robot-arm parcel manipulation subsystem",
+    "name": "Parcel pick-and-place execution subsystem",
     "kind": "module",
     "domain": [
       "parcel_sorting_robot"
     ],
-    "description": "The industrial robot-arm based manipulation subsystem that physically picks, pushes, or places parcels into the selected output lane or bin.",
+    "description": "The execution subsystem that physically picks, pushes, or places parcels into the selected output lane or bin. It owns the robot arm body, end effector, and motion-planning dependencies instead of duplicating those dependencies at the product root.",
     "maturityScore": 52,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
@@ -292,6 +322,34 @@
     "notes": "Expansion frontier: next layer may include cup diameter, material, lip geometry, wear, parcel surface compatibility, and replacement cost."
   },
   {
+    "id": "parcel_suction_cup_contact_qualification",
+    "name": "Parcel suction-cup contact qualification",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Qualification method for cup geometry, lip compliance, wear, leakage, replacement interval, and parcel-surface compatibility across bags, cartons, labels, tape, and deformed packaging.",
+    "maturityScore": 48,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_vacuforce_vacuum_components"
+    ],
+    "tags": [
+      "suction_cup",
+      "qualification",
+      "end_effector",
+      "hard_to_develop",
+      "decomposition_frontier"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: the cup array was less mature than its elastomer feedstock child, so this node captures the missing parcel-contact bottleneck. Mature elastomer supply does not prove robust pickup on variable logistics packaging."
+  },
+  {
     "id": "vacuum_generator_or_ejector",
     "name": "Vacuum generator or ejector",
     "kind": "module",
@@ -341,6 +399,34 @@
       "decomposition_frontier"
     ],
     "notes": "Expansion frontier: next layer may include valve response time, per-cup control, leakage, contamination, and timing with robot motion."
+  },
+  {
+    "id": "vacuum_blowoff_timing_and_contamination_control",
+    "name": "Vacuum blow-off timing and contamination control",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Control method for per-zone suction timing, valve response, blow-off release, leakage tolerance, dust contamination, and synchronization with robot motion.",
+    "maturityScore": 52,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_vacuforce_vacuum_components"
+    ],
+    "tags": [
+      "vacuum",
+      "control",
+      "release_timing",
+      "end_effector",
+      "decomposition_frontier"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: valve and blow-off control was less mature than its material child, so this node captures the missing dynamic-control bottleneck. The hard part is synchronized pickup/release behavior, not elastomer availability."
   },
   {
     "id": "vacuum_pressure_sensing",
@@ -1083,6 +1169,29 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "robot_base_installation_alignment_process",
+    "name": "Robot base installation and alignment process",
+    "kind": "manufacturing_process",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Installation, leveling, anchoring, conveyor-relative alignment, vibration checking, and acceptance testing process for a low-cost robot sorting cell base.",
+    "maturityScore": 54,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "tags": [
+      "mounting",
+      "installation",
+      "alignment",
+      "commissioning",
+      "decomposition_frontier"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: the mounting structure was less mature than its steel material child, so this node captures the missing deployment bottleneck: repeatable field alignment, anchoring, vibration control, and commissioning for a low-cost cell."
+  },
+  {
     "id": "robot_arm_assembly_process",
     "name": "Robot arm assembly process",
     "kind": "manufacturing_process",
@@ -1174,7 +1283,11 @@
       "conveyor",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include encoder resolution, belt slip, tracking origin, PLC scan timing, and calibration against camera coordinates."
+    "bottleneckOf": [
+      "low_jam_rate_under_parcel_variability"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: parcel detection/tracking now carries the low-jam-rate parcel-variability bottleneck, and conveyor speed/position tracking is the lower-layer timing driver. Expansion frontier: next layer may include encoder resolution, belt slip, tracking origin, PLC scan timing, and calibration against camera coordinates."
   },
   {
     "id": "parcel_induction_spacing_control",
@@ -1199,7 +1312,11 @@
       "bottleneck",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include singulation, merge logic, gaps, parcel orientation, speed transitions, and exception handling."
+    "bottleneckOf": [
+      "low_cost_conveyor_integration"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: conveyor_integration is marked as a low-cost conveyor-integration bottleneck, and this lower-layer spacing/induction control method is the visible direct driver. Expansion frontier: next layer may include singulation, merge logic, gaps, parcel orientation, speed transitions, and exception handling."
   },
   {
     "id": "plc_and_wcs_integration",
@@ -1227,6 +1344,34 @@
       "decomposition_frontier"
     ],
     "notes": "Expansion frontier: next layer may include fieldbus, message schema, sort plan handoff, fault recovery, logging, and commissioning workflow."
+  },
+  {
+    "id": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "name": "PLC/WCS sorting handshake and fault recovery",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "software"
+    ],
+    "description": "Integration method for fieldbus/I/O mapping, parcel identity handoff, sort-command timing, robot-controller acknowledgement, exception handling, logging, and restart recovery.",
+    "maturityScore": 50,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_interroll_sorter_platform"
+    ],
+    "tags": [
+      "plc",
+      "wcs",
+      "integration",
+      "fault_recovery",
+      "decomposition_frontier"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: PLC/WCS integration was less mature than its semiconductor child, so this node captures the missing software-and-controls bottleneck. Mature electronics do not prove the parcel identity, timing, acknowledgement, and exception-recovery loop."
   },
   {
     "id": "sortation_chutes_and_bins",
@@ -1409,6 +1554,33 @@
     "bottleneckOf": [
       "low_jam_rate_under_parcel_variability"
     ]
+  },
+  {
+    "id": "delta_robot_parcel_variability_jam_control",
+    "name": "Delta robot parcel-variability jam control",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_adjacent_candidate",
+      "parcel_sorting_robot",
+      "delta_robot_sorting"
+    ],
+    "description": "Delta-robot-specific method for limiting jams and missed picks under variable parcel size, packaging deformation, conveyor spacing, and high-speed pick-window constraints.",
+    "maturityScore": 46,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "tags": [
+      "delta_robot",
+      "jam",
+      "parcel_variability",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "bottleneckOf": [
+      "low_jam_rate_under_parcel_variability"
+    ],
+    "notes": "Consistency backfill: delta_robot_sorting carried the low-jam-rate bottleneck, but its direct children were generic shared modules. This node captures the missing delta-specific parcel-variability and jam-control driver."
   },
   {
     "id": "conveyor_diverter_sorting",
@@ -2161,6 +2333,190 @@
     "tags": ["cost", "cost_research", "ralph_iter18"]
   },
   {
+    "id": "precision_reducer_gearbox_cost",
+    "name": "Precision reducer gearbox cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "precision_reducer"],
+    "description": "Allocated cost contribution of robot joint precision reducers inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 14000, "typical": 26000, "max": 45000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: the 60,000 RMB robot-arm bundle was high-cost in the graph, but none of its direct children carried cost. This allocates the largest expected cost driver to precision reducers so cost-mode colour has an explanatory child source.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "reducer_lubrication_and_life_test_cost",
+    "name": "Reducer lubrication and life testing cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "precision_reducer"],
+    "description": "Allocated cost contribution of reducer endurance testing, lubrication qualification, backlash verification, and acceptance testing inside the precision-reducer cost.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 12000, "typical": 26000, "max": 42000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: precision-reducer cost should be explained by an immature lower-layer cost driver. This allocates the high-cost reducer bottleneck to life-test and qualification capability rather than raw alloy steel.",
+    "evidenceIds": ["ev_harmonic_drive_reducer_components"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "industrial_servo_motor_cost",
+    "name": "Industrial servo motor cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "industrial_servo_motor"],
+    "description": "Allocated cost contribution of servo motors inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 7000, "typical": 12000, "max": 24000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "servo_drive_controller_cost",
+    "name": "Servo drive controller cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "servo_drive"],
+    "description": "Allocated cost contribution of servo-drive electronics and control hardware inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 5000, "typical": 8000, "max": 16000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "arm_links_and_joints_cost",
+    "name": "Arm links and joints cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm"],
+    "description": "Allocated cost contribution of robot arm links, joint housings, and mechanical joint hardware inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 3500, "typical": 6000, "max": 12000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "robot_controller_io_cost",
+    "name": "Robot controller I/O cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "controls"],
+    "description": "Allocated cost contribution of robot controller I/O boards and interface hardware inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 2500, "typical": 4000, "max": 9000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "robot_cabling_and_power_cost",
+    "name": "Robot cabling and power cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "electrical"],
+    "description": "Allocated cost contribution of robot cabling, connectors, and internal power distribution inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 1800, "typical": 3000, "max": 7000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "robot_base_mounting_structure_cost",
+    "name": "Robot base mounting structure cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "mechanical_structure"],
+    "description": "Allocated cost contribution of the robot base and mounting structure inside the bare robot arm body bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 2500, "typical": 4000, "max": 9000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
     "id": "end_effector_gripper_or_suction_cost",
     "name": "End effector module cost",
     "kind": "metric",
@@ -2320,6 +2676,121 @@
     "notes": "Rough 2025-China estimate scoped to a single small sorting cell. Conveyor cost scales strongly with length, lane count, and chute geometry. Marked unreviewed for human verification.",
     "evidenceIds": ["ev_conveyor_integration_cost_2025"],
     "tags": ["cost", "cost_research", "ralph_iter18"]
+  },
+  {
+    "id": "plc_and_wcs_integration_cost",
+    "name": "PLC and WCS integration cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "conveyor_integration", "controls"],
+    "description": "Allocated cost contribution of PLC hardware, WCS interface work, commissioning, and control cabinet integration inside the conveyor-integration bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 12000, "typical": 26000, "max": 42000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: the 55,000 RMB conveyor-integration bundle was high-cost in the graph, but none of its direct children carried cost. This allocates the largest expected cost driver to PLC/WCS integration so cost-mode colour has an explanatory child source.",
+    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "plc_wcs_sorting_handshake_and_fault_recovery_cost",
+    "name": "PLC/WCS sorting handshake and fault recovery cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "conveyor_integration", "software"],
+    "description": "Allocated cost contribution of PLC/WCS handshake implementation, exception handling, commissioning, logging, and restart-recovery work inside the PLC/WCS integration cost.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 12000, "typical": 26000, "max": 42000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill: PLC/WCS integration was high-cost, but the cost driver was not visible one layer down. This allocates the high-cost portion to handshake/fault-recovery integration work rather than semiconductor availability.",
+    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "sortation_chutes_and_bins_cost",
+    "name": "Sortation chutes and bins cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "conveyor_integration", "mechanical_structure"],
+    "description": "Allocated cost contribution of chutes, bins, guide plates, and lane hardware inside the conveyor-integration bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 10000, "typical": 18000, "max": 30000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "conveyor_speed_encoder_tracking_cost",
+    "name": "Conveyor speed encoder tracking cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "conveyor_integration", "sensing"],
+    "description": "Allocated cost contribution of speed encoder hardware, mounts, wiring, and tracking integration inside the conveyor-integration bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 2500, "typical": 4000, "max": 9000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
+  },
+  {
+    "id": "conveyor_photoelectric_sensors_cost",
+    "name": "Conveyor photoelectric sensors cost",
+    "kind": "metric",
+    "domain": ["parcel_sorting_robot", "conveyor_integration", "sensing"],
+    "description": "Allocated cost contribution of photoelectric sensors, brackets, wiring, and sensor integration inside the conveyor-integration bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": { "min": 1800, "typical": 3000, "max": 7000 },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
+    "tags": ["cost", "cost_research", "consistency_backfill"]
   },
   {
     "id": "safety_system_cost",

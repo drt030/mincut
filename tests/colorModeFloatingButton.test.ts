@@ -4,15 +4,19 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 // RED Slice B1 (spec:
 // docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md;
-// ADR-0006 §"Chrome (toolbar)" — "Color mode + 5-stop legend: bottom-
-// left floating icon button, expands to full selector on click").
+// ADR-0006 §"Chrome (toolbar)" originally specified "Color mode +
+// 5-stop legend: bottom-left floating icon button, expands to full
+// selector on click". The 2026-05-31 UX correction changes that
+// contract: the colour-mode selector is persistent graph chrome because
+// hidden edge-colouring controls were too easy to miss.
 //
 // `ColorModeFloatingButton` REPLACES the legacy `ColorModeSelect`
 // dropdown (deleted in slice A3). Per ADR-0006:
 //
-//   - Default state: collapsed icon button positioned bottom-left.
-//   - Expanded state: 5 mode options + a 5-stop legend visualising
-//     the active mode's colour ramp.
+//   - Default state: persistent bottom-left selector with all 5 mode
+//     options visible.
+//   - The 5-stop legend remains visible so users can interpret the
+//     active colour ramp without opening a hidden menu.
 //
 // The component does not exist yet; this import fails at module
 // load time, which is the cleanest RED signal for the GREEN sub-
@@ -45,9 +49,7 @@ import type { ColorMode } from "../src/lib/edgeStyleFor";
 
 type ColorModeFloatingButtonProps = {
   mode: ColorMode;
-  expanded?: boolean;
   onSelect: (next: ColorMode) => void;
-  onToggle?: () => void;
 };
 
 function render(props: ColorModeFloatingButtonProps): string {
@@ -84,40 +86,37 @@ const MODE_LABEL_REGEXES: Record<ColorMode, RegExp> = {
   relation: /relation|关系/i,
 };
 
-// -------------------- Assertion 1: Default (collapsed) render --------------------
+// -------------------- Assertion 1: Default persistent render --------------------
 
 /**
- * Collapsed state must render:
- *   - A small icon button identifiable via a stable test hook
- *     (`data-testid="color-mode-button"`). The bring-back says
- *     "(or similar pinned hook)" — we pin this exact value so the
- *     GREEN commit and any future test (e.g. uxSmoke integration)
- *     share the same selector.
+ * Default state must render:
+ *   - A persistent selector identifiable via a stable test hook
+ *     (`data-testid="color-mode-control"`), with the legacy
+ *     `data-testid="color-mode-button"` retained on the surface for
+ *     existing smoke selectors.
  *   - Positioned bottom-left via CSS. `renderToStaticMarkup` emits
  *     inline `style="..."` strings for React's `style` prop, so we
  *     can check for `position: fixed`, `bottom:` and `left:`
  *     substrings without coupling to a specific px value.
- *   - The current mode label is reachable somewhere in the
- *     collapsed output (so the user knows which mode is active
- *     before opening the selector).
- *
- * The collapsed output MUST NOT contain the full option list — the
- * 5-mode selector should only render when `expanded` is true. We
- * verify this by counting that AT MOST one mode label fragment
- * appears (the active mode's), not all 5.
+ *   - All 5 mode labels are visible by default. No expand/collapse
+ *     gesture is required to discover edge-colouring options.
  */
-test("ColorModeFloatingButton (collapsed): bottom-left icon button with current mode label and stable test hook", () => {
+test("ColorModeFloatingButton (default): bottom-left persistent selector shows every mode", () => {
   const html = render({
     mode: "bottleneck-risk",
-    expanded: false,
     onSelect: () => {},
   });
 
   // Stable test hook.
   assert.match(
     html,
+    /data-testid="color-mode-control"/,
+    `default render must expose data-testid="color-mode-control"; got: ${html}`,
+  );
+  assert.match(
+    html,
     /data-testid="color-mode-button"/,
-    `collapsed render must expose data-testid="color-mode-button"; got: ${html}`,
+    `default render must retain data-testid="color-mode-button"; got: ${html}`,
   );
 
   // CSS positioning: `position: fixed; bottom: <X>; left: <Y>`.
@@ -127,47 +126,32 @@ test("ColorModeFloatingButton (collapsed): bottom-left icon button with current 
   assert.match(
     html,
     /position:\s*fixed/,
-    `collapsed render must set CSS position: fixed; got: ${html}`,
+    `default render must set CSS position: fixed; got: ${html}`,
   );
   assert.match(
     html,
     /bottom:\s*[^;"]+/,
-    `collapsed render must set CSS bottom; got: ${html}`,
+    `default render must set CSS bottom; got: ${html}`,
   );
   assert.match(
     html,
     /left:\s*[^;"]+/,
-    `collapsed render must set CSS left; got: ${html}`,
+    `default render must set CSS left; got: ${html}`,
   );
 
-  // The current mode label fragment must appear at least once.
-  assert.match(
-    html,
-    MODE_LABEL_REGEXES["bottleneck-risk"],
-    `collapsed render must include the current mode's label fragment; got: ${html}`,
-  );
-
-  // The OTHER 4 mode labels must NOT appear when collapsed — otherwise
-  // the collapsed state effectively pre-renders the full selector.
-  // We pick three labels whose regexes are unambiguous: `cost`,
-  // `maturity`, and `relation`. (`overall` is excluded because the
-  // word "overall" could legitimately appear in copy like "Overall
-  // risk view" even when collapsed.)
-  for (const other of ["cost", "maturity", "relation"] as const) {
-    assert.doesNotMatch(
+  for (const mode of ALL_MODES) {
+    assert.match(
       html,
-      MODE_LABEL_REGEXES[other],
-      `collapsed render must NOT show option "${other}"; got: ${html}`,
+      MODE_LABEL_REGEXES[mode],
+      `default render must include visible option label for "${mode}"; got: ${html}`,
     );
   }
 });
 
-// -------------------- Assertion 2: Expanded render --------------------
+// -------------------- Assertion 2: Persistent legend --------------------
 
 /**
- * Expanded state must render:
- *   - All 5 mode option labels (the 5 ColorMode strings via their
- *     loose copy fragments above).
+ * The persistent state must render:
  *   - A 5-stop legend: 5 colour swatches (rect | div | li | path)
  *     showing the active mode's colour ramp. We count occurrences
  *     of a swatch-element pattern in the rendered HTML; the GREEN
@@ -183,21 +167,27 @@ test("ColorModeFloatingButton (collapsed): bottom-left icon button with current 
  * from `edgeStyleFor` and the legend should derive them at render
  * time.
  */
-test("ColorModeFloatingButton (expanded): 5 mode options visible + 5-stop legend", () => {
+test("ColorModeFloatingButton (default): 5-stop legend stays visible", () => {
   const html = render({
     mode: "cost",
-    expanded: true,
     onSelect: () => {},
   });
 
-  // All 5 mode labels appear.
-  for (const mode of ALL_MODES) {
-    assert.match(
-      html,
-      MODE_LABEL_REGEXES[mode],
-      `expanded render must include option label for "${mode}"; got: ${html}`,
-    );
-  }
+  assert.match(
+    html,
+    /Legend|图例/i,
+    `default render must label the swatches as a legend, not as selectable controls; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Low|低/i,
+    `default render must label the low end of the active colour ramp; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /High|高/i,
+    `default render must label the high end of the active colour ramp; got: ${html}`,
+  );
 
   // 5-stop legend. We count swatches by looking for the dedicated
   // hook `data-testid="color-mode-swatch"` FIRST (the canonical
@@ -212,7 +202,7 @@ test("ColorModeFloatingButton (expanded): 5 mode options visible + 5-stop legend
     assert.equal(
       swatchHookCount,
       5,
-      `expanded render must have 5 swatches with data-testid="color-mode-swatch"; got ${swatchHookCount}`,
+      `default render must have 5 swatches with data-testid="color-mode-swatch"; got ${swatchHookCount}`,
     );
   } else {
     // Fallback: any container with exactly 5 repeated colour
@@ -225,7 +215,7 @@ test("ColorModeFloatingButton (expanded): 5 mode options visible + 5-stop legend
     const totalSwatches = rectCount + divSwatchCount + liSwatchCount;
     assert.ok(
       totalSwatches >= 5,
-      `expanded render must contain a 5-stop colour legend; found rect=${rectCount} div=${divSwatchCount} li=${liSwatchCount}; got: ${html}`,
+      `default render must contain a 5-stop colour legend; found rect=${rectCount} div=${divSwatchCount} li=${liSwatchCount}; got: ${html}`,
     );
   }
 });
@@ -255,14 +245,13 @@ test("ColorModeFloatingButton (expanded): 5 mode options visible + 5-stop legend
  * rendered an interactive surface for each mode; the harness can
  * wire its own click test elsewhere.
  */
-test("ColorModeFloatingButton (expanded): one data-mode option element per ColorMode", () => {
+test("ColorModeFloatingButton (default): one data-mode option element per ColorMode", () => {
   let lastSelected: ColorMode | null = null;
   const onSelect = (next: ColorMode) => {
     lastSelected = next;
   };
   const html = render({
     mode: "maturity",
-    expanded: true,
     onSelect,
   });
 
@@ -290,5 +279,18 @@ test("ColorModeFloatingButton (expanded): one data-mode option element per Color
     lastSelected,
     null,
     `render must not invoke onSelect as a render-time side effect; got lastSelected=${lastSelected}`,
+  );
+});
+
+test("ColorModeFloatingButton (default): mode options are plain text without decorative colour markers", () => {
+  const html = render({
+    mode: "bottleneck-risk",
+    onSelect: () => {},
+  });
+
+  assert.equal(
+    (html.match(/data-testid="color-mode-option-marker"/g) ?? []).length,
+    0,
+    `mode options should not render decorative colour markers; got: ${html}`,
   );
 });

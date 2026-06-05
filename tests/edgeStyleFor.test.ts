@@ -18,6 +18,7 @@ import assert from "node:assert/strict";
 // "ColorMode type can live alongside `edgeStyleFor.ts`" constraint.
 import {
   edgeStyleFor,
+  nodeCostSignalRmb,
   type ColorMode,
 } from "../src/lib/edgeStyleFor";
 import { loadGraphData } from "../src/lib/graphLoader";
@@ -135,6 +136,23 @@ test("cost mode: lowest cost-bin → cool + width 0.5; highest cost-bin → warm
     high.stroke,
     `lowest and highest cost-bin strokes must differ; both got ${low.stroke}`,
   );
+});
+
+test("cost mode: aggregator edge uses rolled-up cost, not stale direct cost", () => {
+  const graph = loadGraphData();
+  const parentEdge = edgeTargeting(graph, "parcel_manipulation_or_diverter");
+  const childEdge = edgeTargeting(graph, "industrial_robot_arm_body");
+  const parent = graph.nodes.find((node) => node.id === "parcel_manipulation_or_diverter");
+  const child = graph.nodes.find((node) => node.id === "industrial_robot_arm_body");
+  assert.ok(parent, "fixture: parcel_manipulation_or_diverter exists");
+  assert.ok(child, "fixture: industrial_robot_arm_body exists");
+
+  const parentCost = nodeCostSignalRmb(parent!, graph);
+  const childCost = nodeCostSignalRmb(child!, graph);
+  assert.ok(parentCost !== null && parentCost > 100_000, `expected rolled-up parent cost >100k, got ${parentCost}`);
+  assert.ok(childCost !== null && childCost > 60_000, `expected rolled-up child cost >60k, got ${childCost}`);
+  assert.equal(edgeStyleFor(parentEdge, "cost", graph).width, 4);
+  assert.equal(edgeStyleFor(childEdge, "cost", graph).width, 4);
 });
 
 // -------------------- Test 2: Bin alignment across full graph --------------------

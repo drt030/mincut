@@ -4,24 +4,23 @@ import React from "react";
 import { RAMP, type ColorMode } from "@/lib/edgeStyleFor";
 
 /**
- * Per ADR-0006 §"Chrome (toolbar)" — "Color mode + 5-stop legend:
- * bottom-left floating icon button, expands to full selector on click".
+ * Per ADR-0006 §"Chrome (toolbar)" with the 2026-05-31 UX correction:
+ * color mode is persistent graph chrome. The edge-colouring options stay
+ * visible because hiding them behind an icon made the analysis modes too
+ * easy to miss.
  *
- * Two states:
- *   - Collapsed: small fixed-position button anchored bottom-left.
- *     Shows the current mode's label so a returning user knows which
- *     channel is encoding the colour layer.
- *   - Expanded: 5 mode options (one per `ColorMode`) plus a 5-stop
- *     legend visualising the active mode's colour ramp. Click on an
- *     option fires `onSelect(next)`; click on the toggle bar collapses.
+ * The control renders all 5 mode options (one per `ColorMode`) plus a
+ * 5-stop legend visualising the active mode's colour ramp. Click on an
+ * option fires `onSelect(next)`.
  *
  * The component is intentionally render-time-pure: no `useEffect`, no
  * timers, no `props.onSelect` calls from the render body. Parents
- * control the selected `mode` and `expanded` state.
+ * control the selected `mode`.
  *
  * Stable test hooks (consumed by `tests/colorModeFloatingButton.test.ts`
  * + future uxSmoke integration tests):
- *   - The collapsed-state button: `data-testid="color-mode-button"`.
+ *   - The persistent surface: `data-testid="color-mode-control"`.
+ *   - Legacy surface hook retained: `data-testid="color-mode-button"`.
  *   - Each mode option: `data-mode="<modeId>"`.
  *   - Each swatch in the 5-stop legend: `data-testid="color-mode-swatch"`.
  *
@@ -34,9 +33,7 @@ import { RAMP, type ColorMode } from "@/lib/edgeStyleFor";
 
 export type ColorModeFloatingButtonProps = {
   mode: ColorMode;
-  expanded?: boolean;
   onSelect: (next: ColorMode) => void;
-  onToggle?: () => void;
 };
 
 /**
@@ -62,9 +59,6 @@ const MODE_LABELS: Record<ColorMode, string> = {
   relation: "Relation",
 };
 
-/** Short single-character glyph used as the collapsed-state icon. */
-const COLLAPSED_ICON = "◐";
-
 const FIXED_POSITION_STYLE: React.CSSProperties = {
   position: "fixed",
   bottom: "16px",
@@ -72,30 +66,14 @@ const FIXED_POSITION_STYLE: React.CSSProperties = {
   zIndex: 50,
 };
 
-const BUTTON_STYLE: React.CSSProperties = {
+const CONTROL_STYLE: React.CSSProperties = {
   ...FIXED_POSITION_STYLE,
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 6,
-  padding: "6px 10px",
-  borderRadius: 6,
-  background: "#0f172a",
-  color: "#f8fafc",
-  border: "1px solid #1e293b",
-  fontSize: 12,
-  fontFamily: "inherit",
-  cursor: "pointer",
-  boxShadow: "0 2px 6px rgba(0,0,0,0.18)",
-};
-
-const PANEL_STYLE: React.CSSProperties = {
-  ...FIXED_POSITION_STYLE,
-  bottom: "56px",
   display: "flex",
   flexDirection: "column",
   gap: 8,
-  minWidth: 180,
-  padding: "10px 12px",
+  minWidth: 0,
+  maxWidth: "calc(100vw - 32px)",
+  padding: "8px 10px",
   borderRadius: 8,
   background: "#0f172a",
   color: "#f8fafc",
@@ -105,34 +83,52 @@ const PANEL_STYLE: React.CSSProperties = {
   boxShadow: "0 4px 14px rgba(0,0,0,0.22)",
 };
 
+const OPTION_ROW_STYLE: React.CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "center",
+  gap: 6,
+};
+
 const OPTION_BASE_STYLE: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
-  gap: 8,
-  padding: "4px 6px",
+  minHeight: 28,
+  padding: "5px 10px",
   borderRadius: 4,
   cursor: "pointer",
-  border: "none",
-  background: "transparent",
+  border: "1px solid rgba(148,163,184,0.34)",
+  background: "rgba(15,23,42,0.68)",
   color: "inherit",
   fontSize: 12,
   fontFamily: "inherit",
-  textAlign: "left",
-  width: "100%",
+  textAlign: "center",
 };
 
 const OPTION_ACTIVE_STYLE: React.CSSProperties = {
   ...OPTION_BASE_STYLE,
-  background: "rgba(255,255,255,0.08)",
+  background: "#f8fafc",
+  color: "#0f172a",
+  border: "1px solid #f8fafc",
 };
 
 const LEGEND_ROW_STYLE: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: 4,
-  marginTop: 6,
-  paddingTop: 6,
+  paddingTop: 2,
   borderTop: "1px solid rgba(255,255,255,0.12)",
+  color: "#cbd5e1",
+  fontSize: 11,
+};
+
+const LEGEND_LABEL_STYLE: React.CSSProperties = {
+  fontWeight: 700,
+  marginRight: 4,
+};
+
+const LEGEND_ENDPOINT_STYLE: React.CSSProperties = {
+  opacity: 0.82,
 };
 
 const SWATCH_BASE_STYLE: React.CSSProperties = {
@@ -158,47 +154,23 @@ function rampForMode(mode: ColorMode): readonly string[] {
 
 export function ColorModeFloatingButton({
   mode,
-  expanded = false,
   onSelect,
-  onToggle,
 }: ColorModeFloatingButtonProps) {
-  // Collapsed: a single fixed-position button. Pin
-  // data-testid="color-mode-button" + position: fixed; bottom; left so
-  // the unit test selectors match.
-  if (!expanded) {
-    return (
-      <button
-        type="button"
-        data-testid="color-mode-button"
-        aria-label={`Color mode: ${MODE_LABELS[mode]}`}
-        aria-expanded={false}
-        style={BUTTON_STYLE}
-        onClick={() => onToggle?.()}
-      >
-        <span aria-hidden="true">{COLLAPSED_ICON}</span>
-        <span>{MODE_LABELS[mode]}</span>
-      </button>
-    );
-  }
-
-  // Expanded: the same button at bottom-left + a panel above with 5
-  // option buttons and a 5-stop legend below.
   const swatches = rampForMode(mode);
 
   return (
-    <>
-      <button
-        type="button"
+    <div
+      data-testid="color-mode-control"
+      style={CONTROL_STYLE}
+      role="group"
+      aria-label={`Color mode selector. Current mode: ${MODE_LABELS[mode]}`}
+    >
+      <div
         data-testid="color-mode-button"
-        aria-label={`Color mode: ${MODE_LABELS[mode]}`}
-        aria-expanded={true}
-        style={BUTTON_STYLE}
-        onClick={() => onToggle?.()}
+        style={OPTION_ROW_STYLE}
+        role="group"
+        aria-label="Color mode options"
       >
-        <span aria-hidden="true">{COLLAPSED_ICON}</span>
-        <span>{MODE_LABELS[mode]}</span>
-      </button>
-      <div style={PANEL_STYLE} role="group" aria-label="Color mode selector">
         {ALL_MODES.map((option) => {
           const active = option === mode;
           return (
@@ -207,31 +179,28 @@ export function ColorModeFloatingButton({
               type="button"
               data-mode={option}
               aria-pressed={active}
+              aria-label={`Color mode: ${MODE_LABELS[option]}`}
               style={active ? OPTION_ACTIVE_STYLE : OPTION_BASE_STYLE}
               onClick={() => onSelect(option)}
             >
-              <span
-                aria-hidden="true"
-                style={{
-                  ...SWATCH_BASE_STYLE,
-                  background:
-                    option === "relation" ? "#94a3b8" : RAMP[2],
-                }}
-              />
               <span>{MODE_LABELS[option]}</span>
             </button>
           );
         })}
-        <div style={LEGEND_ROW_STYLE} aria-label="Active mode color ramp">
-          {swatches.map((color, i) => (
-            <span
-              key={`${mode}-${i}-${color}`}
-              data-testid="color-mode-swatch"
-              style={{ ...SWATCH_BASE_STYLE, background: color }}
-            />
-          ))}
-        </div>
       </div>
-    </>
+      <div style={LEGEND_ROW_STYLE} aria-label="Legend: active mode color ramp from low to high">
+        <span style={LEGEND_LABEL_STYLE}>Legend</span>
+        <span style={LEGEND_ENDPOINT_STYLE}>Low</span>
+        {swatches.map((color, i) => (
+          <span
+            key={`${mode}-${i}-${color}`}
+            data-testid="color-mode-swatch"
+            aria-hidden="true"
+            style={{ ...SWATCH_BASE_STYLE, background: color }}
+          />
+        ))}
+        <span style={LEGEND_ENDPOINT_STYLE}>High</span>
+      </div>
+    </div>
   );
 }

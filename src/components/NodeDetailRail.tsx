@@ -12,7 +12,7 @@ import { NodeDetailContent } from "./NodeDetailPanel";
  *
  * The detail panel becomes a right-edge rail with two states:
  *
- *  - **Default (collapsed)**: 64 px wide. Surfaces the focused node's
+ *  - **Default (collapsed)**: 112 px wide. Surfaces the focused node's
  *    name + a single critical badge (maturity ramp). Hints "more
  *    detail available" via a toggle button.
  *  - **Expanded**: 400 px wide. Shows the full panel content —
@@ -71,10 +71,10 @@ export const NodeDetailRail: React.FC<NodeDetailRailProps> = ({
   onSelectNode,
 }) => {
   // Width contract (pinned by tests):
-  //   - no focus → 64 (an empty rail can never expand to 400)
-  //   - focus + not expanded → 64
+  //   - no focus → 112 (an empty rail can never expand to 400)
+  //   - focus + not expanded → 112
   //   - focus + expanded → 400
-  const widthAttr = focusedNode && expanded ? "400" : "64";
+  const widthAttr = focusedNode && expanded ? "400" : "112";
   const isExpanded = focusedNode != null && expanded;
   const contentKey = focusedNode ? focusedNode.id : "__empty__";
 
@@ -158,7 +158,7 @@ function RailEmptyState() {
 }
 
 /**
- * Collapsed (64 px) summary. Pinned by tests:
+ * Collapsed (112 px) summary. Pinned by tests:
  *   - the raw node name appears somewhere in the markup
  *   - the maturity badge carries `data-maturity-band="<raw label>"`
  *
@@ -191,4 +191,3 @@ function RailCollapsedSummary({ node }: { node: Node }) {
     </div>
   );
 }
-
