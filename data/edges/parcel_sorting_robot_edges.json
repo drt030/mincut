@@ -3832,5 +3832,226 @@
       "ev_yaskawa_sigma_x_servo_sto_2026"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_strain_wave_wave_generator_measured_by_cost",
+    "source": "strain_wave_wave_generator",
+    "target": "strain_wave_wave_generator_cost",
+    "relation": "measured_by",
+    "claim": "Strain-wave reducer wave generator has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so reducer and precision-material child layers do not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_strain_wave_flexspline_measured_by_cost",
+    "source": "strain_wave_flexspline",
+    "target": "strain_wave_flexspline_cost",
+    "relation": "measured_by",
+    "claim": "Strain-wave reducer flexspline has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so reducer and precision-material child layers do not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_strain_wave_circular_spline_measured_by_cost",
+    "source": "strain_wave_circular_spline",
+    "target": "strain_wave_circular_spline_cost",
+    "relation": "measured_by",
+    "claim": "Strain-wave reducer circular spline has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so reducer and precision-material child layers do not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_reducer_output_cross_roller_bearing_measured_by_cost",
+    "source": "reducer_output_cross_roller_bearing",
+    "target": "reducer_output_cross_roller_bearing_cost",
+    "relation": "measured_by",
+    "claim": "Reducer output bearing has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so reducer and precision-material child layers do not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_alloy_steel_precision_material_measured_by_cost",
+    "source": "alloy_steel_precision_material",
+    "target": "alloy_steel_precision_material_cost",
+    "relation": "measured_by",
+    "claim": "Alloy steel precision material has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so reducer and precision-material child layers do not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_alloy_steel_precision_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_strain_wave_wave_generator_harmonic_drive",
+    "source": "strain_wave_wave_generator",
+    "target": "org_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is a candidate supplier for Strain-wave reducer wave generator.",
+    "context": "Supplier-candidate link for strain-wave reducer component exploration; target-cell adoption and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_strain_wave_wave_generator_leaderdrive",
+    "source": "strain_wave_wave_generator",
+    "target": "org_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is a candidate supplier for Strain-wave reducer wave generator.",
+    "context": "Supplier-candidate link for strain-wave reducer component exploration; target-cell adoption and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_leaderdrive_strain_wave_gears_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_strain_wave_flexspline_harmonic_drive",
+    "source": "strain_wave_flexspline",
+    "target": "org_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is a candidate supplier for Strain-wave reducer flexspline.",
+    "context": "Supplier-candidate link for strain-wave reducer component exploration; target-cell adoption and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_strain_wave_flexspline_leaderdrive",
+    "source": "strain_wave_flexspline",
+    "target": "org_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is a candidate supplier for Strain-wave reducer flexspline.",
+    "context": "Supplier-candidate link for strain-wave reducer component exploration; target-cell adoption and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_leaderdrive_strain_wave_gears_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_strain_wave_circular_spline_harmonic_drive",
+    "source": "strain_wave_circular_spline",
+    "target": "org_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is a candidate supplier for Strain-wave reducer circular spline.",
+    "context": "Supplier-candidate link for strain-wave reducer component exploration; target-cell adoption and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_strain_wave_circular_spline_leaderdrive",
+    "source": "strain_wave_circular_spline",
+    "target": "org_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is a candidate supplier for Strain-wave reducer circular spline.",
+    "context": "Supplier-candidate link for strain-wave reducer component exploration; target-cell adoption and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_leaderdrive_strain_wave_gears_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_reducer_output_bearing_thk",
+    "source": "reducer_output_cross_roller_bearing",
+    "target": "org_thk",
+    "relation": "manufactured_by",
+    "claim": "THK is a candidate supplier for precision robot-joint output bearings.",
+    "context": "Candidate precision-bearing supplier link; exact bearing type, target-cell adoption, and market share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_thk_cross_roller_ring_robot_joints_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_reducer_output_bearing_nsk",
+    "source": "reducer_output_cross_roller_bearing",
+    "target": "org_nsk",
+    "relation": "manufactured_by",
+    "claim": "NSK is a candidate supplier for precision robot-joint output bearings.",
+    "context": "Candidate precision-bearing supplier link; exact bearing type, target-cell adoption, and market share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_nsk_robotics_bearings_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_reducer_output_bearing_schaeffler",
+    "source": "reducer_output_cross_roller_bearing",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler is a candidate supplier for precision robot-joint output bearings.",
+    "context": "Candidate precision-bearing supplier link; exact bearing type, target-cell adoption, and market share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_schaeffler_industrial_automation_bearings_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_alloy_steel_precision_material_citic",
+    "source": "alloy_steel_precision_material",
+    "target": "org_citic_special_steel",
+    "relation": "manufactured_by",
+    "claim": "CITIC Pacific Special Steel is a candidate upstream supplier for precision alloy steel used in reducer and bearing components.",
+    "context": "Candidate special-steel supplier link; exact steel grade, qualification status, and target reducer share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_citic_special_steel_bearing_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_alloy_steel_precision_material_baosteel",
+    "source": "alloy_steel_precision_material",
+    "target": "org_baosteel",
+    "relation": "manufactured_by",
+    "claim": "Baosteel is a candidate upstream supplier for precision alloy steel used in reducer and bearing components.",
+    "context": "Candidate special-steel supplier link; exact steel grade, qualification status, and target reducer share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_baosteel_special_material_bearing_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_alloy_steel_precision_material_nippon_steel",
+    "source": "alloy_steel_precision_material",
+    "target": "org_nippon_steel",
+    "relation": "manufactured_by",
+    "claim": "Nippon Steel is a candidate upstream supplier for precision alloy steel used in reducer and bearing components.",
+    "context": "Candidate special-steel supplier link; exact steel grade, qualification status, and target reducer share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_nippon_steel_bar_wire_rod_2026"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

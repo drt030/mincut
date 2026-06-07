@@ -157,6 +157,35 @@ test("servo drive child layer exposes investable supplier candidates", () => {
   }
 });
 
+test("strain-wave reducer component layer exposes investable supplier candidates", () => {
+  for (const componentId of [
+    "strain_wave_wave_generator",
+    "strain_wave_flexspline",
+    "strain_wave_circular_spline",
+  ]) {
+    const manufacturers = manufacturersForNode(graph, componentId).map((node) => node.id);
+    for (const id of ["org_harmonic_drive_systems", "org_leaderdrive"]) {
+      assert.ok(manufacturers.includes(id), `${componentId} must expose ${id} as a strain-wave reducer supplier candidate`);
+    }
+  }
+
+  const bearingManufacturers = manufacturersForNode(graph, "reducer_output_cross_roller_bearing").map((node) => node.id);
+  for (const id of ["org_thk", "org_nsk", "org_schaeffler"]) {
+    assert.ok(
+      bearingManufacturers.includes(id),
+      `reducer_output_cross_roller_bearing must expose ${id} as a precision-bearing supplier candidate`,
+    );
+  }
+
+  const alloySteelManufacturers = manufacturersForNode(graph, "alloy_steel_precision_material").map((node) => node.id);
+  for (const id of ["org_citic_special_steel", "org_baosteel", "org_nippon_steel"]) {
+    assert.ok(
+      alloySteelManufacturers.includes(id),
+      `alloy_steel_precision_material must expose ${id} as a special-steel supplier candidate`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

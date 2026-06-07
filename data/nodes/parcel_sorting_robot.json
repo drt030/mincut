@@ -1090,15 +1090,19 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026",
+      "ev_leaderdrive_strain_wave_gears_2026",
       "ev_harmonic_drive_reducer_components"
     ],
     "tags": [
+      "cost_driver",
+      "investor_relevant",
       "reducer",
       "strain_wave",
       "wave_generator",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include elliptical hub, wave generator bearing, preload, assembly position, and fatigue constraints."
+    "notes": "Expansion frontier: next layer may include elliptical hub, wave generator bearing, preload, assembly position, and fatigue constraints. Added 2025 p50 cost allocation and supplier-candidate evidence for investor workflows; cost and supplier claims remain unreviewed until teardown or purchase evidence is available."
   },
   {
     "id": "strain_wave_flexspline",
@@ -1115,9 +1119,13 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026",
+      "ev_leaderdrive_strain_wave_gears_2026",
       "ev_harmonic_drive_reducer_components"
     ],
     "tags": [
+      "cost_driver",
+      "investor_relevant",
       "reducer",
       "strain_wave",
       "flexspline",
@@ -1125,7 +1133,7 @@
       "decomposition_frontier",
       "hard_to_develop"
     ],
-    "notes": "Expansion frontier: next layer may include tooth machining, thin-wall forming, heat treatment, fatigue life, crack risk, and inspection. Hard-to-develop rationale: thin-wall fatigue-life tooth manufacturing is the bottleneck behind robot reducer cost; replicating Japanese-supplier quality at low cost remains a real R&D pipeline."
+    "notes": "Expansion frontier: next layer may include tooth machining, thin-wall forming, heat treatment, fatigue life, crack risk, and inspection. Hard-to-develop rationale: thin-wall fatigue-life tooth manufacturing is the bottleneck behind robot reducer cost; replicating Japanese-supplier quality at low cost remains a real R&D pipeline. Added 2025 p50 cost allocation and supplier-candidate evidence for investor workflows; cost and supplier claims remain unreviewed until teardown or purchase evidence is available."
   },
   {
     "id": "strain_wave_circular_spline",
@@ -1142,15 +1150,19 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026",
+      "ev_leaderdrive_strain_wave_gears_2026",
       "ev_harmonic_drive_reducer_components"
     ],
     "tags": [
+      "cost_driver",
+      "investor_relevant",
       "reducer",
       "strain_wave",
       "circular_spline",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include internal tooth accuracy, material, heat treatment, concentricity, and assembly tolerance."
+    "notes": "Expansion frontier: next layer may include internal tooth accuracy, material, heat treatment, concentricity, and assembly tolerance. Added 2025 p50 cost allocation and supplier-candidate evidence for investor workflows; cost and supplier claims remain unreviewed until teardown or purchase evidence is available."
   },
   {
     "id": "reducer_output_cross_roller_bearing",
@@ -1167,15 +1179,20 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
+      "ev_thk_cross_roller_ring_robot_joints_2026",
+      "ev_nsk_robotics_bearings_2026",
+      "ev_schaeffler_industrial_automation_bearings_2026",
       "ev_harmonic_drive_reducer_components"
     ],
     "tags": [
+      "cost_driver",
+      "investor_relevant",
       "bearing",
       "reducer",
       "robot_joint",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include bearing type, preload, sealing, lubrication, moment load, runout, and lifetime."
+    "notes": "Expansion frontier: next layer may include bearing type, preload, sealing, lubrication, moment load, runout, and lifetime. Added 2025 p50 cost allocation and precision-bearing supplier candidates for investor workflows; supplier links are candidates, not target-BOM proof."
   },
   {
     "id": "reducer_lubrication_and_life_test",
@@ -3000,17 +3017,23 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
+      "ev_citic_special_steel_bearing_2026",
+      "ev_baosteel_special_material_bearing_2026",
+      "ev_nippon_steel_bar_wire_rod_2026",
+      "ev_alloy_steel_precision_material_cost_backfill_2025",
       "ev_doe_iron_steel_manufacturing",
       "ev_usgs_mcs_2026_minerals"
     ],
     "tags": [
+      "cost_driver",
+      "investor_relevant",
       "material",
       "steel",
       "reducer",
       "structure",
       "decomposition_frontier"
     ],
-    "notes": "Material frontier: next layer may include steel grade, heat treatment, cleanliness, forging/casting/rolling route, machining stock, and bearing steel requirements."
+    "notes": "Shared precision steel input for reducer splines, shafts, bearing races, arm joints, and load-bearing structures. Cost is recorded as a low-confidence allocated BOM contribution rather than a steel commodity quote; supplier links are upstream candidates for investor exploration."
   },
   {
     "id": "iron_ore_steelmaking_chain",
@@ -5737,9 +5760,11 @@
       }
     ],
     "evidenceIds": [
+      "ev_harmonic_drive_strain_wave_principle_2026",
       "ev_harmonic_drive_reducer_components"
     ],
     "tags": [
+      "strain_wave_reducer",
       "manufacturer",
       "precision_reducer",
       "public_company"
@@ -5766,9 +5791,11 @@
       }
     ],
     "evidenceIds": [
+      "ev_leaderdrive_strain_wave_gears_2026",
       "ev_mfg_leaderdrive_harmonic_reducer_2024"
     ],
     "tags": [
+      "strain_wave_reducer",
       "manufacturer",
       "precision_reducer",
       "public_company",
@@ -7297,5 +7324,388 @@
       "consistency_backfill"
     ],
     "notes": "Low-confidence allocated conductor contribution. This is a product-level BOM allocation, not a commodity price; replace with mass and commodity-price analysis before review promotion."
+  },
+  {
+    "id": "strain_wave_wave_generator_cost",
+    "name": "Strain-wave reducer wave generator cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Allocated p50 BOM contribution for the wave-generator assembly in the robot-arm precision reducer bundle, including elliptical hub, thin-race bearing, preload and assembly contribution.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 2000,
+          "typical": 4800,
+          "max": 9500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "precision_reducer",
+      "strain_wave",
+      "wave_generator",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation from the precision-reducer bundle. This is not a supplier quote; replace with reducer teardown or purchase evidence before review promotion."
+  },
+  {
+    "id": "strain_wave_flexspline_cost",
+    "name": "Strain-wave reducer flexspline cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Allocated p50 BOM contribution for the flexspline in a strain-wave reducer, including thin-wall alloy steel forming, tooth generation, heat treatment, inspection, and fatigue-life yield risk.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 3500,
+          "typical": 8200,
+          "max": 16000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "precision_reducer",
+      "strain_wave",
+      "flexspline",
+      "hard_to_develop",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation from the precision-reducer bundle. The flexspline is intentionally the largest child allocation because thin-wall tooth accuracy and fatigue margin are the suspected reducer bottleneck."
+  },
+  {
+    "id": "strain_wave_circular_spline_cost",
+    "name": "Strain-wave reducer circular spline cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
+    "description": "Allocated p50 BOM contribution for the rigid internally toothed circular spline in the strain-wave reducer bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 2200,
+          "typical": 5200,
+          "max": 11000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "precision_reducer",
+      "strain_wave",
+      "circular_spline",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation from the precision-reducer bundle. Replace with supplier quotes or teardown evidence before review promotion."
+  },
+  {
+    "id": "reducer_output_cross_roller_bearing_cost",
+    "name": "Reducer output bearing cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer",
+      "bearing"
+    ],
+    "description": "Allocated p50 BOM contribution for the reducer output bearing, such as a cross-roller or high-moment precision bearing used at robot joints.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1200,
+          "typical": 4000,
+          "max": 9000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_strain_wave_reducer_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "precision_reducer",
+      "bearing",
+      "cross_roller",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation from the precision-reducer bundle. This is a component allocation, not a quoted THK/NSK/Schaeffler price."
+  },
+  {
+    "id": "alloy_steel_precision_material_cost",
+    "name": "Alloy steel precision material cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "precision_reducer",
+      "steel"
+    ],
+    "description": "Allocated p50 BOM contribution for precision alloy steel content used in reducer splines, shafts, bearing races, robot joints, and load-bearing structures.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 1800,
+          "max": 4500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_alloy_steel_precision_material_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "raw_material",
+      "steel",
+      "precision_reducer",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence product-level allocation for precision steel content. This is not a steel spot price and does not include full machining/process cost already allocated to reducer components."
+  },
+  {
+    "id": "org_thk",
+    "name": "THK",
+    "domain": [
+      "precision_bearing",
+      "industrial_robot_arm",
+      "investable_supplier"
+    ],
+    "description": "Japanese motion-control and linear-motion supplier with cross-roller ring products used in industrial robot joints and precision rotary applications.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6481.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_thk_cross_roller_ring_robot_joints_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_bearing",
+      "cross_roller_bearing",
+      "public_company"
+    ],
+    "notes": "Investor relevance: robot-joint bearing exposure; exact share in target reducers is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_nsk",
+    "name": "NSK",
+    "domain": [
+      "precision_bearing",
+      "industrial_robot_arm",
+      "investable_supplier"
+    ],
+    "description": "Japanese bearing and motion supplier with robotics application portfolio covering bearings, linear guides, actuators, and direct-drive motors.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6471.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_nsk_robotics_bearings_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_bearing",
+      "public_company"
+    ],
+    "notes": "Investor relevance: broad precision-bearing exposure; exact reducer output-bearing selection and share are unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_schaeffler",
+    "name": "Schaeffler",
+    "domain": [
+      "precision_bearing",
+      "industrial_automation",
+      "investable_supplier"
+    ],
+    "description": "German bearing and motion supplier with industrial automation components including precision gearboxes, pivot bearing supports, drive motors, sensors, and bearing products.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "SHA0.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_schaeffler_industrial_automation_bearings_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_bearing",
+      "public_company"
+    ],
+    "notes": "Investor relevance: precision bearing and industrial automation exposure; exact target-cell BOM position is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_citic_special_steel",
+    "name": "CITIC Pacific Special Steel",
+    "domain": [
+      "special_steel",
+      "precision_reducer",
+      "investable_supplier"
+    ],
+    "description": "Chinese special-steel producer relevant to bearing steel, gear steel, alloy steel bars, and other precision industrial steel inputs.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "000708.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_citic_special_steel_bearing_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "special_steel",
+      "bearing_steel",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: precision steel and bearing/gear steel upstream exposure; exact reducer-grade share is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_baosteel",
+    "name": "Baosteel",
+    "domain": [
+      "special_steel",
+      "precision_reducer",
+      "investable_supplier"
+    ],
+    "description": "Chinese steel producer with special-material product lines relevant to alloy structural steel, gear steel, spring steel, and bearing steel.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "600019.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_baosteel_special_material_bearing_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "special_steel",
+      "bearing_steel",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: upstream special-steel exposure; exact target reducer material qualification and share are unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_nippon_steel",
+    "name": "Nippon Steel",
+    "domain": [
+      "special_steel",
+      "precision_reducer",
+      "investable_supplier"
+    ],
+    "description": "Japanese steelmaker with bar and wire rod material businesses relevant to industrial machinery and precision alloy steel supply chains.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "5401.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_nippon_steel_bar_wire_rod_2026",
+      "ev_ir_nippon_steel_stock_code_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "special_steel",
+      "public_company"
+    ],
+    "notes": "Investor relevance: upstream steel exposure; exact reducer steel grade and target BOM share are unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
   }
 ]

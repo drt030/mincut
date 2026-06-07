@@ -504,5 +504,45 @@
     "limitations": "Internal allocation based on product BOM reasoning; use commodity-price and mass estimates before promoting beyond unreviewed low confidence.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_strain_wave_reducer_component_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Strain-wave reducer component allocation - 2025 estimate",
+    "sourceName": "Capability Graph internal cost backfill",
+    "date": "2026-06-07",
+    "summary": "Low-confidence p50 allocation splitting the authored precision-reducer gearbox cost across wave generator, flexspline, circular spline, and output bearing so the reducer component layer has explicit RMB median costs.",
+    "supportsNodeIds": [
+      "strain_wave_wave_generator_cost",
+      "strain_wave_flexspline_cost",
+      "strain_wave_circular_spline_cost",
+      "reducer_output_cross_roller_bearing_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_strain_wave_wave_generator_measured_by_cost",
+      "e_strain_wave_flexspline_measured_by_cost",
+      "e_strain_wave_circular_spline_measured_by_cost",
+      "e_reducer_output_cross_roller_bearing_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only; not a supplier quote, audited purchase record, or teardown BOM. The parent reducer cost remains the controlling bundle estimate when higher than child sum.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_alloy_steel_precision_material_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Alloy steel precision material allocation - 2025 estimate",
+    "sourceName": "Capability Graph internal cost backfill",
+    "date": "2026-06-07",
+    "summary": "Low-confidence p50 allocation for precision alloy steel content used across reducer splines, shafts, bearing races, robot joints, and load-bearing structures. This is a target-product BOM allocation rather than a commodity steel quote.",
+    "supportsNodeIds": [
+      "alloy_steel_precision_material_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_alloy_steel_precision_material_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only; replace with mass, grade, yield-loss, machining-stock and supplier-price evidence before promotion beyond unreviewed low confidence.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]

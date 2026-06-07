@@ -2260,5 +2260,181 @@
     "limitations": "Power-device application evidence; does not show target-cell adoption or market share.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_harmonic_drive_strain_wave_principle_2026",
+    "type": "product_page",
+    "title": "Principle of HarmonicDrive",
+    "url": "https://www.hds.co.jp/english/products/hd_theory/",
+    "sourceName": "Harmonic Drive Systems",
+    "date": "2026-06-07",
+    "summary": "Harmonic Drive Systems describes the core strain-wave components as wave generator, flexspline, and circular spline, including the flexspline as a thin-walled steel cup and the circular spline as a rigid internally toothed steel ring.",
+    "supportsNodeIds": [
+      "org_harmonic_drive_systems",
+      "strain_wave_wave_generator",
+      "strain_wave_flexspline",
+      "strain_wave_circular_spline"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_strain_wave_wave_generator_harmonic_drive",
+      "e_mfg_strain_wave_flexspline_harmonic_drive",
+      "e_mfg_strain_wave_circular_spline_harmonic_drive"
+    ],
+    "limitations": "Vendor product-principle evidence; useful for component structure and supplier capability, not proof of target-cell adoption or current market share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_leaderdrive_strain_wave_gears_2026",
+    "type": "product_page",
+    "title": "Strain Wave Gears",
+    "url": "https://www.leaderdrive.com/product/",
+    "sourceName": "Leaderdrive",
+    "date": "2026-06-07",
+    "summary": "Leaderdrive describes itself as a manufacturer of strain-wave gears and harmonic-drive systems for light industrial robots and manipulators, with strain-wave gear products including high-torque flexspline designs.",
+    "supportsNodeIds": [
+      "org_leaderdrive",
+      "strain_wave_wave_generator",
+      "strain_wave_flexspline",
+      "strain_wave_circular_spline"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_strain_wave_wave_generator_leaderdrive",
+      "e_mfg_strain_wave_flexspline_leaderdrive",
+      "e_mfg_strain_wave_circular_spline_leaderdrive"
+    ],
+    "limitations": "Vendor product-page evidence; numeric market share and target-cell adoption require separate review.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_thk_cross_roller_ring_robot_joints_2026",
+    "type": "product_page",
+    "title": "Cross-Roller Ring",
+    "url": "https://www.thk.com/us/en/products/cross_roller_ring/cross_roller_ring/",
+    "sourceName": "THK",
+    "date": "2026-06-07",
+    "summary": "THK states that cross-roller rings can receive radial, axial, and moment loads in one bearing and are suited to industrial robot joints, manipulators, and precision rotary tables.",
+    "supportsNodeIds": [
+      "org_thk",
+      "reducer_output_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_reducer_output_bearing_thk"
+    ],
+    "limitations": "Product-page evidence for bearing capability; does not prove selection in this target robot-arm BOM or numeric share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_nsk_robotics_bearings_2026",
+    "type": "product_page",
+    "title": "Robotic Automation",
+    "url": "https://www.nskautomation.com/applications/robotics/",
+    "sourceName": "NSK",
+    "date": "2026-06-07",
+    "summary": "NSK describes a robotics portfolio including bearings, linear guides, actuators, and direct drive motors for robot applications operating around the clock.",
+    "supportsNodeIds": [
+      "org_nsk",
+      "reducer_output_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_reducer_output_bearing_nsk"
+    ],
+    "limitations": "Application-page evidence; supports NSK as a precision-bearing candidate, not a specific cross-roller bearing selection for the target reducer.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_schaeffler_industrial_automation_bearings_2026",
+    "type": "product_page",
+    "title": "Industrial Automation Solutions",
+    "url": "https://www.schaeffler.us/us/products-and-solutions/industrial/industry_solutions/industrial-automation/",
+    "sourceName": "Schaeffler",
+    "date": "2026-06-07",
+    "summary": "Schaeffler presents itself as a supplier of industrial automation system components including precision gearboxes, pivot bearing supports, drive motors, sensors, and bearing products.",
+    "supportsNodeIds": [
+      "org_schaeffler",
+      "reducer_output_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_reducer_output_bearing_schaeffler"
+    ],
+    "limitations": "Product/application-page evidence; supports supplier candidacy, not target-cell adoption or cross-roller share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_citic_special_steel_bearing_2026",
+    "type": "historical_source",
+    "title": "CITIC Pacific Special Steel - Advanced Materials",
+    "url": "https://www.citic.com/ar2025/en/materials/cpsteel",
+    "sourceName": "CITIC Limited Annual Report 2025",
+    "date": "2026-06-07",
+    "summary": "CITIC reports that CITIC Pacific Special Steel has about 20 million tonnes annual capacity and highlights bearing-steel and high-end special-steel achievements.",
+    "supportsNodeIds": [
+      "org_citic_special_steel",
+      "alloy_steel_precision_material"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_alloy_steel_precision_material_citic"
+    ],
+    "limitations": "Annual-report evidence for special-steel capability; not a direct quote for the target reducer steel grade or BOM share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_baosteel_special_material_bearing_2026",
+    "type": "product_page",
+    "title": "Baosteel Special Material product overview",
+    "url": "https://www.ibaosteel.com/ibaosteel/index?lang=en_simple",
+    "sourceName": "Baosteel",
+    "date": "2026-06-07",
+    "summary": "Baosteel product materials describe Baosteel Special Material as a special-steel production base with products including alloy structural steel, gear steel, spring steel, and bearing steel.",
+    "supportsNodeIds": [
+      "org_baosteel",
+      "alloy_steel_precision_material"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_alloy_steel_precision_material_baosteel"
+    ],
+    "limitations": "Product-overview evidence; exact target reducer steel grade, supplier selection, and share are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_nippon_steel_bar_wire_rod_2026",
+    "type": "product_page",
+    "title": "SteeLinC bar and wire rod materials",
+    "url": "https://www.nipponsteel.com/en/steelinc/",
+    "sourceName": "Nippon Steel",
+    "date": "2026-06-07",
+    "summary": "Nippon Steel presents SteeLinC as the Bar & Wire Rod Unit brand, supplying bar and rod materials and process proposals for customer applications.",
+    "supportsNodeIds": [
+      "org_nippon_steel",
+      "alloy_steel_precision_material"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_alloy_steel_precision_material_nippon_steel"
+    ],
+    "limitations": "Product-family evidence; supports special/alloy steel supplier candidacy but not a specific reducer steel grade or target BOM share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ir_nippon_steel_stock_code_2026",
+    "type": "historical_source",
+    "title": "Investor FAQs",
+    "url": "https://www.nipponsteel.com/en/ir/faq/",
+    "sourceName": "Nippon Steel",
+    "date": "2026-06-07",
+    "summary": "Nippon Steel investor FAQ states that the ordinary-share stock code in Japan is 5401.",
+    "supportsNodeIds": [
+      "org_nippon_steel"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Investor listing context only; not product evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
   }
 ]
