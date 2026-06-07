@@ -204,7 +204,9 @@
       "integration",
       "latency",
       "bottleneck",
-      "startup_opportunity_candidate"
+      "startup_opportunity_candidate",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -526,7 +528,9 @@
       "exception_handling",
       "manual_intervention",
       "wcs",
-      "bottleneck"
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -633,7 +637,8 @@
     "tags": [
       "perception",
       "tracking",
-      "hard_to_develop"
+      "hard_to_develop",
+      "constraint_technical_maturity"
     ],
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
@@ -1245,7 +1250,9 @@
       "maintenance",
       "decomposition_frontier",
       "hard_to_develop",
-      "startup_opportunity_candidate"
+      "startup_opportunity_candidate",
+      "constraint_technical_maturity",
+      "constraint_maintenance_operations"
     ],
     "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost. Hard-to-develop rationale: long-cycle endurance testing capability is itself a barrier - without it, low-cost reducers cannot be qualified for industrial duty cycles. Startup opportunity: independent reducer life-test, grease-interval, and backlash-growth qualification services for lower-cost robot-arm suppliers."
   },
@@ -1298,7 +1305,8 @@
       "servo",
       "decomposition_frontier",
       "cost_driver",
-      "investor_relevant"
+      "investor_relevant",
+      "constraint_material_supply_chain"
     ],
     "notes": "Expansion frontier: next layer may include lamination steel, stamping/stacking, insulation, slot fill, winding layout, and thermal limits. Added stator-core cost allocation and upstream electrical-steel supplier context; still unreviewed until motor teardown or supplier quotes are available."
   },
@@ -1356,7 +1364,8 @@
       "servo",
       "decomposition_frontier",
       "cost_driver",
-      "investor_relevant"
+      "investor_relevant",
+      "constraint_material_supply_chain"
     ],
     "notes": "Expansion frontier: next layer may include magnet grade, rotor shaft, magnet bonding/retention, balancing, demagnetization risk, and rotor thermal limits. Added rotor cost allocation to connect magnet supplier exposure to servo motor economics; exact motor BOM is still unreviewed."
   },
@@ -1513,7 +1522,8 @@
       "supply_chain",
       "decomposition_frontier",
       "cost_driver",
-      "investor_relevant"
+      "investor_relevant",
+      "constraint_material_supply_chain"
     ],
     "notes": "Expansion frontier: next layer may include NdFeB supply, magnet grade, coating, machining, thermal class, price volatility, and geopolitical supply constraints. Added magnet-material cost allocation and retained supplier-candidate framing; grade, coating, and yield data remain open research items."
   },
@@ -2033,7 +2043,9 @@
       "gapping",
       "throughput",
       "exception_recovery",
-      "startup_opportunity_candidate"
+      "startup_opportunity_candidate",
+      "constraint_integration_commissioning",
+      "constraint_component_availability"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -2215,7 +2227,8 @@
       "integration",
       "software",
       "decomposition_frontier",
-      "startup_opportunity_candidate"
+      "startup_opportunity_candidate",
+      "constraint_integration_commissioning"
     ],
     "notes": "Expansion frontier: next layer may include fieldbus, message schema, sort plan handoff, fault recovery, logging, and commissioning workflow. Startup opportunity: standardized robot-cell PLC/WCS adapters, fault-recovery playbooks, and commissioning diagnostics for parcel automation integrators."
   },
@@ -2293,7 +2306,9 @@
       "maintenance",
       "reliability",
       "bottleneck",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "constraint_maintenance_operations",
+      "constraint_integration_commissioning"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -2357,7 +2372,9 @@
     "confidence": "medium",
     "tags": [
       "robotics",
-      "hard_to_develop"
+      "hard_to_develop",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
     ],
     "reviewStatus": "unreviewed",
     "notes": "Hard-to-develop (per ADR-0005): real-time motion planning under uncertainty (parcel pose noise, conveyor speed variation, multi-arm collision risk, and tight cycle-time targets) is a known frontier in industrial robotics. A naive planner cannot meet both throughput and reliability simultaneously."
@@ -2412,7 +2429,8 @@
     "tags": [
       "maintenance",
       "deployment",
-      "startup_opportunity_candidate"
+      "startup_opportunity_candidate",
+      "constraint_maintenance_operations"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"

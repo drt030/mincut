@@ -169,6 +169,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   // The Frontier pill below surfaces that judgment for the learner.
   const isFrontierByJudgment = isDecompositionFrontier(graph, node);
   const isHardToDevelop = node.tags?.includes("hard_to_develop") ?? false;
+  const constraintFactors = constraintFactorsForNode(node, t);
   const siblingCandidatesAll = node.kind === "product" ? siblingProductsForProduct(graph, node.id) : [];
   const siblingCandidates = siblingCandidatesAll.filter((child) => child.reviewStatus !== "deprecated");
   const siblingDeprecatedCount = siblingCandidatesAll.length - siblingCandidates.length;
@@ -260,6 +261,18 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         <div className="frontier-callout">
           <strong>{t("expansionFrontier")}</strong>
           <p>{node.notes ?? t("expansionFrontierHint")}</p>
+        </div>
+      ) : null}
+      {constraintFactors.length > 0 ? (
+        <div>
+          <strong>{t("constraintFactors")}</strong>
+          <div className="pill-row">
+            {constraintFactors.map((factor) => (
+              <span className="pill" key={factor.tag}>
+                {factor.label}
+              </span>
+            ))}
+          </div>
         </div>
       ) : null}
       <div>
@@ -499,6 +512,21 @@ function DetailPrioritySummary({
 
 function isCostSummaryNode(node: Node): boolean {
   return node.kind === "product" || node.kind === "module" || node.kind === "equipment" || node.kind === "material";
+}
+
+const CONSTRAINT_FACTOR_TAG_KEYS: readonly Array<{ tag: string; labelKey: string }> = [
+  { tag: "constraint_technical_maturity", labelKey: "constraintFactorTechnicalMaturity" },
+  { tag: "constraint_integration_commissioning", labelKey: "constraintFactorIntegrationCommissioning" },
+  { tag: "constraint_maintenance_operations", labelKey: "constraintFactorMaintenanceOperations" },
+  { tag: "constraint_component_availability", labelKey: "constraintFactorComponentAvailability" },
+  { tag: "constraint_material_supply_chain", labelKey: "constraintFactorMaterialSupplyChain" },
+] as const;
+
+function constraintFactorsForNode(node: Node, t: (key: string) => string): Array<{ tag: string; label: string }> {
+  const tags = new Set(node.tags ?? []);
+  return CONSTRAINT_FACTOR_TAG_KEYS
+    .filter((entry) => tags.has(entry.tag))
+    .map((entry) => ({ tag: entry.tag, label: t(entry.labelKey) }));
 }
 
 /**

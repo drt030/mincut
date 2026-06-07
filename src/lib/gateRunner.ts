@@ -10,6 +10,7 @@ import {
   outgoingEdges,
   reachableNodeIdsFrom,
   requiredModules,
+  siblingProductsForProduct,
   targets,
   uniqueNodes,
 } from "./graphTraversal";
@@ -749,12 +750,8 @@ function excludedClaimsResult(
   question: string,
   findings: EvidenceFindings,
 ): GateReport["questionResults"][number] {
-  const boundaryOffenders = context.graph.nodes.filter((node) =>
-    ["delta_robot_sorting", "conveyor_diverter_sorting", "mobile_robot_sorting", "hybrid_human_robot_assisted_sorting"].includes(
-      node.id,
-    ),
-  );
-  const unsupported = [...findings.unreviewedClaims, ...findings.vendorOrInternalOnlyClaims, ...boundaryOffenders];
+  const boundaryOffenders = siblingProductsForProduct(context.graph, context.target.id);
+  const unsupported = [...boundaryOffenders, ...findings.unreviewedClaims, ...findings.vendorOrInternalOnlyClaims];
   const answer = unsupported.length
     ? unsupported
         .slice(0, 20)

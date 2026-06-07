@@ -4,6 +4,7 @@ import { loadGraphData } from "../src/lib/graphLoader";
 import { rollupCost } from "../src/lib/costRollup";
 import { nodeRisk } from "../src/lib/nodeRisk";
 import { edgeTintFor } from "../src/lib/edgeTint";
+import { siblingProductsForProduct } from "../src/lib/graphTraversal";
 
 /**
  * Integration tests against the real parcel-sorting graph. Unlike the
@@ -67,12 +68,13 @@ test("real graph: edgeTint produces non-default warm colors in cost mode", () =>
 
 test("real graph: sibling product candidates do not reuse active product metric nodes", () => {
   const graph = loadGraphData();
-  const siblingProductIds = new Set([
-    "delta_robot_sorting",
-    "conveyor_diverter_sorting",
-    "mobile_robot_sorting",
-    "hybrid_human_robot_assisted_sorting",
-  ]);
+  const siblingProductIds = new Set(
+    siblingProductsForProduct(graph, "low_cost_parcel_sorting_robot_300k_rmb").map((node) => node.id),
+  );
+  assert.ok(
+    siblingProductIds.has("parcel_sorting_robot_with_gripper_300k_rmb"),
+    "sibling metric-reuse guard must include the gripper sibling product",
+  );
   const activeProductMetricIds = new Set([
     "total_system_cost",
     "parcels_per_hour",
@@ -142,5 +144,45 @@ test("real graph: startup opportunity candidates are explicit on key bottleneck 
       `${nodeId} must be tagged as a startup opportunity candidate`,
     );
     assert.match(node!.notes ?? "", /Startup opportunity:/, `${nodeId} must explain the opportunity hypothesis`);
+  }
+});
+
+test("real graph: throughput constraints carry structured constraint-factor tags", () => {
+  const graph = loadGraphData();
+  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const expectedFactors: Record<string, string[]> = {
+    low_cost_realtime_vision_compute_integration: [
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning",
+    ],
+    parcel_induction_spacing_control: [
+      "constraint_integration_commissioning",
+      "constraint_component_availability",
+    ],
+    plc_and_wcs_integration: [
+      "constraint_integration_commissioning",
+    ],
+    reducer_lubrication_and_life_test: [
+      "constraint_technical_maturity",
+      "constraint_maintenance_operations",
+    ],
+    maintenance_workflow: [
+      "constraint_maintenance_operations",
+    ],
+    servo_motor_permanent_magnet_rotor: [
+      "constraint_material_supply_chain",
+    ],
+  };
+
+  for (const [nodeId, expectedTags] of Object.entries(expectedFactors)) {
+    const node = nodesById.get(nodeId);
+    assert.ok(node, `${nodeId} must exist`);
+    const tags = new Set(node!.tags ?? []);
+    for (const expectedTag of expectedTags) {
+      assert.ok(
+        tags.has(expectedTag),
+        `${nodeId} must expose ${expectedTag} so investor/operator workflows can distinguish the limiting factor`,
+      );
+    }
   }
 });

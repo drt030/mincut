@@ -437,6 +437,33 @@ test("expanded: component detail surfaces manufacturer candidates with share and
   );
 });
 
+test("expanded: bottleneck detail surfaces structured constraint factors", () => {
+  const focused = nodeById("low_cost_realtime_vision_compute_integration");
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Constraint factors/,
+    `expanded bottleneck detail must expose a dedicated constraint-factor section; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Technical maturity/,
+    `constraint-factor section must show technical maturity as a limiting factor; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Integration \/ commissioning/,
+    `constraint-factor section must show integration/commissioning as a limiting factor; got: ${html}`,
+  );
+});
+
 test("expanded: organization detail surfaces the components it supplies", () => {
   const focused = nodeById(NABTESCO_ID);
   const html = render({

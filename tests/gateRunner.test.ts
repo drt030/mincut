@@ -62,3 +62,17 @@ test("gate key metrics answer includes current and target values for performance
   assert.match(keyMetrics!.answer, /payback_period: Payback period — current p50 36 \(range 24–48\) months; target 24 months/);
   assert.doesNotMatch(keyMetrics!.answer, /parcels_per_hour: Parcels per hour; sorting_accuracy: Sorting accuracy/);
 });
+
+test("gate excluded claims derives sibling products instead of using a stale hard-coded list", () => {
+  const graph = loadGraphData();
+  const questions = loadGateQuestions();
+  const report = runGate(graph, questions, "low_cost_parcel_sorting_robot_300k_rmb");
+  const excludedClaims = report.questionResults.find((result) => result.questionId === "excluded_claims");
+  assert.ok(excludedClaims, "excluded_claims result must exist");
+
+  assert.match(
+    excludedClaims!.answer,
+    /parcel_sorting_robot_with_gripper_300k_rmb/,
+    "gate must flag the gripper sibling product as out-of-bound for the active suction product",
+  );
+});
