@@ -28,6 +28,7 @@ export type RouteDetailRailProps = {
   initialPanel?: "route" | "detail";
   currentRootId?: string;
   rootableNodeIds?: readonly string[];
+  rootTransitioning?: boolean;
   onPanelChange?: (panel: "route" | "detail") => void;
   onSelectNode?: (nodeId: string) => void;
   onSetRootNode?: (nodeId: string) => void;
@@ -69,6 +70,7 @@ export function RouteDetailRail({
   initialPanel = "route",
   currentRootId,
   rootableNodeIds,
+  rootTransitioning = false,
   onPanelChange,
   onSelectNode,
   onSetRootNode,
@@ -142,7 +144,9 @@ export function RouteDetailRail({
       maturityUnknown: "成熟度未设置",
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
-      setAsRoot: "设为根节点",
+      setAsRoot: "作为研究根展开",
+      settingRoot: "正在切换研究根",
+      setAsRootLabel: (name: string) => `将 ${name} 设为图谱研究根`,
     }
     : {
       fullSystem: "Full system",
@@ -171,7 +175,9 @@ export function RouteDetailRail({
       maturityUnknown: "maturity not set",
       noPriorityNodes: "No sortable nodes in this lens yet.",
       noNodeSelected: "No node selected.",
-      setAsRoot: "Set as root",
+      setAsRoot: "Set as research root",
+      settingRoot: "Switching research root",
+      setAsRootLabel: (name: string) => `Set ${name} as the graph research root`,
     };
   const canSetSelectedAsRoot = Boolean(
     selectedNode &&
@@ -251,9 +257,12 @@ export function RouteDetailRail({
                   type="button"
                   className="route-rail-action-button"
                   data-testid="set-root-node-button"
+                  aria-label={copy.setAsRootLabel(nodeName(selectedNode.id, selectedNode.name))}
+                  disabled={rootTransitioning}
+                  aria-busy={rootTransitioning}
                   onClick={() => onSetRootNode?.(selectedNode.id)}
                 >
-                  {copy.setAsRoot}
+                  {rootTransitioning ? copy.settingRoot : copy.setAsRoot}
                 </button>
               </div>
             ) : null}
@@ -404,9 +413,12 @@ export function RouteDetailRail({
                         type="button"
                         className="route-rail-action-button"
                         data-testid="set-root-node-button"
+                        aria-label={copy.setAsRootLabel(nodeName(selectedNode.id, selectedNode.name))}
+                        disabled={rootTransitioning}
+                        aria-busy={rootTransitioning}
                         onClick={() => onSetRootNode?.(selectedNode.id)}
                       >
-                        {copy.setAsRoot}
+                        {rootTransitioning ? copy.settingRoot : copy.setAsRoot}
                       </button>
                     </div>
                   ) : null}

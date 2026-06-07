@@ -383,12 +383,11 @@ test("determinism: same input yields same output across modes", () => {
 /**
  * Sanity check that the test fixture is well-formed for the band-
  * alignment test above. The live data has very few high-cost edges
- * (only `industrial_robot_arm_body` at 60k RMB lands in the top
- * band against the 100k cap), so the cost mode palette may be
- * sparser than the maturity palette. This test merely SURFACES the
- * sparsity if it's there, so a future change to the cost cap or to
- * the data is caught loudly rather than silently shifting the
- * alignment test's coverage.
+ * (with `industrial_robot_arm_body` now calibrated at a six-figure
+ * p50), so the cost mode palette may be sparser than the maturity
+ * palette. This test merely SURFACES the sparsity if it's there, so a
+ * future change to the cost thresholds or to the data is caught loudly
+ * rather than silently shifting the alignment test's coverage.
  *
  * No band invariant is being checked here — this is purely a
  * fixture-introspection test that runs after the alignment test

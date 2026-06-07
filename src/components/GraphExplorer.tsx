@@ -631,6 +631,8 @@ export function GraphExplorer({ graph }: Props) {
   // `onSelect` which both selects (rail content updates) and focuses
   // (sector elastically expands toward the chosen node).
   const [cmdKOpen, setCmdKOpen] = useState(false);
+  const [rootTransitioning, setRootTransitioning] = useState(false);
+  const rootTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // B2 + C1: focus path. `[]` = overview. `[outerId]` = Level 1
   // (focused first-layer subsystem). `[outerId, innerId]` = Level 2
@@ -769,7 +771,7 @@ export function GraphExplorer({ graph }: Props) {
     (_node: Node, selected: boolean, isFocal: boolean): string => {
       if (selected) return "#0f172a";
       if (isFocal) return "#334155";
-      return "#64748b";
+      return "transparent";
     },
     [],
   );
@@ -1165,11 +1167,27 @@ export function GraphExplorer({ graph }: Props) {
   const setGraphRoot = useCallback((nodeId: string) => {
     const resolved = resolveCanvasRootId(graph, nodeId);
     if (!resolved) return;
+    if (rootTransitionTimeoutRef.current) {
+      clearTimeout(rootTransitionTimeoutRef.current);
+    }
+    setRootTransitioning(resolved !== currentRootId);
     setCurrentRootId(resolved);
     setSelectedId(resolved);
     setFocusPath([]);
     setRailPanel("route");
-  }, [graph]);
+    rootTransitionTimeoutRef.current = setTimeout(() => {
+      setRootTransitioning(false);
+      rootTransitionTimeoutRef.current = null;
+    }, 650);
+  }, [currentRootId, graph]);
+
+  useEffect(() => {
+    return () => {
+      if (rootTransitionTimeoutRef.current) {
+        clearTimeout(rootTransitionTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Persist selection + focus path in URL so a learner can bookmark
   // / share a view.
@@ -1313,7 +1331,14 @@ export function GraphExplorer({ graph }: Props) {
   return (
     <div>
       <div className="graph-layout graph-layout-radial">
-        <div className="graph-canvas graph-canvas-radial graph-canvas-route-led">
+        <div
+          className={[
+            "graph-canvas graph-canvas-radial graph-canvas-route-led",
+            rootTransitioning ? "graph-canvas-root-transitioning" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
           {rootNode ? (
             <GraphProductStrip
               rootNode={rootNode}
@@ -1397,6 +1422,7 @@ export function GraphExplorer({ graph }: Props) {
           systemNodeIds={firstLayerSubsystems}
           currentRootId={currentRootId}
           rootableNodeIds={rootableNodeIds}
+          rootTransitioning={rootTransitioning}
           panel={railPanel}
           onPanelChange={setRailPanel}
           onSelectNode={onSelect}

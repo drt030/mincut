@@ -200,5 +200,10 @@ test("RouteDetailRail exposes a selected-node action for changing the graph root
   );
 
   assert.match(html, /data-testid="set-root-node-button"/);
-  assert.match(html, /Set as root/i);
+  assert.match(html, /Set as research root/i);
+  assert.match(
+    html,
+    /aria-label="Set Robot arm as the graph research root"/,
+    "root action should describe that it re-centres the graph research view",
+  );
 });

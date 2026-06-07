@@ -408,6 +408,14 @@ li {
     #fffaf0;
 }
 
+.graph-canvas-route-led .react-flow__viewport {
+  transition: opacity 220ms ease;
+}
+
+.graph-canvas-route-led.graph-canvas-root-transitioning .react-flow__viewport {
+  opacity: 0.58;
+}
+
 .graph-product-strip {
   align-items: center;
   background: rgba(255, 253, 248, 0.92);
@@ -802,6 +810,11 @@ li {
 
 .route-rail-action-button:hover {
   background: #0f172a;
+}
+
+.route-rail-action-button:disabled {
+  cursor: progress;
+  opacity: 0.68;
 }
 
 .route-rail-node-detail .detail-list {

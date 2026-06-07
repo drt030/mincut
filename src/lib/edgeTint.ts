@@ -21,9 +21,10 @@ export const NEUTRAL_TINT = "#94a3b8";
 
 /**
  * Cost ramp endpoints — blue (cheap) through amber to red (expensive).
- * The 100k RMB anchor matches the parcel-sorting domain's heaviest
- * single subsystem (industrial_robot_arm_body typical 60k, max 95k).
- * Tune later if the domain expands to a different cost range.
+ * The 100k RMB anchor was the original parcel-sorting-domain soft cap.
+ * The active graph now calibrates `industrial_robot_arm_body` above
+ * that cap, but this legacy helper is kept only for older tests and
+ * non-radial callers; the radial graph uses `edgeStyleFor` instead.
  */
 const COST_RAMP: ReadonlyArray<readonly [number, string]> = [
   [0.0, "#3b82f6"], // blue-500
@@ -61,7 +62,7 @@ const BOTTLENECK_RAMP: ReadonlyArray<readonly [number, string]> = [
   [1.0, "#dc2626"],
 ];
 
-/** Soft cap for cost normalization, in RMB. 100,000 RMB ≈ heaviest single sub. */
+/** Legacy soft cap for cost normalization, in RMB. */
 const COST_RAMP_CAP_RMB = 100_000;
 
 export function edgeTintFor(target: Node, mode: ColorMode, graph: GraphData): string {

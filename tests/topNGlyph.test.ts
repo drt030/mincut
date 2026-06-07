@@ -388,6 +388,39 @@ test("GraphExplorer.tsx regression guard: node outline does not duplicate active
     true,
     "node contour may encode only selection/root affordance, not analytical value",
   );
+  assert.equal(
+    /return\s+["']transparent["']/.test(outlineBlock),
+    true,
+    "ordinary node contour should be visually absent; only selected/root nodes should keep an outline affordance",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: root switch has an explicit canvas transition state", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.match(
+    noLineComments,
+    /rootTransitioning/,
+    "GraphExplorer should track a short root-transition state when changing research roots",
+  );
+  assert.match(
+    noLineComments,
+    /graph-canvas-root-transitioning/,
+    "GraphExplorer should expose the root-transition state as a canvas class for CSS animation",
+  );
+  assert.match(
+    noLineComments,
+    /setTimeout\([^,]+,\s*6\d\d\)/,
+    "root-transition state should clear after roughly the same duration as the node transform animation",
+  );
 });
 
 test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration-stable", () => {

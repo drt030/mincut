@@ -514,7 +514,7 @@ function isCostSummaryNode(node: Node): boolean {
   return node.kind === "product" || node.kind === "module" || node.kind === "equipment" || node.kind === "material";
 }
 
-const CONSTRAINT_FACTOR_TAG_KEYS: readonly Array<{ tag: string; labelKey: string }> = [
+const CONSTRAINT_FACTOR_TAG_KEYS: ReadonlyArray<{ tag: string; labelKey: string }> = [
   { tag: "constraint_technical_maturity", labelKey: "constraintFactorTechnicalMaturity" },
   { tag: "constraint_integration_commissioning", labelKey: "constraintFactorIntegrationCommissioning" },
   { tag: "constraint_maintenance_operations", labelKey: "constraintFactorMaintenanceOperations" },
