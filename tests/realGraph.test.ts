@@ -36,13 +36,16 @@ test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", ()
   // The 2026-06-07 servo motor material/component backfill makes the next
   // motor layer explicit and moves the live rolled-up typical to ~404.8k.
   // The 2026-06-07 vacuum EOAT and material-chain backfill moves it to
-  // ~411.7k while reducing the cost coverage gap.
+  // ~411.7k while reducing the cost coverage gap. The 2026-06-07 frontier
+  // process cost backfill adds calibration, jam-recovery, cost-stack, and
+  // base-alignment allocations, moving it to ~421.8k.
   // Lock that value in so a future change that accidentally hides child
   // cost drivers is caught.
   const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
+  assert.equal(result.directOnly, null, "annual maintenance cost must not be treated as direct product capex");
   assert.ok(
-    result.rolledUp.typical > 407_000 && result.rolledUp.typical < 416_000,
-    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~411.7k)`,
+    result.rolledUp.typical > 417_000 && result.rolledUp.typical < 427_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~421.8k)`,
   );
 });
 

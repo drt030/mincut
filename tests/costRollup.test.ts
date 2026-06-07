@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { rollupCost } from "../src/lib/costRollup";
+import { loadGraphData } from "../src/lib/graphLoader";
 import { loadFixture } from "./fixtures/loader";
 
 /**
@@ -47,4 +48,41 @@ test("rollupCost surfaces direct/children breakdown and uses max() when direct <
     true,
     "expected directLowerThanChildren = true for this fixture",
   );
+});
+
+test("rollupCost ignores annual operating-cost metrics when deriving direct capex", () => {
+  const graph = loadGraphData();
+  const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
+
+  assert.equal(
+    result.directOnly,
+    null,
+    "product direct capex should not use maintenance_cost because RMB/year is an annual operating-cost rate",
+  );
+  assert.ok(
+    result.fromChildren?.typical && result.fromChildren.typical > 300_000,
+    `expected product child rollup to remain available, got ${result.fromChildren?.typical}`,
+  );
+});
+
+test("active parcel frontier nodes expose p50 capex placeholders when no quote is available", () => {
+  const graph = loadGraphData();
+
+  for (const nodeId of [
+    "vision_barcode_label_recognition",
+    "gripper_tcp_pattern_calibration",
+    "servo_motor_windings",
+    "servo_motor_housing_and_thermal_design",
+    "servo_motor_feedback_alignment",
+    "jam_detection_and_recovery",
+    "cost_optimized_hardware_stack",
+    "robot_base_installation_alignment_process",
+  ]) {
+    const result = rollupCost(graph, nodeId);
+    assert.equal(result.anyChildContributed, true, `${nodeId} must have reachable capex data`);
+    assert.ok(
+      result.rolledUp.typical > 0,
+      `${nodeId} must expose a positive p50 capex estimate or child rollup`,
+    );
+  }
 });

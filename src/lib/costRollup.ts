@@ -370,6 +370,14 @@ function extractCostReading(node: Node): CurrentCostExtraction | null {
 }
 
 function inferCurrencyFromMetric(explicit: string | undefined, unit: string): FxCurrency | null {
+  const normalizedUnit = unit.toLowerCase();
+  if (
+    normalizedUnit.includes("/year") ||
+    normalizedUnit.includes("per year") ||
+    normalizedUnit.includes("annual")
+  ) {
+    return null;
+  }
   if (explicit && isFxCurrency(explicit)) return explicit;
   // Fall through to unit parsing — e.g. `"RMB"`, `"USD/kg"`.
   const upper = unit.toUpperCase();

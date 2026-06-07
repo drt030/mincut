@@ -9187,5 +9187,200 @@
       "private_company"
     ],
     "notes": "Investor relevance: private benchmark supplier for servo holding/safety brake design; direct public-equity exposure is limited."
+  },
+  {
+    "id": "gripper_tcp_pattern_calibration_cost",
+    "name": "Vacuum EOAT TCP and cup-array calibration cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB engineering cost contribution for vacuum EOAT tool-center-point setup, cup-pattern trials, basic fixture adjustment, and acceptance calibration.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 1500,
+          "max": 4000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025",
+      "ev_abb_robotic_parcel_inductor_gripper"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence engineering allocation, not a supplier quote. Replace with commissioning time logs, calibration fixture cost, and acceptance-test data when available."
+  },
+  {
+    "id": "servo_motor_feedback_alignment_cost",
+    "name": "Servo motor feedback alignment cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB process cost contribution for encoder/resolver mounting alignment, offset calibration, signal verification, and joint-level feedback checks.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 600,
+          "typical": 2000,
+          "max": 6000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025",
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence manufacturing/process allocation. Encoder type, absolute/multiturn requirements, calibration fixture reuse, and robot-axis count can move this materially."
+  },
+  {
+    "id": "jam_detection_and_recovery_cost",
+    "name": "Jam detection and recovery cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor",
+      "operations"
+    ],
+    "description": "Allocated 2025 RMB integration cost contribution for jam-detection sensors, fault logic, alarm handling, reset flow, and operator recovery tuning.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1500,
+          "typical": 5000,
+          "max": 12000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "proxy_metric"
+    ],
+    "notes": "Low-confidence allocation for graph cost coverage. This is not downtime cost; it captures the sensing/control integration work needed to detect jams and recover without excessive manual intervention."
+  },
+  {
+    "id": "cost_optimized_hardware_stack_cost",
+    "name": "Cost-optimized hardware stack selection cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot"
+    ],
+    "description": "Allocated 2025 RMB engineering and sourcing cost premium for choosing and integrating a low-cost camera, compute, controller, servo, safety, and mechanical hardware stack without double-counting the component BOM.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 3000,
+          "typical": 8000,
+          "max": 20000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026",
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "proxy_metric"
+    ],
+    "notes": "Low-confidence integration allocation, not a complete second hardware BOM. It exists so the cost-optimization module has a p50 cost signal while component costs remain attached to their own nodes."
+  },
+  {
+    "id": "robot_base_installation_alignment_process_cost",
+    "name": "Robot base installation and alignment process cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "installation"
+    ],
+    "description": "Allocated 2025 RMB field process cost contribution for base anchoring, leveling, datum alignment, vibration checks, and commissioning handoff for a low-cost robot cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1000,
+          "typical": 4000,
+          "max": 12000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_mechanical_structure_cost_2025",
+      "ev_maintenance_abb_robotics_service_2026",
+      "ev_maintenance_fanuc_pm_checklist_2023"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "proxy_metric"
+    ],
+    "notes": "Low-confidence field-installation allocation. Brownfield floor quality, anchor method, conveyor datum, guarding, and acceptance procedure can move this range substantially."
   }
 ]

@@ -6712,5 +6712,79 @@
       "ev_mfg_inovance_2024h1_robot_servo_share"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_gripper_tcp_pattern_calibration_measured_by_cost",
+    "source": "gripper_tcp_pattern_calibration",
+    "target": "gripper_tcp_pattern_calibration_cost",
+    "relation": "measured_by",
+    "claim": "Vacuum EOAT TCP and cup-array calibration should carry an explicit low-confidence 2025 RMB p50 engineering cost allocation.",
+    "context": "Cost coverage backfill for the active parcel robot. The metric is an engineering allocation for calibration and acceptance work, not a supplier quote.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025",
+      "ev_abb_robotic_parcel_inductor_gripper"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_feedback_alignment_measured_by_cost",
+    "source": "servo_motor_feedback_alignment",
+    "target": "servo_motor_feedback_alignment_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor feedback alignment should carry an explicit low-confidence 2025 RMB p50 manufacturing/process cost allocation.",
+    "context": "Cost coverage backfill for the robot-arm servo branch. The metric is a process allocation for alignment and verification work, not a supplier quote.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025",
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_chemtec_encoder_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_jam_detection_and_recovery_measured_by_cost",
+    "source": "jam_detection_and_recovery",
+    "target": "jam_detection_and_recovery_cost",
+    "relation": "measured_by",
+    "claim": "Jam detection and recovery should carry an explicit low-confidence 2025 RMB p50 sensing/control integration cost allocation.",
+    "context": "Cost coverage backfill for the active parcel robot. This captures integration effort for sensors, alarm logic, and recovery workflow, not downtime opportunity cost.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_cost_optimized_hardware_stack_measured_by_cost",
+    "source": "cost_optimized_hardware_stack",
+    "target": "cost_optimized_hardware_stack_cost",
+    "relation": "measured_by",
+    "claim": "Cost-optimized hardware stack should carry an explicit low-confidence 2025 RMB p50 selection and integration cost allocation.",
+    "context": "This is a cross-stack engineering/sourcing allocation and intentionally not a complete second hardware BOM; component costs remain attached to their own nodes.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026",
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_base_installation_alignment_process_measured_by_cost",
+    "source": "robot_base_installation_alignment_process",
+    "target": "robot_base_installation_alignment_process_cost",
+    "relation": "measured_by",
+    "claim": "Robot base installation and alignment process should carry an explicit low-confidence 2025 RMB p50 field-installation cost allocation.",
+    "context": "Cost coverage backfill for the active parcel robot. This captures anchoring, leveling, datum alignment, vibration checks, and commissioning handoff rather than the fabricated base structure itself.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mechanical_structure_cost_2025",
+      "ev_maintenance_abb_robotics_service_2026",
+      "ev_maintenance_fanuc_pm_checklist_2023"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
