@@ -7,7 +7,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_internal_product_target"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "e_product_requires_tracking",
@@ -17,7 +18,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_internal_product_target"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "e_product_requires_manipulation",
@@ -27,7 +29,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_internal_product_target"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "e_product_requires_conveyor",
@@ -37,7 +40,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_internal_product_target"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "e_product_requires_decision",
@@ -87,7 +91,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_internal_product_target"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "e_product_measured_throughput",
@@ -977,15 +982,6 @@
     "context": "Adjacent product candidate only; added as a consistency backfill so bottleneck-mode colouring has a direct lower-layer explanation."
   },
   {
-    "id": "e_delta_route_measured_weight",
-    "source": "delta_robot_sorting",
-    "target": "allowed_parcel_weight_range",
-    "relation": "measured_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
     "id": "e_diverter_route_requires_conveyor",
     "source": "conveyor_diverter_sorting",
     "target": "conveyor_integration",
@@ -999,15 +995,6 @@
     "source": "conveyor_diverter_sorting",
     "target": "sorting_decision_system",
     "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
-    "id": "e_diverter_route_measured_jam",
-    "source": "conveyor_diverter_sorting",
-    "target": "failure_jam_rate",
-    "relation": "measured_by",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
@@ -1031,15 +1018,6 @@
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
   },
   {
-    "id": "e_mobile_route_measured_cost",
-    "source": "mobile_robot_sorting",
-    "target": "total_system_cost",
-    "relation": "measured_by",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
     "id": "e_hybrid_route_requires_workflow",
     "source": "hybrid_human_robot_assisted_sorting",
     "target": "maintenance_workflow",
@@ -1053,15 +1031,6 @@
     "source": "hybrid_human_robot_assisted_sorting",
     "target": "safety_system",
     "relation": "requires",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
-    "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
-  },
-  {
-    "id": "e_hybrid_route_bottlenecked_intervention",
-    "source": "hybrid_human_robot_assisted_sorting",
-    "target": "human_intervention_rate",
-    "relation": "depends_on_metric",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "context": "Adjacent product candidate only; excluded from the current robot-arm sorting-cell route comparison."
@@ -1646,8 +1615,11 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_internal_product_target"
+    ],
+    "reviewStatus": "unreviewed",
     "context": "Product candidate satisfying the capability per ADR-0004. Mirrors the gripper sibling pattern so the capability cluster surfaces directly in the layered graph view."
   },
   {
@@ -1655,8 +1627,8 @@
     "source": "delta_robot_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
   },
   {
@@ -1664,8 +1636,8 @@
     "source": "conveyor_diverter_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
   },
   {
@@ -1673,8 +1645,8 @@
     "source": "mobile_robot_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
   },
   {
@@ -1682,8 +1654,8 @@
     "source": "hybrid_human_robot_assisted_sorting",
     "target": "affordable_small_warehouse_automation",
     "relation": "enables",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Product candidate satisfying the capability per ADR-0004. Sibling-product candidate to low_cost_parcel_sorting_robot_300k_rmb."
   },
   {
@@ -2691,6 +2663,176 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_impl_low_cost_vision_compute_nvidia",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "org_nvidia",
+    "relation": "implemented_by",
+    "claim": "NVIDIA Jetson and robotics software stack can implement the edge-AI compute and deployment layer for low-cost real-time parcel vision.",
+    "context": "Platform candidate for the bottleneck layer; target-cell runtime choice, supplier status, and delivered cost are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_low_cost_vision_compute_intel",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "org_intel",
+    "relation": "implemented_by",
+    "claim": "Intel OpenVINO and Intel edge compute platforms can implement low-latency computer-vision inference for cost-sensitive parcel perception.",
+    "context": "Runtime/platform candidate; target-cell runtime choice and benchmark are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_low_cost_vision_compute_advantech",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "org_advantech",
+    "relation": "implemented_by",
+    "claim": "Advantech industrial edge-AI systems can implement the fanless industrial-compute side of the low-cost real-time vision stack.",
+    "context": "Industrial-computer candidate; not proof of target-cell BOM selection or field reliability.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_advantech_edge_ai_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_low_cost_vision_compute_adlink",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "org_adlink_technology",
+    "relation": "implemented_by",
+    "claim": "ADLINK industrial edge-AI platforms can implement the real-time vision compute layer for industrial camera and robotics workloads.",
+    "context": "Industrial-computer candidate; not proof of target-cell BOM selection or field reliability.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_low_cost_vision_compute_basler",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "org_basler",
+    "relation": "implemented_by",
+    "claim": "Basler pylon and industrial-camera SDK tooling can implement the camera-acquisition and driver layer inside the low-cost real-time vision stack.",
+    "context": "Camera SDK candidate; not proof of selected camera vendor or target-cell latency benchmark.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_basler_pylon_sdk_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_latency_budget_basler",
+    "source": "vision_latency_budget_and_timestamping",
+    "target": "org_basler",
+    "relation": "implemented_by",
+    "claim": "Basler camera SDK and interface tooling can implement the frame acquisition and timestamping side of the vision latency budget.",
+    "context": "SDK/platform candidate; latency closure in a conveyor robot cell remains unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_basler_pylon_sdk_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_latency_budget_siemens",
+    "source": "vision_latency_budget_and_timestamping",
+    "target": "org_siemens",
+    "relation": "implemented_by",
+    "claim": "Siemens drive, controller, and encoder-capable motion-control systems can implement the conveyor/actuation timing side of the vision latency budget.",
+    "context": "Motion-control platform candidate; target-cell controls architecture and latency benchmark are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_siemens_motion_control_encoders_2026",
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_latency_budget_inovance",
+    "source": "vision_latency_budget_and_timestamping",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance motion-controller and EtherCAT I/O products can implement the real-time control side of timestamp-aligned parcel tracking.",
+    "context": "Motion-control platform candidate; target-cell controls architecture and latency benchmark are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_no_read_recovery_cognex",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "org_cognex",
+    "relation": "implemented_by",
+    "claim": "Cognex barcode-reader diagnostics and no-read guidance make Cognex a candidate implementer for no-read recovery workflows.",
+    "context": "Vendor educational/product evidence; no target-cell no-read rate or field workflow validation.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_no_read_recovery_zebra",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "org_zebra_technologies",
+    "relation": "implemented_by",
+    "claim": "Zebra fixed industrial scanning, machine vision, Aurora software, and scan-tunnel features make Zebra a candidate implementer for parcel no-read recovery.",
+    "context": "Company product/investor material; no target-cell no-read rate or installed-share evidence.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_no_read_recovery_sick",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "org_sick",
+    "relation": "implemented_by",
+    "claim": "SICK fixed-mount barcode readers include diagnostics and read-rate statistics relevant to barcode no-read recovery.",
+    "context": "Product-line evidence; target-cell no-read performance is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_sick_clv65x_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_no_read_recovery_datalogic",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "org_datalogic",
+    "relation": "implemented_by",
+    "claim": "Datalogic logistics barcode and vision systems make Datalogic a candidate implementer for no-read recovery around high-speed conveyor scanning.",
+    "context": "Vendor logistics application evidence; target-cell workflow validation is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_datalogic_logistics_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_no_read_recovery_hikrobot",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "org_hikrobot",
+    "relation": "implemented_by",
+    "claim": "Hikrobot logistics code readers and machine-vision software make Hikrobot a candidate implementer for no-read handling in China-first parcel cells.",
+    "context": "Product-line and older shipment-share evidence; no target-cell workflow validation.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_mfg_barcode_ocr_hikrobot",
     "source": "barcode_ocr_reading_software",
     "target": "org_hikrobot",
@@ -3374,6 +3516,177 @@
     "context": "Large-system adjacent evidence, not proof of low-cost robot-cell exception rate.",
     "confidence": "medium",
     "evidenceIds": [
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_speed_tracking_banner",
+    "source": "conveyor_speed_encoder_tracking",
+    "target": "org_banner_engineering",
+    "relation": "manufactured_by",
+    "claim": "Banner conveying and sortation sensing applications support parcel spacing, tracking, destination verification, and jam confirmation around conveyor speed tracking.",
+    "context": "Sensor application evidence; exact target-cell sensor selection and BOM share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_speed_tracking_sick",
+    "source": "conveyor_speed_encoder_tracking",
+    "target": "org_sick",
+    "relation": "manufactured_by",
+    "claim": "SICK photoelectric and conveyor object-detection sensors are candidate sensing components for conveyor parcel tracking.",
+    "context": "Sensor product-line evidence; exact target-cell sensor selection and placement benchmark are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_sick_photoelectric_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_speed_tracking_omron",
+    "source": "conveyor_speed_encoder_tracking",
+    "target": "org_omron",
+    "relation": "manufactured_by",
+    "claim": "OMRON photoelectric, rotary-encoder, and IO-Link sensing families are candidate components for conveyor speed and parcel presence tracking.",
+    "context": "Sensor product-line evidence; exact target-cell sensor selection and placement benchmark are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_omron_conveyor_sensing_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_speed_tracking_leuze",
+    "source": "conveyor_speed_encoder_tracking",
+    "target": "org_leuze",
+    "relation": "manufactured_by",
+    "claim": "Leuze conveyor-belt reference sensors are candidate sensing components for leading-edge detection and parcel tracking on varied package surfaces.",
+    "context": "Sensor product-line evidence; exact target-cell sensor selection and placement benchmark are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_leuze_conveyor_object_detection_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_speed_tracking_siemens",
+    "source": "conveyor_speed_encoder_tracking",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens motion-control drives and encoder measuring systems are candidate components for conveyor speed feedback and timestamp-aligned tracking.",
+    "context": "Motion-control catalog evidence; exact target-cell controls architecture is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_siemens_motion_control_encoders_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_singulation_metering_wayzim",
+    "source": "parcel_singulation_and_metering",
+    "target": "org_wayzim",
+    "relation": "implemented_by",
+    "claim": "Wayzim robotic parcel infeed and adjacent sortation products make Wayzim a candidate implementer for parcel singulation and metering workflows.",
+    "context": "Adjacent vendor product evidence; low-cost robot-cell deployment, throughput, and price are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_singulation_metering_interroll",
+    "source": "parcel_singulation_and_metering",
+    "target": "org_interroll",
+    "relation": "implemented_by",
+    "claim": "Interroll modular conveyor and flow-control platforms make Interroll a candidate implementer for parcel singulation and metering infrastructure.",
+    "context": "Platform evidence; exact low-cost cell economics are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_singulation_metering_dematic",
+    "source": "parcel_singulation_and_metering",
+    "target": "org_dematic_kion",
+    "relation": "implemented_by",
+    "claim": "Dematic sortation systems coordinate gapping, scanning, diverting, and delivery confirmation, making Dematic a candidate implementer for metering logic.",
+    "context": "Large-system evidence; not proof of target low-cost cell economics.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_singulation_metering_honeywell",
+    "source": "parcel_singulation_and_metering",
+    "target": "org_honeywell_intelligrated",
+    "relation": "implemented_by",
+    "claim": "Honeywell sortation/conveyor systems and irregular-parcel handling products make Honeywell a candidate implementer for parcel singulation and metering.",
+    "context": "Adjacent high-throughput sortation evidence; target low-cost robot-cell fit is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_jam_detection_recovery_banner",
+    "source": "jam_detection_and_recovery",
+    "target": "org_banner_engineering",
+    "relation": "implemented_by",
+    "claim": "Banner conveying and sortation sensing applications include jam confirmation and product tracking, making Banner a candidate implementer for jam detection.",
+    "context": "Sensor application evidence; field false-positive/false-negative rates are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_jam_detection_recovery_sick",
+    "source": "jam_detection_and_recovery",
+    "target": "org_sick",
+    "relation": "implemented_by",
+    "claim": "SICK photoelectric and object-detection sensor families are candidate components for jam detection and recovery workflows.",
+    "context": "Sensor product-line evidence; field jam recovery rate and target-cell sensor placement are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_sick_photoelectric_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_jam_detection_recovery_dematic",
+    "source": "jam_detection_and_recovery",
+    "target": "org_dematic_kion",
+    "relation": "implemented_by",
+    "claim": "Dematic sortation controls and machine-control layers are candidate implementations for jam detection, routing, and recovery logic.",
+    "context": "Large-system controls evidence; target-cell jam recovery performance is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_jam_detection_recovery_honeywell",
+    "source": "jam_detection_and_recovery",
+    "target": "org_honeywell_intelligrated",
+    "relation": "implemented_by",
+    "claim": "Honeywell warehouse software and irregular-parcel handling products make Honeywell a candidate implementer for jam and exception recovery workflows.",
+    "context": "Adjacent system evidence; target-cell jam recovery performance is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026",
       "ev_mfg_honeywell_irregulars_sorter_2026"
     ],
     "reviewStatus": "unreviewed"

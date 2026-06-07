@@ -64,3 +64,34 @@ test("real graph: edgeTint produces non-default warm colors in cost mode", () =>
   assert.notEqual(tint, "#94a3b8", "should not be NEUTRAL_TINT — arm has real cost data");
   assert.match(tint, /^#[0-9a-f]{6}$/i, "should be a hex color");
 });
+
+test("real graph: sibling product candidates do not reuse active product metric nodes", () => {
+  const graph = loadGraphData();
+  const siblingProductIds = new Set([
+    "delta_robot_sorting",
+    "conveyor_diverter_sorting",
+    "mobile_robot_sorting",
+    "hybrid_human_robot_assisted_sorting",
+  ]);
+  const activeProductMetricIds = new Set([
+    "total_system_cost",
+    "parcels_per_hour",
+    "sorting_accuracy",
+    "allowed_parcel_weight_range",
+    "allowed_parcel_size_range",
+    "failure_jam_rate",
+    "human_intervention_rate",
+    "installation_time",
+    "maintenance_cost",
+    "payback_period",
+  ]);
+
+  const leakingEdges = graph.edges
+    .filter((edge) => siblingProductIds.has(edge.source))
+    .filter((edge) => edge.relation === "measured_by" || edge.relation === "depends_on_metric")
+    .filter((edge) => activeProductMetricIds.has(edge.target))
+    .map((edge) => edge.id)
+    .sort();
+
+  assert.deepEqual(leakingEdges, []);
+});

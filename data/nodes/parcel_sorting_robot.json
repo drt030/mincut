@@ -54,7 +54,8 @@
       "cost",
       "logistics",
       "robotics"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "vision_barcode_label_recognition",
@@ -699,6 +700,7 @@
       "robot_arm",
       "decomposition_frontier"
     ],
+    "reviewStatus": "unreviewed",
     "notes": "Expansion frontier: next layer should separate suction cup geometry, vacuum generator or ejector choice, compliance, vacuum sensing, materials, wear parts, dust tolerance, and parcel-contact reliability constraints. Mechanical grippers are modeled as a separate sibling Product boundary, not as an alternate route of this active suction product."
   },
   {
@@ -2410,6 +2412,7 @@
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
+    "reviewStatus": "unreviewed",
     "notes": "Bottleneck theme: maintenance_cost_control. Maintenance workflow limits adoption when jams, cleaning, suction-cup wear, calibration drift, spare parts, and operator escalation consume the labor savings from automation."
   },
   {
@@ -2427,7 +2430,8 @@
     "tags": [
       "cost",
       "hardware"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "delta_robot_sorting",
@@ -2551,7 +2555,8 @@
     ],
     "tags": [
       "cost"
-    ]
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "parcels_per_hour",
@@ -6279,9 +6284,11 @@
       "servo_drive",
       "industrial_robot_arm",
       "plc",
+      "motion_control",
+      "real_time_control",
       "investable_supplier"
     ],
-    "description": "Chinese industrial automation supplier covering servo systems, PLC/HMI, industrial robots, and automation components.",
+    "description": "Chinese industrial automation supplier covering servo systems, PLC/HMI, industrial robots, motion controllers, real-time control, and automation components.",
     "confidence": "medium",
     "metrics": [
       {
@@ -6303,7 +6310,8 @@
     ],
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
-      "ev_inovance_sv670_servo_sto_2026"
+      "ev_inovance_sv670_servo_sto_2026",
+      "ev_robot_controller_io_inovance_ac703_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6313,6 +6321,8 @@
       "public_company",
       "china_supplier",
       "servo_drive",
+      "motion_control",
+      "real_time_control",
       "investable_supplier"
     ],
     "notes": "Investor relevance: vertically exposed to servo, control, and industrial robot subsystems; the same report also cites 26.3% China SCARA share, which is useful context but not the target six-axis parcel-cell architecture by itself.",
@@ -6410,9 +6420,11 @@
       "plc",
       "servo_drive",
       "industrial_control",
+      "motion_control",
+      "conveyor_tracking",
       "investable_supplier"
     ],
-    "description": "Automation supplier for PLC, industrial control, and motion-control systems used in conveyor, robot, and warehouse-control integration.",
+    "description": "Automation supplier for PLC, industrial control, drives, encoder-capable motion-control systems, conveyor tracking, robot, and warehouse-control integration.",
     "confidence": "medium",
     "metrics": [
       {
@@ -6434,7 +6446,9 @@
     ],
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
-      "ev_mfg_siemens_simatic_plc"
+      "ev_mfg_siemens_simatic_plc",
+      "ev_siemens_servo_motion_control",
+      "ev_mfg_siemens_motion_control_encoders_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6442,6 +6456,8 @@
       "plc",
       "public_company",
       "servo_drive",
+      "motion_control",
+      "conveyor_tracking",
       "investable_supplier"
     ],
     "notes": "Investor relevance: PLC and motion-control exposure; the low-cost China target may substitute domestic controls where price pressure dominates.",
@@ -7434,9 +7450,10 @@
       "machine_vision",
       "barcode",
       "pressure_sensor",
-      "vacuum"
+      "vacuum",
+      "conveyor_sensing"
     ],
-    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, photoelectric sensors, fixed-mount barcode scanners, identification diagnostics, and pressure/vacuum sensing.",
+    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, photoelectric sensors, conveyor object detection, fixed-mount barcode scanners, identification diagnostics, and pressure/vacuum sensing.",
     "confidence": "medium",
     "metrics": [
       {
@@ -7447,7 +7464,8 @@
     "evidenceIds": [
       "ev_mfg_sick_safety_light_curtains",
       "ev_barcode_ocr_sick_clv65x_2026",
-      "ev_mfg_sick_pac50_pressure_sensors_2026"
+      "ev_mfg_sick_pac50_pressure_sensors_2026",
+      "ev_mfg_sick_photoelectric_sensors_2026"
     ],
     "tags": [
       "manufacturer",
@@ -7457,7 +7475,8 @@
       "barcode",
       "private_company",
       "pressure_sensor",
-      "vacuum"
+      "vacuum",
+      "conveyor_sensor"
     ],
     "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited, but safety and code-reading reliability are adoption-critical.",
     "reviewStatus": "unreviewed",
@@ -7697,7 +7716,7 @@
       "industrial_control",
       "investable_supplier"
     ],
-    "description": "Japanese automation supplier with safety light curtains, safety scanners, relays, controllers, and industrial sensors.",
+    "description": "Japanese automation supplier with safety light curtains, safety scanners, relays, controllers, photoelectric/conveyor sensors, IO-Link sensing, and industrial sensors.",
     "confidence": "medium",
     "metrics": [
       {
@@ -7706,12 +7725,14 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_omron_safety_light_curtain"
+      "ev_mfg_omron_safety_light_curtain",
+      "ev_mfg_omron_conveyor_sensing_2026"
     ],
     "tags": [
       "manufacturer",
       "safety",
       "sensor",
+      "conveyor_sensor",
       "public_company"
     ],
     "notes": "Investor relevance: machine-safety and industrial sensor exposure; exact low-cost parcel-cell share is unverified.",
@@ -7724,9 +7745,10 @@
     "kind": "organization",
     "domain": [
       "safety_system",
-      "sensor"
+      "sensor",
+      "conveyor_sensing"
     ],
-    "description": "German optical sensor and machine-safety supplier with safety scanners, light curtains, and barcode/optical sensors.",
+    "description": "German optical sensor and machine-safety supplier with safety scanners, light curtains, barcode/optical sensors, and conveyor-belt object-detection sensors.",
     "confidence": "medium",
     "metrics": [
       {
@@ -7735,12 +7757,14 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_leuze_safety_sensors"
+      "ev_mfg_leuze_safety_sensors",
+      "ev_mfg_leuze_conveyor_object_detection_2026"
     ],
     "tags": [
       "manufacturer",
       "safety",
       "sensor",
+      "conveyor_sensor",
       "private_company"
     ],
     "notes": "Investor relevance: private safety/optical sensor benchmark supplier.",

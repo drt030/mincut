@@ -271,6 +271,59 @@ test("vacuum end-effector child layer exposes supplier and process candidates", 
   }
 });
 
+test("investment-facing bottleneck nodes expose supplier candidates at the bottleneck level", () => {
+  const expectedCandidatesByBottleneck: Record<string, string[]> = {
+    low_cost_realtime_vision_compute_integration: [
+      "org_nvidia",
+      "org_intel",
+      "org_advantech",
+      "org_adlink_technology",
+      "org_basler",
+    ],
+    vision_latency_budget_and_timestamping: ["org_basler", "org_siemens", "org_inovance"],
+    barcode_ocr_no_read_recovery: [
+      "org_cognex",
+      "org_zebra_technologies",
+      "org_sick",
+      "org_datalogic",
+      "org_hikrobot",
+    ],
+    conveyor_speed_encoder_tracking: [
+      "org_banner_engineering",
+      "org_sick",
+      "org_omron",
+      "org_leuze",
+      "org_siemens",
+    ],
+    parcel_singulation_and_metering: [
+      "org_wayzim",
+      "org_interroll",
+      "org_dematic_kion",
+      "org_honeywell_intelligrated",
+    ],
+    jam_detection_and_recovery: [
+      "org_banner_engineering",
+      "org_sick",
+      "org_dematic_kion",
+      "org_honeywell_intelligrated",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedCandidatesByBottleneck)) {
+    const candidateIds = new Set([
+      ...manufacturersForNode(graph, nodeId).map((node) => node.id),
+      ...implementersForNode(graph, nodeId).map((node) => node.id),
+    ]);
+
+    for (const expectedId of expectedIds) {
+      assert.ok(
+        candidateIds.has(expectedId),
+        `${nodeId} must expose ${expectedId} as a supplier or implementation candidate for investor workflows`,
+      );
+    }
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

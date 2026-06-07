@@ -1826,6 +1826,46 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_mfg_sick_photoelectric_sensors_2026",
+    "type": "product_page",
+    "title": "SICK photoelectric sensors",
+    "url": "https://www.sick.com/gb/en/catalog/products/detection-sensors/photoelectric-sensors/c/g172752",
+    "sourceName": "SICK",
+    "date": "2026-06-07",
+    "summary": "SICK product materials describe industrial photoelectric sensors for object detection, supporting SICK as a candidate supplier for conveyor tracking and jam-detection sensing.",
+    "supportsNodeIds": [
+      "org_sick",
+      "conveyor_speed_encoder_tracking",
+      "jam_detection_and_recovery"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_speed_tracking_sick",
+      "e_impl_jam_detection_recovery_sick"
+    ],
+    "limitations": "Product-line evidence for sensor availability; it does not prove parcel-cell field reliability, supplier share, or installed BOM selection.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_omron_conveyor_sensing_2026",
+    "type": "product_page",
+    "title": "OMRON sensing solutions",
+    "url": "https://automation.omron.com/en/us/products/category/sensing",
+    "sourceName": "OMRON Automation",
+    "date": "2026-06-07",
+    "summary": "OMRON sensing materials describe proximity, photoelectric, fiber-optic, measurement, rotary-encoder, and IO-Link sensor families for industrial and material-handling automation.",
+    "supportsNodeIds": [
+      "org_omron",
+      "conveyor_speed_encoder_tracking"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_speed_tracking_omron"
+    ],
+    "limitations": "Product-line evidence; no target-cell supplier share, cost, or field uptime evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_mfg_leuze_safety_sensors",
     "type": "product_page",
     "title": "Leuze safety sensors product overview",
@@ -1840,6 +1880,46 @@
       "e_mfg_safety_system_leuze"
     ],
     "limitations": "Product-line evidence; no target-cell supplier share or field reliability evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_leuze_conveyor_object_detection_2026",
+    "type": "product_page",
+    "title": "Leuze dynamic reference diffuse sensors",
+    "url": "https://www.leuze.com/en-int/products/switching-sensors/optical-sensors/diffuse-sensors/dynamic-reference-diffuse-sensors",
+    "sourceName": "Leuze",
+    "date": "2026-06-07",
+    "summary": "Leuze describes dynamic reference diffuse sensors that use the conveyor belt as a reference for reliable object and leading-edge detection across varied shapes, colors, gloss, and transparency.",
+    "supportsNodeIds": [
+      "org_leuze",
+      "conveyor_speed_encoder_tracking"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_speed_tracking_leuze"
+    ],
+    "limitations": "Product-line evidence; no target parcel-cell supplier share, sensor placement benchmark, or cost evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_siemens_motion_control_encoders_2026",
+    "type": "product_page",
+    "title": "Siemens motion control drives and encoder measuring systems",
+    "url": "https://cache.industry.siemens.com/dl/files/273/109755273/att_1309195/v1/motion-control-D31-1-complete-english-FINAL-2024-12.pdf",
+    "sourceName": "Siemens",
+    "date": "2024-12",
+    "summary": "Siemens motion-control catalog materials describe SINAMICS drive systems, encoder measuring systems, and motion-control integration relevant to conveyor speed tracking and timestamp-aligned drive feedback.",
+    "supportsNodeIds": [
+      "org_siemens",
+      "conveyor_speed_encoder_tracking",
+      "vision_latency_budget_and_timestamping"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_speed_tracking_siemens",
+      "e_impl_vision_latency_budget_siemens"
+    ],
+    "limitations": "Catalog evidence for capability coverage; no target parcel-cell BOM selection, installed share, or delivered cost evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },
