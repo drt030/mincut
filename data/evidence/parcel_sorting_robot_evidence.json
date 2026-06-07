@@ -86,13 +86,17 @@
       "failure_jam_rate",
       "human_intervention_rate",
       "parcel_induction_spacing_control",
-      "parcel_detection_and_tracking"
+      "parcel_detection_and_tracking",
+      "parcel_singulation_and_metering",
+      "induction_exception_recovery"
     ],
     "supportsEdgeIds": [
       "e_product_measured_throughput",
       "e_product_measured_accuracy",
       "e_product_measured_jam",
-      "e_product_measured_intervention"
+      "e_product_measured_intervention",
+      "e_induction_spacing_requires_singulation_metering",
+      "e_induction_spacing_requires_exception_recovery"
     ],
     "limitations": "Vendor page and infeed-only benchmark. Grasp success and double-parcel rate are proxies for exception risk, not reviewed site-level jam or intervention rates.",
     "confidence": "medium",
@@ -737,7 +741,9 @@
       "conveyor_speed_encoder_tracking",
       "parcel_induction_spacing_control",
       "plc_and_wcs_integration",
-      "jam_detection_and_recovery"
+      "jam_detection_and_recovery",
+      "induction_sensor_array",
+      "org_banner_engineering"
     ],
     "supportsEdgeIds": [
       "e_vision_implemented_by_barcode_ocr",
@@ -747,7 +753,9 @@
       "e_conveyor_implemented_by_induction_spacing",
       "e_conveyor_requires_plc_wcs",
       "e_conveyor_implemented_by_jam_recovery",
-      "e_decision_requires_barcode_ocr"
+      "e_decision_requires_barcode_ocr",
+      "e_induction_spacing_requires_sensor_array",
+      "e_mfg_induction_sensor_array_banner"
     ],
     "limitations": "Vendor application page; good for sensor/control roles but not full system economics or field reliability benchmark.",
     "confidence": "medium",
@@ -1634,11 +1642,16 @@
     "date": "2026-06-07",
     "summary": "Wayzim product page describes smart cameras, high-speed six-axis robots, instance segmentation deep learning, and 3D point-cloud algorithms for automated parcel infeed.",
     "supportsNodeIds": [
-      "org_wayzim"
+      "org_wayzim",
+      "parcel_induction_spacing_control",
+      "parcel_singulation_and_metering",
+      "induction_exception_recovery"
     ],
     "supportsEdgeIds": [
       "e_mfg_conveyor_integration_wayzim",
-      "e_mfg_parcel_induction_spacing_wayzim"
+      "e_mfg_parcel_induction_spacing_wayzim",
+      "e_induction_spacing_requires_singulation_metering",
+      "e_induction_spacing_requires_exception_recovery"
     ],
     "limitations": "Vendor product page; does not prove delivered cost, installed base, or 300,000 RMB target feasibility.",
     "confidence": "medium",
@@ -1671,10 +1684,19 @@
     "date": "2026-06-07",
     "summary": "Dematic describes automated sortation systems that coordinate gapping, scanning, diverting, delivery confirmation, WMS integration, and control layers.",
     "supportsNodeIds": [
-      "org_dematic_kion"
+      "org_dematic_kion",
+      "parcel_induction_spacing_control",
+      "dynamic_gap_control_logic",
+      "induction_sensor_array",
+      "variable_speed_induction_drive"
     ],
     "supportsEdgeIds": [
-      "e_mfg_conveyor_integration_dematic"
+      "e_mfg_conveyor_integration_dematic",
+      "e_mfg_parcel_induction_spacing_dematic",
+      "e_mfg_dynamic_gap_control_dematic",
+      "e_induction_spacing_requires_dynamic_gap_control",
+      "e_induction_spacing_requires_sensor_array",
+      "e_induction_spacing_requires_variable_speed_drive"
     ],
     "limitations": "Large-system vendor page; useful for integration roles but not proof of target cell cost or supplier share.",
     "confidence": "medium",
@@ -1707,10 +1729,12 @@
     "date": "2026-06-07",
     "summary": "Daifuku product materials describe intralogistics sorting systems and material-handling equipment relevant to conveyor/sortation integration.",
     "supportsNodeIds": [
-      "org_daifuku"
+      "org_daifuku",
+      "parcel_induction_spacing_control"
     ],
     "supportsEdgeIds": [
-      "e_mfg_conveyor_integration_daifuku"
+      "e_mfg_conveyor_integration_daifuku",
+      "e_mfg_parcel_induction_spacing_daifuku"
     ],
     "limitations": "Large-system vendor page; not evidence for target low-cost robot-cell supplier share.",
     "confidence": "medium",
@@ -1725,11 +1749,13 @@
     "date": "2026-06-07",
     "summary": "Honeywell materials describe sortation/conveyor systems and Momentum warehouse execution/control software relevant to WES/WCS and sortation integration.",
     "supportsNodeIds": [
-      "org_honeywell_intelligrated"
+      "org_honeywell_intelligrated",
+      "parcel_induction_spacing_control"
     ],
     "supportsEdgeIds": [
       "e_mfg_plc_wcs_honeywell",
-      "e_mfg_sorting_decision_honeywell"
+      "e_mfg_sorting_decision_honeywell",
+      "e_mfg_parcel_induction_spacing_honeywell"
     ],
     "limitations": "Vendor page; throughput claims are system dependent and not evidence for target cell affordability.",
     "confidence": "medium",
@@ -1946,6 +1972,100 @@
       "e_mfg_ndpr_feedstock_lynas"
     ],
     "limitations": "Upstream rare-earth evidence; not direct robot-component supply evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_induction_bastian_gapping_conveyor_2026",
+    "type": "product_page",
+    "title": "Gapping Belt Induction",
+    "url": "https://www.bastiansolutions.com/solutions/technology/sortation/conveyor/gapping-belt-induction/",
+    "sourceName": "Bastian Solutions",
+    "date": "2026-06-07",
+    "summary": "Bastian describes gapping belt induction conveyors as upstream gappers used to add gaps before scanners, labelers, motion scales, and sorters; it explains that two conveyors running faster than the incoming flow pull a gap and that accelerating/decelerating can improve throughput and reduce wasted gaps.",
+    "supportsNodeIds": [
+      "parcel_induction_spacing_control",
+      "parcel_singulation_and_metering",
+      "dynamic_gap_control_logic",
+      "induction_sensor_array",
+      "variable_speed_induction_drive",
+      "induction_exception_recovery"
+    ],
+    "supportsEdgeIds": [
+      "e_induction_spacing_requires_singulation_metering",
+      "e_induction_spacing_requires_dynamic_gap_control",
+      "e_induction_spacing_requires_sensor_array",
+      "e_induction_spacing_requires_variable_speed_drive",
+      "e_induction_spacing_requires_exception_recovery"
+    ],
+    "limitations": "Vendor/integrator page. It supports the function of gapping and induction but not delivered cost, sustained field uptime, or supplier share for the 300,000 RMB robot-cell target.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_interroll_mcp_play_2026",
+    "type": "product_page",
+    "title": "Interroll MCP PLAY modular conveyor platform",
+    "url": "https://www.interroll.com/products/mcp/play",
+    "sourceName": "Interroll Group",
+    "date": "2026-06-07",
+    "summary": "Interroll describes MCP PLAY as a modular conveyor platform with planning/commissioning tools, continuous flowing merge, reduced programming effort, tracking, and decentralized warehouse control, supporting flow-control and induction/spacing relevance.",
+    "supportsNodeIds": [
+      "org_interroll",
+      "parcel_induction_spacing_control",
+      "dynamic_gap_control_logic",
+      "variable_speed_induction_drive"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_parcel_induction_spacing_interroll",
+      "e_mfg_dynamic_gap_control_interroll",
+      "e_mfg_variable_speed_induction_drive_interroll",
+      "e_induction_spacing_requires_dynamic_gap_control",
+      "e_induction_spacing_requires_variable_speed_drive"
+    ],
+    "limitations": "Vendor product page and platform-level evidence; does not prove installed share, low-cost cell fit, or exact drive/BOM pricing.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_honeywell_irregulars_sorter_2026",
+    "type": "news",
+    "title": "Honeywell Momentum Core and IntelliSort Irregulars Sorter announcement",
+    "url": "https://www.honeywell.com/us/en/press/2026/04/honeywell-introduces-new-warehouse-software-platform-and-innovative-sortation-solution",
+    "sourceName": "Honeywell",
+    "date": "2026-04-13",
+    "summary": "Honeywell announced Momentum Core software and an IntelliSort Irregulars Sorter, stating that irregular packages are a downtime and bottleneck driver and claiming the sorter can process 3,000-5,000 irregular parcels per hour in relevant logistics/e-commerce contexts.",
+    "supportsNodeIds": [
+      "org_honeywell_intelligrated",
+      "parcel_induction_spacing_control",
+      "induction_exception_recovery"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_parcel_induction_spacing_honeywell",
+      "e_mfg_induction_exception_recovery_honeywell",
+      "e_induction_spacing_requires_exception_recovery"
+    ],
+    "limitations": "Company announcement and adjacent high-throughput sorter claim. It supports exception-handling relevance but not this target robot-cell throughput, cost, or customer acceptance.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_daifuku_sorting_picking_systems_2026",
+    "type": "product_page",
+    "title": "Daifuku sorting and picking systems",
+    "url": "https://www.daifuku.com/us/solution/list/sortingpicking/",
+    "sourceName": "Daifuku",
+    "date": "2026-06-07",
+    "summary": "Daifuku describes multi-belt and sliding-shoe sorters for high sort rates, accurate tracking, gentle handling of mixed carton sizes/configurations, and high-throughput material handling.",
+    "supportsNodeIds": [
+      "org_daifuku",
+      "parcel_induction_spacing_control",
+      "parcel_singulation_and_metering"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_parcel_induction_spacing_daifuku"
+    ],
+    "limitations": "Large-system vendor page; relevant to sortation/induction exposure but not proof of low-cost robot-cell BOM, supplier share, or 300,000 RMB feasibility.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   }

@@ -1899,26 +1899,185 @@
       "parcel_sorting_robot",
       "conveyor_integration"
     ],
-    "description": "Controls logic and line setup that keep parcel spacing and presentation stable enough for scanning and robot-arm intervention.",
+    "description": "Controls logic, sensor feedback, and conveyor-drive setup that keep parcels singulated, spaced, and recoverable enough for scanning and robot-arm intervention.",
     "maturityScore": 54,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors",
-      "ev_interroll_sorter_platform"
+      "ev_interroll_sorter_platform",
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_dematic_sortation_controls",
+      "ev_mfg_interroll_mcp_play_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026",
+      "ev_mfg_daifuku_sorting_picking_systems_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026"
     ],
     "tags": [
       "conveyor",
       "flow_control",
       "bottleneck",
-      "decomposition_frontier"
+      "singulation",
+      "gapping",
+      "throughput",
+      "exception_recovery"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: conveyor_integration is marked as a low-cost conveyor-integration bottleneck, and this lower-layer spacing/induction control method is the visible direct driver. Expansion frontier: next layer may include singulation, merge logic, gaps, parcel orientation, speed transitions, and exception handling."
+    "notes": "Expanded on 2026-06-07 into singulation/metering, dynamic gap control, induction sensing, variable-speed drive control, and exception recovery. This is a throughput bottleneck because poor spacing wastes sorter pitch, causes no-reads, and creates robot timing misses even when the downstream robot arm is nominally fast enough."
+  },
+  {
+    "id": "parcel_singulation_and_metering",
+    "name": "Parcel singulation and metering",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Method for turning irregular or bunched parcel flow into a mostly one-at-a-time stream with predictable pitch before scanning, weighing, or robot handling.",
+    "maturityScore": 52,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026"
+    ],
+    "tags": [
+      "conveyor",
+      "singulation",
+      "metering",
+      "flow_control",
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "For a low-cost robot-arm cell this is often a process-control problem rather than a full high-speed parcel singulator: enough metering to avoid double-presented parcels and wasted scan/sort windows without buying a large upstream singulation system."
+  },
+  {
+    "id": "dynamic_gap_control_logic",
+    "name": "Dynamic gap control logic",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "software"
+    ],
+    "description": "Controls logic that adjusts belt speeds, release timing, and merge behavior so gaps are large enough for scanning/sorting but not so large that throughput is wasted.",
+    "maturityScore": 50,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_dematic_sortation_controls",
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "tags": [
+      "conveyor",
+      "gapping",
+      "software",
+      "flow_control",
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "The practical tradeoff is pitch utilization: fixed blow-through gapping is simpler, while dynamic control can reduce wasted space but adds sensing, drive tuning, and commissioning effort."
+  },
+  {
+    "id": "induction_sensor_array",
+    "name": "Induction sensor array",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "sensing"
+    ],
+    "description": "Photoelectric, presence, barcode/vision, and optional dimensioning sensors used around induction to detect parcel leading edges, doubles, spacing, side-by-side flow, and jams.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-04",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "tags": [
+      "sensor",
+      "conveyor",
+      "induction",
+      "tracking"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Commodity sensors are mature, but the low-cost risk is placement, dust/reflectivity robustness, false doubles, and calibration with belt-speed tracking rather than the availability of a sensor catalog item."
+  },
+  {
+    "id": "variable_speed_induction_drive",
+    "name": "Variable-speed induction drive",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "drive_control"
+    ],
+    "description": "Drive, motorized roller, belt, or conveyor-zone control used to accelerate, decelerate, and release parcels into stable gaps before scan and sort actions.",
+    "maturityScore": 64,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-04",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_interroll_mcp_play_2026",
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "tags": [
+      "conveyor",
+      "drive",
+      "variable_speed",
+      "flow_control"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Mature conveyor drives become a bottleneck when a cheap cell needs enough closed-loop response and commissioning repeatability to preserve gaps across variable package sizes and surfaces."
+  },
+  {
+    "id": "induction_exception_recovery",
+    "name": "Induction exception recovery",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "maintenance"
+    ],
+    "description": "Rules and operator workflow for double feeds, unreadable parcels, side-by-side parcels, oversized/unstable parcels, and induction jams before they cascade into no-reads or robot misses.",
+    "maturityScore": 46,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-04",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026",
+      "ev_induction_bastian_gapping_conveyor_2026"
+    ],
+    "tags": [
+      "exception_recovery",
+      "jam",
+      "conveyor",
+      "operator_workflow",
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "This is a throughput and labor bottleneck: the target pph is credible only if exception parcels are identified and routed or retried without frequent manual stops."
   },
   {
     "id": "plc_and_wcs_integration",
@@ -2953,7 +3112,8 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_usgs_silicon_statistics"
+      "ev_usgs_silicon_statistics",
+      "ev_semiconductor_electronics_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -2962,7 +3122,46 @@
       "electronics",
       "decomposition_frontier"
     ],
-    "notes": "Material frontier: next layer may include wafer fab, power device process, image sensor process, IC packaging, PCB assembly, and export-control or capacity constraints."
+    "notes": "Material frontier: direct cost placeholder added on 2026-06-07 so camera, compute, controller, PLC, and servo electronics branches do not appear costless. This is an allocated electronics/silicon contribution, not a wafer spot price or chip-level BOM."
+  },
+  {
+    "id": "semiconductor_grade_silicon_and_electronics_cost",
+    "name": "Semiconductor-grade silicon and electronics cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "electronics"
+    ],
+    "description": "Allocated cost contribution for electronic components, sensor/processor silicon, PCB assemblies, and commodity semiconductor content used across camera, compute, PLC, encoder, and servo electronics nodes.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 4000,
+          "typical": 12000,
+          "max": 28000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_semiconductor_electronics_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "electronics",
+      "semiconductor",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence shared electronics allocation. This prevents semiconductor-heavy direct children from appearing as zero-cost, but should be replaced by named BOM or teardown evidence before review promotion."
   },
   {
     "id": "ndpr_rare_earth_feedstock",
@@ -4423,6 +4622,229 @@
       "cost_research",
       "consistency_backfill"
     ]
+  },
+  {
+    "id": "parcel_induction_spacing_control_cost",
+    "name": "Parcel induction and spacing control cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Allocated cost contribution of induction/spacing control engineering, drive tuning, sensing, and commissioning inside the conveyor-integration bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 3000,
+          "typical": 9500,
+          "max": 22000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "flow_control"
+    ],
+    "notes": "Low-confidence allocation inside the existing conveyor_integration_cost bundle. This is a p50 placeholder for graph rollup and should be replaced with supplier quotes, teardown, or bid data before review promotion."
+  },
+  {
+    "id": "parcel_singulation_and_metering_cost",
+    "name": "Parcel singulation and metering cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Allocated cost contribution of simple metering hardware, stops/gates, guides, and setup work for parcel singulation in a low-cost cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 800,
+          "typical": 2500,
+          "max": 6000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "singulation"
+    ],
+    "notes": "Low-confidence allocation inside the existing conveyor_integration_cost bundle. This is a p50 placeholder for graph rollup and should be replaced with supplier quotes, teardown, or bid data before review promotion."
+  },
+  {
+    "id": "dynamic_gap_control_logic_cost",
+    "name": "Dynamic gap control logic cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Allocated software and commissioning cost for release timing, gapping rules, and pitch-utilization tuning.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 800,
+          "typical": 1500,
+          "max": 5000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "gapping",
+      "software"
+    ],
+    "notes": "Low-confidence allocation inside the existing conveyor_integration_cost bundle. This is a p50 placeholder for graph rollup and should be replaced with supplier quotes, teardown, or bid data before review promotion."
+  },
+  {
+    "id": "induction_sensor_array_cost",
+    "name": "Induction sensor array cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Allocated cost for induction photoeyes/presence sensors, mounting brackets, cables, and basic signal integration.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1200,
+          "typical": 2500,
+          "max": 6000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "sensing"
+    ],
+    "notes": "Low-confidence allocation inside the existing conveyor_integration_cost bundle. This is a p50 placeholder for graph rollup and should be replaced with supplier quotes, teardown, or bid data before review promotion."
+  },
+  {
+    "id": "variable_speed_induction_drive_cost",
+    "name": "Variable-speed induction drive cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Allocated cost for variable-speed belt/roller drive hardware and integration work used to create gaps and release parcels.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1200,
+          "typical": 3000,
+          "max": 7000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "drive_control"
+    ],
+    "notes": "Low-confidence allocation inside the existing conveyor_integration_cost bundle. This is a p50 placeholder for graph rollup and should be replaced with supplier quotes, teardown, or bid data before review promotion."
+  },
+  {
+    "id": "induction_exception_recovery_cost",
+    "name": "Induction exception recovery cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration"
+    ],
+    "description": "Allocated cost for exception-routing logic, operator prompts, alarms, and basic recovery workflow around induction.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 1000,
+          "max": 3500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill",
+      "exception_recovery"
+    ],
+    "notes": "Low-confidence allocation inside the existing conveyor_integration_cost bundle. This is a p50 placeholder for graph rollup and should be replaced with supplier quotes, teardown, or bid data before review promotion."
   },
   {
     "id": "safety_system_cost",
@@ -5976,7 +6398,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_interroll_sorter_platform"
+      "ev_interroll_sorter_platform",
+      "ev_mfg_interroll_mcp_play_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6006,7 +6429,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_daifuku_sorting_systems"
+      "ev_mfg_daifuku_sorting_systems",
+      "ev_mfg_daifuku_sorting_picking_systems_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6043,7 +6467,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_honeywell_sortation_momentum_2026"
+      "ev_mfg_honeywell_sortation_momentum_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6379,6 +6804,35 @@
       "public_company"
     ],
     "notes": "Investor relevance: upstream rare-earth diversification exposure; not a direct robot component supplier.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_banner_engineering",
+    "name": "Banner Engineering",
+    "kind": "organization",
+    "domain": [
+      "sensing",
+      "conveyor_integration"
+    ],
+    "description": "Industrial automation sensor supplier with conveying and sortation sensing applications for product spacing, tracking, barcode reading, destination verification, and jam confirmation.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "tags": [
+      "manufacturer",
+      "sensor",
+      "conveyor",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private supplier, useful for technical benchmarking of induction sensor arrays rather than direct public-equity exposure.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   }

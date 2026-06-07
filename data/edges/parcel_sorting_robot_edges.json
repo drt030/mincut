@@ -3259,5 +3259,276 @@
       "ev_mfg_iea_rare_earth_2026"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_induction_spacing_interroll",
+    "source": "parcel_induction_spacing_control",
+    "target": "org_interroll",
+    "relation": "manufactured_by",
+    "claim": "Interroll supplies modular conveyor and flow-control platforms relevant to induction spacing and merge/gap control.",
+    "context": "Core conveyor module/platform supplier; not proof of low-cost parcel-cell share.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_induction_spacing_dematic",
+    "source": "parcel_induction_spacing_control",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic supplies sortation systems and controls that coordinate induction, gapping, scanning, divert control, and delivery confirmation.",
+    "context": "Large-system supplier; not proof of target cell economics.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_induction_spacing_daifuku",
+    "source": "parcel_induction_spacing_control",
+    "target": "org_daifuku",
+    "relation": "manufactured_by",
+    "claim": "Daifuku supplies high-speed sortation and conveyor systems relevant to induction, tracking, and gentle high-throughput sorting.",
+    "context": "Large-system supplier; not proof of target low-cost cell cost.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_daifuku_sorting_picking_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_induction_spacing_honeywell",
+    "source": "parcel_induction_spacing_control",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated supplies sortation/conveyor systems and machine-control software relevant to parcel induction and exception throughput.",
+    "context": "Large-system and software/control exposure; target-cell adoption share is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_dynamic_gap_control_interroll",
+    "source": "dynamic_gap_control_logic",
+    "target": "org_interroll",
+    "relation": "manufactured_by",
+    "claim": "Interroll MCP PLAY describes flow management, tracking, decentralized control, and reduced programming effort relevant to dynamic gapping logic.",
+    "context": "Platform evidence, not an installed parcel-cell benchmark.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_dynamic_gap_control_dematic",
+    "source": "dynamic_gap_control_logic",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic sortation controls coordinate gapping, scanning, divert control, and delivery confirmation.",
+    "context": "Large-system controls evidence, not a low-cost quote.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_induction_sensor_array_banner",
+    "source": "induction_sensor_array",
+    "target": "org_banner_engineering",
+    "relation": "manufactured_by",
+    "claim": "Banner supplies sensing applications for conveying and sortation including product spacing, tracking, and jam confirmation.",
+    "context": "Sensor vendor evidence; exact target-cell BOM share is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_variable_speed_induction_drive_interroll",
+    "source": "variable_speed_induction_drive",
+    "target": "org_interroll",
+    "relation": "manufactured_by",
+    "claim": "Interroll modular conveyor platforms and decentralized controls are relevant to variable-speed induction drive and flow control.",
+    "context": "Platform evidence, not a drive-level quote.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_induction_exception_recovery_honeywell",
+    "source": "induction_exception_recovery",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell describes irregular parcels as a downtime and bottleneck driver and supplies sorter/software solutions for more predictable handling.",
+    "context": "Large-system adjacent evidence, not proof of low-cost robot-cell exception rate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_induction_spacing_requires_singulation_metering",
+    "source": "parcel_induction_spacing_control",
+    "target": "parcel_singulation_and_metering",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Stable parcel induction requires enough singulation and metering to avoid double-presented parcels and wasted downstream scan/sort windows."
+  },
+  {
+    "id": "e_induction_spacing_requires_dynamic_gap_control",
+    "source": "parcel_induction_spacing_control",
+    "target": "dynamic_gap_control_logic",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_dematic_sortation_controls",
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Stable parcel induction requires gap-control logic so gap size is sufficient for scanning/sorting without wasting sorter pitch."
+  },
+  {
+    "id": "e_induction_spacing_requires_sensor_array",
+    "source": "parcel_induction_spacing_control",
+    "target": "induction_sensor_array",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Stable parcel induction requires sensor feedback around leading edges, doubles, side-by-side flow, and jams."
+  },
+  {
+    "id": "e_induction_spacing_requires_variable_speed_drive",
+    "source": "parcel_induction_spacing_control",
+    "target": "variable_speed_induction_drive",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_interroll_mcp_play_2026",
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Stable parcel induction requires drive or zone control that can accelerate, decelerate, and release parcels into controlled gaps."
+  },
+  {
+    "id": "e_induction_spacing_requires_exception_recovery",
+    "source": "parcel_induction_spacing_control",
+    "target": "induction_exception_recovery",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026",
+      "ev_induction_bastian_gapping_conveyor_2026"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Stable parcel induction requires exception recovery for doubles, unreadable parcels, oversized parcels, and induction jams before they reduce throughput."
+  },
+  {
+    "id": "e_parcel_induction_spacing_control_measured_by_cost",
+    "source": "parcel_induction_spacing_control",
+    "target": "parcel_induction_spacing_control_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the induction/spacing-control decomposition layer."
+  },
+  {
+    "id": "e_parcel_singulation_and_metering_measured_by_cost",
+    "source": "parcel_singulation_and_metering",
+    "target": "parcel_singulation_and_metering_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the induction/spacing-control decomposition layer."
+  },
+  {
+    "id": "e_dynamic_gap_control_logic_measured_by_cost",
+    "source": "dynamic_gap_control_logic",
+    "target": "dynamic_gap_control_logic_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the induction/spacing-control decomposition layer."
+  },
+  {
+    "id": "e_induction_sensor_array_measured_by_cost",
+    "source": "induction_sensor_array",
+    "target": "induction_sensor_array_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the induction/spacing-control decomposition layer."
+  },
+  {
+    "id": "e_variable_speed_induction_drive_measured_by_cost",
+    "source": "variable_speed_induction_drive",
+    "target": "variable_speed_induction_drive_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the induction/spacing-control decomposition layer."
+  },
+  {
+    "id": "e_induction_exception_recovery_measured_by_cost",
+    "source": "induction_exception_recovery",
+    "target": "induction_exception_recovery_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_induction_spacing_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the induction/spacing-control decomposition layer."
+  },
+  {
+    "id": "e_semiconductor_grade_silicon_and_electronics_measured_by_cost",
+    "source": "semiconductor_grade_silicon_and_electronics",
+    "target": "semiconductor_grade_silicon_and_electronics_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_semiconductor_electronics_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates shared electronics and semiconductor content for camera, compute, PLC, encoder, and servo electronics branches."
   }
 ]

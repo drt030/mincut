@@ -120,7 +120,7 @@ export function evidenceForEdge(graph: GraphData, edgeId: string): Evidence[] {
 }
 
 export function downstream(graph: GraphData, nodeId: string): Node[] {
-  return targets(graph, nodeId);
+  return uniqueNodes(targets(graph, nodeId));
 }
 
 export function manufacturersForNode(graph: GraphData, nodeId: string): Node[] {
@@ -169,7 +169,7 @@ export function siblingProductsForProduct(graph: GraphData, productId: string): 
 }
 
 export function upstream(graph: GraphData, nodeId: string): Node[] {
-  return sources(graph, nodeId);
+  return uniqueNodes(sources(graph, nodeId));
 }
 
 export function reachableNodeIdsFrom(graph: GraphData, targetNodeId: string): Set<string> {

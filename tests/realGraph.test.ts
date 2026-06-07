@@ -30,12 +30,14 @@ test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", ()
   // Slice 1's headline number: 274.7k (old walker) → 283.5k (new walker).
   // The 2026-05-31 cost-consistency backfill decomposes arm/conveyor bundle
   // costs, moving the live rolled-up typical to ~310.0k. The 2026-06-07
-  // robot-arm price calibration moves it to ~360.3k. Lock that value in so
-  // a future change that accidentally hides child cost drivers is caught.
+  // robot-arm price calibration moves it to ~360.3k. The 2026-06-07
+  // induction/spacing and electronics-cost backfill moves it to ~376.3k.
+  // Lock that value in so a future change that accidentally hides child
+  // cost drivers is caught.
   const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.ok(
-    result.rolledUp.typical > 355_000 && result.rolledUp.typical < 365_000,
-    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~360.3k)`,
+    result.rolledUp.typical > 371_000 && result.rolledUp.typical < 381_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~376.3k)`,
   );
 });
 

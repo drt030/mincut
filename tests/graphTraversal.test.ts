@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { loadGraphData } from "../src/lib/graphLoader";
-import { isDecompositionFrontier, nodeById, scopeGraphToReachableNodes } from "../src/lib/graphTraversal";
+import { downstream, isDecompositionFrontier, nodeById, scopeGraphToReachableNodes, upstream } from "../src/lib/graphTraversal";
 
 test("isDecompositionFrontier treats frontierFor as an authored frontier marker", () => {
   const graph = loadGraphData();
@@ -44,6 +44,24 @@ test("active suction product and gripper sibling use distinct end-effector modul
   assert.doesNotMatch(activeCalibration!.name, /\bgripper\b/i);
   assert.ok(gripperEndEffector, "gripper sibling should have its own placeholder module");
   assert.equal(gripperEdge?.target, "mechanical_gripper_end_effector_module");
+});
+
+test("upstream and downstream traversal deduplicate nodes reached by multiple relations", () => {
+  const graph = loadGraphData();
+
+  const upstreamIds = upstream(graph, "parcel_induction_spacing_control").map((node) => node.id);
+  const downstreamIds = downstream(graph, "conveyor_integration").map((node) => node.id);
+
+  assert.equal(
+    upstreamIds.filter((id) => id === "conveyor_integration").length,
+    1,
+    "parcel_induction_spacing_control should show conveyor_integration once even when both requires and implemented_by edges exist",
+  );
+  assert.equal(
+    downstreamIds.filter((id) => id === "parcel_induction_spacing_control").length,
+    1,
+    "conveyor_integration should show parcel_induction_spacing_control once even when both requires and implemented_by edges exist",
+  );
 });
 
 test("robot controller and I/O is recursively decomposed instead of remaining a leaf frontier", () => {
@@ -163,4 +181,35 @@ test("low-cost real-time vision compute integration exposes deployment subproble
     (edge) => edge.source === "low_cost_realtime_vision_compute_integration" && edge.relation === "measured_by",
   );
   assert.ok(costEdge, "low_cost_realtime_vision_compute_integration must carry an explicit cost placeholder");
+});
+
+test("parcel induction and spacing control exposes throughput-limiting subproblems", () => {
+  const graph = loadGraphData();
+  const node = nodeById(graph, "parcel_induction_spacing_control");
+  assert.ok(node, "parcel_induction_spacing_control must exist");
+  assert.equal(
+    node!.tags?.includes("decomposition_frontier"),
+    false,
+    "parcel_induction_spacing_control should not remain a frontier once its throughput-control layer is added",
+  );
+
+  const children = graph.edges
+    .filter((edge) => edge.source === "parcel_induction_spacing_control" && edge.relation === "requires")
+    .map((edge) => edge.target);
+
+  for (const id of [
+    "parcel_singulation_and_metering",
+    "dynamic_gap_control_logic",
+    "induction_sensor_array",
+    "variable_speed_induction_drive",
+    "induction_exception_recovery",
+  ]) {
+    assert.ok(children.includes(id), `parcel_induction_spacing_control must require ${id}`);
+    assert.ok(nodeById(graph, id), `${id} node must exist`);
+  }
+
+  const costEdge = graph.edges.find(
+    (edge) => edge.source === "parcel_induction_spacing_control" && edge.relation === "measured_by",
+  );
+  assert.ok(costEdge, "parcel_induction_spacing_control must carry an explicit cost placeholder");
 });

@@ -103,6 +103,23 @@ test("industrial edge AI computer exposes compute supplier candidates", () => {
   }
 });
 
+test("parcel induction and spacing control exposes sortation supplier candidates", () => {
+  const manufacturers = manufacturersForNode(graph, "parcel_induction_spacing_control").map((node) => node.id);
+
+  for (const id of [
+    "org_wayzim",
+    "org_interroll",
+    "org_dematic_kion",
+    "org_daifuku",
+    "org_honeywell_intelligrated",
+  ]) {
+    assert.ok(
+      manufacturers.includes(id),
+      `parcel_induction_spacing_control must expose ${id} as an induction/sortation supplier candidate`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

@@ -138,8 +138,8 @@ test("focusId=null: every node and every edge is in the full-saturation subset",
 // everything else (other products, materials only the other products
 // use, the iPhone case study, etc.)".
 //
-// Data probe (2026-06-07 vision compute integration decomposition pass):
-//   - The focal product has exactly 90 `requires`-reachable structural
+// Data probe (2026-06-07 induction/spacing decomposition pass):
+//   - The focal product has exactly 95 `requires`-reachable structural
 //     nodes including itself. Pinning that exact size guards against
 //     accidental data growth into the subtree.
 //   - The iPhone test product (`iphone_4`) is a sibling at root level,
@@ -148,24 +148,24 @@ test("focusId=null: every node and every edge is in the full-saturation subset",
 //   - `cover_glass_aluminosilicate_chain` is a material used only by
 //     the iPhone test data, never by the parcel-sorting robot →
 //     MUST be excluded.
-test("focusId=focal product: includes 90-node subtree; iPhone product + iPhone-only material excluded", () => {
+test("focusId=focal product: includes 95-node subtree; iPhone product + iPhone-only material excluded", () => {
   const graph = loadGraphData();
   const adj = buildRequiresAdjacency(graph);
   const expectedSubtree = requiresDescendants(FOCAL_PRODUCT_ID, adj);
 
   const subset = focusedSubset(FOCAL_PRODUCT_ID, graph);
 
-  // Size is pinned: oracle === function-under-test === 90.
+  // Size is pinned: oracle === function-under-test === 95.
   assert.equal(
     expectedSubtree.size,
-    90,
-    `oracle: focal subtree should be 90; got ${expectedSubtree.size}. ` +
+    95,
+    `oracle: focal subtree should be 95; got ${expectedSubtree.size}. ` +
       "If this fails, data changed — adjust the assertion and re-pin the spec.",
   );
   assert.equal(
     subset.nodes.size,
-    90,
-    `focusedSubset must include exactly the 90 requires-descendants of focal; got ${subset.nodes.size}`,
+    95,
+    `focusedSubset must include exactly the 95 requires-descendants of focal; got ${subset.nodes.size}`,
   );
 
   // The focal product itself must be in (focus + descendants).

@@ -6,8 +6,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China selling-price range for a 6-axis industrial robot arm body sized for 5-10 kg payload and ~0.7-1.0 m reach (e.g. mid-tier domestic brands like Inovance, Estun, Han's Robot vs. import equivalents from FANUC/ABB/KUKA). Order-of-magnitude estimate compiled from public vendor catalog ranges and integrator price commentary.",
-    "supportsNodeIds": ["industrial_robot_arm_body", "industrial_robot_arm_body_cost"],
-    "supportsEdgeIds": ["e_industrial_robot_arm_body_measured_by_cost"],
+    "supportsNodeIds": [
+      "industrial_robot_arm_body",
+      "industrial_robot_arm_body_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_industrial_robot_arm_body_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Unverified estimate based on aggregate vendor-catalog reasoning rather than a specific quoted purchase order. Should be replaced with a named source (e.g. specific vendor quote, bid sheet, or industry report).",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -53,8 +58,13 @@
     "sourceName": "Guangdong Topstar Technology / Made-in-China",
     "date": "2026-06-07",
     "summary": "Public marketplace listing for a Topstar TSR070-07 / 6-axis industrial robot in the 6-7 kg, 710 mm class, quoted at 12,000-25,000 USD per piece. At the graph's 2025 FX constant of 7.20 RMB/USD, this spans roughly 86,000-180,000 RMB before freight, integration, taxes, and negotiated discounts.",
-    "supportsNodeIds": ["industrial_robot_arm_body", "industrial_robot_arm_body_cost"],
-    "supportsEdgeIds": ["e_industrial_robot_arm_body_measured_by_cost"],
+    "supportsNodeIds": [
+      "industrial_robot_arm_body",
+      "industrial_robot_arm_body_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_industrial_robot_arm_body_measured_by_cost"
+    ],
     "limitations": "Vendor/platform listing rather than a purchase order. The listing appears to include a complete industrial robot product, and exact inclusion of controller, teach pendant, warranty, taxes, and delivery must be verified before promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -67,8 +77,13 @@
     "sourceName": "GrabaRobot",
     "date": "2026-04-01",
     "summary": "Industry price guide listing light-duty 6-axis robot price bands including Estun ER6-1400 at 12,000-18,000 USD and ER10-1600 at 15,000-22,000 USD, which maps to roughly 86,000-158,000 RMB using the graph's 2025 FX constant.",
-    "supportsNodeIds": ["industrial_robot_arm_body", "industrial_robot_arm_body_cost"],
-    "supportsEdgeIds": ["e_industrial_robot_arm_body_measured_by_cost"],
+    "supportsNodeIds": [
+      "industrial_robot_arm_body",
+      "industrial_robot_arm_body_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_industrial_robot_arm_body_measured_by_cost"
+    ],
     "limitations": "Secondary price guide, not a vendor quote or invoice. Payload/reach differs from the sub-1 m parcel-sorting arm target, but it anchors the mid-tier domestic price band and prevents treating ultra-low listings as the p50.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -80,8 +95,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for a vacuum suction end-of-arm tooling module bundling cup array, ejector or pump, valves, and pressure sensing. Reflects Schmalz / Piab / Vacuforce mid-range plus domestic equivalents at multi-cup parcel-sorting scale.",
-    "supportsNodeIds": ["end_effector_gripper_or_suction", "end_effector_gripper_or_suction_cost"],
-    "supportsEdgeIds": ["e_end_effector_gripper_or_suction_measured_by_cost"],
+    "supportsNodeIds": [
+      "end_effector_gripper_or_suction",
+      "end_effector_gripper_or_suction_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_end_effector_gripper_or_suction_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Unverified industrial estimate; component cost varies strongly with cup count, ejector vs. pump choice, and supplier tier.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -93,8 +113,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough integration-only cost premium for the manipulation subsystem level — mounting brackets, cabling specific to manipulation, sequencing programming, calibration jigs. Sized as a small premium because the bulk of cost lives in arm body and end-effector pricing already; this captures the manipulation-level glue.",
-    "supportsNodeIds": ["parcel_manipulation_or_diverter", "parcel_manipulation_or_diverter_cost"],
-    "supportsEdgeIds": ["e_parcel_manipulation_or_diverter_measured_by_cost"],
+    "supportsNodeIds": [
+      "parcel_manipulation_or_diverter",
+      "parcel_manipulation_or_diverter_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_parcel_manipulation_or_diverter_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Pricing this aggregate node intentionally rather than recursing into arm/end-effector/motion-planning, which the rollup walker prices separately via the direct product-level requires edges.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -106,8 +131,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for a global-shutter industrial area-scan camera (mid-resolution, GigE/USB3 interface) suitable for parcel label imaging at conveyor speed. Reflects Hikrobot / Daheng / Basler-equivalent ranges, including IO and mounting.",
-    "supportsNodeIds": ["industrial_area_scan_camera", "industrial_area_scan_camera_cost"],
-    "supportsEdgeIds": ["e_industrial_area_scan_camera_measured_by_cost"],
+    "supportsNodeIds": [
+      "industrial_area_scan_camera",
+      "industrial_area_scan_camera_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_industrial_area_scan_camera_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Sensor size, frame rate, and supplier tier swing the price several-fold; this range is order-of-magnitude.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -119,8 +149,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025 price range for a fixed-focal-length C-mount industrial lens with adequate sharpness and depth of field for parcel label imaging. Range covers Computar / Kowa / Ricoh / Tamron and domestic equivalents.",
-    "supportsNodeIds": ["machine_vision_lens_and_optics", "machine_vision_lens_and_optics_cost"],
-    "supportsEdgeIds": ["e_machine_vision_lens_and_optics_measured_by_cost"],
+    "supportsNodeIds": [
+      "machine_vision_lens_and_optics",
+      "machine_vision_lens_and_optics_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_machine_vision_lens_and_optics_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. High-end metrology lenses are far more expensive; this range targets utility imaging.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -132,8 +167,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for a single industrial LED lighting fixture (bar / ring / dome) with controller, sized for parcel-label illumination. Multiple lights typically required; this is a per-fixture estimate consistent with one or two fixtures per cell.",
-    "supportsNodeIds": ["controlled_machine_vision_lighting", "controlled_machine_vision_lighting_cost"],
-    "supportsEdgeIds": ["e_controlled_machine_vision_lighting_measured_by_cost"],
+    "supportsNodeIds": [
+      "controlled_machine_vision_lighting",
+      "controlled_machine_vision_lighting_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_controlled_machine_vision_lighting_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Multi-fixture deployments and strobed controllers can push higher.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -145,8 +185,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for a fanless industrial PC with mid-tier discrete GPU or accelerator suitable for real-time barcode/OCR plus light detection inference at conveyor speeds. Smart-camera embedded options sit at the lower end.",
-    "supportsNodeIds": ["vision_processing_compute", "vision_processing_compute_cost"],
-    "supportsEdgeIds": ["e_vision_processing_compute_measured_by_cost"],
+    "supportsNodeIds": [
+      "vision_processing_compute",
+      "vision_processing_compute_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_processing_compute_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. GPU choice is the dominant swing factor; high-end perception stacks land well above this range.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -158,8 +203,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for the conveyor section + photoelectric sensors + speed encoder + PLC + chutes/lanes hardware integrated into one sorting cell. Includes standard rollers/belts and field IO; excludes upstream/downstream warehouse conveyor.",
-    "supportsNodeIds": ["conveyor_integration", "conveyor_integration_cost"],
-    "supportsEdgeIds": ["e_conveyor_integration_measured_by_cost"],
+    "supportsNodeIds": [
+      "conveyor_integration",
+      "conveyor_integration_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_conveyor_integration_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Conveyor cost scales strongly with length, lane count, and chute geometry; estimate aimed at single small sorting cell.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -171,8 +221,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for guarding (perimeter fence panels), light curtains, e-stop circuitry, safety relays/PLC, interlocked doors, and basic safety-rated I/O scoped to a single robot-arm sorting cell.",
-    "supportsNodeIds": ["safety_system", "safety_system_cost"],
-    "supportsEdgeIds": ["e_safety_system_measured_by_cost"],
+    "supportsNodeIds": [
+      "safety_system",
+      "safety_system_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_safety_system_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Safety scope varies by site standard and risk assessment outcome.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -184,8 +239,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China price range for the cell frame, robot pedestal, cable trays, electrical cabinet enclosure, and sheet-metal/extrusion structural elements outside the conveyor and arm proper. Includes basic surface treatment.",
-    "supportsNodeIds": ["mechanical_structure", "mechanical_structure_cost"],
-    "supportsEdgeIds": ["e_mechanical_structure_measured_by_cost"],
+    "supportsNodeIds": [
+      "mechanical_structure",
+      "mechanical_structure_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_mechanical_structure_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Custom mechanical work (e.g. specialty frame, tooling) can push cost higher.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -197,8 +257,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025 price range for the sorting decision software (rule engine, destination mapping, WCS interface, basic dashboard). Either a per-cell vendor license or an internally developed allocation amortized to one cell.",
-    "supportsNodeIds": ["sorting_decision_system", "sorting_decision_system_cost"],
-    "supportsEdgeIds": ["e_sorting_decision_system_measured_by_cost"],
+    "supportsNodeIds": [
+      "sorting_decision_system",
+      "sorting_decision_system_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_sorting_decision_system_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. License-vs-internal-build trade affects the bookable cost on a per-cell basis.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -210,8 +275,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025 cost-allocation range for motion planning software per cell — either a slice of an in-house planner or a vendor pick-and-place library. Reflects amortized engineering or per-cell license rather than a one-time R&D spend.",
-    "supportsNodeIds": ["motion_planning", "motion_planning_cost"],
-    "supportsEdgeIds": ["e_motion_planning_measured_by_cost"],
+    "supportsNodeIds": [
+      "motion_planning",
+      "motion_planning_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_motion_planning_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. R&D for novel planners is not captured here; this is the amortized per-cell cost only.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -223,8 +293,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025 cost-allocation range for parcel detection-and-tracking software components (detection model integration, parcel pose tracker, conveyor-coordinate pipeline) attributable to one cell. Hardware compute is captured separately under vision_processing_compute.",
-    "supportsNodeIds": ["parcel_detection_and_tracking", "parcel_detection_and_tracking_cost"],
-    "supportsEdgeIds": ["e_parcel_detection_and_tracking_measured_by_cost"],
+    "supportsNodeIds": [
+      "parcel_detection_and_tracking",
+      "parcel_detection_and_tracking_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_parcel_detection_and_tracking_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Proprietary model training and labelling cost not allocated here.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -236,8 +311,13 @@
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
     "date": "2026-05-07",
     "summary": "Rough 2025-China cost range for the initial spares kit, basic maintenance tooling, and operator training materials shipped with the cell. Recurring annual maintenance (parts plus labor) is tracked separately on the maintenance_cost metric.",
-    "supportsNodeIds": ["maintenance_workflow", "maintenance_workflow_cost"],
-    "supportsEdgeIds": ["e_maintenance_workflow_measured_by_cost"],
+    "supportsNodeIds": [
+      "maintenance_workflow",
+      "maintenance_workflow_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_maintenance_workflow_measured_by_cost"
+    ],
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Site-specific spares strategy (pooled vs per-cell stocking) shifts the baseline.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -329,6 +409,57 @@
       "e_aluminum_structural_material_measured_by_cost"
     ],
     "limitations": "Internal placeholder only. Replace with supplier quotes, weighted BOM, or fabrication estimate before human review.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_induction_spacing_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Parcel induction and spacing cost allocation - 2025 estimate",
+    "sourceName": "Internal consistency allocation (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Low-confidence 2025 RMB allocation splitting the missing parcel_induction_spacing_control cost into singulation/metering, dynamic gap logic, induction sensor array, variable-speed induction drive, and exception recovery so the conveyor-throughput bottleneck has explicit p50 placeholders.",
+    "supportsNodeIds": [
+      "parcel_induction_spacing_control",
+      "parcel_induction_spacing_control_cost",
+      "parcel_singulation_and_metering",
+      "parcel_singulation_and_metering_cost",
+      "dynamic_gap_control_logic",
+      "dynamic_gap_control_logic_cost",
+      "induction_sensor_array",
+      "induction_sensor_array_cost",
+      "variable_speed_induction_drive",
+      "variable_speed_induction_drive_cost",
+      "induction_exception_recovery",
+      "induction_exception_recovery_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_parcel_induction_spacing_control_measured_by_cost",
+      "e_parcel_singulation_and_metering_measured_by_cost",
+      "e_dynamic_gap_control_logic_measured_by_cost",
+      "e_induction_sensor_array_measured_by_cost",
+      "e_variable_speed_induction_drive_measured_by_cost",
+      "e_induction_exception_recovery_measured_by_cost"
+    ],
+    "limitations": "Allocation backfill only. It is not a supplier quote, teardown, invoice, or market-average conveyor BOM; replace with named line-item pricing before promoting confidence or review status.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_semiconductor_electronics_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Semiconductor and electronics cost allocation - 2025 estimate",
+    "sourceName": "Internal consistency allocation (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Low-confidence 2025 RMB allocation for shared electronics and semiconductor content across cameras, edge compute, PLC/controller electronics, encoders, and servo-drive electronics. Added after cost-band checks exposed semiconductor_grade_silicon_and_electronics as a high-cost childless gap under industrial_area_scan_camera.",
+    "supportsNodeIds": [
+      "semiconductor_grade_silicon_and_electronics",
+      "semiconductor_grade_silicon_and_electronics_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_semiconductor_grade_silicon_and_electronics_measured_by_cost"
+    ],
+    "limitations": "Allocation backfill only. It is not a wafer-price source, chip teardown, supplier quote, or component-level BOM; replace with named electronics BOM data before promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
   }
