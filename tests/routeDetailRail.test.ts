@@ -90,6 +90,27 @@ test("RouteDetailRail prioritizes route explanation before selected node detail"
   assert.match(html, /data-testid="route-rail-detail-tab"/);
 });
 
+test("RouteDetailRail selected summary uses rolled-up cost for aggregate nodes", () => {
+  const graph = graphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      onSelectNode: () => {},
+    }),
+  );
+
+  assert.match(
+    html,
+    /p50 RMB 149,500/,
+    "selected aggregate node should show the same rolled-up cost signal used by graph edges and detail cards",
+  );
+});
+
 test("RouteDetailRail renders a bottleneck-risk lens summary instead of a cost route", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
@@ -205,5 +226,10 @@ test("RouteDetailRail exposes a selected-node action for changing the graph root
     html,
     /aria-label="Set Robot arm as the graph research root"/,
     "root action should describe that it re-centres the graph research view",
+  );
+  assert.match(
+    html,
+    /href="\/graph\?root=arm"/,
+    "root action should have an href fallback so the research-root jump works before hydration",
   );
 });

@@ -419,6 +419,35 @@ test("GraphExplorer.tsx regression guard: node outline does not duplicate active
   );
 });
 
+test("radial CSS keeps node contour semantics in the renderer instead of hard-coded canvas rules", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "app",
+    "globals.css",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+
+  assert.doesNotMatch(
+    raw,
+    /\.radial-dot\.selected\s+svg\s+circle/,
+    "selected-node contour should come from GraphExplorer/RadialNode outlineColor, not a second CSS color rule",
+  );
+  assert.doesNotMatch(
+    raw,
+    /\.radial-dot\.focal\s+svg\s+circle/,
+    "root-node contour should come from GraphExplorer/RadialNode outlineColor, not a second CSS color rule",
+  );
+
+  const guideRingBlock = raw.match(/\.radial-guide-ring\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  assert.ok(guideRingBlock.length > 0, "globals.css should keep an explicit radial-guide-ring block");
+  assert.doesNotMatch(
+    guideRingBlock,
+    /37,\s*99,\s*235|#2563eb|#3b82f6/i,
+    "guide rings should be neutral geometry, not blue analysis-like strokes",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: root switch has an explicit canvas transition state", () => {
   const filePath = path.join(
     process.cwd(),
@@ -444,6 +473,11 @@ test("GraphExplorer.tsx regression guard: root switch has an explicit canvas tra
     noLineComments,
     /setTimeout\([^,]+,\s*6\d\d\)/,
     "root-transition state should clear after roughly the same duration as the node transform animation",
+  );
+  assert.match(
+    noLineComments,
+    /data-testid="reset-root-node-button"[\s\S]*href="\/graph"/,
+    "resetting the graph root should have an href fallback so returning to the product works before hydration",
   );
 });
 

@@ -394,14 +394,14 @@ function GraphProductStrip({
         <span>{subsystemCount} {copy.majorComponents}</span>
         <span>{routeCount} {copy.costTargets}</span>
         {isCustomRoot ? (
-          <button
-            type="button"
+          <a
             className="graph-root-reset-button"
             data-testid="reset-root-node-button"
+            href="/graph"
             onClick={onResetRoot}
           >
             {copy.resetRoot}
-          </button>
+          </a>
         ) : null}
       </div>
     </div>

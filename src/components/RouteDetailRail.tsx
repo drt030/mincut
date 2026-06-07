@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { nodeTypicalCostRmb, type ColorMode } from "@/lib/edgeStyleFor";
+import { nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import { nodeRisk } from "@/lib/nodeRisk";
 import { selectTopN } from "@/lib/prioritySelection";
 import type { RouteHighlight } from "@/lib/routeHighlight";
@@ -43,6 +43,10 @@ function compactDescription(text: string | undefined): string | null {
   const trimmed = text.trim();
   if (trimmed.length <= 170) return trimmed;
   return `${trimmed.slice(0, 169)}…`;
+}
+
+function graphRootHref(nodeId: string): string {
+  return `/graph?root=${encodeURIComponent(nodeId)}`;
 }
 
 function railAnalysisMode(mode: ColorMode | undefined): RailAnalysisMode {
@@ -253,17 +257,23 @@ export function RouteDetailRail({
           >
             {canSetSelectedAsRoot ? (
               <div className="route-rail-action-row">
-                <button
-                  type="button"
+                <a
                   className="route-rail-action-button"
                   data-testid="set-root-node-button"
+                  href={graphRootHref(selectedNode.id)}
                   aria-label={copy.setAsRootLabel(nodeName(selectedNode.id, selectedNode.name))}
-                  disabled={rootTransitioning}
+                  aria-disabled={rootTransitioning}
                   aria-busy={rootTransitioning}
-                  onClick={() => onSetRootNode?.(selectedNode.id)}
+                  onClick={(event) => {
+                    if (rootTransitioning) {
+                      event.preventDefault();
+                      return;
+                    }
+                    onSetRootNode?.(selectedNode.id);
+                  }}
                 >
                   {rootTransitioning ? copy.settingRoot : copy.setAsRoot}
-                </button>
+                </a>
               </div>
             ) : null}
             <NodeDetailContent
@@ -400,7 +410,7 @@ export function RouteDetailRail({
                       <span>{copy.maturityScore} {formatMaturityScore(selectedNode)}</span>
                     ) : null}
                     {(() => {
-                      const cost = nodeTypicalCostRmb(selectedNode, graph);
+                      const cost = nodeCostSignalRmb(selectedNode, graph);
                       return cost ? <span>{formatRmb(cost)}</span> : null;
                     })()}
                   </div>
@@ -409,17 +419,23 @@ export function RouteDetailRail({
                   ) : null}
                   {canSetSelectedAsRoot ? (
                     <div className="route-rail-action-row">
-                      <button
-                        type="button"
+                      <a
                         className="route-rail-action-button"
                         data-testid="set-root-node-button"
+                        href={graphRootHref(selectedNode.id)}
                         aria-label={copy.setAsRootLabel(nodeName(selectedNode.id, selectedNode.name))}
-                        disabled={rootTransitioning}
+                        aria-disabled={rootTransitioning}
                         aria-busy={rootTransitioning}
-                        onClick={() => onSetRootNode?.(selectedNode.id)}
+                        onClick={(event) => {
+                          if (rootTransitioning) {
+                            event.preventDefault();
+                            return;
+                          }
+                          onSetRootNode?.(selectedNode.id);
+                        }}
                       >
                         {rootTransitioning ? copy.settingRoot : copy.setAsRoot}
-                      </button>
+                      </a>
                     </div>
                   ) : null}
                 </>
