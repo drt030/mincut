@@ -241,5 +241,41 @@
     "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Site-specific spares strategy (pooled vs per-cell stocking) shifts the baseline.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_barcode_ocr_software_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Barcode / OCR software cost allocation - 2025 estimate",
+    "sourceName": "Internal industry-range estimate (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Rough 2025 per-cell allocation for barcode/OCR software integration, label localization, decoder and OCR runtime configuration, no-read recovery, training-data amortization, and benchmark setup. Reader hardware, lighting, compute, and full WCS licensing are costed separately.",
+    "supportsNodeIds": [
+      "barcode_ocr_reading_software",
+      "barcode_ocr_reading_software_cost",
+      "parcel_label_localization",
+      "parcel_label_localization_cost",
+      "industrial_barcode_decoding_runtime",
+      "industrial_barcode_decoding_runtime_cost",
+      "parcel_ocr_model_runtime",
+      "parcel_ocr_model_runtime_cost",
+      "barcode_ocr_no_read_recovery",
+      "barcode_ocr_no_read_recovery_cost",
+      "parcel_label_training_dataset",
+      "parcel_label_training_dataset_cost",
+      "barcode_ocr_benchmark_metrics",
+      "barcode_ocr_benchmark_metrics_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_barcode_ocr_reading_software_measured_by_cost",
+      "e_parcel_label_localization_measured_by_cost",
+      "e_industrial_barcode_decoding_runtime_measured_by_cost",
+      "e_parcel_ocr_model_runtime_measured_by_cost",
+      "e_barcode_ocr_no_read_recovery_measured_by_cost",
+      "e_parcel_label_training_dataset_measured_by_cost",
+      "e_barcode_ocr_benchmark_metrics_measured_by_cost"
+    ],
+    "limitations": "Internal placeholder only. It is useful for recursive cost visibility but must be replaced by vendor quotes, teardown evidence, or project-specific engineering amortization before review.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]

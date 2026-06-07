@@ -19,9 +19,9 @@ import type { GraphData } from "../src/lib/schema";
 // ------------------------------------------------------------------
 // Fixture: the real loaded dataset.
 //
-// At the 2026-06-07 controller/I-O decomposition pass:
+// At the 2026-06-07 barcode/OCR software decomposition pass:
 //   - The focal product `low_cost_parcel_sorting_robot_300k_rmb` has
-//     78 `requires`-reachable structural nodes (pinned in
+//     84 `requires`-reachable structural nodes (pinned in
 //     tests/focusedSubset.test.ts test 2).
 //   - The full dataset is meaningfully larger than the focal subtree
 //     (siblings: iphone_4, materials only used by the case study,
@@ -151,8 +151,8 @@ test("selectTopN(bottleneck-risk, n=10): returns at most 10 entries", () => {
 // ==================================================================
 //
 // When the caller passes `null`, `selectTopN` MUST scope to the
-// structural focal-subtree (size 78 after the controller/I-O decomposition
-// backfill), NOT the full
+// structural focal-subtree (size 84 after the barcode/OCR software
+// decomposition backfill), NOT the full
 // loaded dataset. The dataset includes siblings (e.g. `iphone_4`)
 // and materials only the case study uses — those MUST be excluded.
 // ==================================================================
@@ -162,8 +162,8 @@ test("selectTopN(focusedSubsetIds=null): scope is the focal subtree, not the ful
   // and the assertion text below must be re-pinned.
   assert.equal(
     focalIds.size,
-    78,
-    `oracle: focal subtree should be 78 after the controller/I-O decomposition pass; got ${focalIds.size}`,
+    84,
+    `oracle: focal subtree should be 84 after the barcode/OCR software decomposition pass; got ${focalIds.size}`,
   );
   assert.ok(
     graph.nodes.length > focalIds.size,

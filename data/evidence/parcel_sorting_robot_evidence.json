@@ -1128,15 +1128,161 @@
     "date": "2026-06-07",
     "summary": "Cognex product materials describe machine-vision systems, barcode readers, and software relevant to parcel identification.",
     "supportsNodeIds": [
-      "org_cognex"
+      "org_cognex",
+      "barcode_ocr_reading_software",
+      "parcel_label_localization",
+      "industrial_barcode_decoding_runtime"
     ],
     "supportsEdgeIds": [
       "e_mfg_industrial_area_scan_camera_cognex",
       "e_mfg_barcode_ocr_cognex",
       "e_mfg_parcel_detection_tracking_cognex",
-      "e_mfg_vision_recognition_cognex"
+      "e_mfg_vision_recognition_cognex",
+      "e_barcode_ocr_requires_label_localization",
+      "e_barcode_ocr_requires_decoder_runtime"
     ],
     "limitations": "Product-line evidence; no target-cell market-share claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_barcode_ocr_cognex_no_reads_2026",
+    "type": "expert_review",
+    "title": "Cognex no-read guidance for industrial barcode readers",
+    "url": "https://www.cognex.cn/zh-cn/blogs/industrial-barcode-reader/no-reads",
+    "sourceName": "Cognex",
+    "date": "2026-06-07",
+    "summary": "Cognex guidance treats no-reads as an important distribution-center metric because failed reads can require manual handling or keying; it also discusses damaged or imperfect codes.",
+    "supportsNodeIds": [
+      "barcode_ocr_reading_software",
+      "barcode_ocr_no_read_recovery",
+      "barcode_ocr_benchmark_metrics",
+      "parcel_label_training_dataset"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_barcode_ocr_cognex",
+      "e_barcode_ocr_requires_no_read_recovery",
+      "e_barcode_ocr_requires_training_dataset",
+      "e_barcode_ocr_requires_benchmark_metrics"
+    ],
+    "limitations": "Vendor educational content; it supports the existence of the no-read problem but not target-cell field rates or cost.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_barcode_ocr_cognex_ocrmax_2026",
+    "type": "product_page",
+    "title": "Cognex OCRMax vision tool",
+    "url": "https://www.cognex.com/products/machine-vision/vision-tools/rule-based-tools/identification/ocrmax",
+    "sourceName": "Cognex",
+    "date": "2026-06-07",
+    "summary": "Cognex product materials describe OCRMax as a font-trainable OCR/OCV tool for difficult-to-read characters, supporting the separate OCR-runtime layer.",
+    "supportsNodeIds": [
+      "parcel_ocr_model_runtime"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_barcode_ocr_cognex",
+      "e_barcode_ocr_requires_ocr_runtime"
+    ],
+    "limitations": "Product-page evidence; does not prove parcel-label OCR performance in the target low-cost cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_barcode_ocr_zebra_fis_mv_2025",
+    "type": "news",
+    "title": "Zebra fixed industrial scanning and logistics automation releases",
+    "url": "https://investors.zebra.com/news-and-events/news/news-details/2025/Zebra-Technologies-Unveils-Solutions-Advancing-Intelligent-Automation-at-ProMat-2025/default.aspx",
+    "sourceName": "Zebra Technologies",
+    "date": "2026-06-07",
+    "summary": "Zebra investor materials describe fixed industrial scanning, machine vision, Aurora software, and a high-speed package-sorting scan tunnel with barcode reading, OCR, dimensioning, label detection, and damage detection.",
+    "supportsNodeIds": [
+      "org_zebra_technologies",
+      "barcode_ocr_reading_software",
+      "parcel_label_localization",
+      "industrial_barcode_decoding_runtime",
+      "parcel_ocr_model_runtime",
+      "barcode_ocr_no_read_recovery",
+      "parcel_label_training_dataset"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_barcode_ocr_zebra",
+      "e_barcode_ocr_requires_label_localization",
+      "e_barcode_ocr_requires_decoder_runtime",
+      "e_barcode_ocr_requires_ocr_runtime",
+      "e_barcode_ocr_requires_no_read_recovery",
+      "e_barcode_ocr_requires_training_dataset"
+    ],
+    "limitations": "Company investor/news material; product-line scope only, with no target-cell adoption, share, or pricing evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_barcode_ocr_datalogic_logistics_2026",
+    "type": "product_page",
+    "title": "Datalogic logistics barcode and vision products",
+    "url": "https://www.datalogic.com/eng/industries-applications/transportation-logistics/logistics-so-24.html",
+    "sourceName": "Datalogic",
+    "date": "2026-06-07",
+    "summary": "Datalogic logistics materials describe vision systems, smart cameras, sensors, and fixed barcode readers for tracking items on high-speed conveyors.",
+    "supportsNodeIds": [
+      "org_datalogic",
+      "barcode_ocr_reading_software",
+      "industrial_barcode_decoding_runtime"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_barcode_ocr_datalogic",
+      "e_barcode_ocr_requires_decoder_runtime"
+    ],
+    "limitations": "Vendor application page; no target-cell supplier status, pricing, or market-share evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_barcode_ocr_sick_clv65x_2026",
+    "type": "product_page",
+    "title": "SICK CLV65x fixed-mount barcode scanner",
+    "url": "https://www.sick.com/us/en/catalog/products/machine-vision-and-identification/fixed-mount-barcode-scanners/clv65x/c/g79879",
+    "sourceName": "SICK",
+    "date": "2026-06-07",
+    "summary": "SICK product materials describe fixed-mount barcode scanning for conveyor contexts, including diagnostics, read-rate statistics, and decoding of damaged, poorly printed, or partially covered barcodes.",
+    "supportsNodeIds": [
+      "org_sick",
+      "barcode_ocr_reading_software",
+      "industrial_barcode_decoding_runtime",
+      "barcode_ocr_no_read_recovery",
+      "barcode_ocr_benchmark_metrics"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_barcode_ocr_sick",
+      "e_barcode_ocr_requires_decoder_runtime",
+      "e_barcode_ocr_requires_no_read_recovery",
+      "e_barcode_ocr_requires_benchmark_metrics"
+    ],
+    "limitations": "Vendor product-page evidence; not a parcel-cell benchmark or target-product supplier confirmation.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_hikrobot_logistic_code_reader_2026",
+    "type": "product_page",
+    "title": "Hikrobot logistic code reader product page",
+    "url": "https://www.hikrobotics.com/en/machinevision/productdetail/?id=5712",
+    "sourceName": "Hikrobot",
+    "date": "2026-06-07",
+    "summary": "Hikrobot product materials identify the company as a machine-vision and mobile-robot product supplier; the indexed page is a logistic code reader product page relevant to parcel barcode reading.",
+    "supportsNodeIds": [
+      "org_hikrobot",
+      "barcode_ocr_reading_software",
+      "parcel_label_localization",
+      "industrial_barcode_decoding_runtime"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_barcode_ocr_hikrobot",
+      "e_barcode_ocr_requires_label_localization",
+      "e_barcode_ocr_requires_decoder_runtime"
+    ],
+    "limitations": "Product-page/index evidence only; no target-cell BOM or performance benchmark.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },

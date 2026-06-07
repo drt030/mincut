@@ -103,3 +103,33 @@ test("robot controller and I/O children carry explicit low-confidence cost place
     assert.equal(typeof cost?.currentValue?.max, "number", `${edge!.target} must expose a numeric max cost`);
   }
 });
+
+test("barcode OCR reading software exposes the hard software subproblems", () => {
+  const graph = loadGraphData();
+  const node = nodeById(graph, "barcode_ocr_reading_software");
+  assert.ok(node, "barcode_ocr_reading_software must exist");
+  assert.equal(
+    node!.tags?.includes("decomposition_frontier"),
+    false,
+    "barcode_ocr_reading_software should not remain a frontier once its no-read software layer is added",
+  );
+
+  const children = graph.edges
+    .filter((edge) => edge.source === "barcode_ocr_reading_software" && edge.relation === "requires")
+    .map((edge) => edge.target);
+
+  for (const id of [
+    "parcel_label_localization",
+    "industrial_barcode_decoding_runtime",
+    "parcel_ocr_model_runtime",
+    "barcode_ocr_no_read_recovery",
+    "parcel_label_training_dataset",
+    "barcode_ocr_benchmark_metrics",
+  ]) {
+    assert.ok(children.includes(id), `barcode_ocr_reading_software must require ${id}`);
+    assert.ok(nodeById(graph, id), `${id} node must exist`);
+  }
+
+  const costEdge = graph.edges.find((edge) => edge.source === "barcode_ocr_reading_software" && edge.relation === "measured_by");
+  assert.ok(costEdge, "barcode_ocr_reading_software must carry an explicit cost placeholder");
+});

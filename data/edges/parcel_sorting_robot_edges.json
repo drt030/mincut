@@ -1170,6 +1170,95 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_barcode_ocr_requires_label_localization",
+    "source": "barcode_ocr_reading_software",
+    "target": "parcel_label_localization",
+    "relation": "requires",
+    "claim": "Barcode/OCR reading requires label localization before decoding or text recognition can be applied reliably.",
+    "context": "Software decomposition backfill for the parcel-sorting cell; label-region detection is separated from decoder/OCR runtime because glare, skew, occlusion, and multiple labels can fail earlier in the pipeline.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_barcode_ocr_requires_decoder_runtime",
+    "source": "barcode_ocr_reading_software",
+    "target": "industrial_barcode_decoding_runtime",
+    "relation": "requires",
+    "claim": "Barcode/OCR reading requires an industrial barcode decoding runtime for 1D and 2D parcel codes.",
+    "context": "Software decomposition backfill; candidate suppliers advertise fixed readers, code readers, and scanning systems for logistics, but target-cell supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_barcode_ocr_datalogic_logistics_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_barcode_ocr_sick_clv65x_2026",
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_barcode_ocr_requires_ocr_runtime",
+    "source": "barcode_ocr_reading_software",
+    "target": "parcel_ocr_model_runtime",
+    "relation": "requires",
+    "claim": "Barcode/OCR reading requires a separate OCR runtime when parcel label text must be read as a fallback or routing token.",
+    "context": "Software decomposition backfill; OCR behavior is distinct from barcode decoding and depends on label typography, image quality, and benchmark coverage.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_ocrmax_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_barcode_ocr_requires_no_read_recovery",
+    "source": "barcode_ocr_reading_software",
+    "target": "barcode_ocr_no_read_recovery",
+    "relation": "requires",
+    "claim": "Barcode/OCR reading requires explicit no-read recovery so unread parcels do not silently become manual exceptions.",
+    "context": "Software decomposition backfill; failed reads need retry, diagnostics, confidence thresholds, WCS exception routing, and manual-keying handoff.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026",
+      "ev_barcode_ocr_sick_clv65x_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_barcode_ocr_requires_training_dataset",
+    "source": "barcode_ocr_reading_software",
+    "target": "parcel_label_training_dataset",
+    "relation": "requires",
+    "claim": "Barcode/OCR reading requires parcel-label image and annotation data to tune localization, OCR, no-read handling, and benchmark coverage.",
+    "context": "Software/data decomposition backfill. Dataset scope remains unreviewed and should be split further once project-specific parcel, lighting, and label conditions are known.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_barcode_ocr_cognex_no_reads_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_barcode_ocr_requires_benchmark_metrics",
+    "source": "barcode_ocr_reading_software",
+    "target": "barcode_ocr_benchmark_metrics",
+    "relation": "requires",
+    "claim": "Barcode/OCR reading requires benchmark metrics for read rate, no-read rate, false reads, latency, and exception rate under parcel-cell conditions.",
+    "context": "Benchmark decomposition backfill. This makes gate gaps explicit instead of substituting vendor product claims for measured field performance.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026",
+      "ev_barcode_ocr_sick_clv65x_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_servo_drive_power_stage_requires_semiconductors",
     "source": "servo_drive_power_stage",
     "target": "semiconductor_grade_silicon_and_electronics",
@@ -1792,6 +1881,90 @@
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
+    "id": "e_barcode_ocr_reading_software_measured_by_cost",
+    "source": "barcode_ocr_reading_software",
+    "target": "barcode_ocr_reading_software_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR software cost-allocation backfill. Excludes reader hardware, lighting, compute, and full WCS license costs."
+  },
+  {
+    "id": "e_parcel_label_localization_measured_by_cost",
+    "source": "parcel_label_localization",
+    "target": "parcel_label_localization_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR child allocation backfill. Replace with vendor quote or internal engineering amortization once reviewed."
+  },
+  {
+    "id": "e_industrial_barcode_decoding_runtime_measured_by_cost",
+    "source": "industrial_barcode_decoding_runtime",
+    "target": "industrial_barcode_decoding_runtime_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR child allocation backfill. Decoder runtime may be bundled with reader hardware in real quotes."
+  },
+  {
+    "id": "e_parcel_ocr_model_runtime_measured_by_cost",
+    "source": "parcel_ocr_model_runtime",
+    "target": "parcel_ocr_model_runtime_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR child allocation backfill for parcel-label OCR runtime configuration and validation."
+  },
+  {
+    "id": "e_barcode_ocr_no_read_recovery_measured_by_cost",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "barcode_ocr_no_read_recovery_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR child allocation backfill. Does not include operational labor for manual exception handling."
+  },
+  {
+    "id": "e_parcel_label_training_dataset_measured_by_cost",
+    "source": "parcel_label_training_dataset",
+    "target": "parcel_label_training_dataset_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR child allocation backfill for amortized labeling and dataset maintenance."
+  },
+  {
+    "id": "e_barcode_ocr_benchmark_metrics_measured_by_cost",
+    "source": "barcode_ocr_benchmark_metrics",
+    "target": "barcode_ocr_benchmark_metrics_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Barcode/OCR child allocation backfill for benchmark definition and repeatable acceptance checks."
+  },
+  {
     "id": "e_maintenance_workflow_measured_by_cost",
     "source": "maintenance_workflow",
     "target": "maintenance_workflow_cost",
@@ -2164,7 +2337,8 @@
     "context": "China industrial camera shipment share is 2021 and should not be treated as current without refresh.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_mfg_hikrobot_ipo_machine_vision_share"
+      "ev_mfg_hikrobot_ipo_machine_vision_share",
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2190,7 +2364,48 @@
     "context": "Product-line evidence; exact parcel-cell share not verified.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_mfg_cognex_machine_vision_code_readers"
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_barcode_ocr_cognex_no_reads_2026",
+      "ev_barcode_ocr_cognex_ocrmax_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_barcode_ocr_datalogic",
+    "source": "barcode_ocr_reading_software",
+    "target": "org_datalogic",
+    "relation": "manufactured_by",
+    "claim": "Datalogic supplies fixed barcode readers, smart cameras, sensors, and logistics scanning products relevant to barcode/OCR reading.",
+    "context": "Product-line evidence; exact target-product supplier status and parcel-cell share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_datalogic_logistics_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_barcode_ocr_zebra",
+    "source": "barcode_ocr_reading_software",
+    "target": "org_zebra_technologies",
+    "relation": "manufactured_by",
+    "claim": "Zebra Technologies supplies fixed industrial scanning, machine-vision, Aurora software, and logistics scan-tunnel products relevant to barcode/OCR reading.",
+    "context": "Product-line and investor-release evidence; exact target-product supplier status and parcel-cell share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_barcode_ocr_sick",
+    "source": "barcode_ocr_reading_software",
+    "target": "org_sick",
+    "relation": "manufactured_by",
+    "claim": "SICK supplies fixed-mount barcode scanners and identification diagnostics relevant to barcode/OCR reading.",
+    "context": "Product-line evidence; exact target-product supplier status and parcel-cell share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_sick_clv65x_2026"
     ],
     "reviewStatus": "unreviewed"
   },

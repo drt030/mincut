@@ -75,6 +75,23 @@ test("robot controller and I/O exposes PLC and motion-control supplier candidate
   }
 });
 
+test("barcode OCR reading software exposes logistics code-reader supplier candidates", () => {
+  const manufacturers = manufacturersForNode(graph, "barcode_ocr_reading_software").map((node) => node.id);
+
+  for (const id of [
+    "org_cognex",
+    "org_hikrobot",
+    "org_datalogic",
+    "org_zebra_technologies",
+    "org_sick",
+  ]) {
+    assert.ok(
+      manufacturers.includes(id),
+      `barcode_ocr_reading_software must expose ${id} as a code-reader supplier candidate`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

@@ -217,16 +217,197 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_banner_conveying_sortation_sensors"
+      "ev_banner_conveying_sortation_sensors",
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_barcode_ocr_cognex_no_reads_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_barcode_ocr_datalogic_logistics_2026",
+      "ev_barcode_ocr_sick_clv65x_2026",
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
     ],
     "tags": [
       "barcode",
       "ocr",
       "software",
-      "perception",
+      "perception"
+    ],
+    "notes": "Expanded on 2026-06-07 into label localization, barcode decoding runtime, OCR runtime, no-read recovery, training data, and benchmark metrics. Supplier links remain candidate product-line evidence, not confirmed target-cell BOM."
+  },
+  {
+    "id": "parcel_label_localization",
+    "name": "Parcel label localization",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Vision software that finds barcode and text label regions on parcels before decoding or OCR, including multi-label, skew, glare, and partial-occlusion cases.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
+    ],
+    "tags": [
+      "label_localization",
+      "machine_vision",
+      "barcode",
+      "ocr",
+      "software"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Localization is separated because reflective, wrinkled, and partially covered parcel labels can fail before any decoder or OCR model runs."
+  },
+  {
+    "id": "industrial_barcode_decoding_runtime",
+    "name": "Industrial barcode decoding runtime",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Industrial decoder runtime for 1D and 2D parcel barcodes, including high-speed conveyor operation, multiple symbologies, damaged-code handling, and reader diagnostics.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_barcode_ocr_datalogic_logistics_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_barcode_ocr_sick_clv65x_2026",
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
+    ],
+    "tags": [
+      "barcode",
+      "decoder",
+      "industrial_software",
+      "machine_vision"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "The decoder layer is commercially mature in product-line evidence, but parcel-cell fit still depends on optics, lighting, speed, code quality, and integration."
+  },
+  {
+    "id": "parcel_ocr_model_runtime",
+    "name": "Parcel OCR model runtime",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "OCR runtime for parcel label text such as printed addresses, route codes, service labels, or fallback tokens when barcode reads are unavailable.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_ocrmax_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "tags": [
+      "ocr",
+      "label_text",
+      "deep_learning",
+      "software"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "OCR is kept separate from barcode decoding because label text fallback has different data, latency, accuracy, and exception-handling risks."
+  },
+  {
+    "id": "barcode_ocr_no_read_recovery",
+    "name": "Barcode / OCR no-read recovery",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Exception-handling loop for failed barcode or OCR reads, including retry logic, confidence thresholds, diagnostics, manual keying handoff, and WCS exception routing.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026",
+      "ev_barcode_ocr_sick_clv65x_2026",
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "tags": [
+      "no_read",
+      "exception_handling",
+      "manual_intervention",
+      "wcs",
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "No-read recovery is modeled as a bottleneck because failed reads can turn an automated cell into a manual exception workflow even when readers and OCR tools are available."
+  },
+  {
+    "id": "parcel_label_training_dataset",
+    "name": "Parcel label training dataset",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "data"
+    ],
+    "description": "Curated parcel-label image and annotation set for localization, OCR, no-read analysis, glare/occlusion cases, and parcel-type coverage.",
+    "maturityScore": 45,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025",
+      "ev_barcode_ocr_cognex_no_reads_2026"
+    ],
+    "tags": [
+      "dataset",
+      "labeling",
+      "machine_vision",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include barcode symbologies, OCR model, no-read handling, label localization, glare/occlusion handling, and benchmark metrics."
+    "frontierFor": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Dataset scope remains a frontier: the next layer should split collection, labeling, synthetic augmentation, privacy handling, and benchmark holdout coverage."
+  },
+  {
+    "id": "barcode_ocr_benchmark_metrics",
+    "name": "Barcode / OCR benchmark protocol",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Benchmark protocol for read rate, no-read rate, false read rate, latency, damaged-label coverage, OCR confidence, and manual-exception rate under parcel-cell conditions.",
+    "maturityScore": 48,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026",
+      "ev_barcode_ocr_sick_clv65x_2026"
+    ],
+    "tags": [
+      "benchmark",
+      "read_rate",
+      "no_read",
+      "latency",
+      "metric_protocol"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Benchmarking is modeled explicitly so gate reports can expose missing read-rate and exception-rate evidence instead of relying on vendor product claims."
   },
   {
     "id": "parcel_detection_and_tracking",
@@ -3944,6 +4125,265 @@
     ]
   },
   {
+    "id": "barcode_ocr_reading_software_cost",
+    "name": "Barcode / OCR reading software cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for barcode/OCR software integration, decoder/OCR runtime licensing, no-read handling, and benchmark setup. Reader hardware and compute are costed separately.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 2000,
+          "typical": 5000,
+          "max": 12000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 per-cell allocation. The figure is scoped to software/integration only, excluding camera, lighting, compute, and full WCS license costs.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "parcel_label_localization_cost",
+    "name": "Parcel label localization cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for label-region localization tuning, configuration, and validation.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 900,
+          "max": 2500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Small software-allocation placeholder; replace with vendor quote or internal engineering amortization once reviewed.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "industrial_barcode_decoding_runtime_cost",
+    "name": "Industrial barcode decoding runtime cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for barcode decoder runtime licensing or bundled configuration inside the parcel identification pipeline.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 1000,
+          "max": 2500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation only. Some vendors bundle decoding with reader hardware; this node keeps the software dependency visible without asserting separate line-item pricing.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "parcel_ocr_model_runtime_cost",
+    "name": "Parcel OCR model runtime cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for OCR model runtime configuration and validation for parcel label text fallback.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 800,
+          "max": 2200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation for OCR runtime and tuning. Training data and benchmark work are represented by separate child metrics.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "barcode_ocr_no_read_recovery_cost",
+    "name": "Barcode / OCR no-read recovery cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for no-read retry logic, confidence thresholds, diagnostics, WCS exception handoff, and manual-keying workflow integration.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 700,
+          "max": 2000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation for exception handling. The operational cost of manual exception labor is not included here.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "parcel_label_training_dataset_cost",
+    "name": "Parcel label training dataset cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "data"
+    ],
+    "description": "Allocated per-cell amortized cost for parcel-label data collection, annotation, and dataset maintenance used by localization/OCR/no-read analysis.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 200,
+          "typical": 400,
+          "max": 1500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Very rough amortized allocation. This excludes any large one-off data program and should be replaced with project-specific labeling economics.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "barcode_ocr_benchmark_metrics_cost",
+    "name": "Barcode / OCR benchmark protocol cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for defining and running barcode/OCR benchmark checks such as read rate, false read rate, latency, and exception rate.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 100,
+          "typical": 250,
+          "max": 800
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Small placeholder allocation for benchmark design and repeatable acceptance checks, not ongoing production QA labor.",
+    "evidenceIds": [
+      "ev_barcode_ocr_software_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
     "id": "maintenance_workflow_cost",
     "name": "Maintenance workflow first-year spares and tooling cost",
     "kind": "metric",
@@ -4534,6 +4974,70 @@
     "maturityLabel": "unknown"
   },
   {
+    "id": "org_datalogic",
+    "name": "Datalogic",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "barcode",
+      "logistics_automation",
+      "investable_supplier"
+    ],
+    "description": "Italian automatic data capture and industrial automation supplier with fixed barcode readers, vision systems, smart cameras, sensors, and logistics applications.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "DAL.MI"
+      }
+    ],
+    "evidenceIds": [
+      "ev_barcode_ocr_datalogic_logistics_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "barcode",
+      "logistics_automation",
+      "public_company"
+    ],
+    "notes": "Investor relevance: listed exposure to industrial code readers and logistics scanning; exact parcel-cell market share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_zebra_technologies",
+    "name": "Zebra Technologies",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "barcode",
+      "logistics_automation",
+      "investable_supplier"
+    ],
+    "description": "U.S. enterprise-asset and barcode supplier with fixed industrial scanning, machine vision, Aurora software, and high-speed logistics scan-tunnel products.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ZBRA"
+      }
+    ],
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "barcode",
+      "logistics_automation",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public-equity exposure to logistics barcode scanning and machine-vision automation; target product supplier status is not confirmed.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
     "id": "org_basler",
     "name": "Basler",
     "kind": "organization",
@@ -4988,9 +5492,11 @@
     "kind": "organization",
     "domain": [
       "safety_system",
-      "sensor"
+      "sensor",
+      "machine_vision",
+      "barcode"
     ],
-    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, and photoelectric sensors.",
+    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, photoelectric sensors, fixed-mount barcode scanners, and identification diagnostics.",
     "confidence": "medium",
     "metrics": [
       {
@@ -4999,15 +5505,18 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_sick_safety_light_curtains"
+      "ev_mfg_sick_safety_light_curtains",
+      "ev_barcode_ocr_sick_clv65x_2026"
     ],
     "tags": [
       "manufacturer",
       "safety",
       "sensor",
+      "machine_vision",
+      "barcode",
       "private_company"
     ],
-    "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited but safety reliability is adoption-critical.",
+    "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited, but safety and code-reading reliability are adoption-critical.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },
