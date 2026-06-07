@@ -1163,13 +1163,189 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_robot_controller_io_omron_nx_safety_2026",
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_mfg_schneider_modicon_plc"
+    ],
     "tags": [
       "controller",
       "integration",
-      "robot_arm",
-      "decomposition_frontier"
+      "robot_arm"
     ],
-    "notes": "Expansion frontier: next layer should cover controller hardware, real-time control software, fieldbus, safety I/O, vision/conveyor integration, diagnostics, and maintainability."
+    "notes": "Expanded on 2026-06-07 to expose the control-stack layer a stock investor or founder would inspect: controller CPU, real-time runtime, fieldbus, safety I/O, external I/O, and diagnostics. Supplier links are candidates only and do not prove the exact BOM for the 300,000 RMB parcel cell."
+  },
+  {
+    "id": "robot_controller_cpu_module",
+    "name": "Robot controller CPU module",
+    "kind": "equipment",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Industrial controller CPU or embedded motion controller that runs robot-control tasks, I/O coordination, fieldbus masters, and cell-level integration logic.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_siemens_simatic_plc",
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "tags": [
+      "controller",
+      "plc",
+      "motion_control",
+      "robot_arm"
+    ],
+    "notes": "Investor lens: controller CPU exposure maps to PLC, PAC, and motion-control suppliers. The v0 product can use a robot OEM controller, a separate machine controller, or an integrated low-cost motion controller; this node models the purchasable control hardware layer rather than a confirmed SKU."
+  },
+  {
+    "id": "robot_realtime_control_runtime",
+    "name": "Robot real-time control runtime",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Real-time software runtime for servo coordination, robot motion primitives, PLC logic, interpolation, watchdogs, and deterministic task scheduling.",
+    "maturityScore": 64,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_robot_controller_io_omron_nx_safety_2026"
+    ],
+    "tags": [
+      "control_software",
+      "real_time",
+      "motion_control",
+      "robot_arm"
+    ],
+    "notes": "Bottleneck relevance is integration quality, not basic availability: the hard part for a parcel cell is deterministic coordination with vision, conveyor timing, safety stops, and fault recovery under low-cost hardware constraints."
+  },
+  {
+    "id": "robot_fieldbus_gateway",
+    "name": "Robot fieldbus gateway",
+    "kind": "equipment",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Industrial network interface layer for EtherCAT, PROFINET, EtherNet/IP, Modbus TCP/RTU, OPC UA, or vendor robot-bus connections between controller, servo drives, remote I/O, safety, and WCS/PLC systems.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_robot_controller_io_omron_nx_safety_2026",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "tags": [
+      "fieldbus",
+      "industrial_ethernet",
+      "integration",
+      "robot_arm"
+    ],
+    "notes": "Startup lens: this is a common source of commissioning cost and schedule risk because the physical product may be mature while exact protocol mapping, timing, and diagnostics are project-specific."
+  },
+  {
+    "id": "robot_safety_io_interface",
+    "name": "Robot safety I/O interface",
+    "kind": "equipment",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls",
+      "safety_system"
+    ],
+    "description": "Safety-rated input/output interface that carries E-stop, guard-door, light-curtain, safety scanner, enabling, and safe-stop signals between the robot controller, safety PLC, and servo STO channels.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_omron_nx_safety_2026",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "tags": [
+      "safety_io",
+      "safety",
+      "fieldbus",
+      "robot_arm"
+    ],
+    "notes": "Safety I/O is commercially available, but low-cost deployments are constrained by risk assessment, validated stop behavior, wiring discipline, and restart/fault handling. This links the robot-control stack to the broader safety_system branch."
+  },
+  {
+    "id": "robot_external_io_sensor_interface",
+    "name": "Robot external I/O and sensor interface",
+    "kind": "equipment",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Digital, analog, and networked I/O that connects vacuum valves, pressure sensors, conveyor encoder pulses, photoeyes, stack lights, cabinet signals, and local maintenance controls to the robot/controller stack.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_robot_controller_io_omron_nx_safety_2026"
+    ],
+    "tags": [
+      "industrial_io",
+      "sensor_interface",
+      "valve_control",
+      "robot_arm"
+    ],
+    "notes": "Cost and reliability depend on channel count, IP rating, connectorization, spare channels, and diagnostics. For parcel sorting, this layer is where suction, conveyor, and exception-handling signals become observable to the controller."
+  },
+  {
+    "id": "robot_controller_diagnostics_interface",
+    "name": "Robot controller diagnostics interface",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls",
+      "maintenance"
+    ],
+    "description": "Diagnostic, remote-commissioning, logging, HMI, and maintenance interface for controller state, I/O faults, servo alarms, safety faults, timing errors, and recovery workflows.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "tags": [
+      "diagnostics",
+      "maintenance",
+      "commissioning",
+      "robot_arm"
+    ],
+    "notes": "The hardware and vendor tools exist, but the parcel-cell value depends on app-specific fault taxonomy, recoverability, and logs that help a low-skill operator restore flow without a controls engineer on site."
   },
   {
     "id": "robot_cabling_and_power",
@@ -2849,6 +3025,230 @@
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
     "evidenceIds": [
       "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "robot_controller_cpu_module_cost",
+    "name": "Robot controller CPU module cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Allocated cost contribution of the controller CPU or embedded motion-controller hardware inside the robot controller and I/O bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 700,
+          "typical": 1200,
+          "max": 3000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Controller/I-O child allocation backfill. This is not a supplier quote; it keeps the recursive cost model explicit until a BOM, controller SKU, or teardown replaces it.",
+    "evidenceIds": [
+      "ev_robot_controller_io_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "robot_realtime_control_runtime_cost",
+    "name": "Robot real-time control runtime cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Allocated cost contribution of bundled runtime, motion-control libraries, and controller firmware configuration inside the robot controller and I/O bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 0,
+          "typical": 150,
+          "max": 600
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Controller/I/O child allocation backfill. Low-cost robot controllers often bundle the runtime with hardware, so this is a small allocated cost placeholder rather than a separately quoted software license.",
+    "evidenceIds": [
+      "ev_robot_controller_io_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "robot_fieldbus_gateway_cost",
+    "name": "Robot fieldbus gateway cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Allocated cost contribution of fieldbus, industrial Ethernet, and gateway interface hardware inside the robot controller and I/O bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 200,
+          "typical": 400,
+          "max": 1200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Controller/I/O child allocation backfill. Actual cost depends on whether EtherCAT, PROFINET, EtherNet/IP, Modbus, or vendor robot-bus interfaces are native or require add-on modules.",
+    "evidenceIds": [
+      "ev_robot_controller_io_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "robot_safety_io_interface_cost",
+    "name": "Robot safety I/O interface cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls",
+      "safety_system"
+    ],
+    "description": "Allocated cost contribution of safety-rated I/O channels, safe-stop interfaces, and E-stop/guard integration inside the robot controller and I/O bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 600,
+          "max": 1800
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Controller/I/O child allocation backfill. It captures the controller-side safety interface only; the broader cell safety system remains costed separately.",
+    "evidenceIds": [
+      "ev_robot_controller_io_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "robot_external_io_sensor_interface_cost",
+    "name": "Robot external I/O and sensor interface cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
+    "description": "Allocated cost contribution of digital, analog, and networked I/O channels that connect valves, sensors, encoders, photoeyes, and cabinet signals to the robot controller.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 200,
+          "typical": 350,
+          "max": 1200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Controller/I/O child allocation backfill. Replace with an explicit channel-count BOM once the parcel-cell wiring and sensor map are reviewed.",
+    "evidenceIds": [
+      "ev_robot_controller_io_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "robot_controller_diagnostics_interface_cost",
+    "name": "Robot controller diagnostics interface cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls",
+      "maintenance"
+    ],
+    "description": "Allocated cost contribution of bundled diagnostics, logging, remote commissioning hooks, and controller maintenance interface inside the robot controller and I/O bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 0,
+          "typical": 150,
+          "max": 500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Controller/I/O child allocation backfill. Most value here is integration and recoverability work; this metric is only the controller-bundle allocation, not full field commissioning labor.",
+    "evidenceIds": [
+      "ev_robot_controller_io_child_cost_backfill_2025"
     ],
     "tags": [
       "cost",

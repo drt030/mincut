@@ -58,6 +58,23 @@ test("servo motor component exposes servo-system manufacturer candidates", () =>
   );
 });
 
+test("robot controller and I/O exposes PLC and motion-control supplier candidates", () => {
+  const manufacturers = manufacturersForNode(graph, "robot_controller_io").map((node) => node.id);
+
+  for (const id of [
+    "org_siemens",
+    "org_inovance",
+    "org_mitsubishi_electric",
+    "org_rockwell_automation",
+    "org_schneider_electric",
+  ]) {
+    assert.ok(
+      manufacturers.includes(id),
+      `robot_controller_io must expose ${id} as a controller/I-O supplier candidate`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

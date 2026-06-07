@@ -45,3 +45,61 @@ test("active suction product and gripper sibling use distinct end-effector modul
   assert.ok(gripperEndEffector, "gripper sibling should have its own placeholder module");
   assert.equal(gripperEdge?.target, "mechanical_gripper_end_effector_module");
 });
+
+test("robot controller and I/O is recursively decomposed instead of remaining a leaf frontier", () => {
+  const graph = loadGraphData();
+  const node = nodeById(graph, "robot_controller_io");
+  assert.ok(node, "robot_controller_io must exist");
+  assert.equal(
+    node!.tags?.includes("decomposition_frontier"),
+    false,
+    "robot_controller_io should not remain a frontier once its controls/I-O layer is added",
+  );
+
+  const children = graph.edges
+    .filter((edge) => edge.source === "robot_controller_io" && edge.relation === "requires")
+    .map((edge) => edge.target);
+
+  for (const id of [
+    "robot_controller_cpu_module",
+    "robot_realtime_control_runtime",
+    "robot_fieldbus_gateway",
+    "robot_safety_io_interface",
+    "robot_external_io_sensor_interface",
+    "robot_controller_diagnostics_interface",
+  ]) {
+    assert.ok(children.includes(id), `robot_controller_io must require ${id}`);
+    assert.ok(nodeById(graph, id), `${id} node must exist`);
+  }
+});
+
+test("robot controller and I/O children carry explicit low-confidence cost placeholders", () => {
+  const graph = loadGraphData();
+
+  for (const id of [
+    "robot_controller_cpu_module",
+    "robot_realtime_control_runtime",
+    "robot_fieldbus_gateway",
+    "robot_safety_io_interface",
+    "robot_external_io_sensor_interface",
+    "robot_controller_diagnostics_interface",
+  ]) {
+    const edge = graph.edges.find((candidate) => candidate.source === id && candidate.relation === "measured_by");
+    assert.ok(edge, `${id} must have a measured_by cost edge`);
+
+    const metric = nodeById(graph, edge!.target);
+    assert.equal(metric?.kind, "metric", `${edge!.target} must be a metric node`);
+    assert.equal(metric?.confidence, "low", `${edge!.target} should remain low-confidence until supplier/teardown review`);
+    assert.equal(metric?.reviewStatus, "unreviewed", `${edge!.target} should not be treated as reviewed cost evidence`);
+
+    const cost = metric?.metrics?.find((item) => item.name === "Cost");
+    assert.equal(cost?.unit, "RMB", `${edge!.target} must expose an RMB cost`);
+    assert.equal(cost?.currency, "RMB", `${edge!.target} must expose an RMB currency`);
+    assert.equal(cost?.costAsOf, "2025", `${edge!.target} must carry a costAsOf year`);
+    assert.equal(typeof cost?.currentValue, "object", `${edge!.target} must use a min/typical/max range`);
+    assert.notEqual(cost?.currentValue, null, `${edge!.target} must use a non-null cost range`);
+    assert.equal(typeof cost?.currentValue?.min, "number", `${edge!.target} must expose a numeric min cost`);
+    assert.equal(typeof cost?.currentValue?.typical, "number", `${edge!.target} must expose a numeric p50 cost`);
+    assert.equal(typeof cost?.currentValue?.max, "number", `${edge!.target} must expose a numeric max cost`);
+  }
+});

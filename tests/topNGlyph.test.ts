@@ -19,9 +19,9 @@ import type { GraphData } from "../src/lib/schema";
 // ------------------------------------------------------------------
 // Fixture: the real loaded dataset.
 //
-// At the 2026-05-31 cost-consistency pass:
+// At the 2026-06-07 controller/I-O decomposition pass:
 //   - The focal product `low_cost_parcel_sorting_robot_300k_rmb` has
-//     72 `requires`-reachable structural nodes (pinned in
+//     78 `requires`-reachable structural nodes (pinned in
 //     tests/focusedSubset.test.ts test 2).
 //   - The full dataset is meaningfully larger than the focal subtree
 //     (siblings: iphone_4, materials only used by the case study,
@@ -151,7 +151,7 @@ test("selectTopN(bottleneck-risk, n=10): returns at most 10 entries", () => {
 // ==================================================================
 //
 // When the caller passes `null`, `selectTopN` MUST scope to the
-// structural focal-subtree (size 72 after the cost-consistency
+// structural focal-subtree (size 78 after the controller/I-O decomposition
 // backfill), NOT the full
 // loaded dataset. The dataset includes siblings (e.g. `iphone_4`)
 // and materials only the case study uses — those MUST be excluded.
@@ -162,8 +162,8 @@ test("selectTopN(focusedSubsetIds=null): scope is the focal subtree, not the ful
   // and the assertion text below must be re-pinned.
   assert.equal(
     focalIds.size,
-    72,
-    `oracle: focal subtree should be 72 after the cost-consistency backfill; got ${focalIds.size}`,
+    78,
+    `oracle: focal subtree should be 78 after the controller/I-O decomposition pass; got ${focalIds.size}`,
   );
   assert.ok(
     graph.nodes.length > focalIds.size,

@@ -99,10 +99,10 @@ function paletteFor(mode: ColorMode, graph: GraphData): Set<string> {
  * 2.5).
  *
  * Fixture choices: per the live data probe, the heaviest cost in the
- * graph is `industrial_robot_arm_body` at 60k RMB — the only node
+ * graph is `industrial_robot_arm_body` at 115k RMB — the only node
  * deep enough into the cap-100k normalisation window to land in the
- * top band. The lowest costs are `machine_vision_lens_and_optics`
- * and `controlled_machine_vision_lighting` at 3k RMB each — both
+ * top band. The lowest cost fixture is the bundled
+ * `robot_realtime_control_runtime` allocation at 150 RMB, which stays
  * comfortably in the bottom band against the same cap.
  *
  * Caveat noted in the bring-back: the live data has very few high-
@@ -113,7 +113,7 @@ function paletteFor(mode: ColorMode, graph: GraphData): Set<string> {
  */
 test("cost mode: lowest cost-bin → cool + width 0.5; highest cost-bin → warm + width 4", () => {
   const graph = loadGraphData();
-  const lowEdge = edgeTargeting(graph, "machine_vision_lens_and_optics");
+  const lowEdge = edgeTargeting(graph, "robot_realtime_control_runtime");
   const highEdge = edgeTargeting(graph, "industrial_robot_arm_body");
 
   const low = edgeStyleFor(lowEdge, "cost", graph);

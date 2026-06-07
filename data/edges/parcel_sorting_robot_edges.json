@@ -371,6 +371,90 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_robot_controller_io_requires_cpu_module",
+    "source": "robot_controller_io",
+    "target": "robot_controller_cpu_module",
+    "relation": "requires",
+    "claim": "The robot controller and I/O subsystem requires a controller CPU or embedded motion-control module.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_siemens_simatic_plc",
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_controller_io_requires_realtime_runtime",
+    "source": "robot_controller_io",
+    "target": "robot_realtime_control_runtime",
+    "relation": "requires",
+    "claim": "The control stack requires a real-time runtime for motion, PLC logic, watchdogs, and deterministic task execution.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_controller_io_requires_fieldbus_gateway",
+    "source": "robot_controller_io",
+    "target": "robot_fieldbus_gateway",
+    "relation": "requires",
+    "claim": "The controller/I-O layer requires fieldbus and industrial Ethernet interfaces for drives, remote I/O, safety, conveyor, and WCS/PLC integration.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_controller_io_requires_safety_io",
+    "source": "robot_controller_io",
+    "target": "robot_safety_io_interface",
+    "relation": "requires",
+    "claim": "The controller/I-O layer requires a safety-rated I/O interface for E-stop, guarding, light curtains, scanners, and servo safe-stop integration.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_omron_nx_safety_2026",
+      "ev_mfg_rockwell_controllers_safety",
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_controller_io_requires_external_io_sensor_interface",
+    "source": "robot_controller_io",
+    "target": "robot_external_io_sensor_interface",
+    "relation": "requires",
+    "claim": "The controller/I-O layer requires external I/O and sensor interfaces for vacuum, conveyor, encoder, cabinet, and local maintenance signals.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_controller_io_requires_diagnostics_interface",
+    "source": "robot_controller_io",
+    "target": "robot_controller_diagnostics_interface",
+    "relation": "requires",
+    "claim": "The controller/I-O layer requires diagnostics and commissioning interfaces so operators and maintenance teams can inspect I/O, servo, safety, and timing faults.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_robot_arm_body_requires_cabling_power",
     "source": "industrial_robot_arm_body",
     "target": "robot_cabling_and_power",
@@ -1483,6 +1567,60 @@
     "context": "Cost consistency backfill. Allocates part of the industrial_robot_arm_body bundle cost to the controller-I/O child."
   },
   {
+    "id": "e_robot_controller_cpu_module_measured_by_cost",
+    "source": "robot_controller_cpu_module",
+    "target": "robot_controller_cpu_module_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Controller/I-O child allocation backfill. Keeps recursive cost rollup explicit after decomposing robot_controller_io."
+  },
+  {
+    "id": "e_robot_realtime_control_runtime_measured_by_cost",
+    "source": "robot_realtime_control_runtime",
+    "target": "robot_realtime_control_runtime_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Controller/I-O child allocation backfill. Runtime cost is treated as a small bundled allocation, not a separately quoted software license."
+  },
+  {
+    "id": "e_robot_fieldbus_gateway_measured_by_cost",
+    "source": "robot_fieldbus_gateway",
+    "target": "robot_fieldbus_gateway_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Controller/I-O child allocation backfill. Actual value depends on whether fieldbus protocols are native or require add-on modules."
+  },
+  {
+    "id": "e_robot_safety_io_interface_measured_by_cost",
+    "source": "robot_safety_io_interface",
+    "target": "robot_safety_io_interface_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Controller/I-O child allocation backfill. Covers controller-side safety I/O only, not the whole cell safety system."
+  },
+  {
+    "id": "e_robot_external_io_sensor_interface_measured_by_cost",
+    "source": "robot_external_io_sensor_interface",
+    "target": "robot_external_io_sensor_interface_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Controller/I-O child allocation backfill. Replace with channel-count BOM pricing once the sensor and valve map is reviewed."
+  },
+  {
+    "id": "e_robot_controller_diagnostics_interface_measured_by_cost",
+    "source": "robot_controller_diagnostics_interface",
+    "target": "robot_controller_diagnostics_interface_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "context": "Controller/I-O child allocation backfill. Captures controller-bundle diagnostics allocation, not full field commissioning labor."
+  },
+  {
     "id": "e_robot_cabling_and_power_measured_by_cost",
     "source": "robot_cabling_and_power",
     "target": "robot_cabling_and_power_cost",
@@ -1830,6 +1968,86 @@
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
       "ev_mfg_siemens_simatic_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_io_siemens",
+    "source": "robot_controller_io",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a controller, distributed I/O, and industrial networking supplier candidate for the robot controller/I-O layer.",
+    "context": "Small-PLC share and SIMATIC product-line evidence; candidate supplier only and not a confirmed target-cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_io_inovance",
+    "source": "robot_controller_io",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a domestic controller, motion-control, I/O, and servo ecosystem supplier candidate for the robot controller/I-O layer.",
+    "context": "Inovance AC703 product evidence plus China automation/servo share evidence; candidate supplier only and exact parcel-cell adoption is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_io_mitsubishi",
+    "source": "robot_controller_io",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a PLC, motion-control, servo, HMI, and robot-integration supplier candidate for the robot controller/I-O layer.",
+    "context": "Factory-automation product-line evidence; candidate supplier only and exact target-cell controller adoption is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_io_rockwell",
+    "source": "robot_controller_io",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation is a PLC, safety I/O, and industrial EtherNet/IP supplier candidate for the robot controller/I-O layer.",
+    "context": "Programmable-controller and safety-I/O product evidence; candidate supplier only and more relevant to global/North American logistics deployments than a China-first low-cost BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_io_schneider",
+    "source": "robot_controller_io",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "claim": "Schneider Electric is a Modicon PLC/PAC and industrial automation supplier candidate for the robot controller/I-O layer.",
+    "context": "Modicon PLC/PAC product-line evidence; candidate supplier only and target-cell adoption share is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_safety_io_omron",
+    "source": "robot_safety_io_interface",
+    "target": "org_omron",
+    "relation": "manufactured_by",
+    "claim": "OMRON is a safety-controller and safety-I/O supplier candidate for robot safety I/O integration.",
+    "context": "NX Safety product evidence; candidate supplier only and not a confirmed safety-I/O BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_omron_nx_safety_2026"
     ],
     "reviewStatus": "unreviewed"
   },

@@ -835,7 +835,9 @@
       "e_mfg_industrial_servo_motor_inovance",
       "e_mfg_industrial_servo_motor_yaskawa",
       "e_mfg_industrial_servo_motor_siemens",
-      "e_mfg_plc_wcs_siemens"
+      "e_mfg_plc_wcs_siemens",
+      "e_mfg_robot_controller_io_siemens",
+      "e_mfg_robot_controller_io_inovance"
     ],
     "limitations": "Company report citing third-party market data; some values are sales share, some product-market share, and none prove the BOM supplier for this exact robot cell.",
     "confidence": "medium",
@@ -880,6 +882,87 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_robot_controller_io_siemens_et200_2026",
+    "type": "product_page",
+    "title": "SIMATIC ET 200 distributed I/O and distributed controllers",
+    "url": "https://www.siemens.com/en-us/products/simatic/simatic-et200/",
+    "sourceName": "Siemens",
+    "date": "2026-06-07",
+    "summary": "Siemens describes SIMATIC ET 200 as decentralized I/O systems that connect field sensors and actuators to a central controller, with digital/analog I/O, safety, communication modules, scalable configurations, and distributed controller variants based on S7-1500 and ET 200 I/O.",
+    "supportsNodeIds": [
+      "robot_controller_io",
+      "robot_controller_cpu_module",
+      "robot_fieldbus_gateway",
+      "robot_safety_io_interface",
+      "robot_external_io_sensor_interface",
+      "org_siemens"
+    ],
+    "supportsEdgeIds": [
+      "e_robot_controller_io_requires_cpu_module",
+      "e_robot_controller_io_requires_fieldbus_gateway",
+      "e_robot_controller_io_requires_safety_io",
+      "e_robot_controller_io_requires_external_io_sensor_interface",
+      "e_mfg_robot_controller_io_siemens"
+    ],
+    "limitations": "Product-line evidence for a controller/I-O architecture; it does not prove Siemens is used in the target low-cost parcel-cell BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_robot_controller_io_inovance_ac703_2026",
+    "type": "product_page",
+    "title": "Inovance AC703 high-performance intelligent controller",
+    "url": "https://www.inovance.eu/products/motion-controllers-i/o-modules/ac703",
+    "sourceName": "Inovance",
+    "date": "2026-06-07",
+    "summary": "Inovance describes the AC703 as a high-performance intelligent controller with EtherCAT I/O expansion, up to 32 axes at a 1 ms EtherCAT period, up to 128 slave stations, EtherCAT/Modbus TCP/RTU/EtherNet/IP/OPC UA support, IEC 61131-3 programming, PLCopen/CAM/CNC/ROBOT motion components, and remote commissioning / industrial IoT capabilities.",
+    "supportsNodeIds": [
+      "robot_controller_io",
+      "robot_controller_cpu_module",
+      "robot_realtime_control_runtime",
+      "robot_fieldbus_gateway",
+      "robot_external_io_sensor_interface",
+      "robot_controller_diagnostics_interface",
+      "org_inovance"
+    ],
+    "supportsEdgeIds": [
+      "e_robot_controller_io_requires_cpu_module",
+      "e_robot_controller_io_requires_realtime_runtime",
+      "e_robot_controller_io_requires_fieldbus_gateway",
+      "e_robot_controller_io_requires_external_io_sensor_interface",
+      "e_robot_controller_io_requires_diagnostics_interface",
+      "e_mfg_robot_controller_io_inovance"
+    ],
+    "limitations": "Product-page evidence for a controller family; no price quote, volume share, or confirmation that this controller is used in the 300,000 RMB parcel-cell target.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_robot_controller_io_omron_nx_safety_2026",
+    "type": "product_page",
+    "title": "OMRON NX Safety controller and safety I/O system",
+    "url": "https://automation.omron.com/en/us/products/family/NX-Safety",
+    "sourceName": "OMRON Automation",
+    "date": "2026-06-07",
+    "summary": "OMRON describes NX Safety as safety logic controllers and modular safety I/O for EtherCAT and EtherNet/IP integration, with Category 4 / PLe and SIL3 claims, safety input/output units, and Sysmac Studio safety configuration, programming, and maintenance workflow.",
+    "supportsNodeIds": [
+      "robot_controller_io",
+      "robot_fieldbus_gateway",
+      "robot_safety_io_interface",
+      "robot_external_io_sensor_interface",
+      "org_omron"
+    ],
+    "supportsEdgeIds": [
+      "e_robot_controller_io_requires_fieldbus_gateway",
+      "e_robot_controller_io_requires_safety_io",
+      "e_robot_controller_io_requires_external_io_sensor_interface",
+      "e_mfg_robot_safety_io_omron"
+    ],
+    "limitations": "Safety-product evidence only; OMRON is a candidate for safety I/O integration, not a confirmed supplier for the target parcel-cell controller BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_mfg_mitsubishi_plc_servo",
     "type": "product_page",
     "title": "Mitsubishi Electric Factory Automation controllers and servo systems",
@@ -893,7 +976,8 @@
     "supportsEdgeIds": [
       "e_mfg_servo_drive_controller_mitsubishi",
       "e_mfg_industrial_servo_motor_mitsubishi",
-      "e_mfg_plc_wcs_mitsubishi"
+      "e_mfg_plc_wcs_mitsubishi",
+      "e_mfg_robot_controller_io_mitsubishi"
     ],
     "limitations": "Product-line evidence; does not quantify market share or target-cell adoption.",
     "confidence": "medium",
@@ -912,7 +996,8 @@
     ],
     "supportsEdgeIds": [
       "e_mfg_plc_wcs_rockwell",
-      "e_mfg_safety_system_rockwell"
+      "e_mfg_safety_system_rockwell",
+      "e_mfg_robot_controller_io_rockwell"
     ],
     "limitations": "Product-line evidence; does not quantify target-cell share and is more relevant to North American deployments.",
     "confidence": "medium",
@@ -930,7 +1015,8 @@
       "org_schneider_electric"
     ],
     "supportsEdgeIds": [
-      "e_mfg_plc_wcs_schneider"
+      "e_mfg_plc_wcs_schneider",
+      "e_mfg_robot_controller_io_schneider"
     ],
     "limitations": "Product-line evidence; does not quantify parcel-cell adoption or market share.",
     "confidence": "medium",

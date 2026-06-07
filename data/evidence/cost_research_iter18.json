@@ -13,6 +13,39 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_robot_controller_io_child_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Robot controller and I/O child cost allocation — 2025 estimate",
+    "sourceName": "Internal consistency allocation (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Low-confidence 2025 RMB allocation splitting the existing robot_controller_io_cost parent estimate across controller CPU, real-time runtime, fieldbus, safety I/O, external I/O, and diagnostics so recursive cost rollup has explicit p50 placeholders after the controls/I-O decomposition.",
+    "supportsNodeIds": [
+      "robot_controller_cpu_module",
+      "robot_controller_cpu_module_cost",
+      "robot_realtime_control_runtime",
+      "robot_realtime_control_runtime_cost",
+      "robot_fieldbus_gateway",
+      "robot_fieldbus_gateway_cost",
+      "robot_safety_io_interface",
+      "robot_safety_io_interface_cost",
+      "robot_external_io_sensor_interface",
+      "robot_external_io_sensor_interface_cost",
+      "robot_controller_diagnostics_interface",
+      "robot_controller_diagnostics_interface_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_robot_controller_cpu_module_measured_by_cost",
+      "e_robot_realtime_control_runtime_measured_by_cost",
+      "e_robot_fieldbus_gateway_measured_by_cost",
+      "e_robot_safety_io_interface_measured_by_cost",
+      "e_robot_external_io_sensor_interface_measured_by_cost",
+      "e_robot_controller_diagnostics_interface_measured_by_cost"
+    ],
+    "limitations": "Allocation backfill only. It is not a supplier quote, teardown, invoice, or market-average controller BOM; replace with named controller/I-O BOM pricing before promoting confidence or review status.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_industrial_robot_arm_body_cost_topstar_2026",
     "type": "vendor_claim",
     "title": "Topstar 6/7 kg six-axis industrial robot public listing",
