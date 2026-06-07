@@ -5499,6 +5499,352 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_mfg_vision_processing_compute_nvidia",
+    "source": "vision_processing_compute",
+    "target": "org_nvidia",
+    "relation": "manufactured_by",
+    "claim": "NVIDIA is a supplier candidate for the parcel vision processing compute layer through Jetson edge-AI modules and robotics software stack.",
+    "context": "Elevates an existing lower-layer compute supplier candidate to the visible subsystem node; target-cell supplier status, delivered cost, and benchmark are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vision_processing_compute_intel",
+    "source": "vision_processing_compute",
+    "target": "org_intel",
+    "relation": "manufactured_by",
+    "claim": "Intel is a supplier candidate for the parcel vision processing compute layer through edge-AI hardware and OpenVINO runtime support.",
+    "context": "Elevates an existing lower-layer compute supplier candidate to the visible subsystem node; target-cell runtime choice, supplier status, and benchmark are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vision_processing_compute_advantech",
+    "source": "vision_processing_compute",
+    "target": "org_advantech",
+    "relation": "manufactured_by",
+    "claim": "Advantech is a supplier candidate for the parcel vision processing compute layer through industrial edge-AI computer systems.",
+    "context": "Elevates an existing lower-layer compute supplier candidate to the visible subsystem node; exact target-cell BOM selection and field reliability are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_advantech_edge_ai_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vision_processing_compute_adlink",
+    "source": "vision_processing_compute",
+    "target": "org_adlink_technology",
+    "relation": "manufactured_by",
+    "claim": "ADLINK Technology is a supplier candidate for the parcel vision processing compute layer through industrial edge-AI platforms.",
+    "context": "Elevates an existing lower-layer compute supplier candidate to the visible subsystem node; exact target-cell BOM selection and field reliability are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_manipulation_or_diverter_abb",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "org_abb_robotics",
+    "relation": "manufactured_by",
+    "claim": "ABB Robotics is a supplier candidate for the parcel manipulation/diverter subsystem through comparable robotic parcel-inductor modules.",
+    "context": "Reference-architecture evidence for robotic parcel induction; not proof that ABB fits the 300,000 RMB target cost.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_manipulation_or_diverter_wayzim",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "org_wayzim",
+    "relation": "manufactured_by",
+    "claim": "Wayzim is a supplier candidate for the parcel manipulation/diverter subsystem through robotic parcel infeed and sortation products.",
+    "context": "Vendor product evidence for adjacent parcel induction/sortation equipment; delivered target-cell cost and installed share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_wayzim_crossbelt_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_manipulation_or_diverter_dematic",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic is a supplier/integrator candidate for the parcel manipulation/diverter subsystem through automated sortation and control systems.",
+    "context": "Large-system sortation evidence; useful for integration exposure but not proof of low-cost robot-cell BOM or affordability.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_manipulation_or_diverter_honeywell",
+    "source": "parcel_manipulation_or_diverter",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated is a supplier/integrator candidate for the parcel manipulation/diverter subsystem through sortation systems and warehouse-control software.",
+    "context": "Large-system sortation and WES/WCS evidence; useful for integration exposure but not proof of low-cost robot-cell BOM or affordability.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sortation_chutes_bins_wayzim",
+    "source": "sortation_chutes_and_bins",
+    "target": "org_wayzim",
+    "relation": "manufactured_by",
+    "claim": "Wayzim is a supplier candidate for sortation chutes and bins through adjacent parcel sortation systems.",
+    "context": "Cross-belt sorter evidence supports adjacent sortation exposure; chute/bin hardware for the target robot cell is not directly verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_crossbelt_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sortation_chutes_bins_interroll",
+    "source": "sortation_chutes_and_bins",
+    "target": "org_interroll",
+    "relation": "manufactured_by",
+    "claim": "Interroll is a supplier candidate for sortation chutes and bins through sorter and modular conveyor platforms.",
+    "context": "Vendor platform evidence covers sorter, chute, and conveyor exposure; exact target-cell adoption and pricing are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_interroll_sorter_platform",
+      "ev_mfg_interroll_mcp_play_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sortation_chutes_bins_dematic",
+    "source": "sortation_chutes_and_bins",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic is a supplier/integrator candidate for sortation chutes and bins through automated sortation systems.",
+    "context": "Large-system sortation evidence; exact chute/bin hardware, target-cell affordability, and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sortation_chutes_bins_daifuku",
+    "source": "sortation_chutes_and_bins",
+    "target": "org_daifuku",
+    "relation": "manufactured_by",
+    "claim": "Daifuku is a supplier/integrator candidate for sortation chutes and bins through intralogistics sorting and material-handling systems.",
+    "context": "Large-system sortation evidence; exact target-cell chute/bin hardware, affordability, and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_daifuku_sorting_systems",
+      "ev_mfg_daifuku_sorting_picking_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sortation_chutes_bins_honeywell",
+    "source": "sortation_chutes_and_bins",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated is a supplier/integrator candidate for sortation chutes and bins through sortation and conveyor systems.",
+    "context": "Large-system sortation evidence; exact target-cell chute/bin hardware, affordability, and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_plc_wcs_handshake_siemens",
+    "source": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "target": "org_siemens",
+    "relation": "implemented_by",
+    "claim": "Siemens automation and distributed I/O products can implement the PLC/WCS handshake and fault-recovery control layer.",
+    "context": "Automation-platform candidate only; target-cell PLC/WCS implementation, software integrator, and field recovery logic are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_siemens_simatic_plc",
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_plc_wcs_handshake_rockwell",
+    "source": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "target": "org_rockwell_automation",
+    "relation": "implemented_by",
+    "claim": "Rockwell Automation controllers and safety automation products can implement the PLC/WCS handshake and fault-recovery control layer.",
+    "context": "Automation-platform candidate only; target-cell PLC/WCS implementation, software integrator, and field recovery logic are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_plc_wcs_handshake_schneider",
+    "source": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "target": "org_schneider_electric",
+    "relation": "implemented_by",
+    "claim": "Schneider Electric Modicon PLC/PAC products can implement the PLC/WCS handshake and fault-recovery control layer.",
+    "context": "Automation-platform candidate only; target-cell PLC/WCS implementation, software integrator, and field recovery logic are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_plc_wcs_handshake_dematic",
+    "source": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "target": "org_dematic_kion",
+    "relation": "implemented_by",
+    "claim": "Dematic sortation controls and WMS integration exposure make it an implementation candidate for PLC/WCS handshake and fault recovery.",
+    "context": "Sortation-system integrator evidence; target low-cost robot-cell implementation and software ownership are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_plc_wcs_handshake_honeywell",
+    "source": "plc_wcs_sorting_handshake_and_fault_recovery",
+    "target": "org_honeywell_intelligrated",
+    "relation": "implemented_by",
+    "claim": "Honeywell Intelligrated WES/WCS and sortation-control exposure make it an implementation candidate for PLC/WCS handshake and fault recovery.",
+    "context": "Warehouse-control and sortation-system evidence; target low-cost robot-cell implementation and software ownership are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_reducer_lubrication_life_test_nabtesco",
+    "source": "reducer_lubrication_and_life_test",
+    "target": "org_nabtesco",
+    "relation": "implemented_by",
+    "claim": "Nabtesco is an implementation candidate for reducer lubrication and life-test know-how through industrial robot precision-reducer supply.",
+    "context": "Major precision-reducer supplier evidence; this does not prove access to Nabtesco's internal life-test process or use in the target cell.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_nabtesco_precision_reducer_60_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_reducer_lubrication_life_test_harmonic_drive",
+    "source": "reducer_lubrication_and_life_test",
+    "target": "org_harmonic_drive_systems",
+    "relation": "implemented_by",
+    "claim": "Harmonic Drive Systems is an implementation candidate for reducer lubrication and life-test know-how through strain-wave reducer technology.",
+    "context": "Reducer architecture and vendor technology evidence; actual qualification procedure, life-test data, and target-cell reducer choice are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_reducer_lubrication_life_test_leaderdrive",
+    "source": "reducer_lubrication_and_life_test",
+    "target": "org_leaderdrive",
+    "relation": "implemented_by",
+    "claim": "Leaderdrive is an implementation candidate for reducer lubrication and life-test know-how through domestic harmonic reducer supply.",
+    "context": "Domestic reducer supplier evidence; actual qualification procedure, life-test data, and target-cell reducer choice are not verified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mfg_leaderdrive_harmonic_reducer_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_reducer_lubrication_life_test_shuanghuan",
+    "source": "reducer_lubrication_and_life_test",
+    "target": "org_shuanghuan_transmission",
+    "relation": "implemented_by",
+    "claim": "Shuanghuan/Huandong is an implementation candidate for reducer lubrication and life-test know-how through domestic RV reducer exposure.",
+    "context": "Weak secondary industry-source evidence; useful as a research lead only and not a reviewed share or target-cell supplier claim.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mfg_china_reducer_share_low_confidence"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_motion_planning_abb",
+    "source": "motion_planning",
+    "target": "org_abb_robotics",
+    "relation": "implemented_by",
+    "claim": "ABB Robotics is an implementation candidate for robot motion planning through comparable robotic parcel-inductor modules.",
+    "context": "Reference-architecture evidence for robotic parcel induction; exact target-cell controller stack and trajectory software are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_motion_planning_fanuc",
+    "source": "motion_planning",
+    "target": "org_fanuc",
+    "relation": "implemented_by",
+    "claim": "FANUC is an implementation candidate for robot motion planning through its industrial robot OEM ecosystem.",
+    "context": "Market-level robot supplier evidence; exact target-cell controller stack, trajectory software, and parcel-specific performance are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_motion_planning_yaskawa",
+    "source": "motion_planning",
+    "target": "org_yaskawa",
+    "relation": "implemented_by",
+    "claim": "Yaskawa is an implementation candidate for robot motion planning through robot and servo motion-control products.",
+    "context": "Servo and robot supplier evidence; exact target-cell controller stack, trajectory software, and parcel-specific performance are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_motion_planning_inovance",
+    "source": "motion_planning",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance is an implementation candidate for robot motion planning through its motion controller, servo, and robot-control ecosystem.",
+    "context": "Controller and servo product evidence plus China automation/robot share evidence; exact target-cell controller stack and trajectory software are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_inovance_sv670_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_bauxite_alumina_aluminum_chain_measured_by_cost",
     "source": "bauxite_alumina_aluminum_chain",
     "target": "bauxite_alumina_aluminum_chain_cost",

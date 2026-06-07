@@ -390,6 +390,66 @@ test("investment-facing bottleneck nodes expose supplier candidates at the bottl
   }
 });
 
+test("high-priority subsystem and method nodes expose direct supplier or implementer candidates", () => {
+  const expectedManufacturersByNode: Record<string, string[]> = {
+    vision_processing_compute: [
+      "org_nvidia",
+      "org_intel",
+      "org_advantech",
+      "org_adlink_technology",
+    ],
+    parcel_manipulation_or_diverter: [
+      "org_abb_robotics",
+      "org_wayzim",
+      "org_dematic_kion",
+      "org_honeywell_intelligrated",
+    ],
+    sortation_chutes_and_bins: [
+      "org_wayzim",
+      "org_interroll",
+      "org_dematic_kion",
+      "org_daifuku",
+      "org_honeywell_intelligrated",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedManufacturersByNode)) {
+    const candidateIds = new Set(manufacturersForNode(graph, nodeId).map((node) => node.id));
+    for (const expectedId of expectedIds) {
+      assert.ok(candidateIds.has(expectedId), `${nodeId} must expose ${expectedId} as a direct supplier candidate`);
+    }
+  }
+
+  const expectedImplementersByNode: Record<string, string[]> = {
+    plc_wcs_sorting_handshake_and_fault_recovery: [
+      "org_siemens",
+      "org_rockwell_automation",
+      "org_schneider_electric",
+      "org_dematic_kion",
+      "org_honeywell_intelligrated",
+    ],
+    reducer_lubrication_and_life_test: [
+      "org_nabtesco",
+      "org_harmonic_drive_systems",
+      "org_leaderdrive",
+      "org_shuanghuan_transmission",
+    ],
+    motion_planning: [
+      "org_abb_robotics",
+      "org_fanuc",
+      "org_yaskawa",
+      "org_inovance",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedImplementersByNode)) {
+    const candidateIds = new Set(implementersForNode(graph, nodeId).map((node) => node.id));
+    for (const expectedId of expectedIds) {
+      assert.ok(candidateIds.has(expectedId), `${nodeId} must expose ${expectedId} as a direct implementation candidate`);
+    }
+  }
+});
+
 test("investment-facing supplier candidates expose public or private market status", () => {
   const expectedCandidatesByNode: Record<string, string[]> = {
     parcel_detection_and_tracking: ["org_hikrobot", "org_keyence", "org_cognex"],
