@@ -13,6 +13,34 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_industrial_robot_arm_body_cost_topstar_2026",
+    "type": "vendor_claim",
+    "title": "Topstar 6/7 kg six-axis industrial robot public listing",
+    "url": "https://topstar-china.en.made-in-china.com/product/kweAXojKGthN/China-Topstar-Full-Automatic-6kg-6axis-Industrial-Robot-2021-New-Automatic-Robot-and-Robotic-Arm-Industrial-for-Loading-and-Unloading.html",
+    "sourceName": "Guangdong Topstar Technology / Made-in-China",
+    "date": "2026-06-07",
+    "summary": "Public marketplace listing for a Topstar TSR070-07 / 6-axis industrial robot in the 6-7 kg, 710 mm class, quoted at 12,000-25,000 USD per piece. At the graph's 2025 FX constant of 7.20 RMB/USD, this spans roughly 86,000-180,000 RMB before freight, integration, taxes, and negotiated discounts.",
+    "supportsNodeIds": ["industrial_robot_arm_body", "industrial_robot_arm_body_cost"],
+    "supportsEdgeIds": ["e_industrial_robot_arm_body_measured_by_cost"],
+    "limitations": "Vendor/platform listing rather than a purchase order. The listing appears to include a complete industrial robot product, and exact inclusion of controller, teach pendant, warranty, taxes, and delivery must be verified before promotion.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_industrial_robot_arm_body_cost_grabarobot_2026",
+    "type": "expert_review",
+    "title": "6-axis robot price guide by payload and reach",
+    "url": "https://www.grabarobot.com/blog/6-axis-robot-price-guide/",
+    "sourceName": "GrabaRobot",
+    "date": "2026-04-01",
+    "summary": "Industry price guide listing light-duty 6-axis robot price bands including Estun ER6-1400 at 12,000-18,000 USD and ER10-1600 at 15,000-22,000 USD, which maps to roughly 86,000-158,000 RMB using the graph's 2025 FX constant.",
+    "supportsNodeIds": ["industrial_robot_arm_body", "industrial_robot_arm_body_cost"],
+    "supportsEdgeIds": ["e_industrial_robot_arm_body_measured_by_cost"],
+    "limitations": "Secondary price guide, not a vendor quote or invoice. Payload/reach differs from the sub-1 m parcel-sorting arm target, but it anchors the mid-tier domestic price band and prevents treating ultra-low listings as the p50.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_end_effector_gripper_or_suction_cost_2025",
     "type": "internal_note",
     "title": "Vacuum suction end-effector module cost — 2025 China industrial estimate",

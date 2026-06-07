@@ -2610,9 +2610,9 @@
       {
         "name": "Cost",
         "currentValue": {
-          "min": 35000,
-          "typical": 60000,
-          "max": 95000
+          "min": 70000,
+          "typical": 115000,
+          "max": 180000
         },
         "unit": "RMB",
         "currency": "RMB",
@@ -2623,9 +2623,11 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "reviewStatus": "unreviewed",
-    "notes": "Rough 2025-China industrial estimate based on common vendor catalog ranges (e.g. Inovance, Estun, Han's Robot mid-tier vs. import equivalents). Marked unreviewed for human verification per ADR-0001.",
+    "notes": "Rough 2025-China industrial estimate recalibrated on 2026-06-07 from public 6/7 kg six-axis robot price listings and a payload/reach price guide. Very low marketplace listings exist below this band, but this node is intended to represent a mid-tier purchasable industrial arm body/control bundle rather than the cheapest quoted manipulator. Marked unreviewed for human verification per ADR-0001.",
     "evidenceIds": [
-      "ev_industrial_robot_arm_body_cost_2025"
+      "ev_industrial_robot_arm_body_cost_2025",
+      "ev_industrial_robot_arm_body_cost_topstar_2026",
+      "ev_industrial_robot_arm_body_cost_grabarobot_2026"
     ],
     "tags": [
       "cost",
@@ -2660,7 +2662,7 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: the 60,000 RMB robot-arm bundle was high-cost in the graph, but none of its direct children carried cost. This allocates the largest expected cost driver to precision reducers so cost-mode colour has an explanatory child source.",
+    "notes": "Consistency backfill: the robot-arm bundle is a high-cost subsystem in the graph, but none of its direct children originally carried cost. This allocates the largest expected cost driver to precision reducers so cost-mode colour has an explanatory child source; keep unreviewed until replaced with supplier or teardown evidence.",
     "evidenceIds": [
       "ev_industrial_robot_arm_body_cost_2025"
     ],

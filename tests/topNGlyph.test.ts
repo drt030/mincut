@@ -356,6 +356,40 @@ test("GraphExplorer.tsx regression guard: sector tint does not depend on color m
   );
 });
 
+test("GraphExplorer.tsx regression guard: node outline does not duplicate active lens bands", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const outlineBlock =
+    raw.match(/const outlineColorFor = useCallback\([\s\S]*?\n  \);/)?.[0] ??
+    raw.match(/function outlineColorFor\([\s\S]*?\n}/)?.[0] ??
+    "";
+
+  assert.ok(
+    outlineBlock.length > 0,
+    "GraphExplorer should keep a local outlineColorFor helper so node outline semantics are explicit",
+  );
+  assert.equal(
+    /\bcolorMode\b/.test(outlineBlock),
+    false,
+    "node contour color should not change with the active cost/maturity/risk lens",
+  );
+  assert.equal(
+    /\bRAMP\b|bandForValue|nodeTypicalCostRmb|nodeRisk\(/.test(outlineBlock),
+    false,
+    "node contour should not duplicate the edge/lens band calculation",
+  );
+  assert.equal(
+    /selected|isFocal/.test(outlineBlock),
+    true,
+    "node contour may encode only selection/root affordance, not analytical value",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration-stable", () => {
   const filePath = path.join(
     process.cwd(),

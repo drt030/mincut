@@ -28,13 +28,9 @@ import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { packRectangularNodes } from "@/lib/cardAwareLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
 import {
-  bandForValue,
   edgeStyleFor,
-  RAMP,
-  nodeTypicalCostRmb,
   type ColorMode,
 } from "@/lib/edgeStyleFor";
-import { nodeRisk } from "@/lib/nodeRisk";
 import { focusedSubset } from "@/lib/focusedSubset";
 import { filterCanvasGraph } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
@@ -738,41 +734,18 @@ export function GraphExplorer({ graph }: Props) {
   }, [canvasGraph.edges]);
 
   /**
-   * Per-node outline colour from the active colour mode. Pure function
-   * of (node, mode, graph); memoised across the node iteration below.
+   * Per-node outline colour is intentionally neutral. The node fill and
+   * sector tint carry stable subsystem-family colour, while edge colour
+   * + width carry the active analysis lens. Keeping the contour neutral
+   * avoids a third, redundant signal that can contradict nearby edges.
    */
   const outlineColorFor = useCallback(
-    (node: Node): string => {
-      switch (colorMode) {
-        case "relation":
-          return "#888";
-        case "cost": {
-          const cost = nodeTypicalCostRmb(node, graph) ?? 0;
-          return RAMP[bandForValue(cost, "cost", graph) - 1];
-        }
-        case "maturity": {
-          if (typeof node.maturityScore !== "number") return "#888";
-          return RAMP[bandForValue(node.maturityScore, "maturity") - 1];
-        }
-        case "bottleneck-risk": {
-          if (Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0) {
-            return RAMP[4];
-          }
-          const risk = nodeRisk(node, graph);
-          return RAMP[bandForValue(risk, "bottleneck-risk") - 1];
-        }
-        case "overall": {
-          if (Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0) {
-            return RAMP[4];
-          }
-          const risk = nodeRisk(node, graph);
-          return RAMP[bandForValue(risk, "overall") - 1];
-        }
-        default:
-          return "#888";
-      }
+    (_node: Node, selected: boolean, isFocal: boolean): string => {
+      if (selected) return "#0f172a";
+      if (isFocal) return "#334155";
+      return "#64748b";
     },
-    [colorMode, graph],
+    [],
   );
 
   // B3: focused-subtree membership (focusedId + its `requires`
@@ -839,7 +812,7 @@ export function GraphExplorer({ graph }: Props) {
           name: nodeName(node.id, node.name),
           kindLabel: kindName(node.kind),
           fill,
-          outlineColor: outlineColorFor(node),
+          outlineColor: outlineColorFor(node, selectedId === node.id, isFocal),
           maturityLabel: node.maturityLabel ?? "",
           selected: selectedId === node.id,
           isFocal,
