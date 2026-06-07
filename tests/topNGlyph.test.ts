@@ -342,7 +342,7 @@ test("GraphExplorer.tsx regression guard: sector tint does not depend on color m
   assert.equal(
     sectorTintBlock.includes("sectorAggregate("),
     false,
-    "sector background tint should be structural only; edge/color mode aggregates belong on lines and nodes",
+    "sector background tint should be structural only; edge/color mode aggregates belong on lines",
   );
   assert.equal(
     /\bcolorMode\b/.test(sectorTintBlock),

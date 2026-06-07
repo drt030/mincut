@@ -95,3 +95,52 @@ test("real graph: sibling product candidates do not reuse active product metric 
 
   assert.deepEqual(leakingEdges, []);
 });
+
+test("real graph: parcel throughput metric is structurally linked to throughput-limiting nodes", () => {
+  const graph = loadGraphData();
+  const expectedConstraintIds = [
+    "parcel_induction_spacing_control",
+    "parcel_detection_and_tracking",
+    "barcode_ocr_no_read_recovery",
+    "motion_planning",
+    "plc_and_wcs_integration",
+    "jam_detection_and_recovery",
+    "maintenance_workflow",
+  ];
+
+  const constraintIds = new Set(
+    graph.edges
+      .filter((edge) => edge.relation === "depends_on_metric")
+      .filter((edge) => edge.target === "parcels_per_hour")
+      .map((edge) => edge.source),
+  );
+
+  for (const expectedId of expectedConstraintIds) {
+    assert.ok(
+      constraintIds.has(expectedId),
+      `parcels_per_hour must expose ${expectedId} as a structured throughput constraint`,
+    );
+  }
+});
+
+test("real graph: startup opportunity candidates are explicit on key bottleneck nodes", () => {
+  const graph = loadGraphData();
+  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const opportunityNodeIds = [
+    "low_cost_realtime_vision_compute_integration",
+    "parcel_induction_spacing_control",
+    "plc_and_wcs_integration",
+    "reducer_lubrication_and_life_test",
+    "maintenance_workflow",
+  ];
+
+  for (const nodeId of opportunityNodeIds) {
+    const node = nodesById.get(nodeId);
+    assert.ok(node, `${nodeId} must exist`);
+    assert.ok(
+      node!.tags?.includes("startup_opportunity_candidate"),
+      `${nodeId} must be tagged as a startup opportunity candidate`,
+    );
+    assert.match(node!.notes ?? "", /Startup opportunity:/, `${nodeId} must explain the opportunity hypothesis`);
+  }
+});

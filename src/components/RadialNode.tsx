@@ -26,9 +26,9 @@ import { radialBandFor } from "../lib/lod";
  * Word-boundary truncation would be nicer but is overkill for the band-2
  * marker — the band-3 card always shows the full name.
  *
- * The band-2 outline uses a hard-coded grey (`#888`); slice B1 will
- * swap that for the colour-mode band derived from the node's
- * cost / maturity / risk profile.
+ * The band-2 outline is a neutral affordance channel only. It marks
+ * selection/root emphasis supplied by `GraphExplorer`; analytical colour
+ * remains on edges so node contours do not contradict nearby lines.
  *
  * The band-3 badge currently shows the maturity label string; B1 will
  * extend this to a mode-aware badge.
@@ -63,10 +63,9 @@ export type RadialNodeProps = {
    */
   withHandles?: boolean;
   /**
-   * Per-node outline colour driven by the active colour mode (B1). Used
-   * at band 2+ to encode the node's mode band (cost / maturity / risk)
-   * without overriding the subsystem-hue fill. Falls back to a neutral
-   * grey when undefined.
+   * Neutral per-node outline colour. This must not encode cost,
+   * maturity, or bottleneck-risk; `GraphExplorer` uses it only for
+   * selection/root affordance. Falls back to grey when undefined.
    */
   outlineColor?: string;
   /**
@@ -141,9 +140,8 @@ export function RadialNode({
   showLabel = true,
 }: RadialNodeProps) {
   const band = radialBandFor(zoom);
-  // Per ADR-0006 §"Color mode K4 layering", band-2+ node outlines pick
-  // up the active colour mode's band colour. Falls back to the legacy
-  // neutral grey when no mode hint is supplied.
+  // Keep node contour neutral: active analysis colour belongs to edges,
+  // while this outline only carries selection/root affordance.
   const outline = outlineColor ?? "#888";
 
   if (band === 1) {
@@ -173,10 +171,9 @@ export function RadialNode({
 
   if (band === 2) {
     // Larger circle + outline + truncated label below the marker. The
-    // outline is currently a hard-coded grey; B1 will replace with the
-    // colour-mode band. The visible content stays 108×64, but the outer
-    // SVG reserves the 136×72 detail footprint so every display mode uses
-    // the same layout box.
+    // visible content stays 108×64, but the outer SVG reserves the
+    // 136×72 detail footprint so every display mode uses the same layout
+    // box.
     const label = truncateLabel(name);
     const radiusByRole = {
       root: 18,

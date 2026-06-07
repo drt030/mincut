@@ -80,7 +80,7 @@ type RadialNodeData = {
   name: string;
   kindLabel: string;
   fill: string;
-  /** Per-node outline colour from the active colour mode (B1). */
+  /** Neutral outline for selection/root affordance; analysis colour stays on edges. */
   outlineColor: string;
   maturityLabel: string;
   selected: boolean;

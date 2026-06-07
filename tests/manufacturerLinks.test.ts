@@ -58,6 +58,22 @@ test("servo motor component exposes servo-system manufacturer candidates", () =>
   );
 });
 
+test("target product exposes parcel-cell integrator and system manufacturer candidates", () => {
+  const manufacturers = manufacturersForNode(graph, "low_cost_parcel_sorting_robot_300k_rmb").map((node) => node.id);
+
+  for (const id of [
+    "org_abb_robotics",
+    "org_wayzim",
+    "org_dematic_kion",
+    "org_honeywell_intelligrated",
+  ]) {
+    assert.ok(
+      manufacturers.includes(id),
+      `target product must expose ${id} as a parcel-cell integrator or system manufacturer candidate`,
+    );
+  }
+});
+
 test("robot controller and I/O exposes PLC and motion-control supplier candidates", () => {
   const manufacturers = manufacturersForNode(graph, "robot_controller_io").map((node) => node.id);
 
@@ -72,6 +88,56 @@ test("robot controller and I/O exposes PLC and motion-control supplier candidate
       manufacturers.includes(id),
       `robot_controller_io must expose ${id} as a controller/I-O supplier candidate`,
     );
+  }
+});
+
+test("robot controller child layer exposes direct controller and I-O supplier candidates", () => {
+  const expectedManufacturersByNode: Record<string, string[]> = {
+    robot_controller_cpu_module: [
+      "org_siemens",
+      "org_inovance",
+      "org_mitsubishi_electric",
+      "org_rockwell_automation",
+      "org_schneider_electric",
+    ],
+    robot_fieldbus_gateway: [
+      "org_siemens",
+      "org_inovance",
+      "org_omron",
+      "org_rockwell_automation",
+      "org_schneider_electric",
+    ],
+    robot_safety_io_interface: [
+      "org_siemens",
+      "org_omron",
+      "org_rockwell_automation",
+      "org_schneider_electric",
+    ],
+    robot_external_io_sensor_interface: [
+      "org_siemens",
+      "org_inovance",
+      "org_omron",
+      "org_rockwell_automation",
+      "org_schneider_electric",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedManufacturersByNode)) {
+    const manufacturerIds = new Set(manufacturersForNode(graph, nodeId).map((node) => node.id));
+
+    for (const expectedId of expectedIds) {
+      assert.ok(
+        manufacturerIds.has(expectedId),
+        `${nodeId} must expose ${expectedId} directly as a controller/I-O supplier candidate`,
+      );
+    }
+  }
+
+  const diagnosticsImplementers = new Set(
+    implementersForNode(graph, "robot_controller_diagnostics_interface").map((node) => node.id),
+  );
+  for (const id of ["org_siemens", "org_inovance", "org_rockwell_automation"]) {
+    assert.ok(diagnosticsImplementers.has(id), `robot_controller_diagnostics_interface must expose ${id} as an implementer`);
   }
 });
 
@@ -319,6 +385,41 @@ test("investment-facing bottleneck nodes expose supplier candidates at the bottl
       assert.ok(
         candidateIds.has(expectedId),
         `${nodeId} must expose ${expectedId} as a supplier or implementation candidate for investor workflows`,
+      );
+    }
+  }
+});
+
+test("investment-facing supplier candidates expose public or private market status", () => {
+  const expectedCandidatesByNode: Record<string, string[]> = {
+    parcel_detection_and_tracking: ["org_hikrobot", "org_keyence", "org_cognex"],
+    barcode_ocr_no_read_recovery: [
+      "org_cognex",
+      "org_zebra_technologies",
+      "org_sick",
+      "org_datalogic",
+      "org_hikrobot",
+    ],
+    robot_controller_cpu_module: [
+      "org_siemens",
+      "org_inovance",
+      "org_mitsubishi_electric",
+      "org_rockwell_automation",
+      "org_schneider_electric",
+    ],
+  };
+
+  const candidates = new Map(graph.nodes.filter((node) => node.kind === "organization").map((node) => [node.id, node]));
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedCandidatesByNode)) {
+    for (const expectedId of expectedIds) {
+      const organization = candidates.get(expectedId);
+      assert.ok(organization, `${nodeId} candidate ${expectedId} must exist as an organization node`);
+
+      const tags = new Set(organization.tags ?? []);
+      assert.ok(
+        tags.has("public_company") || tags.has("private_company") || tags.has("public_company_exposure"),
+        `${nodeId} candidate ${expectedId} must expose public/private market status tags`,
       );
     }
   }

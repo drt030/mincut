@@ -203,13 +203,14 @@
       "perception",
       "integration",
       "latency",
-      "bottleneck"
+      "bottleneck",
+      "startup_opportunity_candidate"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Expanded on 2026-06-07 into model deployment optimization, inference runtime, camera frame acquisition, latency/timestamp budgeting, and fanless thermal management."
+    "notes": "Expanded on 2026-06-07 into model deployment optimization, inference runtime, camera frame acquisition, latency/timestamp budgeting, and fanless thermal management. Startup opportunity: package a reproducible low-cost real-time vision stack with deterministic camera acquisition, inference runtime pinning, thermal control, and latency diagnostics for parcel cells."
   },
   {
     "id": "industrial_edge_ai_computer",
@@ -1243,9 +1244,10 @@
       "testing",
       "maintenance",
       "decomposition_frontier",
-      "hard_to_develop"
+      "hard_to_develop",
+      "startup_opportunity_candidate"
     ],
-    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost. Hard-to-develop rationale: long-cycle endurance testing capability is itself a barrier — without it, low-cost reducers cannot be qualified for industrial duty cycles."
+    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost. Hard-to-develop rationale: long-cycle endurance testing capability is itself a barrier - without it, low-cost reducers cannot be qualified for industrial duty cycles. Startup opportunity: independent reducer life-test, grease-interval, and backlash-growth qualification services for lower-cost robot-arm suppliers."
   },
   {
     "id": "industrial_servo_motor",
@@ -2030,13 +2032,14 @@
       "singulation",
       "gapping",
       "throughput",
-      "exception_recovery"
+      "exception_recovery",
+      "startup_opportunity_candidate"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Expanded on 2026-06-07 into singulation/metering, dynamic gap control, induction sensing, variable-speed drive control, and exception recovery. This is a throughput bottleneck because poor spacing wastes sorter pitch, causes no-reads, and creates robot timing misses even when the downstream robot arm is nominally fast enough."
+    "notes": "Expanded on 2026-06-07 into singulation/metering, dynamic gap control, induction sensing, variable-speed drive control, and exception recovery. This is a throughput bottleneck because poor spacing wastes sorter pitch, causes no-reads, and creates robot timing misses even when the downstream robot arm is nominally fast enough. Startup opportunity: retrofit induction/gapping controls and exception-recovery software that raise usable pph without replacing the whole sortation line."
   },
   {
     "id": "parcel_singulation_and_metering",
@@ -2211,9 +2214,10 @@
       "wcs",
       "integration",
       "software",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "startup_opportunity_candidate"
     ],
-    "notes": "Expansion frontier: next layer may include fieldbus, message schema, sort plan handoff, fault recovery, logging, and commissioning workflow."
+    "notes": "Expansion frontier: next layer may include fieldbus, message schema, sort plan handoff, fault recovery, logging, and commissioning workflow. Startup opportunity: standardized robot-cell PLC/WCS adapters, fault-recovery playbooks, and commissioning diagnostics for parcel automation integrators."
   },
   {
     "id": "plc_wcs_sorting_handshake_and_fault_recovery",
@@ -2407,13 +2411,14 @@
     "confidence": "low",
     "tags": [
       "maintenance",
-      "deployment"
+      "deployment",
+      "startup_opportunity_candidate"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Bottleneck theme: maintenance_cost_control. Maintenance workflow limits adoption when jams, cleaning, suction-cup wear, calibration drift, spare parts, and operator escalation consume the labor savings from automation."
+    "notes": "Bottleneck theme: maintenance_cost_control. Maintenance workflow limits adoption when jams, cleaning, suction-cup wear, calibration drift, spare parts, and operator escalation consume the labor savings from automation. Startup opportunity: maintenance analytics, spare-part kits, suction-cup wear tracking, and operator escalation tooling for low-cost parcel robot cells."
   },
   {
     "id": "cost_optimized_hardware_stack",
@@ -6844,9 +6849,10 @@
       "manufacturer",
       "machine_vision",
       "barcode",
-      "china_supplier"
+      "china_supplier",
+      "public_company_exposure"
     ],
-    "notes": "Investor relevance: direct exposure to camera and code-reading components; market-share data is product-specific and older.",
+    "notes": "Investor relevance: direct exposure to camera and code-reading components through Hikvision 002415.SZ rather than an independently listed Hikrobot ticker; market-share data is product-specific and older.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },

@@ -8,7 +8,7 @@
     "priority": "medium",
     "status": "pending",
     "createdAt": "2026-04-26T04:10:36.093Z",
-    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:21:46.952Z"
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:35:34.121Z"
   },
   {
     "id": "task_industrial_servo_motor_decomposition_20260427032500",
@@ -189,29 +189,29 @@
     "priority": "high",
     "status": "pending",
     "createdAt": "2026-04-29T04:31:50.510Z",
-    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:21:46.952Z"
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:35:34.121Z"
   },
   {
     "id": "task_low_cost_parcel_sorting_robot_300k_rmb_2_20260429043150",
     "title": "Add reviewed field or benchmark evidence to unsupported parcel claims",
-    "reason": "455 scoped medium/high-confidence claims lack reviewed non-vendor supporting evidence. Node IDs: low_cost_parcel_sorting_robot_300k_rmb, vision_barcode_label_recognition, industrial_area_scan_camera, machine_vision_lens_and_optics, controlled_machine_vision_lighting (+153 more). Edge IDs: e_product_requires_vision (low_cost_parcel_sorting_robot_300k_rmb->vision_barcode_label_recognition), e_product_requires_tracking (low_cost_parcel_sorting_robot_300k_rmb->parcel_detection_and_tracking), e_product_requires_manipulation (low_cost_parcel_sorting_robot_300k_rmb->parcel_manipulation_or_diverter), e_product_requires_conveyor (low_cost_parcel_sorting_robot_300k_rmb->conveyor_integration), e_product_requires_decision (low_cost_parcel_sorting_robot_300k_rmb->sorting_decision_system) (+292 more). Add reviewed evidence to the listed claims, or lower confidence/deprecate claims that cannot be supported.",
+    "reason": "487 scoped medium/high-confidence claims lack reviewed non-vendor supporting evidence. Node IDs: low_cost_parcel_sorting_robot_300k_rmb, vision_barcode_label_recognition, industrial_area_scan_camera, machine_vision_lens_and_optics, controlled_machine_vision_lighting (+153 more). Edge IDs: e_product_requires_vision (low_cost_parcel_sorting_robot_300k_rmb->vision_barcode_label_recognition), e_product_requires_tracking (low_cost_parcel_sorting_robot_300k_rmb->parcel_detection_and_tracking), e_product_requires_manipulation (low_cost_parcel_sorting_robot_300k_rmb->parcel_manipulation_or_diverter), e_product_requires_conveyor (low_cost_parcel_sorting_robot_300k_rmb->conveyor_integration), e_product_requires_decision (low_cost_parcel_sorting_robot_300k_rmb->sorting_decision_system) (+324 more). Add reviewed evidence to the listed claims, or lower confidence/deprecate claims that cannot be supported.",
     "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
     "suggestedNodeKind": "evidence",
     "priority": "high",
     "status": "pending",
     "createdAt": "2026-04-29T04:31:50.510Z",
-    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:21:46.952Z"
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:35:34.121Z"
   },
   {
     "id": "task_low_cost_parcel_sorting_robot_300k_rmb_3_20260429043150",
     "title": "Human-review unreviewed high and medium confidence parcel claims",
-    "reason": "408 scoped claims are explicitly marked unreviewed and must not be treated as established. Node IDs: low_cost_parcel_sorting_robot_300k_rmb, vision_barcode_label_recognition, industrial_edge_ai_computer, vision_model_deployment_optimization, vision_inference_runtime_stack (+106 more). Edge IDs: e_product_requires_vision (low_cost_parcel_sorting_robot_300k_rmb->vision_barcode_label_recognition), e_product_requires_tracking (low_cost_parcel_sorting_robot_300k_rmb->parcel_detection_and_tracking), e_product_requires_manipulation (low_cost_parcel_sorting_robot_300k_rmb->parcel_manipulation_or_diverter), e_product_requires_conveyor (low_cost_parcel_sorting_robot_300k_rmb->conveyor_integration), e_product_requires_decision (low_cost_parcel_sorting_robot_300k_rmb->sorting_decision_system) (+292 more). Human-review these node/edge claims, then mark them reviewed, disputed, deprecated, or keep them unreviewed with clearer limitations.",
+    "reason": "440 scoped claims are explicitly marked unreviewed and must not be treated as established. Node IDs: low_cost_parcel_sorting_robot_300k_rmb, vision_barcode_label_recognition, industrial_edge_ai_computer, vision_model_deployment_optimization, vision_inference_runtime_stack (+106 more). Edge IDs: e_product_requires_vision (low_cost_parcel_sorting_robot_300k_rmb->vision_barcode_label_recognition), e_product_requires_tracking (low_cost_parcel_sorting_robot_300k_rmb->parcel_detection_and_tracking), e_product_requires_manipulation (low_cost_parcel_sorting_robot_300k_rmb->parcel_manipulation_or_diverter), e_product_requires_conveyor (low_cost_parcel_sorting_robot_300k_rmb->conveyor_integration), e_product_requires_decision (low_cost_parcel_sorting_robot_300k_rmb->sorting_decision_system) (+324 more). Human-review these node/edge claims, then mark them reviewed, disputed, deprecated, or keep them unreviewed with clearer limitations.",
     "targetNodeId": "low_cost_parcel_sorting_robot_300k_rmb",
     "suggestedNodeKind": "evidence",
     "priority": "high",
     "status": "pending",
     "createdAt": "2026-04-29T04:31:50.510Z",
-    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:21:46.952Z"
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:35:34.121Z"
   },
   {
     "id": "task_low_cost_parcel_sorting_robot_300k_rmb_4_20260429043150",
@@ -285,6 +285,6 @@
     "priority": "medium",
     "status": "pending",
     "createdAt": "2026-06-07T17:17:18.323Z",
-    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:21:46.952Z"
+    "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:35:34.121Z"
   }
 ]

@@ -112,6 +112,107 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_throughput_depends_on_induction_spacing",
+    "source": "parcel_induction_spacing_control",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on induction spacing because poor spacing wastes sorter pitch, creates no-reads, and causes robot timing misses.",
+    "context": "Structured throughput-constraint link for investor/operator workflows. This is an unreviewed causal hypothesis assembled from adjacent vendor benchmarks and local graph decomposition, not field-validated sensitivity analysis.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_robominds_titan_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_throughput_depends_on_parcel_detection_tracking",
+    "source": "parcel_detection_and_tracking",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on robust parcel detection and tracking under conveyor motion, variable packaging, occlusion, and pose uncertainty.",
+    "context": "Structured throughput-constraint link. Tracking failures reduce pick reliability and force retries or manual exceptions; exact target-cell elasticity is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_abb_robotic_parcel_inductor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_throughput_depends_on_barcode_ocr_no_read_recovery",
+    "source": "barcode_ocr_no_read_recovery",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on barcode/OCR no-read recovery because failed reads cause retries, exception routing, manual keying, or flow stops.",
+    "context": "Structured throughput-constraint link. The specific no-read-rate-to-pph sensitivity remains unreviewed and should be replaced by field benchmark data.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_ambisort_a_series_spec",
+      "ev_field_case_placeholder"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_throughput_depends_on_motion_planning",
+    "source": "motion_planning",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on motion planning because robot cycle time, collision margins, parcel stability, and pose uncertainty limit usable pick cadence.",
+    "context": "Structured throughput-constraint link. This captures robot-cycle and trajectory-planning sensitivity as a hypothesis until target-cell cycle-time traces are available.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_abb_robotic_parcel_inductor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_throughput_depends_on_plc_wcs_integration",
+    "source": "plc_and_wcs_integration",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on PLC/WCS integration because sort commands, acknowledgements, exception handling, and restart recovery determine whether the robot cell can run continuously.",
+    "context": "Structured throughput-constraint link. Integration causality is plausible from local graph decomposition but lacks reviewed deployment evidence.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_perf_flostor_parcel_sortation_roi_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_throughput_depends_on_jam_detection_recovery",
+    "source": "jam_detection_and_recovery",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on jam detection and recovery because unresolved jams create stops, rework, and operator intervention.",
+    "context": "Structured throughput-constraint link. Exact jam-rate-to-pph sensitivity is still unreviewed.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_perf_flostor_parcel_sortation_roi_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_throughput_depends_on_maintenance_workflow",
+    "source": "maintenance_workflow",
+    "target": "parcels_per_hour",
+    "relation": "depends_on_metric",
+    "claim": "Sustained parcels-per-hour depends on maintenance workflow because suction-cup wear, cleaning, calibration drift, spare parts, and escalation procedures determine uptime.",
+    "context": "Structured throughput-constraint link for operator workflows. This is not yet a reviewed uptime model.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_maintenance_abb_robotics_service_2026",
+      "ev_maintenance_fanuc_pm_checklist_2023"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_product_measured_accuracy",
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "sorting_accuracy",
@@ -255,6 +356,61 @@
     "target": "modular_cell_manufacturing",
     "relation": "manufactured_by",
     "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_manufactured_by_abb_robotics_candidate",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "org_abb_robotics",
+    "relation": "manufactured_by",
+    "claim": "ABB Robotics is a system-manufacturer candidate for adjacent robotic parcel induction cells that resemble the robot-arm plus vision/suction architecture.",
+    "context": "Adjacent product evidence only. ABB's reference module is not proof of a 300,000 RMB China-target BOM or price point.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026",
+      "ev_perf_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_manufactured_by_wayzim_candidate",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "org_wayzim",
+    "relation": "manufactured_by",
+    "claim": "Wayzim is a system-manufacturer candidate for adjacent robotic parcel infeed and parcel-sortation equipment in China logistics contexts.",
+    "context": "Adjacent product evidence only. Wayzim's robotic infeed and sorter pages do not confirm the target 300,000 RMB suction-arm cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_manufactured_by_dematic_candidate",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic / KION is a system-integration candidate for adjacent automated sortation, conveyor, and warehouse-control systems.",
+    "context": "Adjacent material-handling evidence. This is useful investor exposure context but not a confirmed low-cost parcel robot-cell manufacturer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_manufactured_by_honeywell_candidate",
+    "source": "low_cost_parcel_sorting_robot_300k_rmb",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated is a system-integration candidate for adjacent sortation, conveyor, WCS/WES, and machine-control layers.",
+    "context": "Adjacent warehouse-automation evidence. This is public-equity exposure context, not proof of participation in the target low-cost robot-cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2383,6 +2539,279 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_robot_controller_io_omron_nx_safety_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_cpu_module_siemens",
+    "source": "robot_controller_cpu_module",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a candidate supplier for distributed-controller and controller-CPU modules in the robot controller/I-O layer.",
+    "context": "SIMATIC ET 200 distributed-controller evidence; candidate supplier only and not a confirmed target-cell CPU module.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_cpu_module_inovance",
+    "source": "robot_controller_cpu_module",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance AC703 is a candidate controller-CPU and motion-controller platform for the robot controller/I-O layer.",
+    "context": "AC703 product evidence; exact low-cost parcel-cell controller selection is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_cpu_module_mitsubishi",
+    "source": "robot_controller_cpu_module",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a candidate PLC/controller supplier for the robot controller CPU module.",
+    "context": "Factory-automation controller product-line evidence; candidate supplier only and target-cell BOM adoption is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_cpu_module_rockwell",
+    "source": "robot_controller_cpu_module",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation is a candidate programmable-controller supplier for the robot controller CPU module.",
+    "context": "Allen-Bradley controller product-line evidence; likely more relevant to global logistics projects than a China-first low-cost BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_controller_cpu_module_schneider",
+    "source": "robot_controller_cpu_module",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "claim": "Schneider Electric is a candidate Modicon PLC/PAC supplier for the robot controller CPU module.",
+    "context": "Modicon PLC/PAC product-line evidence; candidate supplier only and exact target-cell adoption is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_fieldbus_gateway_siemens",
+    "source": "robot_fieldbus_gateway",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a candidate supplier for fieldbus, industrial Ethernet, and distributed-I/O gateway interfaces in the robot controller layer.",
+    "context": "SIMATIC ET 200 evidence covers field sensor/actuator connection and communication modules; exact gateway configuration is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_fieldbus_gateway_inovance",
+    "source": "robot_fieldbus_gateway",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a candidate supplier for EtherCAT and industrial-network interfaces in the robot fieldbus gateway layer.",
+    "context": "AC703 evidence lists EtherCAT, Modbus, EtherNet/IP, and OPC UA support; target-cell protocol mapping remains unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_fieldbus_gateway_omron",
+    "source": "robot_fieldbus_gateway",
+    "target": "org_omron",
+    "relation": "manufactured_by",
+    "claim": "OMRON is a candidate supplier for EtherCAT and EtherNet/IP safety-controller integration in the fieldbus gateway layer.",
+    "context": "NX Safety evidence lists EtherCAT and EtherNet/IP integration; exact parcel-cell fieldbus architecture is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_omron_nx_safety_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_fieldbus_gateway_rockwell",
+    "source": "robot_fieldbus_gateway",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation is a candidate supplier for industrial-network and controller gateway interfaces in the robot fieldbus layer.",
+    "context": "Controller and safety-control product-line evidence; target-cell protocol choice and BOM are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_fieldbus_gateway_schneider",
+    "source": "robot_fieldbus_gateway",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "claim": "Schneider Electric is a candidate supplier for PLC/PAC industrial-network interfaces in the robot fieldbus gateway layer.",
+    "context": "Modicon PLC/PAC product-line evidence; target-cell protocol choice and adoption share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_safety_io_siemens",
+    "source": "robot_safety_io_interface",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a candidate supplier for safety I/O and distributed I/O in the robot safety-interface layer.",
+    "context": "SIMATIC ET 200 evidence includes safety and communication modules; exact safety architecture is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_safety_io_rockwell",
+    "source": "robot_safety_io_interface",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation is a candidate supplier for safety controllers and safety I/O in the robot safety-interface layer.",
+    "context": "Safety-control product-line evidence; exact parcel-cell safety I/O BOM is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_safety_io_schneider",
+    "source": "robot_safety_io_interface",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "claim": "Schneider Electric is a candidate supplier for PLC/PAC safety-interface integration in the robot safety I/O layer.",
+    "context": "Modicon PLC/PAC product-line evidence; exact safety I/O architecture and adoption share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_external_io_siemens",
+    "source": "robot_external_io_sensor_interface",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a candidate supplier for distributed I/O channels connecting robot, conveyor, suction, and sensor signals.",
+    "context": "SIMATIC ET 200 evidence covers digital/analog I/O and sensor/actuator connection; exact target-cell channel count is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_external_io_inovance",
+    "source": "robot_external_io_sensor_interface",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a candidate supplier for controller expansion I/O and external sensor interfaces in the robot controller layer.",
+    "context": "AC703 evidence includes I/O expansion and industrial-network support; exact target-cell I/O module selection is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_external_io_omron",
+    "source": "robot_external_io_sensor_interface",
+    "target": "org_omron",
+    "relation": "manufactured_by",
+    "claim": "OMRON is a candidate supplier for modular safety and external I/O interfaces in the robot controller layer.",
+    "context": "NX Safety evidence covers safety input/output units and EtherCAT/EtherNet/IP integration; exact external-I/O BOM is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_omron_nx_safety_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_external_io_rockwell",
+    "source": "robot_external_io_sensor_interface",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation is a candidate supplier for programmable-controller I/O and safety-control interfaces in the robot external-I/O layer.",
+    "context": "Programmable-controller and safety-control evidence; exact target-cell module selection is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_external_io_schneider",
+    "source": "robot_external_io_sensor_interface",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "claim": "Schneider Electric is a candidate supplier for PLC/PAC I/O interfaces in the robot external-I/O layer.",
+    "context": "Modicon PLC/PAC product-line evidence; exact I/O module selection and adoption share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_controller_diagnostics_siemens",
+    "source": "robot_controller_diagnostics_interface",
+    "target": "org_siemens",
+    "relation": "implemented_by",
+    "claim": "Siemens controller and distributed-I/O tooling can implement diagnostics and commissioning workflows for the robot controller/I-O layer.",
+    "context": "SIMATIC ET 200 product-line evidence; exact diagnostic workflow in the target parcel cell is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_controller_diagnostics_inovance",
+    "source": "robot_controller_diagnostics_interface",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance AC703 remote commissioning and industrial-IoT capabilities can implement diagnostics and commissioning interfaces for the robot controller/I-O layer.",
+    "context": "AC703 evidence; exact target-cell diagnostics workflow and support model are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_controller_diagnostics_rockwell",
+    "source": "robot_controller_diagnostics_interface",
+    "target": "org_rockwell_automation",
+    "relation": "implemented_by",
+    "claim": "Rockwell Automation controller and safety-automation products can implement diagnostics and commissioning workflows for controller/I-O faults.",
+    "context": "Controller and safety-control product-line evidence; exact target-cell software workflow is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
     ],
     "reviewStatus": "unreviewed"
   },

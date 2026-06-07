@@ -33,10 +33,10 @@ import { RadialEdge } from "../src/components/RadialEdge";
  *                            lines, no arrowheads, no labels.
  *   Band 2 (0.5 ≤ z < 1.5):  12px circular marker, fill = subsystem
  *                            hue, truncated name label (≤ 12 chars +
- *                            ellipsis), outline present (a hard-coded
- *                            grey in A4 — B1 will wire it to the
- *                            colour-mode band). Edges gain arrowheads
- *                            (`marker-end`) but stay unlabelled.
+ *                            ellipsis), neutral outline present for
+ *                            selection/root affordance. Edges gain
+ *                            arrowheads (`marker-end`) but stay
+ *                            unlabelled.
  *   Band 3 (zoom ≥ 1.5):     108×56 HTML card with full node name and
  *                            one badge (default: maturity). Edges keep
  *                            arrowheads and gain labels — but the label
