@@ -174,6 +174,20 @@ test("radialLayout P1: focal product is at r=0, theta=0", () => {
   assert.equal(pos!.theta, 0, `focal product theta must be 0; got ${pos!.theta}`);
 });
 
+test("radialLayout can place a selected subsystem root at the center", () => {
+  const graph = nestedTreeFixture();
+  const result = radialLayout(graph, "TREE");
+
+  assert.deepEqual(result.positions.get("TREE"), { r: 0, theta: 0 });
+  assert.equal(result.sectors.has("A"), true);
+  assert.equal(result.sectors.has("B"), true);
+  assert.equal(result.sectors.has("OTHER"), false);
+  assert.ok(
+    (result.positions.get("P")?.r ?? 0) > (result.positions.get("A")?.r ?? Number.POSITIVE_INFINITY),
+    "the previous product parent should move to the fallback ring instead of remaining central",
+  );
+});
+
 /**
  * Property 2: first-layer subsystems sit on the R1 ring, but the
  * angular slots are NOT fixed equal sectors. ADR-0007's Stable Balanced

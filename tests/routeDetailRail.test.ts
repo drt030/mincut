@@ -182,3 +182,23 @@ test("RouteDetailRail can render the full selected-node detail view", () => {
   assert.match(html, /Robot arm description/);
   assert.match(html, /Maturity/i);
 });
+
+test("RouteDetailRail exposes a selected-node action for changing the graph root", () => {
+  const graph = graphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      currentRootId: "root_product",
+      onSetRootNode: () => {},
+      onSelectNode: () => {},
+    }),
+  );
+
+  assert.match(html, /data-testid="set-root-node-button"/);
+  assert.match(html, /Set as root/i);
+});

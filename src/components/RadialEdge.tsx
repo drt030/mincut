@@ -53,6 +53,8 @@ export type RadialEdgeProps = {
    */
   stroke?: string;
   strokeWidth?: number;
+  /** Current radial root, used to keep root incident edges visually direct. */
+  rootNodeId?: string;
   /**
    * B3 (greyscale focus): when true, the edge wraps in a `<g>` with
    * the `.radial-dim` class so CSS animates `filter: saturate(0)`
@@ -85,7 +87,6 @@ const ARROW_LENGTH_TO_STROKE = 3.2;
 const ARROW_HEIGHT_TO_STROKE = 2.6;
 const DETAIL_CARD_BOX = { width: 136, height: 72 } as const;
 const DETAIL_EDGE_GAP = 7;
-const FOCAL_ROOT_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
 function svgNumber(value: number): string {
   if (Math.abs(value) < 1e-9) return "0";
@@ -390,6 +391,7 @@ export function RadialEdge({
   targetRadius = 0,
   stroke = DEFAULT_STROKE,
   strokeWidth = DEFAULT_WIDTH,
+  rootNodeId,
   dim = false,
   highlighted = false,
   emphasis = "normal",
@@ -463,7 +465,7 @@ export function RadialEdge({
 
   const pathD = edgeKind === "cross"
     ? crossSectorPath(trimmed.sourceX, trimmed.sourceY, trimmed.targetX, trimmed.targetY)
-    : anchored && source !== FOCAL_ROOT_ID && target !== FOCAL_ROOT_ID
+    : anchored && source !== rootNodeId && target !== rootNodeId
       ? detailPortCurvePath({
         sourceX: anchored.sourceX,
         sourceY: anchored.sourceY,

@@ -11,8 +11,8 @@ import type { Edge, GraphData, Node, NodeKind } from "./schema";
  *
  * The algorithm in summary:
  *
- *   1. Focal product = first node with `kind === "product"` (graph order)
- *      sits at `(r = 0, theta = 0)`.
+ *   1. Focal root = requested structural `rootId`, or the first node
+ *      with `kind === "product"` (graph order), sits at `(r = 0, theta = 0)`.
  *   2. N first-layer subsystems (focal product's `requires`-children among
  *      structural kinds) sit on a ring at `r = R1`. Branch order is
  *      deterministic (sorted by node id), but angular width is weighted
@@ -145,12 +145,15 @@ function buildChildIndex(graph: GraphData): {
   return { childrenByParent, incomingByTarget, structuralIds, nodeById };
 }
 
-export function radialLayout(graph: GraphData): RadialLayoutResult {
+export function radialLayout(graph: GraphData, rootId?: string | null): RadialLayoutResult {
   const positions = new Map<string, PolarPosition>();
   const sectors = new Map<string, RadialSector>();
   const edges = new Map<string, { style: EdgeStyle }>();
 
-  const focal = graph.nodes.find((n) => n.kind === "product");
+  const requestedRoot = rootId
+    ? graph.nodes.find((n) => n.id === rootId && STRUCTURAL_KINDS.has(n.kind))
+    : undefined;
+  const focal = requestedRoot ?? graph.nodes.find((n) => n.kind === "product");
   if (!focal) {
     // No focal product → nothing to lay out radially. Materials still get
     // a deterministic placement on R_FALLBACK so callers always get a

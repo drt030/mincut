@@ -84,3 +84,23 @@ test("canvas graph keeps robot execution children under the manipulation subsyst
     );
   }
 });
+
+test("canvas graph can be re-rooted on a subsystem for deeper study", () => {
+  const graph = loadGraphData();
+  const canvas = filterCanvasGraph(graph, "industrial_robot_arm_body");
+  const ids = new Set(canvas.nodes.map((node) => node.id));
+
+  assert.equal(ids.has("industrial_robot_arm_body"), true);
+  assert.equal(ids.has("industrial_servo_motor"), true);
+  assert.equal(ids.has("robot_controller_io"), true);
+  assert.equal(ids.has("low_cost_parcel_sorting_robot_300k_rmb"), false);
+  assert.equal(ids.has("parcel_induction_spacing"), false);
+  assert.equal(
+    canvas.edges.some((edge) =>
+      edge.relation === "requires" &&
+      edge.source === "industrial_robot_arm_body" &&
+      edge.target === "industrial_servo_motor",
+    ),
+    true,
+  );
+});

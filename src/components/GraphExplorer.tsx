@@ -32,7 +32,7 @@ import {
   type ColorMode,
 } from "@/lib/edgeStyleFor";
 import { focusedSubset } from "@/lib/focusedSubset";
-import { filterCanvasGraph } from "@/lib/canvasGraph";
+import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 
@@ -157,6 +157,7 @@ type RadialEdgeData = {
   /** Per-edge stroke + width from `edgeStyleFor` driven by colour mode. */
   stroke: string;
   strokeWidth: number;
+  rootNodeId: string;
   /**
    * B3: true when at least one endpoint is outside the focused
    * `requires` subtree. The `.radial-dim` class wraps the SVG `<g>`
@@ -189,6 +190,7 @@ const RadialEdgeFlow = memo(function RadialEdgeFlow(
       targetAnchorY={data?.targetAnchor?.y}
       stroke={data?.stroke}
       strokeWidth={data?.strokeWidth}
+      rootNodeId={data?.rootNodeId}
       dim={data?.dim ?? false}
       highlighted={data?.highlighted ?? false}
       emphasis={data?.emphasis ?? "normal"}
@@ -347,7 +349,7 @@ function ZoomBridge({
   return <ZoomContext.Provider value={representative}>{children}</ZoomContext.Provider>;
 }
 
-const rootNodeId = "low_cost_parcel_sorting_robot_300k_rmb";
+const DEFAULT_ROOT_NODE_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
 function compactSectorLabel(label: string): string {
   const max = 24;
@@ -356,35 +358,51 @@ function compactSectorLabel(label: string): string {
 }
 
 function GraphProductStrip({
-  product,
+  rootNode,
   subsystemCount,
   routeCount,
+  isCustomRoot,
+  onResetRoot,
 }: {
-  product: Node;
+  rootNode: Node;
   subsystemCount: number;
   routeCount: number;
+  isCustomRoot: boolean;
+  onResetRoot: () => void;
 }) {
   const { language, nodeName } = useLanguage();
   const copy = language === "zh"
     ? {
-      product: "产品",
-      majorComponents: "一级组件",
+      product: "研究根",
+      majorComponents: "直接依赖",
       costTargets: "成本目标",
+      resetRoot: "回到原产品",
     }
     : {
-      product: "Product",
-      majorComponents: "major components",
+      product: "Research root",
+      majorComponents: "direct dependencies",
       costTargets: "cost targets",
+      resetRoot: "Original product",
     };
   return (
     <div className="graph-product-strip" data-testid="graph-product-strip">
       <div className="graph-product-title-block">
         <span>{copy.product}</span>
-        <strong>{nodeName(product.id, product.name)}</strong>
+        <strong>{nodeName(rootNode.id, rootNode.name)}</strong>
       </div>
       <div className="graph-product-stat-row">
         <span>{subsystemCount} {copy.majorComponents}</span>
         <span>{routeCount} {copy.costTargets}</span>
+        {isCustomRoot ? (
+          <button
+            type="button"
+            className="graph-root-reset-button"
+            data-testid="reset-root-node-button"
+            onClick={onResetRoot}
+          >
+            {copy.resetRoot}
+          </button>
+        ) : null}
       </div>
     </div>
   );
@@ -448,8 +466,8 @@ function rectPortPoint(
  * `requires` edges. Only nodes in this set are rendered on the canvas
  * in A3 — orphans (sibling products etc.) are deferred per ADR-0006.
  */
-function buildFocalSubtree(graph: GraphData): Set<string> {
-  const focal = graph.nodes.find((n) => n.kind === "product");
+function buildFocalSubtree(graph: GraphData, rootId: string): Set<string> {
+  const focal = graph.nodes.find((n) => n.id === rootId) ?? graph.nodes.find((n) => n.kind === "product");
   if (!focal) return new Set();
   const childrenByParent = new Map<string, string[]>();
   for (const edge of graph.edges) {
@@ -535,10 +553,10 @@ function innerChildContaining(
   return tryFromInners(innersFwd, true) ?? tryFromInners(innersRev, false);
 }
 
-function focusPathForNode(nodeId: string, graph: GraphData): string[] {
-  if (nodeId === rootNodeId) return [];
+function focusPathForNode(nodeId: string, graph: GraphData, rootId: string): string[] {
+  if (nodeId === rootId) return [];
   const firstLayer = graph.edges
-    .filter((edge) => edge.relation === "requires" && edge.source === rootNodeId)
+    .filter((edge) => edge.relation === "requires" && edge.source === rootId)
     .map((edge) => edge.target)
     .sort((a, b) => a.localeCompare(b));
   const childrenByParent = new Map<string, string[]>();
@@ -573,14 +591,20 @@ function focusPathForNode(nodeId: string, graph: GraphData): string[] {
 export function GraphExplorer({ graph }: Props) {
   const { kindName, nodeName } = useLanguage();
   const searchParams = useSearchParams();
-  const canvasGraph = useMemo(() => filterCanvasGraph(graph), [graph]);
+  const initialRootId = resolveCanvasRootId(graph, searchParams?.get("root")) ?? DEFAULT_ROOT_NODE_ID;
+  const [currentRootId, setCurrentRootId] = useState(initialRootId);
+  const canvasGraph = useMemo(() => filterCanvasGraph(graph, currentRootId), [graph, currentRootId]);
+  const rootableNodeIds = useMemo(
+    () => graph.nodes.filter(isRootableCanvasNode).map((node) => node.id),
+    [graph.nodes],
+  );
 
   // Initial selection: URL ?focus= if present and valid; otherwise, a
   // bookmarked ?path= view selects the deepest path node so the detail
   // rail matches the expanded branch. Fall back to the focal product.
   const initialFocus = (() => {
     const raw = searchParams?.get("focus");
-    if (raw && graph.nodes.some((n) => n.id === raw)) return raw;
+    if (raw && canvasGraph.nodes.some((n) => n.id === raw)) return raw;
     const pathRaw = searchParams?.get("path");
     if (pathRaw) {
       const known = new Set(canvasGraph.nodes.map((n) => n.id));
@@ -588,11 +612,11 @@ export function GraphExplorer({ graph }: Props) {
       const deepest = ids.at(-1);
       if (deepest && known.has(deepest)) return deepest;
     }
-    return rootNodeId;
+    return currentRootId;
   })();
   const [selectedId, setSelectedId] = useState(initialFocus);
   const [railPanel, setRailPanel] = useState<"route" | "detail">(
-    initialFocus === rootNodeId ? "route" : "detail",
+    initialFocus === currentRootId ? "route" : "detail",
   );
 
   // Full System first pass: cost is the default analysis overlay, and
@@ -635,8 +659,8 @@ export function GraphExplorer({ graph }: Props) {
     // silently dropped to avoid skewing geometry.
     const known = new Set(canvasGraph.nodes.map((n) => n.id));
     const focusIdFromUrl = searchParams?.get("focus");
-    if (focusIdFromUrl && known.has(focusIdFromUrl) && focusIdFromUrl !== rootNodeId) {
-      return focusPathForNode(focusIdFromUrl, canvasGraph);
+    if (focusIdFromUrl && known.has(focusIdFromUrl) && focusIdFromUrl !== currentRootId) {
+      return focusPathForNode(focusIdFromUrl, canvasGraph, currentRootId);
     }
     const raw = searchParams?.get("path");
     if (!raw) {
@@ -645,7 +669,7 @@ export function GraphExplorer({ graph }: Props) {
     const ids = raw.split(",").map((s) => s.trim()).filter((s) => s.length > 0);
     if (ids.length === 0) return [];
     if (!ids.every((id) => known.has(id))) return [];
-    return focusPathForNode(ids[ids.length - 1], canvasGraph);
+    return focusPathForNode(ids[ids.length - 1], canvasGraph, currentRootId);
   });
   // Back-compat alias for code that still references a single focused
   // id (e.g. greyscale dim flag, sector-tint colour, viewport math).
@@ -653,16 +677,19 @@ export function GraphExplorer({ graph }: Props) {
 
   // Focal subtree — A3 renders only these nodes. Orphans (sibling
   // products) are hidden per spec.
-  const focalSubtree = useMemo(() => buildFocalSubtree(canvasGraph), [canvasGraph]);
+  const focalSubtree = useMemo(
+    () => buildFocalSubtree(canvasGraph, currentRootId),
+    [canvasGraph, currentRootId],
+  );
 
   const activeRoute = useMemo(
-    () => selectCostDriverRoute(canvasGraph, rootNodeId, { limit: 4, costGraph: graph }),
-    [canvasGraph, graph],
+    () => selectCostDriverRoute(canvasGraph, currentRootId, { limit: 4, costGraph: graph }),
+    [canvasGraph, currentRootId, graph],
   );
   const routeHighlight = colorMode === "cost" ? activeRoute : null;
 
   // Radial layout positions in polar coords. Pure / deterministic per A2.
-  const layout = useMemo(() => radialLayout(canvasGraph), [canvasGraph]);
+  const layout = useMemo(() => radialLayout(canvasGraph, currentRootId), [canvasGraph, currentRootId]);
 
   const radialNodePositions = useMemo(() => {
     const raw = new Map<string, { x: number; y: number }>();
@@ -678,9 +705,9 @@ export function GraphExplorer({ graph }: Props) {
       width: BAND3_BOX.width,
       height: BAND3_BOX.height,
       padding: 36,
-      fixedIds: new Set([rootNodeId]),
+      fixedIds: new Set([currentRootId]),
     });
-  }, [radialNodePositions]);
+  }, [radialNodePositions, currentRootId]);
 
   // Every LOD band is mounted inside the same 136x72 React Flow node box.
   // Therefore even label mode needs packed centers; otherwise adjacent node
@@ -692,11 +719,10 @@ export function GraphExplorer({ graph }: Props) {
     activeNodePositionsRef.current = activeNodePositions;
   }, [activeNodePositions]);
 
-  // Focal product id (used so the central dot can render slightly
-  // larger as a visual anchor — optional emphasis per spec).
+  // Focal root id (used so the central dot can render as the visual anchor).
   const focalId = useMemo(
-    () => canvasGraph.nodes.find((n) => n.kind === "product")?.id ?? null,
-    [canvasGraph],
+    () => canvasGraph.nodes.some((n) => n.id === currentRootId) ? currentRootId : null,
+    [canvasGraph.nodes, currentRootId],
   );
 
   const onSelect = useCallback((nodeId: string) => {
@@ -711,13 +737,13 @@ export function GraphExplorer({ graph }: Props) {
     const out: string[] = [];
     for (const edge of canvasGraph.edges) {
       if (edge.relation !== "requires") continue;
-      if (edge.source !== rootNodeId) continue;
+      if (edge.source !== currentRootId) continue;
       const target = canvasGraph.nodes.find((n) => n.id === edge.target);
       if (!target || target.kind === "material") continue;
       out.push(edge.target);
     }
     return out;
-  }, [canvasGraph]);
+  }, [canvasGraph, currentRootId]);
   const firstLayerSubsystemSet = useMemo(
     () => new Set(firstLayerSubsystems),
     [firstLayerSubsystems],
@@ -861,7 +887,7 @@ export function GraphExplorer({ graph }: Props) {
     };
     const focusPathPairs = new Set<string>();
     if (focusPath.length > 0) {
-      const pathIds = [rootNodeId, ...focusPath];
+      const pathIds = [currentRootId, ...focusPath];
       for (let i = 0; i < pathIds.length - 1; i += 1) {
         focusPathPairs.add(`${pathIds[i]}→${pathIds[i + 1]}`);
       }
@@ -978,12 +1004,13 @@ export function GraphExplorer({ graph }: Props) {
           targetAnchor: displayMode === "detail" ? targetAnchorByEdge.get(edge.id) : undefined,
           stroke: edge.stroke,
           strokeWidth: edge.strokeWidth,
+          rootNodeId: currentRootId,
           dim: edge.dim,
         },
       });
     }
     return edges;
-  }, [canvasGraph, graph, focalSubtree, layout, selectedId, colorMode, focusPath, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges]);
+  }, [canvasGraph, graph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1135,11 +1162,22 @@ export function GraphExplorer({ graph }: Props) {
     };
   }, [flowNodes.length, fitFullSystemView]);
 
+  const setGraphRoot = useCallback((nodeId: string) => {
+    const resolved = resolveCanvasRootId(graph, nodeId);
+    if (!resolved) return;
+    setCurrentRootId(resolved);
+    setSelectedId(resolved);
+    setFocusPath([]);
+    setRailPanel("route");
+  }, [graph]);
+
   // Persist selection + focus path in URL so a learner can bookmark
   // / share a view.
   //
+  // `?root=<id>` — current research root. Omitted for the canonical
+  //   parcel-sorting product root.
   // `?focus=<id>` — selected node id (drives the detail panel).
-  //   Omitted when selection is the canonical root.
+  //   Omitted when selection is the current root.
   // `?path=<outer>[,<inner>[,<deeper>]]` — the canvas focus path
   //   (drives sector expansion + viewport zoom). Comma-separated so
   //   the URL stays human-readable and one parse restores the full
@@ -1147,7 +1185,9 @@ export function GraphExplorer({ graph }: Props) {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    if (selectedId === rootNodeId) params.delete("focus");
+    if (currentRootId === DEFAULT_ROOT_NODE_ID) params.delete("root");
+    else params.set("root", currentRootId);
+    if (selectedId === currentRootId) params.delete("focus");
     else params.set("focus", selectedId);
     if (focusPath.length === 0) params.delete("path");
     else params.set("path", focusPath.join(","));
@@ -1156,7 +1196,7 @@ export function GraphExplorer({ graph }: Props) {
     if (next !== `${window.location.pathname}${window.location.search}`) {
       window.history.replaceState(null, "", next);
     }
-  }, [selectedId, focusPath]);
+  }, [currentRootId, selectedId, focusPath]);
 
   // B2 + C1: Esc pops one level from the focus path (L2 → L1 → L0).
   // Document-level listener so a focused node does not need to hold
@@ -1265,20 +1305,22 @@ export function GraphExplorer({ graph }: Props) {
     () => graph.nodes.find((n) => n.id === selectedId) ?? graph.nodes[0],
     [graph.nodes, selectedId],
   );
-  const productNode: Node | null = useMemo(
-    () => graph.nodes.find((n) => n.id === rootNodeId) ?? null,
-    [graph.nodes],
+  const rootNode: Node | null = useMemo(
+    () => graph.nodes.find((n) => n.id === currentRootId) ?? null,
+    [graph.nodes, currentRootId],
   );
 
   return (
     <div>
       <div className="graph-layout graph-layout-radial">
         <div className="graph-canvas graph-canvas-radial graph-canvas-route-led">
-          {productNode ? (
+          {rootNode ? (
             <GraphProductStrip
-              product={productNode}
+              rootNode={rootNode}
               subsystemCount={firstLayerSubsystems.length}
               routeCount={activeRoute.steps.length}
+              isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
+              onResetRoot={() => setGraphRoot(DEFAULT_ROOT_NODE_ID)}
             />
           ) : null}
           <ReactFlowProvider>
@@ -1318,7 +1360,7 @@ export function GraphExplorer({ graph }: Props) {
                   onSelect(node.id);
                 }}
                 onPaneClick={() => {
-                  setSelectedId(rootNodeId);
+                  setSelectedId(currentRootId);
                   setFocusPath([]);
                   setRailPanel("route");
                 }}
@@ -1353,9 +1395,12 @@ export function GraphExplorer({ graph }: Props) {
           analysisMode={colorMode}
           priorityEntries={topPriorityEntries}
           systemNodeIds={firstLayerSubsystems}
+          currentRootId={currentRootId}
+          rootableNodeIds={rootableNodeIds}
           panel={railPanel}
           onPanelChange={setRailPanel}
           onSelectNode={onSelect}
+          onSetRootNode={setGraphRoot}
         />
       </div>
       {/* C2: Cmd+K search modal. Mounted at the top level so the

@@ -51,12 +51,25 @@ export function isCanvasNode(node: Node): boolean {
   return true;
 }
 
+export function isRootableCanvasNode(node: Node): boolean {
+  return node.kind === "product" || isCanvasNode(node);
+}
+
+export function resolveCanvasRootId(graph: GraphData, preferredRootId?: string | null): string | null {
+  if (preferredRootId) {
+    const preferred = graph.nodes.find((node) => node.id === preferredRootId);
+    if (preferred && isRootableCanvasNode(preferred)) return preferred.id;
+  }
+  return graph.nodes.find((node) => node.kind === "product")?.id ?? null;
+}
+
 function edgeKey(edge: Edge): string {
   return `${edge.source}\u0000${edge.target}\u0000${edge.relation}`;
 }
 
-export function filterCanvasGraph(graph: GraphData): GraphData {
-  const focal = graph.nodes.find((node) => node.kind === "product");
+export function filterCanvasGraph(graph: GraphData, rootId?: string | null): GraphData {
+  const focalId = resolveCanvasRootId(graph, rootId);
+  const focal = focalId ? graph.nodes.find((node) => node.id === focalId) : null;
   if (!focal) return { ...graph, nodes: graph.nodes.filter(isCanvasNode), edges: [] };
 
   const baseEligibleIds = new Set(

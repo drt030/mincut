@@ -26,8 +26,11 @@ export type RouteDetailRailProps = {
   systemNodeIds?: readonly string[];
   panel?: "route" | "detail";
   initialPanel?: "route" | "detail";
+  currentRootId?: string;
+  rootableNodeIds?: readonly string[];
   onPanelChange?: (panel: "route" | "detail") => void;
   onSelectNode?: (nodeId: string) => void;
+  onSetRootNode?: (nodeId: string) => void;
 };
 
 function formatRmb(value: number): string {
@@ -64,8 +67,11 @@ export function RouteDetailRail({
   systemNodeIds,
   panel: controlledPanel,
   initialPanel = "route",
+  currentRootId,
+  rootableNodeIds,
   onPanelChange,
   onSelectNode,
+  onSetRootNode,
 }: RouteDetailRailProps) {
   const [uncontrolledPanel, setUncontrolledPanel] = useState<"route" | "detail">(initialPanel);
   const panel = controlledPanel ?? uncontrolledPanel;
@@ -136,6 +142,7 @@ export function RouteDetailRail({
       maturityUnknown: "成熟度未设置",
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
+      setAsRoot: "设为根节点",
     }
     : {
       fullSystem: "Full system",
@@ -164,7 +171,14 @@ export function RouteDetailRail({
       maturityUnknown: "maturity not set",
       noPriorityNodes: "No sortable nodes in this lens yet.",
       noNodeSelected: "No node selected.",
+      setAsRoot: "Set as root",
     };
+  const canSetSelectedAsRoot = Boolean(
+    selectedNode &&
+    onSetRootNode &&
+    selectedNode.id !== currentRootId &&
+    (!rootableNodeIds || rootableNodeIds.includes(selectedNode.id)),
+  );
   const railTitle = activeAnalysisMode === "relation"
     ? copy.systemDecomposition
     : activeAnalysisMode === "bottleneck-risk"
@@ -231,6 +245,18 @@ export function RouteDetailRail({
             className="route-rail-card route-rail-node-detail"
             data-testid="route-rail-node-detail"
           >
+            {canSetSelectedAsRoot ? (
+              <div className="route-rail-action-row">
+                <button
+                  type="button"
+                  className="route-rail-action-button"
+                  data-testid="set-root-node-button"
+                  onClick={() => onSetRootNode?.(selectedNode.id)}
+                >
+                  {copy.setAsRoot}
+                </button>
+              </div>
+            ) : null}
             <NodeDetailContent
               graph={graph}
               node={selectedNode}
@@ -371,6 +397,18 @@ export function RouteDetailRail({
                   </div>
                   {compactDescription(selectedNode.description) ? (
                     <p>{compactDescription(selectedNode.description)}</p>
+                  ) : null}
+                  {canSetSelectedAsRoot ? (
+                    <div className="route-rail-action-row">
+                      <button
+                        type="button"
+                        className="route-rail-action-button"
+                        data-testid="set-root-node-button"
+                        onClick={() => onSetRootNode?.(selectedNode.id)}
+                      >
+                        {copy.setAsRoot}
+                      </button>
+                    </div>
                   ) : null}
                 </>
               ) : (
