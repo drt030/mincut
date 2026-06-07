@@ -1350,8 +1350,102 @@
     "target": "low_cost_realtime_vision_compute_integration",
     "relation": "requires",
     "confidence": "low",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026",
+      "ev_compute_basler_pylon_sdk_2026",
+      "ev_compute_genicam_machine_vision_standards_2026"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Vision processing compute maturity depends on real-time low-cost compute integration, SDK/runtime coupling, thermal design, and latency control."
+  },
+  {
+    "id": "e_vision_compute_requires_industrial_edge_ai_computer",
+    "source": "vision_processing_compute",
+    "target": "industrial_edge_ai_computer",
+    "relation": "requires",
+    "claim": "Vision processing compute requires an industrial edge-AI computer or equivalent embedded compute module suitable for parcel vision workloads.",
+    "context": "Hardware decomposition backfill; exact form factor may be an industrial PC, embedded Jetson/Intel edge box, or compute-integrated smart camera.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_compute_adlink_edge_ai_2026",
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_low_cost_vision_compute_requires_model_deployment_optimization",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "vision_model_deployment_optimization",
+    "relation": "requires",
+    "claim": "Low-cost real-time vision compute integration requires model deployment optimization to meet latency and memory limits on edge hardware.",
+    "context": "Software integration decomposition; separate from model accuracy and camera hardware.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_low_cost_vision_compute_requires_inference_runtime_stack",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "vision_inference_runtime_stack",
+    "relation": "requires",
+    "claim": "Low-cost real-time vision compute integration requires a pinned inference runtime stack for the selected edge hardware.",
+    "context": "Runtime decomposition; includes vendor runtime libraries and deployment packaging rather than a model-training system.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "camera_sdk_frame_acquisition_pipeline",
+    "relation": "requires",
+    "claim": "Low-cost real-time vision compute integration requires a stable camera SDK and frame-acquisition pipeline.",
+    "context": "Camera I/O decomposition; dropped frames, buffering, trigger timing, and SDK coupling are modeled separately from camera hardware.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components",
+      "ev_compute_basler_pylon_sdk_2026",
+      "ev_compute_genicam_machine_vision_standards_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_low_cost_vision_compute_requires_latency_timestamping",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "vision_latency_budget_and_timestamping",
+    "relation": "requires",
+    "claim": "Low-cost real-time vision compute integration requires an end-to-end latency and timestamping budget aligned to conveyor and robot timing.",
+    "context": "Timing decomposition; a lab-fast model can still fail if image timestamps, inference latency, and actuation windows are not aligned.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_compute_basler_pylon_sdk_2026",
+      "ev_compute_genicam_machine_vision_standards_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_low_cost_vision_compute_requires_thermal_management",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "fanless_compute_thermal_management",
+    "relation": "requires",
+    "claim": "Low-cost real-time vision compute integration requires thermal management so the edge-AI computer does not throttle or fail in a sorting-cell environment.",
+    "context": "Deployment decomposition; thermal risk is separated because low-cost hardware can benchmark well in lab conditions but derate in a dusty, warm conveyor cell.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "e_semiconductors_require_quartz_silicon_chain",
@@ -1782,6 +1876,90 @@
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
+    "id": "e_industrial_edge_ai_computer_measured_by_cost",
+    "source": "industrial_edge_ai_computer",
+    "target": "industrial_edge_ai_computer_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute child allocation backfill. This is scoped to the industrial edge-AI compute box/module, not camera, lighting, or full WCS cost."
+  },
+  {
+    "id": "e_low_cost_realtime_vision_compute_integration_measured_by_cost",
+    "source": "low_cost_realtime_vision_compute_integration",
+    "target": "low_cost_realtime_vision_compute_integration_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute integration allocation backfill. Excludes edge-computer hardware and broader WCS/software-license costs."
+  },
+  {
+    "id": "e_vision_model_deployment_optimization_measured_by_cost",
+    "source": "vision_model_deployment_optimization",
+    "target": "vision_model_deployment_optimization_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute integration child allocation backfill for conversion, quantization, and deployment tuning."
+  },
+  {
+    "id": "e_vision_inference_runtime_stack_measured_by_cost",
+    "source": "vision_inference_runtime_stack",
+    "target": "vision_inference_runtime_stack_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute integration child allocation backfill for runtime setup, version pinning, and packaging."
+  },
+  {
+    "id": "e_camera_sdk_frame_acquisition_pipeline_measured_by_cost",
+    "source": "camera_sdk_frame_acquisition_pipeline",
+    "target": "camera_sdk_frame_acquisition_pipeline_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute integration child allocation backfill for camera SDK and frame-acquisition work."
+  },
+  {
+    "id": "e_vision_latency_budget_and_timestamping_measured_by_cost",
+    "source": "vision_latency_budget_and_timestamping",
+    "target": "vision_latency_budget_and_timestamping_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute integration child allocation backfill for timing-budget and timestamp-alignment validation."
+  },
+  {
+    "id": "e_fanless_compute_thermal_management_measured_by_cost",
+    "source": "fanless_compute_thermal_management",
+    "target": "fanless_compute_thermal_management_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Vision compute integration child allocation backfill for thermal mounting, derating, and validation around the edge-AI computer."
+  },
+  {
     "id": "e_conveyor_integration_measured_by_cost",
     "source": "conveyor_integration",
     "target": "conveyor_integration_cost",
@@ -1816,6 +1994,18 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "context": "Cost consistency backfill. Allocates part of the conveyor_integration bundle cost to the chutes-and-bins child."
+  },
+  {
+    "id": "e_aluminum_structural_material_measured_by_cost",
+    "source": "aluminum_structural_material",
+    "target": "aluminum_structural_material_cost",
+    "relation": "measured_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_aluminum_structural_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed",
+    "context": "Cost consistency backfill. Allocates fabricated aluminum material contribution for mechanical structure and chute/bin rollups; not a commodity spot-price claim."
   },
   {
     "id": "e_conveyor_speed_encoder_tracking_measured_by_cost",
@@ -2419,6 +2609,84 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_mfg_basler_industrial_cameras"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_edge_ai_computer_nvidia",
+    "source": "industrial_edge_ai_computer",
+    "target": "org_nvidia",
+    "relation": "manufactured_by",
+    "claim": "NVIDIA supplies Jetson edge-AI modules and software stack relevant to industrial edge-AI computers.",
+    "context": "Component/platform supplier candidate; exact target-cell supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_edge_ai_computer_intel",
+    "source": "industrial_edge_ai_computer",
+    "target": "org_intel",
+    "relation": "manufactured_by",
+    "claim": "Intel supplies processors and edge-AI runtime platforms relevant to industrial edge-AI computers.",
+    "context": "Component/platform supplier candidate; exact target-cell supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_edge_ai_computer_advantech",
+    "source": "industrial_edge_ai_computer",
+    "target": "org_advantech",
+    "relation": "manufactured_by",
+    "claim": "Advantech supplies industrial edge-AI systems relevant to the parcel vision compute module.",
+    "context": "Industrial-computer product-line evidence; exact target-cell supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_advantech_edge_ai_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_edge_ai_computer_adlink",
+    "source": "industrial_edge_ai_computer",
+    "target": "org_adlink_technology",
+    "relation": "manufactured_by",
+    "claim": "ADLINK supplies industrial edge-AI platforms relevant to the parcel vision compute module.",
+    "context": "Industrial-computer product-line evidence; exact target-cell supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_inference_runtime_nvidia",
+    "source": "vision_inference_runtime_stack",
+    "target": "org_nvidia",
+    "relation": "implemented_by",
+    "claim": "NVIDIA software such as JetPack and related edge-AI runtime stack can implement the vision inference runtime layer.",
+    "context": "Runtime/platform candidate only; target-cell runtime choice is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_inference_runtime_intel",
+    "source": "vision_inference_runtime_stack",
+    "target": "org_intel",
+    "relation": "implemented_by",
+    "claim": "Intel OpenVINO can implement the vision inference runtime layer on Intel hardware.",
+    "context": "Runtime/platform candidate only; target-cell runtime choice is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026"
     ],
     "reviewStatus": "unreviewed"
   },

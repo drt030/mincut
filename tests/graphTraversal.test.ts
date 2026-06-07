@@ -133,3 +133,34 @@ test("barcode OCR reading software exposes the hard software subproblems", () =>
   const costEdge = graph.edges.find((edge) => edge.source === "barcode_ocr_reading_software" && edge.relation === "measured_by");
   assert.ok(costEdge, "barcode_ocr_reading_software must carry an explicit cost placeholder");
 });
+
+test("low-cost real-time vision compute integration exposes deployment subproblems", () => {
+  const graph = loadGraphData();
+  const node = nodeById(graph, "low_cost_realtime_vision_compute_integration");
+  assert.ok(node, "low_cost_realtime_vision_compute_integration must exist");
+  assert.equal(
+    node!.tags?.includes("decomposition_frontier"),
+    false,
+    "low_cost_realtime_vision_compute_integration should not remain a frontier after its deployment layer is added",
+  );
+
+  const children = graph.edges
+    .filter((edge) => edge.source === "low_cost_realtime_vision_compute_integration" && edge.relation === "requires")
+    .map((edge) => edge.target);
+
+  for (const id of [
+    "vision_model_deployment_optimization",
+    "vision_inference_runtime_stack",
+    "camera_sdk_frame_acquisition_pipeline",
+    "vision_latency_budget_and_timestamping",
+    "fanless_compute_thermal_management",
+  ]) {
+    assert.ok(children.includes(id), `low_cost_realtime_vision_compute_integration must require ${id}`);
+    assert.ok(nodeById(graph, id), `${id} node must exist`);
+  }
+
+  const costEdge = graph.edges.find(
+    (edge) => edge.source === "low_cost_realtime_vision_compute_integration" && edge.relation === "measured_by",
+  );
+  assert.ok(costEdge, "low_cost_realtime_vision_compute_integration must carry an explicit cost placeholder");
+});

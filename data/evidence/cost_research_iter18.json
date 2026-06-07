@@ -277,5 +277,59 @@
     "limitations": "Internal placeholder only. It is useful for recursive cost visibility but must be replaced by vendor quotes, teardown evidence, or project-specific engineering amortization before review.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_vision_compute_integration_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Vision compute integration cost allocation - 2025 estimate",
+    "sourceName": "Internal industry-range estimate (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Rough 2025 allocation for industrial edge-AI compute hardware and low-cost real-time vision compute integration, including model deployment optimization, inference runtime setup, camera SDK/frame acquisition, latency/timestamp validation, and fanless thermal management. Camera, lighting, and full WCS costs are handled elsewhere.",
+    "supportsNodeIds": [
+      "industrial_edge_ai_computer",
+      "industrial_edge_ai_computer_cost",
+      "low_cost_realtime_vision_compute_integration",
+      "low_cost_realtime_vision_compute_integration_cost",
+      "vision_model_deployment_optimization",
+      "vision_model_deployment_optimization_cost",
+      "vision_inference_runtime_stack",
+      "vision_inference_runtime_stack_cost",
+      "camera_sdk_frame_acquisition_pipeline",
+      "camera_sdk_frame_acquisition_pipeline_cost",
+      "vision_latency_budget_and_timestamping",
+      "vision_latency_budget_and_timestamping_cost",
+      "fanless_compute_thermal_management",
+      "fanless_compute_thermal_management_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_industrial_edge_ai_computer_measured_by_cost",
+      "e_low_cost_realtime_vision_compute_integration_measured_by_cost",
+      "e_vision_model_deployment_optimization_measured_by_cost",
+      "e_vision_inference_runtime_stack_measured_by_cost",
+      "e_camera_sdk_frame_acquisition_pipeline_measured_by_cost",
+      "e_vision_latency_budget_and_timestamping_measured_by_cost",
+      "e_fanless_compute_thermal_management_measured_by_cost"
+    ],
+    "limitations": "Internal placeholder only. Replace with vendor quotes, teardown evidence, or project-specific engineering amortization before human review.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_aluminum_structural_material_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Aluminum structural material cost allocation - 2025 estimate",
+    "sourceName": "Internal industry-range estimate (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Rough 2025 allocation for fabricated aluminum extrusions, plates, guide parts, and machined/cut pieces used in the parcel cell structure, chutes, and bins. The estimate is a BOM allocation for fabricated structural material, not a commodity aluminum price.",
+    "supportsNodeIds": [
+      "aluminum_structural_material",
+      "aluminum_structural_material_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_aluminum_structural_material_measured_by_cost"
+    ],
+    "limitations": "Internal placeholder only. Replace with supplier quotes, weighted BOM, or fabrication estimate before human review.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]

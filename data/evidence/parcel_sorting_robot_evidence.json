@@ -496,6 +496,7 @@
       "machine_vision_lens_and_optics",
       "controlled_machine_vision_lighting",
       "vision_processing_compute",
+      "camera_sdk_frame_acquisition_pipeline",
       "parcel_detection_and_tracking"
     ],
     "supportsEdgeIds": [
@@ -503,9 +504,222 @@
       "e_vision_requires_lens_optics",
       "e_vision_requires_lighting",
       "e_vision_requires_processing_compute",
+      "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
       "e_tracking_requires_camera"
     ],
     "limitations": "Machine-vision vendor source; supports component structure but not parcel-specific no-read rates, glare/occlusion performance, or 300,000 RMB BOM fit.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_compute_nvidia_jetson_orin_2026",
+    "type": "product_page",
+    "title": "NVIDIA Jetson Orin edge AI and robotics modules",
+    "url": "https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin",
+    "sourceName": "NVIDIA",
+    "date": "2026-06-07",
+    "summary": "NVIDIA product materials describe Jetson Orin as embedded AI computers for computer vision, robotics, and edge solutions, with JetPack, Isaac ROS, and reference AI workflows supporting deployment.",
+    "supportsNodeIds": [
+      "org_nvidia",
+      "vision_processing_compute",
+      "industrial_edge_ai_computer",
+      "low_cost_realtime_vision_compute_integration",
+      "vision_model_deployment_optimization",
+      "vision_inference_runtime_stack",
+      "fanless_compute_thermal_management"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_compute_requires_realtime_integration",
+      "e_vision_compute_requires_industrial_edge_ai_computer",
+      "e_low_cost_vision_compute_requires_model_deployment_optimization",
+      "e_low_cost_vision_compute_requires_inference_runtime_stack",
+      "e_low_cost_vision_compute_requires_thermal_management",
+      "e_mfg_industrial_edge_ai_computer_nvidia",
+      "e_impl_vision_inference_runtime_nvidia"
+    ],
+    "limitations": "Vendor product-line evidence; does not establish target-cell supplier status, field reliability, or cost.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_compute_intel_openvino_2026",
+    "type": "product_page",
+    "title": "Intel OpenVINO toolkit overview",
+    "url": "https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html",
+    "sourceName": "Intel",
+    "date": "2026-06-07",
+    "summary": "Intel describes OpenVINO as an open-source toolkit for accelerating AI inference with lower latency and higher throughput, including computer-vision and edge deployment across Intel hardware.",
+    "supportsNodeIds": [
+      "org_intel",
+      "vision_processing_compute",
+      "industrial_edge_ai_computer",
+      "low_cost_realtime_vision_compute_integration",
+      "vision_model_deployment_optimization",
+      "vision_inference_runtime_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_compute_requires_realtime_integration",
+      "e_vision_compute_requires_industrial_edge_ai_computer",
+      "e_low_cost_vision_compute_requires_model_deployment_optimization",
+      "e_low_cost_vision_compute_requires_inference_runtime_stack",
+      "e_mfg_industrial_edge_ai_computer_intel",
+      "e_impl_vision_inference_runtime_intel"
+    ],
+    "limitations": "Vendor product/tooling evidence; does not establish target-cell runtime choice, benchmark, or cost.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_compute_advantech_edge_ai_systems_2026",
+    "type": "product_page",
+    "title": "Advantech edge AI systems",
+    "url": "https://www.advantech.com/en-us/solutions/edge-computing-and-wise-edge/edge-ai-systems",
+    "sourceName": "Advantech",
+    "date": "2026-06-07",
+    "summary": "Advantech materials describe industrial edge-AI systems built on NVIDIA technologies for edge inference, video analytics, robotics, factory vision inspection, and industrial AI workloads.",
+    "supportsNodeIds": [
+      "org_advantech",
+      "vision_processing_compute",
+      "industrial_edge_ai_computer",
+      "fanless_compute_thermal_management"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_compute_requires_industrial_edge_ai_computer",
+      "e_low_cost_vision_compute_requires_thermal_management",
+      "e_mfg_industrial_edge_ai_computer_advantech"
+    ],
+    "limitations": "Vendor product-line evidence; no target-cell supplier status, field benchmark, or cost claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_compute_adlink_edge_ai_2026",
+    "type": "product_page",
+    "title": "ADLINK edge AI solutions",
+    "url": "https://www.adlinktech.com/en/edge-ai-solutions",
+    "sourceName": "ADLINK Technology",
+    "date": "2026-06-07",
+    "summary": "ADLINK materials describe edge-AI platforms, including NVIDIA Jetson Orin based systems, industrial GenAI/AMR applications, and high-end real-time vision processing and analytics.",
+    "supportsNodeIds": [
+      "org_adlink_technology",
+      "vision_processing_compute",
+      "industrial_edge_ai_computer",
+      "fanless_compute_thermal_management"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_compute_requires_industrial_edge_ai_computer",
+      "e_low_cost_vision_compute_requires_thermal_management",
+      "e_mfg_industrial_edge_ai_computer_adlink"
+    ],
+    "limitations": "Vendor product-line evidence; no target-cell supplier status, field benchmark, or cost claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_compute_basler_pylon_sdk_2026",
+    "type": "product_page",
+    "title": "Basler pylon software for image capture",
+    "url": "https://www.baslerweb.com/en/software/pylon/",
+    "sourceName": "Basler",
+    "date": "2026-06-07",
+    "summary": "Basler describes pylon as software with certified drivers, programming interfaces, and camera setup tools for vision interfaces such as USB3 Vision and GigE Vision.",
+    "supportsNodeIds": [
+      "camera_sdk_frame_acquisition_pipeline",
+      "low_cost_realtime_vision_compute_integration",
+      "vision_latency_budget_and_timestamping"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_compute_requires_realtime_integration",
+      "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
+      "e_low_cost_vision_compute_requires_latency_timestamping"
+    ],
+    "limitations": "Camera-vendor software evidence; supports SDK role but not the selected camera vendor, latency benchmark, or parcel-cell reliability.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_compute_genicam_machine_vision_standards_2026",
+    "type": "standard",
+    "title": "GenICam generic camera programming interface",
+    "url": "https://www.emva.org/standards-technology/genicam/introduction-new/",
+    "sourceName": "EMVA",
+    "date": "2026-06-07",
+    "summary": "EMVA describes GenICam as a generic programming interface for cameras across interfaces such as GigE Vision, USB3 Vision, CoaXPress, and Camera Link HS.",
+    "supportsNodeIds": [
+      "camera_sdk_frame_acquisition_pipeline",
+      "low_cost_realtime_vision_compute_integration",
+      "vision_latency_budget_and_timestamping"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_compute_requires_realtime_integration",
+      "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
+      "e_low_cost_vision_compute_requires_latency_timestamping"
+    ],
+    "limitations": "Interface-standard evidence; does not prove vendor SDK quality, latency, or target-cell implementation.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ir_nvidia_nvda_2026",
+    "type": "news",
+    "title": "NVIDIA fiscal 2027 Q1 financial results",
+    "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-First-Quarter-Fiscal-2027/default.aspx",
+    "sourceName": "NVIDIA Investor Relations",
+    "date": "2026-06-07",
+    "summary": "NVIDIA investor-relations materials identify NVIDIA as NASDAQ: NVDA and report recent fiscal results.",
+    "supportsNodeIds": [
+      "org_nvidia"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Investor-relations evidence for listing context only; not a target-product supplier claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ir_intel_intc_2026",
+    "type": "news",
+    "title": "Intel investor relations",
+    "url": "https://www.intc.com/",
+    "sourceName": "Intel Investor Relations",
+    "date": "2026-06-07",
+    "summary": "Intel investor-relations materials identify Intel Corporation as INTC and provide recent financial and filing context.",
+    "supportsNodeIds": [
+      "org_intel"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Investor-relations evidence for listing context only; not a target-product supplier claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ir_advantech_2395_2026",
+    "type": "news",
+    "title": "Advantech investor important messages",
+    "url": "https://www.advantech.com/en/investor/important-messages",
+    "sourceName": "Advantech Investor Relations",
+    "date": "2026-06-07",
+    "summary": "Advantech investor-relations materials instruct investors to use stock code 2395, supporting the public-listing context for Advantech.",
+    "supportsNodeIds": [
+      "org_advantech"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Investor-relations evidence for listing context only; not a target-product supplier claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ir_adlink_6166_2026",
+    "type": "news",
+    "title": "ADLINK investor relations",
+    "url": "https://www.adlinktech.com/tw/InvestorRelations",
+    "sourceName": "ADLINK Technology Investor Relations",
+    "date": "2026-06-07",
+    "summary": "ADLINK investor-relations materials state ADLINK listed on the Taiwan Stock Exchange in 2004 with stock code 6166.",
+    "supportsNodeIds": [
+      "org_adlink_technology"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Investor-relations evidence for listing context only; not a target-product supplier claim.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },

@@ -166,15 +166,19 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_vision_control_machine_vision_components"
+      "ev_vision_control_machine_vision_components",
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_compute_adlink_edge_ai_2026",
+      "ev_compute_intel_openvino_2026"
     ],
     "tags": [
       "compute",
       "perception",
       "software",
-      "decomposition_frontier"
+      "edge_ai"
     ],
-    "notes": "Expansion frontier: next layer may include CPU/GPU/NPU choice, latency, thermal design, software stack, camera SDK, and cost."
+    "notes": "Expanded on 2026-06-07 into industrial edge-AI computer hardware plus low-cost real-time compute integration. Supplier links are candidate product-line evidence, not confirmed target-cell BOM."
   },
   {
     "id": "low_cost_realtime_vision_compute_integration",
@@ -198,10 +202,187 @@
       "perception",
       "integration",
       "latency",
-      "decomposition_frontier"
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: vision compute was less mature than its semiconductor supply-chain child, so this node captures the missing integration bottleneck: real-time inference, SDK coupling, latency, thermal design, and cost in the parcel-sorting cell."
+    "notes": "Expanded on 2026-06-07 into model deployment optimization, inference runtime, camera frame acquisition, latency/timestamp budgeting, and fanless thermal management."
+  },
+  {
+    "id": "industrial_edge_ai_computer",
+    "name": "Industrial edge-AI computer",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "edge_ai_compute"
+    ],
+    "description": "Fanless industrial PC, embedded Jetson/Intel edge box, or smart-camera compute module that executes parcel vision inference and barcode/OCR workloads near the conveyor.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_compute_adlink_edge_ai_2026",
+      "ev_compute_intel_openvino_2026"
+    ],
+    "tags": [
+      "compute",
+      "edge_ai",
+      "industrial_pc",
+      "hardware",
+      "machine_vision"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Modeled separately from integration software so cost and supplier exposure can distinguish industrial edge hardware from deployment/runtime work."
+  },
+  {
+    "id": "vision_model_deployment_optimization",
+    "name": "Vision model deployment optimization",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Conversion, quantization, batching, memory layout, and deployment tuning needed to run parcel detection/OCR models on low-cost edge hardware.",
+    "maturityScore": 55,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026"
+    ],
+    "tags": [
+      "model_optimization",
+      "quantization",
+      "edge_ai",
+      "latency",
+      "software"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Kept distinct from model accuracy: the bottleneck is whether a good-enough model can meet latency and thermal limits on the selected low-cost hardware."
+  },
+  {
+    "id": "vision_inference_runtime_stack",
+    "name": "Vision inference runtime stack",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Runtime stack such as TensorRT, OpenVINO, or equivalent vendor libraries used to execute optimized parcel vision models on edge hardware.",
+    "maturityScore": 64,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_intel_openvino_2026"
+    ],
+    "tags": [
+      "inference_runtime",
+      "tensorrt",
+      "openvino",
+      "edge_ai",
+      "software"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "The runtime layer is mature as a product category, but parcel-cell reliability depends on model conversion, driver versions, camera I/O, and deployment discipline."
+  },
+  {
+    "id": "camera_sdk_frame_acquisition_pipeline",
+    "name": "Camera SDK frame acquisition pipeline",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Camera SDK, driver, buffer, trigger, and frame-transfer pipeline that moves parcel images from industrial cameras into the inference/runtime process with stable timing.",
+    "maturityScore": 60,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components",
+      "ev_compute_basler_pylon_sdk_2026",
+      "ev_compute_genicam_machine_vision_standards_2026"
+    ],
+    "tags": [
+      "camera_sdk",
+      "frame_acquisition",
+      "gige_vision",
+      "usb3_vision",
+      "latency"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Separated from the camera hardware because dropped frames, buffering, trigger timing, and vendor SDK coupling can break real-time sorting even when camera specs look adequate."
+  },
+  {
+    "id": "vision_latency_budget_and_timestamping",
+    "name": "Vision latency budget and timestamping",
+    "kind": "engineering_method",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "controls"
+    ],
+    "description": "End-to-end latency budget from trigger/frame capture through inference, decision handoff, and conveyor/robot timestamp alignment.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_compute_basler_pylon_sdk_2026",
+      "ev_compute_genicam_machine_vision_standards_2026"
+    ],
+    "tags": [
+      "latency",
+      "timestamping",
+      "real_time",
+      "controls",
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "This is a high-risk integration point: the cell can have good cameras and models but still miss parcels if timestamps, buffering, and conveyor position alignment are not budgeted."
+  },
+  {
+    "id": "fanless_compute_thermal_management",
+    "name": "Fanless compute thermal management",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "edge_ai_compute"
+    ],
+    "description": "Thermal envelope, enclosure, mounting, and derating strategy for fanless or rugged edge-AI compute installed near dusty conveyor equipment.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "tags": [
+      "thermal",
+      "fanless",
+      "edge_ai",
+      "industrial_environment"
+    ],
+    "reviewStatus": "unreviewed",
+    "notes": "Thermal management is separated because low-cost compute can pass a lab benchmark yet throttle or fail when installed in a dusty, warm sorting cell."
   },
   {
     "id": "barcode_ocr_reading_software",
@@ -3728,6 +3909,265 @@
     ]
   },
   {
+    "id": "industrial_edge_ai_computer_cost",
+    "name": "Industrial edge-AI computer cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "edge_ai_compute"
+    ],
+    "description": "Allocated installed-component cost for an industrial edge-AI computer, embedded AI box, or smart-camera compute module used by the parcel vision stack.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 6000,
+          "typical": 9000,
+          "max": 18000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 allocation inside the broader vision_processing_compute cost. Actual price depends on Jetson/Intel class, enclosure, I/O, storage, and whether the compute is embedded in a smart camera.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "low_cost_realtime_vision_compute_integration_cost",
+    "name": "Low-cost real-time vision compute integration cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for model deployment optimization, inference runtime setup, camera SDK integration, latency budgeting, and thermal validation.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1200,
+          "typical": 4500,
+          "max": 9000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Rough 2025 integration allocation only. It excludes edge-computer hardware and excludes broader WCS/software-license costs.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "vision_model_deployment_optimization_cost",
+    "name": "Vision model deployment optimization cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for model conversion, quantization, deployment tuning, and validation on the selected edge hardware.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 900,
+          "max": 2500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation for deployment tuning; replace with project engineering amortization or vendor integration quote.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "vision_inference_runtime_stack_cost",
+    "name": "Vision inference runtime stack cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for inference runtime setup, version pinning, runtime tests, and deployment packaging.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 700,
+          "max": 2000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation. Runtime software may be bundled or open source; this captures integration and validation labor, not a mandatory license.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "camera_sdk_frame_acquisition_pipeline_cost",
+    "name": "Camera SDK frame acquisition pipeline cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "software"
+    ],
+    "description": "Allocated per-cell cost for camera SDK integration, buffer tuning, trigger wiring logic, and frame-acquisition validation.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 700,
+          "max": 2000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation for SDK and acquisition-pipeline integration. Camera hardware is costed separately under industrial_area_scan_camera.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "vision_latency_budget_and_timestamping_cost",
+    "name": "Vision latency budget and timestamping cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "controls"
+    ],
+    "description": "Allocated per-cell cost for latency-budget definition, timestamp alignment checks, and end-to-end timing validation.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 200,
+          "typical": 500,
+          "max": 1500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder integration allocation. It does not include production downtime or field-debugging cost if timing bugs escape commissioning.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "fanless_compute_thermal_management_cost",
+    "name": "Fanless compute thermal management cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision",
+      "edge_ai_compute"
+    ],
+    "description": "Allocated cost for heat-sinking, enclosure/mounting, thermal validation, and derating work around the edge-AI compute module.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 700,
+          "max": 2200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Placeholder allocation for thermal integration around the compute module. It excludes a major enclosure redesign or lab certification campaign.",
+    "evidenceIds": [
+      "ev_vision_compute_integration_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
     "id": "conveyor_integration_cost",
     "name": "Conveyor integration hardware cost",
     "kind": "metric",
@@ -3866,6 +4306,43 @@
     "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
     "evidenceIds": [
       "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
+  },
+  {
+    "id": "aluminum_structural_material_cost",
+    "name": "Aluminum structural material cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mechanical_structure"
+    ],
+    "description": "Allocated material and basic processing cost contribution for aluminum extrusions, plates, guide parts, and machined/cut pieces used in the parcel cell structure, chutes, and bins.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 6000,
+          "typical": 12000,
+          "max": 24000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "notes": "Consistency backfill for mechanical and chute/bin rollups. This is an allocated fabricated-material contribution, not a spot aluminum commodity price.",
+    "evidenceIds": [
+      "ev_aluminum_structural_material_cost_backfill_2025"
     ],
     "tags": [
       "cost",
@@ -4872,6 +5349,134 @@
       "china_supplier"
     ],
     "notes": "Investor relevance: domestic RV reducer supplier; numeric China RV reducer share is weak-source and should be researched further before promotion.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_nvidia",
+    "name": "NVIDIA",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "edge_ai_compute",
+      "robotics",
+      "investable_supplier"
+    ],
+    "description": "U.S. accelerated-computing supplier whose Jetson edge-AI modules and software stack are relevant to industrial machine-vision compute.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "NVDA"
+      }
+    ],
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_ir_nvidia_nvda_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "edge_ai",
+      "robotics",
+      "public_company"
+    ],
+    "notes": "Investor relevance: direct exposure to embedded AI modules and inference software stack; not evidence of target-cell supplier status.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_intel",
+    "name": "Intel",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "edge_ai_compute",
+      "inference_runtime",
+      "investable_supplier"
+    ],
+    "description": "U.S. semiconductor and edge-computing supplier; OpenVINO and Intel CPU/GPU/NPU platforms are relevant to low-cost computer-vision inference.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "INTC"
+      }
+    ],
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026",
+      "ev_ir_intel_intc_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "edge_ai",
+      "inference_runtime",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public-equity exposure to edge inference hardware and runtime tooling; exact parcel-cell adoption is not verified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_advantech",
+    "name": "Advantech",
+    "kind": "organization",
+    "domain": [
+      "industrial_pc",
+      "edge_ai_compute",
+      "investable_supplier"
+    ],
+    "description": "Taiwan industrial-computing supplier offering edge-AI systems and industrial computers for factory vision, robotics, and industrial AI workloads.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "2395.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_ir_advantech_2395_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "industrial_pc",
+      "edge_ai",
+      "public_company"
+    ],
+    "notes": "Investor relevance: industrial edge-computing and AIoT exposure; target-product supplier status is not confirmed.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_adlink_technology",
+    "name": "ADLINK Technology",
+    "kind": "organization",
+    "domain": [
+      "industrial_pc",
+      "edge_ai_compute",
+      "investable_supplier"
+    ],
+    "description": "Taiwan edge-computing and industrial-computing supplier with Jetson Orin edge-AI platforms and industrial vision/AI deployment products.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6166.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_compute_adlink_edge_ai_2026",
+      "ev_ir_adlink_6166_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "industrial_pc",
+      "edge_ai",
+      "public_company"
+    ],
+    "notes": "Investor relevance: listed industrial edge-AI and embedded-computing exposure; exact parcel-cell supplier status is not verified.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },

@@ -92,6 +92,17 @@ test("barcode OCR reading software exposes logistics code-reader supplier candid
   }
 });
 
+test("industrial edge AI computer exposes compute supplier candidates", () => {
+  const manufacturers = manufacturersForNode(graph, "industrial_edge_ai_computer").map((node) => node.id);
+
+  for (const id of ["org_nvidia", "org_intel", "org_advantech", "org_adlink_technology"]) {
+    assert.ok(
+      manufacturers.includes(id),
+      `industrial_edge_ai_computer must expose ${id} as an edge-AI compute supplier candidate`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 
