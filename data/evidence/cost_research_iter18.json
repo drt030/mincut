@@ -462,5 +462,47 @@
     "limitations": "Allocation backfill only. It is not a wafer-price source, chip teardown, supplier quote, or component-level BOM; replace with named electronics BOM data before promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_servo_drive_child_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Servo drive child-layer cost allocation - 2025 estimate",
+    "sourceName": "Capability Graph internal cost backfill",
+    "date": "2026-06-07",
+    "summary": "Low-confidence p50 allocation splitting the authored servo-drive controller cost across power stage, current sensing, motion-control firmware, STO safety, and thermal/EMC design so the drive subtree no longer appears costless at the child layer.",
+    "supportsNodeIds": [
+      "servo_drive_power_stage_cost",
+      "servo_drive_current_sensing_cost",
+      "servo_drive_motion_control_loop_cost",
+      "servo_drive_safety_sto_cost",
+      "servo_drive_thermal_emc_design_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_drive_power_stage_measured_by_cost",
+      "e_servo_drive_current_sensing_measured_by_cost",
+      "e_servo_drive_motion_control_loop_measured_by_cost",
+      "e_servo_drive_safety_sto_measured_by_cost",
+      "e_servo_drive_thermal_emc_design_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only; not a supplier quote, teardown BOM, or audited purchase record. The parent servo-drive cost remains the controlling bundle estimate when higher than child sum.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_refined_copper_conductor_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Refined copper conductor allocation - 2025 estimate",
+    "sourceName": "Capability Graph internal cost backfill",
+    "date": "2026-06-07",
+    "summary": "Low-confidence allocated contribution for refined copper used in robot-arm windings, servo-drive power paths, cabling, connectors, and control electronics. This is a BOM allocation, not a commodity spot price.",
+    "supportsNodeIds": [
+      "refined_copper_conductor_material_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_refined_copper_conductor_material_measured_by_cost"
+    ],
+    "limitations": "Internal allocation based on product BOM reasoning; use commodity-price and mass estimates before promoting beyond unreviewed low confidence.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]

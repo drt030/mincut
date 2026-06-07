@@ -900,10 +900,13 @@
     "tags": [
       "servo",
       "control",
-      "robot_arm",
-      "decomposition_frontier"
+      "robot_arm"
     ],
-    "notes": "Expansion frontier: next layer should cover power electronics, encoder feedback, control firmware, thermal management, safety functions, and cost/reliability constraints."
+    "notes": "Expanded on 2026-06-07 into drive power stage, current sensing, motion-control loop, STO safety, and thermal/EMC design. Parent cost remains a low-confidence servo-drive bundle allocation; child costs split that bundle for graph readability and gate coverage.",
+    "evidenceIds": [
+      "ev_inovance_sv670_servo_sto_2026",
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ]
   },
   {
     "id": "servo_drive_power_stage",
@@ -915,19 +918,24 @@
       "servo_drive"
     ],
     "description": "Power electronics stage that converts DC bus power into controlled motor phase currents for each robot joint servo motor.",
-    "maturityScore": 70,
-    "maturityLabel": "commercially_available",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_mitsubishi_servo_drive_safety"
+      "ev_mitsubishi_servo_drive_safety",
+      "ev_power_infineon_servo_drives_2026",
+      "ev_power_st_servo_motor_drives_2026",
+      "ev_power_onsemi_ipm_motor_drive_2026",
+      "ev_mitsubishi_power_modules_motion_control_2026"
     ],
     "tags": [
       "servo_drive",
       "power_electronics",
-      "decomposition_frontier"
+      "power_semiconductor",
+      "cost_driver"
     ],
-    "notes": "Expansion frontier: next layer may include rectifier/DC bus, inverter devices, gate drivers, protection, EMC filtering, and heat sinking."
+    "notes": "Power module / inverter-stage layer for servo drives. Marked widely adopted so direct drive-stage cost can stand in for the power-semiconductor/copper content until a teardown-level BOM replaces the allocation."
   },
   {
     "id": "servo_drive_current_sensing",
@@ -939,20 +947,24 @@
       "servo_drive"
     ],
     "description": "Current sensing and feedback path used by the servo drive to regulate torque and detect overload or fault conditions.",
-    "maturityScore": 66,
-    "maturityLabel": "commercially_available",
+    "maturityScore": 76,
+    "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_siemens_servo_motion_control"
+      "ev_siemens_servo_motion_control",
+      "ev_current_ti_tmcs1133_2026",
+      "ev_current_allegro_current_sensors_2026",
+      "ev_current_lem_industrial_drives_2026"
     ],
     "tags": [
       "servo_drive",
       "sensor",
       "control",
-      "decomposition_frontier"
+      "current_sensing",
+      "fault_detection"
     ],
-    "notes": "Expansion frontier: next layer may include shunt or Hall sensing, ADC, isolation, bandwidth, calibration, and fault thresholds."
+    "notes": "Current feedback layer used for torque regulation, overload detection, and power-stage protection. Direct cost is a low-confidence allocation including shunt/Hall/transducer, isolation, ADC/signal-chain, and calibration contribution."
   },
   {
     "id": "servo_drive_motion_control_loop",
@@ -969,15 +981,19 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_siemens_servo_motion_control"
+      "ev_siemens_servo_motion_control",
+      "ev_power_st_servo_motor_drives_2026",
+      "ev_yaskawa_sigma_x_servo_sto_2026",
+      "ev_inovance_sv670_servo_sto_2026"
     ],
     "tags": [
       "servo_drive",
       "motion_control",
       "firmware",
-      "decomposition_frontier"
+      "tuning",
+      "vibration_suppression"
     ],
-    "notes": "Expansion frontier: next layer may include loop rates, encoder protocols, tuning parameters, torque limits, vibration suppression, and robot payload changes."
+    "notes": "Firmware/control-loop layer for current, velocity, and position regulation. The limiting issues for a low-cost robot arm are tuning quality, vibration suppression, encoder timing, and recovery from payload variation rather than basic availability."
   },
   {
     "id": "servo_drive_safety_sto",
@@ -990,21 +1006,23 @@
       "safety"
     ],
     "description": "Safety-rated stop function in the servo drive that removes torque-producing output without fully powering down the control electronics.",
-    "maturityScore": 74,
-    "maturityLabel": "commercially_available",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
       "ev_mitsubishi_servo_drive_safety",
-      "ev_siemens_servo_motion_control"
+      "ev_siemens_servo_motion_control",
+      "ev_yaskawa_sigma_x_servo_sto_2026",
+      "ev_inovance_sv670_servo_sto_2026"
     ],
     "tags": [
       "servo_drive",
       "safety",
       "sto",
-      "decomposition_frontier"
+      "functional_safety"
     ],
-    "notes": "Expansion frontier: next layer may include safety inputs, diagnostics, SIL/PL claims, restart behavior, and safety PLC integration."
+    "notes": "Functional-safety feature layer for safe torque removal. Cost placeholder covers safety inputs, redundant logic, diagnostics, and certification/validation contribution inside a servo-drive product."
   },
   {
     "id": "servo_drive_thermal_emc_design",
@@ -1021,16 +1039,19 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
-      "ev_siemens_servo_motion_control"
+      "ev_siemens_servo_motion_control",
+      "ev_mitsubishi_power_modules_motion_control_2026",
+      "ev_yaskawa_sigma_x_servo_sto_2026",
+      "ev_inovance_sv670_servo_sto_2026"
     ],
     "tags": [
       "servo_drive",
       "thermal",
       "emc",
       "reliability",
-      "decomposition_frontier"
+      "cabinet_design"
     ],
-    "notes": "Expansion frontier: needs better evidence for low-cost multi-axis cabinet layout, cooling margin, conducted emissions, and field failure modes."
+    "notes": "Thermal and EMC design is not a commodity part; it is a design/integration capability. In low-cost arms it can become a reliability bottleneck if heat sinking, grounding, shielding, or conducted-emission margin is cut too aggressively."
   },
   {
     "id": "precision_reducer_gearbox",
@@ -2900,7 +2921,8 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_usgs_mcs_2026_minerals"
+      "ev_usgs_mcs_2026_minerals",
+      "ev_refined_copper_conductor_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -2908,7 +2930,8 @@
       "conductors",
       "cost",
       "supply_chain"
-    ]
+    ],
+    "notes": "Shared conductor material for motor windings, servo-drive current paths, cabling, connectors, and PCB copper. Cost is recorded as low-confidence allocated BOM contribution, not as a copper spot-price quote."
   },
   {
     "id": "copper_ore_mining_and_refining_chain",
@@ -5421,7 +5444,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_inovance_2024h1_robot_servo_share"
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_inovance_sv670_servo_sto_2026"
     ],
     "tags": [
       "manufacturer",
@@ -5429,7 +5453,9 @@
       "robot_arm",
       "plc",
       "public_company",
-      "china_supplier"
+      "china_supplier",
+      "servo_drive",
+      "investable_supplier"
     ],
     "notes": "Investor relevance: vertically exposed to servo, control, and industrial robot subsystems; the same report also cites 26.3% China SCARA share, which is useful context but not the target six-axis parcel-cell architecture by itself.",
     "reviewStatus": "unreviewed",
@@ -5503,13 +5529,16 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_inovance_2024h1_robot_servo_share"
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_yaskawa_sigma_x_servo_sto_2026"
     ],
     "tags": [
       "manufacturer",
       "servo",
       "robot_arm",
-      "public_company"
+      "public_company",
+      "servo_drive",
+      "investable_supplier"
     ],
     "notes": "Investor relevance: exposed to both robot arms and servo systems; exact share in parcel-sorting cells is not established.",
     "reviewStatus": "unreviewed",
@@ -5553,7 +5582,9 @@
       "manufacturer",
       "servo",
       "plc",
-      "public_company"
+      "public_company",
+      "servo_drive",
+      "investable_supplier"
     ],
     "notes": "Investor relevance: PLC and motion-control exposure; the low-cost China target may substitute domestic controls where price pressure dominates.",
     "reviewStatus": "unreviewed",
@@ -5578,13 +5609,16 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_mitsubishi_plc_servo"
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mitsubishi_power_modules_motion_control_2026"
     ],
     "tags": [
       "manufacturer",
       "servo",
       "plc",
-      "public_company"
+      "public_company",
+      "servo_drive",
+      "investable_supplier"
     ],
     "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.",
     "reviewStatus": "unreviewed",
@@ -6835,5 +6869,433 @@
     "notes": "Investor relevance: private supplier, useful for technical benchmarking of induction sensor arrays rather than direct public-equity exposure.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_infineon_technologies",
+    "name": "Infineon Technologies",
+    "domain": [
+      "power_semiconductor",
+      "servo_drive",
+      "industrial_motor_drive",
+      "investable_supplier"
+    ],
+    "description": "German power-semiconductor supplier with IGBT, MOSFET, SiC, gate-driver, and power-module products used in industrial drives and servo-drive power stages.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "IFX.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_power_infineon_servo_drives_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "power_semiconductor",
+      "servo_drive",
+      "public_company"
+    ],
+    "notes": "Investor relevance: exposed to power modules and gate-driver content that can scale with industrial motion-control electrification; exact share in this target robot-cell BOM is not established.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_stmicroelectronics",
+    "name": "STMicroelectronics",
+    "domain": [
+      "power_semiconductor",
+      "servo_drive",
+      "industrial_motor_drive",
+      "investable_supplier"
+    ],
+    "description": "Semiconductor supplier offering MCUs, power discretes, IGBTs, MOSFETs, SiC devices, intelligent power modules, and motor-control products for servo motor drives.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "STM"
+      }
+    ],
+    "evidenceIds": [
+      "ev_power_st_servo_motor_drives_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "power_semiconductor",
+      "servo_drive",
+      "public_company"
+    ],
+    "notes": "Investor relevance: power-stage, MCU, and motor-control silicon exposure; exact share in low-cost Chinese parcel-sorting robots is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_onsemi",
+    "name": "onsemi",
+    "domain": [
+      "power_semiconductor",
+      "servo_drive",
+      "industrial_motor_drive",
+      "investable_supplier"
+    ],
+    "description": "Power and sensing semiconductor supplier with intelligent power modules, motor-drive inverter blocks, gate drivers, protection, and sensing products for industrial motor drives.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ON"
+      }
+    ],
+    "evidenceIds": [
+      "ev_power_onsemi_ipm_motor_drive_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "power_semiconductor",
+      "servo_drive",
+      "current_sensing",
+      "public_company"
+    ],
+    "notes": "Investor relevance: exposed to motor-drive IPM and sensing content; not evidence of direct adoption in this exact robot-cell architecture.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_texas_instruments",
+    "name": "Texas Instruments",
+    "domain": [
+      "current_sensing",
+      "analog_semiconductor",
+      "servo_drive",
+      "investable_supplier"
+    ],
+    "description": "Analog and embedded semiconductor supplier with isolated Hall-effect current sensors and signal-chain products relevant to servo-drive current feedback.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "TXN"
+      }
+    ],
+    "evidenceIds": [
+      "ev_current_ti_tmcs1133_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "current_sensing",
+      "analog_semiconductor",
+      "public_company"
+    ],
+    "notes": "Investor relevance: analog current-sensing and isolation content; exact share in robot servo drives is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_allegro_microsystems",
+    "name": "Allegro MicroSystems",
+    "domain": [
+      "current_sensing",
+      "motion_control",
+      "power_semiconductor",
+      "investable_supplier"
+    ],
+    "description": "Magnetic sensing and power IC supplier with current-sensor products for motion control and high-performance power conversion.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ALGM"
+      }
+    ],
+    "evidenceIds": [
+      "ev_current_allegro_current_sensors_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "current_sensing",
+      "motion_control",
+      "public_company"
+    ],
+    "notes": "Investor relevance: current-sensing exposure in motion-control and power-conversion loops; exact parcel-robot BOM share is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_lem",
+    "name": "LEM",
+    "domain": [
+      "current_sensing",
+      "industrial_drive",
+      "investable_supplier"
+    ],
+    "description": "Swiss supplier of current sensors and transducers, including galvanically isolated sensors used for industrial drive current measurement.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "LEHN.SW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_current_lem_industrial_drives_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "current_sensing",
+      "industrial_drive",
+      "public_company"
+    ],
+    "notes": "Investor relevance: specialized current-transducer exposure; exact supplier position in this target robot-cell BOM is unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "servo_drive_power_stage_cost",
+    "name": "Servo drive power stage cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive",
+      "power_electronics"
+    ],
+    "description": "Allocated p50 cost contribution for the servo-drive inverter/power-stage hardware, including power module or discrete switches, gate drive, protection, bus hardware, and heat-spreading contribution.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1800,
+          "typical": 4200,
+          "max": 9500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "servo_drive",
+      "consistency_backfill",
+      "power_stage"
+    ],
+    "notes": "Low-confidence allocation from the servo-drive controller bundle. Intended to expose p50 cost drivers in the graph; replace with supplier quotes or teardown evidence before review promotion."
+  },
+  {
+    "id": "servo_drive_current_sensing_cost",
+    "name": "Servo drive current sensing cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive",
+      "current_sensing"
+    ],
+    "description": "Allocated p50 cost contribution for current-sensing hardware and signal conditioning used by servo-drive torque/current loops and fault detection.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 300,
+          "typical": 900,
+          "max": 2200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "servo_drive",
+      "consistency_backfill",
+      "current_sensing"
+    ],
+    "notes": "Low-confidence allocation from the servo-drive controller bundle. Intended to expose p50 cost drivers in the graph; replace with supplier quotes or teardown evidence before review promotion."
+  },
+  {
+    "id": "servo_drive_motion_control_loop_cost",
+    "name": "Servo drive motion-control loop cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive",
+      "firmware"
+    ],
+    "description": "Allocated p50 contribution for embedded motion-control firmware, tuning, parameterization, and controller resources inside the servo-drive bundle.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 400,
+          "typical": 900,
+          "max": 2500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "servo_drive",
+      "consistency_backfill",
+      "firmware",
+      "motion_control"
+    ],
+    "notes": "Low-confidence allocation from the servo-drive controller bundle. Intended to expose p50 cost drivers in the graph; replace with supplier quotes or teardown evidence before review promotion."
+  },
+  {
+    "id": "servo_drive_safety_sto_cost",
+    "name": "Servo drive Safe Torque Off cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive",
+      "safety"
+    ],
+    "description": "Allocated p50 cost contribution for STO safety inputs, redundant stop logic, diagnostics, documentation, and safety validation contribution in a servo drive.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 250,
+          "typical": 700,
+          "max": 1800
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "servo_drive",
+      "consistency_backfill",
+      "safety",
+      "sto"
+    ],
+    "notes": "Low-confidence allocation from the servo-drive controller bundle. Intended to expose p50 cost drivers in the graph; replace with supplier quotes or teardown evidence before review promotion."
+  },
+  {
+    "id": "servo_drive_thermal_emc_design_cost",
+    "name": "Servo drive thermal and EMC design cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive",
+      "thermal_emc"
+    ],
+    "description": "Allocated p50 engineering and hardware contribution for thermal margin, heat sinking, grounding, shielding, filtering, and EMC reliability inside the servo-drive subsystem.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 400,
+          "typical": 1300,
+          "max": 3500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "servo_drive",
+      "consistency_backfill",
+      "thermal",
+      "emc"
+    ],
+    "notes": "Low-confidence allocation from the servo-drive controller bundle. Intended to expose p50 cost drivers in the graph; replace with supplier quotes or teardown evidence before review promotion."
+  },
+  {
+    "id": "refined_copper_conductor_material_cost",
+    "name": "Refined copper conductor material cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "copper"
+    ],
+    "description": "Allocated p50 BOM contribution for refined copper conductor content used across windings, cabling, connectors, PCB copper, and servo-drive current paths in the target robot cell.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 250,
+          "typical": 900,
+          "max": 2500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_refined_copper_conductor_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "copper",
+      "raw_material",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocated conductor contribution. This is a product-level BOM allocation, not a commodity price; replace with mass and commodity-price analysis before review promotion."
   }
 ]

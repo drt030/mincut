@@ -120,6 +120,43 @@ test("parcel induction and spacing control exposes sortation supplier candidates
   }
 });
 
+test("servo drive child layer exposes investable supplier candidates", () => {
+  const powerStageManufacturers = manufacturersForNode(graph, "servo_drive_power_stage").map((node) => node.id);
+  for (const id of [
+    "org_inovance",
+    "org_siemens",
+    "org_mitsubishi_electric",
+    "org_infineon_technologies",
+    "org_stmicroelectronics",
+    "org_onsemi",
+  ]) {
+    assert.ok(
+      powerStageManufacturers.includes(id),
+      `servo_drive_power_stage must expose ${id} as a drive/power-semiconductor supplier candidate`,
+    );
+  }
+
+  const currentSensorManufacturers = manufacturersForNode(graph, "servo_drive_current_sensing").map((node) => node.id);
+  for (const id of ["org_lem", "org_texas_instruments", "org_allegro_microsystems"]) {
+    assert.ok(
+      currentSensorManufacturers.includes(id),
+      `servo_drive_current_sensing must expose ${id} as a current-sensing supplier candidate`,
+    );
+  }
+
+  const stoManufacturers = manufacturersForNode(graph, "servo_drive_safety_sto").map((node) => node.id);
+  for (const id of ["org_mitsubishi_electric", "org_siemens", "org_yaskawa"]) {
+    assert.ok(stoManufacturers.includes(id), `servo_drive_safety_sto must expose ${id} as a safety-drive supplier candidate`);
+  }
+
+  const motionLoopImplementers = implementersForNode(graph, "servo_drive_motion_control_loop").map((node) => node.id);
+  const thermalEmcImplementers = implementersForNode(graph, "servo_drive_thermal_emc_design").map((node) => node.id);
+  for (const id of ["org_inovance", "org_siemens", "org_mitsubishi_electric", "org_yaskawa"]) {
+    assert.ok(motionLoopImplementers.includes(id), `servo_drive_motion_control_loop must expose ${id} as an implementer`);
+    assert.ok(thermalEmcImplementers.includes(id), `servo_drive_thermal_emc_design must expose ${id} as an implementer`);
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

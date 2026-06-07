@@ -824,7 +824,8 @@
     ],
     "supportsEdgeIds": [
       "e_servo_drive_requires_power_stage",
-      "e_servo_drive_requires_sto"
+      "e_servo_drive_requires_sto",
+      "e_mfg_servo_drive_safety_sto_mitsubishi"
     ],
     "limitations": "Vendor feature page; supports safety-function presence but not complete power-stage design, cost, thermal margin, or multi-axis robot cabinet integration.",
     "confidence": "medium",
@@ -849,7 +850,10 @@
       "e_servo_drive_requires_current_sensing",
       "e_servo_drive_implemented_by_motion_loop",
       "e_servo_drive_requires_sto",
-      "e_servo_drive_implemented_by_thermal_emc"
+      "e_servo_drive_implemented_by_thermal_emc",
+      "e_mfg_servo_drive_safety_sto_siemens",
+      "e_impl_servo_drive_motion_loop_siemens",
+      "e_impl_servo_drive_thermal_emc_siemens"
     ],
     "limitations": "Vendor overview; supports motion-control function but not detailed firmware, current-sensor BOM, EMC test process, or low-cost Chinese supply chain.",
     "confidence": "medium",
@@ -1042,7 +1046,8 @@
       "org_estun",
       "org_inovance",
       "org_yaskawa",
-      "org_siemens"
+      "org_siemens",
+      "servo_drive_controller"
     ],
     "supportsEdgeIds": [
       "e_mfg_industrial_robot_arm_body_fanuc",
@@ -1059,7 +1064,8 @@
       "e_mfg_industrial_servo_motor_siemens",
       "e_mfg_plc_wcs_siemens",
       "e_mfg_robot_controller_io_siemens",
-      "e_mfg_robot_controller_io_inovance"
+      "e_mfg_robot_controller_io_inovance",
+      "e_mfg_servo_drive_safety_sto_inovance"
     ],
     "limitations": "Company report citing third-party market data; some values are sales share, some product-market share, and none prove the BOM supplier for this exact robot cell.",
     "confidence": "medium",
@@ -1193,13 +1199,17 @@
     "date": "2026-06-07",
     "summary": "Mitsubishi Electric product materials describe factory automation controllers and servo products relevant to PLC and servo control.",
     "supportsNodeIds": [
-      "org_mitsubishi_electric"
+      "org_mitsubishi_electric",
+      "servo_drive_motion_control_loop",
+      "servo_drive_thermal_emc_design"
     ],
     "supportsEdgeIds": [
       "e_mfg_servo_drive_controller_mitsubishi",
       "e_mfg_industrial_servo_motor_mitsubishi",
       "e_mfg_plc_wcs_mitsubishi",
-      "e_mfg_robot_controller_io_mitsubishi"
+      "e_mfg_robot_controller_io_mitsubishi",
+      "e_impl_servo_drive_motion_loop_mitsubishi",
+      "e_impl_servo_drive_thermal_emc_mitsubishi"
     ],
     "limitations": "Product-line evidence; does not quantify market share or target-cell adoption.",
     "confidence": "medium",
@@ -2066,6 +2076,188 @@
       "e_mfg_parcel_induction_spacing_daifuku"
     ],
     "limitations": "Large-system vendor page; relevant to sortation/induction exposure but not proof of low-cost robot-cell BOM, supplier share, or 300,000 RMB feasibility.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_power_infineon_servo_drives_2026",
+    "type": "product_page",
+    "title": "Servo motor drive and control",
+    "url": "https://www.infineon.com/application/servo-drives",
+    "sourceName": "Infineon Technologies",
+    "date": "2026-06-07",
+    "summary": "Infineon presents servo-drive power-stage reference content using IGBT modules, SOI gate drivers, and motor-drive control boards, supporting its role as a power-semiconductor supplier candidate for servo-drive power stages.",
+    "supportsNodeIds": [
+      "org_infineon_technologies",
+      "servo_drive_power_stage"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_power_stage_infineon"
+    ],
+    "limitations": "Product-application evidence; does not prove use in the target robot cell or quantify share in low-cost Chinese servo drives.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_power_st_servo_motor_drives_2026",
+    "type": "product_page",
+    "title": "Servo motor drives",
+    "url": "https://www.st.com/en/applications/industrial-tools-motor-drives-and-equipment/servo-motor-drives.html",
+    "sourceName": "STMicroelectronics",
+    "date": "2026-06-07",
+    "summary": "STMicroelectronics describes servo-motor-drive offerings including MCUs, power discretes, IGBTs, MOSFETs, SiC devices, intelligent power modules, and motor-driver products for scalable high-efficiency power stages.",
+    "supportsNodeIds": [
+      "org_stmicroelectronics",
+      "servo_drive_power_stage",
+      "servo_drive_motion_control_loop"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_power_stage_stmicroelectronics"
+    ],
+    "limitations": "Supplier capability evidence only; not a validated BOM share for this specific robot arm or sorting cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_power_onsemi_ipm_motor_drive_2026",
+    "type": "product_page",
+    "title": "Intelligent Power Modules for motor drives",
+    "url": "https://www.onsemi.com/PowerSolutions/content.do?id=18893",
+    "sourceName": "onsemi",
+    "date": "2026-06-07",
+    "summary": "onsemi describes intelligent power modules that combine power switches and gate drivers, plus power integrated modules and inverter blocks for motor-drive applications.",
+    "supportsNodeIds": [
+      "org_onsemi",
+      "servo_drive_power_stage"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_power_stage_onsemi"
+    ],
+    "limitations": "Application/product-family evidence; does not establish parcel-robot supplier share or drive-OEM design wins.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_current_ti_tmcs1133_2026",
+    "type": "product_page",
+    "title": "TMCS1133 isolated Hall-effect current sensor",
+    "url": "https://www.ti.com/product/TMCS1133",
+    "sourceName": "Texas Instruments",
+    "date": "2026-06-07",
+    "summary": "Texas Instruments describes the TMCS1133 as a galvanically isolated Hall-effect current sensor with high accuracy, reinforced isolation, fast response, and overcurrent detection, relevant to servo-drive current feedback and fault protection.",
+    "supportsNodeIds": [
+      "org_texas_instruments",
+      "servo_drive_current_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_current_sensing_ti"
+    ],
+    "limitations": "Product-page evidence for current-sensor capability; does not identify the selected sensor for this robot drive.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_current_allegro_current_sensors_2026",
+    "type": "news",
+    "title": "Allegro high-performance current sensor portfolio expansion",
+    "url": "https://www.allegromicro.com/en/about-allegro/newsroom/press-releases/2026/high-accuracy-current-sensor-acs37017",
+    "sourceName": "Allegro MicroSystems",
+    "date": "2026-02-10",
+    "summary": "Allegro describes itself as a power and sensing supplier for motion control and energy-efficient systems and highlights current sensors for speed, power density, and accuracy in modern power electronics.",
+    "supportsNodeIds": [
+      "org_allegro_microsystems",
+      "servo_drive_current_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_current_sensing_allegro"
+    ],
+    "limitations": "Company announcement; useful supplier-candidate evidence but not market-share or BOM evidence for this exact servo drive.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_current_lem_industrial_drives_2026",
+    "type": "product_page",
+    "title": "Industrial drives current measurement",
+    "url": "https://www.lem.com/en/drives",
+    "sourceName": "LEM",
+    "date": "2026-06-07",
+    "summary": "LEM describes reliable and accurate isolated current measurement for industrial drives, including motor-phase current measurement tailored for drive performance, space, and cost requirements.",
+    "supportsNodeIds": [
+      "org_lem",
+      "servo_drive_current_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_current_sensing_lem"
+    ],
+    "limitations": "Supplier capability evidence; does not prove adoption in the target robot-cell drive hardware.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_yaskawa_sigma_x_servo_sto_2026",
+    "type": "product_page",
+    "title": "Sigma-X servo products",
+    "url": "https://www.yaskawa.com/products/motion/sigma-x-servo-products",
+    "sourceName": "Yaskawa",
+    "date": "2026-06-07",
+    "summary": "Yaskawa describes Sigma-X SERVOPACK servo products, single/dual/three-axis designs, software algorithms for tuning and vibration suppression, and 50 W to 15 kW servo ranges, supporting Yaskawa as a servo-drive and motion-loop supplier candidate.",
+    "supportsNodeIds": [
+      "org_yaskawa",
+      "servo_drive_controller",
+      "servo_drive_motion_control_loop",
+      "servo_drive_safety_sto"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_safety_sto_yaskawa",
+      "e_impl_servo_drive_motion_loop_yaskawa",
+      "e_impl_servo_drive_thermal_emc_yaskawa"
+    ],
+    "limitations": "Product-family evidence; not target-cell BOM evidence or China low-cost share evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_inovance_sv670_servo_sto_2026",
+    "type": "product_page",
+    "title": "SV670 Series high-performance servo drive",
+    "url": "https://www.inovance.com/global/content/details_815_403230.html",
+    "sourceName": "Inovance",
+    "date": "2026-06-07",
+    "summary": "Inovance describes the SV670-INT high-end servo drive series for speed, accuracy, performance, tuning-free capability, and STO safety torque-off certification on the SV670-FS-INT model.",
+    "supportsNodeIds": [
+      "org_inovance",
+      "servo_drive_controller",
+      "servo_drive_motion_control_loop",
+      "servo_drive_safety_sto"
+    ],
+    "supportsEdgeIds": [
+      "e_impl_servo_drive_motion_loop_inovance",
+      "e_impl_servo_drive_thermal_emc_inovance",
+      "e_mfg_servo_drive_safety_sto_inovance"
+    ],
+    "limitations": "Vendor product-page evidence; useful for supplier capability, not proof of selection in the target robot-cell BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mitsubishi_power_modules_motion_control_2026",
+    "type": "product_page",
+    "title": "Power Devices Applications: Motion Control",
+    "url": "https://www.mitsubishielectric.com/semiconductors/powerdevices/application/motion-control/index.html?seriesid=01",
+    "sourceName": "Mitsubishi Electric",
+    "date": "2026-06-07",
+    "summary": "Mitsubishi Electric states that IGBT and IPM modules are indispensable for industrial inverter and servo-drive applications and describes low-loss, thermal-interface, and dv/dt control features for motion control.",
+    "supportsNodeIds": [
+      "org_mitsubishi_electric",
+      "servo_drive_power_stage",
+      "servo_drive_thermal_emc_design"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_power_stage_mitsubishi",
+      "e_impl_servo_drive_thermal_emc_mitsubishi"
+    ],
+    "limitations": "Power-device application evidence; does not show target-cell adoption or market share.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   }

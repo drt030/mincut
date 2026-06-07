@@ -213,3 +213,41 @@ test("parcel induction and spacing control exposes throughput-limiting subproble
   );
   assert.ok(costEdge, "parcel_induction_spacing_control must carry an explicit cost placeholder");
 });
+
+test("servo drive child layer carries explicit low-confidence cost placeholders", () => {
+  const graph = loadGraphData();
+  const parent = nodeById(graph, "servo_drive_controller");
+  assert.ok(parent, "servo_drive_controller must exist");
+  assert.equal(
+    parent!.tags?.includes("decomposition_frontier"),
+    false,
+    "servo_drive_controller should not remain a frontier once the drive power/sensing/safety layer is populated",
+  );
+
+  for (const id of [
+    "servo_drive_power_stage",
+    "servo_drive_current_sensing",
+    "servo_drive_motion_control_loop",
+    "servo_drive_safety_sto",
+    "servo_drive_thermal_emc_design",
+    "refined_copper_conductor_material",
+  ]) {
+    const edge = graph.edges.find((candidate) => candidate.source === id && candidate.relation === "measured_by");
+    assert.ok(edge, `${id} must have a measured_by cost edge`);
+
+    const metric = nodeById(graph, edge!.target);
+    assert.equal(metric?.kind, "metric", `${edge!.target} must be a metric node`);
+    assert.equal(metric?.confidence, "low", `${edge!.target} should remain low-confidence until supplier/teardown review`);
+    assert.equal(metric?.reviewStatus, "unreviewed", `${edge!.target} should not be treated as reviewed cost evidence`);
+
+    const cost = metric?.metrics?.find((item) => item.name === "Cost");
+    assert.equal(cost?.unit, "RMB", `${edge!.target} must expose an RMB cost`);
+    assert.equal(cost?.currency, "RMB", `${edge!.target} must expose an RMB currency`);
+    assert.equal(cost?.costAsOf, "2025", `${edge!.target} must carry a costAsOf year`);
+    assert.equal(typeof cost?.currentValue, "object", `${edge!.target} must use a min/typical/max range`);
+    assert.notEqual(cost?.currentValue, null, `${edge!.target} must use a non-null cost range`);
+    assert.equal(typeof cost?.currentValue?.min, "number", `${edge!.target} must expose a numeric min cost`);
+    assert.equal(typeof cost?.currentValue?.typical, "number", `${edge!.target} must expose a numeric p50 cost`);
+    assert.equal(typeof cost?.currentValue?.max, "number", `${edge!.target} must expose a numeric max cost`);
+  }
+});

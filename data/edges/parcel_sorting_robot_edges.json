@@ -2259,7 +2259,7 @@
     "source": "servo_drive_controller",
     "target": "org_inovance",
     "relation": "manufactured_by",
-    "claim": "Inovance is a major China general-servo supplier candidate for servo drive/controller selection.",
+    "claim": "Inovance is a candidate supplier for the servo-drive layer.",
     "context": "Market-share evidence is China general servo, not parcel-cell BOM.",
     "confidence": "medium",
     "evidenceIds": [
@@ -2272,7 +2272,7 @@
     "source": "servo_drive_controller",
     "target": "org_siemens",
     "relation": "manufactured_by",
-    "claim": "Siemens is a servo and motion-control supplier candidate for servo drive/controller selection.",
+    "claim": "Siemens is a candidate supplier for the servo-drive layer.",
     "context": "Market-share evidence is China general servo and small PLC; exact parcel-cell BOM share not verified.",
     "confidence": "medium",
     "evidenceIds": [
@@ -2286,7 +2286,7 @@
     "source": "servo_drive_controller",
     "target": "org_yaskawa",
     "relation": "manufactured_by",
-    "claim": "Yaskawa is a servo supplier candidate for servo drive/controller selection.",
+    "claim": "Yaskawa is a candidate supplier for the servo-drive layer.",
     "context": "Market-share evidence is China general servo; exact parcel-cell BOM share not verified.",
     "confidence": "medium",
     "evidenceIds": [
@@ -2299,7 +2299,7 @@
     "source": "servo_drive_controller",
     "target": "org_mitsubishi_electric",
     "relation": "manufactured_by",
-    "claim": "Mitsubishi Electric supplies servo and PLC automation products relevant to robot and conveyor control.",
+    "claim": "Mitsubishi Electric is a candidate supplier for the servo-drive layer.",
     "context": "Product-line evidence only; exact parcel-cell share not verified.",
     "confidence": "medium",
     "evidenceIds": [
@@ -2312,7 +2312,7 @@
     "source": "servo_drive_power_stage",
     "target": "org_inovance",
     "relation": "manufactured_by",
-    "claim": "Inovance is a supplier candidate for servo drive power electronics and control products.",
+    "claim": "Inovance is a candidate supplier for the servo-drive power-stage layer.",
     "context": "General-servo market evidence; specific power-stage device sourcing remains separate.",
     "confidence": "medium",
     "evidenceIds": [
@@ -2325,7 +2325,7 @@
     "source": "servo_drive_power_stage",
     "target": "org_siemens",
     "relation": "manufactured_by",
-    "claim": "Siemens is a supplier candidate for servo drive and motion-control products.",
+    "claim": "Siemens is a candidate supplier for the servo-drive power-stage layer.",
     "context": "General-servo market evidence; specific power semiconductor supply is not modeled here.",
     "confidence": "medium",
     "evidenceIds": [
@@ -3530,5 +3530,307 @@
     ],
     "reviewStatus": "unreviewed",
     "context": "Cost consistency backfill. Allocates shared electronics and semiconductor content for camera, compute, PLC, encoder, and servo electronics branches."
+  },
+  {
+    "id": "e_servo_drive_power_stage_measured_by_cost",
+    "source": "servo_drive_power_stage",
+    "target": "servo_drive_power_stage_cost",
+    "relation": "measured_by",
+    "claim": "servo_drive_power_stage has an explicit low-confidence RMB p50 cost placeholder for graph cost coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_current_sensing_measured_by_cost",
+    "source": "servo_drive_current_sensing",
+    "target": "servo_drive_current_sensing_cost",
+    "relation": "measured_by",
+    "claim": "servo_drive_current_sensing has an explicit low-confidence RMB p50 cost placeholder for graph cost coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_motion_control_loop_measured_by_cost",
+    "source": "servo_drive_motion_control_loop",
+    "target": "servo_drive_motion_control_loop_cost",
+    "relation": "measured_by",
+    "claim": "servo_drive_motion_control_loop has an explicit low-confidence RMB p50 cost placeholder for graph cost coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_safety_sto_measured_by_cost",
+    "source": "servo_drive_safety_sto",
+    "target": "servo_drive_safety_sto_cost",
+    "relation": "measured_by",
+    "claim": "servo_drive_safety_sto has an explicit low-confidence RMB p50 cost placeholder for graph cost coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_drive_thermal_emc_design_measured_by_cost",
+    "source": "servo_drive_thermal_emc_design",
+    "target": "servo_drive_thermal_emc_design_cost",
+    "relation": "measured_by",
+    "claim": "servo_drive_thermal_emc_design has an explicit low-confidence RMB p50 cost placeholder for graph cost coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_drive_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_refined_copper_conductor_material_measured_by_cost",
+    "source": "refined_copper_conductor_material",
+    "target": "refined_copper_conductor_material_cost",
+    "relation": "measured_by",
+    "claim": "refined_copper_conductor_material has an explicit low-confidence RMB p50 cost placeholder for graph cost coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_refined_copper_conductor_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_power_stage_mitsubishi",
+    "source": "servo_drive_power_stage",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a candidate supplier for the servo-drive power-stage layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_power_modules_motion_control_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_power_stage_infineon",
+    "source": "servo_drive_power_stage",
+    "target": "org_infineon_technologies",
+    "relation": "manufactured_by",
+    "claim": "Infineon Technologies is a candidate supplier for the servo-drive power-stage layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_power_infineon_servo_drives_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_power_stage_stmicroelectronics",
+    "source": "servo_drive_power_stage",
+    "target": "org_stmicroelectronics",
+    "relation": "manufactured_by",
+    "claim": "STMicroelectronics is a candidate supplier for the servo-drive power-stage layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_power_st_servo_motor_drives_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_power_stage_onsemi",
+    "source": "servo_drive_power_stage",
+    "target": "org_onsemi",
+    "relation": "manufactured_by",
+    "claim": "onsemi is a candidate supplier for the servo-drive power-stage layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_power_onsemi_ipm_motor_drive_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_current_sensing_lem",
+    "source": "servo_drive_current_sensing",
+    "target": "org_lem",
+    "relation": "manufactured_by",
+    "claim": "LEM is a candidate supplier for the servo-drive current-sensing layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_current_lem_industrial_drives_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_current_sensing_ti",
+    "source": "servo_drive_current_sensing",
+    "target": "org_texas_instruments",
+    "relation": "manufactured_by",
+    "claim": "Texas Instruments is a candidate supplier for the servo-drive current-sensing layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_current_ti_tmcs1133_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_current_sensing_allegro",
+    "source": "servo_drive_current_sensing",
+    "target": "org_allegro_microsystems",
+    "relation": "manufactured_by",
+    "claim": "Allegro MicroSystems is a candidate supplier for the servo-drive current-sensing layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_current_allegro_current_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_safety_sto_mitsubishi",
+    "source": "servo_drive_safety_sto",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a candidate supplier for the servo-drive STO safety-function layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mitsubishi_servo_drive_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_safety_sto_siemens",
+    "source": "servo_drive_safety_sto",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a candidate supplier for the servo-drive STO safety-function layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_safety_sto_yaskawa",
+    "source": "servo_drive_safety_sto",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a candidate supplier for the servo-drive STO safety-function layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_safety_sto_inovance",
+    "source": "servo_drive_safety_sto",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a candidate supplier for the servo-drive STO safety-function layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_inovance_sv670_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_motion_loop_inovance",
+    "source": "servo_drive_motion_control_loop",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance is a candidate implementer for the servo-drive embedded motion-control loop and tuning layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_inovance_sv670_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_thermal_emc_inovance",
+    "source": "servo_drive_thermal_emc_design",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance is a candidate implementer for the servo-drive thermal and EMC design layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_inovance_sv670_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_motion_loop_siemens",
+    "source": "servo_drive_motion_control_loop",
+    "target": "org_siemens",
+    "relation": "implemented_by",
+    "claim": "Siemens is a candidate implementer for the servo-drive embedded motion-control loop and tuning layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_thermal_emc_siemens",
+    "source": "servo_drive_thermal_emc_design",
+    "target": "org_siemens",
+    "relation": "implemented_by",
+    "claim": "Siemens is a candidate implementer for the servo-drive thermal and EMC design layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_motion_loop_mitsubishi",
+    "source": "servo_drive_motion_control_loop",
+    "target": "org_mitsubishi_electric",
+    "relation": "implemented_by",
+    "claim": "Mitsubishi Electric is a candidate implementer for the servo-drive embedded motion-control loop and tuning layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mitsubishi_power_modules_motion_control_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_thermal_emc_mitsubishi",
+    "source": "servo_drive_thermal_emc_design",
+    "target": "org_mitsubishi_electric",
+    "relation": "implemented_by",
+    "claim": "Mitsubishi Electric is a candidate implementer for the servo-drive thermal and EMC design layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mitsubishi_power_modules_motion_control_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_motion_loop_yaskawa",
+    "source": "servo_drive_motion_control_loop",
+    "target": "org_yaskawa",
+    "relation": "implemented_by",
+    "claim": "Yaskawa is a candidate implementer for the servo-drive embedded motion-control loop and tuning layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_drive_thermal_emc_yaskawa",
+    "source": "servo_drive_thermal_emc_design",
+    "target": "org_yaskawa",
+    "relation": "implemented_by",
+    "claim": "Yaskawa is a candidate implementer for the servo-drive thermal and EMC design layer.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
