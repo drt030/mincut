@@ -596,6 +596,7 @@ const CONSTRAINT_FACTOR_TAG_KEYS: ReadonlyArray<{ tag: string; labelKey: string 
   { tag: "constraint_maintenance_operations", labelKey: "constraintFactorMaintenanceOperations" },
   { tag: "constraint_component_availability", labelKey: "constraintFactorComponentAvailability" },
   { tag: "constraint_material_supply_chain", labelKey: "constraintFactorMaterialSupplyChain" },
+  { tag: "constraint_capacity_scale", labelKey: "constraintFactorCapacityScale" },
 ] as const;
 
 function constraintFactorsForNode(node: Node, t: (key: string) => string): Array<{ tag: string; label: string }> {
@@ -1321,6 +1322,7 @@ function TopBlockers({
           const maturityText = formatMaturityLabel(maturityLabel);
           const sourceText = entry.source === "explicit" ? t("explicitBottleneck") : maturityText;
           const badgeText = entry.source === "explicit" ? t("bottleneckBadge") : `${Math.round(entry.risk * 100)}%`;
+          const factors = constraintFactorsForNode(entry.child, t);
           return (
             <li key={entry.id}>
               {onSelectNode ? (
@@ -1332,10 +1334,21 @@ function TopBlockers({
                   aria-label={`${nodeName(entry.id, entry.child.name)} — ${sourceText} · risk ${Math.round(entry.risk * 100)}%`}
                 >
                   <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
-                  <span className="top-blockers-meta muted">{sourceText}</span>
+                  <span className="top-blockers-meta muted">
+                    {sourceText}
+                    {factors.length > 0 ? ` · ${factors.map((factor) => factor.label).join(" · ")}` : ""}
+                  </span>
                 </button>
               ) : (
-                <span>{nodeName(entry.id, entry.child.name)}</span>
+                <span>
+                  {nodeName(entry.id, entry.child.name)}
+                  {factors.length > 0 ? (
+                    <span className="top-blockers-meta muted">
+                      {" "}
+                      · {factors.map((factor) => factor.label).join(" · ")}
+                    </span>
+                  ) : null}
+                </span>
               )}
               <span className={["top-blockers-risk", entry.source === "explicit" ? "explicit" : ""].filter(Boolean).join(" ")} aria-hidden="true">
                 {badgeText}

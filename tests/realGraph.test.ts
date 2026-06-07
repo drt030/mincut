@@ -161,6 +161,15 @@ test("real graph: throughput constraints carry structured constraint-factor tags
     parcel_induction_spacing_control: [
       "constraint_integration_commissioning",
       "constraint_component_availability",
+      "constraint_capacity_scale",
+    ],
+    parcel_singulation_and_metering: [
+      "constraint_integration_commissioning",
+      "constraint_capacity_scale",
+    ],
+    dynamic_gap_control_logic: [
+      "constraint_integration_commissioning",
+      "constraint_capacity_scale",
     ],
     plc_and_wcs_integration: [
       "constraint_integration_commissioning",

@@ -146,7 +146,9 @@
       "lighting",
       "perception",
       "bottleneck",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -206,7 +208,8 @@
       "bottleneck",
       "startup_opportunity_candidate",
       "constraint_technical_maturity",
-      "constraint_integration_commissioning"
+      "constraint_integration_commissioning",
+      "constraint_capacity_scale"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -352,7 +355,9 @@
       "timestamping",
       "real_time",
       "controls",
-      "bottleneck"
+      "bottleneck",
+      "constraint_integration_commissioning",
+      "constraint_capacity_scale"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -2045,7 +2050,8 @@
       "exception_recovery",
       "startup_opportunity_candidate",
       "constraint_integration_commissioning",
-      "constraint_component_availability"
+      "constraint_component_availability",
+      "constraint_capacity_scale"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -2075,7 +2081,9 @@
       "singulation",
       "metering",
       "flow_control",
-      "bottleneck"
+      "bottleneck",
+      "constraint_integration_commissioning",
+      "constraint_capacity_scale"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -2107,7 +2115,9 @@
       "gapping",
       "software",
       "flow_control",
-      "bottleneck"
+      "bottleneck",
+      "constraint_integration_commissioning",
+      "constraint_capacity_scale"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"

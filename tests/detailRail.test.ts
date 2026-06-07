@@ -579,6 +579,34 @@ test("expanded: organization detail surfaces its own investor metrics", () => {
   );
 });
 
+test("expanded: product top blockers surface limiting-factor categories", () => {
+  const focused = nodeById(FOCAL_PRODUCT_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(html, /Top blockers/, `product detail must include a top blockers section; got: ${html}`);
+  assert.match(
+    html,
+    /Technical maturity/,
+    `top blockers must expose whether a blocker is technically constrained; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Integration \/ commissioning/,
+    `top blockers must expose whether a blocker is integration constrained; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Capacity \/ scale/,
+    `top blockers must expose whether a blocker is capacity/scale constrained; got: ${html}`,
+  );
+});
+
 test("expanded: organization detail surfaces workflows it implements", () => {
   const focused = nodeById(ABB_ROBOTICS_ID);
   const html = render({
