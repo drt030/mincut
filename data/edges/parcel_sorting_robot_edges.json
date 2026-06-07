@@ -3899,6 +3899,149 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_electrical_steel_lamination_material_measured_by_cost",
+    "source": "electrical_steel_lamination_material",
+    "target": "electrical_steel_lamination_material_cost",
+    "relation": "measured_by",
+    "claim": "Electrical steel lamination material has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_stator_core_measured_by_cost",
+    "source": "servo_motor_stator_core",
+    "target": "servo_motor_stator_core_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor stator core has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_ndpr_rare_earth_feedstock_measured_by_cost",
+    "source": "ndpr_rare_earth_feedstock",
+    "target": "ndpr_rare_earth_feedstock_cost",
+    "relation": "measured_by",
+    "claim": "NdPr rare-earth feedstock has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_dysprosium_terbium_heavy_ree_additives_measured_by_cost",
+    "source": "dysprosium_terbium_heavy_ree_additives",
+    "target": "dysprosium_terbium_heavy_ree_additives_cost",
+    "relation": "measured_by",
+    "claim": "Dysprosium / terbium heavy rare-earth additives has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_boron_and_iron_magnet_matrix_material_measured_by_cost",
+    "source": "boron_and_iron_magnet_matrix_material",
+    "target": "boron_and_iron_magnet_matrix_material_cost",
+    "relation": "measured_by",
+    "claim": "Boron and iron magnet matrix material has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_rare_earth_permanent_magnet_material_measured_by_cost",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "rare_earth_permanent_magnet_material_cost",
+    "relation": "measured_by",
+    "claim": "Rare-earth permanent magnet material has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_permanent_magnet_rotor_measured_by_cost",
+    "source": "servo_motor_permanent_magnet_rotor",
+    "target": "servo_motor_permanent_magnet_rotor_cost",
+    "relation": "measured_by",
+    "claim": "Permanent-magnet rotor has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_encoder_feedback_measured_by_cost",
+    "source": "servo_motor_encoder_feedback",
+    "target": "servo_motor_encoder_feedback_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor encoder feedback has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_bearings_and_shaft_measured_by_cost",
+    "source": "servo_motor_bearings_and_shaft",
+    "target": "servo_motor_bearings_and_shaft_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor bearings and shaft has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_cables_and_connectors_measured_by_cost",
+    "source": "servo_motor_cables_and_connectors",
+    "target": "servo_motor_cables_and_connectors_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor cables and connectors has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_integrated_brake_option_measured_by_cost",
+    "source": "servo_motor_integrated_brake_option",
+    "target": "servo_motor_integrated_brake_option_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor integrated brake option has a low-confidence allocated 2025 RMB p50 cost metric.",
+    "context": "Internal consistency backfill so the servo motor child/material layer does not appear costless in cost-mode and gate coverage.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_mfg_strain_wave_wave_generator_harmonic_drive",
     "source": "strain_wave_wave_generator",
     "target": "org_harmonic_drive_systems",
@@ -4051,6 +4194,201 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_nippon_steel_bar_wire_rod_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_electrical_steel_lamination_material_baosteel",
+    "source": "electrical_steel_lamination_material",
+    "target": "org_baosteel",
+    "relation": "manufactured_by",
+    "claim": "Baosteel is a candidate upstream supplier for electrical steel used in servo motor stator laminations.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_baosteel_electrical_steel_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_electrical_steel_lamination_material_nippon_steel",
+    "source": "electrical_steel_lamination_material",
+    "target": "org_nippon_steel",
+    "relation": "manufactured_by",
+    "claim": "Nippon Steel is a candidate upstream supplier for electrical steel used in servo motor stator laminations.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_nippon_steel_electrical_steel_2022"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_electrical_steel_lamination_material_posco",
+    "source": "electrical_steel_lamination_material",
+    "target": "org_posco",
+    "relation": "manufactured_by",
+    "claim": "POSCO is a candidate upstream supplier for electrical steel used in servo motor stator laminations.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_posco_electrical_steel_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_encoder_feedback_heidenhain",
+    "source": "servo_motor_encoder_feedback",
+    "target": "org_heidenhain",
+    "relation": "manufactured_by",
+    "claim": "HEIDENHAIN is a candidate supplier for servo motor encoder feedback.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_heidenhain_servomotor_encoders_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_encoder_feedback_renishaw",
+    "source": "servo_motor_encoder_feedback",
+    "target": "org_renishaw",
+    "relation": "manufactured_by",
+    "claim": "Renishaw is a candidate supplier for servo motor encoder feedback.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_renishaw_position_encoders_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_encoder_feedback_tamagawa_seiki",
+    "source": "servo_motor_encoder_feedback",
+    "target": "org_tamagawa_seiki",
+    "relation": "manufactured_by",
+    "claim": "Tamagawa Seiki is a candidate supplier for servo motor encoder or resolver feedback.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_tamagawa_servo_resolver_encoder_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_bearings_and_shaft_nsk",
+    "source": "servo_motor_bearings_and_shaft",
+    "target": "org_nsk",
+    "relation": "manufactured_by",
+    "claim": "NSK is a candidate supplier for servo motor bearings and shaft-support components.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_nsk_robotics_bearings_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_bearings_and_shaft_schaeffler",
+    "source": "servo_motor_bearings_and_shaft",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler is a candidate supplier for servo motor bearings and shaft-support components.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_schaeffler_industrial_automation_bearings_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_bearings_and_shaft_skf",
+    "source": "servo_motor_bearings_and_shaft",
+    "target": "org_skf",
+    "relation": "manufactured_by",
+    "claim": "SKF is a candidate supplier for servo motor bearings and shaft-support components.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_skf_electric_motor_bearings_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_bearings_and_shaft_ntn",
+    "source": "servo_motor_bearings_and_shaft",
+    "target": "org_ntn",
+    "relation": "manufactured_by",
+    "claim": "NTN is a candidate supplier for servo motor bearings and shaft-support components.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_ntn_electric_motor_bearings_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_cables_connectors_amphenol",
+    "source": "servo_motor_cables_and_connectors",
+    "target": "org_amphenol",
+    "relation": "manufactured_by",
+    "claim": "Amphenol is a candidate supplier for servo motor power, brake, encoder, and feedback connectors.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_amphenol_m23_motiongrade_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_cables_connectors_te",
+    "source": "servo_motor_cables_and_connectors",
+    "target": "org_te_connectivity",
+    "relation": "manufactured_by",
+    "claim": "TE Connectivity is a candidate supplier for servo motor power, brake, encoder, and feedback connectors.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_te_micro_motor_connectors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_cables_connectors_molex",
+    "source": "servo_motor_cables_and_connectors",
+    "target": "org_molex",
+    "relation": "manufactured_by",
+    "claim": "Molex is a candidate supplier for industrial robot and servo motor cable/connector systems.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_molex_robot_servo_connectors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_integrated_brake_kendrion",
+    "source": "servo_motor_integrated_brake_option",
+    "target": "org_kendrion",
+    "relation": "manufactured_by",
+    "claim": "Kendrion is a candidate supplier for servo motor holding or safety brake options.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_kendrion_pm_servo_brake_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_integrated_brake_mayr",
+    "source": "servo_motor_integrated_brake_option",
+    "target": "org_mayr_power_transmission",
+    "relation": "manufactured_by",
+    "claim": "mayr power transmission is a candidate supplier for servo motor holding or safety brake options.",
+    "context": "Supplier-candidate link for servo motor material/component exploration; target-cell adoption, qualification status, and exact share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mayr_servostop_servo_brake_2026"
     ],
     "reviewStatus": "unreviewed"
   }

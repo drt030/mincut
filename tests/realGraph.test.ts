@@ -32,12 +32,14 @@ test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", ()
   // costs, moving the live rolled-up typical to ~310.0k. The 2026-06-07
   // robot-arm price calibration moves it to ~360.3k. The 2026-06-07
   // induction/spacing and electronics-cost backfill moves it to ~376.3k.
+  // The 2026-06-07 servo motor material/component backfill makes the next
+  // motor layer explicit and moves the live rolled-up typical to ~404.8k.
   // Lock that value in so a future change that accidentally hides child
   // cost drivers is caught.
   const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.ok(
-    result.rolledUp.typical > 371_000 && result.rolledUp.typical < 381_000,
-    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~376.3k)`,
+    result.rolledUp.typical > 399_000 && result.rolledUp.typical < 410_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~404.8k)`,
   );
 });
 

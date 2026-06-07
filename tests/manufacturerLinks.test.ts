@@ -186,6 +186,51 @@ test("strain-wave reducer component layer exposes investable supplier candidates
   }
 });
 
+test("servo motor material and component layer exposes investable supplier candidates", () => {
+  const electricalSteelManufacturers = manufacturersForNode(graph, "electrical_steel_lamination_material").map((node) => node.id);
+  for (const id of ["org_baosteel", "org_nippon_steel", "org_posco"]) {
+    assert.ok(
+      electricalSteelManufacturers.includes(id),
+      `electrical_steel_lamination_material must expose ${id} as an electrical-steel supplier candidate`,
+    );
+  }
+
+  const magnetRotorManufacturers = manufacturersForNode(graph, "servo_motor_permanent_magnet_rotor").map((node) => node.id);
+  const rareEarthMagnetManufacturers = manufacturersForNode(graph, "rare_earth_permanent_magnet_material").map((node) => node.id);
+  for (const id of ["org_jlmag", "org_zhongke_sanhuan", "org_ningbo_yunsheng"]) {
+    assert.ok(magnetRotorManufacturers.includes(id), `servo_motor_permanent_magnet_rotor must expose ${id} as a magnet supplier`);
+    assert.ok(rareEarthMagnetManufacturers.includes(id), `rare_earth_permanent_magnet_material must expose ${id} as a magnet supplier`);
+  }
+
+  const ndprManufacturers = manufacturersForNode(graph, "ndpr_rare_earth_feedstock").map((node) => node.id);
+  for (const id of ["org_china_northern_rare_earth", "org_mp_materials", "org_lynas_rare_earths"]) {
+    assert.ok(ndprManufacturers.includes(id), `ndpr_rare_earth_feedstock must expose ${id} as an upstream feedstock supplier`);
+  }
+
+  const encoderManufacturers = manufacturersForNode(graph, "servo_motor_encoder_feedback").map((node) => node.id);
+  for (const id of ["org_heidenhain", "org_renishaw", "org_tamagawa_seiki"]) {
+    assert.ok(encoderManufacturers.includes(id), `servo_motor_encoder_feedback must expose ${id} as an encoder supplier candidate`);
+  }
+
+  const bearingManufacturers = manufacturersForNode(graph, "servo_motor_bearings_and_shaft").map((node) => node.id);
+  for (const id of ["org_nsk", "org_schaeffler", "org_skf", "org_ntn"]) {
+    assert.ok(bearingManufacturers.includes(id), `servo_motor_bearings_and_shaft must expose ${id} as a bearing supplier candidate`);
+  }
+
+  const cableManufacturers = manufacturersForNode(graph, "servo_motor_cables_and_connectors").map((node) => node.id);
+  for (const id of ["org_amphenol", "org_te_connectivity", "org_molex"]) {
+    assert.ok(
+      cableManufacturers.includes(id),
+      `servo_motor_cables_and_connectors must expose ${id} as a cable/connector supplier candidate`,
+    );
+  }
+
+  const brakeManufacturers = manufacturersForNode(graph, "servo_motor_integrated_brake_option").map((node) => node.id);
+  for (const id of ["org_kendrion", "org_mayr_power_transmission"]) {
+    assert.ok(brakeManufacturers.includes(id), `servo_motor_integrated_brake_option must expose ${id} as a holding-brake supplier`);
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

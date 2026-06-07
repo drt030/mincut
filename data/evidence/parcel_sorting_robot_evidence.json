@@ -2436,5 +2436,252 @@
     "limitations": "Investor listing context only; not product evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_baosteel_electrical_steel_2026",
+    "type": "product_page",
+    "title": "Baosteel non-oriented electrical steel product materials",
+    "url": "https://esales.baosteel.com/baosteel_products/eleSteel/en/products/products_01.jsp",
+    "sourceName": "Baosteel",
+    "summary": "Baosteel product materials describe non-oriented electrical steel for motor and electronic transformer cores, supporting Baosteel as an electrical-steel supplier candidate.",
+    "supportsNodeIds": [
+      "org_baosteel",
+      "electrical_steel_lamination_material"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_electrical_steel_lamination_material_baosteel"
+    ],
+    "limitations": "Product-family evidence only; exact servo motor lamination grade, target-cell supplier selection, and share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_nippon_steel_electrical_steel_2022",
+    "type": "product_page",
+    "title": "Nippon Steel electrical steel sheets EcoLeaf certification announcement",
+    "url": "https://www.nipponsteel.com/en/news/20221201_100.html",
+    "sourceName": "Nippon Steel",
+    "summary": "Nippon Steel states that electrical steel sheet is used in iron cores in motors and generators and lists non-oriented and grain-oriented electrical steel sheet products.",
+    "supportsNodeIds": [
+      "org_nippon_steel",
+      "electrical_steel_lamination_material"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_electrical_steel_lamination_material_nippon_steel"
+    ],
+    "limitations": "Electrical-steel product evidence only; exact servo motor grade and target supplier share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_posco_electrical_steel_2026",
+    "type": "product_page",
+    "title": "POSCO electrical steel catalog",
+    "url": "https://www.posco.com/homepage/servlet/FileDownLoad?fileCategory=prdMda&fileNum=12",
+    "sourceName": "POSCO",
+    "summary": "POSCO electrical steel catalog states that POSCO produces high-quality electrical steel and lists motor-core applications including rotating machines and AC motors.",
+    "supportsNodeIds": [
+      "org_posco",
+      "electrical_steel_lamination_material"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_electrical_steel_lamination_material_posco"
+    ],
+    "limitations": "Catalog evidence; exact lamination grade, supplier qualification, and target robot-motor share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_heidenhain_servomotor_encoders_2026",
+    "type": "product_page",
+    "title": "HEIDENHAIN drive systems and encoders for servomotors",
+    "url": "https://www.heidenhain.com/industries/drive-systems",
+    "sourceName": "HEIDENHAIN",
+    "summary": "HEIDENHAIN describes application-tailored encoders for motor feedback and a range of rotary and angle encoders for servomotor control.",
+    "supportsNodeIds": [
+      "org_heidenhain",
+      "servo_motor_encoder_feedback"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_encoder_feedback_heidenhain"
+    ],
+    "limitations": "Product-line evidence only; target robot motor encoder selection and market share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_renishaw_position_encoders_2026",
+    "type": "product_page",
+    "title": "Renishaw encoders for position and motion control",
+    "url": "https://www.renishaw.com/en/position-encoders--6331",
+    "sourceName": "Renishaw",
+    "summary": "Renishaw describes optical, inductive, magnetic, and laser encoders for position and motion control, including industrial automation and robotics applications.",
+    "supportsNodeIds": [
+      "org_renishaw",
+      "servo_motor_encoder_feedback"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_encoder_feedback_renishaw"
+    ],
+    "limitations": "Product-family evidence; supports encoder supplier candidacy rather than specific servo motor BOM adoption.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_tamagawa_servo_resolver_encoder_2026",
+    "type": "product_page",
+    "title": "Tamagawa Seiki servo motors and encoder/resolver options",
+    "url": "https://www.tamagawa-seiki.com/products/servomotor/",
+    "sourceName": "Tamagawa Seiki",
+    "summary": "Tamagawa Seiki servo motor materials list encoder and resolver sensor options for motion-control products used in industrial robots and factory automation.",
+    "supportsNodeIds": [
+      "org_tamagawa_seiki",
+      "servo_motor_encoder_feedback"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_encoder_feedback_tamagawa_seiki"
+    ],
+    "limitations": "Servo-motor product evidence; target encoder component selection and share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_skf_electric_motor_bearings_2026",
+    "type": "product_page",
+    "title": "SKF rolling bearings and seals in electric motors and generators",
+    "url": "https://www.skf.com/binaries/pub12/Images/0901d196802b0348-13459-EN-Rolling-bearings-and-seals-in-electric-motors-and-generators_tcm_12-134586.pdf",
+    "sourceName": "SKF",
+    "summary": "SKF application materials cover rolling bearings and seals in electric motors and generators, supporting SKF as an electric/servo motor bearing supplier candidate.",
+    "supportsNodeIds": [
+      "org_skf",
+      "servo_motor_bearings_and_shaft"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_bearings_and_shaft_skf"
+    ],
+    "limitations": "Application-material evidence; exact bearing model, insulation choice, and target motor supplier share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_ntn_electric_motor_bearings_2026",
+    "type": "product_page",
+    "title": "NTN electric motor bearings",
+    "url": "https://ntnamericas.com/industry/electric-motor/",
+    "sourceName": "NTN",
+    "summary": "NTN describes electric motor bearing products and electric motor quality requirements, including bearings for applications from small motors through larger industrial equipment.",
+    "supportsNodeIds": [
+      "org_ntn",
+      "servo_motor_bearings_and_shaft"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_bearings_and_shaft_ntn"
+    ],
+    "limitations": "Product/application evidence; exact target servo motor bearing selection is unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_amphenol_m23_motiongrade_2026",
+    "type": "product_page",
+    "title": "Amphenol MotionGrade M23 connector systems",
+    "url": "https://www.amphenol-sine.com/motiongrade-m23-threaded",
+    "sourceName": "Amphenol Sine Systems",
+    "summary": "Amphenol describes MotionGrade M23 connector systems as suited for advanced servo drive encoder feedback, robotic, machine-tool, medical, and automation environments.",
+    "supportsNodeIds": [
+      "org_amphenol",
+      "servo_motor_cables_and_connectors"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_cables_connectors_amphenol"
+    ],
+    "limitations": "Connector product-line evidence; exact target cable/connector BOM and supplier share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_te_micro_motor_connectors_2026",
+    "type": "product_page",
+    "title": "TE Connectivity micro motor connectors",
+    "url": "https://www.te.com/en/products/connectors/intersection/micromotor-connector.html",
+    "sourceName": "TE Connectivity",
+    "summary": "TE Connectivity describes IP67 servo motor connectors combining power and brake with encoder conductors and harsh-environment ratings.",
+    "supportsNodeIds": [
+      "org_te_connectivity",
+      "servo_motor_cables_and_connectors"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_cables_connectors_te"
+    ],
+    "limitations": "Connector product-line evidence; exact target servo motor interface and supplier share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_molex_robot_servo_connectors_2026",
+    "type": "product_page",
+    "title": "Molex industrial robot connectors and servo motor drive connectors",
+    "url": "https://www.molex.com/en-us/industries-applications/industrial-automation/industrial-automation-robotics-connectors-and-sensors/industrial-robot-connectors",
+    "sourceName": "Molex",
+    "summary": "Molex industrial robot connector materials include servo motors and drive connectors, power/brake/encoder I/O, and internal servo-drive connection products.",
+    "supportsNodeIds": [
+      "org_molex",
+      "servo_motor_cables_and_connectors"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_cables_connectors_molex"
+    ],
+    "limitations": "Connector product-line evidence; exact target cable/connector supplier selection is unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_kendrion_pm_servo_brake_2026",
+    "type": "product_page",
+    "title": "Kendrion PM Line permanent magnet brake",
+    "url": "https://www.kendrion.com/en/productfinder/group/product/brakes/86-61111h00-0071",
+    "sourceName": "Kendrion",
+    "summary": "Kendrion describes PM Line permanent magnet brakes as suitable for servomotor applications as holding brakes with emergency-stop function.",
+    "supportsNodeIds": [
+      "org_kendrion",
+      "servo_motor_integrated_brake_option"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_integrated_brake_kendrion"
+    ],
+    "limitations": "Brake product evidence; exact robot-axis torque and target motor integration are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_mayr_servostop_servo_brake_2026",
+    "type": "product_page",
+    "title": "mayr ROBA servostop Classic safety brake for servomotors",
+    "url": "https://www.mayr.com/en/products/safety-brakes/industrial-brakes/roba-servostop-classic~40610",
+    "sourceName": "mayr power transmission",
+    "summary": "mayr describes ROBA servostop Classic as a spring-applied electromagnetic safety brake for servomotors, suitable for emergency-stop braking and in-motor mounting.",
+    "supportsNodeIds": [
+      "org_mayr_power_transmission",
+      "servo_motor_integrated_brake_option"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_integrated_brake_mayr"
+    ],
+    "limitations": "Brake product evidence; exact target servo motor brake design and supplier share are unverified.",
+    "date": "2026-06-07",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
   }
 ]

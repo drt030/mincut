@@ -544,5 +544,58 @@
     "limitations": "Internal allocation only; replace with mass, grade, yield-loss, machining-stock and supplier-price evidence before promotion beyond unreviewed low confidence.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_servo_motor_material_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Servo motor material-layer cost allocation - 2025 estimate",
+    "sourceName": "Capability Graph internal cost backfill",
+    "date": "2026-06-07",
+    "summary": "Low-confidence p50 allocation for electrical steel, NdPr feedstock, Dy/Tb additives, boron/iron matrix material, and rare-earth permanent magnet material embedded in the industrial servo motor branch.",
+    "supportsNodeIds": [
+      "electrical_steel_lamination_material_cost",
+      "ndpr_rare_earth_feedstock_cost",
+      "dysprosium_terbium_heavy_ree_additives_cost",
+      "boron_and_iron_magnet_matrix_material_cost",
+      "rare_earth_permanent_magnet_material_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_electrical_steel_lamination_material_measured_by_cost",
+      "e_ndpr_rare_earth_feedstock_measured_by_cost",
+      "e_dysprosium_terbium_heavy_ree_additives_measured_by_cost",
+      "e_boron_and_iron_magnet_matrix_material_measured_by_cost",
+      "e_rare_earth_permanent_magnet_material_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only; not a supplier quote, commodity-price calculation, audited purchase record, or teardown BOM. Use mass, grade, yield-loss, and supplier-price evidence before promotion beyond unreviewed low confidence.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_servo_motor_component_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Servo motor component-layer cost allocation - 2025 estimate",
+    "sourceName": "Capability Graph internal cost backfill",
+    "date": "2026-06-07",
+    "summary": "Low-confidence p50 allocation splitting the industrial servo motor bundle into stator core, permanent-magnet rotor, encoder feedback, bearings/shaft, cables/connectors, and optional holding-brake components.",
+    "supportsNodeIds": [
+      "industrial_servo_motor_cost",
+      "servo_motor_stator_core_cost",
+      "servo_motor_permanent_magnet_rotor_cost",
+      "servo_motor_encoder_feedback_cost",
+      "servo_motor_bearings_and_shaft_cost",
+      "servo_motor_cables_and_connectors_cost",
+      "servo_motor_integrated_brake_option_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_motor_stator_core_measured_by_cost",
+      "e_servo_motor_permanent_magnet_rotor_measured_by_cost",
+      "e_servo_motor_encoder_feedback_measured_by_cost",
+      "e_servo_motor_bearings_and_shaft_measured_by_cost",
+      "e_servo_motor_cables_and_connectors_measured_by_cost",
+      "e_servo_motor_integrated_brake_option_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only; not a supplier quote, audited purchase record, or teardown BOM. The parent robot-arm-body cost remains the purchasing-level bundle estimate until a named motor BOM is available.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]

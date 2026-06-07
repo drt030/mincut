@@ -1257,15 +1257,21 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
-      "ev_mitsubishi_ac_servo_structure"
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_mfg_baosteel_electrical_steel_2026",
+      "ev_mfg_nippon_steel_electrical_steel_2022",
+      "ev_mfg_posco_electrical_steel_2026",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "motor",
       "stator",
       "servo",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Expansion frontier: next layer may include lamination steel, stamping/stacking, insulation, slot fill, winding layout, and thermal limits."
+    "notes": "Expansion frontier: next layer may include lamination steel, stamping/stacking, insulation, slot fill, winding layout, and thermal limits. Added stator-core cost allocation and upstream electrical-steel supplier context; still unreviewed until motor teardown or supplier quotes are available."
   },
   {
     "id": "servo_motor_windings",
@@ -1310,16 +1316,20 @@
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
       "ev_elmeq_servo_motor_options",
-      "ev_stober_synchronous_servo_motors"
+      "ev_stober_synchronous_servo_motors",
+      "ev_mfg_iea_rare_earth_2026",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "motor",
       "rotor",
       "permanent_magnet",
       "servo",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Expansion frontier: next layer may include magnet grade, rotor shaft, magnet bonding/retention, balancing, demagnetization risk, and rotor thermal limits."
+    "notes": "Expansion frontier: next layer may include magnet grade, rotor shaft, magnet bonding/retention, balancing, demagnetization risk, and rotor thermal limits. Added rotor cost allocation to connect magnet supplier exposure to servo motor economics; exact motor BOM is still unreviewed."
   },
   {
     "id": "servo_motor_encoder_feedback",
@@ -1338,15 +1348,22 @@
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
       "ev_mitsubishi_ac_servo_structure",
-      "ev_chemtec_encoder_components"
+      "ev_chemtec_encoder_components",
+      "ev_mfg_heidenhain_servomotor_encoders_2026",
+      "ev_mfg_renishaw_position_encoders_2026",
+      "ev_mfg_tamagawa_servo_resolver_encoder_2026",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "encoder",
       "feedback",
       "servo",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant",
+      "resolver"
     ],
-    "notes": "Expansion frontier: next layer may include optical/magnetic/inductive encoder disk or ring, sensor IC, signal processing, mounting tolerance, cable, protocol, and calibration."
+    "notes": "Expansion frontier: next layer may include optical/magnetic/inductive encoder disk or ring, sensor IC, signal processing, mounting tolerance, cable, protocol, and calibration. Added encoder/resolver supplier candidates and 2025 p50 cost allocation; exact feedback protocol, resolution, and safety rating remain frontier details."
   },
   {
     "id": "servo_motor_bearings_and_shaft",
@@ -1363,16 +1380,23 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_oriental_motor_servo_structure"
+      "ev_oriental_motor_servo_structure",
+      "ev_nsk_robotics_bearings_2026",
+      "ev_schaeffler_industrial_automation_bearings_2026",
+      "ev_mfg_skf_electric_motor_bearings_2026",
+      "ev_mfg_ntn_electric_motor_bearings_2026",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "bearing",
       "shaft",
       "motor",
       "servo",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Expansion frontier: next layer may include bearing life, preload, lubrication, shaft material, seal design, runout, vibration, and duty-cycle constraints."
+    "notes": "Expansion frontier: next layer may include bearing life, preload, lubrication, shaft material, seal design, runout, vibration, and duty-cycle constraints. Added motor-bearing supplier candidates and 2025 p50 cost allocation; exact bearing class, insulation, shaft process, and volume price remain unverified."
   },
   {
     "id": "servo_motor_housing_and_thermal_design",
@@ -1416,14 +1440,22 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_oriental_motor_servo_structure"
+      "ev_oriental_motor_servo_structure",
+      "ev_mfg_amphenol_m23_motiongrade_2026",
+      "ev_mfg_te_micro_motor_connectors_2026",
+      "ev_mfg_molex_robot_servo_connectors_2026",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "cabling",
       "connector",
       "servo",
-      "integration"
-    ]
+      "integration",
+      "cost_driver",
+      "investor_relevant",
+      "servo_feedback"
+    ],
+    "notes": "Added cable/connector supplier candidates and 2025 p50 cost allocation; exact connector family, shielding, length, and IP rating remain unverified."
   },
   {
     "id": "rare_earth_permanent_magnet_material",
@@ -1440,7 +1472,9 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_elmeq_servo_motor_options"
+      "ev_elmeq_servo_motor_options",
+      "ev_mfg_iea_rare_earth_2026",
+      "ev_servo_motor_material_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -1448,9 +1482,11 @@
       "permanent_magnet",
       "cost",
       "supply_chain",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Expansion frontier: next layer may include NdFeB supply, magnet grade, coating, machining, thermal class, price volatility, and geopolitical supply constraints."
+    "notes": "Expansion frontier: next layer may include NdFeB supply, magnet grade, coating, machining, thermal class, price volatility, and geopolitical supply constraints. Added magnet-material cost allocation and retained supplier-candidate framing; grade, coating, and yield data remain open research items."
   },
   {
     "id": "servo_motor_assembly_and_test_process",
@@ -1521,14 +1557,22 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_mitsubishi_ac_servo_structure",
-      "ev_elmeq_servo_motor_options"
+      "ev_elmeq_servo_motor_options",
+      "ev_mfg_kendrion_pm_servo_brake_2026",
+      "ev_mfg_mayr_servostop_servo_brake_2026",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "brake",
       "safety",
       "servo",
-      "robot_arm"
-    ]
+      "robot_arm",
+      "cost_driver",
+      "investor_relevant",
+      "holding_brake",
+      "safety_brake"
+    ],
+    "notes": "Added servo brake supplier candidates and 2025 p50 cost allocation; axis count, torque rating, and safety function need review."
   },
   {
     "id": "arm_links_and_joints",
@@ -2992,15 +3036,22 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_doe_iron_steel_manufacturing",
-      "ev_usgs_silicon_statistics"
+      "ev_usgs_silicon_statistics",
+      "ev_mfg_baosteel_electrical_steel_2026",
+      "ev_mfg_nippon_steel_electrical_steel_2022",
+      "ev_mfg_posco_electrical_steel_2026",
+      "ev_servo_motor_material_cost_backfill_2025"
     ],
     "tags": [
       "material",
       "steel",
       "motor",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant",
+      "electrical_steel"
     ],
-    "notes": "Material frontier: next layer may include silicon steel grade, rolling, annealing, coating, stamping, stack bonding, and loss testing."
+    "notes": "Material frontier: next layer may include silicon steel grade, rolling, annealing, coating, stamping, stack bonding, and loss testing. Added electrical-steel supplier candidates and 2025 p50 cost allocation for servo stator lamination research; supplier links remain candidates, not target-BOM proof."
   },
   {
     "id": "alloy_steel_precision_material",
@@ -3225,7 +3276,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_rare_earth_elements",
-      "ev_iea_rare_earth_magnets"
+      "ev_iea_rare_earth_magnets",
+      "ev_servo_motor_material_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -3233,9 +3285,11 @@
       "magnet",
       "supply_chain",
       "cost",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Mineral-level frontier: next layer may include bastnaesite/monazite mining, separation, oxide-to-metal conversion, magnet alloying, and regional supply concentration."
+    "notes": "Mineral-level frontier: next layer may include bastnaesite/monazite mining, separation, oxide-to-metal conversion, magnet alloying, and regional supply concentration. Added 2025 p50 cost allocation for rare-earth feedstock; treat as internal allocation, not commodity-price evidence."
   },
   {
     "id": "dysprosium_terbium_heavy_ree_additives",
@@ -3253,7 +3307,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_rare_earth_elements",
-      "ev_iea_rare_earth_magnets"
+      "ev_iea_rare_earth_magnets",
+      "ev_servo_motor_material_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -3261,9 +3316,11 @@
       "magnet",
       "supply_chain",
       "bottleneck",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Mineral-level frontier: next layer may include heavy-rare-earth ore sources, separation capacity, diffusion process, substitution, recycling, and price volatility."
+    "notes": "Mineral-level frontier: next layer may include heavy-rare-earth ore sources, separation capacity, diffusion process, substitution, recycling, and price volatility. Added 2025 p50 cost allocation for heavy rare-earth additive exposure; exact magnet grade and Dy/Tb use remain unverified."
   },
   {
     "id": "boron_and_iron_magnet_matrix_material",
@@ -3281,16 +3338,18 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_iea_rare_earth_magnets",
-      "ev_doe_iron_steel_manufacturing"
+      "ev_doe_iron_steel_manufacturing",
+      "ev_servo_motor_material_cost_backfill_2025"
     ],
     "tags": [
       "material",
       "magnet",
       "iron",
       "boron",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "cost_driver"
     ],
-    "notes": "Material frontier: next layer may include ferroboron/borates, iron powder or alloy feedstock, powder metallurgy, sintering, coating, and magnet recycling."
+    "notes": "Material frontier: next layer may include ferroboron/borates, iron powder or alloy feedstock, powder metallurgy, sintering, coating, and magnet recycling. Added 2025 p50 cost allocation so the NdFeB material branch is explicit rather than costless."
   },
   {
     "id": "petrochemical_elastomer_feedstock",
@@ -3506,9 +3565,9 @@
       {
         "name": "Cost",
         "currentValue": {
-          "min": 7000,
-          "typical": 12000,
-          "max": 24000
+          "min": 10000,
+          "typical": 20000,
+          "max": 38000
         },
         "unit": "RMB",
         "currency": "RMB",
@@ -3519,15 +3578,423 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
+    "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence. Updated on 2026-06-07 to align the parent servo-motor allocation with the newly explicit child component layer; still an internal low-confidence allocation, not a supplier quote.",
     "evidenceIds": [
-      "ev_industrial_robot_arm_body_cost_2025"
+      "ev_industrial_robot_arm_body_cost_2025",
+      "ev_servo_motor_component_cost_backfill_2025"
     ],
     "tags": [
       "cost",
       "cost_research",
       "consistency_backfill"
     ]
+  },
+  {
+    "id": "electrical_steel_lamination_material_cost",
+    "name": "Electrical steel lamination material cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for non-oriented electrical steel sheet content used in servo motor stator laminations.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 150,
+          "typical": 450,
+          "max": 1200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocated material contribution, not an electrical-steel commodity quote or supplier price."
+  },
+  {
+    "id": "servo_motor_stator_core_cost",
+    "name": "Servo motor stator core cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for stator laminations, core stacking, insulation, and related stator-core manufacturing inside the servo motor set.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 900,
+          "typical": 2200,
+          "max": 5200
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence component allocation inside the robot-arm servo motor set; replace with motor teardown or supplier quote before review promotion."
+  },
+  {
+    "id": "ndpr_rare_earth_feedstock_cost",
+    "name": "NdPr rare-earth feedstock cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "rare_earth"
+    ],
+    "description": "Allocated 2025 RMB contribution of neodymium-praseodymium feedstock embedded in high-strength servo motor permanent magnets.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 700,
+          "typical": 2200,
+          "max": 7000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocated feedstock contribution; not a spot-price quote and not adjusted for magnet manufacturing yield."
+  },
+  {
+    "id": "dysprosium_terbium_heavy_ree_additives_cost",
+    "name": "Dysprosium / terbium additive cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "rare_earth"
+    ],
+    "description": "Allocated 2025 RMB contribution for heavy rare-earth additives used where servo motor NdFeB magnets need higher coercivity or temperature margin.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 200,
+          "typical": 900,
+          "max": 3500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation for optional high-coercivity magnet content; replace with grade-specific magnet BOM data."
+  },
+  {
+    "id": "boron_and_iron_magnet_matrix_material_cost",
+    "name": "Boron and iron magnet matrix material cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "rare_earth"
+    ],
+    "description": "Allocated 2025 RMB contribution for boron and iron matrix material in NdFeB servo motor magnets.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 120,
+          "typical": 300,
+          "max": 900
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocated commodity-material contribution; small relative to rare-earth feedstock and magnet processing."
+  },
+  {
+    "id": "rare_earth_permanent_magnet_material_cost",
+    "name": "Rare-earth permanent magnet material cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB contribution for NdFeB-grade permanent magnet material inside the servo motor rotor set.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 2500,
+          "typical": 7000,
+          "max": 18000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_material_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence material allocation for the servo motor set; material grade, Dy/Tb content, coating, and yield dominate the uncertainty."
+  },
+  {
+    "id": "servo_motor_permanent_magnet_rotor_cost",
+    "name": "Permanent-magnet rotor cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for permanent-magnet rotor assemblies, including magnets, shaft/rotor assembly, bonding or retention, and balancing.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 3500,
+          "typical": 9000,
+          "max": 22000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence component allocation inside the robot-arm servo motor set; magnet grade and rotor balance requirements can move this substantially."
+  },
+  {
+    "id": "servo_motor_encoder_feedback_cost",
+    "name": "Servo motor encoder feedback cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB contribution for integrated encoder or resolver feedback hardware, signal interface, mounting, and calibration inside the servo motor set.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 800,
+          "typical": 2500,
+          "max": 8000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation; encoder resolution, absolute/multiturn capability, safety rating, and supplier tier drive the range."
+  },
+  {
+    "id": "servo_motor_bearings_and_shaft_cost",
+    "name": "Servo motor bearings and shaft cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB contribution for servo motor bearing pairs, shaft, fits, lubrication, and runout-sensitive mechanical support.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 600,
+          "typical": 1800,
+          "max": 4500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation; bearing class, insulation, shaft machining, and volume purchasing move the range."
+  },
+  {
+    "id": "servo_motor_cables_and_connectors_cost",
+    "name": "Servo motor cables and connectors cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB contribution for motor power, brake, encoder, and feedback connectivity across the servo motor set.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 400,
+          "typical": 1200,
+          "max": 3500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation; cable length, shielding, connector IP rating, and single-cable feedback protocols drive variance."
+  },
+  {
+    "id": "servo_motor_integrated_brake_option_cost",
+    "name": "Servo motor integrated brake option cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
+    "description": "Allocated 2025 RMB contribution for servo holding or safety brake options used on axes that must hold position during power loss or emergency stop.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 600,
+          "typical": 1800,
+          "max": 5000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-04",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_servo_motor_component_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation; brake torque, safety function, temperature class, and axis count drive variance."
   },
   {
     "id": "servo_drive_controller_cost",
@@ -7564,7 +8031,10 @@
     "domain": [
       "precision_bearing",
       "industrial_robot_arm",
-      "investable_supplier"
+      "investable_supplier",
+      "bearing",
+      "electric_motor",
+      "industrial_servo_motor"
     ],
     "description": "Japanese bearing and motion supplier with robotics application portfolio covering bearings, linear guides, actuators, and direct-drive motors.",
     "metrics": [
@@ -7579,9 +8049,11 @@
     "tags": [
       "manufacturer",
       "precision_bearing",
-      "public_company"
+      "public_company",
+      "bearing",
+      "electric_motor"
     ],
-    "notes": "Investor relevance: broad precision-bearing exposure; exact reducer output-bearing selection and share are unverified.",
+    "notes": "Investor relevance: broad precision-bearing exposure; exact reducer output-bearing selection and share are unverified. Also used as a candidate supplier for servo motor bearings/shafts; exact target motor bearing selection is unverified.",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
@@ -7593,7 +8065,10 @@
     "domain": [
       "precision_bearing",
       "industrial_automation",
-      "investable_supplier"
+      "investable_supplier",
+      "bearing",
+      "electric_motor",
+      "industrial_servo_motor"
     ],
     "description": "German bearing and motion supplier with industrial automation components including precision gearboxes, pivot bearing supports, drive motors, sensors, and bearing products.",
     "metrics": [
@@ -7608,9 +8083,11 @@
     "tags": [
       "manufacturer",
       "precision_bearing",
-      "public_company"
+      "public_company",
+      "bearing",
+      "electric_motor"
     ],
-    "notes": "Investor relevance: precision bearing and industrial automation exposure; exact target-cell BOM position is unverified.",
+    "notes": "Investor relevance: precision bearing and industrial automation exposure; exact target-cell BOM position is unverified. Also used as a candidate supplier for servo motor bearings/shafts; exact target motor bearing selection is unverified.",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
@@ -7653,9 +8130,11 @@
     "domain": [
       "special_steel",
       "precision_reducer",
-      "investable_supplier"
+      "investable_supplier",
+      "electrical_steel",
+      "industrial_servo_motor"
     ],
-    "description": "Chinese steel producer with special-material product lines relevant to alloy structural steel, gear steel, spring steel, and bearing steel.",
+    "description": "Chinese steel producer with special-material and electrical-steel product lines relevant to alloy structural steel, gear steel, bearing steel, and motor-core laminations.",
     "metrics": [
       {
         "name": "Public listing",
@@ -7663,16 +8142,18 @@
       }
     ],
     "evidenceIds": [
-      "ev_baosteel_special_material_bearing_2026"
+      "ev_baosteel_special_material_bearing_2026",
+      "ev_mfg_baosteel_electrical_steel_2026"
     ],
     "tags": [
       "manufacturer",
       "special_steel",
       "bearing_steel",
       "public_company",
-      "china_supplier"
+      "china_supplier",
+      "electrical_steel"
     ],
-    "notes": "Investor relevance: upstream special-steel exposure; exact target reducer material qualification and share are unverified.",
+    "notes": "Investor relevance: upstream special-steel exposure; exact target reducer material qualification and share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified.",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
@@ -7684,9 +8165,11 @@
     "domain": [
       "special_steel",
       "precision_reducer",
-      "investable_supplier"
+      "investable_supplier",
+      "electrical_steel",
+      "industrial_servo_motor"
     ],
-    "description": "Japanese steelmaker with bar and wire rod material businesses relevant to industrial machinery and precision alloy steel supply chains.",
+    "description": "Japanese steelmaker with bar/wire rod and electrical-steel sheet businesses relevant to precision alloy steel supply chains and motor-core laminations.",
     "metrics": [
       {
         "name": "Public listing",
@@ -7695,17 +8178,357 @@
     ],
     "evidenceIds": [
       "ev_nippon_steel_bar_wire_rod_2026",
-      "ev_ir_nippon_steel_stock_code_2026"
+      "ev_ir_nippon_steel_stock_code_2026",
+      "ev_mfg_nippon_steel_electrical_steel_2022"
     ],
     "tags": [
       "manufacturer",
       "special_steel",
-      "public_company"
+      "public_company",
+      "electrical_steel"
     ],
-    "notes": "Investor relevance: upstream steel exposure; exact reducer steel grade and target BOM share are unverified.",
+    "notes": "Investor relevance: upstream steel exposure; exact reducer steel grade and target BOM share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified.",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_posco",
+    "name": "POSCO",
+    "domain": [
+      "electrical_steel",
+      "steel",
+      "industrial_servo_motor",
+      "investable_supplier"
+    ],
+    "description": "Korean steelmaker with electrical-steel sheet product lines relevant to motor-core laminations and high-efficiency rotating machines.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "005490.KS"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_posco_electrical_steel_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "electrical_steel",
+      "public_company"
+    ],
+    "notes": "Investor relevance: upstream electrical-steel exposure; exact servo-motor lamination grade and target BOM share are unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_heidenhain",
+    "name": "HEIDENHAIN",
+    "domain": [
+      "encoder",
+      "servo_motor_feedback",
+      "industrial_automation"
+    ],
+    "description": "German motion-measurement supplier with rotary and angle encoders for servomotor control and motor feedback.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_heidenhain_servomotor_encoders_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "encoder",
+      "servo_feedback",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private benchmark supplier for high-quality motor feedback rather than a direct public-equity exposure."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_renishaw",
+    "name": "Renishaw",
+    "domain": [
+      "encoder",
+      "motion_control",
+      "industrial_automation",
+      "investable_supplier"
+    ],
+    "description": "UK precision measurement and motion-control supplier with optical, inductive, magnetic, and laser encoder products for industrial automation and robotics.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "RSW.L"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_renishaw_position_encoders_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "encoder",
+      "motion_control",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public exposure to precision encoder and metrology content; exact servo-motor BOM share is unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_tamagawa_seiki",
+    "name": "Tamagawa Seiki",
+    "domain": [
+      "encoder",
+      "resolver",
+      "servo_motor_feedback",
+      "industrial_automation"
+    ],
+    "description": "Japanese motion-control supplier with servo motors, encoders, and resolver feedback options used in factory automation and industrial robots.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_tamagawa_servo_resolver_encoder_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "encoder",
+      "resolver",
+      "servo_feedback",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private benchmark supplier for encoder/resolver feedback; direct public-equity exposure is limited."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_skf",
+    "name": "SKF",
+    "domain": [
+      "bearing",
+      "electric_motor",
+      "industrial_servo_motor",
+      "investable_supplier"
+    ],
+    "description": "Swedish bearing and seals supplier with application materials for rolling bearings and seals in electric motors and generators.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "SKF-B.ST"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_skf_electric_motor_bearings_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "bearing",
+      "electric_motor",
+      "public_company"
+    ],
+    "notes": "Investor relevance: broad bearing exposure to electric motors and industrial automation; exact target servo-motor bearing share is unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_ntn",
+    "name": "NTN",
+    "domain": [
+      "bearing",
+      "electric_motor",
+      "industrial_servo_motor",
+      "investable_supplier"
+    ],
+    "description": "Japanese bearing supplier with electric motor bearing product lines and electric motor quality positioning.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6472.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_ntn_electric_motor_bearings_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "bearing",
+      "electric_motor",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public bearing exposure to electric motor applications; exact target servo-motor bearing share is unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_amphenol",
+    "name": "Amphenol",
+    "domain": [
+      "connector",
+      "cable",
+      "industrial_automation",
+      "investable_supplier"
+    ],
+    "description": "U.S. interconnect supplier with MotionGrade M23 connector systems relevant to servo drive, encoder feedback, robotic, and automation environments.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "APH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_amphenol_m23_motiongrade_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "connector",
+      "cable",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public interconnect exposure to industrial motion-control content; exact target connector BOM share is unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_te_connectivity",
+    "name": "TE Connectivity",
+    "domain": [
+      "connector",
+      "cable",
+      "industrial_automation",
+      "investable_supplier"
+    ],
+    "description": "Industrial technology supplier with micro motor connectors for compact servo motor interfaces, including power, brake, and encoder connections.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "TEL"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_te_micro_motor_connectors_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "connector",
+      "cable",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public connector exposure to servo motor and industrial automation interfaces; exact target connector BOM share is unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_molex",
+    "name": "Molex",
+    "domain": [
+      "connector",
+      "cable",
+      "industrial_automation"
+    ],
+    "description": "Industrial connectivity supplier with robot-arm cables/connectors and servo motor/drive connector products.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private / Koch subsidiary"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_molex_robot_servo_connectors_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "connector",
+      "cable",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private/Koch subsidiary benchmark for industrial robot connectivity; direct public-equity exposure is limited."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_kendrion",
+    "name": "Kendrion",
+    "domain": [
+      "industrial_brake",
+      "servo_motor_brake",
+      "industrial_automation",
+      "investable_supplier"
+    ],
+    "description": "Dutch electromagnetic and permanent-magnet brake supplier with PM Line servomotor holding-brake products.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "KENDR.AS"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_kendrion_pm_servo_brake_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "brake",
+      "servo_motor_brake",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public exposure to industrial brake content; exact target servo-axis integration and share are unverified."
+  },
+  {
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown",
+    "id": "org_mayr_power_transmission",
+    "name": "mayr power transmission",
+    "domain": [
+      "industrial_brake",
+      "servo_motor_brake",
+      "industrial_automation"
+    ],
+    "description": "German power-transmission and safety-brake supplier with ROBA servostop spring-applied safety brakes for servomotors.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_mayr_servostop_servo_brake_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "brake",
+      "servo_motor_brake",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private benchmark supplier for servo holding/safety brake design; direct public-equity exposure is limited."
   }
 ]
