@@ -518,6 +518,63 @@ test("visible hardware frontier nodes expose direct supplier candidates for inve
   }
 });
 
+test("software and runtime frontier nodes expose direct implementation or supplier candidates", () => {
+  const expectedCandidatesByNode: Record<string, string[]> = {
+    vision_model_deployment_optimization: ["org_nvidia", "org_intel"],
+    camera_sdk_frame_acquisition_pipeline: ["org_basler"],
+    fanless_compute_thermal_management: [
+      "org_advantech",
+      "org_adlink_technology",
+      "org_nvidia",
+    ],
+    parcel_label_localization: [
+      "org_cognex",
+      "org_zebra_technologies",
+      "org_hikrobot",
+    ],
+    industrial_barcode_decoding_runtime: [
+      "org_cognex",
+      "org_zebra_technologies",
+      "org_datalogic",
+      "org_sick",
+    ],
+    parcel_ocr_model_runtime: ["org_cognex", "org_zebra_technologies"],
+    parcel_label_training_dataset: ["org_cognex", "org_zebra_technologies"],
+    barcode_ocr_benchmark_metrics: [
+      "org_cognex",
+      "org_sick",
+      "org_zebra_technologies",
+    ],
+    robot_realtime_control_runtime: [
+      "org_inovance",
+      "org_siemens",
+      "org_mitsubishi_electric",
+    ],
+    robot_base_installation_alignment_process: ["org_abb_robotics", "org_fanuc"],
+    cost_optimized_hardware_stack: [
+      "org_nvidia",
+      "org_intel",
+      "org_advantech",
+      "org_adlink_technology",
+      "org_inovance",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedCandidatesByNode)) {
+    const candidateIds = new Set([
+      ...manufacturersForNode(graph, nodeId).map((node) => node.id),
+      ...implementersForNode(graph, nodeId).map((node) => node.id),
+    ]);
+
+    for (const expectedId of expectedIds) {
+      assert.ok(
+        candidateIds.has(expectedId),
+        `${nodeId} must expose ${expectedId} directly as a software/runtime supplier or implementation candidate`,
+      );
+    }
+  }
+});
+
 test("investment-facing supplier candidates expose public or private market status", () => {
   const expectedCandidatesByNode: Record<string, string[]> = {
     parcel_detection_and_tracking: ["org_hikrobot", "org_keyence", "org_cognex"],

@@ -6320,5 +6320,397 @@
       "ev_material_supply_chain_child_cost_backfill_2025"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_model_deployment_optimization_nvidia",
+    "source": "vision_model_deployment_optimization",
+    "target": "org_nvidia",
+    "relation": "implemented_by",
+    "claim": "NVIDIA is an implementation candidate for edge vision model deployment optimization through Jetson Orin hardware and its AI software stack.",
+    "context": "Official Jetson evidence supports robotics, edge AI, computer vision inference, and deployment tooling. This is a candidate runtime/toolchain exposure, not a confirmed target-cell software selection.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vision_model_deployment_optimization_intel",
+    "source": "vision_model_deployment_optimization",
+    "target": "org_intel",
+    "relation": "implemented_by",
+    "claim": "Intel is an implementation candidate for edge vision model deployment optimization through OpenVINO model conversion, optimization, and inference tooling.",
+    "context": "Official OpenVINO evidence supports AI inference optimization and deployment across Intel hardware. This is a candidate runtime/toolchain exposure, not a confirmed target-cell software selection.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_camera_sdk_frame_acquisition_pipeline_basler",
+    "source": "camera_sdk_frame_acquisition_pipeline",
+    "target": "org_basler",
+    "relation": "implemented_by",
+    "claim": "Basler is an implementation candidate for camera SDK and frame-acquisition pipeline work through the pylon software suite.",
+    "context": "Official pylon evidence supports camera setup, drivers, SDKs, image acquisition, and latency/jitter-sensitive acquisition. This is a candidate SDK exposure, not a confirmed camera supplier for the target cell.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_basler_pylon_sdk_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_fanless_compute_thermal_management_advantech",
+    "source": "fanless_compute_thermal_management",
+    "target": "org_advantech",
+    "relation": "manufactured_by",
+    "claim": "Advantech is a supplier candidate for fanless industrial edge-AI compute and thermal-management exposure.",
+    "context": "Official edge-AI system evidence supports industrial compute offerings. Exact enclosure, heat-sink design, and target-cell BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_advantech_edge_ai_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_fanless_compute_thermal_management_adlink",
+    "source": "fanless_compute_thermal_management",
+    "target": "org_adlink_technology",
+    "relation": "manufactured_by",
+    "claim": "ADLINK Technology is a supplier candidate for fanless industrial edge-AI compute and thermal-management exposure.",
+    "context": "Official edge-AI solution evidence supports industrial compute offerings. Exact enclosure, heat-sink design, and target-cell BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_fanless_compute_thermal_management_nvidia",
+    "source": "fanless_compute_thermal_management",
+    "target": "org_nvidia",
+    "relation": "manufactured_by",
+    "claim": "NVIDIA is a platform supplier candidate for fanless edge-AI compute thermal-design exposure through Jetson Orin modules and developer ecosystem.",
+    "context": "Jetson evidence supports embedded AI modules and edge AI deployment, but NVIDIA does not by itself verify the target enclosure or thermal implementation.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_label_localization_cognex",
+    "source": "parcel_label_localization",
+    "target": "org_cognex",
+    "relation": "implemented_by",
+    "claim": "Cognex is an implementation candidate for parcel-label localization through industrial machine-vision and barcode-reading products.",
+    "context": "Official product evidence supports machine vision, vision software, and barcode reading for distribution workflows. Exact parcel-label localization model and target-cell performance are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_label_localization_zebra",
+    "source": "parcel_label_localization",
+    "target": "org_zebra_technologies",
+    "relation": "implemented_by",
+    "claim": "Zebra Technologies is an implementation candidate for parcel-label localization through fixed industrial scanning and machine-vision automation products.",
+    "context": "ProMat 2025 evidence supports fixed industrial scanning and machine-vision innovation for warehouse, logistics, and distribution-center environments. Exact target-cell model and performance are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_label_localization_hikrobot",
+    "source": "parcel_label_localization",
+    "target": "org_hikrobot",
+    "relation": "implemented_by",
+    "claim": "Hikrobot is an implementation candidate for parcel-label localization through logistics code-reader and machine-vision products.",
+    "context": "Official logistics code-reader evidence supports logistics barcode reading. Exact target-cell label localization model and deployment performance are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_hikrobot_logistic_code_reader_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_industrial_barcode_decoding_runtime_cognex",
+    "source": "industrial_barcode_decoding_runtime",
+    "target": "org_cognex",
+    "relation": "implemented_by",
+    "claim": "Cognex is an implementation candidate for industrial barcode decoding runtime through DataMan and related industrial barcode-reader products.",
+    "context": "Official product evidence supports 1D/2D industrial barcode readers and logistics tunnel applications. Exact target-cell read-rate performance is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_industrial_barcode_decoding_runtime_zebra",
+    "source": "industrial_barcode_decoding_runtime",
+    "target": "org_zebra_technologies",
+    "relation": "implemented_by",
+    "claim": "Zebra Technologies is an implementation candidate for industrial barcode decoding runtime through fixed industrial scanning products.",
+    "context": "ProMat 2025 evidence supports fixed industrial scanning for warehouse, logistics, and distribution-center environments. Exact target-cell decoder configuration is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_industrial_barcode_decoding_runtime_datalogic",
+    "source": "industrial_barcode_decoding_runtime",
+    "target": "org_datalogic",
+    "relation": "implemented_by",
+    "claim": "Datalogic is an implementation candidate for industrial barcode decoding runtime through logistics fixed-reader and vision products.",
+    "context": "Official logistics evidence supports vision systems, smart cameras, sensors, and fixed barcode readers for high-speed conveyors. Exact target-cell decoder configuration is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_datalogic_logistics_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_industrial_barcode_decoding_runtime_sick",
+    "source": "industrial_barcode_decoding_runtime",
+    "target": "org_sick",
+    "relation": "implemented_by",
+    "claim": "SICK is an implementation candidate for industrial barcode decoding runtime through fixed-mount barcode scanner products.",
+    "context": "CLV65x evidence supports fixed-mount barcode scanning. Exact target-cell decoder configuration and parcel read-rate performance are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_sick_clv65x_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_ocr_model_runtime_cognex",
+    "source": "parcel_ocr_model_runtime",
+    "target": "org_cognex",
+    "relation": "implemented_by",
+    "claim": "Cognex is an implementation candidate for parcel OCR model runtime through OCRMax and machine-vision software evidence.",
+    "context": "OCRMax evidence supports OCR tooling, but exact parcel-label OCR training data, language coverage, and target-cell accuracy are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_ocrmax_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_ocr_model_runtime_zebra",
+    "source": "parcel_ocr_model_runtime",
+    "target": "org_zebra_technologies",
+    "relation": "implemented_by",
+    "claim": "Zebra Technologies is an implementation candidate for parcel OCR model runtime through fixed industrial scanning and machine-vision automation products.",
+    "context": "ProMat 2025 evidence supports fixed industrial scanning and machine-vision automation. Exact OCR runtime, training data, and target-cell accuracy are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_label_training_dataset_cognex",
+    "source": "parcel_label_training_dataset",
+    "target": "org_cognex",
+    "relation": "implemented_by",
+    "claim": "Cognex is an implementation candidate for parcel-label dataset and no-read tuning workflows through industrial barcode and no-read recovery evidence.",
+    "context": "This edge identifies a vendor workflow exposure, not a standalone dataset supplier. Actual field image dataset ownership, annotations, and review status remain unverified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_label_training_dataset_zebra",
+    "source": "parcel_label_training_dataset",
+    "target": "org_zebra_technologies",
+    "relation": "implemented_by",
+    "claim": "Zebra Technologies is an implementation candidate for parcel-label dataset and tuning workflows through fixed industrial scanning and logistics automation products.",
+    "context": "This edge identifies a vendor workflow exposure, not a standalone dataset supplier. Actual field image dataset ownership, annotations, and review status remain unverified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_benchmark_metrics_cognex",
+    "source": "barcode_ocr_benchmark_metrics",
+    "target": "org_cognex",
+    "relation": "implemented_by",
+    "claim": "Cognex is an implementation candidate for barcode/OCR benchmark and no-read performance measurement workflows.",
+    "context": "No-read evidence supports benchmark relevance, but target-cell read rate, false-read rate, latency, and exception-rate metrics remain unverified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_cognex_no_reads_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_benchmark_metrics_sick",
+    "source": "barcode_ocr_benchmark_metrics",
+    "target": "org_sick",
+    "relation": "implemented_by",
+    "claim": "SICK is an implementation candidate for barcode benchmark measurement exposure through fixed-mount barcode scanner products.",
+    "context": "CLV65x evidence supports barcode scanning capability, but target-cell benchmark metrics remain unverified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_sick_clv65x_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_barcode_ocr_benchmark_metrics_zebra",
+    "source": "barcode_ocr_benchmark_metrics",
+    "target": "org_zebra_technologies",
+    "relation": "implemented_by",
+    "claim": "Zebra Technologies is an implementation candidate for barcode/OCR benchmark measurement exposure through fixed industrial scanning products.",
+    "context": "ProMat evidence supports fixed industrial scanning for logistics environments, but target-cell benchmark metrics remain unverified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_barcode_ocr_zebra_fis_mv_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_realtime_control_runtime_inovance",
+    "source": "robot_realtime_control_runtime",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance is an implementation candidate for robot real-time control runtime through AC703 controller motion-control capabilities.",
+    "context": "Official AC703 evidence supports EtherCAT motion control, IEC 61131-3 programming, and robot motion components. Exact target robot runtime selection is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_realtime_control_runtime_siemens",
+    "source": "robot_realtime_control_runtime",
+    "target": "org_siemens",
+    "relation": "implemented_by",
+    "claim": "Siemens is an implementation candidate for robot real-time control runtime through SIMATIC controller and distributed-I/O automation products.",
+    "context": "SIMATIC evidence supports controller and distributed-I/O automation exposure. Exact robot runtime, motion library, and target-cell controller selection are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_mfg_siemens_simatic_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_realtime_control_runtime_mitsubishi",
+    "source": "robot_realtime_control_runtime",
+    "target": "org_mitsubishi_electric",
+    "relation": "implemented_by",
+    "claim": "Mitsubishi Electric is an implementation candidate for robot real-time control runtime through factory automation controller and servo products.",
+    "context": "Factory-automation product-line evidence supports controller and servo exposure. Exact robot runtime, motion library, and target-cell controller selection are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_base_installation_alignment_process_abb",
+    "source": "robot_base_installation_alignment_process",
+    "target": "org_abb_robotics",
+    "relation": "implemented_by",
+    "claim": "ABB Robotics is an implementation candidate for robot base installation, alignment, and service workflow exposure.",
+    "context": "Official ABB maintenance evidence supports robotics service capability. Exact target-cell base installation scope, quote, and commissioning procedure are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_maintenance_abb_robotics_service_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_base_installation_alignment_process_fanuc",
+    "source": "robot_base_installation_alignment_process",
+    "target": "org_fanuc",
+    "relation": "implemented_by",
+    "claim": "FANUC service ecosystem is an implementation candidate for robot base installation, alignment, and preventive inspection workflow exposure.",
+    "context": "Preventive-maintenance evidence supports robot inspection and service workflows. Exact target-cell base installation scope, quote, and commissioning procedure are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_maintenance_fanuc_pm_checklist_2023"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_cost_optimized_hardware_stack_nvidia",
+    "source": "cost_optimized_hardware_stack",
+    "target": "org_nvidia",
+    "relation": "manufactured_by",
+    "claim": "NVIDIA is a supplier candidate for the cost-optimized hardware stack through Jetson Orin edge-AI modules and development ecosystem.",
+    "context": "This edge exposes compute-platform dependency, not a complete parcel-sorting cell BOM. Exact module SKU, carrier, and integration cost are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_cost_optimized_hardware_stack_intel",
+    "source": "cost_optimized_hardware_stack",
+    "target": "org_intel",
+    "relation": "manufactured_by",
+    "claim": "Intel is a supplier candidate for the cost-optimized hardware stack through edge inference runtime and Intel hardware exposure.",
+    "context": "OpenVINO evidence supports Intel inference deployment exposure. Exact CPU/NPU/GPU hardware SKU and parcel-cell integration cost are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_intel_openvino_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_cost_optimized_hardware_stack_advantech",
+    "source": "cost_optimized_hardware_stack",
+    "target": "org_advantech",
+    "relation": "manufactured_by",
+    "claim": "Advantech is a supplier candidate for the cost-optimized hardware stack through industrial edge-AI computer offerings.",
+    "context": "Official edge-AI system evidence supports industrial compute exposure. Exact target-cell computer SKU, enclosure, and integration cost are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_advantech_edge_ai_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_cost_optimized_hardware_stack_adlink",
+    "source": "cost_optimized_hardware_stack",
+    "target": "org_adlink_technology",
+    "relation": "manufactured_by",
+    "claim": "ADLINK Technology is a supplier candidate for the cost-optimized hardware stack through industrial edge-AI computer offerings.",
+    "context": "Official edge-AI solution evidence supports industrial compute exposure. Exact target-cell computer SKU, enclosure, and integration cost are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_cost_optimized_hardware_stack_inovance",
+    "source": "cost_optimized_hardware_stack",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a supplier candidate for the cost-optimized hardware stack through domestic controller, motion-control, I/O, and servo ecosystem exposure.",
+    "context": "AC703 and China automation/servo share evidence support controller and motion exposure. Exact target-cell controller stack and integration cost are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_inovance_ac703_2026",
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
