@@ -21,3 +21,44 @@ test("gate required module checklist follows product-level modules, not executio
     "gate should not ask to add execution-subsystem children as missing root modules",
   );
 });
+
+test("gate main bottlenecks reads structural bottleneckOf nodes for the parcel product", () => {
+  const graph = loadGraphData();
+  const questions = loadGateQuestions();
+  const report = runGate(graph, questions, "low_cost_parcel_sorting_robot_300k_rmb");
+  const mainBottlenecks = report.questionResults.find((result) => result.questionId === "main_bottlenecks");
+  assert.ok(mainBottlenecks, "main_bottlenecks result must exist");
+
+  assert.match(
+    mainBottlenecks!.answer,
+    /parcel_detection_and_tracking/,
+    "product-level bottleneck answer should include structural nodes tagged by bottleneckOf",
+  );
+});
+
+test("gate cost answer uses p50 language instead of typical range-first language", () => {
+  const graph = loadGraphData();
+  const questions = loadGateQuestions();
+  const report = runGate(graph, questions, "low_cost_parcel_sorting_robot_300k_rmb");
+  const cost = report.questionResults.find((result) => result.questionId === "cost_constraints");
+  assert.ok(cost, "cost_constraints result must exist");
+
+  assert.match(cost!.answer, /Rolled-up cost \(RMB\): p50=/);
+  assert.match(cost!.answer, /Target cost \(RMB\): p50=/);
+  assert.doesNotMatch(cost!.answer, /typical=/);
+  assert.doesNotMatch(cost!.answer, /target typical/i);
+});
+
+test("gate key metrics answer includes current and target values for performance metrics", () => {
+  const graph = loadGraphData();
+  const questions = loadGateQuestions();
+  const report = runGate(graph, questions, "low_cost_parcel_sorting_robot_300k_rmb");
+  const keyMetrics = report.questionResults.find((result) => result.questionId === "key_metrics");
+  assert.ok(keyMetrics, "key_metrics result must exist");
+
+  assert.match(keyMetrics!.answer, /parcels_per_hour: Parcels per hour — current p50 1,500 \(range 325–1,800\) parcels\/hour; target 1,500 parcels\/hour/);
+  assert.match(keyMetrics!.answer, /sorting_accuracy: Sorting accuracy — current p50 99 \(range 98–99\.5\) %; target 99 %/);
+  assert.match(keyMetrics!.answer, /maintenance_cost: Maintenance cost — current p50 24,000 \(range 12,000–45,000\) RMB\/year; target 18,000 RMB\/year/);
+  assert.match(keyMetrics!.answer, /payback_period: Payback period — current p50 36 \(range 24–48\) months; target 24 months/);
+  assert.doesNotMatch(keyMetrics!.answer, /parcels_per_hour: Parcels per hour; sorting_accuracy: Sorting accuracy/);
+});

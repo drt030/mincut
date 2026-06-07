@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stable Balanced Radial Tree Preview</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f5ef;
+        --ink: #18212f;
+        --muted: #64748b;
+        --line: #c8d0da;
+        --panel: #fffefb;
+        --focus: #2563eb;
+        --warm: #dc6b36;
+        --green: #0f9f7a;
+        --teal: #16a6a0;
+        --violet: #8b5cf6;
+        --gold: #d8951f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        margin: 0;
+      }
+
+      header {
+        align-items: center;
+        background: #14213d;
+        color: white;
+        display: flex;
+        gap: 20px;
+        height: 72px;
+        padding: 0 24px;
+      }
+
+      header strong {
+        font-size: 17px;
+        letter-spacing: 0;
+      }
+
+      header span {
+        color: #cbd5e1;
+        font-size: 13px;
+      }
+
+      main {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        padding: 18px;
+      }
+
+      .canvas {
+        background: var(--panel);
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        border-radius: 10px;
+        height: calc(100vh - 108px);
+        min-height: 620px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .rail {
+        background: rgba(255, 255, 255, 0.78);
+        border: 1px solid rgba(15, 23, 42, 0.14);
+        border-radius: 10px;
+        box-shadow: 0 16px 38px rgba(15, 23, 42, 0.08);
+        height: calc(100vh - 108px);
+        min-height: 620px;
+        padding: 18px;
+      }
+
+      .rail h2 {
+        font-size: 17px;
+        line-height: 1.25;
+        margin: 0 0 8px;
+      }
+
+      .rail .badge {
+        background: #e8f0ff;
+        border: 1px solid #bfd3ff;
+        border-radius: 999px;
+        color: #1d4ed8;
+        display: inline-flex;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        padding: 4px 9px;
+      }
+
+      .rail section {
+        border-top: 1px solid rgba(15, 23, 42, 0.1);
+        padding: 15px 0;
+      }
+
+      .rail h3 {
+        color: #334155;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        margin: 0 0 8px;
+        text-transform: uppercase;
+      }
+
+      .rail p {
+        color: #475569;
+        font-size: 13px;
+        line-height: 1.45;
+        margin: 0;
+      }
+
+      .legend {
+        align-items: center;
+        bottom: 18px;
+        display: flex;
+        gap: 14px;
+        left: 22px;
+        position: absolute;
+      }
+
+      .legend span {
+        align-items: center;
+        color: #475569;
+        display: inline-flex;
+        font-size: 12px;
+        gap: 6px;
+      }
+
+      .dot {
+        border-radius: 999px;
+        display: inline-block;
+        height: 9px;
+        width: 9px;
+      }
+
+      svg {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+
+      .ring {
+        fill: none;
+        stroke: rgba(100, 116, 139, 0.12);
+        stroke-dasharray: 4 12;
+      }
+
+      .region {
+        opacity: 0.12;
+      }
+
+      .tree-edge {
+        fill: none;
+        stroke: #8da4be;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2.3;
+      }
+
+      .tree-edge.secondary {
+        opacity: 0.42;
+        stroke-width: 1.5;
+      }
+
+      .focus-edge {
+        fill: none;
+        stroke: var(--focus);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 5;
+      }
+
+      .gap-edge {
+        fill: none;
+        stroke: var(--warm);
+        stroke-dasharray: 7 8;
+        stroke-linecap: round;
+        stroke-width: 3;
+      }
+
+      .cross-link {
+        fill: none;
+        opacity: 0.16;
+        stroke: #475569;
+        stroke-dasharray: 4 9;
+        stroke-width: 1.2;
+      }
+
+      .root {
+        fill: white;
+        stroke: #1e3a8a;
+        stroke-width: 4;
+      }
+
+      .anchor {
+        stroke: white;
+        stroke-width: 3;
+      }
+
+      .node {
+        stroke: white;
+        stroke-width: 2;
+      }
+
+      .leaf {
+        fill: #94a3b8;
+        opacity: 0.56;
+      }
+
+      .focus-node {
+        fill: var(--focus);
+        stroke: white;
+        stroke-width: 4;
+      }
+
+      .hot-node {
+        fill: var(--warm);
+        stroke: white;
+        stroke-width: 3;
+      }
+
+      .label {
+        fill: #18212f;
+        font-size: 15px;
+        font-weight: 800;
+        paint-order: stroke;
+        stroke: rgba(255, 255, 255, 0.92);
+        stroke-linejoin: round;
+        stroke-width: 5px;
+      }
+
+      .sub-label {
+        fill: #334155;
+        font-size: 12px;
+        font-weight: 700;
+        paint-order: stroke;
+        stroke: rgba(255, 255, 255, 0.9);
+        stroke-linejoin: round;
+        stroke-width: 4px;
+      }
+
+      .tiny-label {
+        fill: #64748b;
+        font-size: 10px;
+        font-weight: 650;
+      }
+
+      .note {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        border-radius: 8px;
+        left: 22px;
+        padding: 10px 12px;
+        position: absolute;
+        top: 18px;
+        width: 280px;
+      }
+
+      .note strong {
+        display: block;
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .note p {
+        color: #64748b;
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Capability Graph Explorer</strong>
+      <span>Preview: technical system map overview</span>
+    </header>
+    <main>
+      <div class="canvas">
+        <div class="note">
+          <strong>Preview direction</strong>
+          <p>Overview keeps the product tree stable, makes subsystem anchors obvious, and turns leaf detail into quiet texture until zoom-in.</p>
+        </div>
+        <svg viewBox="0 0 1100 760" role="img" aria-label="Stable balanced radial tree preview">
+          <defs>
+            <linearGradient id="focusGradient" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0%" stop-color="#2563eb" />
+              <stop offset="100%" stop-color="#1d4ed8" />
+            </linearGradient>
+          </defs>
+
+          <g transform="translate(530 390)">
+            <circle class="ring" r="90" />
+            <circle class="ring" r="170" />
+            <circle class="ring" r="255" />
+            <circle class="ring" r="335" />
+
+            <path class="region" d="M0 0 L-335 -60 A340 340 0 0 1 -230 -250 Z" fill="#14b8a6" />
+            <path class="region" d="M0 0 L-230 -250 A340 340 0 0 1 70 -340 Z" fill="#60a5fa" />
+            <path class="region" d="M0 0 L70 -340 A340 340 0 0 1 330 -60 Z" fill="#f59e0b" />
+            <path class="region" d="M0 0 L330 -60 A340 340 0 0 1 240 245 Z" fill="#22c55e" />
+            <path class="region" d="M0 0 L240 245 A340 340 0 0 1 -335 70 Z" fill="#a78bfa" />
+
+            <!-- stable tree skeleton -->
+            <path class="tree-edge" d="M0 0 C-42 -26 -78 -38 -122 -58" />
+            <path class="tree-edge" d="M0 0 C-32 -72 -48 -122 -60 -178" />
+            <path class="tree-edge" d="M0 0 C54 -66 98 -106 150 -154" />
+            <path class="tree-edge" d="M0 0 C90 -10 152 -18 228 -38" />
+            <path class="tree-edge" d="M0 0 C74 48 128 82 200 128" />
+            <path class="tree-edge" d="M0 0 C-56 54 -110 82 -184 112" />
+
+            <!-- focus branch: conveyor integration -->
+            <path class="focus-edge" d="M0 0 C-42 -26 -78 -38 -122 -58 C-166 -76 -206 -90 -252 -108" />
+            <path class="gap-edge" d="M-122 -58 C-165 -20 -190 10 -220 50" />
+
+            <!-- branch children -->
+            <path class="tree-edge secondary" d="M-122 -58 C-170 -118 -214 -154 -282 -188" />
+            <path class="tree-edge secondary" d="M-122 -58 C-180 -55 -225 -52 -292 -48" />
+            <path class="tree-edge secondary" d="M-60 -178 C-112 -224 -160 -258 -222 -300" />
+            <path class="tree-edge secondary" d="M-60 -178 C-40 -242 -22 -286 0 -330" />
+            <path class="tree-edge secondary" d="M150 -154 C168 -214 192 -258 226 -308" />
+            <path class="tree-edge secondary" d="M150 -154 C226 -168 274 -176 330 -184" />
+            <path class="tree-edge secondary" d="M228 -38 C290 -70 330 -96 374 -130" />
+            <path class="tree-edge secondary" d="M228 -38 C306 -20 356 -8 408 10" />
+            <path class="tree-edge secondary" d="M200 128 C250 168 286 204 328 252" />
+            <path class="tree-edge secondary" d="M200 128 C250 116 304 112 360 108" />
+            <path class="tree-edge secondary" d="M-184 112 C-250 120 -298 132 -354 154" />
+            <path class="tree-edge secondary" d="M-184 112 C-232 168 -260 206 -292 258" />
+
+            <!-- low-noise cross-links -->
+            <path class="cross-link" d="M-292 -48 Q-15 -260 330 -184" />
+            <path class="cross-link" d="M-220 50 Q45 250 360 108" />
+
+            <!-- root and anchors -->
+            <circle class="root" cx="0" cy="0" r="20" />
+            <text class="tiny-label" text-anchor="middle" x="0" y="4">产品</text>
+
+            <circle class="focus-node" cx="-122" cy="-58" r="18" />
+            <circle class="anchor" cx="-60" cy="-178" r="15" fill="#14b8a6" />
+            <circle class="anchor" cx="150" cy="-154" r="15" fill="#60a5fa" />
+            <circle class="anchor" cx="228" cy="-38" r="15" fill="#f59e0b" />
+            <circle class="anchor" cx="200" cy="128" r="15" fill="#22c55e" />
+            <circle class="anchor" cx="-184" cy="112" r="15" fill="#8b5cf6" />
+
+            <!-- key nodes -->
+            <circle class="hot-node" cx="-252" cy="-108" r="13" />
+            <circle class="node" cx="-220" cy="50" r="11" fill="#0f9f7a" />
+            <circle class="node" cx="-282" cy="-188" r="9" fill="#0f9f7a" />
+            <circle class="node" cx="-292" cy="-48" r="8" fill="#0f9f7a" />
+            <circle class="node" cx="-222" cy="-300" r="8" fill="#14b8a6" />
+            <circle class="node" cx="0" cy="-330" r="8" fill="#14b8a6" />
+            <circle class="node" cx="226" cy="-308" r="8" fill="#60a5fa" />
+            <circle class="node" cx="330" cy="-184" r="8" fill="#60a5fa" />
+            <circle class="node" cx="374" cy="-130" r="8" fill="#f59e0b" />
+            <circle class="node" cx="408" cy="10" r="8" fill="#f59e0b" />
+            <circle class="node" cx="328" cy="252" r="8" fill="#22c55e" />
+            <circle class="node" cx="360" cy="108" r="8" fill="#22c55e" />
+            <circle class="node" cx="-354" cy="154" r="8" fill="#8b5cf6" />
+            <circle class="node" cx="-292" cy="258" r="8" fill="#8b5cf6" />
+
+            <!-- leaf texture -->
+            <g>
+              <circle class="leaf" cx="-315" cy="-132" r="4" />
+              <circle class="leaf" cx="-335" cy="-104" r="4" />
+              <circle class="leaf" cx="-256" cy="-224" r="4" />
+              <circle class="leaf" cx="-132" cy="-315" r="4" />
+              <circle class="leaf" cx="-24" cy="-285" r="4" />
+              <circle class="leaf" cx="68" cy="-300" r="4" />
+              <circle class="leaf" cx="180" cy="-270" r="4" />
+              <circle class="leaf" cx="270" cy="-238" r="4" />
+              <circle class="leaf" cx="342" cy="-92" r="4" />
+              <circle class="leaf" cx="376" cy="-44" r="4" />
+              <circle class="leaf" cx="392" cy="62" r="4" />
+              <circle class="leaf" cx="306" cy="144" r="4" />
+              <circle class="leaf" cx="266" cy="220" r="4" />
+              <circle class="leaf" cx="156" cy="212" r="4" />
+              <circle class="leaf" cx="-120" cy="202" r="4" />
+              <circle class="leaf" cx="-238" cy="178" r="4" />
+              <circle class="leaf" cx="-324" cy="92" r="4" />
+            </g>
+
+            <!-- labels -->
+            <text class="label" x="-350" y="-116">Conveyor integration</text>
+            <text class="sub-label" x="-246" y="-216">Motorized belt</text>
+            <text class="sub-label" x="-306" y="-36">Photoelectric sensing</text>
+            <text class="sub-label" x="-248" y="70">Evidence gap</text>
+            <text class="label" x="-96" y="-218">Vision / barcode</text>
+            <text class="label" x="172" y="-205">Safety system</text>
+            <text class="label" x="258" y="-54">Sorting logic</text>
+            <text class="label" x="226" y="172">Motion planning</text>
+            <text class="label" x="-270" y="138">Mechanical structure</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><i class="dot" style="background:#2563eb"></i>focus branch</span>
+          <span><i class="dot" style="background:#dc6b36"></i>bottleneck / gap</span>
+          <span><i class="dot" style="background:#94a3b8"></i>quiet leaves</span>
+        </div>
+      </div>
+      <aside class="rail">
+        <h2>Conveyor integration</h2>
+        <span class="badge">Branch highlight</span>
+        <section>
+          <h3>Overview rule</h3>
+          <p>First-layer subsystem anchors become the dominant marks. Leaf nodes become texture, not individual targets.</p>
+        </section>
+        <section>
+          <h3>Line rule</h3>
+          <p>Main tree branches use a stable skeleton. Cross-links are faint and do not compete with the current path.</p>
+        </section>
+        <section>
+          <h3>Focus rule</h3>
+          <p>Clicking a branch keeps the whole map visible, then emphasizes one continuous path instead of enlarging every incident edge.</p>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

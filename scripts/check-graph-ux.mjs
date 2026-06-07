@@ -98,10 +98,22 @@ requireMatch(
   /from "@\/lib\/subsystemHue"/.test(graphExplorer),
 );
 
-// B1 invariants introduced by slice B1.
+// Full-system route-led chrome invariants introduced by this redesign pass.
 requireMatch(
-  "GraphExplorer must mount the ColorModeFloatingButton (replaces the legacy ColorModeSelect dropdown).",
-  /ColorModeFloatingButton/.test(graphExplorer),
+  "GraphExplorer must mount the compact GraphControls surface.",
+  /GraphControls/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must not mount the old ColorModeFloatingButton in the Full System first pass.",
+  !/ColorModeFloatingButton/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must mount the route-first detail rail.",
+  /RouteDetailRail/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must derive the active route from selectCostDriverRoute.",
+  /selectCostDriverRoute/.test(graphExplorer),
 );
 requireMatch(
   "GraphExplorer must drive edge styles from edgeStyleFor per slice B1.",

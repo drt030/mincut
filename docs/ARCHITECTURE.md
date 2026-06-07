@@ -52,7 +52,7 @@ Current v0 domain:
 low_cost_parcel_sorting_robot_300k_rmb
 ```
 
-This target is a concrete product node, not the general demand for low-cost parcel sorting. In v0 it refers to an industrial robot-arm and computer-vision based parcel-sorting robot/cell, mainly using grippers or suction cups. Adjacent solutions such as delta robot sorters, humanoid robot sorters, conveyor diverter systems, mobile robot sorting systems, and human-robot assisted workflows should be modeled as separate product candidates unless the product boundary is explicitly changed.
+This target is a concrete product node, not the general demand for low-cost parcel sorting. In v0 it refers to an industrial robot-arm and computer-vision based parcel-sorting robot/cell using a vacuum-suction end-effector. Adjacent solutions such as mechanical-gripper variants, delta robot sorters, humanoid robot sorters, conveyor diverter systems, mobile robot sorting systems, and human-robot assisted workflows should be modeled as separate product candidates unless the product boundary is explicitly changed.
 
 The graph currently includes product, module, metric, bottleneck, placeholder breakthrough, principle, manufacturing, regulation, capability, and evidence nodes. (The schema retains `has_route` and a legacy `technical_route` kind for back-compat, but no `kind: "route"` exists, and per ADR-0004 alternative architectures are modelled as sibling Products under one Capability rather than as routes within a Product.)
 

@@ -94,7 +94,16 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "parcels_per_hour",
     "relation": "measured_by",
+    "claim": "Single robotic parcel induction/singulation benchmarks cluster around 1,500-1,800 pph, while smaller robot sort cells can be closer to 325-400 pph.",
+    "context": "Use as an unreviewed adjacent benchmark for the v0 suction-arm cell. Sustained throughput will depend on induction spacing, robot cycle time, suction success, barcode/OCR read rate, and downstream conveyor/WCS acceptance.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_abb_robotic_parcel_inductor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -102,7 +111,16 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "sorting_accuracy",
     "relation": "measured_by",
+    "claim": "Adjacent robotic parcel systems report roughly 98-99.5% picking, singulation, barcode-read, or correct-output accuracy.",
+    "context": "These are not identical measures. Product-level sort accuracy should eventually split no-read, no-pick, double-pick, wrong-destination, and manual-correction rates.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_abb_robotic_parcel_inductor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -110,7 +128,13 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "allowed_parcel_weight_range",
     "relation": "measured_by",
+    "claim": "Adjacent robotic parcel systems span very light mailers through parcels up to 35 kg, while the v0 target remains 0.05-25 kg.",
+    "context": "The active product boundary uses vacuum suction; packaging material, suction cup geometry, acceleration, and robot payload will narrow the practical field range.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -118,7 +142,13 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "allowed_parcel_size_range",
     "relation": "measured_by",
+    "claim": "Adjacent robotic parcel systems report envelopes from small mailers to parcels as large as 70 x 70 x 120 cm; the v0 target keeps the longest dimension at about 700 mm.",
+    "context": "Field limits depend on camera field of view, suction reach, conveyor spacing, and irregular soft-pack behavior rather than dimensions alone.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -126,7 +156,14 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "failure_jam_rate",
     "relation": "measured_by",
+    "claim": "Public vendor claims give proxy exception rates such as failed grasp, double-parcel grasp, and uptime, but do not yet provide a reviewed site-level jam rate for the v0 cell.",
+    "context": "Treat the metric as an exception-risk order of magnitude. A proper jam metric needs field logs across failed pick, double pick, no-read, chute jam, conveyor jam, and stop/recovery events.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -134,7 +171,15 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "human_intervention_rate",
     "relation": "measured_by",
+    "claim": "Manual intervention is currently estimated from adjacent no-read, failed-grasp, in-size sortability, and uptime proxies rather than direct field intervention logs.",
+    "context": "This remains a weak investor-facing metric. Replace with shift-level exception and labor logs before treating it as established.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -142,7 +187,13 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "installation_time",
     "relation": "measured_by",
+    "claim": "Adjacent pre-engineered robotic parcel stations advertise same-day readiness to under-one-week integration, but site-specific commissioning can dominate.",
+    "context": "Brownfield conveyor geometry, guarding, WCS/PLC interface, compressed air, electrical work, and acceptance testing can make installation much longer than module-level claims.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_abb_robotic_parcel_inductor_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -150,7 +201,17 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "maintenance_cost",
     "relation": "measured_by",
-    "confidence": "medium",
+    "claim": "Annual maintenance for the 300,000 RMB parcel sorting robot cell is modeled at p50 24,000 RMB/year with a 12,000-45,000 RMB/year proxy range.",
+    "context": "Low-confidence benchmark, not a field quote. The range applies 4-15% annual maintenance heuristics from industrial robot and adjacent equipment sources to the 300,000 RMB replacement value, then adds parcel-cell scope assumptions for robot PM, EOAT wear, conveyor/sensor work, and calibration. It excludes downtime opportunity cost, major overhaul, and WCS subscription/support unless separately quoted.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_maintenance_robot_annual_cost_benchmark_2026",
+      "ev_maintenance_robot_cost_range_rcc_2026",
+      "ev_maintenance_abb_robotics_service_2026",
+      "ev_maintenance_fanuc_pm_checklist_2023",
+      "ev_maintenance_conveyor_cost_factors_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -158,7 +219,13 @@
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "payback_period",
     "relation": "measured_by",
+    "claim": "Broader parcel sortation automation guides often frame payback around 24-48 months, but the 300,000 RMB cell needs a site-specific ROI model.",
+    "context": "Payback depends on labor rates, shift count, parcel volume, throughput actually achieved, exception rate, maintenance cost, and whether the cell avoids larger conveyor-sorter capex.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_perf_flostor_parcel_sortation_roi_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -248,11 +315,11 @@
   {
     "id": "e_gripper_sibling_requires_end_effector",
     "source": "parcel_sorting_robot_with_gripper_300k_rmb",
-    "target": "end_effector_gripper_or_suction",
+    "target": "mechanical_gripper_end_effector_module",
     "relation": "requires",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; the gripper variant's mechanical end-effector lives under this shared module node until a gripper-specific child is modelled."
+    "context": "Migrated from retired industrial_robot_arm_gripper_route per ADR-0004; the gripper variant's mechanical end-effector is a separate deferred module, not a child of the active vacuum-suction product."
   },
   {
     "id": "e_gripper_sibling_enables_capability",
@@ -1357,8 +1424,8 @@
     "source": "industrial_robot_arm_body",
     "target": "industrial_robot_arm_body_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003 cost-rollup model. Pricing the arm body directly intercepts recursion through servo motors, reducers, and material chains, treating the arm as a single purchasable subsystem. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1438,8 +1505,8 @@
     "source": "end_effector_gripper_or_suction",
     "target": "end_effector_gripper_or_suction_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Pricing the end-effector module directly intercepts recursion through cup-array / ejector / valves / pressure-sensing leaves. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1447,8 +1514,8 @@
     "source": "parcel_manipulation_or_diverter",
     "target": "parcel_manipulation_or_diverter_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Direct price on this aggregator stops recursion that would otherwise double-count arm_body, end_effector, and motion_planning, which are also direct requires children of the product. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1456,8 +1523,8 @@
     "source": "industrial_area_scan_camera",
     "target": "industrial_area_scan_camera_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1465,8 +1532,8 @@
     "source": "machine_vision_lens_and_optics",
     "target": "machine_vision_lens_and_optics_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1474,8 +1541,8 @@
     "source": "controlled_machine_vision_lighting",
     "target": "controlled_machine_vision_lighting_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1483,8 +1550,8 @@
     "source": "vision_processing_compute",
     "target": "vision_processing_compute_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1492,8 +1559,8 @@
     "source": "conveyor_integration",
     "target": "conveyor_integration_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Pricing the conveyor integration as a bundle stops recursion through photoelectric sensors, encoder, PLC, chutes, and induction-control children. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1546,8 +1613,8 @@
     "source": "safety_system",
     "target": "safety_system_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1555,8 +1622,8 @@
     "source": "mechanical_structure",
     "target": "mechanical_structure_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1564,8 +1631,8 @@
     "source": "sorting_decision_system",
     "target": "sorting_decision_system_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1573,8 +1640,8 @@
     "source": "motion_planning",
     "target": "motion_planning_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1582,8 +1649,8 @@
     "source": "parcel_detection_and_tracking",
     "target": "parcel_detection_and_tracking_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
   },
   {
@@ -1591,8 +1658,905 @@
     "source": "maintenance_workflow",
     "target": "maintenance_workflow_cost",
     "relation": "measured_by",
-    "confidence": "high",
-    "reviewStatus": "reviewed",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
     "context": "Cost measurement attached per ADR-0003. Backfilled by ralph iter 18 cost-research."
+  },
+  {
+    "id": "e_impl_maintenance_workflow_abb_robotics",
+    "source": "maintenance_workflow",
+    "target": "org_abb_robotics",
+    "relation": "implemented_by",
+    "claim": "ABB Robotics is a service implementation candidate for robot preventive maintenance, diagnostics, on-site repair, and corrective maintenance in a parcel-sorting cell.",
+    "context": "Official ABB Robotics service-page evidence; candidate service/support provider only and not a confirmed service contract for the 300,000 RMB parcel cell.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_maintenance_abb_robotics_service_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_maintenance_workflow_fanuc",
+    "source": "maintenance_workflow",
+    "target": "org_fanuc",
+    "relation": "implemented_by",
+    "claim": "FANUC robot service ecosystem is a maintenance implementation candidate for preventive inspection, reducer lubrication, controller checks, batteries, fans, backlash testing, and cable inspection.",
+    "context": "Preventive-maintenance checklist evidence; candidate service/support provider only and not a quoted parcel-cell service plan.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_maintenance_fanuc_pm_checklist_2023"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_robot_arm_body_fanuc",
+    "source": "industrial_robot_arm_body",
+    "target": "org_fanuc",
+    "relation": "manufactured_by",
+    "claim": "FANUC is a major supplier candidate for the industrial robot arm body.",
+    "context": "2024H1 China industrial robot sales share data; supplier candidate, not confirmed BOM for the target product.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_robot_arm_body_estun",
+    "source": "industrial_robot_arm_body",
+    "target": "org_estun",
+    "relation": "manufactured_by",
+    "claim": "Estun is a domestic supplier candidate for the industrial robot arm body.",
+    "context": "2024H1 China industrial robot sales share data; supplier candidate, not confirmed BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_robot_arm_body_inovance",
+    "source": "industrial_robot_arm_body",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a domestic industrial robot and motion-control supplier candidate for the robot arm body.",
+    "context": "2024H1 China industrial robot sales share data; supplier candidate, not confirmed BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_robot_arm_body_abb",
+    "source": "industrial_robot_arm_body",
+    "target": "org_abb_robotics",
+    "relation": "manufactured_by",
+    "claim": "ABB Robotics supplies robot-arm options for a comparable robotic parcel-inductor module.",
+    "context": "Reference architecture evidence, not a 300,000 RMB target-cost proof.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_robot_arm_body_yaskawa",
+    "source": "industrial_robot_arm_body",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a robot-arm and servo supplier candidate for the industrial robot arm body.",
+    "context": "Major robot/servo supplier; exact parcel-cell BOM share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_controller_inovance",
+    "source": "servo_drive_controller",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a major China general-servo supplier candidate for servo drive/controller selection.",
+    "context": "Market-share evidence is China general servo, not parcel-cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_controller_siemens",
+    "source": "servo_drive_controller",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a servo and motion-control supplier candidate for servo drive/controller selection.",
+    "context": "Market-share evidence is China general servo and small PLC; exact parcel-cell BOM share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_mfg_siemens_simatic_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_controller_yaskawa",
+    "source": "servo_drive_controller",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a servo supplier candidate for servo drive/controller selection.",
+    "context": "Market-share evidence is China general servo; exact parcel-cell BOM share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_controller_mitsubishi",
+    "source": "servo_drive_controller",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric supplies servo and PLC automation products relevant to robot and conveyor control.",
+    "context": "Product-line evidence only; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_power_stage_inovance",
+    "source": "servo_drive_power_stage",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a supplier candidate for servo drive power electronics and control products.",
+    "context": "General-servo market evidence; specific power-stage device sourcing remains separate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_drive_power_stage_siemens",
+    "source": "servo_drive_power_stage",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a supplier candidate for servo drive and motion-control products.",
+    "context": "General-servo market evidence; specific power semiconductor supply is not modeled here.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_mfg_siemens_simatic_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_servo_motor_inovance",
+    "source": "industrial_servo_motor",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a servo-system supplier candidate for industrial servo motors in the robot arm.",
+    "context": "China general-servo market-share evidence; candidate supplier only and not a confirmed motor BOM for the 300,000 RMB parcel cell.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_servo_motor_yaskawa",
+    "source": "industrial_servo_motor",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a servo-system supplier candidate for industrial servo motors in the robot arm.",
+    "context": "China general-servo market-share evidence; candidate supplier only and exact target-cell motor adoption is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_servo_motor_siemens",
+    "source": "industrial_servo_motor",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is a servo and motion-control supplier candidate for industrial servo motor selection.",
+    "context": "General-servo and motion-control evidence; candidate supplier only and exact low-cost robot-arm motor BOM is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_servo_motor_mitsubishi",
+    "source": "industrial_servo_motor",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a servo-system supplier candidate for industrial servo motor selection.",
+    "context": "Product-line evidence for factory automation and servo systems; candidate supplier only and target-cell adoption is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_precision_reducer_gearbox_nabtesco",
+    "source": "precision_reducer_gearbox",
+    "target": "org_nabtesco",
+    "relation": "manufactured_by",
+    "claim": "Nabtesco is a major robot-joint precision reducer supplier.",
+    "context": "Company-claimed approximately 60% global share for industrial robot joint precision reduction gears.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_mfg_nabtesco_precision_reducer_60_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_precision_reducer_gearbox_harmonic_drive",
+    "source": "precision_reducer_gearbox",
+    "target": "org_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is a supplier candidate for compact strain-wave precision reducers.",
+    "context": "Product/component evidence; numeric share needs cleaner source before display.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_precision_reducer_gearbox_leaderdrive",
+    "source": "precision_reducer_gearbox",
+    "target": "org_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is a domestic harmonic reducer supplier candidate.",
+    "context": "Domestic replacement exposure; numeric share omitted because public estimates conflict.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mfg_leaderdrive_harmonic_reducer_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_precision_reducer_gearbox_shuanghuan",
+    "source": "precision_reducer_gearbox",
+    "target": "org_shuanghuan_transmission",
+    "relation": "manufactured_by",
+    "claim": "Shuanghuan/Huandong is a domestic RV reducer supplier candidate.",
+    "context": "Weak-source industry-share evidence; needs review.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mfg_china_reducer_share_low_confidence"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_area_scan_camera_hikrobot",
+    "source": "industrial_area_scan_camera",
+    "target": "org_hikrobot",
+    "relation": "manufactured_by",
+    "claim": "Hikrobot is a major industrial camera supplier candidate for parcel machine vision.",
+    "context": "China industrial camera shipment share is 2021 and should not be treated as current without refresh.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_hikrobot_ipo_machine_vision_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_area_scan_camera_keyence",
+    "source": "industrial_area_scan_camera",
+    "target": "org_keyence",
+    "relation": "manufactured_by",
+    "claim": "KEYENCE supplies machine-vision systems and sensors relevant to parcel camera/vision choices.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_area_scan_camera_cognex",
+    "source": "industrial_area_scan_camera",
+    "target": "org_cognex",
+    "relation": "manufactured_by",
+    "claim": "Cognex supplies machine-vision and code-reading products relevant to parcel identification.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_industrial_area_scan_camera_basler",
+    "source": "industrial_area_scan_camera",
+    "target": "org_basler",
+    "relation": "manufactured_by",
+    "claim": "Basler supplies industrial cameras relevant to area-scan camera selection.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_basler_industrial_cameras"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_barcode_ocr_hikrobot",
+    "source": "barcode_ocr_reading_software",
+    "target": "org_hikrobot",
+    "relation": "manufactured_by",
+    "claim": "Hikrobot supplies smart code readers and machine-vision software relevant to barcode/OCR reading.",
+    "context": "Product-line and older share evidence; exact OCR algorithm supplier for target product not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_hikrobot_ipo_machine_vision_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_barcode_ocr_cognex",
+    "source": "barcode_ocr_reading_software",
+    "target": "org_cognex",
+    "relation": "manufactured_by",
+    "claim": "Cognex supplies industrial code readers and vision software relevant to barcode/OCR reading.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_detection_tracking_hikrobot",
+    "source": "parcel_detection_and_tracking",
+    "target": "org_hikrobot",
+    "relation": "manufactured_by",
+    "claim": "Hikrobot is a machine-vision supplier candidate for the parcel detection and tracking bottleneck.",
+    "context": "Rolls up industrial-camera, smart-code-reader, and vision-software exposure from child components. Candidate supplier only; not confirmed BOM or target-cell share evidence.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_hikrobot_ipo_machine_vision_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_detection_tracking_keyence",
+    "source": "parcel_detection_and_tracking",
+    "target": "org_keyence",
+    "relation": "manufactured_by",
+    "claim": "KEYENCE is a machine-vision and sensing supplier candidate for parcel detection and tracking.",
+    "context": "Product-line evidence for vision, sensors, and factory automation products. Candidate supplier only; exact parcel-cell adoption and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_detection_tracking_cognex",
+    "source": "parcel_detection_and_tracking",
+    "target": "org_cognex",
+    "relation": "manufactured_by",
+    "claim": "Cognex is a machine-vision and code-reading supplier candidate for parcel detection and tracking.",
+    "context": "Product-line evidence for machine vision, barcode readers, and vision software. Candidate supplier only; exact target-product supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vision_recognition_hikrobot",
+    "source": "vision_barcode_label_recognition",
+    "target": "org_hikrobot",
+    "relation": "manufactured_by",
+    "claim": "Hikrobot is a candidate supplier for the vision, barcode, and label-recognition subsystem.",
+    "context": "Rolls up industrial-camera, smart-code-reader, and vision-software exposure. Candidate supplier only; not confirmed BOM or current parcel-cell market-share evidence.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_hikrobot_ipo_machine_vision_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vision_recognition_keyence",
+    "source": "vision_barcode_label_recognition",
+    "target": "org_keyence",
+    "relation": "manufactured_by",
+    "claim": "KEYENCE is a candidate supplier for machine-vision, barcode, and label-recognition hardware/software.",
+    "context": "Product-line evidence for machine vision, code reading, sensors, and safety products. Candidate supplier only; parcel-cell adoption and share are not established.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vision_recognition_cognex",
+    "source": "vision_barcode_label_recognition",
+    "target": "org_cognex",
+    "relation": "manufactured_by",
+    "claim": "Cognex is a candidate supplier for machine-vision and barcode-recognition products used in parcel identification.",
+    "context": "Product-line evidence for machine vision, barcode readers, and vision software. Candidate supplier only; exact target-product supplier status is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_controlled_lighting_opt",
+    "source": "controlled_machine_vision_lighting",
+    "target": "org_opt_machine_vision",
+    "relation": "manufactured_by",
+    "claim": "OPT Machine Vision is a supplier candidate for controlled machine-vision lighting and related components.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_opt_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_controlled_lighting_keyence",
+    "source": "controlled_machine_vision_lighting",
+    "target": "org_keyence",
+    "relation": "manufactured_by",
+    "claim": "KEYENCE is a supplier candidate for integrated machine-vision lighting and sensor/vision systems.",
+    "context": "Product-line evidence; exact lighting BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_suction_cup_array_smc",
+    "source": "vacuum_suction_cup_array",
+    "target": "org_smc",
+    "relation": "manufactured_by",
+    "claim": "SMC supplies vacuum pads relevant to suction-cup arrays.",
+    "context": "Product-line evidence; exact parcel-cell share and wear-life not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_pads"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_suction_cup_array_schmalz",
+    "source": "vacuum_suction_cup_array",
+    "target": "org_schmalz",
+    "relation": "manufactured_by",
+    "claim": "Schmalz supplies vacuum end effectors and suction products relevant to parcel-contact EOAT.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schmalz_vacuum_end_effectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_suction_cup_array_piab",
+    "source": "vacuum_suction_cup_array",
+    "target": "org_piab",
+    "relation": "manufactured_by",
+    "claim": "Piab supplies suction cups and soft grippers relevant to parcel-contact EOAT.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_piab_suction_cups_soft_grippers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_generator_smc",
+    "source": "vacuum_generator_or_ejector",
+    "target": "org_smc",
+    "relation": "manufactured_by",
+    "claim": "SMC supplies vacuum equipment relevant to vacuum generators/ejectors.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_pads"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_generator_piab",
+    "source": "vacuum_generator_or_ejector",
+    "target": "org_piab",
+    "relation": "manufactured_by",
+    "claim": "Piab supplies vacuum equipment relevant to vacuum generation and EOAT.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_piab_suction_cups_soft_grippers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_end_effector_onrobot",
+    "source": "end_effector_gripper_or_suction",
+    "target": "org_onrobot",
+    "relation": "manufactured_by",
+    "claim": "OnRobot supplies electric vacuum grippers relevant to low-deployment-cost EOAT benchmarks.",
+    "context": "Benchmark supplier; the current target product commits to vacuum suction, not a generic gripper architecture.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_onrobot_vacuum_grippers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_integration_wayzim",
+    "source": "conveyor_integration",
+    "target": "org_wayzim",
+    "relation": "manufactured_by",
+    "claim": "Wayzim supplies parcel sortation and robotic infeed systems relevant to conveyor integration.",
+    "context": "Relevant Chinese logistics equipment supplier; exact 300,000 RMB cell cost not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_wayzim_crossbelt_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_integration_dematic",
+    "source": "conveyor_integration",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic supplies automated sortation and conveyor systems relevant to conveyor integration.",
+    "context": "Large-system supplier and integrator; adjacent system exposure rather than specific low-cost cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_integration_vanderlande",
+    "source": "conveyor_integration",
+    "target": "org_vanderlande_toyota",
+    "relation": "manufactured_by",
+    "claim": "Vanderlande supplies parcel sorting systems relevant to conveyor and sortation integration.",
+    "context": "Large-system supplier; not proof of target low-cost cell economics.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_vanderlande_parcel_sorting"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_integration_interroll",
+    "source": "conveyor_integration",
+    "target": "org_interroll",
+    "relation": "manufactured_by",
+    "claim": "Interroll supplies sorter and conveyor platforms relevant to conveyor integration.",
+    "context": "Core module/platform supplier; exact parcel-cell adoption share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_interroll_sorter_platform"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_integration_daifuku",
+    "source": "conveyor_integration",
+    "target": "org_daifuku",
+    "relation": "manufactured_by",
+    "claim": "Daifuku supplies material-handling and sorting systems relevant to conveyor integration.",
+    "context": "Large-system supplier; not proof of target low-cost cell economics.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_daifuku_sorting_systems"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_parcel_induction_spacing_wayzim",
+    "source": "parcel_induction_spacing_control",
+    "target": "org_wayzim",
+    "relation": "manufactured_by",
+    "claim": "Wayzim supplies robotic parcel infeed and sortation products relevant to induction and spacing control.",
+    "context": "Vendor product evidence; exact low-cost cell performance not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_plc_wcs_siemens",
+    "source": "plc_and_wcs_integration",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens supplies PLC and automation-control products relevant to PLC/WCS integration.",
+    "context": "PLC product and share evidence; WCS software share not implied.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_siemens_simatic_plc",
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_plc_wcs_rockwell",
+    "source": "plc_and_wcs_integration",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation supplies controllers and safety control products relevant to PLC/WCS integration.",
+    "context": "Product-line evidence; geographic strength is more North America than China low-cost cells.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_plc_wcs_schneider",
+    "source": "plc_and_wcs_integration",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "claim": "Schneider Electric supplies PLC/PAC automation products relevant to PLC/WCS integration.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_plc_wcs_mitsubishi",
+    "source": "plc_and_wcs_integration",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric supplies PLC and automation-control products relevant to PLC/WCS integration.",
+    "context": "Product-line evidence; exact parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_plc_wcs_honeywell",
+    "source": "plc_and_wcs_integration",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated supplies WES/WCS and machine-control software relevant to PLC/WCS integration.",
+    "context": "Warehouse software and sortation-control evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sorting_decision_manhattan",
+    "source": "sorting_decision_system",
+    "target": "org_manhattan_associates",
+    "relation": "manufactured_by",
+    "claim": "Manhattan Associates supplies warehouse software relevant to upstream sorting-decision integration.",
+    "context": "WMS/WES integration exposure, not robot-cell embedded software proof.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_manhattan_wms_gartner_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_sorting_decision_honeywell",
+    "source": "sorting_decision_system",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated supplies WES/WCS and sortation-control software relevant to sorting decisions.",
+    "context": "Warehouse execution/control evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_safety_system_sick",
+    "source": "safety_system",
+    "target": "org_sick",
+    "relation": "manufactured_by",
+    "claim": "SICK supplies machine-safety sensors relevant to the parcel-cell safety system.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_sick_safety_light_curtains"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_safety_system_keyence",
+    "source": "safety_system",
+    "target": "org_keyence",
+    "relation": "manufactured_by",
+    "claim": "KEYENCE supplies safety light curtains and safety scanners relevant to the parcel-cell safety system.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_safety_system_omron",
+    "source": "safety_system",
+    "target": "org_omron",
+    "relation": "manufactured_by",
+    "claim": "OMRON supplies machine-safety products relevant to the parcel-cell safety system.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_omron_safety_light_curtain"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_safety_system_rockwell",
+    "source": "safety_system",
+    "target": "org_rockwell_automation",
+    "relation": "manufactured_by",
+    "claim": "Rockwell Automation supplies safety controllers and safety automation products relevant to safety systems.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_safety_system_leuze",
+    "source": "safety_system",
+    "target": "org_leuze",
+    "relation": "manufactured_by",
+    "claim": "Leuze supplies optical safety sensors relevant to parcel-cell safety systems.",
+    "context": "Product-line evidence; exact target-product supplier not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_leuze_safety_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_pm_rotor_jlmag",
+    "source": "servo_motor_permanent_magnet_rotor",
+    "target": "org_jlmag",
+    "relation": "manufactured_by",
+    "claim": "JL MAG is a high-performance NdFeB magnet supplier candidate for servo motor permanent-magnet rotors.",
+    "context": "Upstream magnet supplier exposure; exact servo-motor customer allocation not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_jlmag_esg_2024",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_pm_rotor_zhongke",
+    "source": "servo_motor_permanent_magnet_rotor",
+    "target": "org_zhongke_sanhuan",
+    "relation": "manufactured_by",
+    "claim": "Zhong Ke San Huan is an NdFeB magnet supplier candidate for servo motor permanent-magnet rotors.",
+    "context": "Upstream magnet supplier exposure; exact servo-motor customer allocation not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_zhongke_sanhuan_2024_report",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_pm_rotor_yunsheng",
+    "source": "servo_motor_permanent_magnet_rotor",
+    "target": "org_ningbo_yunsheng",
+    "relation": "manufactured_by",
+    "claim": "Ningbo Yunsheng is an NdFeB magnet supplier candidate for servo motor permanent-magnet rotors.",
+    "context": "Upstream magnet supplier exposure; exact servo-motor customer allocation not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_ningbo_yunsheng_capacity",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_rare_earth_permanent_magnet_jlmag",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "org_jlmag",
+    "relation": "manufactured_by",
+    "claim": "JL MAG manufactures high-performance NdFeB magnet materials relevant to servo motor magnet material.",
+    "context": "Material supplier exposure, not exact robot BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_jlmag_esg_2024",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_rare_earth_permanent_magnet_zhongke",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "org_zhongke_sanhuan",
+    "relation": "manufactured_by",
+    "claim": "Zhong Ke San Huan manufactures NdFeB magnet materials relevant to servo motor magnet material.",
+    "context": "Material supplier exposure, not exact robot BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_zhongke_sanhuan_2024_report",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_rare_earth_permanent_magnet_yunsheng",
+    "source": "rare_earth_permanent_magnet_material",
+    "target": "org_ningbo_yunsheng",
+    "relation": "manufactured_by",
+    "claim": "Ningbo Yunsheng manufactures NdFeB magnet materials relevant to servo motor magnet material.",
+    "context": "Material supplier exposure, not exact robot BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_ningbo_yunsheng_capacity",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_ndpr_feedstock_china_northern",
+    "source": "ndpr_rare_earth_feedstock",
+    "target": "org_china_northern_rare_earth",
+    "relation": "manufactured_by",
+    "claim": "China Northern Rare Earth is an upstream rare-earth feedstock supplier relevant to NdPr supply.",
+    "context": "Upstream feedstock exposure; exact magnet-customer allocation not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_china_northern_rare_earth_2024",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_ndpr_feedstock_mp_materials",
+    "source": "ndpr_rare_earth_feedstock",
+    "target": "org_mp_materials",
+    "relation": "manufactured_by",
+    "claim": "MP Materials is an upstream rare-earth feedstock supplier relevant to ex-China NdPr supply diversification.",
+    "context": "Upstream feedstock exposure; exact robot supply chain participation not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mp_materials_mountain_pass",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_ndpr_feedstock_lynas",
+    "source": "ndpr_rare_earth_feedstock",
+    "target": "org_lynas_rare_earths",
+    "relation": "manufactured_by",
+    "claim": "Lynas Rare Earths is an upstream rare-earth feedstock supplier relevant to ex-China NdPr supply diversification.",
+    "context": "Upstream feedstock exposure; exact robot supply chain participation not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_lynas_rare_earths_2024",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

@@ -6,7 +6,9 @@
     "sourceName": "Project initialization document",
     "date": "2026-04-26",
     "summary": "Defines the first product node, core modules, key metrics, and intended closed-loop demo for low-cost parcel sorting.",
-    "supportsNodeIds": ["low_cost_parcel_sorting_robot_300k_rmb"],
+    "supportsNodeIds": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
     "supportsEdgeIds": [
       "e_product_requires_vision",
       "e_product_requires_tracking",
@@ -25,7 +27,10 @@
     "sourceName": "Representative vendor materials to be reviewed",
     "date": "2026-04-26",
     "summary": "Placeholder evidence for commercially available sorting cell components and diverter-style routes.",
-    "supportsNodeIds": ["conveyor_diverter_sorting", "conveyor_integration"],
+    "supportsNodeIds": [
+      "conveyor_diverter_sorting",
+      "conveyor_integration"
+    ],
     "limitations": "Unreviewed vendor-style claim; needs replacement with specific product pages, quotes, and field cases.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -37,8 +42,162 @@
     "sourceName": "To be researched",
     "date": "2026-04-26",
     "summary": "Tracks the need for field evidence about parcel mix, exception rates, and operational reliability.",
-    "supportsNodeIds": ["failure_jam_rate", "human_intervention_rate"],
+    "supportsNodeIds": [
+      "failure_jam_rate",
+      "human_intervention_rate"
+    ],
     "limitations": "Placeholder only; should be replaced by real deployment data.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_perf_abb_robotic_parcel_inductor_2026",
+    "type": "product_page",
+    "title": "Robotic Parcel Inductor",
+    "url": "https://new.abb.com/products/robotics/nl/functional-modules/item-picking-family/robotic-parcel-inductor",
+    "sourceName": "ABB Robotics",
+    "date": "2026-06-07",
+    "summary": "ABB describes an AI-powered parcel inductor module for CEP operations and claims peak performance around 1,500 picks per hour with picking accuracy above 99.5%.",
+    "supportsNodeIds": [
+      "parcels_per_hour",
+      "sorting_accuracy",
+      "parcel_manipulation_or_diverter",
+      "parcel_detection_and_tracking"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_throughput",
+      "e_product_measured_accuracy"
+    ],
+    "limitations": "Vendor product page. Peak pick-rate and picking-accuracy claims are not the same as sustained parcel-sorting throughput, total sort accuracy, jam rate, or field acceptance for the 300,000 RMB v0 cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_perf_wayzim_robotic_parcel_infeed_2026",
+    "type": "product_page",
+    "title": "Automated Robotic Parcel Infeed System",
+    "url": "https://www.wayzim.com/en/product/overview/Automated-Robotic-Parcel-Infeed-System",
+    "sourceName": "Wayzim Technology",
+    "date": "2026-06-07",
+    "summary": "Wayzim describes a smart-camera and high-speed six-axis robotic parcel infeed system, with claimed infeed efficiency of at least 1,500 pph, double-parcel grasp rate at or below 0.1%, and grasp success rate at or above 99%.",
+    "supportsNodeIds": [
+      "parcels_per_hour",
+      "sorting_accuracy",
+      "failure_jam_rate",
+      "human_intervention_rate",
+      "parcel_induction_spacing_control",
+      "parcel_detection_and_tracking"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_throughput",
+      "e_product_measured_accuracy",
+      "e_product_measured_jam",
+      "e_product_measured_intervention"
+    ],
+    "limitations": "Vendor page and infeed-only benchmark. Grasp success and double-parcel rate are proxies for exception risk, not reviewed site-level jam or intervention rates.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_perf_mesh_xinduct_2026",
+    "type": "product_page",
+    "title": "XInduct High-Speed Robotic Induction System",
+    "url": "https://meshautomationinc.com/robotic-induction/",
+    "sourceName": "MESH Automation",
+    "date": "2026-06-07",
+    "summary": "MESH describes a robotic parcel induction system with up to 1,800 picks per hour per robot and 99%+ barcode read rates, with unread parcels routed to an exception area.",
+    "supportsNodeIds": [
+      "parcels_per_hour",
+      "sorting_accuracy",
+      "human_intervention_rate",
+      "barcode_ocr_reading_software",
+      "parcel_induction_spacing_control"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_throughput",
+      "e_product_measured_accuracy",
+      "e_product_measured_intervention"
+    ],
+    "limitations": "Vendor product page. Barcode read rate and exception diversion are only partial proxies for end-to-end sort accuracy and manual intervention.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_perf_robominds_titan_2026",
+    "type": "product_page",
+    "title": "TITAN robotic parcel singulation",
+    "url": "https://www.robominds.de/solutions/titan",
+    "sourceName": "robominds",
+    "date": "2026-06-07",
+    "summary": "robominds describes the TITAN parcel singulation robot as handling up to 1,800 pph, parcels up to 35 kg and 70 x 70 x 120 cm, with 98% singulation accuracy and integration under one week.",
+    "supportsNodeIds": [
+      "parcels_per_hour",
+      "sorting_accuracy",
+      "allowed_parcel_weight_range",
+      "allowed_parcel_size_range",
+      "installation_time",
+      "end_effector_gripper_or_suction"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_throughput",
+      "e_product_measured_accuracy",
+      "e_product_measured_weight",
+      "e_product_measured_size",
+      "e_product_measured_install"
+    ],
+    "limitations": "Vendor page for parcel singulation, not necessarily a complete low-cost sorting cell. Weight/size and installation figures are treated as adjacent benchmarks.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_perf_ambisort_a_series_spec",
+    "type": "product_page",
+    "title": "AmbiSort A-Series V3 technical specifications",
+    "url": "https://www.ambirobotics.com/wp-content/uploads/AmbiSort-A-Series-Product-Specification-Sheet.pdf",
+    "sourceName": "Ambi Robotics",
+    "date": "2026-06-07",
+    "summary": "Ambi Robotics' A-Series spec sheet reports more than 325 parcels/hour for bin-fed operation, more than 400 parcels/hour for conveyor-fed operation, greater than 99% correct-output accuracy, more than 96% in-size parcel sortability, and more than 99% uptime.",
+    "supportsNodeIds": [
+      "parcels_per_hour",
+      "sorting_accuracy",
+      "allowed_parcel_weight_range",
+      "allowed_parcel_size_range",
+      "failure_jam_rate",
+      "human_intervention_rate"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_throughput",
+      "e_product_measured_accuracy",
+      "e_product_measured_weight",
+      "e_product_measured_size",
+      "e_product_measured_jam",
+      "e_product_measured_intervention"
+    ],
+    "limitations": "Vendor spec sheet. Lower-throughput robot sort cell and weight limits differ from the v0 300,000 RMB suction-arm product target; uptime is a proxy, not a direct jam-rate measurement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_perf_flostor_parcel_sortation_roi_2026",
+    "type": "expert_review",
+    "title": "High-Speed Parcel Sortation Systems",
+    "url": "https://www.flostor.com/solutions/parcel-shipping",
+    "sourceName": "FloStor",
+    "date": "2026-06-07",
+    "summary": "FloStor's parcel sortation guide frames manual throughput ceilings, automated sort accuracy near 99.9%, high-speed sorters in the tens of thousands of packages per hour, and typical parcel sortation automation ROI around 24-48 months.",
+    "supportsNodeIds": [
+      "parcels_per_hour",
+      "sorting_accuracy",
+      "payback_period",
+      "conveyor_integration",
+      "plc_and_wcs_integration"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_throughput",
+      "e_product_measured_accuracy",
+      "e_product_measured_payback"
+    ],
+    "limitations": "Integrator guide for broader parcel sortation systems. ROI and throughput figures often assume larger, more expensive conveyor sorters rather than one 300,000 RMB robotic cell.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
   },
@@ -49,8 +208,123 @@
     "sourceName": "Project planning",
     "date": "2026-04-26",
     "summary": "Records that the 300,000 RMB target requires explicit BOM, integration, installation, and maintenance assumptions.",
-    "supportsNodeIds": ["cost_optimized_hardware_stack", "total_system_cost", "payback_period", "maintenance_cost"],
+    "supportsNodeIds": [
+      "cost_optimized_hardware_stack",
+      "total_system_cost",
+      "payback_period",
+      "maintenance_cost"
+    ],
     "limitations": "No priced BOM yet.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_maintenance_robot_annual_cost_benchmark_2026",
+    "type": "expert_review",
+    "title": "Annual Robot Maintenance Costs: What to Budget Beyond the Purchase Price",
+    "url": "https://robotomated.com/learn/cost/robot-maintenance-cost-annual",
+    "sourceName": "Robotomated",
+    "date": "2026-06-07",
+    "summary": "Summarizes annual robot maintenance budget ranges by robot type, including industrial 6-axis robots at roughly 7-12% of purchase price, and describes preventive maintenance, quarterly lubrication/calibration tasks, and annual safety/calibration work.",
+    "supportsNodeIds": [
+      "maintenance_cost",
+      "maintenance_workflow",
+      "industrial_robot_arm_body"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_maintenance",
+      "e_product_requires_maintenance"
+    ],
+    "limitations": "Secondary benchmark source, not parcel-cell field data. It covers robot maintenance more than conveyor, vision, suction cup wear, WCS support, and site labor.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_maintenance_robot_cost_range_rcc_2026",
+    "type": "expert_review",
+    "title": "Robot maintenance cost: full breakdown and savings",
+    "url": "https://www.rcc.fr/en/robot-maintenance-cost/",
+    "sourceName": "RCC",
+    "date": "2026-06-07",
+    "summary": "Gives a broad industrial robot maintenance-cost reference of about 5-15% of robot purchase price per year, with standard 6-axis units around EUR 2,000-15,000 per year and higher costs under harsher environments or older assets.",
+    "supportsNodeIds": [
+      "maintenance_cost",
+      "maintenance_workflow",
+      "industrial_robot_arm_body"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_maintenance"
+    ],
+    "limitations": "Secondary service-provider guide. It is robot-centric and does not directly price a 300,000 RMB parcel sorting cell in China.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_maintenance_abb_robotics_service_2026",
+    "type": "product_page",
+    "title": "Maintenance",
+    "url": "https://www.abb.com/global/en/areas/robotics/services/maintenance",
+    "sourceName": "ABB Robotics",
+    "date": "2026-06-07",
+    "summary": "ABB Robotics describes maintenance services including preventive maintenance, remote condition monitoring, life-cycle assessment, inspection and diagnostics, refurbishment, reconditioning, technical support, on-site repair, and corrective maintenance.",
+    "supportsNodeIds": [
+      "maintenance_workflow",
+      "maintenance_cost",
+      "industrial_robot_arm_body",
+      "org_abb_robotics"
+    ],
+    "supportsEdgeIds": [
+      "e_product_requires_maintenance",
+      "e_impl_maintenance_workflow_abb_robotics"
+    ],
+    "limitations": "Official service-page structure evidence, not a priced annual maintenance quote.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_maintenance_fanuc_pm_checklist_2023",
+    "type": "product_page",
+    "title": "Preventative Maintenance Checklist for your Fanuc Robot",
+    "url": "https://content.fanucworld.com/preventative-maintenance-checklist-for-your-fanuc-robot/",
+    "sourceName": "TIE Industrial / FanucWorld",
+    "date": "2023-04-05",
+    "summary": "Describes an industrial-robot preventive maintenance checklist and reports a FANUC preventive maintenance interval of every 11,520 operating hours or one year, with tasks including servo motor checks, backlash tests, cable inspection, reducer grease/oil replacement, encoder batteries, controller inspection, cooling fans, and daily/monthly/quarterly checks.",
+    "supportsNodeIds": [
+      "maintenance_workflow",
+      "maintenance_cost",
+      "industrial_robot_arm_body",
+      "precision_reducer_gearbox",
+      "industrial_servo_motor",
+      "org_fanuc"
+    ],
+    "supportsEdgeIds": [
+      "e_product_requires_maintenance",
+      "e_impl_maintenance_workflow_fanuc"
+    ],
+    "limitations": "Service-provider checklist for FANUC robots. It supports maintenance scope and cadence, not v0 parcel-cell maintenance cost.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_maintenance_conveyor_cost_factors_2026",
+    "type": "expert_review",
+    "title": "Conveyor Cost & Pricing Guide",
+    "url": "https://packagingconveyor.com/resources/conveyor-cost-guide/",
+    "sourceName": "PackagingConveyor.com",
+    "date": "2026-06-07",
+    "summary": "Describes conveyor ownership-cost factors including wear-part replacement for belts, rollers, bearings, chains, and sprockets, plus maintenance labor for belt tracking, lubrication, roller inspection, motor cleaning, and sensor alignment.",
+    "supportsNodeIds": [
+      "maintenance_cost",
+      "maintenance_workflow",
+      "conveyor_integration",
+      "conveyor_speed_encoder_tracking",
+      "conveyor_photoelectric_sensors"
+    ],
+    "supportsEdgeIds": [
+      "e_product_measured_maintenance",
+      "e_product_requires_maintenance"
+    ],
+    "limitations": "General conveyor cost guide without a parcel-cell annual quote. Used only to justify conveyor and sensor maintenance cost categories.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
   },
@@ -62,8 +336,23 @@
     "sourceName": "Oriental Motor",
     "date": "2026-04-27",
     "summary": "Describes servo motor structure including stator, winding, bearing, shaft, rotor, encoder, encoder cable, and motor cable; also describes encoder feedback and driver control role.",
-    "supportsNodeIds": ["industrial_servo_motor", "servo_motor_stator_core", "servo_motor_windings", "servo_motor_bearings_and_shaft", "servo_motor_permanent_magnet_rotor", "servo_motor_encoder_feedback", "servo_motor_cables_and_connectors"],
-    "supportsEdgeIds": ["e_servo_motor_requires_stator_core", "e_servo_motor_requires_windings", "e_servo_motor_requires_bearings_shaft", "e_servo_motor_requires_pm_rotor", "e_servo_motor_requires_encoder_feedback", "e_servo_motor_requires_cables_connectors"],
+    "supportsNodeIds": [
+      "industrial_servo_motor",
+      "servo_motor_stator_core",
+      "servo_motor_windings",
+      "servo_motor_bearings_and_shaft",
+      "servo_motor_permanent_magnet_rotor",
+      "servo_motor_encoder_feedback",
+      "servo_motor_cables_and_connectors"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_motor_requires_stator_core",
+      "e_servo_motor_requires_windings",
+      "e_servo_motor_requires_bearings_shaft",
+      "e_servo_motor_requires_pm_rotor",
+      "e_servo_motor_requires_encoder_feedback",
+      "e_servo_motor_requires_cables_connectors"
+    ],
     "limitations": "Vendor educational source; good for structure but not enough for cost, BOM pricing, factory yield, or robot-specific reliability.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -76,8 +365,25 @@
     "sourceName": "Mitsubishi Electric Factory Automation",
     "date": "2026-04-27",
     "summary": "Training material describing rotary AC servo motor structure as stator, rotor, and encoder, with notes on wire wrapped around the stator core, permanent-magnet rotor, encoder position detection, and brake types.",
-    "supportsNodeIds": ["industrial_servo_motor", "servo_motor_stator_core", "servo_motor_windings", "servo_motor_permanent_magnet_rotor", "servo_motor_encoder_feedback", "servo_motor_integrated_brake_option", "servo_motor_assembly_and_test_process", "servo_motor_feedback_alignment"],
-    "supportsEdgeIds": ["e_servo_motor_requires_stator_core", "e_servo_motor_requires_windings", "e_servo_motor_requires_pm_rotor", "e_servo_motor_requires_encoder_feedback", "e_servo_motor_manufactured_by_assembly_test", "e_servo_motor_implemented_by_feedback_alignment", "e_servo_motor_requires_brake_option_for_safety"],
+    "supportsNodeIds": [
+      "industrial_servo_motor",
+      "servo_motor_stator_core",
+      "servo_motor_windings",
+      "servo_motor_permanent_magnet_rotor",
+      "servo_motor_encoder_feedback",
+      "servo_motor_integrated_brake_option",
+      "servo_motor_assembly_and_test_process",
+      "servo_motor_feedback_alignment"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_motor_requires_stator_core",
+      "e_servo_motor_requires_windings",
+      "e_servo_motor_requires_pm_rotor",
+      "e_servo_motor_requires_encoder_feedback",
+      "e_servo_motor_manufactured_by_assembly_test",
+      "e_servo_motor_implemented_by_feedback_alignment",
+      "e_servo_motor_requires_brake_option_for_safety"
+    ],
     "limitations": "Training material, not a detailed manufacturing process source; assembly/test and feedback alignment claims remain low confidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -90,8 +396,15 @@
     "sourceName": "STOBER",
     "date": "2026-04-27",
     "summary": "Product page describing brushless permanent-magnet electronically commutated synchronous servo motors, optimized stator/rotor design, torque density, low heat generation, encoder feedback options, compact housing, and robotic-arm applications.",
-    "supportsNodeIds": ["industrial_servo_motor", "servo_motor_permanent_magnet_rotor", "servo_motor_housing_and_thermal_design"],
-    "supportsEdgeIds": ["e_servo_motor_requires_pm_rotor", "e_servo_motor_requires_housing_thermal"],
+    "supportsNodeIds": [
+      "industrial_servo_motor",
+      "servo_motor_permanent_magnet_rotor",
+      "servo_motor_housing_and_thermal_design"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_motor_requires_pm_rotor",
+      "e_servo_motor_requires_housing_thermal"
+    ],
     "limitations": "Vendor product page; useful for candidate structure and integration constraints but not neutral benchmark evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -104,8 +417,18 @@
     "sourceName": "ELMEQ",
     "date": "2026-04-27",
     "summary": "Product page describing servo motors with neodymium-iron-boron permanent magnet rotors, optional incremental or absolute encoders, and cost optimization through integrated motor/gear/brake/encoder options.",
-    "supportsNodeIds": ["servo_motor_permanent_magnet_rotor", "rare_earth_permanent_magnet_material", "servo_motor_housing_and_thermal_design", "servo_motor_integrated_brake_option"],
-    "supportsEdgeIds": ["e_servo_motor_requires_pm_rotor", "e_servo_motor_pm_rotor_requires_rare_earth", "e_servo_motor_requires_housing_thermal", "e_servo_motor_requires_brake_option_for_safety"],
+    "supportsNodeIds": [
+      "servo_motor_permanent_magnet_rotor",
+      "rare_earth_permanent_magnet_material",
+      "servo_motor_housing_and_thermal_design",
+      "servo_motor_integrated_brake_option"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_motor_requires_pm_rotor",
+      "e_servo_motor_pm_rotor_requires_rare_earth",
+      "e_servo_motor_requires_housing_thermal",
+      "e_servo_motor_requires_brake_option_for_safety"
+    ],
     "limitations": "Vendor product page; does not quantify 300,000 RMB robot BOM impact or supply-chain risk.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -118,8 +441,16 @@
     "sourceName": "ChemTec USA",
     "date": "2026-04-27",
     "summary": "Describes encoder stator/rotor components, precision etched patterns, optical/magnetic/inductive sensing, tolerance/flatness concerns, and robotics or industrial motor feedback applications.",
-    "supportsNodeIds": ["servo_motor_encoder_feedback", "servo_motor_assembly_and_test_process", "servo_motor_feedback_alignment"],
-    "supportsEdgeIds": ["e_servo_motor_requires_encoder_feedback", "e_servo_motor_manufactured_by_assembly_test", "e_servo_motor_implemented_by_feedback_alignment"],
+    "supportsNodeIds": [
+      "servo_motor_encoder_feedback",
+      "servo_motor_assembly_and_test_process",
+      "servo_motor_feedback_alignment"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_motor_requires_encoder_feedback",
+      "e_servo_motor_manufactured_by_assembly_test",
+      "e_servo_motor_implemented_by_feedback_alignment"
+    ],
     "limitations": "Component manufacturing vendor source; supports encoder component constraints but not complete servo motor factory flow.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -132,8 +463,21 @@
     "sourceName": "Harmonic Drive LLC",
     "date": "2026-04-27",
     "summary": "Describes strain-wave gear components including wave generator, flexspline, and circular spline, and explains zero-backlash precision behavior relevant to robot joint reducers.",
-    "supportsNodeIds": ["precision_reducer_gearbox", "strain_wave_wave_generator", "strain_wave_flexspline", "strain_wave_circular_spline", "reducer_output_cross_roller_bearing", "reducer_lubrication_and_life_test"],
-    "supportsEdgeIds": ["e_reducer_requires_wave_generator", "e_reducer_requires_flexspline", "e_reducer_requires_circular_spline", "e_reducer_requires_output_bearing", "e_reducer_manufactured_by_life_test"],
+    "supportsNodeIds": [
+      "precision_reducer_gearbox",
+      "strain_wave_wave_generator",
+      "strain_wave_flexspline",
+      "strain_wave_circular_spline",
+      "reducer_output_cross_roller_bearing",
+      "reducer_lubrication_and_life_test"
+    ],
+    "supportsEdgeIds": [
+      "e_reducer_requires_wave_generator",
+      "e_reducer_requires_flexspline",
+      "e_reducer_requires_circular_spline",
+      "e_reducer_requires_output_bearing",
+      "e_reducer_manufactured_by_life_test"
+    ],
     "limitations": "Vendor educational source; supports reducer architecture but not neutral cost, fatigue, field failure, or local supplier evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -146,8 +490,21 @@
     "sourceName": "Cognex",
     "date": "2026-04-27",
     "summary": "Describes core machine-vision components such as lighting, lens, image sensor, processor, and communication elements, supporting the decomposition of parcel label recognition hardware.",
-    "supportsNodeIds": ["vision_barcode_label_recognition", "industrial_area_scan_camera", "machine_vision_lens_and_optics", "controlled_machine_vision_lighting", "vision_processing_compute", "parcel_detection_and_tracking"],
-    "supportsEdgeIds": ["e_vision_requires_area_scan_camera", "e_vision_requires_lens_optics", "e_vision_requires_lighting", "e_vision_requires_processing_compute", "e_tracking_requires_camera"],
+    "supportsNodeIds": [
+      "vision_barcode_label_recognition",
+      "industrial_area_scan_camera",
+      "machine_vision_lens_and_optics",
+      "controlled_machine_vision_lighting",
+      "vision_processing_compute",
+      "parcel_detection_and_tracking"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_requires_area_scan_camera",
+      "e_vision_requires_lens_optics",
+      "e_vision_requires_lighting",
+      "e_vision_requires_processing_compute",
+      "e_tracking_requires_camera"
+    ],
     "limitations": "Machine-vision vendor source; supports component structure but not parcel-specific no-read rates, glare/occlusion performance, or 300,000 RMB BOM fit.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -160,8 +517,24 @@
     "sourceName": "Banner Engineering",
     "date": "2026-04-27",
     "summary": "Describes sensors, vision sensors, sensing arrays, barcode readers, LED lights, conveyor motor cycling, product spacing, parcel tracking, destination verification, and chute jam confirmation in conveying and sortation.",
-    "supportsNodeIds": ["barcode_ocr_reading_software", "conveyor_photoelectric_sensors", "conveyor_speed_encoder_tracking", "parcel_induction_spacing_control", "plc_and_wcs_integration", "jam_detection_and_recovery"],
-    "supportsEdgeIds": ["e_vision_implemented_by_barcode_ocr", "e_tracking_requires_conveyor_speed_encoder", "e_conveyor_requires_photoelectric_sensors", "e_conveyor_requires_speed_encoder_tracking", "e_conveyor_implemented_by_induction_spacing", "e_conveyor_requires_plc_wcs", "e_conveyor_implemented_by_jam_recovery", "e_decision_requires_barcode_ocr"],
+    "supportsNodeIds": [
+      "barcode_ocr_reading_software",
+      "conveyor_photoelectric_sensors",
+      "conveyor_speed_encoder_tracking",
+      "parcel_induction_spacing_control",
+      "plc_and_wcs_integration",
+      "jam_detection_and_recovery"
+    ],
+    "supportsEdgeIds": [
+      "e_vision_implemented_by_barcode_ocr",
+      "e_tracking_requires_conveyor_speed_encoder",
+      "e_conveyor_requires_photoelectric_sensors",
+      "e_conveyor_requires_speed_encoder_tracking",
+      "e_conveyor_implemented_by_induction_spacing",
+      "e_conveyor_requires_plc_wcs",
+      "e_conveyor_implemented_by_jam_recovery",
+      "e_decision_requires_barcode_ocr"
+    ],
     "limitations": "Vendor application page; good for sensor/control roles but not full system economics or field reliability benchmark.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -174,8 +547,19 @@
     "sourceName": "ABB Robotics",
     "date": "2026-04-27",
     "summary": "Installation manual for a robotic parcel induction system describing a standard vacuum gripper with nine suction cups and suction-cup patterns, supporting parcel end-effector decomposition.",
-    "supportsNodeIds": ["end_effector_gripper_or_suction", "vacuum_suction_cup_array", "vacuum_valves_and_blowoff", "vacuum_pressure_sensing", "gripper_tcp_pattern_calibration"],
-    "supportsEdgeIds": ["e_end_effector_requires_suction_cup_array", "e_end_effector_requires_valves_blowoff", "e_end_effector_requires_vacuum_sensing", "e_end_effector_implemented_by_tcp_calibration"],
+    "supportsNodeIds": [
+      "end_effector_gripper_or_suction",
+      "vacuum_suction_cup_array",
+      "vacuum_valves_and_blowoff",
+      "vacuum_pressure_sensing",
+      "gripper_tcp_pattern_calibration"
+    ],
+    "supportsEdgeIds": [
+      "e_end_effector_requires_suction_cup_array",
+      "e_end_effector_requires_valves_blowoff",
+      "e_end_effector_requires_vacuum_sensing",
+      "e_end_effector_implemented_by_tcp_calibration"
+    ],
     "limitations": "Vendor installation manual for a specific product; useful for architecture but not sufficient for low-cost generic gripper reliability, wear, or parcel mix limits.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -188,8 +572,17 @@
     "sourceName": "VacuForce",
     "date": "2026-04-27",
     "summary": "Describes vacuum end-of-arm tooling components such as suction cups, cups with fittings, vacuum generators, valves, manifolds, and system accessories relevant to suction-based parcel grippers.",
-    "supportsNodeIds": ["end_effector_gripper_or_suction", "vacuum_suction_cup_array", "vacuum_generator_or_ejector", "vacuum_valves_and_blowoff"],
-    "supportsEdgeIds": ["e_end_effector_requires_suction_cup_array", "e_end_effector_requires_vacuum_generator", "e_end_effector_requires_valves_blowoff"],
+    "supportsNodeIds": [
+      "end_effector_gripper_or_suction",
+      "vacuum_suction_cup_array",
+      "vacuum_generator_or_ejector",
+      "vacuum_valves_and_blowoff"
+    ],
+    "supportsEdgeIds": [
+      "e_end_effector_requires_suction_cup_array",
+      "e_end_effector_requires_vacuum_generator",
+      "e_end_effector_requires_valves_blowoff"
+    ],
     "limitations": "Vendor catalog/application source; supports component candidates but not parcel-specific pickup success, contamination, energy use, or maintenance cost.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -202,8 +595,15 @@
     "sourceName": "Mitsubishi Electric Factory Automation",
     "date": "2026-04-27",
     "summary": "Describes servo amplifier safety sub-functions including Safe Torque Off and Safe Stop 1, and supports the role of servo amplifier electronics in safe robot motion.",
-    "supportsNodeIds": ["servo_drive_controller", "servo_drive_power_stage", "servo_drive_safety_sto"],
-    "supportsEdgeIds": ["e_servo_drive_requires_power_stage", "e_servo_drive_requires_sto"],
+    "supportsNodeIds": [
+      "servo_drive_controller",
+      "servo_drive_power_stage",
+      "servo_drive_safety_sto"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_drive_requires_power_stage",
+      "e_servo_drive_requires_sto"
+    ],
     "limitations": "Vendor feature page; supports safety-function presence but not complete power-stage design, cost, thermal margin, or multi-axis robot cabinet integration.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -216,8 +616,19 @@
     "sourceName": "Siemens",
     "date": "2026-04-27",
     "summary": "Describes a modular high-performance drive system for demanding motion-control applications with speed, torque, and position control, supporting servo drive control-loop and integration decomposition.",
-    "supportsNodeIds": ["servo_drive_controller", "servo_drive_current_sensing", "servo_drive_motion_control_loop", "servo_drive_safety_sto", "servo_drive_thermal_emc_design"],
-    "supportsEdgeIds": ["e_servo_drive_requires_current_sensing", "e_servo_drive_implemented_by_motion_loop", "e_servo_drive_requires_sto", "e_servo_drive_implemented_by_thermal_emc"],
+    "supportsNodeIds": [
+      "servo_drive_controller",
+      "servo_drive_current_sensing",
+      "servo_drive_motion_control_loop",
+      "servo_drive_safety_sto",
+      "servo_drive_thermal_emc_design"
+    ],
+    "supportsEdgeIds": [
+      "e_servo_drive_requires_current_sensing",
+      "e_servo_drive_implemented_by_motion_loop",
+      "e_servo_drive_requires_sto",
+      "e_servo_drive_implemented_by_thermal_emc"
+    ],
     "limitations": "Vendor overview; supports motion-control function but not detailed firmware, current-sensor BOM, EMC test process, or low-cost Chinese supply chain.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -230,8 +641,18 @@
     "sourceName": "Interroll Group",
     "date": "2026-04-27",
     "summary": "Describes sorter platforms for cartons and parcels, destination platforms, sorter controls, infeed elements, chutes, mechanical robustness, maintenance, and operating-cost considerations.",
-    "supportsNodeIds": ["conveyor_integration", "parcel_induction_spacing_control", "plc_and_wcs_integration", "sortation_chutes_and_bins"],
-    "supportsEdgeIds": ["e_conveyor_implemented_by_induction_spacing", "e_conveyor_requires_plc_wcs", "e_conveyor_requires_chutes_bins", "e_decision_requires_plc_wcs"],
+    "supportsNodeIds": [
+      "conveyor_integration",
+      "parcel_induction_spacing_control",
+      "plc_and_wcs_integration",
+      "sortation_chutes_and_bins"
+    ],
+    "supportsEdgeIds": [
+      "e_conveyor_implemented_by_induction_spacing",
+      "e_conveyor_requires_plc_wcs",
+      "e_conveyor_requires_chutes_bins",
+      "e_decision_requires_plc_wcs"
+    ],
     "limitations": "Vendor platform page for larger sortation systems; useful for conveyor/sortation integration roles but not proof that this exact 300,000 RMB robot cell is affordable.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -244,8 +665,25 @@
     "sourceName": "U.S. Geological Survey",
     "date": "2026-04-27",
     "summary": "USGS annual mineral commodity reference covering production, reserves, resources, and trade for more than 90 mineral commodities, including copper, iron ore, bauxite/alumina/aluminum, and related mineral supply chains.",
-    "supportsNodeIds": ["refined_copper_conductor_material", "copper_ore_mining_and_refining_chain", "alloy_steel_precision_material", "iron_ore_steelmaking_chain", "bauxite_alumina_aluminum_chain", "aluminum_structural_material"],
-    "supportsEdgeIds": ["e_windings_require_refined_copper", "e_motor_housing_requires_aluminum_or_steel", "e_aluminum_requires_bauxite_chain", "e_copper_material_requires_copper_chain", "e_alloy_steel_requires_iron_steel_chain", "e_electrical_steel_requires_iron_steel_chain", "e_chutes_bins_require_aluminum_material", "e_arm_links_require_structural_materials", "e_servo_drive_power_stage_requires_copper"],
+    "supportsNodeIds": [
+      "refined_copper_conductor_material",
+      "copper_ore_mining_and_refining_chain",
+      "alloy_steel_precision_material",
+      "iron_ore_steelmaking_chain",
+      "bauxite_alumina_aluminum_chain",
+      "aluminum_structural_material"
+    ],
+    "supportsEdgeIds": [
+      "e_windings_require_refined_copper",
+      "e_motor_housing_requires_aluminum_or_steel",
+      "e_aluminum_requires_bauxite_chain",
+      "e_copper_material_requires_copper_chain",
+      "e_alloy_steel_requires_iron_steel_chain",
+      "e_electrical_steel_requires_iron_steel_chain",
+      "e_chutes_bins_require_aluminum_material",
+      "e_arm_links_require_structural_materials",
+      "e_servo_drive_power_stage_requires_copper"
+    ],
     "limitations": "Commodity-level mineral reference; does not prove component-specific BOM quantities, supplier selection, or delivered cost for the 300,000 RMB robot.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -258,8 +696,22 @@
     "sourceName": "U.S. Geological Survey",
     "date": "2026-04-27",
     "summary": "USGS silicon commodity page describing quartz or quartzite as input to silicon ferroalloys and silicon metal, silicon metal use in aluminum alloying and chemicals, and small quantities processed into high-purity silicon for semiconductors.",
-    "supportsNodeIds": ["quartz_silica_silicon_chain", "semiconductor_grade_silicon_and_electronics", "electrical_steel_lamination_material"],
-    "supportsEdgeIds": ["e_semiconductors_require_quartz_silicon_chain", "e_electrical_steel_requires_silicon_chain", "e_stator_core_requires_electrical_steel", "e_servo_drive_power_stage_requires_semiconductors", "e_servo_drive_current_sensing_requires_semiconductors", "e_controller_io_requires_semiconductors", "e_plc_wcs_requires_semiconductors", "e_camera_requires_semiconductors", "e_vision_compute_requires_semiconductors"],
+    "supportsNodeIds": [
+      "quartz_silica_silicon_chain",
+      "semiconductor_grade_silicon_and_electronics",
+      "electrical_steel_lamination_material"
+    ],
+    "supportsEdgeIds": [
+      "e_semiconductors_require_quartz_silicon_chain",
+      "e_electrical_steel_requires_silicon_chain",
+      "e_stator_core_requires_electrical_steel",
+      "e_servo_drive_power_stage_requires_semiconductors",
+      "e_servo_drive_current_sensing_requires_semiconductors",
+      "e_controller_io_requires_semiconductors",
+      "e_plc_wcs_requires_semiconductors",
+      "e_camera_requires_semiconductors",
+      "e_vision_compute_requires_semiconductors"
+    ],
     "limitations": "Commodity-level source; supports silicon chain existence but not specific chip fabrication node, fab capacity, export controls, or electronics BOM pricing.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -272,8 +724,15 @@
     "sourceName": "U.S. Geological Survey",
     "date": "2026-04-27",
     "summary": "USGS rare-earth fact sheet describing rare-earth elements, deposits, and high-technology uses including permanent magnet alloys containing neodymium, samarium, gadolinium, dysprosium, or praseodymium.",
-    "supportsNodeIds": ["rare_earth_permanent_magnet_material", "ndpr_rare_earth_feedstock", "dysprosium_terbium_heavy_ree_additives"],
-    "supportsEdgeIds": ["e_pm_rotor_requires_ndpr_feedstock", "e_pm_rotor_requires_heavy_ree_additives"],
+    "supportsNodeIds": [
+      "rare_earth_permanent_magnet_material",
+      "ndpr_rare_earth_feedstock",
+      "dysprosium_terbium_heavy_ree_additives"
+    ],
+    "supportsEdgeIds": [
+      "e_pm_rotor_requires_ndpr_feedstock",
+      "e_pm_rotor_requires_heavy_ree_additives"
+    ],
     "limitations": "Older general USGS fact sheet; useful for material identity but should be paired with current production, processing, and magnet supply-chain evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -286,8 +745,17 @@
     "sourceName": "International Energy Agency",
     "date": "2026-04-27",
     "summary": "IEA summary describing high-performance NdFeB magnets as primarily composed of neodymium and praseodymium, often with dysprosium and terbium as performance-enhancing additives, and noting demand growth from electrification.",
-    "supportsNodeIds": ["rare_earth_permanent_magnet_material", "ndpr_rare_earth_feedstock", "dysprosium_terbium_heavy_ree_additives", "boron_and_iron_magnet_matrix_material"],
-    "supportsEdgeIds": ["e_pm_rotor_requires_ndpr_feedstock", "e_pm_rotor_requires_heavy_ree_additives", "e_pm_rotor_requires_boron_iron_matrix"],
+    "supportsNodeIds": [
+      "rare_earth_permanent_magnet_material",
+      "ndpr_rare_earth_feedstock",
+      "dysprosium_terbium_heavy_ree_additives",
+      "boron_and_iron_magnet_matrix_material"
+    ],
+    "supportsEdgeIds": [
+      "e_pm_rotor_requires_ndpr_feedstock",
+      "e_pm_rotor_requires_heavy_ree_additives",
+      "e_pm_rotor_requires_boron_iron_matrix"
+    ],
     "limitations": "Sector-level analysis; does not quantify the amount of rare earth material in this robot's servo motors or prove actual supplier availability.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -300,9 +768,738 @@
     "sourceName": "U.S. Department of Energy",
     "date": "2026-04-27",
     "summary": "DOE overview distinguishing steel production routes, including remelting scrap in electric arc furnaces and production from iron ore using blast furnaces and basic oxygen furnaces.",
-    "supportsNodeIds": ["electrical_steel_lamination_material", "alloy_steel_precision_material", "iron_ore_steelmaking_chain", "boron_and_iron_magnet_matrix_material"],
-    "supportsEdgeIds": ["e_electrical_steel_requires_iron_steel_chain", "e_alloy_steel_requires_iron_steel_chain", "e_reducer_wave_generator_requires_alloy_steel", "e_reducer_flexspline_requires_alloy_steel", "e_reducer_circular_spline_requires_alloy_steel", "e_reducer_bearing_requires_alloy_steel", "e_motor_bearings_require_alloy_steel", "e_base_mounting_requires_alloy_steel"],
+    "supportsNodeIds": [
+      "electrical_steel_lamination_material",
+      "alloy_steel_precision_material",
+      "iron_ore_steelmaking_chain",
+      "boron_and_iron_magnet_matrix_material"
+    ],
+    "supportsEdgeIds": [
+      "e_electrical_steel_requires_iron_steel_chain",
+      "e_alloy_steel_requires_iron_steel_chain",
+      "e_reducer_wave_generator_requires_alloy_steel",
+      "e_reducer_flexspline_requires_alloy_steel",
+      "e_reducer_circular_spline_requires_alloy_steel",
+      "e_reducer_bearing_requires_alloy_steel",
+      "e_motor_bearings_require_alloy_steel",
+      "e_base_mounting_requires_alloy_steel"
+    ],
     "limitations": "Process-level overview; does not identify exact steel grades, heat treatment, cleanliness requirements, or component machining tolerances.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_ifr_world_robotics_2025",
+    "type": "expert_review",
+    "title": "World Robotics 2025 industrial robot statistics",
+    "url": "https://ifr.org/news/global-robot-demand-in-factories-doubles-over-10-years/1st-quarterly-newsletter-2015",
+    "sourceName": "International Federation of Robotics",
+    "date": "2026-04-27",
+    "summary": "IFR reports 542,000 industrial robots installed in 2024, China representing 54% of global deployments, and Chinese manufacturers reaching 57% domestic share.",
+    "supportsNodeIds": [
+      "org_fanuc",
+      "org_estun",
+      "org_inovance",
+      "org_abb_robotics",
+      "org_yaskawa"
+    ],
+    "limitations": "Market-level robot deployment evidence; does not identify the exact robot-arm supplier for the target parcel-sorting cell.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_inovance_2024h1_robot_servo_share",
+    "type": "historical_source",
+    "title": "Inovance Technology 2024 interim report",
+    "url": "https://static.cninfo.com.cn/finalpage/2024-08-27/1220988016.PDF",
+    "sourceName": "Inovance Technology",
+    "date": "2024-08-27",
+    "summary": "The interim report cites 2024H1 China industrial automation, servo, small PLC, and industrial robot share data, including Inovance 27.6% China general-servo share and top-three industrial robot sales shares for FANUC, Estun, and Inovance.",
+    "supportsNodeIds": [
+      "org_fanuc",
+      "org_estun",
+      "org_inovance",
+      "org_yaskawa",
+      "org_siemens"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_robot_arm_body_fanuc",
+      "e_mfg_industrial_robot_arm_body_estun",
+      "e_mfg_industrial_robot_arm_body_inovance",
+      "e_mfg_industrial_robot_arm_body_yaskawa",
+      "e_mfg_servo_drive_controller_inovance",
+      "e_mfg_servo_drive_controller_siemens",
+      "e_mfg_servo_drive_controller_yaskawa",
+      "e_mfg_servo_drive_power_stage_inovance",
+      "e_mfg_servo_drive_power_stage_siemens",
+      "e_mfg_industrial_servo_motor_inovance",
+      "e_mfg_industrial_servo_motor_yaskawa",
+      "e_mfg_industrial_servo_motor_siemens",
+      "e_mfg_plc_wcs_siemens"
+    ],
+    "limitations": "Company report citing third-party market data; some values are sales share, some product-market share, and none prove the BOM supplier for this exact robot cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_abb_robotic_parcel_inductor_2026",
+    "type": "product_page",
+    "title": "ABB Robotic Parcel Inductor",
+    "url": "https://www.abb.com/global/en/areas/robotics/solutions/functional-modules/item-picking-family/robotic-parcel-inductor",
+    "sourceName": "ABB",
+    "date": "2026-04-27",
+    "summary": "ABB describes a robotic parcel-inductor module using IRB 1300/2600 robot options, gripper, and AI vision, with vendor-claimed peak throughput up to 1,500 picks/hour and greater than 99.5% picking accuracy.",
+    "supportsNodeIds": [
+      "org_abb_robotics"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_robot_arm_body_abb"
+    ],
+    "limitations": "Vendor product page and likely higher-end than the 300,000 RMB low-cost target; useful as reference architecture rather than cost proof.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_siemens_simatic_plc",
+    "type": "product_page",
+    "title": "SIMATIC Controllers",
+    "url": "https://www.siemens.com/en-us/products/automation/systems/industrial/plc.html",
+    "sourceName": "Siemens",
+    "date": "2026-06-07",
+    "summary": "Siemens product materials describe SIMATIC PLC/controller products used for industrial automation control.",
+    "supportsNodeIds": [
+      "org_siemens"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_controller_siemens",
+      "e_mfg_servo_drive_power_stage_siemens",
+      "e_mfg_plc_wcs_siemens"
+    ],
+    "limitations": "Product-line evidence; does not prove share in parcel-sorting robot cells.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_mitsubishi_plc_servo",
+    "type": "product_page",
+    "title": "Mitsubishi Electric Factory Automation controllers and servo systems",
+    "url": "https://us.mitsubishielectric.com/fa/en/products/controllers/",
+    "sourceName": "Mitsubishi Electric",
+    "date": "2026-06-07",
+    "summary": "Mitsubishi Electric product materials describe factory automation controllers and servo products relevant to PLC and servo control.",
+    "supportsNodeIds": [
+      "org_mitsubishi_electric"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_drive_controller_mitsubishi",
+      "e_mfg_industrial_servo_motor_mitsubishi",
+      "e_mfg_plc_wcs_mitsubishi"
+    ],
+    "limitations": "Product-line evidence; does not quantify market share or target-cell adoption.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_rockwell_controllers_safety",
+    "type": "product_page",
+    "title": "Rockwell Automation programmable controllers and safety control products",
+    "url": "https://www.rockwellautomation.com/en-us/products/hardware/programmable-controllers.html",
+    "sourceName": "Rockwell Automation",
+    "date": "2026-06-07",
+    "summary": "Rockwell Automation product materials describe Allen-Bradley programmable controllers and safety/automation product families.",
+    "supportsNodeIds": [
+      "org_rockwell_automation"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_plc_wcs_rockwell",
+      "e_mfg_safety_system_rockwell"
+    ],
+    "limitations": "Product-line evidence; does not quantify target-cell share and is more relevant to North American deployments.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_schneider_modicon_plc",
+    "type": "product_page",
+    "title": "Modicon PLC and PAC documentation",
+    "url": "https://www.se.com/us/en/work/products/explore/modicon-plc-pac/modicon-documentation/",
+    "sourceName": "Schneider Electric",
+    "date": "2026-06-07",
+    "summary": "Schneider Electric product materials describe Modicon PLC/PAC control products relevant to industrial automation integration.",
+    "supportsNodeIds": [
+      "org_schneider_electric"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_plc_wcs_schneider"
+    ],
+    "limitations": "Product-line evidence; does not quantify parcel-cell adoption or market share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_nabtesco_precision_reducer_60_share",
+    "type": "product_page",
+    "title": "Nabtesco Precision Equipment Company profile",
+    "url": "https://precision.nabtesco.com/en/company/",
+    "sourceName": "Nabtesco",
+    "date": "2026-06-07",
+    "summary": "Nabtesco states that its precision reduction gears for industrial robot joints hold approximately 60% global market share.",
+    "supportsNodeIds": [
+      "org_nabtesco"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_precision_reducer_gearbox_nabtesco"
+    ],
+    "limitations": "Company-claimed market share; still useful because it is a direct reducer supplier statement but should be reviewed before marking high-confidence claims as established.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_leaderdrive_harmonic_reducer_2024",
+    "type": "historical_source",
+    "title": "Leaderdrive 2024 annual report",
+    "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=11076349&stockid=688017",
+    "sourceName": "Leaderdrive / public filing mirror",
+    "date": "2025-04-26",
+    "summary": "Public filing materials describe Leaderdrive's harmonic reducer and mechatronic actuator business.",
+    "supportsNodeIds": [
+      "org_leaderdrive"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_precision_reducer_gearbox_leaderdrive"
+    ],
+    "limitations": "Filing mirror and company disclosure; candidate omits conflicting numeric market-share estimates pending review.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_china_reducer_share_low_confidence",
+    "type": "news",
+    "title": "China RV reducer supplier share summary",
+    "url": "https://www.chinabaogao.com/jingzheng/202507/758247.html",
+    "sourceName": "ChinaBaogao industry summary",
+    "date": "2025-07-01",
+    "summary": "Industry-summary page cites domestic RV reducer supplier rankings and share estimates, including Huandong/Shuanghuan-related exposure.",
+    "supportsNodeIds": [
+      "org_shuanghuan_transmission"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_precision_reducer_gearbox_shuanghuan"
+    ],
+    "limitations": "Weak secondary industry source; do not treat share values as reviewed evidence.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_hikrobot_ipo_machine_vision_share",
+    "type": "historical_source",
+    "title": "Hikrobot IPO inquiry reply materials",
+    "url": "https://reportdocs.static.sse.org.cn/UpFiles/rasinfodisc1/202305/RAS_202305_93821F9A634347219C5D886A2155F360.pdf",
+    "sourceName": "Shanghai Stock Exchange filing mirror",
+    "date": "2023-05-01",
+    "summary": "Hikrobot IPO reply materials disclose machine-vision product-line context and third-party China industrial camera/software share data.",
+    "supportsNodeIds": [
+      "org_hikrobot"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_area_scan_camera_hikrobot",
+      "e_mfg_barcode_ocr_hikrobot",
+      "e_mfg_parcel_detection_tracking_hikrobot",
+      "e_mfg_vision_recognition_hikrobot"
+    ],
+    "limitations": "Older 2021 shipment/share data and company filing context; should be refreshed before investment-grade use.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_keyence_vision_safety_products",
+    "type": "product_page",
+    "title": "KEYENCE safety and machine-vision products",
+    "url": "https://www.keyence.com/landing/safety/lp_gl-r_sz-v.jsp",
+    "sourceName": "KEYENCE",
+    "date": "2026-06-07",
+    "summary": "KEYENCE product materials cover safety light curtains, safety scanners, sensors, and related factory automation products; the company also supplies machine-vision and code-reading systems.",
+    "supportsNodeIds": [
+      "org_keyence"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_area_scan_camera_keyence",
+      "e_mfg_controlled_lighting_keyence",
+      "e_mfg_safety_system_keyence",
+      "e_mfg_parcel_detection_tracking_keyence",
+      "e_mfg_vision_recognition_keyence"
+    ],
+    "limitations": "Product-line evidence; share and parcel-cell adoption are not established.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_cognex_machine_vision_code_readers",
+    "type": "product_page",
+    "title": "Cognex machine vision and barcode readers",
+    "url": "https://www.cognex.com/products",
+    "sourceName": "Cognex",
+    "date": "2026-06-07",
+    "summary": "Cognex product materials describe machine-vision systems, barcode readers, and software relevant to parcel identification.",
+    "supportsNodeIds": [
+      "org_cognex"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_area_scan_camera_cognex",
+      "e_mfg_barcode_ocr_cognex",
+      "e_mfg_parcel_detection_tracking_cognex",
+      "e_mfg_vision_recognition_cognex"
+    ],
+    "limitations": "Product-line evidence; no target-cell market-share claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_basler_industrial_cameras",
+    "type": "product_page",
+    "title": "Basler industrial cameras",
+    "url": "https://www.baslerweb.com/en/products/cameras/",
+    "sourceName": "Basler",
+    "date": "2026-06-07",
+    "summary": "Basler product materials describe industrial camera products relevant to machine-vision camera selection.",
+    "supportsNodeIds": [
+      "org_basler"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_area_scan_camera_basler"
+    ],
+    "limitations": "Product-line evidence; no target-cell market-share claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_opt_machine_vision_components",
+    "type": "product_page",
+    "title": "OPT Machine Vision products",
+    "url": "https://www.optmv.com/",
+    "sourceName": "OPT Machine Vision",
+    "date": "2026-06-07",
+    "summary": "OPT product materials describe machine-vision lighting, optics, cameras, and related machine-vision components.",
+    "supportsNodeIds": [
+      "org_opt_machine_vision"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_controlled_lighting_opt"
+    ],
+    "limitations": "Product-line evidence; exact parcel-logistics share is not established.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_smc_vacuum_pads",
+    "type": "product_page",
+    "title": "SMC vacuum pads catalog",
+    "url": "https://www.smcworld.com/webcatalog/en-jp/vacuum-equipment/vacuum-pads/",
+    "sourceName": "SMC",
+    "date": "2026-06-07",
+    "summary": "SMC catalog page lists vacuum pads and vacuum equipment relevant to suction-cup arrays and vacuum source components.",
+    "supportsNodeIds": [
+      "org_smc"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_suction_cup_array_smc",
+      "e_mfg_vacuum_generator_smc"
+    ],
+    "limitations": "Product catalog; no market share or parcel-field reliability evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_schmalz_vacuum_end_effectors",
+    "type": "product_page",
+    "title": "Schmalz vacuum end effectors VEE",
+    "url": "https://www.schmalz.cn/en-cn/products/vacuum-technology-for-automation-301607/vacuum-components-301608/area-gripping-systems-and-end-effectors-306363/vacuum-end-effectors-vee-306923",
+    "sourceName": "Schmalz",
+    "date": "2026-06-07",
+    "summary": "Schmalz product page describes vacuum end effectors relevant to area gripping and suction-based end-of-arm tooling.",
+    "supportsNodeIds": [
+      "org_schmalz"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_suction_cup_array_schmalz"
+    ],
+    "limitations": "Vendor product page; no target-cell share or field failure evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_piab_suction_cups_soft_grippers",
+    "type": "product_page",
+    "title": "Piab suction cups and soft grippers",
+    "url": "https://www.piab.com/en-us/suction-cups-and-soft-grippers",
+    "sourceName": "Piab",
+    "date": "2026-06-07",
+    "summary": "Piab product materials describe suction cups, soft grippers, and vacuum automation components relevant to parcel EOAT.",
+    "supportsNodeIds": [
+      "org_piab"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_suction_cup_array_piab",
+      "e_mfg_vacuum_generator_piab"
+    ],
+    "limitations": "Vendor product page; no target-cell share or field failure evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_festo_end_of_arm_tooling",
+    "type": "product_page",
+    "title": "Festo end-of-arm tooling",
+    "url": "https://www.festo.com/us/en/e/solutions/end-of-arm-tooling-id_2171428/",
+    "sourceName": "Festo",
+    "date": "2026-06-07",
+    "summary": "Festo product materials describe gripper and end-of-arm tooling solutions relevant to vacuum and pneumatic EOAT benchmarking.",
+    "supportsNodeIds": [
+      "org_festo"
+    ],
+    "limitations": "Vendor product page; no target-cell BOM or share evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_onrobot_vacuum_grippers",
+    "type": "product_page",
+    "title": "OnRobot vacuum grippers",
+    "url": "https://onrobot.com/en/products/vgc10",
+    "sourceName": "OnRobot",
+    "date": "2026-06-07",
+    "summary": "OnRobot product materials describe electric vacuum grippers relevant to low-deployment-cost end-of-arm tooling benchmarks.",
+    "supportsNodeIds": [
+      "org_onrobot"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_end_effector_onrobot"
+    ],
+    "limitations": "Vendor product page; not necessarily the chosen architecture for a suction-cup array in this target product.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+    "type": "product_page",
+    "title": "Wayzim Automated Robotic Parcel Infeed System",
+    "url": "https://www.wayzim.com/en/product/detail/1003",
+    "sourceName": "Wayzim",
+    "date": "2026-06-07",
+    "summary": "Wayzim product page describes smart cameras, high-speed six-axis robots, instance segmentation deep learning, and 3D point-cloud algorithms for automated parcel infeed.",
+    "supportsNodeIds": [
+      "org_wayzim"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_integration_wayzim",
+      "e_mfg_parcel_induction_spacing_wayzim"
+    ],
+    "limitations": "Vendor product page; does not prove delivered cost, installed base, or 300,000 RMB target feasibility.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_wayzim_crossbelt_sorter_2026",
+    "type": "product_page",
+    "title": "Wayzim cross-belt sorter overview",
+    "url": "https://www.wayzim.com/en/product/overview/3876",
+    "sourceName": "Wayzim",
+    "date": "2026-06-07",
+    "summary": "Wayzim product page describes cross-belt sorter throughput and accuracy claims for adjacent parcel sortation infrastructure.",
+    "supportsNodeIds": [
+      "org_wayzim"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_integration_wayzim"
+    ],
+    "limitations": "Adjacent large-system sorter evidence, not a single-arm low-cost robot-cell performance guarantee.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_dematic_sortation_controls",
+    "type": "product_page",
+    "title": "Dematic automated sortation systems",
+    "url": "https://www.dematic.com/en-us/solutions/sortation-systems/",
+    "sourceName": "Dematic",
+    "date": "2026-06-07",
+    "summary": "Dematic describes automated sortation systems that coordinate gapping, scanning, diverting, delivery confirmation, WMS integration, and control layers.",
+    "supportsNodeIds": [
+      "org_dematic_kion"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_integration_dematic"
+    ],
+    "limitations": "Large-system vendor page; useful for integration roles but not proof of target cell cost or supplier share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_vanderlande_parcel_sorting",
+    "type": "product_page",
+    "title": "Vanderlande parcel sorting systems",
+    "url": "https://www.vanderlande.com/us/parcel/systems/sorting/",
+    "sourceName": "Vanderlande",
+    "date": "2026-06-07",
+    "summary": "Vanderlande product materials describe parcel sorting systems such as POSISORTER, CROSSORTER, and COMPAXORTER.",
+    "supportsNodeIds": [
+      "org_vanderlande_toyota"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_integration_vanderlande"
+    ],
+    "limitations": "Large-system vendor page; not evidence for the target low-cost robot-cell BOM or cost.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_daifuku_sorting_systems",
+    "type": "product_page",
+    "title": "Daifuku sorting systems",
+    "url": "https://www.daifuku.com/solution/intralogistics/products/sort/",
+    "sourceName": "Daifuku",
+    "date": "2026-06-07",
+    "summary": "Daifuku product materials describe intralogistics sorting systems and material-handling equipment relevant to conveyor/sortation integration.",
+    "supportsNodeIds": [
+      "org_daifuku"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_conveyor_integration_daifuku"
+    ],
+    "limitations": "Large-system vendor page; not evidence for target low-cost robot-cell supplier share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_honeywell_sortation_momentum_2026",
+    "type": "product_page",
+    "title": "Honeywell sortation systems and Momentum warehouse execution software",
+    "url": "https://automation.honeywell.com/us/en/products-backup/warehouse-automation/solutions-by-function/sortation-conveyor-systems",
+    "sourceName": "Honeywell Intelligrated",
+    "date": "2026-06-07",
+    "summary": "Honeywell materials describe sortation/conveyor systems and Momentum warehouse execution/control software relevant to WES/WCS and sortation integration.",
+    "supportsNodeIds": [
+      "org_honeywell_intelligrated"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_plc_wcs_honeywell",
+      "e_mfg_sorting_decision_honeywell"
+    ],
+    "limitations": "Vendor page; throughput claims are system dependent and not evidence for target cell affordability.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_manhattan_wms_gartner_2024",
+    "type": "news",
+    "title": "Manhattan Associates named a Leader in the 2024 Gartner Magic Quadrant for WMS",
+    "url": "https://ir.manh.com/news-releases/news-release-details/manhattan-associates-named-leader-gartnerr-magic-quadranttm-1",
+    "sourceName": "Manhattan Associates",
+    "date": "2024-05-02",
+    "summary": "Manhattan Associates IR announcement states it was named a Leader in the 2024 Gartner Magic Quadrant for Warehouse Management Systems for the 16th time.",
+    "supportsNodeIds": [
+      "org_manhattan_associates"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_sorting_decision_manhattan"
+    ],
+    "limitations": "Company announcement about WMS leadership; not parcel-robot embedded software market share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_sick_safety_light_curtains",
+    "type": "product_page",
+    "title": "SICK C4000 safety light curtains",
+    "url": "https://www.sick.com/us/en/catalog/products/safety/safety-light-curtains/c4000-advanced/c/g187251",
+    "sourceName": "SICK",
+    "date": "2026-06-07",
+    "summary": "SICK product materials describe safety light curtains and related machine-safety products relevant to warehouse robot-cell safeguarding.",
+    "supportsNodeIds": [
+      "org_sick"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_safety_system_sick"
+    ],
+    "limitations": "Product-line evidence; no target-cell supplier share or field reliability evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_omron_safety_light_curtain",
+    "type": "product_page",
+    "title": "OMRON F3SG safety light curtain",
+    "url": "https://industrial.omron.eu/en/products/F3SG-4SRA0760-85.pdf",
+    "sourceName": "OMRON",
+    "date": "2026-06-07",
+    "summary": "OMRON product materials describe F3SG safety light curtain equipment relevant to machine-safety guarding.",
+    "supportsNodeIds": [
+      "org_omron"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_safety_system_omron"
+    ],
+    "limitations": "Product-line evidence; no target-cell supplier share or field reliability evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_leuze_safety_sensors",
+    "type": "product_page",
+    "title": "Leuze safety sensors product overview",
+    "url": "https://leuze.ru/download/pdf_catalog/en.pdf",
+    "sourceName": "Leuze",
+    "date": "2026-06-07",
+    "summary": "Leuze product materials describe optical sensors and safety sensors relevant to machine-safety guarding and parcel sensing.",
+    "supportsNodeIds": [
+      "org_leuze"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_safety_system_leuze"
+    ],
+    "limitations": "Product-line evidence; no target-cell supplier share or field reliability evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_iea_rare_earth_2026",
+    "type": "expert_review",
+    "title": "Rare Earth Elements executive summary",
+    "url": "https://www.iea.org/reports/rare-earth-elements/executive-summary",
+    "sourceName": "International Energy Agency",
+    "date": "2026-04-27",
+    "summary": "IEA describes NdFeB magnets as primarily neodymium-praseodymium with dysprosium/terbium additives, notes automation and robotics as demand drivers, and reports China held 94% of sintered permanent magnet production in 2024.",
+    "supportsNodeIds": [
+      "org_jlmag",
+      "org_zhongke_sanhuan",
+      "org_ningbo_yunsheng",
+      "org_china_northern_rare_earth",
+      "org_mp_materials",
+      "org_lynas_rare_earths"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_pm_rotor_jlmag",
+      "e_mfg_servo_motor_pm_rotor_zhongke",
+      "e_mfg_servo_motor_pm_rotor_yunsheng",
+      "e_mfg_rare_earth_permanent_magnet_jlmag",
+      "e_mfg_rare_earth_permanent_magnet_zhongke",
+      "e_mfg_rare_earth_permanent_magnet_yunsheng",
+      "e_mfg_ndpr_feedstock_china_northern",
+      "e_mfg_ndpr_feedstock_mp_materials",
+      "e_mfg_ndpr_feedstock_lynas"
+    ],
+    "limitations": "Sector-level concentration evidence; does not identify which magnet supplier feeds any specific servo motor in the target robot.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_jlmag_esg_2024",
+    "type": "historical_source",
+    "title": "JL MAG 2024 ESG report",
+    "url": "https://www.jlmag.com.cn/uploads/soft/20250416/1744774247109653.pdf",
+    "sourceName": "JL MAG",
+    "date": "2025-04-16",
+    "summary": "JL MAG public ESG materials describe high-performance NdFeB permanent magnet materials and magnetic components.",
+    "supportsNodeIds": [
+      "org_jlmag"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_pm_rotor_jlmag",
+      "e_mfg_rare_earth_permanent_magnet_jlmag"
+    ],
+    "limitations": "Company disclosure; exact servo-robot customer mix and share are not established.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_zhongke_sanhuan_2024_report",
+    "type": "historical_source",
+    "title": "Zhong Ke San Huan 2024 annual report",
+    "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=10781487&stockid=000970",
+    "sourceName": "Zhong Ke San Huan / public filing mirror",
+    "date": "2025-04-01",
+    "summary": "Public filing materials describe Zhong Ke San Huan's NdFeB permanent magnet and magnetic component business.",
+    "supportsNodeIds": [
+      "org_zhongke_sanhuan"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_pm_rotor_zhongke",
+      "e_mfg_rare_earth_permanent_magnet_zhongke"
+    ],
+    "limitations": "Filing mirror; exact servo-robot customer mix and market share are not established.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_ningbo_yunsheng_capacity",
+    "type": "product_page",
+    "title": "Ningbo Yunsheng company profile",
+    "url": "https://www.yunsheng.com/en/about.asp",
+    "sourceName": "Ningbo Yunsheng",
+    "date": "2026-06-07",
+    "summary": "Ningbo Yunsheng company materials describe rare-earth permanent magnet products and capacity.",
+    "supportsNodeIds": [
+      "org_ningbo_yunsheng"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_pm_rotor_yunsheng",
+      "e_mfg_rare_earth_permanent_magnet_yunsheng"
+    ],
+    "limitations": "Company website; capacity does not equal parcel-robot exposure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_china_northern_rare_earth_2024",
+    "type": "news",
+    "title": "Sales at China Northern Rare Earth rise in 2024",
+    "url": "https://www.argusmedia.com/metals-platform/newsandanalysis/article/2680202-Sales-at-China-s-Northern-Rare-Earth-rise-in-2024",
+    "sourceName": "Argus Media",
+    "date": "2025-03-31",
+    "summary": "Industry news describes China Northern Rare Earth as a major light rare-earth producer and reports 2024 sales context.",
+    "supportsNodeIds": [
+      "org_china_northern_rare_earth"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_ndpr_feedstock_china_northern"
+    ],
+    "limitations": "Industry-news source and upstream producer context; not direct robot-component evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_mp_materials_mountain_pass",
+    "type": "product_page",
+    "title": "MP Materials Mountain Pass",
+    "url": "https://www.mpmaterials.com/mountain-pass",
+    "sourceName": "MP Materials",
+    "date": "2026-06-07",
+    "summary": "MP Materials describes Mountain Pass as producing over 10% of global rare-earth supply and as an upstream source for rare-earth materials.",
+    "supportsNodeIds": [
+      "org_mp_materials"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_ndpr_feedstock_mp_materials"
+    ],
+    "limitations": "Company-claimed upstream share; not direct servo-motor or robot-cell supply evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_lynas_rare_earths_2024",
+    "type": "historical_source",
+    "title": "Lynas Rare Earths 2024 annual report",
+    "url": "https://company-announcements.afr.com/asx/lyc/8cc9a94c-874e-11ef-945e-660dfd5bc903.pdf",
+    "sourceName": "Lynas Rare Earths",
+    "date": "2024-10-10",
+    "summary": "Lynas public annual-report materials describe Mt Weld rare-earth mining and processing assets relevant to ex-China rare-earth supply.",
+    "supportsNodeIds": [
+      "org_lynas_rare_earths"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_ndpr_feedstock_lynas"
+    ],
+    "limitations": "Upstream rare-earth evidence; not direct robot-component supply evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   }

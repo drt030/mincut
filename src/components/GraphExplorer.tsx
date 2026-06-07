@@ -16,14 +16,14 @@ import {
   type ReactFlowInstance,
   type ReactFlowState,
 } from "@xyflow/react";
-import { NodeDetailPanel } from "./NodeDetailPanel";
 import { useLanguage } from "./LanguageProvider";
 import { RadialNode } from "./RadialNode";
 import { RadialEdge } from "./RadialEdge";
-import { ColorModeFloatingButton } from "./ColorModeFloatingButton";
+import { GraphControls } from "./GraphControls";
+import { RouteDetailRail } from "./RouteDetailRail";
 import { CmdKSearch, handleCmdKKeydown } from "./CmdKSearch";
-import { TopNGlyph, selectTopN } from "./TopNGlyph";
-import { effectiveLodZoom, radialBandFor, type LodDisplayMode } from "@/lib/lod";
+import { selectTopN } from "@/lib/prioritySelection";
+import { effectiveLodZoom, type LodDisplayMode } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { packRectangularNodes } from "@/lib/cardAwareLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
@@ -37,6 +37,7 @@ import {
 import { nodeRisk } from "@/lib/nodeRisk";
 import { focusedSubset } from "@/lib/focusedSubset";
 import { filterCanvasGraph } from "@/lib/canvasGraph";
+import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 
 /**
@@ -78,69 +79,6 @@ const ZoomContext = createContext<number>(1);
 
 const transformSelector = (s: ReactFlowState) => s.transform[2];
 
-const DISPLAY_MODE_LABELS: Record<LodDisplayMode, string> = {
-  auto: "Auto",
-  overview: "Overview",
-  labels: "Labels",
-  detail: "Detail",
-};
-
-const DISPLAY_MODE_OPTIONS: readonly LodDisplayMode[] = [
-  "auto",
-  "overview",
-  "labels",
-  "detail",
-];
-
-const DISPLAY_MODE_CONTROL_STYLE: React.CSSProperties = {
-  position: "fixed",
-  bottom: "126px",
-  left: "16px",
-  zIndex: 50,
-  display: "flex",
-  flexDirection: "column",
-  gap: 6,
-  padding: "8px 10px",
-  borderRadius: 8,
-  background: "#0f172a",
-  color: "#f8fafc",
-  border: "1px solid #1e293b",
-  fontSize: 12,
-  fontFamily: "inherit",
-  boxShadow: "0 4px 14px rgba(0,0,0,0.22)",
-};
-
-const DISPLAY_MODE_LABEL_STYLE: React.CSSProperties = {
-  color: "#cbd5e1",
-  fontSize: 11,
-  fontWeight: 700,
-};
-
-const DISPLAY_MODE_ROW_STYLE: React.CSSProperties = {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: 6,
-};
-
-const DISPLAY_MODE_BUTTON_STYLE: React.CSSProperties = {
-  minHeight: 28,
-  padding: "5px 10px",
-  borderRadius: 4,
-  cursor: "pointer",
-  border: "1px solid rgba(148,163,184,0.34)",
-  background: "rgba(15,23,42,0.68)",
-  color: "inherit",
-  fontSize: 12,
-  fontFamily: "inherit",
-};
-
-const DISPLAY_MODE_ACTIVE_BUTTON_STYLE: React.CSSProperties = {
-  ...DISPLAY_MODE_BUTTON_STYLE,
-  background: "#f8fafc",
-  color: "#0f172a",
-  border: "1px solid #f8fafc",
-};
-
 type RadialNodeData = {
   id: string;
   name: string;
@@ -159,14 +97,6 @@ type RadialNodeData = {
    * the cross-fade between focus changes feels smooth.
    */
   dim: boolean;
-  /**
-   * C3: 1-based top-N rank from `selectTopN`. Undefined when the node
-   * isn't in the top-N for the current colour mode + scope. Used by the
-   * RadialDotNode overlay to render a `<TopNGlyph rank band />` in the
-   * top-right corner at band 2+. Hidden at band 1 (the overview must
-   * stay free of per-node decoration — TopNGlyph returns null itself).
-   */
-  topNRank?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
   visualRole: "root" | "anchor" | "branch" | "leaf";
   showLabel: boolean;
   onSelect: (nodeId: string) => void;
@@ -174,13 +104,7 @@ type RadialNodeData = {
 
 const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<RadialNodeData>>) {
   const zoom = useContext(ZoomContext);
-  const band = radialBandFor(zoom);
   const box = BAND3_BOX;
-  // C3: top-N glyph overlay. Anchored to the top-right of the node box
-  // with a small negative offset so the glyph sits in the corner
-  // without overlapping the label / card content. `TopNGlyph` returns
-  // null at band 1, so the overlay is invisible on the overview.
-  const showGlyph = data.topNRank !== undefined && band >= 2;
   return (
     <div
       className={[
@@ -220,62 +144,9 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         showLabel={data.showLabel}
         withHandles
       />
-      {showGlyph ? (
-        <div
-          style={{
-            position: "absolute",
-            top: -4,
-            right: -4,
-            pointerEvents: "none",
-            lineHeight: 0,
-          }}
-        >
-          <TopNGlyph
-            rank={data.topNRank!}
-            band={band as 2 | 3}
-          />
-        </div>
-      ) : null}
     </div>
   );
 });
-
-function DisplayModeControl({
-  mode,
-  onSelect,
-}: {
-  mode: LodDisplayMode;
-  onSelect: (next: LodDisplayMode) => void;
-}) {
-  return (
-    <div
-      data-testid="display-mode-control"
-      role="group"
-      aria-label={`Display mode selector. Current mode: ${DISPLAY_MODE_LABELS[mode]}`}
-      style={DISPLAY_MODE_CONTROL_STYLE}
-    >
-      <div style={DISPLAY_MODE_LABEL_STYLE}>Display</div>
-      <div style={DISPLAY_MODE_ROW_STYLE} role="group" aria-label="Display mode options">
-        {DISPLAY_MODE_OPTIONS.map((option) => {
-          const active = option === mode;
-          return (
-            <button
-              key={option}
-              type="button"
-              data-display-mode={option}
-              aria-pressed={active}
-              aria-label={`Display mode: ${DISPLAY_MODE_LABELS[option]}`}
-              style={active ? DISPLAY_MODE_ACTIVE_BUTTON_STYLE : DISPLAY_MODE_BUTTON_STYLE}
-              onClick={() => onSelect(option)}
-            >
-              {DISPLAY_MODE_LABELS[option]}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 type RadialEdgeData = {
   label: string;
@@ -441,20 +312,25 @@ function SectorLabelLayer({
       aria-hidden="true"
     >
       <g transform={`translate(${tx} ${ty}) scale(${scale})`}>
-        {labels.map((item) => (
-          <text
-            key={item.id}
-            className={item.dim ? "sector-label dimmed" : "sector-label"}
-            x={item.x}
-            y={item.y}
-            textAnchor="middle"
-            transform={`rotate(${item.rotate} ${item.x} ${item.y})`}
-            style={{ fontSize, strokeWidth }}
-          >
-            {item.label}
-            <title>{item.label}</title>
-          </text>
-        ))}
+        {labels.map((item) => {
+          const labelX = svgNumber(item.x);
+          const labelY = svgNumber(item.y);
+          const labelRotate = svgNumber(item.rotate);
+          return (
+            <text
+              key={item.id}
+              className={item.dim ? "sector-label dimmed" : "sector-label"}
+              x={labelX}
+              y={labelY}
+              textAnchor="middle"
+              transform={`rotate(${labelRotate} ${labelX} ${labelY})`}
+              style={{ fontSize, strokeWidth }}
+            >
+              {item.label}
+              <title>{item.label}</title>
+            </text>
+          );
+        })}
       </g>
     </svg>
   );
@@ -481,6 +357,41 @@ function compactSectorLabel(label: string): string {
   const max = 24;
   if (label.length <= max) return label;
   return `${label.slice(0, max - 1)}…`;
+}
+
+function GraphProductStrip({
+  product,
+  subsystemCount,
+  routeCount,
+}: {
+  product: Node;
+  subsystemCount: number;
+  routeCount: number;
+}) {
+  const { language, nodeName } = useLanguage();
+  const copy = language === "zh"
+    ? {
+      product: "产品",
+      majorComponents: "一级组件",
+      costTargets: "成本目标",
+    }
+    : {
+      product: "Product",
+      majorComponents: "major components",
+      costTargets: "cost targets",
+    };
+  return (
+    <div className="graph-product-strip" data-testid="graph-product-strip">
+      <div className="graph-product-title-block">
+        <span>{copy.product}</span>
+        <strong>{nodeName(product.id, product.name)}</strong>
+      </div>
+      <div className="graph-product-stat-row">
+        <span>{subsystemCount} {copy.majorComponents}</span>
+        <span>{routeCount} {copy.costTargets}</span>
+      </div>
+    </div>
+  );
 }
 
 // Px scale: radialLayout returns abstract polar units (R1 = 100,
@@ -684,12 +595,15 @@ export function GraphExplorer({ graph }: Props) {
     return rootNodeId;
   })();
   const [selectedId, setSelectedId] = useState(initialFocus);
+  const [railPanel, setRailPanel] = useState<"route" | "detail">(
+    initialFocus === rootNodeId ? "route" : "detail",
+  );
 
-  // B1: colour-mode state lives on the canvas wrapper so the floating
-  // control can toggle modes and every node/edge re-renders against the
-  // shared band thresholds.
-  const [colorMode, setColorMode] = useState<ColorMode>("bottleneck-risk");
-  const [displayMode, setDisplayMode] = useState<LodDisplayMode>("auto");
+  // Full System first pass: cost is the default analysis overlay, and
+  // label-band disclosure keeps the map readable without exposing the
+  // old display-mode switcher as separate chrome.
+  const [colorMode, setColorMode] = useState<ColorMode>("cost");
+  const [displayMode] = useState<LodDisplayMode>("labels");
 
   // C2: Cmd+K search modal. Opened via the global keydown listener
   // below; closed via Esc, backdrop click, or selecting a result. The
@@ -745,6 +659,12 @@ export function GraphExplorer({ graph }: Props) {
   // products) are hidden per spec.
   const focalSubtree = useMemo(() => buildFocalSubtree(canvasGraph), [canvasGraph]);
 
+  const activeRoute = useMemo(
+    () => selectCostDriverRoute(canvasGraph, rootNodeId, { limit: 4, costGraph: graph }),
+    [canvasGraph, graph],
+  );
+  const routeHighlight = colorMode === "cost" ? activeRoute : null;
+
   // Radial layout positions in polar coords. Pure / deterministic per A2.
   const layout = useMemo(() => radialLayout(canvasGraph), [canvasGraph]);
 
@@ -766,7 +686,10 @@ export function GraphExplorer({ graph }: Props) {
     });
   }, [radialNodePositions]);
 
-  const activeNodePositions = displayMode === "detail" ? packedNodePositions : radialNodePositions;
+  // Every LOD band is mounted inside the same 136x72 React Flow node box.
+  // Therefore even label mode needs packed centers; otherwise adjacent node
+  // boxes can overlap and a click on one node is intercepted by its neighbor.
+  const activeNodePositions = packedNodePositions;
   const activeNodePositionsRef = useRef(activeNodePositions);
 
   useEffect(() => {
@@ -782,6 +705,7 @@ export function GraphExplorer({ graph }: Props) {
 
   const onSelect = useCallback((nodeId: string) => {
     setSelectedId(nodeId);
+    setRailPanel("detail");
   }, []);
 
   // First-layer subsystems for the sector-tint background layer (B1)
@@ -812,43 +736,6 @@ export function GraphExplorer({ graph }: Props) {
     }
     return out;
   }, [canvasGraph.edges]);
-
-  // Build a `nodeId → first-layer-ancestor-id` lookup once per
-  // graph so the click handler can map any descendant click to the
-  // branch it belongs to. The same canonical-parent rule used by
-  // `radialLayout` / `subsystemHue` applies: smallest branch index wins
-  // for shared nodes.
-  const firstLayerAncestorById = useMemo(() => {
-    const childrenByParent = new Map<string, string[]>();
-    for (const edge of canvasGraph.edges) {
-      if (edge.relation !== "requires") continue;
-      if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
-      childrenByParent.get(edge.source)!.push(edge.target);
-    }
-    const sortedFirstLayer = [...firstLayerSubsystems].sort();
-    const sectorIndex = new Map<string, number>();
-    sortedFirstLayer.forEach((id, i) => sectorIndex.set(id, i));
-    const ancestorById = new Map<string, string>();
-    for (const sub of sortedFirstLayer) {
-      const visited = new Set<string>();
-      const queue: string[] = [sub];
-      while (queue.length > 0) {
-        const cur = queue.shift()!;
-        if (visited.has(cur)) continue;
-        visited.add(cur);
-        const existing = ancestorById.get(cur);
-        if (existing === undefined || sectorIndex.get(sub)! < sectorIndex.get(existing)!) {
-          ancestorById.set(cur, sub);
-        }
-        for (const child of childrenByParent.get(cur) ?? []) {
-          if (visited.has(child)) continue;
-          queue.push(child);
-        }
-      }
-    }
-    for (const sub of sortedFirstLayer) ancestorById.set(sub, sub);
-    return ancestorById;
-  }, [canvasGraph, firstLayerSubsystems]);
 
   /**
    * Per-node outline colour from the active colour mode. Pure function
@@ -908,16 +795,14 @@ export function GraphExplorer({ graph }: Props) {
    * `selectTopN` is pure + memo-stable: same `graph` / `mode` / scope
    * yields the same result, so the `useMemo` deps mirror its inputs.
    */
-  const topNRankById = useMemo(() => {
-    const scope = focusedId === null ? null : subset.nodes;
-    const entries = selectTopN(canvasGraph, colorMode, 5, scope);
-    const map = new Map<string, 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10>();
-    for (const entry of entries) {
-      // `selectTopN` caps at n=5 here, so rank ∈ 1..5 ⊂ the props type.
-      map.set(entry.nodeId, entry.rank as 1 | 2 | 3 | 4 | 5);
-    }
-    return map;
-  }, [canvasGraph, colorMode, focusedId, subset]);
+  const visiblePriorityScope = useMemo(() => {
+    if (focusedId !== null) return subset.nodes;
+    return new Set(canvasGraph.nodes.map((node) => node.id));
+  }, [canvasGraph.nodes, focusedId, subset.nodes]);
+
+  const topPriorityEntries = useMemo(() => {
+    return selectTopN(graph, colorMode, 5, visiblePriorityScope);
+  }, [graph, colorMode, visiblePriorityScope]);
 
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
@@ -929,11 +814,7 @@ export function GraphExplorer({ graph }: Props) {
       const hue = subsystemHue(node.id, graph);
       const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const isFocal = node.id === focalId;
-      // B3: dim every node outside the focused subtree. With no focus
-      // (`focusedId === null`), `subset.nodes` contains every node id
-      // so `dim` is always false — the overview stays fully
-      // saturated.
-      const dim = false;
+      const dim = !subset.nodes.has(node.id) && node.id !== selectedId && !isFocal;
       const hasStructuralChildren = (childrenByParent.get(node.id) ?? []).some((childId) =>
         layout.positions.has(childId),
       );
@@ -944,11 +825,7 @@ export function GraphExplorer({ graph }: Props) {
           : hasStructuralChildren
             ? "branch"
             : "leaf";
-      const showLabel = isFocal ||
-        firstLayerSubsystemSet.has(node.id) ||
-        node.id === selectedId ||
-        node.id === focusedId ||
-        (topNRankById.has(node.id) && visualRole !== "leaf");
+      const showLabel = true;
       nodes.push({
         id: node.id,
         type: "radialDot",
@@ -967,7 +844,6 @@ export function GraphExplorer({ graph }: Props) {
           selected: selectedId === node.id,
           isFocal,
           dim,
-          topNRank: topNRankById.get(node.id),
           visualRole,
           showLabel,
           onSelect,
@@ -977,7 +853,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [canvasGraph, graph, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, focusedId, topNRankById, childrenByParent, firstLayerSubsystemSet]);
+  }, [canvasGraph, graph, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     type RenderableEdge = {
@@ -1028,13 +904,12 @@ export function GraphExplorer({ graph }: Props) {
       // will replace `selectedId` with a richer focus state.
       const isFocusEndpoint = edge.source === selectedId || edge.target === selectedId;
       const { stroke, width } = edgeStyleFor(edge, colorMode, graph);
-      // B3: dim an edge when at least one endpoint falls outside the
-      // focused subtree. `subset.edges` is the canonical
-      // both-endpoints-in set, so membership check is direct. With no
-      // focus, every edge is in `subset.edges` and `dim` stays false.
-      const dim = false;
+      const isRouteEdge = routeHighlight?.edgeIds.has(edge.id) ?? false;
+      const dim = !subset.edges.has(edge.id) && edge.source !== selectedId && edge.target !== selectedId;
       const edgeKind = layout.edges.get(edge.id)?.style ?? "primary";
-      const emphasis = edgeKind === "primary" && focusPathPairs.has(`${edge.source}→${edge.target}`)
+      const emphasis = isRouteEdge
+        ? "branch"
+        : edgeKind === "primary" && focusPathPairs.has(`${edge.source}→${edge.target}`)
         ? "branch"
         : "normal";
       renderableEdges.push({
@@ -1043,7 +918,7 @@ export function GraphExplorer({ graph }: Props) {
         target: edge.target,
         relation: edge.relation,
         edgeKind,
-        highlighted: edge.source === selectedId || edge.target === selectedId,
+        highlighted: isRouteEdge || edge.source === selectedId || edge.target === selectedId,
         emphasis,
         isFocusEndpoint,
         sourceRadius: radiusFor(edge.source),
@@ -1135,7 +1010,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return edges;
-  }, [canvasGraph, graph, focalSubtree, layout, selectedId, colorMode, focusPath, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode]);
+  }, [canvasGraph, graph, focalSubtree, layout, selectedId, colorMode, focusPath, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1228,6 +1103,31 @@ export function GraphExplorer({ graph }: Props) {
 
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
+  const fullSystemFitNodes = useMemo(
+    () => flowNodes.map((node) => ({ id: node.id })),
+    [flowNodes],
+  );
+  const fitFullSystemView = useCallback((
+    inst: ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>>,
+    duration: number,
+  ) => {
+    inst.fitView({
+      nodes: fullSystemFitNodes,
+      padding: 0.18,
+      duration: 0,
+      maxZoom: 0.92,
+      minZoom: 0.18,
+    });
+    const viewport = inst.getViewport();
+    inst.setViewport(
+      {
+        ...viewport,
+        x: viewport.x,
+        y: viewport.y + 12,
+      },
+      { duration },
+    );
+  }, [fullSystemFitNodes]);
 
   // Fit the radial overview to the viewport once nodes are measured.
   // The radial layout spans roughly 1990×1597 unscaled px; at ReactFlow's
@@ -1249,7 +1149,7 @@ export function GraphExplorer({ graph }: Props) {
     const fit = () => {
       if (initialFitDoneRef.current) return;
       try {
-        inst.fitView({ padding: 0.18, duration: 0, maxZoom: 1.5, minZoom: 0.25 });
+        fitFullSystemView(inst, 0);
         initialFitDoneRef.current = true;
       } catch {
         // ReactFlow may throw before nodes are measured; the next
@@ -1260,7 +1160,7 @@ export function GraphExplorer({ graph }: Props) {
     return () => {
       timeouts.forEach((t) => clearTimeout(t));
     };
-  }, [flowNodes.length]);
+  }, [flowNodes.length, fitFullSystemView]);
 
   // Persist selection + focus path in URL so a learner can bookmark
   // / share a view.
@@ -1332,9 +1232,9 @@ export function GraphExplorer({ graph }: Props) {
     const inst = flowInstanceRef.current;
     if (!inst) return;
     if (focusPath.length === 0) {
-      // Return to fit-all overview.
+      // Return to the full-system view while keeping route highlight as an overlay.
       try {
-        inst.fitView({ padding: 0.18, duration: 600, maxZoom: 1.5, minZoom: 0.25 });
+        fitFullSystemView(inst, 600);
       } catch {
         // Ignore: React Flow may not be ready immediately.
       }
@@ -1386,17 +1286,28 @@ export function GraphExplorer({ graph }: Props) {
     } catch {
       // Ignore: React Flow may throw before nodes are measured.
     }
-  }, [focusPath, layout.sectors]);
+  }, [focusPath, layout.sectors, fitFullSystemView]);
 
   const selectedNode: Node = useMemo(
     () => graph.nodes.find((n) => n.id === selectedId) ?? graph.nodes[0],
     [graph.nodes, selectedId],
   );
+  const productNode: Node | null = useMemo(
+    () => graph.nodes.find((n) => n.id === rootNodeId) ?? null,
+    [graph.nodes],
+  );
 
   return (
     <div>
       <div className="graph-layout graph-layout-radial">
-        <div className="graph-canvas graph-canvas-radial">
+        <div className="graph-canvas graph-canvas-radial graph-canvas-route-led">
+          {productNode ? (
+            <GraphProductStrip
+              product={productNode}
+              subsystemCount={firstLayerSubsystems.length}
+              routeCount={activeRoute.steps.length}
+            />
+          ) : null}
           <ReactFlowProvider>
             <ZoomBridge displayMode={displayMode}>
               <ReactFlow
@@ -1414,7 +1325,7 @@ export function GraphExplorer({ graph }: Props) {
                     window.requestAnimationFrame(() => {
                       if (initialFitDoneRef.current) return;
                       try {
-                        instance.fitView({ padding: 0.18, duration: 0, maxZoom: 1.5, minZoom: 0.25 });
+                        fitFullSystemView(instance, 0);
                         initialFitDoneRef.current = true;
                       } catch {
                         // Retry path in the useEffect below.
@@ -1431,52 +1342,12 @@ export function GraphExplorer({ graph }: Props) {
                 zoomOnDoubleClick={false}
                 nodesDraggable={false}
                 onNodeClick={(_, node) => {
-                  setSelectedId(node.id);
-                  // B2 + C1: progressive-disclosure click rules.
-                  const ancestor = firstLayerAncestorById.get(node.id);
-                  if (ancestor === undefined) return; // out-of-subtree click
-                  setFocusPath((prev) => {
-                    // L0 → L1: any click sets path to [outerAncestor].
-                    if (prev.length === 0) return [ancestor];
-                    // Cross-sector click at any level: reset to the
-                    // new outer's L1. (No camera jump rule per ADR;
-                    // the viewport effect below animates softly.)
-                    if (ancestor !== prev[0]) return [ancestor];
-                    // Same outer sector. If clicking the outer dot
-                    // itself, stay at L1 (avoid pushing the outer as
-                    // its own inner).
-                    if (node.id === ancestor) return prev;
-                    // L1 → L2: push the direct sub-subsystem of the
-                    // outer that's the clicked node OR an ancestor
-                    // of it.
-                    if (prev.length === 1) {
-                      const innerChild = innerChildContaining(
-                        node.id,
-                        ancestor,
-                        canvasGraph,
-                      );
-                      if (innerChild === null) return prev;
-                      return [ancestor, innerChild];
-                    }
-                    // L2 → L3+: push the clicked node id for deeper
-                    // viewport zoom. Geometry stays stable per
-                    // ADR-0007; only camera target changes.
-                    if (prev.length === 2) {
-                      if (node.id === prev[1]) return prev;
-                      return [ancestor, prev[1], node.id];
-                    }
-                    // L3+: replace the deepest element with the new
-                    // click so the viewport target updates.
-                    if (node.id === prev[prev.length - 1]) return prev;
-                    return [...prev.slice(0, prev.length - 1), node.id];
-                  });
+                  onSelect(node.id);
                 }}
                 onPaneClick={() => {
-                  // B2 + C1: empty-canvas click pops one level
-                  // (Esc-equivalent). [] stays at overview.
-                  setFocusPath((prev) =>
-                    prev.length === 0 ? prev : prev.slice(0, prev.length - 1),
-                  );
+                  setSelectedId(rootNodeId);
+                  setFocusPath([]);
+                  setRailPanel("route");
                 }}
               >
                 <Background />
@@ -1496,61 +1367,35 @@ export function GraphExplorer({ graph }: Props) {
               </ReactFlow>
             </ZoomBridge>
           </ReactFlowProvider>
+          <GraphControls
+            routeMode={activeRoute.mode}
+            analysisMode={colorMode}
+            onAnalysisModeChange={setColorMode}
+          />
         </div>
-        <NodeDetailPanel
+        <RouteDetailRail
           graph={graph}
-          node={selectedNode}
-          onSelectNode={(id) => {
-            // Esc / explicit close passes `null`; the radial canvas
-            // doesn't have a "no focus" mode yet, so clearing falls
-            // back to the root focal node. This keeps the wiring
-            // contract honest (the panel can ask to clear) without
-            // forcing GraphExplorer state to learn `null`.
-            setSelectedId(id ?? rootNodeId);
-          }}
+          route={activeRoute}
+          selectedNode={selectedNode}
+          analysisMode={colorMode}
+          priorityEntries={topPriorityEntries}
+          systemNodeIds={firstLayerSubsystems}
+          panel={railPanel}
+          onPanelChange={setRailPanel}
+          onSelectNode={onSelect}
         />
       </div>
-      {/* B1: colour-mode persistent control (fixed bottom-left). Lives
-          outside the ReactFlow canvas so the fixed positioning survives
-          ReactFlow's viewport transform. */}
-      <ColorModeFloatingButton
-        mode={colorMode}
-        onSelect={setColorMode}
-      />
-      <DisplayModeControl
-        mode={displayMode}
-        onSelect={setDisplayMode}
-      />
       {/* C2: Cmd+K search modal. Mounted at the top level so the
-          backdrop covers everything (canvas + rail + floating button).
+          backdrop covers everything (canvas + rail + controls).
           Selecting a result both selects the node (rail content
-          updates) and pushes the node's first-layer ancestor onto the
-          focus path (sector elastically expands), then closes the
-          modal. */}
+          updates) and keeps the full-system map intact. */}
       <CmdKSearch
         graph={graph}
         open={cmdKOpen}
         onClose={() => setCmdKOpen(false)}
         onSelect={(nodeId) => {
-          setSelectedId(nodeId);
-          const ancestor = firstLayerAncestorById.get(nodeId);
-          if (ancestor !== undefined) {
-            setFocusPath((prev) => {
-              // If the chosen node IS the outer ancestor, sit at L1.
-              if (nodeId === ancestor) return [ancestor];
-              // If the chosen node lives in the currently-focused
-              // outer sector, push the inner sub-subsystem so the
-              // selection lands at L2 ready to read.
-              if (prev.length >= 1 && prev[0] === ancestor) {
-                const innerChild = innerChildContaining(nodeId, ancestor, canvasGraph);
-                if (innerChild === null) return [ancestor];
-                return [ancestor, innerChild];
-              }
-              // Otherwise reset to the new outer's L1 — the viewport
-              // soft-zoom effect animates toward the new sector.
-              return [ancestor];
-            });
-          }
+          onSelect(nodeId);
+          setFocusPath([]);
         }}
       />
     </div>

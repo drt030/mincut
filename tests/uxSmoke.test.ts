@@ -41,34 +41,30 @@ test("ux smoke: home page renders north-star hero", async (t) => {
 test("ux smoke: /graph ships radial canvas chrome", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/graph");
-  assert.match(html, /data-testid="color-mode-button"/);
+  assert.match(html, /data-testid="graph-controls"/);
+  assert.match(html, /data-testid="graph-product-strip"/);
   assert.match(html, /sector-label-layer/);
   assert.match(html, /Conveyor integration/);
   assert.match(html, /Vision \/ barcode \/ label recognition/);
 });
 
-test("ux smoke: /product page shows cost rollup section + new typical 283.5k + breakdown row", async (t) => {
+test("ux smoke: /product page shows p50 cost rollup section + breakdown row", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/product/low_cost_parcel_sorting_robot_300k_rmb");
-  // Slice 1 changed the typical rollup from 274.7k → 283.5k. Smoke-check
-  // the new number is rendered so we know the new walker is in the
-  // serving build (not just in tests).
+  // Smoke-check the p50 rollup is rendered so we know the current cost
+  // walker is in the serving build (not just in tests).
   assert.match(html, /cost-rollup-card/);
-  assert.match(html, /283,532/, "/product should show the new max-of rolled-up typical");
+  assert.match(html, /p50 309,994/, "/product should show the current rolled-up p50");
   // Slice-4 polish: ProductView now also shows the direct/children
   // breakdown row.
   assert.match(html, /cost-rollup-breakdown/);
 });
 
-test("ux smoke: /graph default selection surfaces collapsed detail rail", async (t) => {
+test("ux smoke: /graph default selection surfaces route detail rail", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/graph");
-  // ADR-0006/B4 replaced the always-open detail panel with a 64px
-  // collapsed rail. Cost rollup content appears only after expanding
-  // the rail in the browser; SSR should expose the rail shell and the
-  // focused flagship summary.
-  assert.match(html, /data-testid="node-detail-rail"/);
-  assert.match(html, /data-rail-width="64"/);
+  assert.match(html, /data-testid="route-detail-rail"/);
+  assert.match(html, /Cost drivers/);
   assert.match(html, /300,000 RMB parcel-sorting robot/);
 });
 

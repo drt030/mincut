@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { z } from "zod";
 import { loadGraphData, loadTasks } from "../src/lib/graphLoader";
 import { reachableNodeIdsFrom, V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
@@ -116,7 +117,7 @@ function readCandidateFile(filePath: string): CandidateImport {
   }
 }
 
-function withImportDefaults(candidate: CandidateImport, importedAt: string): {
+export function withImportDefaults(candidate: CandidateImport, importedAt: string): {
   nodes: Node[];
   edges: Edge[];
   evidence: Evidence[];
@@ -138,6 +139,7 @@ function withImportDefaults(candidate: CandidateImport, importedAt: string): {
   return {
     nodes: candidate.nodes.map((node) => ({
       ...node,
+      maturityLabel: node.maturityLabel ?? "unknown",
       reviewStatus: node.reviewStatus ?? "unreviewed",
       maturityAsOf:
         node.maturityAsOf ??
@@ -354,4 +356,6 @@ function appendJsonArray<T>(filePath: string, items: T[]): void {
   fs.writeFileSync(filePath, `${JSON.stringify([...existing, ...items], null, 2)}\n`);
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main();
+}

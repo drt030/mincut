@@ -480,7 +480,7 @@ export function RadialEdge({
   const renderedPathD = cleanPathNumbers(pathD);
   const isOuterDetail = Math.min(sourceR, targetR) > OVERVIEW_OUTER_DETAIL_RADIUS;
   const renderedStroke = isBranch
-    ? "#2563eb"
+    ? stroke
     : band === 1 && edgeKind === "primary" ? "#8da4be" : stroke;
   const opacity = edgeKind === "cross"
     ? highlighted ? 0.52 : 0.18

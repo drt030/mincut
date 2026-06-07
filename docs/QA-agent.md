@@ -58,7 +58,7 @@ The v0 target is:
 low_cost_parcel_sorting_robot_300k_rmb
 ```
 
-This means the concrete 300,000 RMB parcel-sorting product currently intended by the repo: an industrial robot-arm and computer-vision based sorting robot/cell, mainly using grippers or suction cups.
+This means the concrete 300,000 RMB parcel-sorting product currently intended by the repo: an industrial robot-arm and computer-vision based sorting robot/cell using a vacuum-suction end-effector.
 
 The QA agent must protect this product boundary. Delta robot sorters, humanoid sorters, conveyor diverter-only systems, mobile sorting robots, and human-robot assisted systems are neighboring products unless the user explicitly changes the boundary.
 

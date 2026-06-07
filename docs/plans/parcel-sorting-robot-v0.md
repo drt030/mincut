@@ -8,7 +8,7 @@ Use `low_cost_parcel_sorting_robot_300k_rmb` as the first complete product graph
 
 An approximately 300,000 RMB parcel-sorting robot or robotic sorting cell suitable for logistics parcel sorting.
 
-For v0, this is a concrete product architecture, not the broad demand for low-cost parcel sorting. The intended product is an industrial robot-arm and computer-vision based sorter, mainly using grippers or suction cups.
+For v0, this is a concrete product architecture, not the broad demand for low-cost parcel sorting. The intended product is an industrial robot-arm and computer-vision based sorter using a vacuum-suction end-effector.
 
 Neighboring products such as delta robot sorters, humanoid robot sorters, conveyor diverter systems, mobile robot sorting systems, or human-robot assisted systems should remain separate product candidates unless the user explicitly decides to model them inside this product boundary.
 
@@ -32,7 +32,7 @@ The graph data should not stop at a first-level module list. It should model the
 300,000 RMB parcel-sorting robot
   -> robot body / manipulation subsystem
   -> vision module
-  -> end effector: gripper or suction cup
+  -> vacuum-suction end effector
   -> conveyor integration
   -> sorting decision software
   -> computer vision algorithms
@@ -94,7 +94,7 @@ This check is more important than manually adding a few hard-coded robot nodes. 
 
 The check case must show that the product becomes feasible through both hardware and software capabilities:
 
-- Hardware examples: robot arm, gripper or suction cup, cameras, lighting, conveyor interface, frame, safety equipment, controllers, motors, reducers, servo drives.
+- Hardware examples: robot arm, vacuum suction cups, vacuum generator/ejector, cameras, lighting, conveyor interface, frame, safety equipment, controllers, motors, reducers, servo drives.
 - Software examples: barcode/OCR/label recognition, parcel detection and tracking, sorting decision logic, computer vision models, motion planning, exception handling, calibration, maintenance workflow.
 - Integration examples: timing between conveyor flow, perception, grasp/push/place motion, destination decision, jam recovery, and safety interlocks.
 
@@ -133,7 +133,7 @@ For an immature product or target architecture, the view should emphasize:
 
 This check case should also protect the product boundary.
 
-The current product is an industrial robot-arm and computer-vision based sorting cell using grippers or suction cups. The following should not be silently treated as internal routes of the same product:
+The current product is an industrial robot-arm and computer-vision based sorting cell using a vacuum-suction end-effector. The following should not be silently treated as internal routes of the same product:
 
 - delta robot sorter;
 - humanoid robot sorter;

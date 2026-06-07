@@ -18,7 +18,7 @@ The first goal is to make one product domain work end to end before expanding. D
 
 1. Product and demand are different concepts.
    - A product node should represent a concrete product or product architecture, not a broad market need.
-   - `low_cost_parcel_sorting_robot_300k_rmb` means the concrete 300,000 RMB parcel-sorting product currently intended here: an industrial robot-arm and computer-vision based sorting robot/cell, mainly using grippers or suction cups.
+   - `low_cost_parcel_sorting_robot_300k_rmb` means the concrete 300,000 RMB parcel-sorting product currently intended here: an industrial robot-arm and computer-vision based sorting robot/cell using a vacuum-suction end-effector.
    - Delta robots, humanoid robots, conveyor diverters, mobile sorting robots, or human-robot assisted systems are not alternate routes of this same product by default. They should be modeled as separate products or product candidates unless the user explicitly clarifies otherwise.
    - A demand such as "low-cost parcel sorting" may motivate multiple products, but it should not be silently merged with one product node.
 

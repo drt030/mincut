@@ -12,10 +12,30 @@
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
     "maturityHistory": [
-      { "asOf": "2022-06", "score": 15, "label": "hypothesis", "source": "ralph_iter34_stub" },
-      { "asOf": "2024-01", "score": 35, "label": "lab_proven", "source": "ralph_iter34_stub" },
-      { "asOf": "2025-06", "score": 48, "label": "prototype", "source": "ralph_iter34_stub" },
-      { "asOf": "2026-04", "score": 54, "label": "prototype", "source": "ralph_iter34_stub" }
+      {
+        "asOf": "2022-06",
+        "score": 15,
+        "label": "hypothesis",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2024-01",
+        "score": 35,
+        "label": "lab_proven",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2025-06",
+        "score": 48,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2026-04",
+        "score": 54,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      }
     ],
     "confidence": "medium",
     "targetContext": {
@@ -55,7 +75,7 @@
     "reviewStatus": "unreviewed",
     "notes": "Hard-to-develop (per ADR-0005): CV-based label localization and OCR must work under reflective/wrinkled labels, parcel deformation, glare, occlusion, and high-speed conveyor motion. Off-the-shelf barcode readers handle clean labels; the hard part is the long tail where vision degrades.",
     "frontierFor": [
-      "robust_parcel_perception_under_real_logistics_conditions"
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ]
   },
   {
@@ -126,6 +146,9 @@
       "perception",
       "bottleneck",
       "decomposition_frontier"
+    ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "notes": "Expansion frontier: next layer may include ring/bar/back/dome lighting, strobe timing, glare control, wavelength, diffuser, and dust/heat constraints."
   },
@@ -217,10 +240,30 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-04",
     "maturityHistory": [
-      { "asOf": "2020-01", "score": 10, "label": "hypothesis", "source": "ralph_iter34_stub" },
-      { "asOf": "2022-06", "score": 30, "label": "lab_proven", "source": "ralph_iter34_stub" },
-      { "asOf": "2024-06", "score": 50, "label": "prototype", "source": "ralph_iter34_stub" },
-      { "asOf": "2026-04", "score": 65, "label": "early_deployment", "source": "ralph_iter34_stub" }
+      {
+        "asOf": "2020-01",
+        "score": 10,
+        "label": "hypothesis",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2022-06",
+        "score": 30,
+        "label": "lab_proven",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2024-06",
+        "score": 50,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2026-04",
+        "score": 65,
+        "label": "early_deployment",
+        "source": "ralph_iter34_stub"
+      }
     ],
     "confidence": "medium",
     "tags": [
@@ -230,9 +273,9 @@
     ],
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
-      "low_jam_rate_under_parcel_variability"
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ],
-    "notes": "Hard-to-develop (per ADR-0005): real-time pose estimation of variable parcels (size, packaging, deformation, stacking, occlusion) under conveyor motion is at the frontier of CV-based object recognition. Failure mode is qualitative — robust tracking enables pick reliability; weak tracking collapses throughput."
+    "notes": "Bottleneck theme: low_jam_rate_under_parcel_variability. Hard-to-develop (per ADR-0005): real-time pose estimation of variable parcels (size, packaging, deformation, stacking, occlusion) under conveyor motion is at the frontier of CV-based object recognition. Failure mode is qualitative — robust tracking enables pick reliability; weak tracking collapses throughput."
   },
   {
     "id": "parcel_manipulation_or_diverter",
@@ -253,7 +296,7 @@
     ],
     "reviewStatus": "unreviewed",
     "frontierFor": [
-      "low_cost_high_reliability_parcel_manipulation"
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ]
   },
   {
@@ -277,13 +320,13 @@
   },
   {
     "id": "end_effector_gripper_or_suction",
-    "name": "End effector: gripper or suction cup",
+    "name": "Vacuum suction end-effector module",
     "kind": "module",
     "domain": [
       "parcel_sorting_robot",
       "industrial_robot_arm"
     ],
-    "description": "The parcel-contacting end effector, using a gripper, suction cup, or similar low-cost mechanism suitable for variable parcel packaging.",
+    "description": "The parcel-contacting vacuum-suction end effector for the active v0 product, including suction cups, vacuum generation, valves, pressure sensing, and release control for variable parcel packaging.",
     "maturityScore": 50,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
@@ -294,7 +337,7 @@
       "robot_arm",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer should separate suction cup, vacuum generator, gripper fingers, compliance, sensors, materials, wear parts, and parcel-contact reliability constraints."
+    "notes": "Expansion frontier: next layer should separate suction cup geometry, vacuum generator or ejector choice, compliance, vacuum sensing, materials, wear parts, dust tolerance, and parcel-contact reliability constraints. Mechanical grippers are modeled as a separate sibling Product boundary, not as an alternate route of this active suction product."
   },
   {
     "id": "vacuum_suction_cup_array",
@@ -456,7 +499,7 @@
   },
   {
     "id": "gripper_tcp_pattern_calibration",
-    "name": "Gripper TCP pattern calibration",
+    "name": "Vacuum EOAT TCP and cup-array calibration",
     "kind": "engineering_method",
     "domain": [
       "parcel_sorting_robot",
@@ -1223,10 +1266,30 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-04",
     "maturityHistory": [
-      { "asOf": "2015-01", "score": 45, "label": "prototype", "source": "ralph_iter34_stub" },
-      { "asOf": "2020-01", "score": 55, "label": "early_deployment", "source": "ralph_iter34_stub" },
-      { "asOf": "2024-01", "score": 60, "label": "early_deployment", "source": "ralph_iter34_stub" },
-      { "asOf": "2026-04", "score": 62, "label": "early_deployment", "source": "ralph_iter34_stub" }
+      {
+        "asOf": "2015-01",
+        "score": 45,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2020-01",
+        "score": 55,
+        "label": "early_deployment",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2024-01",
+        "score": 60,
+        "label": "early_deployment",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2026-04",
+        "score": 62,
+        "label": "early_deployment",
+        "source": "ralph_iter34_stub"
+      }
     ],
     "confidence": "medium",
     "tags": [
@@ -1235,8 +1298,9 @@
     ],
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
-      "low_cost_conveyor_integration"
-    ]
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "notes": "Bottleneck theme: low_cost_conveyor_integration. Low-cost cells are constrained by how reliably the conveyor, induction, sensing, chutes, PLC/WCS signals, and robot timing can be integrated without project-specific engineering cost."
   },
   {
     "id": "conveyor_photoelectric_sensors",
@@ -1284,7 +1348,7 @@
       "decomposition_frontier"
     ],
     "bottleneckOf": [
-      "low_jam_rate_under_parcel_variability"
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill: parcel detection/tracking now carries the low-jam-rate parcel-variability bottleneck, and conveyor speed/position tracking is the lower-layer timing driver. Expansion frontier: next layer may include encoder resolution, belt slip, tracking origin, PLC scan timing, and calibration against camera coordinates."
@@ -1313,7 +1377,7 @@
       "decomposition_frontier"
     ],
     "bottleneckOf": [
-      "low_cost_conveyor_integration"
+      "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill: conveyor_integration is marked as a low-cost conveyor-integration bottleneck, and this lower-layer spacing/induction control method is the visible direct driver. Expansion frontier: next layer may include singulation, merge logic, gaps, parcel orientation, speed transitions, and exception handling."
@@ -1421,6 +1485,9 @@
       "bottleneck",
       "decomposition_frontier"
     ],
+    "bottleneckOf": [
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
     "notes": "Expansion frontier: needs field evidence for jam modes, sensor coverage, recovery time, false alarms, and operator intervention rate."
   },
   {
@@ -1452,10 +1519,30 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-04",
     "maturityHistory": [
-      { "asOf": "2018-01", "score": 30, "label": "lab_proven", "source": "ralph_iter34_stub" },
-      { "asOf": "2021-06", "score": 45, "label": "prototype", "source": "ralph_iter34_stub" },
-      { "asOf": "2024-01", "score": 52, "label": "prototype", "source": "ralph_iter34_stub" },
-      { "asOf": "2026-04", "score": 58, "label": "early_deployment", "source": "ralph_iter34_stub" }
+      {
+        "asOf": "2018-01",
+        "score": 30,
+        "label": "lab_proven",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2021-06",
+        "score": 45,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2024-01",
+        "score": 52,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2026-04",
+        "score": 58,
+        "label": "early_deployment",
+        "source": "ralph_iter34_stub"
+      }
     ],
     "confidence": "medium",
     "tags": [
@@ -1517,8 +1604,9 @@
       "deployment"
     ],
     "bottleneckOf": [
-      "maintenance_cost_control"
-    ]
+      "low_cost_parcel_sorting_robot_300k_rmb"
+    ],
+    "notes": "Bottleneck theme: maintenance_cost_control. Maintenance workflow limits adoption when jams, cleaning, suction-cup wear, calibration drift, spare parts, and operator escalation consume the labor savings from automation."
   },
   {
     "id": "cost_optimized_hardware_stack",
@@ -1552,7 +1640,7 @@
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
     "bottleneckOf": [
-      "low_jam_rate_under_parcel_variability"
+      "affordable_small_warehouse_automation"
     ]
   },
   {
@@ -1578,7 +1666,7 @@
       "decomposition_frontier"
     ],
     "bottleneckOf": [
-      "low_jam_rate_under_parcel_variability"
+      "affordable_small_warehouse_automation"
     ],
     "notes": "Consistency backfill: delta_robot_sorting carried the low-jam-rate bottleneck, but its direct children were generic shared modules. This node captures the missing delta-specific parcel-variability and jam-control driver."
   },
@@ -1597,7 +1685,7 @@
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
     "bottleneckOf": [
-      "low_cost_conveyor_integration"
+      "affordable_small_warehouse_automation"
     ]
   },
   {
@@ -1615,7 +1703,7 @@
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
     "bottleneckOf": [
-      "maintenance_cost_control"
+      "affordable_small_warehouse_automation"
     ]
   },
   {
@@ -1633,7 +1721,7 @@
     "reviewStatus": "unreviewed",
     "notes": "Adjacent product candidate only. It is not an internal route of low_cost_parcel_sorting_robot_300k_rmb unless the product boundary is explicitly changed.",
     "bottleneckOf": [
-      "maintenance_cost_control"
+      "affordable_small_warehouse_automation"
     ]
   },
   {
@@ -1676,9 +1764,29 @@
     "metrics": [
       {
         "name": "Throughput",
-        "unit": "parcels/hour"
+        "unit": "parcels/hour",
+        "currentValue": {
+          "min": 325,
+          "typical": 1500,
+          "max": 1800
+        },
+        "targetValue": 1500,
+        "description": "Unreviewed p50 benchmark for one robotic suction/vision parcel induction or sorting station. Vendor-adjacent sources range from 325-400 parcels/hour for lower-throughput robot sort cells to 1,500-1,800 parcels/hour for robotic induction/singulation modules."
       }
-    ]
+    ],
+    "evidenceIds": [
+      "ev_perf_abb_robotic_parcel_inductor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "tags": [
+      "throughput",
+      "performance_benchmark"
+    ],
+    "notes": "Performance benchmark is vendor-adjacent and should not be read as a reviewed sustained field throughput. The current v0 product likely bottlenecks at induction spacing, vision/tracking, suction grasp success, robot cycle time, and downstream WCS/conveyor synchronization before it can use larger sorter capacity.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "sorting_accuracy",
@@ -1695,9 +1803,29 @@
     "metrics": [
       {
         "name": "Accuracy",
-        "unit": "%"
+        "unit": "%",
+        "currentValue": {
+          "min": 98,
+          "typical": 99,
+          "max": 99.5
+        },
+        "targetValue": 99,
+        "description": "Vendor-adjacent benchmark combining singulation accuracy, picking accuracy, barcode read rate, and correct-output sort accuracy. It is not yet reviewed field sort accuracy for the v0 cell."
       }
-    ]
+    ],
+    "evidenceIds": [
+      "ev_perf_abb_robotic_parcel_inductor_2026",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "tags": [
+      "accuracy",
+      "performance_benchmark"
+    ],
+    "notes": "The metric blends adjacent vendor claims because public pages usually report picking, singulation, barcode, or correct-output accuracy separately. Human review should split these if field data becomes available.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "allowed_parcel_weight_range",
@@ -1714,9 +1842,22 @@
     "metrics": [
       {
         "name": "Weight range",
-        "unit": "kg"
+        "unit": "kg",
+        "currentValue": "0.003-35 kg adjacent benchmark envelope; v0 target remains 0.05-25 kg mixed parcels",
+        "targetValue": "0.05-25 kg",
+        "description": "Adjacent robot parcel-handling pages span very light mailers up to 35 kg, but the v0 suction-cell target keeps a narrower 0.05-25 kg envelope."
       }
-    ]
+    ],
+    "evidenceIds": [
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "tags": [
+      "parcel_spec",
+      "performance_benchmark"
+    ],
+    "notes": "Weight envelope is not reviewed for this exact 300,000 RMB cell. Suction cup geometry, payload, acceleration limits, and parcel packaging material will narrow the usable field range.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "allowed_parcel_size_range",
@@ -1733,9 +1874,22 @@
     "metrics": [
       {
         "name": "Size range",
-        "unit": "mm"
+        "unit": "mm",
+        "currentValue": "76 x 76 x 2.5 mm to 700 x 700 x 1200 mm adjacent benchmark envelope; v0 target longest dimension up to 700 mm",
+        "targetValue": "longest dimension up to 700 mm",
+        "description": "Adjacent benchmark envelope from robot parcel sort/singulation sources. The v0 product target remains narrower and should be validated against suction reach, camera field-of-view, and conveyor spacing."
       }
-    ]
+    ],
+    "evidenceIds": [
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "tags": [
+      "parcel_spec",
+      "performance_benchmark"
+    ],
+    "notes": "Size envelope is an adjacent benchmark, not reviewed field evidence for the active product. Irregular polybags and soft packs may be more limiting than nominal box dimensions.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "failure_jam_rate",
@@ -1752,9 +1906,28 @@
     "metrics": [
       {
         "name": "Jam rate",
-        "unit": "events/1000 parcels"
+        "unit": "events/1000 parcels",
+        "currentValue": {
+          "min": 1,
+          "typical": 10,
+          "max": 20
+        },
+        "targetValue": 10,
+        "description": "Proxy benchmark from adjacent vendor claims: double-parcel grasp, failed grasp, unread barcode diversion, and uptime. This is not yet a direct reviewed jam/stoppage rate."
       }
-    ]
+    ],
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "tags": [
+      "reliability",
+      "performance_benchmark",
+      "proxy_metric"
+    ],
+    "notes": "The current range should be interpreted as exception-risk order of magnitude. Real jam rate needs field logs that distinguish failed pick, double pick, barcode no-read, conveyor jam, chute jam, and stop/recovery events.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "human_intervention_rate",
@@ -1771,9 +1944,29 @@
     "metrics": [
       {
         "name": "Intervention rate",
-        "unit": "%"
+        "unit": "%",
+        "currentValue": {
+          "min": 0.5,
+          "typical": 1,
+          "max": 4
+        },
+        "targetValue": 1,
+        "description": "Proxy benchmark for manual exception handling, based on adjacent pick accuracy, barcode no-read diversion, in-size sortability, and uptime claims."
       }
-    ]
+    ],
+    "evidenceIds": [
+      "ev_field_case_placeholder",
+      "ev_perf_wayzim_robotic_parcel_infeed_2026",
+      "ev_perf_mesh_xinduct_2026",
+      "ev_perf_ambisort_a_series_spec"
+    ],
+    "tags": [
+      "operations",
+      "performance_benchmark",
+      "proxy_metric"
+    ],
+    "notes": "Manual intervention remains one of the weakest public-data areas. Human review should replace this proxy with shift-level exception logs from a real deployment.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "installation_time",
@@ -1790,12 +1983,26 @@
     "metrics": [
       {
         "name": "Install time",
-        "unit": "days"
+        "unit": "days",
+        "currentValue": {
+          "min": 1,
+          "typical": 5,
+          "max": 7
+        },
+        "targetValue": 7,
+        "description": "Adjacent deployment benchmark for a pre-engineered robotic parcel station, not a guaranteed installation duration for every conveyor/WCS site."
       }
     ],
+    "evidenceIds": [
+      "ev_perf_robominds_titan_2026",
+      "ev_perf_abb_robotic_parcel_inductor_2026"
+    ],
     "tags": [
-      "deployment"
-    ]
+      "deployment",
+      "performance_benchmark"
+    ],
+    "notes": "Install time depends heavily on brownfield conveyor geometry, guarding, WCS integration, compressed air, electrical work, and acceptance testing.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "maintenance_cost",
@@ -1814,13 +2021,32 @@
         "name": "Maintenance cost",
         "unit": "RMB/year",
         "currency": "RMB",
-        "costAsOf": "2025"
+        "currentValue": {
+          "min": 12000,
+          "typical": 24000,
+          "max": 45000
+        },
+        "targetValue": 18000,
+        "costAsOf": "2025",
+        "description": "Low-confidence proxy derived from 4-15% annual maintenance rules for industrial robots and adjacent equipment applied to the 300,000 RMB replacement value; p50 uses roughly 8%."
       }
     ],
     "tags": [
       "cost",
-      "maintenance"
-    ]
+      "maintenance",
+      "cost_research",
+      "proxy_metric"
+    ],
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_maintenance_robot_annual_cost_benchmark_2026",
+      "ev_maintenance_robot_cost_range_rcc_2026",
+      "ev_maintenance_abb_robotics_service_2026",
+      "ev_maintenance_fanuc_pm_checklist_2023",
+      "ev_maintenance_conveyor_cost_factors_2026"
+    ],
+    "notes": "Unreviewed annual run-rate estimate for the 300,000 RMB parcel sorting cell. Includes preventive robot PM, suction-cup and EOAT wear, conveyor and sensor maintenance, calibration, and internal or contractor labor. Excludes downtime opportunity cost, major overhauls, and WCS subscription/support unless separately quoted. Replace with site maintenance logs, integrator quotes, and spare-part consumption data when available.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "payback_period",
@@ -1837,13 +2063,27 @@
     "metrics": [
       {
         "name": "Payback",
-        "unit": "months"
+        "unit": "months",
+        "currentValue": {
+          "min": 24,
+          "typical": 36,
+          "max": 48
+        },
+        "targetValue": 24,
+        "description": "Generic parcel-sortation automation ROI benchmark. Treat as a conservative reference point; the 300,000 RMB robotic cell needs a site-specific labor, volume, uptime, and maintenance model."
       }
+    ],
+    "evidenceIds": [
+      "ev_cost_model_placeholder",
+      "ev_perf_flostor_parcel_sortation_roi_2026"
     ],
     "tags": [
       "cost",
-      "roi"
-    ]
+      "roi",
+      "performance_benchmark"
+    ],
+    "notes": "FloStor's ROI benchmark is for broader parcel sortation automation and often higher-CAPEX systems. The v0 product may pay back faster or slower depending on wage level, parcel volume, shift count, exception rate, and maintenance cost.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "real_time_machine_vision",
@@ -1857,11 +2097,36 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
     "maturityHistory": [
-      { "asOf": "2018-01", "score": 15, "label": "hypothesis", "source": "ralph_iter34_stub" },
-      { "asOf": "2020-06", "score": 35, "label": "lab_proven", "source": "ralph_iter34_stub" },
-      { "asOf": "2022-06", "score": 55, "label": "prototype", "source": "ralph_iter34_stub" },
-      { "asOf": "2024-01", "score": 65, "label": "early_deployment", "source": "ralph_iter34_stub" },
-      { "asOf": "2026-04", "score": 78, "label": "commercially_available", "source": "ralph_iter34_stub" }
+      {
+        "asOf": "2018-01",
+        "score": 15,
+        "label": "hypothesis",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2020-06",
+        "score": 35,
+        "label": "lab_proven",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2022-06",
+        "score": 55,
+        "label": "prototype",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2024-01",
+        "score": 65,
+        "label": "early_deployment",
+        "source": "ralph_iter34_stub"
+      },
+      {
+        "asOf": "2026-04",
+        "score": 78,
+        "label": "commercially_available",
+        "source": "ralph_iter34_stub"
+      }
     ],
     "confidence": "medium",
     "reviewStatus": "unreviewed",
@@ -2306,19 +2571,49 @@
     "reviewStatus": "unreviewed",
     "notes": "Created per ADR-0004 step 5 (route retirement). Stays out of active graph scope: there is no inbound edge from any node reachable from low_cost_parcel_sorting_robot_300k_rmb, only outbound edges from this Product to shared modules and to the Capability.",
     "frontierFor": [
-      "low_cost_high_reliability_parcel_manipulation"
+      "affordable_small_warehouse_automation"
+    ]
+  },
+  {
+    "id": "mechanical_gripper_end_effector_module",
+    "name": "Mechanical gripper end-effector module",
+    "kind": "module",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
+    "description": "Deferred placeholder module for the gripper sibling Product. It represents a mechanical finger or clamp end-effector branch and is intentionally not expanded inside the active vacuum-suction v0 product.",
+    "maturityLabel": "unknown",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "tags": [
+      "end_effector",
+      "hardware",
+      "robot_arm",
+      "decomposition_frontier"
+    ],
+    "notes": "Created to keep the gripper sibling Product boundary separate from the active suction product. Expand only after the user clarifies the gripper architecture, target parcels, contact mechanics, cost target, and whether hybrid gripper+suction variants should remain separate.",
+    "frontierFor": [
+      "parcel_sorting_robot_with_gripper_300k_rmb"
     ]
   },
   {
     "id": "industrial_robot_arm_body_cost",
     "name": "Industrial robot arm body cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
     "description": "Installed-component cost contribution of the bare 6-axis robot arm body (joints, links, reducers, servo motors, controller interfaces) to the v0 parcel-sorting cell. Mid-tier 2025-China industrial pricing for arms in the 5-10 kg payload, sub-1 m reach class.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 35000, "typical": 60000, "max": 95000 },
+        "currentValue": {
+          "min": 35000,
+          "typical": 60000,
+          "max": 95000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2329,19 +2624,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China industrial estimate based on common vendor catalog ranges (e.g. Inovance, Estun, Han's Robot mid-tier vs. import equivalents). Marked unreviewed for human verification per ADR-0001.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "precision_reducer_gearbox_cost",
     "name": "Precision reducer gearbox cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "precision_reducer"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
     "description": "Allocated cost contribution of robot joint precision reducers inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 14000, "typical": 26000, "max": 45000 },
+        "currentValue": {
+          "min": 14000,
+          "typical": 26000,
+          "max": 45000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2352,19 +2661,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill: the 60,000 RMB robot-arm bundle was high-cost in the graph, but none of its direct children carried cost. This allocates the largest expected cost driver to precision reducers so cost-mode colour has an explanatory child source.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "reducer_lubrication_and_life_test_cost",
     "name": "Reducer lubrication and life testing cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "precision_reducer"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "precision_reducer"
+    ],
     "description": "Allocated cost contribution of reducer endurance testing, lubrication qualification, backlash verification, and acceptance testing inside the precision-reducer cost.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 12000, "typical": 26000, "max": 42000 },
+        "currentValue": {
+          "min": 12000,
+          "typical": 26000,
+          "max": 42000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2375,19 +2698,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill: precision-reducer cost should be explained by an immature lower-layer cost driver. This allocates the high-cost reducer bottleneck to life-test and qualification capability rather than raw alloy steel.",
-    "evidenceIds": ["ev_harmonic_drive_reducer_components"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "industrial_servo_motor_cost",
     "name": "Industrial servo motor cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "industrial_servo_motor"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "industrial_servo_motor"
+    ],
     "description": "Allocated cost contribution of servo motors inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 7000, "typical": 12000, "max": 24000 },
+        "currentValue": {
+          "min": 7000,
+          "typical": 12000,
+          "max": 24000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2398,19 +2735,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "servo_drive_controller_cost",
     "name": "Servo drive controller cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "servo_drive"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_drive"
+    ],
     "description": "Allocated cost contribution of servo-drive electronics and control hardware inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 5000, "typical": 8000, "max": 16000 },
+        "currentValue": {
+          "min": 5000,
+          "typical": 8000,
+          "max": 16000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2421,19 +2772,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "arm_links_and_joints_cost",
     "name": "Arm links and joints cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm"
+    ],
     "description": "Allocated cost contribution of robot arm links, joint housings, and mechanical joint hardware inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 3500, "typical": 6000, "max": 12000 },
+        "currentValue": {
+          "min": 3500,
+          "typical": 6000,
+          "max": 12000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2444,19 +2808,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "robot_controller_io_cost",
     "name": "Robot controller I/O cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "controls"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "controls"
+    ],
     "description": "Allocated cost contribution of robot controller I/O boards and interface hardware inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 2500, "typical": 4000, "max": 9000 },
+        "currentValue": {
+          "min": 2500,
+          "typical": 4000,
+          "max": 9000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2467,19 +2845,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "robot_cabling_and_power_cost",
     "name": "Robot cabling and power cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "electrical"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "electrical"
+    ],
     "description": "Allocated cost contribution of robot cabling, connectors, and internal power distribution inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 1800, "typical": 3000, "max": 7000 },
+        "currentValue": {
+          "min": 1800,
+          "typical": 3000,
+          "max": 7000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2490,19 +2882,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "robot_base_mounting_structure_cost",
     "name": "Robot base mounting structure cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "mechanical_structure"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "mechanical_structure"
+    ],
     "description": "Allocated cost contribution of the robot base and mounting structure inside the bare robot arm body bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 2500, "typical": 4000, "max": 9000 },
+        "currentValue": {
+          "min": 2500,
+          "typical": 4000,
+          "max": 9000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2513,19 +2919,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the robot-arm bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_industrial_robot_arm_body_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_industrial_robot_arm_body_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "end_effector_gripper_or_suction_cost",
     "name": "End effector module cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "industrial_robot_arm", "end_effector"],
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
     "description": "Installed-component cost contribution of the vacuum suction end-of-arm tooling module (cup array, ejector or pump, valves, pressure sensing) to the v0 parcel-sorting cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 5000, "typical": 10000, "max": 18000 },
+        "currentValue": {
+          "min": 5000,
+          "typical": 10000,
+          "max": 18000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2536,19 +2956,31 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China industrial estimate. Pricing the end-effector as a bundled module intercepts recursion through cup-array / ejector / valves / pressure-sensing leaves. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_end_effector_gripper_or_suction_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_end_effector_gripper_or_suction_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "parcel_manipulation_or_diverter_cost",
     "name": "Parcel manipulation subsystem integration cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot"],
+    "domain": [
+      "parcel_sorting_robot"
+    ],
     "description": "Integration-only cost premium for the manipulation subsystem (cabling, brackets, sequencing/calibration) above the per-component cost of arm body, end-effector, and motion planning that the rollup walker counts via the product-level requires edges.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 2000, "typical": 4000, "max": 8000 },
+        "currentValue": {
+          "min": 2000,
+          "typical": 4000,
+          "max": 8000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2559,19 +2991,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Integration cost premium for the manipulation module — wiring, calibration, fixturing on top of the bare arm + end-effector + planning subsystems. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_parcel_manipulation_or_diverter_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_parcel_manipulation_or_diverter_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "industrial_area_scan_camera_cost",
     "name": "Industrial area-scan camera cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
     "description": "Installed-component cost contribution of an industrial global-shutter area-scan camera (mid-resolution, GigE/USB3) plus IO and mounting, in the v0 parcel-sorting cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 9000, "typical": 17000, "max": 30000 },
+        "currentValue": {
+          "min": 9000,
+          "typical": 17000,
+          "max": 30000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2582,19 +3027,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China industrial estimate. Reflects Hikrobot / Daheng / Basler-equivalent ranges suitable for parcel-label imaging at conveyor speed. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_industrial_area_scan_camera_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_industrial_area_scan_camera_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "machine_vision_lens_and_optics_cost",
     "name": "Machine vision lens and optics cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
     "description": "Installed-component cost contribution of the C-mount industrial lens and optics needed to focus parcel labels onto the camera sensor.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 1500, "typical": 3000, "max": 6000 },
+        "currentValue": {
+          "min": 1500,
+          "typical": 3000,
+          "max": 6000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2605,19 +3063,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025 estimate covering standard fixed-focal-length C-mount lenses. High-end metrology lenses can be much more expensive; this range is utility imaging only. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_machine_vision_lens_and_optics_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_machine_vision_lens_and_optics_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "controlled_machine_vision_lighting_cost",
     "name": "Controlled machine-vision lighting cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
     "description": "Installed-component cost contribution of an industrial LED lighting fixture (bar / ring / dome) plus controller, sized for parcel-label illumination on one cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 1500, "typical": 3000, "max": 5000 },
+        "currentValue": {
+          "min": 1500,
+          "typical": 3000,
+          "max": 5000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2628,19 +3099,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China estimate per fixture. Multi-fixture deployments and strobed controllers can push higher. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_controlled_machine_vision_lighting_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_controlled_machine_vision_lighting_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "vision_processing_compute_cost",
     "name": "Vision processing compute cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "machine_vision"],
+    "domain": [
+      "parcel_sorting_robot",
+      "machine_vision"
+    ],
     "description": "Installed-component cost contribution of a fanless industrial PC with mid-tier GPU/accelerator, suitable for real-time barcode/OCR plus light detection inference at conveyor speed.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 9000, "typical": 16000, "max": 24000 },
+        "currentValue": {
+          "min": 9000,
+          "typical": 16000,
+          "max": 24000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2651,19 +3135,31 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China estimate. Smart-camera embedded options sit at the lower end; high-end perception stacks land well above this range. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_vision_processing_compute_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_vision_processing_compute_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "conveyor_integration_cost",
     "name": "Conveyor integration hardware cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot"],
+    "domain": [
+      "parcel_sorting_robot"
+    ],
     "description": "Installed-component cost contribution of the conveyor section, photoelectric sensors, speed encoder, PLC, and chutes/lanes hardware integrated into one sorting cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 30000, "typical": 55000, "max": 85000 },
+        "currentValue": {
+          "min": 30000,
+          "typical": 55000,
+          "max": 85000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2674,19 +3170,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China estimate scoped to a single small sorting cell. Conveyor cost scales strongly with length, lane count, and chute geometry. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "plc_and_wcs_integration_cost",
     "name": "PLC and WCS integration cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "conveyor_integration", "controls"],
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "controls"
+    ],
     "description": "Allocated cost contribution of PLC hardware, WCS interface work, commissioning, and control cabinet integration inside the conveyor-integration bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 12000, "typical": 26000, "max": 42000 },
+        "currentValue": {
+          "min": 12000,
+          "typical": 26000,
+          "max": 42000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2697,19 +3207,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill: the 55,000 RMB conveyor-integration bundle was high-cost in the graph, but none of its direct children carried cost. This allocates the largest expected cost driver to PLC/WCS integration so cost-mode colour has an explanatory child source.",
-    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "plc_wcs_sorting_handshake_and_fault_recovery_cost",
     "name": "PLC/WCS sorting handshake and fault recovery cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "conveyor_integration", "software"],
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "software"
+    ],
     "description": "Allocated cost contribution of PLC/WCS handshake implementation, exception handling, commissioning, logging, and restart-recovery work inside the PLC/WCS integration cost.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 12000, "typical": 26000, "max": 42000 },
+        "currentValue": {
+          "min": 12000,
+          "typical": 26000,
+          "max": 42000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2720,19 +3244,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill: PLC/WCS integration was high-cost, but the cost driver was not visible one layer down. This allocates the high-cost portion to handshake/fault-recovery integration work rather than semiconductor availability.",
-    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "sortation_chutes_and_bins_cost",
     "name": "Sortation chutes and bins cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "conveyor_integration", "mechanical_structure"],
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "mechanical_structure"
+    ],
     "description": "Allocated cost contribution of chutes, bins, guide plates, and lane hardware inside the conveyor-integration bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 10000, "typical": 18000, "max": 30000 },
+        "currentValue": {
+          "min": 10000,
+          "typical": 18000,
+          "max": 30000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2743,19 +3281,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "conveyor_speed_encoder_tracking_cost",
     "name": "Conveyor speed encoder tracking cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "conveyor_integration", "sensing"],
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "sensing"
+    ],
     "description": "Allocated cost contribution of speed encoder hardware, mounts, wiring, and tracking integration inside the conveyor-integration bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 2500, "typical": 4000, "max": 9000 },
+        "currentValue": {
+          "min": 2500,
+          "typical": 4000,
+          "max": 9000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2766,19 +3318,33 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "conveyor_photoelectric_sensors_cost",
     "name": "Conveyor photoelectric sensors cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "conveyor_integration", "sensing"],
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "sensing"
+    ],
     "description": "Allocated cost contribution of photoelectric sensors, brackets, wiring, and sensor integration inside the conveyor-integration bundle.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 1800, "typical": 3000, "max": 7000 },
+        "currentValue": {
+          "min": 1800,
+          "typical": 3000,
+          "max": 7000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2789,19 +3355,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Consistency backfill allocation from the conveyor-integration bundle estimate; unreviewed until replaced with supplier or teardown evidence.",
-    "evidenceIds": ["ev_conveyor_integration_cost_2025"],
-    "tags": ["cost", "cost_research", "consistency_backfill"]
+    "evidenceIds": [
+      "ev_conveyor_integration_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ]
   },
   {
     "id": "safety_system_cost",
     "name": "Safety system cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "safety"],
+    "domain": [
+      "parcel_sorting_robot",
+      "safety"
+    ],
     "description": "Installed-component cost contribution of perimeter guarding, light curtains, e-stop circuitry, safety relays/PLC, and interlocked-door hardware for one cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 6000, "typical": 12000, "max": 22000 },
+        "currentValue": {
+          "min": 6000,
+          "typical": 12000,
+          "max": 22000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2812,19 +3391,31 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China estimate. Safety scope varies by site standard and risk-assessment outcome. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_safety_system_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_safety_system_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "mechanical_structure_cost",
     "name": "Mechanical structure cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot"],
+    "domain": [
+      "parcel_sorting_robot"
+    ],
     "description": "Installed-component cost contribution of the cell frame, robot pedestal, electrical cabinet enclosure, cable trays, and structural sheet-metal/extrusion parts outside the conveyor and arm proper.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 8000, "typical": 18000, "max": 30000 },
+        "currentValue": {
+          "min": 8000,
+          "typical": 18000,
+          "max": 30000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2835,19 +3426,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China estimate. Custom mechanical work (specialty frame, tooling) can push cost higher. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_mechanical_structure_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_mechanical_structure_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "sorting_decision_system_cost",
     "name": "Sorting decision system cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "software"],
+    "domain": [
+      "parcel_sorting_robot",
+      "software"
+    ],
     "description": "Allocated cost contribution of the sorting decision software (rule engine, destination mapping, WCS interface, basic dashboard) per cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 6000, "typical": 12000, "max": 22000 },
+        "currentValue": {
+          "min": 6000,
+          "typical": 12000,
+          "max": 22000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2858,19 +3462,31 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025 estimate per cell. Either a vendor license fee or an internal-build allocation amortized to one cell. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_sorting_decision_system_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_sorting_decision_system_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "motion_planning_cost",
     "name": "Motion planning software cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot"],
+    "domain": [
+      "parcel_sorting_robot"
+    ],
     "description": "Allocated cost contribution of motion-planning software per cell — slice of an in-house planner or vendor pick-and-place library, amortized to a single sorting cell.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 4000, "typical": 8000, "max": 15000 },
+        "currentValue": {
+          "min": 4000,
+          "typical": 8000,
+          "max": 15000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2881,19 +3497,31 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025 amortized per-cell estimate. R&D for novel planners is not captured here. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_motion_planning_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_motion_planning_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "parcel_detection_and_tracking_cost",
     "name": "Parcel detection and tracking cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot"],
+    "domain": [
+      "parcel_sorting_robot"
+    ],
     "description": "Allocated cost contribution of parcel detection-and-tracking software components (detection model integration, parcel pose tracker, conveyor-coordinate pipeline) per cell. Compute hardware is separately costed under vision_processing_compute.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 5000, "typical": 10000, "max": 18000 },
+        "currentValue": {
+          "min": 5000,
+          "typical": 10000,
+          "max": 18000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2904,19 +3532,32 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025 allocated estimate per cell. Proprietary model training and labelling cost not allocated here. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_parcel_detection_and_tracking_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_parcel_detection_and_tracking_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
   },
   {
     "id": "maintenance_workflow_cost",
     "name": "Maintenance workflow first-year spares and tooling cost",
     "kind": "metric",
-    "domain": ["parcel_sorting_robot", "maintenance"],
+    "domain": [
+      "parcel_sorting_robot",
+      "maintenance"
+    ],
     "description": "Cost contribution of the initial spares kit, basic maintenance tooling, and operator training materials shipped with one cell. Recurring annual maintenance is tracked separately under the maintenance_cost metric.",
     "metrics": [
       {
         "name": "Cost",
-        "currentValue": { "min": 2000, "typical": 5000, "max": 10000 },
+        "currentValue": {
+          "min": 2000,
+          "typical": 5000,
+          "max": 10000
+        },
         "unit": "RMB",
         "currency": "RMB",
         "costAsOf": "2025"
@@ -2927,7 +3568,1302 @@
     "confidence": "low",
     "reviewStatus": "unreviewed",
     "notes": "Rough 2025-China estimate for initial spares plus operator tooling. Annual recurring maintenance lives on the maintenance_cost metric. Marked unreviewed for human verification.",
-    "evidenceIds": ["ev_maintenance_workflow_cost_2025"],
-    "tags": ["cost", "cost_research", "ralph_iter18"]
+    "evidenceIds": [
+      "ev_maintenance_workflow_cost_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "ralph_iter18"
+    ]
+  },
+  {
+    "id": "org_fanuc",
+    "name": "FANUC",
+    "kind": "organization",
+    "domain": [
+      "industrial_robot_arm",
+      "robotics",
+      "investable_supplier"
+    ],
+    "description": "Japanese industrial robot and factory automation supplier relevant to robot-arm bodies for parcel-sorting cells.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "China industrial robot sales share",
+        "unit": "%",
+        "currentValue": 10.3,
+        "description": "2024H1 China industrial robot sales share, cited by Inovance's 2024 interim report from MIR DATABANK; sales-share basis, not revenue share."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6954.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_mfg_ifr_world_robotics_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "robot_arm",
+      "public_company"
+    ],
+    "notes": "Investor relevance: robot-body supplier; benefit depends on whether low-cost cells use standard industrial arms or locally integrated robot arms.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_estun",
+    "name": "Estun Automation",
+    "kind": "organization",
+    "domain": [
+      "industrial_robot_arm",
+      "robotics",
+      "investable_supplier"
+    ],
+    "description": "Chinese industrial robot and motion-control supplier relevant to domestic low-cost robot arm procurement.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "China industrial robot sales share",
+        "unit": "%",
+        "currentValue": 9.1,
+        "description": "2024H1 China industrial robot sales share, cited by Inovance's 2024 interim report from MIR DATABANK; sales-share basis, not revenue share."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "002747.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "robot_arm",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: domestic robot-arm supplier in the same cost-sensitive China market as the target product.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_inovance",
+    "name": "Inovance Technology",
+    "kind": "organization",
+    "domain": [
+      "servo_drive",
+      "industrial_robot_arm",
+      "plc",
+      "investable_supplier"
+    ],
+    "description": "Chinese industrial automation supplier covering servo systems, PLC/HMI, industrial robots, and automation components.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "China general servo market share",
+        "unit": "%",
+        "currentValue": 27.6,
+        "description": "2024H1 China general servo market share, cited by Inovance's 2024 interim report from Rui Industry; product-share basis."
+      },
+      {
+        "name": "China industrial robot sales share",
+        "unit": "%",
+        "currentValue": 9,
+        "description": "2024H1 China industrial robot sales share, cited by Inovance's 2024 interim report from MIR DATABANK."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "300124.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "servo",
+      "robot_arm",
+      "plc",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: vertically exposed to servo, control, and industrial robot subsystems; the same report also cites 26.3% China SCARA share, which is useful context but not the target six-axis parcel-cell architecture by itself.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_abb_robotics",
+    "name": "ABB Robotics",
+    "kind": "organization",
+    "domain": [
+      "industrial_robot_arm",
+      "parcel_sorting_robot",
+      "machine_vision",
+      "investable_supplier"
+    ],
+    "description": "Industrial robotics supplier with a Robotic Parcel Inductor reference module using robot options, gripper, and AI vision.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Reference parcel-inductor peak throughput",
+        "unit": "picks/hour",
+        "currentValue": 1500,
+        "description": "ABB product page peak-rate claim for Robotic Parcel Inductor; vendor claim and not a 300,000 RMB low-cost target."
+      },
+      {
+        "name": "Reference picking accuracy",
+        "unit": "%",
+        "currentValue": 99.5,
+        "description": "ABB product page states greater than 99.5% picking accuracy for the reference module; vendor claim."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "ABB / ABBN.SW; signed sale of Robotics division to SoftBank expected around mid-2026"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026",
+      "ev_mfg_ifr_world_robotics_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "robot_arm",
+      "parcel_induction",
+      "public_company"
+    ],
+    "notes": "Investor relevance: closest public reference for an industrial robot-arm parcel-induction module, but its positioning is higher-end than the 300,000 RMB target.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_yaskawa",
+    "name": "Yaskawa Electric",
+    "kind": "organization",
+    "domain": [
+      "industrial_robot_arm",
+      "servo_drive",
+      "investable_supplier"
+    ],
+    "description": "Japanese supplier of MOTOMAN industrial robots and servo/motion-control systems.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "China general servo market share",
+        "unit": "%",
+        "currentValue": 7.2,
+        "description": "2024H1 China general servo market share, cited by Inovance's 2024 interim report from Rui Industry; product-share basis."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6506.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "servo",
+      "robot_arm",
+      "public_company"
+    ],
+    "notes": "Investor relevance: exposed to both robot arms and servo systems; exact share in parcel-sorting cells is not established.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_siemens",
+    "name": "Siemens",
+    "kind": "organization",
+    "domain": [
+      "plc",
+      "servo_drive",
+      "industrial_control",
+      "investable_supplier"
+    ],
+    "description": "Automation supplier for PLC, industrial control, and motion-control systems used in conveyor, robot, and warehouse-control integration.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "China general servo market share",
+        "unit": "%",
+        "currentValue": 11.1,
+        "description": "2024H1 China general servo market share, cited by Inovance's 2024 interim report from Rui Industry."
+      },
+      {
+        "name": "China small PLC share",
+        "unit": "%",
+        "currentValue": 39.3,
+        "description": "2024H1 China small PLC share, cited by Inovance's 2024 interim report; small-PLC basis, not WCS software share."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "SIE.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_mfg_siemens_simatic_plc"
+    ],
+    "tags": [
+      "manufacturer",
+      "servo",
+      "plc",
+      "public_company"
+    ],
+    "notes": "Investor relevance: PLC and motion-control exposure; the low-cost China target may substitute domestic controls where price pressure dominates.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_mitsubishi_electric",
+    "name": "Mitsubishi Electric",
+    "kind": "organization",
+    "domain": [
+      "plc",
+      "servo_drive",
+      "industrial_control",
+      "investable_supplier"
+    ],
+    "description": "Japanese automation supplier for MELSEC PLCs, MELSERVO servo systems, and factory automation components.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6503.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "tags": [
+      "manufacturer",
+      "servo",
+      "plc",
+      "public_company"
+    ],
+    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_rockwell_automation",
+    "name": "Rockwell Automation",
+    "kind": "organization",
+    "domain": [
+      "plc",
+      "safety_system",
+      "industrial_control",
+      "investable_supplier"
+    ],
+    "description": "Industrial automation supplier with Allen-Bradley controllers, GuardLogix safety controllers, safety I/O, and FactoryTalk integration.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ROK"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_rockwell_controllers_safety"
+    ],
+    "tags": [
+      "manufacturer",
+      "plc",
+      "safety",
+      "public_company"
+    ],
+    "notes": "Investor relevance: strong North American automation exposure; less direct for a China-first 300,000 RMB target but important for global logistics automation.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_schneider_electric",
+    "name": "Schneider Electric",
+    "kind": "organization",
+    "domain": [
+      "plc",
+      "industrial_control",
+      "investable_supplier"
+    ],
+    "description": "Industrial automation and electrical supplier with Modicon PLC/PAC and EcoStruxure automation ecosystem.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "SU.PA"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_schneider_modicon_plc"
+    ],
+    "tags": [
+      "manufacturer",
+      "plc",
+      "public_company"
+    ],
+    "notes": "Investor relevance: PLC/electrical-control exposure; exact parcel-cell adoption share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_nabtesco",
+    "name": "Nabtesco",
+    "kind": "organization",
+    "domain": [
+      "precision_reducer",
+      "industrial_robot_arm",
+      "investable_supplier"
+    ],
+    "description": "Japanese precision reducer supplier whose RV reduction gears are used in industrial robot joints.",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global robot-joint precision reducer share",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "Company page states approximately 60% global market share for precision reduction gears for industrial robot joints; company-claimed share."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6268.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_nabtesco_precision_reducer_60_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_reducer",
+      "public_company"
+    ],
+    "notes": "Investor relevance: reducer cost/life is a bottleneck-like cost and reliability lever for robot arms; company-claimed share still requires review.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_harmonic_drive_systems",
+    "name": "Harmonic Drive Systems",
+    "kind": "organization",
+    "domain": [
+      "precision_reducer",
+      "industrial_robot_arm",
+      "investable_supplier"
+    ],
+    "description": "Japanese supplier associated with strain-wave gearing and compact precision reducers.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6324.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_harmonic_drive_reducer_components"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_reducer",
+      "public_company"
+    ],
+    "notes": "Investor relevance: exposed to compact robot-joint reducers; current candidate omits a numeric share because public share estimates conflict by region and reducer type.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_leaderdrive",
+    "name": "Leaderdrive",
+    "kind": "organization",
+    "domain": [
+      "precision_reducer",
+      "industrial_robot_arm",
+      "investable_supplier"
+    ],
+    "description": "Chinese strain-wave reducer supplier relevant to domestic replacement and low-cost robot-arm designs.",
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "688017.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_leaderdrive_harmonic_reducer_2024"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_reducer",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: domestic harmonic reducer exposure; share data needs a cleaner source before numeric market share should be displayed.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_shuanghuan_transmission",
+    "name": "Shuanghuan Transmission",
+    "kind": "organization",
+    "domain": [
+      "precision_reducer",
+      "industrial_robot_arm",
+      "investable_supplier"
+    ],
+    "description": "Chinese precision transmission and reducer supplier; associated subsidiary Huandong Technology is cited in industry summaries for RV reducers.",
+    "confidence": "low",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "002472.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_china_reducer_share_low_confidence"
+    ],
+    "tags": [
+      "manufacturer",
+      "precision_reducer",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: domestic RV reducer supplier; numeric China RV reducer share is weak-source and should be researched further before promotion.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_hikrobot",
+    "name": "Hikrobot",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "barcode",
+      "investable_supplier"
+    ],
+    "description": "Chinese machine-vision supplier under Hikvision, covering industrial cameras, smart code readers, 3D cameras, and vision software.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "China industrial camera shipment share",
+        "unit": "%",
+        "currentValue": 35.14,
+        "description": "2021 China industrial camera shipment share disclosed in Hikrobot IPO reply materials citing GGII; shipment basis and older than the 2026 graph date."
+      },
+      {
+        "name": "Public listing exposure",
+        "currentValue": "Hikvision 002415.SZ subsidiary"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_hikrobot_ipo_machine_vision_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "barcode",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: direct exposure to camera and code-reading components; market-share data is product-specific and older.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_keyence",
+    "name": "KEYENCE",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "barcode",
+      "safety_system",
+      "investable_supplier"
+    ],
+    "description": "Japanese supplier of machine vision, code readers, sensors, light curtains, and safety scanners.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6861.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "barcode",
+      "safety",
+      "public_company"
+    ],
+    "notes": "Investor relevance: spans perception and safety; numeric share estimates are weak-source and omitted in this candidate.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_cognex",
+    "name": "Cognex",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "barcode",
+      "investable_supplier"
+    ],
+    "description": "Machine-vision and industrial barcode-reading supplier relevant to parcel identification and label/OCR workflows.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "CGNX"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "barcode",
+      "public_company"
+    ],
+    "notes": "Investor relevance: direct exposure to smart cameras and code readers; exact parcel-cell share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_basler",
+    "name": "Basler",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "industrial_camera",
+      "investable_supplier"
+    ],
+    "description": "Industrial camera and machine-vision component supplier relevant to area-scan camera choices.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "BSL.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_basler_industrial_cameras"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "industrial_camera",
+      "public_company"
+    ],
+    "notes": "Investor relevance: camera-component exposure; share values not included until source quality improves.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_opt_machine_vision",
+    "name": "OPT Machine Vision",
+    "kind": "organization",
+    "domain": [
+      "machine_vision",
+      "lighting",
+      "investable_supplier"
+    ],
+    "description": "Chinese machine-vision component supplier, especially relevant to vision lighting, optics, and integrated vision components.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "688686.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_opt_machine_vision_components"
+    ],
+    "tags": [
+      "manufacturer",
+      "machine_vision",
+      "lighting",
+      "china_supplier",
+      "public_company"
+    ],
+    "notes": "Investor relevance: controlled lighting is a bottleneck-like parcel perception driver; exact parcel logistics share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_smc",
+    "name": "SMC",
+    "kind": "organization",
+    "domain": [
+      "vacuum",
+      "pneumatic",
+      "end_effector",
+      "investable_supplier"
+    ],
+    "description": "Japanese pneumatic and vacuum automation supplier with vacuum pads, vacuum generators, valves, and sensors.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6273.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_pads"
+    ],
+    "tags": [
+      "manufacturer",
+      "vacuum",
+      "pneumatic",
+      "public_company"
+    ],
+    "notes": "Investor relevance: vacuum pads/ejectors are recurring wear and reliability components for suction-based parcel handling.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_schmalz",
+    "name": "Schmalz",
+    "kind": "organization",
+    "domain": [
+      "vacuum",
+      "end_effector"
+    ],
+    "description": "German vacuum automation supplier with vacuum end effectors and area gripping systems.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_schmalz_vacuum_end_effectors"
+    ],
+    "tags": [
+      "manufacturer",
+      "vacuum",
+      "end_effector",
+      "private_company"
+    ],
+    "notes": "Investor relevance: not directly public, but important as a benchmark supplier for EOAT reliability and component design.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_piab",
+    "name": "Piab",
+    "kind": "organization",
+    "domain": [
+      "vacuum",
+      "end_effector"
+    ],
+    "description": "Vacuum automation supplier for suction cups, vacuum pumps/ejectors, and soft gripping components.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_piab_suction_cups_soft_grippers"
+    ],
+    "tags": [
+      "manufacturer",
+      "vacuum",
+      "end_effector",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private benchmark supplier for suction-cup and vacuum technology.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_festo",
+    "name": "Festo",
+    "kind": "organization",
+    "domain": [
+      "vacuum",
+      "pneumatic",
+      "end_effector"
+    ],
+    "description": "German automation supplier with pneumatic and vacuum gripper/end-of-arm tooling products.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_festo_end_of_arm_tooling"
+    ],
+    "tags": [
+      "manufacturer",
+      "vacuum",
+      "pneumatic",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private supplier; useful for technical benchmarking rather than direct public equity exposure.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_onrobot",
+    "name": "OnRobot",
+    "kind": "organization",
+    "domain": [
+      "vacuum",
+      "end_effector",
+      "collaborative_robot"
+    ],
+    "description": "End-of-arm tooling supplier with electric vacuum grippers used for boxes, porous surfaces, and collaborative robot cells.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_onrobot_vacuum_grippers"
+    ],
+    "tags": [
+      "manufacturer",
+      "vacuum",
+      "end_effector",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private supplier but useful benchmark for low-deployment-cost EOAT.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_wayzim",
+    "name": "Wayzim",
+    "kind": "organization",
+    "domain": [
+      "parcel_sorting_robot",
+      "conveyor_integration",
+      "machine_vision",
+      "investable_supplier"
+    ],
+    "description": "Chinese intelligent logistics equipment supplier with cross-belt sorters, automated robotic parcel infeed, and vision systems.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Cross-belt sorter rated throughput",
+        "unit": "parcels/hour",
+        "currentValue": 45000,
+        "description": "Wayzim product-page claim for its cross-belt sorter; vendor claim for adjacent large sortation equipment, not the single-arm low-cost cell."
+      },
+      {
+        "name": "Cross-belt sorter claimed sorting accuracy",
+        "unit": "%",
+        "currentValue": 99.99,
+        "description": "Wayzim product-page claim for its cross-belt sorter; vendor claim."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "688211.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_wayzim_crossbelt_sorter_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "parcel_induction",
+      "conveyor",
+      "machine_vision",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: one of the closest listed China suppliers for robotic parcel infeed plus conveyor sortation; price point and delivered unit economics still need field evidence.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_dematic_kion",
+    "name": "Dematic / KION",
+    "kind": "organization",
+    "domain": [
+      "conveyor_integration",
+      "warehouse_software",
+      "investable_supplier"
+    ],
+    "description": "Warehouse automation and sortation supplier under KION, covering sorters, conveyors, robotics, controls, and software.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing exposure",
+        "currentValue": "KION Group KGX.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "tags": [
+      "manufacturer",
+      "conveyor",
+      "wcs",
+      "public_company"
+    ],
+    "notes": "Investor relevance: downstream and integration exposure; usually larger-system supplier rather than low-cost single-cell component vendor.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_vanderlande_toyota",
+    "name": "Vanderlande / Toyota Industries",
+    "kind": "organization",
+    "domain": [
+      "conveyor_integration",
+      "parcel_sortation",
+      "investable_supplier"
+    ],
+    "description": "Parcel, warehouse, and airport automation supplier owned by Toyota Industries, with parcel sorting systems such as CROSSORTER and POSISORTER.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing exposure",
+        "currentValue": "Toyota Industries 6201.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_vanderlande_parcel_sorting"
+    ],
+    "tags": [
+      "manufacturer",
+      "parcel_sortation",
+      "conveyor",
+      "public_company"
+    ],
+    "notes": "Investor relevance: large sortation-system exposure; adjacent to the target cell rather than proof of a 300,000 RMB robot product.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_interroll",
+    "name": "Interroll",
+    "kind": "organization",
+    "domain": [
+      "conveyor_integration",
+      "parcel_sortation",
+      "investable_supplier"
+    ],
+    "description": "Swiss supplier of rollers, drum motors, modular conveyors, sorters, and related unit-handling platforms.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "INRN.SW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_interroll_sorter_platform"
+    ],
+    "tags": [
+      "manufacturer",
+      "conveyor",
+      "sorter",
+      "public_company"
+    ],
+    "notes": "Investor relevance: core conveyor/sorter module supplier; strong fit for upstream material-handling exposure.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_daifuku",
+    "name": "Daifuku",
+    "kind": "organization",
+    "domain": [
+      "conveyor_integration",
+      "parcel_sortation",
+      "investable_supplier"
+    ],
+    "description": "Japanese material-handling and intralogistics automation supplier with sorting systems and conveyor products.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6383.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_daifuku_sorting_systems"
+    ],
+    "tags": [
+      "manufacturer",
+      "conveyor",
+      "sorter",
+      "public_company"
+    ],
+    "notes": "Investor relevance: broad logistics-automation exposure; less specific to the low-cost robot-arm cell.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_honeywell_intelligrated",
+    "name": "Honeywell Intelligrated",
+    "kind": "organization",
+    "domain": [
+      "conveyor_integration",
+      "warehouse_software",
+      "safety_system",
+      "investable_supplier"
+    ],
+    "description": "Honeywell warehouse automation business covering sortation/conveyor systems, Momentum WES/WCS, machine control, and related integration.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Sortation and conveyor rated throughput",
+        "unit": "items/hour",
+        "currentValue": 20000,
+        "description": "Honeywell product-page/news claim for selected sortation/conveyor systems; vendor claim and system dependent."
+      },
+      {
+        "name": "Public listing exposure",
+        "currentValue": "HON"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "conveyor",
+      "wcs",
+      "public_company"
+    ],
+    "notes": "Investor relevance: WES/WCS and sortation integration exposure; exact exposure to low-cost Chinese parcel cells is uncertain.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_manhattan_associates",
+    "name": "Manhattan Associates",
+    "kind": "organization",
+    "domain": [
+      "warehouse_software",
+      "wms",
+      "investable_supplier"
+    ],
+    "description": "Warehouse management software supplier relevant to upstream WMS/WES integration around parcel sorting.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Gartner WMS Magic Quadrant Leader streak",
+        "unit": "years",
+        "currentValue": 16,
+        "description": "Company IR states 2024 was the 16th time it was named a Leader; company announcement, not market share."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "MANH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_manhattan_wms_gartner_2024"
+    ],
+    "tags": [
+      "manufacturer",
+      "wms",
+      "warehouse_software",
+      "public_company"
+    ],
+    "notes": "Investor relevance: software integration exposure, especially where robot cells must connect to warehouse execution layers.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_sick",
+    "name": "SICK",
+    "kind": "organization",
+    "domain": [
+      "safety_system",
+      "sensor"
+    ],
+    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, and photoelectric sensors.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_sick_safety_light_curtains"
+    ],
+    "tags": [
+      "manufacturer",
+      "safety",
+      "sensor",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited but safety reliability is adoption-critical.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_omron",
+    "name": "OMRON",
+    "kind": "organization",
+    "domain": [
+      "safety_system",
+      "sensor",
+      "industrial_control",
+      "investable_supplier"
+    ],
+    "description": "Japanese automation supplier with safety light curtains, safety scanners, relays, controllers, and industrial sensors.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6645.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_omron_safety_light_curtain"
+    ],
+    "tags": [
+      "manufacturer",
+      "safety",
+      "sensor",
+      "public_company"
+    ],
+    "notes": "Investor relevance: machine-safety and industrial sensor exposure; exact low-cost parcel-cell share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_leuze",
+    "name": "Leuze",
+    "kind": "organization",
+    "domain": [
+      "safety_system",
+      "sensor"
+    ],
+    "description": "German optical sensor and machine-safety supplier with safety scanners, light curtains, and barcode/optical sensors.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_leuze_safety_sensors"
+    ],
+    "tags": [
+      "manufacturer",
+      "safety",
+      "sensor",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private safety/optical sensor benchmark supplier.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_jlmag",
+    "name": "JL MAG",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "permanent_magnet",
+      "investable_supplier"
+    ],
+    "description": "Chinese high-performance NdFeB permanent magnet supplier relevant to servo-motor rotor supply chains.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "300748.SZ / 06680.HK"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_jlmag_esg_2024"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "permanent_magnet",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: upstream magnet exposure; robot-cell demand is indirect through servo motors and industrial automation.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_zhongke_sanhuan",
+    "name": "Beijing Zhong Ke San Huan",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "permanent_magnet",
+      "investable_supplier"
+    ],
+    "description": "Chinese NdFeB permanent magnet and magnetic component supplier relevant to servo motor materials.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "000970.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_zhongke_sanhuan_2024_report"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "permanent_magnet",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: upstream magnet exposure; share by robot servo market remains unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_ningbo_yunsheng",
+    "name": "Ningbo Yunsheng",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "permanent_magnet",
+      "investable_supplier"
+    ],
+    "description": "Chinese rare-earth permanent magnet and magnetic assembly supplier relevant to servo motor materials.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Annual NdFeB capacity",
+        "unit": "tonnes/year",
+        "currentValue": 21000,
+        "description": "Company website capacity claim; does not measure parcel-robot exposure."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "600366.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_ningbo_yunsheng_capacity"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "permanent_magnet",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: upstream magnet capacity exposure; verify grade mix and servo-motor customer exposure before investment inference.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_china_northern_rare_earth",
+    "name": "China Northern Rare Earth",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "feedstock",
+      "investable_supplier"
+    ],
+    "description": "Chinese rare-earth producer relevant to light rare-earth feedstock before permanent magnet production.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "600111.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_china_northern_rare_earth_2024"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "feedstock",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: upstream feedstock exposure; not a direct robot component supplier.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_mp_materials",
+    "name": "MP Materials",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "feedstock",
+      "permanent_magnet",
+      "investable_supplier"
+    ],
+    "description": "U.S. rare-earth producer building downstream magnet capability; relevant to ex-China rare-earth supply-chain diversification.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Global rare-earth supply from Mountain Pass",
+        "unit": "%",
+        "currentValue": 10,
+        "description": "Company page says Mountain Pass produces over 10% of global rare-earth supply; company claim and upstream supply basis."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "MP"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_mp_materials_mountain_pass"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "feedstock",
+      "public_company"
+    ],
+    "notes": "Investor relevance: diversification exposure if rare-earth magnet supply becomes a bottleneck; indirect to low-cost China robot cells.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_lynas_rare_earths",
+    "name": "Lynas Rare Earths",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "feedstock",
+      "investable_supplier"
+    ],
+    "description": "Australian rare-earth producer with Mt Weld mining and Malaysian processing assets; relevant to ex-China rare-earth diversification.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "LYC.AX"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_lynas_rare_earths_2024"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "feedstock",
+      "public_company"
+    ],
+    "notes": "Investor relevance: upstream rare-earth diversification exposure; not a direct robot component supplier.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
   }
 ]

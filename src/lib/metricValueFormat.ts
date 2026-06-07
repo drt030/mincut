@@ -11,12 +11,13 @@ import type { MetricValue } from "./schema";
  * by the metric-fold strip, NodeDetailPanel metric list, and ProductView
  * key-metrics card. Two render modes:
  *
- *   - `compact`: short string for the strip chips (target ≤24 chars). For
- *     ranges this collapses to `"120k–180k RMB"`. Numbers ≥10k are abbreviated
- *     with a `k`/`M` suffix; smaller numbers use locale grouping.
+ *   - `compact`: short string for the strip chips (target <=24 chars). For
+ *     non-degenerate ranges this leads with p50, e.g. `"p50 150k RMB"`.
+ *     Numbers >=10k are abbreviated with a `k`/`M` suffix; smaller numbers
+ *     use locale grouping.
  *   - `full`: human-readable string for the detail panels. For ranges this
- *     reads `"120,000–180,000 (typ. 150,000) RMB"`. Currencies other than
- *     RMB are surfaced in the suffix; RMB-as-unit is implicit (RMB shows
+ *     reads `"p50 150,000 (range 120,000–180,000) RMB"`. Currencies other
+ *     than RMB are surfaced in the suffix; RMB-as-unit is implicit (RMB shows
  *     because the unit string already contains it). Non-currency units pass
  *     through verbatim.
  *
@@ -49,17 +50,18 @@ export function formatMetricValue(
     return { compact: text, full: text, isRange: false };
   }
   const suffix = displaySuffix(unit, currency);
+  const wholeNumberFull = shouldUseWholeNumberFullDisplay(unit, currency);
   if (typeof value === "number") {
     return {
       compact: appendSuffix(formatNumberCompact(value), suffix),
-      full: appendSuffix(formatNumberFull(value), suffix),
+      full: appendSuffix(formatNumberFull(value, wholeNumberFull), suffix),
       isRange: false,
     };
   }
   // Range: {min, typical, max}.
   const { min, typical, max } = value;
   const compactBody = formatRangeCompact(min, typical, max);
-  const fullBody = formatRangeFull(min, typical, max);
+  const fullBody = formatRangeFull(min, typical, max, wholeNumberFull);
   return {
     compact: appendSuffix(compactBody, suffix),
     full: appendSuffix(fullBody, suffix),
@@ -112,9 +114,13 @@ function formatNumberCompact(n: number): string {
   return String(n);
 }
 
-function formatNumberFull(n: number): string {
+function formatNumberFull(n: number, wholeNumber: boolean = false): string {
   if (!Number.isFinite(n)) return String(n);
-  if (Math.abs(n) >= 1) return n.toLocaleString("en-US");
+  if (Math.abs(n) >= 1) {
+    return wholeNumber
+      ? n.toLocaleString("en-US", { maximumFractionDigits: 0 })
+      : n.toLocaleString("en-US");
+  }
   return String(n);
 }
 
@@ -123,24 +129,23 @@ function formatRangeCompact(min: number, typical: number, max: number): string {
   if (min === typical && typical === max) return formatNumberCompact(typical);
   // If min === max, collapse to a scalar (degenerate range).
   if (min === max) return formatNumberCompact(typical);
-  // Otherwise: "min–max" form. Use en-dash. Skip the "typ" annotation in
-  // the compact strip to keep ≤24 chars even on multi-digit values.
-  return `${formatNumberCompact(min)}–${formatNumberCompact(max)}`;
+  return `p50 ${formatNumberCompact(typical)}`;
 }
 
-function formatRangeFull(min: number, typical: number, max: number): string {
-  if (min === typical && typical === max) return formatNumberFull(typical);
-  if (min === max) return formatNumberFull(typical);
-  if (min === typical || max === typical) {
-    // Edge case: typical sits at one endpoint — skip the typ annotation to
-    // avoid awkward "120,000–180,000 (typ. 120,000)".
-    return `${formatNumberFull(min)}–${formatNumberFull(max)}`;
-  }
-  return `${formatNumberFull(min)}–${formatNumberFull(max)} (typ. ${formatNumberFull(typical)})`;
+function formatRangeFull(min: number, typical: number, max: number, wholeNumber: boolean = false): string {
+  if (min === typical && typical === max) return formatNumberFull(typical, wholeNumber);
+  if (min === max) return formatNumberFull(typical, wholeNumber);
+  return `p50 ${formatNumberFull(typical, wholeNumber)} (range ${formatNumberFull(min, wholeNumber)}–${formatNumberFull(max, wholeNumber)})`;
 }
 
 function trimTrailingZeros(value: string): string {
   return value.replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+}
+
+function shouldUseWholeNumberFullDisplay(unit: string | undefined, currency: string | undefined): boolean {
+  const normalizedUnit = unit?.trim().toUpperCase() ?? "";
+  const normalizedCurrency = currency?.trim().toUpperCase() ?? "";
+  return normalizedCurrency.length > 0 || normalizedUnit.includes("RMB") || normalizedUnit.includes("USD") || normalizedUnit.includes("EUR") || normalizedUnit.includes("JPY");
 }
 
 /**

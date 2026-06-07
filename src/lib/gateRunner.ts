@@ -14,6 +14,7 @@ import {
   uniqueNodes,
 } from "./graphTraversal";
 import { productMaturity } from "./maturity";
+import { formatMetricValueFull } from "./metricValueFormat";
 import type { Edge, Evidence, GateQuestion, GateReport, GraphData, Node } from "./schema";
 
 type GateContext = {
@@ -222,7 +223,7 @@ function answerQuestion(
     case "main_bottlenecks":
       return listResult(question.question, allBottlenecks, "bottlenecks");
     case "key_metrics":
-      return listResult(question.question, metrics, "metrics", requiredParcelMetrics.filter((id) => !metrics.some((node) => node.id === id)));
+      return metricListResult(question.question, metrics, "metrics", requiredParcelMetrics.filter((id) => !metrics.some((node) => node.id === id)));
     case "estimated_maturity":
       return scoreResult(
         question.question,
@@ -317,6 +318,31 @@ function listResult(question: string, nodes: Node[], label: string, missingNodeI
     score: missingNodeIds?.length ? Math.min(score, 3) : score,
     missingNodeIds: missingNodeIds?.length ? missingNodeIds : undefined,
   };
+}
+
+function metricListResult(question: string, nodes: Node[], label: string, missingNodeIds?: string[]): GateReport["questionResults"][number] {
+  const unique = uniqueNodes(nodes);
+  const score = unique.length >= 5 ? 5 : unique.length >= 3 ? 4 : unique.length >= 1 ? 2 : 0;
+  return {
+    question,
+    answer: unique.length ? unique.map(formatMetricForGate).join("; ") : `No ${label} found.`,
+    score: missingNodeIds?.length ? Math.min(score, 3) : score,
+    missingNodeIds: missingNodeIds?.length ? missingNodeIds : undefined,
+  };
+}
+
+function formatMetricForGate(node: Node): string {
+  const metric = node.metrics?.[0];
+  if (!metric) return `${node.id}: ${node.name}`;
+  const values: string[] = [];
+  if (metric.currentValue !== undefined) {
+    values.push(`current ${formatMetricValueFull(metric.currentValue, metric.unit, metric.currency)}`);
+  }
+  if (metric.targetValue !== undefined) {
+    values.push(`target ${formatMetricValueFull(metric.targetValue, metric.unit, metric.currency)}`);
+  }
+  if (values.length === 0) return `${node.id}: ${node.name}`;
+  return `${node.id}: ${node.name} — ${values.join("; ")}`;
 }
 
 function evidenceResult(question: string, evidence: ReturnType<typeof evidenceForNode>, label: string): GateReport["questionResults"][number] {
@@ -765,7 +791,7 @@ function excludedClaimsResult(
  *     perfect target match — per dispatch instructions, "a coverage gap of
  *     50% should not score 5/5".
  *   - **Target proximity component (0–2 points)**: if both the rolled-up
- *     typical and the target typical are present, distance = |rolled - target|
+ *     p50 and the target p50 are present, distance = |rolled - target|
  *     / target. distance ≤ 0.05 → 2; ≤ 0.20 → 1.5; ≤ 0.50 → 1; > 0.50 → 0.
  *     If either side is missing, this component is 0 (we cannot honestly
  *     judge proximity).
@@ -817,7 +843,7 @@ function costConstraintsResult(
   // Proximity component. Per iter-15 review (P0 #1), when no subsystem
   // contributed real cost data (`anyChildContributed === false`), the
   // rolled-up `{0,0,0}` is meaningless and proximity must be 0 — and the
-  // answer text must say so honestly rather than implying `typical=0` is
+  // answer text must say so honestly rather than implying `p50=0` is
   // a real number.
   let proximityScore = 0;
   let proximityNote = "";
@@ -827,24 +853,24 @@ function costConstraintsResult(
     else if (distance <= 0.2) proximityScore = 1.5;
     else if (distance <= 0.5) proximityScore = 1;
     else proximityScore = 0;
-    proximityNote = `Rolled-up typical ${formatRmb(rollup.rolledUp.typical)} vs target typical ${formatRmb(target.range.typical)} → distance ${(distance * 100).toFixed(1)}%.`;
+    proximityNote = `Rolled-up p50 ${formatRmb(rollup.rolledUp.typical)} vs target p50 ${formatRmb(target.range.typical)} → distance ${(distance * 100).toFixed(1)}%.`;
   } else if (!target) {
     proximityNote = "No target cost metric found on the product (looked for a measured_by metric with a currency unit and a numeric targetValue).";
   } else if (!rollup.anyChildContributed) {
     proximityNote = "No subsystem cost data was entered, so proximity to the target cannot be judged.";
   } else {
-    proximityNote = "Cost rollup produced no typical value (no cost data reachable in the requires subtree).";
+    proximityNote = "Cost rollup produced no p50 value (no cost data reachable in the requires subtree).";
   }
 
   const score = Math.max(0, Math.min(5, Math.round(coverageScore + proximityScore)));
 
   const rollupSummary = rollup.anyChildContributed
-    ? `Rolled-up cost (RMB): min=${formatRmb(rollup.rolledUp.min)}, typical=${formatRmb(rollup.rolledUp.typical)}, max=${formatRmb(rollup.rolledUp.max)}`
+    ? `Rolled-up cost (RMB): p50=${formatRmb(rollup.rolledUp.typical)}, range=${formatRmb(rollup.rolledUp.min)}–${formatRmb(rollup.rolledUp.max)}`
     : "No subsystem cost data has been entered, so no rolled-up cost is available.";
 
   const answer = [
     rollupSummary,
-    target ? `Target cost (RMB): typical=${formatRmb(target.range.typical)}` : "No target cost on product.",
+    target ? `Target cost (RMB): p50=${formatRmb(target.range.typical)}` : "No target cost on product.",
     `Coverage gap: ${rollup.coverageGap.length} node(s)${rollup.coverageGap.length ? ` — ${sampleIds(rollup.coverageGap)}` : ""}`,
     rollup.costAsOf ? `Earliest costAsOf: ${rollup.costAsOf}` : "No costAsOf year recorded.",
     proximityNote,

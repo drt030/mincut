@@ -384,12 +384,18 @@ test("RadialEdge cross-links stay hidden until detail zoom", () => {
   assert.match(band3, /strokeDasharray|stroke-dasharray/, `cross-link should return as dashed context in band 3; got: ${band3}`);
 });
 
-test("RadialEdge branch emphasis is a thick blue path; selected incident normal edges stay quiet", () => {
-  const branch = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 0.3, isFocusEndpoint: false, emphasis: "branch" });
+test("RadialEdge branch emphasis keeps analysis stroke color while getting thicker", () => {
+  const branch = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 0.3,
+    isFocusEndpoint: false,
+    emphasis: "branch",
+    stroke: "#ef4444",
+  });
   const normal = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 0.3, isFocusEndpoint: false, emphasis: "normal" });
-  assert.match(branch, /stroke=["']#2563eb["']/, `branch emphasis should use focus blue; got: ${branch}`);
+  assert.match(branch, /stroke=["']#ef4444["']/, `branch emphasis should preserve the active lens stroke; got: ${branch}`);
   assert.match(branch, /strokeWidth=["']4\.6["']|stroke-width=["']4\.6["']/, `branch emphasis should be thick; got: ${branch}`);
-  assert.doesNotMatch(normal, /stroke=["']#2563eb["']/, `normal edge should not become blue just because it is incident; got: ${normal}`);
+  assert.doesNotMatch(normal, /stroke=["']#ef4444["']/, `normal edge should not inherit branch stroke without emphasis; got: ${normal}`);
 });
 
 test("RadialEdge arrowhead uses the rendered stroke and follows the path end", () => {
@@ -400,12 +406,11 @@ test("RadialEdge arrowhead uses the rendered stroke and follows the path end", (
     emphasis: "branch",
     stroke: "#ef4444",
   });
-  assert.match(html, /stroke=["']#2563eb["']/, `branch path should render blue; got: ${html}`);
-  assert.match(html, /fill=["']#2563eb["']/, `arrowhead fill should match rendered path stroke; got: ${html}`);
+  assert.match(html, /stroke=["']#ef4444["']/, `branch path should preserve the active lens stroke; got: ${html}`);
+  assert.match(html, /fill=["']#ef4444["']/, `arrowhead fill should match rendered path stroke; got: ${html}`);
   assert.match(html, /orient=["']auto["']/, `marker should follow the outgoing path tangent; got: ${html}`);
   assert.match(html, /markerUnits=["']userSpaceOnUse["']|marker-units=["']userSpaceOnUse["']/, `marker should use explicit graph-space dimensions; got: ${html}`);
   assert.match(html, /refX=["']0["']|refX=\{0\}/, `marker reference should place the arrow tail on the path endpoint; got: ${html}`);
-  assert.doesNotMatch(html, /fill=["']#ef4444["']/, `arrowhead must not use the raw pre-emphasis stroke; got: ${html}`);
 });
 
 test("RadialEdge trims endpoints so the line stops at the arrow tail", () => {

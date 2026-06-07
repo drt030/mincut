@@ -5,9 +5,13 @@ import {
   bottlenecksForNode,
   downstream,
   evidenceForNode,
+  implementedNodesForOrganization,
   isDecompositionFrontier,
   metricsForNode,
+  nodeById,
+  outgoingEdges,
   siblingProductsForProduct,
+  suppliedNodesForOrganization,
   upstream,
 } from "@/lib/graphTraversal";
 import { formatMaturityLabel, maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
@@ -20,7 +24,7 @@ import {
 } from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk } from "@/lib/nodeRisk";
-import type { GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
+import type { Edge, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
 
@@ -117,13 +121,41 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   useEffect(() => {
     panelRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [node.id]);
-  const up = upstream(graph, node.id);
+  const manufacturerLinksAll = outgoingEdges(graph, node.id, "manufactured_by")
+    .map((edge) => ({ edge, organization: nodeById(graph, edge.target) }))
+    .filter((link): link is OrganizationLink => link.organization?.kind === "organization");
+  const manufacturerLinks = manufacturerLinksAll.filter(
+    (link) => link.organization.reviewStatus !== "deprecated" && link.edge.reviewStatus !== "deprecated",
+  );
+  const manufacturerDeprecatedCount = manufacturerLinksAll.length - manufacturerLinks.length;
+  const manufacturerCandidateIds = new Set(manufacturerLinksAll.map((link) => link.organization.id));
+  const implementerLinksAll = outgoingEdges(graph, node.id, "implemented_by")
+    .map((edge) => ({ edge, organization: nodeById(graph, edge.target) }))
+    .filter((link): link is OrganizationLink => link.organization?.kind === "organization");
+  const implementerLinks = implementerLinksAll.filter(
+    (link) => link.organization.reviewStatus !== "deprecated" && link.edge.reviewStatus !== "deprecated",
+  );
+  const implementerDeprecatedCount = implementerLinksAll.length - implementerLinks.length;
+  const implementerCandidateIds = new Set(implementerLinksAll.map((link) => link.organization.id));
+  const supplierExposureAll =
+    node.kind === "organization" ? suppliedNodesForOrganization(graph, node.id).filter((child) => child.kind !== "metric") : [];
+  const supplierExposure = supplierExposureAll.filter((child) => child.reviewStatus !== "deprecated");
+  const supplierExposureDeprecatedCount = supplierExposureAll.length - supplierExposure.length;
+  const supplierExposureIds = new Set(supplierExposureAll.map((child) => child.id));
+  const implementationExposureAll =
+    node.kind === "organization" ? implementedNodesForOrganization(graph, node.id).filter((child) => child.kind !== "metric") : [];
+  const implementationExposure = implementationExposureAll.filter((child) => child.reviewStatus !== "deprecated");
+  const implementationExposureDeprecatedCount = implementationExposureAll.length - implementationExposure.length;
+  const implementationExposureIds = new Set(implementationExposureAll.map((child) => child.id));
+  const up = upstream(graph, node.id).filter((child) => !supplierExposureIds.has(child.id) && !implementationExposureIds.has(child.id));
   // Per ADR-0001: exclude deprecated children from the auto-rendered child
   // lists (Downstream / Bottlenecks / Sibling). The selected node itself is
   // always shown — the user explicitly clicked through — but its child
   // lists hide deprecated entries by default and surface a count.
   const downRawAll = downstream(graph, node.id);
-  const downRaw = downRawAll.filter((child) => child.kind !== "metric");
+  const downRaw = downRawAll.filter(
+    (child) => child.kind !== "metric" && !manufacturerCandidateIds.has(child.id) && !implementerCandidateIds.has(child.id),
+  );
   const down = downRaw.filter((child) => child.reviewStatus !== "deprecated");
   const downDeprecatedCount = downRaw.length - down.length;
   const metrics = metricsForNode(graph, node.id).filter((child) => child.reviewStatus !== "deprecated");
@@ -333,6 +365,42 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         onSelectNode={onSelectNode}
         deprecatedHiddenCount={bottlenecksDeprecatedCount}
       />
+      {manufacturerLinksAll.length > 0 ? (
+        <OrganizationNodeList
+          title={t("manufacturerCandidates")}
+          links={manufacturerLinks}
+          onSelectNode={onSelectNode}
+          subtitle={t("manufacturerCandidatesHint")}
+          deprecatedHiddenCount={manufacturerDeprecatedCount}
+        />
+      ) : null}
+      {implementerLinksAll.length > 0 ? (
+        <OrganizationNodeList
+          title={t("serviceCandidates")}
+          links={implementerLinks}
+          onSelectNode={onSelectNode}
+          subtitle={t("serviceCandidatesHint")}
+          deprecatedHiddenCount={implementerDeprecatedCount}
+        />
+      ) : null}
+      {node.kind === "organization" ? (
+        <NodeList
+          title={t("supplierExposure")}
+          nodes={supplierExposure}
+          onSelectNode={onSelectNode}
+          subtitle={t("supplierExposureHint")}
+          deprecatedHiddenCount={supplierExposureDeprecatedCount}
+        />
+      ) : null}
+      {node.kind === "organization" ? (
+        <NodeList
+          title={t("implementationExposure")}
+          nodes={implementationExposure}
+          onSelectNode={onSelectNode}
+          subtitle={t("implementationExposureHint")}
+          deprecatedHiddenCount={implementationExposureDeprecatedCount}
+        />
+      ) : null}
       <NodeList title={t("upstream")} nodes={up} onSelectNode={onSelectNode} />
       <NodeList
         title={t("downstream")}
@@ -870,6 +938,163 @@ function NodeList({
 }
 
 const NODE_LIST_VISIBLE_LIMIT = 5;
+
+type OrganizationLink = {
+  organization: Node;
+  edge: Edge;
+};
+
+function OrganizationNodeList({
+  title,
+  links,
+  onSelectNode,
+  subtitle,
+  deprecatedHiddenCount = 0,
+}: {
+  title: string;
+  links: OrganizationLink[];
+  onSelectNode?: (nodeId: string) => void;
+  subtitle?: string;
+  deprecatedHiddenCount?: number;
+}) {
+  const { t } = useLanguage();
+  const deprecatedNote =
+    deprecatedHiddenCount > 0
+      ? t("deprecatedHiddenChildrenSuffix").replace("{count}", String(deprecatedHiddenCount))
+      : null;
+  return (
+    <div>
+      <strong>{title}</strong>
+      {subtitle ? <span className="muted node-list-subtitle"> ({subtitle})</span> : null}
+      {deprecatedNote ? (
+        <span className="muted node-list-deprecated-note"> ({deprecatedNote})</span>
+      ) : null}
+      {links.length === 0 ? <p className="muted">{t("none")}</p> : null}
+      {links.length > 0 ? (
+        <OrganizationListBody links={links} onSelectNode={onSelectNode} />
+      ) : null}
+    </div>
+  );
+}
+
+function OrganizationListBody({
+  links,
+  onSelectNode,
+}: {
+  links: OrganizationLink[];
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { t } = useLanguage();
+  if (links.length <= NODE_LIST_VISIBLE_LIMIT) {
+    return (
+      <ul>
+        {links.map((link) => (
+          <OrganizationListItem key={link.edge.id} link={link} onSelectNode={onSelectNode} />
+        ))}
+      </ul>
+    );
+  }
+  const head = links.slice(0, NODE_LIST_VISIBLE_LIMIT);
+  const tail = links.slice(NODE_LIST_VISIBLE_LIMIT);
+  return (
+    <>
+      <ul>
+        {head.map((link) => (
+          <OrganizationListItem key={link.edge.id} link={link} onSelectNode={onSelectNode} />
+        ))}
+      </ul>
+      <details className="panel-section-collapsible">
+        <summary aria-label={`${tail.length} ${t("nodeListMoreSuffix")}`}>
+          <span className="muted">
+            {tail.length} {t("nodeListMoreSuffix")}
+          </span>
+        </summary>
+        <ul>
+          {tail.map((link) => (
+            <OrganizationListItem key={link.edge.id} link={link} onSelectNode={onSelectNode} />
+          ))}
+        </ul>
+      </details>
+    </>
+  );
+}
+
+function OrganizationListItem({
+  link,
+  onSelectNode,
+}: {
+  link: OrganizationLink;
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName } = useLanguage();
+  const { edge, organization } = link;
+  const summary = organizationMetricSummary(organization);
+  return (
+    <li>
+      <NodeListLink node={organization} displayName={nodeName(organization.id, organization.name)} onSelectNode={onSelectNode} />
+      {summary ? <span className="muted supplier-list-meta"> {" - "}{summary}</span> : null}
+      <EdgeContextSummary edge={edge} />
+    </li>
+  );
+}
+
+type InlineNodeMetric = NonNullable<Node["metrics"]>[number];
+
+function organizationMetricSummary(organization: Node): string | null {
+  const metrics = organization.metrics ?? [];
+  const selected: InlineNodeMetric[] = [];
+  const push = (metric: InlineNodeMetric | undefined) => {
+    if (!metric || selected.includes(metric)) return;
+    if (metric.currentValue === undefined) return;
+    selected.push(metric);
+  };
+  push(metrics.find((metric) => metric.unit === "%" || metric.name.toLowerCase().includes("share")));
+  push(metrics.find((metric) => metric.name.toLowerCase().includes("public listing")));
+  push(metrics.find((metric) => metric.name.toLowerCase().includes("capacity")));
+  push(metrics.find((metric) => metric.currentValue !== undefined));
+
+  const summary = selected
+    .slice(0, 3)
+    .map((metric) => formatOrganizationMetric(metric))
+    .filter((item): item is string => Boolean(item));
+  return summary.length ? summary.join(" · ") : null;
+}
+
+function formatOrganizationMetric(metric: InlineNodeMetric): string | null {
+  if (metric.currentValue === undefined) return null;
+  const value = `${metric.name}: ${formatOrganizationMetricValue(metric.currentValue, metric.unit)}`;
+  const description = metric.description?.trim();
+  return description ? `${value} (${truncateText(description, 120)})` : value;
+}
+
+function formatOrganizationMetricValue(value: MetricValue, unit?: string): string {
+  if (typeof value === "number") return `${formatOrganizationNumber(value)}${unit === "%" ? "%" : unit ? ` ${unit}` : ""}`;
+  if (typeof value === "string") return value;
+  return `p50 ${formatOrganizationNumber(value.typical)}${unit === "%" ? "%" : unit ? ` ${unit}` : ""}`;
+}
+
+function formatOrganizationNumber(value: number): string {
+  return Number.isInteger(value) ? value.toLocaleString("en-US") : String(value);
+}
+
+function EdgeContextSummary({ edge }: { edge: Edge }) {
+  const status = [edge.reviewStatus ?? "unreviewed", edge.confidence].filter(Boolean).join(", ");
+  const claim = edge.claim?.trim();
+  const context = edge.context?.trim();
+  if (!status && !claim && !context) return null;
+  return (
+    <div className="muted supplier-link-context">
+      {claim ? <span>{claim}</span> : null}
+      {status ? <span> ({status})</span> : null}
+      {context ? <div>{context}</div> : null}
+    </div>
+  );
+}
+
+function truncateText(value: string, maxLength: number): string {
+  if (value.length <= maxLength) return value;
+  return `${value.slice(0, Math.max(0, maxLength - 1)).trimEnd()}…`;
+}
 
 function NodeListBody({
   nodes,

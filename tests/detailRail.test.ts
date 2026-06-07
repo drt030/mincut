@@ -58,6 +58,10 @@ const FOCAL_PRODUCT_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 const SUBSYSTEM_ID = "parcel_manipulation_or_diverter"; // prototype
 const COMMERCIAL_ID = "industrial_area_scan_camera"; // commercially_available
 const LAB_PROVEN_LEAF_ID = "parcels_per_hour"; // lab_proven metric (a "leaf"-ish node)
+const REDUCER_ID = "precision_reducer_gearbox";
+const NABTESCO_ID = "org_nabtesco";
+const MAINTENANCE_ID = "maintenance_workflow";
+const ABB_ROBOTICS_ID = "org_abb_robotics";
 
 const graph = loadGraphData();
 
@@ -405,4 +409,106 @@ test("maturity badge: data-maturity-band attribute reflects the node's maturityL
       `rail with focus=${node.id} must expose data-maturity-band="${expected}"; got: ${html}`,
     );
   }
+});
+
+test("expanded: component detail surfaces manufacturer candidates with share and ticker context", () => {
+  const focused = nodeById(REDUCER_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Manufacturer candidates/,
+    `expanded component detail must surface a dedicated manufacturer section; got: ${html}`,
+  );
+  assert.match(html, /Nabtesco/, `reducer detail must list Nabtesco as a manufacturer candidate; got: ${html}`);
+  assert.match(html, /60%/, `manufacturer section must surface Nabtesco's share metric; got: ${html}`);
+  assert.match(html, /6268\.T/, `manufacturer section must surface Nabtesco's public listing; got: ${html}`);
+  assert.match(html, /unreviewed/, `manufacturer section must surface edge review status; got: ${html}`);
+  assert.match(
+    html,
+    /Company-claimed approximately 60% global share/,
+    `manufacturer section must surface edge context and limitations; got: ${html}`,
+  );
+});
+
+test("expanded: organization detail surfaces the components it supplies", () => {
+  const focused = nodeById(NABTESCO_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Supplier exposure/,
+    `expanded organization detail must surface a dedicated supplier exposure section; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Precision reducer \/ gearbox/,
+    `Nabtesco organization detail must link back to the supplied reducer component; got: ${html}`,
+  );
+});
+
+test("expanded: maintenance workflow surfaces service implementation candidates", () => {
+  const focused = nodeById(MAINTENANCE_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Service candidates/,
+    `maintenance workflow detail must surface a dedicated service candidate section; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /ABB Robotics/,
+    `maintenance workflow must list ABB Robotics as a service candidate; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /FANUC/,
+    `maintenance workflow must list FANUC as a service candidate; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /unreviewed/,
+    `service candidate section must surface edge review status; got: ${html}`,
+  );
+});
+
+test("expanded: organization detail surfaces workflows it implements", () => {
+  const focused = nodeById(ABB_ROBOTICS_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Implementation exposure/,
+    `organization detail must surface a dedicated implementation exposure section; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Maintenance workflow/,
+    `ABB Robotics organization detail must link back to maintenance workflow; got: ${html}`,
+  );
 });

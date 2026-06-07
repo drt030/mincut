@@ -45,7 +45,11 @@ export function routesForProduct(graph: GraphData, productId: string): Node[] {
 }
 
 export function bottlenecksForNode(graph: GraphData, nodeId: string): Node[] {
-  return targets(graph, nodeId, "bottlenecked_by").filter((node) => node.kind === "bottleneck" || node.kind === "placeholder_breakthrough");
+  const legacy = targets(graph, nodeId, "bottlenecked_by").filter(
+    (node) => node.kind === "bottleneck" || node.kind === "placeholder_breakthrough",
+  );
+  const structural = graph.nodes.filter((node) => node.bottleneckOf?.includes(nodeId));
+  return uniqueNodes([...legacy, ...structural]);
 }
 
 /**
@@ -81,14 +85,17 @@ export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
 }
 
 /**
- * Per ADR-0005, a node is a decomposition frontier if EITHER it carries the
- * explicit `decomposition_frontier` tag, OR its `maturityLabel` is not in
- * {mature, widely_adopted} AND it has no expanded children. The first arm is
- * an authored override; the second arm catches incomplete decomposition where
- * the stop condition (commodified-at-industrial-scale) has not been met.
+ * Per ADR-0005, a node is a decomposition frontier if EITHER it carries an
+ * authored frontier marker (`decomposition_frontier` tag or `frontierFor`
+ * ownership), OR its `maturityLabel` is not in {mature, widely_adopted} AND
+ * it has no expanded children. The authored arms preserve explicit product
+ * frontier intent even when a node already has some children; the structural
+ * arm catches incomplete decomposition where the stop condition has not been
+ * met.
  */
 export function isDecompositionFrontier(graph: GraphData, node: Node): boolean {
   if (node.tags?.includes("decomposition_frontier")) return true;
+  if ((node.frontierFor?.length ?? 0) > 0) return true;
   const stopLabels = new Set(["mature", "widely_adopted"]);
   if (node.maturityLabel && stopLabels.has(node.maturityLabel)) return false;
   return !hasExpandedChildren(graph, node.id);
@@ -114,6 +121,26 @@ export function evidenceForEdge(graph: GraphData, edgeId: string): Evidence[] {
 
 export function downstream(graph: GraphData, nodeId: string): Node[] {
   return targets(graph, nodeId);
+}
+
+export function manufacturersForNode(graph: GraphData, nodeId: string): Node[] {
+  return uniqueNodes(targets(graph, nodeId, "manufactured_by").filter((node) => node.kind === "organization"));
+}
+
+export function implementersForNode(graph: GraphData, nodeId: string): Node[] {
+  return uniqueNodes(targets(graph, nodeId, "implemented_by").filter((node) => node.kind === "organization"));
+}
+
+export function suppliedNodesForOrganization(graph: GraphData, organizationId: string): Node[] {
+  const organization = nodeById(graph, organizationId);
+  if (organization?.kind !== "organization") return [];
+  return uniqueNodes(sources(graph, organizationId, "manufactured_by").filter((node) => node.kind !== "organization"));
+}
+
+export function implementedNodesForOrganization(graph: GraphData, organizationId: string): Node[] {
+  const organization = nodeById(graph, organizationId);
+  if (organization?.kind !== "organization") return [];
+  return uniqueNodes(sources(graph, organizationId, "implemented_by").filter((node) => node.kind !== "organization"));
 }
 
 /**
@@ -194,6 +221,7 @@ export function evidenceForScope(graph: GraphData, nodes: Node[], edges: Edge[])
 
 export function scopeGraphToReachableNodes(graph: GraphData, targetNodeId: string = V0_TARGET_NODE_ID): GraphData {
   const nodeIds = reachableNodeIdsFrom(graph, targetNodeId);
+  const siblingProductIds = new Set<string>();
 
   // Per ADR-0004, the Capability that the active Product `enables` and the
   // *other* sibling Products that share that Capability are part of the
@@ -211,12 +239,21 @@ export function scopeGraphToReachableNodes(graph: GraphData, targetNodeId: strin
     for (const inboundEdge of graph.edges) {
       if (inboundEdge.target !== edge.target || inboundEdge.relation !== "enables") continue;
       const sourceNode = graph.nodes.find((node) => node.id === inboundEdge.source);
-      if (sourceNode?.kind === "product") nodeIds.add(inboundEdge.source);
+      if (sourceNode?.kind === "product") {
+        nodeIds.add(inboundEdge.source);
+        if (sourceNode.id !== targetNodeId) siblingProductIds.add(sourceNode.id);
+      }
     }
   }
 
   const nodes = graph.nodes.filter((node) => nodeIds.has(node.id));
-  const edges = graph.edges.filter((edge) => nodeIds.has(edge.source) && nodeIds.has(edge.target));
+  const edges = graph.edges.filter((edge) => {
+    if (!nodeIds.has(edge.source) || !nodeIds.has(edge.target)) return false;
+    if (siblingProductIds.has(edge.source) || siblingProductIds.has(edge.target)) {
+      return edge.relation === "enables";
+    }
+    return true;
+  });
   const evidence = evidenceForScope(graph, nodes, edges);
   return {
     ...graph,

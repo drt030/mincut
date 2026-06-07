@@ -2,50 +2,18 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import React from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 
-// RED Slice C3 (spec:
-// docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md
-// § "Slice C3 — Glyph language for top-N priorities (retires the pill
-// banner)"; ADR-0006 Phase C step 3 — visual top-N replaces the
-// transitional pill banner; docs/design-principles.md § "Active
-// exceptions" — the `/graph` "High risk dependency" pill banner row
-// retires on the GREEN commit of this slice).
+// Priority selection regression tests.
 //
-// Two new symbols are pinned by this slice:
-//
-//   1. `<TopNGlyph rank band />` — a presentational component that
-//      renders nothing at LOD band 1 (no glyph noise on the overview)
-//      and a small SVG marker with `data-testid="topn-glyph"` +
-//      `data-rank="<n>"` at band 2+. Visual treatment (star / ring /
-//      pip) is the GREEN commit's call; the contract pins ONLY the
-//      data attributes + presence of an `<svg>` element so the
-//      renderer can iterate the visual without breaking the
-//      contract.
-//
-//   2. `selectTopN(graph, mode, n, focusedSubsetIds)` — a pure helper
-//      returning the N highest-priority nodes per the current colour
-//      mode, scoped to the focal-subtree (default) or a caller-
-//      supplied subset. The per-node band field reuses the same
-//      5-band scheme `edgeStyleFor` / `sectorAggregate` agree on, so
-//      a glyph's rank-band pair and the surrounding edge / sector
-//      tint never disagree on priority.
-//
-// None of these symbols exist on master at HEAD ca659f8 (C2 GREEN).
-// The GREEN commit creates `src/components/TopNGlyph.tsx` exporting
-// `TopNGlyph`, `TopNGlyphProps`, and `selectTopN`. This test file
-// fails at import time with a "cannot find module" error, which is
-// the cleanest RED signal we can give the GREEN sub-agent.
-import {
-  TopNGlyph,
-  selectTopN,
-  type TopNGlyphProps,
-} from "../src/components/TopNGlyph";
+// The canvas no longer renders numbered priority glyphs. The remaining
+// selector is still useful for the right rail because it ranks cost,
+// risk, and maturity entries without adding visual badges to nodes.
 import { loadGraphData } from "../src/lib/graphLoader";
 import { focusedSubset } from "../src/lib/focusedSubset";
+import { filterCanvasGraph } from "../src/lib/canvasGraph";
 import { bandForValue, nodeTypicalCostRmb } from "../src/lib/edgeStyleFor";
 import { nodeRisk } from "../src/lib/nodeRisk";
+import { selectTopN } from "../src/lib/prioritySelection";
 import type { GraphData } from "../src/lib/schema";
 
 // ------------------------------------------------------------------
@@ -64,103 +32,6 @@ import type { GraphData } from "../src/lib/schema";
 const FOCAL_PRODUCT_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 const graph: GraphData = loadGraphData();
 const focalIds: Set<string> = focusedSubset(FOCAL_PRODUCT_ID, graph).nodes;
-
-// Permissive type so the test references the props the GREEN commit
-// must export. The actual exported `TopNGlyphProps` must be
-// structurally compatible with at least these fields.
-type TopNGlyphTestProps = TopNGlyphProps;
-
-function render(props: TopNGlyphTestProps): string {
-  return renderToStaticMarkup(
-    React.createElement(
-      TopNGlyph as unknown as React.FC<TopNGlyphTestProps>,
-      props,
-    ),
-  );
-}
-
-// ==================================================================
-// Test 1 — TopNGlyph band 1 renders nothing
-// ==================================================================
-//
-// Per ADR-0006 §"LOD" — band 1 (the overview) MUST stay free of
-// per-node decoration. The glyph is a band-2+ affordance only.
-// ==================================================================
-test("TopNGlyph band=1: renders nothing visible (no SVG, no testid)", () => {
-  const html = render({ rank: 1, band: 1 });
-
-  // The component is allowed to return `null`, render an empty
-  // fragment, or render a comment — we pin only that no SVG and no
-  // testid is exposed.
-  assert.doesNotMatch(
-    html,
-    /<svg/,
-    `band=1 TopNGlyph must NOT render <svg>; got: ${html}`,
-  );
-  assert.doesNotMatch(
-    html,
-    /data-testid=["']topn-glyph["']/,
-    `band=1 TopNGlyph must NOT expose data-testid="topn-glyph"; got: ${html}`,
-  );
-});
-
-// ==================================================================
-// Test 2 — TopNGlyph band 2 renders SVG with data-testid + data-rank
-// ==================================================================
-//
-// The visual treatment (star / ring / dot / pip) is the GREEN
-// commit's call. We pin only the structural contract: an `<svg>`
-// element with the testid + the rank exposed as a data attribute so
-// downstream consumers (the rail, future tooltips, the UX-flow
-// tour) can find and label the glyph.
-// ==================================================================
-test("TopNGlyph band=2, rank=1: renders <svg data-testid='topn-glyph' data-rank='1'>", () => {
-  const html = render({ rank: 1, band: 2 });
-
-  assert.match(
-    html,
-    /<svg/,
-    `band=2 TopNGlyph must render an <svg> element; got: ${html}`,
-  );
-  assert.match(
-    html,
-    /data-testid=["']topn-glyph["']/,
-    `band=2 TopNGlyph must expose data-testid="topn-glyph"; got: ${html}`,
-  );
-  assert.match(
-    html,
-    /data-rank=["']1["']/,
-    `band=2 TopNGlyph rank=1 must expose data-rank="1"; got: ${html}`,
-  );
-});
-
-// ==================================================================
-// Test 3 — TopNGlyph band 3 renders the same testid (rank=3 example)
-// ==================================================================
-//
-// Band 3 (the deepest zoom) MUST keep showing the glyph — the
-// "subtle size growth" the spec mentions is allowed but not pinned;
-// only presence + testid + data-rank are pinned.
-// ==================================================================
-test("TopNGlyph band=3, rank=3: renders <svg data-testid='topn-glyph' data-rank='3'>", () => {
-  const html = render({ rank: 3, band: 3 });
-
-  assert.match(
-    html,
-    /<svg/,
-    `band=3 TopNGlyph must render an <svg> element; got: ${html}`,
-  );
-  assert.match(
-    html,
-    /data-testid=["']topn-glyph["']/,
-    `band=3 TopNGlyph must expose data-testid="topn-glyph"; got: ${html}`,
-  );
-  assert.match(
-    html,
-    /data-rank=["']3["']/,
-    `band=3 TopNGlyph rank=3 must expose data-rank="3"; got: ${html}`,
-  );
-});
 
 // ==================================================================
 // Test 4 — selectTopN(mode='bottleneck-risk', n=3) sorted desc, band typed
@@ -485,6 +356,155 @@ test("GraphExplorer.tsx regression guard: sector tint does not depend on color m
   );
 });
 
+test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration-stable", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const sectorLabelBlock = noLineComments.match(/function SectorLabelLayer\([\s\S]*?\n}\n\nfunction ZoomBridge/)?.[0] ?? "";
+
+  assert.ok(
+    sectorLabelBlock.length > 0,
+    "GraphExplorer should keep an explicit SectorLabelLayer component",
+  );
+  assert.match(
+    sectorLabelBlock,
+    /const labelX = svgNumber\(item\.x\);/,
+    "sector label x coordinates must use svgNumber before SVG render to avoid SSR/client float drift",
+  );
+  assert.match(
+    sectorLabelBlock,
+    /const labelY = svgNumber\(item\.y\);/,
+    "sector label y coordinates must use svgNumber before SVG render to avoid SSR/client float drift",
+  );
+  assert.match(
+    sectorLabelBlock,
+    /const labelRotate = svgNumber\(item\.rotate\);/,
+    "sector label rotation must use svgNumber before SVG render to avoid SSR/client float drift",
+  );
+  assert.equal(
+    /x=\{item\.x\}|y=\{item\.y\}|rotate\(\$\{item\.rotate\}/.test(sectorLabelBlock),
+    false,
+    "SectorLabelLayer must not write raw floating-point values into SVG attributes",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: full-system canvas labels every node", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const flowNodesBlock = noLineComments.match(/const flowNodes:[\s\S]*?return nodes;\n  \}, \[[^\]]*\]\);/)?.[0] ?? "";
+
+  assert.ok(
+    flowNodesBlock.length > 0,
+    "GraphExplorer should keep an explicit flowNodes memo block",
+  );
+  assert.match(
+    flowNodesBlock,
+    /const showLabel = true;/,
+    "full-system canvas should label every visible node, not only route/anchor/selected nodes",
+  );
+  assert.equal(
+    flowNodesBlock.includes("visualRole !== \"leaf\""),
+    false,
+    "leaf nodes should not be hidden in the full-system label view",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: risk TopN scores with the full graph but scopes to visible canvas nodes", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.equal(
+    noLineComments.includes("selectTopN(canvasGraph, colorMode, 5"),
+    false,
+    "TopN risk scoring must not use canvasGraph, because canvas filtering removes the cost signals nodeRisk needs",
+  );
+  assert.match(
+    noLineComments,
+    /selectTopN\(graph,\s*colorMode,\s*5,\s*visiblePriorityScope\)/,
+    "GraphExplorer should score TopN against the full graph while passing a visible canvas scope",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: canvas no longer renders TopN number glyphs", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.equal(
+    /<TopNGlyph\b/.test(noLineComments),
+    false,
+    "Full-system canvas should not render Top 1-5 number glyphs",
+  );
+  assert.equal(
+    noLineComments.includes("topNRank:"),
+    false,
+    "GraphExplorer should not pass topNRank into radial node data",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: cost route highlight does not dim all non-route nodes", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.equal(
+    noLineComments.includes("!isRouteNode &&"),
+    false,
+    "Route highlighting should not grey every non-route node; all lenses should keep the same structural visibility",
+  );
+  assert.equal(
+    noLineComments.includes("!isRouteEdge &&"),
+    false,
+    "Route highlighting should not grey every non-route edge; route emphasis belongs in stroke/width only",
+  );
+});
+
+test("selectTopN(bottleneck-risk): full graph scoring can still be restricted to canvas-visible nodes", () => {
+  const canvasGraph = filterCanvasGraph(graph);
+  const visibleScope = new Set(canvasGraph.nodes.map((node) => node.id));
+  const top = selectTopN(graph, "bottleneck-risk", 5, visibleScope);
+
+  assert.ok(top.length > 0, "risk TopN should not disappear when scoped to visible canvas nodes");
+  for (const entry of top) {
+    assert.ok(
+      visibleScope.has(entry.nodeId),
+      `risk TopN should stay canvas-visible; got ${entry.nodeId}`,
+    );
+  }
+});
+
 test("GraphExplorer.tsx regression guard: explicit focus query drives initial path before stale path query", () => {
   const filePath = path.join(
     process.cwd(),
@@ -509,5 +529,28 @@ test("GraphExplorer.tsx regression guard: explicit focus query drives initial pa
   assert.ok(
     focusIndex !== -1 && pathIndex !== -1 && focusIndex < pathIndex,
     "initial focusPath restore should honor explicit ?focus before stale ?path",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: default label mode uses packed node centers", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.equal(
+    noLineComments.includes('displayMode === "detail" ? packedNodePositions : radialNodePositions'),
+    false,
+    "label mode must not fall back to raw radial positions because 136x72 click boxes can overlap",
+  );
+  assert.match(
+    noLineComments,
+    /const activeNodePositions = packedNodePositions;/,
+    "GraphExplorer should use packed centers for the default clickable node boxes",
   );
 });
