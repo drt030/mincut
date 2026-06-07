@@ -423,8 +423,8 @@ test("expanded: component detail surfaces manufacturer candidates with share and
 
   assert.match(
     html,
-    /Manufacturer candidates/,
-    `expanded component detail must surface a dedicated manufacturer section; got: ${html}`,
+    /Candidate manufacturers \/ investable exposure/,
+    `expanded component detail must surface a clearly caveated manufacturer section; got: ${html}`,
   );
   assert.match(html, /Nabtesco/, `reducer detail must list Nabtesco as a manufacturer candidate; got: ${html}`);
   assert.match(html, /60%/, `manufacturer section must surface Nabtesco's share metric; got: ${html}`);
@@ -434,6 +434,38 @@ test("expanded: component detail surfaces manufacturer candidates with share and
     html,
     /Company-claimed approximately 60% global share/,
     `manufacturer section must surface edge context and limitations; got: ${html}`,
+  );
+});
+
+test("expanded: bottleneck role is distinct from downstream bottleneck count", () => {
+  const focused = nodeById("low_cost_realtime_vision_compute_integration");
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Bottleneck role/,
+    `a node that blocks an upstream product must surface its own bottleneck role; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Active/,
+    `bottleneck-role tile must not read as a zero downstream-bottleneck count; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html,
+    /<span>Bottlenecks<\/span><strong>0<\/strong>/,
+    `a node that is itself a bottleneck must not render the misleading "Bottlenecks 0" priority tile; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Downstream bottlenecks/,
+    `downstream bottleneck lists should be explicitly scoped; got: ${html}`,
   );
 });
 

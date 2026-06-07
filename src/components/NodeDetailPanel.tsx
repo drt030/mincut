@@ -162,6 +162,10 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   const bottlenecksAll = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const bottlenecks = bottlenecksAll.filter((child) => child.reviewStatus !== "deprecated");
   const bottlenecksDeprecatedCount = bottlenecksAll.length - bottlenecks.length;
+  const bottleneckParentCount = (node.bottleneckOf ?? []).filter((parentId) => {
+    const parent = nodeById(graph, parentId);
+    return parent && parent.reviewStatus !== "deprecated";
+  }).length;
   const evidence = evidenceForNode(graph, node.id);
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
   // Per ADR-0005, the broader frontier judgment is: explicit `decomposition_frontier`
@@ -229,6 +233,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         node={node}
         dependencyCount={dependencyCount}
         bottleneckCount={bottlenecks.length}
+        bottleneckParentCount={bottleneckParentCount}
         evidenceCount={evidenceCount}
       />
       {evidenceCount === 0 ? (
@@ -373,7 +378,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
       ) : null}
       {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
       <NodeList
-        title={t("bottlenecks")}
+        title={t("downstreamBottlenecks")}
         nodes={bottlenecks}
         onSelectNode={onSelectNode}
         deprecatedHiddenCount={bottlenecksDeprecatedCount}
@@ -454,12 +459,14 @@ function DetailPrioritySummary({
   node,
   dependencyCount,
   bottleneckCount,
+  bottleneckParentCount,
   evidenceCount,
 }: {
   graph: GraphData;
   node: Node;
   dependencyCount: number;
   bottleneckCount: number;
+  bottleneckParentCount: number;
   evidenceCount: number;
 }) {
   const { t } = useLanguage();
@@ -478,6 +485,7 @@ function DetailPrioritySummary({
       : t("metricNoValue");
   const riskScore = nodeRisk(node, graph);
   const risk = `${Math.round(riskScore * 100)}%`;
+  const isBottleneckForParent = bottleneckParentCount > 0;
   return (
     <div className="detail-priority-strip" aria-label={t("detailPrioritySummary")}>
       <div className={["detail-priority-tile", riskScore >= 0.4 ? "danger" : riskScore >= 0.2 ? "warning" : ""].filter(Boolean).join(" ")}>
@@ -494,9 +502,14 @@ function DetailPrioritySummary({
           <strong>{cost}</strong>
         </div>
       ) : null}
-      <div className={["detail-priority-tile", bottleneckCount > 0 ? "danger" : ""].filter(Boolean).join(" ")}>
-        <span>{t("bottlenecks")}</span>
-        <strong>{bottleneckCount}</strong>
+      <div
+        className={[
+          "detail-priority-tile",
+          isBottleneckForParent || bottleneckCount > 0 ? "danger" : "",
+        ].filter(Boolean).join(" ")}
+      >
+        <span>{isBottleneckForParent ? t("bottleneckRole") : t("downstreamBottlenecks")}</span>
+        <strong>{isBottleneckForParent ? t("bottleneckRoleValue") : bottleneckCount}</strong>
       </div>
       <div className="detail-priority-tile">
         <span>{t("downstream")}</span>

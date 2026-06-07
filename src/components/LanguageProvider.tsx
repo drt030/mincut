@@ -118,8 +118,11 @@ const uiText: Record<Language, Record<string, string>> = {
     metrics: "Metrics",
     metricsStrip: "Metric chips",
     bottlenecks: "Bottlenecks",
-    manufacturerCandidates: "Manufacturer candidates",
-    manufacturerCandidatesHint: "organizations linked by manufactured_by",
+    downstreamBottlenecks: "Downstream bottlenecks",
+    bottleneckRole: "Bottleneck role",
+    bottleneckRoleValue: "Active",
+    manufacturerCandidates: "Candidate manufacturers / investable exposure",
+    manufacturerCandidatesHint: "candidate organizations linked by manufactured_by; unreviewed entries are not confirmed market leaders",
     serviceCandidates: "Service candidates",
     serviceCandidatesHint: "organizations linked by implemented_by",
     supplierExposure: "Supplier exposure",
@@ -350,8 +353,11 @@ const uiText: Record<Language, Record<string, string>> = {
     metrics: "指标",
     metricsStrip: "指标卡片",
     bottlenecks: "瓶颈",
-    manufacturerCandidates: "主要制造商",
-    manufacturerCandidatesHint: "通过 manufactured_by 连接的组织",
+    downstreamBottlenecks: "下游瓶颈",
+    bottleneckRole: "本节点瓶颈",
+    bottleneckRoleValue: "是",
+    manufacturerCandidates: "候选制造商 / 投资暴露",
+    manufacturerCandidatesHint: "通过 manufactured_by 连接的候选组织；unreviewed 不等于已确认的市场主导者",
     serviceCandidates: "服务候选",
     serviceCandidatesHint: "通过 implemented_by 连接的组织",
     supplierExposure: "供应暴露",
@@ -689,17 +695,26 @@ const relationTextZh: Record<string, string> = {
   depends_on_metric: "依赖指标",
 };
 
+function browserStorage(): Storage | null {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en");
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("capability_graph_language");
+    const saved = browserStorage()?.getItem("capability_graph_language");
     if (saved === "zh" || saved === "en") setLanguageState(saved);
   }, []);
 
   const setLanguage = (next: Language) => {
     setLanguageState(next);
-    window.localStorage.setItem("capability_graph_language", next);
+    browserStorage()?.setItem("capability_graph_language", next);
   };
 
   const value = useMemo<LanguageContextValue>(

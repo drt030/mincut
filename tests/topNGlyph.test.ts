@@ -300,6 +300,30 @@ test("GraphExplorer.tsx regression guard: no legacy banner strings in JSX text",
   }
 });
 
+test("LanguageProvider.tsx regression guard: Chinese manufacturer label stays candidate-scoped", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "LanguageProvider.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+
+  assert.ok(
+    raw.includes('manufacturerCandidates: "候选制造商 / 投资暴露"'),
+    "Chinese manufacturer heading should state candidate / investment exposure, not confirmed market leadership",
+  );
+  assert.equal(
+    raw.includes('manufacturerCandidates: "主要制造商"'),
+    false,
+    'Chinese manufacturer heading must not regress to "主要制造商"',
+  );
+  assert.ok(
+    raw.includes("unreviewed 不等于已确认的市场主导者"),
+    "Chinese manufacturer hint should explain that unreviewed entries are not confirmed leaders",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: sector background radius follows layout envelope", () => {
   const filePath = path.join(
     process.cwd(),
