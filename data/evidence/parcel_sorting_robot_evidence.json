@@ -2683,5 +2683,317 @@
     "date": "2026-06-07",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_smc_vacuum_equipment_2026",
+    "type": "product_page",
+    "title": "SMC vacuum ejectors and vacuum equipment catalog",
+    "url": "https://www.smcworld.com/products/pickup/en-au/vacuum_device/vacuum-ejectors-vacuum-generators.html",
+    "sourceName": "SMC",
+    "date": "2026-06-07",
+    "summary": "SMC vacuum equipment materials list vacuum ejectors, vacuum pump systems, release-valve units, gripper units, and related vacuum components.",
+    "supportsNodeIds": [
+      "org_smc",
+      "vacuum_generator_or_ejector",
+      "vacuum_valves_and_blowoff",
+      "vacuum_blowoff_timing_and_contamination_control"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_valves_blowoff_smc",
+      "e_impl_vacuum_blowoff_timing_smc"
+    ],
+    "limitations": "Vendor product-line page; exact parcel-cell BOM, share, pricing, and field reliability are not established.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_smc_vacuum_pressure_switches_2026",
+    "type": "product_page",
+    "title": "SMC compact digital pressure switch ZSE10(F)/ISE10",
+    "url": "https://www.smcworld.com/webcatalog/en-vn/switches-sensors-controllers/electronic-pressure-switches-sensors-self-contained-type/ZSE10%28F%29-ISE10-E",
+    "sourceName": "SMC",
+    "date": "2026-06-07",
+    "summary": "SMC catalog describes compact pressure switches with vacuum-pressure and compound-pressure ranges relevant to EOAT vacuum monitoring.",
+    "supportsNodeIds": [
+      "org_smc",
+      "vacuum_pressure_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_pressure_sensing_smc"
+    ],
+    "limitations": "Vendor catalog; exact sensor count and parcel-cell BOM are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_festo_suction_cups_2026",
+    "type": "product_page",
+    "title": "Festo vacuum suction cups",
+    "url": "https://www.festo.com/us/en/c/products/vacuum-technologies/vacuum-suction-cups-id_pim113/",
+    "sourceName": "Festo",
+    "date": "2026-06-07",
+    "summary": "Festo describes industrial suction cups with connections for automation, including different shapes, diameters, and material/surface suitability considerations.",
+    "supportsNodeIds": [
+      "org_festo",
+      "vacuum_suction_cup_array",
+      "parcel_suction_cup_contact_qualification"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_suction_cup_array_festo"
+    ],
+    "limitations": "Vendor product-line page; no parcel-sorting field reliability or market-share evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_festo_vacuum_generators_2026",
+    "type": "product_page",
+    "title": "Festo vacuum generators",
+    "url": "https://www.festo.com/us/en/c/products/vacuum-technologies/vacuum-generators-id_pim112/",
+    "sourceName": "Festo",
+    "date": "2026-06-07",
+    "summary": "Festo describes Venturi-principle vacuum generators and compact generator families for pneumatic vacuum generation in automation systems.",
+    "supportsNodeIds": [
+      "org_festo",
+      "vacuum_generator_or_ejector"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_generator_festo"
+    ],
+    "limitations": "Vendor product-line page; no target-cell BOM, negotiated pricing, or supplier share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_festo_pressure_sensors_2026",
+    "type": "product_page",
+    "title": "Festo pressure sensors and vacuum sensors",
+    "url": "https://www.festo.com/us/en/c/products/sensors/pressure-sensors-and-vacuum-sensors-id_pim131/",
+    "sourceName": "Festo",
+    "date": "2026-06-07",
+    "summary": "Festo describes pressure and vacuum sensors for measuring pressure and detecting vacuum thresholds with switching, analog, or IO-Link outputs.",
+    "supportsNodeIds": [
+      "org_festo",
+      "vacuum_pressure_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_pressure_sensing_festo"
+    ],
+    "limitations": "Vendor product-line page; exact sensor count and target-cell BOM are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_festo_solenoid_valves_2026",
+    "type": "product_page",
+    "title": "Festo solenoid valves",
+    "url": "https://www.festo.com/us/en/e/festo-solenoid-valves-id_412576/",
+    "sourceName": "Festo",
+    "date": "2026-06-07",
+    "summary": "Festo describes solenoid and directional valve products used in pneumatic automation, including compact and robust valve families.",
+    "supportsNodeIds": [
+      "org_festo",
+      "vacuum_valves_and_blowoff"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_valves_blowoff_festo"
+    ],
+    "limitations": "Vendor product-line page; exact vacuum-duty valve selection and parcel-cell BOM are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_schmalz_vacuum_generators_2026",
+    "type": "product_page",
+    "title": "Schmalz vacuum generation and monitoring",
+    "url": "https://www.schmalz.com/en-us/products/schmalz-select-preferred-product-range/vacuum-generation-and-monitoring",
+    "sourceName": "Schmalz",
+    "date": "2026-06-07",
+    "summary": "Schmalz describes ejectors, vacuum pumps, and vacuum/pressure switches used to generate and monitor vacuum in gripping systems.",
+    "supportsNodeIds": [
+      "org_schmalz",
+      "vacuum_generator_or_ejector",
+      "vacuum_blowoff_timing_and_contamination_control"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_generator_schmalz",
+      "e_impl_vacuum_blowoff_timing_schmalz"
+    ],
+    "limitations": "Vendor product-line page; exact parcel-cell BOM, pricing, and field reliability are not established.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_piab_inline_ejectors_2026",
+    "type": "product_page",
+    "title": "Piab inline ejectors",
+    "url": "https://www.piab.com/en-us/vacuum-pumps-and-ejectors/inline-ejectors",
+    "sourceName": "Piab",
+    "date": "2026-06-07",
+    "summary": "Piab describes inline ejectors, including products mounted close to suction cups and variants with enhanced blow-off for vacuum automation.",
+    "supportsNodeIds": [
+      "org_piab",
+      "vacuum_generator_or_ejector",
+      "vacuum_blowoff_timing_and_contamination_control"
+    ],
+    "supportsEdgeIds": [
+      "e_impl_vacuum_blowoff_timing_piab"
+    ],
+    "limitations": "Vendor product-line page; exact parcel-cell BOM and release timing performance are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_ckd_vacuum_burst_unit_2026",
+    "type": "product_page",
+    "title": "CKD vacuum burst unit VSLF",
+    "url": "https://www.ckd.co.jp/kiki/en/product/detail/74/VSLF",
+    "sourceName": "CKD Corporation",
+    "date": "2026-06-07",
+    "summary": "CKD product page describes a vacuum burst unit that controls vacuum burst air while maintaining vacuum characteristics, relevant to suction release/blow-off control.",
+    "supportsNodeIds": [
+      "org_ckd",
+      "vacuum_valves_and_blowoff",
+      "vacuum_blowoff_timing_and_contamination_control"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_valves_blowoff_ckd"
+    ],
+    "limitations": "Vendor product page; exact parcel-cell BOM and duty cycle are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_airtac_pneumatic_valves_2026",
+    "type": "product_page",
+    "title": "AirTAC pneumatic control valve EAV series",
+    "url": "https://global.airtac.com/pro_det_c_kind_4%26c_kind2_19%26c_kind3_40%26c_kind4_48%26c_kind5_358%26id_248.html",
+    "sourceName": "AirTAC International Group",
+    "date": "2026-06-07",
+    "summary": "AirTAC product page describes pneumatic control valves, including external pilot configurations that can be used with zero pressure or vacuum conditions.",
+    "supportsNodeIds": [
+      "org_airtac",
+      "vacuum_valves_and_blowoff"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_valves_blowoff_airtac"
+    ],
+    "limitations": "Vendor product page; exact vacuum-duty selection, parcel-cell BOM, and field reliability are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_ifm_pressure_vacuum_sensors_2026",
+    "type": "product_page",
+    "title": "ifm pressure sensors and vacuum sensors",
+    "url": "https://www.ifm.com/us/en/category/200_020_010",
+    "sourceName": "ifm electronic",
+    "date": "2026-06-07",
+    "summary": "ifm product category describes pressure and vacuum sensors for industrial applications, including vacuum sensors used by grippers that lift and move objects.",
+    "supportsNodeIds": [
+      "org_ifm",
+      "vacuum_pressure_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_pressure_sensing_ifm"
+    ],
+    "limitations": "Vendor product-line page; exact sensor SKU, count, target-cell BOM, and pricing are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_sick_pac50_pressure_sensors_2026",
+    "type": "product_page",
+    "title": "SICK PAC50 pressure sensor applications",
+    "url": "https://www.sick.com/de/en/products/process-sensors/pressure-sensors/pac50/c/g299863?tab=applications",
+    "sourceName": "SICK",
+    "date": "2026-06-07",
+    "summary": "SICK PAC50 materials list pressure and vacuum monitoring applications in handling and robotics, including vacuum grippers and compressed-air monitoring.",
+    "supportsNodeIds": [
+      "org_sick",
+      "vacuum_pressure_sensing"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_vacuum_pressure_sensing_sick"
+    ],
+    "limitations": "Vendor product page; exact target-cell BOM, sensor count, and parcel-field reliability are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_wacker_silicone_rubber_2026",
+    "type": "product_page",
+    "title": "WACKER ELASTOSIL silicone rubber",
+    "url": "https://www.wacker.com/h/en-ca/c/elastosil-c-150-us-ab/p/000005383",
+    "sourceName": "Wacker Chemie",
+    "date": "2026-06-07",
+    "summary": "WACKER product material describes ELASTOSIL silicone rubber systems and properties relevant to elastomer feedstock families.",
+    "supportsNodeIds": [
+      "org_wacker_chemie",
+      "petrochemical_elastomer_feedstock"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_petrochemical_elastomer_feedstock_wacker"
+    ],
+    "limitations": "Material-family evidence; exact suction-cup compound and supplier share are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_dow_silicone_elastomers_2026",
+    "type": "product_page",
+    "title": "Dow SILASTIC high consistency silicone rubber",
+    "url": "https://www.dow.com/en-us/product-technology/pt-elastomers-rubber/pg-elastomers-hcr.html",
+    "sourceName": "Dow",
+    "date": "2026-06-07",
+    "summary": "Dow describes SILASTIC high consistency silicone rubber compounds and fabrication routes including extrusion, injection molding, compression molding, and calendering.",
+    "supportsNodeIds": [
+      "org_dow",
+      "petrochemical_elastomer_feedstock"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_petrochemical_elastomer_feedstock_dow"
+    ],
+    "limitations": "Material-family evidence; exact suction-cup compound and supplier share are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_shin_etsu_silicone_rubber_2026",
+    "type": "product_page",
+    "title": "Shin-Etsu silicone rubber compounds",
+    "url": "https://www.shinetsusilicone-global.com/products/type/rubb_comp/index.shtml",
+    "sourceName": "Shin-Etsu Chemical",
+    "date": "2026-06-07",
+    "summary": "Shin-Etsu product material describes silicone rubber compounds, heat/cold resistance, weather resistance, chemical resistance, and electrical insulation properties.",
+    "supportsNodeIds": [
+      "org_shin_etsu",
+      "petrochemical_elastomer_feedstock"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_petrochemical_elastomer_feedstock_shin_etsu"
+    ],
+    "limitations": "Material-family evidence; exact suction-cup compound and supplier share are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_dupont_elastomers_2026",
+    "type": "product_page",
+    "title": "DuPont TPSiV thermoplastic elastomers",
+    "url": "https://www.dupont.com/products/TPSiV.html",
+    "sourceName": "DuPont",
+    "date": "2026-06-07",
+    "summary": "DuPont describes TPSiV thermoplastic elastomers that combine thermoplastic elastomer properties with silicone modules for abrasion, UV, chemical, and processing performance.",
+    "supportsNodeIds": [
+      "org_dupont",
+      "petrochemical_elastomer_feedstock"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_petrochemical_elastomer_feedstock_dupont"
+    ],
+    "limitations": "Material-family evidence; exact suction-cup compound and supplier share are not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
   }
 ]

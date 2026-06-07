@@ -1,0 +1,61 @@
+[
+  {
+    "id": "ev_vacuum_end_effector_child_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Vacuum suction end-effector child cost allocation — 2025 estimate",
+    "sourceName": "Internal consistency allocation (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Low-confidence 2025 RMB allocation splitting the vacuum suction end-effector into suction cups, contact qualification, vacuum generator/ejector, valves and blow-off, timing/contamination control, pressure sensing, and elastomer feedstock so recursive cost rollup has explicit p50 placeholders after the EOAT child layer is visible.",
+    "supportsNodeIds": [
+      "vacuum_suction_cup_array",
+      "vacuum_suction_cup_array_cost",
+      "parcel_suction_cup_contact_qualification",
+      "parcel_suction_cup_contact_qualification_cost",
+      "vacuum_generator_or_ejector",
+      "vacuum_generator_or_ejector_cost",
+      "vacuum_valves_and_blowoff",
+      "vacuum_valves_and_blowoff_cost",
+      "vacuum_blowoff_timing_and_contamination_control",
+      "vacuum_blowoff_timing_and_contamination_control_cost",
+      "vacuum_pressure_sensing",
+      "vacuum_pressure_sensing_cost",
+      "petrochemical_elastomer_feedstock",
+      "petrochemical_elastomer_feedstock_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_vacuum_suction_cup_array_measured_by_cost",
+      "e_parcel_suction_cup_contact_qualification_measured_by_cost",
+      "e_vacuum_generator_or_ejector_measured_by_cost",
+      "e_vacuum_valves_and_blowoff_measured_by_cost",
+      "e_vacuum_blowoff_timing_and_contamination_control_measured_by_cost",
+      "e_vacuum_pressure_sensing_measured_by_cost",
+      "e_petrochemical_elastomer_feedstock_measured_by_cost"
+    ],
+    "limitations": "Allocation backfill only. It is not a supplier quote, teardown, invoice, or market-average EOAT BOM; replace with named component pricing before promoting confidence or review status.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_material_supply_chain_child_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Material supply-chain child cost allocation — 2025 estimate",
+    "sourceName": "Internal consistency allocation (Codex 2026-06-07)",
+    "date": "2026-06-07",
+    "summary": "Low-confidence 2025 RMB allocation assigning fabricated aluminum and semiconductor/electronics parent costs to their direct upstream material-chain children so high-cost expanded nodes retain an explanatory high-cost child in cost-mode graph checks.",
+    "supportsNodeIds": [
+      "bauxite_alumina_aluminum_chain",
+      "bauxite_alumina_aluminum_chain_cost",
+      "aluminum_structural_material",
+      "quartz_silica_silicon_chain",
+      "quartz_silica_silicon_chain_cost",
+      "semiconductor_grade_silicon_and_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_bauxite_alumina_aluminum_chain_measured_by_cost",
+      "e_quartz_silica_silicon_chain_measured_by_cost"
+    ],
+    "limitations": "Allocation backfill only. It is not a supplier quote, commodity price, teardown, or BOM; replace with named material and electronics cost sources before promotion.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  }
+]

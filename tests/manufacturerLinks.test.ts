@@ -231,6 +231,46 @@ test("servo motor material and component layer exposes investable supplier candi
   }
 });
 
+test("vacuum end-effector child layer exposes supplier and process candidates", () => {
+  const cupManufacturers = manufacturersForNode(graph, "vacuum_suction_cup_array").map((node) => node.id);
+  for (const id of ["org_smc", "org_schmalz", "org_piab", "org_festo"]) {
+    assert.ok(cupManufacturers.includes(id), `vacuum_suction_cup_array must expose ${id} as a suction-cup supplier candidate`);
+  }
+
+  const generatorManufacturers = manufacturersForNode(graph, "vacuum_generator_or_ejector").map((node) => node.id);
+  for (const id of ["org_smc", "org_piab", "org_festo", "org_schmalz"]) {
+    assert.ok(generatorManufacturers.includes(id), `vacuum_generator_or_ejector must expose ${id} as a vacuum-generator supplier candidate`);
+  }
+
+  const valveManufacturers = manufacturersForNode(graph, "vacuum_valves_and_blowoff").map((node) => node.id);
+  for (const id of ["org_smc", "org_festo", "org_ckd", "org_airtac"]) {
+    assert.ok(valveManufacturers.includes(id), `vacuum_valves_and_blowoff must expose ${id} as a valve/blow-off supplier candidate`);
+  }
+
+  const pressureSensorManufacturers = manufacturersForNode(graph, "vacuum_pressure_sensing").map((node) => node.id);
+  for (const id of ["org_smc", "org_festo", "org_ifm", "org_sick"]) {
+    assert.ok(pressureSensorManufacturers.includes(id), `vacuum_pressure_sensing must expose ${id} as a pressure-sensing supplier candidate`);
+  }
+
+  const elastomerManufacturers = manufacturersForNode(graph, "petrochemical_elastomer_feedstock").map((node) => node.id);
+  for (const id of ["org_wacker_chemie", "org_dow", "org_shin_etsu", "org_dupont"]) {
+    assert.ok(elastomerManufacturers.includes(id), `petrochemical_elastomer_feedstock must expose ${id} as an elastomer supplier candidate`);
+  }
+
+  const contactQualificationImplementers = implementersForNode(graph, "parcel_suction_cup_contact_qualification").map((node) => node.id);
+  const blowoffTimingImplementers = implementersForNode(graph, "vacuum_blowoff_timing_and_contamination_control").map((node) => node.id);
+  for (const id of ["org_smc", "org_schmalz", "org_piab"]) {
+    assert.ok(
+      contactQualificationImplementers.includes(id),
+      `parcel_suction_cup_contact_qualification must expose ${id} as a qualification/process candidate`,
+    );
+    assert.ok(
+      blowoffTimingImplementers.includes(id),
+      `vacuum_blowoff_timing_and_contamination_control must expose ${id} as a timing/control process candidate`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

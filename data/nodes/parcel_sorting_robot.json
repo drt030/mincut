@@ -717,14 +717,16 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper",
-      "ev_vacuforce_vacuum_components"
+      "ev_vacuforce_vacuum_components",
+      "ev_mfg_festo_suction_cups_2026"
     ],
     "tags": [
       "suction_cup",
       "end_effector",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include cup diameter, material, lip geometry, wear, parcel surface compatibility, and replacement cost."
+    "notes": "Expansion frontier: next layer may include cup diameter, material, lip geometry, wear, parcel surface compatibility, and replacement cost.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "parcel_suction_cup_contact_qualification",
@@ -742,7 +744,11 @@
     "confidence": "low",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper",
-      "ev_vacuforce_vacuum_components"
+      "ev_vacuforce_vacuum_components",
+      "ev_mfg_smc_vacuum_pads",
+      "ev_mfg_schmalz_vacuum_end_effectors",
+      "ev_mfg_piab_suction_cups_soft_grippers",
+      "ev_mfg_festo_suction_cups_2026"
     ],
     "tags": [
       "suction_cup",
@@ -769,7 +775,11 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_vacuforce_vacuum_components"
+      "ev_vacuforce_vacuum_components",
+      "ev_mfg_smc_vacuum_equipment_2026",
+      "ev_mfg_piab_inline_ejectors_2026",
+      "ev_mfg_festo_vacuum_generators_2026",
+      "ev_mfg_schmalz_vacuum_generators_2026"
     ],
     "tags": [
       "vacuum",
@@ -777,7 +787,8 @@
       "pneumatic",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include compressed-air consumption, flow rate, vacuum level, noise, filters, and energy cost."
+    "notes": "Expansion frontier: next layer may include compressed-air consumption, flow rate, vacuum level, noise, filters, and energy cost.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "vacuum_valves_and_blowoff",
@@ -795,7 +806,11 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper",
-      "ev_vacuforce_vacuum_components"
+      "ev_vacuforce_vacuum_components",
+      "ev_mfg_smc_vacuum_equipment_2026",
+      "ev_mfg_festo_solenoid_valves_2026",
+      "ev_mfg_ckd_vacuum_burst_unit_2026",
+      "ev_mfg_airtac_pneumatic_valves_2026"
     ],
     "tags": [
       "vacuum",
@@ -803,7 +818,8 @@
       "end_effector",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include valve response time, per-cup control, leakage, contamination, and timing with robot motion."
+    "notes": "Expansion frontier: next layer may include valve response time, per-cup control, leakage, contamination, and timing with robot motion.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "vacuum_blowoff_timing_and_contamination_control",
@@ -821,7 +837,11 @@
     "confidence": "low",
     "evidenceIds": [
       "ev_abb_robotic_parcel_inductor_gripper",
-      "ev_vacuforce_vacuum_components"
+      "ev_vacuforce_vacuum_components",
+      "ev_mfg_smc_vacuum_equipment_2026",
+      "ev_mfg_schmalz_vacuum_generators_2026",
+      "ev_mfg_piab_inline_ejectors_2026",
+      "ev_mfg_ckd_vacuum_burst_unit_2026"
     ],
     "tags": [
       "vacuum",
@@ -848,7 +868,11 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_abb_robotic_parcel_inductor_gripper"
+      "ev_abb_robotic_parcel_inductor_gripper",
+      "ev_mfg_smc_vacuum_pressure_switches_2026",
+      "ev_mfg_festo_pressure_sensors_2026",
+      "ev_mfg_ifm_pressure_vacuum_sensors_2026",
+      "ev_mfg_sick_pac50_pressure_sensors_2026"
     ],
     "tags": [
       "sensor",
@@ -857,7 +881,8 @@
       "reliability",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer may include pressure thresholds, false positives, leak detection, response time, and failure recovery."
+    "notes": "Expansion frontier: next layer may include pressure thresholds, false positives, leak detection, response time, and failure recovery.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "gripper_tcp_pattern_calibration",
@@ -3129,7 +3154,8 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_usgs_mcs_2026_minerals"
+      "ev_usgs_mcs_2026_minerals",
+      "ev_material_supply_chain_child_cost_backfill_2025"
     ],
     "tags": [
       "mining",
@@ -3155,7 +3181,8 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_usgs_mcs_2026_minerals"
+      "ev_usgs_mcs_2026_minerals",
+      "ev_material_supply_chain_child_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -3181,7 +3208,8 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_usgs_silicon_statistics"
+      "ev_usgs_silicon_statistics",
+      "ev_material_supply_chain_child_cost_backfill_2025"
     ],
     "tags": [
       "mining",
@@ -3210,7 +3238,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_silicon_statistics",
-      "ev_semiconductor_electronics_cost_backfill_2025"
+      "ev_semiconductor_electronics_cost_backfill_2025",
+      "ev_material_supply_chain_child_cost_backfill_2025"
     ],
     "tags": [
       "material",
@@ -3259,6 +3288,44 @@
       "consistency_backfill"
     ],
     "notes": "Low-confidence shared electronics allocation. This prevents semiconductor-heavy direct children from appearing as zero-cost, but should be replaced by named BOM or teardown evidence before review promotion."
+  },
+  {
+    "id": "quartz_silica_silicon_chain_cost",
+    "name": "Quartz, silica, and silicon chain cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mining",
+      "electronics"
+    ],
+    "description": "Allocated 2025 RMB contribution for quartz/silicon raw material and processing chain embedded in semiconductor and electronics content.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 2500,
+          "typical": 10000,
+          "max": 26000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_material_supply_chain_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation from the shared semiconductor/electronics estimate. This is not a wafer-price, polysilicon spot-price, or chip-level BOM claim."
   },
   {
     "id": "ndpr_rare_earth_feedstock",
@@ -3366,7 +3433,11 @@
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "evidenceIds": [
-      "ev_vacuforce_vacuum_components"
+      "ev_vacuforce_vacuum_components",
+      "ev_mfg_wacker_silicone_rubber_2026",
+      "ev_mfg_dow_silicone_elastomers_2026",
+      "ev_mfg_shin_etsu_silicone_rubber_2026",
+      "ev_mfg_dupont_elastomers_2026"
     ],
     "tags": [
       "material",
@@ -3375,7 +3446,8 @@
       "end_effector",
       "decomposition_frontier"
     ],
-    "notes": "Raw-material frontier: next layer may include silicone, nitrile, polyurethane, rubber compounding, wear additives, molding, petrochemical feedstock, and recycling/disposal."
+    "notes": "Raw-material frontier: next layer may include silicone, nitrile, polyurethane, rubber compounding, wear additives, molding, petrochemical feedstock, and recycling/disposal.",
+    "reviewStatus": "unreviewed"
   },
   {
     "id": "affordable_small_warehouse_automation",
@@ -4442,6 +4514,265 @@
     ]
   },
   {
+    "id": "petrochemical_elastomer_feedstock_cost",
+    "name": "Petrochemical elastomer feedstock cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB material contribution for silicone, nitrile, polyurethane, or thermoplastic elastomer content in suction cups, seals, hoses, and covers.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 150,
+          "typical": 500,
+          "max": 1800
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence material allocation. This is the feedstock contribution embedded in EOAT wear parts, not a bulk commodity resin quote."
+  },
+  {
+    "id": "vacuum_pressure_sensing_cost",
+    "name": "Vacuum pressure sensing cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for vacuum pressure sensors or pressure switches used to detect pickup state and leakage.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 1800,
+          "max": 5000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence component allocation. Sensor count, IO-Link/analog output, display, and supplier tier drive the range."
+  },
+  {
+    "id": "vacuum_blowoff_timing_and_contamination_control_cost",
+    "name": "Vacuum blow-off timing and contamination control cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB engineering allowance for suction/release timing, leakage tolerance, dust contamination handling, and robot-motion synchronization.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 800,
+          "typical": 2500,
+          "max": 9000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence controls/process allocation. This is mostly integration and tuning effort, not a separately quoted component."
+  },
+  {
+    "id": "vacuum_valves_and_blowoff_cost",
+    "name": "Vacuum valves and blow-off control cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for vacuum valves, release valves, manifolds, fittings, and blow-off control hardware.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1000,
+          "typical": 3500,
+          "max": 10000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence hardware allocation. Zone count, response-time requirement, manifold architecture, and contamination protection drive variance."
+  },
+  {
+    "id": "vacuum_generator_or_ejector_cost",
+    "name": "Vacuum generator or ejector cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for venturi ejector, compact vacuum generator, or small pump hardware in the suction EOAT.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 1500,
+          "typical": 5000,
+          "max": 15000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence hardware allocation. Venturi vs. pump choice, vacuum flow, integrated monitoring, and imported supplier tier dominate the range."
+  },
+  {
+    "id": "parcel_suction_cup_contact_qualification_cost",
+    "name": "Parcel suction-cup contact qualification cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB engineering and test allowance for qualifying suction cup geometry, lip compliance, leakage, and replacement interval against variable parcel surfaces.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 2000,
+          "max": 8000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence engineering allocation rather than a purchased part. It captures small-fixture test time, sample cup trials, and qualification overhead."
+  },
+  {
+    "id": "vacuum_suction_cup_array_cost",
+    "name": "Vacuum suction cup array cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "end_effector"
+    ],
+    "description": "Allocated 2025 RMB cost contribution for a multi-cup vacuum suction array, adapters, cup patterns, and normal wear spares inside the parcel-sorting EOAT.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 800,
+          "typical": 2500,
+          "max": 7000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence component allocation. Cup count, geometry, imported vs. domestic supplier, and replacement spares drive the range."
+  },
+  {
     "id": "parcel_manipulation_or_diverter_cost",
     "name": "Parcel manipulation subsystem integration cost",
     "kind": "metric",
@@ -5061,6 +5392,43 @@
       "cost_research",
       "consistency_backfill"
     ]
+  },
+  {
+    "id": "bauxite_alumina_aluminum_chain_cost",
+    "name": "Bauxite, alumina, and aluminum chain cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "mining"
+    ],
+    "description": "Allocated 2025 RMB contribution for the aluminum upstream and basic processing chain embedded in fabricated parcel-cell aluminum structures.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 4000,
+          "typical": 11000,
+          "max": 23000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_material_supply_chain_child_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocation from the fabricated aluminum structural material estimate. This is not a commodity spot price or delivered extrusion quote."
   },
   {
     "id": "conveyor_speed_encoder_tracking_cost",
@@ -6672,7 +7040,9 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_smc_vacuum_pads"
+      "ev_mfg_smc_vacuum_pads",
+      "ev_mfg_smc_vacuum_equipment_2026",
+      "ev_mfg_smc_vacuum_pressure_switches_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6701,7 +7071,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_schmalz_vacuum_end_effectors"
+      "ev_mfg_schmalz_vacuum_end_effectors",
+      "ev_mfg_schmalz_vacuum_generators_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6730,7 +7101,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_piab_suction_cups_soft_grippers"
+      "ev_mfg_piab_suction_cups_soft_grippers",
+      "ev_mfg_piab_inline_ejectors_2026"
     ],
     "tags": [
       "manufacturer",
@@ -6749,9 +7121,11 @@
     "domain": [
       "vacuum",
       "pneumatic",
-      "end_effector"
+      "end_effector",
+      "sensor",
+      "valve"
     ],
-    "description": "German automation supplier with pneumatic and vacuum gripper/end-of-arm tooling products.",
+    "description": "German automation supplier with pneumatic, vacuum, sensor, valve, and gripper/end-of-arm tooling products.",
     "confidence": "medium",
     "metrics": [
       {
@@ -6760,13 +7134,19 @@
       }
     ],
     "evidenceIds": [
-      "ev_mfg_festo_end_of_arm_tooling"
+      "ev_mfg_festo_end_of_arm_tooling",
+      "ev_mfg_festo_suction_cups_2026",
+      "ev_mfg_festo_vacuum_generators_2026",
+      "ev_mfg_festo_pressure_sensors_2026",
+      "ev_mfg_festo_solenoid_valves_2026"
     ],
     "tags": [
       "manufacturer",
       "vacuum",
       "pneumatic",
-      "private_company"
+      "private_company",
+      "sensor",
+      "valve"
     ],
     "notes": "Investor relevance: private supplier; useful for technical benchmarking rather than direct public equity exposure.",
     "reviewStatus": "unreviewed",
@@ -7052,9 +7432,11 @@
       "safety_system",
       "sensor",
       "machine_vision",
-      "barcode"
+      "barcode",
+      "pressure_sensor",
+      "vacuum"
     ],
-    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, photoelectric sensors, fixed-mount barcode scanners, and identification diagnostics.",
+    "description": "German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, photoelectric sensors, fixed-mount barcode scanners, identification diagnostics, and pressure/vacuum sensing.",
     "confidence": "medium",
     "metrics": [
       {
@@ -7064,7 +7446,8 @@
     ],
     "evidenceIds": [
       "ev_mfg_sick_safety_light_curtains",
-      "ev_barcode_ocr_sick_clv65x_2026"
+      "ev_barcode_ocr_sick_clv65x_2026",
+      "ev_mfg_sick_pac50_pressure_sensors_2026"
     ],
     "tags": [
       "manufacturer",
@@ -7072,9 +7455,235 @@
       "sensor",
       "machine_vision",
       "barcode",
-      "private_company"
+      "private_company",
+      "pressure_sensor",
+      "vacuum"
     ],
     "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited, but safety and code-reading reliability are adoption-critical.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_dupont",
+    "name": "DuPont",
+    "kind": "organization",
+    "domain": [
+      "chemical",
+      "elastomer",
+      "polymer",
+      "investable_supplier"
+    ],
+    "description": "US-listed materials supplier with elastomer and thermoplastic elastomer products relevant to industrial rubber and seal materials.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "DD"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_dupont_elastomers_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "chemical",
+      "elastomer",
+      "polymer",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public upstream elastomer/polymer supplier; exact suction-cup feedstock share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_shin_etsu",
+    "name": "Shin-Etsu Chemical",
+    "kind": "organization",
+    "domain": [
+      "chemical",
+      "silicone",
+      "elastomer",
+      "investable_supplier"
+    ],
+    "description": "Japanese specialty chemical supplier with silicone rubber compounds and liquid silicone rubber systems.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "4063.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_shin_etsu_silicone_rubber_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "chemical",
+      "silicone",
+      "elastomer",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public upstream silicone supplier; exact suction-cup feedstock share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_dow",
+    "name": "Dow",
+    "kind": "organization",
+    "domain": [
+      "chemical",
+      "silicone",
+      "elastomer",
+      "investable_supplier"
+    ],
+    "description": "US-listed materials supplier with SILASTIC silicone elastomer and rubber product families.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "DOW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_dow_silicone_elastomers_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "chemical",
+      "silicone",
+      "elastomer",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public upstream material supplier; feedstock exposure is broad and not parcel-specific.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_wacker_chemie",
+    "name": "Wacker Chemie",
+    "kind": "organization",
+    "domain": [
+      "chemical",
+      "silicone",
+      "elastomer",
+      "investable_supplier"
+    ],
+    "description": "German specialty chemical supplier with ELASTOSIL silicone rubber materials relevant to elastomer feedstock choices.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "WCH.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_wacker_silicone_rubber_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "chemical",
+      "silicone",
+      "elastomer",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public upstream silicone/elastomer supplier; exact suction-cup supply-chain share is unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_ifm",
+    "name": "ifm electronic",
+    "kind": "organization",
+    "domain": [
+      "sensor",
+      "pressure_sensor",
+      "vacuum",
+      "industrial_control"
+    ],
+    "description": "Industrial sensor supplier with pressure and vacuum sensors for automation applications.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_ifm_pressure_vacuum_sensors_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "sensor",
+      "pressure_sensor",
+      "vacuum",
+      "private_company"
+    ],
+    "notes": "Investor relevance: private benchmark supplier for sensor architecture and pricing; direct public-equity exposure is limited.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_airtac",
+    "name": "AirTAC International Group",
+    "kind": "organization",
+    "domain": [
+      "pneumatic",
+      "valve",
+      "china_supplier",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-listed pneumatic automation supplier with solenoid valves and pneumatic control components relevant to low-cost valve/manifold choices.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "1590.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_airtac_pneumatic_valves_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "pneumatic",
+      "valve",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: public pneumatic component supplier; target-cell use and market share are unverified.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_ckd",
+    "name": "CKD Corporation",
+    "kind": "organization",
+    "domain": [
+      "vacuum",
+      "pneumatic",
+      "valve",
+      "investable_supplier"
+    ],
+    "description": "Japanese automation component supplier with vacuum ejectors, vacuum burst units, and pneumatic/fluid valves.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6407.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_ckd_vacuum_burst_unit_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "vacuum",
+      "pneumatic",
+      "valve",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public pneumatic/vacuum component exposure; exact parcel-sorting share is unverified.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },

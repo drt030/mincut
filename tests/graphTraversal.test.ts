@@ -317,3 +317,35 @@ test("servo motor material and component layer carries explicit low-confidence c
     assert.equal(typeof cost?.currentValue?.max, "number", `${edge!.target} must expose a numeric max cost`);
   }
 });
+
+test("vacuum end-effector child layer carries explicit low-confidence cost placeholders", () => {
+  const graph = loadGraphData();
+
+  for (const id of [
+    "vacuum_suction_cup_array",
+    "parcel_suction_cup_contact_qualification",
+    "vacuum_generator_or_ejector",
+    "vacuum_valves_and_blowoff",
+    "vacuum_blowoff_timing_and_contamination_control",
+    "vacuum_pressure_sensing",
+    "petrochemical_elastomer_feedstock",
+  ]) {
+    const edge = graph.edges.find((candidate) => candidate.source === id && candidate.relation === "measured_by");
+    assert.ok(edge, `${id} must have a measured_by cost edge`);
+
+    const metric = nodeById(graph, edge!.target);
+    assert.equal(metric?.kind, "metric", `${edge!.target} must be a metric node`);
+    assert.equal(metric?.confidence, "low", `${edge!.target} should remain low-confidence until supplier/teardown review`);
+    assert.equal(metric?.reviewStatus, "unreviewed", `${edge!.target} should not be treated as reviewed cost evidence`);
+
+    const cost = metric?.metrics?.find((item) => item.name === "Cost");
+    assert.equal(cost?.unit, "RMB", `${edge!.target} must expose an RMB cost`);
+    assert.equal(cost?.currency, "RMB", `${edge!.target} must expose an RMB currency`);
+    assert.equal(cost?.costAsOf, "2025", `${edge!.target} must carry a costAsOf year`);
+    assert.equal(typeof cost?.currentValue, "object", `${edge!.target} must use a min/typical/max range`);
+    assert.notEqual(cost?.currentValue, null, `${edge!.target} must use a non-null cost range`);
+    assert.equal(typeof cost?.currentValue?.min, "number", `${edge!.target} must expose a numeric min cost`);
+    assert.equal(typeof cost?.currentValue?.typical, "number", `${edge!.target} must expose a numeric p50 cost`);
+    assert.equal(typeof cost?.currentValue?.max, "number", `${edge!.target} must expose a numeric max cost`);
+  }
+});

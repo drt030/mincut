@@ -4391,5 +4391,395 @@
       "ev_mfg_mayr_servostop_servo_brake_2026"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_suction_cup_array_measured_by_cost",
+    "source": "vacuum_suction_cup_array",
+    "target": "vacuum_suction_cup_array_cost",
+    "relation": "measured_by",
+    "claim": "Vacuum suction cup array should carry an explicit low-confidence 2025 RMB p50 cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_parcel_suction_cup_contact_qualification_measured_by_cost",
+    "source": "parcel_suction_cup_contact_qualification",
+    "target": "parcel_suction_cup_contact_qualification_cost",
+    "relation": "measured_by",
+    "claim": "Parcel suction-cup contact qualification should carry an explicit low-confidence engineering cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_generator_or_ejector_measured_by_cost",
+    "source": "vacuum_generator_or_ejector",
+    "target": "vacuum_generator_or_ejector_cost",
+    "relation": "measured_by",
+    "claim": "Vacuum generator or ejector should carry an explicit low-confidence 2025 RMB p50 cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_valves_and_blowoff_measured_by_cost",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "vacuum_valves_and_blowoff_cost",
+    "relation": "measured_by",
+    "claim": "Vacuum valves and blow-off hardware should carry an explicit low-confidence 2025 RMB p50 cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_blowoff_timing_and_contamination_control_measured_by_cost",
+    "source": "vacuum_blowoff_timing_and_contamination_control",
+    "target": "vacuum_blowoff_timing_and_contamination_control_cost",
+    "relation": "measured_by",
+    "claim": "Vacuum blow-off timing and contamination-control work should carry an explicit low-confidence engineering cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_vacuum_pressure_sensing_measured_by_cost",
+    "source": "vacuum_pressure_sensing",
+    "target": "vacuum_pressure_sensing_cost",
+    "relation": "measured_by",
+    "claim": "Vacuum pressure sensing should carry an explicit low-confidence 2025 RMB p50 cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_petrochemical_elastomer_feedstock_measured_by_cost",
+    "source": "petrochemical_elastomer_feedstock",
+    "target": "petrochemical_elastomer_feedstock_cost",
+    "relation": "measured_by",
+    "claim": "Petrochemical elastomer feedstock should carry an explicit low-confidence 2025 RMB material cost placeholder.",
+    "context": "Low-confidence 2025 RMB allocation for recursive cost coverage of the vacuum suction end-effector branch; not a supplier quote or teardown.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_vacuum_end_effector_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_suction_cup_array_festo",
+    "source": "vacuum_suction_cup_array",
+    "target": "org_festo",
+    "relation": "manufactured_by",
+    "claim": "Festo supplies industrial vacuum suction cups relevant to suction-cup arrays.",
+    "context": "Product-line evidence; exact parcel-cell supplier share and wear-life not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_festo_suction_cups_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_generator_festo",
+    "source": "vacuum_generator_or_ejector",
+    "target": "org_festo",
+    "relation": "manufactured_by",
+    "claim": "Festo supplies vacuum generators relevant to EOAT vacuum generation.",
+    "context": "Product-line evidence; exact target-product BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_festo_vacuum_generators_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_generator_schmalz",
+    "source": "vacuum_generator_or_ejector",
+    "target": "org_schmalz",
+    "relation": "manufactured_by",
+    "claim": "Schmalz supplies pneumatic and electric vacuum generators relevant to EOAT vacuum generation.",
+    "context": "Product-line evidence; exact target-product BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schmalz_vacuum_generators_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_valves_blowoff_smc",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "org_smc",
+    "relation": "manufactured_by",
+    "claim": "SMC vacuum equipment includes release-valve and ejector-system components relevant to suction/blow-off control.",
+    "context": "Product-line evidence; exact valve manifold and parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_equipment_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_valves_blowoff_festo",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "org_festo",
+    "relation": "manufactured_by",
+    "claim": "Festo supplies pneumatic solenoid and directional valves relevant to suction/blow-off control.",
+    "context": "Product-line evidence; exact valve manifold and parcel-cell share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_festo_solenoid_valves_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_valves_blowoff_ckd",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "org_ckd",
+    "relation": "manufactured_by",
+    "claim": "CKD supplies vacuum burst units and valves relevant to vacuum release/blow-off control.",
+    "context": "Product-line evidence; exact parcel-cell BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_ckd_vacuum_burst_unit_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_valves_blowoff_airtac",
+    "source": "vacuum_valves_and_blowoff",
+    "target": "org_airtac",
+    "relation": "manufactured_by",
+    "claim": "AirTAC supplies pneumatic control valves relevant to low-cost suction/blow-off manifolds.",
+    "context": "Product-line evidence; exact vacuum duty and parcel-cell BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_airtac_pneumatic_valves_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_pressure_sensing_smc",
+    "source": "vacuum_pressure_sensing",
+    "target": "org_smc",
+    "relation": "manufactured_by",
+    "claim": "SMC supplies compact vacuum pressure switches relevant to pickup-state detection.",
+    "context": "Product-line evidence; exact sensor count and target-cell BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_pressure_switches_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_pressure_sensing_festo",
+    "source": "vacuum_pressure_sensing",
+    "target": "org_festo",
+    "relation": "manufactured_by",
+    "claim": "Festo supplies pressure and vacuum sensors relevant to vacuum monitoring.",
+    "context": "Product-line evidence; exact sensor count and target-cell BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_festo_pressure_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_pressure_sensing_ifm",
+    "source": "vacuum_pressure_sensing",
+    "target": "org_ifm",
+    "relation": "manufactured_by",
+    "claim": "ifm supplies industrial pressure and vacuum sensors relevant to vacuum monitoring.",
+    "context": "Product-line evidence; exact sensor count and target-cell BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_ifm_pressure_vacuum_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_vacuum_pressure_sensing_sick",
+    "source": "vacuum_pressure_sensing",
+    "target": "org_sick",
+    "relation": "manufactured_by",
+    "claim": "SICK supplies pressure sensors with vacuum-gripper monitoring applications relevant to vacuum sensing.",
+    "context": "Product-line evidence; exact sensor count and target-cell BOM not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_sick_pac50_pressure_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_petrochemical_elastomer_feedstock_wacker",
+    "source": "petrochemical_elastomer_feedstock",
+    "target": "org_wacker_chemie",
+    "relation": "manufactured_by",
+    "claim": "Wacker supplies silicone rubber products relevant to elastomer feedstock for suction cups and seals.",
+    "context": "Material-family evidence; exact suction-cup material grade and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wacker_silicone_rubber_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_petrochemical_elastomer_feedstock_dow",
+    "source": "petrochemical_elastomer_feedstock",
+    "target": "org_dow",
+    "relation": "manufactured_by",
+    "claim": "Dow supplies silicone elastomer and rubber product families relevant to industrial elastomer feedstock.",
+    "context": "Material-family evidence; exact suction-cup material grade and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dow_silicone_elastomers_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_petrochemical_elastomer_feedstock_shin_etsu",
+    "source": "petrochemical_elastomer_feedstock",
+    "target": "org_shin_etsu",
+    "relation": "manufactured_by",
+    "claim": "Shin-Etsu supplies silicone rubber compounds and liquid silicone rubber systems relevant to elastomer feedstock.",
+    "context": "Material-family evidence; exact suction-cup material grade and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_shin_etsu_silicone_rubber_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_petrochemical_elastomer_feedstock_dupont",
+    "source": "petrochemical_elastomer_feedstock",
+    "target": "org_dupont",
+    "relation": "manufactured_by",
+    "claim": "DuPont supplies elastomer and thermoplastic elastomer product families relevant to industrial rubber and seal materials.",
+    "context": "Material-family evidence; exact suction-cup material grade and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dupont_elastomers_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_suction_contact_qualification_smc",
+    "source": "parcel_suction_cup_contact_qualification",
+    "target": "org_smc",
+    "relation": "implemented_by",
+    "claim": "SMC product lines and vacuum components provide a supplier/process candidate for suction-cup selection and contact qualification.",
+    "context": "Product-line evidence only; parcel-surface qualification method not verified as an SMC service.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_pads"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_suction_contact_qualification_schmalz",
+    "source": "parcel_suction_cup_contact_qualification",
+    "target": "org_schmalz",
+    "relation": "implemented_by",
+    "claim": "Schmalz vacuum end-effector and component materials provide a supplier/process candidate for suction-cup selection and contact qualification.",
+    "context": "Product-line evidence only; parcel-surface qualification method not verified as a Schmalz service.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schmalz_vacuum_end_effectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_parcel_suction_contact_qualification_piab",
+    "source": "parcel_suction_cup_contact_qualification",
+    "target": "org_piab",
+    "relation": "implemented_by",
+    "claim": "Piab suction cup and soft-gripper product lines provide a supplier/process candidate for suction-cup selection and contact qualification.",
+    "context": "Product-line evidence only; parcel-surface qualification method not verified as a Piab service.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_piab_suction_cups_soft_grippers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vacuum_blowoff_timing_smc",
+    "source": "vacuum_blowoff_timing_and_contamination_control",
+    "target": "org_smc",
+    "relation": "implemented_by",
+    "claim": "SMC vacuum ejector/release components provide an implementation candidate for suction and blow-off timing control.",
+    "context": "Product-line evidence only; parcel release timing performance not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_equipment_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vacuum_blowoff_timing_schmalz",
+    "source": "vacuum_blowoff_timing_and_contamination_control",
+    "target": "org_schmalz",
+    "relation": "implemented_by",
+    "claim": "Schmalz compact ejector and vacuum monitoring products provide an implementation candidate for suction and blow-off timing control.",
+    "context": "Product-line evidence only; parcel release timing performance not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schmalz_vacuum_generators_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_vacuum_blowoff_timing_piab",
+    "source": "vacuum_blowoff_timing_and_contamination_control",
+    "target": "org_piab",
+    "relation": "implemented_by",
+    "claim": "Piab inline ejector and enhanced blow-off products provide an implementation candidate for suction and blow-off timing control.",
+    "context": "Product-line evidence only; parcel release timing performance not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_piab_inline_ejectors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_bauxite_alumina_aluminum_chain_measured_by_cost",
+    "source": "bauxite_alumina_aluminum_chain",
+    "target": "bauxite_alumina_aluminum_chain_cost",
+    "relation": "measured_by",
+    "claim": "Bauxite/alumina/aluminum supply chain should carry an explicit low-confidence child cost allocation under fabricated aluminum material.",
+    "context": "Cost consistency backfill. Allocates part of a high-cost material/electronics parent to its direct supply-chain child so cost-mode colour has an explanatory child source.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_material_supply_chain_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_quartz_silica_silicon_chain_measured_by_cost",
+    "source": "quartz_silica_silicon_chain",
+    "target": "quartz_silica_silicon_chain_cost",
+    "relation": "measured_by",
+    "claim": "Quartz/silica/silicon chain should carry an explicit low-confidence child cost allocation under shared semiconductor electronics.",
+    "context": "Cost consistency backfill. Allocates part of a high-cost material/electronics parent to its direct supply-chain child so cost-mode colour has an explanatory child source.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_material_supply_chain_child_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
