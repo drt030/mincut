@@ -6327,12 +6327,35 @@
         "description": "2024H1 China industrial robot sales share, cited by Inovance's 2024 interim report from MIR DATABANK."
       },
       {
+        "name": "2024 total revenue",
+        "unit": "USD billion",
+        "currentValue": 5.2,
+        "currency": "USD",
+        "costAsOf": "2024",
+        "description": "Official 2024 annual-report announcement states annual revenue exceeded US$5.2 billion."
+      },
+      {
+        "name": "2024 general industrial automation sales",
+        "unit": "USD billion",
+        "currentValue": 2.1,
+        "currency": "USD",
+        "costAsOf": "2024",
+        "description": "Official 2024 annual-report announcement states General Industrial Automation sales were US$2.1 billion, 41% of total sales."
+      },
+      {
+        "name": "2024 R&D intensity",
+        "unit": "%",
+        "currentValue": 8.5,
+        "description": "Official 2024 annual-report announcement states R&D investment exceeded US$440 million, or 8.5% of total annual revenue."
+      },
+      {
         "name": "Public listing",
         "currentValue": "300124.SZ"
       }
     ],
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_inovance_annual_report_2024_investor_exposure",
       "ev_inovance_sv670_servo_sto_2026",
       "ev_robot_controller_io_inovance_ac703_2026"
     ],
@@ -6463,6 +6486,20 @@
         "description": "2024H1 China small PLC share, cited by Inovance's 2024 interim report; small-PLC basis, not WCS software share."
       },
       {
+        "name": "FY2025 Digital Industries revenue",
+        "unit": "EUR billion",
+        "currentValue": 17.788,
+        "currency": "EUR",
+        "costAsOf": "2025",
+        "description": "Siemens FY2025 annual report Digital Industries revenue; includes automation, software, and related industrial digital businesses, not only parcel-cell controls."
+      },
+      {
+        "name": "FY2025 Digital Industries profit margin",
+        "unit": "%",
+        "currentValue": 14.9,
+        "description": "Siemens FY2025 annual report Digital Industries profit margin; segment-level exposure metric for industrial automation investors."
+      },
+      {
         "name": "Public listing",
         "currentValue": "SIE.DE"
       }
@@ -6470,6 +6507,7 @@
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
       "ev_mfg_siemens_simatic_plc",
+      "ev_siemens_annual_report_2025_digital_industries",
       "ev_siemens_servo_motion_control",
       "ev_mfg_siemens_motion_control_encoders_2026"
     ],
@@ -6501,12 +6539,21 @@
     "confidence": "medium",
     "metrics": [
       {
+        "name": "FY2025 Factory Automation Systems revenue",
+        "unit": "JPY billion",
+        "currentValue": 725.6,
+        "currency": "JPY",
+        "costAsOf": "2025",
+        "description": "Mitsubishi Electric 2025 Integrated Report factory-automation systems revenue for the Industry & Mobility business area."
+      },
+      {
         "name": "Public listing",
         "currentValue": "6503.T"
       }
     ],
     "evidenceIds": [
       "ev_mfg_mitsubishi_plc_servo",
+      "ev_mitsubishi_integrated_report_2025_factory_automation",
       "ev_mitsubishi_power_modules_motion_control_2026"
     ],
     "tags": [
@@ -6535,18 +6582,44 @@
     "confidence": "medium",
     "metrics": [
       {
+        "name": "FY2025 Intelligent Devices sales",
+        "unit": "USD billion",
+        "currentValue": 3.756,
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Rockwell Automation FY2025 segment sales for Intelligent Devices; includes automation hardware exposure."
+      },
+      {
+        "name": "FY2025 Software & Control sales",
+        "unit": "USD billion",
+        "currentValue": 2.383,
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Rockwell Automation FY2025 segment sales for Software & Control; closest segment exposure to PLC/control software."
+      },
+      {
+        "name": "FY2025 Lifecycle Services sales",
+        "unit": "USD billion",
+        "currentValue": 2.203,
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Rockwell Automation FY2025 segment sales for Lifecycle Services; relevant to commissioning, field service, and support exposure."
+      },
+      {
         "name": "Public listing",
         "currentValue": "ROK"
       }
     ],
     "evidenceIds": [
+      "ev_rockwell_annual_report_2025_segment_sales",
       "ev_mfg_rockwell_controllers_safety"
     ],
     "tags": [
       "manufacturer",
       "plc",
       "safety",
-      "public_company"
+      "public_company",
+      "investable_supplier"
     ],
     "notes": "Investor relevance: strong North American automation exposure; less direct for a China-first 300,000 RMB target but important for global logistics automation.",
     "reviewStatus": "unreviewed",
@@ -6565,17 +6638,41 @@
     "confidence": "medium",
     "metrics": [
       {
+        "name": "FY2025 Industrial Automation revenues",
+        "unit": "EUR billion",
+        "currentValue": 7.022,
+        "currency": "EUR",
+        "costAsOf": "2025",
+        "description": "Schneider Electric FY2025 Industrial Automation revenues; includes discrete automation, process/hybrid automation, and AVEVA software exposure."
+      },
+      {
+        "name": "FY2025 Industrial Automation organic growth",
+        "unit": "%",
+        "currentValue": 3,
+        "description": "Schneider Electric FY2025 Industrial Automation organic growth versus 2024."
+      },
+      {
+        "name": "FY2025 group revenues",
+        "unit": "EUR billion",
+        "currentValue": 40.152,
+        "currency": "EUR",
+        "costAsOf": "2025",
+        "description": "Schneider Electric FY2025 group revenues; useful denominator for automation exposure."
+      },
+      {
         "name": "Public listing",
         "currentValue": "SU.PA"
       }
     ],
     "evidenceIds": [
+      "ev_schneider_fy2025_industrial_automation_results",
       "ev_mfg_schneider_modicon_plc"
     ],
     "tags": [
       "manufacturer",
       "plc",
-      "public_company"
+      "public_company",
+      "investable_supplier"
     ],
     "notes": "Investor relevance: PLC/electrical-control exposure; exact parcel-cell adoption share is unverified.",
     "reviewStatus": "unreviewed",

@@ -60,6 +60,7 @@ const COMMERCIAL_ID = "industrial_area_scan_camera"; // commercially_available
 const LAB_PROVEN_LEAF_ID = "parcels_per_hour"; // lab_proven metric (a "leaf"-ish node)
 const REDUCER_ID = "precision_reducer_gearbox";
 const NABTESCO_ID = "org_nabtesco";
+const SIEMENS_ID = "org_siemens";
 const MAINTENANCE_ID = "maintenance_workflow";
 const ABB_ROBOTICS_ID = "org_abb_robotics";
 
@@ -547,6 +548,34 @@ test("expanded: maintenance workflow surfaces service implementation candidates"
     html,
     /unreviewed/,
     `service candidate section must surface edge review status; got: ${html}`,
+  );
+});
+
+test("expanded: organization detail surfaces its own investor metrics", () => {
+  const focused = nodeById(SIEMENS_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Organization metrics \/ investor exposure/,
+    `organization detail must surface node-level investor metrics; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /FY2025 Digital Industries revenue/,
+    `Siemens detail must show its annual-report automation exposure metric; got: ${html}`,
+  );
+  assert.match(html, /17\.788/, `Siemens detail must show the revenue value; got: ${html}`);
+  assert.match(
+    html,
+    /Siemens Annual Report 2025/,
+    `Siemens detail must still show the annual-report evidence backing the metric; got: ${html}`,
   );
 });
 

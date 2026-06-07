@@ -159,6 +159,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   const down = downRaw.filter((child) => child.reviewStatus !== "deprecated");
   const downDeprecatedCount = downRaw.length - down.length;
   const metrics = metricsForNode(graph, node.id).filter((child) => child.reviewStatus !== "deprecated");
+  const organizationMetrics = node.kind === "organization" ? (node.metrics ?? []) : [];
   const bottlenecksAll = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const bottlenecks = bottlenecksAll.filter((child) => child.reviewStatus !== "deprecated");
   const bottlenecksDeprecatedCount = bottlenecksAll.length - bottlenecks.length;
@@ -344,6 +345,9 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         <MaturityHistoryTimeline node={node} />
       </div>
       <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
+      {organizationMetrics.length > 0 ? (
+        <InlineMetricList title={t("organizationMetrics")} metrics={organizationMetrics} />
+      ) : null}
       {/*
         Slice-1 follow-up (2026-05-10 ux-flow Flow 1.5/1.6): the cost
         rollup card + ⚠ inversion badge were gated to `product` kind
@@ -450,6 +454,65 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
           <p className="warning">{t("noDirectEvidence")}</p>
         )}
       </div>
+    </div>
+  );
+}
+
+type InlineMetric = NonNullable<Node["metrics"]>[number];
+
+function InlineMetricList({ title, metrics }: { title: string; metrics: InlineMetric[] }) {
+  const { t } = useLanguage();
+  return (
+    <div>
+      <strong>{title}</strong>
+      <ul className="metric-detail-list">
+        {metrics.map((metric) => {
+          const current = formatMetricValue(metric.currentValue as MetricValue | undefined, metric.unit, metric.currency);
+          const target = formatMetricValue(metric.targetValue as MetricValue | undefined, metric.unit, metric.currency);
+          const asOf = costAsOfVisualFor(metric.costAsOf);
+          return (
+            <li className="metric-detail-row" key={metric.name}>
+              <div className="metric-detail-row-head">
+                <span>{metric.name}</span>
+                {metric.costAsOf ? (
+                  <span
+                    className={["cost-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+                    title={asOf.hasValue ? `${t("costAsOf")} ${asOf.label}` : t("costAsOfMissing")}
+                    aria-label={asOf.hasValue ? `${t("costAsOf")} ${asOf.label}` : t("costAsOfMissing")}
+                  >
+                    {t("costAsOf")}: {asOf.label}
+                  </span>
+                ) : null}
+                {metric.currency && metric.currency !== "RMB" ? (
+                  <span
+                    className="currency-pill"
+                    title={t("currencyPillTooltip").replace("{currency}", metric.currency)}
+                    aria-label={t("currencyPillTooltip").replace("{currency}", metric.currency)}
+                  >
+                    {metric.currency}
+                  </span>
+                ) : null}
+              </div>
+              <div className="metric-detail-row-values">
+                {current.full !== "—" ? (
+                  <span>
+                    <strong>{t("current")}:</strong> {current.full}
+                  </span>
+                ) : null}
+                {target.full !== "—" ? (
+                  <span>
+                    <strong>{t("target")}:</strong> {target.full}
+                  </span>
+                ) : null}
+                {current.full === "—" && target.full === "—" ? (
+                  <span className="muted">{t("metricNoValue")}</span>
+                ) : null}
+              </div>
+              {metric.description ? <p className="metric-detail-description">{metric.description}</p> : null}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

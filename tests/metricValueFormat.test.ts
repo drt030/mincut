@@ -20,6 +20,12 @@ test("RMB range full display rounds fractional rollups to whole yuan", () => {
   assert.equal(formatted.full, "p50 309,994 (range 160,433–550,280) RMB");
 });
 
+test("currency display preserves decimals for million and billion unit metrics", () => {
+  const formatted = formatMetricValue(17.788, "EUR billion", "EUR");
+
+  assert.equal(formatted.full, "17.788 EUR billion");
+});
+
 test("non-currency range full display preserves meaningful fractional values", () => {
   const formatted = formatMetricValue({ min: 98, typical: 99, max: 99.5 }, "%");
 

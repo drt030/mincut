@@ -1255,6 +1255,81 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_inovance_annual_report_2024_investor_exposure",
+    "type": "historical_source",
+    "title": "Inovance Annual Report 2024 announcement",
+    "url": "https://www.inovance.eu/news/details/inovance-annual-report-2024-1-368",
+    "sourceName": "Inovance",
+    "date": "2025-05-28",
+    "summary": "Inovance's official 2024 annual-report announcement states annual revenue exceeded US$5.2 billion, General Industrial Automation sales were US$2.1 billion or 41% of total sales, and R&D investment exceeded US$440 million or 8.5% of revenue.",
+    "supportsNodeIds": [
+      "org_inovance"
+    ],
+    "limitations": "Company-level exposure evidence; it does not prove the exact controller, robot arm, or servo BOM for the target low-cost parcel-sorting cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_siemens_annual_report_2025_digital_industries",
+    "type": "historical_source",
+    "title": "Siemens Annual Report 2025 — Digital Industries segment",
+    "url": "https://assets.new.siemens.com/siemens/assets/api/uuid%3A428ea18a-e7ab-4f93-a160-33908f1c3540/Siemens-Annual-Report-2025.pdf",
+    "sourceName": "Siemens",
+    "date": "2025",
+    "summary": "Siemens reports FY2025 Digital Industries revenue of EUR 17.788 billion, profit of EUR 2.643 billion, and a 14.9% profit margin; the segment includes factory automation, motion control, process automation, and industrial software exposure.",
+    "supportsNodeIds": [
+      "org_siemens"
+    ],
+    "limitations": "Segment exposure evidence for Siemens industrial automation; it is not target-cell market share and does not identify the low-cost parcel-cell controller BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mitsubishi_integrated_report_2025_factory_automation",
+    "type": "historical_source",
+    "title": "Mitsubishi Electric 2025 Integrated Report — Factory Automation Systems",
+    "url": "https://www.mitsubishielectric.com/investors/library/integrated-report/pdf/2025/integrated-report2025-en.pdf",
+    "sourceName": "Mitsubishi Electric",
+    "date": "2025-05-28",
+    "summary": "Mitsubishi Electric's 2025 Integrated Report shows FY2025 Factory Automation Systems revenue of JPY 725.6 billion and identifies control and drive products, processing machines, distribution-control equipment, and FA digital products as principal products.",
+    "supportsNodeIds": [
+      "org_mitsubishi_electric"
+    ],
+    "limitations": "Factory-automation business exposure evidence; exact PLC, servo, or robot-controller share in the target parcel-cell market remains unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_rockwell_annual_report_2025_segment_sales",
+    "type": "historical_source",
+    "title": "Rockwell Automation 2025 Annual Report — segment sales",
+    "url": "https://www.rockwellautomation.com/content/dam/rockwell-automation/documents/pdf/company/about-us/ir/2025/ROK-AR-2025-Final.pdf",
+    "sourceName": "Rockwell Automation",
+    "date": "2025-11-12",
+    "summary": "Rockwell Automation reports FY2025 segment sales of USD 3.756 billion for Intelligent Devices, USD 2.383 billion for Software & Control, USD 2.203 billion for Lifecycle Services, and USD 8.342 billion total.",
+    "supportsNodeIds": [
+      "org_rockwell_automation"
+    ],
+    "limitations": "Segment exposure evidence for an automation supplier; more relevant to global/North American automation than a China-first low-cost parcel-cell BOM, and not a parcel-cell market-share source.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_schneider_fy2025_industrial_automation_results",
+    "type": "historical_source",
+    "title": "Schneider Electric 2025 full-year results — Industrial Automation",
+    "url": "https://www.se.com/ww/en/assets/564/document/528237/release-fy-results-2025.pdf?p_File_Name=2025+FY+Results&p_enDocType=Financial+release",
+    "sourceName": "Schneider Electric",
+    "date": "2026-02-26",
+    "summary": "Schneider Electric reports FY2025 Industrial Automation revenues of EUR 7.022 billion with 3.0% organic growth, alongside total group revenues of EUR 40.152 billion.",
+    "supportsNodeIds": [
+      "org_schneider_electric"
+    ],
+    "limitations": "Business-line exposure evidence; it covers broad industrial automation and software exposure, not target parcel-cell controller adoption or BOM share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_mfg_nabtesco_precision_reducer_60_share",
     "type": "product_page",
     "title": "Nabtesco Precision Equipment Company profile",

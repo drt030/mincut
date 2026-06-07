@@ -145,6 +145,7 @@ function trimTrailingZeros(value: string): string {
 function shouldUseWholeNumberFullDisplay(unit: string | undefined, currency: string | undefined): boolean {
   const normalizedUnit = unit?.trim().toUpperCase() ?? "";
   const normalizedCurrency = currency?.trim().toUpperCase() ?? "";
+  if (normalizedUnit.includes("MILLION") || normalizedUnit.includes("BILLION")) return false;
   return normalizedCurrency.length > 0 || normalizedUnit.includes("RMB") || normalizedUnit.includes("USD") || normalizedUnit.includes("EUR") || normalizedUnit.includes("JPY");
 }
 
