@@ -450,6 +450,74 @@ test("high-priority subsystem and method nodes expose direct supplier or impleme
   }
 });
 
+test("visible hardware frontier nodes expose direct supplier candidates for investor workflows", () => {
+  const expectedManufacturersByNode: Record<string, string[]> = {
+    machine_vision_lens_and_optics: [
+      "org_cognex",
+      "org_keyence",
+      "org_basler",
+      "org_opt_machine_vision",
+    ],
+    conveyor_photoelectric_sensors: [
+      "org_banner_engineering",
+      "org_sick",
+      "org_omron",
+      "org_leuze",
+    ],
+    mechanical_structure: [
+      "org_wayzim",
+      "org_dematic_kion",
+      "org_daifuku",
+      "org_honeywell_intelligrated",
+    ],
+    arm_links_and_joints: [
+      "org_fanuc",
+      "org_estun",
+      "org_inovance",
+      "org_abb_robotics",
+      "org_yaskawa",
+    ],
+    robot_base_mounting_structure: [
+      "org_abb_robotics",
+      "org_fanuc",
+      "org_yaskawa",
+      "org_inovance",
+    ],
+    robot_cabling_and_power: [
+      "org_amphenol",
+      "org_te_connectivity",
+      "org_molex",
+      "org_siemens",
+    ],
+    servo_motor_stator_core: [
+      "org_baosteel",
+      "org_nippon_steel",
+      "org_posco",
+    ],
+    servo_motor_windings: [
+      "org_inovance",
+      "org_yaskawa",
+      "org_mitsubishi_electric",
+    ],
+    servo_motor_housing_and_thermal_design: [
+      "org_inovance",
+      "org_yaskawa",
+      "org_mitsubishi_electric",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedManufacturersByNode)) {
+    const candidateIds = new Set(manufacturersForNode(graph, nodeId).map((node) => node.id));
+
+    for (const expectedId of expectedIds) {
+      assert.ok(
+        candidateIds.has(expectedId),
+        `${nodeId} must expose ${expectedId} as a direct hardware or material supplier candidate`,
+      );
+    }
+  }
+});
+
 test("investment-facing supplier candidates expose public or private market status", () => {
   const expectedCandidatesByNode: Record<string, string[]> = {
     parcel_detection_and_tracking: ["org_hikrobot", "org_keyence", "org_cognex"],

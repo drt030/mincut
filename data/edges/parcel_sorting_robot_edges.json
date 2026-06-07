@@ -5845,6 +5845,457 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_mfg_machine_vision_lens_optics_cognex",
+    "source": "machine_vision_lens_and_optics",
+    "target": "org_cognex",
+    "relation": "manufactured_by",
+    "claim": "Cognex is a machine-vision supplier candidate relevant to the lens/optics layer of parcel label recognition.",
+    "context": "Product-line and component-architecture evidence only; exact lens SKU, target-cell supplier status, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_vision_control_machine_vision_components",
+      "ev_mfg_cognex_machine_vision_code_readers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_machine_vision_lens_optics_keyence",
+    "source": "machine_vision_lens_and_optics",
+    "target": "org_keyence",
+    "relation": "manufactured_by",
+    "claim": "KEYENCE is a machine-vision supplier candidate relevant to the lens/optics layer of parcel label recognition.",
+    "context": "Machine-vision product-line evidence only; exact lens SKU, target-cell supplier status, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_keyence_vision_safety_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_machine_vision_lens_optics_basler",
+    "source": "machine_vision_lens_and_optics",
+    "target": "org_basler",
+    "relation": "manufactured_by",
+    "claim": "Basler is a machine-vision supplier candidate relevant to the camera and optics stack for parcel label recognition.",
+    "context": "Industrial-camera product-line evidence only; exact optics SKU, target-cell supplier status, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_basler_industrial_cameras"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_machine_vision_lens_optics_opt",
+    "source": "machine_vision_lens_and_optics",
+    "target": "org_opt_machine_vision",
+    "relation": "manufactured_by",
+    "claim": "OPT Machine Vision is a supplier candidate for machine-vision optics, lighting, and camera components.",
+    "context": "Machine-vision product-line evidence only; exact parcel-cell adoption and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_opt_machine_vision_components"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_photoelectric_sensors_banner",
+    "source": "conveyor_photoelectric_sensors",
+    "target": "org_banner_engineering",
+    "relation": "manufactured_by",
+    "claim": "Banner Engineering is a supplier candidate for conveyor photoelectric and sortation sensing.",
+    "context": "Application-page evidence for conveying and sortation sensors; target-cell sensor SKU, count, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_photoelectric_sensors_sick",
+    "source": "conveyor_photoelectric_sensors",
+    "target": "org_sick",
+    "relation": "manufactured_by",
+    "claim": "SICK is a supplier candidate for conveyor photoelectric object-detection sensors.",
+    "context": "Product-line evidence for industrial photoelectric sensors; target-cell sensor SKU, count, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_sick_photoelectric_sensors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_photoelectric_sensors_omron",
+    "source": "conveyor_photoelectric_sensors",
+    "target": "org_omron",
+    "relation": "manufactured_by",
+    "claim": "OMRON is a supplier candidate for conveyor photoelectric and industrial sensing.",
+    "context": "Sensing product-line evidence; target-cell sensor SKU, count, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_omron_conveyor_sensing_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_conveyor_photoelectric_sensors_leuze",
+    "source": "conveyor_photoelectric_sensors",
+    "target": "org_leuze",
+    "relation": "manufactured_by",
+    "claim": "Leuze is a supplier candidate for conveyor photoelectric object-detection sensors.",
+    "context": "Product-line evidence for optical conveyor sensing; target-cell sensor SKU, count, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_leuze_conveyor_object_detection_2026",
+      "ev_mfg_leuze_safety_sensors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_mechanical_structure_wayzim",
+    "source": "mechanical_structure",
+    "target": "org_wayzim",
+    "relation": "manufactured_by",
+    "claim": "Wayzim is a supplier/integrator candidate for parcel-cell mechanical structure through robotic infeed and sortation systems.",
+    "context": "Adjacent parcel-equipment product evidence; exact target-cell frame, guarding, and base BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_wayzim_crossbelt_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_mechanical_structure_dematic",
+    "source": "mechanical_structure",
+    "target": "org_dematic_kion",
+    "relation": "manufactured_by",
+    "claim": "Dematic is a supplier/integrator candidate for parcel-cell mechanical structure through automated sortation systems.",
+    "context": "Large-system sortation evidence; exact target-cell frame, guarding, and base BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_mechanical_structure_daifuku",
+    "source": "mechanical_structure",
+    "target": "org_daifuku",
+    "relation": "manufactured_by",
+    "claim": "Daifuku is a supplier/integrator candidate for parcel-cell mechanical structure through intralogistics sorting systems.",
+    "context": "Large-system material-handling evidence; exact target-cell frame, guarding, and base BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_daifuku_sorting_systems",
+      "ev_mfg_daifuku_sorting_picking_systems_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_mechanical_structure_honeywell",
+    "source": "mechanical_structure",
+    "target": "org_honeywell_intelligrated",
+    "relation": "manufactured_by",
+    "claim": "Honeywell Intelligrated is a supplier/integrator candidate for parcel-cell mechanical structure through sortation and conveyor systems.",
+    "context": "Large-system sortation evidence; exact target-cell frame, guarding, and base BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_arm_links_joints_fanuc",
+    "source": "arm_links_and_joints",
+    "target": "org_fanuc",
+    "relation": "manufactured_by",
+    "claim": "FANUC is a robot-OEM candidate for arm links and joints in the industrial robot body.",
+    "context": "Industrial-robot supplier evidence; exact target-cell arm model and link/joint BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_arm_links_joints_estun",
+    "source": "arm_links_and_joints",
+    "target": "org_estun",
+    "relation": "manufactured_by",
+    "claim": "Estun is a domestic robot-OEM candidate for arm links and joints in the industrial robot body.",
+    "context": "Industrial-robot supplier evidence; exact target-cell arm model and link/joint BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_arm_links_joints_inovance",
+    "source": "arm_links_and_joints",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a domestic robot and motion-control supplier candidate for arm links and joints.",
+    "context": "Industrial-robot and motion-control supplier evidence; exact target-cell arm model and link/joint BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_arm_links_joints_abb",
+    "source": "arm_links_and_joints",
+    "target": "org_abb_robotics",
+    "relation": "manufactured_by",
+    "claim": "ABB Robotics is a robot-OEM candidate for arm links and joints in a comparable parcel-inductor architecture.",
+    "context": "Reference architecture evidence, not proof of the target low-cost robot-cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_arm_links_joints_yaskawa",
+    "source": "arm_links_and_joints",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a robot and servo supplier candidate for arm links and joints.",
+    "context": "Robot/servo supplier evidence; exact target-cell arm model and link/joint BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_base_mounting_structure_abb",
+    "source": "robot_base_mounting_structure",
+    "target": "org_abb_robotics",
+    "relation": "manufactured_by",
+    "claim": "ABB Robotics is a candidate supplier/integrator for robot base and mounting structure in parcel induction cells.",
+    "context": "Reference parcel-inductor architecture evidence; exact base plate, anchoring, and installation BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_base_mounting_structure_fanuc",
+    "source": "robot_base_mounting_structure",
+    "target": "org_fanuc",
+    "relation": "manufactured_by",
+    "claim": "FANUC is a robot-OEM candidate for robot base and mounting structure around the arm body.",
+    "context": "Industrial-robot supplier evidence; exact base plate, anchoring, and installation BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_base_mounting_structure_yaskawa",
+    "source": "robot_base_mounting_structure",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a robot-OEM candidate for robot base and mounting structure around the arm body.",
+    "context": "Robot/servo supplier evidence; exact base plate, anchoring, and installation BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_base_mounting_structure_inovance",
+    "source": "robot_base_mounting_structure",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a domestic robot and motion-control candidate for robot base and mounting structure around the arm body.",
+    "context": "Industrial-robot and motion-control supplier evidence; exact base plate, anchoring, and installation BOM are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_cabling_power_amphenol",
+    "source": "robot_cabling_and_power",
+    "target": "org_amphenol",
+    "relation": "manufactured_by",
+    "claim": "Amphenol is a cable/connector supplier candidate for robot cabling and power interfaces.",
+    "context": "Servo/robot connector product evidence; exact target-cell cable harness, connector SKU, and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_amphenol_m23_motiongrade_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_cabling_power_te",
+    "source": "robot_cabling_and_power",
+    "target": "org_te_connectivity",
+    "relation": "manufactured_by",
+    "claim": "TE Connectivity is a cable/connector supplier candidate for robot cabling and power interfaces.",
+    "context": "Servo motor connector product evidence; exact target-cell cable harness, connector SKU, and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_te_micro_motor_connectors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_cabling_power_molex",
+    "source": "robot_cabling_and_power",
+    "target": "org_molex",
+    "relation": "manufactured_by",
+    "claim": "Molex is a cable/connector supplier candidate for robot cabling and power interfaces.",
+    "context": "Industrial robot and servo connector product evidence; exact target-cell cable harness, connector SKU, and supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_molex_robot_servo_connectors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_robot_cabling_power_siemens",
+    "source": "robot_cabling_and_power",
+    "target": "org_siemens",
+    "relation": "manufactured_by",
+    "claim": "Siemens is an automation supplier candidate for robot cabling, distributed I/O, and power/control integration interfaces.",
+    "context": "Automation and distributed-I/O evidence; exact cable harness, power cabinet, and target-cell supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_robot_controller_io_siemens_et200_2026",
+      "ev_siemens_servo_motion_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_stator_core_baosteel",
+    "source": "servo_motor_stator_core",
+    "target": "org_baosteel",
+    "relation": "manufactured_by",
+    "claim": "Baosteel is an electrical-steel material supplier candidate for servo motor stator cores.",
+    "context": "Electrical-steel product evidence; exact lamination stamping supplier, grade, and target servo motor BOM share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_baosteel_electrical_steel_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_stator_core_nippon_steel",
+    "source": "servo_motor_stator_core",
+    "target": "org_nippon_steel",
+    "relation": "manufactured_by",
+    "claim": "Nippon Steel is an electrical-steel material supplier candidate for servo motor stator cores.",
+    "context": "Electrical-steel product evidence; exact lamination stamping supplier, grade, and target servo motor BOM share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_nippon_steel_electrical_steel_2022"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_stator_core_posco",
+    "source": "servo_motor_stator_core",
+    "target": "org_posco",
+    "relation": "manufactured_by",
+    "claim": "POSCO is an electrical-steel material supplier candidate for servo motor stator cores.",
+    "context": "Electrical-steel catalog evidence; exact lamination stamping supplier, grade, and target servo motor BOM share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_posco_electrical_steel_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_windings_inovance",
+    "source": "servo_motor_windings",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a servo/motion supplier candidate for servo motor winding and motor assembly exposure.",
+    "context": "Servo and industrial-robot market evidence; exact winding process, motor SKU, and target-cell supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_inovance_sv670_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_windings_yaskawa",
+    "source": "servo_motor_windings",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a servo supplier candidate for servo motor winding and motor assembly exposure.",
+    "context": "Servo product-line evidence; exact winding process, motor SKU, and target-cell supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_windings_mitsubishi",
+    "source": "servo_motor_windings",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a servo supplier candidate for servo motor winding and motor assembly exposure.",
+    "context": "Factory automation and servo product-line evidence; exact winding process, motor SKU, and target-cell supplier share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_housing_thermal_inovance",
+    "source": "servo_motor_housing_and_thermal_design",
+    "target": "org_inovance",
+    "relation": "manufactured_by",
+    "claim": "Inovance is a servo/motion supplier candidate for servo motor housing and thermal-design exposure.",
+    "context": "Servo and industrial-robot market evidence; exact housing casting/machining supplier and thermal design are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_inovance_sv670_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_housing_thermal_yaskawa",
+    "source": "servo_motor_housing_and_thermal_design",
+    "target": "org_yaskawa",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is a servo supplier candidate for servo motor housing and thermal-design exposure.",
+    "context": "Servo product-line evidence; exact housing casting/machining supplier and thermal design are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_sigma_x_servo_sto_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_servo_motor_housing_thermal_mitsubishi",
+    "source": "servo_motor_housing_and_thermal_design",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric is a servo supplier candidate for servo motor housing and thermal-design exposure.",
+    "context": "Factory automation and servo product-line evidence; exact housing casting/machining supplier and thermal design are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_bauxite_alumina_aluminum_chain_measured_by_cost",
     "source": "bauxite_alumina_aluminum_chain",
     "target": "bauxite_alumina_aluminum_chain_cost",
