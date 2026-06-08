@@ -600,6 +600,7 @@ type InvestorAnswer = {
   topCostTypicalRmb: number | null;
   candidateExposure: Node[];
   startupWedge: Node | null;
+  throughputConstraints: Node[];
 };
 
 function InvestorAnswerPanel({
@@ -623,8 +624,10 @@ function InvestorAnswerPanel({
     answer.costGapRmb !== null ||
     answer.topCostNode ||
     answer.candidateExposure.length > 0 ||
-    answer.startupWedge;
+    answer.startupWedge ||
+    answer.throughputConstraints.length > 0;
   if (!hasSignal) return null;
+  const throughputConstraintFactors = constraintFactorSummary(answer.throughputConstraints, t);
   return (
     <div>
       <strong>{t("investorAnswerPanel")}</strong>
@@ -657,6 +660,31 @@ function InvestorAnswerPanel({
               {formatMetricValue(answer.costGapRmb, "RMB", "RMB").full}{" "}
               {answer.costGapDirection === "under" ? t("costGapUnderTarget") : t("costGapOverTarget")}
             </p>
+          </li>
+        ) : null}
+        {answer.throughputConstraints.length > 0 ? (
+          <li className="metric-detail-row">
+            <div className="metric-detail-row-head">
+              <span>{t("throughputConstraints")}</span>
+              <span className="pill">{answer.throughputConstraints.length}</span>
+            </div>
+            <p className="metric-detail-description">
+              {answer.throughputConstraints.map((constraint, index) => (
+                <React.Fragment key={constraint.id}>
+                  {index > 0 ? ", " : null}
+                  <NodeListLink
+                    node={constraint}
+                    displayName={nodeName(constraint.id, constraint.name)}
+                    onSelectNode={onSelectNode}
+                  />
+                </React.Fragment>
+              ))}
+            </p>
+            {throughputConstraintFactors ? (
+              <p className="metric-detail-description">
+                <strong>{t("constraintTypes")}:</strong> {throughputConstraintFactors}
+              </p>
+            ) : null}
           </li>
         ) : null}
         {answer.topCostNode ? (
@@ -720,6 +748,7 @@ function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCa
     topCostTypicalRmb: topCostStep ? topCostStep.costTypicalRmb : null,
     candidateExposure: topCostStep ? candidateExposureForNode(graph, topCostStep.nodeId) : [],
     startupWedge: opportunityCandidates[0] ?? null,
+    throughputConstraints: throughputConstraintNodesForProduct(graph, product.id),
   };
 }
 
@@ -759,6 +788,51 @@ function productCostGapRmb(graph: GraphData, productId: string): number | null {
   } catch {
     return null;
   }
+}
+
+function throughputConstraintNodesForProduct(graph: GraphData, productId: string): Node[] {
+  const throughputMetricIds = new Set(
+    graph.edges
+      .filter((edge) => edge.relation === "measured_by" && edge.source === productId)
+      .map((edge) => nodeById(graph, edge.target))
+      .filter((node): node is Node => Boolean(node && node.reviewStatus !== "deprecated"))
+      .filter((node) => node.id === "parcels_per_hour" || (node.tags ?? []).includes("throughput"))
+      .map((node) => node.id),
+  );
+  if (throughputMetricIds.size === 0) return [];
+
+  const candidates = new Map<string, Node>();
+  for (const edge of graph.edges) {
+    if (edge.relation !== "depends_on_metric") continue;
+    if (!throughputMetricIds.has(edge.target)) continue;
+    const node = nodeById(graph, edge.source);
+    if (!node || node.reviewStatus === "deprecated") continue;
+    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
+    candidates.set(node.id, node);
+  }
+
+  return [...candidates.values()]
+    .sort((a, b) => {
+      const riskDelta = nodeRisk(b, graph) - nodeRisk(a, graph);
+      if (riskDelta !== 0) return riskDelta;
+      const maturityDelta = (a.maturityScore ?? 101) - (b.maturityScore ?? 101);
+      if (maturityDelta !== 0) return maturityDelta;
+      return a.name.localeCompare(b.name);
+    })
+    .slice(0, 3);
+}
+
+function constraintFactorSummary(nodes: Node[], t: (key: string) => string): string {
+  const seen = new Set<string>();
+  const labels: string[] = [];
+  for (const node of nodes) {
+    for (const factor of constraintFactorsForNode(node, t)) {
+      if (seen.has(factor.tag)) continue;
+      seen.add(factor.tag);
+      labels.push(factor.label);
+    }
+  }
+  return labels.join(" · ");
 }
 
 function startupOpportunityText(node: Node): string {

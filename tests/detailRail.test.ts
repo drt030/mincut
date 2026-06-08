@@ -691,6 +691,31 @@ test("expanded: product detail surfaces an investor answer panel", () => {
   );
   assert.match(
     html,
+    /Throughput constraints/,
+    `investor panel must summarize why production throughput cannot increase; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Parcel induction and spacing control/,
+    `investor panel must name the top throughput-limiting workflow; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Constraint types/,
+    `investor panel must classify whether throughput is constrained by technology, capacity, supply, or operations; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Integration \/ commissioning/,
+    `investor panel must include integration/commissioning as a throughput constraint type; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Capacity \/ scale/,
+    `investor panel must include capacity/scale as a throughput constraint type; got: ${html}`,
+  );
+  assert.match(
+    html,
     /Industrial robot arm body/,
     `investor panel must surface the highest p50 cost driver; got: ${html}`,
   );
