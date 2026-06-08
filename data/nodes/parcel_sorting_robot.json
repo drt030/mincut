@@ -3382,7 +3382,11 @@
     "evidenceIds": [
       "ev_usgs_rare_earth_elements",
       "ev_iea_rare_earth_magnets",
-      "ev_servo_motor_material_cost_backfill_2025"
+      "ev_servo_motor_material_cost_backfill_2025",
+      "ev_usgs_heavy_rare_earths_2026",
+      "ev_mfg_lynas_heavy_rare_earth_products",
+      "ev_mfg_china_rare_earth_resources_snapshot_2025",
+      "ev_mfg_xiamen_tungsten_profile"
     ],
     "tags": [
       "material",
@@ -3423,9 +3427,11 @@
       "bottleneck",
       "decomposition_frontier",
       "cost_driver",
-      "investor_relevant"
+      "investor_relevant",
+      "heavy_rare_earth",
+      "constraint_material_supply_chain"
     ],
-    "notes": "Mineral-level frontier: next layer may include heavy-rare-earth ore sources, separation capacity, diffusion process, substitution, recycling, and price volatility. Added 2025 p50 cost allocation for heavy rare-earth additive exposure; exact magnet grade and Dy/Tb use remain unverified."
+    "notes": "Mineral-level frontier: next layer may include heavy-rare-earth ore sources, separation capacity, diffusion process, substitution, recycling, and price volatility. Added 2025 p50 cost allocation for heavy rare-earth additive exposure. Supplier/investor exposure: Lynas, China Rare Earth Group Resources and Technology, and Xiamen Tungsten are candidate upstream exposures; exact magnet grade, Dy/Tb loading, and parcel-robot BOM participation remain unverified."
   },
   {
     "id": "boron_and_iron_magnet_matrix_material",
@@ -8130,26 +8136,107 @@
     "domain": [
       "rare_earth",
       "feedstock",
+      "heavy_rare_earth",
       "investable_supplier"
     ],
-    "description": "Australian rare-earth producer with Mt Weld mining and Malaysian processing assets; relevant to ex-China rare-earth diversification.",
+    "description": "Australian rare-earth producer with Mt Weld mining and Malaysian processing assets; relevant to ex-China rare-earth diversification and heavy rare-earth product exposure.",
     "confidence": "medium",
     "metrics": [
       {
         "name": "Public listing",
         "currentValue": "LYC.AX"
+      },
+      {
+        "name": "Heavy rare-earth product exposure",
+        "currentValue": "SEGH contains Dy/Tb",
+        "description": "Company product page says SEGH contains dysprosium and terbium; product exposure, not robot BOM proof."
       }
     ],
     "evidenceIds": [
-      "ev_mfg_lynas_rare_earths_2024"
+      "ev_mfg_lynas_rare_earths_2024",
+      "ev_mfg_lynas_heavy_rare_earth_products"
     ],
     "tags": [
       "manufacturer",
       "rare_earth",
+      "heavy_rare_earth",
       "feedstock",
       "public_company"
     ],
-    "notes": "Investor relevance: upstream rare-earth diversification exposure; not a direct robot component supplier.",
+    "notes": "Investor relevance: upstream rare-earth diversification and Dy/Tb product exposure; not a direct robot component supplier.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_china_rare_earth_resources",
+    "name": "China Rare Earth Group Resources and Technology",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "feedstock",
+      "heavy_rare_earth",
+      "investable_supplier"
+    ],
+    "description": "Chinese rare-earth listed platform relevant to medium-heavy rare-earth smelting, separation, and oxide/feedstock exposure.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "000831.SZ"
+      },
+      {
+        "name": "Medium-heavy rare-earth separation exposure",
+        "currentValue": "ranked among the best in control-plan targets",
+        "description": "CNInfo company snapshot describes strong medium-heavy rare-earth smelting and separation target exposure; wording is qualitative, not a market-share number."
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_china_rare_earth_resources_snapshot_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "heavy_rare_earth",
+      "feedstock",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: listed China medium-heavy rare-earth separation/feedstock exposure. Treat as upstream supplier exposure, not confirmed parcel-robot BOM participation.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_xiamen_tungsten",
+    "name": "Xiamen Tungsten",
+    "kind": "organization",
+    "domain": [
+      "rare_earth",
+      "feedstock",
+      "permanent_magnet",
+      "heavy_rare_earth",
+      "investable_supplier"
+    ],
+    "description": "Chinese tungsten, molybdenum, rare-earth, and new-materials company with rare-earth mining, separation, smelting, and permanent-magnet material exposure.",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "600549.SH"
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_xiamen_tungsten_profile"
+    ],
+    "tags": [
+      "manufacturer",
+      "rare_earth",
+      "heavy_rare_earth",
+      "feedstock",
+      "permanent_magnet",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: listed upstream and magnet-material exposure around rare-earth separation and permanent magnets. Product mix and Dy/Tb allocation for servo magnets remain unreviewed.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },

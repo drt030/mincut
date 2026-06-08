@@ -624,6 +624,8 @@ const nodeTextZh: Record<string, string> = {
   semiconductor_grade_silicon_and_electronics: "半导体级硅与电子件",
   ndpr_rare_earth_feedstock: "钕镨稀土原料",
   dysprosium_terbium_heavy_ree_additives: "镝 / 铽重稀土添加剂",
+  org_china_rare_earth_resources: "中国稀土集团资源科技",
+  org_xiamen_tungsten: "厦门钨业",
   boron_and_iron_magnet_matrix_material: "硼与铁磁体基体材料",
   petrochemical_elastomer_feedstock: "石化弹性体原料",
   affordable_small_warehouse_automation: "可负担的小型仓库自动化",

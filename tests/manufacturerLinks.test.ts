@@ -273,6 +273,19 @@ test("servo motor material and component layer exposes investable supplier candi
     assert.ok(ndprManufacturers.includes(id), `ndpr_rare_earth_feedstock must expose ${id} as an upstream feedstock supplier`);
   }
 
+  const heavyRareEarthManufacturers = manufacturersForNode(graph, "dysprosium_terbium_heavy_ree_additives");
+  const heavyRareEarthIds = heavyRareEarthManufacturers.map((node) => node.id);
+  for (const id of ["org_lynas_rare_earths", "org_china_rare_earth_resources", "org_xiamen_tungsten"]) {
+    assert.ok(
+      heavyRareEarthIds.includes(id),
+      `dysprosium_terbium_heavy_ree_additives must expose ${id} as a heavy-rare-earth supplier candidate`,
+    );
+  }
+  for (const id of ["org_china_rare_earth_resources", "org_xiamen_tungsten"]) {
+    const supplier = heavyRareEarthManufacturers.find((node) => node.id === id);
+    assert.ok(supplier?.metrics?.some((metric) => metric.name === "Public listing"));
+  }
+
   const encoderManufacturers = manufacturersForNode(graph, "servo_motor_encoder_feedback").map((node) => node.id);
   for (const id of ["org_heidenhain", "org_renishaw", "org_tamagawa_seiki"]) {
     assert.ok(encoderManufacturers.includes(id), `servo_motor_encoder_feedback must expose ${id} as an encoder supplier candidate`);

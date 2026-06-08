@@ -2018,7 +2018,10 @@
       "org_ningbo_yunsheng",
       "org_china_northern_rare_earth",
       "org_mp_materials",
-      "org_lynas_rare_earths"
+      "org_lynas_rare_earths",
+      "dysprosium_terbium_heavy_ree_additives",
+      "org_china_rare_earth_resources",
+      "org_xiamen_tungsten"
     ],
     "supportsEdgeIds": [
       "e_mfg_servo_motor_pm_rotor_jlmag",
@@ -2029,7 +2032,10 @@
       "e_mfg_rare_earth_permanent_magnet_yunsheng",
       "e_mfg_ndpr_feedstock_china_northern",
       "e_mfg_ndpr_feedstock_mp_materials",
-      "e_mfg_ndpr_feedstock_lynas"
+      "e_mfg_ndpr_feedstock_lynas",
+      "e_mfg_heavy_ree_additives_lynas",
+      "e_mfg_heavy_ree_additives_china_rare_earth_resources",
+      "e_mfg_heavy_ree_additives_xiamen_tungsten"
     ],
     "limitations": "Sector-level concentration evidence; does not identify which magnet supplier feeds any specific servo motor in the target robot.",
     "confidence": "high",
@@ -2143,6 +2149,83 @@
       "e_mfg_ndpr_feedstock_lynas"
     ],
     "limitations": "Upstream rare-earth evidence; not direct robot-component supply evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_usgs_heavy_rare_earths_2026",
+    "type": "historical_source",
+    "title": "Mineral Commodity Summaries 2026: Rare Earths (Heavy)",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths-heavy.pdf",
+    "sourceName": "U.S. Geological Survey",
+    "date": "2026-02",
+    "summary": "USGS heavy-rare-earth summary reports 2025 oxide price references for terbium and dysprosium, U.S. net import reliance, China import-source concentration for several heavy rare earths, and 2025 export-control context for terbium and dysprosium.",
+    "supportsNodeIds": [
+      "dysprosium_terbium_heavy_ree_additives"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_heavy_ree_additives_lynas",
+      "e_mfg_heavy_ree_additives_china_rare_earth_resources",
+      "e_mfg_heavy_ree_additives_xiamen_tungsten"
+    ],
+    "limitations": "Commodity and trade-context evidence; it does not identify a robot servo-motor supplier or a parcel-robot bill of materials.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_lynas_heavy_rare_earth_products",
+    "type": "product_page",
+    "title": "Lynas heavy rare-earth product page",
+    "url": "https://lynasrareearths.com/products-our-products/our-products/",
+    "sourceName": "Lynas Rare Earths",
+    "date": "2026-06-08",
+    "summary": "Company product page describes heavy rare-earth product exposure, including dysprosium and terbium use in permanent rare-earth magnets and an SEGH mixed heavy rare-earth compound containing dysprosium and terbium.",
+    "supportsNodeIds": [
+      "dysprosium_terbium_heavy_ree_additives",
+      "org_lynas_rare_earths"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_heavy_ree_additives_lynas"
+    ],
+    "limitations": "Company product-page evidence; not direct proof of servo-motor or parcel-robot BOM participation.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_china_rare_earth_resources_snapshot_2025",
+    "type": "historical_source",
+    "title": "China Rare Earth Group Resources and Technology company snapshot",
+    "url": "https://static.cninfo.com.cn/finalpage/enpage/000831_2.pdf",
+    "sourceName": "CNInfo / China Rare Earth Group Resources and Technology",
+    "date": "2025-04-22",
+    "summary": "CNInfo company snapshot describes China Rare Earth Group Resources and Technology as the core listed entity of China Rare Earth Group, primarily engaged in rare-earth minerals, oxides, separation processing, and medium-heavy rare-earth smelting/separation target exposure.",
+    "supportsNodeIds": [
+      "org_china_rare_earth_resources",
+      "dysprosium_terbium_heavy_ree_additives"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_heavy_ree_additives_china_rare_earth_resources"
+    ],
+    "limitations": "Public-company snapshot evidence; it is not direct robot BOM evidence and does not quantify Dy/Tb shipment share into servo magnets.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_xiamen_tungsten_profile",
+    "type": "product_page",
+    "title": "Xiamen Tungsten company profile",
+    "url": "https://www.cxtc.com/About.aspx",
+    "sourceName": "Xiamen Tungsten",
+    "date": "2026-06-08",
+    "summary": "Company profile describes Xiamen Tungsten as a listed group focused on tungsten/molybdenum, rare earths, and new energy materials, with rare-earth mining, separation, smelting, permanent-magnet materials, luminescent materials, and optoelectronic crystal exposure.",
+    "supportsNodeIds": [
+      "org_xiamen_tungsten",
+      "dysprosium_terbium_heavy_ree_additives"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_heavy_ree_additives_xiamen_tungsten"
+    ],
+    "limitations": "Broad official company-profile evidence; exact Dy/Tb product exposure and parcel-robot BOM participation remain unverified.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },

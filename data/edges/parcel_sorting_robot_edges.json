@@ -3892,6 +3892,51 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_mfg_heavy_ree_additives_lynas",
+    "source": "dysprosium_terbium_heavy_ree_additives",
+    "target": "org_lynas_rare_earths",
+    "relation": "manufactured_by",
+    "claim": "Lynas produces heavy rare-earth product exposure containing dysprosium and terbium, making it a candidate upstream exposure for Dy/Tb magnet additives.",
+    "context": "Upstream heavy-rare-earth product exposure; not direct robot BOM evidence.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_lynas_heavy_rare_earth_products",
+      "ev_usgs_heavy_rare_earths_2026",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_heavy_ree_additives_china_rare_earth_resources",
+    "source": "dysprosium_terbium_heavy_ree_additives",
+    "target": "org_china_rare_earth_resources",
+    "relation": "manufactured_by",
+    "claim": "China Rare Earth Group Resources and Technology is a listed Chinese rare-earth separation/feedstock company relevant to medium-heavy rare-earth additive exposure.",
+    "context": "Upstream medium-heavy rare-earth supplier exposure; not direct robot BOM evidence.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_china_rare_earth_resources_snapshot_2025",
+      "ev_usgs_heavy_rare_earths_2026",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_heavy_ree_additives_xiamen_tungsten",
+    "source": "dysprosium_terbium_heavy_ree_additives",
+    "target": "org_xiamen_tungsten",
+    "relation": "manufactured_by",
+    "claim": "Xiamen Tungsten has rare-earth mining, separation, smelting, and magnet-material exposure relevant to Dy/Tb additive supply-chain monitoring.",
+    "context": "Broad rare-earth and magnet-material supplier exposure; exact Dy/Tb product participation and robot BOM exposure remain unverified.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_mfg_xiamen_tungsten_profile",
+      "ev_usgs_heavy_rare_earths_2026",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_mfg_parcel_induction_spacing_interroll",
     "source": "parcel_induction_spacing_control",
     "target": "org_interroll",
