@@ -63,6 +63,7 @@ const NABTESCO_ID = "org_nabtesco";
 const SIEMENS_ID = "org_siemens";
 const MAINTENANCE_ID = "maintenance_workflow";
 const ABB_ROBOTICS_ID = "org_abb_robotics";
+const END_EFFECTOR_ID = "end_effector_gripper_or_suction";
 
 const graph = loadGraphData();
 
@@ -438,6 +439,37 @@ test("expanded: component detail surfaces manufacturer candidates with share and
   );
 });
 
+test("expanded: vacuum end-effector parent surfaces key suction EOAT supplier candidates", () => {
+  const focused = nodeById(END_EFFECTOR_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Candidate manufacturers \/ investable exposure/,
+    `expanded EOAT parent detail must surface candidate manufacturer exposure; got: ${html}`,
+  );
+
+  for (const supplier of ["SMC", "Schmalz", "Piab", "Festo", "OnRobot"]) {
+    assert.match(
+      html,
+      new RegExp(supplier),
+      `EOAT parent detail must list ${supplier} as a candidate supplier; got: ${html}`,
+    );
+  }
+
+  assert.match(
+    html,
+    /exact parcel-cell BOM and supplier share not verified/,
+    `EOAT parent supplier exposure must preserve the candidate-evidence caveat; got: ${html}`,
+  );
+});
+
 test("expanded: bottleneck role is distinct from downstream bottleneck count", () => {
   const focused = nodeById("low_cost_realtime_vision_compute_integration");
   const html = render({
@@ -465,8 +497,8 @@ test("expanded: bottleneck role is distinct from downstream bottleneck count", (
   );
   assert.match(
     html,
-    /Downstream bottlenecks/,
-    `downstream bottleneck lists should be explicitly scoped; got: ${html}`,
+    /Downstream bottleneck children/,
+    `downstream bottleneck lists should be explicitly scoped to child nodes; got: ${html}`,
   );
 });
 

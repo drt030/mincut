@@ -1641,6 +1641,7 @@
       "org_smc"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_smc",
       "e_mfg_vacuum_suction_cup_array_smc",
       "e_mfg_vacuum_generator_smc"
     ],
@@ -1660,6 +1661,7 @@
       "org_schmalz"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_schmalz",
       "e_mfg_vacuum_suction_cup_array_schmalz"
     ],
     "limitations": "Vendor product page; no target-cell share or field failure evidence.",
@@ -1678,6 +1680,7 @@
       "org_piab"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_piab",
       "e_mfg_vacuum_suction_cup_array_piab",
       "e_mfg_vacuum_generator_piab"
     ],
@@ -1695,6 +1698,9 @@
     "summary": "Festo product materials describe gripper and end-of-arm tooling solutions relevant to vacuum and pneumatic EOAT benchmarking.",
     "supportsNodeIds": [
       "org_festo"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_end_effector_festo"
     ],
     "limitations": "Vendor product page; no target-cell BOM or share evidence.",
     "confidence": "medium",
@@ -2854,6 +2860,7 @@
       "vacuum_blowoff_timing_and_contamination_control"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_smc",
       "e_mfg_vacuum_valves_blowoff_smc",
       "e_impl_vacuum_blowoff_timing_smc"
     ],
@@ -2874,6 +2881,7 @@
       "vacuum_pressure_sensing"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_smc",
       "e_mfg_vacuum_pressure_sensing_smc"
     ],
     "limitations": "Vendor catalog; exact sensor count and parcel-cell BOM are not verified.",
@@ -2894,6 +2902,7 @@
       "parcel_suction_cup_contact_qualification"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_festo",
       "e_mfg_vacuum_suction_cup_array_festo"
     ],
     "limitations": "Vendor product-line page; no parcel-sorting field reliability or market-share evidence.",
@@ -2913,6 +2922,7 @@
       "vacuum_generator_or_ejector"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_festo",
       "e_mfg_vacuum_generator_festo"
     ],
     "limitations": "Vendor product-line page; no target-cell BOM, negotiated pricing, or supplier share.",
@@ -2932,6 +2942,7 @@
       "vacuum_pressure_sensing"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_festo",
       "e_mfg_vacuum_pressure_sensing_festo"
     ],
     "limitations": "Vendor product-line page; exact sensor count and target-cell BOM are not verified.",
@@ -2951,6 +2962,7 @@
       "vacuum_valves_and_blowoff"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_festo",
       "e_mfg_vacuum_valves_blowoff_festo"
     ],
     "limitations": "Vendor product-line page; exact vacuum-duty valve selection and parcel-cell BOM are not verified.",
@@ -2971,6 +2983,7 @@
       "vacuum_blowoff_timing_and_contamination_control"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_schmalz",
       "e_mfg_vacuum_generator_schmalz",
       "e_impl_vacuum_blowoff_timing_schmalz"
     ],
@@ -2992,6 +3005,7 @@
       "vacuum_blowoff_timing_and_contamination_control"
     ],
     "supportsEdgeIds": [
+      "e_mfg_end_effector_piab",
       "e_impl_vacuum_blowoff_timing_piab"
     ],
     "limitations": "Vendor product-line page; exact parcel-cell BOM and release timing performance are not verified.",

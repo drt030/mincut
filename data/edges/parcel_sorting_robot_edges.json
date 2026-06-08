@@ -3457,6 +3457,66 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_mfg_end_effector_smc",
+    "source": "end_effector_gripper_or_suction",
+    "target": "org_smc",
+    "relation": "manufactured_by",
+    "claim": "SMC supplies vacuum pads, ejectors, release components, and pressure switches relevant to the suction EOAT module.",
+    "context": "Parent-level candidate compiled from child component product-line evidence; exact parcel-cell BOM and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_smc_vacuum_pads",
+      "ev_mfg_smc_vacuum_equipment_2026",
+      "ev_mfg_smc_vacuum_pressure_switches_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_end_effector_schmalz",
+    "source": "end_effector_gripper_or_suction",
+    "target": "org_schmalz",
+    "relation": "manufactured_by",
+    "claim": "Schmalz supplies vacuum end effectors, generators, and monitoring products relevant to the suction EOAT module.",
+    "context": "Parent-level candidate compiled from child component product-line evidence; exact parcel-cell BOM and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_schmalz_vacuum_end_effectors",
+      "ev_mfg_schmalz_vacuum_generators_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_end_effector_piab",
+    "source": "end_effector_gripper_or_suction",
+    "target": "org_piab",
+    "relation": "manufactured_by",
+    "claim": "Piab supplies suction cups, soft grippers, ejectors, and blow-off components relevant to the suction EOAT module.",
+    "context": "Parent-level candidate compiled from child component product-line evidence; exact parcel-cell BOM and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_piab_suction_cups_soft_grippers",
+      "ev_mfg_piab_inline_ejectors_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_end_effector_festo",
+    "source": "end_effector_gripper_or_suction",
+    "target": "org_festo",
+    "relation": "manufactured_by",
+    "claim": "Festo supplies suction cups, vacuum generators, valves, sensors, and end-of-arm tooling relevant to the suction EOAT module.",
+    "context": "Parent-level candidate compiled from child component product-line evidence; exact parcel-cell BOM and supplier share not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_festo_end_of_arm_tooling",
+      "ev_mfg_festo_suction_cups_2026",
+      "ev_mfg_festo_vacuum_generators_2026",
+      "ev_mfg_festo_pressure_sensors_2026",
+      "ev_mfg_festo_solenoid_valves_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_mfg_end_effector_onrobot",
     "source": "end_effector_gripper_or_suction",
     "target": "org_onrobot",
