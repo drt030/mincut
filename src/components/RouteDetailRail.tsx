@@ -63,6 +63,13 @@ function formatMaturityScore(node: Node): string | null {
   return `${Math.round(node.maturityScore)}/100`;
 }
 
+function routeStepAriaLabel(parts: Array<string | null | undefined>): string {
+  return parts
+    .map((part) => part?.trim())
+    .filter((part): part is string => Boolean(part))
+    .join(", ");
+}
+
 export function RouteDetailRail({
   graph,
   route,
@@ -296,6 +303,11 @@ export function RouteDetailRail({
                         <button
                           type="button"
                           className="route-step-button"
+                          aria-label={routeStepAriaLabel([
+                            nodeName(node.id, node.name),
+                            kindName(node.kind),
+                            `${children} ${copy.children}`,
+                          ])}
                           onClick={() => onSelectNode?.(node.id)}
                         >
                           <span className="route-step-marker structural" aria-hidden="true" />
@@ -323,6 +335,12 @@ export function RouteDetailRail({
                         <button
                           type="button"
                           className="route-step-button"
+                          aria-label={routeStepAriaLabel([
+                            label,
+                            kindLabel,
+                            `${step.pathEdgeIds.length} ${copy.links}`,
+                            formatRmb(step.costTypicalRmb),
+                          ])}
                           onClick={() => onSelectNode?.(step.nodeId)}
                         >
                           <span className="route-step-marker cost" aria-hidden="true" />
@@ -373,6 +391,7 @@ export function RouteDetailRail({
                           <button
                             type="button"
                             className="route-step-button"
+                            aria-label={routeStepAriaLabel([label, metaLabel, valueLabel])}
                             onClick={() => onSelectNode?.(entry.nodeId)}
                           >
                             <span

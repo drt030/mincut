@@ -716,6 +716,11 @@ test("expanded: product detail surfaces an investor answer panel", () => {
   );
   assert.match(
     html,
+    /Throughput constraints[\s\S]*Current:[\s\S]*p50 1,500 \(range 325–1,800\) parcels\/hour[\s\S]*Target:[\s\S]*1,500 parcels\/hour[\s\S]*Top cost driver/,
+    `investor panel throughput row must include current and target pph before the next row; got: ${html}`,
+  );
+  assert.match(
+    html,
     /Industrial robot arm body/,
     `investor panel must surface the highest p50 cost driver; got: ${html}`,
   );
@@ -726,6 +731,26 @@ test("expanded: product detail surfaces an investor answer panel", () => {
   );
   assert.match(html, /FANUC/, `investor panel must include robot-arm supplier exposure; got: ${html}`);
   assert.match(html, /Estun/, `investor panel must include domestic robot-arm exposure; got: ${html}`);
+  assert.match(
+    html,
+    /China industrial robot sales share: 10\.3%/,
+    `investor panel must include FANUC's market-share context, not only its name; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Public listing: 6954\.T/,
+    `investor panel must include FANUC's public listing context; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /China industrial robot sales share: 9\.1%/,
+    `investor panel must include Estun's market-share context, not only its name; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Public listing: 002747\.SZ/,
+    `investor panel must include Estun's public listing context; got: ${html}`,
+  );
   assert.match(
     html,
     /Startup wedge/,

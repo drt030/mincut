@@ -601,6 +601,7 @@ type InvestorAnswer = {
   candidateExposure: Node[];
   startupWedge: Node | null;
   throughputConstraints: Node[];
+  throughputMetric: Node | null;
 };
 
 function InvestorAnswerPanel({
@@ -628,6 +629,7 @@ function InvestorAnswerPanel({
     answer.throughputConstraints.length > 0;
   if (!hasSignal) return null;
   const throughputConstraintFactors = constraintFactorSummary(answer.throughputConstraints, t);
+  const throughputMetricValues = answer.throughputMetric ? metricNodeValueSummary(answer.throughputMetric) : null;
   return (
     <div>
       <strong>{t("investorAnswerPanel")}</strong>
@@ -680,6 +682,20 @@ function InvestorAnswerPanel({
                 </React.Fragment>
               ))}
             </p>
+            {throughputMetricValues ? (
+              <div className="metric-detail-row-values">
+                {throughputMetricValues.current ? (
+                  <span>
+                    <strong>{t("current")}:</strong> {throughputMetricValues.current}
+                  </span>
+                ) : null}
+                {throughputMetricValues.target ? (
+                  <span>
+                    <strong>{t("target")}:</strong> {throughputMetricValues.target}
+                  </span>
+                ) : null}
+              </div>
+            ) : null}
             {throughputConstraintFactors ? (
               <p className="metric-detail-description">
                 <strong>{t("constraintTypes")}:</strong> {throughputConstraintFactors}
@@ -705,7 +721,9 @@ function InvestorAnswerPanel({
             {answer.candidateExposure.length > 0 ? (
               <p className="metric-detail-description">
                 <strong>{t("candidateExposure")}:</strong>{" "}
-                {answer.candidateExposure.map((org) => nodeName(org.id, org.name)).join(", ")}
+                {answer.candidateExposure
+                  .map((org) => candidateExposureSummary(org, nodeName(org.id, org.name)))
+                  .join("; ")}
               </p>
             ) : null}
           </li>
@@ -739,6 +757,7 @@ function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCa
   const costRoute = selectCostDriverRoute(graph, product.id, { limit: 1 });
   const topCostStep = costRoute.steps[0] ?? null;
   const topCostNode = topCostStep ? nodeById(graph, topCostStep.nodeId) : null;
+  const throughputMetric = throughputMetricNodesForProduct(graph, product.id)[0] ?? null;
   return {
     topRiskNode,
     topRiskScore,
@@ -749,6 +768,7 @@ function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCa
     candidateExposure: topCostStep ? candidateExposureForNode(graph, topCostStep.nodeId) : [],
     startupWedge: opportunityCandidates[0] ?? null,
     throughputConstraints: throughputConstraintNodesForProduct(graph, product.id),
+    throughputMetric,
   };
 }
 
@@ -791,14 +811,7 @@ function productCostGapRmb(graph: GraphData, productId: string): number | null {
 }
 
 function throughputConstraintNodesForProduct(graph: GraphData, productId: string): Node[] {
-  const throughputMetricIds = new Set(
-    graph.edges
-      .filter((edge) => edge.relation === "measured_by" && edge.source === productId)
-      .map((edge) => nodeById(graph, edge.target))
-      .filter((node): node is Node => Boolean(node && node.reviewStatus !== "deprecated"))
-      .filter((node) => node.id === "parcels_per_hour" || (node.tags ?? []).includes("throughput"))
-      .map((node) => node.id),
-  );
+  const throughputMetricIds = new Set(throughputMetricNodesForProduct(graph, productId).map((node) => node.id));
   if (throughputMetricIds.size === 0) return [];
 
   const candidates = new Map<string, Node>();
@@ -820,6 +833,26 @@ function throughputConstraintNodesForProduct(graph: GraphData, productId: string
       return a.name.localeCompare(b.name);
     })
     .slice(0, 3);
+}
+
+function throughputMetricNodesForProduct(graph: GraphData, productId: string): Node[] {
+  return graph.edges
+    .filter((edge) => edge.relation === "measured_by" && edge.source === productId)
+    .map((edge) => nodeById(graph, edge.target))
+    .filter((node): node is Node => Boolean(node && node.kind === "metric" && node.reviewStatus !== "deprecated"))
+    .filter((node) => node.id === "parcels_per_hour" || (node.tags ?? []).includes("throughput"));
+}
+
+function metricNodeValueSummary(node: Node): { current: string | null; target: string | null } | null {
+  const metric = node.metrics?.[0];
+  if (!metric) return null;
+  const current = formatMetricValue(metric.currentValue as MetricValue | undefined, metric.unit, metric.currency).full;
+  const target = formatMetricValue(metric.targetValue as MetricValue | undefined, metric.unit, metric.currency).full;
+  if (!current && !target) return null;
+  return {
+    current: current || null,
+    target: target || null,
+  };
 }
 
 function constraintFactorSummary(nodes: Node[], t: (key: string) => string): string {
@@ -1515,7 +1548,17 @@ function OrganizationListItem({
 
 type InlineNodeMetric = NonNullable<Node["metrics"]>[number];
 
-function organizationMetricSummary(organization: Node): string | null {
+function candidateExposureSummary(organization: Node, displayName: string): string {
+  const summary = organizationMetricSummary(organization, { includeDescriptions: false, limit: 2 });
+  return summary ? `${displayName} (${summary})` : displayName;
+}
+
+function organizationMetricSummary(
+  organization: Node,
+  options: { includeDescriptions?: boolean; limit?: number } = {},
+): string | null {
+  const includeDescriptions = options.includeDescriptions ?? true;
+  const limit = options.limit ?? 3;
   const metrics = organization.metrics ?? [];
   const selected: InlineNodeMetric[] = [];
   const push = (metric: InlineNodeMetric | undefined) => {
@@ -1529,15 +1572,19 @@ function organizationMetricSummary(organization: Node): string | null {
   push(metrics.find((metric) => metric.currentValue !== undefined));
 
   const summary = selected
-    .slice(0, 3)
-    .map((metric) => formatOrganizationMetric(metric))
+    .slice(0, limit)
+    .map((metric) => formatOrganizationMetric(metric, { includeDescription: includeDescriptions }))
     .filter((item): item is string => Boolean(item));
   return summary.length ? summary.join(" · ") : null;
 }
 
-function formatOrganizationMetric(metric: InlineNodeMetric): string | null {
+function formatOrganizationMetric(
+  metric: InlineNodeMetric,
+  options: { includeDescription?: boolean } = {},
+): string | null {
   if (metric.currentValue === undefined) return null;
   const value = `${metric.name}: ${formatOrganizationMetricValue(metric.currentValue, metric.unit)}`;
+  if (options.includeDescription === false) return value;
   const description = metric.description?.trim();
   return description ? `${value} (${truncateText(description, 120)})` : value;
 }

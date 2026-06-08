@@ -87,6 +87,11 @@ test("RouteDetailRail prioritizes route explanation before selected node detail"
   assert.match(html, /Cost drivers/i);
   assert.match(html, /Precision gearbox/);
   assert.match(html, /p50 RMB 80,000/);
+  assert.match(
+    html,
+    /aria-label="Precision gearbox, module, 2 links, p50 RMB 80,000"/,
+    `route step button should expose a spaced accessible label instead of concatenated child text; got: ${html}`,
+  );
   assert.match(html, /Selected/i);
   assert.match(html, /Robot arm/);
   assert.match(html, /data-testid="route-rail-detail-tab"/);
