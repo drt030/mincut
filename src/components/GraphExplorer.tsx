@@ -373,10 +373,10 @@ function GraphProductStrip({
   const { language, nodeName } = useLanguage();
   const copy = language === "zh"
     ? {
-      product: "研究根",
+      product: "产品视图",
       majorComponents: "直接依赖",
       costTargets: "成本目标",
-      resetRoot: "回到原产品",
+      resetRoot: "回到包裹分拣机器人",
     }
     : {
       product: "Research root",
@@ -815,7 +815,7 @@ export function GraphExplorer({ graph }: Props) {
       const packed = activeNodePositions.get(node.id);
       if (!packed) continue;
       const { x, y } = packed;
-      const hue = subsystemHue(node.id, graph);
+      const hue = subsystemHue(node.id, canvasGraph);
       const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const isFocal = node.id === focalId;
       const dim = !subset.nodes.has(node.id) && node.id !== selectedId && !isFocal;
@@ -857,7 +857,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [canvasGraph, graph, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes]);
+  }, [canvasGraph, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     type RenderableEdge = {

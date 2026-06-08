@@ -416,6 +416,10 @@ li {
   opacity: 0.58;
 }
 
+.graph-canvas-route-led.graph-canvas-root-transitioning .react-flow__node {
+  transition: transform 650ms cubic-bezier(0.33, 1, 0.68, 1), opacity 240ms ease;
+}
+
 .graph-product-strip {
   align-items: center;
   background: rgba(255, 253, 248, 0.92);

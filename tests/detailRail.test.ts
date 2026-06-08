@@ -681,7 +681,7 @@ test("expanded: product detail surfaces an investor answer panel", () => {
   );
   assert.match(
     html,
-    /121,769 RMB over target/,
+    /151,829 RMB over target/,
     `investor panel must quantify the p50 cost gap; got: ${html}`,
   );
   assert.match(

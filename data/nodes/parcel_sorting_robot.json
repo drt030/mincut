@@ -3571,25 +3571,25 @@
       "parcel_sorting_robot",
       "industrial_robot_arm"
     ],
-    "description": "Installed-component cost contribution of the bare 6-axis robot arm body (joints, links, reducers, servo motors, controller interfaces) to the v0 parcel-sorting cell. Mid-tier 2025-China industrial pricing for arms in the 5-10 kg payload, sub-1 m reach class.",
+    "description": "Installed-component cost contribution of the bare 6-axis robot arm body (joints, links, reducers, servo motors, controller interfaces) to the v0 parcel-sorting cell. 2026-calibrated China industrial pricing for arms in the 5-10 kg payload, sub-1 m reach class.",
     "metrics": [
       {
         "name": "Cost",
         "currentValue": {
-          "min": 70000,
-          "typical": 115000,
-          "max": 180000
+          "min": 90000,
+          "typical": 160000,
+          "max": 260000
         },
         "unit": "RMB",
         "currency": "RMB",
-        "costAsOf": "2025"
+        "costAsOf": "2026"
       }
     ],
     "maturityLabel": "unknown",
     "maturityAsOf": "2026-04",
     "confidence": "low",
     "reviewStatus": "unreviewed",
-    "notes": "Rough 2025-China industrial estimate recalibrated on 2026-06-07 from public 6/7 kg six-axis robot price listings and a payload/reach price guide. Very low marketplace listings exist below this band, but this node is intended to represent a mid-tier purchasable industrial arm body/control bundle rather than the cheapest quoted manipulator. Marked unreviewed for human verification per ADR-0001.",
+    "notes": "Rough 2025-China industrial estimate recalibrated on 2026-06-08 from public 6/7 kg six-axis robot price listings and 2026 payload/reach price guides. Very low marketplace listings exist below this band, but this node represents a mid-tier purchasable industrial arm body/control bundle rather than the cheapest quoted manipulator. Marked unreviewed for human verification per ADR-0001.",
     "evidenceIds": [
       "ev_industrial_robot_arm_body_cost_2025",
       "ev_industrial_robot_arm_body_cost_topstar_2026",

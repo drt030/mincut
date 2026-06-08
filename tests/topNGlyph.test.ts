@@ -380,6 +380,32 @@ test("GraphExplorer.tsx regression guard: sector tint does not depend on color m
   );
 });
 
+test("GraphExplorer.tsx regression guard: node hue uses the active canvas root context", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const flowNodeBlock = raw.match(/const flowNodes: FlowNode<[\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ?? "";
+
+  assert.ok(
+    flowNodeBlock.length > 0,
+    "GraphExplorer should keep an explicit flowNodes memo block",
+  );
+  assert.match(
+    flowNodeBlock,
+    /subsystemHue\(node\.id,\s*canvasGraph\)/,
+    "node fill hue should be computed from the active re-rooted canvas graph, matching sector tint context",
+  );
+  assert.doesNotMatch(
+    flowNodeBlock,
+    /subsystemHue\(node\.id,\s*graph\)/,
+    "node fill hue must not use the full graph after re-rooting, or node and sector colours can diverge",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: node outline does not duplicate active lens bands", () => {
   const filePath = path.join(
     process.cwd(),
@@ -478,6 +504,13 @@ test("GraphExplorer.tsx regression guard: root switch has an explicit canvas tra
     noLineComments,
     /data-testid="reset-root-node-button"[\s\S]*href="\/graph"/,
     "resetting the graph root should have an href fallback so returning to the product works before hydration",
+  );
+
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  assert.match(
+    css,
+    /\.graph-canvas-route-led\.graph-canvas-root-transitioning\s+\.react-flow__node\s*\{[\s\S]*transition:\s*transform\s+6\d\dms/,
+    "root switch should animate node transform positions during the re-rooted layout transition",
   );
 });
 

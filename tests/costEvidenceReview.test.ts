@@ -27,11 +27,11 @@ test("industrial robot arm body cost is calibrated above low-end marketplace pri
   const cost = metric.metrics?.find((item) => item.name === "Cost")?.currentValue;
   assert.ok(cost && typeof cost === "object" && "typical" in cost);
   assert.ok(
-    cost.typical >= 100_000,
+    cost.typical >= 150_000,
     `industrial robot arm body p50 should reflect mid-tier 5-10 kg six-axis arm pricing, got ${cost.typical}`,
   );
   assert.ok(
-    cost.max >= 160_000,
+    cost.max >= 240_000,
     `industrial robot arm body high range should include public 7 kg arm listings above 20k USD, got ${cost.max}`,
   );
 

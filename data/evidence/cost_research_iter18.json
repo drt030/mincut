@@ -4,8 +4,8 @@
     "type": "internal_note",
     "title": "Industrial robot arm body cost — 2025 China industrial estimate",
     "sourceName": "Internal industry-range estimate (ralph iter 18)",
-    "date": "2026-05-07",
-    "summary": "Rough 2025-China selling-price range for a 6-axis industrial robot arm body sized for 5-10 kg payload and ~0.7-1.0 m reach (e.g. mid-tier domestic brands like Inovance, Estun, Han's Robot vs. import equivalents from FANUC/ABB/KUKA). Order-of-magnitude estimate compiled from public vendor catalog ranges and integrator price commentary.",
+    "date": "2026-06-08",
+    "summary": "Rough 2025-China selling-price range for a 6-axis industrial robot arm body/control bundle sized for 5-10 kg payload and ~0.7-1.0 m reach. The graph uses a 90k-160k-260k RMB low-confidence range to avoid anchoring the p50 to the cheapest marketplace listings; it is calibrated against public 6/7 kg listings and 2026 payload/reach price guides rather than a purchase order.",
     "supportsNodeIds": [
       "industrial_robot_arm_body",
       "industrial_robot_arm_body_cost"
@@ -13,7 +13,7 @@
     "supportsEdgeIds": [
       "e_industrial_robot_arm_body_measured_by_cost"
     ],
-    "limitations": "Auto-generated during ralph iter 18 cost-research backfill. Unverified estimate based on aggregate vendor-catalog reasoning rather than a specific quoted purchase order. Should be replaced with a named source (e.g. specific vendor quote, bid sheet, or industry report).",
+    "limitations": "Unverified estimate based on aggregate vendor-catalog reasoning rather than a specific quoted purchase order. Should be replaced with a named source such as a specific vendor quote, bid sheet, or industry report before promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
   },
@@ -76,7 +76,7 @@
     "url": "https://www.grabarobot.com/blog/6-axis-robot-price-guide/",
     "sourceName": "GrabaRobot",
     "date": "2026-04-01",
-    "summary": "Industry price guide listing light-duty 6-axis robot price bands including Estun ER6-1400 at 12,000-18,000 USD and ER10-1600 at 15,000-22,000 USD, which maps to roughly 86,000-158,000 RMB using the graph's 2025 FX constant.",
+    "summary": "Industry price guide listing light-duty 6-axis robot price bands including Estun ER6-1400 at 12,000-18,000 USD and ER10-1600 at 15,000-22,000 USD, and broader 6-axis guidance where common 10-20 kg Chinese-brand arms are roughly 15,000-35,000 USD. This supports using a p50 above the cheapest marketplace samples while keeping the graph value low-confidence.",
     "supportsNodeIds": [
       "industrial_robot_arm_body",
       "industrial_robot_arm_body_cost"

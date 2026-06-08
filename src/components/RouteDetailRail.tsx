@@ -155,9 +155,9 @@ export function RouteDetailRail({
       maturityUnknown: "成熟度未设置",
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
-      setAsRoot: "作为研究根展开",
-      settingRoot: "正在切换研究根",
-      setAsRootLabel: (name: string) => `将 ${name} 设为图谱研究根`,
+      setAsRoot: "作为产品根研究",
+      settingRoot: "正在切换产品视图",
+      setAsRootLabel: (name: string) => `将 ${name} 设为新的产品研究根`,
     }
     : {
       fullSystem: "Full system",
