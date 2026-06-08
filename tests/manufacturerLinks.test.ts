@@ -585,6 +585,16 @@ test("upstream material and electronics chain nodes expose investable supplier c
       "org_nippon_steel",
       "org_arcelormittal",
     ],
+    photolithography_photoresist_chemical_chain: [
+      "org_tokyo_ohka_kogyo",
+      "org_shin_etsu",
+      "org_jsr",
+    ],
+    semiconductor_packaging_solder_substrate_chain: [
+      "org_ase_technology",
+      "org_amkor_technology",
+      "org_ibiden",
+    ],
   };
 
   for (const [nodeId, expectedIds] of Object.entries(expectedManufacturersByNode)) {
@@ -800,6 +810,30 @@ test("upstream investable supplier candidates expose scale or share metrics", ()
     org_arcelormittal: {
       metric: "2024 crude steel production rank",
       evidenceId: "ev_worldsteel_steel_in_figures_2025",
+    },
+    org_tokyo_ohka_kogyo: {
+      metric: "FY2025 net sales",
+      evidenceId: "ev_tok_corporate_profile_2025_photoresist",
+    },
+    org_shin_etsu: {
+      metric: "Semiconductor materials exposure",
+      evidenceId: "ev_shin_etsu_annual_report_2025_semiconductor_materials",
+    },
+    org_jsr: {
+      metric: "Market status",
+      evidenceId: "ev_jsr_semiconductor_materials_2025",
+    },
+    org_ase_technology: {
+      metric: "FY2025 consolidated net revenue",
+      evidenceId: "ev_ase_full_year_2025_results",
+    },
+    org_amkor_technology: {
+      metric: "FY2025 net sales",
+      evidenceId: "ev_amkor_annual_report_2025",
+    },
+    org_ibiden: {
+      metric: "IC package substrate exposure",
+      evidenceId: "ev_ibiden_integrated_report_2025_ic_package_substrates",
     },
   };
 

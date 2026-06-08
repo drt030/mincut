@@ -100,25 +100,39 @@
     "id": "photolithography_photoresist_chemical_chain",
     "name": "Photolithography and photoresist chemical chain",
     "kind": "material",
-    "domain": ["iphone_4", "semiconductor", "materials"],
+    "domain": ["iphone_4", "parcel_sorting_robot", "semiconductor", "materials"],
     "description": "Specialty chemical and equipment chain for semiconductor patterning, including photoresists, developers, masks, exposure tools, and process control.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["material", "semiconductor", "process_chemical"]
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_tok_corporate_profile_2025_photoresist",
+      "ev_shin_etsu_annual_report_2025_semiconductor_materials",
+      "ev_jsr_semiconductor_materials_2025",
+      "ev_semiconductor_material_process_cost_backfill_2025"
+    ],
+    "tags": ["material", "semiconductor", "process_chemical", "investable_supplier"],
+    "notes": "Shared upstream semiconductor-material chain. It is relevant to parcel-robot electronics only as broad exposure through chips, sensors, and controllers; exact target-cell photoresist use is not verified."
   },
   {
     "id": "semiconductor_packaging_solder_substrate_chain",
     "name": "Semiconductor packaging, solder, and substrate chain",
     "kind": "material",
-    "domain": ["iphone_4", "semiconductor", "materials"],
+    "domain": ["iphone_4", "parcel_sorting_robot", "semiconductor", "materials"],
     "description": "Chip packaging material chain covering package substrates, solder alloys, underfill, wirebond or flip-chip interconnect, encapsulants, and package test.",
     "maturityScore": 78,
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
-    "confidence": "low",
-    "tags": ["material", "packaging", "electronics"]
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_ase_full_year_2025_results",
+      "ev_amkor_annual_report_2025",
+      "ev_ibiden_integrated_report_2025_ic_package_substrates",
+      "ev_semiconductor_packaging_cost_backfill_2025"
+    ],
+    "tags": ["material", "packaging", "electronics", "investable_supplier"],
+    "notes": "Shared upstream semiconductor packaging and substrate chain. Relevant as broad electronics exposure; exact package technology and target-cell chip sourcing are unverified."
   },
   {
     "id": "lithium_salt_feedstock",

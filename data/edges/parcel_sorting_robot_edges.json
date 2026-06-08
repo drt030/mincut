@@ -7184,5 +7184,109 @@
       "ev_manufacturing_process_cost_backfill_2025"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_photolithography_photoresist_chain_measured_by_cost",
+    "source": "photolithography_photoresist_chemical_chain",
+    "target": "photolithography_photoresist_chemical_chain_cost",
+    "relation": "measured_by",
+    "claim": "The shared photoresist and lithography chemical chain should carry a small allocated 2025 RMB p50 cost signal for deep-dive visibility.",
+    "context": "This is embedded inside the broader semiconductor/electronics allocation and should not be treated as an independent robot-cell BOM line item.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_semiconductor_material_process_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_semiconductor_packaging_chain_measured_by_cost",
+    "source": "semiconductor_packaging_solder_substrate_chain",
+    "target": "semiconductor_packaging_solder_substrate_chain_cost",
+    "relation": "measured_by",
+    "claim": "The shared semiconductor packaging, solder, and substrate chain should carry a small allocated 2025 RMB p50 cost signal for deep-dive visibility.",
+    "context": "This is embedded inside the broader semiconductor/electronics allocation and should not be treated as an independent robot-cell BOM line item.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_semiconductor_packaging_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_photoresist_chain_tok",
+    "source": "photolithography_photoresist_chemical_chain",
+    "target": "org_tokyo_ohka_kogyo",
+    "relation": "manufactured_by",
+    "claim": "Tokyo Ohka Kogyo is a candidate upstream supplier exposure for the photoresist and lithography chemical chain.",
+    "context": "Broad semiconductor-material exposure; exact target-cell chip sourcing and photoresist share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_tok_corporate_profile_2025_photoresist"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_photoresist_chain_shin_etsu",
+    "source": "photolithography_photoresist_chemical_chain",
+    "target": "org_shin_etsu",
+    "relation": "manufactured_by",
+    "claim": "Shin-Etsu Chemical is a candidate upstream supplier exposure for the photoresist and semiconductor-material chain.",
+    "context": "Broad semiconductor-material exposure; exact target-cell chip sourcing and photoresist share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_shin_etsu_annual_report_2025_semiconductor_materials"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_photoresist_chain_jsr",
+    "source": "photolithography_photoresist_chemical_chain",
+    "target": "org_jsr",
+    "relation": "manufactured_by",
+    "claim": "JSR is a candidate upstream supplier exposure for the photoresist and semiconductor-material chain.",
+    "context": "Broad semiconductor-material exposure; exact target-cell chip sourcing and photoresist share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_jsr_semiconductor_materials_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_packaging_chain_ase",
+    "source": "semiconductor_packaging_solder_substrate_chain",
+    "target": "org_ase_technology",
+    "relation": "manufactured_by",
+    "claim": "ASE Technology is a candidate upstream OSAT supplier exposure for the semiconductor packaging, solder, and substrate chain.",
+    "context": "Broad packaging/test exposure; exact target-cell chip package supplier is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_ase_full_year_2025_results"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_packaging_chain_amkor",
+    "source": "semiconductor_packaging_solder_substrate_chain",
+    "target": "org_amkor_technology",
+    "relation": "manufactured_by",
+    "claim": "Amkor Technology is a candidate upstream OSAT supplier exposure for the semiconductor packaging, solder, and substrate chain.",
+    "context": "Broad packaging/test exposure; exact target-cell chip package supplier is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_amkor_annual_report_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_packaging_chain_ibiden",
+    "source": "semiconductor_packaging_solder_substrate_chain",
+    "target": "org_ibiden",
+    "relation": "manufactured_by",
+    "claim": "IBIDEN is a candidate upstream package-substrate supplier exposure for the semiconductor packaging, solder, and substrate chain.",
+    "context": "Broad package-substrate exposure; exact target-cell chip package supplier is unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_ibiden_integrated_report_2025_ic_package_substrates"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

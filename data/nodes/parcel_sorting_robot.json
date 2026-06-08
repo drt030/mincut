@@ -7721,27 +7721,37 @@
       "chemical",
       "silicone",
       "elastomer",
+      "semiconductor_material",
+      "photoresist",
       "investable_supplier"
     ],
-    "description": "Japanese specialty chemical supplier with silicone rubber compounds and liquid silicone rubber systems.",
+    "description": "Japanese specialty chemical supplier with silicone rubber compounds plus semiconductor materials such as silicon wafers, photoresists, photomask blanks, and encapsulants.",
     "confidence": "medium",
     "metrics": [
       {
         "name": "Public listing",
         "currentValue": "4063.T"
+      },
+      {
+        "name": "Semiconductor materials exposure",
+        "currentValue": "silicon wafers, photoresists, photomask blanks, encapsulants",
+        "description": "Shin-Etsu annual report describes semiconductor manufacturing materials across wafer, lithography, mask, and encapsulation steps."
       }
     ],
     "evidenceIds": [
-      "ev_mfg_shin_etsu_silicone_rubber_2026"
+      "ev_mfg_shin_etsu_silicone_rubber_2026",
+      "ev_shin_etsu_annual_report_2025_semiconductor_materials"
     ],
     "tags": [
       "manufacturer",
       "chemical",
       "silicone",
       "elastomer",
+      "photoresist",
+      "semiconductor_material",
       "public_company"
     ],
-    "notes": "Investor relevance: public upstream silicone supplier; exact suction-cup feedstock share is unverified.",
+    "notes": "Investor relevance: public upstream silicone and semiconductor-material supplier. Exact suction-cup feedstock share and exact target-cell semiconductor-material exposure are unverified.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },
@@ -10194,5 +10204,280 @@
       "consistency_backfill"
     ],
     "notes": "Low-confidence allocated process cost, not a standalone motor quote. Replace with teardown, routing time, or supplier process-cost evidence before review promotion."
+  },
+  {
+    "id": "photolithography_photoresist_chemical_chain_cost",
+    "name": "Photoresist and lithography chemical allocated cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "semiconductor",
+      "shared_semiconductor_supply"
+    ],
+    "description": "Small allocated per-cell cost share for photoresist, developer, mask, and lithography process-chemical exposure embedded inside the broader electronics and semiconductor material estimate.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 100,
+          "typical": 500,
+          "max": 2000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_semiconductor_material_process_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "semiconductor",
+      "photoresist",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Allocation only. The parent electronics node carries the active BOM estimate, so this child cost is for deep-dive visibility and should not be read as a separate purchasable robot-cell line item."
+  },
+  {
+    "id": "semiconductor_packaging_solder_substrate_chain_cost",
+    "name": "Semiconductor packaging and substrate allocated cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "semiconductor",
+      "shared_semiconductor_supply"
+    ],
+    "description": "Small allocated per-cell cost share for package substrate, solder/interconnect, encapsulation, and package-test exposure embedded inside the broader electronics and semiconductor material estimate.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 500,
+          "typical": 2500,
+          "max": 8000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_semiconductor_packaging_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "semiconductor",
+      "packaging",
+      "substrate",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Allocation only. This is a deep-dive signal for semiconductor packaging exposure, not proof that the target parcel cell directly buys a particular packaging technology."
+  },
+  {
+    "id": "org_tokyo_ohka_kogyo",
+    "name": "Tokyo Ohka Kogyo",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "photoresist",
+      "process_chemical",
+      "investable_supplier"
+    ],
+    "description": "Japanese semiconductor-material supplier focused on photoresists and high-purity chemicals for photolithography processes.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "4186.T"
+      },
+      {
+        "name": "FY2025 net sales",
+        "currentValue": 237.029,
+        "unit": "JPY billion",
+        "currency": "JPY",
+        "costAsOf": "2025",
+        "description": "Corporate profile reports consolidated net sales for the fiscal year ended December 31, 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_tok_corporate_profile_2025_photoresist"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "photoresist",
+      "process_chemical",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public photoresist and lithography-chemical exposure. Exact share in target parcel-cell electronics is not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_jsr",
+    "name": "JSR",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "photoresist",
+      "electronic_materials",
+      "investable_supplier"
+    ],
+    "description": "Semiconductor-material supplier with photoresist, dielectric, and packaging-material product exposure.",
+    "metrics": [
+      {
+        "name": "Market status",
+        "currentValue": "Private / JIC Capital"
+      },
+      {
+        "name": "Photoresist product exposure",
+        "currentValue": "i-Line, KrF, ArF immersion, EUV, developers, anti-reflective coatings",
+        "description": "JSR Micro materials pages describe lithography materials and related semiconductor process chemicals."
+      }
+    ],
+    "evidenceIds": [
+      "ev_jsr_semiconductor_materials_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "photoresist",
+      "private_company"
+    ],
+    "notes": "Investor relevance: important private semiconductor-material supplier and technical benchmark, not direct public-equity exposure. Target-cell electronics material share is unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_ase_technology",
+    "name": "ASE Technology",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "osat",
+      "packaging",
+      "test",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-based outsourced semiconductor assembly and test provider with chip packaging, testing, and electronics manufacturing service exposure.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "3711.TW / ASX"
+      },
+      {
+        "name": "FY2025 consolidated net revenue",
+        "currentValue": 645.4,
+        "unit": "NTD billion",
+        "description": "Full-year 2025 results describe consolidated revenue and packaging/testing exposure."
+      }
+    ],
+    "evidenceIds": [
+      "ev_ase_full_year_2025_results"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "osat",
+      "packaging",
+      "test",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public semiconductor packaging/test exposure. Exact chips and package technologies inside the target parcel cell are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_amkor_technology",
+    "name": "Amkor Technology",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "osat",
+      "packaging",
+      "test",
+      "investable_supplier"
+    ],
+    "description": "US-listed outsourced semiconductor packaging and test provider with advanced packaging and global OSAT exposure.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "AMKR"
+      },
+      {
+        "name": "FY2025 net sales",
+        "currentValue": 6.708,
+        "unit": "USD billion",
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Company full-year 2025 results report net sales of USD 6.708B."
+      }
+    ],
+    "evidenceIds": [
+      "ev_amkor_annual_report_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "osat",
+      "packaging",
+      "test",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public OSAT exposure. Exact package supplier for chips in the target parcel-cell BOM is unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_ibiden",
+    "name": "IBIDEN",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "package_substrate",
+      "electronics",
+      "investable_supplier"
+    ],
+    "description": "Japanese electronics materials supplier with IC package substrate products and advanced substrate-manufacturing exposure.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "4062.T"
+      },
+      {
+        "name": "IC package substrate exposure",
+        "currentValue": "IC package substrates",
+        "description": "Integrated report describes IC package substrates as a core Electronics Operation product."
+      }
+    ],
+    "evidenceIds": [
+      "ev_ibiden_integrated_report_2025_ic_package_substrates"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "package_substrate",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public package-substrate exposure. Exact substrate content in target parcel-cell electronics is not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
   }
 ]

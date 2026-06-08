@@ -99,6 +99,8 @@ test("active parcel frontier nodes expose p50 capex placeholders when no quote i
     "servo_motor_assembly_and_test_process",
     "robot_arm_assembly_process",
     "modular_cell_manufacturing",
+    "photolithography_photoresist_chemical_chain",
+    "semiconductor_packaging_solder_substrate_chain",
   ]) {
     const result = rollupCost(graph, nodeId);
     assert.equal(result.anyChildContributed, true, `${nodeId} must have reachable capex data`);

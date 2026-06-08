@@ -3661,5 +3661,155 @@
     "limitations": "Internal allocation only. Not a supplier quote, not a teardown, and not reviewed field evidence; replace with routing time, integrator build sheets, fixture amortization, or bid data before promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_tok_corporate_profile_2025_photoresist",
+    "type": "historical_source",
+    "title": "Tokyo Ohka Kogyo corporate outline",
+    "url": "https://www.tok.co.jp/eng/company/outline",
+    "sourceName": "Tokyo Ohka Kogyo",
+    "date": "2026",
+    "summary": "Corporate outline lists FY2025 consolidated net sales of JPY 237.029B and business details focused on photoresists and high-purity chemicals for semiconductor and display photolithography.",
+    "supportsNodeIds": [
+      "photolithography_photoresist_chemical_chain",
+      "org_tokyo_ohka_kogyo"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_photoresist_chain_tok"
+    ],
+    "limitations": "Company-level semiconductor-material exposure only; it does not identify chips or material suppliers inside the target parcel-sorting cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_shin_etsu_annual_report_2025_semiconductor_materials",
+    "type": "historical_source",
+    "title": "Shin-Etsu Chemical Annual Report 2025 semiconductor materials",
+    "url": "https://www.shinetsu.co.jp/wp-content/uploads/2025/07/Annual-Report-2025.pdf",
+    "sourceName": "Shin-Etsu Chemical",
+    "date": "2025",
+    "summary": "Annual report describes Shin-Etsu semiconductor manufacturing materials including silicon wafers, photoresists, photomask blanks, and encapsulants.",
+    "supportsNodeIds": [
+      "photolithography_photoresist_chemical_chain",
+      "org_shin_etsu"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_photoresist_chain_shin_etsu"
+    ],
+    "limitations": "Broad semiconductor-material product exposure; no parcel-cell BOM share or target chip source is verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_jsr_semiconductor_materials_2025",
+    "type": "product_page",
+    "title": "JSR electronic materials and semiconductor lithography materials",
+    "url": "https://www.jsrmicro.com/electronic-materials",
+    "sourceName": "JSR Micro",
+    "date": "2025",
+    "summary": "JSR Micro describes semiconductor lithography materials including i-Line, KrF, ArF immersion, and EUV photoresists, anti-reflective coatings, developers, and related electronic materials.",
+    "supportsNodeIds": [
+      "photolithography_photoresist_chemical_chain",
+      "org_jsr"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_photoresist_chain_jsr"
+    ],
+    "limitations": "Product-line evidence only. JSR is modeled as private market exposure and the target-cell chip material chain remains unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ase_full_year_2025_results",
+    "type": "historical_source",
+    "title": "ASE Technology full-year 2025 results",
+    "url": "https://www.prnewswire.com/news-releases/ase-technology-holding-co-ltd-reports-its-unaudited-consolidated-financial-results-for-the-fourth-quarter-and-the-full-year-of-2025-302679779.html",
+    "sourceName": "ASE Technology Holding / PR Newswire",
+    "date": "2026-02-12",
+    "summary": "Full-year 2025 results describe ASE Technology's packaging, testing, and electronic manufacturing service revenue exposure, with consolidated 2025 net revenue reported around NT$645.4B.",
+    "supportsNodeIds": [
+      "semiconductor_packaging_solder_substrate_chain",
+      "org_ase_technology"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_packaging_chain_ase"
+    ],
+    "limitations": "Unaudited company results and broad OSAT exposure; no evidence of exact package suppliers inside the target parcel-cell electronics.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_amkor_annual_report_2025",
+    "type": "historical_source",
+    "title": "Amkor Technology 2025 financial results and annual report",
+    "url": "https://ir.amkor.com/news-releases/news-release-details/amkor-technology-reports-financial-results-fourth-quarter-and-11",
+    "sourceName": "Amkor Technology",
+    "date": "2026-02-09",
+    "summary": "Amkor 2025 full-year results report net sales of USD 6.708B and describe the company as a semiconductor packaging and test services provider.",
+    "supportsNodeIds": [
+      "semiconductor_packaging_solder_substrate_chain",
+      "org_amkor_technology"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_packaging_chain_amkor"
+    ],
+    "limitations": "Company-level OSAT scale evidence; no target-cell chip package supplier claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ibiden_integrated_report_2025_ic_package_substrates",
+    "type": "historical_source",
+    "title": "IBIDEN Integrated Report 2025",
+    "url": "https://www.ibiden.com/ir/items/IntegratedReport2025_en.pdf",
+    "sourceName": "IBIDEN",
+    "date": "2025",
+    "summary": "Integrated Report 2025 describes IBIDEN's Electronics Operation and IC package substrate products, providing package-substrate supplier exposure for the semiconductor packaging chain.",
+    "supportsNodeIds": [
+      "semiconductor_packaging_solder_substrate_chain",
+      "org_ibiden"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_packaging_chain_ibiden"
+    ],
+    "limitations": "Broad package-substrate exposure; no target-cell chip package supplier or substrate share is verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_semiconductor_material_process_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Semiconductor photoresist and lithography chemical cost allocation backfill - 2025 estimate",
+    "sourceName": "Internal cost allocation",
+    "date": "2026-06-08",
+    "summary": "Low-confidence 2025 RMB per-cell allocation for photoresist, developer, mask, and lithography process-chemical exposure embedded inside the broader electronics and semiconductor material estimate.",
+    "supportsNodeIds": [
+      "photolithography_photoresist_chemical_chain",
+      "photolithography_photoresist_chemical_chain_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_photolithography_photoresist_chain_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only. Not a wafer-fab quote, teardown, or reviewed semiconductor BOM. It should be replaced with electronics BOM allocation or chip teardown evidence before review promotion.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_semiconductor_packaging_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Semiconductor packaging and substrate cost allocation backfill - 2025 estimate",
+    "sourceName": "Internal cost allocation",
+    "date": "2026-06-08",
+    "summary": "Low-confidence 2025 RMB per-cell allocation for package substrate, solder/interconnect, encapsulation, and package-test exposure embedded inside the broader electronics and semiconductor material estimate.",
+    "supportsNodeIds": [
+      "semiconductor_packaging_solder_substrate_chain",
+      "semiconductor_packaging_solder_substrate_chain_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_semiconductor_packaging_chain_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only. Not a target-cell package BOM, OSAT quote, or reviewed teardown. Replace with direct electronics BOM evidence before review promotion.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]
