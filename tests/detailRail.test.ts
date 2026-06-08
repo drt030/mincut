@@ -753,8 +753,23 @@ test("expanded: product detail surfaces an investor answer panel", () => {
   );
   assert.match(
     html,
-    /Startup wedge/,
-    `investor panel must point to the highest-ranked startup opportunity; got: ${html}`,
+    /Top startup opportunities/,
+    `investor panel must surface a ranked global startup opportunity list; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /#1[\s\S]*PLC and WCS integration[\s\S]*Opportunity score[\s\S]*Cost signal:[\s\S]*43\.7k RMB/,
+    `investor panel must rank the PLC/WCS integration opportunity with score and cost context; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /#2[\s\S]*Reducer lubrication and life testing[\s\S]*Technical maturity[\s\S]*Maintenance \/ operations/,
+    `investor panel must include reducer testing as a ranked startup opportunity with constraint rationale; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /#3[\s\S]*Parcel induction and spacing control[\s\S]*Capacity \/ scale/,
+    `investor panel must include induction/gapping as a ranked throughput opportunity; got: ${html}`,
   );
 });
 
@@ -797,6 +812,11 @@ test("expanded: product detail surfaces startup opportunity candidates with supp
     html,
     /Wayzim/,
     `opportunity section must surface candidate supplier exposure for induction/gapping; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Public listing: 688211\.SH/,
+    `opportunity section must include candidate exposure summaries, not only company names; got: ${html}`,
   );
 });
 

@@ -579,7 +579,9 @@ function OpportunityCandidateList({
               {exposure.length > 0 ? (
                 <p className="metric-detail-description">
                   <strong>{t("candidateExposure")}:</strong>{" "}
-                  {exposure.map((org) => nodeName(org.id, org.name)).join(", ")}
+                  {exposure
+                    .map((org) => candidateExposureSummary(org, nodeName(org.id, org.name)))
+                    .join("; ")}
                 </p>
               ) : null}
               {opportunityText ? <p className="metric-detail-description">{opportunityText}</p> : null}
@@ -599,9 +601,17 @@ type InvestorAnswer = {
   topCostNode: Node | null;
   topCostTypicalRmb: number | null;
   candidateExposure: Node[];
-  startupWedge: Node | null;
+  startupOpportunities: RankedStartupOpportunity[];
   throughputConstraints: Node[];
   throughputMetric: Node | null;
+};
+
+type RankedStartupOpportunity = {
+  node: Node;
+  score: number;
+  costTypicalRmb: number | null;
+  candidateExposure: Node[];
+  opportunityText: string;
 };
 
 function InvestorAnswerPanel({
@@ -625,7 +635,7 @@ function InvestorAnswerPanel({
     answer.costGapRmb !== null ||
     answer.topCostNode ||
     answer.candidateExposure.length > 0 ||
-    answer.startupWedge ||
+    answer.startupOpportunities.length > 0 ||
     answer.throughputConstraints.length > 0;
   if (!hasSignal) return null;
   const throughputConstraintFactors = constraintFactorSummary(answer.throughputConstraints, t);
@@ -728,23 +738,63 @@ function InvestorAnswerPanel({
             ) : null}
           </li>
         ) : null}
-        {answer.startupWedge ? (
+        {answer.startupOpportunities.length > 0 ? (
           <li className="metric-detail-row">
             <div className="metric-detail-row-head">
-              <span>{t("startupWedge")}</span>
-              <span className="pill">
-                {t("risk")} {Math.round(nodeRisk(answer.startupWedge, graph) * 100)}%
-              </span>
+              <span>{t("topStartupOpportunities")}</span>
+              <span className="pill">{answer.startupOpportunities.length}</span>
             </div>
-            <p className="metric-detail-description">
-              <NodeListLink
-                node={answer.startupWedge}
-                displayName={nodeName(answer.startupWedge.id, answer.startupWedge.name)}
-                onSelectNode={onSelectNode}
-              />
-            </p>
           </li>
         ) : null}
+        {answer.startupOpportunities.map((entry, index) => {
+          const factors = constraintFactorsForNode(entry.node, t);
+          return (
+            <li className="metric-detail-row" key={entry.node.id}>
+              <div className="metric-detail-row-head">
+                <span>
+                  #{index + 1}{" "}
+                  <NodeListLink
+                    node={entry.node}
+                    displayName={nodeName(entry.node.id, entry.node.name)}
+                    onSelectNode={onSelectNode}
+                  />
+                </span>
+                <span className="pill">
+                  {t("opportunityScore")} {Math.round(entry.score)}
+                </span>
+              </div>
+              <div className="metric-detail-row-values">
+                <span>
+                  <strong>{t("risk")}:</strong> {Math.round(nodeRisk(entry.node, graph) * 100)}%
+                </span>
+                {entry.costTypicalRmb !== null ? (
+                  <span>
+                    <strong>{t("costSignal")}:</strong>{" "}
+                    {formatMetricValue(entry.costTypicalRmb, "RMB", "RMB").compact}
+                  </span>
+                ) : null}
+              </div>
+              {factors.length > 0 ? (
+                <div className="pill-row">
+                  {factors.map((factor) => (
+                    <span className="pill" key={factor.tag}>
+                      {factor.label}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+              {entry.candidateExposure.length > 0 ? (
+                <p className="metric-detail-description">
+                  <strong>{t("candidateExposure")}:</strong>{" "}
+                  {entry.candidateExposure
+                    .map((org) => candidateExposureSummary(org, nodeName(org.id, org.name)))
+                    .join("; ")}
+                </p>
+              ) : null}
+              {entry.opportunityText ? <p className="metric-detail-description">{entry.opportunityText}</p> : null}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
@@ -766,10 +816,53 @@ function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCa
     topCostNode: topCostNode && topCostNode.reviewStatus !== "deprecated" ? topCostNode : null,
     topCostTypicalRmb: topCostStep ? topCostStep.costTypicalRmb : null,
     candidateExposure: topCostStep ? candidateExposureForNode(graph, topCostStep.nodeId) : [],
-    startupWedge: opportunityCandidates[0] ?? null,
+    startupOpportunities: rankedStartupOpportunitiesForProduct(graph, opportunityCandidates),
     throughputConstraints: throughputConstraintNodesForProduct(graph, product.id),
     throughputMetric,
   };
+}
+
+function rankedStartupOpportunitiesForProduct(
+  graph: GraphData,
+  opportunityCandidates: Node[],
+  limit = 3,
+): RankedStartupOpportunity[] {
+  return opportunityCandidates
+    .map((node) => {
+      const riskScore = nodeRisk(node, graph) * 100;
+      const costTypicalRmb = opportunityCostSignalRmb(graph, node.id);
+      const costScore = costTypicalRmb === null ? 0 : Math.min(costTypicalRmb / 5000, 12);
+      const constraintScore = constraintTagCount(node) * 4;
+      const exposure = candidateExposureForNode(graph, node.id);
+      const exposureScore = Math.min(exposure.length, 5);
+      return {
+        node,
+        score: riskScore + costScore + constraintScore + exposureScore,
+        costTypicalRmb,
+        candidateExposure: exposure,
+        opportunityText: startupOpportunityText(node),
+      };
+    })
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        nodeRisk(b.node, graph) - nodeRisk(a.node, graph) ||
+        a.node.name.localeCompare(b.node.name),
+    )
+    .slice(0, limit);
+}
+
+function opportunityCostSignalRmb(graph: GraphData, nodeId: string): number | null {
+  try {
+    const rollup = rollupCost(graph, nodeId);
+    return rollup.anyChildContributed ? rollup.rolledUp.typical : null;
+  } catch {
+    return null;
+  }
+}
+
+function constraintTagCount(node: Node): number {
+  return (node.tags ?? []).filter((tag) => tag.startsWith("constraint_")).length;
 }
 
 const INVESTOR_RISK_NODE_KINDS = new Set<Node["kind"]>([
