@@ -104,3 +104,30 @@ test("canvas graph can be re-rooted on a subsystem for deeper study", () => {
     true,
   );
 });
+
+test("re-rooting on the robot arm exposes controller I/O child decomposition", () => {
+  const graph = loadGraphData();
+  const canvas = filterCanvasGraph(graph, "industrial_robot_arm_body");
+  const ids = new Set(canvas.nodes.map((node) => node.id));
+
+  for (const id of [
+    "robot_controller_io",
+    "robot_controller_cpu_module",
+    "robot_realtime_control_runtime",
+    "robot_fieldbus_gateway",
+    "robot_safety_io_interface",
+    "robot_external_io_sensor_interface",
+    "robot_controller_diagnostics_interface",
+  ]) {
+    assert.equal(ids.has(id), true, `${id} should be visible under the robot-arm research root`);
+  }
+  assert.equal(
+    canvas.edges.some((edge) =>
+      edge.relation === "requires" &&
+      edge.source === "robot_controller_io" &&
+      edge.target === "robot_controller_cpu_module",
+    ),
+    true,
+    "robot_controller_io should keep its lower-layer requires edges after re-rooting",
+  );
+});

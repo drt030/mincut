@@ -143,6 +143,7 @@ export function RadialNode({
   // Keep node contour neutral: active analysis colour belongs to edges,
   // while this outline only carries selection/root affordance.
   const outline = outlineColor ?? "#888";
+  const hasOutline = outline !== "transparent" && outline !== "none";
 
   if (band === 1) {
     const radiusByRole = {
@@ -207,7 +208,7 @@ export function RadialNode({
             fill={fill}
             opacity={opacity}
             stroke={outline}
-            strokeWidth={1.5}
+            strokeWidth={hasOutline ? 1.5 : 0}
           />
           {showLabel ? (
             <text
@@ -239,7 +240,7 @@ export function RadialNode({
               width: BAND3_WIDTH,
               height: BAND3_HEIGHT,
               background: fill,
-              border: `1px solid ${outline}`,
+              border: hasOutline ? `1px solid ${outline}` : 0,
               borderRadius: 4,
               padding: "7px 8px",
               boxSizing: "border-box",

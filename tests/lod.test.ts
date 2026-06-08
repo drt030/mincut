@@ -74,6 +74,7 @@ type RadialNodeTestProps = {
   fill: string;
   maturityLabel: string;
   zoom: number;
+  outlineColor?: string;
   visualRole?: "root" | "anchor" | "branch" | "leaf";
   showLabel?: boolean;
 };
@@ -299,6 +300,21 @@ test("RadialNode band 2: labels can be suppressed for leaf texture nodes", () =>
   assert.doesNotMatch(html, /Vision Processing Compute/, `band-2 quiet leaf should not show node name; got: ${html}`);
 });
 
+test("RadialNode band 2: transparent outline removes the ordinary node contour", () => {
+  const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 1.0, outlineColor: "transparent" });
+  assert.match(html, /<circle/, `band-2 ordinary node still renders a node marker; got: ${html}`);
+  assert.match(
+    html,
+    /stroke-width=["']0["']|strokeWidth:0/,
+    `band-2 ordinary node contour should have zero width when outlineColor is transparent; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html,
+    /stroke-width=["']1\.5["']|strokeWidth:1\.5/,
+    `band-2 ordinary node contour must not keep the selected/root outline width; got: ${html}`,
+  );
+});
+
 test("RadialNode band 3 (zoom 2.0): 136×72 HTML card with full name and a badge", () => {
   const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 2.0 });
   // Either a foreignObject (if mounted under SVG) or a plain HTML
@@ -333,6 +349,21 @@ test("RadialNode band 3 (zoom 2.0): 136×72 HTML card with full name and a badge
     html,
     /Lab prototype/,
     `band-3 must show the maturity badge text; got: ${html}`,
+  );
+});
+
+test("RadialNode band 3: transparent outline removes the ordinary card contour", () => {
+  const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 2.0, outlineColor: "transparent" });
+  assert.match(html, /Vision Processing Compute Module/, `band-3 ordinary card must still show the node; got: ${html}`);
+  assert.match(
+    html,
+    /border:0/,
+    `band-3 ordinary card contour should be removed when outlineColor is transparent; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html,
+    /1px solid transparent/,
+    `band-3 ordinary card must not keep a transparent border that reads as a hidden contour channel; got: ${html}`,
   );
 });
 
