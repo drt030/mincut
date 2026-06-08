@@ -2682,6 +2682,85 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_mfg_chalco_aluminum_profile_2026",
+    "type": "product_page",
+    "title": "Chalco company profile",
+    "url": "https://www.chalco.com.cn/en/index.html",
+    "sourceName": "Chalco",
+    "date": "2026-06-08",
+    "summary": "Chalco describes an integrated aluminum business covering mineral resources exploration, alumina, aluminum, aluminum alloy, fine alumina, high-purity aluminum, and related materials, and presents itself as a large global alumina and aluminum supplier.",
+    "supportsNodeIds": [
+      "org_chalco",
+      "aluminum_structural_material",
+      "bauxite_alumina_aluminum_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_aluminum_structural_material_chalco",
+      "e_mfg_bauxite_alumina_aluminum_chain_chalco"
+    ],
+    "limitations": "Company-profile evidence for upstream aluminum-chain and aluminum-material exposure; it does not prove target-cell supplier selection, material grade, price, or share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_alcoa_bauxite_alumina_aluminum_2026",
+    "type": "historical_source",
+    "title": "Alcoa investor FAQ",
+    "url": "https://investors.alcoa.com/investor-resources/faqs/default.aspx?LanguageId=1",
+    "sourceName": "Alcoa",
+    "date": "2026-06-08",
+    "summary": "Alcoa investor materials describe the company as listed on the NYSE under ticker AA and as a global aluminum company with bauxite, alumina, and aluminum product exposure.",
+    "supportsNodeIds": [
+      "org_alcoa",
+      "aluminum_structural_material",
+      "bauxite_alumina_aluminum_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_aluminum_structural_material_alcoa",
+      "e_mfg_bauxite_alumina_aluminum_chain_alcoa"
+    ],
+    "limitations": "Investor-page evidence for company-level aluminum-chain exposure; it does not prove target-cell supplier selection, material grade, price, or share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_mfg_norsk_hydro_aluminum_chain_2026",
+    "type": "product_page",
+    "title": "Hydro business overview",
+    "url": "https://www.hydro.com/en/global/about-hydro/our-businesses/",
+    "sourceName": "Norsk Hydro",
+    "date": "2026-06-08",
+    "summary": "Hydro describes businesses across the aluminum value chain, including bauxite and alumina, primary aluminum, extrusions, recycling, custom aluminum components, and recycled or low-carbon aluminum.",
+    "supportsNodeIds": [
+      "org_norsk_hydro",
+      "aluminum_structural_material",
+      "bauxite_alumina_aluminum_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_aluminum_structural_material_norsk_hydro",
+      "e_mfg_bauxite_alumina_aluminum_chain_norsk_hydro"
+    ],
+    "limitations": "Company business-page evidence for aluminum-chain and extrusion exposure; it does not prove target-cell supplier selection, material grade, price, or share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_ir_norsk_hydro_share_2026",
+    "type": "historical_source",
+    "title": "The Hydro share",
+    "url": "https://www.hydro.com/en/global/investors/the-hydro-share/",
+    "sourceName": "Norsk Hydro",
+    "date": "2026-06-08",
+    "summary": "Hydro investor materials provide listing context for the Hydro share on the Oslo Stock Exchange and related ticker references.",
+    "supportsNodeIds": [
+      "org_norsk_hydro"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Investor listing context only; not product or target-cell supplier evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_mfg_baosteel_electrical_steel_2026",
     "type": "product_page",
     "title": "Baosteel non-oriented electrical steel product materials",

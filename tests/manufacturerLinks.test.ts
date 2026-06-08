@@ -250,6 +250,22 @@ test("strain-wave reducer component layer exposes investable supplier candidates
       `alloy_steel_precision_material must expose ${id} as a special-steel supplier candidate`,
     );
   }
+
+  const aluminumManufacturers = manufacturersForNode(graph, "aluminum_structural_material").map((node) => node.id);
+  for (const id of ["org_chalco", "org_alcoa", "org_norsk_hydro"]) {
+    assert.ok(
+      aluminumManufacturers.includes(id),
+      `aluminum_structural_material must expose ${id} as an aluminum supplier candidate`,
+    );
+  }
+
+  const aluminumChainManufacturers = manufacturersForNode(graph, "bauxite_alumina_aluminum_chain").map((node) => node.id);
+  for (const id of ["org_chalco", "org_alcoa", "org_norsk_hydro"]) {
+    assert.ok(
+      aluminumChainManufacturers.includes(id),
+      `bauxite_alumina_aluminum_chain must expose ${id} as an upstream aluminum-chain supplier candidate`,
+    );
+  }
 });
 
 test("servo motor material and component layer exposes investable supplier candidates", () => {

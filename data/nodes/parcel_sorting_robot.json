@@ -3193,7 +3193,10 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_mcs_2026_minerals",
-      "ev_material_supply_chain_child_cost_backfill_2025"
+      "ev_material_supply_chain_child_cost_backfill_2025",
+      "ev_mfg_chalco_aluminum_profile_2026",
+      "ev_mfg_alcoa_bauxite_alumina_aluminum_2026",
+      "ev_mfg_norsk_hydro_aluminum_chain_2026"
     ],
     "tags": [
       "mining",
@@ -3201,9 +3204,10 @@
       "aluminum",
       "raw_material",
       "supply_chain",
+      "investor_relevant",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model bauxite ore, Bayer alumina refining, Hall-Heroult smelting, recycled aluminum, energy cost, and extrusion/casting capacity."
+    "notes": "Mineral-level frontier: next layer may model bauxite ore, Bayer alumina refining, Hall-Heroult smelting, recycled aluminum, energy cost, and extrusion/casting capacity. Candidate public-company exposure added for upstream aluminum-chain research; exact target-cell supplier share is unverified."
   },
   {
     "id": "aluminum_structural_material",
@@ -3220,15 +3224,19 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_usgs_mcs_2026_minerals",
-      "ev_material_supply_chain_child_cost_backfill_2025"
+      "ev_material_supply_chain_child_cost_backfill_2025",
+      "ev_mfg_chalco_aluminum_profile_2026",
+      "ev_mfg_alcoa_bauxite_alumina_aluminum_2026",
+      "ev_mfg_norsk_hydro_aluminum_chain_2026"
     ],
     "tags": [
       "material",
       "aluminum",
       "structure",
+      "investor_relevant",
       "decomposition_frontier"
     ],
-    "notes": "Material frontier: next layer may include alloy series, extrusion die, casting route, CNC machining, surface treatment, and recycling."
+    "notes": "Material frontier: next layer may include alloy series, extrusion die, casting route, CNC machining, surface treatment, and recycling. Candidate public-company exposure added for aluminum structure/material research; exact profile, casting, or machining supplier for the target cell is unverified."
   },
   {
     "id": "quartz_silica_silicon_chain",
@@ -9093,6 +9101,129 @@
       "electrical_steel"
     ],
     "notes": "Investor relevance: upstream steel exposure; exact reducer steel grade and target BOM share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_chalco",
+    "name": "Aluminum Corporation of China (Chalco)",
+    "domain": [
+      "aluminum",
+      "bauxite",
+      "alumina",
+      "structural_material",
+      "investable_supplier"
+    ],
+    "description": "Chinese integrated aluminum producer covering mineral resources exploration, alumina, primary aluminum, aluminum alloy, and related aluminum materials.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "601600.SH / 2600.HK"
+      },
+      {
+        "name": "Company-position claim",
+        "currentValue": "world largest alumina/aluminum supplier",
+        "description": "Company profile claim; not a verified parcel-cell BOM share."
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_chalco_aluminum_profile_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "aluminum",
+      "bauxite",
+      "alumina",
+      "structural_material",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: listed upstream aluminum-chain and aluminum-alloy exposure; target parcel-cell extrusion/profile supplier share remains unverified.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_alcoa",
+    "name": "Alcoa",
+    "domain": [
+      "aluminum",
+      "bauxite",
+      "alumina",
+      "structural_material",
+      "investable_supplier"
+    ],
+    "description": "US-listed aluminum company covering bauxite, alumina, and aluminum products.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "AA"
+      },
+      {
+        "name": "Employees",
+        "currentValue": 13900,
+        "description": "Company IR FAQ approximate employee count; scale context only."
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_alcoa_bauxite_alumina_aluminum_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "aluminum",
+      "bauxite",
+      "alumina",
+      "structural_material",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public upstream aluminum-chain exposure; not a direct parcel-cell structural supplier claim.",
+    "kind": "organization",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_norsk_hydro",
+    "name": "Norsk Hydro",
+    "domain": [
+      "aluminum",
+      "bauxite",
+      "alumina",
+      "extrusion",
+      "recycling",
+      "structural_material",
+      "investable_supplier"
+    ],
+    "description": "Norwegian aluminum and renewable-energy company present across bauxite/alumina, primary aluminum, extrusions, and recycling.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "NHY.OL / NHYDY"
+      },
+      {
+        "name": "Extrusions customer count",
+        "currentValue": 30000,
+        "description": "Company page says Hydro Extrusions serves more than 30,000 customers; scale context only."
+      }
+    ],
+    "evidenceIds": [
+      "ev_mfg_norsk_hydro_aluminum_chain_2026",
+      "ev_ir_norsk_hydro_share_2026"
+    ],
+    "tags": [
+      "manufacturer",
+      "aluminum",
+      "bauxite",
+      "alumina",
+      "extrusion",
+      "recycling",
+      "structural_material",
+      "public_company"
+    ],
+    "notes": "Investor relevance: integrated aluminum-chain and extrusion/recycling exposure; target parcel-cell profile supplier share remains unverified.",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",

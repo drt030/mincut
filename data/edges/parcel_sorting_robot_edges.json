@@ -5045,6 +5045,84 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_mfg_aluminum_structural_material_chalco",
+    "source": "aluminum_structural_material",
+    "target": "org_chalco",
+    "relation": "manufactured_by",
+    "claim": "Chalco is a candidate upstream supplier exposure for aluminum and aluminum-alloy materials relevant to parcel-cell structural parts.",
+    "context": "Upstream/fabricated aluminum material exposure; exact extrusion, casting, machining supplier, and target-cell share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_chalco_aluminum_profile_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_aluminum_structural_material_alcoa",
+    "source": "aluminum_structural_material",
+    "target": "org_alcoa",
+    "relation": "manufactured_by",
+    "claim": "Alcoa is a candidate upstream supplier exposure for aluminum products relevant to parcel-cell structural parts.",
+    "context": "Upstream aluminum material exposure; exact extrusion, casting, machining supplier, and target-cell share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_alcoa_bauxite_alumina_aluminum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_aluminum_structural_material_norsk_hydro",
+    "source": "aluminum_structural_material",
+    "target": "org_norsk_hydro",
+    "relation": "manufactured_by",
+    "claim": "Norsk Hydro is a candidate supplier exposure for aluminum extrusions, custom components, and recycled/low-carbon aluminum relevant to parcel-cell structures.",
+    "context": "Aluminum extrusion/component exposure; exact profile, target-cell supplier selection, and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_norsk_hydro_aluminum_chain_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_bauxite_alumina_aluminum_chain_chalco",
+    "source": "bauxite_alumina_aluminum_chain",
+    "target": "org_chalco",
+    "relation": "manufactured_by",
+    "claim": "Chalco is a candidate investable supplier exposure across the bauxite, alumina, and aluminum chain.",
+    "context": "Company-level aluminum-chain exposure; exact parcel-cell material sourcing and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_chalco_aluminum_profile_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_bauxite_alumina_aluminum_chain_alcoa",
+    "source": "bauxite_alumina_aluminum_chain",
+    "target": "org_alcoa",
+    "relation": "manufactured_by",
+    "claim": "Alcoa is a candidate investable supplier exposure across bauxite, alumina, and aluminum products.",
+    "context": "Company-level aluminum-chain exposure; exact parcel-cell material sourcing and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_alcoa_bauxite_alumina_aluminum_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_bauxite_alumina_aluminum_chain_norsk_hydro",
+    "source": "bauxite_alumina_aluminum_chain",
+    "target": "org_norsk_hydro",
+    "relation": "manufactured_by",
+    "claim": "Norsk Hydro is a candidate investable supplier exposure across bauxite/alumina, primary aluminum, extrusions, and recycling.",
+    "context": "Company-level aluminum-chain exposure; exact parcel-cell material sourcing and share are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_norsk_hydro_aluminum_chain_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_mfg_electrical_steel_lamination_material_baosteel",
     "source": "electrical_steel_lamination_material",
     "target": "org_baosteel",
