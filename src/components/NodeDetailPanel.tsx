@@ -26,6 +26,7 @@ import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk } from "@/lib/nodeRisk";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { Edge, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
+import { EvidenceList } from "./EvidenceList";
 import { useLanguage } from "./LanguageProvider";
 import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
 
@@ -453,20 +454,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
           deprecatedHiddenCount={siblingDeprecatedCount}
         />
       ) : null}
-      <div>
-        <strong>{t("evidence")}</strong>
-        {evidence.length ? (
-          <ul>
-            {evidence.map((item) => (
-              <li key={item.id}>
-                {item.title} <span className="muted">({item.type}, {item.reviewStatus ?? "unreviewed"})</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="warning">{t("noDirectEvidence")}</p>
-        )}
-      </div>
+      <EvidenceList evidence={evidence} />
     </div>
   );
 }

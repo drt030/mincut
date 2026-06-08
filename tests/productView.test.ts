@@ -30,6 +30,7 @@ test("ProductView surfaces an investor answer summary for the active product", (
 
   assert.match(html, /product-investor-answer-panel/);
   assert.match(html, /Investor answer panel/);
+  assert.match(html, /Candidate exposure is graph-linked/);
   assert.match(html, /Top risk bottleneck/);
   assert.match(html, /Parcel pick-and-place execution subsystem/);
   assert.match(html, /Cost gap/);
@@ -39,4 +40,21 @@ test("ProductView surfaces an investor answer summary for the active product", (
   assert.match(html, /Reducer lubrication and life testing/);
   assert.match(html, /Cost coverage complete/);
   assert.doesNotMatch(html, /targetCost:/);
+});
+
+test("ProductView evidence card exposes provenance and review quality", () => {
+  const graph = loadGraphData();
+  const node = nodeById(graph, "low_cost_parcel_sorting_robot_300k_rmb");
+  assert.ok(node);
+
+  const html = renderToStaticMarkup(React.createElement(ProductView, { graph, product: node }));
+
+  assert.match(html, /Initial target definition for a 300,000 RMB parcel sorting cell/);
+  assert.match(html, /Type.*internal note/);
+  assert.match(html, /Status.*reviewed/);
+  assert.match(html, /confidence.*medium/);
+  assert.match(html, /Source.*Project initialization document/);
+  assert.match(html, /Date.*2026-04-26/);
+  assert.match(html, /Limitations.*Internal planning evidence only/);
+  assert.match(html, /Status.*unreviewed/);
 });

@@ -2,6 +2,7 @@
 
 import React, { useMemo } from "react";
 import { useLanguage } from "./LanguageProvider";
+import { EvidenceList } from "./EvidenceList";
 import {
   bottlenecksForNode,
   evidenceForNode,
@@ -99,7 +100,9 @@ export function ProductView({ graph, product }: Props) {
         <SummaryCard title={t("requiredModules")} nodes={modules} />
         <KeyMetricsCard title={t("keyMetrics")} metrics={metrics} />
         <SummaryCard title={t("bottlenecks")} nodes={bottlenecks} />
-        <SummaryCard title={t("evidence")} nodes={evidence.map((item) => ({ id: item.id, name: item.title }))} />
+        <div className="card">
+          <EvidenceList evidence={evidence} />
+        </div>
       </section>
     </div>
   );
@@ -120,6 +123,7 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
   return (
     <section className="card investor-answer-card" data-testid="product-investor-answer-panel">
       <h2>{t("investorAnswerPanel")}</h2>
+      <p className="muted">{t("investorAnswerCaveat")}</p>
       <ul className="metric-detail-list">
         {answer.topRiskNode ? (
           <li className="metric-detail-row">
