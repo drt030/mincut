@@ -3349,6 +3349,78 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "ev_fanuc_integrated_report_2025_robot_business",
+    "type": "historical_source",
+    "title": "FANUC Integrated Report 2025",
+    "url": "https://www.fanuc.co.jp/en/ir/annualreport/pdf/integratedreport2025_e.pdf",
+    "sourceName": "FANUC",
+    "date": "2025",
+    "summary": "FANUC Integrated Report 2025 reports ROBOT Division consolidated sales of JPY 329,566 million for the year ended March 31, 2025, and says the division accounted for 41.3% of consolidated net sales.",
+    "supportsNodeIds": [
+      "org_fanuc"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_robot_arm_body_fanuc"
+    ],
+    "limitations": "Company segment evidence for FANUC robot-business scale; it does not prove a FANUC arm is used in the 300,000 RMB parcel-cell BOM or establish parcel-specific share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_estun_annual_report_2024_robotics_segment",
+    "type": "historical_source",
+    "title": "Estun Automation 2024 annual report",
+    "url": "https://www.100est.com/res/financial-report/r2024/SZ002747_202504281664010071.pdf",
+    "sourceName": "Estun Automation",
+    "date": "2025-04-28",
+    "summary": "Estun's 2024 annual report reports RMB 3,032.5 million revenue from industrial robots and intelligent manufacturing systems, representing 75.65% of revenue.",
+    "supportsNodeIds": [
+      "org_estun"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_robot_arm_body_estun"
+    ],
+    "limitations": "Company segment evidence for Estun's robot exposure; it does not prove target-cell supplier selection, margin quality, or parcel-sorting-specific share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_yaskawa_report_2025_robotics_business",
+    "type": "historical_source",
+    "title": "Yaskawa Report 2025",
+    "url": "https://www.yaskawa-global.com/wp-content/uploads/2025/09/YR2025E_A4.pdf",
+    "sourceName": "Yaskawa Electric",
+    "date": "2025",
+    "summary": "Yaskawa Report 2025 reports FY2024 consolidated revenue of JPY 537.7 billion and Robotics revenue of JPY 237.4 billion.",
+    "supportsNodeIds": [
+      "org_yaskawa"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_robot_arm_body_yaskawa"
+    ],
+    "limitations": "Company segment evidence for Yaskawa robotics scale; it does not prove use in the target parcel-cell BOM or China parcel-sorting share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_abb_annual_reporting_suite_2025_robotics_revenue",
+    "type": "historical_source",
+    "title": "ABB Annual Reporting Suite 2025 - Robotics discontinued operations",
+    "url": "https://library.e.abb.com/public/b292a84b973f444a821a629d668bdf1f/ABB%20Annual%20Reporting%20Suite%202025%20-%20Consolidated%20file.pdf",
+    "sourceName": "ABB",
+    "date": "2026-02-19",
+    "summary": "ABB Annual Reporting Suite 2025 reports Robotics division total revenues of USD 2,331 million for 2025 as discontinued operations.",
+    "supportsNodeIds": [
+      "org_abb_robotics"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_industrial_robot_arm_body_abb"
+    ],
+    "limitations": "Company segment revenue evidence; ownership is expected to transition to SoftBank after close and this does not establish target low-cost cell BOM share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "ev_keyence_fy2025_financial_results",
     "type": "historical_source",
     "title": "KEYENCE FY2025 financial results materials",

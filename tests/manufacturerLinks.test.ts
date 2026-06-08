@@ -785,6 +785,47 @@ test("high-exposure parcel supplier candidates expose investor scale metrics", (
   }
 });
 
+test("robot arm supplier candidates expose official robotics business scale metrics", () => {
+  const expectedExposureByOrganization: Record<string, { metric: string; evidenceId: string }> = {
+    org_fanuc: {
+      metric: "FY2025 ROBOT Division sales",
+      evidenceId: "ev_fanuc_integrated_report_2025_robot_business",
+    },
+    org_estun: {
+      metric: "2024 industrial robot and intelligent manufacturing revenue",
+      evidenceId: "ev_estun_annual_report_2024_robotics_segment",
+    },
+    org_abb_robotics: {
+      metric: "FY2025 Robotics division revenue",
+      evidenceId: "ev_abb_annual_reporting_suite_2025_robotics_revenue",
+    },
+    org_yaskawa: {
+      metric: "FY2024 Robotics revenue",
+      evidenceId: "ev_yaskawa_report_2025_robotics_business",
+    },
+  };
+
+  for (const [organizationId, expected] of Object.entries(expectedExposureByOrganization)) {
+    const organization = graph.nodes.find((node) => node.id === organizationId);
+    const evidence = graph.evidence.find((item) => item.id === expected.evidenceId);
+
+    assert.ok(organization, `${organizationId} must exist`);
+    assert.ok(
+      organization?.metrics?.some((metric) => metric.name === expected.metric),
+      `${organizationId} must expose ${expected.metric} for industrial-robot-arm supplier exposure`,
+    );
+    assert.ok(
+      organization?.evidenceIds?.includes(expected.evidenceId),
+      `${organizationId} must cite ${expected.evidenceId}`,
+    );
+    assert.equal(
+      evidence?.reviewStatus,
+      "unreviewed",
+      `${expected.evidenceId} must stay unreviewed until a human reviews the agent-added claim`,
+    );
+  }
+});
+
 test("upstream investable supplier candidates expose scale or share metrics", () => {
   const expectedExposureByOrganization: Record<string, { metric: string; evidenceId: string }> = {
     org_tsmc: {

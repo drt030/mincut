@@ -6273,13 +6273,28 @@
         "description": "2024H1 China industrial robot sales share, cited by Inovance's 2024 interim report from MIR DATABANK; sales-share basis, not revenue share."
       },
       {
+        "name": "FY2025 ROBOT Division sales",
+        "unit": "JPY million",
+        "currentValue": 329566,
+        "currency": "JPY",
+        "costAsOf": "2025",
+        "description": "FANUC Integrated Report 2025 reports ROBOT Division consolidated sales of 329,566 million yen for the year ended March 31, 2025."
+      },
+      {
+        "name": "FY2025 ROBOT Division sales mix",
+        "unit": "%",
+        "currentValue": 41.3,
+        "description": "FANUC Integrated Report 2025 states ROBOT Division sales accounted for 41.3% of consolidated net sales."
+      },
+      {
         "name": "Public listing",
         "currentValue": "6954.T"
       }
     ],
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
-      "ev_mfg_ifr_world_robotics_2025"
+      "ev_mfg_ifr_world_robotics_2025",
+      "ev_fanuc_integrated_report_2025_robot_business"
     ],
     "tags": [
       "manufacturer",
@@ -6309,12 +6324,27 @@
         "description": "2024H1 China industrial robot sales share, cited by Inovance's 2024 interim report from MIR DATABANK; sales-share basis, not revenue share."
       },
       {
+        "name": "2024 industrial robot and intelligent manufacturing revenue",
+        "unit": "RMB million",
+        "currentValue": 3032.5,
+        "currency": "RMB",
+        "costAsOf": "2024",
+        "description": "Estun 2024 annual report states industrial robot and intelligent manufacturing system revenue of RMB 3,032.5 million."
+      },
+      {
+        "name": "2024 industrial robot and intelligent manufacturing revenue share",
+        "unit": "%",
+        "currentValue": 75.65,
+        "description": "Estun 2024 annual report product split shows industrial robot and intelligent manufacturing systems at 75.65% of revenue."
+      },
+      {
         "name": "Public listing",
         "currentValue": "002747.SZ"
       }
     ],
     "evidenceIds": [
-      "ev_mfg_inovance_2024h1_robot_servo_share"
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_estun_annual_report_2024_robotics_segment"
     ],
     "tags": [
       "manufacturer",
@@ -6438,12 +6468,21 @@
         "currency": "USD",
         "costAsOf": "2025",
         "description": "ABB announced an agreement to divest ABB Robotics to SoftBank for enterprise value USD 5.375B; expected close mid-to-late 2026, so this is investor-exposure transaction value, not parcel-cell revenue or target BOM share."
+      },
+      {
+        "name": "FY2025 Robotics division revenue",
+        "unit": "USD million",
+        "currentValue": 2331,
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "ABB Annual Reporting Suite 2025 reports Robotics division total revenues of USD 2,331 million as discontinued operations."
       }
     ],
     "evidenceIds": [
       "ev_mfg_abb_robotic_parcel_inductor_2026",
       "ev_mfg_ifr_world_robotics_2025",
-      "ev_abb_robotics_softbank_divestiture_2025"
+      "ev_abb_robotics_softbank_divestiture_2025",
+      "ev_abb_annual_reporting_suite_2025_robotics_revenue"
     ],
     "tags": [
       "manufacturer",
@@ -6474,13 +6513,30 @@
         "description": "2024H1 China general servo market share, cited by Inovance's 2024 interim report from Rui Industry; product-share basis."
       },
       {
+        "name": "FY2024 Robotics revenue",
+        "unit": "JPY billion",
+        "currentValue": 237.4,
+        "currency": "JPY",
+        "costAsOf": "2024",
+        "description": "Yaskawa Report 2025 reports FY2024 Robotics revenue of 237.4 billion yen."
+      },
+      {
+        "name": "FY2024 consolidated revenue",
+        "unit": "JPY billion",
+        "currentValue": 537.7,
+        "currency": "JPY",
+        "costAsOf": "2024",
+        "description": "Yaskawa Report 2025 reports consolidated revenue of 537.7 billion yen for FY2024."
+      },
+      {
         "name": "Public listing",
         "currentValue": "6506.T"
       }
     ],
     "evidenceIds": [
       "ev_mfg_inovance_2024h1_robot_servo_share",
-      "ev_yaskawa_sigma_x_servo_sto_2026"
+      "ev_yaskawa_sigma_x_servo_sto_2026",
+      "ev_yaskawa_report_2025_robotics_business"
     ],
     "tags": [
       "manufacturer",
