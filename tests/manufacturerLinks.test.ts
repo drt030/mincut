@@ -559,6 +559,53 @@ test("visible hardware frontier nodes expose direct supplier candidates for inve
   }
 });
 
+test("manufacturing process frontiers expose integration and assembly implementation candidates", () => {
+  const expectedImplementersByNode: Record<string, string[]> = {
+    modular_cell_manufacturing: [
+      "org_abb_robotics",
+      "org_wayzim",
+      "org_dematic_kion",
+      "org_honeywell_intelligrated",
+    ],
+    robot_arm_assembly_process: [
+      "org_fanuc",
+      "org_estun",
+      "org_abb_robotics",
+      "org_yaskawa",
+    ],
+    servo_motor_assembly_and_test_process: [
+      "org_inovance",
+      "org_yaskawa",
+      "org_mitsubishi_electric",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedImplementersByNode)) {
+    const candidateIds = new Set(implementersForNode(graph, nodeId).map((node) => node.id));
+
+    for (const expectedId of expectedIds) {
+      assert.ok(
+        candidateIds.has(expectedId),
+        `${nodeId} must expose ${expectedId} as a manufacturing-process implementation candidate`,
+      );
+
+      const edge = graph.edges.find(
+        (item) => item.source === nodeId && item.target === expectedId && item.relation === "implemented_by",
+      );
+      assert.ok(edge, `${nodeId}->${expectedId} must have an implemented_by edge`);
+      assert.equal(
+        edge?.reviewStatus,
+        "unreviewed",
+        `${edge?.id ?? `${nodeId}->${expectedId}`} must stay unreviewed until human review`,
+      );
+      assert.ok(
+        (edge?.evidenceIds?.length ?? 0) > 0,
+        `${edge?.id ?? `${nodeId}->${expectedId}`} must cite evidence rather than a bare candidate assertion`,
+      );
+    }
+  }
+});
+
 test("upstream material and electronics chain nodes expose investable supplier candidates", () => {
   const expectedManufacturersByNode: Record<string, string[]> = {
     semiconductor_grade_silicon_and_electronics: [

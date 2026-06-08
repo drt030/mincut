@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useLanguage } from "./LanguageProvider";
 
 export function TranslatedHeading({ textKey }: { textKey: string }) {

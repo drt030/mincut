@@ -7189,6 +7189,156 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_impl_modular_cell_manufacturing_abb_robotics",
+    "source": "modular_cell_manufacturing",
+    "target": "org_abb_robotics",
+    "relation": "implemented_by",
+    "claim": "ABB Robotics is an implementation candidate for modular robotic parcel-cell manufacturing and deployment workflows.",
+    "context": "Adjacent robotic parcel inductor and robotics-service evidence; not proof of target 300,000 RMB BOM, local integrator selection, or quoted build cost.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_abb_robotic_parcel_inductor_2026",
+      "ev_perf_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_modular_cell_manufacturing_wayzim",
+    "source": "modular_cell_manufacturing",
+    "target": "org_wayzim",
+    "relation": "implemented_by",
+    "claim": "Wayzim is an implementation candidate for modular parcel-sortation cell manufacturing and deployment workflows in China logistics contexts.",
+    "context": "Adjacent robotic infeed and sortation equipment evidence; not proof of the target suction-arm cell architecture, price point, or supplier selection.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+      "ev_mfg_wayzim_crossbelt_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_modular_cell_manufacturing_dematic",
+    "source": "modular_cell_manufacturing",
+    "target": "org_dematic_kion",
+    "relation": "implemented_by",
+    "claim": "Dematic / KION is an implementation candidate for modular sortation-system manufacturing, controls integration, and deployment workflows.",
+    "context": "Adjacent material-handling and sortation-system evidence; useful for integrator exposure, not a confirmed target-cell BOM or quote.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_modular_cell_manufacturing_honeywell",
+    "source": "modular_cell_manufacturing",
+    "target": "org_honeywell_intelligrated",
+    "relation": "implemented_by",
+    "claim": "Honeywell Intelligrated is an implementation candidate for modular warehouse sortation cells, machine-control integration, and deployment workflows.",
+    "context": "Adjacent sortation, conveyor, WCS/WES, and machine-control evidence; not proof of participation in the target low-cost robot-cell BOM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_honeywell_sortation_momentum_2026",
+      "ev_mfg_honeywell_irregulars_sorter_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_arm_assembly_process_fanuc",
+    "source": "robot_arm_assembly_process",
+    "target": "org_fanuc",
+    "relation": "implemented_by",
+    "claim": "FANUC is an implementation candidate for industrial robot arm assembly, calibration, inspection, and service-quality workflows.",
+    "context": "Company robot-division scale evidence; this supports robot-manufacturing exposure, not the target-cell arm supplier, factory routing, or quote.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_fanuc_integrated_report_2025_robot_business"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_arm_assembly_process_estun",
+    "source": "robot_arm_assembly_process",
+    "target": "org_estun",
+    "relation": "implemented_by",
+    "claim": "Estun is an implementation candidate for industrial robot arm assembly and calibration workflows.",
+    "context": "Company industrial-robot revenue evidence; this does not verify the target-cell arm supplier, factory routing, yield, or quote.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_estun_annual_report_2024_robotics_segment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_arm_assembly_process_abb",
+    "source": "robot_arm_assembly_process",
+    "target": "org_abb_robotics",
+    "relation": "implemented_by",
+    "claim": "ABB Robotics is an implementation candidate for industrial robot arm assembly, calibration, inspection, and service workflows.",
+    "context": "ABB robotics revenue and parcel-inductor evidence; not proof of target-cell supplier selection, factory routing, or quoted cost.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_abb_annual_reporting_suite_2025_robotics_revenue",
+      "ev_mfg_abb_robotic_parcel_inductor_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_robot_arm_assembly_process_yaskawa",
+    "source": "robot_arm_assembly_process",
+    "target": "org_yaskawa",
+    "relation": "implemented_by",
+    "claim": "Yaskawa is an implementation candidate for industrial robot arm assembly, calibration, inspection, and servo-integrated robot manufacturing workflows.",
+    "context": "Company robotics revenue evidence; not proof of target-cell supplier selection, factory routing, yield, or quote.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_report_2025_robotics_business"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_motor_assembly_test_inovance",
+    "source": "servo_motor_assembly_and_test_process",
+    "target": "org_inovance",
+    "relation": "implemented_by",
+    "claim": "Inovance is an implementation candidate for servo motor assembly, end-of-line test, and motion-control quality workflows.",
+    "context": "Servo and industrial-automation exposure evidence; not a factory process audit, motor BOM proof, or target-cell supplier selection.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_inovance_2024h1_robot_servo_share",
+      "ev_inovance_annual_report_2024_investor_exposure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_motor_assembly_test_yaskawa",
+    "source": "servo_motor_assembly_and_test_process",
+    "target": "org_yaskawa",
+    "relation": "implemented_by",
+    "claim": "Yaskawa is an implementation candidate for servo motor assembly, end-of-line test, and motion-control quality workflows.",
+    "context": "Servo product-line and robotics segment evidence; not a factory process audit, motor BOM proof, or target-cell supplier selection.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_yaskawa_sigma_x_servo_sto_2026",
+      "ev_yaskawa_report_2025_robotics_business"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_impl_servo_motor_assembly_test_mitsubishi",
+    "source": "servo_motor_assembly_and_test_process",
+    "target": "org_mitsubishi_electric",
+    "relation": "implemented_by",
+    "claim": "Mitsubishi Electric is an implementation candidate for servo motor assembly, end-of-line test, and factory-automation quality workflows.",
+    "context": "Factory-automation and servo evidence; not a factory process audit, motor BOM proof, or target-cell supplier selection.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_mitsubishi_plc_servo",
+      "ev_mitsubishi_integrated_report_2025_factory_automation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_modular_cell_manufacturing_measured_by_cost",
     "source": "modular_cell_manufacturing",
     "target": "modular_cell_manufacturing_cost",

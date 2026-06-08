@@ -1,10 +1,13 @@
+import React from "react";
 import { GateReportView } from "@/components/GateReportView";
 import { TranslatedHeading, TranslatedParagraph } from "@/components/TranslatedText";
-import { loadActiveGraphData, loadGateReports } from "@/lib/graphLoader";
+import { loadActiveGraphData, loadGateQuestions, loadGateReports, loadGraphData } from "@/lib/graphLoader";
+import { runGate } from "@/lib/gateRunner";
 import { nodeById, V0_TARGET_NODE_ID } from "@/lib/graphTraversal";
 
 export default function GatePage() {
-  const reports = loadGateReports();
+  const currentReport = runGate(loadGraphData(), loadGateQuestions(), V0_TARGET_NODE_ID);
+  const reports = [currentReport, ...loadGateReports()];
   const graph = loadActiveGraphData();
   const targetNode = nodeById(graph, V0_TARGET_NODE_ID);
   return (

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import type { GateReport, GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
