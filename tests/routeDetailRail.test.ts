@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { RouteDetailRail } from "../src/components/RouteDetailRail";
@@ -231,5 +233,27 @@ test("RouteDetailRail exposes a selected-node action for changing the graph root
     html,
     /href="\/graph\?root=arm"/,
     "root action should have an href fallback so the research-root jump works before hydration",
+  );
+});
+
+test("research-root links keep href fallback but prevent hydrated navigation", () => {
+  const routeRailSource = fs.readFileSync(
+    path.join(process.cwd(), "src", "components", "RouteDetailRail.tsx"),
+    "utf8",
+  );
+  const graphExplorerSource = fs.readFileSync(
+    path.join(process.cwd(), "src", "components", "GraphExplorer.tsx"),
+    "utf8",
+  );
+
+  assert.match(
+    routeRailSource,
+    /href=\{graphRootHref\(selectedNode\.id\)\}[\s\S]*?onClick=\{\(event\) => \{\s*event\.preventDefault\(\);\s*if \(rootTransitioning\)[\s\S]*?onSetRootNode\?\.\(selectedNode\.id\);[\s\S]*?\}\}/,
+    "set-root link should keep its href fallback but prevent hydrated navigation so the in-place root transition can animate",
+  );
+  assert.match(
+    graphExplorerSource,
+    /href="\/graph"[\s\S]*?onClick=\{\(event\) => \{\s*event\.preventDefault\(\);\s*onResetRoot\(\);[\s\S]*?\}\}/,
+    "reset-root link should keep its href fallback but prevent hydrated navigation so returning to the product root can animate",
   );
 });

@@ -398,7 +398,10 @@ function GraphProductStrip({
             className="graph-root-reset-button"
             data-testid="reset-root-node-button"
             href="/graph"
-            onClick={onResetRoot}
+            onClick={(event) => {
+              event.preventDefault();
+              onResetRoot();
+            }}
           >
             {copy.resetRoot}
           </a>

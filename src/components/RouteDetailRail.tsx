@@ -265,8 +265,8 @@ export function RouteDetailRail({
                   aria-disabled={rootTransitioning}
                   aria-busy={rootTransitioning}
                   onClick={(event) => {
+                    event.preventDefault();
                     if (rootTransitioning) {
-                      event.preventDefault();
                       return;
                     }
                     onSetRootNode?.(selectedNode.id);
@@ -427,8 +427,8 @@ export function RouteDetailRail({
                         aria-disabled={rootTransitioning}
                         aria-busy={rootTransitioning}
                         onClick={(event) => {
+                          event.preventDefault();
                           if (rootTransitioning) {
-                            event.preventDefault();
                             return;
                           }
                           onSetRootNode?.(selectedNode.id);
