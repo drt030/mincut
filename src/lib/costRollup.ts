@@ -167,13 +167,7 @@ export function eligibleCostSubsystemIds(graph: GraphData, productNodeId: string
       if (edge.source !== nodeId || edge.relation !== "requires") continue;
       const child = nodeById(graph, edge.target);
       if (!child) continue;
-      if (
-        child.kind === "metric" ||
-        child.kind === "evidence" ||
-        child.kind === "bottleneck" ||
-        child.kind === "placeholder_breakthrough" ||
-        child.kind === "capability"
-      ) {
+      if (isNonCostRequiresChild(child)) {
         continue;
       }
       if (child.reviewStatus === "deprecated") continue;
@@ -265,16 +259,15 @@ function walk(
       return null;
     }
 
-    // Sum `requires` children. Non-substantive kinds (metric / evidence /
-    // bottleneck / placeholder_breakthrough) are skipped per ADR-0003;
-    // deprecated records per ADR-0001.
+    // Sum `requires` children. Non-cost kinds (metric / evidence /
+    // bottleneck / placeholder_breakthrough / capability / principle) are
+    // skipped per ADR-0003; deprecated records per ADR-0001.
     const requiresChildren = outgoingEdges(graph, node.id, "requires")
       .map((edge) => edge.target)
       .filter((targetId) => {
         const child = nodeById(graph, targetId);
         if (!child) return false;
-        if (child.kind === "metric" || child.kind === "evidence") return false;
-        if (child.kind === "bottleneck" || child.kind === "placeholder_breakthrough") return false;
+        if (isNonCostRequiresChild(child)) return false;
         if (child.reviewStatus === "deprecated") return false;
         return true;
       });
@@ -316,6 +309,18 @@ function walk(
   } finally {
     visiting.delete(nodeId);
   }
+}
+
+function isNonCostRequiresChild(node: Node): boolean {
+  return (
+    node.kind === "metric" ||
+    node.kind === "evidence" ||
+    node.kind === "bottleneck" ||
+    node.kind === "placeholder_breakthrough" ||
+    node.kind === "capability" ||
+    node.kind === "scientific_principle" ||
+    node.kind === "empirical_principle"
+  );
 }
 
 function maxRange(a: CostRange, b: CostRange): CostRange {

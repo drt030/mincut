@@ -351,10 +351,10 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_product_manufactured_by_modular_cell",
+    "id": "e_product_requires_modular_cell_manufacturing",
     "source": "low_cost_parcel_sorting_robot_300k_rmb",
     "target": "modular_cell_manufacturing",
-    "relation": "manufactured_by",
+    "relation": "requires",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },
@@ -632,10 +632,10 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_robot_arm_body_manufactured_by_assembly",
+    "id": "e_robot_arm_body_requires_assembly_process",
     "source": "industrial_robot_arm_body",
     "target": "robot_arm_assembly_process",
-    "relation": "manufactured_by",
+    "relation": "requires",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },
@@ -874,17 +874,6 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_reducer_manufactured_by_life_test",
-    "source": "precision_reducer_gearbox",
-    "target": "reducer_lubrication_and_life_test",
-    "relation": "manufactured_by",
-    "confidence": "low",
-    "evidenceIds": [
-      "ev_harmonic_drive_reducer_components"
-    ],
-    "reviewStatus": "unreviewed"
-  },
-  {
     "id": "e_reducer_requires_lubrication_life_test",
     "source": "precision_reducer_gearbox",
     "target": "reducer_lubrication_and_life_test",
@@ -1073,10 +1062,10 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_servo_motor_manufactured_by_assembly_test",
+    "id": "e_servo_motor_requires_assembly_test_process",
     "source": "industrial_servo_motor",
     "target": "servo_motor_assembly_and_test_process",
-    "relation": "manufactured_by",
+    "relation": "requires",
     "confidence": "low",
     "evidenceIds": [
       "ev_mitsubishi_ac_servo_structure",
@@ -6967,6 +6956,232 @@
       "ev_mechanical_structure_cost_2025",
       "ev_maintenance_abb_robotics_service_2026",
       "ev_maintenance_fanuc_pm_checklist_2023"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_semiconductor_electronics_tsmc",
+    "source": "semiconductor_grade_silicon_and_electronics",
+    "target": "org_tsmc",
+    "relation": "manufactured_by",
+    "claim": "TSMC is a candidate upstream foundry exposure for semiconductor and electronics content in industrial controllers, compute, and sensors.",
+    "context": "Broad foundry exposure; exact target-cell chip content, node, and fab source are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_tsmc_annual_report_2025_foundry_scale"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_semiconductor_electronics_smic",
+    "source": "semiconductor_grade_silicon_and_electronics",
+    "target": "org_smic",
+    "relation": "manufactured_by",
+    "claim": "SMIC is a candidate upstream foundry exposure for domestic semiconductor and electronics supply.",
+    "context": "Broad foundry exposure; exact target-cell chip content, node, and fab source are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_smic_2025_financial_summary"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_semiconductor_electronics_infineon",
+    "source": "semiconductor_grade_silicon_and_electronics",
+    "target": "org_infineon_technologies",
+    "relation": "manufactured_by",
+    "claim": "Infineon is a candidate upstream supplier exposure for industrial power and control semiconductors used in electronics-heavy automation nodes.",
+    "context": "Broad power-semiconductor exposure; exact target-cell BOM share is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_power_infineon_servo_drives_2026",
+      "ev_infineon_fy2025_revenue"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_quartz_silica_silicon_chain_wacker",
+    "source": "quartz_silica_silicon_chain",
+    "target": "org_wacker_chemie",
+    "relation": "manufactured_by",
+    "claim": "Wacker Chemie is a candidate upstream silicon-material supplier exposure for the quartz/silica/silicon chain.",
+    "context": "Polysilicon material exposure; exact semiconductor-grade material source for target electronics is not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_wacker_polysilicon_annual_report_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_quartz_silica_silicon_chain_gcl",
+    "source": "quartz_silica_silicon_chain",
+    "target": "org_gcl_technology",
+    "relation": "manufactured_by",
+    "claim": "GCL Technology is a candidate upstream silicon-material exposure for the quartz/silica/silicon chain.",
+    "context": "Current evidence is granular/solar silicon oriented and should not be treated as semiconductor-grade target BOM proof.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_gcl_technology_granular_silicon_share_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_refined_copper_conductor_jiangxi_copper",
+    "source": "refined_copper_conductor_material",
+    "target": "org_jiangxi_copper",
+    "relation": "manufactured_by",
+    "claim": "Jiangxi Copper is a candidate upstream supplier exposure for refined copper conductor material.",
+    "context": "Integrated copper producer and processor exposure; exact conductor grade, wire supplier, and target-cell share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_jiangxi_copper_company_profile_2026",
+      "ev_jiangxi_copper_annual_report_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_refined_copper_conductor_zijin",
+    "source": "refined_copper_conductor_material",
+    "target": "org_zijin_mining",
+    "relation": "manufactured_by",
+    "claim": "Zijin Mining is a candidate upstream copper-resource exposure relevant to refined copper conductor material.",
+    "context": "Mining/resource exposure; exact refined conductor source and target-cell share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_zijin_mining_2025_results"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_refined_copper_conductor_freeport",
+    "source": "refined_copper_conductor_material",
+    "target": "org_freeport_mcmoran",
+    "relation": "manufactured_by",
+    "claim": "Freeport-McMoRan is a candidate upstream copper-resource exposure relevant to refined copper conductor material.",
+    "context": "Mining/resource exposure; exact conductor source and target-cell share are unverified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_freeport_mcmoran_2025_annual_report"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_copper_chain_jiangxi_copper",
+    "source": "copper_ore_mining_and_refining_chain",
+    "target": "org_jiangxi_copper",
+    "relation": "manufactured_by",
+    "claim": "Jiangxi Copper is a candidate copper mining, smelting, and refining chain supplier exposure.",
+    "context": "Upstream chain exposure; not a confirmed target-cell supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_jiangxi_copper_annual_report_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_copper_chain_zijin",
+    "source": "copper_ore_mining_and_refining_chain",
+    "target": "org_zijin_mining",
+    "relation": "manufactured_by",
+    "claim": "Zijin Mining is a candidate copper mining chain supplier exposure.",
+    "context": "Upstream copper-resource exposure; not a confirmed target-cell supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_zijin_mining_2025_results"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_copper_chain_freeport",
+    "source": "copper_ore_mining_and_refining_chain",
+    "target": "org_freeport_mcmoran",
+    "relation": "manufactured_by",
+    "claim": "Freeport-McMoRan is a candidate copper mining chain supplier exposure.",
+    "context": "Upstream copper-resource exposure; not a confirmed target-cell supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_freeport_mcmoran_2025_annual_report"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_iron_steelmaking_chain_baosteel",
+    "source": "iron_ore_steelmaking_chain",
+    "target": "org_baosteel",
+    "relation": "manufactured_by",
+    "claim": "Baosteel is a candidate upstream steelmaking supplier exposure for the iron ore and steelmaking chain.",
+    "context": "Broad steel exposure; exact target-cell steel grade and source are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_baosteel_special_material_bearing_2026",
+      "ev_worldsteel_steel_in_figures_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_iron_steelmaking_chain_nippon_steel",
+    "source": "iron_ore_steelmaking_chain",
+    "target": "org_nippon_steel",
+    "relation": "manufactured_by",
+    "claim": "Nippon Steel is a candidate upstream steelmaking supplier exposure for the iron ore and steelmaking chain.",
+    "context": "Broad steel exposure; exact target-cell steel grade and source are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_nippon_steel_bar_wire_rod_2026",
+      "ev_worldsteel_steel_in_figures_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_iron_steelmaking_chain_arcelormittal",
+    "source": "iron_ore_steelmaking_chain",
+    "target": "org_arcelormittal",
+    "relation": "manufactured_by",
+    "claim": "ArcelorMittal is a candidate upstream steelmaking and iron-ore supplier exposure for the iron ore and steelmaking chain.",
+    "context": "Broad steel and mining exposure; exact target-cell steel grade and source are not verified.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_worldsteel_steel_in_figures_2025",
+      "ev_arcelormittal_annual_report_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_modular_cell_manufacturing_measured_by_cost",
+    "source": "modular_cell_manufacturing",
+    "target": "modular_cell_manufacturing_cost",
+    "relation": "measured_by",
+    "claim": "Modular cell manufacturing should carry an explicit low-confidence 2025 RMB p50 process cost allocation.",
+    "context": "This is a manufacturing-overhead allocation for one target cell, not a supplier quote or complete duplicate BOM.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_manufacturing_process_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_robot_arm_assembly_process_measured_by_cost",
+    "source": "robot_arm_assembly_process",
+    "target": "robot_arm_assembly_process_cost",
+    "relation": "measured_by",
+    "claim": "Robot arm assembly process should carry an explicit low-confidence 2025 RMB p50 process cost allocation.",
+    "context": "This captures assembly, calibration, and inspection effort inside the robot-arm body estimate; it is not an independent supplier quote.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_manufacturing_process_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_servo_motor_assembly_and_test_process_measured_by_cost",
+    "source": "servo_motor_assembly_and_test_process",
+    "target": "servo_motor_assembly_and_test_process_cost",
+    "relation": "measured_by",
+    "claim": "Servo motor assembly and test process should carry an explicit low-confidence 2025 RMB p50 process cost allocation.",
+    "context": "This is a process allocation for assembly and end-of-line test contribution, not a standalone motor price.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_manufacturing_process_cost_backfill_2025"
     ],
     "reviewStatus": "unreviewed"
   }

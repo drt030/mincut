@@ -148,24 +148,24 @@ test("focusId=null: every node and every edge is in the full-saturation subset",
 //   - `cover_glass_aluminosilicate_chain` is a material used only by
 //     the iPhone test data, never by the parcel-sorting robot →
 //     MUST be excluded.
-test("focusId=focal product: includes 95-node subtree; iPhone product + iPhone-only material excluded", () => {
+test("focusId=focal product: includes 100-node subtree; iPhone product + iPhone-only material excluded", () => {
   const graph = loadGraphData();
   const adj = buildRequiresAdjacency(graph);
   const expectedSubtree = requiresDescendants(FOCAL_PRODUCT_ID, adj);
 
   const subset = focusedSubset(FOCAL_PRODUCT_ID, graph);
 
-  // Size is pinned: oracle === function-under-test === 95.
+  // Size is pinned: oracle === function-under-test === 100.
   assert.equal(
     expectedSubtree.size,
-    95,
-    `oracle: focal subtree should be 95; got ${expectedSubtree.size}. ` +
+    100,
+    `oracle: focal subtree should be 100; got ${expectedSubtree.size}. ` +
       "If this fails, data changed — adjust the assertion and re-pin the spec.",
   );
   assert.equal(
     subset.nodes.size,
-    95,
-    `focusedSubset must include exactly the 95 requires-descendants of focal; got ${subset.nodes.size}`,
+    100,
+    `focusedSubset must include exactly the 100 requires-descendants of focal; got ${subset.nodes.size}`,
   );
 
   // The focal product itself must be in (focus + descendants).

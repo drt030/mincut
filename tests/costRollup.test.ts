@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { rollupCost } from "../src/lib/costRollup";
+import { eligibleCostSubsystemIds, rollupCost } from "../src/lib/costRollup";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { loadFixture } from "./fixtures/loader";
 
@@ -65,6 +65,25 @@ test("rollupCost ignores annual operating-cost metrics when deriving direct cape
   );
 });
 
+test("rollupCost excludes principle nodes from capex coverage gaps", () => {
+  const graph = loadGraphData();
+  const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
+  const eligibleIds = eligibleCostSubsystemIds(graph, "low_cost_parcel_sorting_robot_300k_rmb");
+
+  for (const nodeId of ["real_time_machine_vision", "queuing_and_flow_variability"]) {
+    assert.equal(
+      result.coverageGap.includes(nodeId),
+      false,
+      `${nodeId} is a principle anchor and should not be reported as a capex coverage gap`,
+    );
+    assert.equal(
+      eligibleIds.has(nodeId),
+      false,
+      `${nodeId} should be excluded from the capex denominator`,
+    );
+  }
+});
+
 test("active parcel frontier nodes expose p50 capex placeholders when no quote is available", () => {
   const graph = loadGraphData();
 
@@ -77,6 +96,9 @@ test("active parcel frontier nodes expose p50 capex placeholders when no quote i
     "jam_detection_and_recovery",
     "cost_optimized_hardware_stack",
     "robot_base_installation_alignment_process",
+    "servo_motor_assembly_and_test_process",
+    "robot_arm_assembly_process",
+    "modular_cell_manufacturing",
   ]) {
     const result = rollupCost(graph, nodeId);
     assert.equal(result.anyChildContributed, true, `${nodeId} must have reachable capex data`);

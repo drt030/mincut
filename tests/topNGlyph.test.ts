@@ -151,8 +151,8 @@ test("selectTopN(bottleneck-risk, n=10): returns at most 10 entries", () => {
 // ==================================================================
 //
 // When the caller passes `null`, `selectTopN` MUST scope to the
-// structural focal-subtree (size 95 after the induction/spacing
-// decomposition backfill), NOT the full
+// structural focal-subtree (size 100 after the manufacturing-process
+// cost backfill), NOT the full
 // loaded dataset. The dataset includes siblings (e.g. `iphone_4`)
 // and materials only the case study uses — those MUST be excluded.
 // ==================================================================
@@ -162,8 +162,8 @@ test("selectTopN(focusedSubsetIds=null): scope is the focal subtree, not the ful
   // and the assertion text below must be re-pinned.
   assert.equal(
     focalIds.size,
-    95,
-    `oracle: focal subtree should be 95 after the induction/spacing decomposition pass; got ${focalIds.size}`,
+    100,
+    `oracle: focal subtree should be 100 after the manufacturing-process cost backfill; got ${focalIds.size}`,
   );
   assert.ok(
     graph.nodes.length > focalIds.size,

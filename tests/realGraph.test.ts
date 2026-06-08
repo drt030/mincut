@@ -40,14 +40,16 @@ test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", ()
   // process cost backfill adds calibration, jam-recovery, cost-stack, and
   // base-alignment allocations, moving it to ~421.8k. The 2026-06-08 robot-arm
   // recalibration raises the direct arm-body p50 above low-end marketplace
-  // samples and moves the live rollup to ~451.8k.
+  // samples and moves the live rollup to ~451.8k. The 2026-06-08 manufacturing
+  // process backfill adds explicit assembly/test allocations and moves it to
+  // ~469.1k.
   // Lock that value in so a future change that accidentally hides child
   // cost drivers is caught.
   const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.equal(result.directOnly, null, "annual maintenance cost must not be treated as direct product capex");
   assert.ok(
-    result.rolledUp.typical > 447_000 && result.rolledUp.typical < 457_000,
-    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~451.8k)`,
+    result.rolledUp.typical > 464_000 && result.rolledUp.typical < 474_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~469.1k)`,
   );
 });
 

@@ -7793,10 +7793,19 @@
       {
         "name": "Public listing",
         "currentValue": "WCH.DE"
+      },
+      {
+        "name": "FY2025 Polysilicon sales",
+        "currentValue": 882.9,
+        "unit": "EUR million",
+        "currency": "EUR",
+        "costAsOf": "2025",
+        "description": "Wacker annual report 2025 segment sales for Polysilicon; broad upstream silicon exposure, not parcel-cell BOM share."
       }
     ],
     "evidenceIds": [
-      "ev_mfg_wacker_silicone_rubber_2026"
+      "ev_mfg_wacker_silicone_rubber_2026",
+      "ev_wacker_polysilicon_annual_report_2025"
     ],
     "tags": [
       "manufacturer",
@@ -8291,10 +8300,19 @@
       {
         "name": "Public listing",
         "currentValue": "IFX.DE"
+      },
+      {
+        "name": "FY2025 revenue",
+        "currentValue": 14.662,
+        "unit": "EUR billion",
+        "currency": "EUR",
+        "costAsOf": "2025",
+        "description": "Company FY2025 revenue; broad power systems and IoT exposure, not a parcel-cell BOM share."
       }
     ],
     "evidenceIds": [
-      "ev_power_infineon_servo_drives_2026"
+      "ev_power_infineon_servo_drives_2026",
+      "ev_infineon_fy2025_revenue"
     ],
     "tags": [
       "manufacturer",
@@ -9761,5 +9779,420 @@
       "proxy_metric"
     ],
     "notes": "Low-confidence field-installation allocation. Brownfield floor quality, anchor method, conveyor datum, guarding, and acceptance procedure can move this range substantially."
+  },
+  {
+    "id": "org_tsmc",
+    "name": "TSMC",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "foundry",
+      "industrial_electronics",
+      "investable_supplier"
+    ],
+    "description": "Pure-play semiconductor foundry with mature, specialty, and advanced process capacity relevant to industrial electronics supply chains.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "2330.TW / TSM"
+      },
+      {
+        "name": "FY2025 revenue",
+        "currentValue": 122.42,
+        "unit": "USD billion",
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "TSMC 2025 annual report consolidated revenue in US dollar terms; broad semiconductor foundry exposure, not parcel-cell BOM share."
+      },
+      {
+        "name": "2025 wafer shipments",
+        "currentValue": 15,
+        "unit": "million 12-inch equivalent wafers",
+        "description": "Scale context from TSMC annual report."
+      }
+    ],
+    "evidenceIds": [
+      "ev_tsmc_annual_report_2025_foundry_scale"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "foundry",
+      "public_company"
+    ],
+    "notes": "Investor relevance: large public foundry exposure for the semiconductor/electronics chain; exact chips used in the target parcel-cell BOM are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_smic",
+    "name": "SMIC",
+    "kind": "organization",
+    "domain": [
+      "semiconductor",
+      "foundry",
+      "industrial_electronics",
+      "china_supplier",
+      "investable_supplier"
+    ],
+    "description": "China-based pure-play semiconductor foundry relevant to domestic industrial electronics and control-chip sourcing.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "0981.HK / 688981.SH"
+      },
+      {
+        "name": "FY2025 revenue",
+        "currentValue": 9.327,
+        "unit": "USD billion",
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Public 2025 financial summaries report FY2025 revenue around USD 9.327B; use as broad foundry scale context only."
+      }
+    ],
+    "evidenceIds": [
+      "ev_smic_2025_financial_summary"
+    ],
+    "tags": [
+      "manufacturer",
+      "semiconductor",
+      "foundry",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: domestic foundry exposure for control, power, and industrial electronics supply chains; exact target-cell chip content and wafer-fab source are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_gcl_technology",
+    "name": "GCL Technology",
+    "kind": "organization",
+    "domain": [
+      "silicon",
+      "polysilicon",
+      "quartz_silica_silicon_chain",
+      "investable_supplier"
+    ],
+    "description": "Hong Kong-listed zero-carbon energy materials supplier with granular silicon and related silicon-material products.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "3800.HK"
+      },
+      {
+        "name": "Granular silicon market share",
+        "currentValue": 24.32,
+        "unit": "%",
+        "description": "Company media report citing H1 2025 granular silicon production market share; solar-grade context, not semiconductor-grade supply share."
+      },
+      {
+        "name": "H1 2025 revenue",
+        "currentValue": 5.735,
+        "unit": "RMB billion",
+        "currency": "RMB",
+        "costAsOf": "2025",
+        "description": "Company H1 2025 result reported in media report."
+      }
+    ],
+    "evidenceIds": [
+      "ev_gcl_technology_granular_silicon_share_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "silicon",
+      "polysilicon",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: upstream silicon-material exposure. Current evidence is solar/granular-silicon oriented, so it should not be read as semiconductor-grade silicon wafer supply for the target BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_jiangxi_copper",
+    "name": "Jiangxi Copper",
+    "kind": "organization",
+    "domain": [
+      "copper",
+      "refined_copper",
+      "copper_mining_refining",
+      "china_supplier",
+      "investable_supplier"
+    ],
+    "description": "Chinese integrated copper producer with mining, smelting, refining, copper rods, wires, foils, and related non-ferrous products.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "600362.SH / 0358.HK"
+      },
+      {
+        "name": "Copper cathode capacity",
+        "currentValue": 2,
+        "unit": "million tonnes/year",
+        "description": "2025 annual report states group copper cathode production capacity is over 2 million tonnes per year."
+      }
+    ],
+    "evidenceIds": [
+      "ev_jiangxi_copper_company_profile_2026",
+      "ev_jiangxi_copper_annual_report_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "copper",
+      "refined_copper",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: public upstream copper and copper-processing exposure; exact conductor supplier, copper grade, and target-cell share are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_zijin_mining",
+    "name": "Zijin Mining",
+    "kind": "organization",
+    "domain": [
+      "copper",
+      "mining",
+      "refined_copper",
+      "china_supplier",
+      "investable_supplier"
+    ],
+    "description": "Global metals miner with copper, gold, zinc, lithium, silver, and molybdenum operations, including substantial copper mine production.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "601899.SH / 2899.HK"
+      },
+      {
+        "name": "2025 mine-produced copper",
+        "currentValue": 1090,
+        "unit": "kt",
+        "description": "Company 2025 results page lists mined copper of 1,090 kt."
+      },
+      {
+        "name": "FY2025 revenue",
+        "currentValue": 49.7,
+        "unit": "USD billion",
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Company 2025 results page reports FY2025 revenue."
+      }
+    ],
+    "evidenceIds": [
+      "ev_zijin_mining_2025_results"
+    ],
+    "tags": [
+      "manufacturer",
+      "copper",
+      "mining",
+      "public_company",
+      "china_supplier"
+    ],
+    "notes": "Investor relevance: copper mining and resource exposure; exact contribution to refined copper conductor material used in the target system is unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_freeport_mcmoran",
+    "name": "Freeport-McMoRan",
+    "kind": "organization",
+    "domain": [
+      "copper",
+      "mining",
+      "refined_copper",
+      "investable_supplier"
+    ],
+    "description": "US-listed copper miner with geographically diverse copper assets and downstream processing exposure.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "FCX"
+      },
+      {
+        "name": "2025 consolidated copper production",
+        "currentValue": 3.4,
+        "unit": "billion pounds",
+        "description": "SEC-filed 2025 results exhibit reports consolidated copper production for the year."
+      }
+    ],
+    "evidenceIds": [
+      "ev_freeport_mcmoran_2025_annual_report"
+    ],
+    "tags": [
+      "manufacturer",
+      "copper",
+      "mining",
+      "public_company"
+    ],
+    "notes": "Investor relevance: public copper mining exposure; not a direct target-cell conductor supplier claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_arcelormittal",
+    "name": "ArcelorMittal",
+    "kind": "organization",
+    "domain": [
+      "steel",
+      "iron_ore",
+      "structural_material",
+      "investable_supplier"
+    ],
+    "description": "Integrated steel and mining company with crude steel, iron ore, and finished steel products relevant to upstream steel exposure.",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "MT"
+      },
+      {
+        "name": "2024 crude steel production rank",
+        "currentValue": 2,
+        "description": "World Steel in Figures 2025 ranks ArcelorMittal second by 2024 crude steel production among companies."
+      },
+      {
+        "name": "FY2025 steel shipments",
+        "currentValue": 54.3,
+        "unit": "million tonnes",
+        "description": "ArcelorMittal annual report 2025 company overview."
+      }
+    ],
+    "evidenceIds": [
+      "ev_worldsteel_steel_in_figures_2025",
+      "ev_arcelormittal_annual_report_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "steel",
+      "iron_ore",
+      "public_company"
+    ],
+    "notes": "Investor relevance: global steel and iron-ore exposure; exact low-cost parcel-cell steel source and grade share are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
+  },
+  {
+    "id": "modular_cell_manufacturing_cost",
+    "name": "Modular cell manufacturing process cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "manufacturing"
+    ],
+    "description": "Allocated per-cell cost for repeatable cell build, fixture use, module-level assembly discipline, shop test, and installation-ready packaging.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 5000,
+          "typical": 15000,
+          "max": 40000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_manufacturing_process_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "manufacturing",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence manufacturing-overhead allocation. This is not a supplier quote and should be replaced with integrator build sheets, labor routing, fixture amortization, or bid data."
+  },
+  {
+    "id": "robot_arm_assembly_process_cost",
+    "name": "Robot arm assembly process cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "manufacturing"
+    ],
+    "description": "Allocated per-cell cost for robot body assembly, reducer installation, cabling, calibration, joint test, and final inspection contribution.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 3000,
+          "typical": 7000,
+          "max": 20000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_manufacturing_process_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "robot_arm",
+      "manufacturing",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence process allocation inside the robot-arm body estimate. It keeps assembly and calibration effort visible without claiming a separately quoted line item."
+  },
+  {
+    "id": "servo_motor_assembly_and_test_process_cost",
+    "name": "Servo motor assembly and test process cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "industrial_robot_arm",
+      "servo_motor",
+      "manufacturing"
+    ],
+    "description": "Allocated per-cell cost for servo motor assembly, feedback alignment, brake option setup, winding/housing checks, and end-of-line test contribution.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 800,
+          "typical": 2000,
+          "max": 6000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_manufacturing_process_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "servo_motor",
+      "manufacturing",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Low-confidence allocated process cost, not a standalone motor quote. Replace with teardown, routing time, or supplier process-cost evidence before review promotion."
   }
 ]

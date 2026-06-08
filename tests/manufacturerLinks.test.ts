@@ -6,10 +6,22 @@ import {
   implementedNodesForOrganization,
   implementersForNode,
   manufacturersForNode,
+  scopeGraphToReachableNodes,
   suppliedNodesForOrganization,
 } from "../src/lib/graphTraversal";
 
 const graph = loadGraphData();
+
+test("active product manufactured_by edges target organization nodes in source data", () => {
+  const scoped = scopeGraphToReachableNodes(graph);
+  const nodesById = new Map(scoped.nodes.map((node) => [node.id, node]));
+  const invalidEdges = scoped.edges
+    .filter((edge) => edge.relation === "manufactured_by")
+    .filter((edge) => nodesById.get(edge.target)?.kind !== "organization")
+    .map((edge) => `${edge.id}:${edge.source}->${edge.target}:${nodesById.get(edge.target)?.kind ?? "missing"}`);
+
+  assert.deepEqual(invalidEdges, []);
+});
 
 test("manufacturersForNode returns organization targets for manufactured_by edges only", () => {
   const manufacturers = manufacturersForNode(graph, "precision_reducer_gearbox");
@@ -547,6 +559,46 @@ test("visible hardware frontier nodes expose direct supplier candidates for inve
   }
 });
 
+test("upstream material and electronics chain nodes expose investable supplier candidates", () => {
+  const expectedManufacturersByNode: Record<string, string[]> = {
+    semiconductor_grade_silicon_and_electronics: [
+      "org_tsmc",
+      "org_smic",
+      "org_infineon_technologies",
+    ],
+    quartz_silica_silicon_chain: [
+      "org_wacker_chemie",
+      "org_gcl_technology",
+    ],
+    refined_copper_conductor_material: [
+      "org_jiangxi_copper",
+      "org_zijin_mining",
+      "org_freeport_mcmoran",
+    ],
+    copper_ore_mining_and_refining_chain: [
+      "org_jiangxi_copper",
+      "org_zijin_mining",
+      "org_freeport_mcmoran",
+    ],
+    iron_ore_steelmaking_chain: [
+      "org_baosteel",
+      "org_nippon_steel",
+      "org_arcelormittal",
+    ],
+  };
+
+  for (const [nodeId, expectedIds] of Object.entries(expectedManufacturersByNode)) {
+    const candidateIds = new Set(manufacturersForNode(graph, nodeId).map((node) => node.id));
+
+    for (const expectedId of expectedIds) {
+      assert.ok(
+        candidateIds.has(expectedId),
+        `${nodeId} must expose ${expectedId} as an upstream supplier candidate for investor workflows`,
+      );
+    }
+  }
+});
+
 test("software and runtime frontier nodes expose direct implementation or supplier candidates", () => {
   const expectedCandidatesByNode: Record<string, string[]> = {
     vision_model_deployment_optimization: ["org_nvidia", "org_intel"],
@@ -711,6 +763,52 @@ test("high-exposure parcel supplier candidates expose investor scale metrics", (
     assert.ok(
       organization?.metrics?.some((metric) => metric.name === expected.metric),
       `${organizationId} must expose ${expected.metric} for investor-facing parcel supplier exposure`,
+    );
+    assert.ok(
+      organization?.evidenceIds?.includes(expected.evidenceId),
+      `${organizationId} must cite ${expected.evidenceId}`,
+    );
+  }
+});
+
+test("upstream investable supplier candidates expose scale or share metrics", () => {
+  const expectedExposureByOrganization: Record<string, { metric: string; evidenceId: string }> = {
+    org_tsmc: {
+      metric: "FY2025 revenue",
+      evidenceId: "ev_tsmc_annual_report_2025_foundry_scale",
+    },
+    org_smic: {
+      metric: "FY2025 revenue",
+      evidenceId: "ev_smic_2025_financial_summary",
+    },
+    org_gcl_technology: {
+      metric: "Granular silicon market share",
+      evidenceId: "ev_gcl_technology_granular_silicon_share_2025",
+    },
+    org_jiangxi_copper: {
+      metric: "Public listing",
+      evidenceId: "ev_jiangxi_copper_company_profile_2026",
+    },
+    org_zijin_mining: {
+      metric: "2025 mine-produced copper",
+      evidenceId: "ev_zijin_mining_2025_results",
+    },
+    org_freeport_mcmoran: {
+      metric: "2025 consolidated copper production",
+      evidenceId: "ev_freeport_mcmoran_2025_annual_report",
+    },
+    org_arcelormittal: {
+      metric: "2024 crude steel production rank",
+      evidenceId: "ev_worldsteel_steel_in_figures_2025",
+    },
+  };
+
+  for (const [organizationId, expected] of Object.entries(expectedExposureByOrganization)) {
+    const organization = graph.nodes.find((node) => node.id === organizationId);
+    assert.ok(organization, `${organizationId} must exist`);
+    assert.ok(
+      organization?.metrics?.some((metric) => metric.name === expected.metric),
+      `${organizationId} must expose ${expected.metric} for investor-facing upstream exposure`,
     );
     assert.ok(
       organization?.evidenceIds?.includes(expected.evidenceId),

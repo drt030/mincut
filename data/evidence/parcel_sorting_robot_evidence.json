@@ -384,7 +384,7 @@
       "e_servo_motor_requires_windings",
       "e_servo_motor_requires_pm_rotor",
       "e_servo_motor_requires_encoder_feedback",
-      "e_servo_motor_manufactured_by_assembly_test",
+      "e_servo_motor_requires_assembly_test_process",
       "e_servo_motor_implemented_by_feedback_alignment",
       "e_servo_motor_requires_brake_option_for_safety"
     ],
@@ -452,7 +452,7 @@
     ],
     "supportsEdgeIds": [
       "e_servo_motor_requires_encoder_feedback",
-      "e_servo_motor_manufactured_by_assembly_test",
+      "e_servo_motor_requires_assembly_test_process",
       "e_servo_motor_implemented_by_feedback_alignment"
     ],
     "limitations": "Component manufacturing vendor source; supports encoder component constraints but not complete servo motor factory flow.",
@@ -480,7 +480,7 @@
       "e_reducer_requires_flexspline",
       "e_reducer_requires_circular_spline",
       "e_reducer_requires_output_bearing",
-      "e_reducer_manufactured_by_life_test"
+      "e_reducer_requires_lubrication_life_test"
     ],
     "limitations": "Vendor educational source; supports reducer architecture but not neutral cost, fatigue, field failure, or local supplier evidence.",
     "confidence": "medium",
@@ -3415,6 +3415,251 @@
     ],
     "limitations": "Approximate business-line revenue from a corporate press release; not parcel-cell BOM, market share, or China-specific exposure.",
     "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_tsmc_annual_report_2025_foundry_scale",
+    "type": "historical_source",
+    "title": "TSMC 2025 Annual Report",
+    "url": "https://investor.tsmc.com/static/annualReports/2025/english/index.html",
+    "sourceName": "TSMC",
+    "date": "2026",
+    "summary": "TSMC 2025 annual report states FY2025 consolidated revenue of USD 122.42B, 15.0M 12-inch-equivalent wafer shipments, and 12,682 products manufactured for 534 customers.",
+    "supportsNodeIds": [
+      "org_tsmc",
+      "semiconductor_grade_silicon_and_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_semiconductor_electronics_tsmc"
+    ],
+    "limitations": "Broad semiconductor foundry exposure; does not identify the chips, process nodes, or wafer source in the target parcel-cell BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_smic_2025_financial_summary",
+    "type": "historical_source",
+    "title": "SMIC 2025 financial summary",
+    "url": "https://www.smics.com/en/site/company_financialSummary?year=2025",
+    "sourceName": "SMIC",
+    "date": "2026",
+    "summary": "SMIC investor financial summary page and public 2025 financial summaries identify SMIC as a listed pure-play foundry with FY2025 revenue around USD 9.327B.",
+    "supportsNodeIds": [
+      "org_smic",
+      "semiconductor_grade_silicon_and_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_semiconductor_electronics_smic"
+    ],
+    "limitations": "Broad foundry scale context; exact target-cell chip content, process node, and fab source are unverified.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_infineon_fy2025_revenue",
+    "type": "historical_source",
+    "title": "Infineon FY2025 results press release",
+    "url": "https://www.infineon.com/press-release/2025/infxx202511-021",
+    "sourceName": "Infineon Technologies",
+    "date": "2025-11-12",
+    "summary": "Infineon reported FY2025 revenue of EUR 14.662B and describes itself as a semiconductor leader in power systems and IoT, with industrial motor drives and industrial robots among industrial application areas.",
+    "supportsNodeIds": [
+      "org_infineon_technologies",
+      "semiconductor_grade_silicon_and_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_semiconductor_electronics_infineon"
+    ],
+    "limitations": "Company-level semiconductor exposure; no target parcel-cell BOM share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_wacker_polysilicon_annual_report_2025",
+    "type": "historical_source",
+    "title": "Wacker Chemie Annual Report 2025 - Polysilicon segment",
+    "url": "https://reports.wacker.com/2025/annual-report/management-report/management-report-of-wacker-chemie-ag.html",
+    "sourceName": "Wacker Chemie",
+    "date": "2026",
+    "summary": "Wacker annual report 2025 reports Polysilicon sales of EUR 882.9M and describes polysilicon as a business division, providing upstream silicon-material exposure.",
+    "supportsNodeIds": [
+      "org_wacker_chemie",
+      "quartz_silica_silicon_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_quartz_silica_silicon_chain_wacker"
+    ],
+    "limitations": "Polysilicon segment evidence; exact semiconductor-grade material source for the target electronics is unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_gcl_technology_granular_silicon_share_2025",
+    "type": "news",
+    "title": "GCL Technology 1H 2025 granular silicon results",
+    "url": "https://www.gcltech.com/en/about/newsinfo/997.html",
+    "sourceName": "GCL Technology",
+    "date": "2025-08-30",
+    "summary": "GCL Technology reported H1 2025 revenue of RMB 5.735B and said granular silicon production market share reached 24.32% in the first half of 2025.",
+    "supportsNodeIds": [
+      "org_gcl_technology",
+      "quartz_silica_silicon_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_quartz_silica_silicon_chain_gcl"
+    ],
+    "limitations": "Solar/granular-silicon oriented evidence; not a semiconductor-grade silicon or target electronics BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_jiangxi_copper_company_profile_2026",
+    "type": "product_page",
+    "title": "Jiangxi Copper company profile",
+    "url": "https://en.jxcc.com/aboutus.html",
+    "sourceName": "Jiangxi Copper",
+    "date": "2026-06-08",
+    "summary": "Jiangxi Copper company profile describes copper, gold, lead and zinc, sulfuric products, trade, new materials, equipment manufacturing, and related business segments.",
+    "supportsNodeIds": [
+      "org_jiangxi_copper",
+      "refined_copper_conductor_material",
+      "copper_ore_mining_and_refining_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_refined_copper_conductor_jiangxi_copper",
+      "e_mfg_copper_chain_jiangxi_copper"
+    ],
+    "limitations": "Company profile evidence; exact target-cell conductor grade, wire supplier, and share are unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_jiangxi_copper_annual_report_2025",
+    "type": "historical_source",
+    "title": "Jiangxi Copper 2025 Annual Report",
+    "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0429/2026042904580.pdf",
+    "sourceName": "Jiangxi Copper / HKEX",
+    "date": "2026-04-29",
+    "summary": "Jiangxi Copper 2025 annual report says the group is China's largest copper cathode supplier, with over 2.0M tonnes of copper products processed per year and copper cathode capacity over 2M tonnes/year.",
+    "supportsNodeIds": [
+      "org_jiangxi_copper",
+      "refined_copper_conductor_material",
+      "copper_ore_mining_and_refining_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_refined_copper_conductor_jiangxi_copper",
+      "e_mfg_copper_chain_jiangxi_copper"
+    ],
+    "limitations": "Company-level copper cathode and processing scale; no target-cell BOM share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_zijin_mining_2025_results",
+    "type": "historical_source",
+    "title": "Zijin Mining 2025 results",
+    "url": "https://www.zijinmining.com/investor/2025-newyeji.htm",
+    "sourceName": "Zijin Mining",
+    "date": "2026",
+    "summary": "Zijin Mining 2025 results page lists mined copper of 1,090 kt in 2025 and FY2025 revenue of USD 49.7B.",
+    "supportsNodeIds": [
+      "org_zijin_mining",
+      "refined_copper_conductor_material",
+      "copper_ore_mining_and_refining_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_refined_copper_conductor_zijin",
+      "e_mfg_copper_chain_zijin"
+    ],
+    "limitations": "Copper mining/resource exposure; exact refined conductor source for the target system is unverified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_freeport_mcmoran_2025_annual_report",
+    "type": "historical_source",
+    "title": "Freeport-McMoRan 2025 results exhibit",
+    "url": "https://www.sec.gov/Archives/edgar/data/831259/000083125926000006/a4q2025exhibit991.htm",
+    "sourceName": "Freeport-McMoRan / SEC",
+    "date": "2026-01-22",
+    "summary": "Freeport-McMoRan SEC-filed 2025 results exhibit reports consolidated production of 3.4B pounds of copper for 2025.",
+    "supportsNodeIds": [
+      "org_freeport_mcmoran",
+      "refined_copper_conductor_material",
+      "copper_ore_mining_and_refining_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_refined_copper_conductor_freeport",
+      "e_mfg_copper_chain_freeport"
+    ],
+    "limitations": "Copper mining scale evidence; no direct target-cell conductor supplier claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_worldsteel_steel_in_figures_2025",
+    "type": "historical_source",
+    "title": "World Steel in Figures 2025",
+    "url": "https://worldsteel.org/wp-content/uploads/World-Steel-in-Figures-2025-3.pdf",
+    "sourceName": "World Steel Association",
+    "date": "2025",
+    "summary": "World Steel in Figures 2025 ranks China Baowu Group first and ArcelorMittal second by 2024 crude steel production, providing upstream steelmaker scale context.",
+    "supportsNodeIds": [
+      "org_baosteel",
+      "org_nippon_steel",
+      "org_arcelormittal",
+      "iron_ore_steelmaking_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_iron_steelmaking_chain_baosteel",
+      "e_mfg_iron_steelmaking_chain_nippon_steel",
+      "e_mfg_iron_steelmaking_chain_arcelormittal"
+    ],
+    "limitations": "Company steel production scale, not target-cell steel grade or supplier proof. Baosteel is used as listed Baowu-related exposure rather than a direct Baowu group listing.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_arcelormittal_annual_report_2025",
+    "type": "historical_source",
+    "title": "ArcelorMittal 2025 Annual Report",
+    "url": "https://corporate.arcelormittal.com/media/dvck4ncb/annual-report-2025.pdf",
+    "sourceName": "ArcelorMittal",
+    "date": "2026",
+    "summary": "ArcelorMittal 2025 annual report says the company is one of the world's leading integrated steel and mining companies, with 2025 crude steel production of 55.6M tonnes and steel shipments of 54.3M tonnes.",
+    "supportsNodeIds": [
+      "org_arcelormittal",
+      "iron_ore_steelmaking_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_iron_steelmaking_chain_arcelormittal"
+    ],
+    "limitations": "Broad steel and mining exposure; exact target-cell steel grade/source is not verified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_manufacturing_process_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Manufacturing process cost allocation backfill - 2025 estimate",
+    "sourceName": "Internal cost allocation",
+    "date": "2026-06-08",
+    "summary": "Low-confidence 2025 RMB per-cell allocations for modular cell manufacturing, robot-arm assembly/calibration, and servo-motor assembly/test process costs so manufacturing process nodes do not appear costless in the rollup.",
+    "supportsNodeIds": [
+      "modular_cell_manufacturing",
+      "robot_arm_assembly_process",
+      "servo_motor_assembly_and_test_process",
+      "modular_cell_manufacturing_cost",
+      "robot_arm_assembly_process_cost",
+      "servo_motor_assembly_and_test_process_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_modular_cell_manufacturing_measured_by_cost",
+      "e_robot_arm_assembly_process_measured_by_cost",
+      "e_servo_motor_assembly_and_test_process_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only. Not a supplier quote, not a teardown, and not reviewed field evidence; replace with routing time, integrator build sheets, fixture amortization, or bid data before promotion.",
+    "confidence": "low",
     "reviewStatus": "unreviewed"
   }
 ]
