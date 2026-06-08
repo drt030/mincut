@@ -3811,5 +3811,26 @@
     "limitations": "Internal allocation only. Not a target-cell package BOM, OSAT quote, or reviewed teardown. Replace with direct electronics BOM evidence before review promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_raw_metal_supply_chain_cost_backfill_2025",
+    "type": "internal_note",
+    "title": "Raw metal supply-chain cost allocation backfill - 2025 estimate",
+    "sourceName": "Internal cost allocation",
+    "date": "2026-06-08",
+    "summary": "Low-confidence 2025 RMB per-cell allocations for copper mining/refining and iron ore/steelmaking chain exposure embedded inside the existing refined copper, electrical steel, and precision alloy steel material estimates.",
+    "supportsNodeIds": [
+      "copper_ore_mining_and_refining_chain",
+      "copper_ore_mining_and_refining_chain_cost",
+      "iron_ore_steelmaking_chain",
+      "iron_ore_steelmaking_chain_cost"
+    ],
+    "supportsEdgeIds": [
+      "e_copper_ore_mining_and_refining_chain_measured_by_cost",
+      "e_iron_ore_steelmaking_chain_measured_by_cost"
+    ],
+    "limitations": "Internal allocation only. Not a commodity-price quote, supplier bid, mass-based BOM, or reviewed teardown. Replace with material-mass estimates, commodity prices, scrap/recycling assumptions, and supplier quotes before review promotion.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
   }
 ]

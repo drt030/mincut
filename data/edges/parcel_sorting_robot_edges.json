@@ -7288,5 +7288,31 @@
       "ev_ibiden_integrated_report_2025_ic_package_substrates"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_copper_ore_mining_and_refining_chain_measured_by_cost",
+    "source": "copper_ore_mining_and_refining_chain",
+    "target": "copper_ore_mining_and_refining_chain_cost",
+    "relation": "measured_by",
+    "claim": "Copper ore mining and refining chain carries a low-confidence 2025 RMB p50 upstream cost allocation.",
+    "context": "Embedded in the refined copper conductor material estimate; not an independent robot-cell BOM line or commodity-price quote.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_raw_metal_supply_chain_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_iron_ore_steelmaking_chain_measured_by_cost",
+    "source": "iron_ore_steelmaking_chain",
+    "target": "iron_ore_steelmaking_chain_cost",
+    "relation": "measured_by",
+    "claim": "Iron ore and steelmaking chain carries a low-confidence 2025 RMB p50 upstream cost allocation.",
+    "context": "Embedded in electrical and precision steel material estimates; not an independent robot-cell BOM line or steel commodity quote.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_raw_metal_supply_chain_cost_backfill_2025"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

@@ -3072,7 +3072,8 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_usgs_mcs_2026_minerals"
+      "ev_usgs_mcs_2026_minerals",
+      "ev_raw_metal_supply_chain_cost_backfill_2025"
     ],
     "tags": [
       "mining",
@@ -3081,7 +3082,7 @@
       "supply_chain",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model ore grade, mine permitting, smelting/refining capacity, recycled copper, sulfuric acid constraints, and regional supply risk."
+    "notes": "Mineral-level frontier: next layer may model ore grade, mine permitting, smelting/refining capacity, recycled copper, sulfuric acid constraints, and regional supply risk. Cost is a low-confidence upstream allocation embedded inside the refined copper conductor material estimate, not an independent robot-cell purchase line."
   },
   {
     "id": "electrical_steel_lamination_material",
@@ -3165,7 +3166,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_doe_iron_steel_manufacturing",
-      "ev_usgs_mcs_2026_minerals"
+      "ev_usgs_mcs_2026_minerals",
+      "ev_raw_metal_supply_chain_cost_backfill_2025"
     ],
     "tags": [
       "mining",
@@ -3175,7 +3177,7 @@
       "supply_chain",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model iron ore, scrap supply, alloying elements, blast furnace/basic oxygen furnace route, electric-arc furnace route, energy intensity, and emissions."
+    "notes": "Mineral-level frontier: next layer may model iron ore, scrap supply, alloying elements, blast furnace/basic oxygen furnace route, electric-arc furnace route, energy intensity, and emissions. Cost is a low-confidence upstream allocation embedded inside steel material estimates, not an independent robot-cell purchase line."
   },
   {
     "id": "bauxite_alumina_aluminum_chain",
@@ -10479,5 +10481,88 @@
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
+  },
+  {
+    "id": "copper_ore_mining_and_refining_chain_cost",
+    "name": "Copper mining and refining chain allocated cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "copper",
+      "mining"
+    ],
+    "description": "Small allocated 2025 RMB cost share for mining, concentrating, smelting, refining, and recycling exposure embedded inside the refined copper conductor material estimate.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 100,
+          "typical": 450,
+          "max": 1500
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_raw_metal_supply_chain_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "copper",
+      "mining",
+      "raw_material",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Internal allocation only. Kept below the refined copper conductor p50 so the upstream chain improves deep-dive visibility without double-counting the parent conductor material estimate."
+  },
+  {
+    "id": "iron_ore_steelmaking_chain_cost",
+    "name": "Iron ore and steelmaking chain allocated cost",
+    "kind": "metric",
+    "domain": [
+      "parcel_sorting_robot",
+      "raw_materials",
+      "steel",
+      "mining"
+    ],
+    "description": "Small allocated 2025 RMB cost share for iron ore, scrap, steelmaking, alloying, recycling, and rolling exposure embedded inside electrical and precision steel material estimates.",
+    "metrics": [
+      {
+        "name": "Cost",
+        "currentValue": {
+          "min": 80,
+          "typical": 300,
+          "max": 1000
+        },
+        "unit": "RMB",
+        "currency": "RMB",
+        "costAsOf": "2025"
+      }
+    ],
+    "maturityLabel": "unknown",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_raw_metal_supply_chain_cost_backfill_2025"
+    ],
+    "tags": [
+      "cost",
+      "steel",
+      "iron_ore",
+      "mining",
+      "raw_material",
+      "cost_research",
+      "consistency_backfill"
+    ],
+    "notes": "Internal allocation only. Kept below direct electrical-steel and precision-steel p50 estimates so it functions as upstream-chain visibility, not an extra BOM layer."
   }
 ]
