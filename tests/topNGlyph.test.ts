@@ -434,14 +434,19 @@ test("GraphExplorer.tsx regression guard: node outline does not duplicate active
     "node contour should not duplicate the edge/lens band calculation",
   );
   assert.equal(
-    /selected|isFocal/.test(outlineBlock),
+    /selected/.test(outlineBlock),
     true,
-    "node contour may encode only selection/root affordance, not analytical value",
+    "node contour may encode only selection affordance, not analytical value",
+  );
+  assert.equal(
+    /if\s*\(\s*isFocal\b|\bisFocal\s*\?/.test(outlineBlock),
+    false,
+    "root identity should rely on center position and the product strip, not a separate contour colour",
   );
   assert.equal(
     /return\s+["']transparent["']/.test(outlineBlock),
     true,
-    "ordinary node contour should be visually absent; only selected/root nodes should keep an outline affordance",
+    "ordinary and root node contours should be visually absent; only selected nodes should keep an outline affordance",
   );
 });
 
@@ -462,7 +467,15 @@ test("radial CSS keeps node contour semantics in the renderer instead of hard-co
   assert.doesNotMatch(
     raw,
     /\.radial-dot\.focal\s+svg\s+circle/,
-    "root-node contour should come from GraphExplorer/RadialNode outlineColor, not a second CSS color rule",
+    "root-node contour should stay absent in CSS; root identity is carried by position and product strip",
+  );
+
+  const radialFocusBlock = raw.match(/\.radial-dot:focus-visible\s+svg\s+circle\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  assert.ok(radialFocusBlock.length > 0, "globals.css should keep an explicit radial keyboard-focus block");
+  assert.doesNotMatch(
+    radialFocusBlock,
+    /37,\s*99,\s*235|#2563eb|#3b82f6/i,
+    "keyboard focus contour should be neutral, not a blue analysis-like stroke",
   );
 
   const guideRingBlock = raw.match(/\.radial-guide-ring\s*\{[\s\S]*?\}/)?.[0] ?? "";

@@ -27,7 +27,7 @@ import { radialBandFor } from "../lib/lod";
  * marker — the band-3 card always shows the full name.
  *
  * The band-2 outline is a neutral affordance channel only. It marks
- * selection/root emphasis supplied by `GraphExplorer`; analytical colour
+ * current selection supplied by `GraphExplorer`; analytical colour
  * remains on edges so node contours do not contradict nearby lines.
  *
  * The band-3 badge currently shows the maturity label string; B1 will
@@ -65,7 +65,7 @@ export type RadialNodeProps = {
   /**
    * Neutral per-node outline colour. This must not encode cost,
    * maturity, or bottleneck-risk; `GraphExplorer` uses it only for
-   * selection/root affordance. Falls back to grey when undefined.
+   * selection affordance. Falls back to grey when undefined.
    */
   outlineColor?: string;
   /**
@@ -141,7 +141,7 @@ export function RadialNode({
 }: RadialNodeProps) {
   const band = radialBandFor(zoom);
   // Keep node contour neutral: active analysis colour belongs to edges,
-  // while this outline only carries selection/root affordance.
+  // while this outline only carries selection affordance.
   const outline = outlineColor ?? "#888";
   const hasOutline = outline !== "transparent" && outline !== "none";
 

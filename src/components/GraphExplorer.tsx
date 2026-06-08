@@ -80,7 +80,7 @@ type RadialNodeData = {
   name: string;
   kindLabel: string;
   fill: string;
-  /** Neutral outline for selection/root affordance; analysis colour stays on edges. */
+  /** Neutral outline for selection affordance; analysis colour stays on edges. */
   outlineColor: string;
   maturityLabel: string;
   selected: boolean;
@@ -765,15 +765,15 @@ export function GraphExplorer({ graph }: Props) {
   }, [canvasGraph.edges]);
 
   /**
-   * Per-node outline colour is intentionally neutral. The node fill and
-   * sector tint carry stable subsystem-family colour, while edge colour
-   * + width carry the active analysis lens. Keeping the contour neutral
-   * avoids a third, redundant signal that can contradict nearby edges.
+   * Per-node outline colour is intentionally sparse and neutral. The
+   * node fill and sector tint carry stable subsystem-family colour,
+   * while edge colour + width carry the active analysis lens. Root
+   * identity is already encoded by position and the product strip, so
+   * only the selected node keeps a contour.
    */
   const outlineColorFor = useCallback(
-    (_node: Node, selected: boolean, isFocal: boolean): string => {
+    (_node: Node, selected: boolean, _isFocal: boolean): string => {
       if (selected) return "#0f172a";
-      if (isFocal) return "#334155";
       return "transparent";
     },
     [],
