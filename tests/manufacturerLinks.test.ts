@@ -595,6 +595,10 @@ test("upstream material and electronics chain nodes expose investable supplier c
       "org_amkor_technology",
       "org_ibiden",
     ],
+    silicon_wafer_fabrication_process: [
+      "org_tsmc",
+      "org_smic",
+    ],
   };
 
   for (const [nodeId, expectedIds] of Object.entries(expectedManufacturersByNode)) {

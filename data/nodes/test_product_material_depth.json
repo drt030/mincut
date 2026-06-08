@@ -93,8 +93,13 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-04",
     "confidence": "low",
-    "evidenceIds": ["ev_usgs_silicon_statistics"],
-    "tags": ["process_frontier", "semiconductor", "manufacturing"]
+    "evidenceIds": [
+      "ev_usgs_silicon_statistics",
+      "ev_tsmc_annual_report_2025_foundry_scale",
+      "ev_smic_2025_financial_summary"
+    ],
+    "tags": ["process_frontier", "semiconductor", "manufacturing", "investable_supplier"],
+    "notes": "Broad foundry exposure for parcel-robot electronics through chips, sensors, controllers, and compute modules. TSMC and SMIC are candidate public foundry exposures; exact target-cell chip content, process node, and fab source remain unverified."
   },
   {
     "id": "photolithography_photoresist_chemical_chain",

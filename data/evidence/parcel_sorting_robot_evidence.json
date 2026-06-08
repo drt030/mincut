@@ -3433,10 +3433,12 @@
     "summary": "TSMC 2025 annual report states FY2025 consolidated revenue of USD 122.42B, 15.0M 12-inch-equivalent wafer shipments, and 12,682 products manufactured for 534 customers.",
     "supportsNodeIds": [
       "org_tsmc",
-      "semiconductor_grade_silicon_and_electronics"
+      "semiconductor_grade_silicon_and_electronics",
+      "silicon_wafer_fabrication_process"
     ],
     "supportsEdgeIds": [
-      "e_mfg_semiconductor_electronics_tsmc"
+      "e_mfg_semiconductor_electronics_tsmc",
+      "e_mfg_silicon_wafer_fabrication_process_tsmc"
     ],
     "limitations": "Broad semiconductor foundry exposure; does not identify the chips, process nodes, or wafer source in the target parcel-cell BOM.",
     "confidence": "medium",
@@ -3452,10 +3454,12 @@
     "summary": "SMIC investor financial summary page and public 2025 financial summaries identify SMIC as a listed pure-play foundry with FY2025 revenue around USD 9.327B.",
     "supportsNodeIds": [
       "org_smic",
-      "semiconductor_grade_silicon_and_electronics"
+      "semiconductor_grade_silicon_and_electronics",
+      "silicon_wafer_fabrication_process"
     ],
     "supportsEdgeIds": [
-      "e_mfg_semiconductor_electronics_smic"
+      "e_mfg_semiconductor_electronics_smic",
+      "e_mfg_silicon_wafer_fabrication_process_smic"
     ],
     "limitations": "Broad foundry scale context; exact target-cell chip content, process node, and fab source are unverified.",
     "confidence": "low",
