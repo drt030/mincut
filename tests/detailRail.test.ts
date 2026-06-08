@@ -607,6 +607,65 @@ test("expanded: product top blockers surface limiting-factor categories", () => 
   );
 });
 
+test("expanded: product detail surfaces an investor answer panel", () => {
+  const focused = nodeById(FOCAL_PRODUCT_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Investor answer panel/,
+    `product detail must include a synthesized investor answer panel; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Top risk bottleneck/,
+    `investor panel must explicitly identify the top risk bottleneck; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Parcel pick-and-place execution subsystem/,
+    `investor panel must surface the highest-risk product subsystem; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Cost gap/,
+    `investor panel must summarize rolled-up cost against the target; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /121,769 RMB over target/,
+    `investor panel must quantify the p50 cost gap; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Top cost driver/,
+    `investor panel must identify the highest p50 cost driver; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Industrial robot arm body/,
+    `investor panel must surface the highest p50 cost driver; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Candidate exposure/,
+    `investor panel must summarize candidate supplier exposure; got: ${html}`,
+  );
+  assert.match(html, /FANUC/, `investor panel must include robot-arm supplier exposure; got: ${html}`);
+  assert.match(html, /Estun/, `investor panel must include domestic robot-arm exposure; got: ${html}`);
+  assert.match(
+    html,
+    /Startup wedge/,
+    `investor panel must point to the highest-ranked startup opportunity; got: ${html}`,
+  );
+});
+
 test("expanded: product detail surfaces startup opportunity candidates with supplier exposure", () => {
   const focused = nodeById(FOCAL_PRODUCT_ID);
   const html = render({

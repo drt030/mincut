@@ -24,6 +24,7 @@ import {
 } from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk } from "@/lib/nodeRisk";
+import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { Edge, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
 import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
@@ -238,6 +239,14 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         bottleneckParentCount={bottleneckParentCount}
         evidenceCount={evidenceCount}
       />
+      {node.kind === "product" ? (
+        <InvestorAnswerPanel
+          graph={graph}
+          product={node}
+          opportunityCandidates={opportunityCandidates}
+          onSelectNode={onSelectNode}
+        />
+      ) : null}
       {evidenceCount === 0 ? (
         <div className="evidence-gap-callout">
           <strong>{t("evidenceGapTitle")}</strong>
@@ -580,6 +589,176 @@ function OpportunityCandidateList({
       </ul>
     </div>
   );
+}
+
+type InvestorAnswer = {
+  topRiskNode: Node | null;
+  topRiskScore: number | null;
+  costGapRmb: number | null;
+  costGapDirection: "over" | "under" | null;
+  topCostNode: Node | null;
+  topCostTypicalRmb: number | null;
+  candidateExposure: Node[];
+  startupWedge: Node | null;
+};
+
+function InvestorAnswerPanel({
+  graph,
+  product,
+  opportunityCandidates,
+  onSelectNode,
+}: {
+  graph: GraphData;
+  product: Node;
+  opportunityCandidates: Node[];
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  const answer = useMemo<InvestorAnswer>(
+    () => investorAnswerForProduct(graph, product, opportunityCandidates),
+    [graph, product, opportunityCandidates],
+  );
+  const hasSignal =
+    answer.topRiskNode ||
+    answer.costGapRmb !== null ||
+    answer.topCostNode ||
+    answer.candidateExposure.length > 0 ||
+    answer.startupWedge;
+  if (!hasSignal) return null;
+  return (
+    <div>
+      <strong>{t("investorAnswerPanel")}</strong>
+      <ul className="metric-detail-list">
+        {answer.topRiskNode ? (
+          <li className="metric-detail-row">
+            <div className="metric-detail-row-head">
+              <span>{t("topRiskBottleneck")}</span>
+              {answer.topRiskScore !== null ? (
+                <span className="pill">
+                  {t("risk")} {Math.round(answer.topRiskScore * 100)}%
+                </span>
+              ) : null}
+            </div>
+            <p className="metric-detail-description">
+              <NodeListLink
+                node={answer.topRiskNode}
+                displayName={nodeName(answer.topRiskNode.id, answer.topRiskNode.name)}
+                onSelectNode={onSelectNode}
+              />
+            </p>
+          </li>
+        ) : null}
+        {answer.costGapRmb !== null ? (
+          <li className="metric-detail-row">
+            <div className="metric-detail-row-head">
+              <span>{t("costGap")}</span>
+            </div>
+            <p className="metric-detail-description">
+              {formatMetricValue(answer.costGapRmb, "RMB", "RMB").full}{" "}
+              {answer.costGapDirection === "under" ? t("costGapUnderTarget") : t("costGapOverTarget")}
+            </p>
+          </li>
+        ) : null}
+        {answer.topCostNode ? (
+          <li className="metric-detail-row">
+            <div className="metric-detail-row-head">
+              <span>{t("topCostDriver")}</span>
+              {answer.topCostTypicalRmb !== null ? (
+                <span className="pill">{formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}</span>
+              ) : null}
+            </div>
+            <p className="metric-detail-description">
+              <NodeListLink
+                node={answer.topCostNode}
+                displayName={nodeName(answer.topCostNode.id, answer.topCostNode.name)}
+                onSelectNode={onSelectNode}
+              />
+            </p>
+            {answer.candidateExposure.length > 0 ? (
+              <p className="metric-detail-description">
+                <strong>{t("candidateExposure")}:</strong>{" "}
+                {answer.candidateExposure.map((org) => nodeName(org.id, org.name)).join(", ")}
+              </p>
+            ) : null}
+          </li>
+        ) : null}
+        {answer.startupWedge ? (
+          <li className="metric-detail-row">
+            <div className="metric-detail-row-head">
+              <span>{t("startupWedge")}</span>
+              <span className="pill">
+                {t("risk")} {Math.round(nodeRisk(answer.startupWedge, graph) * 100)}%
+              </span>
+            </div>
+            <p className="metric-detail-description">
+              <NodeListLink
+                node={answer.startupWedge}
+                displayName={nodeName(answer.startupWedge.id, answer.startupWedge.name)}
+                onSelectNode={onSelectNode}
+              />
+            </p>
+          </li>
+        ) : null}
+      </ul>
+    </div>
+  );
+}
+
+function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCandidates: Node[]): InvestorAnswer {
+  const topRiskNode = topRiskNodeForProduct(graph, product.id);
+  const topRiskScore = topRiskNode ? nodeRisk(topRiskNode, graph) : null;
+  const costGap = productCostGapRmb(graph, product.id);
+  const costRoute = selectCostDriverRoute(graph, product.id, { limit: 1 });
+  const topCostStep = costRoute.steps[0] ?? null;
+  const topCostNode = topCostStep ? nodeById(graph, topCostStep.nodeId) : null;
+  return {
+    topRiskNode,
+    topRiskScore,
+    costGapRmb: costGap ? Math.round(Math.abs(costGap)) : null,
+    costGapDirection: costGap === null ? null : costGap >= 0 ? "over" : "under",
+    topCostNode: topCostNode && topCostNode.reviewStatus !== "deprecated" ? topCostNode : null,
+    topCostTypicalRmb: topCostStep ? topCostStep.costTypicalRmb : null,
+    candidateExposure: topCostStep ? candidateExposureForNode(graph, topCostStep.nodeId) : [],
+    startupWedge: opportunityCandidates[0] ?? null,
+  };
+}
+
+const INVESTOR_RISK_NODE_KINDS = new Set<Node["kind"]>([
+  "module",
+  "technical_route",
+  "scientific_principle",
+  "empirical_principle",
+  "engineering_method",
+  "manufacturing_process",
+  "equipment",
+  "material",
+]);
+
+function topRiskNodeForProduct(graph: GraphData, productId: string): Node | null {
+  const reachable = requiresReachableIds(graph, productId);
+  let best: { node: Node; risk: number } | null = null;
+  for (const node of graph.nodes) {
+    if (node.id === productId || !reachable.has(node.id)) continue;
+    if (node.reviewStatus === "deprecated") continue;
+    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
+    const risk = nodeRisk(node, graph);
+    if (!best || risk > best.risk || (risk === best.risk && node.name.localeCompare(best.node.name) < 0)) {
+      best = { node, risk };
+    }
+  }
+  return best?.node ?? null;
+}
+
+function productCostGapRmb(graph: GraphData, productId: string): number | null {
+  const target = targetCostFor(graph, productId);
+  if (!target) return null;
+  try {
+    const rollup = rollupCost(graph, productId);
+    if (!rollup.anyChildContributed) return null;
+    return rollup.rolledUp.typical - target.range.typical;
+  } catch {
+    return null;
+  }
 }
 
 function startupOpportunityText(node: Node): string {
