@@ -36,6 +36,8 @@ test("ProductView surfaces an investor answer summary for the active product", (
   assert.match(html, /Cost gap/);
   assert.match(html, /169,079 RMB/);
   assert.match(html, /Throughput constraints/);
+  assert.match(html, /p50 is at or above target/);
+  assert.match(html, /not a quantified shortfall attribution/);
   assert.match(html, /Top startup opportunities/);
   assert.match(html, /Reducer lubrication and life testing/);
   assert.match(html, /Cost coverage complete/);

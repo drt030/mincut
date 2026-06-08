@@ -138,6 +138,13 @@ const uiText: Record<Language, Record<string, string>> = {
     opportunityScore: "Opportunity score",
     costSignal: "Cost signal",
     throughputConstraints: "Throughput constraints",
+    throughputStatus: "Throughput status",
+    throughputSensitivityAtTarget:
+      "p50 is at or above target; listed nodes are throughput-sensitive constraints, not a quantified shortfall attribution.",
+    throughputSensitivityBelowTarget:
+      "p50 is below target; listed nodes are likely shortfall drivers, but contribution shares are not quantified.",
+    throughputSensitivityUnknown:
+      "Listed nodes are throughput-sensitive constraints; contribution shares are not quantified.",
     constraintTypes: "Constraint types",
     manufacturerCandidates: "Candidate manufacturers / investable exposure",
     manufacturerCandidatesHint: "candidate organizations linked by manufactured_by; unreviewed entries are not confirmed market leaders",
@@ -255,7 +262,7 @@ const uiText: Record<Language, Record<string, string>> = {
     costCoverageHighGapWarning: "{percent}% of subsystems lack cost data — treat the rolled-up number as a lower bound, not an estimate.",
     costBreakdownDirect: "direct only",
     costBreakdownChildren: "from children × 1.15",
-    costInversionWarning: "direct < children — likely data-entry mistake",
+    costInversionWarning: "direct metric is below child rollup — using child rollup as the cost basis",
     colorModeLabel: "Color by",
     colorModeHint:
       "Choose what each edge's color encodes. Edge color reflects the target node's property.",
@@ -398,6 +405,10 @@ const uiText: Record<Language, Record<string, string>> = {
     opportunityScore: "机会分",
     costSignal: "成本信号",
     throughputConstraints: "产量约束",
+    throughputStatus: "吞吐状态",
+    throughputSensitivityAtTarget: "p50 已达到或高于目标；下列节点是吞吐敏感约束，不是已量化的短板归因。",
+    throughputSensitivityBelowTarget: "p50 低于目标；下列节点可能是短板驱动，但贡献占比尚未量化。",
+    throughputSensitivityUnknown: "下列节点是吞吐敏感约束；贡献占比尚未量化。",
     constraintTypes: "制约类型",
     manufacturerCandidates: "候选制造商 / 投资暴露",
     manufacturerCandidatesHint: "通过 manufactured_by 连接的候选组织；unreviewed 不等于已确认的市场主导者",
@@ -513,7 +524,7 @@ const uiText: Record<Language, Record<string, string>> = {
     costCoverageHighGapWarning: "{percent}% 的子系统缺成本数据 —— 汇总数字应视为下界，不是真实估算。",
     costBreakdownDirect: "仅直接录入",
     costBreakdownChildren: "子件汇总 × 1.15",
-    costInversionWarning: "直接录入 < 子件汇总，可能录入错误",
+    costInversionWarning: "直接指标低于子项汇总；成本口径采用子项汇总",
     colorModeLabel: "按属性染色",
     colorModeHint: "选择每条边的颜色表示哪个属性。边色编码下游节点的属性。",
     colorModeBottleneck: "瓶颈风险",

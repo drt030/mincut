@@ -820,6 +820,21 @@ test("expanded: product detail surfaces startup opportunity candidates with supp
   );
 });
 
+test("expanded: cost inversion warning explains the cost basis instead of blaming data entry", () => {
+  const focused = nodeById(SUBSYSTEM_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(html, /direct metric is below child rollup/);
+  assert.match(html, /using child rollup as the cost basis/);
+  assert.doesNotMatch(html, /likely data-entry mistake/);
+});
+
 test("expanded: organization detail surfaces workflows it implements", () => {
   const focused = nodeById(ABB_ROBOTICS_ID);
   const html = render({

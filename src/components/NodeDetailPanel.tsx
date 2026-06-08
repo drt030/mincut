@@ -628,6 +628,7 @@ function InvestorAnswerPanel({
   if (!hasSignal) return null;
   const throughputConstraintFactors = constraintFactorSummary(answer.throughputConstraints, t);
   const throughputMetricValues = answer.throughputMetric ? metricNodeValueSummary(answer.throughputMetric) : null;
+  const throughputStatus = answer.throughputMetric ? throughputStatusText(answer.throughputMetric, t) : null;
   return (
     <div>
       <strong>{t("investorAnswerPanel")}</strong>
@@ -693,6 +694,11 @@ function InvestorAnswerPanel({
                   </span>
                 ) : null}
               </div>
+            ) : null}
+            {throughputStatus ? (
+              <p className="metric-detail-description">
+                <strong>{t("throughputStatus")}:</strong> {throughputStatus}
+              </p>
             ) : null}
             {throughputConstraintFactors ? (
               <p className="metric-detail-description">
@@ -934,6 +940,24 @@ function metricNodeValueSummary(node: Node): { current: string | null; target: s
     current: current || null,
     target: target || null,
   };
+}
+
+function throughputStatusText(node: Node, t: (key: string) => string): string | null {
+  const metric = node.metrics?.[0];
+  if (!metric) return null;
+  const currentTypical = metricTypicalNumber(metric.currentValue);
+  const targetTypical = metricTypicalNumber(metric.targetValue);
+  if (currentTypical === null || targetTypical === null) return t("throughputSensitivityUnknown");
+  return currentTypical >= targetTypical
+    ? t("throughputSensitivityAtTarget")
+    : t("throughputSensitivityBelowTarget");
+}
+
+function metricTypicalNumber(value: unknown): number | null {
+  if (typeof value === "number") return value;
+  if (!value || typeof value !== "object") return null;
+  const typical = (value as { typical?: unknown }).typical;
+  return typeof typical === "number" ? typical : null;
 }
 
 function constraintFactorSummary(nodes: Node[], t: (key: string) => string): string {
