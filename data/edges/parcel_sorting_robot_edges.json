@@ -3839,6 +3839,48 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_mfg_boron_iron_magnet_matrix_jlmag",
+    "source": "boron_and_iron_magnet_matrix_material",
+    "target": "org_jlmag",
+    "relation": "manufactured_by",
+    "claim": "JL MAG is a candidate NdFeB magnetic-material supplier exposure for the boron and iron magnet matrix material branch.",
+    "context": "Magnetic-material supplier exposure, not proof of direct ferroboron, iron, or parcel-robot BOM supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_jlmag_esg_2024",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_boron_iron_magnet_matrix_zhongke",
+    "source": "boron_and_iron_magnet_matrix_material",
+    "target": "org_zhongke_sanhuan",
+    "relation": "manufactured_by",
+    "claim": "Zhong Ke San Huan is a candidate NdFeB magnetic-material supplier exposure for the boron and iron magnet matrix material branch.",
+    "context": "Magnetic-material supplier exposure, not proof of direct ferroboron, iron, or parcel-robot BOM supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_zhongke_sanhuan_2024_report",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_mfg_boron_iron_magnet_matrix_yunsheng",
+    "source": "boron_and_iron_magnet_matrix_material",
+    "target": "org_ningbo_yunsheng",
+    "relation": "manufactured_by",
+    "claim": "Ningbo Yunsheng is a candidate NdFeB magnetic-material supplier exposure for the boron and iron magnet matrix material branch.",
+    "context": "Magnetic-material supplier exposure, not proof of direct ferroboron, iron, or parcel-robot BOM supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_mfg_ningbo_yunsheng_capacity",
+      "ev_mfg_iea_rare_earth_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_mfg_ndpr_feedstock_china_northern",
     "source": "ndpr_rare_earth_feedstock",
     "target": "org_china_northern_rare_earth",

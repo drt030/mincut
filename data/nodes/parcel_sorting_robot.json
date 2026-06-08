@@ -3468,9 +3468,10 @@
       "iron",
       "boron",
       "decomposition_frontier",
-      "cost_driver"
+      "cost_driver",
+      "investor_relevant"
     ],
-    "notes": "Material frontier: next layer may include ferroboron/borates, iron powder or alloy feedstock, powder metallurgy, sintering, coating, and magnet recycling. Added 2025 p50 cost allocation so the NdFeB material branch is explicit rather than costless."
+    "notes": "Material frontier: next layer may include ferroboron/borates, iron powder or alloy feedstock, powder metallurgy, sintering, coating, and magnet recycling. Added 2025 p50 cost allocation so the NdFeB material branch is explicit rather than costless. Supplier/investor exposure is modeled through NdFeB magnetic-material suppliers JL MAG, Zhong Ke San Huan, and Ningbo Yunsheng; direct ferroboron or robot-BOM supply remains unverified."
   },
   {
     "id": "petrochemical_elastomer_feedstock",
