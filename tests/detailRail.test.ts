@@ -607,6 +607,48 @@ test("expanded: product top blockers surface limiting-factor categories", () => 
   );
 });
 
+test("expanded: product detail surfaces startup opportunity candidates with supplier exposure", () => {
+  const focused = nodeById(FOCAL_PRODUCT_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  assert.match(
+    html,
+    /Startup opportunity candidates/,
+    `product detail must include a dedicated startup opportunity section; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Low-cost real-time vision compute integration/,
+    `opportunity section must surface the low-cost vision stack wedge; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /NVIDIA/,
+    `opportunity section must surface candidate investable exposure for the vision stack; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Intel/,
+    `opportunity section must surface multiple candidate exposures for the vision stack; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Parcel induction and spacing control/,
+    `opportunity section must surface the induction/gapping throughput wedge; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Wayzim/,
+    `opportunity section must surface candidate supplier exposure for induction/gapping; got: ${html}`,
+  );
+});
+
 test("expanded: organization detail surfaces workflows it implements", () => {
   const focused = nodeById(ABB_ROBOTICS_ID);
   const html = render({

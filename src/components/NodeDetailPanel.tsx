@@ -168,6 +168,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
     return parent && parent.reviewStatus !== "deprecated";
   }).length;
   const evidence = evidenceForNode(graph, node.id);
+  const opportunityCandidates = opportunityCandidatesForNode(graph, node).filter((candidate) => candidate.reviewStatus !== "deprecated");
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
   // Per ADR-0005, the broader frontier judgment is: explicit `decomposition_frontier`
   // tag OR (maturityLabel ∉ {mature, widely_adopted} AND no expanded children).
@@ -250,6 +251,9 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
       */}
       {(node.kind === "product" || node.kind === "module") ? (
         <TopBlockers graph={graph} parent={node} onSelectNode={onSelectNode} />
+      ) : null}
+      {opportunityCandidates.length > 0 ? (
+        <OpportunityCandidateList graph={graph} nodes={opportunityCandidates} onSelectNode={onSelectNode} />
       ) : null}
       {isDeprecated && node.notes?.trim() ? (
         <div className="deprecated-callout">
@@ -517,6 +521,75 @@ function InlineMetricList({ title, metrics }: { title: string; metrics: InlineMe
   );
 }
 
+function OpportunityCandidateList({
+  graph,
+  nodes,
+  onSelectNode,
+}: {
+  graph: GraphData;
+  nodes: Node[];
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  return (
+    <div>
+      <strong>{t("startupOpportunities")}</strong>
+      <p className="muted">{t("startupOpportunityHint")}</p>
+      <ul className="metric-detail-list">
+        {nodes.map((candidate) => {
+          const factors = constraintFactorsForNode(candidate, t);
+          const exposure = candidateExposureForNode(graph, candidate.id);
+          const opportunityText = startupOpportunityText(candidate);
+          const risk = Math.round(nodeRisk(candidate, graph) * 100);
+          return (
+            <li className="metric-detail-row" key={candidate.id}>
+              <div className="metric-detail-row-head">
+                {onSelectNode ? (
+                  <button
+                    className="link-button"
+                    type="button"
+                    onClick={() => onSelectNode(candidate.id)}
+                    title={nodeName(candidate.id, candidate.name)}
+                  >
+                    {nodeName(candidate.id, candidate.name)}
+                  </button>
+                ) : (
+                  <span>{nodeName(candidate.id, candidate.name)}</span>
+                )}
+                <span className="pill">{t("risk")} {risk}%</span>
+              </div>
+              {factors.length > 0 ? (
+                <div className="pill-row">
+                  {factors.map((factor) => (
+                    <span className="pill" key={factor.tag}>
+                      {factor.label}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
+              {exposure.length > 0 ? (
+                <p className="metric-detail-description">
+                  <strong>{t("candidateExposure")}:</strong>{" "}
+                  {exposure.map((org) => nodeName(org.id, org.name)).join(", ")}
+                </p>
+              ) : null}
+              {opportunityText ? <p className="metric-detail-description">{opportunityText}</p> : null}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+function startupOpportunityText(node: Node): string {
+  const notes = node.notes ?? "";
+  const marker = "Startup opportunity:";
+  const index = notes.indexOf(marker);
+  if (index === -1) return "";
+  return notes.slice(index).trim();
+}
+
 function DetailPrioritySummary({
   graph,
   node,
@@ -604,6 +677,50 @@ function constraintFactorsForNode(node: Node, t: (key: string) => string): Array
   return CONSTRAINT_FACTOR_TAG_KEYS
     .filter((entry) => tags.has(entry.tag))
     .map((entry) => ({ tag: entry.tag, label: t(entry.labelKey) }));
+}
+
+function opportunityCandidatesForNode(graph: GraphData, node: Node): Node[] {
+  const reachable = requiresReachableIds(graph, node.id);
+  return graph.nodes
+    .filter((candidate) => candidate.id !== node.id)
+    .filter((candidate) => candidate.tags?.includes("startup_opportunity_candidate"))
+    .filter((candidate) => reachable.has(candidate.id))
+    .sort((a, b) => nodeRisk(b, graph) - nodeRisk(a, graph) || a.name.localeCompare(b.name));
+}
+
+function requiresReachableIds(graph: GraphData, rootId: string): Set<string> {
+  const ids = new Set<string>([rootId]);
+  const queue = [rootId];
+  while (queue.length > 0) {
+    const source = queue.shift();
+    if (!source) continue;
+    for (const edge of graph.edges) {
+      if (edge.source !== source || edge.relation !== "requires") continue;
+      if (ids.has(edge.target)) continue;
+      const target = nodeById(graph, edge.target);
+      if (!target || target.reviewStatus === "deprecated") continue;
+      ids.add(edge.target);
+      queue.push(edge.target);
+    }
+  }
+  return ids;
+}
+
+function candidateExposureForNode(graph: GraphData, nodeId: string): Node[] {
+  const exposureEdges = [
+    ...outgoingEdges(graph, nodeId, "manufactured_by"),
+    ...outgoingEdges(graph, nodeId, "implemented_by"),
+  ].filter((edge) => edge.reviewStatus !== "deprecated");
+  const seen = new Set<string>();
+  const exposure: Node[] = [];
+  for (const edge of exposureEdges) {
+    const org = nodeById(graph, edge.target);
+    if (!org || org.kind !== "organization" || org.reviewStatus === "deprecated") continue;
+    if (seen.has(org.id)) continue;
+    seen.add(org.id);
+    exposure.push(org);
+  }
+  return exposure;
 }
 
 /**
