@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { radialLayout } from "../src/lib/radialLayout";
 import type { GraphData } from "../src/lib/schema";
 import { loadGraphData } from "../src/lib/graphLoader";
+import { filterCanvasGraph } from "../src/lib/canvasGraph";
 
 /**
  * RED tests for Slice A2 (spec:
@@ -186,6 +187,26 @@ test("radialLayout can place a selected subsystem root at the center", () => {
     (result.positions.get("P")?.r ?? 0) > (result.positions.get("A")?.r ?? Number.POSITIVE_INFINITY),
     "the previous product parent should move to the fallback ring instead of remaining central",
   );
+});
+
+test("radialLayout positions equipment nodes after re-rooting on the robot arm", () => {
+  const graph = loadGraphData();
+  const canvas = filterCanvasGraph(graph, "industrial_robot_arm_body");
+  const result = radialLayout(canvas, "industrial_robot_arm_body");
+
+  for (const id of [
+    "robot_controller_cpu_module",
+    "robot_fieldbus_gateway",
+    "robot_safety_io_interface",
+    "robot_external_io_sensor_interface",
+  ]) {
+    const node = canvas.nodes.find((entry) => entry.id === id);
+    assert.equal(node?.kind, "equipment", `${id} should be modeled as equipment in the canvas graph`);
+    assert.ok(
+      result.positions.has(id),
+      `${id} should receive a radial position so rerooted controller/I-O layers are visible`,
+    );
+  }
 });
 
 /**

@@ -484,6 +484,7 @@ li {
 
 .graph-root-reset-button {
   align-items: center;
+  appearance: none;
   background: #172033;
   border: 1px solid rgba(15, 23, 42, 0.2);
   border-radius: 7px;
@@ -503,6 +504,29 @@ li {
 
 .graph-root-reset-button:hover {
   background: #0f172a;
+}
+
+.graph-root-parent-button {
+  background: rgba(255, 255, 255, 0.9);
+  color: #172033;
+}
+
+.graph-root-parent-button:hover {
+  background: #ffffff;
+}
+
+.graph-agent-expand-button {
+  background: #0f766e;
+  border-color: rgba(15, 118, 110, 0.28);
+}
+
+.graph-agent-expand-button:hover {
+  background: #115e59;
+}
+
+.graph-agent-expand-button[aria-disabled="true"] {
+  cursor: wait;
+  opacity: 0.72;
 }
 
 .graph-controls {

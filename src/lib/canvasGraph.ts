@@ -1,5 +1,7 @@
 import type { Edge, GraphData, Node, NodeKind } from "./schema";
 
+export const DEFAULT_CANVAS_MAX_DEPTH = 4;
+
 const CANVAS_KINDS: ReadonlySet<NodeKind> = new Set([
   "product",
   "module",
@@ -67,10 +69,19 @@ function edgeKey(edge: Edge): string {
   return `${edge.source}\u0000${edge.target}\u0000${edge.relation}`;
 }
 
-export function filterCanvasGraph(graph: GraphData, rootId?: string | null): GraphData {
+type CanvasGraphFilterOptions = {
+  maxDepth?: number | null;
+};
+
+export function filterCanvasGraph(
+  graph: GraphData,
+  rootId?: string | null,
+  options: CanvasGraphFilterOptions = {},
+): GraphData {
   const focalId = resolveCanvasRootId(graph, rootId);
   const focal = focalId ? graph.nodes.find((node) => node.id === focalId) : null;
   if (!focal) return { ...graph, nodes: graph.nodes.filter(isCanvasNode), edges: [] };
+  const maxDepth = options.maxDepth ?? DEFAULT_CANVAS_MAX_DEPTH;
 
   const baseEligibleIds = new Set(
     graph.nodes.filter(isCanvasNode).map((node) => node.id),
@@ -90,13 +101,22 @@ export function filterCanvasGraph(graph: GraphData, rootId?: string | null): Gra
   }
 
   const reachable = new Set<string>();
+  const depthById = new Map<string, number>([[focal.id, 0]]);
   const queue: string[] = [focal.id];
   while (queue.length > 0) {
     const current = queue.shift()!;
     if (reachable.has(current)) continue;
     reachable.add(current);
+    const depth = depthById.get(current) ?? 0;
+    if (maxDepth !== null && depth >= maxDepth) continue;
     for (const child of childrenByParent.get(current) ?? []) {
-      if (!reachable.has(child)) queue.push(child);
+      if (reachable.has(child)) continue;
+      const nextDepth = depth + 1;
+      const existingDepth = depthById.get(child);
+      if (existingDepth === undefined || nextDepth < existingDepth) {
+        depthById.set(child, nextDepth);
+        queue.push(child);
+      }
     }
   }
 

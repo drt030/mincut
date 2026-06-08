@@ -9,9 +9,10 @@ import type { GraphData, NodeKind } from "./schema";
  *
  * Algorithm:
  *
- *   1. Focal product = first node with `kind === "product"` in graph.nodes
- *      order. Returns neutral grey.
- *   2. First-layer subsystems = focal product's `requires`-children among
+ *   1. Focal root = explicit `rootId` when supplied, otherwise the first
+ *      node with `kind === "product"` in graph.nodes order. Returns
+ *      neutral grey.
+ *   2. First-layer subsystems = focal root's `requires`-children among
  *      structural kinds (product / module / material / engineering_method /
  *      manufacturing_process). Materials directly wired from the focal
  *      product are NOT first-layer subsystems (materials always grey).
@@ -66,8 +67,9 @@ type SubsystemIndex = {
   N: number;
 };
 
-function buildSubsystemIndex(graph: GraphData): SubsystemIndex {
-  const focal = graph.nodes.find((n) => n.kind === "product");
+function buildSubsystemIndex(graph: GraphData, rootId?: string | null): SubsystemIndex {
+  const requestedRoot = rootId ? graph.nodes.find((n) => n.id === rootId) : undefined;
+  const focal = requestedRoot ?? graph.nodes.find((n) => n.kind === "product");
   if (!focal) {
     return {
       focalId: undefined,
@@ -166,17 +168,27 @@ function buildSubsystemIndex(graph: GraphData): SubsystemIndex {
   };
 }
 
-// Cache the per-graph index on a WeakMap so repeated `subsystemHue` calls
-// over the same `graph` reference don't re-walk the graph. The function
-// stays pure: same `graph` reference → same triple. A new GraphData
-// reference (e.g. after a reload) builds a fresh index.
-const indexCache = new WeakMap<GraphData, SubsystemIndex>();
+// Cache the per-graph/per-root index on a WeakMap so repeated
+// `subsystemHue` calls over the same `(graph, rootId)` pair don't
+// re-walk the graph. The function stays pure: a new GraphData reference
+// or a different root builds a fresh index.
+const indexCache = new WeakMap<GraphData, Map<string, SubsystemIndex>>();
 
-function getIndex(graph: GraphData): SubsystemIndex {
-  let entry = indexCache.get(graph);
+function cacheKey(rootId?: string | null): string {
+  return rootId ?? "__default_root__";
+}
+
+function getIndex(graph: GraphData, rootId?: string | null): SubsystemIndex {
+  let graphEntry = indexCache.get(graph);
+  if (graphEntry === undefined) {
+    graphEntry = new Map();
+    indexCache.set(graph, graphEntry);
+  }
+  const key = cacheKey(rootId);
+  let entry = graphEntry.get(key);
   if (entry === undefined) {
-    entry = buildSubsystemIndex(graph);
-    indexCache.set(graph, entry);
+    entry = buildSubsystemIndex(graph, rootId);
+    graphEntry.set(key, entry);
   }
   return entry;
 }
@@ -195,8 +207,12 @@ function colouredHueForSector(i: number, N: number): SubsystemHue {
  * See file header for the full contract. Result is bit-for-bit identical
  * on repeat calls with the same `(nodeId, graph)` pair.
  */
-export function subsystemHue(nodeId: string, graph: GraphData): SubsystemHue {
-  const index = getIndex(graph);
+export function subsystemHue(
+  nodeId: string,
+  graph: GraphData,
+  rootId?: string | null,
+): SubsystemHue {
+  const index = getIndex(graph, rootId);
 
   // No focal product → everything grey.
   if (index.focalId === undefined) return { ...NEUTRAL_GREY };

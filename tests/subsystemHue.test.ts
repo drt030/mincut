@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { subsystemHue } from "../src/lib/subsystemHue";
 import type { GraphData } from "../src/lib/schema";
 import { loadGraphData } from "../src/lib/graphLoader";
+import { filterCanvasGraph } from "../src/lib/canvasGraph";
 
 /**
  * RED tests for Slice A3 (spec:
@@ -318,6 +319,33 @@ test("subsystemHue P8: structural node outside the focal subtree is neutral grey
     result.saturation,
     0,
     `orphan structural node ${orphan!.id} must be neutral grey (saturation=0); got ${JSON.stringify(result)}`,
+  );
+});
+
+test("subsystemHue reroots colour families around a module research root", () => {
+  const graph = loadGraphData();
+  const rootId = "industrial_robot_arm_body";
+  const canvas = filterCanvasGraph(graph, rootId);
+
+  const rootHue = subsystemHue(rootId, canvas, rootId);
+  const controllerHue = subsystemHue("robot_controller_io", canvas, rootId);
+  const controllerCpuHue = subsystemHue("robot_controller_cpu_module", canvas, rootId);
+  const servoHue = subsystemHue("industrial_servo_motor", canvas, rootId);
+
+  assert.equal(rootHue.saturation, 0, "the active module research root should stay neutral");
+  assert.ok(
+    controllerHue.saturation > 0,
+    "direct children of a module research root should receive coloured subsystem families",
+  );
+  assert.deepEqual(
+    controllerCpuHue,
+    controllerHue,
+    "controller descendants should inherit the controller branch hue after rerooting",
+  );
+  assert.notEqual(
+    Math.round(controllerHue.hue),
+    Math.round(servoHue.hue),
+    "different direct children under the rerooted module should not collapse to the same hue",
   );
 });
 

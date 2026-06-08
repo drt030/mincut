@@ -396,13 +396,43 @@ test("GraphExplorer.tsx regression guard: node hue uses the active canvas root c
   );
   assert.match(
     flowNodeBlock,
-    /subsystemHue\(node\.id,\s*canvasGraph\)/,
-    "node fill hue should be computed from the active re-rooted canvas graph, matching sector tint context",
+    /subsystemHue\(node\.id,\s*canvasGraph,\s*currentRootId\)/,
+    "node fill hue should be computed from the active re-rooted canvas graph and explicit research root, matching sector tint context",
   );
   assert.doesNotMatch(
     flowNodeBlock,
     /subsystemHue\(node\.id,\s*graph\)/,
     "node fill hue must not use the full graph after re-rooting, or node and sector colours can diverge",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: node selection does not refresh full-system fit inputs", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const fitNodesBlock =
+    noLineComments.match(/const fullSystemFitNodes = useMemo\([\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ??
+    "";
+
+  assert.ok(
+    fitNodesBlock.length > 0,
+    "GraphExplorer should keep explicit fitView node inputs separate from visual selected-node state",
+  );
+  assert.equal(
+    fitNodesBlock.includes("flowNodes.map"),
+    false,
+    "full-system fit inputs must not be derived from flowNodes because flowNodes changes when selectedId changes",
+  );
+  assert.equal(
+    fitNodesBlock.includes("selectedId"),
+    false,
+    "selecting a node should not change fitFullSystemView dependencies or reset the user's zoom/pan",
   );
 });
 
@@ -524,6 +554,39 @@ test("GraphExplorer.tsx regression guard: root switch has an explicit canvas tra
     css,
     /\.graph-canvas-route-led\.graph-canvas-root-transitioning\s+\.react-flow__node\s*\{[\s\S]*transition:\s*transform\s+6\d\dms/,
     "root switch should animate node transform positions during the re-rooted layout transition",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: custom research roots expose parent, root, and agent expansion actions", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.match(
+    noLineComments,
+    /parentRootNode/,
+    "GraphExplorer should compute the immediate parent research root for custom roots",
+  );
+  assert.match(
+    noLineComments,
+    /data-testid="parent-root-node-button"/,
+    "custom research roots should expose a one-level-up action",
+  );
+  assert.match(
+    noLineComments,
+    /data-testid="reset-root-node-button"/,
+    "custom research roots should still expose a direct return-to-product-root action",
+  );
+  assert.match(
+    noLineComments,
+    /data-testid="agent-expand-root-button"/,
+    "the active research root should expose an agent expansion request button",
   );
 });
 

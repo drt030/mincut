@@ -34,8 +34,8 @@ import type { Edge, GraphData, Node, NodeKind } from "./schema";
  *      `r = R_OUTER`, with theta determined by an FNV-1a hash of the
  *      node id so the placement is deterministic and well-spread.
  *   6. Structural nodes not reachable from the focal product (other
- *      products, their subtrees, orphan engineering_methods /
- *      manufacturing_processes) get a deterministic fallback position
+ *      products, their subtrees, orphan equipment /
+ *      engineering_methods / manufacturing_processes) get a deterministic fallback position
  *      on a far outer ring at `r = R_FALLBACK`, theta keyed by id hash.
  *      This ensures the smoke contract — every structural node receives
  *      a position — holds even when the data includes sibling-product
@@ -66,6 +66,7 @@ const TWO_PI = Math.PI * 2;
 const STRUCTURAL_KINDS: ReadonlySet<NodeKind> = new Set([
   "product",
   "module",
+  "equipment",
   "material",
   "engineering_method",
   "manufacturing_process",

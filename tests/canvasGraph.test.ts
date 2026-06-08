@@ -2,6 +2,25 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
 import { loadGraphData } from "../src/lib/graphLoader";
+import type { Edge, GraphData, Node } from "../src/lib/schema";
+
+function chainNode(id: string, kind: Node["kind"] = "module"): Node {
+  return {
+    id,
+    name: id,
+    kind,
+    domain: ["test"],
+  };
+}
+
+function chainEdge(source: string, target: string): Edge {
+  return {
+    id: `e_${source}_${target}`,
+    source,
+    target,
+    relation: "requires",
+  };
+}
 
 test("canvas graph excludes operational workflow nodes from the structural canvas", () => {
   const graph = loadGraphData();
@@ -129,5 +148,41 @@ test("re-rooting on the robot arm exposes controller I/O child decomposition", (
     ),
     true,
     "robot_controller_io should keep its lower-layer requires edges after re-rooting",
+  );
+});
+
+test("canvas graph depth window is relative to the active research root", () => {
+  const graph: GraphData = {
+    graphVersion: "canvas-depth-window",
+    evidence: [],
+    nodes: [
+      chainNode("P", "product"),
+      chainNode("A"),
+      chainNode("B"),
+      chainNode("C"),
+      chainNode("D"),
+      chainNode("E"),
+    ],
+    edges: [
+      chainEdge("P", "A"),
+      chainEdge("A", "B"),
+      chainEdge("B", "C"),
+      chainEdge("C", "D"),
+      chainEdge("D", "E"),
+    ],
+  };
+
+  const fromProduct = new Set(filterCanvasGraph(graph, "P").nodes.map((node) => node.id));
+  assert.deepEqual(
+    [...fromProduct].sort(),
+    ["A", "B", "C", "D", "P"],
+    "default product view should show root + four dependency edges, hiding the fifth edge until reroot",
+  );
+
+  const fromChild = new Set(filterCanvasGraph(graph, "A").nodes.map((node) => node.id));
+  assert.deepEqual(
+    [...fromChild].sort(),
+    ["A", "B", "C", "D", "E"],
+    "rerooting on a child should open the same four-edge window relative to that child",
   );
 });

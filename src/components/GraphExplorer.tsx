@@ -351,24 +351,39 @@ function ZoomBridge({
 
 const DEFAULT_ROOT_NODE_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
+type AgentExpansionStatus = "idle" | "pending" | "queued" | "error";
+
 function compactSectorLabel(label: string): string {
   const max = 24;
   if (label.length <= max) return label;
   return `${label.slice(0, max - 1)}…`;
 }
 
+function graphRootHref(nodeId: string): string {
+  if (nodeId === DEFAULT_ROOT_NODE_ID) return "/graph";
+  return `/graph?root=${encodeURIComponent(nodeId)}`;
+}
+
 function GraphProductStrip({
   rootNode,
+  parentRootNode,
   subsystemCount,
   routeCount,
   isCustomRoot,
+  agentExpansionStatus,
+  onBackToParentRoot,
   onResetRoot,
+  onRequestAgentExpansion,
 }: {
   rootNode: Node;
+  parentRootNode: Node | null;
   subsystemCount: number;
   routeCount: number;
   isCustomRoot: boolean;
+  agentExpansionStatus: AgentExpansionStatus;
+  onBackToParentRoot: () => void;
   onResetRoot: () => void;
+  onRequestAgentExpansion: () => void;
 }) {
   const { language, nodeName } = useLanguage();
   const copy = language === "zh"
@@ -376,14 +391,31 @@ function GraphProductStrip({
       product: "产品视图",
       majorComponents: "直接依赖",
       costTargets: "成本目标",
+      parentRoot: "回到上一级",
       resetRoot: "回到包裹分拣机器人",
+      agentExpand: "Agent 继续展开",
+      agentPending: "正在加入队列",
+      agentQueued: "已加入 Agent 队列",
+      agentError: "加入失败，重试",
     }
     : {
       product: "Research root",
       majorComponents: "direct dependencies",
       costTargets: "cost targets",
+      parentRoot: "Parent root",
       resetRoot: "Original product",
+      agentExpand: "Agent expand",
+      agentPending: "Queueing",
+      agentQueued: "Queued for agent",
+      agentError: "Retry queue",
     };
+  const agentLabel = agentExpansionStatus === "pending"
+    ? copy.agentPending
+    : agentExpansionStatus === "queued"
+      ? copy.agentQueued
+      : agentExpansionStatus === "error"
+        ? copy.agentError
+        : copy.agentExpand;
   return (
     <div className="graph-product-strip" data-testid="graph-product-strip">
       <div className="graph-product-title-block">
@@ -393,6 +425,19 @@ function GraphProductStrip({
       <div className="graph-product-stat-row">
         <span>{subsystemCount} {copy.majorComponents}</span>
         <span>{routeCount} {copy.costTargets}</span>
+        {parentRootNode ? (
+          <a
+            className="graph-root-reset-button graph-root-parent-button"
+            data-testid="parent-root-node-button"
+            href={graphRootHref(parentRootNode.id)}
+            onClick={(event) => {
+              event.preventDefault();
+              onBackToParentRoot();
+            }}
+          >
+            {copy.parentRoot}
+          </a>
+        ) : null}
         {isCustomRoot ? (
           <a
             className="graph-root-reset-button"
@@ -406,6 +451,19 @@ function GraphProductStrip({
             {copy.resetRoot}
           </a>
         ) : null}
+        <button
+          type="button"
+          className="graph-root-reset-button graph-agent-expand-button"
+          data-testid="agent-expand-root-button"
+          aria-disabled={agentExpansionStatus === "pending"}
+          aria-busy={agentExpansionStatus === "pending"}
+          onClick={() => {
+            if (agentExpansionStatus === "pending") return;
+            onRequestAgentExpansion();
+          }}
+        >
+          {agentLabel}
+        </button>
       </div>
     </div>
   );
@@ -591,6 +649,45 @@ function focusPathForNode(nodeId: string, graph: GraphData, rootId: string): str
   return [];
 }
 
+function findRequiresNodePath(graph: GraphData, rootId: string, targetId: string): string[] | null {
+  if (rootId === targetId) return [rootId];
+  const childrenByParent = new Map<string, string[]>();
+  for (const edge of graph.edges) {
+    if (edge.relation !== "requires") continue;
+    if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
+    childrenByParent.get(edge.source)!.push(edge.target);
+  }
+  for (const list of childrenByParent.values()) list.sort((a, b) => a.localeCompare(b));
+
+  const queue: Array<{ nodeId: string; path: string[] }> = [{ nodeId: rootId, path: [rootId] }];
+  const visited = new Set<string>();
+  while (queue.length > 0) {
+    const current = queue.shift()!;
+    if (visited.has(current.nodeId)) continue;
+    visited.add(current.nodeId);
+    for (const child of childrenByParent.get(current.nodeId) ?? []) {
+      if (visited.has(child)) continue;
+      const path = [...current.path, child];
+      if (child === targetId) return path;
+      queue.push({ nodeId: child, path });
+    }
+  }
+  return null;
+}
+
+function parentResearchRootId(graph: GraphData, currentRootId: string): string | null {
+  if (currentRootId === DEFAULT_ROOT_NODE_ID) return null;
+  const canonicalPath = findRequiresNodePath(graph, DEFAULT_ROOT_NODE_ID, currentRootId);
+  if (canonicalPath && canonicalPath.length >= 2) {
+    return canonicalPath[canonicalPath.length - 2];
+  }
+  const incomingParents = graph.edges
+    .filter((edge) => edge.relation === "requires" && edge.target === currentRootId)
+    .map((edge) => edge.source)
+    .sort((a, b) => a.localeCompare(b));
+  return incomingParents[0] ?? null;
+}
+
 export function GraphExplorer({ graph }: Props) {
   const { kindName, nodeName } = useLanguage();
   const searchParams = useSearchParams();
@@ -635,6 +732,8 @@ export function GraphExplorer({ graph }: Props) {
   // (sector elastically expands toward the chosen node).
   const [cmdKOpen, setCmdKOpen] = useState(false);
   const [rootTransitioning, setRootTransitioning] = useState(false);
+  const [agentExpansionStatus, setAgentExpansionStatus] = useState<AgentExpansionStatus>("idle");
+  const [agentExpansionRootId, setAgentExpansionRootId] = useState<string | null>(null);
   const rootTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // B2 + C1: focus path. `[]` = overview. `[outerId]` = Level 1
@@ -735,6 +834,22 @@ export function GraphExplorer({ graph }: Props) {
     setRailPanel("detail");
   }, []);
 
+  const requestAgentExpansion = useCallback(async () => {
+    setAgentExpansionRootId(currentRootId);
+    setAgentExpansionStatus("pending");
+    try {
+      const response = await fetch("/api/research-tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetNodeId: currentRootId }),
+      });
+      if (!response.ok) throw new Error("Failed to queue agent expansion task");
+      setAgentExpansionStatus("queued");
+    } catch {
+      setAgentExpansionStatus("error");
+    }
+  }, [currentRootId]);
+
   // First-layer subsystems for the sector-tint background layer (B1)
   // and B2 elastic angle assignment. Order-independent: B2 sorts by id
   // internally; the tint layer also sorts before rendering.
@@ -815,7 +930,7 @@ export function GraphExplorer({ graph }: Props) {
       const packed = activeNodePositions.get(node.id);
       if (!packed) continue;
       const { x, y } = packed;
-      const hue = subsystemHue(node.id, canvasGraph);
+      const hue = subsystemHue(node.id, canvasGraph, currentRootId);
       const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const isFocal = node.id === focalId;
       const dim = !subset.nodes.has(node.id) && node.id !== selectedId && !isFocal;
@@ -857,7 +972,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return nodes;
-  }, [canvasGraph, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes]);
+  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     type RenderableEdge = {
@@ -1047,7 +1162,7 @@ export function GraphExplorer({ graph }: Props) {
       if (!node) continue;
       const entry = layout.sectors.get(sub);
       if (!entry) continue;
-      const hue = subsystemHue(sub, canvasGraph);
+      const hue = subsystemHue(sub, canvasGraph, currentRootId);
       const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const startTheta = entry.center - entry.width / 2;
       const endTheta = entry.center + entry.width / 2;
@@ -1072,7 +1187,7 @@ export function GraphExplorer({ graph }: Props) {
       wedges.push({ id: sub, d, fill });
     }
     return wedges;
-  }, [layout.sectors, canvasGraph, backgroundOuterR]);
+  }, [layout.sectors, canvasGraph, currentRootId, backgroundOuterR]);
 
   const sectorLabels = useMemo(() => {
     const labels: Array<{
@@ -1108,10 +1223,15 @@ export function GraphExplorer({ graph }: Props) {
 
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
-  const fullSystemFitNodes = useMemo(
-    () => flowNodes.map((node) => ({ id: node.id })),
-    [flowNodes],
-  );
+  const fullSystemFitNodes = useMemo(() => {
+    const nodes: Array<{ id: string }> = [];
+    for (const node of canvasGraph.nodes) {
+      if (!focalSubtree.has(node.id)) continue;
+      if (!activeNodePositions.has(node.id)) continue;
+      nodes.push({ id: node.id });
+    }
+    return nodes;
+  }, [canvasGraph.nodes, focalSubtree, activeNodePositions]);
   const fitFullSystemView = useCallback((
     inst: ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>>,
     duration: number,
@@ -1330,6 +1450,13 @@ export function GraphExplorer({ graph }: Props) {
     () => graph.nodes.find((n) => n.id === currentRootId) ?? null,
     [graph.nodes, currentRootId],
   );
+  const parentRootNode: Node | null = useMemo(() => {
+    const parentId = parentResearchRootId(graph, currentRootId);
+    if (!parentId) return null;
+    return graph.nodes.find((node) => node.id === parentId) ?? null;
+  }, [graph, currentRootId]);
+  const visibleAgentExpansionStatus =
+    agentExpansionRootId === currentRootId ? agentExpansionStatus : "idle";
 
   return (
     <div>
@@ -1343,14 +1470,20 @@ export function GraphExplorer({ graph }: Props) {
             .join(" ")}
         >
           {rootNode ? (
-            <GraphProductStrip
-              rootNode={rootNode}
-              subsystemCount={firstLayerSubsystems.length}
-              routeCount={activeRoute.steps.length}
-              isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
-              onResetRoot={() => setGraphRoot(DEFAULT_ROOT_NODE_ID)}
-            />
-          ) : null}
+                <GraphProductStrip
+                  rootNode={rootNode}
+                  parentRootNode={parentRootNode}
+                  subsystemCount={firstLayerSubsystems.length}
+                  routeCount={activeRoute.steps.length}
+                  isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
+                  agentExpansionStatus={visibleAgentExpansionStatus}
+                  onBackToParentRoot={() => {
+                    if (parentRootNode) setGraphRoot(parentRootNode.id);
+                  }}
+                  onResetRoot={() => setGraphRoot(DEFAULT_ROOT_NODE_ID)}
+                  onRequestAgentExpansion={requestAgentExpansion}
+                />
+              ) : null}
           <ReactFlowProvider>
             <ZoomBridge displayMode={displayMode}>
               <ReactFlow
