@@ -1418,9 +1418,7 @@ function ProductCostRollupCard({ graph, product }: { graph: GraphData; product: 
           {coverageDotGlyph(dotClass)}
         </span>
         <span className="muted cost-coverage-text">
-          {t("costCoverageGapStat")
-            .replace("{gap}", String(gapCount))
-            .replace("{total}", String(denominator))}
+          {coverageStatusText(t, gapCount, denominator)}
         </span>
       </div>
       {/* Per v3 iter-20: when coverage gap > 50%, the rolled-up
@@ -1495,6 +1493,13 @@ function coverageDotGlyph(dotClass: string): string {
   if (dotClass === "green") return "✓";
   if (dotClass === "amber") return "⚠";
   return "⨯";
+}
+
+function coverageStatusText(t: (key: string) => string, gapCount: number, denominator: number): string {
+  if (gapCount === 0) return t("costCoverageComplete");
+  return t("costCoverageGapStat")
+    .replace("{gap}", String(gapCount))
+    .replace("{total}", String(denominator));
 }
 
 function NodeList({
