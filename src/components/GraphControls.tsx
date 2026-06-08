@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { RAMP, type ColorMode } from "@/lib/edgeStyleFor";
+import { RAMP, WIDTHS, type ColorMode } from "@/lib/edgeStyleFor";
 import type { RouteMode } from "@/lib/routeHighlight";
 import { useLanguage } from "./LanguageProvider";
 
@@ -153,6 +153,18 @@ function LensLegend({
                 data-testid="lens-legend-swatch"
                 style={{ backgroundColor: color }}
               />
+            ))}
+          </div>
+          <div className="lens-legend-widths" aria-hidden="true">
+            {RAMP.map((color, index) => (
+              <span key={`${color}-${WIDTHS[index]}`} data-testid="lens-legend-width-sample">
+                <i
+                  style={{
+                    backgroundColor: color,
+                    height: Math.max(2, WIDTHS[index]),
+                  }}
+                />
+              </span>
             ))}
           </div>
           <div className="lens-legend-scale">

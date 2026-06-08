@@ -43,6 +43,27 @@ test("GraphControls explains the active risk lens without Top 1-5 rank copy", ()
   assert.equal((html.match(/data-testid="lens-legend-swatch"/g) ?? []).length, 5);
 });
 
+test("GraphControls legend shows five edge-width samples, not only colour swatches", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(GraphControls, {
+      routeMode: "cost-drivers",
+      analysisMode: "cost",
+      onAnalysisModeChange: () => {},
+    }),
+  );
+
+  assert.equal(
+    (html.match(/data-testid="lens-legend-width-sample"/g) ?? []).length,
+    5,
+    `cost legend should render one visible width sample per band; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /线条颜色 \+ 粗细|Edge color \+ width/,
+    `legend copy should explicitly name both colour and width channels; got: ${html}`,
+  );
+});
+
 test("GraphControls uses one shared lens icon across all analysis modes", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {

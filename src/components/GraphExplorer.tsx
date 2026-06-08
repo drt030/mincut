@@ -34,7 +34,7 @@ import {
 import { focusedSubset } from "@/lib/focusedSubset";
 import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
-import type { GraphData, Node } from "@/lib/schema";
+import type { Edge, GraphData, Node } from "@/lib/schema";
 
 /**
  * Per ADR-0007, the `/graph` surface is a Stable Balanced Radial Tree:
@@ -351,7 +351,28 @@ function ZoomBridge({
 
 const DEFAULT_ROOT_NODE_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
-type AgentExpansionStatus = "idle" | "pending" | "queued" | "error";
+type AgentExpansionStatus = "idle" | "listing" | "queued" | "error";
+
+type AgentExpansionProgress = {
+  listedNodes: number;
+  listedEdges: number;
+  taskTitle?: string;
+  taskCreated?: boolean;
+};
+
+type AgentExpansionResponse = {
+  created?: boolean;
+  task?: { title?: string };
+  graphPatch?: {
+    nodes?: Node[];
+    edges?: Edge[];
+  };
+  progress?: {
+    listedNodes?: number;
+    listedEdges?: number;
+    evidenceTaskQueued?: boolean;
+  };
+};
 
 function compactSectorLabel(label: string): string {
   const max = 24;
@@ -364,6 +385,24 @@ function graphRootHref(nodeId: string): string {
   return `/graph?root=${encodeURIComponent(nodeId)}`;
 }
 
+function mergeGraphPatch(graph: GraphData, patch: { nodes?: Node[]; edges?: Edge[] }): GraphData {
+  const nodeIds = new Set(graph.nodes.map((node) => node.id));
+  const edgeIds = new Set(graph.edges.map((edge) => edge.id));
+  const nodes = [...graph.nodes];
+  const edges = [...graph.edges];
+  for (const node of patch.nodes ?? []) {
+    if (nodeIds.has(node.id)) continue;
+    nodeIds.add(node.id);
+    nodes.push(node);
+  }
+  for (const edge of patch.edges ?? []) {
+    if (edgeIds.has(edge.id)) continue;
+    edgeIds.add(edge.id);
+    edges.push(edge);
+  }
+  return { ...graph, nodes, edges };
+}
+
 function GraphProductStrip({
   rootNode,
   parentRootNode,
@@ -371,6 +410,7 @@ function GraphProductStrip({
   routeCount,
   isCustomRoot,
   agentExpansionStatus,
+  agentExpansionProgress,
   onBackToParentRoot,
   onResetRoot,
   onRequestAgentExpansion,
@@ -381,6 +421,7 @@ function GraphProductStrip({
   routeCount: number;
   isCustomRoot: boolean;
   agentExpansionStatus: AgentExpansionStatus;
+  agentExpansionProgress: AgentExpansionProgress | null;
   onBackToParentRoot: () => void;
   onResetRoot: () => void;
   onRequestAgentExpansion: () => void;
@@ -394,9 +435,10 @@ function GraphProductStrip({
       parentRoot: "回到上一级",
       resetRoot: "回到包裹分拣机器人",
       agentExpand: "Agent 继续展开",
-      agentPending: "正在加入队列",
-      agentQueued: "已加入 Agent 队列",
+      agentListing: "正在列候选节点",
+      agentQueued: (count: number) => count > 0 ? `已列出 ${count} 个候选` : "证据任务已入队",
       agentError: "加入失败，重试",
+      agentProgress: (nodes: number, edges: number) => `已加入 ${nodes} 个节点 / ${edges} 条边；证据收集任务已入队`,
     }
     : {
       product: "Research root",
@@ -405,17 +447,24 @@ function GraphProductStrip({
       parentRoot: "Parent root",
       resetRoot: "Original product",
       agentExpand: "Agent expand",
-      agentPending: "Queueing",
-      agentQueued: "Queued for agent",
+      agentListing: "Listing candidates",
+      agentQueued: (count: number) => count > 0 ? `Listed ${count} candidates` : "Evidence task queued",
       agentError: "Retry queue",
+      agentProgress: (nodes: number, edges: number) => `Added ${nodes} nodes / ${edges} edges; evidence task queued`,
     };
-  const agentLabel = agentExpansionStatus === "pending"
-    ? copy.agentPending
+  const agentLabel = agentExpansionStatus === "listing"
+    ? copy.agentListing
     : agentExpansionStatus === "queued"
-      ? copy.agentQueued
+      ? copy.agentQueued(agentExpansionProgress?.listedNodes ?? 0)
       : agentExpansionStatus === "error"
         ? copy.agentError
         : copy.agentExpand;
+  const showAgentProgress = agentExpansionStatus === "listing" || agentExpansionStatus === "queued";
+  const progressPct = agentExpansionStatus === "listing"
+    ? 36
+    : agentExpansionProgress && agentExpansionProgress.listedNodes > 0
+      ? 82
+      : 64;
   return (
     <div className="graph-product-strip" data-testid="graph-product-strip">
       <div className="graph-product-title-block">
@@ -455,16 +504,36 @@ function GraphProductStrip({
           type="button"
           className="graph-root-reset-button graph-agent-expand-button"
           data-testid="agent-expand-root-button"
-          aria-disabled={agentExpansionStatus === "pending"}
-          aria-busy={agentExpansionStatus === "pending"}
+          aria-disabled={agentExpansionStatus === "listing"}
+          aria-busy={agentExpansionStatus === "listing"}
           onClick={() => {
-            if (agentExpansionStatus === "pending") return;
+            if (agentExpansionStatus === "listing") return;
             onRequestAgentExpansion();
           }}
         >
           {agentLabel}
         </button>
       </div>
+      {showAgentProgress ? (
+        <div
+          className="graph-agent-progress"
+          data-testid="agent-expand-progress"
+          role="status"
+          aria-live="polite"
+        >
+          <span>
+            {agentExpansionStatus === "listing"
+              ? agentLabel
+              : copy.agentProgress(
+                agentExpansionProgress?.listedNodes ?? 0,
+                agentExpansionProgress?.listedEdges ?? 0,
+              )}
+          </span>
+          <div className="graph-agent-progress-track" aria-hidden="true">
+            <i style={{ width: `${progressPct}%` }} />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -693,10 +762,14 @@ export function GraphExplorer({ graph }: Props) {
   const searchParams = useSearchParams();
   const initialRootId = resolveCanvasRootId(graph, searchParams?.get("root")) ?? DEFAULT_ROOT_NODE_ID;
   const [currentRootId, setCurrentRootId] = useState(initialRootId);
-  const canvasGraph = useMemo(() => filterCanvasGraph(graph, currentRootId), [graph, currentRootId]);
+  const [workingGraph, setWorkingGraph] = useState(graph);
+  useEffect(() => {
+    setWorkingGraph(graph);
+  }, [graph]);
+  const canvasGraph = useMemo(() => filterCanvasGraph(workingGraph, currentRootId), [workingGraph, currentRootId]);
   const rootableNodeIds = useMemo(
-    () => graph.nodes.filter(isRootableCanvasNode).map((node) => node.id),
-    [graph.nodes],
+    () => workingGraph.nodes.filter(isRootableCanvasNode).map((node) => node.id),
+    [workingGraph.nodes],
   );
 
   // Initial selection: URL ?focus= if present and valid; otherwise, a
@@ -734,6 +807,7 @@ export function GraphExplorer({ graph }: Props) {
   const [rootTransitioning, setRootTransitioning] = useState(false);
   const [agentExpansionStatus, setAgentExpansionStatus] = useState<AgentExpansionStatus>("idle");
   const [agentExpansionRootId, setAgentExpansionRootId] = useState<string | null>(null);
+  const [agentExpansionProgress, setAgentExpansionProgress] = useState<AgentExpansionProgress | null>(null);
   const rootTransitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // B2 + C1: focus path. `[]` = overview. `[outerId]` = Level 1
@@ -787,8 +861,8 @@ export function GraphExplorer({ graph }: Props) {
   );
 
   const activeRoute = useMemo(
-    () => selectCostDriverRoute(canvasGraph, currentRootId, { limit: 4, costGraph: graph }),
-    [canvasGraph, currentRootId, graph],
+    () => selectCostDriverRoute(canvasGraph, currentRootId, { limit: 4, costGraph: workingGraph }),
+    [canvasGraph, currentRootId, workingGraph],
   );
   const routeHighlight = colorMode === "cost" ? activeRoute : null;
 
@@ -836,7 +910,8 @@ export function GraphExplorer({ graph }: Props) {
 
   const requestAgentExpansion = useCallback(async () => {
     setAgentExpansionRootId(currentRootId);
-    setAgentExpansionStatus("pending");
+    setAgentExpansionStatus("listing");
+    setAgentExpansionProgress({ listedNodes: 0, listedEdges: 0 });
     try {
       const response = await fetch("/api/research-tasks", {
         method: "POST",
@@ -844,6 +919,17 @@ export function GraphExplorer({ graph }: Props) {
         body: JSON.stringify({ targetNodeId: currentRootId }),
       });
       if (!response.ok) throw new Error("Failed to queue agent expansion task");
+      const data = await response.json() as AgentExpansionResponse;
+      const graphPatch = data.graphPatch ?? { nodes: [], edges: [] };
+      if ((graphPatch.nodes?.length ?? 0) > 0 || (graphPatch.edges?.length ?? 0) > 0) {
+        setWorkingGraph((prev) => mergeGraphPatch(prev, graphPatch));
+      }
+      setAgentExpansionProgress({
+        listedNodes: data.progress?.listedNodes ?? graphPatch.nodes?.length ?? 0,
+        listedEdges: data.progress?.listedEdges ?? graphPatch.edges?.length ?? 0,
+        taskTitle: data.task?.title,
+        taskCreated: data.created,
+      });
       setAgentExpansionStatus("queued");
     } catch {
       setAgentExpansionStatus("error");
@@ -887,7 +973,8 @@ export function GraphExplorer({ graph }: Props) {
    * only the selected node keeps a contour.
    */
   const outlineColorFor = useCallback(
-    (_node: Node, selected: boolean, _isFocal: boolean): string => {
+    (_node: Node, selected: boolean, isFocal: boolean): string => {
+      if (isFocal) return "#0f172a";
       if (selected) return "#0f172a";
       return "transparent";
     },
@@ -920,8 +1007,8 @@ export function GraphExplorer({ graph }: Props) {
   }, [canvasGraph.nodes, focusedId, subset.nodes]);
 
   const topPriorityEntries = useMemo(() => {
-    return selectTopN(graph, colorMode, 5, visiblePriorityScope);
-  }, [graph, colorMode, visiblePriorityScope]);
+    return selectTopN(workingGraph, colorMode, 5, visiblePriorityScope);
+  }, [workingGraph, colorMode, visiblePriorityScope]);
 
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
@@ -1022,7 +1109,7 @@ export function GraphExplorer({ graph }: Props) {
       // A4 wires `isFocusEndpoint` to the current selection; Phase B
       // will replace `selectedId` with a richer focus state.
       const isFocusEndpoint = edge.source === selectedId || edge.target === selectedId;
-      const { stroke, width } = edgeStyleFor(edge, colorMode, graph);
+      const { stroke, width } = edgeStyleFor(edge, colorMode, workingGraph);
       const isRouteEdge = routeHighlight?.edgeIds.has(edge.id) ?? false;
       const dim = !subset.edges.has(edge.id) && edge.source !== selectedId && edge.target !== selectedId;
       const edgeKind = layout.edges.get(edge.id)?.style ?? "primary";
@@ -1130,7 +1217,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return edges;
-  }, [canvasGraph, graph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges]);
+  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1288,7 +1375,7 @@ export function GraphExplorer({ graph }: Props) {
   }, [flowNodes.length, fitFullSystemView]);
 
   const setGraphRoot = useCallback((nodeId: string) => {
-    const resolved = resolveCanvasRootId(graph, nodeId);
+    const resolved = resolveCanvasRootId(workingGraph, nodeId);
     if (!resolved) return;
     if (rootTransitionTimeoutRef.current) {
       clearTimeout(rootTransitionTimeoutRef.current);
@@ -1302,7 +1389,7 @@ export function GraphExplorer({ graph }: Props) {
       setRootTransitioning(false);
       rootTransitionTimeoutRef.current = null;
     }, 650);
-  }, [currentRootId, graph]);
+  }, [currentRootId, workingGraph]);
 
   useEffect(() => {
     return () => {
@@ -1443,20 +1530,22 @@ export function GraphExplorer({ graph }: Props) {
   }, [focusPath, layout.sectors, fitFullSystemView]);
 
   const selectedNode: Node = useMemo(
-    () => graph.nodes.find((n) => n.id === selectedId) ?? graph.nodes[0],
-    [graph.nodes, selectedId],
+    () => workingGraph.nodes.find((n) => n.id === selectedId) ?? workingGraph.nodes[0],
+    [workingGraph.nodes, selectedId],
   );
   const rootNode: Node | null = useMemo(
-    () => graph.nodes.find((n) => n.id === currentRootId) ?? null,
-    [graph.nodes, currentRootId],
+    () => workingGraph.nodes.find((n) => n.id === currentRootId) ?? null,
+    [workingGraph.nodes, currentRootId],
   );
   const parentRootNode: Node | null = useMemo(() => {
-    const parentId = parentResearchRootId(graph, currentRootId);
+    const parentId = parentResearchRootId(workingGraph, currentRootId);
     if (!parentId) return null;
-    return graph.nodes.find((node) => node.id === parentId) ?? null;
-  }, [graph, currentRootId]);
+    return workingGraph.nodes.find((node) => node.id === parentId) ?? null;
+  }, [workingGraph, currentRootId]);
   const visibleAgentExpansionStatus =
     agentExpansionRootId === currentRootId ? agentExpansionStatus : "idle";
+  const visibleAgentExpansionProgress =
+    agentExpansionRootId === currentRootId ? agentExpansionProgress : null;
 
   return (
     <div>
@@ -1477,6 +1566,7 @@ export function GraphExplorer({ graph }: Props) {
                   routeCount={activeRoute.steps.length}
                   isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
                   agentExpansionStatus={visibleAgentExpansionStatus}
+                  agentExpansionProgress={visibleAgentExpansionProgress}
                   onBackToParentRoot={() => {
                     if (parentRootNode) setGraphRoot(parentRootNode.id);
                   }}
@@ -1550,7 +1640,7 @@ export function GraphExplorer({ graph }: Props) {
           />
         </div>
         <RouteDetailRail
-          graph={graph}
+          graph={workingGraph}
           route={activeRoute}
           selectedNode={selectedNode}
           analysisMode={colorMode}
@@ -1570,7 +1660,7 @@ export function GraphExplorer({ graph }: Props) {
           Selecting a result both selects the node (rail content
           updates) and keeps the full-system map intact. */}
       <CmdKSearch
-        graph={graph}
+        graph={workingGraph}
         open={cmdKOpen}
         onClose={() => setCmdKOpen(false)}
         onSelect={(nodeId) => {

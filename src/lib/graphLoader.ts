@@ -81,6 +81,17 @@ export function writeTasks(tasks: ResearchTask[]): void {
   fs.writeFileSync(filePath, `${JSON.stringify(tasks, null, 2)}\n`);
 }
 
+function appendJsonArray<T>(filePath: string, additions: T[]): void {
+  if (additions.length === 0) return;
+  const existing = fs.existsSync(filePath) ? readJsonFile<T[]>(filePath) : [];
+  fs.writeFileSync(filePath, `${JSON.stringify([...existing, ...additions], null, 2)}\n`);
+}
+
+export function appendGraphPatchToParcelData(patch: { nodes: Node[]; edges: Edge[] }): void {
+  appendJsonArray<Node>(path.join(dataRoot, "nodes", "parcel_sorting_robot.json"), patch.nodes);
+  appendJsonArray<Edge>(path.join(dataRoot, "edges", "parcel_sorting_robot_edges.json"), patch.edges);
+}
+
 export function validateGraphReferences(graph: GraphData): string[] {
   const errors: string[] = [];
   const nodeIds = new Set(graph.nodes.map((node) => node.id));

@@ -436,7 +436,7 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh full-s
   );
 });
 
-test("GraphExplorer.tsx regression guard: node outline does not duplicate active lens bands", () => {
+test("GraphExplorer.tsx regression guard: node outline stays neutral while root has a visible contour", () => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -470,13 +470,13 @@ test("GraphExplorer.tsx regression guard: node outline does not duplicate active
   );
   assert.equal(
     /if\s*\(\s*isFocal\b|\bisFocal\s*\?/.test(outlineBlock),
-    false,
-    "root identity should rely on center position and the product strip, not a separate contour colour",
+    true,
+    "root identity should keep a neutral visible contour so the near-white root node does not disappear on the canvas",
   );
   assert.equal(
     /return\s+["']transparent["']/.test(outlineBlock),
     true,
-    "ordinary and root node contours should be visually absent; only selected nodes should keep an outline affordance",
+    "ordinary node contours should stay visually absent; only selected/root nodes should keep a neutral outline affordance",
   );
 });
 
@@ -497,7 +497,7 @@ test("radial CSS keeps node contour semantics in the renderer instead of hard-co
   assert.doesNotMatch(
     raw,
     /\.radial-dot\.focal\s+svg\s+circle/,
-    "root-node contour should stay absent in CSS; root identity is carried by position and product strip",
+    "root-node contour should stay in GraphExplorer/RadialNode data, not a second CSS color rule",
   );
 
   const radialFocusBlock = raw.match(/\.radial-dot:focus-visible\s+svg\s+circle\s*\{[\s\S]*?\}/)?.[0] ?? "";
@@ -588,6 +588,16 @@ test("GraphExplorer.tsx regression guard: custom research roots expose parent, r
     /data-testid="agent-expand-root-button"/,
     "the active research root should expose an agent expansion request button",
   );
+  assert.match(
+    noLineComments,
+    /data-testid="agent-expand-progress"/,
+    "agent expansion should expose a visible progress indicator while candidates are listed and evidence collection is queued",
+  );
+  assert.match(
+    noLineComments,
+    /graphPatch/,
+    "agent expansion should merge a returned graphPatch into the live canvas so new candidates appear without a manual refresh",
+  );
 });
 
 test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration-stable", () => {
@@ -674,8 +684,8 @@ test("GraphExplorer.tsx regression guard: risk TopN scores with the full graph b
   );
   assert.match(
     noLineComments,
-    /selectTopN\(graph,\s*colorMode,\s*5,\s*visiblePriorityScope\)/,
-    "GraphExplorer should score TopN against the full graph while passing a visible canvas scope",
+    /selectTopN\(workingGraph,\s*colorMode,\s*5,\s*visiblePriorityScope\)/,
+    "GraphExplorer should score TopN against the full working graph while passing a visible canvas scope",
   );
 });
 

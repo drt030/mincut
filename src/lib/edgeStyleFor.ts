@@ -18,11 +18,11 @@ import { rollupCost } from "./costRollup";
  *
  * Five bands (cool→warm):
  *
- *   Band 1 (coolest, lowest mode-value) → width 0.5 px, stroke RAMP[0]
- *   Band 2                               → width 1.0 px, stroke RAMP[1]
- *   Band 3                               → width 1.5 px, stroke RAMP[2]
- *   Band 4                               → width 2.5 px, stroke RAMP[3]
- *   Band 5 (warmest, highest mode-value) → width 4.0 px, stroke RAMP[4]
+ *   Band 1 (coolest, lowest mode-value) → width 0.8 px, stroke RAMP[0]
+ *   Band 2                               → width 1.6 px, stroke RAMP[1]
+ *   Band 3                               → width 2.8 px, stroke RAMP[2]
+ *   Band 4                               → width 4.6 px, stroke RAMP[3]
+ *   Band 5 (warmest, highest mode-value) → width 7.2 px, stroke RAMP[4]
  *
  * `relation` mode returns the legacy neutral grey (`#94a3b8`, a.k.a.
  * `NEUTRAL_TINT` carried over from the slice-2 `edgeTintFor`) at a
@@ -41,8 +41,8 @@ export type ColorMode =
 
 export type EdgeStyle = { stroke: string; width: number };
 
-/** 5-band width steps. Index = band-1; e.g. WIDTHS[0] = 0.5 px = band 1. */
-export const WIDTHS = [0.5, 1.0, 1.5, 2.5, 4.0] as const;
+/** 5-band width steps. Index = band-1; e.g. WIDTHS[0] = 0.8 px = band 1. */
+export const WIDTHS = [0.8, 1.6, 2.8, 4.6, 7.2] as const;
 
 /**
  * 5-stop cool→warm ramp. blue → green → amber → orange → red. The
@@ -61,10 +61,9 @@ export const RAMP: readonly [string, string, string, string, string] = [
 /** Default neutral grey for `relation` mode, carried over from edgeTint.ts. */
 export const NEUTRAL_TINT = "#94a3b8";
 
-/** Constant width used for relation mode. Distinct from the band widths
- *  so a viewer can tell a `relation`-mode edge apart from a band-3
- *  graded edge at a glance — even though both render as 1.5 px. The
- *  colour differs (#94a3b8 vs RAMP[2]) which is the real signal. */
+/** Constant width used for relation mode. Distinct from every graded band
+ *  so a viewer can tell a `relation`-mode edge apart from a cost/risk/
+ *  maturity-coded edge without relying only on colour. */
 const RELATION_WIDTH = 1.5;
 
 /**

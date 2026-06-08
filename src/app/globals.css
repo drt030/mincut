@@ -427,6 +427,7 @@ li {
   border-radius: 8px;
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
   display: flex;
+  flex-wrap: wrap;
   gap: 18px;
   justify-content: space-between;
   left: 14px;
@@ -441,6 +442,7 @@ li {
 .graph-product-title-block {
   display: flex;
   flex-direction: column;
+  flex: 1 1 260px;
   gap: 4px;
   min-width: 0;
 }
@@ -527,6 +529,40 @@ li {
 .graph-agent-expand-button[aria-disabled="true"] {
   cursor: wait;
   opacity: 0.72;
+}
+
+.graph-agent-progress {
+  color: #334155;
+  display: grid;
+  flex: 1 0 100%;
+  gap: 5px;
+  margin-top: -6px;
+}
+
+.graph-agent-progress span {
+  background: transparent;
+  border: 0;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 1.25;
+  padding: 0;
+  white-space: normal;
+}
+
+.graph-agent-progress-track {
+  background: rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  height: 5px;
+  overflow: hidden;
+}
+
+.graph-agent-progress-track i {
+  background: linear-gradient(90deg, #0f766e, #22c55e);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+  transition: width 260ms ease;
 }
 
 .graph-controls {
@@ -642,6 +678,26 @@ li {
 
 .lens-legend-ramp span {
   min-width: 0;
+}
+
+.lens-legend-widths {
+  align-items: center;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 12px;
+}
+
+.lens-legend-widths span {
+  align-items: center;
+  display: flex;
+  min-width: 0;
+}
+
+.lens-legend-widths i {
+  border-radius: 999px;
+  display: block;
+  width: 100%;
 }
 
 .lens-legend-scale {

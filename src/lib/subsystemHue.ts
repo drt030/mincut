@@ -34,7 +34,7 @@ import type { GraphData, NodeKind } from "./schema";
  *      not grey. We implement this naturally because the algorithm
  *      checks `sectorIndex.has(id)` BEFORE the shared-parent check.
  *   7. Materials (`kind === "material"`) are always neutral grey.
- *   8. The focal product itself is neutral grey.
+ *   8. The focal product itself is a near-white neutral root colour.
  *   9. Structural nodes not reachable from the focal product (sibling
  *      product subtrees, orphan modules) are neutral grey.
  *
@@ -45,6 +45,7 @@ const HUE_OFFSET = 15;
 const COLOUR_SATURATION = 0.65;
 const COLOUR_LIGHTNESS = 0.55;
 const GREY_LIGHTNESS = 0.6;
+const ROOT_LIGHTNESS = 0.98;
 
 export type SubsystemHue = {
   hue: number;
@@ -56,6 +57,12 @@ const NEUTRAL_GREY: SubsystemHue = Object.freeze({
   hue: 0,
   saturation: 0,
   lightness: GREY_LIGHTNESS,
+});
+
+const ROOT_NEUTRAL: SubsystemHue = Object.freeze({
+  hue: 0,
+  saturation: 0,
+  lightness: ROOT_LIGHTNESS,
 });
 
 type SubsystemIndex = {
@@ -218,7 +225,7 @@ export function subsystemHue(
   if (index.focalId === undefined) return { ...NEUTRAL_GREY };
 
   // Rule 8: focal product itself.
-  if (nodeId === index.focalId) return { ...NEUTRAL_GREY };
+  if (nodeId === index.focalId) return { ...ROOT_NEUTRAL };
 
   // Rule 3 (first-layer subsystem direct hit) — checked BEFORE the
   // shared-parent rule so a first-layer subsystem that is also required

@@ -19,6 +19,7 @@ import assert from "node:assert/strict";
 import {
   edgeStyleFor,
   nodeCostSignalRmb,
+  WIDTHS,
   type ColorMode,
 } from "../src/lib/edgeStyleFor";
 import { loadGraphData } from "../src/lib/graphLoader";
@@ -27,11 +28,11 @@ import type { Edge, GraphData, Node } from "../src/lib/schema";
 /**
  * 5-band binning (ADR-0006 §Color mode K4):
  *
- *   Band 1 (coolest, lowest mode-value) → width 0.5 px
- *   Band 2                               → width 1.0 px
- *   Band 3                               → width 1.5 px
- *   Band 4                               → width 2.5 px
- *   Band 5 (warmest, highest mode-value) → width 4.0 px
+ *   Band 1 (coolest, lowest mode-value) → width 0.8 px
+ *   Band 2                               → width 1.6 px
+ *   Band 3                               → width 2.8 px
+ *   Band 4                               → width 4.6 px
+ *   Band 5 (warmest, highest mode-value) → width 7.2 px
  *
  * The stroke colour is one of 5 stops on a cool→warm ramp aligned to
  * the SAME band indices, so band index N is both:
@@ -43,7 +44,7 @@ import type { Edge, GraphData, Node } from "../src/lib/schema";
  * by iterating over every edge in `loadGraphData()` and checking each
  * (edge, mode) pair separately.
  */
-const EXPECTED_WIDTHS = [0.5, 1.0, 1.5, 2.5, 4.0] as const;
+const EXPECTED_WIDTHS = WIDTHS;
 
 /** All color modes that share the 5-band semantics. `relation` is
  *  excluded — it uses the default class-based stroke. */
@@ -93,10 +94,10 @@ function paletteFor(mode: ColorMode, graph: GraphData): Set<string> {
 
 /**
  * Assertion 1 (cost mode): an edge whose target sits in the LOWEST
- * cost-bin returns a cool stroke + thin width (0.5 px). An edge whose
+ * cost-bin returns a cool stroke + thin width (0.8 px). An edge whose
  * target sits in the HIGHEST cost-bin returns a warm stroke + thick
- * width (4.0 px). Mid bins span the remaining widths (1.0 / 1.5 /
- * 2.5).
+ * width (7.2 px). Mid bins span the remaining widths (1.6 / 2.8 /
+ * 4.6).
  *
  * Fixture choices: per the live data probe, the heaviest cost in the
  * graph is `industrial_robot_arm_body` at 115k RMB — the only node
@@ -111,7 +112,7 @@ function paletteFor(mode: ColorMode, graph: GraphData): Set<string> {
  * "any high-cost edge" — a fragile fixture would let the GREEN
  * implementation accidentally collapse all costs into bands 1–3.
  */
-test("cost mode: lowest cost-bin → cool + width 0.5; highest cost-bin → warm + width 4", () => {
+test("cost mode: lowest cost-bin → cool + width 0.8; highest cost-bin → warm + width 7.2", () => {
   const graph = loadGraphData();
   const lowEdge = edgeTargeting(graph, "robot_realtime_control_runtime");
   const highEdge = edgeTargeting(graph, "industrial_robot_arm_body");
@@ -123,13 +124,13 @@ test("cost mode: lowest cost-bin → cool + width 0.5; highest cost-bin → warm
   assert.match(high.stroke, HEX_RE, `high.stroke must be a hex; got ${high.stroke}`);
   assert.equal(
     low.width,
-    0.5,
-    `lowest cost-bin must yield width 0.5; got ${low.width} (stroke ${low.stroke})`,
+    0.8,
+    `lowest cost-bin must yield width 0.8; got ${low.width} (stroke ${low.stroke})`,
   );
   assert.equal(
     high.width,
-    4,
-    `highest cost-bin must yield width 4; got ${high.width} (stroke ${high.stroke})`,
+    7.2,
+    `highest cost-bin must yield width 7.2; got ${high.width} (stroke ${high.stroke})`,
   );
   assert.notEqual(
     low.stroke,
@@ -151,16 +152,16 @@ test("cost mode: aggregator edge uses rolled-up cost, not stale direct cost", ()
   const childCost = nodeCostSignalRmb(child!, graph);
   assert.ok(parentCost !== null && parentCost > 100_000, `expected rolled-up parent cost >100k, got ${parentCost}`);
   assert.ok(childCost !== null && childCost > 60_000, `expected rolled-up child cost >60k, got ${childCost}`);
-  assert.equal(edgeStyleFor(parentEdge, "cost", graph).width, 4);
-  assert.equal(edgeStyleFor(childEdge, "cost", graph).width, 4);
+  assert.equal(edgeStyleFor(parentEdge, "cost", graph).width, 7.2);
+  assert.equal(edgeStyleFor(childEdge, "cost", graph).width, 7.2);
 });
 
 // -------------------- Test 2: Bin alignment across full graph --------------------
 
 /**
  * Assertion 2 (bin alignment): for every (edge, mode) pair in the
- * full graph, the returned `width` MUST be one of
- * {0.5, 1, 1.5, 2.5, 4}, AND the stroke colour band's index in the
+ * full graph, the returned `width` MUST be one of the exported
+ * `WIDTHS`, AND the stroke colour band's index in the
  * mode's 5-stop ramp MUST equal the band-index implied by the width.
  *
  * We implement the "band index from colour" check as: extract the
@@ -179,7 +180,7 @@ test("cost mode: aggregator edge uses rolled-up cost, not stale direct cost", ()
  * (stroke ↔ width) map is a bijection on whatever bands the data
  * exercises. A bijection IS the alignment invariant in disguise.
  */
-test("bin alignment: width ∈ {0.5,1,1.5,2.5,4} and stroke↔width bijection holds per mode", () => {
+test("bin alignment: exported width bands and stroke↔width bijection hold per mode", () => {
   const graph = loadGraphData();
   for (const mode of BAND_MODES) {
     // Map each stroke colour to the set of widths it co-occurs with.
@@ -189,7 +190,7 @@ test("bin alignment: width ∈ {0.5,1,1.5,2.5,4} and stroke↔width bijection ho
       const { stroke, width } = edgeStyleFor(edge, mode, graph);
       assert.ok(
         (EXPECTED_WIDTHS as readonly number[]).includes(width),
-        `mode=${mode}, edge=${edge.id}: width ${width} must be in {0.5, 1, 1.5, 2.5, 4}; got stroke=${stroke}`,
+        `mode=${mode}, edge=${edge.id}: width ${width} must be one of ${EXPECTED_WIDTHS.join(", ")}; got stroke=${stroke}`,
       );
       assert.match(
         stroke,
@@ -215,6 +216,28 @@ test("bin alignment: width ∈ {0.5,1,1.5,2.5,4} and stroke↔width bijection ho
       `mode=${mode}: palette has ${strokeToWidths.size} colours; must be <= 5 (one per band)`,
     );
   }
+});
+
+test("graded edge widths are visually separated enough to read without relying only on colour", () => {
+  assert.deepEqual(
+    [...WIDTHS],
+    [0.8, 1.6, 2.8, 4.6, 7.2],
+    "width bands should keep a visibly wider staircase than the legacy 0.5/1/1.5/2.5/4 ramp",
+  );
+  for (let i = 1; i < WIDTHS.length; i += 1) {
+    assert.ok(
+      WIDTHS[i] > WIDTHS[i - 1],
+      `width bands must be strictly increasing; got ${WIDTHS.join(", ")}`,
+    );
+  }
+  assert.ok(
+    WIDTHS[3] - WIDTHS[2] >= 1.6,
+    `band 4 must stand apart from band 3; got widths ${WIDTHS.join(", ")}`,
+  );
+  assert.ok(
+    WIDTHS[4] - WIDTHS[3] >= 2.4,
+    `band 5 must stand apart from band 4 so red/orange cost edges remain distinguishable; got widths ${WIDTHS.join(", ")}`,
+  );
 });
 
 // -------------------- Test 3: Maturity mode ramp direction --------------------

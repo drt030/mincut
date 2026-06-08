@@ -31,6 +31,7 @@ import assert from "node:assert/strict";
 import { sectorAggregate } from "../src/lib/sectorAggregate";
 import {
   edgeStyleFor,
+  WIDTHS,
   type ColorMode,
 } from "../src/lib/edgeStyleFor";
 import { loadGraphData } from "../src/lib/graphLoader";
@@ -48,7 +49,7 @@ import type { GraphData } from "../src/lib/schema";
  * verifying the resulting edge width sits in the same band index
  * the sector returned.
  */
-const EXPECTED_WIDTHS = [0.5, 1.0, 1.5, 2.5, 4.0] as const;
+const EXPECTED_WIDTHS = WIDTHS;
 
 /**
  * Helper: walk `requires`-descendants of `subsystemId` (inclusive)

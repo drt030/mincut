@@ -30,7 +30,8 @@ import { filterCanvasGraph } from "../src/lib/canvasGraph";
  *      inside the focal subtree, excluding the first-layer subsystems
  *      themselves — are neutral grey (their primary-parent assignment is
  *      arbitrary per the spec; we do not pretend they have a real family).
- *   5. The focal product itself is neutral grey.
+ *   5. The focal product itself is a dedicated neutral root colour,
+ *      near-white rather than mid-grey.
  *   6. A structural node not reachable from the focal product (sibling
  *      product subtrees, orphans) is also neutral grey.
  *   7. Deterministic and pure: same input → same output bit-for-bit.
@@ -246,18 +247,23 @@ test("subsystemHue P5: shared structural nodes with >= 2 requires parents are ne
 });
 
 /**
- * Property 6: the focal product itself is neutral grey. (Per ADR-0006
- * §Color the focal product is either neutral grey or a dedicated "root"
- * colour — we pin neutral grey here for simplicity.)
+ * Property 6: the focal product itself is a dedicated neutral root
+ * colour. It remains saturation=0 so it does not collide with subsystem
+ * hues, but it must be near-white rather than mid-grey; grey reads like
+ * "not selected" in the graph UI.
  */
-test("subsystemHue P6: focal product is neutral grey", () => {
+test("subsystemHue P6: focal product is a near-white neutral root colour", () => {
   const graph = loadGraphData();
   const { focalId } = buildFocalSubtree(graph);
   const result = subsystemHue(focalId, graph);
   assert.equal(
     result.saturation,
     0,
-    `focal product ${focalId} must be neutral grey (saturation=0); got ${JSON.stringify(result)}`,
+    `focal product ${focalId} must stay neutral (saturation=0); got ${JSON.stringify(result)}`,
+  );
+  assert.ok(
+    result.lightness >= 0.94,
+    `focal product ${focalId} must be near-white, not mid-grey; got ${JSON.stringify(result)}`,
   );
 });
 
@@ -333,6 +339,7 @@ test("subsystemHue reroots colour families around a module research root", () =>
   const servoHue = subsystemHue("industrial_servo_motor", canvas, rootId);
 
   assert.equal(rootHue.saturation, 0, "the active module research root should stay neutral");
+  assert.ok(rootHue.lightness >= 0.94, "the active module research root should use the near-white root colour");
   assert.ok(
     controllerHue.saturation > 0,
     "direct children of a module research root should receive coloured subsystem families",
