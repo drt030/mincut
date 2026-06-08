@@ -1,8 +1,16 @@
 "use client";
 
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { useLanguage } from "./LanguageProvider";
-import { bottlenecksForNode, evidenceForNode, metricsForNode, requiredModules, uniqueNodes } from "@/lib/graphTraversal";
+import {
+  bottlenecksForNode,
+  evidenceForNode,
+  implementersForNode,
+  manufacturersForNode,
+  metricsForNode,
+  requiredModules,
+  uniqueNodes,
+} from "@/lib/graphTraversal";
 import { productMaturity } from "@/lib/maturity";
 import { maturityAsOfVisualFor, formatMaturityLabel } from "@/lib/maturityVisual";
 import { nodeRisk } from "@/lib/nodeRisk";
@@ -29,6 +37,8 @@ export function ProductView({ graph, product }: Props) {
   const evidence = evidenceForNode(graph, product.id);
   const maturity = productMaturity(graph, product);
   const asOf = maturityAsOfVisualFor(product);
+  const manufacturerCandidates = manufacturersForNode(graph, product.id).filter((node) => node.reviewStatus !== "deprecated");
+  const serviceCandidates = implementersForNode(graph, product.id).filter((node) => node.reviewStatus !== "deprecated");
   const asOfTooltip = asOf.hasValue
     ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
     : t("maturityAsOfMissing");
@@ -67,6 +77,20 @@ export function ProductView({ graph, product }: Props) {
       <ProductViewTopBlockers graph={graph} product={product} />
       <section className="card-grid">
         <ProductCostRollupSummary graph={graph} product={product} />
+        {manufacturerCandidates.length ? (
+          <CandidateOrganizationCard
+            title={t("manufacturerCandidates")}
+            subtitle={t("manufacturerCandidatesHint")}
+            nodes={manufacturerCandidates}
+          />
+        ) : null}
+        {serviceCandidates.length ? (
+          <CandidateOrganizationCard
+            title={t("serviceCandidates")}
+            subtitle={t("serviceCandidatesHint")}
+            nodes={serviceCandidates}
+          />
+        ) : null}
       </section>
       <section className="card-grid">
         <SummaryCard title={t("requiredModules")} nodes={modules} />
@@ -76,6 +100,63 @@ export function ProductView({ graph, product }: Props) {
       </section>
     </div>
   );
+}
+
+function CandidateOrganizationCard({
+  title,
+  subtitle,
+  nodes,
+}: {
+  title: string;
+  subtitle: string;
+  nodes: Node[];
+}) {
+  const { nodeName } = useLanguage();
+  return (
+    <div className="card candidate-organization-card" data-testid="product-candidate-organizations">
+      <h2>{title}</h2>
+      <p className="muted">{subtitle}</p>
+      <ul className="metric-detail-list">
+        {nodes.map((node) => {
+          const summary = organizationMetricSummary(node);
+          return (
+            <li key={node.id} className="metric-detail-row">
+              <div className="metric-detail-row-head">
+                <a className="link-button" href={`/product/${encodeURIComponent(node.id)}`}>
+                  {nodeName(node.id, node.name)}
+                </a>
+                {summary ? <span className="pill">{summary}</span> : null}
+              </div>
+              {node.notes ? <p className="metric-detail-description">{node.notes}</p> : null}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+type InlineNodeMetric = NonNullable<Node["metrics"]>[number];
+
+function organizationMetricSummary(organization: Node): string | null {
+  const metrics = organization.metrics ?? [];
+  const selected: InlineNodeMetric[] = [];
+  const push = (metric: InlineNodeMetric | undefined) => {
+    if (!metric || selected.includes(metric)) return;
+    if (metric.currentValue === undefined) return;
+    selected.push(metric);
+  };
+  push(metrics.find((metric) => metric.name.toLowerCase().includes("share") || metric.unit === "%"));
+  push(metrics.find((metric) => metric.name.toLowerCase().includes("public listing")));
+  push(metrics.find((metric) => metric.name.toLowerCase().includes("capacity")));
+  push(metrics.find((metric) => metric.name.toLowerCase().includes("revenue")));
+  push(metrics.find((metric) => metric.currentValue !== undefined));
+
+  const parts = selected.slice(0, 2).map((metric) => {
+    const value = formatMetricValue(metric.currentValue, metric.unit, metric.currency).compact;
+    return `${metric.name}: ${value}`;
+  });
+  return parts.length ? parts.join(" · ") : null;
 }
 
 function ProductCostRollupSummary({ graph, product }: { graph: GraphData; product: Node }) {
