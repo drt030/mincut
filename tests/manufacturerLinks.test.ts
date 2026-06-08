@@ -648,6 +648,48 @@ test("controller supplier candidates expose annual-report automation business ex
   }
 });
 
+test("high-exposure parcel supplier candidates expose investor scale metrics", () => {
+  const expectedExposureByOrganization: Record<string, { metric: string; evidenceId: string }> = {
+    org_abb_robotics: {
+      metric: "Robotics divestiture enterprise value",
+      evidenceId: "ev_abb_robotics_softbank_divestiture_2025",
+    },
+    org_keyence: {
+      metric: "FY2025 net sales",
+      evidenceId: "ev_keyence_fy2025_financial_results",
+    },
+    org_cognex: {
+      metric: "FY2025 revenue",
+      evidenceId: "ev_cognex_2025_10k_revenue",
+    },
+    org_smc: {
+      metric: "FY2025 net sales",
+      evidenceId: "ev_smc_integrated_report_2025_net_sales",
+    },
+    org_dematic_kion: {
+      metric: "FY2025 Supply Chain Solutions revenue",
+      evidenceId: "ev_kion_annual_report_2025_scs_revenue",
+    },
+    org_honeywell_intelligrated: {
+      metric: "2024 Warehouse and Workflow Solutions revenue",
+      evidenceId: "ev_honeywell_wws_strategic_alternatives_2025",
+    },
+  };
+
+  for (const [organizationId, expected] of Object.entries(expectedExposureByOrganization)) {
+    const organization = graph.nodes.find((node) => node.id === organizationId);
+    assert.ok(organization, `${organizationId} must exist`);
+    assert.ok(
+      organization?.metrics?.some((metric) => metric.name === expected.metric),
+      `${organizationId} must expose ${expected.metric} for investor-facing parcel supplier exposure`,
+    );
+    assert.ok(
+      organization?.evidenceIds?.includes(expected.evidenceId),
+      `${organizationId} must cite ${expected.evidenceId}`,
+    );
+  }
+});
+
 test("maintenance workflow exposes service and implementation candidates", () => {
   const implementers = implementersForNode(graph, "maintenance_workflow").map((node) => node.id);
 

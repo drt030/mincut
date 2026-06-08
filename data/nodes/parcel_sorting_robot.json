@@ -6413,11 +6413,20 @@
       {
         "name": "Public listing",
         "currentValue": "ABB / ABBN.SW; signed sale of Robotics division to SoftBank expected around mid-2026"
+      },
+      {
+        "name": "Robotics divestiture enterprise value",
+        "unit": "USD million",
+        "currentValue": 5375,
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "ABB announced an agreement to divest ABB Robotics to SoftBank for enterprise value USD 5.375B; expected close mid-to-late 2026, so this is investor-exposure transaction value, not parcel-cell revenue or target BOM share."
       }
     ],
     "evidenceIds": [
       "ev_mfg_abb_robotic_parcel_inductor_2026",
-      "ev_mfg_ifr_world_robotics_2025"
+      "ev_mfg_ifr_world_robotics_2025",
+      "ev_abb_robotics_softbank_divestiture_2025"
     ],
     "tags": [
       "manufacturer",
@@ -6997,10 +7006,19 @@
       {
         "name": "Public listing",
         "currentValue": "6861.T"
+      },
+      {
+        "name": "FY2025 net sales",
+        "unit": "JPY million",
+        "currentValue": 1169300,
+        "currency": "JPY",
+        "costAsOf": "2025",
+        "description": "KEYENCE FY2025 financial results show net sales of 11,693 hundred-million yen; broad factory automation exposure, not parcel-specific share."
       }
     ],
     "evidenceIds": [
-      "ev_mfg_keyence_vision_safety_products"
+      "ev_mfg_keyence_vision_safety_products",
+      "ev_keyence_fy2025_financial_results"
     ],
     "tags": [
       "manufacturer",
@@ -7028,10 +7046,19 @@
       {
         "name": "Public listing",
         "currentValue": "CGNX"
+      },
+      {
+        "name": "FY2025 revenue",
+        "unit": "USD million",
+        "currentValue": 994.359,
+        "currency": "USD",
+        "costAsOf": "2025",
+        "description": "Cognex FY2025 Form 10-K revenue; broad industrial machine-vision and barcode-reader exposure, not parcel-specific share."
       }
     ],
     "evidenceIds": [
-      "ev_mfg_cognex_machine_vision_code_readers"
+      "ev_mfg_cognex_machine_vision_code_readers",
+      "ev_cognex_2025_10k_revenue"
     ],
     "tags": [
       "manufacturer",
@@ -7184,12 +7211,21 @@
       {
         "name": "Public listing",
         "currentValue": "6273.T"
+      },
+      {
+        "name": "FY2025 net sales",
+        "unit": "JPY million",
+        "currentValue": 792108,
+        "currency": "JPY",
+        "costAsOf": "2025",
+        "description": "SMC Integrated Report 2025 net sales for the year ended March 31, 2025; broad pneumatic/vacuum automation exposure, not parcel EOAT share."
       }
     ],
     "evidenceIds": [
       "ev_mfg_smc_vacuum_pads",
       "ev_mfg_smc_vacuum_equipment_2026",
-      "ev_mfg_smc_vacuum_pressure_switches_2026"
+      "ev_mfg_smc_vacuum_pressure_switches_2026",
+      "ev_smc_integrated_report_2025_net_sales"
     ],
     "tags": [
       "manufacturer",
@@ -7390,10 +7426,19 @@
       {
         "name": "Public listing exposure",
         "currentValue": "KION Group KGX.DE"
+      },
+      {
+        "name": "FY2025 Supply Chain Solutions revenue",
+        "unit": "EUR million",
+        "currentValue": 3071.4,
+        "currency": "EUR",
+        "costAsOf": "2025",
+        "description": "KION FY2025 Supply Chain Solutions segment revenue; Dematic is the segment's warehouse-automation brand, but this is broader than low-cost parcel robot cells."
       }
     ],
     "evidenceIds": [
-      "ev_mfg_dematic_sortation_controls"
+      "ev_mfg_dematic_sortation_controls",
+      "ev_kion_annual_report_2025_scs_revenue"
     ],
     "tags": [
       "manufacturer",
@@ -7519,11 +7564,20 @@
       {
         "name": "Public listing exposure",
         "currentValue": "HON"
+      },
+      {
+        "name": "2024 Warehouse and Workflow Solutions revenue",
+        "unit": "USD million",
+        "currentValue": 1000,
+        "currency": "USD",
+        "costAsOf": "2024",
+        "description": "Honeywell described WWS, operating under Intelligrated and Transnorm, as nearly USD 1B revenue in 2024; approximate business-line exposure, not target-cell BOM share."
       }
     ],
     "evidenceIds": [
       "ev_mfg_honeywell_sortation_momentum_2026",
-      "ev_mfg_honeywell_irregulars_sorter_2026"
+      "ev_mfg_honeywell_irregulars_sorter_2026",
+      "ev_honeywell_wws_strategic_alternatives_2025"
     ],
     "tags": [
       "manufacturer",

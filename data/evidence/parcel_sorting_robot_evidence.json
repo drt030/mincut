@@ -3164,5 +3164,95 @@
     "limitations": "Material-family evidence; exact suction-cup compound and supplier share are not verified.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_abb_robotics_softbank_divestiture_2025",
+    "type": "news",
+    "title": "ABB to divest Robotics division to SoftBank Group",
+    "url": "https://www.abb.com/global/en/news/129685/abb-to-divest-robotics-division-to-softbank-group",
+    "sourceName": "ABB",
+    "date": "2025-10-08",
+    "summary": "ABB announced an agreement to divest its Robotics division to SoftBank for enterprise value USD 5.375B, expected to close in mid-to-late 2026.",
+    "supportsNodeIds": [
+      "org_abb_robotics"
+    ],
+    "limitations": "Transaction value and ownership transition signal; not revenue, market share, target-cell BOM, or confirmation of participation in the low-cost parcel cell.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_keyence_fy2025_financial_results",
+    "type": "historical_source",
+    "title": "KEYENCE FY2025 financial results materials",
+    "url": "https://www.keyence.co.jp/pdf/FinancialResults_202604_en.pdf",
+    "sourceName": "KEYENCE",
+    "date": "2026-04-24",
+    "summary": "KEYENCE FY2025 financial results materials report net sales of 11,693 hundred-million yen, up 10.4% year over year.",
+    "supportsNodeIds": [
+      "org_keyence"
+    ],
+    "limitations": "Company-level sales for broad factory automation; no parcel-specific machine-vision or safety share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_cognex_2025_10k_revenue",
+    "type": "historical_source",
+    "title": "Cognex 2025 Form 10-K",
+    "url": "https://www.sec.gov/Archives/edgar/data/851205/000085120526000012/cgnx-20251231.htm",
+    "sourceName": "Cognex / SEC",
+    "date": "2026-02-12",
+    "summary": "Cognex filed its FY2025 Form 10-K; FY2025 revenue was USD 994.359M.",
+    "supportsNodeIds": [
+      "org_cognex"
+    ],
+    "limitations": "Company-level revenue for broad industrial machine-vision and barcode-reader exposure; no parcel-specific share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_smc_integrated_report_2025_net_sales",
+    "type": "historical_source",
+    "title": "SMC Integrated Report 2025",
+    "url": "https://static.smc.eu/binaries/content/assets/smc_nl/bedrijf/integrated-report-2025.pdf",
+    "sourceName": "SMC",
+    "date": "2025",
+    "summary": "SMC Integrated Report 2025 reports net sales of JPY 792,108M for the year ended March 31, 2025.",
+    "supportsNodeIds": [
+      "org_smc"
+    ],
+    "limitations": "Company-level pneumatic and automation sales; no parcel EOAT supplier share or target-cell BOM confirmation.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_kion_annual_report_2025_scs_revenue",
+    "type": "historical_source",
+    "title": "KION Group Annual Report 2025",
+    "url": "https://reports.kiongroup.com/2025/ar/",
+    "sourceName": "KION Group",
+    "date": "2026-02-26",
+    "summary": "KION Group Annual Report 2025 reports EUR 3,071.4M revenue for the Supply Chain Solutions segment and shows Dematic under KION Supply Chain Solutions.",
+    "supportsNodeIds": [
+      "org_dematic_kion"
+    ],
+    "limitations": "Segment-level warehouse automation revenue; broader than low-cost parcel robot cells and not a target-cell BOM or market-share estimate.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_honeywell_wws_strategic_alternatives_2025",
+    "type": "news",
+    "title": "Honeywell strategic alternatives for PSS and Warehouse and Workflow Solutions",
+    "url": "https://www.honeywell.com/us/en/press/2025/07/strategicupdate",
+    "sourceName": "Honeywell",
+    "date": "2025-07-08",
+    "summary": "Honeywell said Warehouse and Workflow Solutions generated nearly USD 1B revenue in 2024 and includes supply-chain and warehouse automation projects, automated sortation, palletizers, conveyors, robotics, aftermarket services, and software under Intelligrated and Transnorm.",
+    "supportsNodeIds": [
+      "org_honeywell_intelligrated"
+    ],
+    "limitations": "Approximate business-line revenue from a corporate press release; not parcel-cell BOM, market share, or China-specific exposure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
   }
 ]
