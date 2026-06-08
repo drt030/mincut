@@ -1619,6 +1619,7 @@ function TopBlockers({
           const sourceText = entry.source === "explicit" ? t("explicitBottleneck") : maturityText;
           const badgeText = entry.source === "explicit" ? t("bottleneckBadge") : `${Math.round(entry.risk * 100)}%`;
           const factors = constraintFactorsForNode(entry.child, t);
+          const riskDrivers = riskDriverText(entry.child, graph, t);
           return (
             <li key={entry.id}>
               {onSelectNode ? (
@@ -1634,6 +1635,7 @@ function TopBlockers({
                     {sourceText}
                     {factors.length > 0 ? ` · ${factors.map((factor) => factor.label).join(" · ")}` : ""}
                   </span>
+                  {riskDrivers ? <span className="top-blockers-drivers muted">{riskDrivers}</span> : null}
                 </button>
               ) : (
                 <span>
@@ -1644,6 +1646,7 @@ function TopBlockers({
                       · {factors.map((factor) => factor.label).join(" · ")}
                     </span>
                   ) : null}
+                  {riskDrivers ? <span className="top-blockers-drivers muted"> · {riskDrivers}</span> : null}
                 </span>
               )}
               <span className={["top-blockers-risk", entry.source === "explicit" ? "explicit" : ""].filter(Boolean).join(" ")} aria-hidden="true">
@@ -1655,6 +1658,27 @@ function TopBlockers({
       </ol>
     </div>
   );
+}
+
+function riskDriverText(node: Node, graph: GraphData, t: (key: string) => string): string {
+  const drivers: string[] = [];
+  if (typeof node.maturityScore === "number") {
+    drivers.push(`${t("topBlockersMaturityGap")} ${Math.round(100 - node.maturityScore)}%`);
+  }
+  const cost = topBlockerCostLabel(node, graph);
+  if (cost) drivers.push(`${t("topBlockersP50Cost")} ${cost}`);
+  return drivers.join(" · ");
+}
+
+function topBlockerCostLabel(node: Node, graph: GraphData): string | null {
+  if (!isCostSummaryNode(node)) return null;
+  try {
+    const rollup = rollupCost(graph, node.id);
+    if (!rollup.anyChildContributed && !rollup.directOnly) return null;
+    return formatMetricValue(rollup.rolledUp.typical, "RMB", "RMB").compact;
+  } catch {
+    return null;
+  }
 }
 
 function NodeListLink({

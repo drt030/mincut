@@ -637,6 +637,16 @@ test("expanded: product top blockers surface limiting-factor categories", () => 
     /Capacity \/ scale/,
     `top blockers must expose whether a blocker is capacity/scale constrained; got: ${html}`,
   );
+  assert.match(
+    html,
+    /Maturity gap/,
+    `top blockers must explain that risk is partly driven by maturity gap; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /p50 cost/,
+    `top blockers must explain that risk is partly driven by rolled-up p50 cost; got: ${html}`,
+  );
 });
 
 test("expanded: product detail surfaces an investor answer panel", () => {
