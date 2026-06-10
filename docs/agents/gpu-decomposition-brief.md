@@ -1,8 +1,9 @@
 # GPU / AI-Compute Chain — Decomposition Brief
 
-**Version: v2 · 2026-06-10 (v1 same day) · Owner of this file: the orchestrator.**
-v2 lessons source: Layer-0 self-checks + Layer-1 public dev-set grading of round 1. No
-held-out information has influenced this document.
+**Version: v3 · 2026-06-10 (v1/v2 same day) · Owner of this file: the orchestrator.**
+v2 lessons source: Layer-0 self-checks + Layer-1 public dev-set grading of round 1. v3 lessons
+source: the leak-audited round-2 critique (`.eval/critiques/round-2-approved.md`) — direction
+only, no held-out specifics have influenced this document.
 Read this whole brief before researching. You are a Decomposer agent: you independently map the
 AI-compute supply chain from primary industry sources. You build the map from supply-chain facts —
 you do not copy anyone's stock picks, and you never look at the evaluation workspace.
@@ -56,7 +57,10 @@ exactly would fail to scale, and why?"*
 4. **Bottleneck claims** (ADR-0006): set `bottleneckOf: ["ai_accelerator_module_hbm_cowos"]`
    (and/or `"leading_edge_ai_compute"`) on the gating node itself. Every `bottleneckOf` needs a
    quantified constraint in `description`/`metrics` plus evidence: capacity, lead time, or share
-   concentration. No vibes-based bottlenecks.
+   concentration. No vibes-based bottlenecks. **Citation altitude: the evidence attaches to the
+   node CARRYING the flag** — `evidenceIds` on the flagged node itself with the capacity /
+   lead-time / share figure in that record, not only on the supplier nodes beneath it. A
+   chokepoint assertion is exactly the claim a reviewer challenges first.
 5. **Depth uniformity.** Do not leave one branch at level 1 while a sibling goes to level 3 —
    either decompose or tag the frontier with a reason.
 6. **Split by technology variant when supplier sets differ.** If two variants of a component
@@ -74,6 +78,22 @@ exactly would fail to scale, and why?"*
 9. **Wire the new parent, not the product.** Every `requires` edge for a sub-component hangs
    off its immediate parent module — never directly off the product node (the product keeps
    exactly its seven level-1 modules).
+10. **Decompose the device-feeding upstream.** A finished device (a laser, a controller IC, a
+    memory stack) is NOT a leaf just because it is purchasable: ask what feeds it — its raw
+    substrate/feedstock tier, its epitaxial/deposition growth tier, and the specialty or
+    compound merchant foundry tier — and model those layers wherever they have their own
+    concentrated merchant supplier base. The mainstream-silicon reading of "materials" and
+    "foundry" is not the only one: specialty/compound branches are distinct supplier
+    populations and must be modeled separately when a segment depends on them.
+11. **Referent discipline.** A node label matching a segment name does not mean the segment is
+    covered — state in the node `description` which referent is modeled (e.g. package-carrier
+    substrate vs wafer/crystal feedstock substrate; silicon-logic foundry vs compound/analog
+    foundry). When two referents share a name, model them as separate nodes.
+12. **Scope edges are decisions, not omissions.** When a real chain layer is deliberately not
+    modeled (facility/grid power; operator/service tiers above the hardware chain; adjacent
+    branches like storage-class memory), record the decision explicitly: a
+    `decomposition_frontier` tag + `notes` naming the excluded tier and the domain it belongs
+    to. Silent absence reads as a miss; a documented boundary reads as a judgment.
 
 ## 3. Exposure layer (org nodes — the paid product)
 
