@@ -1,0 +1,11 @@
+[
+  {
+    "id": "e_acc_ai_accelerator_module_hbm_cowos__enables__leading_edge_ai_compute",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "leading_edge_ai_compute",
+    "relation": "enables",
+    "claim": "The HBM + 2.5D advanced-packaging accelerator module is the architecture currently satisfying datacenter-scale leading-edge AI compute demand. Edge direction Product -> Capability per ADR-0004 keeps the product subgraph self-contained.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  }
+]
