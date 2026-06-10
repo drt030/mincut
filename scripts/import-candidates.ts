@@ -19,10 +19,31 @@ import {
 } from "../src/lib/schema";
 
 const dataRoot = path.join(process.cwd(), "data");
-const nodeFile = path.join(dataRoot, "nodes", "parcel_sorting_robot.json");
-const edgeFile = path.join(dataRoot, "edges", "parcel_sorting_robot_edges.json");
-const evidenceFile = path.join(dataRoot, "evidence", "parcel_sorting_robot_evidence.json");
-const taskFile = path.join(dataRoot, "tasks", "pending_tasks.json");
+
+/**
+ * `loadGraphData` reads every JSON file under data/{nodes,edges,evidence}, so
+ * multi-domain data lives in per-domain files (e.g. `ai_compute_chain.json`)
+ * while validation stays whole-graph. `--domain <name>` routes appends to the
+ * domain's files; without it, appends keep targeting the parcel-sorting v0
+ * files. Research tasks are a single shared queue either way.
+ */
+export function resolveDataFiles(domain?: string): {
+  nodeFile: string;
+  edgeFile: string;
+  evidenceFile: string;
+  taskFile: string;
+} {
+  if (domain !== undefined && !/^[a-z0-9_]+$/.test(domain)) {
+    throw new Error(`--domain must be lower_snake_case, got: "${domain}"`);
+  }
+  const base = domain ?? "parcel_sorting_robot";
+  return {
+    nodeFile: path.join(dataRoot, "nodes", `${base}.json`),
+    edgeFile: path.join(dataRoot, "edges", `${base}_edges.json`),
+    evidenceFile: path.join(dataRoot, "evidence", `${base}_evidence.json`),
+    taskFile: path.join(dataRoot, "tasks", "pending_tasks.json"),
+  };
+}
 
 const candidateTaskSchema = researchTaskSchema
   .omit({ id: true, status: true, createdAt: true })
@@ -49,16 +70,18 @@ const candidateImportSchema = z.object({
 
 type CandidateImport = z.infer<typeof candidateImportSchema>;
 
-function parseArgs(): { filePath: string; dryRun: boolean; allowReviewed: boolean; allowActiveScopeExpansion: boolean } {
+function parseArgs(): { filePath: string; domain?: string; dryRun: boolean; allowReviewed: boolean; allowActiveScopeExpansion: boolean } {
   const fileIndex = process.argv.indexOf("--file");
   const filePath = fileIndex >= 0 ? process.argv[fileIndex + 1] : undefined;
+  const domainIndex = process.argv.indexOf("--domain");
+  const domain = domainIndex >= 0 ? process.argv[domainIndex + 1] : undefined;
   const dryRun = process.argv.includes("--dry-run");
   const allowReviewed = process.argv.includes("--allow-reviewed");
   const allowActiveScopeExpansion = process.argv.includes("--allow-active-scope-expansion");
 
-  if (!filePath) {
+  if (!filePath || (domainIndex >= 0 && !domain)) {
     console.error(
-      "Usage: npm run import:candidates -- --file <candidate-json> [--dry-run] [--allow-reviewed] [--allow-active-scope-expansion]",
+      "Usage: npm run import:candidates -- --file <candidate-json> [--domain <data_file_base>] [--dry-run] [--allow-reviewed] [--allow-active-scope-expansion]",
     );
     process.exit(1);
   }
@@ -70,11 +93,11 @@ function parseArgs(): { filePath: string; dryRun: boolean; allowReviewed: boolea
     process.exit(1);
   }
 
-  return { filePath, dryRun, allowReviewed, allowActiveScopeExpansion };
+  return { filePath, domain, dryRun, allowReviewed, allowActiveScopeExpansion };
 }
 
 function main(): void {
-  const { filePath, dryRun, allowReviewed, allowActiveScopeExpansion } = parseArgs();
+  const { filePath, domain, dryRun, allowReviewed, allowActiveScopeExpansion } = parseArgs();
   const importedAt = new Date().toISOString();
   const input = readCandidateFile(filePath);
   const candidate = withImportDefaults(input, importedAt);
@@ -94,10 +117,11 @@ function main(): void {
 
   if (dryRun) return;
 
-  appendJsonArray<Node>(nodeFile, candidate.nodes);
-  appendJsonArray<Edge>(edgeFile, candidate.edges);
-  appendJsonArray<Evidence>(evidenceFile, candidate.evidence);
-  appendJsonArray<ResearchTask>(taskFile, candidate.tasks);
+  const files = resolveDataFiles(domain);
+  appendJsonArray<Node>(files.nodeFile, candidate.nodes);
+  appendJsonArray<Edge>(files.edgeFile, candidate.edges);
+  appendJsonArray<Evidence>(files.evidenceFile, candidate.evidence);
+  appendJsonArray<ResearchTask>(files.taskFile, candidate.tasks);
   console.log("Candidate import written to local JSON graph files.");
 }
 
@@ -352,7 +376,8 @@ function duplicateErrors(label: string, ids: string[]): string[] {
 
 function appendJsonArray<T>(filePath: string, items: T[]): void {
   if (!items.length) return;
-  const existing = JSON.parse(fs.readFileSync(filePath, "utf8")) as T[];
+  // A new domain's data files don't exist until the first import lands.
+  const existing = fs.existsSync(filePath) ? (JSON.parse(fs.readFileSync(filePath, "utf8")) as T[]) : [];
   fs.writeFileSync(filePath, `${JSON.stringify([...existing, ...items], null, 2)}\n`);
 }
 
