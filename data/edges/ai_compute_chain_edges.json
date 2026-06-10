@@ -922,16 +922,16 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_opt_ai_acc__requires__on_module_hbm_interconnect",
-    "source": "ai_accelerator_module_hbm_cowos",
+    "id": "e_acc_opt_interconnect__requires__on_module_hbm_interconnect",
+    "source": "interconnect_and_optics",
     "target": "on_module_hbm_interconnect",
     "relation": "requires",
     "confidence": "high",
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_opt_ai_acc__requires__chiplet_interconnect_substrate",
-    "source": "ai_accelerator_module_hbm_cowos",
+    "id": "e_acc_opt_interconnect__requires__chiplet_interconnect_substrate",
+    "source": "interconnect_and_optics",
     "target": "chiplet_interconnect_substrate",
     "relation": "requires",
     "confidence": "high",
@@ -941,16 +941,16 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_opt_ai_acc__requires__on_module_serdes",
-    "source": "ai_accelerator_module_hbm_cowos",
+    "id": "e_acc_opt_interconnect__requires__on_module_serdes",
+    "source": "interconnect_and_optics",
     "target": "on_module_serdes_phy_chiplet",
     "relation": "requires",
     "confidence": "high",
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_opt_ai_acc__requires__optical_transceiver_module",
-    "source": "ai_accelerator_module_hbm_cowos",
+    "id": "e_acc_opt_interconnect__requires__optical_transceiver_module",
+    "source": "interconnect_and_optics",
     "target": "optical_transceiver_module",
     "relation": "requires",
     "confidence": "high",
@@ -960,8 +960,8 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_opt_ai_acc__requires__backplane_substrate",
-    "source": "ai_accelerator_module_hbm_cowos",
+    "id": "e_acc_opt_interconnect__requires__backplane_substrate",
+    "source": "interconnect_and_optics",
     "target": "backplane_substrate_and_routing",
     "relation": "requires",
     "confidence": "high",
@@ -1183,8 +1183,8 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_pwr__requires__module_vrm",
-    "source": "ai_accelerator_module_hbm_cowos",
+    "id": "e_acc_pwr_power_delivery__requires__module_vrm",
+    "source": "power_delivery",
     "target": "module_level_vrm",
     "relation": "requires",
     "claim": "AI accelerator modules require integrated multi-phase VRM for local voltage regulation at the logic die and HBM interfaces.",

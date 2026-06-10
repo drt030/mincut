@@ -987,7 +987,7 @@
       "optical_transceiver_module"
     ],
     "supportsEdgeIds": [
-      "e_acc_opt_ai_acc__requires__optical_transceiver_module"
+      "e_acc_opt_interconnect__requires__optical_transceiver_module"
     ],
     "confidence": "high",
     "reviewStatus": "unreviewed"
@@ -1129,7 +1129,7 @@
       "power_stage_ic"
     ],
     "supportsEdgeIds": [
-      "e_acc_pwr__requires__module_vrm"
+      "e_acc_pwr_power_delivery__requires__module_vrm"
     ],
     "confidence": "high",
     "reviewStatus": "unreviewed"
