@@ -1,4 +1,5 @@
 import type { Edge, GraphData, Node, NodeKind } from "./schema";
+import { defaultFocalProduct } from "./graphTraversal";
 
 /**
  * Per ADR-0007 and
@@ -11,8 +12,8 @@ import type { Edge, GraphData, Node, NodeKind } from "./schema";
  *
  * The algorithm in summary:
  *
- *   1. Focal root = requested structural `rootId`, or the first node
- *      with `kind === "product"` (graph order), sits at `(r = 0, theta = 0)`.
+ *   1. Focal root = requested structural `rootId`, or the canonical default
+ *      focal product (`defaultFocalProduct`), sits at `(r = 0, theta = 0)`.
  *   2. N first-layer subsystems (focal product's `requires`-children among
  *      structural kinds) sit on a ring at `r = R1`. Branch order is
  *      deterministic (sorted by node id), but angular width is weighted
@@ -154,7 +155,7 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
   const requestedRoot = rootId
     ? graph.nodes.find((n) => n.id === rootId && STRUCTURAL_KINDS.has(n.kind))
     : undefined;
-  const focal = requestedRoot ?? graph.nodes.find((n) => n.kind === "product");
+  const focal = requestedRoot ?? defaultFocalProduct(graph);
   if (!focal) {
     // No focal product → nothing to lay out radially. Materials still get
     // a deterministic placement on R_FALLBACK so callers always get a

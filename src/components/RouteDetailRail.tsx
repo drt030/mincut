@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import { nodeRisk } from "@/lib/nodeRisk";
 import { selectTopN } from "@/lib/prioritySelection";
@@ -101,7 +102,7 @@ export function RouteDetailRail({
     [graph.nodes],
   );
   const activeAnalysisMode = railAnalysisMode(analysisMode);
-  const productId = graph.nodes.find((node) => node.kind === "product")?.id ?? null;
+  const productId = defaultFocalProduct(graph)?.id ?? null;
   const firstLayerNodes = useMemo(() => {
     if (systemNodeIds) {
       return systemNodeIds

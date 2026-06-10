@@ -4,6 +4,7 @@ import { subsystemHue } from "../src/lib/subsystemHue";
 import type { GraphData } from "../src/lib/schema";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
+import { defaultFocalProduct } from "../src/lib/graphTraversal";
 
 /**
  * RED tests for Slice A3 (spec:
@@ -68,7 +69,7 @@ function buildFocalSubtree(graph: GraphData): {
   subtree: Set<string>;
   inCountFromSubtree: Map<string, number>;
 } {
-  const focal = graph.nodes.find((n) => n.kind === "product");
+  const focal = defaultFocalProduct(graph);
   assert.ok(focal, "fixture must contain at least one product node");
   const childrenByParent = new Map<string, string[]>();
   for (const e of graph.edges) {

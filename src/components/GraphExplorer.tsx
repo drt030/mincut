@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { useSearchParams } from "next/navigation";
 import {
   Background,
@@ -597,7 +598,7 @@ function rectPortPoint(
  * in A3 — orphans (sibling products etc.) are deferred per ADR-0006.
  */
 function buildFocalSubtree(graph: GraphData, rootId: string): Set<string> {
-  const focal = graph.nodes.find((n) => n.id === rootId) ?? graph.nodes.find((n) => n.kind === "product");
+  const focal = graph.nodes.find((n) => n.id === rootId) ?? defaultFocalProduct(graph);
   if (!focal) return new Set();
   const childrenByParent = new Map<string, string[]>();
   for (const edge of graph.edges) {

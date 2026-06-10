@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterCanvasGraph } from "../src/lib/canvasGraph";
+import { filterCanvasGraph, resolveCanvasRootId } from "../src/lib/canvasGraph";
 import { loadGraphData } from "../src/lib/graphLoader";
+import { V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 
 function chainNode(id: string, kind: Node["kind"] = "module"): Node {
@@ -185,4 +186,31 @@ test("canvas graph depth window is relative to the active research root", () => 
     ["A", "B", "C", "D", "E"],
     "rerooting on a child should open the same four-edge window relative to that child",
   );
+});
+
+test("resolveCanvasRootId prefers the active v0 target over file-order-earlier products", () => {
+  const graph: GraphData = {
+    graphVersion: "test",
+    nodes: [
+      chainNode("aaa_alphabetically_first_product", "product"),
+      chainNode(V0_TARGET_NODE_ID, "product"),
+    ],
+    edges: [],
+    evidence: [],
+  };
+  assert.equal(
+    resolveCanvasRootId(graph),
+    V0_TARGET_NODE_ID,
+    "default canvas root must not depend on data-file sort order while the v0 target is present",
+  );
+});
+
+test("resolveCanvasRootId falls back to the first product when the v0 target is absent", () => {
+  const graph: GraphData = {
+    graphVersion: "test",
+    nodes: [chainNode("some_product", "product")],
+    edges: [],
+    evidence: [],
+  };
+  assert.equal(resolveCanvasRootId(graph), "some_product");
 });

@@ -6,6 +6,18 @@ export function nodeById(graph: GraphData, id: string): Node | undefined {
   return graph.nodes.find((node) => node.id === id);
 }
 
+/**
+ * Canonical default focal product when no explicit root is requested: the
+ * active v0 target if present, otherwise the first product in graph order.
+ * Multi-domain data files load in filename sort order, so "first product"
+ * alone would silently change whenever a new domain file sorts ahead of the
+ * parcel files (e.g. ai_compute_chain.json) — every default-root consumer
+ * must go through this helper instead.
+ */
+export function defaultFocalProduct(graph: GraphData): Node | undefined {
+  return nodeById(graph, V0_TARGET_NODE_ID) ?? graph.nodes.find((node) => node.kind === "product");
+}
+
 export function evidenceById(graph: GraphData, id: string): Evidence | undefined {
   return graph.evidence.find((item) => item.id === id);
 }

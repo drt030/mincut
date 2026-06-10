@@ -1,4 +1,5 @@
 import type { GraphData, NodeKind } from "./schema";
+import { defaultFocalProduct } from "./graphTraversal";
 
 /**
  * Per ADR-0006 §Color and spec
@@ -9,8 +10,9 @@ import type { GraphData, NodeKind } from "./schema";
  *
  * Algorithm:
  *
- *   1. Focal root = explicit `rootId` when supplied, otherwise the first
- *      node with `kind === "product"` in graph.nodes order. Returns
+ *   1. Focal root = explicit `rootId` when supplied, otherwise the
+ *      canonical default focal product (`defaultFocalProduct`: the active
+ *      v0 target, falling back to first product in graph order). Returns
  *      neutral grey.
  *   2. First-layer subsystems = focal root's `requires`-children among
  *      structural kinds (product / module / material / engineering_method /
@@ -76,7 +78,7 @@ type SubsystemIndex = {
 
 function buildSubsystemIndex(graph: GraphData, rootId?: string | null): SubsystemIndex {
   const requestedRoot = rootId ? graph.nodes.find((n) => n.id === rootId) : undefined;
-  const focal = requestedRoot ?? graph.nodes.find((n) => n.kind === "product");
+  const focal = requestedRoot ?? defaultFocalProduct(graph);
   if (!focal) {
     return {
       focalId: undefined,

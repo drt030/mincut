@@ -1,4 +1,5 @@
 import type { Edge, GraphData, Node, NodeKind } from "./schema";
+import { defaultFocalProduct } from "./graphTraversal";
 
 export const DEFAULT_CANVAS_MAX_DEPTH = 4;
 
@@ -62,7 +63,7 @@ export function resolveCanvasRootId(graph: GraphData, preferredRootId?: string |
     const preferred = graph.nodes.find((node) => node.id === preferredRootId);
     if (preferred && isRootableCanvasNode(preferred)) return preferred.id;
   }
-  return graph.nodes.find((node) => node.kind === "product")?.id ?? null;
+  return defaultFocalProduct(graph)?.id ?? null;
 }
 
 function edgeKey(edge: Edge): string {
