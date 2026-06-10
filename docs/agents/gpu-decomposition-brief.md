@@ -1,6 +1,8 @@
 # GPU / AI-Compute Chain — Decomposition Brief
 
-**Version: v1 · 2026-06-10 · Owner of this file: the orchestrator.**
+**Version: v2 · 2026-06-10 (v1 same day) · Owner of this file: the orchestrator.**
+v2 lessons source: Layer-0 self-checks + Layer-1 public dev-set grading of round 1. No
+held-out information has influenced this document.
 Read this whole brief before researching. You are a Decomposer agent: you independently map the
 AI-compute supply chain from primary industry sources. You build the map from supply-chain facts —
 you do not copy anyone's stock picks, and you never look at the evaluation workspace.
@@ -57,6 +59,21 @@ exactly would fail to scale, and why?"*
    concentration. No vibes-based bottlenecks.
 5. **Depth uniformity.** Do not leave one branch at level 1 while a sibling goes to level 3 —
    either decompose or tag the frontier with a reason.
+6. **Split by technology variant when supplier sets differ.** If two variants of a component
+   are made by different vendor pools (e.g. short-reach vs long-reach optical links use
+   different laser device classes), model them as separate nodes — a single merged node hides
+   half the supply base and its chokepoints.
+7. **Crisis-phase suppliers count.** When a documented shortage episode surfaced emergency or
+   regional suppliers, record them: as org nodes if they are part of the steady-state top-5
+   concentration, otherwise by name in the component's `notes` with the episode context. A
+   supply story that only lists tier-1 flagships misses how the constraint actually resolved.
+8. **Scope boundary (this product):** module + rack level. Datacenter-grid infrastructure
+   (large transformers, switchgear, grid interconnect) is a SEPARATE future domain
+   (`ai_dc_power_chain`) — put a `decomposition_frontier` note where power_delivery meets the
+   facility, do not model past it.
+9. **Wire the new parent, not the product.** Every `requires` edge for a sub-component hangs
+   off its immediate parent module — never directly off the product node (the product keeps
+   exactly its seven level-1 modules).
 
 ## 3. Exposure layer (org nodes — the paid product)
 
@@ -75,6 +92,13 @@ For each component where supply is concentrated (and only there — skip true co
 - Private/unlisted suppliers may appear (they are part of the truth) — just omit the listing
   metric; do not pad listings.
 - Every org needs ≥ 1 independent industry evidence URL (filing/IR, analyst house, trade press).
+- **No silent metric omissions.** Every org node must carry: a `Public listing` metric whenever
+  the company (or its parent) is listed — VERIFY the ticker against the company's own IR page
+  or the exchange, never from memory — plus at least one market-share or capacity metric whose
+  `description` names the source and the basis. If a company is private, say so in `notes`.
+- **Supplier completeness check:** before closing a component, ask "which suppliers did
+  trade-press/analyst coverage of this layer's shortages actually name?" Each named one is
+  either in your top-5 org set, or recorded in the component `notes` as additional supply base.
 
 ## 4. Sources
 
@@ -132,3 +156,24 @@ For every non-commodity component you created:
 Fix what fails before returning. Report (in your final message): counts of nodes/edges/evidence,
 which sub-layers you flagged `bottleneckOf` and the one-line quantified reason for each, frontier
 tags you left, and anything you looked for but could not source (honest gaps beat padded ones).
+
+## 7. Historical chokepoint episodes — mandatory research targets (public dev set)
+
+These ten documented 2021–2025 episodes are public knowledge and primary research material
+(§2.3). For any component touching one of these layers, your decomposition must be able to
+explain the episode: which node gated, who the constrained suppliers were, how it resolved.
+
+1. `abf_substrate_shortage` (2021–2023) — ABF build-up film / IC substrates
+2. `cowos_advanced_packaging_selloff` (2023–2025) — 2.5D packaging capacity sold out
+3. `silicon_interposer_constraint` (2023–2025) — interposer capacity inside packaging flow
+4. `hbm_allocation_selloff` (2023–2025) — HBM booked out / allocation
+5. `neon_gas_lithography_supply_shock` (2022) — lithography gas supply shock, crisis sourcing
+6. `optical_transceiver_eml_laser_lockup` (2024–2025) — long-reach laser device shortage
+7. `datacenter_liquid_cooling_cdu_constraint` (2024–2025) — coolant distribution unit capacity
+8. `grid_transformer_power_equipment_shortage` (2022–2026) — OUT OF SCOPE here (§2.8): record
+   the boundary as a frontier note on power_delivery; the episode belongs to `ai_dc_power_chain`
+9. `euv_lithography_tool_backlog` (2021–2024) — EUV tool single-source backlog
+10. `leading_edge_foundry_capacity_n3_n5` (2023–2026) — leading-node foundry allocation
+
+Sources for each: `.eval/dev/public_chokepoints.json` is the curated reference — Decomposers do
+not read `.eval/**`, so research the episodes directly from trade press/analyst archives.
