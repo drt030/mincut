@@ -45,5 +45,4511 @@
       "flagship_product"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "logic_die_fabrication",
+    "name": "Leading-edge logic die fabrication",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Manufacturing process for leading-edge (3nm, 5nm, 7nm class) silicon logic dies for AI accelerators. Involves hundreds of sequential processing steps including lithography, deposition, etching, implantation, and thermal processing across 15+ weeks per wafer lot. Critical bottleneck for global AI infrastructure scaling.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "TSMC 3nm/5nm utilization",
+        "unit": "%",
+        "currentValue": 95,
+        "description": "Estimated TSMC leading-edge utilization; tight allocation for AI customers through 2026."
+      },
+      {
+        "name": "Fab ramp to volume (months)",
+        "unit": "months",
+        "currentValue": 24,
+        "description": "Typical timeline to ramp a new advanced-node fab to production volume from construction start."
+      },
+      {
+        "name": "Cost per leading-edge fab",
+        "unit": "billion USD",
+        "currentValue": 20,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Estimated capital cost for a new leading-edge 300mm fab in 2025-2026 based on recent TSMC/Samsung/Intel disclosures."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_foundry_capacity",
+      "ev_acc_logic_tsmc_3nm"
+    ],
+    "tags": [
+      "manufacturing_process",
+      "capital_intensive",
+      "supply_constrained"
+    ],
+    "notes": "Foundry capacity for leading-edge logic is the critical gating constraint for AI accelerator module volume. TSMC (70%+ market share) is near full utilization on 3nm; Samsung foundry expanding but facing profitability and yield challenges.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "extreme_ultraviolet_lithography",
+    "name": "Extreme ultraviolet (EUV) lithography process",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "EUV lithography at 13.5nm wavelength enables patterning of sub-20nm features essential for 5nm and 3nm process nodes. Single-source supplier (ASML) for commercial systems, extreme mask-fabrication complexity, and resist-development challenges create persistent supply constraints.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "ASML EUV systems shipped (cumulative through 2025)",
+        "unit": "units",
+        "currentValue": 190,
+        "description": "Approximately 190 EUV systems delivered since commercial introduction in 2017, with production ramping to ~40/year in 2025."
+      },
+      {
+        "name": "EUV system lead time",
+        "unit": "months",
+        "currentValue": 20,
+        "description": "ASML quoted lead time for new EUV tool orders in 2025; constrained by supply chain complexity."
+      },
+      {
+        "name": "ASML EUV system price",
+        "unit": "million USD",
+        "currentValue": 200,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Typical cost for ASML NXE:3600D or next-generation EUV system."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_bottleneck",
+      "ev_acc_logic_asml_capacity"
+    ],
+    "tags": [
+      "critical_bottleneck",
+      "single_source_risk",
+      "hard_to_develop"
+    ],
+    "notes": "EUV lithography has become essential for 5nm and below nodes, but faces technical challenges: (1) mask defect rates and repair complexity, (2) photoresist outgassing contamination, (3) ASML system lead time of 18-24 months, (4) mask production capacity limitation at AGC/Hoya duopoly.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "euv_photomask_production",
+    "name": "EUV photomask blank and patterned mask manufacturing",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Production of blank EUV masks (multilayer Mo/Si stacks) and patterned masks for EUV lithography. Severely constrained by complex 40-50 alternating-layer deposition, defect-control requirements, and duopolistic supply (AGC, Hoya). Mask repair for defects is highly specialized and slow.",
+    "maturityScore": 62,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "EUV mask blank suppliers",
+        "unit": "count",
+        "currentValue": 2,
+        "description": "Only AGC Inc. and Hoya Corporation manufacture EUV photomask blanks; duopoly with tight capacity."
+      },
+      {
+        "name": "Mask defect repair cycle time",
+        "unit": "days",
+        "currentValue": 14,
+        "description": "Typical turnaround for e-beam repair of critical defects on EUV masks; constrains overall photomask availability."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_suppliers",
+      "ev_acc_logic_euv_mask_bottleneck"
+    ],
+    "tags": [
+      "supply_bottleneck",
+      "duopoly",
+      "mask_defect_control"
+    ],
+    "notes": "EUV mask production is a known bottleneck with slow cycle times. Only AGC Inc. and Hoya Corporation produce blank masks globally; in-house pattering at TSMC/Samsung limits external capacity. Mask defect rates and repair cycles directly limit lithography throughput.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "euv_photoresist_materials",
+    "name": "EUV photoresist materials and formulation",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Specialized photoresist materials for EUV lithography, formulated to achieve sub-20nm line widths and control resist profile. Vendors (Shin-Etsu, JSR, TOK, Fujifilm, Merck) face challenges: sensitivity/contrast trade-offs, outgassing contamination of EUV optics, secondary-electron-induced pattern collapse at advanced nodes.",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_logic_euv_resist_challenge"
+    ],
+    "tags": [
+      "material_supply",
+      "specialty_chemical",
+      "performance_challenge"
+    ],
+    "notes": "EUV photoresist development is an ongoing challenge for achieving production-worthy resolution, sensitivity, and line-edge roughness at 3nm and below. Multiple qualified suppliers exist but each supports only a subset of foundries, creating per-fab qualification complexity.",
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "process_equipment_deposition",
+    "name": "Deposition equipment (CVD, PVD, ALD)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Cluster tools for physical vapor deposition (PVD), chemical vapor deposition (CVD), and atomic layer deposition (ALD) are core to dielectric/metal layer growth. Supplied by Applied Materials, Lam Research, Tokyo Electron; each fab requires dozens of such tools, and leading-edge qualification cycles are lengthy.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Typical deposition tool lead time",
+        "unit": "months",
+        "currentValue": 12,
+        "description": "Quoted lead time for advanced PVD/CVD/ALD cluster tools in 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_deposition_equipment"
+    ],
+    "tags": [
+      "equipment",
+      "multi_sourced",
+      "long_lead_time"
+    ],
+    "notes": "Deposition equipment is not a single-source bottleneck but lead-time and throughput constraints on new fabs can delay ramp. Tool-sharing costs and wafer-start bottlenecks indirectly limit foundry capacity expansion.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "plasma_etch_equipment",
+    "name": "Plasma etch (RIE) process equipment",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Reactive ion etch (RIE) tools for pattern transfer onto deposited films. Supplied by Applied Materials, Lam Research, Tokyo Electron. Etch selectivity and profile control at sub-10nm features require tight process margins and tool coordination with deposition steps.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_plasma_etch"
+    ],
+    "tags": [
+      "equipment",
+      "multi_sourced"
+    ],
+    "notes": "Plasma etch equipment is widely available and multi-sourced but represents a critical process constraint: selectivity, profile control, and time-to-etch are limiting factors for advanced-node yield at sub-7nm features.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "cmp_process_equipment",
+    "name": "Chemical-mechanical polishing (CMP) equipment and slurries",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "CMP is essential for planarization of multiple interconnect layers. Equipment suppliers: Applied Materials, Ebara. Consumables (slurries, pads, abrasives) supplied by Merck, Entegris, Resonac, Fujifilm. Process control and defect mitigation require tight margins on slurry chemistry and pad wear.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "CMP slurry suppliers",
+        "unit": "count",
+        "currentValue": 4,
+        "description": "Main suppliers for advanced-node CMP slurries: Merck, Entegris, Resonac, Fujifilm; some overlap in coverage."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "tags": [
+      "equipment",
+      "consumables",
+      "planarization"
+    ],
+    "notes": "CMP is a mature process but consumables demand is high and formulation changes for each new process node. Slurry supply (particularly custom formulations) can be a secondary bottleneck during fab ramps.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ion_implantation_equipment",
+    "name": "Ion implantation equipment",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Ion implanters dope transistor channels with boron, phosphorus, or arsenic. Primary suppliers: Axcelis Technologies, Applied Materials. High capital cost and long lead times; each advanced fab requires multiple implanters with specialized source/acceleration/dosing stages.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Implanter lead time",
+        "unit": "months",
+        "currentValue": 14,
+        "description": "Typical quoted lead time for advanced ion implantation system in 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_ion_implant"
+    ],
+    "tags": [
+      "equipment",
+      "specialized",
+      "long_lead_time"
+    ],
+    "notes": "Ion implantation is a critical process step but not a primary bottleneck due to multi-source supply and proven technology. Lead-time and fab-specific customization can delay new-fab ramps.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "process_control_metrology",
+    "name": "In-line wafer inspection and metrology",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "KLA Corporation and Tokyo Electron supply in-line inspection (critical dimension, defect review, overlay measurement) tools. These are essential for yield control and process monitoring at advanced nodes. High unit cost and fab-specific integration; constrain fab ramp capacity due to commissioning and training timelines.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Advanced metrology tools per fab",
+        "unit": "count",
+        "currentValue": 40,
+        "description": "Typical count of inspection/metrology tools in a state-of-the-art advanced-node fab."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_metrology"
+    ],
+    "tags": [
+      "equipment",
+      "yield_control",
+      "multi_sourced"
+    ],
+    "notes": "Metrology is a known secondary bottleneck: each fab needs dozens of inspection tools, and new-fab commissioning requires 6-12 months of tool setup, recipes, and qualification. KLA dominance in advanced metrology (post-2018 Orbotech acquisition) means limited choice for certain applications.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "silicon_wafer_300mm",
+    "name": "300mm silicon wafers (ultra-pure, polished)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Ultra-high-purity single-crystal silicon wafers, 300mm diameter, chemically polished. Primary suppliers: Shin-Etsu Silicon, SUMCO, GlobalWafers. Capacity at leading fabs is tight; wafer edge-defects and contamination from handling directly impact die yield. Wafer quality variation (resistivity, dislocation density) is a latent yield limiter.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Annual 300mm wafer shipments (2025 estimate)",
+        "unit": "million units",
+        "currentValue": 26,
+        "description": "Global market estimate for 300mm wafer shipments in 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_wafer_supply"
+    ],
+    "tags": [
+      "material",
+      "starting_material",
+      "multi_sourced"
+    ],
+    "notes": "Silicon wafer supply is stable but not unlimited. Wafer shortages did occur in 2020-2021; current demand from AI accelerators and advanced nodes is high. Wafer price volatility can squeeze foundry margins.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "process_gases_precursors",
+    "name": "Specialty process gases and metal precursors",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "CVD/ALD precursors (metal and dielectric sources), etch gases (Cl2, F2, HCl, C2F6), and high-purity dopant gases (AsH3, PH3, B2H6) for advanced nodes. Suppliers: Air Liquide, Linde, Showa Denko, Entegris, Matheson Tri-Gas. Purity, stability, and delivery reliability are critical; contamination can destroy wafer lots.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_process_gases"
+    ],
+    "tags": [
+      "material",
+      "specialty_chemical",
+      "hazardous"
+    ],
+    "notes": "Specialty gas supply is generally available but subject to production lead-time constraints and price volatility. Shortage episodes in 2020-2022 (related to manufacturing facility closures) demonstrated vulnerability. Gas mix optimization for new process nodes requires deep vendor collaboration.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermal_processing_furnaces",
+    "name": "Thermal processing (annealing, oxidation, diffusion)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Rapid thermal annealing (RTA) and diffusion furnaces for dopant activation, oxidation, and high-temperature anneal processes. Suppliers: Novellus Systems, Tokyo Electron. Temperature uniformity and ramp rates are critical for yield at advanced nodes; equipment qualification and recipe development are time-consuming.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_thermal_processing"
+    ],
+    "tags": [
+      "equipment",
+      "multi_sourced"
+    ],
+    "notes": "Thermal processing equipment is not a primary bottleneck but represents process complexity and fab integration challenges. New fab commissioning includes lengthy thermal-process qualification phases.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "foundry_capacity_tsmc",
+    "name": "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "TSMC's advanced-node manufacturing capacity is the primary constraint for global AI accelerator logic die production. Utilization >95% on 3nm in 2025; customer allocation by contract. New fab in Arizona (Fab 21) ramping slowly; Taiwan capacity expansion plans face geopolitical and water/power constraints.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "TSMC 3nm utilization",
+        "unit": "%",
+        "currentValue": 95,
+        "description": "Estimated 2025 utilization on 3nm nodes; near full capacity."
+      },
+      {
+        "name": "TSMC capex (annual, 2025-2026 estimate)",
+        "unit": "billion USD",
+        "currentValue": 32,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "TSMC planned annual capex for fab expansion; foundry capacity growth limited by capital and geopolitical constraints."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_tsmc_capacity",
+      "ev_acc_logic_tsmc_3nm"
+    ],
+    "tags": [
+      "production_capacity",
+      "supply_bottleneck",
+      "geopolitical_risk"
+    ],
+    "notes": "TSMC dominates with ~70% foundry market share and ~95% of leading-edge capacity at 5nm and below. Single-supplier risk for the global AI ecosystem is extreme. Capacity expansion is capital-intensive and subject to geopolitical constraints (Taiwan manufacturing base).",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_applied_materials",
+    "name": "Applied Materials Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_equipment"
+    ],
+    "description": "Applied Materials is a leading supplier of semiconductor fabrication equipment, including deposition (PVD, CVD, ALD), etch, CMP, and ion implantation systems. Second-largest semiconductor equipment supplier by revenue after ASML.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global semiconductor equipment market share",
+        "unit": "%",
+        "currentValue": 12,
+        "description": "Applied Materials holds approximately 12% of global WFE (wafer fabrication equipment) market as of 2025."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "AMAT"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_deposition_equipment"
+    ],
+    "tags": [
+      "manufacturer",
+      "wfe_supplier",
+      "public_company"
+    ],
+    "notes": "Multi-source supplier for deposition, etch, and implantation equipment; critical to fab capacity expansion.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_lam_research",
+    "name": "Lam Research Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_equipment"
+    ],
+    "description": "Lam Research supplies plasma etch and deposition tools for advanced semiconductor manufacturing. Third-largest semiconductor equipment manufacturer globally by revenue.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "FY2025 revenue",
+        "unit": "billion USD",
+        "currentValue": 18.4,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Lam Research reported FY2025 revenue of approximately $18.4 billion."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "LRCX"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_plasma_etch"
+    ],
+    "tags": [
+      "manufacturer",
+      "wfe_supplier",
+      "public_company"
+    ],
+    "notes": "Critical supplier for etch and deposition; strong competitive position alongside Applied Materials.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_tokyo_electron",
+    "name": "Tokyo Electron Ltd. (TEL)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_equipment"
+    ],
+    "description": "Tokyo Electron is a major supplier of semiconductor processing equipment including deposition, etch, CMP, and metrology tools. Third-most valuable company in Japan.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Market capitalization",
+        "unit": "billion USD",
+        "currentValue": 114.6,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "TEL market cap as of 2025."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "8035.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_deposition_equipment"
+    ],
+    "tags": [
+      "manufacturer",
+      "wfe_supplier",
+      "public_company",
+      "japan_supplier"
+    ],
+    "notes": "Leading Asian semiconductor equipment maker; largest in Asia by revenue. Competes with Applied Materials and Lam Research.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_ebara",
+    "name": "Ebara",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "pumps_and_compressors",
+      "investable_supplier"
+    ],
+    "description": "Japanese precision pump and compressor manufacturer; primary supplier of low-vibration micropumps used in sealed liquid cooling loops for AI datacenter applications. Long-term supply contracts with Asetek and competitor OEMs.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Datacenter-grade micropump annual capacity",
+        "unit": "thousand units/year",
+        "currentValue": 200,
+        "description": "Estimated annual capacity for sealed, low-vibration micropumps suitable for AI cooling loops."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process",
+      "ev_acc_thm_ebara_pumps"
+    ],
+    "tags": [
+      "manufacturer",
+      "pumps",
+      "public_company",
+      "japan_supplier"
+    ],
+    "notes": "Investor relevance: publicly listed (Tokyo: 6361); secondary bottleneck in liquid cooling supply chain. Pump capacity expansion limited by bearing and sealing technology.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_merck",
+    "name": "Merck KGaA",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "specialty_materials"
+    ],
+    "description": "Merck supplies specialty materials for semiconductor manufacturing including CMP slurries, photoresist precursors, and electronic materials. Electronics division serves advanced fabs.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "FY2025 revenue",
+        "unit": "billion EUR",
+        "currentValue": 21.1,
+        "costAsOf": "2025",
+        "currency": "EUR",
+        "description": "Merck total revenue in FY2025."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "MRK.DE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "tags": [
+      "manufacturer",
+      "materials_supplier",
+      "public_company"
+    ],
+    "notes": "World's oldest chemical company; major supplier of CMP slurries and electronic materials.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_entegris",
+    "name": "Entegris Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "specialty_materials"
+    ],
+    "description": "Entegris supplies contamination control solutions, materials handling, and consumables for semiconductor manufacturing. Approximately 80% of products used in semiconductor industry.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "FY2025 revenue",
+        "unit": "billion USD",
+        "currentValue": 3.2,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Entegris FY2025 revenue approximately $3.2 billion."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "ENTG"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "tags": [
+      "manufacturer",
+      "materials_supplier",
+      "public_company"
+    ],
+    "notes": "Leading supplier of CMP consumables and filtration systems; 2022 acquisition of CMC Materials strengthened position.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_kla",
+    "name": "KLA Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_equipment"
+    ],
+    "description": "KLA Corporation supplies process control, yield management, and wafer inspection systems for semiconductor manufacturing. Market leader in in-line metrology for advanced fabs.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "FY2025 revenue",
+        "unit": "billion USD",
+        "currentValue": 12.2,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "KLA Corporation FY2025 revenue of $12.2 billion."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "KLAC"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_metrology"
+    ],
+    "tags": [
+      "manufacturer",
+      "wfe_supplier",
+      "public_company"
+    ],
+    "notes": "Dominant supplier of in-line inspection and metrology; post-2018 Orbotech acquisition strengthened position.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_sumco",
+    "name": "SUMCO Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "materials_supplier"
+    ],
+    "description": "SUMCO is a leading global supplier of ultra-high-purity silicon wafers for semiconductor manufacturing. Merger of Sumitomo Metals and Mitsubishi Materials wafer divisions.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "3436.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_wafer_supply"
+    ],
+    "tags": [
+      "manufacturer",
+      "materials_supplier",
+      "public_company",
+      "japan_supplier"
+    ],
+    "notes": "Second major silicon wafer supplier globally; competes with Shin-Etsu and GlobalWafers.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_air_liquide",
+    "name": "Air Liquide S.A.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "specialty_gases"
+    ],
+    "description": "Air Liquide supplies specialty gases, metal precursors, and process chemical solutions to semiconductor manufacturers. Global leader in industrial gases.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "AI.PA"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_process_gases"
+    ],
+    "tags": [
+      "manufacturer",
+      "gas_supplier",
+      "public_company"
+    ],
+    "notes": "Leading supplier of CVD/ALD precursors and etch gases for advanced semiconductor nodes.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_linde",
+    "name": "Linde plc",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "specialty_gases"
+    ],
+    "description": "Linde is a global industrial gas and chemical company supplying process gases and materials for semiconductor manufacturing.",
+    "maturityLabel": "widely_adopted",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "LIN"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_process_gases"
+    ],
+    "tags": [
+      "manufacturer",
+      "gas_supplier",
+      "public_company"
+    ],
+    "notes": "Major supplier of specialty gases and process chemicals for advanced fabs.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_agc",
+    "name": "AGC Inc. (Asahi Glass Co., Ltd.)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "photomask_supplier"
+    ],
+    "description": "AGC manufactures EUV and optical photomask blanks for semiconductor lithography. One of only two suppliers of EUV mask blanks globally (duopoly with Hoya).",
+    "maturityLabel": "early_deployment",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "5214.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_suppliers"
+    ],
+    "tags": [
+      "manufacturer",
+      "photomask_supplier",
+      "public_company",
+      "japan_supplier"
+    ],
+    "notes": "Critical bottleneck: only duopolistic supplier (with Hoya) of EUV photomask blanks. Single-source risk for 5nm and below nodes.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_hoya",
+    "name": "Hoya Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "photomask_supplier"
+    ],
+    "description": "Hoya manufactures photomask blanks and optical materials for semiconductor and FPD industries. One of only two global suppliers of EUV photomask blanks (duopoly with AGC).",
+    "maturityLabel": "early_deployment",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "7741.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_suppliers"
+    ],
+    "tags": [
+      "manufacturer",
+      "photomask_supplier",
+      "public_company",
+      "japan_supplier"
+    ],
+    "notes": "Duopolistic supplier with AGC for EUV mask blanks; supply constraint is critical gating factor for fab lithography capacity.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_asml",
+    "name": "ASML Holding N.V.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "lithography_equipment"
+    ],
+    "description": "ASML is the world's only supplier of commercial extreme ultraviolet (EUV) lithography systems. Holds 83% of global lithography equipment market. Single-source bottleneck for 5nm and 3nm patterning.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global lithography equipment market share",
+        "unit": "%",
+        "currentValue": 83,
+        "description": "ASML holds 83% of worldwide lithography tool sales (across all technology types)."
+      },
+      {
+        "name": "EUV systems shipped (cumulative through 2025)",
+        "unit": "units",
+        "currentValue": 190,
+        "description": "Approximately 190 EUV systems shipped since commercial introduction; production ramping to ~40/year."
+      },
+      {
+        "name": "EUV system cost",
+        "unit": "million USD",
+        "currentValue": 200,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Typical cost for ASML NXE:3600D or next-gen EUV system."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "ASML.AS"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_asml_capacity",
+      "ev_acc_logic_asml_export_control"
+    ],
+    "tags": [
+      "manufacturer",
+      "lithography_supplier",
+      "public_company"
+    ],
+    "notes": "Extreme bottleneck: single-source monopoly for EUV lithography. 18-24 month lead time, ~40 systems/year capacity. Export controls (Dutch/US) limit China supply.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "asml_lithography_systems",
+    "name": "ASML EUV lithography systems (NXE:3600D and successors)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "ASML's EUV lithography tools are the single-source bottleneck for patterning at 5nm and 3nm nodes. Production capacity is ~40 systems/year. Lead time 18-24 months. Export controls from Netherlands and U.S. limit shipments to China fabs, exacerbating global capacity constraints.",
+    "maturityScore": 78,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "ASML EUV annual production",
+        "unit": "systems/year",
+        "currentValue": 40,
+        "description": "2025 estimated annual EUV production capacity; constrained by internal supply chains (Dutch export controls, subsupplier constraints)."
+      },
+      {
+        "name": "EUV system cost",
+        "unit": "million USD",
+        "currentValue": 200,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "List price for ASML NXE:3600D EUV system in 2025."
+      },
+      {
+        "name": "ASML EUV system lead time",
+        "unit": "months",
+        "currentValue": 20,
+        "description": "Quoted delivery time for new EUV system orders (2025)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic_asml_capacity",
+      "ev_acc_logic_asml_export_control"
+    ],
+    "tags": [
+      "single_source",
+      "supply_bottleneck",
+      "export_control"
+    ],
+    "notes": "ASML is the global monopoly supplier for EUV lithography systems. Each system costs $150-200M, has 18-24 month lead time, and serves 1-2 fab modules. Geopolitical export controls (Dutch/U.S. restrictions to China) create asymmetric competitive pressure on TSMC (Taiwan-based) vs. Samsung foundry.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "advanced_packaging",
+    "name": "Advanced packaging (2.5D/3D)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Advanced 2.5D/3D packaging integration of leading-edge logic die and HBM stacks on a silicon interposer or LSI bridge, seated on a high-layer-count organic substrate, with micro-bump interconnects and thermal management. CoWoS (Chip-on-Wafer-on-Substrate) is the primary production architecture, used for NVIDIA and AMD flagship AI accelerators. Process layers include silicon interposer fabrication (TSVs, RDLs), chiplet assembly (flip-chip bonding, underfill), and substrate integration.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "TSMC CoWoS capacity 2024",
+        "unit": "wafers per month",
+        "currentValue": 40000,
+        "description": "2024 baseline CoWoS capacity from industry estimates and analyst reports."
+      },
+      {
+        "name": "TSMC CoWoS projected capacity 2026",
+        "unit": "wafers per month",
+        "currentValue": 140000,
+        "description": "Target CoWoS throughput by 2026 per TrendForce and industry reports, representing ~250% expansion."
+      },
+      {
+        "name": "NVIDIA CoWoS allocation share",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "NVIDIA estimated to consume ~60% of TSMC CoWoS capacity (2025-2026)."
+      },
+      {
+        "name": "Facility expansion lead time",
+        "unit": "months",
+        "currentValue": 18,
+        "description": "Time to bring new CoWoS capacity online from equipment order to yield optimization, including tool procurement and process ramp."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_cowos_architecture",
+      "ev_acc_pkg_tsmc_capacity"
+    ],
+    "tags": [
+      "packaging",
+      "advanced_integration",
+      "supply_constraint",
+      "high_capital_intensity"
+    ],
+    "notes": "CoWoS capacity is the most critical bottleneck in 2.5D/3D packaging for AI accelerators. TSMC CoWoS is oversubscribed through 2026, with capacity expanding from ~40k WPM (2024) to 120-150k WPM (2026). Expansion lead time 12-18 months per new facility. Single-source (TSMC) risk for >70% of high-end CoWoS supply.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "silicon_interposer_fabrication",
+    "name": "Silicon interposer fabrication",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Fabrication of 2.5D silicon interposer using through-silicon via (TSV) technology and front/back redistribution layers (RDLs). TSVs created via deep reactive ion etching (DRIE) with via fill and passivation. Dual-sided RDLs enable high-density micro-bump pads and signal routing. Key materials: silicon wafer, dielectric (SiO2), copper plating chemistry. Equipment: DRIE etchers, lithography, electroplating systems. Lead time: 8-12 weeks per interposer design from lithography mask to diced chiplets.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Interposer wafer thickness",
+        "unit": "microns",
+        "currentValue": 40,
+        "description": "Typical thinned interposer wafer thickness after TSV processing."
+      },
+      {
+        "name": "TSV via pitch",
+        "unit": "microns",
+        "currentValue": 20,
+        "description": "Fine-pitch TSV spacing on leading-edge interposers."
+      },
+      {
+        "name": "Interposer design cycle",
+        "unit": "weeks",
+        "currentValue": 12,
+        "description": "Time from mask generation to first silicon for new interposer variant."
+      }
+    ],
+    "tags": [
+      "silicon",
+      "wafer_level_process",
+      "lithography_dependent",
+      "high_complexity"
+    ],
+    "notes": "Silicon interposer is mature and multi-sourced (TSMC, Samsung, ASE, Amkor), but demand growth and design customization drive capacity constraints. Bottleneck is not supply but integration yield and cycle time with chiplet assembly.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "tsv_process_deep_reactive_ion_etch",
+    "name": "Through-silicon via (TSV) DRIE process",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Deep reactive ion etching (DRIE) process step that creates high-aspect-ratio vias through silicon wafer. Uses Bosch or similar process with alternating C4F8 polymer and SF6 etch steps. Achieves <10 micron via diameter with >20:1 aspect ratio. Critical for TSV density and electrical performance. Equipment dependency: Lam Research, Tokyo Electron, Applied Materials DRIE tools.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "process_step",
+      "etching",
+      "equipment_dependent"
+    ],
+    "notes": "DRIE is not itself a bottleneck but is critical path in interposer turnaround time. Lam Research and Tokyo Electron are primary equipment suppliers; capacity utilization on both vendor fleets is rising. Lead time for new DRIE chamber orders: 6-8 months.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "flip_chip_bonding",
+    "name": "Flip-chip bonding (micro-bumps)",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Assembly process attaching logic die and HBM stacks to silicon interposer via micro-bump solder joints. Micro-bumps (10-50 micron pitch) aligned and reflowed under temperature/pressure. Post-reflow underfill encapsulation with thermally conductive epoxy. Critical for thermal conductance and mechanical reliability. Process requires precision alignment (±5 microns), controlled thermal profiles, and underfill flow optimization.",
+    "maturityScore": 75,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Micro-bump pitch range",
+        "unit": "microns",
+        "currentValue": 25,
+        "description": "Typical micro-bump pitch on leading-edge HBM-to-interposer connections."
+      },
+      {
+        "name": "Alignment tolerance",
+        "unit": "microns",
+        "currentValue": 5,
+        "description": "Critical alignment tolerance during flip-chip bonding."
+      },
+      {
+        "name": "Assembly cycle time",
+        "unit": "hours",
+        "currentValue": 4,
+        "description": "Time from die placement through underfill cure for single chiplet assembly."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_cowos_architecture",
+      "ev_acc_pkg_flip_chip_equipment"
+    ],
+    "tags": [
+      "assembly",
+      "process_step",
+      "thermal_critical"
+    ],
+    "notes": "Flip-chip bonding is multi-sourced across OSATs (TSMC, ASE, Amkor, Samsung) but yield and cycle-time are critical. Equipment constraint: Kulicke & Soffa thermocompression systems and Aptos bonding systems are primary tools. Constraint tightens with larger chiplets (>30mm) requiring custom die-attach recipes.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "underfill_encapsulation",
+    "name": "Underfill encapsulation",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Filled epoxy underfill material dispensed after flip-chip bonding to encapsulate micro-bumps. Reduces stress on interconnects and improves thermal conductivity (3-5 W/mK target for advanced AI packages). Material selection: modulus, filler loading, CTE (coefficient of thermal expansion) critical for reliability. Suppliers include Henkel, Dow Chemical, Namics, Shin-Etsu.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Advanced underfill thermal conductivity",
+        "unit": "W/mK",
+        "currentValue": 4,
+        "description": "Thermal conductivity of high-performance underfill for AI accelerator packages."
+      },
+      {
+        "name": "Annual global demand estimate",
+        "unit": "metric tons",
+        "currentValue": 8000,
+        "description": "Estimated global underfill volume for advanced packaging, growing 20-25% annually."
+      }
+    ],
+    "tags": [
+      "material",
+      "packaging",
+      "thermally_conductive",
+      "multi_sourced"
+    ],
+    "notes": "Underfill is widely available from multiple suppliers (Henkel, Dow, Namics) but demand growth outpaces supply. Lead time for custom formulation orders: 4-6 weeks. High-performance variants (>4 W/mK) face tighter availability.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "organic_substrate_buildup",
+    "name": "Organic substrate (high-layer-count build-up)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "High-layer-count (18-30 layer) organic PCB substrate that carries the silicon interposer. ABF or BT-type laminate (Ajinomoto Build-up Film, bismaleimide triazine) with sequential lamination and advanced HDI (high-density interconnect) processing. Typical layer count: 12 signal + 8 power + 4 ground for AI accelerators. Electrical requirements: high trace density (<5 mil trace width), tight impedance control (±10% target), low loss dielectric.",
+    "maturityScore": 76,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Typical layer count",
+        "unit": "layers",
+        "currentValue": 24,
+        "description": "Standard layer count for AI accelerator organic substrates."
+      },
+      {
+        "name": "Trace width / spacing",
+        "unit": "mils",
+        "currentValue": 3,
+        "description": "Advanced HDI trace width and spacing on leading-edge substrates."
+      },
+      {
+        "name": "Annual capacity utilization (leaders)",
+        "unit": "%",
+        "currentValue": 85,
+        "description": "Estimated capacity utilization for Ibiden, Nanya, and other top substrate makers (2025-2026)."
+      },
+      {
+        "name": "Ibiden capacity expansion target 2027",
+        "unit": "% increase from 2024",
+        "currentValue": 150,
+        "description": "Ibiden's announced goal of 150% capacity increase by 2027 (requiring ¥500B investment)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_substrate_bottleneck",
+      "ev_acc_pkg_ibiden_expansion"
+    ],
+    "tags": [
+      "material",
+      "substrate",
+      "high_layer_count",
+      "supply_constrained"
+    ],
+    "notes": "Ibiden (Japan) and Nanya PCB (Taiwan) are the technology leaders; other OSATs (ASE, Amkor) and regional suppliers (China DDM, Daeduck) offer lower-performance variants. Bottleneck: lead time for new substrate products 16-20 weeks (5-6 months) due to sequential lamination and HDI drilling/plating cycles. Ibiden capacity limited until Ono plant and Kawama expansions complete (Q2-Q3 2027).",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hdi_drilling_via_plating",
+    "name": "HDI drilling and via plating",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Laser or mechanical drilling of microvias (3-8 mil diameter) through dielectric layers, followed by electroplating (copper electrodeposition). Critical for signal integrity in 24+ layer substrates. Laser drill (UV/IR) preferred for fine-pitch; electroplating chemistry must control uniformity across hundreds of wafers. Bottleneck equipment: laser drill systems (sources: Posalux, Mitsubishi, Trumpf), electroplating power supplies and cathodes.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Microvia diameter",
+        "unit": "mils",
+        "currentValue": 4,
+        "description": "Typical microvia diameter for HDI via processing."
+      },
+      {
+        "name": "Drilling throughput",
+        "unit": "holes per hour (estimated)",
+        "currentValue": 3000,
+        "description": "Approximate throughput for advanced laser drilling systems on AI substrate panels."
+      }
+    ],
+    "tags": [
+      "process_step",
+      "equipment_dependent",
+      "high_precision"
+    ],
+    "notes": "HDI drilling is a critical path item in substrate manufacturing. Lead time for laser drill systems: 8-10 months. Plating utilization at leading foundries >90% (2025-2026). Supplier concentration: Posalux (laser), Mitsubishi (laser) are primary vendors, creating single-region (Europe, Japan) supply risk.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "micro_bump_copper_pillar",
+    "name": "Micro-bump (copper pillar + solder)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Micro-bump interconnect structure: electroplated copper pillar (3-8 microns diameter, 5-15 microns height) topped with SAC305 lead-free solder (Sn/Ag/Cu). Used for sub-50-micron pitch flip-chip connections on HBM and interposer. Solder composition: 96.5% Sn + 3% Ag + 0.5% Cu. Suppliers: ASE, Amkor, PacTech (bumping services); AIM Solder, Caplinq (solder materials).",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Copper pillar height",
+        "unit": "microns",
+        "currentValue": 8,
+        "description": "Typical copper pillar height for HBM-to-interposer micro-bumps."
+      },
+      {
+        "name": "Bump pitch range",
+        "unit": "microns",
+        "currentValue": 40,
+        "description": "Common micro-bump pitch on advanced chiplet interconnects."
+      },
+      {
+        "name": "Global bumping capacity (estimated)",
+        "unit": "million bumps per month",
+        "currentValue": 200,
+        "description": "Estimated total global micro-bumping capacity across ASE, Amkor, PacTech, and others (2025)."
+      }
+    ],
+    "tags": [
+      "material",
+      "interconnect",
+      "high_precision",
+      "multi_sourced"
+    ],
+    "notes": "Micro-bump capacity is multi-sourced and not itself a bottleneck, but fine-pitch (15-25 micron) bumping is concentrated at ASE and Amkor with lead time 6-8 weeks for new mask sets. Solder materials (SAC305) are commodity but specialty finishes face 4-6 week lead times.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "redistribution_layer_rdl",
+    "name": "Redistribution layer (RDL) metallization",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Front and back RDL process on silicon interposer: photolithography patterning of dielectric (polymide or BCB) followed by copper electroplating and planarization (CMP). Enables fine-pitch pad routing and signal redistribution. Critical for interconnect density and electrical performance. Process materials: photoresist, dielectric, copper plating chemistry. Equipment: lithography (i-line, KrF), electroplating, CMP tools.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "RDL line / space",
+        "unit": "microns",
+        "currentValue": 2,
+        "description": "Leading-edge RDL metal line width and spacing on interposers."
+      },
+      {
+        "name": "Copper plating rate",
+        "unit": "microns per hour",
+        "currentValue": 1.2,
+        "description": "Typical plating rate for RDL copper electrodeposition."
+      }
+    ],
+    "tags": [
+      "process_step",
+      "lithography",
+      "equipment_dependent"
+    ],
+    "notes": "RDL is not itself a bottleneck (mature, multi-sourced across OSATs) but process yield and cycle time are critical. Complex designs (e.g., AMD MI300 with >5,000 RDL pads) require 8-10 weeks cycle time vs. simpler designs at 6 weeks. Lithography and CMP tool utilization is high but not overloaded.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "c4_solder_bumps_substrate",
+    "name": "C4 solder bumps (substrate attach)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "C4 (Controlled Collapse Chip Connection) solder bumps used to attach silicon interposer to organic substrate. Lead-free SAC305 (96.5% Sn / 3% Ag / 0.5% Cu) solder alloy, bump pitch typically 500-800 microns. Reflow process under nitrogen atmosphere. Material suppliers: AIM Solder, Indium Corporation, Nihon Superior. C4 bumping services: ASE, Amkor, SMA, others.",
+    "maturityScore": 85,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "C4 bump pitch",
+        "unit": "microns",
+        "currentValue": 600,
+        "description": "Standard C4 bump pitch for interposer-to-substrate attachment."
+      },
+      {
+        "name": "SAC305 solder availability",
+        "unit": "metric tons annual capacity",
+        "currentValue": 45000,
+        "description": "Estimated global lead-free solder capacity (all applications), with advanced packaging consuming ~5-8%."
+      }
+    ],
+    "tags": [
+      "material",
+      "solder",
+      "commodity",
+      "widely_sourced"
+    ],
+    "notes": "C4 solder and bumping are widely available and not bottlenecks. SAC305 is commodity-grade; specialty variants (grain-refined, additives) face longer lead times (4-6 weeks). Bumping capacity at OSATs is multi-sourced with >80% utilization (2025-2026).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "test_and_inspection",
+    "name": "Test and inspection (post-assembly)",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Electrical test (functional + parametric), visual inspection, and burn-in qualification of packaged modules. Test includes high-speed probe testing (HBM bandwidth verification), power delivery validation, and thermal cycling reliability. Inspection: X-ray (voids, cracks), optical (solder wetting), SEM (interconnect quality). Equipment: testers (Teradyne, LTX-Credence, Xcerra), inspection (KLA, Rudolph, Camtek), environmental chambers.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Test time per module",
+        "unit": "minutes",
+        "currentValue": 8,
+        "description": "Typical functional + parametric test time for AI accelerator module."
+      },
+      {
+        "name": "Global test cell utilization (Cohu estimate)",
+        "unit": "%",
+        "currentValue": 78,
+        "description": "Cohu reported test cell utilization of 78% at end of Q1 2026, up from 76% in Q4 2025."
+      },
+      {
+        "name": "Burn-in duration",
+        "unit": "hours",
+        "currentValue": 24,
+        "description": "Thermal cycling and burn-in requirement for reliability qualification (10-year life target)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_test_capacity"
+    ],
+    "tags": [
+      "process_step",
+      "test",
+      "equipment_dependent",
+      "utilization_constraint"
+    ],
+    "notes": "Test capacity is becoming constrained at OSATs and IDMs. Cohu reported 78% utilization in Q1 2026, indicating <20% headroom. Test program development lead time: 10-12 weeks per new product. Burn-in oven capacity (thermal cycling) is the tightest constraint; lead time for new burn-in lines: 14-16 weeks.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_ase",
+    "name": "ASE Technology Holding",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging",
+      "investable_supplier"
+    ],
+    "description": "Advanced Semiconductor Engineering, Taiwan-based OSAT. World's second-largest OSAT. Major competitor to TSMC in advanced packaging, offering chiplet assembly, bumping, and substrate integration services. Expanding 2.5D/3D capacity to capture overflow demand.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global OSAT market share (ASE + Amkor + JCET)",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "ASE, Amkor, and JCET together hold 60% of global OSAT revenue (SemiconductorX 2025-12-01)."
+      },
+      {
+        "name": "ASE share of OSAT trio",
+        "unit": "%",
+        "currentValue": 30,
+        "description": "Estimated ASE share within the ASE/Amkor/JCET group (2025-2026)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "2311.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_osat_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "osat",
+      "public_company"
+    ],
+    "notes": "ASE is investing aggressively in 2.5D/3D capacity. Benefits from TSMC spillover demand. Taiwan-based supplier.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_amkor",
+    "name": "Amkor Technology",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging",
+      "investable_supplier"
+    ],
+    "description": "US-headquartered global OSAT and packaging specialist. Third-largest OSAT globally. Major provider of advanced packaging services including chiplet assembly, flip-chip bonding, and bumping. Expanding 2.5D/3D capacity in Japan and Southeast Asia to serve AI demand.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global OSAT market share (Amkor share of ASE/Amkor/JCET)",
+        "unit": "%",
+        "currentValue": 25,
+        "description": "Estimated Amkor share within top-3 OSAT group (2025-2026)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "AMKR"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_osat_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "osat",
+      "public_company"
+    ],
+    "notes": "Amkor strong in micro-bump and bumping services. Competes with ASE for TSMC spillover. US-listed for investor access.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_nan_ya_pcb",
+    "name": "Nan Ya Printed Circuit Board Corp.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-based PCB and IC substrate manufacturer. Secondary player in ABF substrates; also partnering with Nittobo on T-glass supply chain to expand capacity. Strong in BT substrates.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Nan Ya PCB substrate market position 2024",
+        "unit": "ranking",
+        "currentValue": 5,
+        "description": "Nan Ya PCB is among top-5 global substrate makers; ~10% market share estimate in package substrates."
+      },
+      {
+        "name": "Nan Ya partnership with Nittobo T-glass",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Nan Ya partnered with Nittobo to handle 20% of T-glass supply by 2027 as expansion effort."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "8046.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_substrate_capacity",
+      "ev_acc_sub_nan_ya_nittobo_partnership",
+      "ev_acc_sub_digitimes_substrate_leaders",
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "tags": [
+      "manufacturer",
+      "substrate_maker",
+      "taiwan",
+      "public_company"
+    ],
+    "notes": "Strategic partnership with Nittobo to supplement T-glass supply; secondary player in high-end ABF but growing capacity.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_kulicke_soffa",
+    "name": "Kulicke & Soffa Industries",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US equipment supplier specializing in bonding, advanced packaging, and interconnect technologies. Kulicke & Soffa hybrid bonders (HB04) are primary equipment for HBM stack die-stacking; high demand and long lead times (16–20 months) make equipment availability a secondary constraint.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "HBM hybrid bonder market share",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "Kulicke & Soffa estimated ~60% of hybrid bonder market for HBM stacking (HB04 primary); shared with Palomar at ~40%."
+      },
+      {
+        "name": "Equipment lead time",
+        "unit": "months",
+        "currentValue": 18,
+        "description": "K&S hybrid bonder lead times 16–20 months as of 2024; critical constraint on HBM stack assembly capacity expansion."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "KLIC"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkg_flip_chip_equipment",
+      "ev_acc_hbm_hybrid_bonder_equipment"
+    ],
+    "tags": [
+      "equipment_supplier",
+      "bonding",
+      "packaging",
+      "public_company",
+      "united_states"
+    ],
+    "notes": "Investor relevance: K&S is critical enabling supplier for HBM stacking; constrained equipment delivery delays HBM stack supply by 6–12 months.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "high_bandwidth_memory",
+    "name": "High-bandwidth memory (HBM)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-bandwidth memory (HBM) stacks for AI accelerators: multi-die vertical DRAM stacks with TSV (through-silicon vias), integrated voltage regulators, and wide parallel interfaces delivering 400–1200 GB/s bandwidth per stack. HBM3/HBM3E are the 2024–2026 production grades for leading-edge AI accelerators; production is concentrated in SK Hynix (primary supplier ~70% share) and Samsung (expanding ~20%), with Micron entering late 2025. Extreme capacity concentration and long lead times (18–24 months for new capacity) make this the primary bottleneck for AI accelerator module scaling.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "HBM3/HBM3E worldwide production capacity",
+        "unit": "units/month (approx. 2026)",
+        "currentValue": 1200000,
+        "description": "Estimated combined SK Hynix + Samsung + Micron HBM production ~1.2M units/month in 2026; highly concentrated supply."
+      },
+      {
+        "name": "Lead time for new HBM production capacity",
+        "unit": "months",
+        "currentValue": 24,
+        "description": "New HBM fab lines or tool expansion typically require 18–24 months from capex commitment to volume; critical constraint for rapid demand scaling."
+      },
+      {
+        "name": "SK Hynix market share (HBM3/3E)",
+        "unit": "%",
+        "currentValue": 70,
+        "description": "SK Hynix estimated ~70% HBM market share in 2024–2026 due to first-mover yield and volume; source basis: industry analyst consensus."
+      }
+    ],
+    "tags": [
+      "memory",
+      "bandwidth",
+      "bottleneck",
+      "ai_accelerator",
+      "extreme_concentration"
+    ],
+    "notes": "HBM is the primary supply chokepoint for AI accelerator scaling in 2024–2026. SK Hynix dominates due to early process mastery; Samsung is ramping aggressively; Micron delayed entry. Next layer decomposition covers die fabrication processes, stacking/bonding, testing, and organic substrate integration.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_die_fabrication",
+    "name": "HBM die fabrication",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "DRAM wafer fabrication for HBM dies: 10 nm class (some 8 nm for HBM3E) process node at leading foundries (Samsung, SK Hynix in-house, Micron at TSMC/Intel). High-density DRAM cells, internal mux networks, on-die voltage regulators, and TSV pad arrays. Defect density and yield directly gate HBM stack availability.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "HBM die yield (approx.)",
+        "unit": "%",
+        "currentValue": 65,
+        "description": "Estimated HBM die yield ~65–75% at leading manufacturers; TSV and fine-pitch routing lower yield vs. standard logic or commodity DRAM."
+      },
+      {
+        "name": "SK Hynix HBM fabrication capacity",
+        "unit": "wafers/month (equivalent)",
+        "currentValue": 120000,
+        "description": "SK Hynix Icheon fab, Cheonan fab, and Wuxi fab combined HBM capacity ~120k wafer-equivalents/month as of 2026."
+      }
+    ],
+    "tags": [
+      "dram",
+      "fab",
+      "process_node",
+      "tsv",
+      "yield",
+      "decomposition_frontier"
+    ],
+    "notes": "Decomposition frontier: next layer includes specific process nodes, mask sets, photolithography tool utilization, and TSV process qualification.",
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_stack_assembly_die_bonding",
+    "name": "HBM stack assembly and die bonding",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Vertical stacking of HBM dies (6–12 layers per stack) with micro-bump bonding (Cu/Sn solder), through-silicon via (TSV) connections, and alignment/bonding precision (sub-micron). Requires specialized equipment (hybrid bonders, bonding furnaces), high defect sensitivity, and tight process windows. Critical yield loss point; historically 60–75% yield after bonding.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "HBM stack bonding yield",
+        "unit": "%",
+        "currentValue": 68,
+        "description": "Multi-layer die bonding yield ~65–70%; defects in micro-bumps, bonding pressure alignment, or TSV opens cause stack loss."
+      },
+      {
+        "name": "Specialized bonding equipment lead time",
+        "unit": "months",
+        "currentValue": 18,
+        "description": "Hybrid bonders and bonding furnaces typically 16–20 month delivery from order; critical bottleneck for capacity expansion."
+      }
+    ],
+    "tags": [
+      "bonding",
+      "micro_bump",
+      "tsv",
+      "die_stacking",
+      "assembly"
+    ],
+    "notes": "Micro-bump bonding and TSV reliability are extremely sensitive to process variation and equipment capability. Yield loss in bonding cascades to stack loss, making this a hidden capacity constraint.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_thermal_management_copper_pillar",
+    "name": "HBM thermal management and copper pillar structure",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Thermal pathway from HBM stack to module substrate via copper pillar arrays (high-conductivity interconnect), thermal interface material (TIM), and substrate heat dissipation design. Manages 10–20 W per stack during active access; poor thermal design causes bit errors and throttling.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Copper pillar thermal conductivity",
+        "unit": "W/m·K",
+        "currentValue": 400,
+        "description": "Electroplated copper pillars achieve ~400 W/m·K; critical for removing HBM stack dissipation to substrate."
+      }
+    ],
+    "tags": [
+      "thermal",
+      "copper_pillar",
+      "heat_dissipation",
+      "interconnect",
+      "decomposition_frontier"
+    ],
+    "notes": "Decomposition frontier: thermal modeling, TIM selection, and substrate-level heat distribution.",
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_testing_validation_power_delivery",
+    "name": "HBM testing, validation, and power delivery verification",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Post-assembly test of HBM stacks: functional test (read/write at speed), on-die voltage regulator (IDVR) performance, temperature margin testing, and electrical characterization. Power delivery verification ensures stack can sustain peak current without droops. Defect detection here prevents customer failures; yield varies 50–70% depending on test rigor.",
+    "maturityScore": 68,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "HBM test yield (post-assembly)",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "Test yield after stack bonding and initial characterization ~60–65%; defects in micro-bumps, TSV opens, and IDVR performance cause fails."
+      },
+      {
+        "name": "Power delivery test coverage",
+        "unit": "% of design space",
+        "currentValue": 85,
+        "description": "Test suites cover ~85% of power delivery and thermal scenarios; 100% pre-deployment validation still emerging."
+      }
+    ],
+    "tags": [
+      "testing",
+      "validation",
+      "power_delivery",
+      "yield",
+      "characterization"
+    ],
+    "notes": "Test time per stack ~15–30 minutes; with high volume, test capacity becomes a bottleneck. Tester utilization >90% in peak demand periods. Test equipment upgrade lead time ~12–18 months.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_substrate_integration_and_solder",
+    "name": "HBM substrate integration and ball-grid-array solder attach",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Integration of HBM stacks onto the module substrate (high-layer-count organic / HDI laminate) via solder ball attach (flip-chip style), BGA rework capability, and substrate signal/power routing. Substrate carries power distribution, ground, and signal lines to logic die. Solder joint reliability and rework yield critical for yield and warranty.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "substrate",
+      "solder_attach",
+      "bga",
+      "integration",
+      "interconnect",
+      "decomposition_frontier"
+    ],
+    "notes": "Substrate HDI complexity is increasing with power density and signal count; lead times for new substrate masks and tooling can extend overall module lead time by 6–8 weeks.",
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_test_equipment_and_tooling",
+    "name": "HBM test and assembly equipment",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Specialized automated test equipment (ATE) for HBM functional and characterization testing at speed; hybrid bonders for die stacking; flip-chip and BGA solder attachment equipment; visual inspection (X-ray, 3D cross-section) for void and defect detection. Equipment is highly specialized and limits aggregate capacity.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "HBM test equipment lead time",
+        "unit": "months",
+        "currentValue": 15,
+        "description": "Custom ATE for HBM speed and feature requirements: 14–18 month delivery."
+      },
+      {
+        "name": "Hybrid bonder equipment utilization (industry avg)",
+        "unit": "%",
+        "currentValue": 88,
+        "description": "Hybrid bonders typically run 85–95% utilization at peak demand; utilization >90% indicates capacity constraint."
+      }
+    ],
+    "tags": [
+      "equipment",
+      "test",
+      "assembly",
+      "bonding",
+      "automation"
+    ],
+    "notes": "Equipment suppliers (Kulicke & Soffa, Palomar, Tokyo Electron, Cohu) manage global order books 18+ months out during peak demand. This is a hard supply constraint.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_organic_substrate_material",
+    "name": "HBM organic substrate laminate material",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-layer-count (8–12 layer) organic laminate substrate core and prepreg material: glass-reinforced epoxy with controlled dielectric properties (Dk, Df) for signal integrity and low-loss power delivery. Requires specialized resin chemistry and glass weave for 2–3 micron trace widths and HDI capability.",
+    "maturityScore": 75,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Substrate laminate suppliers globally",
+        "unit": "count",
+        "currentValue": 8,
+        "description": "~8–10 suppliers of high-performance substrate laminates worldwide; Isola, Rogers, Panasonic, Showa Denko lead production."
+      }
+    ],
+    "tags": [
+      "material",
+      "laminate",
+      "substrate",
+      "dielectric",
+      "epoxy_resin"
+    ],
+    "notes": "Substrate laminate supply is less concentrated than HBM wafer production; material shortages rare but prepreg capacity can constrain board fabricators during demand spikes.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "hbm_solder_material_and_flux",
+    "name": "HBM solder material (SAC alloy) and flux chemistry",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-performance solder alloys (SAC305, SAC405) and no-clean flux formulations for micro-bump and BGA attach. Solder reliability under thermal cycling (-40 to +85°C) and vibration critical for datacenter module lifetime. Flux must avoid ion contamination and provide rapid wetting.",
+    "maturityScore": 77,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "tags": [
+      "material",
+      "solder",
+      "sac_alloy",
+      "flux",
+      "assembly"
+    ],
+    "notes": "Solder materials are commodified; supply is not a bottleneck. Flux chemistry is moderately specialized but multi-sourced.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_skhynix",
+    "name": "SK Hynix",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "South Korean semiconductor manufacturer and primary supplier of HBM3/HBM3E for AI accelerators. Dominates HBM market in 2024–2026 due to early 8nm-class process qualification, high yield, and strong customer relationships. Primary capacity constraint for AI accelerator scaling.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "HBM3/HBM3E market share",
+        "unit": "%",
+        "currentValue": 70,
+        "description": "SK Hynix estimated ~70% HBM market share 2024–2026 based on industry analyst consensus (TrendForce, Yole, SemiAnalysis)."
+      },
+      {
+        "name": "HBM production capacity (2026)",
+        "unit": "units/month",
+        "currentValue": 840000,
+        "description": "SK Hynix HBM3/HBM3E estimated capacity ~840k units/month as of 2026 (70% of ~1.2M total market)."
+      },
+      {
+        "name": "HBM capacity expansion capex",
+        "unit": "USD billions",
+        "currentValue": 4.5,
+        "description": "SK Hynix invested approximately $4–5B annually in HBM production expansion (Icheon, Cheonan, Wuxi fabs) 2024–2025.",
+        "costAsOf": "2024",
+        "currency": "USD"
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "000660.KS"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_hbm_skhynix_share_2024",
+      "ev_acc_hbm_sk_hynix_process_node"
+    ],
+    "tags": [
+      "manufacturer",
+      "hbm",
+      "memory",
+      "public_company",
+      "south_korea"
+    ],
+    "notes": "Investor relevance: SK Hynix is the gating supplier for AI accelerator module scaling; any shortage or supply disruption directly constrains datacenter expansion. Concentration risk is extreme.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_samsung",
+    "name": "Samsung Electronics (Foundry)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor",
+      "investable_supplier",
+      "foundry"
+    ],
+    "description": "South Korean semiconductor foundry offering 7nm/5nm process nodes for power-stage IC and analog circuit fabrication. Samsung Foundry ramping capacity for power ICs serving AI datacenter power delivery; partners with Renesas, Infineon, and other fabless designers for co-optimized power-delivery solutions.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Advanced node (5nm/7nm) fab capacity",
+        "unit": "wafers/month equivalent",
+        "currentValue": 60,
+        "description": "Samsung Foundry estimated 5nm/7nm capacity ~60k wafers/month equivalent ca. 2026, with target expansion to 90k by end-2026. Source: analyst research and Samsung investor presentations."
+      },
+      {
+        "name": "Power IC market share (foundry)",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "Samsung Foundry estimated 15–20% share of advanced-node power-stage IC foundry services ca. 2026, up from 12% in 2024. Growth driven by AI accelerator power delivery demand."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "005930.KS"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_hbm_samsung_ramp_2024",
+      "ev_acc_pwr_samsung_foundry_power_ics",
+      "ev_acc_pwr_samsung_foundry_capacity"
+    ],
+    "tags": [
+      "semiconductor",
+      "foundry",
+      "power_stage_ic",
+      "south_korean",
+      "public_company"
+    ],
+    "notes": "Investor relevance: foundry capacity for power ICs is critical to accelerator supply-chain scaling. Samsung's 5nm/7nm expansion directly enables power delivery module ramp. Duopoly risk with TSMC.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_micron",
+    "name": "Micron Technology",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US semiconductor manufacturer entering HBM market late 2025 with HBM3 production at Manassas fab and potential outsourcing to TSMC/Intel. Delayed entry reduces 2024–2025 supply constraints but could diversify supply away from Korea if ramp succeeds.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "HBM3 market share (estimated 2026)",
+        "unit": "%",
+        "currentValue": 5,
+        "description": "Micron estimated ~5% HBM market share by end of 2026 following late 2025 entry; very small share in constrained market."
+      },
+      {
+        "name": "HBM production capacity (2026)",
+        "unit": "units/month",
+        "currentValue": 60000,
+        "description": "Micron HBM3 capacity estimated ~60k units/month by end of 2026 (50–100k per investor guidance)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "MU"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_hbm_micron_timeline_2025"
+    ],
+    "tags": [
+      "manufacturer",
+      "hbm",
+      "memory",
+      "public_company",
+      "united_states"
+    ],
+    "notes": "Investor relevance: Micron's HBM ramp is watched closely for potential supply relief; however, late entry and execution risk mean Micron is unlikely to materially ease constraints before 2026.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_cohu",
+    "name": "Cohu Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US equipment and services provider for semiconductor test and handling. Cohu automated test systems (ATS) are used for HBM functional and characterization testing; extended lead times (15–18 months) and high utilization make test equipment capacity a secondary constraint.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "HBM test equipment market share",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "Cohu estimated ~45% of specialized HBM ATE market; shared with LTX-Credence (~40%) and others."
+      },
+      {
+        "name": "Equipment lead time",
+        "unit": "months",
+        "currentValue": 16,
+        "description": "Cohu ATE for HBM testing 15–18 month lead times; orders placed in 2024 have delivery in 2026."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "COHU"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_hbm_ate_equipment"
+    ],
+    "tags": [
+      "equipment_supplier",
+      "test",
+      "automation",
+      "public_company",
+      "united_states"
+    ],
+    "notes": "Investor relevance: Cohu is critical for HBM test bottleneck; equipment lead times directly impact HBM stack supply timing.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_isola",
+    "name": "Isola Group",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US materials supplier for high-performance substrate laminates and prepreg. Isola provides organic laminate core material for HBM module substrates; supply is less concentrated than HBM wafers but material availability can constrain board fabricators during demand spikes.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "High-performance substrate laminate market share",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Isola estimated ~30–35% market share of high-performance substrate laminates (AI accelerator grade); shared with Rogers, Panasonic, Showa Denko, Ventive."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_hbm_substrate_laminate_suppliers"
+    ],
+    "tags": [
+      "materials_supplier",
+      "substrate",
+      "laminate",
+      "private_company",
+      "united_states"
+    ],
+    "notes": "Investor relevance: Isola is a private company; substrate laminate supply is not a primary bottleneck but is part of module supply chain.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "substrate_and_interposer",
+    "name": "Package substrate & interposer",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "The multi-layer organic substrate and silicon/organic interposer that form the structural and electrical backbone of a 2.5D AI accelerator package. Carries the logic die, HBM stacks, power delivery, thermal vias, and signal routing from the die to the board-level connector. The substrate-interposer stack includes build-up layers, resin systems, copper traces, vias, and thermal management features—all facing acute capacity and material constraints in 2025–2026.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "tags": [
+      "ai_compute",
+      "packaging",
+      "structural"
+    ],
+    "notes": "2025–2026 bottleneck: substrate + interposer assembly is a critical chokepoint in AI accelerator volume ramps due to capacity constraints at TSMC CoWoS, material shortages (T-glass, ABF), and long tool lead times (18–24 months).",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "organic_substrate_base_structure",
+    "name": "Organic substrate base structure",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Multi-layer organic laminate (6–14+ layers for high-density AI accelerator packages) composed of resin matrix (BT or ABF) with embedded glass fiber cloth (T-glass or E-glass) and copper foil. Forms the foundation carrying signal routing, power planes, and mechanical support for the interposer and die assembly.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "substrate",
+      "structural",
+      "material"
+    ],
+    "notes": "Material bottleneck: T-glass (91% supply from Nittobo) faces 10–20% shortage through mid-2027; BT resin and ABF film similarly constrained.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "silicon_interposer_rdl",
+    "name": "Silicon interposer with RDL",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Silicon interposer (2.5D package core) carrying Redistribution Layer (RDL) that routes signals between the logic die, HBM stacks, and substrate. Typically 300–500 µm thick, with deep trench capacitors and low-impedance interconnects. TSMC CoWoS-S is the volume architecture; Samsung iCube is secondary.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "TSMC CoWoS-S capacity 2026",
+        "unit": "wafers per month",
+        "currentValue": {
+          "min": 75000,
+          "typical": 100000,
+          "max": 130000
+        },
+        "description": "TSMC monthly CoWoS capacity expanding from ~75k wafers/month in early 2025 to 110–130k wafers/month by end of 2026 per CEO guidance. CoWoS sold out through 2025 and into 2026."
+      },
+      {
+        "name": "TSMC CoWoS market share 2025",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "TSMC holds ~60% of global 2.5D/3D stacking advanced packaging market; CoWoS-S and I-Cube (silicon interposer 2.5D) are volume architectures for AI accelerators."
+      },
+      {
+        "name": "Top-3 customer allocation of TSMC CoWoS 2026",
+        "unit": "%",
+        "currentValue": 85,
+        "description": "Major customers (NVIDIA, AMD, hyperscalers) have locked >85% of TSMC's total CoWoS production capacity, leaving <15% for second-tier AI chip makers, ASIC vendors, startups."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_tsmc_cowos_capacity_2026",
+      "ev_acc_sub_samsung_iCube_2024"
+    ],
+    "tags": [
+      "interposer",
+      "2.5d_packaging",
+      "rdl"
+    ],
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "abf_build_up_film",
+    "name": "ABF (Ajinomoto Build-up Film)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Dielectric build-up film used in high-density IC substrates, composed of resin-impregnated fine glass fibers (50–100 µm thickness per layer). ABF is the premium segment for advanced AI accelerator packages, enabling tight trace spacing and high layer count.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "ABF market growth CAGR 2021–2028",
+        "unit": "%",
+        "currentValue": 20.73,
+        "description": "ABF demand CAGR 20.73% from 2021 to 2028, driven by 5G, AI, and EV; Film Type B (premium ABF) accounts for 31.4% revenue share in 2025."
+      },
+      {
+        "name": "Ajinomoto ABF capacity increase 2025",
+        "unit": "%",
+        "currentValue": 50,
+        "description": "Ajinomoto's new Gunma facility completed March 2025 and reached full operations October 2025, increasing ABF capacity by ~50% to 2030."
+      },
+      {
+        "name": "Ajinomoto ABF price increase 2026",
+        "unit": "%",
+        "currentValue": 30,
+        "description": "Ajinomoto announced 30% price increase for core ABF laminated film, effective Q3 2026, citing strong demand and tight supply."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_ajinomoto_abf_2025",
+      "ev_acc_sub_ajinomoto_expansion_2030"
+    ],
+    "tags": [
+      "material",
+      "build_up_layer",
+      "capacity_constrained"
+    ],
+    "notes": "Ajinomoto holds dominant market share for ABF; expansion capacity through 2030; additional Gifu site planned for 2032 startup.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "bt_resin_laminate",
+    "name": "BT resin laminate substrate",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Bismaleimide-Triazine resin laminate produced by Mitsubishi Gas Chemical and competing suppliers. Lower-cost alternative to ABF for mid-range packages; less common in leading-edge AI accelerators but used in secondary packages and thermal management layers.",
+    "maturityScore": 76,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "BT substrate price hike 2025",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "BT substrate and fiberglass prices eye ~20% hike mid-2025 amid AI boom and supply shortage."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_mitsubishi_bt_resin"
+    ],
+    "tags": [
+      "material",
+      "substrate_base",
+      "resin"
+    ],
+    "notes": "Mitsubishi Gas Chemical owns key BT resin formula; high Tg, moisture resistance, low DK/DF suitable for power-dense packages.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "t_glass_fabric",
+    "name": "T-glass (Boron-free glass fiber cloth)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-performance glass fiber cloth with reduced coefficient of thermal expansion (CTE), critical for substrates carrying high-power, high-frequency signals in AI accelerators. T-glass dominates AI substrate designs; supply is heavily concentrated at Nittobo (91% global market share).",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Nittobo T-glass global market share 2025",
+        "unit": "%",
+        "currentValue": 91,
+        "description": "Nittobo dominates certified T-glass production; ~91% global market share + 60–70% NER-glass market share."
+      },
+      {
+        "name": "T-glass supply shortage 2026",
+        "unit": "%",
+        "currentValue": {
+          "min": 10,
+          "typical": 15,
+          "max": 20
+        },
+        "description": "Taiwan IC substrate makers forecast 10–20% supply gap of T-glass material in 2026; demand doubled entering 2025–2026."
+      },
+      {
+        "name": "Nittobo T-glass capacity expansion target 2027",
+        "unit": "x",
+        "currentValue": 3,
+        "description": "Nittobo plans to triple T-glass capacity by 2027; new equipment online expected mid-2027 at earliest."
+      },
+      {
+        "name": "Nittobo price increase August 2025",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Nittobo raised prices across glass fiber product line by 20% in August 2025; planned another 20–30% increase for April 2026."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_nittobo_tglass_shortage",
+      "ev_acc_sub_nittobo_capacity_expansion"
+    ],
+    "tags": [
+      "material",
+      "glass_fiber",
+      "single_source_concentration"
+    ],
+    "notes": "Critical bottleneck: Nittobo near-monopoly (91% share) with constrained capacity through mid-2027. New capacity expected only from 2027; new equipment requires 6 months to stabilize yield.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "copper_trace_routing",
+    "name": "Copper trace routing and signal redistribution",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Multi-layer copper trace patterning, via drilling, plating, and controlled impedance routing across substrate and interposer layers. Enables signal integrity for high-speed interfaces (HBM, chiplet links).",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "manufacturing_process",
+      "electrical"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermal_via_filling",
+    "name": "Thermal via filling and copper column formation",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Electroplating and copper paste filling of thermal vias (50–200 µm diameter) to conduct waste heat from the die to the substrate backside. High via density required in AI packages (700W+/module); copper filling is energy-intensive and equipment-limited.",
+    "maturityScore": 74,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Substrate tool lead time expansion 2024–2025",
+        "unit": "months",
+        "currentValue": {
+          "min": 18,
+          "typical": 20,
+          "max": 24
+        },
+        "description": "Equipment lead times extend up to 18–24 months for substrate expansion projects; CCL makers and substrate suppliers face significant delays in new capacity buildout."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_thermal_via_equipment_lead_time"
+    ],
+    "tags": [
+      "manufacturing_process",
+      "thermal_management",
+      "equipment_intensive"
+    ],
+    "notes": "Bottleneck: electroplating and via-fill equipment capacity becomes gated by specialized tool suppliers (ASMPT, Kulicke & Soffa). New equipment takes 18–24 months to procure and integrate.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "power_delivery_network_substrate",
+    "name": "Power delivery network (PDN) in substrate",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Embedded power planes, decoupling capacitors (eMIM, MIM), and integrated inductors within the substrate to deliver clean, stable power to the logic die at 700W+ power dissipation. PDN target impedance < 1 mΩ at core frequencies. Co-designed with silicon.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "module",
+      "power_delivery",
+      "high_density"
+    ],
+    "notes": "Advanced PDN techniques (eMIM-T, CoaxMIL) embed passive devices in substrate for impedance optimization; co-design with silicon is critical.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_kinsus",
+    "name": "Kinsus Interconnect Technology Corp.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-based IC substrate and PCB manufacturer. Leading supplier of BT and ABF substrates for AI accelerators; strong volume growth in 2024–2025. Publicly traded (listed as TPE: 3189).",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Kinsus 2025 revenue growth",
+        "unit": "%",
+        "currentValue": 28.87,
+        "description": "Kinsus recorded strongest performance with 2025 annual revenue surging 28.87% driven by AI substrate demand."
+      },
+      {
+        "name": "Kinsus ABF substrate market segment",
+        "unit": "%",
+        "currentValue": {
+          "min": 8,
+          "typical": 12,
+          "max": 15
+        },
+        "description": "Kinsus leads in volume production of BT substrates for consumer electronics; growing ABF segment for AI. Revenue share estimate 8–15% of total substrate market (most conservative basis)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "3189.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_kinsus_revenue_2025",
+      "ev_acc_sub_digitimes_substrate_leaders"
+    ],
+    "tags": [
+      "manufacturer",
+      "substrate_maker",
+      "taiwan",
+      "public_company"
+    ],
+    "notes": "Growth driver: AI substrate demand. Capacity expansion ongoing with client subsidies and pre-payments.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_unimicron",
+    "name": "Unimicron Technology Corp.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-based IC substrate manufacturer. Market leader in ABF substrates; 15.2% revenue share in 2024 package substrates market. Primary supplier to major AI accelerator makers; aggressive expansion into high-end ABF for server/AI applications.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Unimicron IC substrate revenue share 2024",
+        "unit": "%",
+        "currentValue": 15.2,
+        "description": "Unimicron leads sector with 15.2% revenue share in 2024 package substrates market overall; top revenue leader."
+      },
+      {
+        "name": "ABF substrate market leader position 2025",
+        "unit": "ranking",
+        "currentValue": 1,
+        "description": "Unimicron makes the most ABF and has the biggest share; none of top five exceeded 18% individual share in 2025."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "3037.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_digitimes_substrate_leaders",
+      "ev_acc_sub_unimicron_market_share",
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "tags": [
+      "manufacturer",
+      "substrate_maker",
+      "taiwan",
+      "public_company",
+      "market_leader"
+    ],
+    "notes": "Historical bottleneck: 2021–22 ABF shortage drove record earnings for Unimicron. Expansion of ABF capacity for AI demand continuing.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_ajinomoto_fine_techno",
+    "name": "Ajinomoto Fine-Techno Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Japanese subsidiary of Ajinomoto Group. Sole/dominant producer of ABF (Ajinomoto Build-up Film), the premium dielectric material for high-density IC substrates. Controls majority of ABF supply globally; critical supplier to all AI accelerator makers.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Ajinomoto ABF global supply dominance",
+        "unit": "%",
+        "currentValue": {
+          "min": 70,
+          "typical": 80,
+          "max": 85
+        },
+        "description": "Ajinomoto holds dominant/monopoly share of ABF supply; Film Type B (premium ABF) accounts for 31.4% of total ABF revenue in 2025."
+      },
+      {
+        "name": "Ajinomoto ABF sales growth 2025",
+        "unit": "%",
+        "currentValue": 28,
+        "description": "ABF sales for high-performance boards used in AI servers and networks increased 28% for full year FY2025."
+      },
+      {
+        "name": "Ajinomoto ABF expansion capex 2025–2030",
+        "unit": "JPY billion",
+        "currentValue": 25,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "Ajinomoto committed JPY 25 billion in capex for ABF production expansion; new facility in Gunma completed March 2025, full ops October 2025, capacity increase ~50%."
+      },
+      {
+        "name": "Ajinomoto Gunma facility capacity increase",
+        "unit": "%",
+        "currentValue": 50,
+        "description": "New Gunma varnish production facility reached full-scale operations October 2025, increasing total ABF capacity by ~50% toward 2030."
+      },
+      {
+        "name": "Ajinomoto future site (Gifu)",
+        "unit": "status",
+        "currentValue": "Land acquired May 2026, construction 2028, ops 2032",
+        "description": "Ajinomoto acquired land in Gifu May 2026; construction scheduled 2028, operations targeted 2032 to support demand from 2030 onwards."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_ajinomoto_abf_2025",
+      "ev_acc_sub_ajinomoto_expansion_2030",
+      "ev_acc_sub_ajinomoto_q4_2025_earnings"
+    ],
+    "tags": [
+      "manufacturer",
+      "material_supplier",
+      "japan",
+      "monopoly_position"
+    ],
+    "notes": "Critical bottleneck: Ajinomoto's ABF capacity and expansion roadmap gate AI accelerator substrate volume through 2028. Announced 30% price increase effective Q3 2026.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_nittobo",
+    "name": "Nittobo Chemical Industries, Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Japanese glass fiber manufacturer. Dominates certified T-glass (boron-free) production, the critical substrate base material for AI accelerators. Holds ~91% global T-glass market share; sole practical source for leading-edge substrates.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Nittobo T-glass global market share 2025",
+        "unit": "%",
+        "currentValue": 91,
+        "description": "Nittobo dominates certified T-glass production globally; approximately 91% market share + 60–70% NER-glass share."
+      },
+      {
+        "name": "Nittobo T-glass capacity constraint 2026",
+        "unit": "%",
+        "currentValue": {
+          "min": 10,
+          "typical": 15,
+          "max": 20
+        },
+        "description": "Taiwan IC substrate makers forecast 10–20% supply gap of T-glass in 2026; Nittobo constrained through mid-2027."
+      },
+      {
+        "name": "Nittobo T-glass capacity expansion target",
+        "unit": "x",
+        "currentValue": 3,
+        "description": "Nittobo announced August 2025 plan to triple T-glass capacity during 2026–2027; investment >¥50 billion in Japan and Taiwan."
+      },
+      {
+        "name": "Nittobo Fukushima plant expansion investment",
+        "unit": "JPY billion",
+        "currentValue": 15,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "Nittobo investing ¥15 billion ($96 million) to expand T-glass capacity by up to threefold at Fukushima production base; facilities online in 2027."
+      },
+      {
+        "name": "Nittobo price increase August 2025",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Nittobo raised prices across glass fiber product line 20% in August 2025; planned another 20–30% increase for April 2026."
+      },
+      {
+        "name": "Nittobo new capacity commissioning timeline",
+        "unit": "month",
+        "currentValue": 6,
+        "description": "Newly installed glass fiber equipment typically requires ~6 months to reach stable yield; meaningful relief not before mid-2027."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "3107.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_nittobo_tglass_shortage",
+      "ev_acc_sub_nittobo_capacity_expansion",
+      "ev_acc_sub_nittobo_price_increases"
+    ],
+    "tags": [
+      "manufacturer",
+      "material_supplier",
+      "japan",
+      "monopoly_position",
+      "public_company"
+    ],
+    "notes": "CRITICAL BOTTLENECK: Nittobo's 91% T-glass share and constrained capacity (10–20% shortage through mid-2027) gates AI accelerator substrate volume. Partnership with Nan Ya to handle 20% by 2027; plans next-gen T-glass by 2028.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_mitsubishi_gas_chemical",
+    "name": "Mitsubishi Gas Chemical Company, Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Japanese chemical company. Owns key BT resin formula and manufacturing technology patents; supplier of bismaleimide-triazine (BT) resin laminates for IC substrates. Competes with Ajinomoto in substrate resin market.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "BT resin market position",
+        "unit": "status",
+        "currentValue": "Major player",
+        "description": "Mitsubishi Gas Chemical Company owns key material BT resin formula and manufacturing technology patents; high Tg, moisture resistance, low DK/DF."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "4182.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub_mitsubishi_bt_resin"
+    ],
+    "tags": [
+      "manufacturer",
+      "material_supplier",
+      "japan",
+      "public_company"
+    ],
+    "notes": "Key supplier of BT resin systems; competing against Ajinomoto ABF for design wins in AI substrate market.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_broadcom",
+    "name": "Broadcom Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optical_interconnect",
+      "semiconductor",
+      "investable_supplier"
+    ],
+    "description": "Leading semiconductor and infrastructure software company supplying optical transceiver host ASICs, ethernet switches, and high-speed interconnect solutions for datacenter AI clusters.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Optical transceiver ASIC market share",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "Broadcom optical transceiver host ASIC share in high-speed datacenter modules; estimated from industry capacity data 2024-2026."
+      },
+      {
+        "name": "VCSEL and photodiode market share",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Broadcom optoelectronics (VCSEL/PD arrays) share in 400G+ datacenter transceivers; market estimate 2024."
+      },
+      {
+        "name": "2024 Infrastructure and Networking revenue",
+        "unit": "USD million",
+        "currentValue": 3000,
+        "description": "Broadcom 2024 Infrastructure Software + Networking segment estimated contribution from optical interconnect; investor relations estimate.",
+        "costAsOf": "2024",
+        "currency": "USD"
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "AVGO"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt_broadcom_transceiver_asic",
+      "ev_acc_opt_broadcom_transceiver_capacity"
+    ],
+    "tags": [
+      "semiconductor",
+      "optical_interconnect",
+      "public_company",
+      "designer_and_manufacturer"
+    ],
+    "notes": "Broadcom is the largest supplier of optical transceiver host ASICs and also a major VCSEL manufacturer. Critical supplier for AI accelerator cluster interconnect.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_marvell",
+    "name": "Marvell Technology Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optical_interconnect",
+      "semiconductor",
+      "investable_supplier"
+    ],
+    "description": "Semiconductor company specializing in high-speed interconnect, optical transceiver host ASICs, and storage controllers. Key supplier of 400G+ optical transceiver solutions for datacenter.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Optical transceiver ASIC market share",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Marvell optical transceiver host ASIC share in datacenter optical modules; market estimate 2024-2026."
+      },
+      {
+        "name": "2024 Data Center and Networking revenue",
+        "unit": "USD million",
+        "currentValue": 1500,
+        "description": "Marvell Data Center and Networking segment includes optical interconnect solutions; 2024 estimate.",
+        "costAsOf": "2024",
+        "currency": "USD"
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "MRVL"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt_marvell_transceiver_asic"
+    ],
+    "tags": [
+      "semiconductor",
+      "optical_interconnect",
+      "public_company",
+      "asic_designer"
+    ],
+    "notes": "Marvell is the second-largest supplier of optical transceiver host ASICs and competes with Broadcom and Intel in datacenter interconnect.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_ii_vi_coherent",
+    "name": "II-VI Incorporated / Coherent Corp.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optoelectronics",
+      "vcsel",
+      "investable_supplier"
+    ],
+    "description": "Optoelectronic and specialty materials company supplying VCSEL arrays, photodiodes, and optical components for datacenter transceivers and laser systems.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Datacenter VCSEL and optical component revenue share",
+        "unit": "%",
+        "currentValue": 30,
+        "description": "II-VI/Coherent VCSEL and photodiode share in 400G+ datacenter modules; market estimate 2024."
+      },
+      {
+        "name": "VCSEL production capacity",
+        "unit": "wafers per month",
+        "currentValue": 150,
+        "description": "Estimated VCSEL production capacity across II-VI and Coherent fabs combined; 2024 baseline (acquired by Coherent 2023)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "COHR"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt_vcsel_supply_constraint"
+    ],
+    "tags": [
+      "optoelectronics",
+      "vcsel",
+      "public_company",
+      "specialty_materials"
+    ],
+    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_philips_lumileds",
+    "name": "Philips Lumileds Holding B.V.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optoelectronics",
+      "vcsel",
+      "investable_supplier"
+    ],
+    "description": "LED and optoelectronics manufacturer supplying VCSEL and photodiode components for datacenter optical applications.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Datacenter optoelectronics market share",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Philips Lumileds VCSEL and photodiode share in high-speed datacenter transceivers; market estimate 2024."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt_vcsel_supply_constraint"
+    ],
+    "tags": [
+      "optoelectronics",
+      "vcsel",
+      "specialty_manufacturer"
+    ],
+    "notes": "Philips Lumileds is a significant supplier of datacenter VCSELs, competing with Broadcom and II-VI/Coherent. Private company (owned by Apollo).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_commscope",
+    "name": "CommScope Holding Company, Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "interconnect",
+      "fiber_optics",
+      "connector",
+      "investable_supplier"
+    ],
+    "description": "Networking and connectivity infrastructure company supplying optical cabling, connectors, and fiber-optic components for datacenter environments.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Datacenter optical connectivity revenue",
+        "unit": "USD million",
+        "currentValue": 800,
+        "description": "CommScope datacenter fiber and connector revenue estimate; company investor relations 2024.",
+        "costAsOf": "2024",
+        "currency": "USD"
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "COMM"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt_commscope_datacenter"
+    ],
+    "tags": [
+      "connector",
+      "fiber_optics",
+      "public_company",
+      "infrastructure"
+    ],
+    "notes": "CommScope is a major supplier of datacenter fiber, connectors, and cabling systems. Competes with Amphenol, TE Connectivity, and others.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_corning",
+    "name": "Corning Incorporated",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "fiber_optics",
+      "materials",
+      "investable_supplier"
+    ],
+    "description": "Materials science company supplying optical fiber, specialty glass, and photonic components for datacenter and communications infrastructure.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Optical fiber market share",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Corning optical fiber global market share; estimated from industry reports 2024."
+      },
+      {
+        "name": "2024 Optical Communications revenue",
+        "unit": "USD million",
+        "currentValue": 3500,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "Corning 2024 Optical Communications segment revenue from fiber, connectivity, and datacenter products; investor relations."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "GLW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt_corning_fiber_optics"
+    ],
+    "tags": [
+      "fiber_optics",
+      "materials",
+      "public_company",
+      "infrastructure"
+    ],
+    "notes": "Corning is the dominant global supplier of optical fiber for datacenter and telecommunications. No supply constraint risk.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "interconnect_and_optics",
+    "name": "Interconnect & optics (scale-up/scale-out)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-speed electrical and optical connectivity that scales AI accelerator modules from single-socket to multi-rack clusters: on-module chiplet-to-memory links (HBM buses, chiplet interconnect), module-to-module electrical and optical transceivers, optical module enclosures, backplane routing, and cabling infrastructure. Encompasses physical layer (fiber/copper/connectors), link-layer SerDes PHY silicon, optical transceiver modules (QSFP-DD/OSFP class), and the substrate/interposer layer that carries these signals.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "targetContext": {
+      "targetPerformance": "400G–1.6T aggregate fabric per module; sub-microsecond latency; 0.5+ Tbps/chassis for AI cluster deployment",
+      "targetUseCase": "GPU-to-GPU, GPU-to-memory, chassis-scale interconnect in datacenter",
+      "targetDate": "2026",
+      "region": "Global: optics designed in California/Israel/Sweden; transceivers assembled in Taiwan/Malaysia/China; fiber manufactured in Asia/US; connectors in Taiwan/Japan/China"
+    },
+    "tags": [
+      "interconnect",
+      "optics",
+      "high_speed_link",
+      "module"
+    ],
+    "notes": "Second-level decomposition required: on-module buses (HBM electrical routing, chiplet interconnect substrate), transceiver silicon (SerDes/PMD), optical module enclosure and assembly, and cabling/connector layers. Strong capacity concentration in optical transceiver assembly and high-speed PHY silicon design.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "on_module_hbm_interconnect",
+    "name": "On-module HBM bus routing and electrical interconnect",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-bandwidth memory (HBM) stack electrical routing: copper pillar micro-bumps, fine-pitch substrate traces (sub-5µm linewidth), via structures carrying 10–20 Gbps differential pairs, and low-loss dielectric materials that connect HBM stacks to logic die within the 2.5D/3D package. This layer is internal to the module but gates memory bandwidth realization.",
+    "maturityScore": 75,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "HBM3 interface speed",
+        "unit": "Gbps",
+        "currentValue": 24,
+        "description": "JEDEC HBM3 standard specifies 24 Gbps I/O frequency, HBCC 6.0 interface per JEDEC spec published 2024."
+      },
+      {
+        "name": "Total HBM bus width per stack",
+        "unit": "pins",
+        "currentValue": 1024,
+        "description": "Standard HBM3 stack features 1,024 I/O pins; industry baseline for 2024–2026 accelerator modules."
+      }
+    ],
+    "tags": [
+      "interconnect",
+      "hbm",
+      "substrate",
+      "electrical_routing",
+      "fine_pitch"
+    ],
+    "notes": "Maturity is high (commodity in datacenter production); continues to decompose only due to supply concentration in substrate makers and via technology constraints. Bottleneck is advanced substrate manufacturing capacity and yield on fine-pitch lines.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "chiplet_interconnect_substrate",
+    "name": "Chiplet-to-chiplet interconnect substrate and interposer",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Silicon interposer or organic substrate layer that routes signals between logic chiplets, memory stacks, and power delivery: 2–10 µm trace width, 3–5 µm spacing, multiple metal layers, high-density via arrays, and low-loss interconnect for GHz-class signaling. Includes copper pillar bonding sites and thermal interface.",
+    "maturityScore": 72,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Advanced organic substrate trace width",
+        "unit": "µm",
+        "currentValue": 3,
+        "description": "Leading-edge organic substrate process for high-end accelerators features 3 µm trace / 3 µm space; industry standard 2024–2026."
+      },
+      {
+        "name": "Metal layers in advanced substrate",
+        "unit": "layers",
+        "currentValue": 14,
+        "description": "High-layer-count substrates (12–16 layers) are standard for multi-chiplet accelerator modules per OSAT capacity 2024–2026."
+      }
+    ],
+    "tags": [
+      "substrate",
+      "interposer",
+      "chiplet",
+      "signal_routing",
+      "fine_pitch"
+    ],
+    "notes": "Organic substrate and high-density interposer manufacturing is a gating layer; suppliers (Ibiden, Nan Ya, Unimicron) operate at full capacity 2024–2026. Lead time for advanced substrate tooling: 12–18 months. If AI accelerator demand doubles, substrate capacity expansion is critical path.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "on_module_serdes_phy_chiplet",
+    "name": "On-module SerDes PHY / PMD chiplet",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Serializer-deserializer (SerDes) and Physical-Media-Dependent (PMD) silicon that drives high-speed chip-to-chip and chip-to-transceiver interfaces: 50–112 Gbps single lanes, equalization, clock recovery, jitter management, and analog front-end circuits. These are often integrated into the main logic die or provided as discrete PHY chiplets.",
+    "maturityScore": 76,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Advanced SerDes lane speed",
+        "unit": "Gbps",
+        "currentValue": 112,
+        "description": "Leading PAM-4 SerDes designs in 2024–2026 accelerators achieve 112 Gbps per lane; PCIe 6.0 / Omni-Path reference."
+      },
+      {
+        "name": "Integrated SerDes per logic die",
+        "unit": "lanes",
+        "currentValue": 64,
+        "description": "High-end accelerator logic dies integrate 64–128 SerDes lanes for on-module and off-module interconnect; 2024–2026 baseline."
+      }
+    ],
+    "tags": [
+      "serdes",
+      "phy",
+      "high_speed",
+      "analog_mixed_signal",
+      "chiplet"
+    ],
+    "notes": "SerDes/PMD design is baked into the main logic die for most modern accelerators. Bottleneck is analog design expertise and process (FinFET) capability; concentrated in 3–5 design teams (Nvidia/AMD/Broadcom/Intel/Marvell). No separate supply constraint.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "optical_transceiver_module",
+    "name": "Optical transceiver module (QSFP-DD / OSFP class)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Complete module-to-module optical interface: 400G–1.6T transceiver (host silicon + laser array + photodiode array + output optics), housed in QSFP-DD (dual-density) or OSFP (open-form-factor) cage, with integrated cooling. These are the primary scale-out link between accelerator modules in clusters.",
+    "maturityScore": 73,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "QSFP-DD optical module aggregate bandwidth",
+        "unit": "Gbps",
+        "currentValue": 400,
+        "description": "Standard 400G QSFP-DD module per MSA 2024–2026 achieves 400 Gbps (8x50G PAM-4 lanes)."
+      },
+      {
+        "name": "OSFP module aggregate bandwidth",
+        "unit": "Tbps",
+        "currentValue": 1.6,
+        "description": "High-end OSFP modules (Nvidia Cumulus, 2025) reach 1.6 Tbps (16x100G) through multi-channel laser arrays."
+      },
+      {
+        "name": "Optical module power dissipation",
+        "unit": "W",
+        "currentValue": 18,
+        "description": "High-density OSFP modules (1.6T class) consume 12–20 W depending on cooling and laser type; 2025 data."
+      }
+    ],
+    "tags": [
+      "optical_transceiver",
+      "module_to_module",
+      "scale_out",
+      "datacenter"
+    ],
+    "notes": "Optical transceiver module assembly and test is a high-touch, capacity-constrained process. Shortage episodes in 2023–2024 (e.g., Broadcom 400G allocation). Expansion lead time: 6–12 months for new module assembly lines. Share: Broadcom ~45%, Marvell ~20%, Intel/Xilinx ~15%, others ~20%.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "optical_transceiver_host_silicon",
+    "name": "Optical transceiver host silicon / ASIC",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Application-specific integrated circuit (ASIC) that manages the optical module's laser/photodiode arrays, signal processing, CDR (clock-data-recovery), equalization, and host interface (typically PCIe or sideband). Houses the framing, error correction, and temperature/power management logic.",
+    "maturityScore": 74,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Optical transceiver ASIC fab node",
+        "unit": "nm",
+        "currentValue": 28,
+        "description": "High-volume optical transceiver host ASICs use 28–40 nm processes (Broadcom, Marvell, Intel); mature processes allow volume scaling."
+      },
+      {
+        "name": "Transceiver ASIC lanes per chip",
+        "unit": "count",
+        "currentValue": 16,
+        "description": "Single ASIC typically drives 8–16 optical lanes (400G–1.6T aggregate depending on signaling)."
+      }
+    ],
+    "tags": [
+      "asic",
+      "optical_control",
+      "host_interface",
+      "high_speed"
+    ],
+    "notes": "Host ASIC design and manufacturing is concentrated in 4 vendors: Broadcom, Marvell, Intel (Altera), and Xilinx. Volume production in TSMC 28nm/40nm is mature but capacity was constrained in 2023–2024 during AI accelerator ramp.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "laser_array_and_photodiodes",
+    "name": "Laser array and photodiode array for optical transceiver",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Electro-optical components within the transceiver module: VCSEL (vertical-cavity surface-emitting laser) or edge-emitting laser arrays for transmission, and photodiode (PD) arrays for reception, integrated with On-Die Optics (ODO) and lensing. These are the light-source and light-detection components that set bandwidth and cost.",
+    "maturityScore": 71,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "VCSEL wavelength for datacenter",
+        "unit": "nm",
+        "currentValue": 850,
+        "description": "850 nm VCSELs dominate 400G datacenter transceivers; industry standard 2022–2026."
+      },
+      {
+        "name": "VCSEL array density",
+        "unit": "per 1mm²",
+        "currentValue": 20,
+        "description": "High-density VCSEL arrays for 400G+ modules achieve ~20–40 lasers/mm²; 2024 technology."
+      }
+    ],
+    "tags": [
+      "optoelectronics",
+      "vcsel",
+      "photodiode",
+      "analog"
+    ],
+    "notes": "VCSEL supply is a historical bottleneck: Broadcom, Philips Lumileds, and II-VI/Coherent share the market. Allocation episodes 2022–2023. VCSEL fab capacity expansion is 12–18 months. If demand doubles, VCSEL supply becomes critical path.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "optical_module_enclosure_and_cooling",
+    "name": "Optical module enclosure, heat sinking, and form-factor assembly",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Physical housing, heat sinks, thermal interface materials, and mechanical assembly of the QSFP-DD or OSFP module: stamped or cast aluminum/steel cage, vapor-chamber or liquid-cooled cold plate, EMI shielding, and precision alignment structures for optical connectors and pluggable interfaces.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "OSFP module thermal interface material",
+        "unit": "W/mK",
+        "currentValue": 5,
+        "description": "High-end thermal interface materials (graphite composites, solder-based) used in OSFP modules achieve 3–8 W/mK; 2024 industry standard."
+      },
+      {
+        "name": "OSFP module assembly test per line",
+        "unit": "units per month",
+        "currentValue": 10000,
+        "description": "Advanced optical module assembly lines (Broadcom, TE, Amphenol) produce 5k–15k units/month; capacity bottleneck 2024–2025."
+      }
+    ],
+    "tags": [
+      "thermal",
+      "mechanical",
+      "enclosure",
+      "module_assembly"
+    ],
+    "notes": "Enclosure and assembly is a secondary constraint; primary bottleneck is internal electronics (laser/PD, ASIC). Precision molding and thermal assembly require specialized tooling; lead time 6–9 months for new line setup.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "optical_connector_interface",
+    "name": "Optical connector interface (MPO / LC / micro-lens)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Pluggable optical connector that interfaces module to fiber: Multi-Fiber Push-On (MPO) with precision ferrule (8–12 fiber), LC-style connectors, or integrated micro-lens for free-space optics. Connector alignment, repeatability, and optical loss (insertion loss <0.3 dB) are critical.",
+    "maturityScore": 72,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "tags": [
+      "connector",
+      "optical",
+      "interface",
+      "mechanical_precision",
+      "decomposition_frontier"
+    ],
+    "notes": "Optical connectors (MPO/LC) are commodified; primary suppliers are Amphenol, CommScope, and FutureLand (Asia). No recent shortage. Decomposition frontier: connector design does not constrain module availability; no further decomposition needed.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "fiber_optic_cables_and_bundles",
+    "name": "Fiber optic cables and bundles for module-to-module routing",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Single-mode or multi-mode fiber optic cables, sheathed in protective jackets and bundled for datacenter routing: running between accelerator modules, switches, and network endpoints within and between racks. Includes 50µm core MMF for short-reach datacenter links (SR4, SR8) and SMF for longer runs.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "tags": [
+      "fiber_optic",
+      "cabling",
+      "commodified",
+      "bulk_material",
+      "decomposition_frontier"
+    ],
+    "notes": "Fiber manufacturing is mature and multi-sourced globally (Corning, Prysmian, others). No supply concentration or shortage risk. Decomposition frontier: commodity product; no gating factors for AI accelerator scale.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "backplane_substrate_and_routing",
+    "name": "High-speed backplane substrate and signal routing",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Multi-layer organic substrate or HDI (High-Density Interconnect) PCB that routes electrical and optical signals across a chassis or system: 10–20 layers, 3–4 µm trace/space, via-in-pad, and controlled-impedance traces for 50–112 Gbps differential signals. Includes power planes, ground planes, and mechanical mounting.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Backplane substrate metal layers",
+        "unit": "layers",
+        "currentValue": 14,
+        "description": "Advanced multi-GPU cluster backplanes use 12–18 layers; 2024–2026 standard per OSAT capacity."
+      },
+      {
+        "name": "Backplane trace / space",
+        "unit": "µm",
+        "currentValue": 4,
+        "description": "Leading-edge backplane substrates achieve 3–4 µm trace/space; required for 100+ Gbps signaling per channel."
+      }
+    ],
+    "tags": [
+      "backplane",
+      "substrate",
+      "signal_routing",
+      "power_delivery"
+    ],
+    "notes": "Backplane substrate manufacturing is concurrent with module substrate but from same suppliers (Ibiden, Nan Ya, Unimicron). Capacity is shared; doubling accelerator production requires proportional backplane substrate tooling investment.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "high_speed_connector_for_module_interconnect",
+    "name": "High-speed electrical connector for module-to-module and chassis routing",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Pluggable or fixed connectors that carry high-speed differential pairs (100+ Gbps aggregate): Harting, TE Connectivity, Amphenol connectors with gold-plated contacts, controlled-impedance mating surfaces, and low-profile design for dense module layouts. Used for secondary electrical links (redriver, power sense, sideband) alongside optical.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "High-speed electrical connector pin count",
+        "unit": "pins",
+        "currentValue": 100,
+        "description": "Advanced connectors for AI modules support 80–150 pins with <0.5Ω contact resistance; 2024–2026 baseline."
+      }
+    ],
+    "tags": [
+      "connector",
+      "electrical",
+      "module_interface",
+      "mechanical_integration",
+      "decomposition_frontier"
+    ],
+    "notes": "Electrical connectors are commodified across multiple suppliers (TE, Amphenol, Harting, FCI). No shortage or concentration risk. Decomposition frontier: not a constraint for AI accelerator interconnect scaling.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "redriver_and_buffer_chiplet",
+    "name": "Redriver / buffer / signal-conditioning chiplet",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Low-power ASIC that regeneates and buffers high-speed signals between modules or from module to backplane: Marvell, Microchip, or similar vendor implementations of 100–112 Gbps lanes, used for long-reach backplane routing within a chassis.",
+    "maturityScore": 74,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "asic",
+      "redriver",
+      "signal_conditioning",
+      "chiplet"
+    ],
+    "notes": "Redriver ASICs are mature and multi-sourced. Decomposition frontier: not a critical bottleneck, many suppliers exist (Marvell, Microchip, TI, others).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "power_delivery",
+    "name": "Power delivery (module & rack)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Multi-level power delivery infrastructure spanning module-level voltage regulation (700W–1.4kW per accelerator module), intermediate 48V power distribution, and rack-level AC/DC conversion with redundancy. Comprises high-density VRM stages, multi-phase buck converters, bulk and ceramic capacitors, power-stage semiconductors (MOSFETs/GaN), inductors, and thermal management. 2024–2026 period shows sustained supply tension in advanced power-stage ICs, high-capacity VRM assembly, and 48V/12V converter modules.",
+    "maturityScore": 78,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "tags": [
+      "ai_compute",
+      "power_delivery",
+      "module_level"
+    ],
+    "notes": "Module-level power delivery is a bundled system rather than a single discrete component. Decomposed into sub-layers: module VRM, intermediate distribution, and rack PSU. Gating factors include VRM IC fabrication capacity at advanced nodes and high-current connector assembly lead times.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "module_level_vrm",
+    "name": "Module-level VRM (multi-phase 12V power stages)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Integrated voltage-regulator modules delivering 12V at 50–100A+ per phase, mounted adjacent to the logic die and HBM stacks on the module substrate. Uses multi-phase buck topology with advanced power-stage ICs (5nm/7nm node MOSFETs or GaN devices), integrated inductors, and high-frequency ceramic and polymer capacitors. Module count 4–8 per AI accelerator. Power delivery for each accelerator module: 400–600W at nominal clock, peak 1–1.4kW during boost.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Typical module-level VRM output per phase",
+        "unit": "A",
+        "currentValue": 100,
+        "description": "High-current AI accelerator modules require 50–150A per power stage; typical designs use 4–8 phases, totaling 200–1200A. This drives demand for integrated multi-phase VRM ICs with advanced package-on-package (PoP) designs."
+      },
+      {
+        "name": "Power stage IC node (advanced)",
+        "unit": "nm",
+        "currentValue": 7,
+        "description": "Leading VRM power stages ship at 5nm/7nm process nodes for leakage and switching efficiency; mature nodes (28nm+) dominate cost-conscious designs but advanced acceleration products require next-gen power stages."
+      }
+    ],
+    "tags": [
+      "power_stage",
+      "vrm",
+      "multi_phase",
+      "module_level"
+    ],
+    "notes": "The module-level VRM is a chokepoint: it must scale faster than the logic die itself to match increasing power density. Single-phase duty per accelerator module ~10–15A baseline, but peak surge can hit 20–30A, requiring expensive high-current switching architectures.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "power_stage_ic",
+    "name": "Power-stage IC (MOSFET / GaN switch, integrated driver)",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Single integrated circuit combining high-current MOSFET or GaN FET, gate driver, and logic in 5nm–7nm process node, tailored for high-frequency (>1MHz) buck conversion in multi-phase VRM. Requires advanced node fab capacity and yields optimization for high-current analog circuits. 2021–2026 saw acute shortage episodes in 5nm/7nm gate-driver and power FET fabrication.",
+    "maturityScore": 75,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Advanced node fab capacity (5nm/7nm, global)",
+        "unit": "wafers/month equivalent",
+        "currentValue": 350000,
+        "description": "Rough estimate of total global 5nm/7nm capacity ca. 2026; TSMC ~150k wafers/month, Samsung ~60k, Intel ~50k, others ~90k. A single AI accelerator generation may consume 2–5% of advanced-node capacity."
+      },
+      {
+        "name": "Power-stage IC lead time (2024 peak shortage)",
+        "unit": "weeks",
+        "currentValue": 24,
+        "description": "During 2024 AI boom, lead times for 5nm/7nm power-stage and gate-driver ICs stretched to 24+ weeks vs. normal 12–16 weeks; suppliers were allocating. Source: industry communications, trade press reports of VRM assembly bottlenecks."
+      },
+      {
+        "name": "TSMC advanced node power IC share",
+        "unit": "%",
+        "currentValue": 65,
+        "description": "TSMC dominates advanced-node power-stage and analog production; estimated 60–70% share of 5nm/7nm power ICs serving datacenter and AI applications as of 2026-Q2."
+      }
+    ],
+    "tags": [
+      "semiconductor",
+      "advanced_node",
+      "vrm",
+      "power_stage"
+    ],
+    "notes": "The power-stage IC is a direct bottleneck: each accelerator module requires 2–4 distinct high-current power-stage die (one per phase group), and demand grows faster than foundry advanced-node expansion. A 2x doubling of AI accelerator shipment would require foundry capacity expansion of 6–12 months lead time.",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "vrm_capacitor_bulk",
+    "name": "Bulk capacitor (ceramic or polymer, 10–1000µF)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-frequency, low-ESR capacitors (MLCC ceramic or film capacitors) providing bulk charge storage and frequency filtering in the VRM buck topology. Module-level VRMs require 50–200 bulk capacitor elements per phase group (4–8 phases). Ceramic MLCC capacitors (X7R or X5R dielectric) are preferred for their size and frequency performance; polymer and film capacitors used for lower-cost or redundancy designs. 2021–2025 saw severe MLCC shortage driven by AI datacenter expansion.",
+    "maturityScore": 85,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "MLCC global production (2024 estimate)",
+        "unit": "billion units/year",
+        "currentValue": 2000,
+        "description": "MLCC market ~2 trillion units/year; AI/datacenter demand increment ca. 10–15% of market growth 2021–2026, but demand volatility has driven multiple allocation/shortage episodes."
+      },
+      {
+        "name": "MLCC lead time (peak 2023–2024)",
+        "unit": "weeks",
+        "currentValue": 52,
+        "description": "During 2023–2024 shortage, lead times for capacitors in 100µF–1000µF range hit 52+ weeks; normalized to ~20 weeks by Q2 2026 but remain elevated vs. pre-2020 levels (~12 weeks)."
+      },
+      {
+        "name": "MLCC market concentration (top 3)",
+        "unit": "%",
+        "currentValue": 58,
+        "description": "Murata, Samsung Electro-Mechanics, TDK command ~58% of high-frequency MLCC market by volume; second-tier suppliers Yageo, Kemet, Vishay split the remainder. Single-region (Taiwan, Japan) concentration risk for top 3."
+      }
+    ],
+    "tags": [
+      "passive",
+      "capacitor",
+      "mlcc",
+      "bulk_storage"
+    ],
+    "notes": "MLCC is commodified but supply-constrained at scale. The power delivery module requires 200–1000 MLCC elements per accelerator (across all VRM stages), making it a consumption-driven bottleneck if accelerator ramp continues. However, MLCC production is not currently a single-source risk; the bottleneck is manufacturing capacity expansion lead time (24–36 months for new production lines).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "vrm_inductor",
+    "name": "VRM inductor (integrated or discrete, 0.1–1µH)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-current, low-loss inductors in 0.1–1µH range for VRM buck-converter energy storage. Integrated inductors (embedded in substrate or molded into power-stage package) are increasingly preferred to reduce module-level footprint; discrete wirewound or ferrite-core inductors used where integration not feasible. Multi-phase VRM requires 4–16 inductors total. Ferrite material sourcing (Ni-Zn or Mn-Zn) and high-current winding fabrication are concentration points.",
+    "maturityScore": 80,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "High-current inductor (>20A) fab capacity (2024)",
+        "unit": "million units/month",
+        "currentValue": 45,
+        "description": "Rough estimate based on supplier filings and trade reports; Murata, TDK, Sumida, Coilcraft combined control ~65–70% of high-current inductor market. Capacity expansion is moderate; lead times ~16–20 weeks for advanced designs as of Q2 2026."
+      },
+      {
+        "name": "Ferrite core material (Ni-Zn) single-region sourcing risk",
+        "unit": "%",
+        "currentValue": 70,
+        "description": "~70% of specialty ferrite cores for high-frequency VRM inductors are produced in Japan (Ni-Zn: TDK, Murata) and Taiwan/China (Mn-Zn: general-purpose). Japan concentration risk for premium formulations."
+      }
+    ],
+    "tags": [
+      "passive",
+      "inductor",
+      "magnetic_core"
+    ],
+    "notes": "Inductors are not currently a primary bottleneck but are worth monitoring. Ferrite core material (especially Ni-Zn specialty grades for high-frequency) is concentr ated in Japan. If demand for high-current integrated inductors doubles, lead times could stretch; however, commodity ferrite is available.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "48v_converter_module",
+    "name": "48V–12V intermediate converter (chassis-level)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-power (5–10kW) non-isolated or isolated DC–DC converter translating 48V distribution bus (standard in modern AI datacenters) down to multiple 12V rails feeding module-level VRMs. Includes isolated buck or resonant stages, control ICs, and bulk energy storage. One 48V converter handles ~10–20 AI accelerator modules per rack. Bottleneck is high-power isolated converter IC and transformer complexity.",
+    "maturityScore": 76,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "48V converter installed base (AI datacenters, 2024)",
+        "unit": "kW equivalent",
+        "currentValue": 500000,
+        "description": "Rough estimate: ~5 million AI GPUs/TPUs in field by 2024, averaging 700W per module, implies ~3.5GW deployed. Assuming 50% use direct 48V distribution (rest still 277V/208V), that's ~1.75GW 48V-converter demand, or ~175 million converter units (10–50W average per unit). Industry data is opaque; figure is illustrative."
+      },
+      {
+        "name": "Isolated 48V converter lead time (2024–2026)",
+        "unit": "weeks",
+        "currentValue": 18,
+        "description": "Isolated DC–DC converters (especially >5kW multi-output types) show 16–20 week lead times; custom designs for datacenter OEMs stretch to 24+ weeks. Suppliers: Vicor, Power Integrations, TI (custom modules)."
+      }
+    ],
+    "tags": [
+      "converter",
+      "intermediate_distribution",
+      "dc_dc"
+    ],
+    "notes": "48V distribution is standardizing in AI datacenters (OCP specification) but custom DC–DC converter modules remain vendor-dependent. Not currently a primary shortage point but worth tracking as adoption accelerates.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "rack_power_supply_unit",
+    "name": "Rack PSU (2–4kW per module, AC/DC with redundancy)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Centralized AC/DC power supply unit (PSU) at rack or pod level, delivering 48V (or dual-rail 12V+5V legacy) to downstream distribution. Typical datacenter AI rack: 10–20 accelerator modules (7–28kW total), requiring 2–4 redundant 4–8kW PSUs (N+1 or N+2 redundancy common). Each PSU includes bridge rectifier, bulk PFC stage, isolated secondary-side control, and thermal management. Lead-time and thermal-design bottlenecks dominate; capacity expansion is slow.",
+    "maturityScore": 74,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "High-power PSU (>4kW) datacenter supply lead time",
+        "unit": "weeks",
+        "currentValue": 20,
+        "description": "Custom/semi-custom rack PSU modules for AI datacenters show 18–24 week lead times due to transformer design, thermal validation, and redundancy logic complexity. Larger 8–10kW modules: 24–32 weeks. Sources: industry surveys, OEM procurement communications."
+      },
+      {
+        "name": "Rack PSU supplier concentration (top 3)",
+        "unit": "%",
+        "currentValue": 52,
+        "description": "Delta Electronics, Flex Ltd, and Artesyn Embedded Technologies command ~50–55% of custom/semi-custom datacenter PSU market. Next tier: Eaton, Emerson. Concentration is moderate; however, custom thermal and redundancy requirements mean design lead time is the binding constraint."
+      }
+    ],
+    "tags": [
+      "psu",
+      "ac_dc",
+      "rack_level",
+      "redundancy"
+    ],
+    "notes": "Rack PSUs are not typically single-source (major ODMs source 2–3 suppliers), but thermal design and custom redundancy logic create design lead times of 20–24 weeks. Not a primary shortage point as of Q2 2026 but thermal density and reliability requirements will tighten as 28–40kW-per-rack installations become standard.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "connector_and_cabling",
+    "name": "High-current connector & power cabling (48V, 12V distribution)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Mechanical connectors (XT60, Molex Megafit, custom blind-mate), PCB traces, and cabling for distributing 48V and 12V power within the module and from rack PSU to intermediate converters. Includes high-current rated pins (50–100A class), backplane interconnect, and thermal reliability. 2023–2024 showed bottleneck in high-current blind-mate connector supply and PCB fabrication lead times for multi-layer backplanes.",
+    "maturityScore": 78,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "High-current blind-mate connector lead time (2024 peak)",
+        "unit": "weeks",
+        "currentValue": 28,
+        "description": "During 2023–2024, custom-tolerance blind-mate connectors (50–100A class) hit 24–32 week lead times; normalized to ~20 weeks by Q2 2026. Suppliers: Molex, TE Connectivity, JAE, and lesser-known Chinese ODMs."
+      },
+      {
+        "name": "Connector supplier concentration (top 2)",
+        "unit": "%",
+        "currentValue": 48,
+        "description": "Molex and TE Connectivity dominate high-current connector market for datacenters with ~45–50% combined share. Long tail of regional suppliers; however, standardized high-current designs have reduced switching cost."
+      }
+    ],
+    "tags": [
+      "connector",
+      "interconnect",
+      "assembly"
+    ],
+    "notes": "Connectors and PCB backplane assembly are not primary bottlenecks currently but create assembly lead times. The constraint is multi-layer PCB fabrication (12–16 layer backplanes) with tight tolerances; lead time is 12–16 weeks.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermal_management_module",
+    "name": "Thermal management (heatsink, liquid coupling, vapor chamber)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Passive and active thermal solutions for removing heat from power stages, VRMs, and interconnect substrates to the module exterior. Includes copper/aluminum heatsinks, thermal interface materials (TIM), and liquid/vapor-phase coupling to external coolers. Multi-phase VRM heat dissipation: ~50–150W per module (20–30% of total accelerator power). Aluminum die-casting and thermal-coupling design are the primary lead-time drivers.",
+    "maturityScore": 80,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Custom heatsink assembly lead time",
+        "unit": "weeks",
+        "currentValue": 16,
+        "description": "Custom aluminum heatsink design and die-cast production for AI accelerator modules show 14–18 week lead times. Standard designs and off-the-shelf heatsinks: 8–12 weeks."
+      }
+    ],
+    "tags": [
+      "thermal",
+      "heatsink",
+      "cooling",
+      "passive"
+    ],
+    "notes": "Thermal solutions are not a primary bottleneck; aluminum and TIM suppliers have adequate capacity. However, custom heatsink design for high-frequency power stages and tight thermal tolerances (~5K above board) create iterative design cycles (6–12 weeks). Not marked bottleneckOf.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_renesas",
+    "name": "Renesas Electronics",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor",
+      "investable_supplier",
+      "power_stage_ic"
+    ],
+    "description": "Japanese semiconductor designer supplying integrated VRM power-stage ICs and gate-driver solutions for AI accelerator modules. Renesas RAA series targets 5nm/7nm process nodes with 0.3–0.5 mΩ RDS(on) and integrated driver capabilities for multi-phase VRM topologies. Primary supplier to leading GPU OEMs for high-power density accelerator modules.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Power IC market share (5nm/7nm VRM)",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "Renesas estimated 15–20% share of advanced-node power-stage IC market for AI accelerator applications ca. 2026, based on industry analyst reports and foundry partnership announcements."
+      },
+      {
+        "name": "FY2025 (9M) Industrial and Infrastructure Solutions revenue",
+        "unit": "JPY million",
+        "currentValue": 253900,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "Renesas 9-month FY2025 earnings report (April–December 2025) reports Industrial and Infrastructure Solutions segment revenue of ~253.9 billion JPY, including power-stage and analog ICs."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6723.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_renesas_vrm_ic",
+      "ev_acc_pwr_renesas_power_ic_share"
+    ],
+    "tags": [
+      "semiconductor",
+      "power_stage_ic",
+      "vrm",
+      "japanese",
+      "public_company"
+    ],
+    "notes": "Investor relevance: direct supplier to AI accelerator OEMs for power-stage ICs; benefit scales with accelerator ramp. Concentration risk: supply depends on 5nm/7nm foundry capacity at TSMC and Samsung Foundry.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_murata",
+    "name": "Murata Manufacturing",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "passive_components",
+      "investable_supplier",
+      "mlcc",
+      "inductor"
+    ],
+    "description": "Japanese manufacturer of multilayer ceramic capacitors (MLCC), high-current inductors, and ferrite cores for power delivery applications. Murata supplies bulk MLCC (100µF–1000µF X7R/X5R) and integrated inductor designs for VRM and converter modules in AI accelerators. Annual MLCC production ~600–800 billion units with datacenter/AI applications representing 12–15% of volume.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global MLCC market share",
+        "unit": "%",
+        "currentValue": 28,
+        "description": "Murata estimated 25–30% of global MLCC market by volume ca. 2026, per TrendForce and industry analyst reports. Datacenter and AI applications account for ~15% of Murata's MLCC volume."
+      },
+      {
+        "name": "High-current inductor market share",
+        "unit": "%",
+        "currentValue": 22,
+        "description": "Murata estimated 20–25% of high-current (>20A) inductor market for power delivery, per TrendForce market analysis."
+      },
+      {
+        "name": "FY2025 (9M) Passive Components Division revenue",
+        "unit": "JPY billion",
+        "currentValue": 380,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "Murata 9-month FY2025 earnings (April–December) reports Passive Components division revenue of ~380 billion JPY, including MLCC and inductors."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "8897.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_murata_mlcc_production",
+      "ev_acc_pwr_murata_inductor_market",
+      "ev_acc_pwr_murata_market_share"
+    ],
+    "tags": [
+      "passive_components",
+      "mlcc",
+      "inductor",
+      "japanese",
+      "public_company"
+    ],
+    "notes": "Investor relevance: multi-sourced but market-concentrated. MLCC and inductor lead-time volatility directly impacts accelerator module assembly. Ferrite material sourcing (especially Ni-Zn cores) concentrated in Japan, creating geopolitical exposure.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_tdk",
+    "name": "TDK Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "passive_components",
+      "investable_supplier",
+      "mlcc",
+      "inductor",
+      "ferrite"
+    ],
+    "description": "Japanese electronics company manufacturing MLCC, ferrite cores (Ni-Zn and Mn-Zn), and high-current inductors for power applications. TDK supplies integrated inductor designs and specialty ferrite formulations for advanced VRM topologies. Annual MLCC production ~450–550 billion units; ferrite core production concentrated in Japan manufacturing hubs.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global MLCC market share",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "TDK estimated 15–20% of global MLCC market by volume ca. 2026, per TrendForce. High-frequency X7R/X5R grades for VRM represent strategic focus."
+      },
+      {
+        "name": "High-current inductor market share",
+        "unit": "%",
+        "currentValue": 19,
+        "description": "TDK estimated 18–22% of high-current (>20A) inductor market for power delivery applications."
+      },
+      {
+        "name": "FY2025 (9M) Passive and Sensor Systems revenue",
+        "unit": "JPY billion",
+        "currentValue": 340,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "TDK 9-month FY2025 earnings reports Passive and Sensor Systems segment revenue of ~340 billion JPY, including MLCC, inductors, and ferrite products."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6762.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_tdk_mlcc_capacity",
+      "ev_acc_pwr_tdk_inductor_ferrite",
+      "ev_acc_pwr_tdk_market_share"
+    ],
+    "tags": [
+      "passive_components",
+      "mlcc",
+      "inductor",
+      "ferrite",
+      "japanese",
+      "public_company"
+    ],
+    "notes": "Investor relevance: TDK's specialty Ni-Zn ferrite cores create supply-chain dependency for high-frequency VRM inductors. Japan-based manufacturing creates geopolitical and logistics exposure. Multi-sourced at global level but concentrated in Japan for premium grades.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_samsung_electro_mechanics",
+    "name": "Samsung Electro-Mechanics",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "passive_components",
+      "investable_supplier",
+      "mlcc"
+    ],
+    "description": "South Korean subsidiary of Samsung Electronics manufacturing multilayer ceramic capacitors (MLCC) for high-frequency power applications. Supplies X7R and X5R grade MLCC to AI accelerator power delivery modules. Samsung Electro-Mechanics operates dedicated MLCC fabs with capacity ~200–300 billion units annually.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global MLCC market share",
+        "unit": "%",
+        "currentValue": 16,
+        "description": "Samsung Electro-Mechanics estimated 15–18% of global MLCC market by volume ca. 2026, per TrendForce. High-frequency MLCC for VRM applications represent ~20% of output."
+      },
+      {
+        "name": "FY2025 (9M) Passive Components Division revenue",
+        "unit": "USD million",
+        "currentValue": 2900,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Samsung Electro-Mechanics 9-month FY2025 earnings (estimate from parent company segment reporting) MLCC and passive component revenue ~3.8 trillion KRW (~USD 2.9B)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "Listed as Samsung subsidiary"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_samsung_em_mlcc",
+      "ev_acc_pwr_samsung_em_market_share"
+    ],
+    "tags": [
+      "passive_components",
+      "mlcc",
+      "south_korean",
+      "subsidiary"
+    ],
+    "notes": "Investor relevance: supplies multi-sourced MLCC to AI accelerator makers. South Korean manufacturing concentration creates export risk. Part of Samsung conglomerate; investor exposure via Samsung Electronics (005930.KS).",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_vicor",
+    "name": "Vicor Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "power_converter",
+      "investable_supplier",
+      "isolated_converter"
+    ],
+    "description": "US semiconductor and power-module designer supplying isolated 48V–12V converter modules (BCM and DCM product lines) for datacenter power distribution. Vicor designs and manufactures high-density, isolated transformer-based converters for intermediate power delivery in AI accelerator racks. 5–10kW power ratings with integrated control and custom thermal management.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "48V converter module market share (OCP-compliant AI datacenters)",
+        "unit": "%",
+        "currentValue": 42,
+        "description": "Vicor estimated 40–45% market share of OCP-compliant 48V–12V isolated converter modules for AI datacenters ca. 2026, per industry surveys and analyst reports."
+      },
+      {
+        "name": "FY2025 (Q1–Q3) total revenue",
+        "unit": "USD million",
+        "currentValue": 342,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Vicor 9-month FY2025 earnings (Jan–Sep) reports revenue of ~$342M, with power modules (including 48V converters) representing ~65% of total."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "VICR"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_vicor_isolated_converter",
+      "ev_acc_pwr_vicor_market_share"
+    ],
+    "tags": [
+      "power_converter",
+      "isolated_converter",
+      "us_company",
+      "public_company",
+      "48v"
+    ],
+    "notes": "Investor relevance: critical supplier for OCP 48V standardization in hyperscale AI datacenters. Lead time ~16–20 weeks for custom modules; supply concentration risk for specialized isolated topologies.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_power_integrations",
+    "name": "Power Integrations",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "power_converter",
+      "investable_supplier",
+      "converter_ic"
+    ],
+    "description": "US semiconductor company supplying galvanically isolated DC–DC converter ICs and gate-driver solutions for 48V datacenter power distribution. Power Integrations SCALE driver and reference converter designs enable OEMs (Emerson, Artesyn, Flex) to build isolated 48V–12V modules. Integrated control and high-frequency gate-drive architecture optimize efficiency for hyperscale deployments.",
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Isolated converter IC market share (48V+ systems)",
+        "unit": "%",
+        "currentValue": 28,
+        "description": "Power Integrations estimated 25–30% market share of isolated converter ICs for datacenter and AI power delivery ca. 2026, per analyst research."
+      },
+      {
+        "name": "FY2025 (9M) total revenue",
+        "unit": "USD million",
+        "currentValue": 278,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Power Integrations 9-month FY2025 earnings (Jan–Sep) reports total revenue of ~$278M, with datacenter power and isolated-converter products representing ~50% of growth."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "POWI"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_pi_galvanically_isolated",
+      "ev_acc_pwr_pi_market_share"
+    ],
+    "tags": [
+      "power_converter",
+      "converter_ic",
+      "gate_driver",
+      "us_company",
+      "public_company"
+    ],
+    "notes": "Investor relevance: IC-level supplier enabling OEM converter design flexibility. Supply is less concentrated (many OEM partners) but IC lead times remain elevated (16–20 weeks for custom designs).",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_delta_electronics",
+    "name": "Delta Electronics",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "power_supply",
+      "investable_supplier",
+      "rack_psu"
+    ],
+    "description": "Taiwanese electronics manufacturer supplying custom and semi-custom rack PSU modules (2–8kW, AC/DC with redundancy) for AI datacenter deployments. Delta manufactures high-reliability power modules with N+1/N+2 redundancy logic, thermal management, and hot-swap capability for leading hyperscalers. Market leader in custom datacenter PSU segment.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Custom/semi-custom datacenter PSU market share",
+        "unit": "%",
+        "currentValue": 52,
+        "description": "Delta Electronics estimated 50–55% market share in custom and semi-custom 4–8kW rack PSU modules for AI datacenters ca. 2026, per industry analyst reports."
+      },
+      {
+        "name": "FY2025 (Q1–Q3) Power Electronics Division revenue",
+        "unit": "USD million",
+        "currentValue": 1290,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Delta Electronics 9-month FY2025 earnings reports Power Electronics segment revenue of ~42 billion TWD (~USD 1.29B), including datacenter PSU and redundancy systems."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "2308.TW"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_delta_datacenter_psu",
+      "ev_acc_pwr_delta_market_share"
+    ],
+    "tags": [
+      "power_supply",
+      "rack_psu",
+      "taiwanese",
+      "public_company"
+    ],
+    "notes": "Investor relevance: dominant supplier of custom datacenter PSU modules to major OEMs. Supply concentration risk: 50%+ market share means demand ramp depends on single supplier. Lead time 20–24 weeks for custom designs.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_eaton",
+    "name": "Eaton Power Systems",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "power_supply",
+      "investable_supplier",
+      "rack_psu"
+    ],
+    "description": "US industrial electronics manufacturer supplying AC/DC PSU modules and redundancy control logic for datacenter applications. Eaton offers rack-level power delivery modules, hot-swap mechanisms, and load-sharing electronics for N+1/N+2 redundancy. Secondary supplier in datacenter PSU market with focus on industrial-grade reliability and control integration.",
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Custom datacenter PSU market share",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "Eaton estimated 15–20% market share in custom/semi-custom datacenter PSU modules ca. 2026, per industry surveys. Secondary supplier positioning with stronger control/redundancy focus."
+      },
+      {
+        "name": "FY2025 (9M) Electrical Americas revenue",
+        "unit": "USD billion",
+        "currentValue": 9.8,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Eaton 9-month FY2025 earnings reports Electrical Americas segment revenue of ~$9.8B, including datacenter power and redundancy systems as subset."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "ETN"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pwr_eaton_power_systems",
+      "ev_acc_pwr_eaton_market_share"
+    ],
+    "tags": [
+      "power_supply",
+      "rack_psu",
+      "us_company",
+      "public_company"
+    ],
+    "notes": "Investor relevance: secondary supplier in custom datacenter PSU but strong control and redundancy capabilities. Multi-sourcing opportunity vs. Delta dominance. Lead times similar to Delta (20–24 weeks).",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "thermal_cooling",
+    "name": "Thermal management & cooling",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Thermal management system for 700W–1.4kW AI accelerator modules, including module-level thermal interfaces (TIM, heat spreaders, direct-contact cooling lids), sealed liquid cooling loops with pumps and cold plates, and rack-level heat exchangers and distribution infrastructure. Dissipation of multi-hundred-watt densities requires precision thermal pathways and high-reliability cooling components.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "targetContext": {
+      "targetPerformance": "700W–1.4kW module heat dissipation; <65°C junction, <45°C liquid inlet",
+      "targetUseCase": "Datacenter-scale AI training and inference"
+    },
+    "tags": [
+      "thermal_management",
+      "liquid_cooling",
+      "module_assembly"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermal_interface_material_tim",
+    "name": "Thermal interface material (TIM)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "High-performance phase-change or adhesive thermal interface material used between silicon die and heat spreader in AI accelerator modules. Typical thermal conductivity 3–8 W/mK. Shin-Etsu Chemical dominates with ~40% global market share; Henkel/Bergquist holds ~20%. Datacenter-grade TIM demand scales with accelerator shipments.",
+    "maturityScore": 85,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Global TIM market share",
+        "unit": "%",
+        "currentValue": 40,
+        "description": "Shin-Etsu Chemical estimated global market share in advanced thermal interface materials, cited in industry analyst reports (2024–2025)."
+      },
+      {
+        "name": "TIM annual capacity (estimated)",
+        "unit": "million units/year",
+        "currentValue": 150,
+        "description": "Estimated global TIM production capacity sufficient for current accelerator production rates; constraint emerges above ~200 units/year demand growth."
+      }
+    ],
+    "tags": [
+      "material",
+      "thermal",
+      "packaging_material",
+      "high_concentration"
+    ],
+    "notes": "TIM is a multi-sourced commodity at industrial scale in 2026, but high-performance datacenter-grade variants (>5 W/mK, particle-free) face tighter supply. Shin-Etsu capacity expansion lead time: 12–18 months.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "heat_spreader_copper_aluminum",
+    "name": "Heat spreader (copper/aluminum)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Precision copper or aluminum heat spreader bonded to accelerator die to distribute heat laterally before transfer to liquid cooling interface. Copper preferred for superior conductivity (~400 W/mK) but higher cost; aluminum lower cost (~160 W/mK). Fabrication via stamping, CNC, or brazing.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "material",
+      "thermal",
+      "commodity"
+    ],
+    "notes": "Copper rod/ingot and high-purity aluminum strip are commodities. Precision machining and brazing capacity in Asia (Taiwan, Japan, Korea) is the constraint; lead time for new tooling ~8–12 months.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "direct_contact_thermal_lid",
+    "name": "Direct-contact thermal lid (DCL)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Custom-designed thermal lid or cap that interfaces directly with the chip surface or heat spreader to conduct away module waste heat. In 2.5D/3D packages, the lid is precision-machined (often from copper) to match die height and layout. Direct contact eliminates air gaps, improving heat flow vs traditional IHS (Integrated Heat Spreader).",
+    "maturityScore": 75,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Custom DCL tooling lead time",
+        "unit": "months",
+        "currentValue": 10,
+        "description": "Time to design, prototype, and set up precision machining tooling for a new DCL variant; sourcing custom copper or aluminum blanks adds 2–3 months."
+      }
+    ],
+    "tags": [
+      "module",
+      "thermal",
+      "custom_fabrication",
+      "lead_time_constraint"
+    ],
+    "notes": "DCL is semi-custom per die layout; each new accelerator generation requires new tooling. Fabrication concentration in Taiwan and Korea; Japanese machine-tool vendors (Makino, Kitamura) supply the CNC capability.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "sealed_liquid_cooling_loop",
+    "name": "Sealed liquid cooling loop",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Integrated sealed liquid cooling circuit for AI accelerator module, consisting of micropump, cold plate (water block), silicone tubing, and manifold, filled with de-ionized water or specialized heat-transfer fluid. Asetek dominates the datacenter liquid cooling market with ~60% share; CoolIT Systems and others compete for high-end datacenter designs. Loop operates at 1–3 bar pressure, 30–45°C inlet temperature.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Asetek market share (sealed datacenter liquid cooling)",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "Asetek estimated share of sealed-loop liquid cooling systems deployed in AI datacenters (2024–2025 analyst estimates)."
+      },
+      {
+        "name": "Sealed loop annual capacity (Asetek + tier-1 competitors)",
+        "unit": "thousand units/year",
+        "currentValue": 500,
+        "description": "Estimated combined annual capacity for sealed loops deployable in AI accelerators; constraint tightens above 600k units/year demand."
+      }
+    ],
+    "tags": [
+      "module",
+      "thermal",
+      "high_concentration",
+      "custom_integration"
+    ],
+    "notes": "Asetek capacity limited by pump miniaturization and thermal-design customization per accelerator generation; expansion lead time 14–18 months due to custom-block engineering and pump sourcing.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "cold_plate_water_block",
+    "name": "Cold plate / water block",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Precision-machined aluminum or copper cooling block that interfaces directly with the thermal lid or spreader surface, circulating chilled water or heat-transfer fluid through internal microchannels (100–500 µm channels). Must match thermal lid geometry with <0.1mm tolerance. Fabrication by CNC, laser micromachining, or additive manufacturing.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Custom cold-plate tooling lead time",
+        "unit": "months",
+        "currentValue": 12,
+        "description": "Design, prototype, and CNC setup for a custom water block per new accelerator die geometry; microchannel optimization adds 3–4 months."
+      }
+    ],
+    "tags": [
+      "module",
+      "thermal",
+      "custom_fabrication",
+      "lead_time_constraint"
+    ],
+    "notes": "Each new accelerator generation requires new cold-plate CAD and tooling. CNC precision and microchannel uniformity are the limiting factors. Fabrication primarily in Taiwan, Korea, Japan; some tier-2 supply in Europe.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "micropump_circulation",
+    "name": "Micropump (circulation)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Small high-reliability pump (50–500 mL/min, <50W) used to circulate coolant through sealed loops. Typically centrifugal or gear pump design, sealed with ceramic or carbon-graphite bearings. Asetek sources most pumps from OEMs including Ebara, Nidec, and custom suppliers. Noise and vibration critical for datacenter deployment.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Datacenter-grade micropump annual supply",
+        "unit": "thousand units/year",
+        "currentValue": 400,
+        "description": "Estimated annual capacity for sealed, low-vibration micropumps suitable for AI datacenter liquid cooling loops."
+      }
+    ],
+    "tags": [
+      "module",
+      "thermal",
+      "mechanical",
+      "high_reliability"
+    ],
+    "notes": "Pump supply is a secondary bottleneck; Asetek contracts long-term capacity from tier-1 suppliers (Ebara, Nidec). Failure rate and MTBF critical; spare pump availability is logistics-dependent.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "heat_exchanger_radiator",
+    "name": "Heat exchanger / radiator",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Rack-level or cluster-level aluminum or copper-tube heat exchanger used to reject waste heat from sealed liquid loops to facility chilled water or to air. Plate-fin, tube-fin, or microchannel designs. Boyd (now part of Aavid Thermacore), Lytron, and regional OEMs compete. Large-scale datacenter deployments use rear-door or in-row radiators (10–50 kW capacity per unit).",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "High-capacity radiator annual market",
+        "unit": "thousand units/year",
+        "currentValue": 120,
+        "description": "Estimated annual shipment of large-format (>5 kW) heat exchangers for datacenter liquid-cooling infrastructure."
+      }
+    ],
+    "tags": [
+      "module",
+      "thermal",
+      "commodity_scale",
+      "regional_supply"
+    ],
+    "notes": "Radiator supply is multi-sourced (Boyd, Lytron, regional vendors), but custom design for specific datacenter loop layouts adds 6–8 month lead times. Aluminum supply and tube-brazing capacity are regional constraints (Japan, Korea, Taiwan, Europe).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermal_management_fluid",
+    "name": "Thermal management fluid (heat-transfer fluid)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Specialized heat-transfer fluid used in sealed cooling loops; typically de-ionized water with corrosion inhibitors and biocides, or proprietary fluorocarbon fluids (3M NOVEC, Dow Syltherm). Electrical conductivity <100 pS/m to avoid leakage currents. Density, viscosity, and thermal conductivity optimized for 30–45°C operation.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "material",
+      "thermal",
+      "commodity",
+      "multi_sourced"
+    ],
+    "notes": "Coolant supply is largely commodified, with multiple suppliers (Dow, BASF, Eastman, regional producers). Formulation (additives, biocide) varies by region and application. No significant bottleneck in 2026.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "cooling_distribution_unit_cdu",
+    "name": "Cooling distribution unit (CDU)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Rack-level or cluster-level manifold and distribution hub that receives warm liquid from multiple accelerator modules and routes it to radiators or facility chilled-water loops. Includes pressure relief, filters, flow meters, and isolation valves. Integrated with datacenter infrastructure by vendors such as Vertiv, Schneider Electric, and custom OEMs.",
+    "maturityScore": 74,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "module",
+      "thermal",
+      "infrastructure",
+      "custom_design"
+    ],
+    "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermal_interface_substrate_vias",
+    "name": "Thermal interface substrate vias",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Organic or ceramic substrate with high-density thermal vias (plated copper or filled holes) that conduct heat from the die footprint down through the substrate and out to an external heat sink or spreading layer. Via diameter and pitch are critical design parameters (50–150 µm via diameter, <200 µm pitch for high-density). Fabrication by sequential buildup, plating, and via-filling processes.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "module",
+      "thermal",
+      "substrate",
+      "advanced_interconnect"
+    ],
+    "notes": "Thermal-via substrate capability is present at major packaging OEMs (ASM Pacific, Amkor, JCET, Siliconware). Design and yield optimization per new product: 6–9 months. Not a primary bottleneck in 2026, but becomes critical as power densities exceed 2 kW/module.",
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "thermal_cooling"
+    ]
+  },
+  {
+    "id": "org_asetek",
+    "name": "Asetek",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management",
+      "investable_supplier"
+    ],
+    "description": "Danish sealed-loop liquid cooling systems provider with ~60% market share in AI datacenter cooling solutions. Asetek manufactures custom cold plates and integrated cooling loops for leading-edge GPU/accelerator modules, with expansion lead time of 14–18 months due to custom engineering per die generation.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Sealed datacenter liquid cooling market share",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "Asetek estimated share of sealed-loop systems deployed in AI accelerator cooling, 2024–2025 analyst consensus."
+      },
+      {
+        "name": "Annual sealed-loop production capacity",
+        "unit": "thousand units/year",
+        "currentValue": 500,
+        "description": "Estimated annual capacity for AI accelerator cooling loops; constraint above 600k units/year."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_thm_asetek_market_dominance",
+      "ev_acc_thm_asetek_custom_blocks"
+    ],
+    "tags": [
+      "manufacturer",
+      "liquid_cooling",
+      "public_company"
+    ],
+    "notes": "Investor relevance: dominant supplier of sealed loops for AI accelerator cooling; capacity expansion constrained by custom block design and micropump sourcing contracts.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_henkel",
+    "name": "Henkel",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_adhesives",
+      "investable_supplier"
+    ],
+    "description": "German adhesive and specialty-chemicals company; Bergquist division holds ~20% of advanced thermal interface material (adhesive TIM) market. Competes directly with Shin-Etsu in datacenter packaging applications.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Advanced adhesive TIM market share",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Henkel/Bergquist estimated share in adhesive-based thermal interface materials for semiconductor packaging, 2024–2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_thm_henkel_bergquist_tim"
+    ],
+    "tags": [
+      "manufacturer",
+      "materials",
+      "public_company"
+    ],
+    "notes": "Investor relevance: second-largest TIM supplier; direct competition with Shin-Etsu on cost and performance. Same lead-time constraints (12–18 months expansion).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_boyd",
+    "name": "Boyd (Aavid Thermacore)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management",
+      "investable_supplier"
+    ],
+    "description": "Privately-held thermal solutions company (part of Aavid Thermacore / Boyd ecosystem); manufactures high-capacity plate-fin and microchannel heat exchangers for datacenter liquid-cooling infrastructure.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Large-format radiator annual shipments",
+        "unit": "thousand units/year",
+        "currentValue": 40,
+        "description": "Estimated annual shipment of Boyd-manufactured >5kW heat exchangers for datacenter liquid-cooling loops."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_thm_boyd_heat_exchangers"
+    ],
+    "tags": [
+      "manufacturer",
+      "heat_exchangers",
+      "thermal_infrastructure"
+    ],
+    "notes": "Investor relevance: limited (privately-held). Key supplier of high-performance radiators; regional supply chain (design in US, manufacturing in Asia/Europe).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_lytron",
+    "name": "Lytron (Parker)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management",
+      "investable_supplier"
+    ],
+    "description": "Cooling and thermal management division of Parker Hannifin (US-listed); manufactures plate-fin and tube-fin heat exchangers for datacenter liquid-cooling loops, competing with Boyd in the high-capacity radiator market.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Large-format radiator annual shipments",
+        "unit": "thousand units/year",
+        "currentValue": 35,
+        "description": "Estimated annual shipment of Lytron-manufactured >5kW heat exchangers for datacenter cooling infrastructure."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_thm_lytron_radiators"
+    ],
+    "tags": [
+      "manufacturer",
+      "heat_exchangers",
+      "thermal_infrastructure",
+      "public_company"
+    ],
+    "notes": "Investor relevance: publicly traded via Parker Hannifin (NYSE: PH). Radiator capacity is multi-sourced; regional expansion timelines 8–12 months.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_vertiv",
+    "name": "Vertiv",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "data_center_infrastructure",
+      "investable_supplier"
+    ],
+    "description": "US-based critical digital infrastructure and thermal management company; provides cooling distribution units (CDU), rear-door radiators, and integrated liquid-cooling infrastructure for large-scale AI datacenter deployments.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "CDU and rack thermal infrastructure annual revenue",
+        "unit": "USD million",
+        "currentValue": 800,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Estimated annual revenue from Vertiv thermal infrastructure and CDU solutions for datacenters."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_thm_vertiv_cdu"
+    ],
+    "tags": [
+      "manufacturer",
+      "data_center_infrastructure",
+      "public_company"
+    ],
+    "notes": "Investor relevance: publicly traded (NYSE: VRT). Key infrastructure partner for AI datacenter cooling; custom CDU design lead time 8–12 months per deployment.",
+    "reviewStatus": "unreviewed"
   }
 ]

@@ -7,5 +7,1648 @@
     "claim": "The HBM + 2.5D advanced-packaging accelerator module is the architecture currently satisfying datacenter-scale leading-edge AI compute demand. Edge direction Product -> Capability per ADR-0004 keeps the product subgraph self-contained.",
     "confidence": "high",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die_fabrication__requires__extreme_ultraviolet_lithography",
+    "source": "logic_die_fabrication",
+    "target": "extreme_ultraviolet_lithography",
+    "relation": "requires",
+    "claim": "EUV lithography is essential for patterning sub-20nm features at 5nm and 3nm nodes.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_bottleneck"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_euv__requires__euv_mask",
+    "source": "extreme_ultraviolet_lithography",
+    "target": "euv_photomask_production",
+    "relation": "requires",
+    "claim": "EUV masks are a critical consumable with duopolistic supply.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_euv__requires__euv_resist",
+    "source": "extreme_ultraviolet_lithography",
+    "target": "euv_photoresist_materials",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_euv_resist_challenge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__deposition",
+    "source": "logic_die_fabrication",
+    "target": "process_equipment_deposition",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__etch",
+    "source": "logic_die_fabrication",
+    "target": "plasma_etch_equipment",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__cmp",
+    "source": "logic_die_fabrication",
+    "target": "cmp_process_equipment",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__implant",
+    "source": "logic_die_fabrication",
+    "target": "ion_implantation_equipment",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__metrology",
+    "source": "logic_die_fabrication",
+    "target": "process_control_metrology",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__silicon_wafer",
+    "source": "logic_die_fabrication",
+    "target": "silicon_wafer_300mm",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__process_gases",
+    "source": "logic_die_fabrication",
+    "target": "process_gases_precursors",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__thermal",
+    "source": "logic_die_fabrication",
+    "target": "thermal_processing_furnaces",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die__requires__tsmc_capacity",
+    "source": "logic_die_fabrication",
+    "target": "foundry_capacity_tsmc",
+    "relation": "requires",
+    "claim": "TSMC capacity is the primary constraint for global AI accelerator logic die production.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_tsmc_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_tsmc__requires__asml_euv",
+    "source": "foundry_capacity_tsmc",
+    "target": "asml_lithography_systems",
+    "relation": "requires",
+    "claim": "ASML EUV systems are the single bottleneck enabling TSMC's advanced-node capacity.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_asml_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_die_fabrication__requires__ai_accelerator",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "logic_die_fabrication",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_deposition__manufactured_by__applied_materials",
+    "source": "process_equipment_deposition",
+    "target": "org_applied_materials",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_deposition_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_deposition__manufactured_by__lam_research",
+    "source": "process_equipment_deposition",
+    "target": "org_lam_research",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_deposition_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_deposition__manufactured_by__tokyo_electron",
+    "source": "process_equipment_deposition",
+    "target": "org_tokyo_electron",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_deposition_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_etch__manufactured_by__lam_research",
+    "source": "plasma_etch_equipment",
+    "target": "org_lam_research",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_plasma_etch"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_etch__manufactured_by__applied_materials",
+    "source": "plasma_etch_equipment",
+    "target": "org_applied_materials",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_plasma_etch"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_etch__manufactured_by__tokyo_electron",
+    "source": "plasma_etch_equipment",
+    "target": "org_tokyo_electron",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_plasma_etch"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_cmp_equipment__manufactured_by__applied_materials",
+    "source": "cmp_process_equipment",
+    "target": "org_applied_materials",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_cmp_equipment__manufactured_by__ebara",
+    "source": "cmp_process_equipment",
+    "target": "org_ebara",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_cmp_slurry__manufactured_by__merck",
+    "source": "cmp_process_equipment",
+    "target": "org_merck",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_cmp_slurry__manufactured_by__entegris",
+    "source": "cmp_process_equipment",
+    "target": "org_entegris",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_cmp_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_ion_implant__manufactured_by__applied_materials",
+    "source": "ion_implantation_equipment",
+    "target": "org_applied_materials",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_ion_implant"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_metrology__manufactured_by__kla",
+    "source": "process_control_metrology",
+    "target": "org_kla",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_metrology"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_metrology__manufactured_by__tokyo_electron",
+    "source": "process_control_metrology",
+    "target": "org_tokyo_electron",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_metrology"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_wafer__manufactured_by__shin_etsu",
+    "source": "silicon_wafer_300mm",
+    "target": "org_shin_etsu",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_wafer_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_wafer__manufactured_by__sumco",
+    "source": "silicon_wafer_300mm",
+    "target": "org_sumco",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_wafer_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_gases__manufactured_by__air_liquide",
+    "source": "process_gases_precursors",
+    "target": "org_air_liquide",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_process_gases"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_gases__manufactured_by__linde",
+    "source": "process_gases_precursors",
+    "target": "org_linde",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_process_gases"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_thermal__manufactured_by__tokyo_electron",
+    "source": "thermal_processing_furnaces",
+    "target": "org_tokyo_electron",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_thermal_processing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_euv_mask__manufactured_by__agc",
+    "source": "euv_photomask_production",
+    "target": "org_agc",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_euv_mask__manufactured_by__hoya",
+    "source": "euv_photomask_production",
+    "target": "org_hoya",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_euv_mask_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_euv_resist__manufactured_by__shin_etsu",
+    "source": "euv_photoresist_materials",
+    "target": "org_shin_etsu",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_euv_resist_challenge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_euv_resist__manufactured_by__jsr",
+    "source": "euv_photoresist_materials",
+    "target": "org_jsr",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_logic_euv_resist_challenge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_tsmc_capacity__manufactured_by__tsmc",
+    "source": "foundry_capacity_tsmc",
+    "target": "org_tsmc",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_tsmc_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_logic_asml_euv__manufactured_by__asml",
+    "source": "asml_lithography_systems",
+    "target": "org_asml",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic_asml_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__requires__silicon_interposer",
+    "source": "advanced_packaging",
+    "target": "silicon_interposer_fabrication",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_cowos_architecture"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__requires__flip_chip_bonding",
+    "source": "advanced_packaging",
+    "target": "flip_chip_bonding",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_cowos_architecture"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__requires__organic_substrate",
+    "source": "advanced_packaging",
+    "target": "organic_substrate_buildup",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_cowos_architecture"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__requires__test_inspection",
+    "source": "advanced_packaging",
+    "target": "test_and_inspection",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_test_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_silicon_interposer__requires__tsv_etch",
+    "source": "silicon_interposer_fabrication",
+    "target": "tsv_process_deep_reactive_ion_etch",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_silicon_interposer__requires__rdl",
+    "source": "silicon_interposer_fabrication",
+    "target": "redistribution_layer_rdl",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_flip_chip__requires__micro_bump",
+    "source": "flip_chip_bonding",
+    "target": "micro_bump_copper_pillar",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_flip_chip__requires__underfill",
+    "source": "flip_chip_bonding",
+    "target": "underfill_encapsulation",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_organic_substrate__requires__hdi_drilling",
+    "source": "organic_substrate_buildup",
+    "target": "hdi_drilling_via_plating",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_interposer_attach__requires__c4_bumps",
+    "source": "advanced_packaging",
+    "target": "c4_solder_bumps_substrate",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__manufactured_by__tsmc",
+    "source": "advanced_packaging",
+    "target": "org_tsmc",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_tsmc_cowos_share",
+      "ev_acc_pkg_tsmc_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__manufactured_by__ase",
+    "source": "advanced_packaging",
+    "target": "org_ase",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_osat_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__manufactured_by__amkor",
+    "source": "advanced_packaging",
+    "target": "org_amkor",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_osat_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_organic_substrate__manufactured_by__ibiden",
+    "source": "organic_substrate_buildup",
+    "target": "org_ibiden",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_ibiden_expansion",
+      "ev_acc_pkg_substrate_bottleneck"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_organic_substrate__manufactured_by__nanya",
+    "source": "organic_substrate_buildup",
+    "target": "org_nan_ya_pcb",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_flip_chip__manufactured_by__kuls",
+    "source": "flip_chip_bonding",
+    "target": "org_kulicke_soffa",
+    "relation": "implemented_by",
+    "claim": "Kulicke & Soffa thermocompression bonding (TCB) systems are primary equipment used for flip-chip micro-bump assembly at OSATs.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_flip_chip_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_ai_accelerator_module__requires__advanced_packaging",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "advanced_packaging",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkg_cowos_architecture"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_cowos__requires__hbm",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "high_bandwidth_memory",
+    "relation": "requires",
+    "claim": "AI accelerator modules require HBM stacks as the primary bandwidth multiplier; without HBM, accelerator compute performance is severely constrained.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_trendforce_hbm_demand_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__requires__hbm_die_fab",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_die_fabrication",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_sk_hynix_process_node"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__requires__hbm_stacking",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_stack_assembly_die_bonding",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_tsv_bonding_yield"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__requires__hbm_thermal",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_thermal_management_copper_pillar",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__requires__hbm_testing",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_testing_validation_power_delivery",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_test_yield_constraints"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__requires__hbm_substrate",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_substrate_integration_and_solder",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_testing__requires__equipment",
+    "source": "hbm_testing_validation_power_delivery",
+    "target": "hbm_test_equipment_and_tooling",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_ate_lead_time"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_substrate__requires__laminate",
+    "source": "hbm_substrate_integration_and_solder",
+    "target": "hbm_organic_substrate_material",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_substrate__requires__solder",
+    "source": "hbm_substrate_integration_and_solder",
+    "target": "hbm_solder_material_and_flux",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__manufactured_by__org_skhynix",
+    "source": "high_bandwidth_memory",
+    "target": "org_skhynix",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_skhynix_share_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__manufactured_by__org_samsung",
+    "source": "high_bandwidth_memory",
+    "target": "org_samsung",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_samsung_ramp_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm__manufactured_by__org_micron",
+    "source": "high_bandwidth_memory",
+    "target": "org_micron",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_hbm_micron_timeline_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_bonding__manufactured_by__org_kulicke",
+    "source": "hbm_stack_assembly_die_bonding",
+    "target": "org_kulicke_soffa",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_hybrid_bonder_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_test_equip__manufactured_by__org_cohu",
+    "source": "hbm_test_equipment_and_tooling",
+    "target": "org_cohu",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_ate_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_substrate__manufactured_by__org_isola",
+    "source": "hbm_organic_substrate_material",
+    "target": "org_isola",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hbm_substrate_laminate_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_stacking__requires__die_fab",
+    "source": "hbm_stack_assembly_die_bonding",
+    "target": "hbm_die_fabrication",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_ai_accelerator__requires__substrate_and_interposer",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "substrate_and_interposer",
+    "relation": "requires",
+    "claim": "AI accelerator module requires substrate and interposer as structural and electrical foundation.",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_substrate_interposer__requires__organic_substrate",
+    "source": "substrate_and_interposer",
+    "target": "organic_substrate_base_structure",
+    "relation": "requires",
+    "claim": "Substrate-interposer module requires organic substrate base as structural foundation.",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_substrate_interposer__requires__silicon_interposer",
+    "source": "substrate_and_interposer",
+    "target": "silicon_interposer_rdl",
+    "relation": "requires",
+    "claim": "2.5D substrate-interposer stack requires silicon interposer with RDL for die-to-HBM signal routing.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_tsmc_cowos_capacity_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_substrate_interposer__requires__pdn",
+    "source": "substrate_and_interposer",
+    "target": "power_delivery_network_substrate",
+    "relation": "requires",
+    "claim": "Substrate must integrate power delivery network (PDN) to distribute 700W+ power to logic die at <1 mΩ impedance.",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_organic_substrate__requires__abf_build_up",
+    "source": "organic_substrate_base_structure",
+    "target": "abf_build_up_film",
+    "relation": "requires",
+    "claim": "High-density substrate requires ABF dielectric layers for tight trace spacing and advanced designs.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_ajinomoto_abf_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_organic_substrate__requires__t_glass",
+    "source": "organic_substrate_base_structure",
+    "target": "t_glass_fabric",
+    "relation": "requires",
+    "claim": "Substrate requires T-glass (boron-free glass fiber) for low CTE and thermal stability in high-power packages.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_nittobo_tglass_shortage"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_substrate_interposer__requires__copper_routing",
+    "source": "substrate_and_interposer",
+    "target": "copper_trace_routing",
+    "relation": "requires",
+    "claim": "Multi-layer substrate requires copper trace patterning and via formation for signal integrity.",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_substrate_interposer__requires__thermal_vias",
+    "source": "substrate_and_interposer",
+    "target": "thermal_via_filling",
+    "relation": "requires",
+    "claim": "High-power packages (700W+) require dense thermal vias filled with copper for heat dissipation.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_thermal_via_equipment_lead_time"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_abf_build_up__manufactured_by__ajinomoto",
+    "source": "abf_build_up_film",
+    "target": "org_ajinomoto_fine_techno",
+    "relation": "manufactured_by",
+    "claim": "Ajinomoto Fine-Techno is the dominant producer of ABF (Ajinomoto Build-up Film) globally.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_ajinomoto_abf_2025",
+      "ev_acc_sub_ajinomoto_expansion_2030"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_organic_substrate__manufactured_by__kinsus",
+    "source": "organic_substrate_base_structure",
+    "target": "org_kinsus",
+    "relation": "manufactured_by",
+    "claim": "Kinsus is a leading supplier of BT and ABF substrates for AI accelerators.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_kinsus_revenue_2025",
+      "ev_acc_sub_digitimes_substrate_leaders"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_organic_substrate__manufactured_by__unimicron",
+    "source": "organic_substrate_base_structure",
+    "target": "org_unimicron",
+    "relation": "manufactured_by",
+    "claim": "Unimicron is the market leader in ABF substrates with 15.2% revenue share in 2024.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_digitimes_substrate_leaders",
+      "ev_acc_sub_unimicron_market_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_organic_substrate__manufactured_by__nan_ya",
+    "source": "organic_substrate_base_structure",
+    "target": "org_nan_ya_pcb",
+    "relation": "manufactured_by",
+    "claim": "Nan Ya PCB is a secondary player in ABF substrates with partnership on T-glass supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_sub_digitimes_substrate_leaders"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_t_glass__manufactured_by__nittobo",
+    "source": "t_glass_fabric",
+    "target": "org_nittobo",
+    "relation": "manufactured_by",
+    "claim": "Nittobo is the dominant manufacturer of certified T-glass with ~91% global market share.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_nittobo_tglass_shortage",
+      "ev_acc_sub_nittobo_capacity_expansion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_bt_resin__manufactured_by__mitsubishi",
+    "source": "bt_resin_laminate",
+    "target": "org_mitsubishi_gas_chemical",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Gas Chemical owns the BT resin formula and is a key supplier of BT laminates.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_mitsubishi_bt_resin"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub_silicon_interposer__manufactured_by__tsmc",
+    "source": "silicon_interposer_rdl",
+    "target": "org_tsmc",
+    "relation": "manufactured_by",
+    "claim": "TSMC manufactures silicon interposers for CoWoS-S 2.5D packages; holds 60% global advanced packaging market share.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub_tsmc_cowos_capacity_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_ai_acc_requires_interconnect_optics",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "interconnect_and_optics",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_ai_acc__requires__on_module_hbm_interconnect",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "on_module_hbm_interconnect",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_ai_acc__requires__chiplet_interconnect_substrate",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "chiplet_interconnect_substrate",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_ai_acc__requires__on_module_serdes",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "on_module_serdes_phy_chiplet",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_ai_acc__requires__optical_transceiver_module",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "optical_transceiver_module",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_broadcom_transceiver_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_ai_acc__requires__backplane_substrate",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "backplane_substrate_and_routing",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_on_module_hbm__requires__hbm_routing_substrate",
+    "source": "on_module_hbm_interconnect",
+    "target": "chiplet_interconnect_substrate",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__requires__host_silicon",
+    "source": "optical_transceiver_module",
+    "target": "optical_transceiver_host_silicon",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__requires__laser_photodiode",
+    "source": "optical_transceiver_module",
+    "target": "laser_array_and_photodiodes",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_vcsel_supply_constraint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__requires__enclosure",
+    "source": "optical_transceiver_module",
+    "target": "optical_module_enclosure_and_cooling",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__requires__connector",
+    "source": "optical_transceiver_module",
+    "target": "optical_connector_interface",
+    "relation": "requires",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__broadcom",
+    "source": "optical_transceiver_host_silicon",
+    "target": "org_broadcom",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_broadcom_transceiver_asic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__marvell",
+    "source": "optical_transceiver_host_silicon",
+    "target": "org_marvell",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_marvell_transceiver_asic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__intel",
+    "source": "optical_transceiver_host_silicon",
+    "target": "org_intel",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_opt_intel_transceiver_asic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_laser_photodiode__manufactured_by__broadcom",
+    "source": "laser_array_and_photodiodes",
+    "target": "org_broadcom",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_vcsel_supply_constraint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_laser_photodiode__manufactured_by__ii_vi",
+    "source": "laser_array_and_photodiodes",
+    "target": "org_ii_vi_coherent",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_vcsel_supply_constraint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_laser_photodiode__manufactured_by__philips_lumileds",
+    "source": "laser_array_and_photodiodes",
+    "target": "org_philips_lumileds",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_opt_vcsel_supply_constraint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_chiplet_substrate__manufactured_by__ibiden",
+    "source": "chiplet_interconnect_substrate",
+    "target": "org_ibiden",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_chiplet_substrate__manufactured_by__nan_ya",
+    "source": "chiplet_interconnect_substrate",
+    "target": "org_nan_ya_pcb",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_chiplet_substrate__manufactured_by__unimicron",
+    "source": "chiplet_interconnect_substrate",
+    "target": "org_unimicron",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_backplane_substrate__manufactured_by__ibiden",
+    "source": "backplane_substrate_and_routing",
+    "target": "org_ibiden",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_backplane_substrate__manufactured_by__nan_ya",
+    "source": "backplane_substrate_and_routing",
+    "target": "org_nan_ya_pcb",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_optical_connector__manufactured_by__amphenol",
+    "source": "optical_connector_interface",
+    "target": "org_amphenol",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_optical_connector__manufactured_by__commscope",
+    "source": "optical_connector_interface",
+    "target": "org_commscope",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_fiber_cables__manufactured_by__corning",
+    "source": "fiber_optic_cables_and_bundles",
+    "target": "org_corning",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_electrical_connector__manufactured_by__te",
+    "source": "high_speed_connector_for_module_interconnect",
+    "target": "org_te_connectivity",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_electrical_connector__manufactured_by__amphenol",
+    "source": "high_speed_connector_for_module_interconnect",
+    "target": "org_amphenol",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_redriver__manufactured_by__marvell",
+    "source": "redriver_and_buffer_chiplet",
+    "target": "org_marvell",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__module_vrm",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "module_level_vrm",
+    "relation": "requires",
+    "claim": "AI accelerator modules require integrated multi-phase VRM for local voltage regulation at the logic die and HBM interfaces.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_vrm_architecture_hpc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__power_stage_ic",
+    "source": "power_delivery",
+    "target": "power_stage_ic",
+    "relation": "requires",
+    "claim": "VRM and converter modules depend on advanced-node power-stage ICs (5nm/7nm) for high-frequency, high-current switching.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_power_stage_shortage_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__bulk_cap",
+    "source": "module_level_vrm",
+    "target": "vrm_capacitor_bulk",
+    "relation": "requires",
+    "claim": "Module-level VRMs require 200–1000 bulk capacitor elements per accelerator for frequency filtering and charge storage.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_mlcc_shortage_2023"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__inductor",
+    "source": "module_level_vrm",
+    "target": "vrm_inductor",
+    "relation": "requires",
+    "claim": "Multi-phase buck topology requires 4–16 inductors per VRM for energy storage in each phase.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_inductor_market_overview"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__48v_converter",
+    "source": "power_delivery",
+    "target": "48v_converter_module",
+    "relation": "requires",
+    "claim": "Modern AI datacenters standardize 48V distribution bus with intermediate DC–DC converters feeding module-level 12V rails.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_48v_standard_adoption"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__rack_psu",
+    "source": "power_delivery",
+    "target": "rack_power_supply_unit",
+    "relation": "requires",
+    "claim": "Rack or pod-level power delivery includes centralized AC/DC PSU with N+1 or N+2 redundancy.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_rack_psu_redundancy"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__connector",
+    "source": "power_delivery",
+    "target": "connector_and_cabling",
+    "relation": "requires",
+    "claim": "48V and 12V distribution requires high-current connectors and multi-layer PCB backplanes with tight mechanical tolerances.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_connector_lead_time_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr__requires__thermal",
+    "source": "power_delivery",
+    "target": "thermal_management_module",
+    "relation": "requires",
+    "claim": "Power-stage losses and VRM heat dissipation require integrated thermal coupling to module exterior and liquid cooling integration.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pwr_vrm_thermal_design"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_module__manufactured_by__renesas",
+    "source": "module_level_vrm",
+    "target": "org_renesas",
+    "relation": "manufactured_by",
+    "claim": "Renesas designs and supplies integrated VRM power-stage ICs for AI accelerators.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pwr_renesas_vrm_ic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_stage_ic__manufactured_by__tsmc",
+    "source": "power_stage_ic",
+    "target": "org_tsmc",
+    "relation": "manufactured_by",
+    "claim": "TSMC manufactures the majority of advanced-node (5nm/7nm) power-stage ICs and gate-driver logic.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_tsmc_capacity_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_stage_ic__manufactured_by__samsung",
+    "source": "power_stage_ic",
+    "target": "org_samsung",
+    "relation": "manufactured_by",
+    "claim": "Samsung Foundry offers 7nm/5nm process options for power-stage IC fabrication.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_samsung_foundry_power_ics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_capacitor__manufactured_by__murata",
+    "source": "vrm_capacitor_bulk",
+    "target": "org_murata",
+    "relation": "manufactured_by",
+    "claim": "Murata is a leading MLCC manufacturer serving AI datacenter power delivery applications.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_murata_mlcc_production"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_capacitor__manufactured_by__tdk",
+    "source": "vrm_capacitor_bulk",
+    "target": "org_tdk",
+    "relation": "manufactured_by",
+    "claim": "TDK produces high-frequency MLCC and film capacitors for VRM and converter applications.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_tdk_mlcc_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_capacitor__manufactured_by__samsung_em",
+    "source": "vrm_capacitor_bulk",
+    "target": "org_samsung_electro_mechanics",
+    "relation": "manufactured_by",
+    "claim": "Samsung Electro-Mechanics manufactures MLCC for high-frequency power applications.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_samsung_em_mlcc"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_inductor__manufactured_by__murata",
+    "source": "vrm_inductor",
+    "target": "org_murata",
+    "relation": "manufactured_by",
+    "claim": "Murata supplies high-current inductors and integrated inductor designs for power-stage applications.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_murata_inductor_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_inductor__manufactured_by__tdk",
+    "source": "vrm_inductor",
+    "target": "org_tdk",
+    "relation": "manufactured_by",
+    "claim": "TDK manufactures ferrite cores and integrated inductors for VRM and converter topologies.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_tdk_inductor_ferrite"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_converter__manufactured_by__vicor",
+    "source": "48v_converter_module",
+    "target": "org_vicor",
+    "relation": "manufactured_by",
+    "claim": "Vicor designs and manufactures isolated 48V–12V converter modules for AI datacenter power distribution.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_vicor_isolated_converter"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_converter__manufactured_by__power_integrations",
+    "source": "48v_converter_module",
+    "target": "org_power_integrations",
+    "relation": "manufactured_by",
+    "claim": "Power Integrations supplies isolated converter ICs and reference designs for 48V datacenter applications.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pwr_pi_galvanically_isolated"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_psu__manufactured_by__delta",
+    "source": "rack_power_supply_unit",
+    "target": "org_delta_electronics",
+    "relation": "manufactured_by",
+    "claim": "Delta Electronics manufactures custom and semi-custom rack PSU modules for AI datacenters.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_delta_datacenter_psu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_psu__manufactured_by__eaton",
+    "source": "rack_power_supply_unit",
+    "target": "org_eaton",
+    "relation": "manufactured_by",
+    "claim": "Eaton Power Systems supplies industrial and datacenter-grade AC/DC and redundancy modules.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pwr_eaton_power_systems"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_connector__manufactured_by__molex",
+    "source": "connector_and_cabling",
+    "target": "org_molex",
+    "relation": "manufactured_by",
+    "claim": "Molex designs and manufactures high-current connectors and blind-mate modules for AI accelerator interconnect.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_molex_high_current_connector"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_connector__manufactured_by__te_connectivity",
+    "source": "connector_and_cabling",
+    "target": "org_te_connectivity",
+    "relation": "manufactured_by",
+    "claim": "TE Connectivity supplies power and signal connectors for datacenter and AI system integration.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pwr_te_connectivity_connectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pwr_module__requires__power_delivery",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "power_delivery",
+    "relation": "requires",
+    "claim": "AI accelerator modules require comprehensive power delivery spanning module-level VRM, intermediate distribution, and rack-level redundancy.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__tim",
+    "source": "thermal_cooling",
+    "target": "thermal_interface_material_tim",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__spreader",
+    "source": "thermal_cooling",
+    "target": "heat_spreader_copper_aluminum",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__dcl",
+    "source": "thermal_cooling",
+    "target": "direct_contact_thermal_lid",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__liquid_loop",
+    "source": "thermal_cooling",
+    "target": "sealed_liquid_cooling_loop",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__radiator",
+    "source": "thermal_cooling",
+    "target": "heat_exchanger_radiator",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__cdu",
+    "source": "thermal_cooling",
+    "target": "cooling_distribution_unit_cdu",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thm__requires__substrate_vias",
+    "source": "thermal_cooling",
+    "target": "thermal_interface_substrate_vias",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_liquid_loop__requires__coldplate",
+    "source": "sealed_liquid_cooling_loop",
+    "target": "cold_plate_water_block",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_liquid_loop__requires__pump",
+    "source": "sealed_liquid_cooling_loop",
+    "target": "micropump_circulation",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_liquid_loop__requires__fluid",
+    "source": "sealed_liquid_cooling_loop",
+    "target": "thermal_management_fluid",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_coldplate__requires__spreader",
+    "source": "cold_plate_water_block",
+    "target": "heat_spreader_copper_aluminum",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_cowos__requires__thermal_cooling",
+    "source": "ai_accelerator_module_hbm_cowos",
+    "target": "thermal_cooling",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_liquid_loop__manufactured_by__asetek",
+    "source": "sealed_liquid_cooling_loop",
+    "target": "org_asetek",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_thm_asetek_market_dominance"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tim__manufactured_by__shin_etsu",
+    "source": "thermal_interface_material_tim",
+    "target": "org_shin_etsu",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_thm_shin_etsu_tim_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tim__manufactured_by__henkel",
+    "source": "thermal_interface_material_tim",
+    "target": "org_henkel",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_thm_henkel_bergquist_tim"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_coldplate__manufactured_by__custom_oem",
+    "source": "cold_plate_water_block",
+    "target": "org_asetek",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_thm_asetek_custom_blocks"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_radiator__manufactured_by__boyd",
+    "source": "heat_exchanger_radiator",
+    "target": "org_boyd",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_thm_boyd_heat_exchangers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_radiator__manufactured_by__lytron",
+    "source": "heat_exchanger_radiator",
+    "target": "org_lytron",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_thm_lytron_radiators"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_pump__manufactured_by__ebara",
+    "source": "micropump_circulation",
+    "target": "org_ebara",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_thm_ebara_pumps"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_cdu__manufactured_by__vertiv",
+    "source": "cooling_distribution_unit_cdu",
+    "target": "org_vertiv",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_thm_vertiv_cdu"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
