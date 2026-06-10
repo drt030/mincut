@@ -146,15 +146,6 @@ function LensLegend({
       </div>
       {showEncodedLegend ? (
         <>
-          <div className="lens-legend-ramp" aria-hidden="true">
-            {RAMP.map((color) => (
-              <span
-                key={color}
-                data-testid="lens-legend-swatch"
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
           <div className="lens-legend-widths" aria-hidden="true">
             {RAMP.map((color, index) => (
               <span key={`${color}-${WIDTHS[index]}`} data-testid="lens-legend-width-sample">

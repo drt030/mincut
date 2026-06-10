@@ -105,7 +105,7 @@ function radialBranchGeometry(
   sourceY: number,
   targetX: number,
   targetY: number,
-  options: { forceCurve?: boolean } = {},
+  options: { forceCurve?: boolean; forceLine?: boolean } = {},
 ):
   | {
     kind: "line";
@@ -132,6 +132,7 @@ function radialBranchGeometry(
   const delta = shortestDelta(sourceTheta, targetTheta);
 
   if (
+    options.forceLine ||
     sourceR < STRAIGHT_RADIUS_EPSILON ||
     targetR < STRAIGHT_RADIUS_EPSILON ||
     (!options.forceCurve && Math.abs(delta) < STRAIGHT_ANGLE_EPSILON)
@@ -184,7 +185,7 @@ export function radialBranchPath(
   sourceY: number,
   targetX: number,
   targetY: number,
-  options: { forceCurve?: boolean } = {},
+  options: { forceCurve?: boolean; forceLine?: boolean } = {},
 ): string {
   const geometry = radialBranchGeometry(sourceX, sourceY, targetX, targetY, options);
   if (geometry.kind === "line") {
@@ -231,7 +232,7 @@ function trimEndpointForPath(
   sourceRadius: number,
   targetRadius: number,
   boxTrim?: { source: { width: number; height: number }; target: { width: number; height: number } },
-  options: { forceCurve?: boolean } = {},
+  options: { forceCurve?: boolean; forceLine?: boolean } = {},
 ): { sourceX: number; sourceY: number; targetX: number; targetY: number } {
   const dx = targetX - sourceX;
   const dy = targetY - sourceY;
@@ -414,6 +415,17 @@ export function RadialEdge({
   const arrowHeight = showArrowhead
     ? Math.max(MIN_ARROW_LENGTH, renderedStrokeWidth * ARROW_HEIGHT_TO_STROKE)
     : 0;
+  // When the radial span between the two node centres is smaller than the
+  // combined endpoint trim, the trimmed endpoints swap radial order and the
+  // radial cubic rebuilt from them flips its end tangent — the arrowhead
+  // renders pointing back toward the root. Fall back to the straight chord,
+  // whose trim always keeps the arrow on the source → target direction.
+  const radialSpan = Math.abs(
+    Math.hypot(targetX - CENTER.x, targetY - CENTER.y) -
+      Math.hypot(sourceX - CENTER.x, sourceY - CENTER.y),
+  );
+  const forceLine = edgeKind === "primary" &&
+    radialSpan <= sourceRadius + targetRadius + arrowLength;
   const hasDetailAnchors = band === 3 &&
     sourceAnchorX !== undefined &&
     sourceAnchorY !== undefined &&
@@ -456,7 +468,7 @@ export function RadialEdge({
         },
       }
       : undefined,
-    { forceCurve: band === 2 && edgeKind === "primary" },
+    { forceCurve: band === 2 && edgeKind === "primary", forceLine },
   );
   const sourceR = Math.hypot(trimmed.sourceX, trimmed.sourceY);
   const targetR = Math.hypot(trimmed.targetX, trimmed.targetY);
@@ -477,7 +489,7 @@ export function RadialEdge({
         targetNormalY: anchored.targetNormalY,
       })
       : band === 2
-        ? radialBranchPath(trimmed.sourceX, trimmed.sourceY, trimmed.targetX, trimmed.targetY, { forceCurve: true })
+        ? radialBranchPath(trimmed.sourceX, trimmed.sourceY, trimmed.targetX, trimmed.targetY, { forceCurve: true, forceLine })
       : `M ${trimmed.sourceX} ${trimmed.sourceY} L ${trimmed.targetX} ${trimmed.targetY}`;
   const renderedPathD = cleanPathNumbers(pathD);
   const isOuterDetail = Math.min(sourceR, targetR) > OVERVIEW_OUTER_DETAIL_RADIUS;

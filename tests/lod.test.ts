@@ -97,6 +97,7 @@ type RadialEdgeTestProps = {
   sourceRadius?: number;
   targetRadius?: number;
   stroke?: string;
+  strokeWidth?: number;
   edgeKind?: "primary" | "cross";
   emphasis?: "branch" | "normal";
 };
@@ -553,6 +554,41 @@ test("RadialEdge band 2: nearby same-angle child edges still use the curved bran
     html,
     /<path[^>]+d=["'][^"']+ C [^"']+["']/,
     `band-2 child edges should keep the curved branch style instead of switching to odd straight-line ports; got: ${html}`,
+  );
+});
+
+test("RadialEdge band 2: radially adjacent parent-child keeps the arrowhead pointing at the target", () => {
+  // Real-geometry regression (conveyor_integration → parcel_induction_spacing_control):
+  // the two nodes sit on radially adjacent rings (span ≈ 39px) while endpoint
+  // trimming consumes sourceRadius + targetRadius + arrowLength (≈ 68px).
+  // Rebuilding the radial cubic from the trimmed endpoints inverted their
+  // radial order and flipped the end tangent, so the arrow rendered pointing
+  // back toward the root instead of into the target node.
+  const target = { x: 256.678, y: 179.553 };
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 0.9,
+    isFocusEndpoint: false,
+    sourceX: 255.733,
+    sourceY: 98.2948,
+    targetX: target.x,
+    targetY: target.y,
+    sourceRadius: 20,
+    targetRadius: 28,
+    strokeWidth: 5.85,
+  });
+  const d = /<path d=["']([^"']+)["'][^>]*marker-end=/.exec(html)?.[1];
+  assert.ok(d, `edge should render a path with an arrowhead; got: ${html}`);
+  const nums = (d.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number);
+  assert.ok(nums.length >= 4, `path should expose endpoint coordinates; got: ${d}`);
+  const end = { x: nums[nums.length - 2], y: nums[nums.length - 1] };
+  const prev = { x: nums[nums.length - 4], y: nums[nums.length - 3] };
+  const tangent = { x: end.x - prev.x, y: end.y - prev.y };
+  const toTarget = { x: target.x - end.x, y: target.y - end.y };
+  const dot = tangent.x * toTarget.x + tangent.y * toTarget.y;
+  assert.ok(
+    dot > 0,
+    `arrowhead tangent must point toward the target node; tangent (${tangent.x.toFixed(1)}, ${tangent.y.toFixed(1)}) vs to-target (${toTarget.x.toFixed(1)}, ${toTarget.y.toFixed(1)}) in: ${d}`,
   );
 });
 

@@ -40,10 +40,10 @@ test("GraphControls explains the active risk lens without Top 1-5 rank copy", ()
   assert.doesNotMatch(html, /Sector tint/i);
   assert.doesNotMatch(html, /structural grouping/i);
   assert.doesNotMatch(html, /Top 1-5/i);
-  assert.equal((html.match(/data-testid="lens-legend-swatch"/g) ?? []).length, 5);
+  assert.equal((html.match(/data-testid="lens-legend-width-sample"/g) ?? []).length, 5);
 });
 
-test("GraphControls legend shows five edge-width samples, not only colour swatches", () => {
+test("GraphControls legend shows five edge-width samples without a duplicate colour ramp", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
       routeMode: "cost-drivers",
@@ -61,6 +61,11 @@ test("GraphControls legend shows five edge-width samples, not only colour swatch
     html,
     /线条颜色 \+ 粗细|Edge color \+ width/,
     `legend copy should explicitly name both colour and width channels; got: ${html}`,
+  );
+  assert.equal(
+    (html.match(/data-testid="lens-legend-swatch"/g) ?? []).length,
+    0,
+    "the flat colour ramp duplicates the width samples and should stay removed",
   );
 });
 
@@ -108,5 +113,5 @@ test("GraphControls adds a neutral system decomposition lens", () => {
   assert.match(html, /no cost, risk, or maturity signal/i);
   assert.doesNotMatch(html, /Neutral edges/i);
   assert.doesNotMatch(html, /Sector tint/i);
-  assert.equal((html.match(/data-testid="lens-legend-swatch"/g) ?? []).length, 0);
+  assert.equal((html.match(/data-testid="lens-legend-width-sample"/g) ?? []).length, 0);
 });

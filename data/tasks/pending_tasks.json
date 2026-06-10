@@ -286,5 +286,15 @@
     "status": "pending",
     "createdAt": "2026-06-07T17:17:18.323Z",
     "sourceGateReportId": "low_cost_parcel_sorting_robot_300k_rmb:2026-06-07T21:35:34.121Z"
+  },
+  {
+    "id": "task_agent_expand_precision_reducer_gearbox_20260608045542",
+    "title": "Expand Precision reducer / gearbox one dependency layer",
+    "reason": "Queued from the graph research-root view for precision_reducer_gearbox. Follow docs/NODE_EXPANSION.md, research sources as needed, prepare a small candidate import batch, and add one deeper requires layer where it affects maturity, cost, manufacturability, reliability, or bottlenecks. Keep generated claims unreviewed until human review.",
+    "targetNodeId": "precision_reducer_gearbox",
+    "suggestedNodeKind": "module",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-06-08T04:55:42.305Z"
   }
 ]

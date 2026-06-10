@@ -668,18 +668,6 @@ li {
   line-height: 1.35;
 }
 
-.lens-legend-ramp {
-  border-radius: 999px;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  height: 8px;
-  overflow: hidden;
-}
-
-.lens-legend-ramp span {
-  min-width: 0;
-}
-
 .lens-legend-widths {
   align-items: center;
   display: grid;

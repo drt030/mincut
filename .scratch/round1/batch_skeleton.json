@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    {
+      "id": "leading_edge_ai_compute",
+      "name": "Leading-edge AI compute (datacenter scale)",
+      "kind": "capability",
+      "domain": ["ai_compute_chain"],
+      "description": "The capability to deploy leading-edge AI training and inference compute at datacenter scale: thousands of accelerator modules per cluster, delivered on schedule, at a cost and power envelope that sustains frontier-model buildout. Structural container per ADR-0004; products under it are alternative architectures that satisfy this demand.",
+      "targetContext": {
+        "targetUseCase": "Frontier AI training clusters and high-volume inference fleets",
+        "targetScale": "10k–100k+ accelerator modules per buildout wave, multi-GW datacenter campuses",
+        "targetPerformance": "Leading-edge training/inference perf-per-watt and per-module HBM bandwidth at the current process/packaging frontier",
+        "targetDate": "2026",
+        "region": "Global (fabrication concentrated in East Asia; deployment US/global)"
+      },
+      "confidence": "high",
+      "tags": ["ai_compute", "capability_root"],
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "ai_accelerator_module_hbm_cowos",
+      "name": "AI accelerator module (leading-edge logic + HBM on 2.5D advanced package)",
+      "kind": "product",
+      "domain": ["ai_compute_chain"],
+      "description": "Flagship AI accelerator module architecture: a leading-edge logic die (or die pair) co-packaged with high-bandwidth-memory stacks on a 2.5D/3D advanced package (silicon interposer / local interconnect bridge class), carried on a high-layer-count organic substrate, with high-speed electrical/optical interconnect off-module, multi-hundred-watt power delivery, and liquid-class thermal management. This is the architecture shipping in volume in 2024–2026 datacenter accelerators.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "targetContext": {
+        "targetUseCase": "Datacenter AI training and inference",
+        "targetPerformance": "Frontier-node logic + maximum-bandwidth memory co-package; module power 700W–1.4kW class",
+        "targetDate": "2026",
+        "region": "Global demand; manufacturing concentrated in Taiwan/Korea/Japan supply chains"
+      },
+      "tags": ["ai_compute", "flagship_product"],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_ai_accelerator_module_hbm_cowos__enables__leading_edge_ai_compute",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "leading_edge_ai_compute",
+      "relation": "enables",
+      "claim": "The HBM + 2.5D advanced-packaging accelerator module is the architecture currently satisfying datacenter-scale leading-edge AI compute demand. Edge direction Product -> Capability per ADR-0004 keeps the product subgraph self-contained.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [],
+  "tasks": []
+}
