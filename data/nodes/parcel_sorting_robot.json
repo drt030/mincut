@@ -6625,7 +6625,10 @@
       "plc",
       "servo_drive",
       "industrial_control",
-      "investable_supplier"
+      "investable_supplier",
+      "ai_compute_chain",
+      "optoelectronics",
+      "datacom_optics"
     ],
     "description": "Japanese automation supplier for MELSEC PLCs, MELSERVO servo systems, and factory automation components.",
     "confidence": "medium",
@@ -6641,12 +6644,27 @@
       {
         "name": "Public listing",
         "currentValue": "6503.T"
+      },
+      {
+        "name": "Mitsubishi Electric datacom laser share (EML/DFB, global)",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Estimated 20% of global datacom EML/DFB laser supply, primarily serving Japanese network vendors and regional module makers; source: Yole semiconductor optics reports 2024–2025."
+      },
+      {
+        "name": "Mitsubishi Electric FY2025 consolidated revenue",
+        "unit": "billion JPY",
+        "currentValue": 4590,
+        "currency": "JPY",
+        "costAsOf": "2025",
+        "description": "Mitsubishi Electric FY2025 (ended March 2025) consolidated revenue ¥4.59 trillion; optics division is a smaller segment but strategically important for datacom."
       }
     ],
     "evidenceIds": [
       "ev_mfg_mitsubishi_plc_servo",
       "ev_mitsubishi_integrated_report_2025_factory_automation",
-      "ev_mitsubishi_power_modules_motion_control_2026"
+      "ev_mitsubishi_power_modules_motion_control_2026",
+      "ev_acc_opt2_mitsubishi_laser_supply"
     ],
     "tags": [
       "manufacturer",
@@ -6654,9 +6672,13 @@
       "plc",
       "public_company",
       "servo_drive",
-      "investable_supplier"
+      "investable_supplier",
+      "laser_manufacturer",
+      "coherent_optics",
+      "datacom_supplier",
+      "japan_electronics"
     ],
-    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.",
+    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.\nMitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },
@@ -6724,7 +6746,9 @@
     "domain": [
       "plc",
       "industrial_control",
-      "investable_supplier"
+      "investable_supplier",
+      "ai_compute_chain",
+      "thermal_management"
     ],
     "description": "Industrial automation and electrical supplier with Modicon PLC/PAC and EcoStruxure automation ecosystem.",
     "confidence": "medium",
@@ -6754,19 +6778,37 @@
       {
         "name": "Public listing",
         "currentValue": "SU.PA"
+      },
+      {
+        "name": "Datacenter infrastructure market share (cooling + power combined)",
+        "unit": "%",
+        "currentValue": 22,
+        "description": "Schneider Electric estimated 20–25% of global datacenter infrastructure market (thermal + power systems), per analyst consensus 2025. Cooling-specific share ~18–22%."
+      },
+      {
+        "name": "Annual revenue (FY2025 estimate)",
+        "unit": "USD billion",
+        "currentValue": 37,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Schneider Electric FY2025 total revenue ~$37–38 billion USD; Infrastructure Solutions division (data centers, thermal) ~$12–14 billion."
       }
     ],
     "evidenceIds": [
       "ev_schneider_fy2025_industrial_automation_results",
-      "ev_mfg_schneider_modicon_plc"
+      "ev_mfg_schneider_modicon_plc",
+      "ev_acc_cp2_schneider_electric_cooling"
     ],
     "tags": [
       "manufacturer",
       "plc",
       "public_company",
-      "investable_supplier"
+      "investable_supplier",
+      "thermal_cooling",
+      "power_delivery",
+      "infrastructure"
     ],
-    "notes": "Investor relevance: PLC/electrical-control exposure; exact parcel-cell adoption share is unverified.",
+    "notes": "Investor relevance: PLC/electrical-control exposure; exact parcel-cell adoption share is unverified.\nSchneider Electric competes directly with Vertiv across cooling and power infrastructure. Strong in facility-level integration and legacy datacenters; gaining share in AI-focused liquid-cooling buildouts.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },
@@ -10505,15 +10547,18 @@
   },
   {
     "id": "org_ibiden",
-    "name": "IBIDEN",
+    "name": "Ibiden Co., Ltd.",
     "kind": "organization",
     "domain": [
       "semiconductor",
       "package_substrate",
       "electronics",
-      "investable_supplier"
+      "investable_supplier",
+      "ai_compute_chain",
+      "semiconductor_packaging",
+      "substrate_manufacturing"
     ],
-    "description": "Japanese electronics materials supplier with IC package substrate products and advanced substrate-manufacturing exposure.",
+    "description": "Japan-based leading IC substrate manufacturer. Market leader in advanced ABF (Ajinomoto Build-up Film) substrates for AI accelerators and high-performance computing. Operates multiple fabs in Japan (Ono, Kawama) with aggressive capacity expansion through 2027. Primary supplier to TSMC's CoWoS advanced packaging.",
     "metrics": [
       {
         "name": "Public listing",
@@ -10523,21 +10568,47 @@
         "name": "IC package substrate exposure",
         "currentValue": "IC package substrates",
         "description": "Integrated report describes IC package substrates as a core Electronics Operation product."
+      },
+      {
+        "name": "Global IC substrate market share",
+        "unit": "%",
+        "currentValue": 22,
+        "description": "Ibiden holds approximately 22% global IC substrate revenue share as of 2025, per TrendForce semiconductor substrate market analysis. Leadership in premium ABF-class substrates for AI compute."
+      },
+      {
+        "name": "ABF substrate supply concentration",
+        "unit": "%",
+        "currentValue": 40,
+        "description": "Ibiden estimated at 40% of high-end ABF substrate supply for AI accelerators (2025-2026), based on DigiTimes analysis of TSMC CoWoS supply chain and 2021-2023 shortage episodes."
+      },
+      {
+        "name": "Substrate capacity expansion (Ono + Kawama)",
+        "unit": "months to full ramp",
+        "currentValue": 18,
+        "description": "Ibiden's Ono fab expansion and Kawama new facility ramping to full capacity by Q3 2027; expansion lead time 18 months from current state, per company earnings disclosures."
       }
     ],
     "evidenceIds": [
-      "ev_ibiden_integrated_report_2025_ic_package_substrates"
+      "ev_ibiden_integrated_report_2025_ic_package_substrates",
+      "ev_acc_sub2_ibiden_market_share",
+      "ev_acc_sub2_ibiden_abf_concentration",
+      "ev_acc_sub2_abf_shortage_2021_2023",
+      "ev_acc_sub2_ibiden_capacity_expansion"
     ],
     "tags": [
       "manufacturer",
       "semiconductor",
       "package_substrate",
-      "public_company"
+      "public_company",
+      "substrate_leader",
+      "abf_specialist"
     ],
-    "notes": "Investor relevance: public package-substrate exposure. Exact substrate content in target parcel-cell electronics is not verified.",
-    "confidence": "medium",
+    "notes": "Investor relevance: public package-substrate exposure. Exact substrate content in target parcel-cell electronics is not verified.\nCritical supplier for AI accelerator substrate demand. 2021-2023 ABF shortage episodes directly constrained TSMC, Samsung, ASE advanced packaging capacity; Ibiden was named in multiple DigiTimes/Nikkei shortage reports as supply gating. Investor relevance: strong exposure to AI infrastructure buildout and HPC market growth.",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "widely_adopted",
+    "maturityScore": 95,
+    "maturityAsOf": "2026-06"
   },
   {
     "id": "copper_ore_mining_and_refining_chain_cost",

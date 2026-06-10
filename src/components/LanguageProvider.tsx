@@ -899,6 +899,19 @@ const nodeTextZh: Record<string, string> = {
   underfill_encapsulation: "底部填充封装",
   vrm_capacitor_bulk: "大容量电容（陶瓷或聚合物，10–1000µF）",
   vrm_inductor: "VRM电感（集成或分立，0.1–1µH）",
+  // ai_compute_chain round-2 enrichment (2026-06-10)
+  cdu_rapid_deployment_kit: "快速部署冷却分配单元（模块化）",
+  eml_dfb_laser_diodes: "长距离EML/DFB激光二极管（1310nm相干模块）",
+  euv_projection_optics: "EUV投影光学系统（蔡司SMT）",
+  org_ats: "奥地利技术系统公司(AT&S)",
+  org_carl_zeiss_smt: "蔡司精密光学（SMT）",
+  org_coolit_systems: "冷却IT系统公司",
+  org_eoptolink: "易飞扬科技有限公司",
+  org_innolight: "光迅科技有限公司",
+  org_lumentum: "Lumentum控股公司",
+  org_motivair: "美动冷却公司",
+  org_shinko_electric: "新光电气工业株式会社",
+  org_sumitomo_electric: "住友电气工业有限公司（光学和光子学部门）",
 };
 
 const kindTextZh: Record<string, string> = {

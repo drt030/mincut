@@ -530,29 +530,6 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_organic_substrate__manufactured_by__ibiden",
-    "source": "organic_substrate_buildup",
-    "target": "org_ibiden",
-    "relation": "manufactured_by",
-    "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkg_ibiden_expansion",
-      "ev_acc_pkg_substrate_bottleneck"
-    ],
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_organic_substrate__manufactured_by__nanya",
-    "source": "organic_substrate_buildup",
-    "target": "org_nan_ya_pcb",
-    "relation": "manufactured_by",
-    "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkg_substrate_capacity"
-    ],
-    "reviewStatus": "unreviewed"
-  },
-  {
     "id": "e_flip_chip__manufactured_by__kuls",
     "source": "flip_chip_bonding",
     "target": "org_kulicke_soffa",
@@ -1648,6 +1625,269 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_acc_thm_vertiv_cdu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub2_organic_substrate__manufactured_by__shinko",
+    "source": "organic_substrate_base_structure",
+    "target": "org_shinko_electric",
+    "relation": "manufactured_by",
+    "claim": "Shinko Electric manufactures organic substrate base structures for AI accelerator packages, with secondary position (~20% share) in high-end ABF substrates.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub2_shinko_market_share",
+      "ev_acc_sub2_shinko_abf_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub2_organic_substrate__manufactured_by__ats",
+    "source": "organic_substrate_base_structure",
+    "target": "org_ats",
+    "relation": "manufactured_by",
+    "claim": "AT&S manufactures high-density interconnect (HDI) organic substrates for advanced AI accelerator packaging, with ~18% estimated share of premium ABF substrate supply.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub2_ats_market_share",
+      "ev_acc_sub2_ats_hdi_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub2_abf_build_up_film__has_supplier__shinko",
+    "source": "abf_build_up_film",
+    "target": "org_shinko_electric",
+    "relation": "manufactured_by",
+    "claim": "Shinko Electric is among the suppliers of finished ABF substrate assemblies for advanced packaging, though Ajinomoto holds ABF material supply dominance.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_sub2_shinko_abf_supply",
+      "ev_acc_sub2_abf_shortage_2021_2023"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__shinko",
+    "source": "chiplet_interconnect_substrate",
+    "target": "org_shinko_electric",
+    "relation": "manufactured_by",
+    "claim": "Shinko Electric manufactures chiplet-interconnect substrates for advanced packaging with secondary player share.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub2_shinko_market_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__ats",
+    "source": "chiplet_interconnect_substrate",
+    "target": "org_ats",
+    "relation": "manufactured_by",
+    "claim": "AT&S manufactures high-density interconnect chiplet-substrate for advanced packaging, with strength in HDI and multilayer design.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub2_ats_market_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg__requires__samsung_packaging",
+    "source": "advanced_packaging",
+    "target": "org_samsung",
+    "relation": "manufactured_by",
+    "claim": "Samsung Electronics offers I-Cube and SAINT-class 2.5D/3D advanced packaging as a secondary source to TSMC CoWoS for AI accelerator modules, with ~15-20% estimated share in premium advanced packaging segments.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sub2_samsung_icube_saint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_euv_optics__manufactured_by__zeiss_smt",
+    "source": "euv_projection_optics",
+    "target": "org_carl_zeiss_smt",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic2_asml_optics_zeiss"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_euv_lithography__requires__euv_optics",
+    "source": "extreme_ultraviolet_lithography",
+    "target": "euv_projection_optics",
+    "relation": "requires",
+    "claim": "Each ASML EUV system requires a set of precision-coated EUV projection optics, supplied exclusively by Carl Zeiss SMT. Optics production lead time (14+ months) is a subsidiary bottleneck within EUV systems.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic2_asml_optics_zeiss"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_logic_foundry__manufactured_by__samsung",
+    "source": "logic_die_fabrication",
+    "target": "org_samsung",
+    "relation": "manufactured_by",
+    "claim": "Samsung Foundry is the second source for leading-edge (3nm/5nm-equivalent) logic die manufacturing, serving as a capacity alternative to TSMC with lower volume share and longer lead times (8-12% foundry market share vs TSMC 70%+).",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_logic2_samsung_foundry_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__requires__eml_dfb_laser",
+    "source": "optical_transceiver_module",
+    "target": "eml_dfb_laser_diodes",
+    "relation": "requires",
+    "claim": "Long-reach coherent optical transceiver modules require EML/DFB laser diodes as a core component; separate supply chain from short-reach 850nm VCSELs.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt2_eml_dfb_shortage_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_eml_dfb__manufactured_by__lumentum",
+    "source": "eml_dfb_laser_diodes",
+    "target": "org_lumentum",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt2_lumentum_supplier_list"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_eml_dfb__manufactured_by__coherent",
+    "source": "eml_dfb_laser_diodes",
+    "target": "org_ii_vi_coherent",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt2_coherent_market_position"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_eml_dfb__manufactured_by__mitsubishi_electric",
+    "source": "eml_dfb_laser_diodes",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_opt2_mitsubishi_laser_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_eml_dfb__manufactured_by__sumitomo_electric",
+    "source": "eml_dfb_laser_diodes",
+    "target": "org_sumitomo_electric",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_opt2_sumitomo_laser_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__manufactured_by__innolight",
+    "source": "optical_transceiver_module",
+    "target": "org_innolight",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt2_innolight_assembler_role"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_opt_transceiver_mod__manufactured_by__eoptolink",
+    "source": "optical_transceiver_module",
+    "target": "org_eoptolink",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_opt2_eoptolink_module_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_cdu__requires__modular_kit",
+    "source": "cooling_distribution_unit_cdu",
+    "target": "cdu_rapid_deployment_kit",
+    "relation": "requires",
+    "claim": "Modular CDU kits are an alternative delivery model for CDU infrastructure, reducing lead time at cost of thermal optimization.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_cdu__manufactured_by__coolitsystems",
+    "source": "cooling_distribution_unit_cdu",
+    "target": "org_coolit_systems",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cp2_coolitsystems_cdu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_cdu__manufactured_by__schneider_electric",
+    "source": "cooling_distribution_unit_cdu",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cp2_schneider_electric_cooling"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_cdu__manufactured_by__motivair",
+    "source": "cooling_distribution_unit_cdu",
+    "target": "org_motivair",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_cp2_motivair_modular_cooling"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_modular_cdu__manufactured_by__coolitsystems",
+    "source": "cdu_rapid_deployment_kit",
+    "target": "org_coolit_systems",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cp2_coolitsystems_cdu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_modular_cdu__manufactured_by__schneider_electric",
+    "source": "cdu_rapid_deployment_kit",
+    "target": "org_schneider_electric",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cp2_schneider_electric_cooling"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_modular_cdu__manufactured_by__vertiv",
+    "source": "cdu_rapid_deployment_kit",
+    "target": "org_vertiv",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cp2_vertiv_cooling_market"
     ],
     "reviewStatus": "unreviewed"
   }

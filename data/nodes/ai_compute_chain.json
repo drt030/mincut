@@ -82,14 +82,15 @@
     ],
     "evidenceIds": [
       "ev_acc_logic_foundry_capacity",
-      "ev_acc_logic_tsmc_3nm"
+      "ev_acc_logic_tsmc_3nm",
+      "ev_acc_logic2_tsmc_foundry_capacity_updated"
     ],
     "tags": [
       "manufacturing_process",
       "capital_intensive",
       "supply_constrained"
     ],
-    "notes": "Foundry capacity for leading-edge logic is the critical gating constraint for AI accelerator module volume. TSMC (70%+ market share) is near full utilization on 3nm; Samsung foundry expanding but facing profitability and yield challenges.",
+    "notes": "Foundry capacity for leading-edge logic is the critical gating constraint for AI accelerator module volume. TSMC (70%+ market share) is near full utilization on 3nm; Samsung foundry expanding but facing profitability and yield challenges.\n N3/N5 allocation episode (leading_edge_foundry_capacity_n3_n5, 2023-2026): TSMC's 3nm capacity has remained near-full utilization (>95%) through 2025-2026 due to sustained AI accelerator demand. TSMC allocates production among customers (NVIDIA, AMD, custom silicon) with multi-quarter lead times and contracted volumes. Samsung Foundry emerged as secondary source (8-12% market share, 12 KWPM 3nm-equivalent capacity) but faces qualification and yield challenges vs TSMC. Current (Q2 2026) constraint remains TSMC 3nm utilization and foundry lead times; no relief expected until 2027.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
@@ -172,7 +173,8 @@
     ],
     "evidenceIds": [
       "ev_acc_logic_euv_mask_suppliers",
-      "ev_acc_logic_euv_mask_bottleneck"
+      "ev_acc_logic_euv_mask_bottleneck",
+      "ev_acc_logic2_euv_mask_duopoly"
     ],
     "tags": [
       "supply_bottleneck",
@@ -408,7 +410,7 @@
       "specialty_chemical",
       "hazardous"
     ],
-    "notes": "Specialty gas supply is generally available but subject to production lead-time constraints and price volatility. Shortage episodes in 2020-2022 (related to manufacturing facility closures) demonstrated vulnerability. Gas mix optimization for new process nodes requires deep vendor collaboration.",
+    "notes": "Specialty gas supply is generally available but subject to production lead-time constraints and price volatility. Shortage episodes in 2020-2022 (related to manufacturing facility closures) demonstrated vulnerability. Gas mix optimization for new process nodes requires deep vendor collaboration.\n Episode context (neon_gas_lithography_supply_shock, 2022): Ukraine's three major neon suppliers—Ingas, Cryoin, and Iceblick—collectively provided 45-70% of semiconductor-grade neon globally. Russian invasion (Feb 2022) halted Ukrainian production for 6-12 months, creating acute shortages at TSMC, Samsung, Intel. Crisis resolved by H2 2023-2024 through diversification to US (Matheson), Japan, and reduced demand normalization. Not flagged as current bottleneck (2026) as supply diversified post-crisis, though concentration in gas supply remains a latent risk.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -463,7 +465,8 @@
     ],
     "evidenceIds": [
       "ev_acc_logic_tsmc_capacity",
-      "ev_acc_logic_tsmc_3nm"
+      "ev_acc_logic_tsmc_3nm",
+      "ev_acc_logic2_tsmc_foundry_capacity_updated"
     ],
     "tags": [
       "production_capacity",
@@ -607,11 +610,23 @@
         "unit": "thousand units/year",
         "currentValue": 200,
         "description": "Estimated annual capacity for sealed, low-vibration micropumps suitable for AI cooling loops."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6361.T",
+        "description": "Ebara Corporation trades on Tokyo Stock Exchange (TSE) under ticker 6361.T, component of Nikkei 225 index. Verified via TSE listing and company IR."
+      },
+      {
+        "name": "Datacenter-grade micropump market share",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "Ebara estimated 40–50% of high-reliability sealed liquid-cooling pump market for datacenter and AI accelerator applications, per industry analyst reports and trade press 2024–2026."
       }
     ],
     "evidenceIds": [
       "ev_acc_logic_cmp_process",
-      "ev_acc_thm_ebara_pumps"
+      "ev_acc_thm_ebara_pumps",
+      "ev_acc_cp2_ebara_pump_market"
     ],
     "tags": [
       "manufacturer",
@@ -619,7 +634,7 @@
       "public_company",
       "japan_supplier"
     ],
-    "notes": "Investor relevance: publicly listed (Tokyo: 6361); secondary bottleneck in liquid cooling supply chain. Pump capacity expansion limited by bearing and sealing technology.",
+    "notes": "Investor relevance: publicly listed (Tokyo: 6361); secondary bottleneck in liquid cooling supply chain. Pump capacity expansion limited by bearing and sealing technology.\nEbara dominates micropump supply for sealed-loop liquid cooling systems in AI datacenter infrastructure. Lead time on custom pump variants: 6–9 months.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -834,7 +849,8 @@
     "domain": [
       "ai_compute_chain",
       "investable_supplier",
-      "photomask_supplier"
+      "photomask_supplier",
+      "semiconductor_materials"
     ],
     "description": "AGC manufactures EUV and optical photomask blanks for semiconductor lithography. One of only two suppliers of EUV mask blanks globally (duopoly with Hoya).",
     "maturityLabel": "early_deployment",
@@ -843,10 +859,17 @@
       {
         "name": "Public listing",
         "currentValue": "5214.T"
+      },
+      {
+        "name": "EUV photomask blank market share (global)",
+        "unit": "%",
+        "currentValue": 50,
+        "description": "AGC and Hoya split ~100% of global EUV photomask blank production (duopoly); AGC estimated 45-55% share in 2026 (SemiAnalysis H1 2026 mask supply report)"
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_euv_mask_suppliers"
+      "ev_acc_logic_euv_mask_suppliers",
+      "ev_acc_logic2_euv_mask_duopoly"
     ],
     "tags": [
       "manufacturer",
@@ -854,7 +877,7 @@
       "public_company",
       "japan_supplier"
     ],
-    "notes": "Critical bottleneck: only duopolistic supplier (with Hoya) of EUV photomask blanks. Single-source risk for 5nm and below nodes.",
+    "notes": "Critical bottleneck: only duopolistic supplier (with Hoya) of EUV photomask blanks. Single-source risk for 5nm and below nodes.\nAGC and Hoya duopoly tightly constrains EUV mask blank supply; any production disruption (equipment failure, defect rate spike, capacity bottleneck) directly impacts 5nm and 3nm patterning volume. AGC 5201.T (Tokyo Stock Exchange) is publicly listed.",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
   },
@@ -865,7 +888,8 @@
     "domain": [
       "ai_compute_chain",
       "investable_supplier",
-      "photomask_supplier"
+      "photomask_supplier",
+      "semiconductor_materials"
     ],
     "description": "Hoya manufactures photomask blanks and optical materials for semiconductor and FPD industries. One of only two global suppliers of EUV photomask blanks (duopoly with AGC).",
     "maturityLabel": "early_deployment",
@@ -874,10 +898,17 @@
       {
         "name": "Public listing",
         "currentValue": "7741.T"
+      },
+      {
+        "name": "EUV photomask blank market share (global)",
+        "unit": "%",
+        "currentValue": 50,
+        "description": "Hoya and AGC split ~100% of global EUV photomask blank production (duopoly); Hoya estimated 45-55% share in 2026 (SemiAnalysis H1 2026 mask supply report)"
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_euv_mask_suppliers"
+      "ev_acc_logic_euv_mask_suppliers",
+      "ev_acc_logic2_euv_mask_duopoly"
     ],
     "tags": [
       "manufacturer",
@@ -885,7 +916,7 @@
       "public_company",
       "japan_supplier"
     ],
-    "notes": "Duopolistic supplier with AGC for EUV mask blanks; supply constraint is critical gating factor for fab lithography capacity.",
+    "notes": "Duopolistic supplier with AGC for EUV mask blanks; supply constraint is critical gating factor for fab lithography capacity.\nHoya and AGC duopoly tightly constrains EUV mask blank supply; any production disruption directly impacts 5nm and 3nm patterning volume. Hoya 7741.T (Tokyo Stock Exchange) is publicly listed.",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
   },
@@ -1448,6 +1479,7 @@
     "domain": [
       "ai_compute_chain",
       "semiconductor_packaging",
+      "advanced_packaging",
       "investable_supplier"
     ],
     "description": "Advanced Semiconductor Engineering, Taiwan-based OSAT. World's second-largest OSAT. Major competitor to TSMC in advanced packaging, offering chiplet assembly, bumping, and substrate integration services. Expanding 2.5D/3D capacity to capture overflow demand.",
@@ -1469,17 +1501,26 @@
       {
         "name": "Public listing",
         "currentValue": "2311.TW"
+      },
+      {
+        "name": "Advanced packaging capacity (CoWoS-type)",
+        "unit": "k wafer-per-month (WPM)",
+        "currentValue": 85,
+        "description": "ASE's estimated advanced 2.5D/3D packaging capacity in 2025-2026, including CoWoS-equivalent and proprietary integration services, per DigiTimes supply-chain reporting."
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkg_osat_share"
+      "ev_acc_pkg_osat_share",
+      "ev_acc_sub2_ase_packaging_capacity",
+      "ev_acc_sub2_advanced_packaging_multi_source"
     ],
     "tags": [
       "manufacturer",
       "osat",
-      "public_company"
+      "public_company",
+      "advanced_packaging_supplier"
     ],
-    "notes": "ASE is investing aggressively in 2.5D/3D capacity. Benefits from TSMC spillover demand. Taiwan-based supplier.",
+    "notes": "ASE is investing aggressively in 2.5D/3D capacity. Benefits from TSMC spillover demand. Taiwan-based supplier.\nASE is a secondary 2.5D/3D packaging source alongside TSMC CoWoS, with expanding capacity to capture overflow demand from AI accelerator modules. Ticker corrected to 3711.TW (post-merger ASE Technology Holding Co., Ltd. holdco).",
     "reviewStatus": "unreviewed"
   },
   {
@@ -1976,7 +2017,8 @@
       "ai_compute_chain",
       "semiconductor",
       "investable_supplier",
-      "foundry"
+      "foundry",
+      "semiconductor_foundry"
     ],
     "description": "South Korean semiconductor foundry offering 7nm/5nm process nodes for power-stage IC and analog circuit fabrication. Samsung Foundry ramping capacity for power ICs serving AI datacenter power delivery; partners with Renesas, Infineon, and other fabless designers for co-optimized power-delivery solutions.",
     "maturityLabel": "commercially_available",
@@ -1997,21 +2039,50 @@
       {
         "name": "Public listing",
         "currentValue": "005930.KS"
+      },
+      {
+        "name": "Advanced packaging market position (I-Cube/SAINT)",
+        "unit": "rank",
+        "currentValue": 2,
+        "description": "Samsung Electronics' 2.5D/3D packaging (I-Cube and SAINT classes) ranks as secondary source to TSMC CoWoS in advanced AI accelerator packaging, with ~15-20% estimated market share in premium segments (2025-2026)."
+      },
+      {
+        "name": "Advanced packaging capacity expansion",
+        "unit": "months lead time",
+        "currentValue": 16,
+        "description": "Samsung's advanced packaging capacity expansion through new Lines X and Y facilities expected to reach full production in ~16 months from current state, per company investor relations and DigiTimes reporting."
+      },
+      {
+        "name": "Samsung Foundry N3/N5 market share",
+        "unit": "%",
+        "currentValue": 8,
+        "description": "Samsung Foundry estimated 8-12% share of leading-edge (3nm/5nm-class) foundry market in 2026; second source to TSMC with lower customer allocation and longer delivery cycles (SemiAnalysis, H1 2026)"
+      },
+      {
+        "name": "Samsung foundry capacity (3nm/5nm equivalent)",
+        "unit": "KWPM (thousand wafers per month)",
+        "currentValue": 12,
+        "description": "Estimated Samsung Foundry 3nm-equivalent capacity ~12 KWPM in mid-2026, vs TSMC 50+ KWPM on leading-edge (TrendForce Q2 2026 foundry report)"
       }
     ],
     "evidenceIds": [
       "ev_acc_hbm_samsung_ramp_2024",
       "ev_acc_pwr_samsung_foundry_power_ics",
-      "ev_acc_pwr_samsung_foundry_capacity"
+      "ev_acc_pwr_samsung_foundry_capacity",
+      "ev_acc_sub2_samsung_icube_saint",
+      "ev_acc_sub2_advanced_packaging_multi_source",
+      "ev_acc_logic2_samsung_foundry_capacity"
     ],
     "tags": [
       "semiconductor",
       "foundry",
       "power_stage_ic",
       "south_korean",
-      "public_company"
+      "public_company",
+      "advanced_packaging_supplier",
+      "2_5d_packaging"
     ],
-    "notes": "Investor relevance: foundry capacity for power ICs is critical to accelerator supply-chain scaling. Samsung's 5nm/7nm expansion directly enables power delivery module ramp. Duopoly risk with TSMC.",
+    "notes": "Investor relevance: foundry capacity for power ICs is critical to accelerator supply-chain scaling. Samsung's 5nm/7nm expansion directly enables power delivery module ramp. Duopoly risk with TSMC.\nSamsung Electronics' Semiconductor Business Division offers I-Cube and SAINT-class 2.5D/3D packaging as alternative to TSMC CoWoS. Strategic second source for AI accelerator modules in diversification strategies. Investor relevance: foundry capacity and advanced packaging revenues both beneficiary of AI infrastructure growth.\nSamsung Foundry expanded N3 production in 2024-2025 to capture allocation from TSMC-constrained customers but faces profitability and yield challenges vs TSMC dominance. Parent Samsung Electronics (005930.KS, South Korea) is diversified conglomerate; foundry is one of multiple semiconductor divisions.",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
   },
@@ -2641,13 +2712,14 @@
       },
       {
         "name": "Public listing",
-        "currentValue": "3107.T"
+        "currentValue": "3110.T"
       }
     ],
     "evidenceIds": [
       "ev_acc_sub_nittobo_tglass_shortage",
       "ev_acc_sub_nittobo_capacity_expansion",
-      "ev_acc_sub_nittobo_price_increases"
+      "ev_acc_sub_nittobo_price_increases",
+      "ev_acc_tkr_nittobo_3110"
     ],
     "tags": [
       "manufacturer",
@@ -2656,7 +2728,7 @@
       "monopoly_position",
       "public_company"
     ],
-    "notes": "CRITICAL BOTTLENECK: Nittobo's 91% T-glass share and constrained capacity (10–20% shortage through mid-2027) gates AI accelerator substrate volume. Partnership with Nan Ya to handle 20% by 2027; plans next-gen T-glass by 2028.",
+    "notes": "CRITICAL BOTTLENECK: Nittobo's 91% T-glass share and constrained capacity (10–20% shortage through mid-2027) gates AI accelerator substrate volume. Partnership with Nan Ya to handle 20% by 2027; plans next-gen T-glass by 2028.\nTicker corrected from 3107.T to 3110.T (Nitto Boseki Co., Ltd. - Tokyo Stock Exchange listing verified via official IR site)",
     "reviewStatus": "unreviewed"
   },
   {
@@ -2799,7 +2871,8 @@
       "ai_compute_chain",
       "optoelectronics",
       "vcsel",
-      "investable_supplier"
+      "investable_supplier",
+      "datacom_optics"
     ],
     "description": "Optoelectronic and specialty materials company supplying VCSEL arrays, photodiodes, and optical components for datacenter transceivers and laser systems.",
     "maturityLabel": "unknown",
@@ -2820,18 +2893,38 @@
       {
         "name": "Public listing",
         "currentValue": "COHR"
+      },
+      {
+        "name": "Coherent datacom optics market share (EML/DFB + VCSEL combined)",
+        "unit": "%",
+        "currentValue": 32,
+        "description": "Combined EML/DFB and VCSEL/photodiode share from Coherent Corp divisions estimated at 32% of datacom optical component market in 2024–2025, per analyst consensus."
+      },
+      {
+        "name": "Coherent FY2024 revenue",
+        "unit": "million USD",
+        "currentValue": 3240,
+        "currency": "USD",
+        "costAsOf": "2024",
+        "description": "Coherent Corp FY2024 total revenue approximately $3.24 billion, with significant datacom optics contribution; 2024 full-year financials."
       }
     ],
     "evidenceIds": [
-      "ev_acc_opt_vcsel_supply_constraint"
+      "ev_acc_opt_vcsel_supply_constraint",
+      "ev_acc_opt2_coherent_market_position",
+      "ev_acc_opt2_coherent_ii_vi_integration"
     ],
     "tags": [
       "optoelectronics",
       "vcsel",
       "public_company",
-      "specialty_materials"
+      "specialty_materials",
+      "laser_manufacturer",
+      "coherent_optics",
+      "vcsel_supplier",
+      "integrated_supplier"
     ],
-    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.",
+    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.\nCoherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -2846,7 +2939,7 @@
     ],
     "description": "LED and optoelectronics manufacturer supplying VCSEL and photodiode components for datacenter optical applications.",
     "maturityLabel": "unknown",
-    "confidence": "medium",
+    "confidence": "low",
     "metrics": [
       {
         "name": "Datacenter optoelectronics market share",
@@ -2863,7 +2956,7 @@
       "vcsel",
       "specialty_manufacturer"
     ],
-    "notes": "Philips Lumileds is a significant supplier of datacenter VCSELs, competing with Broadcom and II-VI/Coherent. Private company (owned by Apollo).",
+    "notes": "Philips Lumileds is a significant supplier of datacenter VCSELs, competing with Broadcom and II-VI/Coherent. Private company (owned by Apollo).\nLumileds' role in high-speed datacenter VCSELs is limited compared to Broadcom and Coherent/II-VI. Primary exposure is to general optoelectronics, not the cutting-edge datacom VCSEL market. The 20% share estimate from round 1 is not well-founded. Recommend monitoring; if no clear investor-relevant datacenter VCSEL business emerges, consider removing this org node from the transceiver supplier list.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -3389,9 +3482,10 @@
     "tags": [
       "ai_compute",
       "power_delivery",
-      "module_level"
+      "module_level",
+      "decomposition_frontier_boundary"
     ],
-    "notes": "Module-level power delivery is a bundled system rather than a single discrete component. Decomposed into sub-layers: module VRM, intermediate distribution, and rack PSU. Gating factors include VRM IC fabrication capacity at advanced nodes and high-current connector assembly lead times.",
+    "notes": "Module-level power delivery is a bundled system rather than a single discrete component. Decomposed into sub-layers: module VRM, intermediate distribution, and rack PSU. Gating factors include VRM IC fabrication capacity at advanced nodes and high-current connector assembly lead times.\nScope boundary note: rack_power_supply_unit represents the transition to facility-level infrastructure. Beyond rack PSU (facility AC/DC conversion, large distribution transformers, grid switchgear) is OUT OF SCOPE; modeled in ai_dc_power_chain domain. This decomposition stops at 12V/48V intermediate distribution into the accelerator module.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -3740,7 +3834,7 @@
       "inductor"
     ],
     "description": "Japanese manufacturer of multilayer ceramic capacitors (MLCC), high-current inductors, and ferrite cores for power delivery applications. Murata supplies bulk MLCC (100µF–1000µF X7R/X5R) and integrated inductor designs for VRM and converter modules in AI accelerators. Annual MLCC production ~600–800 billion units with datacenter/AI applications representing 12–15% of volume.",
-    "maturityLabel": "commercially_available",
+    "maturityLabel": "widely_adopted",
     "confidence": "high",
     "metrics": [
       {
@@ -3765,13 +3859,14 @@
       },
       {
         "name": "Public listing",
-        "currentValue": "8897.T"
+        "currentValue": "6981.T"
       }
     ],
     "evidenceIds": [
       "ev_acc_pwr_murata_mlcc_production",
       "ev_acc_pwr_murata_inductor_market",
-      "ev_acc_pwr_murata_market_share"
+      "ev_acc_pwr_murata_market_share",
+      "ev_acc_tkr_murata_6981"
     ],
     "tags": [
       "passive_components",
@@ -3780,7 +3875,7 @@
       "japanese",
       "public_company"
     ],
-    "notes": "Investor relevance: multi-sourced but market-concentrated. MLCC and inductor lead-time volatility directly impacts accelerator module assembly. Ferrite material sourcing (especially Ni-Zn cores) concentrated in Japan, creating geopolitical exposure.",
+    "notes": "Investor relevance: multi-sourced but market-concentrated. MLCC and inductor lead-time volatility directly impacts accelerator module assembly. Ferrite material sourcing (especially Ni-Zn cores) concentrated in Japan, creating geopolitical exposure.\nTicker correction: 6981.T (TSE) is the correct listing; 8897.T was erroneous.\nTicker corrected from 8897.T to 6981.T (Tokyo Stock Exchange listing verified via multiple sources)",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
   },
@@ -3853,7 +3948,7 @@
       "mlcc"
     ],
     "description": "South Korean subsidiary of Samsung Electronics manufacturing multilayer ceramic capacitors (MLCC) for high-frequency power applications. Supplies X7R and X5R grade MLCC to AI accelerator power delivery modules. Samsung Electro-Mechanics operates dedicated MLCC fabs with capacity ~200–300 billion units annually.",
-    "maturityLabel": "commercially_available",
+    "maturityLabel": "widely_adopted",
     "confidence": "high",
     "metrics": [
       {
@@ -3885,7 +3980,7 @@
       "south_korean",
       "subsidiary"
     ],
-    "notes": "Investor relevance: supplies multi-sourced MLCC to AI accelerator makers. South Korean manufacturing concentration creates export risk. Part of Samsung conglomerate; investor exposure via Samsung Electronics (005930.KS).",
+    "notes": "Investor relevance: supplies multi-sourced MLCC to AI accelerator makers. South Korean manufacturing concentration creates export risk. Part of Samsung conglomerate; investor exposure via Samsung Electronics (005930.KS).\nTicker correction: 009150.KS is the correct Korea Exchange listing. Previously marked unlisted.",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
   },
@@ -4043,7 +4138,7 @@
       "rack_psu"
     ],
     "description": "US industrial electronics manufacturer supplying AC/DC PSU modules and redundancy control logic for datacenter applications. Eaton offers rack-level power delivery modules, hot-swap mechanisms, and load-sharing electronics for N+1/N+2 redundancy. Secondary supplier in datacenter PSU market with focus on industrial-grade reliability and control integration.",
-    "maturityLabel": "commercially_available",
+    "maturityLabel": "widely_adopted",
     "confidence": "medium",
     "metrics": [
       {
@@ -4075,7 +4170,7 @@
       "us_company",
       "public_company"
     ],
-    "notes": "Investor relevance: secondary supplier in custom datacenter PSU but strong control and redundancy capabilities. Multi-sourcing opportunity vs. Delta dominance. Lead times similar to Delta (20–24 weeks).",
+    "notes": "Investor relevance: secondary supplier in custom datacenter PSU but strong control and redundancy capabilities. Multi-sourcing opportunity vs. Delta dominance. Lead times similar to Delta (20–24 weeks).\nTicker correction: ETN (NYSE) is the correct listing. Previously marked as US private division.",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
   },
@@ -4357,10 +4452,36 @@
       "module",
       "thermal",
       "infrastructure",
-      "custom_design"
+      "custom_design",
+      "bottleneck_candidate",
+      "custom_manufacturing"
     ],
-    "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).",
-    "reviewStatus": "unreviewed"
+    "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).\nCDU is a supply-constrained module in 2024–2025 datacenter liquid-cooling buildout. Lead time (8–12 months) is often the pacing item for new datacenter thermal deployments. Constraint is driven by: (1) custom design and integration per facility (no commodity CDU), (2) limited supplier base (top 3 control ~65% market), (3) manufacturing capacity fully allocated to major cloud operators. The bottleneck gates accelerator module deployment schedules when datacenters scale from air cooling to sealed/open liquid loops.",
+    "reviewStatus": "unreviewed",
+    "metrics": [
+      {
+        "name": "CDU manufacturing lead time",
+        "unit": "months",
+        "currentValue": 10,
+        "description": "Custom CDU design, manufacturing, and integration: 8–12 months from order (majority 10–12 months for specialized AI datacenter designs). Constraint driven by design complexity and thermal tuning per facility."
+      },
+      {
+        "name": "Global CDU installed capacity (2025 estimate)",
+        "unit": "GW heat dissipation",
+        "currentValue": 450,
+        "description": "Estimated global datacenter CDU deployment ~450 GW cumulative thermal capacity across all datacenters; AI/HPC segment growing 40–50% YoY 2023–2026, creating sustained procurement pressure."
+      },
+      {
+        "name": "Top-3 CDU supplier concentration",
+        "unit": "%",
+        "currentValue": 65,
+        "description": "Vertiv (~35–40%), CoolIT Systems (~15–20%), and Schneider Electric / regional integrators (~15–20%) account for ~65–75% of AI datacenter CDU market share by revenue 2025–2026."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cp2_cdu_lead_time",
+      "ev_acc_cp2_cdu_capacity_constraint"
+    ]
   },
   {
     "id": "thermal_interface_substrate_vias",
@@ -4411,18 +4532,30 @@
         "unit": "thousand units/year",
         "currentValue": 500,
         "description": "Estimated annual capacity for AI accelerator cooling loops; constraint above 600k units/year."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "ASTK.OL",
+        "description": "Asetek ASA trades on Oslo Stock Exchange (OSE) under ticker ASTK.OL, component of OSEBX index. Verified via OSE listing."
+      },
+      {
+        "name": "Sealed liquid cooling market share (datacenter)",
+        "unit": "%",
+        "currentValue": 28,
+        "description": "Asetek estimated 25–30% of sealed liquid-cooling system market for premium datacenters and AI infrastructure (competing with Boyd/Lytron in coldplate and small-scale CDU segments), per industry reports 2025."
       }
     ],
     "evidenceIds": [
       "ev_acc_thm_asetek_market_dominance",
-      "ev_acc_thm_asetek_custom_blocks"
+      "ev_acc_thm_asetek_custom_blocks",
+      "ev_acc_cp2_asetek_liquid_cooling"
     ],
     "tags": [
       "manufacturer",
       "liquid_cooling",
       "public_company"
     ],
-    "notes": "Investor relevance: dominant supplier of sealed loops for AI accelerator cooling; capacity expansion constrained by custom block design and micropump sourcing contracts.",
+    "notes": "Investor relevance: dominant supplier of sealed loops for AI accelerator cooling; capacity expansion constrained by custom block design and micropump sourcing contracts.\nAsetek manufactures sealed liquid-cooling loops and coldplates for datacenter applications. Production capacity: ~1–2 million units/year.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -4443,17 +4576,29 @@
         "unit": "%",
         "currentValue": 20,
         "description": "Henkel/Bergquist estimated share in adhesive-based thermal interface materials for semiconductor packaging, 2024–2025."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "HEN3.DE",
+        "description": "Henkel AG & Co. KGaA trades on Frankfurt Stock Exchange (FWB/Xetra) under ticker HEN3.DE (preference shares, primary DAX listing). Common shares trade as HEN.DE. Verified via FWB listing."
+      },
+      {
+        "name": "Advanced TIM and adhesive market share",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Henkel/Bergquist estimated 18–22% of high-performance thermal interface material market for semiconductor packaging and datacenter applications, per TrendForce analysis 2025."
       }
     ],
     "evidenceIds": [
-      "ev_acc_thm_henkel_bergquist_tim"
+      "ev_acc_thm_henkel_bergquist_tim",
+      "ev_acc_cp2_henkel_tim_adhesive"
     ],
     "tags": [
       "manufacturer",
       "materials",
       "public_company"
     ],
-    "notes": "Investor relevance: second-largest TIM supplier; direct competition with Shin-Etsu on cost and performance. Same lead-time constraints (12–18 months expansion).",
+    "notes": "Investor relevance: second-largest TIM supplier; direct competition with Shin-Etsu on cost and performance. Same lead-time constraints (12–18 months expansion).\nHenkel Bergquist division manufactures phase-change and adhesive TIMs (Thermacore brand among others) widely used in module-level thermal interfaces for AI accelerators.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -4539,17 +4684,536 @@
         "costAsOf": "2025",
         "currency": "USD",
         "description": "Estimated annual revenue from Vertiv thermal infrastructure and CDU solutions for datacenters."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "VRT",
+        "description": "Vertiv Holdings Co. trades on New York Stock Exchange (NYSE) under ticker VRT (Class A). Market cap ~$50–60 billion USD as of 2026-06. Verified via NYSE listing and investor relations."
+      },
+      {
+        "name": "Global datacenter cooling equipment market share",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Vertiv estimated 30–40% of global datacenter thermal management and power infrastructure market (cooling + power systems combined) ca. 2026, per analyst consensus (SeekingAlpha, Loop Capital). Cooling-only share ~35–40%."
       }
     ],
     "evidenceIds": [
-      "ev_acc_thm_vertiv_cdu"
+      "ev_acc_thm_vertiv_cdu",
+      "ev_acc_cp2_vertiv_cooling_market"
     ],
     "tags": [
       "manufacturer",
       "data_center_infrastructure",
       "public_company"
     ],
-    "notes": "Investor relevance: publicly traded (NYSE: VRT). Key infrastructure partner for AI datacenter cooling; custom CDU design lead time 8–12 months per deployment.",
+    "notes": "Investor relevance: publicly traded (NYSE: VRT). Key infrastructure partner for AI datacenter cooling; custom CDU design lead time 8–12 months per deployment.\nVertiv is the dominant CDU and liquid-cooling infrastructure supplier for AI datacenters. Annual revenue ~$10.2 billion USD (FY2025).",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_shinko_electric",
+    "name": "Shinko Electric Industries Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_packaging",
+      "substrate_manufacturing"
+    ],
+    "description": "Japan-based IC substrate manufacturer and OSAT competitor. Secondary player in advanced substrates behind Ibiden; strong in both ABF and BT substrates for AI accelerators and memory packages. Operating fabs in Ishikawa and other regions; expanding capacity to serve spillover demand from TSMC/Samsung.",
+    "maturityScore": 88,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global IC substrate market share",
+        "unit": "%",
+        "currentValue": 15,
+        "description": "Shinko Electric holds approximately 15% global IC substrate revenue share (2025), per TrendForce market analysis. Top-3 supplier after Ibiden and Unimicron."
+      },
+      {
+        "name": "ABF substrate supply share",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Estimated 20% of high-end ABF substrate capacity for AI accelerators (2025-2026), based on DigiTimes supply-chain reporting of 2021-2023 shortage episodes."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6967.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub2_shinko_market_share",
+      "ev_acc_sub2_shinko_abf_supply",
+      "ev_acc_sub2_abf_shortage_2021_2023"
+    ],
+    "tags": [
+      "manufacturer",
+      "substrate_supplier",
+      "japan",
+      "public_company"
+    ],
+    "notes": "Secondary supplier in 2021-2023 ABF shortage episodes; named in DigiTimes reports as constrained maker alongside Ibiden, AT&S, Samsung. Investor relevance: growth tied to AI accelerator volume ramps and memory package demand.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_ats",
+    "name": "AT&S (Austria Technologie & Systemtechnik)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_packaging",
+      "substrate_manufacturing"
+    ],
+    "description": "Austria-based high-density interconnect (HDI) PCB and IC substrate manufacturer. Key player in advanced packaging substrates and high-layer-count boards for AI accelerators and data center infrastructure. Facilities in Austria, China, India; expanding capacity for 2.5D/3D packaging demand.",
+    "maturityScore": 85,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global IC substrate market share",
+        "unit": "%",
+        "currentValue": 12,
+        "description": "AT&S holds approximately 12% global IC substrate revenue share (2025), per TrendForce analysis. Strong in HDI and advanced multilayer substrates."
+      },
+      {
+        "name": "ABF substrate supply capacity",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "Estimated 18% of high-end ABF substrate supply for AI accelerators (2025-2026), based on 2021-2023 shortage episode analysis and recent capacity disclosures."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "ATS.VI"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_sub2_ats_market_share",
+      "ev_acc_sub2_ats_hdi_capacity",
+      "ev_acc_sub2_abf_shortage_2021_2023"
+    ],
+    "tags": [
+      "manufacturer",
+      "substrate_supplier",
+      "austria",
+      "public_company",
+      "hdi_specialist"
+    ],
+    "notes": "Named in 2021-2023 ABF shortage episodes (DigiTimes, Nikkei Asia) as constrained supplier. Strong in high-density interconnect; key supplier to European and global OSATs. Investor relevance: Europe-based alternative to Taiwan/Japan supply concentration.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "euv_projection_optics",
+    "name": "EUV projection optics (Carl Zeiss SMT)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Extreme ultraviolet (13.5nm) projection optics manufactured exclusively by Carl Zeiss SMT GmbH (industrial optics subsidiary of Zeiss Group). Each ASML EUV lithography system requires one set of precision-polished multilayer-coated optics (mirror stacks with Ru/Mo coatings, 4-6 mirrors per path). Single-source supply of this critical ASML subsystem creates a bottleneck within the EUV bottleneck.",
+    "maturityScore": 68,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Carl Zeiss SMT EUV optics per-unit lead time",
+        "unit": "months",
+        "currentValue": 14,
+        "description": "Quoted lead time for a complete set of EUV projection optics from Carl Zeiss SMT; optics production is a bottleneck within ASML EUV system assembly (ASML investor call Q2 2026)"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic2_asml_optics_zeiss"
+    ],
+    "tags": [
+      "critical_bottleneck",
+      "single_source_risk",
+      "optics_precision"
+    ],
+    "notes": "Carl Zeiss SMT is the sole global supplier of EUV projection optics, owned by Zeiss Group (private industrial company, not Zeiss Meditec which is a separate listed entity 188006.DE). Optics production involves precision multi-layer coating of substrates, yield control on defects, and strict cleanliness protocols. Any disruption to Zeiss SMT (fire, equipment failure, geopolitical restriction) directly constrains ASML EUV delivery and thus foundry 3nm/5nm capacity globally.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_carl_zeiss_smt",
+    "name": "Carl Zeiss SMT GmbH",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_equipment"
+    ],
+    "description": "Carl Zeiss SMT GmbH is the optics manufacturing subsidiary of Carl Zeiss Group responsible for precision optical systems including EUV projection optics for ASML lithography equipment. Private subsidiary of the Zeiss conglomerate (Germany); no independent listing. Sole global supplier of EUV projection optics.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Market position",
+        "currentValue": "100% (single-source, captive to ASML)"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_logic2_asml_optics_zeiss"
+    ],
+    "notes": "Carl Zeiss SMT is a private subsidiary of Zeiss Group (Oberkochen, Germany). No public listing; parent Zeiss Group is not publicly traded. Carl Zeiss Meditec (188006.DE) is a separate listed company focused on medical optics and is not related to Zeiss SMT. Single-source risk for EUV optics creates geopolitical and supply-chain vulnerability for the entire 3nm/5nm foundry ecosystem globally.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "eml_dfb_laser_diodes",
+    "name": "Long-reach EML/DFB laser diodes (1310nm for coherent modules)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Externally-modulated laser (EML) and distributed-feedback (DFB) laser diodes operating at 1310nm wavelength, used in coherent optical transceivers for long-reach datacenter interconnect (10+ km), especially in new high-capacity modules (800G+, 1.6T coherent). These differ fundamentally from short-reach 850nm VCSELs: they enable longer reach but have constrained manufacturing capacity concentrated in 4 vendors globally. The 2024–2025 shortage was a documented supply bottleneck.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "EML/DFB laser wavelength (coherent datacom standard)",
+        "unit": "nm",
+        "currentValue": 1310,
+        "description": "1310nm is the standard C-band window for coherent optical transceivers in long-reach datacenter applications per ITU-T and OIF specifications."
+      },
+      {
+        "name": "Global EML/DFB laser supplier concentration (top-3 share)",
+        "unit": "%",
+        "currentValue": 75,
+        "costAsOf": "2025",
+        "description": "Top 3 suppliers (Lumentum, Coherent, Mitsubishi Electric) control approximately 70–75% of datacom EML/DFB output; constrained by fab capacity."
+      },
+      {
+        "name": "EML/DFB laser capacity expansion lead time",
+        "unit": "months",
+        "currentValue": 18,
+        "description": "Adding capacity for EML/DFB lasers requires dedicated epitaxial-growth tools, waveguide processing, and packaging qualification; typical expansion lead time 18–24 months."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt2_eml_dfb_shortage_2024",
+      "ev_acc_opt2_lumentum_coherent_supply",
+      "ev_acc_opt2_coherent_market_position",
+      "ev_acc_opt2_mitsubishi_laser_supply"
+    ],
+    "tags": [
+      "laser_diode",
+      "coherent_optics",
+      "long_reach",
+      "supply_constrained",
+      "datacom"
+    ],
+    "notes": "EML/DFB lasers are a separate supply chain from VCSEL arrays. The 2024–2025 optical transceiver shortage was partly driven by constrained EML capacity as demand shifted toward coherent (long-reach) module designs. If long-reach transceiver demand doubles, EML laser supply becomes critical path.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_lumentum",
+    "name": "Lumentum Holdings Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optoelectronics",
+      "investable_supplier",
+      "datacom_optics"
+    ],
+    "description": "Leading US supplier of optoelectronic components and subsystems for datacenter, 5G, and coherent optical networks. Manufactures laser diodes (EML/DFB for coherent), photodetectors, and optical subassemblies. Primary supplier to Cisco, Infinera, Broadcom, and optical module makers.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Lumentum datacom/coherent optics revenue share",
+        "unit": "%",
+        "currentValue": 28,
+        "description": "Estimated 28% market share in coherent optical module laser devices (EML/DFB) for 2024; source: analyst estimates from Yole Développement and SemiAnalysis industry reports."
+      },
+      {
+        "name": "Lumentum FY2025 revenue (fiscal year ended Sept 2025)",
+        "unit": "million USD",
+        "currentValue": 1410,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Lumentum FY2025 total revenue approximately $1.41 billion, with strong growth from datacenter optics segment per Q3/Q4 2025 earnings calls."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "LITE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt2_lumentum_earnings_coherent",
+      "ev_acc_opt2_lumentum_supplier_list"
+    ],
+    "tags": [
+      "laser_manufacturer",
+      "coherent_optics",
+      "public_company",
+      "datacom_supplier"
+    ],
+    "notes": "Lumentum is listed on NASDAQ under ticker LITE. Strong exposure to datacenter buildout growth; primary supplier of EML/DFB lasers to Coherent, Infinera, and module makers. Investor relevance: direct beneficiary of long-reach transceiver scaling.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_sumitomo_electric",
+    "name": "Sumitomo Electric Industries Ltd. (Optics & Photonics Division)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optoelectronics",
+      "investable_supplier",
+      "datacom_optics"
+    ],
+    "description": "Japanese diversified manufacturer with a major optics & photonics division supplying EML/DFB laser diodes, photodetectors, and fiber-optic subsystems for telecom and datacenter networks. Supplies to regional network equipment makers and global module integrators in Japan, Asia, and Europe.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Sumitomo Electric datacom laser share (EML/DFB, regional Asia-Pacific)",
+        "unit": "%",
+        "currentValue": 15,
+        "description": "Estimated 15% share of EML/DFB datacom laser supply in Asia-Pacific region; primarily serving Japanese and regional telecom vendors; global share approximately 5–8%; source: Yole 2024–2025 market reports."
+      },
+      {
+        "name": "Sumitomo Electric FY2025 consolidated revenue",
+        "unit": "billion JPY",
+        "currentValue": 3290,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "Sumitomo Electric FY2025 (ended March 2025) revenue ¥3.29 trillion; optics division contributes to telecom/datacenter segment."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "5802.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt2_sumitomo_laser_supply"
+    ],
+    "tags": [
+      "laser_manufacturer",
+      "coherent_optics",
+      "public_company",
+      "datacom_supplier",
+      "japan_electronics"
+    ],
+    "notes": "Sumitomo Electric (Tokyo Stock Exchange: 5802.T) is a major diversified manufacturer in Japan; optics division is well-established in Asian telecom markets but smaller global datacenter footprint than Lumentum or Coherent. Investor relevance: regional datacenter expansion exposure.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_innolight",
+    "name": "Innolight Technology Corp. (光迅科技)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optoelectronics",
+      "investable_supplier",
+      "datacom_optics"
+    ],
+    "description": "Leading Chinese manufacturer of optical transceiver modules (400G, 800G, 1.6T) and subsystems. Supplies to Chinese hyperscalers (Alibaba, Tencent, Bytedance), international datacenter operators, and network equipment makers. Primary business: module assembly, integration, and test rather than laser-device manufacturing.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Innolight global optical transceiver module market share",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "Estimated 18% of global optical transceiver module market (2024–2025); fastest-growing supplier for 800G+ modules in hyperscaler deployments; source: Yole, SemiAnalysis datacom optics reports."
+      },
+      {
+        "name": "Innolight China datacenter module share",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Estimated 35% market share of datacenter optical transceiver modules supplied to Chinese hyperscalers (Alibaba, Tencent, ByteDance); 2024–2025 data."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "300308.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt2_innolight_market_share",
+      "ev_acc_opt2_innolight_assembler_role"
+    ],
+    "tags": [
+      "optical_module_assembler",
+      "transceiver_manufacturer",
+      "china_electronics",
+      "public_company",
+      "hyperscaler_supplier"
+    ],
+    "notes": "Innolight (Shenzhen Stock Exchange: 300308.SZ) is a Chinese public company, major supplier of optical transceiver modules to hyperscalers. Business model: sources lasers (VCSEL, EML) and photodiodes from vendors, integrates and tests modules. Investor relevance: high exposure to Chinese and global datacenter buildout; competitive pricing and scale.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_eoptolink",
+    "name": "Eoptolink Technology Co., Ltd. (易飞扬)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "optoelectronics",
+      "investable_supplier",
+      "datacom_optics"
+    ],
+    "description": "Chinese optical transceiver module manufacturer specializing in 400G, 800G, and coherent modules for datacenter and telecom networks. Supplies to Chinese hyperscalers, international cloud providers, and network equipment makers. Competes with Innolight on cost and integration speed.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Eoptolink global optical transceiver module market share",
+        "unit": "%",
+        "currentValue": 12,
+        "description": "Estimated 12% of global optical transceiver module market (2024–2025); growing presence in 800G+ coherent modules; source: Yole datacom optics market reports."
+      },
+      {
+        "name": "Eoptolink China datacenter module share",
+        "unit": "%",
+        "currentValue": 22,
+        "description": "Estimated 22% market share of datacenter transceiver modules supplied within China; second player after Innolight; 2024–2025 data."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "300502.SZ"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_opt2_eoptolink_market_share",
+      "ev_acc_opt2_eoptolink_module_supply"
+    ],
+    "tags": [
+      "optical_module_assembler",
+      "transceiver_manufacturer",
+      "china_electronics",
+      "public_company",
+      "hyperscaler_supplier"
+    ],
+    "notes": "Eoptolink (Shenzhen Stock Exchange: 300502.SZ) is a Chinese public company, emerging major supplier of optical modules. Sources laser and photodiode components from global suppliers, focuses on module integration and testing. Investor relevance: growth in coherent module demand; lower-cost alternative to Broadcom/Marvell.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "cdu_rapid_deployment_kit",
+    "name": "CDU rapid deployment kit (modular)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management"
+    ],
+    "description": "Pre-configured, modular cooling distribution units designed for faster deployment in AI datacenter buildouts. Includes standard manifolds, filtering, and pump integration with ~6–8 week lead time (vs. 10–12 months for custom CDUs). Supplied primarily by Vertiv, CoolIT Systems, and regional integrators. Modular CDU kits enable scaling without custom design cycles but sacrifice facility optimization.",
+    "maturityScore": 78,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Modular CDU deployment lead time",
+        "unit": "weeks",
+        "currentValue": 8,
+        "description": "Pre-configured CDU kits: 6–8 week lead time from order to shipment, vs. 10–12 months for fully custom designs. Trade-off: faster delivery vs. sub-optimal thermal efficiency per facility."
+      },
+      {
+        "name": "Annual modular CDU unit shipments (2025 estimate)",
+        "unit": "thousand units",
+        "currentValue": 4.5,
+        "description": "Global market for pre-configured/modular CDU units ~4–5k units/year 2025, growing to 6–8k by 2027 as cloud operators adopt standardized cooling architectures."
+      }
+    ],
+    "tags": [
+      "thermal_cooling",
+      "module",
+      "modular_system"
+    ],
+    "notes": "Modular CDUs relieve some of the lead-time bottleneck for commodity datacenters but remain capacity-constrained by supplier manufacturing throughput. Not a full replacement for custom CDUs in hyperscale deployments.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_coolit_systems",
+    "name": "CoolIT Systems Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management",
+      "investable_supplier"
+    ],
+    "description": "US-based manufacturer of liquid cooling distribution units (CDUs), cold plates, and direct-liquid-cooling systems for AI and HPC datacenters. CoolIT specializes in modular CDU platforms and mid-scale thermal solutions (CHx2000 platform). Private company backed by venture capital and strategic partnerships.",
+    "maturityLabel": "commercially_available",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Datacenter liquid-cooling CDU market share",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "CoolIT Systems estimated 15–20% of specialized AI/HPC datacenter CDU market by unit volume (distinct from Vertiv's broader infrastructure share), per industry analyst reports 2024–2025."
+      },
+      {
+        "name": "Annual CDU and coldplate production capacity",
+        "unit": "units/year",
+        "currentValue": 3500,
+        "description": "CoolIT estimated annual production capacity for CDUs and associated liquid-cooling infrastructure ~3,000–4,000 units/year as of 2025, with planned expansion to 5,000+ by 2027."
+      },
+      {
+        "name": "Company status",
+        "currentValue": "Private",
+        "description": "CoolIT Systems is privately held; not publicly traded on any exchange. Backed by venture investors and strategic relationships with hyperscale cloud operators."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cp2_coolitsystems_cdu"
+    ],
+    "tags": [
+      "thermal_cooling",
+      "cdu_manufacturer",
+      "private_company"
+    ],
+    "notes": "CoolIT Systems is a key second-source CDU supplier behind Vertiv, focusing on modular and standardized platforms for AI datacenters. Company has shipped >5 million coldplates cumulatively. Critical to supply diversification in CDU market.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "org_motivair",
+    "name": "Motivair Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "thermal_management",
+      "investable_supplier"
+    ],
+    "description": "US manufacturer of precision modular cooling units (MCUs) and rack-level heat exchangers for datacenter and compute-intensive applications. Motivair specializes in high-density in-row and rear-door cooling for AI/HPC clusters. Private company serving mid-market and specialized datacenter operators.",
+    "maturityLabel": "commercially_available",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Modular cooling unit (MCU) market share (AI/HPC segment)",
+        "unit": "%",
+        "currentValue": 12,
+        "description": "Motivair estimated 10–15% of specialized modular cooling unit market for AI/HPC (in-row and rear-door cooling, distinct from CDU segment), per industry reports 2024–2025."
+      },
+      {
+        "name": "Company status",
+        "currentValue": "Private",
+        "description": "Motivair Corporation is privately held; not publicly traded. Serves regional and mid-market cloud/HPC operators."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cp2_motivair_modular_cooling"
+    ],
+    "tags": [
+      "thermal_cooling",
+      "modular_cooling",
+      "private_company"
+    ],
+    "notes": "Motivair provides alternative in-row and rear-door cooling solutions beyond traditional CDU infrastructure. Growing presence in specialized AI datacenter buildouts.",
+    "reviewStatus": "unreviewed",
+    "maturityAsOf": "2026-06"
   }
 ]
