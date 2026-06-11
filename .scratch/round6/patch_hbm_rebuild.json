@@ -1,0 +1,181 @@
+{
+  "node_patches": [
+    {
+      "id": "high_bandwidth_memory",
+      "set": {
+        "description": "High-bandwidth memory (HBM) stacks for AI accelerators: multi-die vertical DRAM stacks with TSV (through-silicon vias), integrated voltage regulators, and wide parallel interfaces delivering 400–1200 GB/s bandwidth per stack. HBM3/HBM3E remain dominant in 2026 with >30 billion Gb annual capacity; HBM4 ramps in H1 2026 with Samsung and SK Hynix as primary suppliers. Supply is concentrated: SK Hynix ~50% market share (bit basis), Samsung ~28%, Micron ~22%. Capacity measured in wafers per month at fabs: SK Hynix ~160–170k wafers/month, Samsung ~250k wafers/month by end 2026, Micron ~15k wafers/month HBM4 starting Q2 2026. Lead times for new capacity remain 18–24 months; equipment and assembly yield remain critical constraints."
+      },
+      "replace_metrics": [
+        {
+          "name": "SK Hynix market share (HBM bit output 2026)",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "SK Hynix HBM market share 2026: 50% of global HBM bit output (down from 59% in 2025). Source: TrendForce HBM analysis, ev_acc_r6h_skhynix_hbm_share_2026, date 2026-06-11"
+        },
+        {
+          "name": "Samsung market share (HBM bit output 2026)",
+          "unit": "%",
+          "currentValue": 28,
+          "description": "Samsung HBM market share 2026: 28% of global HBM bit output (up from 20% in 2025, includes HBM3E and HBM4). Source: TrendForce, ev_acc_r6h_samsung_hbm_share_2026, date 2026-06-11"
+        },
+        {
+          "name": "Micron market share (HBM bit output 2026)",
+          "unit": "%",
+          "currentValue": 22,
+          "description": "Micron HBM market share 2026: ~22% of global HBM bit output (HBM4 ramp starting Q2 2026). Source: TrendForce analysis, ev_acc_r6h_micron_hbm4_ramp_2026, date 2026-06-11"
+        },
+        {
+          "name": "HBM3/HBM3E/HBM4 worldwide production capacity",
+          "unit": "billion Gb (bits)",
+          "currentValue": 30,
+          "description": "HBM total capacity 2026: >30 billion Gb bits across SK Hynix, Samsung, Micron. Source: TrendForce, ev_acc_r6h_hbm_total_capacity_bits_2026, measured in bit capacity not units/month"
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_r6h_skhynix_hbm_share_2026",
+        "ev_acc_r6h_samsung_hbm_capacity_2026",
+        "ev_acc_r6h_micron_hbm4_ramp_2026",
+        "ev_acc_r6h_hbm_total_capacity_bits_2026",
+        "ev_acc_r6h_samsung_hbm_share_2026"
+      ]
+    },
+    {
+      "id": "hbm_stack_assembly_die_bonding",
+      "set": {
+        "description": "Vertical stacking of HBM dies (6–12 layers per stack, advancing to 16-layer for HBM4) with micro-bump bonding (Cu/Sn solder) or hybrid bonding (Cu-Cu direct bond), through-silicon via (TSV) connections, and alignment/bonding precision (sub-micron). Requires specialized equipment (hybrid bonders from Hanmi, ASMPT, BESI, K&S; thermal compression lead times 6–12 months for delivery). Hybrid bonding transition reduces micro-bump defects and improves yield. SK Hynix completed 12-high hybrid bonding validation as of April 2026. Critical yield bottleneck; combined with fab yield, achieves ~48% end-to-end good units."
+      },
+      "replace_metrics": [
+        {
+          "name": "Specialized bonding equipment lead time",
+          "unit": "months",
+          "currentValue": 9,
+          "description": "Hybrid/TC bonder equipment lead time 2026: Hanmi first deliveries 2H 2026, ASMPT/BESI/K&S 6–12 months typical. Source: TrendForce ev_acc_r6h_hanmi_tc_bonder_lead_time, date 2026-06-11"
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_r6h_hbm_hybrid_bonding_yield",
+        "ev_acc_r6h_hanmi_tc_bonder_lead_time",
+        "ev_acc_r6h_asmpt_hbm4_bonder_orders"
+      ]
+    },
+    {
+      "id": "hbm_testing_validation_power_delivery",
+      "set": {
+        "description": "Functional and parametric testing of HBM stacks post-assembly: voltage/current/thermal margin characterization, IDVR (integrated Droop Voltage Regulator) validation, and power delivery integrity. Requires specialized ATE (automatic test equipment) capable of high-speed (1.2+ GHz) parallel testing. Test yield post-assembly is 60–65% industry-wide. ATE capacity is bottleneck: Advantest and competitors report >6 month lead times as of 2026, utilization >90% at peak demand. Critical constraint for module-level scaling."
+      },
+      "replace_metrics": [
+        {
+          "name": "Test equipment lead time",
+          "unit": "months",
+          "currentValue": 6,
+          "description": "HBM ATE equipment lead time 2026: >6 months for Advantest and other suppliers. Source: DigiTimes ev_acc_r6h_advantest_ate_lead_time, date 2026-06-11, sourced January 2026"
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_r6h_advantest_ate_lead_time"
+      ]
+    },
+    {
+      "id": "hbm_test_equipment_and_tooling",
+      "set": {
+        "description": "Automatic Test Equipment (ATE) systems and handlers for HBM stack characterization: Advantest (V93000, NextGen platforms), LTX-Credence, FormFactor, and emerging suppliers. Equipment is single-source constrained by availability: only 4–5 vendors globally support HBM at 1.2+ GHz speeds. Lead times >6 months as of 2026; vendor order books full through 2026. Equipment suppliers include Advantest, LTX-Credence, Xcerra, and regional providers. Capacity expansion requires 6–12 month procurement and validation cycle."
+      },
+      "replace_metrics": [
+        {
+          "name": "ATE lead time (primary constraint)",
+          "unit": "months",
+          "currentValue": 6,
+          "description": "HBM test equipment (ATE) procurement lead time 2026: >6 months. Source: DigiTimes ev_acc_r6h_advantest_ate_lead_time, Jan 2026"
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_r6h_advantest_ate_lead_time"
+      ]
+    },
+    {
+      "id": "hbm_die_fabrication",
+      "set": {
+        "description": "DRAM wafer fabrication for HBM dies: 8–10 nm process nodes at SK Hynix (Icheon, Cheonan fabs) and Samsung (Giheung, Pyeongbaek). HBM4 uses advanced 1b DRAM (1 gigabit per die, 24–32 Gb stacks). SK Hynix Cheongju M15X fab ramps to 40k wafers/month by 2H 2026 for HBM4 production. High-density DRAM cells, internal mux networks, on-die voltage regulators, and TSV pad arrays. Defect density and process yield directly gate HBM stack availability; fab-level yield ~65–75%, cascading through bonding and test to net ~48% end-to-end good."
+      },
+      "replace_metrics": [
+        {
+          "name": "SK Hynix M15X HBM production capacity",
+          "unit": "wafers/month",
+          "currentValue": 40000,
+          "description": "SK Hynix M15X Cheongju fab HBM capacity 2H 2026: 40k wafers/month. Initial ramp 10k wafers/month with expansion planned. Source: TrendForce ev_acc_r6h_sk_m15x_fab_capacity, Jan 2026"
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_r6h_sk_m15x_fab_capacity"
+      ]
+    }
+  ],
+  "evidence_patches": [
+    {
+      "id": "ev_acc_bn3_high_bandwidth_memory",
+      "set": {
+        "sourceStatus": "404"
+      }
+    },
+    {
+      "id": "ev_acc_bn3_hbm_stack_assembly",
+      "set": {
+        "sourceStatus": "404"
+      }
+    },
+    {
+      "id": "ev_acc_bn3_hbm_test_equipment",
+      "set": {
+        "sourceStatus": "unreachable"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_trendforce_hbm_demand_2024",
+      "set": {
+        "sourceStatus": "generic_homepage"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_skhynix_share_2024",
+      "set": {
+        "sourceStatus": "generic_homepage"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_samsung_ramp_2024",
+      "set": {
+        "sourceStatus": "generic_homepage"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_micron_timeline_2025",
+      "set": {
+        "sourceStatus": "unreachable"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_sk_hynix_process_node",
+      "set": {
+        "sourceStatus": "generic_homepage"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_hybrid_bonder_equipment",
+      "set": {
+        "sourceStatus": "unreachable"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_ate_equipment",
+      "set": {
+        "sourceStatus": "generic_homepage"
+      }
+    },
+    {
+      "id": "ev_acc_hbm_substrate_laminate_suppliers",
+      "set": {
+        "sourceStatus": "generic_homepage"
+      }
+    }
+  ]
+}

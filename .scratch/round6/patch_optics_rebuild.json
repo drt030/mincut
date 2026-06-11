@@ -1,0 +1,53 @@
+{
+  "node_updates": [
+    {
+      "id": "eml_dfb_laser_diodes",
+      "operations": {
+        "evidenceIds": {
+          "set": [
+            "ev_acc_r6o_coherent_inp_capacity",
+            "ev_acc_r6o_eml_supplier_share",
+            "ev_acc_opt2_lumentum_supplier_list",
+            "ev_acc_opt2_mitsubishi_laser_supply"
+          ]
+        }
+      },
+      "note": "Removed: ev_acc_opt2_eml_dfb_shortage_2024 (wrong_topic: Veolia water treatment article), ev_acc_opt2_lumentum_coherent_supply (unreachable), ev_acc_opt2_coherent_market_position (unreachable). Downgraded '40–60% short' claim to qualitative 'constrained' with Coherent CEO quote on doubling."
+    },
+    {
+      "id": "compound_foundry_specialty",
+      "operations": {
+        "evidenceIds": {
+          "set": [
+            "ev_acc_r6o_eml_supplier_share",
+            "ev_acc_optup_vcsel_supplier_count",
+            "ev_acc_optup_fab_lead_time"
+          ]
+        }
+      },
+      "note": "Removed: ev_acc_optup_eml_supplier_concentration (unreachable). Removed bundled '40–60% short' claim from device-fab metric (this is a prepay/event fact, not a capacity fact). Separated hyperscaler prepayment events into notes (NVIDIA $2B Lumentum, $2B Coherent) as evidence of capacity-lock, not consequences."
+    }
+  ],
+  "evidence_patches": [
+    {
+      "id": "ev_acc_opt2_eml_dfb_shortage_2024",
+      "sourceStatus": "wrong_topic",
+      "note": "Audit finding: URL (DigiTimes a20240515pr200.html) redirects to Veolia water-treatment article, not semiconductor supply. Removed from eml_dfb_laser_diodes."
+    },
+    {
+      "id": "ev_acc_opt2_lumentum_coherent_supply",
+      "sourceStatus": "unreachable",
+      "note": "Yole Développement optical-transceivers report link dead as of 2026-06-11. Replaced with ev_acc_r6o_eml_supplier_share (same Yole source, alternate URL pattern)."
+    },
+    {
+      "id": "ev_acc_opt2_coherent_market_position",
+      "sourceStatus": "unreachable",
+      "note": "Yole optoelectronics-for-datacenters report link dead as of 2026-06-11. Content merged into ev_acc_r6o_eml_supplier_share."
+    },
+    {
+      "id": "ev_acc_optup_eml_supplier_concentration",
+      "sourceStatus": "unreachable",
+      "note": "McKinsey networking-optics PDF link dead. Owner guidance: this claim about supplier concentration is now sourced via ev_acc_r6o_eml_supplier_share (Yole, analyst-grade, preferred whitelist source)."
+    }
+  ]
+}

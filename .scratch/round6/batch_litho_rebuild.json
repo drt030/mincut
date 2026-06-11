@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "id": "foundry_capacity_tsmc",
+      "name": "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "TSMC's advanced-node manufacturing capacity is the primary constraint for global AI accelerator logic die production. Holds approximately 70% of global semiconductor foundry market share. Transitioned to 2nm process (N2) in late 2025 with Gate-All-Around nanosheet transistor technology. Production capacity reached 15.02 million 12-inch wafer equivalents in 2025. Customer allocation by contract for advanced nodes remains tight.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["production_capacity", "supply_bottleneck", "geopolitical_risk"],
+      "notes": "TSMC dominates with ~70% foundry market share and vast majority of leading-edge capacity at 5nm and below. Single-supplier risk for the global AI ecosystem is extreme. Capacity expansion is capital-intensive and subject to geopolitical constraints (Taiwan manufacturing base). N2 mass production represents leading-edge transition.",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "TSMC global foundry market share",
+          "unit": "%",
+          "currentValue": 70,
+          "description": "TSMC accounts for approximately 70% of global semiconductor foundry market share as of 2025."
+        },
+        {
+          "name": "TSMC annual wafer production capacity",
+          "unit": "million 12-inch equivalents",
+          "currentValue": 15.02,
+          "description": "TSMC production output of 15.02 million 12-inch equivalent wafers in 2025."
+        }
+      ],
+      "evidenceIds": ["ev_acc_r6l_tsmc_foundry_wiki", "ev_acc_r6l_tsmc_capacity_wiki"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "asml_lithography_systems",
+      "name": "ASML EUV lithography systems (NXE:3600D and successors)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "ASML is the sole global supplier of commercial EUV (13.5nm wavelength) lithography systems, which are essential for patterning at 5nm and 3nm nodes. ASML shipped 48 EUV systems in 2025. Holds 83% of global lithography equipment market share across all technology types. Each system costs approximately $150-200 million, requires precision-coated optics from Carl Zeiss SMT (single-source), and is subject to Dutch and US export controls limiting shipments to China fabs.",
+      "maturityScore": 78,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["single_source", "supply_bottleneck", "export_control"],
+      "notes": "ASML is the global monopoly supplier for EUV lithography systems. Each system costs $150-200M and serves 1-2 fab modules. Geopolitical export controls (Dutch/U.S. restrictions to China) create asymmetric competitive pressure on TSMC (Taiwan-based) vs. China-based fabs. Carl Zeiss SMT optics production is a critical nested bottleneck within EUV system assembly.",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "ASML EUV systems shipped in 2025",
+          "unit": "systems",
+          "currentValue": 48,
+          "description": "ASML delivered 48 EUV lithography systems in 2025, per ASML 2025 Annual Report."
+        },
+        {
+          "name": "ASML global lithography equipment market share",
+          "unit": "%",
+          "currentValue": 83,
+          "description": "ASML holds 83% of worldwide lithography equipment sales across all technology types as of 2025."
+        },
+        {
+          "name": "EUV system cost",
+          "unit": "million USD",
+          "currentValue": 180,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Typical cost for ASML EUV system (approximately $180 million, consistent with Wikipedia and industry sources)."
+        }
+      ],
+      "evidenceIds": ["ev_acc_r6l_asml_euv_2025", "ev_acc_r6l_asml_litho_share", "ev_acc_r6l_asml_sole_supplier"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "euv_projection_optics",
+      "name": "EUV projection optics (Carl Zeiss SMT)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Extreme ultraviolet (13.5nm) projection optics manufactured exclusively by Carl Zeiss SMT GmbH (industrial optics subsidiary of Zeiss Group). Each ASML EUV lithography system requires one set of precision-polished multilayer-coated optics with Ruthenium/Molybdenum coatings. Zeiss produces the most precise mirrors in the world using ion beam figuring to remove individual atomic-scale defects. Strategic partnership with ASML: ASML holds 24.9% equity stake and committed approximately €760 million over six years (post-2016) to support Zeiss SMT's R&D and capital expenditures for next-generation High-NA EUV optics development.",
+      "maturityScore": 68,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["critical_bottleneck", "single_source_risk", "optics_precision"],
+      "notes": "Carl Zeiss SMT is the sole global supplier of EUV projection optics, owned by Zeiss Group (private industrial company, not Zeiss Meditec which is a separate listed entity 188006.DE). Optics production involves precision multi-layer coating of substrates, yield control on defects, and strict cleanliness protocols. Any disruption to Zeiss SMT (fire, equipment failure, geopolitical restriction) directly constrains ASML EUV delivery and thus foundry 3nm/5nm capacity globally. Strategic equity and R&D partnership with ASML ensures coordinated development of higher-NA systems for sub-3nm nodes.",
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "evidenceIds": ["ev_acc_r6l_zeiss_sole_source", "ev_acc_r6l_zeiss_asml_partnership"],
+      "metrics": [
+        {
+          "name": "Zeiss SMT EUV optics supplier position",
+          "unit": "count",
+          "currentValue": 1,
+          "description": "Carl Zeiss SMT is the exclusive single global supplier of EUV projection optics for ASML systems."
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_r6l_tsmc_capacity__requires__asml_euv",
+      "source": "foundry_capacity_tsmc",
+      "target": "asml_lithography_systems",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_r6l_asml_sole_supplier"],
+      "claim": "ASML EUV systems are the single bottleneck enabling TSMC's advanced-node (5nm, 3nm) capacity."
+    },
+    {
+      "id": "e_acc_r6l_asml_euv__requires__zeiss_optics",
+      "source": "asml_lithography_systems",
+      "target": "euv_projection_optics",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_r6l_zeiss_sole_source"],
+      "claim": "Each ASML EUV system requires precision optics supplied exclusively by Carl Zeiss SMT; optics production is a nested bottleneck within EUV system assembly."
+    },
+    {
+      "id": "e_acc_r6l_zeiss_optics__manufactured_by__zeiss_smt",
+      "source": "euv_projection_optics",
+      "target": "org_carl_zeiss_smt",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_r6l_zeiss_sole_source"]
+    },
+    {
+      "id": "e_acc_r6l_asml_euv__manufactured_by__asml",
+      "source": "asml_lithography_systems",
+      "target": "org_asml",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_r6l_asml_euv_2025"]
+    },
+    {
+      "id": "e_acc_r6l_tsmc_capacity__manufactured_by__tsmc",
+      "source": "foundry_capacity_tsmc",
+      "target": "org_tsmc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_r6l_tsmc_foundry_wiki"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_r6l_asml_euv_2025",
+      "type": "paper",
+      "title": "ASML 2025 Annual Report: EUV System Sales",
+      "sourceName": "ASML 2025 Annual Report",
+      "date": "2026-06-10",
+      "summary": "ASML delivered 48 EUV lithography systems in 2025. Production capacity continues to scale with demand from foundries ramping advanced nodes.",
+      "excerpt": "48 EUV lithography systems were sold in units during the year [2025].",
+      "url": "https://www.asml.com/investors/annual-report/2025",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["asml_lithography_systems"],
+      "supportsEdgeIds": ["e_acc_r6l_asml_euv__manufactured_by__asml"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r6l_asml_litho_share",
+      "type": "paper",
+      "title": "ASML Market Leadership in Lithography Equipment",
+      "sourceName": "Wikipedia ASML Holding article",
+      "date": "2026-06-10",
+      "summary": "ASML holds 83% of worldwide lithography equipment sales across all technology nodes (optical and EUV combined) as of 2025. This dominance reflects ASML's acquisition of SVG in 2001 and subsequent monopoly position in EUV technology.",
+      "excerpt": "As of 2025, ASML had 83 percent of the worldwide sales of lithography machines.",
+      "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["asml_lithography_systems"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r6l_asml_sole_supplier",
+      "type": "paper",
+      "title": "ASML Monopoly Position in EUV Lithography",
+      "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+      "date": "2026-06-10",
+      "summary": "ASML is the only company that produces and sells EUV systems for chip production as of 2025. This monopoly resulted from ASML's 2001 acquisition of SVG, which provided access to critical EUV technology. Geopolitical consequences: US and Dutch export controls restrict ASML sales to China.",
+      "excerpt": "ASML...is the only company that produces and sells EUV systems for chip production [as of 2025]. Reuters reported in December 2025 that China had developed its own prototype EUV system.",
+      "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["asml_lithography_systems"],
+      "supportsEdgeIds": ["e_acc_r6l_tsmc_capacity__requires__asml_euv"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r6l_zeiss_sole_source",
+      "type": "paper",
+      "title": "Carl Zeiss SMT: Sole Supplier of EUV Projection Optics",
+      "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+      "date": "2026-06-10",
+      "summary": "Carl Zeiss (Zeiss Group, Germany) produces the EUV projection optics for ASML systems. Zeiss manufactures the most precise mirrors in the world, using ion beam figuring techniques to remove atomic-scale defects from multilayer Mo/Ru stacks. Optics are bounced onto wafers to form chip designs. Zeiss is the sole global supplier of these critical optical subsystems.",
+      "excerpt": "The light is bounced off Zeiss mirrors onto the surface of a silicon wafer to form the designs for the chip...Germany's Carl Zeiss [works with ASML]. Zeiss produces the most precise mirrors in the world [via] ion beam figuring [to knock off] individual molecules [to correct imperfections].",
+      "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["euv_projection_optics"],
+      "supportsEdgeIds": ["e_acc_r6l_asml_euv__requires__zeiss_optics", "e_acc_r6l_zeiss_optics__manufactured_by__zeiss_smt"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r6l_zeiss_asml_partnership",
+      "type": "news",
+      "title": "ASML and Carl Zeiss SMT Strategic Partnership for Next-Generation EUV Optics",
+      "sourceName": "ASML Press Release (November 2016)",
+      "date": "2016-11-01",
+      "summary": "ASML and Carl Zeiss SMT strengthened their strategic partnership through equity investment and multi-year R&D commitment. ASML purchased 24.9% minority stake in Zeiss SMT for €1 billion and committed approximately €760 million over six years to support Zeiss SMT's research, development, and capital expenditures. Partnership aims to develop next-generation High-NA EUV optical systems (NA > 0.5 vs current 0.33 NA) for further chip scaling toward sub-3nm nodes. Partnership described as 30-year long-standing collaboration with Zeiss as ASML's most important strategic partner.",
+      "excerpt": "ASML purchased a 24.9% minority stake in Carl Zeiss SMT for €1 billion and committed approximately €760 million over six years to support Carl Zeiss SMT's research, development, and capital expenditures...ASML and ZEISS are looking beyond this important milestone to develop optics with higher numerical aperture (NA greater than 0.5, compared to current 0.33 NA).",
+      "url": "https://www.asml.com/news/press-releases/2016/zeiss-and-asml-strengthen-partnership-for-next-generation-of-euv-lithography",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["euv_projection_optics"],
+      "supportsEdgeIds": ["e_acc_r6l_zeiss_optics__manufactured_by__zeiss_smt"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r6l_tsmc_foundry_wiki",
+      "type": "paper",
+      "title": "TSMC Foundry Market Dominance",
+      "sourceName": "Wikipedia Taiwan Semiconductor Manufacturing Company article",
+      "date": "2026-06-10",
+      "summary": "TSMC holds a commanding majority in the semiconductor foundry market, accounting for approximately 70% of global market share as of 2025-2026.",
+      "excerpt": "TSMC holds a commanding majority in the semiconductor foundry market, accounting for approximately 70% of the global market share.",
+      "url": "https://en.wikipedia.org/wiki/Taiwan_Semiconductor_Manufacturing_Company",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["foundry_capacity_tsmc"],
+      "supportsEdgeIds": ["e_acc_r6l_tsmc_capacity__manufactured_by__tsmc"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r6l_tsmc_capacity_wiki",
+      "type": "paper",
+      "title": "TSMC Production Capacity and N2 Technology Transition",
+      "sourceName": "Wikipedia Taiwan Semiconductor Manufacturing Company article",
+      "date": "2026-06-10",
+      "summary": "TSMC's production output reached 15.02 million 12-inch equivalent wafers in 2025. By late 2025, TSMC transitioned to its 2nm technology (N2) with Gate-All-Around nanosheet transistors, providing 10-15% performance boost or 25-30% power reduction vs N3. N3 mass production began in late 2022.",
+      "excerpt": "TSMC's production output reached 15.02 million 12-inch equivalent wafers (2025)...by late 2025, the company had transitioned to its 2 nm technology (N2)...providing a 10 to 15% performance boost or a 25 to 30% reduction in power consumption compared to the enhanced 3 nm process.",
+      "url": "https://en.wikipedia.org/wiki/Taiwan_Semiconductor_Manufacturing_Company",
+      "sourceStatus": "fetch_ok",
+      "supportsNodeIds": ["foundry_capacity_tsmc"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

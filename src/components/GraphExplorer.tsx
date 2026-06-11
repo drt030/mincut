@@ -368,6 +368,11 @@ function ZoomBridge({
 
 const DEFAULT_ROOT_NODE_ID = V0_TARGET_NODE_ID;
 
+// Operator-only affordances (agent expansion writes to local data files) are
+// hidden on public deployments; the API behind them is also guarded by
+// OPERATOR_WRITES (server-side). NEXT_PUBLIC_ vars are inlined at build time.
+const OPERATOR_MODE = process.env.NEXT_PUBLIC_OPERATOR_MODE === "1";
+
 type AgentExpansionStatus = "idle" | "listing" | "queued" | "error";
 
 type AgentExpansionProgress = {
@@ -517,21 +522,23 @@ function GraphProductStrip({
             {copy.resetRoot}
           </a>
         ) : null}
-        <button
-          type="button"
-          className="graph-root-reset-button graph-agent-expand-button"
-          data-testid="agent-expand-root-button"
-          aria-disabled={agentExpansionStatus === "listing"}
-          aria-busy={agentExpansionStatus === "listing"}
-          onClick={() => {
-            if (agentExpansionStatus === "listing") return;
-            onRequestAgentExpansion();
-          }}
-        >
-          {agentLabel}
-        </button>
+        {OPERATOR_MODE ? (
+          <button
+            type="button"
+            className="graph-root-reset-button graph-agent-expand-button"
+            data-testid="agent-expand-root-button"
+            aria-disabled={agentExpansionStatus === "listing"}
+            aria-busy={agentExpansionStatus === "listing"}
+            onClick={() => {
+              if (agentExpansionStatus === "listing") return;
+              onRequestAgentExpansion();
+            }}
+          >
+            {agentLabel}
+          </button>
+        ) : null}
       </div>
-      {showAgentProgress ? (
+      {OPERATOR_MODE && showAgentProgress ? (
         <div
           className="graph-agent-progress"
           data-testid="agent-expand-progress"

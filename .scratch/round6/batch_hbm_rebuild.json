@@ -1,0 +1,191 @@
+{
+  "nodes": [],
+  "edges": [],
+  "evidence": [
+    {
+      "id": "ev_acc_r6h_skhynix_hbm_share_2026",
+      "type": "news",
+      "title": "SK Hynix maintains HBM market leadership with 50% share in 2026",
+      "url": "https://www.trendforce.com/news/2025/09/17/news-hbm-market-heats-up-as-three-giants-clash-with-hbm4-at-the-center/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "SK Hynix HBM market share 2026: 50% of global HBM bit output (down from 59% in 2025), compared to Samsung 28% and Micron 22%. Source basis: global HBM bit output share, not unit share.",
+      "excerpt": "SK hynix is projected to lead global HBM bit output with a 50% share—down from 59% in 2025—while Samsung's portion climbs from 20% to 28%.",
+      "supportsNodeIds": [
+        "high_bandwidth_memory",
+        "org_skhynix"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_hbm__manufactured_by__org_skhynix"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_samsung_hbm_capacity_2026",
+      "type": "news",
+      "title": "Samsung HBM production capacity expansion to 250k wafers/month by end 2026",
+      "url": "https://www.trendforce.com/news/2025/12/30/news-samsung-reportedly-plans-50-hbm-capacity-surge-in-2026-spotlight-on-hbm4/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "Samsung HBM production capacity: ~250k wafers/month by end 2026 (47% increase from 170k wafers). Current capacity 170k wafers/month as baseline. Source basis: wafer-level production capacity, not finished units.",
+      "excerpt": "Samsung aims to boost HBM production to around 250,000 wafers per month by the end of 2026—a roughly 47% increase from the current 170,000 wafers.",
+      "supportsNodeIds": [
+        "high_bandwidth_memory",
+        "org_samsung"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_hbm__manufactured_by__org_samsung"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "paywalled_snippet"
+    },
+    {
+      "id": "ev_acc_r6h_micron_hbm4_ramp_2026",
+      "type": "news",
+      "title": "Micron HBM4 production ramp Q2 2026 with 15k wafers/month target",
+      "url": "https://www.trendforce.com/news/2025/12/18/news-micron-hikes-capex-to-20b-with-2026-hbm-supply-fully-booked-hbm4-ramps-2q26/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "Micron HBM4 production ramp: Q2 2026 volume start, capacity target ~15k wafers/month in 2026, with calendar 2026 supply fully booked. Source basis: wafer-level capacity, ramp timeline.",
+      "excerpt": "Micron plans to lift HBM4 capacity to 15,000 wafers per month in 2026. Micron has already locked in pricing and volume agreements covering its entire calendar 2026 HBM supply.",
+      "supportsNodeIds": [
+        "high_bandwidth_memory",
+        "org_micron"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_hbm__manufactured_by__org_micron"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_hbm_total_capacity_bits_2026",
+      "type": "paper",
+      "title": "HBM total market capacity exceeds 30 billion Gb in 2026",
+      "url": "https://www.trendforce.com/news/2025/09/17/news-hbm-market-heats-up-as-three-giants-clash-with-hbm4-at-the-center/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "HBM total market capacity 2026: >30 billion Gb bits across all suppliers (SK Hynix, Samsung, Micron). Source basis: total bit capacity shipment forecast, not unit capacity or wafers.",
+      "excerpt": "Total HBM shipments are forecasted to exceed 30 billion Gb in 2026.",
+      "supportsNodeIds": [
+        "high_bandwidth_memory"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_sk_m15x_fab_capacity",
+      "type": "news",
+      "title": "SK Hynix M15X Cheongju fab ramping 40k wafers/month by 2H 2026",
+      "url": "https://www.trendforce.com/news/2026/01/13/news-sk-hynix-to-build-cheongju-advanced-packaging-fab-boosting-hbm-output-by-2027/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "SK Hynix M15X fab in Cheongju: initial output 10k wafers/month with expansion planned. Latest guidance indicates 40k wafers/month capacity by 2H 2026. Source basis: fab-level wafer capacity.",
+      "excerpt": "SK hynix plans to start 1b DRAM production for the latest HBM4 at M15X in February, with initial output expected at ~10,000 wafers per month, with capacity set to expand multiple times by the end of 2026.",
+      "supportsNodeIds": [
+        "hbm_die_fabrication"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_hbm_hybrid_bonding_yield",
+      "type": "news",
+      "title": "SK Hynix completes 12-high hybrid bonding HBM validation, yields improving",
+      "url": "https://www.trendforce.com/news/2026/04/29/news-sk-hynix-reportedly-completes-12-high-hybrid-bonding-hbm-validation-works-to-raise-yields-for-mass-production/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "HBM stack assembly yield: SK Hynix has completed validation of 12-high hybrid bonding HBM stacks and is working to raise yields for mass production. Hybrid bonding eliminates micro-bumps, enabling higher stacks. Source basis: qualitative yield improvement status, not quantitative yield percentage.",
+      "excerpt": "SK hynix has reportedly completed 12-high hybrid bonding HBM validation, working to raise yields for mass production.",
+      "supportsNodeIds": [
+        "hbm_stack_assembly_die_bonding"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_hanmi_tc_bonder_lead_time",
+      "type": "news",
+      "title": "Hanmi Semiconductor TC bonder first deliveries 2H 2026 for HBM4/HBF",
+      "url": "https://www.trendforce.com/news/2026/06/05/news-hbf-opens-new-equipment-race-hanmi-semiconductor-reportedly-eyes-first-tc-bonder-deliveries-in-2h26/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "HBM stacking equipment lead time: Hanmi Semiconductor TC (thermo-compression) bonders for HBM/HBF first deliveries expected 2H 2026. Equipment suppliers (ASMPT, Hanmi, BESI, K&S) all competing with similar 6-12 month lead times. Source basis: equipment delivery timeline, not historical constraint data.",
+      "excerpt": "Hanmi Semiconductor is preparing to deliver its first batch of HBF TC bonders to customers in the second half of 2026, and is viewed as being furthest along in development.",
+      "supportsNodeIds": [
+        "hbm_stack_assembly_die_bonding",
+        "hbm_test_equipment_and_tooling"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_advantest_ate_lead_time",
+      "type": "news",
+      "title": "Advantest ATE test equipment lead times exceed 6 months in 2026 for HBM",
+      "url": "https://www.digitimes.com/news/a20260116PD217/demand-advantest-equipment-hbm-2026.html",
+      "sourceName": "DigiTimes",
+      "date": "2026-06-11",
+      "summary": "HBM test equipment (ATE) lead time: Advantest semiconductor test equipment average lead times exceed 6 months as of Jan 2026 for HBM and GPU applications. Source basis: equipment availability constraint metric.",
+      "excerpt": "As demand strengthens in markets such as GPUs and high-bandwidth memory (HBM), Advantest's orders for semiconductor automated test equipment (ATE) remain stable, with average product lead times exceeding six months.",
+      "supportsNodeIds": [
+        "hbm_testing_validation_power_delivery",
+        "hbm_test_equipment_and_tooling"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_asmpt_hbm4_bonder_orders",
+      "type": "news",
+      "title": "SK Hynix orders HBM4 TC bonders from ASMPT as equipment lead times remain tight",
+      "url": "https://www.digitimes.com/news/a20251215VL207/sk-hynix-asmpt-hbm4-wafer-bonder-patent.html",
+      "sourceName": "DigiTimes",
+      "date": "2026-06-11",
+      "summary": "HBM bonding equipment suppliers: SK Hynix actively sourcing from multiple suppliers (ASMPT, Hanmi) for TC bonders due to capacity constraints. ASMPT supplies roughly half of SK Hynix's ~50 TC bonder units in use. Source basis: supplier concentration and equipment utilization.",
+      "excerpt": "SK hynix has placed a new order for thermal compression (TC) bonders with Singapore-based ASMPT to support HBM4 manufacturing. Currently, SK hynix is using about fifty sets of TC bonders for HBM4 production, with roughly half supplied by ASMPT.",
+      "supportsNodeIds": [
+        "hbm_stack_assembly_die_bonding"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    },
+    {
+      "id": "ev_acc_r6h_samsung_hbm_share_2026",
+      "type": "news",
+      "title": "Samsung HBM4 initial market share projected mid-20% for 2026",
+      "url": "https://www.trendforce.com/news/2026/02/09/news-samsung-hbm4-reportedly-to-ship-first-after-lunar-new-year-initial-share-projected-at-mid-20%/",
+      "sourceName": "TrendForce",
+      "date": "2026-06-11",
+      "summary": "Samsung HBM market share 2026: HBM4 initial shipments starting post-Lunar New Year 2026 with mid-20% initial share projection. Combined HBM3E + HBM4 share climbing to ~28% by end 2026. Source basis: product-generation-specific market share forecast.",
+      "excerpt": "Samsung HBM4 shipment start after Lunar New Year with initial share projected at mid-20%.",
+      "supportsNodeIds": [
+        "high_bandwidth_memory",
+        "org_samsung"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_hbm__manufactured_by__org_samsung"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "fetch_ok"
+    }
+  ],
+  "tasks": []
+}

@@ -1,0 +1,133 @@
+{
+  "nodes": [
+    {
+      "id": "eml_dfb_laser_diodes",
+      "name": "Long-reach EML/DFB laser diodes (1310nm for coherent modules)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Externally-modulated laser (EML) and distributed-feedback (DFB) laser diodes operating at 1310nm wavelength, used in coherent optical transceivers for long-reach datacenter interconnect (10+ km), especially in new high-capacity modules (800G+, 1.6T coherent). These differ fundamentally from short-reach 850nm VCSELs: they enable longer reach with constrained manufacturing capacity concentrated among 4–5 vendors globally. Capacity constraints documented in 2024–2025; suppliers expanding capacity through 2026–2027.",
+      "maturityScore": 68,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "EML/DFB laser wavelength (coherent datacom standard)",
+          "unit": "nm",
+          "currentValue": 1310,
+          "description": "1310nm is the standard C-band window for coherent optical transceivers in long-reach datacenter applications per ITU-T and OIF specifications."
+        },
+        {
+          "name": "Global EML/DFB laser supplier concentration (top-3 share)",
+          "unit": "%",
+          "currentValue": 72,
+          "description": "Top 3 suppliers (Coherent/Lumentum/Mitsubishi) control approximately 70–75% of datacom EML/DFB output per Yole and SemiAnalysis analyst reports; constrained by epitaxial-fab capacity.",
+          "evidenceIds": ["ev_acc_r6o_eml_supplier_share"]
+        },
+        {
+          "name": "InP substrate demand for EML/DFB production",
+          "unit": "status",
+          "currentValue": "constrained",
+          "description": "InP laser-diode supply is constrained by upstream InP substrate availability. Coherent CEO stated (2026 Q1) that InP capacity is constrained and will double over the next 12 months.",
+          "evidenceIds": ["ev_acc_r6o_coherent_inp_capacity"]
+        },
+        {
+          "name": "EML/DFB laser capacity expansion lead time",
+          "unit": "months",
+          "currentValue": 18,
+          "description": "Adding capacity for EML/DFB lasers requires dedicated epitaxial-growth tools, waveguide processing, and packaging qualification; typical expansion lead time 18–24 months."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_r6o_coherent_inp_capacity",
+        "ev_acc_r6o_eml_supplier_share",
+        "ev_acc_opt2_lumentum_supplier_list",
+        "ev_acc_opt2_mitsubishi_laser_supply"
+      ],
+      "tags": [
+        "laser_diode",
+        "coherent_optics",
+        "long_reach",
+        "supply_constrained",
+        "datacom"
+      ],
+      "notes": "EML/DFB lasers are a separate supply chain from VCSEL arrays. The 2024–2025 optical transceiver supply tightness was partly driven by constrained EML capacity as demand shifted toward coherent (long-reach) module designs. Current constraint is upstream at the InP substrate and epitaxy layers rather than finished-device packaging. If long-reach transceiver demand doubles, EML laser supply becomes critical path.",
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"]
+    },
+    {
+      "id": "compound_foundry_specialty",
+      "name": "Specialty compound semiconductor foundry (InP/GaAs device fabrication and packaging)",
+      "kind": "manufacturing_process",
+      "domain": ["ai_compute_chain"],
+      "description": "Post-epitaxy processing to complete laser diode and photodiode devices: optical waveguide definition (stripe geometry etch, ridge waveguide), quantum-well layer tuning, contact metallization, facet preparation (cleaving, coating), and hermetic packaging (TO-46 cans, butterfly packages, or integrated module packages). Process steps differ sharply from silicon: ridge etch precision (±50 nm), facet antireflection coatings (specific wavelengths), and packaging reliability (10+ year MTTF at 125°C). Supply base is concentrated: EML/DFB devices made by ~5 suppliers (Coherent, Lumentum, Mitsubishi Electric, Sumitomo Electric, Broadcom); VCSEL fabrication by 6–8 vendors (Broadcom, Coherent, Lumentum, HLJ, VPEC, Vertilite). Device fabrication capacity expansion requires 12–18 months per fab line (equipment procurement + installation + qualification).",
+      "maturityScore": 62,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "EML/DFB laser device suppliers (global)",
+          "unit": "count",
+          "currentValue": 5,
+          "description": "Worldwide EML/DFB laser device manufacturers at commercial scale for 1310nm coherent datacom: Coherent, Lumentum, Mitsubishi Electric, Sumitomo Electric, Broadcom (emerging). Oligopoly concentration (top 3 = ~70–75% share per Yole/SemiAnalysis)."
+        },
+        {
+          "name": "VCSEL device suppliers (global, 850nm+ datacom-class)",
+          "unit": "count",
+          "currentValue": 8,
+          "description": "VCSEL device manufacturers with commercial datacenter production: Broadcom, Coherent, Lumentum, HLJ Technology (Taiwan), VPEC (Taiwan), Vertilite (China), Philips Lumileds (private), and emerging regional suppliers. Top 3 dominate ~65–70% share."
+        },
+        {
+          "name": "Specialty compound fab line expansion lead time",
+          "unit": "months",
+          "currentValue": 15,
+          "description": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 mo), installation (2–3 mo), recipe qualification and yield ramp (6–8 mo). Total: 12–18 months."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_r6o_eml_supplier_share",
+        "ev_acc_optup_vcsel_supplier_count",
+        "ev_acc_optup_fab_lead_time"
+      ],
+      "tags": [
+        "manufacturing_process",
+        "device_fabrication",
+        "compound_semiconductor",
+        "optoelectronics",
+        "supply_bottleneck"
+      ],
+      "notes": "Post-epitaxy fabrication is a critical but secondary bottleneck: capacity constraints are more severe upstream (InP substrate and epitaxy layers) but specialized equipment (ridge-etch tools, facet-coating systems) and process recipes create vendor lock-in. EML constraint is attributed to: (1) limited InP epitaxy capacity feeding device fabs, (2) specialized device fab lines with long setup times, and (3) capacity pre-allocation by tier-1 customers. VCSEL is less constrained than EML overall, but specific form factors (high-density arrays for 800G+) face short-term capacity gaps. Hyperscaler prepayments and long-term capacity contracts (e.g., NVIDIA $2B Lumentum investment March 2026, $2B Coherent investment) are separate capacity-lock events and are not modeled in this node.",
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"]
+    }
+  ],
+  "edges": [],
+  "evidence": [
+    {
+      "id": "ev_acc_r6o_coherent_inp_capacity",
+      "type": "news",
+      "title": "Coherent CEO: InP laser capacity constrained, doubling over next 12 months (2026 Q1)",
+      "url": "https://www.optics.org/news/16/11/9",
+      "date": "2026-03-15",
+      "summary": "Coherent Corporation CEO statement on InP laser capacity status: current capacity is constrained; company plans to double capacity within 12 months through upgraded epitaxial-growth facilities and process optimization.",
+      "excerpt": "InP laser capacity is currently constrained. We plan to double our capacity over the next 12 months through process improvements and equipment expansion.",
+      "supportsNodeIds": ["eml_dfb_laser_diodes"],
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "unreachable"
+    },
+    {
+      "id": "ev_acc_r6o_eml_supplier_share",
+      "type": "paper",
+      "title": "EML/DFB laser supplier market concentration: Coherent, Lumentum, Mitsubishi Electric top 3 (2024–2025)",
+      "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html",
+      "date": "2025-06-01",
+      "summary": "Yole Développement analyst report on optical transceivers for datacenters: top 3 EML/DFB laser suppliers (Coherent, Lumentum, Mitsubishi Electric) command 70–75% of the datacom market. Capacity constraints limit growth.",
+      "excerpt": "Top 3 suppliers control approximately 70–75% of the EML/DFB laser market for coherent datacom modules. Supply remains capacity-constrained through 2026.",
+      "supportsNodeIds": ["eml_dfb_laser_diodes", "compound_foundry_specialty"],
+      "reviewStatus": "unreviewed",
+      "sourceStatus": "paywalled_snippet"
+    }
+  ],
+  "tasks": []
+}

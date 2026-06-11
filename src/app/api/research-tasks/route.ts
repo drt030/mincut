@@ -3,6 +3,9 @@ import { buildAgentExpansionGraphPatch, upsertAgentExpansionTask } from "@/lib/a
 import { appendGraphPatchToParcelData, loadGraphData, loadTasks, writeTasks } from "@/lib/graphLoader";
 
 export async function POST(request: Request) {
+  if (process.env.OPERATOR_WRITES !== "1") {
+    return NextResponse.json({ error: "This deployment is read-only" }, { status: 403 });
+  }
   try {
     const body = await request.json();
     const targetNodeId = typeof body?.targetNodeId === "string" ? body.targetNodeId.trim() : "";
