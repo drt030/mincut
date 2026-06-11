@@ -24,6 +24,7 @@ import { GraphControls } from "./GraphControls";
 import { RouteDetailRail } from "./RouteDetailRail";
 import { CmdKSearch, handleCmdKKeydown } from "./CmdKSearch";
 import { LayerToggleFloatingButton } from "./LayerToggleFloatingButton";
+import { useHolderTeasers } from "./HolderTeaserProvider";
 import { selectTopN } from "@/lib/prioritySelection";
 import { effectiveLodZoom, type LodDisplayMode } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
@@ -776,6 +777,7 @@ function parentResearchRootId(graph: GraphData, currentRootId: string): string |
 
 export function GraphExplorer({ graph }: Props) {
   const { kindName, nodeName, t } = useLanguage();
+  const holderTeasers = useHolderTeasers();
   const searchParams = useSearchParams();
   const initialRootId = resolveCanvasRootId(graph, searchParams?.get("root")) ?? DEFAULT_ROOT_NODE_ID;
   const [currentRootId, setCurrentRootId] = useState(initialRootId);
@@ -1025,10 +1027,11 @@ export function GraphExplorer({ graph }: Props) {
     const ids = new Set<string>();
     for (const node of canvasGraph.nodes) {
       if (!isKnowHowNode(node)) continue;
-      if (holdersForNode(canvasGraph, node.id).total === 0) ids.add(node.id);
+      const total = holderTeasers[node.id]?.total ?? holdersForNode(canvasGraph, node.id).total;
+      if (total === 0) ids.add(node.id);
     }
     return ids;
-  }, [graphLayer, canvasGraph]);
+  }, [graphLayer, canvasGraph, holderTeasers]);
 
   /**
    * C3: top-5 priorities under the active colour mode, scoped to the

@@ -33,6 +33,7 @@ import { EvidenceList } from "./EvidenceList";
 import { useLanguage } from "./LanguageProvider";
 import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
 import { ExposureLockCta, useLockedDomainForNode } from "./ExposureLockCta";
+import { useHolderTeaser } from "./HolderTeaserProvider";
 
 type Props = {
   graph: GraphData;
@@ -153,6 +154,7 @@ function ListingChip({ org }: { org: Node }) {
 export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphData; node: Node; onSelectNode?: (nodeId: string) => void }) {
   const { kindName, nodeName, t } = useLanguage();
   const lockedEntry = useLockedDomainForNode(node);
+  const holderTeaser = useHolderTeaser(node.id);
   // Per v3 iter-14: when the user clicks a different node, the previous
   // scroll position in the panel was preserved → they could land
   // mid-Evidence section and miss the headline cost / maturity /
@@ -216,7 +218,9 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   const knowHowHosts = Array.from(knowHowHostsByIdMap.values());
 
   // Per Task 8: holder summary for know-how nodes
-  const holderSummary = isKnowHowNode(node) ? holdersForNode(graph, node.id) : null;
+  const holderSummary: { total: number; listed: number } | null = isKnowHowNode(node)
+    ? (holderTeaser ?? holdersForNode(graph, node.id))
+    : null;
   const supplierExposureAll =
     node.kind === "organization" ? suppliedNodesForOrganization(graph, node.id).filter((child) => child.kind !== "metric") : [];
   const supplierExposure = supplierExposureAll.filter((child) => child.reviewStatus !== "deprecated");
