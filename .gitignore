@@ -13,3 +13,6 @@ tsconfig.tsbuildinfo
 # bookkeeping. Must never be committed or pushed (see
 # docs/agents/handoff-2026-06-10-gpu-chain.md Part 2).
 .eval/
+
+# local env files (never commit)
+.env*.local
