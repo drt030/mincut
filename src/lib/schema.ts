@@ -170,6 +170,14 @@ const nodeBaseSchema = z.object({
     )
     .optional(),
   evidenceIds: z.array(z.string()).optional(),
+  /**
+   * Per the 2026-06-11 owner audit: evidence demoted from claim support
+   * (404 / generic_homepage / wrong_topic / market_report_seo / unreachable)
+   * moves here instead of being deleted — the audit trail survives without
+   * counting as support. The demoted record's `limitations` field carries
+   * the rejection reason. UI must never render these as citations.
+   */
+  rejectedEvidenceIds: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),
   notes: z.string().optional(),
   reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),
@@ -272,6 +280,21 @@ export const edgeRelationSchema = z.enum([
   "has_route",
   "implemented_by",
   "depends_on_metric",
+  /**
+   * Per ADR-0009 (2026-06-11): `manufactured_by` was being overloaded to
+   * express qualification, ownership, outsourcing, and strategic-supply
+   * semantics. These relations split those meanings; `manufactured_by`
+   * keeps meaning "actually manufactures this today". Renderers that only
+   * understand `manufactured_by` simply do not display the weaker
+   * relations — the correct conservative behavior for unverified links.
+   */
+  "qualified_supplier",
+  "reported_capable_supplier",
+  "strategic_supplier_to",
+  "owned_by",
+  "capacity_provider",
+  "second_source_candidate",
+  "allocation_locked_by",
 ]);
 
 export const edgeSchema = z.object({
