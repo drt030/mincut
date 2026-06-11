@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { EvidenceList } from "./EvidenceList";
+import { ExposureLockCta, useLockedDomainForNode } from "./ExposureLockCta";
 import {
   bottlenecksForNode,
   evidenceForNode,
@@ -110,13 +111,15 @@ export function ProductView({ graph, product }: Props) {
 
 function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; product: Node }) {
   const { nodeName, t } = useLanguage();
+  const lockedEntry = useLockedDomainForNode(product);
   const answer = useMemo(() => investorAnswerForProduct(graph, product), [graph, product]);
   const hasSignal =
     answer.topRiskNode ||
     answer.costGapRmb !== null ||
     answer.topCostNode ||
     answer.startupOpportunities.length > 0 ||
-    answer.throughputConstraints.length > 0;
+    answer.throughputConstraints.length > 0 ||
+    lockedEntry !== null;
   if (!hasSignal) return null;
   const throughputMetricValues = answer.throughputMetric ? metricNodeValueSummary(answer.throughputMetric) : null;
   const throughputStatus = answer.throughputMetric ? throughputStatusText(answer.throughputMetric, t) : null;
@@ -215,6 +218,11 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
                   .join("; ")}
               </p>
             ) : null}
+          </li>
+        ) : null}
+        {lockedEntry ? (
+          <li className="metric-detail-row">
+            <ExposureLockCta entry={lockedEntry} />
           </li>
         ) : null}
         {answer.startupOpportunities.length > 0 ? (

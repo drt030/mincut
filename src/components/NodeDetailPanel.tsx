@@ -29,6 +29,7 @@ import type { Edge, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/s
 import { EvidenceList } from "./EvidenceList";
 import { useLanguage } from "./LanguageProvider";
 import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
+import { ExposureLockCta, useLockedDomainForNode } from "./ExposureLockCta";
 
 type Props = {
   graph: GraphData;
@@ -114,6 +115,7 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
  */
 export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphData; node: Node; onSelectNode?: (nodeId: string) => void }) {
   const { kindName, nodeName, t } = useLanguage();
+  const lockedEntry = useLockedDomainForNode(node);
   // Per v3 iter-14: when the user clicks a different node, the previous
   // scroll position in the panel was preserved → they could land
   // mid-Evidence section and miss the headline cost / maturity /
@@ -410,6 +412,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
           deprecatedHiddenCount={manufacturerDeprecatedCount}
         />
       ) : null}
+      {lockedEntry ? <ExposureLockCta entry={lockedEntry} /> : null}
       {implementerLinksAll.length > 0 ? (
         <OrganizationNodeList
           title={t("serviceCandidates")}
@@ -614,6 +617,7 @@ function InvestorAnswerPanel({
   onSelectNode?: (nodeId: string) => void;
 }) {
   const { nodeName, t } = useLanguage();
+  const lockedEntry = useLockedDomainForNode(product);
   const answer = useMemo<InvestorAnswer>(
     () => investorAnswerForProduct(graph, product, opportunityCandidates),
     [graph, product, opportunityCandidates],
@@ -624,7 +628,8 @@ function InvestorAnswerPanel({
     answer.topCostNode ||
     answer.candidateExposure.length > 0 ||
     answer.startupOpportunities.length > 0 ||
-    answer.throughputConstraints.length > 0;
+    answer.throughputConstraints.length > 0 ||
+    lockedEntry !== null;
   if (!hasSignal) return null;
   const throughputConstraintFactors = constraintFactorSummary(answer.throughputConstraints, t);
   const throughputMetricValues = answer.throughputMetric ? metricNodeValueSummary(answer.throughputMetric) : null;
@@ -730,6 +735,11 @@ function InvestorAnswerPanel({
                   .join("; ")}
               </p>
             ) : null}
+          </li>
+        ) : null}
+        {lockedEntry ? (
+          <li className="metric-detail-row">
+            <ExposureLockCta entry={lockedEntry} />
           </li>
         ) : null}
         {answer.startupOpportunities.length > 0 ? (
