@@ -15,9 +15,7 @@
     "relation": "requires",
     "claim": "EUV lithography is essential for patterning sub-20nm features at 5nm and 3nm nodes.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_euv_mask_bottleneck"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -27,9 +25,7 @@
     "relation": "requires",
     "claim": "EUV masks are a critical consumable with duopolistic supply.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_euv_mask_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -114,9 +110,7 @@
     "relation": "requires",
     "claim": "TSMC capacity is the primary constraint for global AI accelerator logic die production.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_tsmc_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -126,9 +120,7 @@
     "relation": "requires",
     "claim": "ASML EUV systems are the single bottleneck enabling TSMC's advanced-node capacity.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_asml_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -288,9 +280,7 @@
     "target": "org_shin_etsu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_wafer_supply"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -299,9 +289,7 @@
     "target": "org_sumco",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_wafer_supply"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -310,9 +298,7 @@
     "target": "org_air_liquide",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_process_gases"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -321,9 +307,7 @@
     "target": "org_linde",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_process_gases"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -343,9 +327,7 @@
     "target": "org_agc",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_euv_mask_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -354,9 +336,7 @@
     "target": "org_hoya",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_euv_mask_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -387,9 +367,7 @@
     "target": "org_tsmc",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_tsmc_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -398,9 +376,7 @@
     "target": "org_asml",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_asml_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -513,9 +489,7 @@
     "target": "org_ase",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkg_osat_share"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -524,9 +498,7 @@
     "target": "org_amkor",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkg_osat_share"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -559,9 +531,7 @@
     "relation": "requires",
     "claim": "AI accelerator modules require HBM stacks as the primary bandwidth multiplier; without HBM, accelerator compute performance is severely constrained.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_trendforce_hbm_demand_2024"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -570,9 +540,7 @@
     "target": "hbm_die_fabrication",
     "relation": "requires",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_sk_hynix_process_node"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -646,9 +614,7 @@
     "target": "org_skhynix",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_skhynix_share_2024"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -657,9 +623,7 @@
     "target": "org_samsung",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_samsung_ramp_2024"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -668,9 +632,7 @@
     "target": "org_micron",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_hbm_micron_timeline_2025"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -679,9 +641,7 @@
     "target": "org_kulicke_soffa",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_hybrid_bonder_equipment"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -690,9 +650,7 @@
     "target": "org_cohu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_ate_equipment"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -701,9 +659,7 @@
     "target": "org_isola",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_hbm_substrate_laminate_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -873,9 +829,7 @@
     "relation": "manufactured_by",
     "claim": "Mitsubishi Gas Chemical owns the BT resin formula and is a key supplier of BT laminates.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_sub_mitsubishi_bt_resin"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -969,9 +923,7 @@
     "target": "laser_array_and_photodiodes",
     "relation": "requires",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_opt_vcsel_supply_constraint"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -996,9 +948,7 @@
     "target": "org_broadcom",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_opt_broadcom_transceiver_asic"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1029,9 +979,7 @@
     "target": "org_broadcom",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_opt_vcsel_supply_constraint"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1040,9 +988,7 @@
     "target": "org_ii_vi_coherent",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_opt_vcsel_supply_constraint"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1051,9 +997,7 @@
     "target": "org_philips_lumileds",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_opt_vcsel_supply_constraint"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1118,9 +1062,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [
-      "ev_acc_edge4_amphenol_optical_connectors"
-    ]
+    "evidenceIds": []
   },
   {
     "id": "e_acc_opt_optical_connector__manufactured_by__commscope",
@@ -1129,9 +1071,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [
-      "ev_acc_opt_commscope_datacenter"
-    ]
+    "evidenceIds": []
   },
   {
     "id": "e_acc_opt_fiber_cables__manufactured_by__corning",
@@ -1151,9 +1091,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [
-      "ev_acc_pwr_te_connectivity_connectors"
-    ]
+    "evidenceIds": []
   },
   {
     "id": "e_acc_opt_electrical_connector__manufactured_by__amphenol",
@@ -1162,9 +1100,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [
-      "ev_acc_edge5_amphenol_electrical_connectors"
-    ]
+    "evidenceIds": []
   },
   {
     "id": "e_acc_opt_redriver__manufactured_by__marvell",
@@ -1173,9 +1109,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [
-      "ev_acc_edge6_marvell_redriver_chiplet"
-    ]
+    "evidenceIds": []
   },
   {
     "id": "e_acc_pwr_power_delivery__requires__module_vrm",
@@ -1184,9 +1118,7 @@
     "relation": "requires",
     "claim": "AI accelerator modules require integrated multi-phase VRM for local voltage regulation at the logic die and HBM interfaces.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_vrm_architecture_hpc"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1196,9 +1128,7 @@
     "relation": "requires",
     "claim": "VRM and converter modules depend on advanced-node power-stage ICs (5nm/7nm) for high-frequency, high-current switching.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_power_stage_shortage_2024"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1208,9 +1138,7 @@
     "relation": "requires",
     "claim": "Module-level VRMs require 200–1000 bulk capacitor elements per accelerator for frequency filtering and charge storage.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_mlcc_shortage_2023"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1220,9 +1148,7 @@
     "relation": "requires",
     "claim": "Multi-phase buck topology requires 4–16 inductors per VRM for energy storage in each phase.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_inductor_market_overview"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1232,9 +1158,7 @@
     "relation": "requires",
     "claim": "Modern AI datacenters standardize 48V distribution bus with intermediate DC–DC converters feeding module-level 12V rails.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_48v_standard_adoption"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1244,9 +1168,7 @@
     "relation": "requires",
     "claim": "Rack or pod-level power delivery includes centralized AC/DC PSU with N+1 or N+2 redundancy.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_rack_psu_redundancy"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1256,9 +1178,7 @@
     "relation": "requires",
     "claim": "48V and 12V distribution requires high-current connectors and multi-layer PCB backplanes with tight mechanical tolerances.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_connector_lead_time_2024"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1268,9 +1188,7 @@
     "relation": "requires",
     "claim": "Power-stage losses and VRM heat dissipation require integrated thermal coupling to module exterior and liquid cooling integration.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_pwr_vrm_thermal_design"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1280,9 +1198,7 @@
     "relation": "manufactured_by",
     "claim": "Renesas designs and supplies integrated VRM power-stage ICs for AI accelerators.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_pwr_renesas_vrm_ic"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1292,9 +1208,7 @@
     "relation": "manufactured_by",
     "claim": "TSMC manufactures the majority of advanced-node (5nm/7nm) power-stage ICs and gate-driver logic.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_tsmc_capacity_share"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1304,9 +1218,7 @@
     "relation": "manufactured_by",
     "claim": "Samsung Foundry offers 7nm/5nm process options for power-stage IC fabrication.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_samsung_foundry_power_ics"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1316,9 +1228,7 @@
     "relation": "manufactured_by",
     "claim": "Murata is a leading MLCC manufacturer serving AI datacenter power delivery applications.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_murata_mlcc_production"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1328,9 +1238,7 @@
     "relation": "manufactured_by",
     "claim": "TDK produces high-frequency MLCC and film capacitors for VRM and converter applications.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_tdk_mlcc_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1340,9 +1248,7 @@
     "relation": "manufactured_by",
     "claim": "Samsung Electro-Mechanics manufactures MLCC for high-frequency power applications.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_samsung_em_mlcc"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1352,9 +1258,7 @@
     "relation": "manufactured_by",
     "claim": "Murata supplies high-current inductors and integrated inductor designs for power-stage applications.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_murata_inductor_market"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1364,9 +1268,7 @@
     "relation": "manufactured_by",
     "claim": "TDK manufactures ferrite cores and integrated inductors for VRM and converter topologies.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_tdk_inductor_ferrite"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1376,9 +1278,7 @@
     "relation": "manufactured_by",
     "claim": "Vicor designs and manufactures isolated 48V–12V converter modules for AI datacenter power distribution.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_vicor_isolated_converter"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1388,9 +1288,7 @@
     "relation": "manufactured_by",
     "claim": "Power Integrations supplies isolated converter ICs and reference designs for 48V datacenter applications.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_pwr_pi_galvanically_isolated"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1400,9 +1298,7 @@
     "relation": "manufactured_by",
     "claim": "Delta Electronics manufactures custom and semi-custom rack PSU modules for AI datacenters.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_delta_datacenter_psu"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1412,9 +1308,7 @@
     "relation": "manufactured_by",
     "claim": "Eaton Power Systems supplies industrial and datacenter-grade AC/DC and redundancy modules.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_pwr_eaton_power_systems"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1424,9 +1318,7 @@
     "relation": "manufactured_by",
     "claim": "Molex designs and manufactures high-current connectors and blind-mate modules for AI accelerator interconnect.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_molex_high_current_connector"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1436,9 +1328,7 @@
     "relation": "manufactured_by",
     "claim": "TE Connectivity supplies power and signal connectors for datacenter and AI system integration.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pwr_te_connectivity_connectors"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1575,9 +1465,7 @@
     "target": "org_shin_etsu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_thm_shin_etsu_tim_share"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1586,9 +1474,7 @@
     "target": "org_henkel",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_thm_henkel_bergquist_tim"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1608,9 +1494,7 @@
     "target": "org_boyd",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_thm_boyd_heat_exchangers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1641,9 +1525,7 @@
     "target": "org_vertiv",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_thm_vertiv_cdu"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1654,7 +1536,6 @@
     "claim": "Shinko Electric manufactures organic substrate base structures for AI accelerator packages, with secondary position (~20% share) in high-end ABF substrates.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_sub2_shinko_market_share",
       "ev_acc_sub2_shinko_abf_supply"
     ],
     "reviewStatus": "unreviewed"
@@ -1667,7 +1548,6 @@
     "claim": "AT&S manufactures high-density interconnect (HDI) organic substrates for advanced AI accelerator packaging, with ~18% estimated share of premium ABF substrate supply.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_sub2_ats_market_share",
       "ev_acc_sub2_ats_hdi_capacity"
     ],
     "reviewStatus": "unreviewed"
@@ -1692,9 +1572,7 @@
     "relation": "manufactured_by",
     "claim": "Shinko Electric manufactures chiplet-interconnect substrates for advanced packaging with secondary player share.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_sub2_shinko_market_share"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1704,9 +1582,7 @@
     "relation": "manufactured_by",
     "claim": "AT&S manufactures high-density interconnect chiplet-substrate for advanced packaging, with strength in HDI and multilayer design.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_sub2_ats_market_share"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1727,9 +1603,7 @@
     "target": "org_carl_zeiss_smt",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic2_asml_optics_zeiss"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1739,9 +1613,7 @@
     "relation": "requires",
     "claim": "Each ASML EUV system requires a set of precision-coated EUV projection optics, supplied exclusively by Carl Zeiss SMT. Optics production lead time (14+ months) is a subsidiary bottleneck within EUV systems.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic2_asml_optics_zeiss"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1751,9 +1623,7 @@
     "relation": "manufactured_by",
     "claim": "Samsung Foundry is the second source for leading-edge (3nm/5nm-equivalent) logic die manufacturing, serving as a capacity alternative to TSMC with lower volume share and longer lead times (8-12% foundry market share vs TSMC 70%+).",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic2_samsung_foundry_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1763,9 +1633,7 @@
     "relation": "requires",
     "claim": "Long-reach coherent optical transceiver modules require EML/DFB laser diodes as a core component; separate supply chain from short-reach 850nm VCSELs.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_opt2_eml_dfb_shortage_2024"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1785,9 +1653,7 @@
     "target": "org_ii_vi_coherent",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_opt2_coherent_market_position"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1796,9 +1662,7 @@
     "target": "org_mitsubishi_electric",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_opt2_mitsubishi_laser_supply"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1807,9 +1671,7 @@
     "target": "org_sumitomo_electric",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_opt2_sumitomo_laser_supply"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1849,9 +1711,7 @@
     "target": "org_coolit_systems",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_cp2_coolitsystems_cdu"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1871,9 +1731,7 @@
     "target": "org_motivair",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_cp2_motivair_modular_cooling"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1882,9 +1740,7 @@
     "target": "org_coolit_systems",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_cp2_coolitsystems_cdu"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1942,8 +1798,7 @@
     "claim": "EML/DFB device fabrication (ridge etch, facet coating, packaging) is the third tier after substrate and epitaxy. Supply concentration high (5 global vendors), with 40–60% capacity shortfall relative to demand (2024–2026).",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_optup_eml_shortage_2024",
-      "ev_acc_optup_eml_supplier_concentration"
+      "ev_acc_optup_eml_shortage_2024"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -1990,9 +1845,7 @@
     "relation": "requires",
     "claim": "MOCVD epitaxial growth systems (Aixtron, Veeco) are the capital equipment that enables foundry capacity scaling. Tool lead times (15–21 months) indirectly constrain epitaxy expansion.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_optup_mocvd_lead_time"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2016,8 +1869,7 @@
     "claim": "AXT Inc is the second-largest global InP supplier (30–35% Western merchant share). On track to double capacity by end 2026, making it key alternative to Japan-based JX.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_optup_axt_market_position",
-      "ev_acc_optup_axt_capacity_q1_2026"
+      "ev_acc_optup_axt_market_position"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2090,9 +1942,7 @@
     "relation": "manufactured_by",
     "claim": "HLJ Technology (Taiwan) is a vertically integrated VCSEL manufacturer (epitaxy + chip). Expanding to 6-inch capacity with multiple Aixtron tools for high-volume 850nm VCSEL production.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_optup_hlj_vcsel_capacity"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2171,9 +2021,7 @@
     "relation": "manufactured_by",
     "claim": "Wolfspeed is the leading merchant supplier of 8-inch (200mm) SiC crystal wafers for power semiconductor fabrication; transitioning from 6-inch commodity phase to 8-inch ramp 2026+.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_cmpd_wolfspeed_200mm"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2183,9 +2031,7 @@
     "relation": "manufactured_by",
     "claim": "Sumitomo Electric Industries is the global leader in InP optical wafer supply and among three major GaAs substrate suppliers (duopoly/triopoly with AXT, Freiberger). Critical supplier for optical RF device feedstock.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_cmpd_sumitomo_inp_leader"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2207,9 +2053,7 @@
     "relation": "manufactured_by",
     "claim": "WIN Semiconductors is the world's leading pure-play GaAs wafer foundry, serving ~75% of merchant GaAs foundry market. Critical for optical communications and RF device manufacturing.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_cmpd_win_market_position"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2244,8 +2088,7 @@
     "claim": "AI datacenter 1.6T/800G optical transceiver modules depend on Coherent Corp. as the primary supplier of InP-based electro-absorption modulated lasers (EMLs) and continuous-wave lasers (CW-LDS). CEO has warned InP capacity constrained through 2027-2030; NVIDIA multi-billion-dollar LTA secures capacity.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_cmpd_coherent_inp_constraint",
-      "ev_acc_cmpd_coherent_nvidia_deal"
+      "ev_acc_cmpd_coherent_inp_constraint"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2314,9 +2157,7 @@
     "target": "org_astera_labs",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_icsi_astera_labs_aries_pcg6"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2347,9 +2188,7 @@
     "target": "org_credo",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_icsi_credo_toucan_pcie6"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2369,9 +2208,7 @@
     "target": "org_credo",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_icsi_credo_magpie_pcie7"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2391,9 +2228,7 @@
     "target": "org_astera_labs",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_icsi_astera_scorpio_switch_2025"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2425,9 +2260,7 @@
     "relation": "requires",
     "claim": "Post-assembly X-ray inspection is critical for HBM stack voids, solder defects, and bond-line integrity verification.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkgeq_xray_process"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2473,9 +2306,7 @@
     "relation": "requires",
     "claim": "Underfill dispensing (capillary or jet) follows flip-chip bonding to encapsulate bumps and reduce mechanical stress.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkgeq_underfill_process"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2688,9 +2519,7 @@
     "target": "org_kulicke_soffa",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkgeq_tcb_kulicke"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2754,9 +2583,7 @@
     "target": "org_cohu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_pkgeq_probe_cohu"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2901,22 +2728,20 @@
     "target": "euv_mask_blanks",
     "relation": "requires",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_nc4_hoya_euv_1"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya",
     "source": "high_na_euv_mask_blanks",
     "target": "org_hoya",
-    "relation": "manufactured_by",
-    "confidence": "high",
+    "relation": "reported_capable_supplier",
+    "confidence": "low",
     "evidenceIds": [
-      "ev_acc_nc4_hoya_highna_1",
-      "ev_acc_nc4_hoya_highna_2"
+      "ev_acc_nc4_hoya_highna_1"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "claim": "Hoya is reported as one of few capable High-NA EUV mask-blank players; qualification/exclusivity unverified (owner audit 2026-06-11, ADR-0009 relation)."
   },
   {
     "id": "e_acc_hbm_specialized_thermocompression_bonding_equipment__manufactured_by__org_hanmi_semiconductor",
@@ -2945,10 +2770,8 @@
     "source": "euv_mask_blanks",
     "target": "org_hoya",
     "relation": "manufactured_by",
-    "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_nc4_hoya_euv_1"
-    ],
+    "confidence": "medium",
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2957,9 +2780,7 @@
     "target": "org_agc",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_nc4_euv_market_1"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2969,9 +2790,7 @@
     "relation": "manufactured_by",
     "claim": "Amkor Technology is one of the top-2 OSAT providers offering flip-chip bonding with micro-bump assembly and underfill for advanced packaging (2.5D/3D).",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_amkor_flip_chip"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2981,9 +2800,7 @@
     "relation": "manufactured_by",
     "claim": "ASE Technology Holding is one of the top-2 OSAT providers with advanced flip-chip bonding capability for HBM-on-interposer assembly.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_ase_flip_chip"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2993,9 +2810,7 @@
     "relation": "manufactured_by",
     "claim": "ASMPT (ASM Pacific Technology) provides flip-chip bonding and TCB (Thermal Compression Bonding) services as part of advanced packaging offerings.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_asmpt_flip_chip"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3005,9 +2820,7 @@
     "relation": "manufactured_by",
     "claim": "Unimicron Technology is the largest supplier of high-layer-count organic substrates (ABF build-up film) for advanced packaging, serving AI accelerator OEMs.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_unimicron_substrate"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3017,9 +2830,7 @@
     "relation": "manufactured_by",
     "claim": "Shinko Electric Industries manufactures high-layer-count organic substrates (BT/ABF laminates) with advanced HDI for packaging modules.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_shinko_substrate"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3029,9 +2840,7 @@
     "relation": "manufactured_by",
     "claim": "Kinsus Interconnect Technology manufactures high-layer-count organic substrates for advanced packaging and IC carrier applications.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_r5w_kinsus_substrate"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3041,9 +2850,7 @@
     "relation": "manufactured_by",
     "claim": "Teradyne supplies automated test equipment (ATE) for functional and parametric testing of packaged modules, including high-speed pin electronics and thermal chambers.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_teradyne_ate"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3053,9 +2860,7 @@
     "relation": "manufactured_by",
     "claim": "KLA Corporation supplies optical and metrology inspection equipment (defect inspection, SEM-class imaging) for post-assembly quality assurance.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_kla_inspection"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3065,9 +2870,7 @@
     "relation": "manufactured_by",
     "claim": "Camtek provides optical metrology and X-ray inspection systems for detecting voids, cracks, and interconnect defects in advanced packages.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_camtek_inspection"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3077,9 +2880,7 @@
     "relation": "manufactured_by",
     "claim": "Onto Innovation (formerly Rudolph Technologies + Nanometrics) supplies optical inspection and overlay metrology systems used in packaging process control.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_r5w_onto_inspection"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3089,9 +2890,7 @@
     "relation": "manufactured_by",
     "claim": "Teradyne is a supplier of high-speed memory ATE for HBM functional testing, bandwidth characterization, and power delivery margin validation.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_teradyne_hbm_test"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3101,9 +2900,7 @@
     "relation": "manufactured_by",
     "claim": "Advantest is a primary supplier of ATE systems for HBM testing and characterization, including IDVR performance validation and temperature margin testing.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_advantest_ate_memory"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3113,9 +2910,7 @@
     "relation": "manufactured_by",
     "claim": "Lumentum manufactures EML and DFB laser diodes and VCSEL devices with post-epitaxy processing (stripe etch, facet prep, hermetic packaging) for optical interconnect.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_lumentum_compound"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3125,9 +2920,7 @@
     "relation": "manufactured_by",
     "claim": "Coherent Corp. (formerly II-VI) manufactures integrated photonic devices including EML lasers, photodiodes, and specialty InP/GaAs components with full packaging.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_coherent_compound"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3137,9 +2930,7 @@
     "relation": "manufactured_by",
     "claim": "Sumitomo Electric Industries (Optics & Photonics Division) manufactures InP-based optical devices, semiconductor lasers, and photonic modules with integrated packaging.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_sumitomo_electric_compound"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3149,9 +2940,7 @@
     "relation": "manufactured_by",
     "claim": "Mitsubishi Electric manufactures InP/GaAs-based optical devices including EML/DFB lasers and photodiodes with integrated epitaxy, device processing, and hermetic packaging.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_mitsubishi_electric_compound"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3161,9 +2950,7 @@
     "relation": "manufactured_by",
     "claim": "Broadcom manufactures VCSEL and optical device arrays with integrated packaging for optical interconnect and sensor applications.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5w_broadcom_compound"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3173,9 +2960,7 @@
     "relation": "requires",
     "claim": "RDL patterning requires specialized i-line/KrF photoresist with custom formulations for packaging geometries.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_rdl_photoresist_market_tam"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3184,9 +2969,7 @@
     "target": "org_merck",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_rdl_photoresist_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3220,9 +3003,7 @@
     "relation": "requires",
     "claim": "TCB systems require replacement bond heads, heaters, and electrodes; lead time 4-8 weeks for custom parts.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_tcb_consumables_market"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3232,9 +3013,7 @@
     "relation": "requires",
     "claim": "HBM TCB equipment requires specialized bond heads and consumables; critical for HBM3e/HBM4 stacking yield.",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_tcb_consumables_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3244,9 +3023,7 @@
     "relation": "requires",
     "claim": "Flip-chip bonding can use NCF film underfill as alternative to liquid epoxy; growing adoption for process control.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_r5n_ncf_underfill_market"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3256,9 +3033,7 @@
     "relation": "requires",
     "claim": "HBM stacking increasingly uses NCF film underfill for improved yield and thermal management vs. liquid underfill.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_r5n_ncf_underfill_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3267,9 +3042,7 @@
     "target": "org_merck",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_cmp_slurry_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3278,9 +3051,7 @@
     "target": "org_entegris",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_cmp_slurry_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3300,9 +3071,7 @@
     "target": "org_hanmi_semiconductor",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_r5n_tcb_consumables_suppliers"
-    ],
+    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3311,8 +3080,18 @@
     "target": "org_asmpt",
     "relation": "manufactured_by",
     "confidence": "medium",
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_r7_org_coolit_systems__owned_by__org_ecolab",
+    "source": "org_coolit_systems",
+    "target": "org_ecolab",
+    "relation": "owned_by",
+    "claim": "Ecolab entered a definitive agreement to acquire CoolIT Systems (announced 2026-03-20, ~$4.75B cash, pending close). Ownership event per ADR-0009 — not a manufacturing relationship.",
+    "confidence": "high",
     "evidenceIds": [
-      "ev_acc_r5n_tcb_consumables_suppliers"
+      "ev_acc_r7_ecolab_coolit"
     ],
     "reviewStatus": "unreviewed"
   }

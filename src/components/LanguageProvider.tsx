@@ -1011,6 +1011,8 @@ const nodeTextZh: Record<string, string> = {
   org_advantest: "Advantest公司",
   rdl_packaging_photoresist: "RDL封装光刻胶（i线/KrF，高级几何结构）",
   thermocompression_bonding_consumables: "热压键合消耗品（键头、加热器、电极）",
+  // owner-audit round-7 (2026-06-11)
+  org_ecolab: "艺康集团",
 };
 
 const kindTextZh: Record<string, string> = {
