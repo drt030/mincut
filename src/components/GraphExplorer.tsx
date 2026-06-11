@@ -23,6 +23,7 @@ import { RadialEdge } from "./RadialEdge";
 import { GraphControls } from "./GraphControls";
 import { RouteDetailRail } from "./RouteDetailRail";
 import { CmdKSearch, handleCmdKKeydown } from "./CmdKSearch";
+import { LayerToggleFloatingButton } from "./LayerToggleFloatingButton";
 import { selectTopN } from "@/lib/prioritySelection";
 import { effectiveLodZoom, type LodDisplayMode } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
@@ -36,6 +37,16 @@ import { focusedSubset } from "@/lib/focusedSubset";
 import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId, isCanvasTreeEdge, isKnowHowNode } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { Edge, GraphData, Node } from "@/lib/schema";
+import {
+  ARTIFACT_DIM_FILL,
+  DEFAULT_GRAPH_LAYER,
+  knowHowBottleneckCounts,
+  knowHowFill,
+  layerHidesEdge,
+  layerHidesNode,
+  type GraphLayer,
+} from "@/lib/knowHowLayer";
+import { holdersForNode } from "@/lib/supplyConcentration";
 
 /**
  * Per ADR-0007, the `/graph` surface is a Stable Balanced Radial Tree:
@@ -97,6 +108,8 @@ type RadialNodeData = {
   visualRole: "root" | "anchor" | "branch" | "leaf";
   showLabel: boolean;
   onSelect: (nodeId: string) => void;
+  shape: "circle" | "diamond";
+  knowHowBottleneckCount: number;
 };
 
 const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<RadialNodeData>>) {
@@ -140,6 +153,8 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         visualRole={data.visualRole}
         showLabel={data.showLabel}
         withHandles
+        shape={data.shape}
+        knowHowBottleneckCount={data.knowHowBottleneckCount}
       />
     </div>
   );
@@ -760,7 +775,7 @@ function parentResearchRootId(graph: GraphData, currentRootId: string): string |
 }
 
 export function GraphExplorer({ graph }: Props) {
-  const { kindName, nodeName } = useLanguage();
+  const { kindName, nodeName, t } = useLanguage();
   const searchParams = useSearchParams();
   const initialRootId = resolveCanvasRootId(graph, searchParams?.get("root")) ?? DEFAULT_ROOT_NODE_ID;
   const [currentRootId, setCurrentRootId] = useState(initialRootId);
@@ -799,6 +814,7 @@ export function GraphExplorer({ graph }: Props) {
   // old display-mode switcher as separate chrome.
   const [colorMode, setColorMode] = useState<ColorMode>("cost");
   const [displayMode] = useState<LodDisplayMode>("labels");
+  const [graphLayer, setGraphLayer] = useState<GraphLayer>(DEFAULT_GRAPH_LAYER);
 
   // C2: Cmd+K search modal. Opened via the global keydown listener
   // below; closed via Esc, backdrop click, or selecting a result. The
@@ -906,9 +922,13 @@ export function GraphExplorer({ graph }: Props) {
   );
 
   const onSelect = useCallback((nodeId: string) => {
+    const target = canvasGraph.nodes.find((node) => node.id === nodeId);
+    if (target && isKnowHowNode(target)) {
+      setGraphLayer("knowhow");
+    }
     setSelectedId(nodeId);
     setRailPanel("detail");
-  }, []);
+  }, [canvasGraph.nodes]);
 
   const requestAgentExpansion = useCallback(async () => {
     setAgentExpansionRootId(currentRootId);
@@ -995,6 +1015,21 @@ export function GraphExplorer({ graph }: Props) {
     [focusedId, canvasGraph],
   );
 
+  const khBottleneckCounts = useMemo(
+    () => (graphLayer === "product" ? knowHowBottleneckCounts(canvasGraph) : new Map<string, number>()),
+    [graphLayer, canvasGraph],
+  );
+
+  const khZeroHolderIds = useMemo(() => {
+    if (graphLayer !== "knowhow") return new Set<string>();
+    const ids = new Set<string>();
+    for (const node of canvasGraph.nodes) {
+      if (!isKnowHowNode(node)) continue;
+      if (holdersForNode(canvasGraph, node.id).total === 0) ids.add(node.id);
+    }
+    return ids;
+  }, [graphLayer, canvasGraph]);
+
   /**
    * C3: top-5 priorities under the active colour mode, scoped to the
    * currently-focused subtree (or the focal product's subtree when no
@@ -1017,11 +1052,16 @@ export function GraphExplorer({ graph }: Props) {
     const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of canvasGraph.nodes) {
       if (!focalSubtree.has(node.id)) continue;
+      if (layerHidesNode(node, graphLayer)) continue;
       const packed = activeNodePositions.get(node.id);
       if (!packed) continue;
       const { x, y } = packed;
       const hue = subsystemHue(node.id, canvasGraph, currentRootId);
-      const fill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
+      const baseFill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
+      const isKh = isKnowHowNode(node);
+      const layerFill = graphLayer === "knowhow"
+        ? (isKh ? knowHowFill(node) : ARTIFACT_DIM_FILL)
+        : baseFill;
       const isFocal = node.id === focalId;
       const dim = !subset.nodes.has(node.id) && node.id !== selectedId && !isFocal;
       const hasStructuralChildren = (childrenByParent.get(node.id) ?? []).some((childId) =>
@@ -1035,6 +1075,10 @@ export function GraphExplorer({ graph }: Props) {
             ? "branch"
             : "leaf";
       const showLabel = true;
+      let outlineColor = outlineColorFor(node, selectedId === node.id, isFocal);
+      if (graphLayer === "knowhow" && khZeroHolderIds.has(node.id) && !subset.nodes.has(node.id) && node.id !== selectedId && !isFocal) {
+        outlineColor = "#dc2626";
+      }
       nodes.push({
         id: node.id,
         type: "radialDot",
@@ -1047,8 +1091,8 @@ export function GraphExplorer({ graph }: Props) {
           id: node.id,
           name: nodeName(node.id, node.name),
           kindLabel: kindName(node.kind),
-          fill,
-          outlineColor: outlineColorFor(node, selectedId === node.id, isFocal),
+          fill: layerFill,
+          outlineColor,
           maturityLabel: node.maturityLabel ?? "",
           selected: selectedId === node.id,
           isFocal,
@@ -1056,13 +1100,15 @@ export function GraphExplorer({ graph }: Props) {
           visualRole,
           showLabel,
           onSelect,
+          shape: graphLayer === "knowhow" && isKh ? ("diamond" as const) : ("circle" as const),
+          knowHowBottleneckCount: khBottleneckCounts.get(node.id) ?? 0,
         },
         draggable: false,
         selectable: true,
       });
     }
     return nodes;
-  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes]);
+  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes, graphLayer, khBottleneckCounts, khZeroHolderIds]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     type RenderableEdge = {
@@ -1104,6 +1150,7 @@ export function GraphExplorer({ graph }: Props) {
     }
     for (const edge of canvasGraph.edges) {
       if (!isCanvasTreeEdge(edge, nodeById)) continue;
+      if (layerHidesEdge(edge, graphLayer, nodeById)) continue;
       if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) continue;
       // Only render edges whose target was actually laid out (defensive
       // — radialLayout assigns every reachable structural node a
@@ -1220,7 +1267,7 @@ export function GraphExplorer({ graph }: Props) {
       });
     }
     return edges;
-  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges]);
+  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges, graphLayer]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1658,6 +1705,11 @@ export function GraphExplorer({ graph }: Props) {
           onSetRootNode={setGraphRoot}
         />
       </div>
+      <LayerToggleFloatingButton
+        layer={graphLayer}
+        onSelect={setGraphLayer}
+        labels={{ toggle: t("layerToggleLabel"), product: t("layerProduct"), knowHow: t("layerKnowHow") }}
+      />
       {/* C2: Cmd+K search modal. Mounted at the top level so the
           backdrop covers everything (canvas + rail + controls).
           Selecting a result both selects the node (rail content

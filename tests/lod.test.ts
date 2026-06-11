@@ -619,3 +619,32 @@ test("RadialEdge band 3 + isFocusEndpoint=true: arrowhead and no label", () => {
     `band-3 edge with isFocusEndpoint=true must not contain a <text> label; got: ${html}`,
   );
 });
+
+test("RadialNode renders diamond marker and know-how badge when requested", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(RadialNode, {
+      id: "kh",
+      name: "Know-how node",
+      fill: "hsl(32, 85%, 48%)",
+      maturityLabel: "lab_prototype",
+      zoom: 1.0, // band 2
+      shape: "diamond",
+      knowHowBottleneckCount: 0,
+    }),
+  );
+  assert.match(html, /data-node-shape="diamond"/);
+});
+
+test("RadialNode renders red-ring bottleneck badge with count at band 2", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(RadialNode, {
+      id: "host",
+      name: "Host module",
+      fill: "hsl(200, 60%, 50%)",
+      maturityLabel: "mature",
+      zoom: 1.0,
+      knowHowBottleneckCount: 2,
+    }),
+  );
+  assert.match(html, /data-knowhow-bottlenecks="2"/);
+});
