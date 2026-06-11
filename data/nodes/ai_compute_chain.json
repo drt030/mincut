@@ -2258,7 +2258,7 @@
       "structural",
       "material"
     ],
-    "notes": "Material bottleneck: T-glass (91% supply from Nittobo) faces 10–20% shortage through mid-2027; BT resin and ABF film similarly constrained.",
+    "notes": "Material bottleneck: T-glass (91% supply from Nittobo) faces 10–20% shortage through mid-2027; BT resin and ABF film similarly constrained.\n | ROUND 4 SUPPLIER BREADTH: Top-5 (Unimicron 16%, Ibiden 9%, Nan Ya 8%, AT&S 9%, Shinko ~7%) represent ~50% global market per DigiTimes Q1 2026. Additional public merchants include Kinsus (Taiwan), Simmtech (Korea), and regional suppliers. ABF shortage episode (2021–2023, 2023–2025 resurgence) centered on Ajinomoto >95% duopoly in build-up film; substrate makers compete on organic base, RDL, and integration. Total addressable ODM/OSAT supplier base 15+ companies.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -2429,18 +2429,46 @@
         "unit": "%",
         "currentValue": 20,
         "description": "Nittobo raised prices across glass fiber product line by 20% in August 2025; planned another 20–30% increase for April 2026."
+      },
+      {
+        "name": "Market share (T-glass globally)",
+        "currentValue": "100% monopoly",
+        "description": "Nittobo is the world's only qualified mass producer of T-glass. Asahi Kasei entering ~2026 but not yet HVM. Source: Nikkei Asia, Trendforce, DigiTimes 2025."
+      },
+      {
+        "name": "Supply deficit H2 2026",
+        "currentValue": ">40% undersupply",
+        "description": "Tight supply expected to continue through 2026 as ABF substrate layer counts increase 3+3 → 13+13. Source: Morgan Stanley, Trendforce supply chain analysis, 2025."
+      },
+      {
+        "name": "Price increase schedule",
+        "currentValue": "20% (Aug 2025) + 20–30% (Apr 2026 planned)",
+        "description": "Nittobo announced phased price hikes. Competitors (Asahi Kasei, Fulltech, Nan Ya) emerging but not in qualified high-volume status yet. Source: Nittobo press, SemiAnalysis, Aug–Dec 2025."
+      },
+      {
+        "name": "Capacity expansion roadmap",
+        "currentValue": "3x capacity by early 2027",
+        "description": "Nittobo targeting 3x T-glass capacity by early 2027, but new capacity largely pre-sold via long-term supply agreements. Source: DigiTimes, TrendForce 2025."
       }
     ],
     "evidenceIds": [
       "ev_acc_sub_nittobo_tglass_shortage",
-      "ev_acc_sub_nittobo_capacity_expansion"
+      "ev_acc_sub_nittobo_capacity_expansion",
+      "ev_acc_nc4_nittobo_monopoly_1",
+      "ev_acc_nc4_tglass_shortage_1",
+      "ev_acc_nc4_asahi_entry_1"
     ],
     "tags": [
       "material",
       "glass_fiber",
-      "single_source_concentration"
+      "single_source_concentration",
+      "substrate-material",
+      "fiber-cloth",
+      "monopoly",
+      "cte-critical",
+      "severe-shortage"
     ],
-    "notes": "Critical bottleneck: Nittobo near-monopoly (91% share) with constrained capacity through mid-2027. New capacity expected only from 2027; new equipment requires 6 months to stabilize yield.",
+    "notes": "Critical bottleneck: Nittobo near-monopoly (91% share) with constrained capacity through mid-2027. New capacity expected only from 2027; new equipment requires 6 months to stabilize yield.\nT-glass (boron-free, CTE ~3.5 ppm/K) is engineered for zero-warpage substrates in advanced packaging. Silicon-glass and E-glass are insufficient substitutes. Shortage is 100% Nittobo supply-gated, not demand-driven substitution. New entrants (Asahi, Nan Ya) targeting HVM entry 2026–2027 but qualification cycles are 12–24 months. Single-source corner expected to persist through 2026.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
@@ -2947,10 +2975,16 @@
       {
         "name": "Coherent NVIDIA partnership investment",
         "unit": "billion USD",
-        "currentValue": 2.0,
+        "currentValue": 2,
         "costAsOf": "2026",
         "currency": "USD",
         "description": "NVIDIA invested $2.0 billion in Coherent (March 2026) for integrated photonics capacity expansion and priority supply. Part of $4B optical supply lockup strategy."
+      },
+      {
+        "name": "Optical transceiver market share (long-reach)",
+        "unit": "%",
+        "currentValue": 8,
+        "description": "Estimated 2026 revenue share in long-reach/coherent optical transceiver market (TrendForce May 2026 report on optical transceiver supplier dynamics)"
       }
     ],
     "evidenceIds": [
@@ -2968,9 +3002,13 @@
       "laser_manufacturer",
       "coherent_optics",
       "vcsel_supplier",
-      "integrated_supplier"
+      "integrated_supplier",
+      "optical",
+      "supplier",
+      "commercial",
+      "investable"
     ],
-    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.\nCoherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.\nCoherent (formerly II-VI) is second-largest EML/DFB supplier (~25% share) with full vertical integration: substrate contracts + in-house epitaxy + device fabrication. Performs ~20 years of in-house InP capability, mitigating upstream supply risk. NVIDIA's $2B investment (March 2026) accelerates capacity ramp. Currently supply-constrained but expanding aggressively.",
+    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.\nCoherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.\nCoherent (formerly II-VI) is second-largest EML/DFB supplier (~25% share) with full vertical integration: substrate contracts + in-house epitaxy + device fabrication. Performs ~20 years of in-house InP capability, mitigating upstream supply risk. NVIDIA's $2B investment (March 2026) accelerates capacity ramp. Currently supply-constrained but expanding aggressively.\nPublic: NASDAQ COHR. Added round 4 to expand optical transceiver module supplier coverage from 2 to 4 (joining Lumentum, InnoLight, Eoptolink).",
     "reviewStatus": "unreviewed"
   },
   {
@@ -3269,7 +3307,7 @@
       "scale_out",
       "datacenter"
     ],
-    "notes": "Optical transceiver module assembly and test is a high-touch, capacity-constrained process. Shortage episodes in 2023–2024 (e.g., Broadcom 400G allocation). Expansion lead time: 6–12 months for new module assembly lines. Share: Broadcom ~45%, Marvell ~20%, Intel/Xilinx ~15%, others ~20%.",
+    "notes": "Optical transceiver module assembly and test is a high-touch, capacity-constrained process. Shortage episodes in 2023–2024 (e.g., Broadcom 400G allocation). Expansion lead time: 6–12 months for new module assembly lines. Share: Broadcom ~45%, Marvell ~20%, Intel/Xilinx ~15%, others ~20%.\n | ROUND 4 SUPPLIER BREADTH: Additional verified suppliers in long-reach/coherent optical transceiver market include Elite Advanced Laser Corporation (ELASER, Taiwan), LuxNet Corporation, and various regional Chinese suppliers (LTX, Qwest International). Top-4 global covered by Lumentum, InnoLight, Eoptolink, and new Coherent + Applied Optoelectronics entries. Total addressable merchant supplier base ~8–10 companies globally per DigiTimes/TrendForce trade press.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
@@ -3620,7 +3658,7 @@
       "vrm",
       "power_stage"
     ],
-    "notes": "The power-stage IC is a direct bottleneck: each accelerator module requires 2–4 distinct high-current power-stage die (one per phase group), and demand grows faster than foundry advanced-node expansion. A 2x doubling of AI accelerator shipment would require foundry capacity expansion of 6–12 months lead time.",
+    "notes": "The power-stage IC is a direct bottleneck: each accelerator module requires 2–4 distinct high-current power-stage die (one per phase group), and demand grows faster than foundry advanced-node expansion. A 2x doubling of AI accelerator shipment would require foundry capacity expansion of 6–12 months lead time.\n | ROUND 4 SUPPLIER BREADTH: Beyond foundry nodes (TSMC, Samsung, GlobalFoundries for logic), power stage ICs for module-level VRM and 800V converters supplied by STMicroelectronics (new), Power Integrations (GaN driver IC), Texas Instruments, Infineon (SiC gate drivers), and Renesas (analog control). Total discoverable power semiconductor merchant base ~8–10 companies for AI module power conversion in 2026.\n | ROUND 4 SUPPLIER BREADTH NOTE: STMicroelectronics (org_stmicroelectronics, existing in parcel_sorting_robot domain) should be wired as manufacturer via recommended edges e_acc_power_stage_ic__manufactured_by__org_stmicroelectronics and e_acc_48v_converter_module__manufactured_by__org_stmicroelectronics (not included in batch due to existing org id constraint; manual wiring or domain-expansion of STM org record recommended).",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
     ],
@@ -3770,7 +3808,7 @@
       "rack_level",
       "redundancy"
     ],
-    "notes": "Rack PSUs are not typically single-source (major ODMs source 2–3 suppliers), but thermal design and custom redundancy logic create design lead times of 20–24 weeks. Not a primary shortage point as of Q2 2026 but thermal density and reliability requirements will tighten as 28–40kW-per-rack installations become standard.",
+    "notes": "Rack PSUs are not typically single-source (major ODMs source 2–3 suppliers), but thermal design and custom redundancy logic create design lead times of 20–24 weeks. Not a primary shortage point as of Q2 2026 but thermal density and reliability requirements will tighten as 28–40kW-per-rack installations become standard.\n | ROUND 4 SUPPLIER BREADTH: Wired suppliers (Delta, Eaton) dominate. Secondary verified merchants include Vicor (48V module platform), Vertiv (via cooling CDU integration), and regional HVDC vendors. 800V-to-12V converter tier expanding; STMicroelectronics (existing org from parcel_sorting_robot domain; edge to power_stage_ic and 48v_converter_module recommended) and others entering IC supply side. Total merchant PSU base remains dominated by 2–3 large integrators per OEM design-in.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -3833,7 +3871,7 @@
       "cooling",
       "passive"
     ],
-    "notes": "Thermal solutions are not a primary bottleneck; aluminum and TIM suppliers have adequate capacity. However, custom heatsink design for high-frequency power stages and tight thermal tolerances (~5K above board) create iterative design cycles (6–12 weeks). Not marked bottleneckOf.",
+    "notes": "Thermal solutions are not a primary bottleneck; aluminum and TIM suppliers have adequate capacity. However, custom heatsink design for high-frequency power stages and tight thermal tolerances (~5K above board) create iterative design cycles (6–12 weeks). Not marked bottleneckOf.\n | ROUND 4 SUPPLIER BREADTH: Taiwan thermal solution providers (AVC, Auras, Jentech, Kaori, Sunon) collectively captured 60%+ of global AI thermal module market growth in 2026. Additional merchants include Delphi, Denso (automotive-origin), and regional heatsink makers. Total discoverable supplier base ~12–15 companies; concentration highest on cold-plate integration and liquid-loop sub-components.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -4521,7 +4559,7 @@
       "bottleneck_candidate",
       "custom_manufacturing"
     ],
-    "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).\nCDU is a supply-constrained module in 2024–2025 datacenter liquid-cooling buildout. Lead time (8–12 months) is often the pacing item for new datacenter thermal deployments. Constraint is driven by: (1) custom design and integration per facility (no commodity CDU), (2) limited supplier base (top 3 control ~65% market), (3) manufacturing capacity fully allocated to major cloud operators. The bottleneck gates accelerator module deployment schedules when datacenters scale from air cooling to sealed/open liquid loops.",
+    "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).\nCDU is a supply-constrained module in 2024–2025 datacenter liquid-cooling buildout. Lead time (8–12 months) is often the pacing item for new datacenter thermal deployments. Constraint is driven by: (1) custom design and integration per facility (no commodity CDU), (2) limited supplier base (top 3 control ~65% market), (3) manufacturing capacity fully allocated to major cloud operators. The bottleneck gates accelerator module deployment schedules when datacenters scale from air cooling to sealed/open liquid loops.\n | ROUND 4 SUPPLIER BREADTH: Beyond top-4 wired (Vertiv in-row, Boyd in-row, CoolIT/Ecolab, Motivair), secondary suppliers emerging include AVC and Auras (Taiwan, now wired), Jentech Precision, Kaori, Sunon, and regional providers. Sidecar CDU market led by Delta; in-row market dominated by Vertiv, Boyd. Total public discoverable merchant base estimated ~10+ companies per 2026 DigiTimes tracker. Constraint remains integrated ODM/OEM solutions vs pure-play CDU vendors.\nAdditional supply base beyond the 5-org cap (concentration-first): Auras Technology (6288.TW), high-growth Taiwan thermal/CDU maker per DigiTimes 2026-04 AI-server thermal tracker; wired to thermal_management_module instead.",
     "reviewStatus": "unreviewed",
     "metrics": [
       {
@@ -5017,7 +5055,7 @@
       {
         "name": "Lumentum EML laser capacity investment (NVIDIA partnership)",
         "unit": "billion USD",
-        "currentValue": 2.0,
+        "currentValue": 2,
         "costAsOf": "2026",
         "currency": "USD",
         "description": "NVIDIA invested $2.0 billion in Lumentum (March 2026) for EML laser capacity expansion and priority access. Part of $4B optical supply lockup strategy."
@@ -5330,19 +5368,41 @@
         "unit": "months",
         "currentValue": 20,
         "description": "Bringing new InP crystal-pulling furnace and purification capacity online requires 18–24 months from order to production; single-biggest expansion constraint."
+      },
+      {
+        "name": "Supply-demand deficit",
+        "currentValue": "70%+ undersupply",
+        "description": "Global shipments 600k–700k wafers/year; demand 1.5–2M wafers/year. Zero inventory industry-wide. Order books extend 2027+. Source: Coherent CEO guidance, SemiAnalysis Q4 2025."
+      },
+      {
+        "name": "Market share (top-3)",
+        "currentValue": "80–90%",
+        "description": "JX Metals, Sumitomo, AXT control combined 80–90%. Source: SemiAnalysis InP supply chain, Q4 2025."
+      },
+      {
+        "name": "Capacity expansion lead time",
+        "currentValue": "18–24 months",
+        "description": "JX's ¥1.5B investment for 20% capacity boost targeting end-FY2027 completion. Source: JX Metals announcement, 2025."
       }
     ],
     "evidenceIds": [
-      "ev_acc_optup_inp_market_2024"
+      "ev_acc_optup_inp_market_2024",
+      "ev_acc_nc4_inp_shortage_1",
+      "ev_acc_nc4_jx_expansion_1",
+      "ev_acc_nc4_coherent_guidance_1"
     ],
     "tags": [
       "material",
       "substrate",
       "compound_semiconductor",
       "optoelectronics",
-      "supply_bottleneck"
+      "supply_bottleneck",
+      "compound-semiconductor",
+      "optical",
+      "single-region",
+      "severe-shortage"
     ],
-    "notes": "InP substrate supply is the fundamental constraint: unlike silicon wafers (mature multi-vendor commodity), InP growth is specialty work with 3–4 global vendors and capacity-constrained by crystal-pulling furnace throughput. JX (Japan) and AXT (US/China) dominate; both expanding aggressively but face 18–24 month ramp times. GaAs is less constrained (more vendors, higher throughput) but still not commodity-scale for 850nm VCSEL arrays. Current InP shortage is documented: demand from AI datacenter optics exceeds supply by ~2x as of June 2026.",
+    "notes": "InP substrate supply is the fundamental constraint: unlike silicon wafers (mature multi-vendor commodity), InP growth is specialty work with 3–4 global vendors and capacity-constrained by crystal-pulling furnace throughput. JX (Japan) and AXT (US/China) dominate; both expanding aggressively but face 18–24 month ramp times. GaAs is less constrained (more vendors, higher throughput) but still not commodity-scale for 850nm VCSEL arrays. Current InP shortage is documented: demand from AI datacenter optics exceeds supply by ~2x as of June 2026.\nInP wafers are irreplaceable feedstock for 1310nm EML lasers used in coherent optical transceivers for AI datacenter interconnects. No silicon substitute. Alternative InP-on-GaAs emerging (Fraunhofer/III-V-Reclaim) but not yet commercial scale. Shortage directly gates optical transceiver production for 2026–2027 cycles.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
@@ -5400,7 +5460,7 @@
       "compound_semiconductor",
       "optoelectronics"
     ],
-    "notes": "Epitaxial growth is the second bottleneck after substrate supply. InP epitaxy is specialty process: low throughput (wafers/month per tool vs silicon fab wafers/hour per tool), high yield volatility, and process recipes are proprietary to each laser device type (EML, DFB, VCSEL differ in layer structure). Open foundries (IQE, VPEC, Landmark) operate at high utilization (~85–95%) due to surging AI transceiver demand. Vertically integrated makers (Lumentum, Coherent) are capacity-constrained and prioritize in-house volume over outside customers, limiting available open-market capacity.",
+    "notes": "Epitaxial growth is the second bottleneck after substrate supply. InP epitaxy is specialty process: low throughput (wafers/month per tool vs silicon fab wafers/hour per tool), high yield volatility, and process recipes are proprietary to each laser device type (EML, DFB, VCSEL differ in layer structure). Open foundries (IQE, VPEC, Landmark) operate at high utilization (~85–95%) due to surging AI transceiver demand. Vertically integrated makers (Lumentum, Coherent) are capacity-constrained and prioritize in-house volume over outside customers, limiting available open-market capacity.\n | ROUND 4 SUPPLIER BREADTH: Current wiring (IQE, IntelliEpi, Landmark, Sumitomo Chemical, VPEC) covers pure-play epitaxy and integrated epi-wafer makers. Additional verified merchants: Win Semiconductors (GaAs foundry leader), MACOM (device + wafer integration). MACOM/Akhan relationship and other merchant epi services remain opaque in trade press; IQE confirmed as largest pure-play merchant InP/GaAs epitaxy supplier. Constraint: limited merchant capacity outside Tier-1 IDM in-house epi.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
@@ -5491,7 +5551,7 @@
       },
       {
         "name": "Public listing",
-        "currentValue": "5541.T"
+        "currentValue": "5016.T"
       },
       {
         "name": "JX Nippon Mining & Metals FY2025 revenue (estimated)",
@@ -5504,7 +5564,8 @@
     ],
     "evidenceIds": [
       "ev_acc_optup_jx_market_dominance",
-      "ev_acc_optup_jx_expansion_capex"
+      "ev_acc_optup_jx_expansion_capex",
+      "ev_acc_tkr4_jx_tse_listing"
     ],
     "tags": [
       "substrate_supplier",
@@ -5513,7 +5574,7 @@
       "public_company",
       "optoelectronics"
     ],
-    "notes": "JX Advanced Metals is the single-largest global InP substrate supplier. As substrate supply is the fundamental bottleneck in the optics supply chain, JX's capacity decisions directly gate global transceiver volume. The company is aggressively expanding (announced ¥3.3 billion in 2025 to increase capacity 50% by 2027, then ¥20 billion for 3x by 2030) in response to AI datacenter demand surge. Investor relevance: direct bottleneck supplier; capacity expansion is critical path for global AI optics scaling.",
+    "notes": "JX Advanced Metals is the single-largest global InP substrate supplier. As substrate supply is the fundamental bottleneck in the optics supply chain, JX's capacity decisions directly gate global transceiver volume. The company is aggressively expanding (announced ¥3.3 billion in 2025 to increase capacity 50% by 2027, then ¥20 billion for 3x by 2030) in response to AI datacenter demand surge. Investor relevance: direct bottleneck supplier; capacity expansion is critical path for global AI optics scaling.\nIPO listing code corrected from 5541.T to 5016.T (TSE listing on March 19, 2025). Verified against TSE official record and multiple financial data providers.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -5598,7 +5659,7 @@
       },
       {
         "name": "Public listing",
-        "currentValue": "IQE"
+        "currentValue": "IQE.L"
       },
       {
         "name": "IQE H1 2025 (6 months ended June 2025) revenue (EUR equiv)",
@@ -5611,7 +5672,8 @@
     ],
     "evidenceIds": [
       "ev_acc_optup_iqe_market_position",
-      "ev_acc_optup_iqe_capacity_utilization"
+      "ev_acc_optup_iqe_capacity_utilization",
+      "ev_acc_tkr4_iqe_aim"
     ],
     "tags": [
       "epitaxial_foundry",
@@ -5620,7 +5682,7 @@
       "uk_electronics",
       "public_company"
     ],
-    "notes": "IQE is the largest open-market epitaxial foundry for compound semiconductors globally. As vertically integrated makers (Lumentum, Coherent, Mitsubishi) saturate their in-house epitaxy, open-market foundries like IQE become critical for scaling. Newport facility (UK) is considered 'centre of excellence' for VCSEL epitaxy. Current high utilization (90–95%) means IQE cannot easily absorb new transceiver orders; expansion would require new tool procurement and commissioning (6–9 months). Investor relevance: strategic chokepoint in open-market epitaxy supply; capacity constraints directly limit non-integrated transceiver makers' growth.",
+    "notes": "IQE is the largest open-market epitaxial foundry for compound semiconductors globally. As vertically integrated makers (Lumentum, Coherent, Mitsubishi) saturate their in-house epitaxy, open-market foundries like IQE become critical for scaling. Newport facility (UK) is considered 'centre of excellence' for VCSEL epitaxy. Current high utilization (90–95%) means IQE cannot easily absorb new transceiver orders; expansion would require new tool procurement and commissioning (6–9 months). Investor relevance: strategic chokepoint in open-market epitaxy supply; capacity constraints directly limit non-integrated transceiver makers' growth.\nUpdated ticker to IQE.L (London Stock Exchange, AIM segment) for clarity and exchange qualification. Previously listed as bare 'IQE'.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -5751,10 +5813,15 @@
         "costAsOf": "2024",
         "currency": "USD",
         "description": "LandMark 2024 estimated revenue approximately NT$2.1 billion (~US$68M at 31 TWD/USD); mid-tier Taiwan epitaxy foundry with stable customer base in optical communications."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "3081.TWO"
       }
     ],
     "evidenceIds": [
-      "ev_acc_optup_landmark_market_position"
+      "ev_acc_optup_landmark_market_position",
+      "ev_acc_tkr4_landmark_tpe"
     ],
     "tags": [
       "epitaxial_foundry",
@@ -5762,7 +5829,7 @@
       "taiwan_electronics",
       "public_company"
     ],
-    "notes": "LandMark is a smaller but established Taiwan-based epitaxial foundry. Core business: GaAs/InP epi-wafers for optoelectronics and RF. Public listing on Taiwan OTC provides investor access. Less growth exposure than IQE or VPEC in recent AI transceiver surge, but stable player in regional optical epi supply. Investor relevance: steady Taiwan optoelectronics exposure; less speculative than higher-growth peers.",
+    "notes": "LandMark is a smaller but established Taiwan-based epitaxial foundry. Core business: GaAs/InP epi-wafers for optoelectronics and RF. Public listing on Taiwan OTC provides investor access. Less growth exposure than IQE or VPEC in recent AI transceiver surge, but stable player in regional optical epi supply. Investor relevance: steady Taiwan optoelectronics exposure; less speculative than higher-growth peers.\nPublic listing added: 3081.TWO (Taipei Exchange, not TWSE). LandMark Optoelectronics is listed on the Taiwan TPEx (Taipei Exchange), not the main TWSE. Verified against Yahoo Finance and Taipei Exchange.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -6121,7 +6188,7 @@
       "market_restructuring",
       "supply_concentration"
     ],
-    "notes": "Referent: specialty/analog/compound foundry (non-silicon-logic). GaN/SiC power semiconductor foundry undergoing major restructuring (TSMC exit, GF ramp, Samsung entry, DB HiTek delayed). WIN Semiconductors pure-play GaAs foundry remains stable market leader but serves optical/RF niche. InP optical foundry nascent; Wafer Works first 6-inch industrial fab groundbreaking 2026 (Eindhoven). Not currently a bottleneck for AI accelerator modules but critical upstream tier for power delivery and optical interconnect specialty devices. GaN/SiC power foundry concentration risk moderate (Samsung, GF, DB HiTek, X-FAB competing but no single dominant player yet post-TSMC exit). InP optical foundry concentration high (Coherent IDM-dominant EML/CW laser supply, limited foundry alternatives 2026).",
+    "notes": "Referent: specialty/analog/compound foundry (non-silicon-logic). GaN/SiC power semiconductor foundry undergoing major restructuring (TSMC exit, GF ramp, Samsung entry, DB HiTek delayed). WIN Semiconductors pure-play GaAs foundry remains stable market leader but serves optical/RF niche. InP optical foundry nascent; Wafer Works first 6-inch industrial fab groundbreaking 2026 (Eindhoven). Not currently a bottleneck for AI accelerator modules but critical upstream tier for power delivery and optical interconnect specialty devices. GaN/SiC power foundry concentration risk moderate (Samsung, GF, DB HiTek, X-FAB competing but no single dominant player yet post-TSMC exit). InP optical foundry concentration high (Coherent IDM-dominant EML/CW laser supply, limited foundry alternatives 2026).\n | ROUND 4 SUPPLIER BREADTH: Beyond top-3 (TSMC exiting, Samsung SiC restart, GlobalFoundries GaN), secondary suppliers now include VIS (TSMC affiliate via Singapore JV, GaN via TSMC tech license), Innoscience (China, GaN-on-GaN/GaN-on-Si), and emerging suppliers UMC, X-Fab, ON Semiconductor. TSMC planned exit 2027; GF licensing model (licensing from TSMC) creates new capacity pathway. Total merchant GaN/SiC foundry base ~6–8 qualified players globally 2026.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -6141,7 +6208,7 @@
     "metrics": [
       {
         "name": "Public listing",
-        "currentValue": "WOLF (NASDAQ)"
+        "currentValue": "WOLF"
       },
       {
         "name": "Global SiC crystal wafer market share (8-inch, 2026 est.)",
@@ -6160,9 +6227,10 @@
     ],
     "evidenceIds": [
       "ev_acc_cmpd_wolfspeed_200mm",
-      "ev_acc_cmpd_wolfspeed_300mm"
+      "ev_acc_cmpd_wolfspeed_300mm",
+      "ev_acc_tkr4_wolfspeed_ch11"
     ],
-    "notes": "Sole major 8-inch SiC merchant supplier (2026); geopolitical importance for US SiC manufacturing via Section 48D support. 6-inch market oversupply 2024-2025 pressured pricing; 8-inch ramp alleviates capacity constraints but adoption timeline uncertain (power device design cycles 18-24 months). Private/China SiC players (Tiancheng 14-inch research, Infineon SiCrystal) pose medium-term competition. Critical supplier for power delivery specialty devices in AI datacenter platforms but not on critical path for HBM CoWoS-class accelerator modules.",
+    "notes": "Sole major 8-inch SiC merchant supplier (2026); geopolitical importance for US SiC manufacturing via Section 48D support. 6-inch market oversupply 2024-2025 pressured pricing; 8-inch ramp alleviates capacity constraints but adoption timeline uncertain (power device design cycles 18-24 months). Private/China SiC players (Tiancheng 14-inch research, Infineon SiCrystal) pose medium-term competition. Critical supplier for power delivery specialty devices in AI datacenter platforms but not on critical path for HBM CoWoS-class accelerator modules.\nTicker remains WOLF (NYSE). Company emerged from Chapter 11 bankruptcy on September 29, 2025, after 70% debt reduction. Equity issuances to Renesas completed Jan 2026. Updated metric to reflect pure ticker symbol without exchange qualifier for consistency.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -7521,7 +7589,7 @@
     "metrics": [
       {
         "name": "Public listing",
-        "currentValue": "SUU (Frankfurt Stock Exchange)",
+        "currentValue": "SMHN.DE",
         "description": "Publicly traded on Frankfurt Stock Exchange under ticker SUU; German company."
       },
       {
@@ -7545,7 +7613,8 @@
     ],
     "evidenceIds": [
       "ev_acc_pkgeq_suss_ir",
-      "ev_acc_pkgeq_suss_xbc300"
+      "ev_acc_pkgeq_suss_xbc300",
+      "ev_acc_tkr4_suss_xetra"
     ],
     "tags": [
       "bonding",
@@ -7554,7 +7623,7 @@
       "advanced_packaging",
       "German_supplier"
     ],
-    "notes": "SUSS MicroTec is a diversified semiconductor equipment supplier with strong position in wafer bonding (#2 after EVG). XBC300 hybrid bonding platform is competitive entry addressing next-gen HBM4/logic packaging. Company trading at attractive valuation (Frankfurt: SUU) given strong capex cycle tailwinds.",
+    "notes": "SUSS MicroTec is a diversified semiconductor equipment supplier with strong position in wafer bonding (#2 after EVG). XBC300 hybrid bonding platform is competitive entry addressing next-gen HBM4/logic packaging. Company trading at attractive valuation (Frankfurt: SUU) given strong capex cycle tailwinds.\nCorrected ticker from SUU to SMHN.DE (Xetra/Frankfurt Stock Exchange). SUU is not the valid Xetra symbol; SMHN is the correct code. Company also promoted to MDAX index as of June 22, 2026.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -7625,7 +7694,7 @@
     "metrics": [
       {
         "name": "Public listing",
-        "currentValue": "NSA (NYSE)",
+        "currentValue": "NDSN (NYSE)",
         "description": "Publicly traded on New York Stock Exchange under ticker NSA; US industrial equipment company."
       },
       {
@@ -7637,7 +7706,8 @@
     ],
     "evidenceIds": [
       "ev_acc_pkgeq_nordson_ir",
-      "ev_acc_pkgeq_nordson_asymtek"
+      "ev_acc_pkgeq_nordson_asymtek",
+      "ev_acc_tkr4_nordson_nasdaq"
     ],
     "tags": [
       "dispensing",
@@ -7645,7 +7715,7 @@
       "process_equipment",
       "US_supplier"
     ],
-    "notes": "Nordson ASYMTEK is market leader in high-frequency jet dispensing for advanced packaging underfill. Nordson is diversified industrial equipment supplier with strong cash generation; reliable dividend-paying stock.",
+    "notes": "Nordson ASYMTEK is market leader in high-frequency jet dispensing for advanced packaging underfill. Nordson is diversified industrial equipment supplier with strong cash generation; reliable dividend-paying stock.\nCorrected ticker from NSA to NDSN (NASDAQ). NSA is not a valid ticker for Nordson Corporation. Verified against SEC filings and NASDAQ official data.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -7899,5 +7969,303 @@
     ],
     "notes": "Teradyne is a global ATE leader (70%+ market share with Advantest). Magnum 7H platform is standard for HBM and chiplet testing. Strong order book from AI datacenter buildout.",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_applied_optoelectronics",
+    "name": "Applied Optoelectronics Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Manufacturer of high-speed optical transceiver modules and coherent optical solutions for multi-rack datacenter interconnect. Produces 800G and 1.6T-class pluggable optics.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "AAOI"
+      },
+      {
+        "name": "Datacenter optical transceiver share",
+        "unit": "%",
+        "currentValue": 6,
+        "description": "Estimated 2026 revenue share in AI datacenter optical transceiver segment"
+      }
+    ],
+    "tags": [
+      "optical",
+      "supplier",
+      "commercial",
+      "investable"
+    ],
+    "notes": "Public: NASDAQ AAOI. Added round 4 to widen optical transceiver base coverage.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_avc",
+    "name": "Acer Thermal Innovation Company (AVC)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-based thermal management and liquid cooling solution provider specializing in AI server and datacenter cooling modules, CDUs, and thermal subsystems. Record revenue growth in 2026 driven by liquid cooling adoption.",
+    "maturityScore": 83,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "2338.TW"
+      },
+      {
+        "name": "Liquid cooling thermal module revenue growth",
+        "unit": "%",
+        "currentValue": 150,
+        "description": "Year-over-year growth in AI liquid cooling thermal modules 2026 (DigiTimes Taiwan Thermal Tracker April 2026)"
+      }
+    ],
+    "tags": [
+      "thermal_cooling",
+      "supplier",
+      "commercial",
+      "investable"
+    ],
+    "notes": "Public: TWSE 2338.TW. Added round 4 to expand cooling_distribution_unit supplier base (joins Vertiv, Boyd, Motivair, CoolIT/Ecolab).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_auras",
+    "name": "Auras Technology Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Taiwan-based specialist in thermal solutions and liquid cooling products for AI servers and high-performance computing datacenters. Supplies CDUs and cooling modules to major ODMs.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6288.TW"
+      },
+      {
+        "name": "AI thermal cooling revenue contribution",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "Estimated revenue contribution from AI thermal cooling systems in 2026 product mix"
+      }
+    ],
+    "tags": [
+      "thermal_cooling",
+      "supplier",
+      "commercial",
+      "investable"
+    ],
+    "notes": "Public: TWSE 6288.TW. Added round 4 to strengthen cooling CDU and thermal module supplier coverage.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_innoscience",
+    "name": "Innoscience Technology Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Chinese-based GaN semiconductor and foundry services provider. Offers GaN-on-GaN and GaN-on-Si process technology with cost-competitive manufacturing for power semiconductor applications. Emerging supplier in compound power semiconductor foundry segment.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "GaN foundry capacity",
+        "unit": "est. wafers/month",
+        "currentValue": 300,
+        "description": "Estimated GaN-on-GaN/GaN-on-Si monthly capacity based on TrendForce reporting on Chinese semiconductor foundry consolidation (June 2026)"
+      }
+    ],
+    "tags": [
+      "compound_foundry",
+      "gan_sic",
+      "supplier",
+      "commercial"
+    ],
+    "notes": "Private company (China). Added round 4 to broaden specialty_analog_power_foundry coverage (joins TSMC, Samsung, GlobalFoundries, Win Semiconductors) and capture emerging Chinese capacity for GaN.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "high_na_euv_mask_blanks",
+    "name": "High-NA EUV mask blanks",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Advanced EUV mask blanks specifically qualified for High-NA lithography systems (2024–2026), representing a specialty-grade variant of EUV photomask blanks. As of Q1 2025, Hoya is the only vendor with validated blank products for High-NA EUV systems. Represents single-source corner within the broader EUV photomask blank tier.",
+    "maturityScore": 75,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Market share (High-NA EUV blanks)",
+        "currentValue": "100%",
+        "description": "Hoya monopoly in High-NA EUV photomask blank qualification. Source: SemiAnalysis, Q1 2025 supply chain survey."
+      },
+      {
+        "name": "Capacity constraint",
+        "currentValue": "Allocation mode",
+        "description": "High-NA blanks are allocated to foundries. Hoya expanding capacity but 2026 tightness expected. Source: Hoya IR / SemiAnalysis 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_nc4_hoya_highna_1",
+      "ev_acc_nc4_hoya_highna_2"
+    ],
+    "tags": [
+      "euvl",
+      "photomask",
+      "single-source",
+      "specialty-variant",
+      "high-na"
+    ],
+    "notes": "Distinct from standard EUV blanks: High-NA demands proprietary multilayer deposition and metrology. Currently only Hoya-qualified; AGC pursuing High-NA entry but not yet in HVM. Single-source risk confined to advanced nodes (N3/N5 and below) where High-NA dominates.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "hbm_tc_bonding_equipment",
+    "name": "HBM thermocompression bonding equipment",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Thermocompression bonding (TCB) systems purpose-built for HBM stack die-bonding, combining precision thermocompression, vacuum chamber, alignment, and thermal profiling into an integrated process tool. As of 2025, Hanmi Semiconductor commands 71% global revenue share in HBM TCB equipment, with high switching costs and qualification cycles limiting competition. ASMPT gaining share but still minority position.",
+    "maturityScore": 80,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Market share HBM TCB equipment (2025)",
+        "currentValue": "71.2%",
+        "description": "Hanmi Semiconductor revenue share through Q3 2025. Source: Hanmi Semiconductor IR, Korea Herald."
+      },
+      {
+        "name": "Capacity/throughput bottleneck",
+        "currentValue": "2–3 quarter lead time, full utilization",
+        "description": "New TCB tool orders quoted 2–3 quarters delivery in 2025. SK Hynix and Micron both capacity-constrained on TCB. Source: SemiAnalysis HBM supply chain, Nov 2025."
+      },
+      {
+        "name": "Top-3 concentration",
+        "currentValue": "~85% combined share",
+        "description": "Hanmi 71%, ASMPT 5–8%, SEMES 13%, Yamaha 5%. Share data: Hanmi IR Q3 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_nc4_hanmi_tcb_1",
+      "ev_acc_nc4_asmpt_share_gain_1"
+    ],
+    "tags": [
+      "hbm",
+      "equipment",
+      "die-bonding",
+      "duopoly-trend",
+      "capacity-gated"
+    ],
+    "notes": "TCB is the only proven production method for HBM3e/HBM4 (> 8-layer stacks). Hanmi's dominance under pressure from ASMPT, but switching qualifications take 12–18 months. High switching costs lock in Hanmi for SK Hynix and Micron near-term. New entrants impossible due to IP barriers and customer lock-in.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "euv_mask_blanks",
+    "name": "EUV mask blanks",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Standard and advanced EUV photomask blanks (Hoya: 75%+ volume share, AGC: 20–25%). Hoya's dominance is structural: proprietary multilayer coating deposition, defect inspection, and qualification locks in foundry customers. High-NA variants further concentrate Hoya's share to near-monopoly. Single-source risk for advanced nodes where High-NA becomes standard.",
+    "maturityScore": 80,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Hoya market share (EUV blanks)",
+        "currentValue": "75%+ by volume",
+        "description": "Hoya dominance across all EUV blank types. High-NA segment 100% Hoya. Source: SemiAnalysis, Yole, Morningstar 2025."
+      },
+      {
+        "name": "AGC secondary position",
+        "currentValue": "20–25%",
+        "description": "AGC second-source but capacity-constrained; customer base narrower (Samsung, Intel, limited TSMC penetration). Source: industry analyst consensus 2025."
+      },
+      {
+        "name": "Capacity expansion",
+        "currentValue": "12–18 month lead time for new capacity",
+        "description": "Hoya and AGC both expanding capacity but 2025–2026 remains allocation-gated. New blanks allocated to priority customers (TSMC > Samsung > Intel). Source: Hoya IR, SemiAnalysis 2025."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_nc4_hoya_euv_1",
+      "ev_acc_nc4_euv_market_1"
+    ],
+    "tags": [
+      "euvl",
+      "photomask",
+      "duopoly",
+      "hoya-dominant"
+    ],
+    "notes": "EUV mask blanks are a critical feed to logic die fabrication bottleneck. Hoya's structural advantage (proprietary multilayer deposition, Zeiss optics tight integration) makes entry barrier extremely high. AGC capacity-limited and customer-limited. For leading-edge nodes (N3/N5), Hoya → High-NA blanks → single-source corner.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_hanmi_semiconductor",
+    "name": "Hanmi Semiconductor Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "South Korean equipment manufacturer specializing in thermocompression bonding (TCB) systems and semiconductor assembly process tools. Dominates HBM TC bonder market with 71% revenue share as of Q3 2025. Primary supplier to SK Hynix, Micron, Samsung for HBM die-bonding equipment.",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Market share HBM TCB equipment (Q3 2025)",
+        "currentValue": "71.2%",
+        "description": "Revenue share in global HBM TCB bonder market. Source: Hanmi Semiconductor IR, Q3 2025."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "KOSDAQ: 011760",
+        "description": "Listed on Korea Securities Dealers Automated Quotation (KOSDAQ). Verified via Hanmi Semiconductor official IR."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_nc4_hanmi_tcb_1"
+    ],
+    "tags": [
+      "hbm",
+      "equipment",
+      "korea"
+    ],
+    "notes": "Hanmi Semiconductor is a private company traded on KOSDAQ (not NYSE/NASDAQ). Primary supplier relationship with SK Hynix creates customer concentration risk. ASMPT gaining share but still minority position. Equipment qualifications are long-cycle, limiting customer switching.",
+    "reviewStatus": "unreviewed",
+    "maturityLabel": "unknown"
   }
 ]

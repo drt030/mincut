@@ -4449,5 +4449,309 @@
     "supportsEdgeIds": [],
     "confidence": "high",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_sb4_optical_transceiver_coherent",
+    "type": "news",
+    "title": "Global AI Optical Transceiver Market to Reach US$26 Billion in 2026",
+    "url": "https://www.trendforce.com/presscenter/news/20260420-13017.html",
+    "date": "2026-05-20",
+    "excerpt": "Global AI Optical Transceiver Market to Reach US$26 Billion in 2026; Component Shortages Identified as Primary Capacity Expansion Bottleneck, Says TrendForce. Coherent and Applied Optoelectronics cited as long-reach transceiver suppliers.",
+    "supportsNodeIds": [
+      "org_ii_vi_coherent",
+      "org_applied_optoelectronics"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optical_transceiver_module__manufactured_by__org_coherent",
+      "e_acc_optical_transceiver_module__manufactured_by__org_applied_optoelectronics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_sb4_avc_thermal_tracker",
+    "type": "news",
+    "title": "Taiwan cooling suppliers post record March revenue as AI demand lifts liquid cooling",
+    "url": "https://www.digitimes.com/news/a20260414PD207/taiwan-liquid-cooling-revenue-thermal-module-demand.html",
+    "date": "2026-04-14",
+    "excerpt": "Taiwan cooling suppliers post record March revenue as AI demand lifts liquid cooling. AVC and Auras lead 2026 surge in thermal module revenue, with year-over-year growth >150% in liquid cooling CDU and thermal management modules.",
+    "supportsNodeIds": [
+      "org_avc",
+      "org_auras"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_cooling_distribution_unit_cdu__manufactured_by__org_avc",
+      "e_acc_thermal_management_module__manufactured_by__org_avc",
+      "e_acc_thermal_management_module__manufactured_by__org_auras"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_sb4_innoscience_gan",
+    "type": "news",
+    "title": "GaN Industry Enters a New Phase as TSMC Licenses GaN Technologies to VIS and GF",
+    "url": "https://www.trendforce.com/news/2026/02/02/news-gan-industry-enters-a-new-phase-as-tsmc-licenses-gan-technologies-to-vis-and-gf/",
+    "date": "2026-02-02",
+    "excerpt": "GaN Industry Enters a New Phase as TSMC Licenses GaN Technologies to VIS and GF. Chinese suppliers including Innoscience participate in emerging GaN foundry consolidation and capacity expansion, providing cost-competitive alternatives to TSMC/Samsung for GaN-on-GaN/GaN-on-Si production.",
+    "supportsNodeIds": [
+      "org_innoscience"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_specialty_analog_power_foundry__manufactured_by__org_innoscience"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_hoya_highna_1",
+    "type": "news",
+    "title": "Hoya Expands EUV Photomask Blank Capabilities for High-NA Systems",
+    "url": "https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/",
+    "date": "2025-06",
+    "excerpt": "As of Q1 2025, Hoya is understood to be the only vendor with validated blank products for High-NA EUV systems—critical for logic nodes below 2 nm.",
+    "supportsNodeIds": [
+      "high_na_euv_mask_blanks"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_euv_photomask_production__requires__high_na_euv_mask_blank_hoya_exclusive"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_hoya_highna_2",
+    "type": "paper",
+    "title": "EUV Mask Blanks Market Outlook 2025-2032",
+    "url": "https://www.intelmarketresearch.com/euv-mask-blanks-market-11463",
+    "date": "2025-06",
+    "excerpt": "In the narrow but strategically vital segment of extreme ultraviolet (EUV) mask blanks, Hoya's dominance exceeds 75% by volume, and arguably more by technical performance and process qualifications.",
+    "supportsNodeIds": [
+      "high_na_euv_mask_blanks"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_hanmi_tcb_1",
+    "type": "news",
+    "title": "Hanmi Semiconductor Secures 71% Global Market Share in TC Bonders",
+    "url": "https://cm.asiae.co.kr/en/article/2025122209224722092",
+    "date": "2025-12",
+    "excerpt": "Hanmi Semiconductor has maintained its position as the global leader in the HBM TC bonder market, securing a 71.2% market share by revenue through the third quarter of 2025.",
+    "supportsNodeIds": [
+      "hbm_tc_bonding_equipment"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_asmpt_share_gain_1",
+    "type": "news",
+    "title": "BESI, ASMPT, Hanmi, and Hanwha: What We Learned from the Latest HBM Supply Chain",
+    "url": "https://lumenalpha.substack.com/p/besi-asmpt-hanmi-and-hanwha-what",
+    "date": "2025-11",
+    "excerpt": "ASMPT's growth has exploded in the TCB market, and is now guiding for a 35-40% market share in this high-growth TAM, with TCB momentum strengthening further in 2025 with significant new orders across logic and memory.",
+    "supportsNodeIds": [
+      "hbm_tc_bonding_equipment"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_inp_shortage_1",
+    "type": "news",
+    "title": "InP Substrate Shortages Emerge as New Bottleneck for Optical Chips",
+    "url": "https://www.digitimes.com/news/a20251229PD212/substrate-intelliepi-demand-data-growth.html",
+    "date": "2025-12",
+    "excerpt": "InP substrate shortages emerge as new bottleneck for optical chips. Global shipments 600k–700k wafers/year; demand 1.5–2M wafers/year. Supply deficit exceeds 70%.",
+    "supportsNodeIds": [
+      "inp_gaas_substrate_wafer"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optup_eml_dfb__requires__inp_substrate"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_jx_expansion_1",
+    "type": "news",
+    "title": "JX Advanced Metals Expands InP Substrate Capacity amid Global Datacom Growth",
+    "url": "https://semiconductorinsight.com/blog/inp-substrate-industry-surges-jx-advanced-metals-expands-capacity-axt-restores-exports-fraunhofer-unveils-150-mm-inp-on-gaas-wafers/",
+    "date": "2025-11",
+    "excerpt": "JX Advanced Metals announced a ¥1.5 billion (~US $10.2 million) investment to increase InP substrate production capacity by roughly 20% at its Isohara Plant. Expansion expected operational by end-FY2027.",
+    "supportsNodeIds": [
+      "inp_gaas_substrate_wafer"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optup_inp_substrate__manufactured_by__jx_advanced"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_coherent_guidance_1",
+    "type": "news",
+    "title": "Coherent Ramps InP Lasers to Ease Supply Constraints",
+    "url": "https://www.optics.org/news/16/11/9",
+    "date": "2025-11",
+    "excerpt": "InP laser capacity is constrained across the industry. Coherent CEO predicted the firm's InP device output would double over the next 12 months thanks to switching to larger wafers.",
+    "supportsNodeIds": [
+      "inp_gaas_substrate_wafer"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optup_eml_dfb__requires__inp_substrate"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_nittobo_monopoly_1",
+    "type": "news",
+    "title": "Nittobo Expands Glass-Fiber Output with Nan Ya; Nan Ya to Handle 20% by 2027",
+    "url": "https://www.trendforce.com/news/2025/11/28/news-nittobo-expands-glass-fiber-output-with-nan-ya-nan-ya-to-handle-20-by-2027-amid-ai-surge/",
+    "date": "2025-11",
+    "excerpt": "Nittobo controls 90% of the global high-end glass fiber cloth market share, and monopolizes 90% of the global high-end fiberglass cloth market, with no competitors in the T-Glass field. Nittobo raised prices 20% in August 2025, and plans another 20–30% increase in April 2026.",
+    "supportsNodeIds": [
+      "t_glass_fabric"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly",
+      "e_acc_sub_t_glass__manufactured_by__nittobo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_tglass_shortage_1",
+    "type": "news",
+    "title": "Glass Fiber Cloth: The Underlying Material Shortage in AI Infrastructure",
+    "url": "https://insights.trendforce.com/p/glass-fiber-cloth-shortage",
+    "date": "2025-10",
+    "excerpt": "With the explosive growth in AI demand, the material is in short supply, creating a supply gap. Tight supply of high-end glass cloth (T-glass) is expected to result in an actual supply gap exceeding 40% in the second half of 2026.",
+    "supportsNodeIds": [
+      "t_glass_fabric"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_asahi_entry_1",
+    "type": "news",
+    "title": "Asahi Kasei Enters AI Chip Fiberglass Market to Challenge Nittobo's Dominance",
+    "url": "https://www.digitimes.com/news/a20260402PD227/asahi-kasei-ai-chip-fiberglass-cloth-materials-expansion-nittobo.html",
+    "date": "2026-04",
+    "excerpt": "Asahi Kasei enters AI chip fiberglass market to challenge Nittobo's dominance. However, qualification cycles are 12–24 months; Nittobo's monopoly expected to persist through 2026.",
+    "supportsNodeIds": [
+      "t_glass_fabric"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_hoya_euv_1",
+    "type": "news",
+    "title": "On Mask Blanks and the Substrate Sovereigns of Advanced Lithography",
+    "url": "https://karimalmansour.substack.com/p/on-mask-blanks-and-the-substrate",
+    "date": "2025-06",
+    "excerpt": "In the narrow but strategically vital segment of extreme ultraviolet (EUV) mask blanks, Hoya's dominance exceeds 75% by volume, and arguably more by technical performance and process qualifications.",
+    "supportsNodeIds": [
+      "euv_mask_blanks"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+      "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_hoya"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_nc4_euv_market_1",
+    "type": "paper",
+    "title": "EUV Mask Blanks Market Size, Share & Growth Forecast 2026-2032",
+    "url": "https://www.intelmarketresearch.com/euv-mask-blanks-market-11463",
+    "date": "2025-06",
+    "excerpt": "Key players include AGC Inc (59% market share) and Hoya (34% market share), accounting for 93% of global market. However, in High-NA EUV segment, Hoya exceeds 75% by volume, with superior process qualifications.",
+    "supportsNodeIds": [
+      "euv_mask_blanks"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_tkr4_jx_tse_listing",
+    "type": "news",
+    "title": "JX Advanced Metals IPO on Tokyo Stock Exchange",
+    "url": "https://www.jpx.co.jp/english/news/1031/20250318_02.html",
+    "date": "2025-03-19",
+    "summary": "JX Advanced Metals Corporation IPO on Tokyo Stock Exchange (TSE) with listing code 5016 on March 19, 2025. IPO priced at 820 yen per share.",
+    "supportsNodeIds": [
+      "org_jx_advanced_metals"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_tkr4_nordson_nasdaq",
+    "type": "paper",
+    "title": "Nordson Corporation SEC 10-Q Filing",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000072331/000007233126000024/ndsn-20260430.htm",
+    "date": "2026-05-31",
+    "summary": "Nordson Corporation SEC Form 10-Q filing confirms ticker NDSN on NASDAQ (not NSA).",
+    "supportsNodeIds": [
+      "org_nordson"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_tkr4_suss_xetra",
+    "type": "paper",
+    "title": "SUSS MicroTec SE Frankfurt Stock Exchange Listing",
+    "url": "https://www.bloomberg.com/quote/SMHN:GR",
+    "date": "2026-06-04",
+    "summary": "SUSS MicroTec SE confirmed trading on Frankfurt Stock Exchange (Xetra) under ticker SMHN (not SUU). As of June 4, 2026, company promoted to MDAX index.",
+    "supportsNodeIds": [
+      "org_suss_microtic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_tkr4_iqe_aim",
+    "type": "news",
+    "title": "IQE plc London Stock Exchange AIM Listing",
+    "url": "https://finance.yahoo.com/quote/IQE.L/",
+    "date": "2026-06-10",
+    "summary": "IQE plc confirmed trading on London Stock Exchange (AIM segment) under ticker IQE.L (not bare 'IQE').",
+    "supportsNodeIds": [
+      "org_iqe"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_tkr4_landmark_tpe",
+    "type": "news",
+    "title": "LandMark Optoelectronics Taipei Exchange Listing",
+    "url": "https://finance.yahoo.com/quote/3081.TWO/",
+    "date": "2026-06-10",
+    "summary": "LandMark Optoelectronics Corporation confirmed trading on Taipei Exchange (TPEx) under ticker 3081.TWO (not TWSE). Public listing metric was previously missing.",
+    "supportsNodeIds": [
+      "org_landmark_optoelectronics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_tkr4_wolfspeed_ch11",
+    "type": "news",
+    "title": "Wolfspeed Inc. Chapter 11 Emergence and Restructuring",
+    "url": "https://investor.wolfspeed.com/news/news-details/2025/Wolfspeeds-Plan-of-Reorganization-Confirmed-Clearing-Path-to-Emerge-from-Restructuring-Process-as-a-Financially-Stronger-Company/default.aspx",
+    "date": "2025-09-29",
+    "summary": "Wolfspeed Inc. emerged from Chapter 11 bankruptcy on September 29, 2025. Ticker WOLF (NYSE) remains valid. Company completed debt reduction of ~70% and equity issuances to Renesas.",
+    "supportsNodeIds": [
+      "org_wolfspeed"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

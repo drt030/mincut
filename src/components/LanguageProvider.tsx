@@ -967,6 +967,15 @@ const nodeTextZh: Record<string, string> = {
   wafer_bonding_alignment_systems: "晶圆间（W2W）键合和对齐系统（混合键合、永久键合）",
   wafer_probe_testing_advanced_packaging: "晶圆探针测试和触头（细间距凸块芯片、已知良好芯片认证）",
   x_ray_inspection_advanced_packaging: "高级封装X射线检测（2.5D/3D焊点缺陷）",
+  // ai_compute_chain round-4 (2026-06-10)
+  euv_mask_blanks: "EUV光掩膜空白—豫晶主导（75%+市场份额）",
+  hbm_tc_bonding_equipment: "HBM专用热压焊接（TCB）设备集群",
+  high_na_euv_mask_blanks: "高NA EUV光掩膜空白（豫晶独占资质）",
+  org_applied_optoelectronics: "应用光电公司",
+  org_auras: "奥莱斯科技",
+  org_avc: "宏碁散热创新",
+  org_hanmi_semiconductor: "韩美半导体有限公司",
+  org_innoscience: "瑞能半导体",
 };
 
 const kindTextZh: Record<string, string> = {

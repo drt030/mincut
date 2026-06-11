@@ -2778,5 +2778,164 @@
       "ev_acc_pkgeq_furnace_despatch"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optical_transceiver_module__manufactured_by__org_coherent",
+    "source": "optical_transceiver_module",
+    "target": "org_ii_vi_coherent",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optical_transceiver_module__manufactured_by__org_applied_optoelectronics",
+    "source": "optical_transceiver_module",
+    "target": "org_applied_optoelectronics",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_cooling_distribution_unit_cdu__manufactured_by__org_avc",
+    "source": "cooling_distribution_unit_cdu",
+    "target": "org_avc",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thermal_management_module__manufactured_by__org_avc",
+    "source": "thermal_management_module",
+    "target": "org_avc",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_thermal_management_module__manufactured_by__org_auras",
+    "source": "thermal_management_module",
+    "target": "org_auras",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_specialty_analog_power_foundry__manufactured_by__org_innoscience",
+    "source": "specialty_analog_power_foundry",
+    "target": "org_innoscience",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_euv_photomask_production__requires__high_na_euv_mask_blank_hoya_exclusive",
+    "source": "euv_photomask_production",
+    "target": "high_na_euv_mask_blanks",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_hoya_highna_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment",
+    "source": "hbm_stack_assembly_die_bonding",
+    "target": "hbm_tc_bonding_equipment",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_hanmi_tcb_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly",
+    "source": "organic_substrate_buildup",
+    "target": "t_glass_fabric",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_nittobo_monopoly_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_abf_build_up_film__requires__nittobo_t_glass_fiber_monopoly",
+    "source": "abf_build_up_film",
+    "target": "t_glass_fabric",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_nittobo_monopoly_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+    "source": "euv_photomask_production",
+    "target": "euv_mask_blanks",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_hoya_euv_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya",
+    "source": "high_na_euv_mask_blanks",
+    "target": "org_hoya",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_hoya_highna_1",
+      "ev_acc_nc4_hoya_highna_2"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_specialized_thermocompression_bonding_equipment__manufactured_by__org_hanmi_semiconductor",
+    "source": "hbm_tc_bonding_equipment",
+    "target": "org_hanmi_semiconductor",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_hanmi_tcb_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_inp_substrate_wafer_supply_bottleneck__manufactured_by__org_sumitomo_electric",
+    "source": "inp_gaas_substrate_wafer",
+    "target": "org_sumitomo_electric",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_inp_shortage_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_hoya",
+    "source": "euv_mask_blanks",
+    "target": "org_hoya",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_nc4_hoya_euv_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_agc",
+    "source": "euv_mask_blanks",
+    "target": "org_agc",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_nc4_euv_market_1"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
