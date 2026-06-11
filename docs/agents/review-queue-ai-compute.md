@@ -56,12 +56,16 @@ Dispositions (per claim): **flip `reviewed`** · **leave `unreviewed`** (didn't 
 - `ev_acc_nc4_tglass_shortage_1` — https://insights.trendforce.com/p/glass-fiber-cloth-shortage
 
 ## 2. `high_na_euv_mask_blanks` — High-NA EUV mask blanks
-**Claim:** Hoya is the only qualified High-NA EUV mask-blank supplier (100%); allocation-gated 2025-26.
-**Check:** Verify the exclusivity claim and qualification status of any AGC High-NA program.
-**Edges:** `e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya`
-**Evidence:**
-- `ev_acc_nc4_hoya_highna_1` — https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/
-- `ev_acc_nc4_hoya_highna_2` — https://www.intelmarketresearch.com/euv-mask-blanks-market-11463
+**Claim (rebuilt+verified 2026-06-11):** Hoya is reported among the few capable High-NA EUV mask-blank suppliers ('one of the few capable players', semiconductorinsight). EXCLUSIVITY UNVERIFIED — no qualification-grade source found (ASML/Hoya IR silent); first High-NA system delivered Dec 2023, HVM 2025-26 (ASML, ok_exact). Confidence: low.
+**Check:** Read the two fetch_ok/ok_exact records; the old 'Hoya 100%' claim is gone — decide whether 'reported lead position' is reviewable or needs primary qualification evidence.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_nc4_hoya_highna_1` [fetch_ok] — https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/
+- `ev_acc_nc4_hoya_highna_2` [generic_homepage] — https://www.intelmarketresearch.com/euv-mask-blanks-market-11463
+- `ev_acc_r6_euv_blanks_agc_hoya_duopoly` [market_report_seo] — https://www.intelmarketresearch.com/euv-mask-blanks-market-11463
+- `ev_acc_r6_high_na_hoya_lead_position` [fetch_ok] — https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/
+- `ev_acc_r6_high_na_qualification_unverified` [-] — (meta note)
+- `ev_acc_r6_asml_high_na_timeline` [ok_exact] — https://www.asml.com/en/products/euv-lithography-systems
+
 
 ## 3. `hbm_tc_bonding_equipment` — HBM thermocompression bonding equipment
 **Claim:** Hanmi Semiconductor holds ~71% revenue share of HBM TC bonders; 2-3 quarter delivery lead; ASMPT chasing.
@@ -81,19 +85,24 @@ Dispositions (per claim): **flip `reviewed`** · **leave `unreviewed`** (didn't 
 - `ev_acc_sub_unimicron_market_share` — https://www.wonderfulpcb.com/blog/top-abf-substrate-manufacturers-and-market-leaders/
 
 ## 5. `euv_projection_optics` — EUV projection optics (Carl Zeiss SMT)
-**Claim:** Carl Zeiss SMT is the sole EUV projection-optics source inside ASML's monopoly; 14-month optics lead time.
-**Check:** Verify the lead-time figure from ASML IR; single-source-within-single-source framing.
-**Edges:** `e_euv_optics__manufactured_by__zeiss_smt`
-**Evidence:**
-- `ev_acc_logic2_asml_optics_zeiss` — https://www.asml.com/investors/financial-results-and-presentations
+**Claim (rebuilt+verified 2026-06-11):** Carl Zeiss SMT is ASML's strategic EUV optics partner: ASML bought 24.9% for EUR 1B + ~EUR 760M six-year R&D/capex support (ASML PR 2016, ok_exact). Lead-time figures removed (unsourced).
+**Check:** Verify the 2016 PR quote; the dependency story stands on ownership+investment facts, not on an invented lead time.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_logic2_asml_optics_zeiss` [404] — https://www.asml.com/investors/financial-results-and-presentations
+- `ev_acc_r6l_zeiss_sole_source` [fetch_ok] — https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography
+- `ev_acc_r6l_zeiss_asml_partnership` [ok_exact] — https://www.asml.com/news/press-releases/2016/zeiss-and-asml-strengthen-partnership-for-next-generation-of-euv-lithography
+
 
 ## 6. `asml_lithography_systems` — ASML EUV lithography systems (NXE:3600D and successors)
-**Claim:** ASML monopoly on EUV systems (~83% litho share; 100% EUV); ~40 units/yr; 18-24 month leads; export-controlled.
-**Check:** Verify unit capacity and backlog from ASML filings.
-**Edges:** `e_acc_logic_asml_euv__manufactured_by__asml`
-**Evidence:**
-- `ev_acc_logic_asml_capacity` — https://www.asml.com/investors/financial-results-and-presentations
-- `ev_acc_logic_asml_export_control` — https://www.reuters.com/technology/semiconductors/asml-export-controls-netherlands-us-china/
+**Claim (rebuilt+verified 2026-06-11):** ASML sold 48 EUV systems in 2025 (annual-report landing page, ok_exact); sole EUV supplier (tertiary + ASML materials); ~83% of litho equipment sales (tertiary, approximate). Lead-time figures removed (unsourced).
+**Check:** Open the AR landing page, confirm '48' under System sales in units; decide if tertiary 83% is acceptable or should drop to 'dominant'.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_logic_asml_capacity` [404] — https://www.asml.com/investors/financial-results-and-presentations
+- `ev_acc_logic_asml_export_control` [paywalled_snippet] — https://www.reuters.com/technology/semiconductors/asml-export-controls-netherlands-us-china/
+- `ev_acc_r6l_asml_euv_2025` [ok_exact] — https://www.asml.com/investors/annual-report/2025
+- `ev_acc_r6l_asml_litho_share` [fetch_ok] — https://en.wikipedia.org/wiki/ASML_Holding
+- `ev_acc_r6l_asml_sole_supplier` [fetch_ok] — https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography
+
 
 ## 7. `singulation_laser_dicing_systems` — Laser dicing (singulation) systems for chiplets and modules
 **Claim:** DISCO ~70-80% of dicing/singulation systems; 6-9 month leads; allocation to tier-1 fabs.
@@ -114,14 +123,19 @@ Dispositions (per claim): **flip `reviewed`** · **leave `unreviewed`** (didn't 
 - `ev_acc_sub_samsung_iCube_2024` — https://www.asminternational.org/edfas/samsung-to-unveil-3d-ai-chip-packaging-tech-saint-to-rival-tsmc/
 
 ## 9. `high_bandwidth_memory` — High-bandwidth memory (HBM)
-**Claim:** HBM booked out; SK hynix ~70% share (HBM3E), Samsung/Micron chasing; 1.2M units/month industry capacity.
-**Check:** Verify share split and the sold-out-through dates per TrendForce.
-**Edges:** `e_acc_hbm__manufactured_by__org_skhynix`, `e_acc_hbm__manufactured_by__org_samsung`, `e_acc_hbm__manufactured_by__org_micron`
-**Evidence:**
-- `ev_acc_bn3_high_bandwidth_memory` — https://www.trendforce.com/presscenter/news/20260315-hbm-supply-crunch.html
-- `ev_acc_hbm_trendforce_hbm_demand_2024` — https://www.trendforce.com/research
-- `ev_acc_hbm_skhynix_share_2024` — https://www.semianalysis.com
-- `ev_acc_hbm_samsung_ramp_2024` — https://www.nikkeiasia.com
+**Claim (rebuilt+verified 2026-06-11):** SK hynix forecast to retain OVER 50% of 2026 HBM bit output (TrendForce, ok_exact); Micron's calendar-2026 supply fully pre-sold (ok_exact); 2026 shipments to surpass 30B Gb (ok_exact); Samsung targets ~250k wafers/month by end-2026, +47% (ok_exact). Per-vendor share trajectories beyond these statements deliberately not stated.
+**Check:** Four ok_exact records with verbatim quotes — check each quote matches the page; confirm the description carries no leftover precision.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_bn3_high_bandwidth_memory` [404] — https://www.trendforce.com/presscenter/news/20260315-hbm-supply-crunch.html
+- `ev_acc_r6h_skhynix_hbm_share_2026` [ok_exact] — https://www.trendforce.com/news/2025/09/17/news-hbm-market-heats-up-as-three-giants-clash-with-hbm4-at-the-center/
+- `ev_acc_r6h_samsung_hbm_capacity_2026` [ok_exact] — https://www.trendforce.com/news/2025/12/30/news-samsung-reportedly-plans-50-hbm-capacity-surge-in-2026-spotlight-on-hbm4/
+- `ev_acc_r6h_micron_hbm4_ramp_2026` [ok_exact] — https://www.trendforce.com/news/2025/12/18/news-micron-hikes-capex-to-20b-with-2026-hbm-supply-fully-booked-hbm4-ramps-2q26/
+- `ev_acc_r6h_hbm_total_capacity_bits_2026` [ok_exact] — https://www.trendforce.com/news/2025/09/17/news-hbm-market-heats-up-as-three-giants-clash-with-hbm4-at-the-center/
+- `ev_acc_hbm_trendforce_hbm_demand_2024` [generic_homepage] — https://www.trendforce.com/research
+- `ev_acc_hbm_skhynix_share_2024` [generic_homepage] — https://www.semianalysis.com
+- `ev_acc_hbm_samsung_ramp_2024` [generic_homepage] — https://www.nikkeiasia.com
+- `ev_acc_hbm_micron_timeline_2025` [unreachable] — https://investor.micron.com
+
 
 ## 10. `inp_gaas_substrate_wafer` — InP/GaAs substrate wafers (compound semiconductor blanks)
 **Claim:** InP substrate demand ~2x supply (Q2'26); JX+Sumitomo+AXT 80-90% combined; 18-24 month furnace leads.
@@ -134,32 +148,39 @@ Dispositions (per claim): **flip `reviewed`** · **leave `unreviewed`** (didn't 
 - `ev_acc_nc4_coherent_guidance_1` — https://www.optics.org/news/16/11/9
 
 ## 11. `eml_dfb_laser_diodes` — Long-reach EML/DFB laser diodes (1310nm for coherent modules)
-**Claim:** Long-reach EML/DFB laser dies 40-60% short of demand through 2027; top-3 (Coherent/Lumentum/Mitsubishi) ~75%.
-**Check:** Verify shortfall range and the NVIDIA $2B+$2B capacity-lock reporting.
-**Edges:** `e_acc_opt_eml_dfb__manufactured_by__lumentum`, `e_acc_opt_eml_dfb__manufactured_by__coherent`, `e_acc_opt_eml_dfb__manufactured_by__mitsubishi_electric`, `e_acc_opt_eml_dfb__manufactured_by__sumitomo_electric`
-**Evidence:**
-- `ev_acc_opt2_eml_dfb_shortage_2024` — https://www.digitimes.com/news/a20240515pr200.html
-- `ev_acc_opt2_lumentum_coherent_supply` — https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html
-- `ev_acc_opt2_coherent_market_position` — https://www.yole.fr/en/Market-and-Technology-Report/Optoelectronics-for-Datacenters.html
-- `ev_acc_opt2_mitsubishi_laser_supply` — https://www.nikkei.com/article/DGXZQOUA20240315/
+**Claim (rebuilt+verified 2026-06-11):** Long-reach EML/DFB laser supply is constrained; Coherent CEO: capacity to double in the next 12 months (optics.org, owner-verified ok_exact). Supplier base concentrated among Coherent/Lumentum/Mitsubishi-class (Yole, paywalled — share % deliberately not stated). '40-60% short' removed.
+**Check:** You already verified optics.org; spot-check the Yole landing scope; confirm no % survives without a source.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_opt2_eml_dfb_shortage_2024` [wrong_topic] — https://www.digitimes.com/news/a20240515pr200.html
+- `ev_acc_opt2_lumentum_coherent_supply` [unreachable] — https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html
+- `ev_acc_opt2_coherent_market_position` [unreachable] — https://www.yole.fr/en/Market-and-Technology-Report/Optoelectronics-for-Datacenters.html
+- `ev_acc_opt2_mitsubishi_laser_supply` [404] — https://www.nikkei.com/article/DGXZQOUA20240315/
+- `ev_acc_opt2_sumitomo_laser_supply` [unreachable] — https://www.yole.fr/en/Market-and-Technology-Report/Optoelectronics-for-Datacenters.html
+- `ev_acc_optup_eml_shortage_2024` [fetch_ok] — https://www.trendforce.com/presscenter/news/20251208-12823.html
+- `ev_acc_r6o_coherent_inp_capacity` [ok_exact] — https://www.optics.org/news/16/11/9
+- `ev_acc_r6o_eml_supplier_share` [paywalled_snippet] — https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html
+
 
 ## 12. `foundry_capacity_tsmc` — TSMC leading-edge foundry capacity (3nm, 5nm, 7nm)
-**Claim:** Leading-edge logic allocation: TSMC >95% N3/N5 utilization, ~70% foundry share; 24+ month fab ramps.
-**Check:** Verify utilization figures and Samsung second-source share.
-**Edges:** `e_acc_logic_tsmc_capacity__manufactured_by__tsmc`
-**Evidence:**
-- `ev_acc_logic_tsmc_capacity` — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
-- `ev_acc_logic_tsmc_3nm` — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
-- `ev_acc_logic2_tsmc_foundry_capacity_updated` — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
-- `ev_acc_logic_foundry_capacity` — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
+**Claim (rebuilt+verified 2026-06-11):** TSMC held 70.4% of top-10 global foundry revenue in 4Q25 (TrendForce 2026-03-12, ok_exact; top-10 scope, $46.3B quarter). Utilization % and fab-ramp lead times removed (unsourced).
+**Check:** Open the TrendForce release, confirm 70.4% + scope; decide if you want a full-market (not top-10) share figure sourced separately.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_logic_tsmc_capacity` [404] — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
+- `ev_acc_logic_tsmc_3nm` [404] — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
+- `ev_acc_logic2_tsmc_foundry_capacity_updated` [404] — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
+- `ev_acc_logic_foundry_capacity` [404] — https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html
+- `ev_acc_r6l_tsmc_foundry_wiki` [ok_exact] — https://www.trendforce.com/presscenter/news/20260312-12965.html
+
 
 ## 13. `euv_mask_blanks` — EUV mask blanks
-**Claim:** EUV mask blanks: Hoya ~75% / AGC ~25 duopoly (Hoya 100% on High-NA variant).
-**Check:** Verify split basis; reconcile with the separate High-NA node.
-**Edges:** `e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_hoya`, `e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_agc`
-**Evidence:**
-- `ev_acc_nc4_hoya_euv_1` — https://karimalmansour.substack.com/p/on-mask-blanks-and-the-substrate
-- `ev_acc_nc4_euv_market_1` — https://www.intelmarketresearch.com/euv-mask-blanks-market-11463
+**Claim (rebuilt+verified 2026-06-11):** Two suppliers: Hoya and AGC. Share split CONTESTED: SEO-grade market report shows AGC >59% with ~93% combined (market_report_seo); legacy 'Hoya ~75%' claim has no surviving source. Split treated as unverified; duopoly structure itself is solid.
+**Check:** Decide how to present a contested split in the UI (both-sources note vs no number). The duopoly fact alone may be flip-worthy; the split is not.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_nc4_hoya_euv_1` [404] — https://karimalmansour.substack.com/p/on-mask-blanks-and-the-substrate
+- `ev_acc_nc4_euv_market_1` [generic_homepage] — https://www.intelmarketresearch.com/euv-mask-blanks-market-11463
+- `ev_acc_r6_euv_blanks_agc_hoya_duopoly` [market_report_seo] — https://www.intelmarketresearch.com/euv-mask-blanks-market-11463
+- `ev_acc_r6_euv_blanks_market_conflict_note` [-] — (meta note)
+
 
 ## 14. `cooling_distribution_unit_cdu` — Cooling distribution unit (CDU)
 **Claim:** Liquid-cooling CDUs gate AI rack deployment; top-3 ~65% (Vertiv lead); custom CDU lead 8-12 months.
@@ -172,11 +193,12 @@ Dispositions (per claim): **flip `reviewed`** · **leave `unreviewed`** (didn't 
 - `ev_acc_cp2_coolitsystems_cdu` — https://www.coolitsystems.com/products/
 
 ## 15. `compound_foundry_specialty` — Specialty compound semiconductor foundry (InP/GaAs device fabrication and packaging)
-**Claim:** Specialty compound (InP/GaAs) device fabrication 40-60% short vs demand through 2027; capacity locked by hyperscaler prepays.
-**Check:** Verify against Coherent CEO guidance and WIN Semi capacity reporting. manufactured_by edges land in round 5.
-**Evidence:**
-- `ev_acc_optup_eml_supplier_concentration` — https://www.mckinsey.com/~/media/mckinsey/industries/technology%20media%20and%20telecommunications/high%20tech/our%20insights/opportunities%20in%20networking%20optics%20boosting%20supply%20for%20data-centers/opportunities-in-networking-optics-boosting-supply-for-data-centers.pdf
-- `ev_acc_optup_vcsel_supplier_count` — https://www.wiseguyreports.com/reports/vcsel-array-and-chips-market
-- `ev_acc_optup_fab_lead_time` — https://csmantech.org/wp-content/uploads/2025/05/11A.2-Final.2025.pdf
-- `ev_acc_optup_eml_shortage_2024` — https://www.trendforce.com/presscenter/news/20251208-12823.html
+**Claim (rebuilt+verified 2026-06-11):** Specialty InP/GaAs device fabrication is capacity-constrained (Coherent CEO, owner-verified). NVIDIA invested $2B each in Lumentum and Coherent (Mar 2026) — recorded as events, not consequences. '40-60% short' removed; concentration qualitative (paywalled Yole).
+**Check:** Check the events are dated/sourced as events; confirm no inferred-consequence language survives.
+**Evidence (current, with sourceStatus):**
+- `ev_acc_optup_eml_supplier_concentration` [unreachable] — https://www.mckinsey.com/~/media/mckinsey/industries/technology%20media%20and%20telecommunications/high%20tech/our%20insights/opportunities%20in%20networking%20optics%20boosting%20supply%20for%20data-centers/opportunities-in-networking-optics-boosting-supply-for-data-centers.pdf
+- `ev_acc_optup_vcsel_supplier_count` [fetch_ok] — https://www.wiseguyreports.com/reports/vcsel-array-and-chips-market
+- `ev_acc_optup_fab_lead_time` [fetch_ok] — https://csmantech.org/wp-content/uploads/2025/05/11A.2-Final.2025.pdf
+- `ev_acc_optup_eml_shortage_2024` [fetch_ok] — https://www.trendforce.com/presscenter/news/20251208-12823.html
+- `ev_acc_r6o_eml_supplier_share` [paywalled_snippet] — https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html
 
