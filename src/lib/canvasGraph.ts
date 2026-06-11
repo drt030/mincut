@@ -29,8 +29,8 @@ export function isArtifactCanvasNode(node: Node): boolean {
 
 /**
  * Per ADR-0008: the canvas tree is built from `requires` edges PLUS
- * `implemented_by` edges whose target is a know-how node (5 know-how
- * nodes in the parcel graph attach only that way). `implemented_by`
+ * `implemented_by` edges whose target is a know-how node (a handful of
+ * know-how nodes in the parcel graph attach only that way). `implemented_by`
  * edges to organizations stay panel-only.
  */
 export function isCanvasTreeEdge(edge: Edge, nodeById: Map<string, Node>): boolean {
