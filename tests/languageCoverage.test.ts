@@ -11,7 +11,9 @@ function chineseNodeKeys(): Set<string> {
     "utf8",
   );
   const block = raw.match(/const nodeTextZh: Record<string, string> = \{([\s\S]*?)\n\};/)?.[1] ?? "";
-  return new Set([...block.matchAll(/^\s*([a-zA-Z0-9_]+):/gm)].map((match) => match[1]));
+  // Keys whose ids start with a digit (e.g. 48v_converter_module) are
+  // necessarily quoted in the dictionary literal — accept both forms.
+  return new Set([...block.matchAll(/^\s*"?([a-zA-Z0-9_]+)"?:/gm)].map((match) => match[1]));
 }
 
 test("Chinese node-name dictionary covers all visible active graph roots checked in UX", () => {
