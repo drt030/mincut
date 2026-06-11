@@ -456,22 +456,7 @@
     "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "TSMC 3nm utilization",
-        "unit": "%",
-        "currentValue": 95,
-        "description": "Estimated 2025 utilization on 3nm nodes; near full capacity."
-      },
-      {
-        "name": "TSMC capex (annual, 2025-2026 estimate)",
-        "unit": "billion USD",
-        "currentValue": 32,
-        "costAsOf": "2025",
-        "currency": "USD",
-        "description": "TSMC planned annual capex for fab expansion; foundry capacity growth limited by capital and geopolitical constraints."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [],
     "tags": [
       "production_capacity",
@@ -1008,28 +993,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "ASML EUV annual production",
-        "unit": "systems/year",
-        "currentValue": 40,
-        "description": "2025 estimated annual EUV production capacity; constrained by internal supply chains (Dutch export controls, subsupplier constraints)."
-      },
-      {
-        "name": "EUV system cost",
-        "unit": "million USD",
-        "currentValue": 200,
-        "costAsOf": "2025",
-        "currency": "USD",
-        "description": "List price for ASML NXE:3600D EUV system in 2025."
-      },
-      {
-        "name": "ASML EUV system lead time",
-        "unit": "months",
-        "currentValue": 20,
-        "description": "Quoted delivery time for new EUV system orders (2025)."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_logic_asml_export_control"
     ],
@@ -1696,38 +1660,7 @@
     "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "HBM3/HBM3E worldwide production capacity",
-        "unit": "units/month (approx. 2026)",
-        "currentValue": 1200000,
-        "description": "Estimated combined SK Hynix + Samsung + Micron HBM production ~1.2M units/month in 2026; highly concentrated supply."
-      },
-      {
-        "name": "Lead time for new HBM production capacity",
-        "unit": "months",
-        "currentValue": 24,
-        "description": "New HBM fab lines or tool expansion typically require 18–24 months from capex commitment to volume; critical constraint for rapid demand scaling."
-      },
-      {
-        "name": "SK Hynix market share (HBM3/3E)",
-        "unit": "%",
-        "currentValue": 70,
-        "description": "SK Hynix estimated ~70% HBM market share in 2024–2026 due to first-mover yield and volume; source basis: industry analyst consensus."
-      },
-      {
-        "name": "Samsung market share (HBM bit output 2026)",
-        "unit": "%",
-        "currentValue": 28,
-        "description": "Samsung HBM market share 2026: 28% of global HBM bit output (up from 20% in 2025, includes HBM3E and HBM4). Source: TrendForce, ev_acc_r6h_samsung_hbm_share_2026, date 2026-06-11"
-      },
-      {
-        "name": "HBM3/HBM3E/HBM4 worldwide production capacity",
-        "unit": "billion Gb (bits)",
-        "currentValue": 30,
-        "description": "HBM total capacity 2026: >30 billion Gb bits across SK Hynix, Samsung, Micron. Source: TrendForce, ev_acc_r6h_hbm_total_capacity_bits_2026, measured in bit capacity not units/month"
-      }
-    ],
+    "metrics": [],
     "tags": [
       "memory",
       "bandwidth",
@@ -2382,26 +2315,24 @@
     "confidence": "medium",
     "metrics": [
       {
-        "name": "TSMC CoWoS-S capacity 2026",
-        "unit": "wafers per month",
+        "name": "TSMC CoWoS monthly capacity (current)",
+        "unit": "wafers/month",
         "currentValue": {
           "min": 75000,
-          "typical": 100000,
+          "typical": 77500,
+          "max": 80000
+        },
+        "description": "basis: monthly CoWoS wafer capacity; asOf 2025-12; source ev_acc_r7_cowos_fully_booked (ok_exact): 'from today's 75,000-80,000 wafers'."
+      },
+      {
+        "name": "TSMC CoWoS monthly capacity (target, end-2026)",
+        "unit": "wafers/month",
+        "currentValue": {
+          "min": 120000,
+          "typical": 125000,
           "max": 130000
         },
-        "description": "TSMC monthly CoWoS capacity expanding from ~75k wafers/month in early 2025 to 110–130k wafers/month by end of 2026 per CEO guidance. CoWoS sold out through 2025 and into 2026."
-      },
-      {
-        "name": "TSMC CoWoS market share 2025",
-        "unit": "%",
-        "currentValue": 60,
-        "description": "TSMC holds ~60% of global 2.5D/3D stacking advanced packaging market; CoWoS-S and I-Cube (silicon interposer 2.5D) are volume architectures for AI accelerators."
-      },
-      {
-        "name": "Top-3 customer allocation of TSMC CoWoS 2026",
-        "unit": "%",
-        "currentValue": 85,
-        "description": "Major customers (NVIDIA, AMD, hyperscalers) have locked >85% of TSMC's total CoWoS production capacity, leaving <15% for second-tier AI chip makers, ASIC vendors, startups."
+        "description": "basis: announced scaling target; asOf 2025-12 (TrendForce); source ev_acc_r7_cowos_fully_booked (ok_exact): 'to as high as 120,000-130,000 [by the end of 2026]'."
       }
     ],
     "evidenceIds": [
@@ -2431,20 +2362,7 @@
     "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
-    "metrics": [
-      {
-        "name": "ABF market growth CAGR 2021–2028",
-        "unit": "%",
-        "currentValue": 20.73,
-        "description": "ABF demand CAGR 20.73% from 2021 to 2028, driven by 5G, AI, and EV; Film Type B (premium ABF) accounts for 31.4% revenue share in 2025."
-      },
-      {
-        "name": "Ajinomoto ABF capacity increase 2025",
-        "unit": "%",
-        "currentValue": 50,
-        "description": "Ajinomoto's new Gunma facility completed March 2025 and reached full operations October 2025, increasing ABF capacity by ~50% to 2030."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_sub_ajinomoto_abf_2025",
       "ev_acc_sub_ajinomoto_expansion_2030"
@@ -2504,35 +2422,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "Nittobo T-glass capacity expansion target 2027",
-        "unit": "x",
-        "currentValue": 3,
-        "description": "Nittobo plans to triple T-glass capacity by 2027; new equipment online expected mid-2027 at earliest."
-      },
-      {
-        "name": "Nittobo price increase August 2025",
-        "unit": "%",
-        "currentValue": 20,
-        "description": "Nittobo raised prices across glass fiber product line by 20% in August 2025; planned another 20–30% increase for April 2026."
-      },
-      {
-        "name": "Supply deficit H2 2026",
-        "currentValue": ">40% undersupply",
-        "description": "Tight supply expected to continue through 2026 as ABF substrate layer counts increase 3+3 → 13+13. Source: Morgan Stanley, Trendforce supply chain analysis, 2025."
-      },
-      {
-        "name": "Price increase schedule",
-        "currentValue": "20% (Aug 2025) + 20–30% (Apr 2026 planned)",
-        "description": "Nittobo announced phased price hikes. Competitors (Asahi Kasei, Fulltech, Nan Ya) emerging but not in qualified high-volume status yet. Source: Nittobo press, SemiAnalysis, Aug–Dec 2025."
-      },
-      {
-        "name": "Capacity expansion roadmap",
-        "currentValue": "3x capacity by early 2027",
-        "description": "Nittobo targeting 3x T-glass capacity by early 2027, but new capacity largely pre-sold via long-term supply agreements. Source: DigiTimes, TrendForce 2025."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_sub_nittobo_tglass_shortage",
       "ev_acc_sub_nittobo_capacity_expansion",
@@ -4737,14 +4627,7 @@
     ],
     "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).\nCDU is a supply-constrained module in 2024–2025 datacenter liquid-cooling buildout. Lead time (8–12 months) is often the pacing item for new datacenter thermal deployments. Constraint is driven by: (1) custom design and integration per facility (no commodity CDU), (2) limited supplier base (top 3 control ~65% market), (3) manufacturing capacity fully allocated to major cloud operators. The bottleneck gates accelerator module deployment schedules when datacenters scale from air cooling to sealed/open liquid loops.\n | ROUND 4 SUPPLIER BREADTH: Beyond top-4 wired (Vertiv in-row, Boyd in-row, CoolIT/Ecolab, Motivair), secondary suppliers emerging include AVC and Auras (Taiwan, now wired), Jentech Precision, Kaori, Sunon, and regional providers. Sidecar CDU market led by Delta; in-row market dominated by Vertiv, Boyd. Total public discoverable merchant base estimated ~10+ companies per 2026 DigiTimes tracker. Constraint remains integrated ODM/OEM solutions vs pure-play CDU vendors.\nAdditional supply base beyond the 5-org cap (concentration-first): Auras Technology (6288.TW), high-growth Taiwan thermal/CDU maker per DigiTimes 2026-04 AI-server thermal tracker; wired to thermal_management_module instead.",
     "reviewStatus": "unreviewed",
-    "metrics": [
-      {
-        "name": "Global CDU installed capacity (2025 estimate)",
-        "unit": "GW heat dissipation",
-        "currentValue": 450,
-        "description": "Estimated global datacenter CDU deployment ~450 GW cumulative thermal capacity across all datacenters; AI/HPC segment growing 40–50% YoY 2023–2026, creating sustained procurement pressure."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_cp2_cdu_capacity_constraint"
     ],
@@ -5097,14 +4980,7 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "Carl Zeiss SMT EUV optics per-unit lead time",
-        "unit": "months",
-        "currentValue": 14,
-        "description": "Quoted lead time for a complete set of EUV projection optics from Carl Zeiss SMT; optics production is a bottleneck within ASML EUV system assembly (ASML investor call Q2 2026)"
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [],
     "tags": [
       "critical_bottleneck",
@@ -5162,28 +5038,6 @@
     "maturityAsOf": "2026-06",
     "confidence": "high",
     "metrics": [
-      {
-        "name": "EML/DFB laser wavelength (coherent datacom standard)",
-        "unit": "nm",
-        "currentValue": 1310,
-        "description": "1310nm is the standard C-band window for coherent optical transceivers in long-reach datacenter applications per ITU-T and OIF specifications."
-      },
-      {
-        "name": "Global EML/DFB laser supplier concentration (top-3 share)",
-        "unit": "%",
-        "currentValue": 72,
-        "costAsOf": "2025",
-        "description": "Top 3 suppliers (Coherent/Lumentum/Mitsubishi) control approximately 70–75% of datacom EML/DFB output per Yole and SemiAnalysis analyst reports; constrained by epitaxial-fab capacity.",
-        "evidenceIds": [
-          "ev_acc_r6o_eml_supplier_share"
-        ]
-      },
-      {
-        "name": "EML/DFB laser capacity expansion lead time",
-        "unit": "months",
-        "currentValue": 18,
-        "description": "Adding capacity for EML/DFB lasers requires dedicated epitaxial-growth tools, waveguide processing, and packaging qualification; typical expansion lead time 18–24 months."
-      },
       {
         "name": "InP substrate demand for EML/DFB production",
         "unit": "status",
@@ -5558,14 +5412,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
-    "metrics": [
-      {
-        "name": "JX Advanced Metals capacity expansion (2025–2026)",
-        "unit": "%",
-        "currentValue": 50,
-        "description": "JX announced cumulative ¥3.3 billion investment to increase InP substrate production capacity by ~50% over 2025 baseline, phased through 2027. Expansion from Isohara Plant in Ibaraki Prefecture."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_optup_inp_market_2024",
       "ev_acc_nc4_inp_shortage_1",
@@ -5658,32 +5505,7 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "EML/DFB laser device suppliers (global)",
-        "unit": "count",
-        "currentValue": 5,
-        "description": "Worldwide EML/DFB laser device manufacturers at commercial scale for 1310nm coherent datacom: Coherent, Lumentum, Mitsubishi Electric, Sumitomo Electric, Broadcom (emerging). Oligopoly concentration (top 3 = ~70–75% share per Yole/SemiAnalysis)."
-      },
-      {
-        "name": "VCSEL device suppliers (global, 850nm+ datacom-class)",
-        "unit": "count",
-        "currentValue": 8,
-        "description": "VCSEL device manufacturers with commercial datacenter production: Broadcom, Coherent, Lumentum, HLJ Technology (Taiwan), VPEC (Taiwan), Vertilite (China), Philips Lumileds (private), and emerging regional suppliers. Top 3 dominate ~65–70% share."
-      },
-      {
-        "name": "Specialty compound fab line expansion lead time",
-        "unit": "months",
-        "currentValue": 15,
-        "description": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 mo), installation (2–3 mo), recipe qualification and yield ramp (6–8 mo). Total: 12–18 months."
-      },
-      {
-        "name": "EML device production allocation constraint (2024–2026)",
-        "unit": "%",
-        "currentValue": 40,
-        "description": "Supply shortfall for EML lasers: 2024–2026 EML production runs 40–60% below transceiver demand. Lead times extended to 24+ weeks; NVIDIA lockup (March 2026, $4B committed to Lumentum & Coherent) pushed non-NVIDIA customers past 2027. Source: TrendForce, McKinsey Jun 2025 optical supply report."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_optup_vcsel_supplier_count",
       "ev_acc_optup_fab_lead_time",
@@ -7368,14 +7190,7 @@
     "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "DISCO system cost (estimated)",
-        "unit": "million USD",
-        "currentValue": 3,
-        "description": "Typical DISCO laser dicing system cost $2-4M depending on specification; lead time 6-9 months."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [
       "ev_acc_pkgeq_disco_market",
       "ev_acc_pkgeq_disco_tech",
@@ -8346,11 +8161,6 @@
     "confidence": "high",
     "metrics": [
       {
-        "name": "Market share (High-NA EUV blanks)",
-        "currentValue": "100%",
-        "description": "Hoya monopoly in High-NA EUV photomask blank qualification. Source: SemiAnalysis, Q1 2025 supply chain survey."
-      },
-      {
         "name": "Capacity constraint",
         "currentValue": "Allocation mode",
         "description": "High-NA blanks are allocated to foundries. Hoya expanding capacity but 2026 tightness expected. Source: Hoya IR / SemiAnalysis 2025."
@@ -8392,16 +8202,6 @@
         "name": "Hanmi HBM TC bonder revenue share (through Q3 2025)",
         "currentValue": "71.2%",
         "description": "Revenue-share basis, through Q3 2025, media citing TechInsights. Scope per owner audit 2026-06-11; not a unit/capacity share."
-      },
-      {
-        "name": "Capacity/throughput bottleneck",
-        "currentValue": "2–3 quarter lead time, full utilization",
-        "description": "New TCB tool orders quoted 2–3 quarters delivery in 2025. SK Hynix and Micron both capacity-constrained on TCB. Source: SemiAnalysis HBM supply chain, Nov 2025."
-      },
-      {
-        "name": "Top-3 concentration",
-        "currentValue": "~85% combined share",
-        "description": "Hanmi 71%, ASMPT 5–8%, SEMES 13%, Yamaha 5%. Share data: Hanmi IR Q3 2025."
       }
     ],
     "evidenceIds": [
@@ -8433,18 +8233,7 @@
     "maturityLabel": "mature",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [
-      {
-        "name": "AGC secondary position",
-        "currentValue": "20–25%",
-        "description": "AGC second-source but capacity-constrained; customer base narrower (Samsung, Intel, limited TSMC penetration). Source: industry analyst consensus 2025."
-      },
-      {
-        "name": "Capacity expansion",
-        "currentValue": "12–18 month lead time for new capacity",
-        "description": "Hoya and AGC both expanding capacity but 2025–2026 remains allocation-gated. New blanks allocated to priority customers (TSMC > Samsung > Intel). Source: Hoya IR, SemiAnalysis 2025."
-      }
-    ],
+    "metrics": [],
     "evidenceIds": [],
     "tags": [
       "euvl",
