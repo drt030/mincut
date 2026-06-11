@@ -599,7 +599,7 @@ const nodeTextZh: Record<string, string> = {
   servo_drive_current_sensing: "伺服驱动电流检测",
   servo_drive_motion_control_loop: "伺服驱动运动控制环",
   servo_drive_safety_sto: "伺服驱动安全扭矩关断",
-  servo_drive_thermal_emc_design: "伺服驱动热设计与 EMC",
+  servo_drive_thermal_emc_design: "伺服驱动热设计与EMC",
   precision_reducer_gearbox: "精密减速器 / 齿轮箱",
   strain_wave_wave_generator: "谐波减速器波发生器",
   strain_wave_flexspline: "谐波减速器柔轮",

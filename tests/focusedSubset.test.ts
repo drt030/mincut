@@ -138,34 +138,36 @@ test("focusId=null: every node and every edge is in the full-saturation subset",
 // everything else (other products, materials only the other products
 // use, the iPhone case study, etc.)".
 //
-// Data probe (2026-06-07 induction/spacing decomposition pass):
-//   - The focal product has exactly 95 `requires`-reachable structural
-//     nodes including itself. Pinning that exact size guards against
-//     accidental data growth into the subtree.
+// Data probe (2026-06-10 Task 5 know-how attachment):
+//   - Per Task 4, five know-how nodes are now attached via `implemented_by`
+//     edges. The focusedSubset now follows canvas tree edges (requires +
+//     implemented_by→know-how). Therefore the focal subtree now includes
+//     the original 100 requires-reachable nodes PLUS 5 know-how nodes = 105.
 //   - The iPhone test product (`iphone_4`) is a sibling at root level,
-//     never reachable via `requires` from the focal product → MUST
+//     never reachable via canvas tree edges from the focal product → MUST
 //     be excluded.
 //   - `cover_glass_aluminosilicate_chain` is a material used only by
 //     the iPhone test data, never by the parcel-sorting robot →
 //     MUST be excluded.
-test("focusId=focal product: includes 100-node subtree; iPhone product + iPhone-only material excluded", () => {
+test("focusId=focal product: includes 105-node subtree (100 requires + 5 know-how); iPhone product + iPhone-only material excluded", () => {
   const graph = loadGraphData();
   const adj = buildRequiresAdjacency(graph);
   const expectedSubtree = requiresDescendants(FOCAL_PRODUCT_ID, adj);
 
   const subset = focusedSubset(FOCAL_PRODUCT_ID, graph);
 
-  // Size is pinned: oracle === function-under-test === 100.
+  // Size is pinned: oracle (requires-only) === 100; function-under-test (canvas tree) === 105.
+  // The delta of 5 is exactly the know-how nodes now attached by Task 4.
   assert.equal(
     expectedSubtree.size,
     100,
-    `oracle: focal subtree should be 100; got ${expectedSubtree.size}. ` +
+    `oracle: focal subtree should be 100 via requires-only; got ${expectedSubtree.size}. ` +
       "If this fails, data changed — adjust the assertion and re-pin the spec.",
   );
   assert.equal(
     subset.nodes.size,
-    100,
-    `focusedSubset must include exactly the 100 requires-descendants of focal; got ${subset.nodes.size}`,
+    105,
+    `focusedSubset must include 100 requires-descendants + 5 know-how nodes = 105; got ${subset.nodes.size}`,
   );
 
   // The focal product itself must be in (focus + descendants).

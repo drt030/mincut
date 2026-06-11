@@ -33,7 +33,7 @@ import {
   type ColorMode,
 } from "@/lib/edgeStyleFor";
 import { focusedSubset } from "@/lib/focusedSubset";
-import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId } from "@/lib/canvasGraph";
+import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId, isCanvasTreeEdge, isKnowHowNode } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { Edge, GraphData, Node } from "@/lib/schema";
 
@@ -594,15 +594,16 @@ function rectPortPoint(
 
 /**
  * Compute the focal-subtree set: BFS from the first product node via
- * `requires` edges. Only nodes in this set are rendered on the canvas
+ * canvas tree edges. Only nodes in this set are rendered on the canvas
  * in A3 — orphans (sibling products etc.) are deferred per ADR-0006.
  */
 function buildFocalSubtree(graph: GraphData, rootId: string): Set<string> {
   const focal = graph.nodes.find((n) => n.id === rootId) ?? defaultFocalProduct(graph);
   if (!focal) return new Set();
+  const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
   const childrenByParent = new Map<string, string[]>();
   for (const edge of graph.edges) {
-    if (edge.relation !== "requires") continue;
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
     if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
     childrenByParent.get(edge.source)!.push(edge.target);
   }
@@ -946,7 +947,7 @@ export function GraphExplorer({ graph }: Props) {
       if (edge.relation !== "requires") continue;
       if (edge.source !== currentRootId) continue;
       const target = canvasGraph.nodes.find((n) => n.id === edge.target);
-      if (!target || target.kind === "material") continue;
+      if (!target || target.kind === "material" || isKnowHowNode(target)) continue;
       out.push(edge.target);
     }
     return out;
@@ -958,13 +959,14 @@ export function GraphExplorer({ graph }: Props) {
 
   const childrenByParent = useMemo(() => {
     const out = new Map<string, string[]>();
+    const nodeById = new Map(canvasGraph.nodes.map((n) => [n.id, n]));
     for (const edge of canvasGraph.edges) {
-      if (edge.relation !== "requires") continue;
+      if (!isCanvasTreeEdge(edge, nodeById)) continue;
       if (!out.has(edge.source)) out.set(edge.source, []);
       out.get(edge.source)!.push(edge.target);
     }
     return out;
-  }, [canvasGraph.edges]);
+  }, [canvasGraph.edges, canvasGraph.nodes]);
 
   /**
    * Per-node outline colour is intentionally sparse and neutral. The
@@ -1101,7 +1103,7 @@ export function GraphExplorer({ graph }: Props) {
       }
     }
     for (const edge of canvasGraph.edges) {
-      if (edge.relation !== "requires") continue;
+      if (!isCanvasTreeEdge(edge, nodeById)) continue;
       if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) continue;
       // Only render edges whose target was actually laid out (defensive
       // — radialLayout assigns every reachable structural node a

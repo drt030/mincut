@@ -1,5 +1,6 @@
 import type { Edge, GraphData, Node, NodeKind } from "./schema";
 import { defaultFocalProduct } from "./graphTraversal";
+import { isCanvasTreeEdge } from "./canvasGraph";
 
 /**
  * Per ADR-0007 and
@@ -125,14 +126,14 @@ function buildChildIndex(graph: GraphData): {
     if (STRUCTURAL_KINDS.has(node.kind)) structuralIds.add(node.id);
   }
 
-  // We restrict the child / incoming indexes to `requires` edges whose
+  // We restrict the child / incoming indexes to canvas tree edges whose
   // BOTH endpoints are structural — descriptive nodes (metric / capability
   // / bottleneck / etc.) are deliberately not positioned per ADR-0006
   // §Node classification.
   const childrenByParent = new Map<string, string[]>();
   const incomingByTarget = new Map<string, Array<{ source: string; edge: Edge }>>();
   for (const edge of graph.edges) {
-    if (edge.relation !== "requires") continue;
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
     if (!structuralIds.has(edge.source) || !structuralIds.has(edge.target)) continue;
     if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
     childrenByParent.get(edge.source)!.push(edge.target);
@@ -379,14 +380,14 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
     positions.set(node.id, { r: R_FALLBACK, theta: hashToTheta(node.id) });
   }
 
-  // Edge metadata: for every `requires` edge whose target is positioned
+  // Edge metadata: for every canvas tree edge whose target is positioned
   // and structural, classify as primary or cross.
   //   - If target is shared (has canonical parent recorded), the
   //     canonical parent's edge to it is 'primary' and every other
   //     parent's edge is 'cross'.
   //   - Otherwise the edge is 'primary'.
   for (const edge of graph.edges) {
-    if (edge.relation !== "requires") continue;
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
     if (!structuralIds.has(edge.source) || !structuralIds.has(edge.target)) continue;
     if (!positions.has(edge.target)) continue;
     const canonical = canonicalParentByShared.get(edge.target);
