@@ -33,6 +33,17 @@ _Avoid_: Product scope, product definition.
 A technology node that is **hard to develop** — i.e. its development cost / risk is high enough that having vs not-having it is a qualitative rather than quantitative difference for any product depending on it. Computer-vision-based object recognition is a key technology; a better bearing or screw is incremental. The judgment is intrinsic to the technology (how hard to develop), not to any one product. Maturity (`maturityLabel`) is *current* state; key-tech status is *historical/intrinsic difficulty* and changes slowly. Quantitative-to-qualitative transitions (量变到质变) do happen and re-classification is a deliberate human decision recorded on the node.
 _Avoid_: Critical technology, hard tech (these are fine in conversation but stick to "key technology" in canonical docs).
 
+**Know-how (技术诀窍)**:
+Display-layer umbrella term for `kind: "engineering_method"` and
+`kind: "manufacturing_process"` nodes — embodied activities and
+knowledge, as opposed to purchasable artifacts. Each know-how node
+carries `transactability`: `procurable` (a real market sells it as a
+service/dataset/license — conceptually a service product) or
+`must_build` (embodied in firms; not separately transactable — the
+moat/bottleneck habitat). Supply concentration (holder count) is
+derived from `implemented_by` / `manufactured_by` edges at read time.
+_Avoid_: capability (reserved for the demand container), skill, craft.
+
 **Active v0 graph**:
 The subgraph rooted at `low_cost_parcel_sorting_robot_300k_rmb` and its allowed recursive children. Other product fixtures in `/data` are not part of the active graph and are not exposed by default in the home/graph surface.
 _Avoid_: Active scope (used internally but ambiguous), main graph.
@@ -94,8 +105,8 @@ The schema's `has_route` relation remains, but **a Product is committed to a sin
 
 Per ADR-0006 (`docs/adr/0006-radial-progressive-disclosure-graph.md`, 2026-05-13). Implementation slices: `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`. Detailed contract: `docs/GRAPH_UX.md`. Three governing design principles: `docs/design-principles.md`.
 
-- **Radial progressive-disclosure canvas** — `/graph` is a single radial view. Focal product at canvas origin; 12 first-layer subsystems on a ring at equal 30° angular spacing; descendants in concentric radial layers inside each sector; 10 materials on an outermost neutral-grey ring. All 77 structural nodes (product, module, material, engineering_method, manufacturing_process) render simultaneously at the lowest LOD. Descriptive nodes (`metric`, `bottleneck`, `placeholder_breakthrough`, principles, regulations, capability — 33 in current data) never render on canvas; they appear as text in the detail panel.
-- **Bottleneck and frontier as attributes** — per ADR-0006, `kind: "bottleneck"` and `kind: "placeholder_breakthrough"` become attributes `bottleneckOf?: string[]` and `frontierFor?: string[]` on the affected module/material. `bottlenecked_by` edges follow. A node is visually a "bottleneck" via its mode color (low maturity, high cost, high risk), not via a separate node.
+- **Radial progressive-disclosure canvas** — `/graph` is one persistent radial map with two layers (ADR-0007 stable identity). The default product layer renders artifact kinds only (product, module, equipment, material); the know-how layer (toggle, bottom-left above the color-mode floret) dims artifacts to grey and lights engineering_method / manufacturing_process nodes as transactability-colored diamonds; the canvas union also attaches know-how reachable only via `implemented_by` edges. Focal product at canvas origin; 12 first-layer subsystems on a ring at equal 30° angular spacing; descendants in concentric radial layers inside each sector; 10 materials on an outermost neutral-grey ring. All artifact-kind structural nodes render simultaneously at the lowest LOD in the product layer, and know-how nodes join in the know-how layer. Descriptive nodes (`metric`, `bottleneck`, `placeholder_breakthrough`, principles, regulations, capability — 33 in current data) never render on canvas; they appear as text in the detail panel.
+- **Bottleneck and frontier as attributes** — per ADR-0006, `kind: "bottleneck"` and `kind: "placeholder_breakthrough"` become attributes `bottleneckOf?: string[]` and `frontierFor?: string[]` on the affected module/material. `bottlenecked_by` edges follow. A node is visually a "bottleneck" via its mode color (low maturity, high cost, high risk), not via a separate node. In the product layer, hosts of hidden bottleneck know-how carry a red-ring count badge (ADR-0008).
 - **Color modes** — five modes (`bottleneck-risk` default, `cost`, `maturity`, `overall`, `relation`) layered redundantly across visual channels (K4): node fill = subsystem hue family (permanent), sector background = sector-aggregate mode value (<15% opacity), edge stroke color = target-node mode band, edge stroke width = same 5 bands aligned to color bins, node outline (at LOD band 2+) = per-node mode band.
 - **LOD (semantic zoom)** — three discrete bands: band 1 (zoom < 0.5) 5px dots no labels; band 2 (0.5 ≤ zoom < 1.5) 12px markers with truncated names; band 3 (zoom ≥ 1.5) full 80×40 cards with badges. Components subscribe via `useStore((s) => Math.floor(s.transform[2] * 2))` so re-render only fires on band crossing.
 - **Focus interaction** — clicking a structural node expands its sector elastically (30° → 120°, others compress) over 600ms; viewport softly zooms (~1.5×); focused subtree stays saturated, everything else desaturates to greyscale. Position never changes — the focal product stays at canvas origin. Esc / empty click / double-click returns to the higher level.
