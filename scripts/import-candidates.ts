@@ -189,7 +189,7 @@ export function withImportDefaults(candidate: CandidateImport, importedAt: strin
   };
 }
 
-function validateCandidateImport(
+export function validateCandidateImport(
   candidate: { nodes: Node[]; edges: Edge[]; evidence: Evidence[]; tasks: ResearchTask[] },
   graph: ReturnType<typeof loadGraphData>,
   existingTasks: ResearchTask[],
@@ -232,6 +232,11 @@ function validateCandidateImport(
       errors.push(
         `cost candidate without evidence rejected: node ${node.id} carries a cost-bearing metric but has no evidenceIds. Per ADR-0003, agent-imported cost candidates must carry provenance.`,
       );
+    }
+    for (const evidenceId of node.evidenceIds ?? []) {
+      if (!existingEvidenceIds.has(evidenceId) && !candidateEvidenceIds.has(evidenceId)) {
+        errors.push(`Node ${node.id} references missing evidence: ${evidenceId}`);
+      }
     }
   }
   for (const edge of candidate.edges) {

@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import path from "node:path";
-import { resolveDataFiles } from "../scripts/import-candidates";
+import { resolveDataFiles, validateCandidateImport } from "../scripts/import-candidates";
+import { loadGraphData, loadTasks } from "../src/lib/graphLoader";
 
 test("resolveDataFiles defaults to the parcel-sorting v0 data files", () => {
   const files = resolveDataFiles();
@@ -30,4 +31,30 @@ test("resolveDataFiles rejects domain names that are not lower_snake_case", () =
   assert.throws(() => resolveDataFiles("../escape"));
   assert.throws(() => resolveDataFiles("AI-Compute"));
   assert.throws(() => resolveDataFiles(""));
+});
+
+test("candidate nodes referencing missing evidence are rejected", () => {
+  const errors = validateCandidateImport(
+    {
+      nodes: [
+        {
+          id: "test_node_dangling_ev",
+          name: "Test",
+          kind: "module",
+          domain: ["test"],
+          evidenceIds: ["ev_does_not_exist_anywhere"],
+        },
+      ],
+      edges: [],
+      evidence: [],
+      tasks: [],
+    },
+    loadGraphData(),
+    loadTasks(),
+    { allowReviewed: false, allowActiveScopeExpansion: false },
+  );
+  assert.ok(
+    errors.some((e) => e.includes("test_node_dangling_ev") && e.includes("ev_does_not_exist_anywhere")),
+    `expected a dangling node-evidence error, got: ${JSON.stringify(errors)}`,
+  );
 });
