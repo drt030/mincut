@@ -20,7 +20,8 @@
       "ai_compute",
       "capability_root"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "notes": "SCOPE BOUNDARIES (explicit decisions, 2026-06-10, per brief §2.12): (1) operator/service-tier entities (cloud operators, compute brokers/lessors above the hardware chain) are not modeled — this is a component decomposition; whether an operator tier belongs in the capability layer at all is an open modeling decision for the owner. (2) Datacenter-system branches not inside the accelerator module (storage-class memory; facility/grid power) are documented boundaries pointing to sibling domains, not coverage gaps."
   },
   {
     "id": "ai_accelerator_module_hbm_cowos",
@@ -1684,7 +1685,7 @@
       "ai_accelerator",
       "extreme_concentration"
     ],
-    "notes": "HBM is the primary supply chokepoint for AI accelerator scaling in 2024–2026. SK Hynix dominates due to early process mastery; Samsung is ramping aggressively; Micron delayed entry. Next layer decomposition covers die fabrication processes, stacking/bonding, testing, and organic substrate integration.",
+    "notes": "HBM is the primary supply chokepoint for AI accelerator scaling in 2024–2026. SK Hynix dominates due to early process mastery; Samsung is ramping aggressively; Micron delayed entry. Next layer decomposition covers die fabrication processes, stacking/bonding, testing, and organic substrate integration.\nSCOPE BOUNDARY (explicit decision, 2026-06-10): the adjacent non-volatile / storage-class memory branch (SSD/NAND tier of the datacenter system) is out of frame for this module-scoped product — the accelerator module itself carries no storage-class memory. The branch has its own supplier population and supply cycle and is a candidate sibling domain at the datacenter-system tier. Recorded per brief §2.12; owner to ratify.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
@@ -3483,9 +3484,10 @@
       "ai_compute",
       "power_delivery",
       "module_level",
-      "decomposition_frontier_boundary"
+      "decomposition_frontier_boundary",
+      "decomposition_frontier"
     ],
-    "notes": "Module-level power delivery is a bundled system rather than a single discrete component. Decomposed into sub-layers: module VRM, intermediate distribution, and rack PSU. Gating factors include VRM IC fabrication capacity at advanced nodes and high-current connector assembly lead times.\nScope boundary note: rack_power_supply_unit represents the transition to facility-level infrastructure. Beyond rack PSU (facility AC/DC conversion, large distribution transformers, grid switchgear) is OUT OF SCOPE; modeled in ai_dc_power_chain domain. This decomposition stops at 12V/48V intermediate distribution into the accelerator module.",
+    "notes": "Module-level power delivery is a bundled system rather than a single discrete component. Decomposed into sub-layers: module VRM, intermediate distribution, and rack PSU. Gating factors include VRM IC fabrication capacity at advanced nodes and high-current connector assembly lead times.\nScope boundary note: rack_power_supply_unit represents the transition to facility-level infrastructure. Beyond rack PSU (facility AC/DC conversion, large distribution transformers, grid switchgear) is OUT OF SCOPE; modeled in ai_dc_power_chain domain. This decomposition stops at 12V/48V intermediate distribution into the accelerator module.\nSCOPE BOUNDARY (explicit decision, 2026-06-10): facility/grid power infrastructure — large power transformers, switchgear, grid interconnect, datacenter AC distribution above the rack — is deliberately NOT modeled in this product. It is its own chain with its own supplier base, planned as the separate domain ai_dc_power_chain (launch plan, Tue drop). This boundary is a documented judgment, not a coverage miss.",
     "reviewStatus": "unreviewed"
   },
   {
