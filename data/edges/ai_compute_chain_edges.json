@@ -992,15 +992,6 @@
     "reviewStatus": "unreviewed"
   },
   {
-    "id": "e_acc_opt_laser_photodiode__manufactured_by__philips_lumileds",
-    "source": "laser_array_and_photodiodes",
-    "target": "org_philips_lumileds",
-    "relation": "manufactured_by",
-    "confidence": "medium",
-    "evidenceIds": [],
-    "reviewStatus": "unreviewed"
-  },
-  {
     "id": "e_acc_opt_chiplet_substrate__manufactured_by__ibiden",
     "source": "chiplet_interconnect_substrate",
     "target": "org_ibiden",
@@ -2780,7 +2771,9 @@
     "target": "org_agc",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7_agc_euvl_capacity_official"
+    ],
     "reviewStatus": "unreviewed"
   },
   {

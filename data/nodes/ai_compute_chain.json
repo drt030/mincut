@@ -3030,7 +3030,7 @@
       "vcsel",
       "specialty_manufacturer"
     ],
-    "notes": "Philips Lumileds is a significant supplier of datacenter VCSELs, competing with Broadcom and II-VI/Coherent. Private company (owned by Apollo).\nLumileds' role in high-speed datacenter VCSELs is limited compared to Broadcom and Coherent/II-VI. Primary exposure is to general optoelectronics, not the cutting-edge datacom VCSEL market. The 20% share estimate from round 1 is not well-founded. Recommend monitoring; if no clear investor-relevant datacenter VCSEL business emerges, consider removing this org node from the transceiver supplier list.",
+    "notes": "Philips Lumileds is a significant supplier of datacenter VCSELs, competing with Broadcom and II-VI/Coherent. Private company (owned by Apollo).\nLumileds' role in high-speed datacenter VCSELs is limited compared to Broadcom and Coherent/II-VI. Primary exposure is to general optoelectronics, not the cutting-edge datacom VCSEL market. The 20% share estimate from round 1 is not well-founded. Recommend monitoring; if no clear investor-relevant datacenter VCSEL business emerges, consider removing this org node from the transceiver supplier list.\n2026-06-11: manufactured_by edge to laser_array_and_photodiodes REMOVED — re-sourcing found no claim-specific source (URL 404) on top of the round-2 confidence downgrade; org retained for audit trail/monitoring only.",
     "reviewStatus": "unreviewed",
     "rejectedEvidenceIds": [
       "ev_acc_opt_vcsel_supply_constraint"
@@ -5407,17 +5407,36 @@
     "domain": [
       "ai_compute_chain"
     ],
-    "description": "Single-crystal InP/GaAs substrate wafers feeding compound-semiconductor device fabrication (lasers, photodiodes). Merchant supply is reported to be concentrated among JX Advanced Metals, Sumitomo Electric and AXT, with capacity expansions underway. Claim split per owner audit 2026-06-11: demand/supply ratios, combined-share percentages and furnace lead times removed pending exact-quote sourcing; device-level laser capacity constraints are claimed on eml_dfb_laser_diodes (Coherent CEO statement), not on this substrate node.",
+    "description": "Single-crystal InP/GaAs substrate wafers feeding compound-semiconductor device fabrication (lasers, photodiodes). Merchant supply is reported to be concentrated among JX Advanced Metals, Sumitomo Electric and AXT, with capacity expansions underway. Claim split per owner audit 2026-06-11: demand/supply ratios, combined-share percentages and furnace lead times removed pending exact-quote sourcing; device-level laser capacity constraints are claimed on eml_dfb_laser_diodes (Coherent CEO statement), not on this substrate node. AXT reports a record InP backlog (>$100M) and a revenue-capacity roadmap of $35M/Q (end-2026) toward $65-70M/Q (2027-early 2028) — quote-verified from its Q1 2026 earnings call.",
     "maturityScore": 72,
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
-    "metrics": [],
+    "metrics": [
+      {
+        "name": "AXT InP order backlog (record)",
+        "unit": "USD million",
+        "currentValue": ">100",
+        "costAsOf": "2026",
+        "currency": "USD",
+        "description": "basis: order backlog value; scope: AXT InP substrates; asOf 2026-04-30 (Q1 2026 earnings call, ok_exact: ev_acc_r7_axt_inp_backlog_q1_2026)."
+      },
+      {
+        "name": "AXT capacity roadmap (revenue-capacity)",
+        "unit": "USD million/quarter",
+        "currentValue": "35 (end-2026) -> 65-70 (2027-early 2028)",
+        "costAsOf": "2026",
+        "currency": "USD",
+        "description": "basis: revenue-capacity, NOT wafer share; asOf 2026-04-30 (ok_exact: ev_acc_r7_axt_capacity_roadmap)."
+      }
+    ],
     "evidenceIds": [
       "ev_acc_optup_inp_market_2024",
       "ev_acc_nc4_inp_shortage_1",
       "ev_acc_nc4_jx_expansion_1",
-      "ev_acc_nc4_coherent_guidance_1"
+      "ev_acc_nc4_coherent_guidance_1",
+      "ev_acc_r7_axt_inp_backlog_q1_2026",
+      "ev_acc_r7_axt_capacity_roadmap"
     ],
     "tags": [
       "material",
@@ -8233,8 +8252,17 @@
     "maturityLabel": "mature",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [],
-    "evidenceIds": [],
+    "metrics": [
+      {
+        "name": "AGC EUVL blank capacity expansion (announced)",
+        "unit": "%",
+        "currentValue": 30,
+        "description": "basis: capacity vs 2023 baseline, target 2025; scope: AGC Group EUVL mask blanks; asOf 2023-04-27 (AGC official release, ok_exact: ev_acc_r7_agc_euvl_capacity_official)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r7_agc_euvl_capacity_official"
+    ],
     "tags": [
       "euvl",
       "photomask",

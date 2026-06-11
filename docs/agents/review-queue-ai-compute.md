@@ -7,7 +7,7 @@
 ## Review gate (ADR-0009 §4)
 Flip-eligible only when ALL hold: every supporting record `ok_exact` · verbatim quote present · single-fact claim · basis+scope+asOf present · edge type semantically specific · you opened the URL yourself. Forbidden as support: `404` / `generic_homepage` / `wrong_topic` / `market_report_seo`-only / unsourced lead times / exclusivity without primary-or-two-independent sources. **Flips are per-FACT (metric / description sentence), not per-node.**
 
-Housekeeping (lane 3): 21 manufactured_by edges lost their only (bad) citation in the demotion sweep and await re-sourcing — `.scratch/round7/edges_pending_resourcing.json`. They render as unverified wiring, never as flip candidates.
+Housekeeping (lane 3): 3 manufactured_by edges remain bare after the 2026-06-11 re-sourcing pass (16 of 21 re-cited with status-checked sources; Lumileds edge REMOVED — no claim-specific source found on top of the standing confidence downgrade; CommScope/TE/Merck-CMP citations died at link level and stay queued). List: .scratch/round7/edges_pending_resourcing.json.
 
 ## 1. `t_glass_fabric` — T-glass (Boron-free glass fiber cloth)  ·  HONEST UNREVIEWED
 **Disposition:** Conservative rewrite applied; concentration qualitative; 91%/no-second-source removed. Re-flip only after a dedicated share source.
@@ -91,7 +91,7 @@ Housekeeping (lane 3): 21 manufactured_by edges lost their only (bad) citation i
 **Rejected (audit trail, never citations):** `ev_acc_bn3_high_bandwidth_memory`[404], `ev_acc_hbm_trendforce_hbm_demand_2024`[generic_homepage], `ev_acc_hbm_skhynix_share_2024`[generic_homepage], `ev_acc_hbm_samsung_ramp_2024`[generic_homepage], `ev_acc_hbm_micron_timeline_2025`[unreachable]
 
 ## 10. `inp_gaas_substrate_wafer` — InP/GaAs substrate wafers (compound semiconductor blanks)  ·  BOUNCED (re-sourcing)
-**Disposition:** Split per audit: substrate concentration qualitative; ratios/shares/furnace lead times removed; laser-capacity claims moved to eml_dfb node. Bottleneck flag removed pending quantified sourcing.
+**Disposition:** Split per audit; ratios/shares/furnace lead times removed. PARTIAL RESTORE 2026-06-11: two quote-verified AXT facts added (record >$100M InP backlog; $35M/Q -> $65-70M/Q revenue-capacity roadmap, both ok_exact from the Q1'26 call transcript) — flip-eligible individually. Demand/supply ratio and supplier-share %s remain open; bottleneck flag stays off pending those.
 **Current claim text (lives on the node):** Single-crystal InP/GaAs substrate wafers feeding compound-semiconductor device fabrication (lasers, photodiodes). Merchant supply is reported to be concentrated among JX Advanced Metals, Sumitomo Electric and AXT, with capacity expansions underway. Claim split per owner audit 2026-06-11: demand/supply ratios, combined-share percentages and furnace lead times removed pending exact-quote sourcing; device-level laser ca...
 **Supporting evidence:**
 - `ev_acc_optup_inp_market_2024` [fetch_ok] — https://semiconductorinsight.com/blog/inp-substrate-industry-surges-jx-advanced-metals-expands-capacity-axt-restores-exports-fraunhofer-unveils-150-mm-inp-on-gaas-wafers/
