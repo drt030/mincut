@@ -4,6 +4,17 @@
 
 Status note: all 15 nodes carry quantified constraints + independent-source citations (evidence-integrity sweep 2026-06-10). One item (#15) gains supplier edges in round-5 wiring currently in flight.
 
+## How to review (owner protocol — audit, don't re-research; ~3–6 min/claim)
+
+Per claim:
+1. **Open every cited URL.** Does it load? Is the source real (company IR / sec.gov / TrendForce / DigiTimes / Reuters-class), or an SEO content farm? A claim resting only on aggregator blogs does not get flipped.
+2. **Does the source say what the claim says?** Check the SPECIFIC numbers (share %, capacity, lead time, dates). The #1 agent failure mode: the citation exists but supports a weaker statement ("dominant" ≠ "91%"; "tight supply" ≠ "sold out through 2026").
+3. **Dates and quantifiers:** is a 2024 figure presented as current? Range stated honestly vs flattened to a point?
+4. **Bottleneck logic:** does the evidence support "currently GATING" (capacity / lead-time / single-source constraint), or merely "important component"? Only the former earns the ⚠ claim.
+5. **Public-survival test:** if a domain expert quote-tweets this node to 100k people, do you defend it? If not, don't flip it.
+
+Dispositions (per claim): **flip `reviewed`** · **leave `unreviewed`** (didn't check / not confident — fine; the ladder's credibility comes from discrimination, not coverage) · **mark `disputed`** (evidence contradicts) · **bounce to lane 3** (fix, then re-queue). Flipping 9 and leaving 6 honest is MORE credible than force-flipping 15. The judgment is owner-only; the mechanical file edit may be delegated after you hand over the disposition list.
+
 ## 1. `t_glass_fabric` — T-glass (Boron-free glass fiber cloth)
 **Claim:** Nittobo holds ~91% of T-glass fiber cloth; 10-20% supply gap into 2026, relief only when the 3x capacity build lands (~2027). Single supplier under every AI substrate.
 **Check:** Verify the 91% share source and the shortage/price-hike reporting; confirm no second source qualified.

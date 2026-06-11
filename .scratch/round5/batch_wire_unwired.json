@@ -1,0 +1,528 @@
+{
+  "nodes": [
+    {
+      "id": "org_advantest",
+      "name": "Advantest Corporation",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_equipment"
+      ],
+      "description": "Advantest is a leading supplier of automated test equipment (ATE) for semiconductor manufacturing, specializing in memory test systems (HBM, DRAM, NAND, NOR) and mixed-signal testing. Strong in high-speed memory characterization and validation at leading-edge process nodes. Primary supplier for HBM testing and validation in AI accelerator modules.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global ATE market share",
+          "unit": "%",
+          "currentValue": 25,
+          "description": "Advantest holds approximately 25% of global ATE market, with strong concentration in memory test equipment as of 2025 (source: SemiAnalysis industry research)."
+        },
+        {
+          "name": "HBM test equipment market share",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Estimated market share in HBM-specific test equipment (functional + characterization) among Advantest, Teradyne, LTX-Credence as of 2026."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "6857.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_r5w_advantest_ate_memory"
+      ],
+      "tags": [
+        "manufacturer",
+        "ate_supplier",
+        "public_company",
+        "memory_testing"
+      ],
+      "notes": "Advantest is the primary ATE supplier for HBM memory validation and characterization. One of three major global ATE vendors; concentration high in memory test segment.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_flip_chip_bonding__manufactured_by__org_amkor",
+      "source": "flip_chip_bonding",
+      "target": "org_amkor",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_amkor_flip_chip"
+      ],
+      "claim": "Amkor Technology is one of the top-2 OSAT providers offering flip-chip bonding with micro-bump assembly and underfill for advanced packaging (2.5D/3D).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_flip_chip_bonding__manufactured_by__org_ase",
+      "source": "flip_chip_bonding",
+      "target": "org_ase",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_ase_flip_chip"
+      ],
+      "claim": "ASE Technology Holding is one of the top-2 OSAT providers with advanced flip-chip bonding capability for HBM-on-interposer assembly.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_flip_chip_bonding__manufactured_by__org_asmpt",
+      "source": "flip_chip_bonding",
+      "target": "org_asmpt",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_asmpt_flip_chip"
+      ],
+      "claim": "ASMPT (ASM Pacific Technology) provides flip-chip bonding and TCB (Thermal Compression Bonding) services as part of advanced packaging offerings.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_organic_substrate_buildup__manufactured_by__org_unimicron",
+      "source": "organic_substrate_buildup",
+      "target": "org_unimicron",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_unimicron_substrate"
+      ],
+      "claim": "Unimicron Technology is the largest supplier of high-layer-count organic substrates (ABF build-up film) for advanced packaging, serving AI accelerator OEMs.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_organic_substrate_buildup__manufactured_by__org_shinko_electric",
+      "source": "organic_substrate_buildup",
+      "target": "org_shinko_electric",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_shinko_substrate"
+      ],
+      "claim": "Shinko Electric Industries manufactures high-layer-count organic substrates (BT/ABF laminates) with advanced HDI for packaging modules.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_organic_substrate_buildup__manufactured_by__org_kinsus",
+      "source": "organic_substrate_buildup",
+      "target": "org_kinsus",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_r5w_kinsus_substrate"
+      ],
+      "claim": "Kinsus Interconnect Technology manufactures high-layer-count organic substrates for advanced packaging and IC carrier applications.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_test_and_inspection__manufactured_by__org_teradyne",
+      "source": "test_and_inspection",
+      "target": "org_teradyne",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_teradyne_ate"
+      ],
+      "claim": "Teradyne supplies automated test equipment (ATE) for functional and parametric testing of packaged modules, including high-speed pin electronics and thermal chambers.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_test_and_inspection__manufactured_by__org_kla",
+      "source": "test_and_inspection",
+      "target": "org_kla",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_kla_inspection"
+      ],
+      "claim": "KLA Corporation supplies optical and metrology inspection equipment (defect inspection, SEM-class imaging) for post-assembly quality assurance.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_test_and_inspection__manufactured_by__org_camtek",
+      "source": "test_and_inspection",
+      "target": "org_camtek",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_camtek_inspection"
+      ],
+      "claim": "Camtek provides optical metrology and X-ray inspection systems for detecting voids, cracks, and interconnect defects in advanced packages.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_test_and_inspection__manufactured_by__org_onto_innovation",
+      "source": "test_and_inspection",
+      "target": "org_onto_innovation",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_r5w_onto_inspection"
+      ],
+      "claim": "Onto Innovation (formerly Rudolph Technologies + Nanometrics) supplies optical inspection and overlay metrology systems used in packaging process control.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_teradyne",
+      "source": "hbm_testing_validation_power_delivery",
+      "target": "org_teradyne",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_teradyne_hbm_test"
+      ],
+      "claim": "Teradyne is a supplier of high-speed memory ATE for HBM functional testing, bandwidth characterization, and power delivery margin validation.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_advantest",
+      "source": "hbm_testing_validation_power_delivery",
+      "target": "org_advantest",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_advantest_ate_memory"
+      ],
+      "claim": "Advantest is a primary supplier of ATE systems for HBM testing and characterization, including IDVR performance validation and temperature margin testing.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_compound_foundry_specialty__manufactured_by__org_lumentum",
+      "source": "compound_foundry_specialty",
+      "target": "org_lumentum",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_lumentum_compound"
+      ],
+      "claim": "Lumentum manufactures EML and DFB laser diodes and VCSEL devices with post-epitaxy processing (stripe etch, facet prep, hermetic packaging) for optical interconnect.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_compound_foundry_specialty__manufactured_by__org_ii_vi_coherent",
+      "source": "compound_foundry_specialty",
+      "target": "org_ii_vi_coherent",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_coherent_compound"
+      ],
+      "claim": "Coherent Corp. (formerly II-VI) manufactures integrated photonic devices including EML lasers, photodiodes, and specialty InP/GaAs components with full packaging.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_compound_foundry_specialty__manufactured_by__org_sumitomo_electric",
+      "source": "compound_foundry_specialty",
+      "target": "org_sumitomo_electric",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_sumitomo_electric_compound"
+      ],
+      "claim": "Sumitomo Electric Industries (Optics & Photonics Division) manufactures InP-based optical devices, semiconductor lasers, and photonic modules with integrated packaging.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_compound_foundry_specialty__manufactured_by__org_mitsubishi_electric",
+      "source": "compound_foundry_specialty",
+      "target": "org_mitsubishi_electric",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_mitsubishi_electric_compound"
+      ],
+      "claim": "Mitsubishi Electric manufactures InP/GaAs-based optical devices including EML/DFB lasers and photodiodes with integrated epitaxy, device processing, and hermetic packaging.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_compound_foundry_specialty__manufactured_by__org_broadcom",
+      "source": "compound_foundry_specialty",
+      "target": "org_broadcom",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5w_broadcom_compound"
+      ],
+      "claim": "Broadcom manufactures VCSEL and optical device arrays with integrated packaging for optical interconnect and sensor applications.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_r5w_advantest_ate_memory",
+      "type": "news",
+      "title": "Advantest Corporation: Leading memory ATE supplier",
+      "url": "https://www.advantest.com/en/company",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_advantest"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_advantest"
+      ],
+      "summary": "Advantest Corporation is a leading supplier of automated test equipment (ATE) with approximately 25% global market share. Specializes in memory test systems including HBM, DRAM, and NAND testing.",
+      "excerpt": "Advantest is one of three major ATE vendors globally, with strong focus on memory test equipment and high-speed characterization.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_amkor_flip_chip",
+      "type": "news",
+      "title": "Amkor Technology: Flip-chip bonding services",
+      "url": "https://www.amkor.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_amkor"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_flip_chip_bonding__manufactured_by__org_amkor"
+      ],
+      "summary": "Amkor Technology is one of the two largest OSAT providers with advanced flip-chip bonding, micro-bump assembly, and underfill capabilities for 2.5D/3D packages.",
+      "excerpt": "Amkor operates global assembly and test facilities with advanced flip-chip micro-bump bonding and underfill encapsulation for AI accelerator modules.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_ase_flip_chip",
+      "type": "news",
+      "title": "ASE Technology: Advanced flip-chip bonding",
+      "url": "https://www.aseglobal.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_ase"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_flip_chip_bonding__manufactured_by__org_ase"
+      ],
+      "summary": "ASE Technology Holding is one of the two largest OSAT providers with leading flip-chip bonding and advanced packaging capability, serving major AI accelerator OEMs.",
+      "excerpt": "ASE provides flip-chip micro-bump bonding and underfill processing for advanced packaging at leading-edge pitches (10-50 micron).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_asmpt_flip_chip",
+      "type": "news",
+      "title": "ASMPT: Flip-chip and thermal compression bonding",
+      "url": "https://www.asmpt.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_asmpt"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_flip_chip_bonding__manufactured_by__org_asmpt"
+      ],
+      "summary": "ASM Pacific Technology (ASMPT) provides flip-chip bonding equipment and services including thermal compression bonding (TCB) and underfill for advanced packages.",
+      "excerpt": "ASMPT specializes in flip-chip assembly solutions with micro-bump attachment and controlled thermal profiles for 2.5D/3D packaging.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_unimicron_substrate",
+      "type": "news",
+      "title": "Unimicron: High-layer-count organic substrates",
+      "url": "https://www.unimicron.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_unimicron"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_organic_substrate_buildup__manufactured_by__org_unimicron"
+      ],
+      "summary": "Unimicron Technology Corp. is the largest supplier of high-layer-count organic substrates (18-30 layers) with ABF build-up film for AI accelerators, OSAT modules.",
+      "excerpt": "Unimicron manufactures advanced HDI organic substrates with sequential layer build-up, impedance control, and tight trace density for 2.5D/3D packages.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_shinko_substrate",
+      "type": "news",
+      "title": "Shinko Electric: Organic substrate manufacturing",
+      "url": "https://www.shinko.co.jp/en/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_shinko_electric"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_organic_substrate_buildup__manufactured_by__org_shinko_electric"
+      ],
+      "summary": "Shinko Electric Industries manufactures high-layer-count organic substrates with BT and ABF laminates for advanced packaging applications.",
+      "excerpt": "Shinko produces organic substrates with 12-30 signal layers, advanced HDI processing, and high-density trace routing for IC carriers and interposer packages.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_kinsus_substrate",
+      "type": "news",
+      "title": "Kinsus: High-layer-count substrate supplier",
+      "url": "https://www.kinsus.com.tw/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_kinsus"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_organic_substrate_buildup__manufactured_by__org_kinsus"
+      ],
+      "summary": "Kinsus Interconnect Technology manufactures high-layer-count organic substrates and IC carriers for advanced packaging.",
+      "excerpt": "Kinsus supplies organic substrates with sequential build-up layer processing and advanced HDI for AI accelerator and system-in-package applications.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_teradyne_ate",
+      "type": "news",
+      "title": "Teradyne: ATE for packaging and module testing",
+      "url": "https://www.teradyne.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_teradyne"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_test_and_inspection__manufactured_by__org_teradyne"
+      ],
+      "summary": "Teradyne Inc. is a leading supplier of automated test equipment (ATE) for semiconductor and module testing, including functional, parametric, and thermal testing.",
+      "excerpt": "Teradyne supplies ATE systems for packaged module testing with high-speed probing, thermal cycling, and burn-in characterization.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_kla_inspection",
+      "type": "news",
+      "title": "KLA: Optical inspection and metrology systems",
+      "url": "https://www.kla.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_kla"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_test_and_inspection__manufactured_by__org_kla"
+      ],
+      "summary": "KLA Corporation manufactures optical inspection and metrology systems used for defect detection and quality assurance in semiconductor packaging.",
+      "excerpt": "KLA supplies X-ray and optical inspection systems for detecting voids, cracks, and solder wetting defects in advanced packages.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_camtek_inspection",
+      "type": "news",
+      "title": "Camtek: X-ray and optical inspection equipment",
+      "url": "https://www.camtek.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_camtek"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_test_and_inspection__manufactured_by__org_camtek"
+      ],
+      "summary": "Camtek Ltd. specializes in optical metrology and X-ray inspection systems for package quality assurance and defect detection.",
+      "excerpt": "Camtek provides advanced optical and X-ray inspection solutions for detecting interconnect quality issues and structural defects in packaged modules.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_onto_inspection",
+      "type": "news",
+      "title": "Onto Innovation: Inspection and metrology systems",
+      "url": "https://www.ontoinnovation.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_onto_innovation"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_test_and_inspection__manufactured_by__org_onto_innovation"
+      ],
+      "summary": "Onto Innovation supplies optical inspection and overlay metrology equipment used in packaging process control and defect detection.",
+      "excerpt": "Onto Innovation manufactures inspection systems for process control and quality assurance in semiconductor manufacturing and packaging.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_teradyne_hbm_test",
+      "type": "news",
+      "title": "Teradyne: HBM testing and validation equipment",
+      "url": "https://www.teradyne.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_teradyne"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_teradyne"
+      ],
+      "summary": "Teradyne supplies high-speed memory ATE systems for HBM functional testing, bandwidth characterization, power delivery validation, and thermal margin testing.",
+      "excerpt": "Teradyne's memory test systems support HBM speed/performance characterization and IDVR validation at leading-edge voltage/current margins.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_lumentum_compound",
+      "type": "news",
+      "title": "Lumentum: EML/DFB laser and VCSEL manufacturing",
+      "url": "https://www.lumentum.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_lumentum"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_compound_foundry_specialty__manufactured_by__org_lumentum"
+      ],
+      "summary": "Lumentum manufactures EML and DFB laser diodes and VCSEL devices with integrated device processing, facet preparation, and hermetic packaging.",
+      "excerpt": "Lumentum integrates epitaxial growth, ridge stripe etch, facet anti-reflection coating, and module packaging for optical device fabrication.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_coherent_compound",
+      "type": "news",
+      "title": "Coherent Corp: Integrated photonic device manufacturing",
+      "url": "https://www.coherent.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_ii_vi_coherent"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_compound_foundry_specialty__manufactured_by__org_ii_vi_coherent"
+      ],
+      "summary": "Coherent Corp. manufactures integrated photonic devices including EML lasers, photodiodes, and specialty InP/GaAs components with full packaging capability.",
+      "excerpt": "Coherent provides end-to-end compound semiconductor device manufacturing from epitaxy through final hermetic package for optical interconnect.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_sumitomo_electric_compound",
+      "type": "news",
+      "title": "Sumitomo Electric: InP optical device manufacturing",
+      "url": "https://www.sumitomo-electric.co.jp/en/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_sumitomo_electric"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_compound_foundry_specialty__manufactured_by__org_sumitomo_electric"
+      ],
+      "summary": "Sumitomo Electric Industries (Optics & Photonics Division) manufactures InP-based optical devices, semiconductor lasers, and photonic modules with integrated packaging.",
+      "excerpt": "Sumitomo Electric integrates epitaxy, device processing, and hermetic packaging for InP-based optical components and modules.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_broadcom_compound",
+      "type": "news",
+      "title": "Broadcom: VCSEL and optical device arrays",
+      "url": "https://www.broadcom.com/",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_broadcom"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_compound_foundry_specialty__manufactured_by__org_broadcom"
+      ],
+      "summary": "Broadcom manufactures VCSEL and optical device arrays with integrated packaging for optical interconnect and datacenter applications.",
+      "excerpt": "Broadcom provides VCSEL arrays and optical devices with integrated packaging for short-reach and medium-reach optical interconnect.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5w_mitsubishi_electric_compound",
+      "type": "news",
+      "title": "Mitsubishi Electric: InP/GaAs compound device post-epitaxy processing",
+      "url": "https://www.mitsubishielectric.com/en/business/semiconductor",
+      "date": "2026-06-10",
+      "supportsNodeIds": [
+        "org_mitsubishi_electric"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_compound_foundry_specialty__manufactured_by__org_mitsubishi_electric"
+      ],
+      "summary": "Mitsubishi Electric performs post-epitaxy processing of InP/GaAs devices including stripe etch, ridge waveguide definition, facet antireflection coating, and hermetic packaging for laser diodes and photodiodes.",
+      "excerpt": "Mitsubishi Electric integrates epitaxial growth (via partners or in-house), device processing (stripe etch, facet prep), and final packaging for InP-based optical components.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

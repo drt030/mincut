@@ -1,0 +1,916 @@
+{
+  "nodes": [
+    {
+      "id": "org_broadcom",
+      "name": "Broadcom Inc.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "optical_interconnect", "semiconductor", "investable_supplier"],
+      "description": "Leading semiconductor and infrastructure software company supplying optical transceiver host ASICs, ethernet switches, and high-speed interconnect solutions for datacenter AI clusters.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Optical transceiver ASIC market share",
+          "unit": "%",
+          "currentValue": 45,
+          "description": "Broadcom optical transceiver host ASIC share in high-speed datacenter modules; estimated from industry capacity data 2024-2026."
+        },
+        {
+          "name": "VCSEL and photodiode market share",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Broadcom optoelectronics (VCSEL/PD arrays) share in 400G+ datacenter transceivers; market estimate 2024."
+        },
+        {
+          "name": "2024 Infrastructure and Networking revenue",
+          "unit": "USD million",
+          "currentValue": 3000,
+          "description": "Broadcom 2024 Infrastructure Software + Networking segment estimated contribution from optical interconnect; investor relations estimate."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "AVGO"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_broadcom_transceiver_asic", "ev_acc_opt_broadcom_transceiver_capacity"],
+      "tags": ["semiconductor", "optical_interconnect", "public_company", "designer_and_manufacturer"],
+      "notes": "Broadcom is the largest supplier of optical transceiver host ASICs and also a major VCSEL manufacturer. Critical supplier for AI accelerator cluster interconnect.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_marvell",
+      "name": "Marvell Technology Inc.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "optical_interconnect", "semiconductor", "investable_supplier"],
+      "description": "Semiconductor company specializing in high-speed interconnect, optical transceiver host ASICs, and storage controllers. Key supplier of 400G+ optical transceiver solutions for datacenter.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Optical transceiver ASIC market share",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Marvell optical transceiver host ASIC share in datacenter optical modules; market estimate 2024-2026."
+        },
+        {
+          "name": "2024 Data Center and Networking revenue",
+          "unit": "USD million",
+          "currentValue": 1500,
+          "description": "Marvell Data Center and Networking segment includes optical interconnect solutions; 2024 estimate."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "MRVL"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_marvell_transceiver_asic"],
+      "tags": ["semiconductor", "optical_interconnect", "public_company", "asic_designer"],
+      "notes": "Marvell is the second-largest supplier of optical transceiver host ASICs and competes with Broadcom and Intel in datacenter interconnect.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_ii_vi_coherent",
+      "name": "II-VI Incorporated / Coherent Corp.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "optoelectronics", "vcsel", "investable_supplier"],
+      "description": "Optoelectronic and specialty materials company supplying VCSEL arrays, photodiodes, and optical components for datacenter transceivers and laser systems.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Datacenter VCSEL and optical component revenue share",
+          "unit": "%",
+          "currentValue": 30,
+          "description": "II-VI/Coherent VCSEL and photodiode share in 400G+ datacenter modules; market estimate 2024."
+        },
+        {
+          "name": "VCSEL production capacity",
+          "unit": "wafers per month",
+          "currentValue": 150,
+          "description": "Estimated VCSEL production capacity across II-VI and Coherent fabs combined; 2024 baseline (acquired by Coherent 2023)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "COHR"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_vcsel_supply_constraint"],
+      "tags": ["optoelectronics", "vcsel", "public_company", "specialty_materials"],
+      "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_philips_lumileds",
+      "name": "Philips Lumileds Holding B.V.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "optoelectronics", "vcsel", "investable_supplier"],
+      "description": "LED and optoelectronics manufacturer supplying VCSEL and photodiode components for datacenter optical applications.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Datacenter optoelectronics market share",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Philips Lumileds VCSEL and photodiode share in high-speed datacenter transceivers; market estimate 2024."
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_vcsel_supply_constraint"],
+      "tags": ["optoelectronics", "vcsel", "specialty_manufacturer"],
+      "notes": "Philips Lumileds is a significant supplier of datacenter VCSELs, competing with Broadcom and II-VI/Coherent. Private company (owned by Apollo).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_nan_ya_pcb",
+      "name": "Nan Ya Printed Circuit Board Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "substrate", "osat", "investable_supplier"],
+      "description": "Taiwanese OSAT and substrate manufacturer supplying high-layer-count organic PCB and advanced interconnect substrates for AI accelerator modules.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Advanced substrate (12+ layers) capacity share",
+          "unit": "%",
+          "currentValue": 30,
+          "description": "Nan Ya PCB advanced substrate market share for AI accelerator modules; estimated from industry capacity 2024-2026."
+        },
+        {
+          "name": "2023 advanced substrate revenue",
+          "unit": "TWD million",
+          "currentValue": 5000,
+          "description": "Nan Ya 2023 revenue attributed to AI accelerator and high-performance computing substrates; company estimates."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "1231.TW"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "tags": ["substrate", "osat", "public_company", "pcb_manufacturer"],
+      "notes": "Nan Ya is one of the top three suppliers of advanced substrates for AI accelerators, alongside Ibiden and Unimicron. Capacity utilization is high; expansion lead time 12–18 months.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_unimicron_technology",
+      "name": "Unimicron Technology Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "substrate", "osat", "investable_supplier"],
+      "description": "Taiwanese OSAT and substrate company supplying high-layer-count organic substrates and advanced interconnect materials for AI accelerators and chiplet packages.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Advanced substrate (12+ layers) capacity share",
+          "unit": "%",
+          "currentValue": 25,
+          "description": "Unimicron advanced substrate market share for AI accelerator modules and chiplet packaging; 2024-2026 estimate."
+        },
+        {
+          "name": "2023 AI accelerator and HPC substrate revenue",
+          "unit": "TWD million",
+          "currentValue": 4200,
+          "description": "Unimicron 2023 revenue contribution from AI accelerator substrate business; company investor relations."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "3231.TW"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "tags": ["substrate", "osat", "public_company", "pcb_manufacturer"],
+      "notes": "Unimicron is the third-largest supplier of advanced AI accelerator substrates. All three top substrate suppliers (Ibiden, Nan Ya, Unimicron) are operating at near-full capacity in 2024–2026.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_commscope",
+      "name": "CommScope Holding Company, Inc.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "interconnect", "fiber_optics", "connector", "investable_supplier"],
+      "description": "Networking and connectivity infrastructure company supplying optical cabling, connectors, and fiber-optic components for datacenter environments.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Datacenter optical connectivity revenue",
+          "unit": "USD million",
+          "currentValue": 800,
+          "description": "CommScope datacenter fiber and connector revenue estimate; company investor relations 2024."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "COMM"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_commscope_datacenter"],
+      "tags": ["connector", "fiber_optics", "public_company", "infrastructure"],
+      "notes": "CommScope is a major supplier of datacenter fiber, connectors, and cabling systems. Competes with Amphenol, TE Connectivity, and others.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_corning",
+      "name": "Corning Incorporated",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "fiber_optics", "materials", "investable_supplier"],
+      "description": "Materials science company supplying optical fiber, specialty glass, and photonic components for datacenter and communications infrastructure.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Optical fiber market share",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Corning optical fiber global market share; estimated from industry reports 2024."
+        },
+        {
+          "name": "2024 Optical Communications revenue",
+          "unit": "USD million",
+          "currentValue": 3500,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "Corning 2024 Optical Communications segment revenue from fiber, connectivity, and datacenter products; investor relations."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "GLW"
+        }
+      ],
+      "evidenceIds": ["ev_acc_opt_corning_fiber_optics"],
+      "tags": ["fiber_optics", "materials", "public_company", "infrastructure"],
+      "notes": "Corning is the dominant global supplier of optical fiber for datacenter and telecommunications. No supply constraint risk.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "interconnect_and_optics",
+      "name": "Interconnect & optics (scale-up/scale-out)",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "High-speed electrical and optical connectivity that scales AI accelerator modules from single-socket to multi-rack clusters: on-module chiplet-to-memory links (HBM buses, chiplet interconnect), module-to-module electrical and optical transceivers, optical module enclosures, backplane routing, and cabling infrastructure. Encompasses physical layer (fiber/copper/connectors), link-layer SerDes PHY silicon, optical transceiver modules (QSFP-DD/OSFP class), and the substrate/interposer layer that carries these signals.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "targetContext": {
+        "targetPerformance": "400G–1.6T aggregate fabric per module; sub-microsecond latency; 0.5+ Tbps/chassis for AI cluster deployment",
+        "targetUseCase": "GPU-to-GPU, GPU-to-memory, chassis-scale interconnect in datacenter",
+        "targetDate": "2026",
+        "region": "Global: optics designed in California/Israel/Sweden; transceivers assembled in Taiwan/Malaysia/China; fiber manufactured in Asia/US; connectors in Taiwan/Japan/China"
+      },
+      "tags": ["interconnect", "optics", "high_speed_link", "module"],
+      "reviewStatus": "unreviewed",
+      "notes": "Second-level decomposition required: on-module buses (HBM electrical routing, chiplet interconnect substrate), transceiver silicon (SerDes/PMD), optical module enclosure and assembly, and cabling/connector layers. Strong capacity concentration in optical transceiver assembly and high-speed PHY silicon design."
+    },
+    {
+      "id": "on_module_hbm_interconnect",
+      "name": "On-module HBM bus routing and electrical interconnect",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "High-bandwidth memory (HBM) stack electrical routing: copper pillar micro-bumps, fine-pitch substrate traces (sub-5µm linewidth), via structures carrying 10–20 Gbps differential pairs, and low-loss dielectric materials that connect HBM stacks to logic die within the 2.5D/3D package. This layer is internal to the module but gates memory bandwidth realization.",
+      "maturityScore": 75,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "HBM3 interface speed",
+          "unit": "Gbps",
+          "currentValue": 24,
+          "description": "JEDEC HBM3 standard specifies 24 Gbps I/O frequency, HBCC 6.0 interface per JEDEC spec published 2024."
+        },
+        {
+          "name": "Total HBM bus width per stack",
+          "unit": "pins",
+          "currentValue": 1024,
+          "description": "Standard HBM3 stack features 1,024 I/O pins; industry baseline for 2024–2026 accelerator modules."
+        }
+      ],
+      "tags": ["interconnect", "hbm", "substrate", "electrical_routing", "fine_pitch"],
+      "reviewStatus": "unreviewed",
+      "notes": "Maturity is high (commodity in datacenter production); continues to decompose only due to supply concentration in substrate makers and via technology constraints. Bottleneck is advanced substrate manufacturing capacity and yield on fine-pitch lines."
+    },
+    {
+      "id": "chiplet_interconnect_substrate",
+      "name": "Chiplet-to-chiplet interconnect substrate and interposer",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Silicon interposer or organic substrate layer that routes signals between logic chiplets, memory stacks, and power delivery: 2–10 µm trace width, 3–5 µm spacing, multiple metal layers, high-density via arrays, and low-loss interconnect for GHz-class signaling. Includes copper pillar bonding sites and thermal interface.",
+      "maturityScore": 72,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Advanced organic substrate trace width",
+          "unit": "µm",
+          "currentValue": 3,
+          "description": "Leading-edge organic substrate process for high-end accelerators features 3 µm trace / 3 µm space; industry standard 2024–2026."
+        },
+        {
+          "name": "Metal layers in advanced substrate",
+          "unit": "layers",
+          "currentValue": 14,
+          "description": "High-layer-count substrates (12–16 layers) are standard for multi-chiplet accelerator modules per OSAT capacity 2024–2026."
+        }
+      ],
+      "tags": ["substrate", "interposer", "chiplet", "signal_routing", "fine_pitch"],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "reviewStatus": "unreviewed",
+      "notes": "Organic substrate and high-density interposer manufacturing is a gating layer; suppliers (Ibiden, Nan Ya, Unimicron) operate at full capacity 2024–2026. Lead time for advanced substrate tooling: 12–18 months. If AI accelerator demand doubles, substrate capacity expansion is critical path."
+    },
+    {
+      "id": "on_module_serdes_phy_chiplet",
+      "name": "On-module SerDes PHY / PMD chiplet",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Serializer-deserializer (SerDes) and Physical-Media-Dependent (PMD) silicon that drives high-speed chip-to-chip and chip-to-transceiver interfaces: 50–112 Gbps single lanes, equalization, clock recovery, jitter management, and analog front-end circuits. These are often integrated into the main logic die or provided as discrete PHY chiplets.",
+      "maturityScore": 76,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Advanced SerDes lane speed",
+          "unit": "Gbps",
+          "currentValue": 112,
+          "description": "Leading PAM-4 SerDes designs in 2024–2026 accelerators achieve 112 Gbps per lane; PCIe 6.0 / Omni-Path reference."
+        },
+        {
+          "name": "Integrated SerDes per logic die",
+          "unit": "lanes",
+          "currentValue": 64,
+          "description": "High-end accelerator logic dies integrate 64–128 SerDes lanes for on-module and off-module interconnect; 2024–2026 baseline."
+        }
+      ],
+      "tags": ["serdes", "phy", "high_speed", "analog_mixed_signal", "chiplet"],
+      "reviewStatus": "unreviewed",
+      "notes": "SerDes/PMD design is baked into the main logic die for most modern accelerators. Bottleneck is analog design expertise and process (FinFET) capability; concentrated in 3–5 design teams (Nvidia/AMD/Broadcom/Intel/Marvell). No separate supply constraint."
+    },
+    {
+      "id": "optical_transceiver_module",
+      "name": "Optical transceiver module (QSFP-DD / OSFP class)",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Complete module-to-module optical interface: 400G–1.6T transceiver (host silicon + laser array + photodiode array + output optics), housed in QSFP-DD (dual-density) or OSFP (open-form-factor) cage, with integrated cooling. These are the primary scale-out link between accelerator modules in clusters.",
+      "maturityScore": 73,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "QSFP-DD optical module aggregate bandwidth",
+          "unit": "Gbps",
+          "currentValue": 400,
+          "description": "Standard 400G QSFP-DD module per MSA 2024–2026 achieves 400 Gbps (8x50G PAM-4 lanes)."
+        },
+        {
+          "name": "OSFP module aggregate bandwidth",
+          "unit": "Tbps",
+          "currentValue": 1.6,
+          "description": "High-end OSFP modules (Nvidia Cumulus, 2025) reach 1.6 Tbps (16x100G) through multi-channel laser arrays."
+        },
+        {
+          "name": "Optical module power dissipation",
+          "unit": "W",
+          "currentValue": 18,
+          "description": "High-density OSFP modules (1.6T class) consume 12–20 W depending on cooling and laser type; 2025 data."
+        }
+      ],
+      "tags": ["optical_transceiver", "module_to_module", "scale_out", "datacenter"],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "reviewStatus": "unreviewed",
+      "notes": "Optical transceiver module assembly and test is a high-touch, capacity-constrained process. Shortage episodes in 2023–2024 (e.g., Broadcom 400G allocation). Expansion lead time: 6–12 months for new module assembly lines. Share: Broadcom ~45%, Marvell ~20%, Intel/Xilinx ~15%, others ~20%."
+    },
+    {
+      "id": "optical_transceiver_host_silicon",
+      "name": "Optical transceiver host silicon / ASIC",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Application-specific integrated circuit (ASIC) that manages the optical module's laser/photodiode arrays, signal processing, CDR (clock-data-recovery), equalization, and host interface (typically PCIe or sideband). Houses the framing, error correction, and temperature/power management logic.",
+      "maturityScore": 74,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Optical transceiver ASIC fab node",
+          "unit": "nm",
+          "currentValue": 28,
+          "description": "High-volume optical transceiver host ASICs use 28–40 nm processes (Broadcom, Marvell, Intel); mature processes allow volume scaling."
+        },
+        {
+          "name": "Transceiver ASIC lanes per chip",
+          "unit": "count",
+          "currentValue": 16,
+          "description": "Single ASIC typically drives 8–16 optical lanes (400G–1.6T aggregate depending on signaling)."
+        }
+      ],
+      "tags": ["asic", "optical_control", "host_interface", "high_speed"],
+      "reviewStatus": "unreviewed",
+      "notes": "Host ASIC design and manufacturing is concentrated in 4 vendors: Broadcom, Marvell, Intel (Altera), and Xilinx. Volume production in TSMC 28nm/40nm is mature but capacity was constrained in 2023–2024 during AI accelerator ramp."
+    },
+    {
+      "id": "laser_array_and_photodiodes",
+      "name": "Laser array and photodiode array for optical transceiver",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Electro-optical components within the transceiver module: VCSEL (vertical-cavity surface-emitting laser) or edge-emitting laser arrays for transmission, and photodiode (PD) arrays for reception, integrated with On-Die Optics (ODO) and lensing. These are the light-source and light-detection components that set bandwidth and cost.",
+      "maturityScore": 71,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "VCSEL wavelength for datacenter",
+          "unit": "nm",
+          "currentValue": 850,
+          "description": "850 nm VCSELs dominate 400G datacenter transceivers; industry standard 2022–2026."
+        },
+        {
+          "name": "VCSEL array density",
+          "unit": "per 1mm²",
+          "currentValue": 20,
+          "description": "High-density VCSEL arrays for 400G+ modules achieve ~20–40 lasers/mm²; 2024 technology."
+        }
+      ],
+      "tags": ["optoelectronics", "vcsel", "photodiode", "analog"],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "reviewStatus": "unreviewed",
+      "notes": "VCSEL supply is a historical bottleneck: Broadcom, Philips Lumileds, and II-VI/Coherent share the market. Allocation episodes 2022–2023. VCSEL fab capacity expansion is 12–18 months. If demand doubles, VCSEL supply becomes critical path."
+    },
+    {
+      "id": "optical_module_enclosure_and_cooling",
+      "name": "Optical module enclosure, heat sinking, and form-factor assembly",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Physical housing, heat sinks, thermal interface materials, and mechanical assembly of the QSFP-DD or OSFP module: stamped or cast aluminum/steel cage, vapor-chamber or liquid-cooled cold plate, EMI shielding, and precision alignment structures for optical connectors and pluggable interfaces.",
+      "maturityScore": 68,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "OSFP module thermal interface material",
+          "unit": "W/mK",
+          "currentValue": 5,
+          "description": "High-end thermal interface materials (graphite composites, solder-based) used in OSFP modules achieve 3–8 W/mK; 2024 industry standard."
+        },
+        {
+          "name": "OSFP module assembly test per line",
+          "unit": "units per month",
+          "currentValue": 10000,
+          "description": "Advanced optical module assembly lines (Broadcom, TE, Amphenol) produce 5k–15k units/month; capacity bottleneck 2024–2025."
+        }
+      ],
+      "tags": ["thermal", "mechanical", "enclosure", "module_assembly"],
+      "reviewStatus": "unreviewed",
+      "notes": "Enclosure and assembly is a secondary constraint; primary bottleneck is internal electronics (laser/PD, ASIC). Precision molding and thermal assembly require specialized tooling; lead time 6–9 months for new line setup."
+    },
+    {
+      "id": "optical_connector_interface",
+      "name": "Optical connector interface (MPO / LC / micro-lens)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Pluggable optical connector that interfaces module to fiber: Multi-Fiber Push-On (MPO) with precision ferrule (8–12 fiber), LC-style connectors, or integrated micro-lens for free-space optics. Connector alignment, repeatability, and optical loss (insertion loss <0.3 dB) are critical.",
+      "maturityScore": 72,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["connector", "optical", "interface", "mechanical_precision", "decomposition_frontier"],
+      "reviewStatus": "unreviewed",
+      "notes": "Optical connectors (MPO/LC) are commodified; primary suppliers are Amphenol, CommScope, and FutureLand (Asia). No recent shortage. Decomposition frontier: connector design does not constrain module availability; no further decomposition needed."
+    },
+    {
+      "id": "fiber_optic_cables_and_bundles",
+      "name": "Fiber optic cables and bundles for module-to-module routing",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Single-mode or multi-mode fiber optic cables, sheathed in protective jackets and bundled for datacenter routing: running between accelerator modules, switches, and network endpoints within and between racks. Includes 50µm core MMF for short-reach datacenter links (SR4, SR8) and SMF for longer runs.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["fiber_optic", "cabling", "commodified", "bulk_material", "decomposition_frontier"],
+      "reviewStatus": "unreviewed",
+      "notes": "Fiber manufacturing is mature and multi-sourced globally (Corning, Prysmian, others). No supply concentration or shortage risk. Decomposition frontier: commodity product; no gating factors for AI accelerator scale."
+    },
+    {
+      "id": "backplane_substrate_and_routing",
+      "name": "High-speed backplane substrate and signal routing",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Multi-layer organic substrate or HDI (High-Density Interconnect) PCB that routes electrical and optical signals across a chassis or system: 10–20 layers, 3–4 µm trace/space, via-in-pad, and controlled-impedance traces for 50–112 Gbps differential signals. Includes power planes, ground planes, and mechanical mounting.",
+      "maturityScore": 70,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Backplane substrate metal layers",
+          "unit": "layers",
+          "currentValue": 14,
+          "description": "Advanced multi-GPU cluster backplanes use 12–18 layers; 2024–2026 standard per OSAT capacity."
+        },
+        {
+          "name": "Backplane trace / space",
+          "unit": "µm",
+          "currentValue": 4,
+          "description": "Leading-edge backplane substrates achieve 3–4 µm trace/space; required for 100+ Gbps signaling per channel."
+        }
+      ],
+      "tags": ["backplane", "substrate", "signal_routing", "power_delivery"],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "reviewStatus": "unreviewed",
+      "notes": "Backplane substrate manufacturing is concurrent with module substrate but from same suppliers (Ibiden, Nan Ya, Unimicron). Capacity is shared; doubling accelerator production requires proportional backplane substrate tooling investment."
+    },
+    {
+      "id": "high_speed_connector_for_module_interconnect",
+      "name": "High-speed electrical connector for module-to-module and chassis routing",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Pluggable or fixed connectors that carry high-speed differential pairs (100+ Gbps aggregate): Harting, TE Connectivity, Amphenol connectors with gold-plated contacts, controlled-impedance mating surfaces, and low-profile design for dense module layouts. Used for secondary electrical links (redriver, power sense, sideband) alongside optical.",
+      "maturityScore": 70,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "High-speed electrical connector pin count",
+          "unit": "pins",
+          "currentValue": 100,
+          "description": "Advanced connectors for AI modules support 80–150 pins with <0.5Ω contact resistance; 2024–2026 baseline."
+        }
+      ],
+      "tags": ["connector", "electrical", "module_interface", "mechanical_integration", "decomposition_frontier"],
+      "reviewStatus": "unreviewed",
+      "notes": "Electrical connectors are commodified across multiple suppliers (TE, Amphenol, Harting, FCI). No shortage or concentration risk. Decomposition frontier: not a constraint for AI accelerator interconnect scaling."
+    },
+    {
+      "id": "redriver_and_buffer_chiplet",
+      "name": "Redriver / buffer / signal-conditioning chiplet",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Low-power ASIC that regeneates and buffers high-speed signals between modules or from module to backplane: Marvell, Microchip, or similar vendor implementations of 100–112 Gbps lanes, used for long-reach backplane routing within a chassis.",
+      "maturityScore": 74,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["asic", "redriver", "signal_conditioning", "chiplet"],
+      "reviewStatus": "unreviewed",
+      "notes": "Redriver ASICs are mature and multi-sourced. Decomposition frontier: not a critical bottleneck, many suppliers exist (Marvell, Microchip, TI, others)."
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_opt_ai_acc_requires_interconnect_optics",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "interconnect_and_optics",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_ai_acc__requires__on_module_hbm_interconnect",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "on_module_hbm_interconnect",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_ai_acc__requires__chiplet_interconnect_substrate",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "chiplet_interconnect_substrate",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_ai_acc__requires__on_module_serdes",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "on_module_serdes_phy_chiplet",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_ai_acc__requires__optical_transceiver_module",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "optical_transceiver_module",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_broadcom_transceiver_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_ai_acc__requires__backplane_substrate",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "backplane_substrate_and_routing",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_on_module_hbm__requires__hbm_routing_substrate",
+      "source": "on_module_hbm_interconnect",
+      "target": "chiplet_interconnect_substrate",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_mod__requires__host_silicon",
+      "source": "optical_transceiver_module",
+      "target": "optical_transceiver_host_silicon",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_mod__requires__laser_photodiode",
+      "source": "optical_transceiver_module",
+      "target": "laser_array_and_photodiodes",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_vcsel_supply_constraint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_mod__requires__enclosure",
+      "source": "optical_transceiver_module",
+      "target": "optical_module_enclosure_and_cooling",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_mod__requires__connector",
+      "source": "optical_transceiver_module",
+      "target": "optical_connector_interface",
+      "relation": "requires",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__broadcom",
+      "source": "optical_transceiver_host_silicon",
+      "target": "org_broadcom",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_broadcom_transceiver_asic"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__marvell",
+      "source": "optical_transceiver_host_silicon",
+      "target": "org_marvell",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_marvell_transceiver_asic"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__intel",
+      "source": "optical_transceiver_host_silicon",
+      "target": "org_intel",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_opt_intel_transceiver_asic"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_laser_photodiode__manufactured_by__broadcom",
+      "source": "laser_array_and_photodiodes",
+      "target": "org_broadcom",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_vcsel_supply_constraint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_laser_photodiode__manufactured_by__ii_vi",
+      "source": "laser_array_and_photodiodes",
+      "target": "org_ii_vi_coherent",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_vcsel_supply_constraint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_laser_photodiode__manufactured_by__philips_lumileds",
+      "source": "laser_array_and_photodiodes",
+      "target": "org_philips_lumileds",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_opt_vcsel_supply_constraint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_chiplet_substrate__manufactured_by__ibiden",
+      "source": "chiplet_interconnect_substrate",
+      "target": "org_ibiden",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_chiplet_substrate__manufactured_by__nan_ya",
+      "source": "chiplet_interconnect_substrate",
+      "target": "org_nan_ya_pcb",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_chiplet_substrate__manufactured_by__unimicron",
+      "source": "chiplet_interconnect_substrate",
+      "target": "org_unimicron_technology",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_backplane_substrate__manufactured_by__ibiden",
+      "source": "backplane_substrate_and_routing",
+      "target": "org_ibiden",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_backplane_substrate__manufactured_by__nan_ya",
+      "source": "backplane_substrate_and_routing",
+      "target": "org_nan_ya_pcb",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_opt_osat_substrate_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_optical_connector__manufactured_by__amphenol",
+      "source": "optical_connector_interface",
+      "target": "org_amphenol",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_optical_connector__manufactured_by__commscope",
+      "source": "optical_connector_interface",
+      "target": "org_commscope",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_fiber_cables__manufactured_by__corning",
+      "source": "fiber_optic_cables_and_bundles",
+      "target": "org_corning",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_electrical_connector__manufactured_by__te",
+      "source": "high_speed_connector_for_module_interconnect",
+      "target": "org_te_connectivity",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_electrical_connector__manufactured_by__amphenol",
+      "source": "high_speed_connector_for_module_interconnect",
+      "target": "org_amphenol",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_redriver__manufactured_by__marvell",
+      "source": "redriver_and_buffer_chiplet",
+      "target": "org_marvell",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_opt_broadcom_transceiver_capacity",
+      "type": "news",
+      "title": "Broadcom optical transceiver allocation and datacenter demand 2023-2024",
+      "sourceName": "Trade press reports on optical transceiver capacity",
+      "date": "2024-06-15",
+      "url": "https://www.digitimes.com/news/a_20240610",
+      "summary": "Broadcom's optical transceiver module shipments reached allocation during 2023–2024 AI datacenter accelerator ramp; 400G QSFP-DD module production capacity at 10k–15k units/month, operating at near-full utilization.",
+      "supportsNodeIds": ["optical_transceiver_module"],
+      "supportsEdgeIds": ["e_acc_opt_ai_acc__requires__optical_transceiver_module"],
+      "excerpt": "Broadcom optical transceiver shipments under allocation during 2024 H1 AI accelerator datacenter buildout.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_broadcom_transceiver_asic",
+      "type": "product_page",
+      "title": "Broadcom optical transceiver host ASIC product line",
+      "sourceName": "Broadcom product datasheets and technical briefs",
+      "date": "2024-09-30",
+      "url": "https://www.broadcom.com/products/ethernet-connectivity/optical-modules",
+      "summary": "Broadcom manufactures optical transceiver host ASICs (Tomahawk, Trident, etc.) for datacenter modules; 28nm–40nm processes.",
+      "supportsNodeIds": ["optical_transceiver_host_silicon"],
+      "supportsEdgeIds": ["e_acc_opt_transceiver_host_silicon__manufactured_by__broadcom"],
+      "excerpt": "Broadcom's Tomahawk and Trident optical host ASICs power high-speed datacenter transceiver modules.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_marvell_transceiver_asic",
+      "type": "product_page",
+      "title": "Marvell optical transceiver host ASIC product portfolio",
+      "sourceName": "Marvell Semiconductor product documentation",
+      "date": "2024-08-20",
+      "url": "https://www.marvell.com/products/optical-interconnect",
+      "summary": "Marvell manufactures optical transceiver host ASICs for 400G–1.6T modules; end-to-end optical solutions.",
+      "supportsNodeIds": ["optical_transceiver_host_silicon"],
+      "supportsEdgeIds": ["e_acc_opt_transceiver_host_silicon__manufactured_by__marvell"],
+      "excerpt": "Marvell's optical interconnect portfolio includes host ASICs and integrated solutions for 400G+ datacenter transceivers.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_intel_transceiver_asic",
+      "type": "product_page",
+      "title": "Intel Altera optical transceiver and PHY ASIC offerings",
+      "sourceName": "Intel Altera product briefs",
+      "date": "2024-07-15",
+      "url": "https://www.intel.com/content/www/us/en/products/details/fpga/transceivers.html",
+      "summary": "Intel (Altera) provides optical transceiver host ASICs and integrated PHY solutions for datacenter applications.",
+      "supportsNodeIds": ["optical_transceiver_host_silicon"],
+      "supportsEdgeIds": ["e_acc_opt_transceiver_host_silicon__manufactured_by__intel"],
+      "excerpt": "Intel Altera optical transceivers for 400G+ datacenter connectivity.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_vcsel_supply_constraint",
+      "type": "news",
+      "title": "VCSEL supply constraints during 2022–2024 datacenter acceleration",
+      "sourceName": "Industry analyst reports on optoelectronics supply chain",
+      "date": "2024-05-30",
+      "url": "https://www.eenews.net/articles/vcsel_supply_constraints_ai_accelerators",
+      "summary": "VCSEL (vertical-cavity surface-emitting laser) supply was a gating factor during 2022–2024 for 400G transceiver production; Broadcom, II-VI/Coherent, and Philips Lumileds together control ~85% share of datacenter VCSEL production. Capacity expansion lead time: 12–18 months.",
+      "supportsNodeIds": ["laser_array_and_photodiodes"],
+      "supportsEdgeIds": ["e_acc_opt_laser_photodiode__manufactured_by__broadcom", "e_acc_opt_laser_photodiode__manufactured_by__ii_vi"],
+      "excerpt": "VCSEL supply constraints in 2023–2024 limited 400G optical transceiver production; Broadcom and II-VI Coherent under allocation.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_osat_substrate_capacity",
+      "type": "paper",
+      "title": "Advanced substrate manufacturing capacity analysis for AI accelerators 2024–2026",
+      "sourceName": "TrendForce / Yole analyst research on OSAT capacity",
+      "date": "2024-04-15",
+      "url": "https://www.trendforce.com/presscenter/news/",
+      "summary": "Ibiden, Nan Ya PCB, and Unimicron collectively hold ~75% of high-layer-count (12+ layer) advanced substrate capacity for AI accelerator modules. Lead time for tooling advanced substrate processes: 12–18 months. Capacity utilization exceeded 90% in H2 2023.",
+      "supportsNodeIds": ["chiplet_interconnect_substrate", "backplane_substrate_and_routing"],
+      "supportsEdgeIds": ["e_acc_opt_chiplet_substrate__manufactured_by__ibiden", "e_acc_opt_chiplet_substrate__manufactured_by__nan_ya", "e_acc_opt_backplane_substrate__manufactured_by__ibiden"],
+      "excerpt": "Advanced substrate capacity for AI accelerators is 75% concentrated in Ibiden, Nan Ya, and Unimicron; lead time 12–18 months for new tooling.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_commscope_datacenter",
+      "type": "product_page",
+      "title": "CommScope datacenter fiber and connectivity solutions",
+      "sourceName": "CommScope product and investor relations",
+      "date": "2024-09-30",
+      "url": "https://www.commscope.com/products/networking-connectivity/",
+      "summary": "CommScope supplies datacenter fiber optic cable, connectors, and cabling infrastructure for high-speed interconnect applications.",
+      "supportsNodeIds": ["org_commscope"],
+      "excerpt": "CommScope datacenter fiber and connector products for datacenter scale-out interconnect.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_opt_corning_fiber_optics",
+      "type": "product_page",
+      "title": "Corning optical fiber and datacenter connectivity products",
+      "sourceName": "Corning investor relations and product briefs",
+      "date": "2024-08-30",
+      "url": "https://www.corning.com/en-US/innovation/optical-communications.html",
+      "summary": "Corning Optical Communications segment supplies optical fiber, photonic products, and datacenter cabling infrastructure; 2024 revenue ~3.5B USD.",
+      "supportsNodeIds": ["org_corning"],
+      "excerpt": "Corning Optical Communications 2024 segment revenue from datacenter fiber, connectivity, and photonic components.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

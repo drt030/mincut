@@ -1,0 +1,1019 @@
+{
+  "nodes": [
+    {
+      "id": "substrate_and_interposer",
+      "name": "Package substrate & interposer",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "The multi-layer organic substrate and silicon/organic interposer that form the structural and electrical backbone of a 2.5D AI accelerator package. Carries the logic die, HBM stacks, power delivery, thermal vias, and signal routing from the die to the board-level connector. The substrate-interposer stack includes build-up layers, resin systems, copper traces, vias, and thermal management features—all facing acute capacity and material constraints in 2025–2026.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "tags": [
+        "ai_compute",
+        "packaging",
+        "structural"
+      ],
+      "notes": "2025–2026 bottleneck: substrate + interposer assembly is a critical chokepoint in AI accelerator volume ramps due to capacity constraints at TSMC CoWoS, material shortages (T-glass, ABF), and long tool lead times (18–24 months).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "organic_substrate_base_structure",
+      "name": "Organic substrate base structure",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Multi-layer organic laminate (6–14+ layers for high-density AI accelerator packages) composed of resin matrix (BT or ABF) with embedded glass fiber cloth (T-glass or E-glass) and copper foil. Forms the foundation carrying signal routing, power planes, and mechanical support for the interposer and die assembly.",
+      "maturityScore": 80,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "substrate",
+        "structural",
+        "material"
+      ],
+      "notes": "Material bottleneck: T-glass (91% supply from Nittobo) faces 10–20% shortage through mid-2027; BT resin and ABF film similarly constrained.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "silicon_interposer_rdl",
+      "name": "Silicon interposer with RDL",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Silicon interposer (2.5D package core) carrying Redistribution Layer (RDL) that routes signals between the logic die, HBM stacks, and substrate. Typically 300–500 µm thick, with deep trench capacitors and low-impedance interconnects. TSMC CoWoS-S is the volume architecture; Samsung iCube is secondary.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "tags": [
+        "interposer",
+        "2.5d_packaging",
+        "rdl"
+      ],
+      "metrics": [
+        {
+          "name": "TSMC CoWoS-S capacity 2026",
+          "unit": "wafers per month",
+          "currentValue": {
+            "min": 75000,
+            "typical": 100000,
+            "max": 130000
+          },
+          "description": "TSMC monthly CoWoS capacity expanding from ~75k wafers/month in early 2025 to 110–130k wafers/month by end of 2026 per CEO guidance. CoWoS sold out through 2025 and into 2026."
+        },
+        {
+          "name": "TSMC CoWoS market share 2025",
+          "unit": "%",
+          "currentValue": 60,
+          "description": "TSMC holds ~60% of global 2.5D/3D stacking advanced packaging market; CoWoS-S and I-Cube (silicon interposer 2.5D) are volume architectures for AI accelerators."
+        },
+        {
+          "name": "Top-3 customer allocation of TSMC CoWoS 2026",
+          "unit": "%",
+          "currentValue": 85,
+          "description": "Major customers (NVIDIA, AMD, hyperscalers) have locked >85% of TSMC's total CoWoS production capacity, leaving <15% for second-tier AI chip makers, ASIC vendors, startups."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_tsmc_cowos_capacity_2026",
+        "ev_acc_sub_samsung_iCube_2024"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "abf_build_up_film",
+      "name": "ABF (Ajinomoto Build-up Film)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Dielectric build-up film used in high-density IC substrates, composed of resin-impregnated fine glass fibers (50–100 µm thickness per layer). ABF is the premium segment for advanced AI accelerator packages, enabling tight trace spacing and high layer count.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "metrics": [
+        {
+          "name": "ABF market growth CAGR 2021–2028",
+          "unit": "%",
+          "currentValue": 20.73,
+          "description": "ABF demand CAGR 20.73% from 2021 to 2028, driven by 5G, AI, and EV; Film Type B (premium ABF) accounts for 31.4% revenue share in 2025."
+        },
+        {
+          "name": "Ajinomoto ABF capacity increase 2025",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "Ajinomoto's new Gunma facility completed March 2025 and reached full operations October 2025, increasing ABF capacity by ~50% to 2030."
+        },
+        {
+          "name": "Ajinomoto ABF price increase 2026",
+          "unit": "%",
+          "currentValue": 30,
+          "description": "Ajinomoto announced 30% price increase for core ABF laminated film, effective Q3 2026, citing strong demand and tight supply."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_ajinomoto_abf_2025",
+        "ev_acc_sub_ajinomoto_expansion_2030"
+      ],
+      "tags": [
+        "material",
+        "build_up_layer",
+        "capacity_constrained"
+      ],
+      "notes": "Ajinomoto holds dominant market share for ABF; expansion capacity through 2030; additional Gifu site planned for 2032 startup.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "bt_resin_laminate",
+      "name": "BT resin laminate substrate",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Bismaleimide-Triazine resin laminate produced by Mitsubishi Gas Chemical and competing suppliers. Lower-cost alternative to ABF for mid-range packages; less common in leading-edge AI accelerators but used in secondary packages and thermal management layers.",
+      "maturityScore": 76,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "material",
+        "substrate_base",
+        "resin"
+      ],
+      "metrics": [
+        {
+          "name": "BT substrate price hike 2025",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "BT substrate and fiberglass prices eye ~20% hike mid-2025 amid AI boom and supply shortage."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_mitsubishi_bt_resin"
+      ],
+      "notes": "Mitsubishi Gas Chemical owns key BT resin formula; high Tg, moisture resistance, low DK/DF suitable for power-dense packages.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "t_glass_fabric",
+      "name": "T-glass (Boron-free glass fiber cloth)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "High-performance glass fiber cloth with reduced coefficient of thermal expansion (CTE), critical for substrates carrying high-power, high-frequency signals in AI accelerators. T-glass dominates AI substrate designs; supply is heavily concentrated at Nittobo (91% global market share).",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "metrics": [
+        {
+          "name": "Nittobo T-glass global market share 2025",
+          "unit": "%",
+          "currentValue": 91,
+          "description": "Nittobo dominates certified T-glass production; ~91% global market share + 60–70% NER-glass market share."
+        },
+        {
+          "name": "T-glass supply shortage 2026",
+          "unit": "%",
+          "currentValue": {
+            "min": 10,
+            "typical": 15,
+            "max": 20
+          },
+          "description": "Taiwan IC substrate makers forecast 10–20% supply gap of T-glass material in 2026; demand doubled entering 2025–2026."
+        },
+        {
+          "name": "Nittobo T-glass capacity expansion target 2027",
+          "unit": "x",
+          "currentValue": 3,
+          "description": "Nittobo plans to triple T-glass capacity by 2027; new equipment online expected mid-2027 at earliest."
+        },
+        {
+          "name": "Nittobo price increase August 2025",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Nittobo raised prices across glass fiber product line by 20% in August 2025; planned another 20–30% increase for April 2026."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_nittobo_tglass_shortage",
+        "ev_acc_sub_nittobo_capacity_expansion"
+      ],
+      "tags": [
+        "material",
+        "glass_fiber",
+        "single_source_concentration"
+      ],
+      "notes": "Critical bottleneck: Nittobo near-monopoly (91% share) with constrained capacity through mid-2027. New capacity expected only from 2027; new equipment requires 6 months to stabilize yield.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "copper_trace_routing",
+      "name": "Copper trace routing and signal redistribution",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Multi-layer copper trace patterning, via drilling, plating, and controlled impedance routing across substrate and interposer layers. Enables signal integrity for high-speed interfaces (HBM, chiplet links).",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "manufacturing_process",
+        "electrical"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "thermal_via_filling",
+      "name": "Thermal via filling and copper column formation",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Electroplating and copper paste filling of thermal vias (50–200 µm diameter) to conduct waste heat from the die to the substrate backside. High via density required in AI packages (700W+/module); copper filling is energy-intensive and equipment-limited.",
+      "maturityScore": 74,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "manufacturing_process",
+        "thermal_management",
+        "equipment_intensive"
+      ],
+      "metrics": [
+        {
+          "name": "Substrate tool lead time expansion 2024–2025",
+          "unit": "months",
+          "currentValue": {
+            "min": 18,
+            "typical": 20,
+            "max": 24
+          },
+          "description": "Equipment lead times extend up to 18–24 months for substrate expansion projects; CCL makers and substrate suppliers face significant delays in new capacity buildout."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_thermal_via_equipment_lead_time"
+      ],
+      "notes": "Bottleneck: electroplating and via-fill equipment capacity becomes gated by specialized tool suppliers (ASMPT, Kulicke & Soffa). New equipment takes 18–24 months to procure and integrate.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "power_delivery_network_substrate",
+      "name": "Power delivery network (PDN) in substrate",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Embedded power planes, decoupling capacitors (eMIM, MIM), and integrated inductors within the substrate to deliver clean, stable power to the logic die at 700W+ power dissipation. PDN target impedance < 1 mΩ at core frequencies. Co-designed with silicon.",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "module",
+        "power_delivery",
+        "high_density"
+      ],
+      "notes": "Advanced PDN techniques (eMIM-T, CoaxMIL) embed passive devices in substrate for impedance optimization; co-design with silicon is critical.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_kinsus",
+      "name": "Kinsus Interconnect Technology Corp.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier"
+      ],
+      "description": "Taiwan-based IC substrate and PCB manufacturer. Leading supplier of BT and ABF substrates for AI accelerators; strong volume growth in 2024–2025. Publicly traded (listed as TPE: 3189).",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Kinsus 2025 revenue growth",
+          "unit": "%",
+          "currentValue": 28.87,
+          "description": "Kinsus recorded strongest performance with 2025 annual revenue surging 28.87% driven by AI substrate demand."
+        },
+        {
+          "name": "Kinsus ABF substrate market segment",
+          "unit": "%",
+          "currentValue": {
+            "min": 8,
+            "typical": 12,
+            "max": 15
+          },
+          "description": "Kinsus leads in volume production of BT substrates for consumer electronics; growing ABF segment for AI. Revenue share estimate 8–15% of total substrate market (most conservative basis)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "3189.TW"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_kinsus_revenue_2025",
+        "ev_acc_sub_digitimes_substrate_leaders"
+      ],
+      "tags": [
+        "manufacturer",
+        "substrate_maker",
+        "taiwan",
+        "public_company"
+      ],
+      "notes": "Growth driver: AI substrate demand. Capacity expansion ongoing with client subsidies and pre-payments.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_unimicron",
+      "name": "Unimicron Technology Corp.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier"
+      ],
+      "description": "Taiwan-based IC substrate manufacturer. Market leader in ABF substrates; 15.2% revenue share in 2024 package substrates market. Primary supplier to major AI accelerator makers; aggressive expansion into high-end ABF for server/AI applications.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Unimicron IC substrate revenue share 2024",
+          "unit": "%",
+          "currentValue": 15.2,
+          "description": "Unimicron leads sector with 15.2% revenue share in 2024 package substrates market overall; top revenue leader."
+        },
+        {
+          "name": "ABF substrate market leader position 2025",
+          "unit": "ranking",
+          "currentValue": 1,
+          "description": "Unimicron makes the most ABF and has the biggest share; none of top five exceeded 18% individual share in 2025."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "3037.TW"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_digitimes_substrate_leaders",
+        "ev_acc_sub_unimicron_market_share"
+      ],
+      "tags": [
+        "manufacturer",
+        "substrate_maker",
+        "taiwan",
+        "public_company",
+        "market_leader"
+      ],
+      "notes": "Historical bottleneck: 2021–22 ABF shortage drove record earnings for Unimicron. Expansion of ABF capacity for AI demand continuing.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_ajinomoto_fine_techno",
+      "name": "Ajinomoto Fine-Techno Co., Ltd.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier"
+      ],
+      "description": "Japanese subsidiary of Ajinomoto Group. Sole/dominant producer of ABF (Ajinomoto Build-up Film), the premium dielectric material for high-density IC substrates. Controls majority of ABF supply globally; critical supplier to all AI accelerator makers.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Ajinomoto ABF global supply dominance",
+          "unit": "%",
+          "currentValue": {
+            "min": 70,
+            "typical": 80,
+            "max": 85
+          },
+          "description": "Ajinomoto holds dominant/monopoly share of ABF supply; Film Type B (premium ABF) accounts for 31.4% of total ABF revenue in 2025."
+        },
+        {
+          "name": "Ajinomoto ABF sales growth 2025",
+          "unit": "%",
+          "currentValue": 28,
+          "description": "ABF sales for high-performance boards used in AI servers and networks increased 28% for full year FY2025."
+        },
+        {
+          "name": "Ajinomoto ABF expansion capex 2025–2030",
+          "unit": "JPY billion",
+          "currentValue": 25,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "Ajinomoto committed JPY 25 billion in capex for ABF production expansion; new facility in Gunma completed March 2025, full ops October 2025, capacity increase ~50%."
+        },
+        {
+          "name": "Ajinomoto Gunma facility capacity increase",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "New Gunma varnish production facility reached full-scale operations October 2025, increasing total ABF capacity by ~50% toward 2030."
+        },
+        {
+          "name": "Ajinomoto future site (Gifu)",
+          "unit": "status",
+          "currentValue": "Land acquired May 2026, construction 2028, ops 2032",
+          "description": "Ajinomoto acquired land in Gifu May 2026; construction scheduled 2028, operations targeted 2032 to support demand from 2030 onwards."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_ajinomoto_abf_2025",
+        "ev_acc_sub_ajinomoto_expansion_2030",
+        "ev_acc_sub_ajinomoto_q4_2025_earnings"
+      ],
+      "tags": [
+        "manufacturer",
+        "material_supplier",
+        "japan",
+        "monopoly_position"
+      ],
+      "notes": "Critical bottleneck: Ajinomoto's ABF capacity and expansion roadmap gate AI accelerator substrate volume through 2028. Announced 30% price increase effective Q3 2026.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_nittobo",
+      "name": "Nittobo Chemical Industries, Ltd.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier"
+      ],
+      "description": "Japanese glass fiber manufacturer. Dominates certified T-glass (boron-free) production, the critical substrate base material for AI accelerators. Holds ~91% global T-glass market share; sole practical source for leading-edge substrates.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Nittobo T-glass global market share 2025",
+          "unit": "%",
+          "currentValue": 91,
+          "description": "Nittobo dominates certified T-glass production globally; approximately 91% market share + 60–70% NER-glass share."
+        },
+        {
+          "name": "Nittobo T-glass capacity constraint 2026",
+          "unit": "%",
+          "currentValue": {
+            "min": 10,
+            "typical": 15,
+            "max": 20
+          },
+          "description": "Taiwan IC substrate makers forecast 10–20% supply gap of T-glass in 2026; Nittobo constrained through mid-2027."
+        },
+        {
+          "name": "Nittobo T-glass capacity expansion target",
+          "unit": "x",
+          "currentValue": 3,
+          "description": "Nittobo announced August 2025 plan to triple T-glass capacity during 2026–2027; investment >¥50 billion in Japan and Taiwan."
+        },
+        {
+          "name": "Nittobo Fukushima plant expansion investment",
+          "unit": "JPY billion",
+          "currentValue": 15,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "Nittobo investing ¥15 billion ($96 million) to expand T-glass capacity by up to threefold at Fukushima production base; facilities online in 2027."
+        },
+        {
+          "name": "Nittobo price increase August 2025",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Nittobo raised prices across glass fiber product line 20% in August 2025; planned another 20–30% increase for April 2026."
+        },
+        {
+          "name": "Nittobo new capacity commissioning timeline",
+          "unit": "month",
+          "currentValue": 6,
+          "description": "Newly installed glass fiber equipment typically requires ~6 months to reach stable yield; meaningful relief not before mid-2027."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "3107.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_nittobo_tglass_shortage",
+        "ev_acc_sub_nittobo_capacity_expansion",
+        "ev_acc_sub_nittobo_price_increases"
+      ],
+      "tags": [
+        "manufacturer",
+        "material_supplier",
+        "japan",
+        "monopoly_position",
+        "public_company"
+      ],
+      "notes": "CRITICAL BOTTLENECK: Nittobo's 91% T-glass share and constrained capacity (10–20% shortage through mid-2027) gates AI accelerator substrate volume. Partnership with Nan Ya to handle 20% by 2027; plans next-gen T-glass by 2028.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_mitsubishi_gas_chemical",
+      "name": "Mitsubishi Gas Chemical Company, Inc.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier"
+      ],
+      "description": "Japanese chemical company. Owns key BT resin formula and manufacturing technology patents; supplier of bismaleimide-triazine (BT) resin laminates for IC substrates. Competes with Ajinomoto in substrate resin market.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "BT resin market position",
+          "unit": "status",
+          "currentValue": "Major player",
+          "description": "Mitsubishi Gas Chemical Company owns key material BT resin formula and manufacturing technology patents; high Tg, moisture resistance, low DK/DF."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "4182.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_mitsubishi_bt_resin"
+      ],
+      "tags": [
+        "manufacturer",
+        "material_supplier",
+        "japan",
+        "public_company"
+      ],
+      "notes": "Key supplier of BT resin systems; competing against Ajinomoto ABF for design wins in AI substrate market.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_nan_ya_pcb",
+      "name": "Nan Ya Printed Circuit Board Corp.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier"
+      ],
+      "description": "Taiwan-based PCB and IC substrate manufacturer. Secondary player in ABF substrates; also partnering with Nittobo on T-glass supply chain to expand capacity. Strong in BT substrates.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Nan Ya PCB substrate market position 2024",
+          "unit": "ranking",
+          "currentValue": 5,
+          "description": "Nan Ya PCB is among top-5 global substrate makers; ~10% market share estimate in package substrates."
+        },
+        {
+          "name": "Nan Ya partnership with Nittobo T-glass",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Nan Ya partnered with Nittobo to handle 20% of T-glass supply by 2027 as expansion effort."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "8046.TW"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub_nan_ya_nittobo_partnership",
+        "ev_acc_sub_digitimes_substrate_leaders"
+      ],
+      "tags": [
+        "manufacturer",
+        "substrate_maker",
+        "taiwan",
+        "public_company"
+      ],
+      "notes": "Strategic partnership with Nittobo to supplement T-glass supply; secondary player in high-end ABF but growing capacity.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_sub_ai_accelerator__requires__substrate_and_interposer",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "substrate_and_interposer",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "AI accelerator module requires substrate and interposer as structural and electrical foundation.",
+      "evidenceIds": [],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_substrate_interposer__requires__organic_substrate",
+      "source": "substrate_and_interposer",
+      "target": "organic_substrate_base_structure",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Substrate-interposer module requires organic substrate base as structural foundation.",
+      "evidenceIds": [],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_substrate_interposer__requires__silicon_interposer",
+      "source": "substrate_and_interposer",
+      "target": "silicon_interposer_rdl",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "2.5D substrate-interposer stack requires silicon interposer with RDL for die-to-HBM signal routing.",
+      "evidenceIds": [
+        "ev_acc_sub_tsmc_cowos_capacity_2026"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_substrate_interposer__requires__pdn",
+      "source": "substrate_and_interposer",
+      "target": "power_delivery_network_substrate",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Substrate must integrate power delivery network (PDN) to distribute 700W+ power to logic die at <1 mΩ impedance.",
+      "evidenceIds": [],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_organic_substrate__requires__abf_build_up",
+      "source": "organic_substrate_base_structure",
+      "target": "abf_build_up_film",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "High-density substrate requires ABF dielectric layers for tight trace spacing and advanced designs.",
+      "evidenceIds": [
+        "ev_acc_sub_ajinomoto_abf_2025"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_organic_substrate__requires__t_glass",
+      "source": "organic_substrate_base_structure",
+      "target": "t_glass_fabric",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Substrate requires T-glass (boron-free glass fiber) for low CTE and thermal stability in high-power packages.",
+      "evidenceIds": [
+        "ev_acc_sub_nittobo_tglass_shortage"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_substrate_interposer__requires__copper_routing",
+      "source": "substrate_and_interposer",
+      "target": "copper_trace_routing",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Multi-layer substrate requires copper trace patterning and via formation for signal integrity.",
+      "evidenceIds": [],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_substrate_interposer__requires__thermal_vias",
+      "source": "substrate_and_interposer",
+      "target": "thermal_via_filling",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "High-power packages (700W+) require dense thermal vias filled with copper for heat dissipation.",
+      "evidenceIds": [
+        "ev_acc_sub_thermal_via_equipment_lead_time"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_abf_build_up__manufactured_by__ajinomoto",
+      "source": "abf_build_up_film",
+      "target": "org_ajinomoto_fine_techno",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "claim": "Ajinomoto Fine-Techno is the dominant producer of ABF (Ajinomoto Build-up Film) globally.",
+      "evidenceIds": [
+        "ev_acc_sub_ajinomoto_abf_2025",
+        "ev_acc_sub_ajinomoto_expansion_2030"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_organic_substrate__manufactured_by__kinsus",
+      "source": "organic_substrate_base_structure",
+      "target": "org_kinsus",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "claim": "Kinsus is a leading supplier of BT and ABF substrates for AI accelerators.",
+      "evidenceIds": [
+        "ev_acc_sub_kinsus_revenue_2025",
+        "ev_acc_sub_digitimes_substrate_leaders"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_organic_substrate__manufactured_by__unimicron",
+      "source": "organic_substrate_base_structure",
+      "target": "org_unimicron",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "claim": "Unimicron is the market leader in ABF substrates with 15.2% revenue share in 2024.",
+      "evidenceIds": [
+        "ev_acc_sub_digitimes_substrate_leaders",
+        "ev_acc_sub_unimicron_market_share"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_organic_substrate__manufactured_by__nan_ya",
+      "source": "organic_substrate_base_structure",
+      "target": "org_nan_ya_pcb",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "claim": "Nan Ya PCB is a secondary player in ABF substrates with partnership on T-glass supply.",
+      "evidenceIds": [
+        "ev_acc_sub_digitimes_substrate_leaders"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_t_glass__manufactured_by__nittobo",
+      "source": "t_glass_fabric",
+      "target": "org_nittobo",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "claim": "Nittobo is the dominant manufacturer of certified T-glass with ~91% global market share.",
+      "evidenceIds": [
+        "ev_acc_sub_nittobo_tglass_shortage",
+        "ev_acc_sub_nittobo_capacity_expansion"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_bt_resin__manufactured_by__mitsubishi",
+      "source": "bt_resin_laminate",
+      "target": "org_mitsubishi_gas_chemical",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "claim": "Mitsubishi Gas Chemical owns the BT resin formula and is a key supplier of BT laminates.",
+      "evidenceIds": [
+        "ev_acc_sub_mitsubishi_bt_resin"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_sub_silicon_interposer__manufactured_by__tsmc",
+      "source": "silicon_interposer_rdl",
+      "target": "org_tsmc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "claim": "TSMC manufactures silicon interposers for CoWoS-S 2.5D packages; holds 60% global advanced packaging market share.",
+      "evidenceIds": [
+        "ev_acc_sub_tsmc_cowos_capacity_2026"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_sub_tsmc_cowos_capacity_2026",
+      "type": "news",
+      "title": "TSMC CoWoS Capacity Expansion: 75k to 130k Wafers/Month by 2026",
+      "url": "https://info.fusionww.com/blog/inside-the-ai-bottleneck-cowos-hbm-and-2-3nm-capacity-constraints-through-2027",
+      "sourceName": "Fusion Worldwide",
+      "date": "2026-01",
+      "summary": "TSMC CEO C.C. Wei stated CoWoS capacity is 'sold out through 2025 and into 2026.' NVIDIA CEO Jenson Huang confirmed CoWoS assembly capacity is 'oversubscribed through at least mid-2026.' TSMC plans to expand monthly CoWoS capacity from 75,000–80,000 wafers today to 110,000–130,000 by end of 2026. Major customers have locked >85% of TSMC's total CoWoS capacity, leaving <15% for second-tier vendors.",
+      "supportsNodeIds": [
+        "silicon_interposer_rdl",
+        "substrate_and_interposer"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub_silicon_interposer__manufactured_by__tsmc"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_samsung_iCube_2024",
+      "type": "news",
+      "title": "Samsung iCube and SAINT 2.5D/3D Packaging Technology",
+      "url": "https://www.asminternational.org/edfas/samsung-to-unveil-3d-ai-chip-packaging-tech-saint-to-rival-tsmc/",
+      "sourceName": "ASME International / Electronic Device Failure Analysis Society",
+      "date": "2024-06",
+      "summary": "Samsung employs iCube 2.5D packaging technology and plans to unveil SAINT (Samsung Advanced Interconnection Technology) for 3D chip packaging. Samsung is secondary interposer supplier competing with TSMC CoWoS.",
+      "supportsNodeIds": [
+        "silicon_interposer_rdl"
+      ],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_ajinomoto_abf_2025",
+      "type": "paper",
+      "title": "Ajinomoto Q4 FY2025 Earnings: ABF Structural Growth, 28% Sales Increase",
+      "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-ajinomoto-q4-2025-reports-strong-earnings-beat-stock-rises-93CH-4683974",
+      "sourceName": "Ajinomoto Earnings Call Transcript (Investing.com)",
+      "date": "2025-12",
+      "summary": "Ajinomoto reported ABF sales growth of 28% for full year FY2025 (ended March 2025), driven by surging AI server demand. New Gunma facility completed March 2025, reached full ops October 2025, increasing ABF capacity by ~50%. Company stated it has enough ABF capacity through 2030; announced 30% price increase effective Q3 2026.",
+      "supportsNodeIds": [
+        "abf_build_up_film",
+        "org_ajinomoto_fine_techno"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub_abf_build_up__manufactured_by__ajinomoto"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_ajinomoto_expansion_2030",
+      "type": "paper",
+      "title": "Ajinomoto JPY 25B ABF Expansion Capex Plan Through 2030",
+      "url": "https://www.trendforce.com/news/2025/04/01/news-japanese-firm-ajinomoto-to-invest-jpy-25-billion-by-2030-to-expand-abf-production-for-advanced-packaging/",
+      "sourceName": "Trendforce",
+      "date": "2025-04",
+      "summary": "Ajinomoto announced JPY 25 billion (USD ~166M) capex investment by 2030 to boost ABF production capacity by 50%. New Gunma facility operational in October 2025. Gifu facility land acquired May 2026; construction 2028, operations 2032.",
+      "supportsNodeIds": [
+        "abf_build_up_film",
+        "org_ajinomoto_fine_techno"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_ajinomoto_q4_2025_earnings",
+      "type": "paper",
+      "title": "Ajinomoto Q4 2025 Sees Record Performance, ABF Capacity Through 2030",
+      "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-ajinomoto-q4-2025-sees-record-performance-93CH-4667047",
+      "sourceName": "Ajinomoto Earnings Call",
+      "date": "2025-12",
+      "summary": "Ajinomoto reported record earnings in Q4 FY2025; ABF for high-performance AI boards grew strongly. Company reaffirmed commitment to support demand through 2030 and into early next decade.",
+      "supportsNodeIds": [
+        "org_ajinomoto_fine_techno"
+      ],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_nittobo_tglass_shortage",
+      "type": "news",
+      "title": "Nittobo T-Glass Shortage: 10–20% Supply Gap 2026, 91% Market Share Monopoly",
+      "url": "https://info.fusionww.com/blog/understanding-the-t-glass-shortage-and-its-role-in-ai-growth",
+      "sourceName": "Fusion Worldwide",
+      "date": "2025-11",
+      "summary": "Taiwan IC substrate makers forecast 10–20% supply gap of T-glass material in 2026. Nittobo dominates certified T-glass production globally with ~91% market share. Demand has effectively doubled entering 2025–2026 driven by AI infrastructure. Capacity constraints not expected to ease until mid-2027.",
+      "supportsNodeIds": [
+        "t_glass_fabric",
+        "substrate_and_interposer"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub_t_glass__manufactured_by__nittobo"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_nittobo_capacity_expansion",
+      "type": "news",
+      "title": "Nittobo Triple T-Glass Capacity by 2027; 2028 Next-Gen Product; Nan Ya Partnership",
+      "url": "https://www.digitimes.com/news/a20250901PD242/fiberglass-cloth-capacity-ai-server-packaging-production.html",
+      "sourceName": "DigiTimes",
+      "date": "2025-09",
+      "summary": "Nittobo announced plan to triple T-glass capacity during 2026–2027. Investing ¥50+ billion in Japan and Taiwan. Capacity expected 10–20% higher in FY2026 vs. current; double in FY2027. New equipment requires ~6 months to reach stable yield; meaningful relief not before mid-2027. Partnership with Nan Ya to handle 20% by 2027. Plans 2028 next-gen T-glass product.",
+      "supportsNodeIds": [
+        "t_glass_fabric",
+        "org_nittobo",
+        "org_nan_ya_pcb"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_nittobo_price_increases",
+      "type": "news",
+      "title": "Nittobo Raises Glass Fiber Prices 20% (Aug 2025), Plans 20–30% Increase (Apr 2026)",
+      "url": "https://www.digitimes.com/news/a20260204PD225/nittobo-nikkei-2028-launch-materials.html",
+      "sourceName": "DigiTimes",
+      "date": "2026-02",
+      "summary": "Nittobo raised prices across glass fiber product line by 20% in August 2025. Company plans another price increase of roughly 20–30% effective April 2026, citing strong AI demand and tight supply.",
+      "supportsNodeIds": [
+        "t_glass_fabric",
+        "org_nittobo"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_kinsus_revenue_2025",
+      "type": "paper",
+      "title": "Kinsus 2025 Annual Revenue Surge 28.87% Driven by AI Substrate Demand",
+      "url": "https://www.digitimes.com/news/a20250205PD217/ic-substrate-unimicron-kinsus-nanya-pcb-2025.html",
+      "sourceName": "DigiTimes",
+      "date": "2025-02",
+      "summary": "Kinsus recorded strongest performance with 2025 annual revenue surging 28.87% driven by AI substrate demand. Kinsus is a leading supplier of BT and ABF substrates for AI accelerators.",
+      "supportsNodeIds": [
+        "org_kinsus",
+        "organic_substrate_base_structure"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_digitimes_substrate_leaders",
+      "type": "news",
+      "title": "IC Substrate Leaders: Unimicron (15.2%), Kinsus, Nan Ya Market Share 2024–2025",
+      "url": "https://www.digitimes.com/news/a20250820PD237/kinsus-abf-substrate-pegatron-market.html",
+      "sourceName": "DigiTimes",
+      "date": "2025-08",
+      "summary": "Unimicron leads IC substrate market with 15.2% revenue share in 2024 package substrates market. Top five players hold ~74% market share; none exceed 18% individually. Kinsus, Nan Ya, Unimicron posted double-digit revenue growth in 2024.",
+      "supportsNodeIds": [
+        "org_unimicron",
+        "org_kinsus",
+        "org_nan_ya_pcb"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub_organic_substrate__manufactured_by__unimicron",
+        "e_acc_sub_organic_substrate__manufactured_by__kinsus",
+        "e_acc_sub_organic_substrate__manufactured_by__nan_ya"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_unimicron_market_share",
+      "type": "paper",
+      "title": "Unimicron Market Leader in ABF Substrates 2025; 2021–22 Shortage Drove Record Earnings",
+      "url": "https://www.wonderfulpcb.com/blog/top-abf-substrate-manufacturers-and-market-leaders/",
+      "sourceName": "Wonderful PCB",
+      "date": "2025-05",
+      "summary": "Unimicron is the market leader in ABF substrates, making the most with the biggest share. Top five ABF suppliers hold ~74% market share. None of the top five exceeded 18% individual share in 2025. Historical context: 2021–22 ABF shortage drove record earnings for Unimicron.",
+      "supportsNodeIds": [
+        "org_unimicron",
+        "abf_build_up_film"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_mitsubishi_bt_resin",
+      "type": "vendor_claim",
+      "title": "Mitsubishi Gas Chemical: BT Resin Laminate for IC Substrates",
+      "url": "https://ipcb.net/9255.html",
+      "sourceName": "IPCB PCB Prototype Manufacturer",
+      "date": "2025-06",
+      "summary": "Mitsubishi Gas Chemical Company owns the key BT resin formula and manufacturing technology patents. BT resin has advantages: high Tg, high heat resistance, moisture resistance, low DK, low DF. Key supplier of BT resin laminates for IC substrates competing with Ajinomoto ABF.",
+      "supportsNodeIds": [
+        "bt_resin_laminate",
+        "org_mitsubishi_gas_chemical"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub_bt_resin__manufactured_by__mitsubishi"
+      ],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_nan_ya_nittobo_partnership",
+      "type": "news",
+      "title": "Nan Ya Plastics Partnerships with Nittobo: 20% T-Glass Supply by 2027",
+      "url": "https://www.digitimes.com/news/a20251130PD200/demand-ai-applications-nan-ya-plastics-production-market.html",
+      "sourceName": "DigiTimes",
+      "date": "2025-11",
+      "summary": "Nittobo and Nan Ya Plastics partnered to expand glass-fiber output. Nan Ya to handle 20% of T-glass supply by 2027 as part of capacity expansion effort to meet AI surge demand.",
+      "supportsNodeIds": [
+        "org_nan_ya_pcb",
+        "org_nittobo"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub_thermal_via_equipment_lead_time",
+      "type": "news",
+      "title": "Substrate Expansion Equipment Lead Time: 18–24 Months, CCL Capacity Delays 2025",
+      "url": "https://www.digitimes.com/news/a20260402PD216/equipment-expansion-ccl-materials-demand.html",
+      "sourceName": "DigiTimes",
+      "date": "2026-04",
+      "summary": "Equipment lead times extend up to 18–24 months for substrate expansion projects. CCL makers launching new wave of advanced capacity expansion; equipment lead times create bottleneck. Substrate suppliers struggling to catch up with demand from AI-overbooked advanced packaging lines.",
+      "supportsNodeIds": [
+        "thermal_via_filling",
+        "substrate_and_interposer"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub_substrate_interposer__requires__thermal_vias"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

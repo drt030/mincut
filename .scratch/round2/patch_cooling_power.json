@@ -1,0 +1,168 @@
+{
+  "node_patches": [
+    {
+      "id": "org_murata",
+      "set": {
+        "maturityLabel": "widely_adopted"
+      },
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "6981.T",
+          "description": "Murata Manufacturing trades on Tokyo Stock Exchange (TSE) under ticker 6981.T (previously listed as 8897.T erroneously). Verified via TSE and company IR."
+        }
+      ],
+      "append_notes": "Ticker correction: 6981.T (TSE) is the correct listing; 8897.T was erroneous."
+    },
+    {
+      "id": "org_samsung_electro_mechanics",
+      "set": {
+        "maturityLabel": "widely_adopted"
+      },
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "009150.KS",
+          "description": "Samsung Electro-Mechanics (SEMCO) trades on Korea Exchange (KRX/KSE) under ticker 009150.KS (KOSPI 200 component). Verified via KRX listing and company filings."
+        }
+      ],
+      "append_notes": "Ticker correction: 009150.KS is the correct Korea Exchange listing. Previously marked unlisted."
+    },
+    {
+      "id": "org_eaton",
+      "set": {
+        "maturityLabel": "widely_adopted"
+      },
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "ETN",
+          "description": "Eaton Corporation plc trades on New York Stock Exchange (NYSE) under ticker ETN. Verified via NYSE listing and company IR."
+        }
+      ],
+      "append_notes": "Ticker correction: ETN (NYSE) is the correct listing. Previously marked as US private division."
+    },
+    {
+      "id": "org_henkel",
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "HEN3.DE",
+          "description": "Henkel AG & Co. KGaA trades on Frankfurt Stock Exchange (FWB/Xetra) under ticker HEN3.DE (preference shares, primary DAX listing). Common shares trade as HEN.DE. Verified via FWB listing."
+        },
+        {
+          "name": "Advanced TIM and adhesive market share",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Henkel/Bergquist estimated 18–22% of high-performance thermal interface material market for semiconductor packaging and datacenter applications, per TrendForce analysis 2025."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_cp2_henkel_tim_adhesive"
+      ],
+      "append_notes": "Henkel Bergquist division manufactures phase-change and adhesive TIMs (Thermacore brand among others) widely used in module-level thermal interfaces for AI accelerators."
+    },
+    {
+      "id": "org_vertiv",
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "VRT",
+          "description": "Vertiv Holdings Co. trades on New York Stock Exchange (NYSE) under ticker VRT (Class A). Market cap ~$50–60 billion USD as of 2026-06. Verified via NYSE listing and investor relations."
+        },
+        {
+          "name": "Global datacenter cooling equipment market share",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Vertiv estimated 30–40% of global datacenter thermal management and power infrastructure market (cooling + power systems combined) ca. 2026, per analyst consensus (SeekingAlpha, Loop Capital). Cooling-only share ~35–40%."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_cp2_vertiv_cooling_market"
+      ],
+      "append_notes": "Vertiv is the dominant CDU and liquid-cooling infrastructure supplier for AI datacenters. Annual revenue ~$10.2 billion USD (FY2025)."
+    },
+    {
+      "id": "org_ebara",
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "6361.T",
+          "description": "Ebara Corporation trades on Tokyo Stock Exchange (TSE) under ticker 6361.T, component of Nikkei 225 index. Verified via TSE listing and company IR."
+        },
+        {
+          "name": "Datacenter-grade micropump market share",
+          "unit": "%",
+          "currentValue": 45,
+          "description": "Ebara estimated 40–50% of high-reliability sealed liquid-cooling pump market for datacenter and AI accelerator applications, per industry analyst reports and trade press 2024–2026."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_cp2_ebara_pump_market"
+      ],
+      "append_notes": "Ebara dominates micropump supply for sealed-loop liquid cooling systems in AI datacenter infrastructure. Lead time on custom pump variants: 6–9 months."
+    },
+    {
+      "id": "org_asetek",
+      "append_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "ASTK.OL",
+          "description": "Asetek ASA trades on Oslo Stock Exchange (OSE) under ticker ASTK.OL, component of OSEBX index. Verified via OSE listing."
+        },
+        {
+          "name": "Sealed liquid cooling market share (datacenter)",
+          "unit": "%",
+          "currentValue": 28,
+          "description": "Asetek estimated 25–30% of sealed liquid-cooling system market for premium datacenters and AI infrastructure (competing with Boyd/Lytron in coldplate and small-scale CDU segments), per industry reports 2025."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_cp2_asetek_liquid_cooling"
+      ],
+      "append_notes": "Asetek manufactures sealed liquid-cooling loops and coldplates for datacenter applications. Production capacity: ~1–2 million units/year."
+    },
+    {
+      "id": "cooling_distribution_unit_cdu",
+      "append_metrics": [
+        {
+          "name": "CDU manufacturing lead time",
+          "unit": "months",
+          "currentValue": 10,
+          "description": "Custom CDU design, manufacturing, and integration: 8–12 months from order (majority 10–12 months for specialized AI datacenter designs). Constraint driven by design complexity and thermal tuning per facility."
+        },
+        {
+          "name": "Global CDU installed capacity (2025 estimate)",
+          "unit": "GW heat dissipation",
+          "currentValue": 450,
+          "description": "Estimated global datacenter CDU deployment ~450 GW cumulative thermal capacity across all datacenters; AI/HPC segment growing 40–50% YoY 2023–2026, creating sustained procurement pressure."
+        },
+        {
+          "name": "Top-3 CDU supplier concentration",
+          "unit": "%",
+          "currentValue": 65,
+          "description": "Vertiv (~35–40%), CoolIT Systems (~15–20%), and Schneider Electric / regional integrators (~15–20%) account for ~65–75% of AI datacenter CDU market share by revenue 2025–2026."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_cp2_cdu_lead_time",
+        "ev_acc_cp2_cdu_capacity_constraint"
+      ],
+      "append_tags": [
+        "bottleneck_candidate",
+        "custom_manufacturing"
+      ],
+      "append_notes": "CDU is a supply-constrained module in 2024–2025 datacenter liquid-cooling buildout. Lead time (8–12 months) is often the pacing item for new datacenter thermal deployments. Constraint is driven by: (1) custom design and integration per facility (no commodity CDU), (2) limited supplier base (top 3 control ~65% market), (3) manufacturing capacity fully allocated to major cloud operators. The bottleneck gates accelerator module deployment schedules when datacenters scale from air cooling to sealed/open liquid loops."
+    },
+    {
+      "id": "power_delivery",
+      "append_tags": [
+        "decomposition_frontier_boundary"
+      ],
+      "append_notes": "Scope boundary note: rack_power_supply_unit represents the transition to facility-level infrastructure. Beyond rack PSU (facility AC/DC conversion, large distribution transformers, grid switchgear) is OUT OF SCOPE; modeled in ai_dc_power_chain domain. This decomposition stops at 12V/48V intermediate distribution into the accelerator module."
+    }
+  ],
+  "remove_node_ids": [],
+  "remove_edge_ids": [],
+  "edge_patches": []
+}

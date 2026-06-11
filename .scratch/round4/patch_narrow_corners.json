@@ -1,0 +1,142 @@
+{
+  "updates": [
+    {
+      "nodeId": "abf_build_up_film",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_ajinomoto_abf_monopoly_1"
+        },
+        {
+          "op": "add_bottleneck_flag",
+          "field": "bottleneckOf",
+          "value": "ai_accelerator_module_hbm_cowos"
+        },
+        {
+          "op": "patch_notes",
+          "value": "Ajinomoto maintains 95%+ market share in ABF films. Single-source corner: Ajinomoto controls production of specialty ABF formulations for high-layer-count substrates (11L+, 13L+ configurations). 2026 shortage expected as demand scales. Price increases 30% announced for Q3 2026. No qualified second source. Morgan Stanley projects ABF shortage in 2027 without capacity expansion. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "t_glass_fabric",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_nittobo_monopoly_1"
+        },
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_tglass_shortage_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "Nittobo Chemical Industries holds 100% monopoly in T-glass production (boron-free, low-CTE glass fiber cloth). Confirmed single-source bottleneck: supply shortage >40% H2 2026 expected; Nittobo price hikes 20% (Aug 2025) + 20–30% planned (Apr 2026). New entrants (Asahi Kasei, Nan Ya) pursuing entry but 12–24 month qualification cycles ensure Nittobo monopoly persists through 2026. No substitute materials for low-warpage packaging. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "inp_gaas_substrate_wafer",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_inp_shortage_1"
+        },
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_jx_expansion_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "InP substrate wafers represent a critical narrow-source bottleneck within the compound semiconductor branch. Three-player market (JX Metals, Sumitomo, AXT) with combined 80–90% share. Current supply deficit exceeds 70%: global shipments 600k–700k wafers vs. demand 1.5–2M wafers/year. Order books extend through 2027+. JX Metals 20% capacity expansion targeting end-FY2027 completion. Single-region concentration risk: majority capacity in Japan (JX, Sumitomo). InP-on-GaAs alternatives (Fraunhofer, III-V-Reclaim) in development but not yet HVM-qualified. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "euv_photomask_production",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_hoya_euv_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "EUV photomask blank supply is effectively duopolized (Hoya 75%+, AGC 20–25%). Hoya dominance is structural due to proprietary multilayer coating and defect inspection. High-NA variant segment (nodes N3/N5) shows further concentration: Hoya ~100% of High-NA blanks qualified. Single-source risk for advanced nodes: no AGC High-NA qualification as of Q1 2025. Capacity expansion (Hoya, AGC) lagging demand; 2025–2026 allocation-gated. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "org_hoya",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_hoya_euv_1"
+        },
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_hoya_highna_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "Hoya Corp (7741.T, Tokyo Stock Exchange) is the dominant supplier of EUV photomask blanks (75%+ global share) and sole supplier of High-NA EUV blanks (100% as of Q1 2025). Two-pillar single-source corner: (1) standard EUV blanks concentration + (2) High-NA variant monopoly. Structural advantages in multilayer deposition and Zeiss optics integration lock in Hoya position. Capacity expansion ongoing but allocation-mode persists 2025–2026. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "org_ajinomoto_fine_techno",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_ajinomoto_abf_monopoly_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "Ajinomoto Fine Techno (subsidiary of Ajinomoto Co., Ltd., 2802.T) controls 95%+ of global ABF (Ajinomoto Build-up Film) market. Single-source bottleneck in specialty substrate material: ABF is irreplaceable for high-layer-count IC substrates (11L, 13L configurations). 2025–2026 shortage confirmed; price increase 30% announced Q3 2026. Morgan Stanley projects 2027 shortage without capacity expansion. Ajinomoto investing ¥25B by 2030 for 50% capacity boost but 2026 remains constrained. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "org_nittobo",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_nittobo_monopoly_1"
+        },
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_tglass_shortage_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "Nittobo Chemical Industries (3110.JP, Tokyo Stock Exchange) holds 100% monopoly in T-glass fiber cloth production (boron-free, low-CTE). Confirmed single-source bottleneck: no qualified competitors; Asahi Kasei, Nan Ya targeting entry ~2026 but 12–24 month qualification cycles ensure Nittobo monopoly persists through 2026. 2025 price hikes 20%, with 20–30% increase planned Apr 2026. Supply shortage >40% H2 2026 expected. Nittobo capacity 3x target by early 2027 but much pre-sold via long-term agreements. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    },
+    {
+      "nodeId": "org_jx_advanced_metals",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_nc4_jx_expansion_1"
+        },
+        {
+          "op": "patch_notes",
+          "value": "JX Advanced Metals (subsidiary of JX Holdings, 5020.T) is one of three global suppliers of InP substrate wafers, holding 30–40% market share. Part of three-player oligopoly (JX, Sumitomo, AXT) with 80–90% combined share. Current supply shortage: 600k–700k global shipments vs. 1.5–2M demand = 70%+ deficit. JX ¥1.5B investment for 20% capacity increase targeting end-FY2027. Single-region concentration risk: majority capacity in Japan. Lead time 18–24 months for new capacity. (Updated round-4 narrow-corner pass.)"
+        }
+      ]
+    }
+  ],
+  "notes": "Patch operations target existing nodes to inject narrow-source bottleneck evidence and clarified single-source positioning. New evidence references (ev_acc_nc4_*) point to evidence records in batch_narrow_corners.json."
+}

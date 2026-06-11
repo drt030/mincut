@@ -1,0 +1,1180 @@
+{
+  "nodes": [
+    {
+      "id": "logic_die_fabrication",
+      "name": "Leading-edge logic die fabrication",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Manufacturing process for leading-edge (3nm, 5nm, 7nm class) silicon logic dies for AI accelerators. Involves hundreds of sequential processing steps including lithography, deposition, etching, implantation, and thermal processing across 15+ weeks per wafer lot. Critical bottleneck for global AI infrastructure scaling.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["manufacturing_process", "capital_intensive", "supply_constrained"],
+      "notes": "Foundry capacity for leading-edge logic is the critical gating constraint for AI accelerator module volume. TSMC (70%+ market share) is near full utilization on 3nm; Samsung foundry expanding but facing profitability and yield challenges.",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "TSMC 3nm/5nm utilization",
+          "unit": "%",
+          "currentValue": 95,
+          "description": "Estimated TSMC leading-edge utilization; tight allocation for AI customers through 2026."
+        },
+        {
+          "name": "Fab ramp to volume (months)",
+          "unit": "months",
+          "currentValue": 24,
+          "description": "Typical timeline to ramp a new advanced-node fab to production volume from construction start."
+        },
+        {
+          "name": "Cost per leading-edge fab",
+          "unit": "billion USD",
+          "currentValue": 20,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Estimated capital cost for a new leading-edge 300mm fab in 2025-2026 based on recent TSMC/Samsung/Intel disclosures."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_foundry_capacity", "ev_acc_logic_tsmc_3nm"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "extreme_ultraviolet_lithography",
+      "name": "Extreme ultraviolet (EUV) lithography process",
+      "kind": "manufacturing_process",
+      "domain": ["ai_compute_chain"],
+      "description": "EUV lithography at 13.5nm wavelength enables patterning of sub-20nm features essential for 5nm and 3nm process nodes. Single-source supplier (ASML) for commercial systems, extreme mask-fabrication complexity, and resist-development challenges create persistent supply constraints.",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["critical_bottleneck", "single_source_risk", "hard_to_develop"],
+      "notes": "EUV lithography has become essential for 5nm and below nodes, but faces technical challenges: (1) mask defect rates and repair complexity, (2) photoresist outgassing contamination, (3) ASML system lead time of 18-24 months, (4) mask production capacity limitation at AGC/Hoya duopoly.",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "ASML EUV systems shipped (cumulative through 2025)",
+          "unit": "units",
+          "currentValue": 190,
+          "description": "Approximately 190 EUV systems delivered since commercial introduction in 2017, with production ramping to ~40/year in 2025."
+        },
+        {
+          "name": "EUV system lead time",
+          "unit": "months",
+          "currentValue": 20,
+          "description": "ASML quoted lead time for new EUV tool orders in 2025; constrained by supply chain complexity."
+        },
+        {
+          "name": "ASML EUV system price",
+          "unit": "million USD",
+          "currentValue": 200,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Typical cost for ASML NXE:3600D or next-generation EUV system."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_euv_mask_bottleneck", "ev_acc_logic_asml_capacity"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "euv_photomask_production",
+      "name": "EUV photomask blank and patterned mask manufacturing",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Production of blank EUV masks (multilayer Mo/Si stacks) and patterned masks for EUV lithography. Severely constrained by complex 40-50 alternating-layer deposition, defect-control requirements, and duopolistic supply (AGC, Hoya). Mask repair for defects is highly specialized and slow.",
+      "maturityScore": 62,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["supply_bottleneck", "duopoly", "mask_defect_control"],
+      "notes": "EUV mask production is a known bottleneck with slow cycle times. Only AGC Inc. and Hoya Corporation produce blank masks globally; in-house pattering at TSMC/Samsung limits external capacity. Mask defect rates and repair cycles directly limit lithography throughput.",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "EUV mask blank suppliers",
+          "unit": "count",
+          "currentValue": 2,
+          "description": "Only AGC Inc. and Hoya Corporation manufacture EUV photomask blanks; duopoly with tight capacity."
+        },
+        {
+          "name": "Mask defect repair cycle time",
+          "unit": "days",
+          "currentValue": 14,
+          "description": "Typical turnaround for e-beam repair of critical defects on EUV masks; constrains overall photomask availability."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_euv_mask_suppliers", "ev_acc_logic_euv_mask_defects"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "euv_photoresist_materials",
+      "name": "EUV photoresist materials and formulation",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Specialized photoresist materials for EUV lithography, formulated to achieve sub-20nm line widths and control resist profile. Vendors (Shin-Etsu, JSR, TOK, Fujifilm, Merck) face challenges: sensitivity/contrast trade-offs, outgassing contamination of EUV optics, secondary-electron-induced pattern collapse at advanced nodes.",
+      "maturityScore": 58,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["material_supply", "specialty_chemical", "performance_challenge"],
+      "notes": "EUV photoresist development is an ongoing challenge for achieving production-worthy resolution, sensitivity, and line-edge roughness at 3nm and below. Multiple qualified suppliers exist but each supports only a subset of foundries, creating per-fab qualification complexity.",
+      "frontierFor": ["ai_accelerator_module_hbm_cowos"],
+      "evidenceIds": ["ev_acc_logic_euv_resist_challenge"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "process_equipment_deposition",
+      "name": "Deposition equipment (CVD, PVD, ALD)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Cluster tools for physical vapor deposition (PVD), chemical vapor deposition (CVD), and atomic layer deposition (ALD) are core to dielectric/metal layer growth. Supplied by Applied Materials, Lam Research, Tokyo Electron; each fab requires dozens of such tools, and leading-edge qualification cycles are lengthy.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["equipment", "multi_sourced", "long_lead_time"],
+      "notes": "Deposition equipment is not a single-source bottleneck but lead-time and throughput constraints on new fabs can delay ramp. Tool-sharing costs and wafer-start bottlenecks indirectly limit foundry capacity expansion.",
+      "metrics": [
+        {
+          "name": "Typical deposition tool lead time",
+          "unit": "months",
+          "currentValue": 12,
+          "description": "Quoted lead time for advanced PVD/CVD/ALD cluster tools in 2025."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_deposition_equipment"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "plasma_etch_equipment",
+      "name": "Plasma etch (RIE) process equipment",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Reactive ion etch (RIE) tools for pattern transfer onto deposited films. Supplied by Applied Materials, Lam Research, Tokyo Electron. Etch selectivity and profile control at sub-10nm features require tight process margins and tool coordination with deposition steps.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["equipment", "multi_sourced"],
+      "notes": "Plasma etch equipment is widely available and multi-sourced but represents a critical process constraint: selectivity, profile control, and time-to-etch are limiting factors for advanced-node yield at sub-7nm features.",
+      "evidenceIds": ["ev_acc_logic_plasma_etch"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "cmp_process_equipment",
+      "name": "Chemical-mechanical polishing (CMP) equipment and slurries",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "CMP is essential for planarization of multiple interconnect layers. Equipment suppliers: Applied Materials, Ebara. Consumables (slurries, pads, abrasives) supplied by Merck, Entegris, Resonac, Fujifilm. Process control and defect mitigation require tight margins on slurry chemistry and pad wear.",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["equipment", "consumables", "planarization"],
+      "notes": "CMP is a mature process but consumables demand is high and formulation changes for each new process node. Slurry supply (particularly custom formulations) can be a secondary bottleneck during fab ramps.",
+      "metrics": [
+        {
+          "name": "CMP slurry suppliers",
+          "unit": "count",
+          "currentValue": 4,
+          "description": "Main suppliers for advanced-node CMP slurries: Merck, Entegris, Resonac, Fujifilm; some overlap in coverage."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_cmp_process"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ion_implantation_equipment",
+      "name": "Ion implantation equipment",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Ion implanters dope transistor channels with boron, phosphorus, or arsenic. Primary suppliers: Axcelis Technologies, Applied Materials. High capital cost and long lead times; each advanced fab requires multiple implanters with specialized source/acceleration/dosing stages.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["equipment", "specialized", "long_lead_time"],
+      "notes": "Ion implantation is a critical process step but not a primary bottleneck due to multi-source supply and proven technology. Lead-time and fab-specific customization can delay new-fab ramps.",
+      "metrics": [
+        {
+          "name": "Implanter lead time",
+          "unit": "months",
+          "currentValue": 14,
+          "description": "Typical quoted lead time for advanced ion implantation system in 2025."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_ion_implant"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "process_control_metrology",
+      "name": "In-line wafer inspection and metrology",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "KLA Corporation and Tokyo Electron supply in-line inspection (critical dimension, defect review, overlay measurement) tools. These are essential for yield control and process monitoring at advanced nodes. High unit cost and fab-specific integration; constrain fab ramp capacity due to commissioning and training timelines.",
+      "maturityScore": 76,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["equipment", "yield_control", "multi_sourced"],
+      "notes": "Metrology is a known secondary bottleneck: each fab needs dozens of inspection tools, and new-fab commissioning requires 6-12 months of tool setup, recipes, and qualification. KLA dominance in advanced metrology (post-2018 Orbotech acquisition) means limited choice for certain applications.",
+      "metrics": [
+        {
+          "name": "Advanced metrology tools per fab",
+          "unit": "count",
+          "currentValue": 40,
+          "description": "Typical count of inspection/metrology tools in a state-of-the-art advanced-node fab."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_metrology"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "silicon_wafer_300mm",
+      "name": "300mm silicon wafers (ultra-pure, polished)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Ultra-high-purity single-crystal silicon wafers, 300mm diameter, chemically polished. Primary suppliers: Shin-Etsu Silicon, SUMCO, GlobalWafers. Capacity at leading fabs is tight; wafer edge-defects and contamination from handling directly impact die yield. Wafer quality variation (resistivity, dislocation density) is a latent yield limiter.",
+      "maturityScore": 84,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["material", "starting_material", "multi_sourced"],
+      "notes": "Silicon wafer supply is stable but not unlimited. Wafer shortages did occur in 2020-2021; current demand from AI accelerators and advanced nodes is high. Wafer price volatility can squeeze foundry margins.",
+      "metrics": [
+        {
+          "name": "Annual 300mm wafer shipments (2025 estimate)",
+          "unit": "million units",
+          "currentValue": 26,
+          "description": "Global market estimate for 300mm wafer shipments in 2025."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_wafer_supply"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "process_gases_precursors",
+      "name": "Specialty process gases and metal precursors",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "CVD/ALD precursors (metal and dielectric sources), etch gases (Cl2, F2, HCl, C2F6), and high-purity dopant gases (AsH3, PH3, B2H6) for advanced nodes. Suppliers: Air Liquide, Linde, Showa Denko, Entegris, Matheson Tri-Gas. Purity, stability, and delivery reliability are critical; contamination can destroy wafer lots.",
+      "maturityScore": 76,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["material", "specialty_chemical", "hazardous"],
+      "notes": "Specialty gas supply is generally available but subject to production lead-time constraints and price volatility. Shortage episodes in 2020-2022 (related to manufacturing facility closures) demonstrated vulnerability. Gas mix optimization for new process nodes requires deep vendor collaboration.",
+      "evidenceIds": ["ev_acc_logic_process_gases"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "thermal_processing_furnaces",
+      "name": "Thermal processing (annealing, oxidation, diffusion)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Rapid thermal annealing (RTA) and diffusion furnaces for dopant activation, oxidation, and high-temperature anneal processes. Suppliers: Novellus Systems, Tokyo Electron. Temperature uniformity and ramp rates are critical for yield at advanced nodes; equipment qualification and recipe development are time-consuming.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["equipment", "multi_sourced"],
+      "notes": "Thermal processing equipment is not a primary bottleneck but represents process complexity and fab integration challenges. New fab commissioning includes lengthy thermal-process qualification phases.",
+      "evidenceIds": ["ev_acc_logic_thermal_processing"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "foundry_capacity_tsmc",
+      "name": "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "TSMC's advanced-node manufacturing capacity is the primary constraint for global AI accelerator logic die production. Utilization >95% on 3nm in 2025; customer allocation by contract. New fab in Arizona (Fab 21) ramping slowly; Taiwan capacity expansion plans face geopolitical and water/power constraints.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["production_capacity", "supply_bottleneck", "geopolitical_risk"],
+      "notes": "TSMC dominates with ~70% foundry market share and ~95% of leading-edge capacity at 5nm and below. Single-supplier risk for the global AI ecosystem is extreme. Capacity expansion is capital-intensive and subject to geopolitical constraints (Taiwan manufacturing base).",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "TSMC 3nm utilization",
+          "unit": "%",
+          "currentValue": 95,
+          "description": "Estimated 2025 utilization on 3nm nodes; near full capacity."
+        },
+        {
+          "name": "TSMC capex (annual, 2025-2026 estimate)",
+          "unit": "billion USD",
+          "currentValue": 32,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "TSMC planned annual capex for fab expansion; foundry capacity growth limited by capital and geopolitical constraints."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_tsmc_capacity", "ev_acc_logic_tsmc_3nm"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_applied_materials",
+      "name": "Applied Materials Inc.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "semiconductor_equipment"],
+      "description": "Applied Materials is a leading supplier of semiconductor fabrication equipment, including deposition (PVD, CVD, ALD), etch, CMP, and ion implantation systems. Second-largest semiconductor equipment supplier by revenue after ASML.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global semiconductor equipment market share",
+          "unit": "%",
+          "currentValue": 12,
+          "description": "Applied Materials holds approximately 12% of global WFE (wafer fabrication equipment) market as of 2025."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "AMAT"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_deposition_equipment"],
+      "tags": ["manufacturer", "wfe_supplier", "public_company"],
+      "notes": "Multi-source supplier for deposition, etch, and implantation equipment; critical to fab capacity expansion.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_lam_research",
+      "name": "Lam Research Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "semiconductor_equipment"],
+      "description": "Lam Research supplies plasma etch and deposition tools for advanced semiconductor manufacturing. Third-largest semiconductor equipment manufacturer globally by revenue.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "FY2025 revenue",
+          "unit": "billion USD",
+          "currentValue": 18.4,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Lam Research reported FY2025 revenue of approximately $18.4 billion."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "LRCX"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_plasma_etch"],
+      "tags": ["manufacturer", "wfe_supplier", "public_company"],
+      "notes": "Critical supplier for etch and deposition; strong competitive position alongside Applied Materials.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_tokyo_electron",
+      "name": "Tokyo Electron Ltd. (TEL)",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "semiconductor_equipment"],
+      "description": "Tokyo Electron is a major supplier of semiconductor processing equipment including deposition, etch, CMP, and metrology tools. Third-most valuable company in Japan.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Market capitalization",
+          "unit": "billion USD",
+          "currentValue": 114.6,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "TEL market cap as of 2025."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "8035.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_deposition_equipment"],
+      "tags": ["manufacturer", "wfe_supplier", "public_company", "japan_supplier"],
+      "notes": "Leading Asian semiconductor equipment maker; largest in Asia by revenue. Competes with Applied Materials and Lam Research.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_ebara",
+      "name": "Ebara Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "semiconductor_equipment"],
+      "description": "Ebara manufactures CMP equipment and other semiconductor processing tools. Supplier to advanced fabs for planarization processes.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "6361.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_cmp_process"],
+      "tags": ["manufacturer", "wfe_supplier", "public_company", "japan_supplier"],
+      "notes": "CMP equipment supplier; competes with Applied Materials and Tokyo Electron.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_merck",
+      "name": "Merck KGaA",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "specialty_materials"],
+      "description": "Merck supplies specialty materials for semiconductor manufacturing including CMP slurries, photoresist precursors, and electronic materials. Electronics division serves advanced fabs.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "FY2025 revenue",
+          "unit": "billion EUR",
+          "currentValue": 21.10,
+          "costAsOf": "2025",
+          "currency": "EUR",
+          "description": "Merck total revenue in FY2025."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "MRK.DE"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_cmp_process"],
+      "tags": ["manufacturer", "materials_supplier", "public_company"],
+      "notes": "World's oldest chemical company; major supplier of CMP slurries and electronic materials.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_entegris",
+      "name": "Entegris Inc.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "specialty_materials"],
+      "description": "Entegris supplies contamination control solutions, materials handling, and consumables for semiconductor manufacturing. Approximately 80% of products used in semiconductor industry.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "FY2025 revenue",
+          "unit": "billion USD",
+          "currentValue": 3.2,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Entegris FY2025 revenue approximately $3.2 billion."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "ENTG"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_cmp_process"],
+      "tags": ["manufacturer", "materials_supplier", "public_company"],
+      "notes": "Leading supplier of CMP consumables and filtration systems; 2022 acquisition of CMC Materials strengthened position.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_kla",
+      "name": "KLA Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "semiconductor_equipment"],
+      "description": "KLA Corporation supplies process control, yield management, and wafer inspection systems for semiconductor manufacturing. Market leader in in-line metrology for advanced fabs.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "FY2025 revenue",
+          "unit": "billion USD",
+          "currentValue": 12.2,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "KLA Corporation FY2025 revenue of $12.2 billion."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "KLAC"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_metrology"],
+      "tags": ["manufacturer", "wfe_supplier", "public_company"],
+      "notes": "Dominant supplier of in-line inspection and metrology; post-2018 Orbotech acquisition strengthened position.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_sumco",
+      "name": "SUMCO Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "materials_supplier"],
+      "description": "SUMCO is a leading global supplier of ultra-high-purity silicon wafers for semiconductor manufacturing. Merger of Sumitomo Metals and Mitsubishi Materials wafer divisions.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "3436.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_wafer_supply"],
+      "tags": ["manufacturer", "materials_supplier", "public_company", "japan_supplier"],
+      "notes": "Second major silicon wafer supplier globally; competes with Shin-Etsu and GlobalWafers.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_air_liquide",
+      "name": "Air Liquide S.A.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "specialty_gases"],
+      "description": "Air Liquide supplies specialty gases, metal precursors, and process chemical solutions to semiconductor manufacturers. Global leader in industrial gases.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "AI.PA"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_process_gases"],
+      "tags": ["manufacturer", "gas_supplier", "public_company"],
+      "notes": "Leading supplier of CVD/ALD precursors and etch gases for advanced semiconductor nodes.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_linde",
+      "name": "Linde plc",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "specialty_gases"],
+      "description": "Linde is a global industrial gas and chemical company supplying process gases and materials for semiconductor manufacturing.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "LIN"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_process_gases"],
+      "tags": ["manufacturer", "gas_supplier", "public_company"],
+      "notes": "Major supplier of specialty gases and process chemicals for advanced fabs.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "widely_adopted"
+    },
+    {
+      "id": "org_agc",
+      "name": "AGC Inc. (Asahi Glass Co., Ltd.)",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "photomask_supplier"],
+      "description": "AGC manufactures EUV and optical photomask blanks for semiconductor lithography. One of only two suppliers of EUV mask blanks globally (duopoly with Hoya).",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "5214.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_euv_mask_suppliers"],
+      "tags": ["manufacturer", "photomask_supplier", "public_company", "japan_supplier"],
+      "notes": "Critical bottleneck: only duopolistic supplier (with Hoya) of EUV photomask blanks. Single-source risk for 5nm and below nodes.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "early_deployment"
+    },
+    {
+      "id": "org_hoya",
+      "name": "Hoya Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "photomask_supplier"],
+      "description": "Hoya manufactures photomask blanks and optical materials for semiconductor and FPD industries. One of only two global suppliers of EUV photomask blanks (duopoly with AGC).",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "7741.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_euv_mask_suppliers"],
+      "tags": ["manufacturer", "photomask_supplier", "public_company", "japan_supplier"],
+      "notes": "Duopolistic supplier with AGC for EUV mask blanks; supply constraint is critical gating factor for fab lithography capacity.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "early_deployment"
+    },
+    {
+      "id": "org_asml",
+      "name": "ASML Holding N.V.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier", "lithography_equipment"],
+      "description": "ASML is the world's only supplier of commercial extreme ultraviolet (EUV) lithography systems. Holds 83% of global lithography equipment market. Single-source bottleneck for 5nm and 3nm patterning.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global lithography equipment market share",
+          "unit": "%",
+          "currentValue": 83,
+          "description": "ASML holds 83% of worldwide lithography tool sales (across all technology types)."
+        },
+        {
+          "name": "EUV systems shipped (cumulative through 2025)",
+          "unit": "units",
+          "currentValue": 190,
+          "description": "Approximately 190 EUV systems shipped since commercial introduction; production ramping to ~40/year."
+        },
+        {
+          "name": "EUV system cost",
+          "unit": "million USD",
+          "currentValue": 200,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Typical cost for ASML NXE:3600D or next-gen EUV system."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "ASML.AS"
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_asml_capacity", "ev_acc_logic_asml_export_control"],
+      "tags": ["manufacturer", "lithography_supplier", "public_company"],
+      "notes": "Extreme bottleneck: single-source monopoly for EUV lithography. 18-24 month lead time, ~40 systems/year capacity. Export controls (Dutch/US) limit China supply.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "asml_lithography_systems",
+      "name": "ASML EUV lithography systems (NXE:3600D and successors)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "ASML's EUV lithography tools are the single-source bottleneck for patterning at 5nm and 3nm nodes. Production capacity is ~40 systems/year. Lead time 18-24 months. Export controls from Netherlands and U.S. limit shipments to China fabs, exacerbating global capacity constraints.",
+      "maturityScore": 78,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["single_source", "supply_bottleneck", "export_control"],
+      "notes": "ASML is the global monopoly supplier for EUV lithography systems. Each system costs $150-200M, has 18-24 month lead time, and serves 1-2 fab modules. Geopolitical export controls (Dutch/U.S. restrictions to China) create asymmetric competitive pressure on TSMC (Taiwan-based) vs. Samsung foundry.",
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "metrics": [
+        {
+          "name": "ASML EUV annual production",
+          "unit": "systems/year",
+          "currentValue": 40,
+          "description": "2025 estimated annual EUV production capacity; constrained by internal supply chains (Dutch export controls, subsupplier constraints)."
+        },
+        {
+          "name": "EUV system cost",
+          "unit": "million USD",
+          "currentValue": 200,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "List price for ASML NXE:3600D EUV system in 2025."
+        },
+        {
+          "name": "ASML EUV system lead time",
+          "unit": "months",
+          "currentValue": 20,
+          "description": "Quoted delivery time for new EUV system orders (2025)."
+        }
+      ],
+      "evidenceIds": ["ev_acc_logic_asml_capacity", "ev_acc_logic_asml_export_control"],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_logic_die_fabrication__requires__extreme_ultraviolet_lithography",
+      "source": "logic_die_fabrication",
+      "target": "extreme_ultraviolet_lithography",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_euv_mask_bottleneck"],
+      "claim": "EUV lithography is essential for patterning sub-20nm features at 5nm and 3nm nodes."
+    },
+    {
+      "id": "e_acc_logic_euv__requires__euv_mask",
+      "source": "extreme_ultraviolet_lithography",
+      "target": "euv_photomask_production",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_euv_mask_suppliers"],
+      "claim": "EUV masks are a critical consumable with duopolistic supply."
+    },
+    {
+      "id": "e_acc_logic_euv__requires__euv_resist",
+      "source": "extreme_ultraviolet_lithography",
+      "target": "euv_photoresist_materials",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_euv_resist_challenge"]
+    },
+    {
+      "id": "e_acc_logic_die__requires__deposition",
+      "source": "logic_die_fabrication",
+      "target": "process_equipment_deposition",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__etch",
+      "source": "logic_die_fabrication",
+      "target": "plasma_etch_equipment",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__cmp",
+      "source": "logic_die_fabrication",
+      "target": "cmp_process_equipment",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__implant",
+      "source": "logic_die_fabrication",
+      "target": "ion_implantation_equipment",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__metrology",
+      "source": "logic_die_fabrication",
+      "target": "process_control_metrology",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__silicon_wafer",
+      "source": "logic_die_fabrication",
+      "target": "silicon_wafer_300mm",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__process_gases",
+      "source": "logic_die_fabrication",
+      "target": "process_gases_precursors",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__thermal",
+      "source": "logic_die_fabrication",
+      "target": "thermal_processing_furnaces",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_die__requires__tsmc_capacity",
+      "source": "logic_die_fabrication",
+      "target": "foundry_capacity_tsmc",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_tsmc_capacity"],
+      "claim": "TSMC capacity is the primary constraint for global AI accelerator logic die production."
+    },
+    {
+      "id": "e_acc_logic_tsmc__requires__asml_euv",
+      "source": "foundry_capacity_tsmc",
+      "target": "asml_lithography_systems",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_asml_capacity"],
+      "claim": "ASML EUV systems are the single bottleneck enabling TSMC's advanced-node capacity."
+    },
+    {
+      "id": "e_acc_logic_die_fabrication__requires__ai_accelerator",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "logic_die_fabrication",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_logic_deposition__manufactured_by__applied_materials",
+      "source": "process_equipment_deposition",
+      "target": "org_applied_materials",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_deposition_equipment"]
+    },
+    {
+      "id": "e_acc_logic_deposition__manufactured_by__lam_research",
+      "source": "process_equipment_deposition",
+      "target": "org_lam_research",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_deposition_equipment"]
+    },
+    {
+      "id": "e_acc_logic_deposition__manufactured_by__tokyo_electron",
+      "source": "process_equipment_deposition",
+      "target": "org_tokyo_electron",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_deposition_equipment"]
+    },
+    {
+      "id": "e_acc_logic_etch__manufactured_by__lam_research",
+      "source": "plasma_etch_equipment",
+      "target": "org_lam_research",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_plasma_etch"]
+    },
+    {
+      "id": "e_acc_logic_etch__manufactured_by__applied_materials",
+      "source": "plasma_etch_equipment",
+      "target": "org_applied_materials",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_plasma_etch"]
+    },
+    {
+      "id": "e_acc_logic_etch__manufactured_by__tokyo_electron",
+      "source": "plasma_etch_equipment",
+      "target": "org_tokyo_electron",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_plasma_etch"]
+    },
+    {
+      "id": "e_acc_logic_cmp_equipment__manufactured_by__applied_materials",
+      "source": "cmp_process_equipment",
+      "target": "org_applied_materials",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_cmp_process"]
+    },
+    {
+      "id": "e_acc_logic_cmp_equipment__manufactured_by__ebara",
+      "source": "cmp_process_equipment",
+      "target": "org_ebara",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_cmp_process"]
+    },
+    {
+      "id": "e_acc_logic_cmp_slurry__manufactured_by__merck",
+      "source": "cmp_process_equipment",
+      "target": "org_merck",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_cmp_process"]
+    },
+    {
+      "id": "e_acc_logic_cmp_slurry__manufactured_by__entegris",
+      "source": "cmp_process_equipment",
+      "target": "org_entegris",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_cmp_process"]
+    },
+    {
+      "id": "e_acc_logic_ion_implant__manufactured_by__applied_materials",
+      "source": "ion_implantation_equipment",
+      "target": "org_applied_materials",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_ion_implant"]
+    },
+    {
+      "id": "e_acc_logic_metrology__manufactured_by__kla",
+      "source": "process_control_metrology",
+      "target": "org_kla",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_metrology"]
+    },
+    {
+      "id": "e_acc_logic_metrology__manufactured_by__tokyo_electron",
+      "source": "process_control_metrology",
+      "target": "org_tokyo_electron",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_metrology"]
+    },
+    {
+      "id": "e_acc_logic_wafer__manufactured_by__shin_etsu",
+      "source": "silicon_wafer_300mm",
+      "target": "org_shin_etsu",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_wafer_supply"]
+    },
+    {
+      "id": "e_acc_logic_wafer__manufactured_by__sumco",
+      "source": "silicon_wafer_300mm",
+      "target": "org_sumco",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_wafer_supply"]
+    },
+    {
+      "id": "e_acc_logic_gases__manufactured_by__air_liquide",
+      "source": "process_gases_precursors",
+      "target": "org_air_liquide",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_process_gases"]
+    },
+    {
+      "id": "e_acc_logic_gases__manufactured_by__linde",
+      "source": "process_gases_precursors",
+      "target": "org_linde",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_process_gases"]
+    },
+    {
+      "id": "e_acc_logic_thermal__manufactured_by__tokyo_electron",
+      "source": "thermal_processing_furnaces",
+      "target": "org_tokyo_electron",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_thermal_processing"]
+    },
+    {
+      "id": "e_acc_logic_euv_mask__manufactured_by__agc",
+      "source": "euv_photomask_production",
+      "target": "org_agc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_euv_mask_suppliers"]
+    },
+    {
+      "id": "e_acc_logic_euv_mask__manufactured_by__hoya",
+      "source": "euv_photomask_production",
+      "target": "org_hoya",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_euv_mask_suppliers"]
+    },
+    {
+      "id": "e_acc_logic_euv_resist__manufactured_by__shin_etsu",
+      "source": "euv_photoresist_materials",
+      "target": "org_shin_etsu",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_euv_resist_challenge"]
+    },
+    {
+      "id": "e_acc_logic_euv_resist__manufactured_by__jsr",
+      "source": "euv_photoresist_materials",
+      "target": "org_jsr",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_logic_euv_resist_challenge"]
+    },
+    {
+      "id": "e_acc_logic_tsmc_capacity__manufactured_by__tsmc",
+      "source": "foundry_capacity_tsmc",
+      "target": "org_tsmc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_tsmc_capacity"]
+    },
+    {
+      "id": "e_acc_logic_asml_euv__manufactured_by__asml",
+      "source": "asml_lithography_systems",
+      "target": "org_asml",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_logic_asml_capacity"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_logic_foundry_capacity",
+      "type": "paper",
+      "title": "TSMC 3nm and 5nm foundry capacity and utilization",
+      "sourceName": "Extracted from Wikipedia TSMC article",
+      "date": "2026-06-10",
+      "summary": "TSMC dominates global foundry with ~70% market share and near-monopoly on 5nm/3nm production. 3nm utilization estimated >95% in 2025; capacity expansion timeline constrained by geopolitical and infrastructure factors.",
+      "supportsNodeIds": ["logic_die_fabrication", "foundry_capacity_tsmc"],
+      "supportsEdgeIds": ["e_acc_logic_die__requires__tsmc_capacity"],
+      "url": "https://en.wikipedia.org/wiki/TSMC",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_tsmc_3nm",
+      "type": "paper",
+      "title": "TSMC 3nm production volume and 2nm technology transition",
+      "sourceName": "Wikipedia TSMC article",
+      "date": "2026-06-10",
+      "summary": "TSMC began N3 volume production in late 2022 with 70% logic density improvement and 15% speed gain over 5nm. 2nm (N2) with GAAFET technology entered mass production in 2025.",
+      "supportsNodeIds": ["logic_die_fabrication", "foundry_capacity_tsmc"],
+      "supportsEdgeIds": ["e_acc_logic_die_fabrication__requires__ai_accelerator"],
+      "url": "https://en.wikipedia.org/wiki/TSMC",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_euv_mask_bottleneck",
+      "type": "paper",
+      "title": "EUV lithography mask defects and repair complexity as production bottleneck",
+      "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+      "date": "2026-06-10",
+      "summary": "EUV mask production involves 40-50 alternating Mo/Si layers with extreme defect sensitivity (atomic-scale 0.3-0.5nm defects still printable with 10% CD impact). Mask repair cycle times extend 2+ weeks. Resist outgassing contaminates optics.",
+      "supportsNodeIds": ["extreme_ultraviolet_lithography", "euv_photomask_production"],
+      "supportsEdgeIds": ["e_acc_logic_euv__requires__euv_mask"],
+      "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_euv_mask_suppliers",
+      "type": "paper",
+      "title": "EUV photomask blank suppliers: AGC and Hoya duopoly",
+      "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+      "date": "2026-06-10",
+      "summary": "Only two companies globally produce EUV photomask blanks: AGC Inc. and Hoya Corporation. Each produces complex 40-50 layer molybdenum-silicon stacks with strict defect control requirements.",
+      "supportsNodeIds": ["euv_photomask_production"],
+      "supportsEdgeIds": ["e_acc_logic_euv_mask__manufactured_by__agc", "e_acc_logic_euv_mask__manufactured_by__hoya"],
+      "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_euv_resist_challenge",
+      "type": "paper",
+      "title": "EUV photoresist challenges: sensitivity, outgassing, pattern collapse",
+      "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+      "date": "2026-06-10",
+      "summary": "EUV resist formulation faces multiple degradation mechanisms: organic resists outgas hydrocarbons, metal-oxide resists outgas water/oxygen (contaminating optics); secondary electrons cause pattern collapse; sensitivity/contrast trade-offs limit resolution.",
+      "supportsNodeIds": ["euv_photoresist_materials"],
+      "supportsEdgeIds": ["e_acc_logic_euv_resist__manufactured_by__shin_etsu", "e_acc_logic_euv_resist__manufactured_by__jsr"],
+      "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_deposition_equipment",
+      "type": "paper",
+      "title": "Deposition equipment suppliers: Applied Materials, Lam Research, Tokyo Electron",
+      "sourceName": "Wikipedia Semiconductor device fabrication article",
+      "date": "2026-06-10",
+      "summary": "PVD, CVD, and ALD deposition is a core process step requiring cluster tools from Applied Materials, Lam Research, Tokyo Electron. Multi-source supply but lead times 12+ months.",
+      "supportsNodeIds": ["process_equipment_deposition"],
+      "supportsEdgeIds": ["e_acc_logic_deposition__manufactured_by__applied_materials", "e_acc_logic_deposition__manufactured_by__lam_research", "e_acc_logic_deposition__manufactured_by__tokyo_electron"],
+      "url": "https://en.wikipedia.org/wiki/Semiconductor_device_fabrication",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_plasma_etch",
+      "type": "paper",
+      "title": "Plasma etch (RIE) equipment for semiconductor patterning",
+      "sourceName": "Wikipedia Plasma etching article",
+      "date": "2026-06-10",
+      "summary": "Reactive ion etch tools transfer photomask patterns to substrate layers. Plasma chemistry and profile control are critical for sub-20nm features. Multi-source supply (Applied Materials, Lam Research, Tokyo Electron).",
+      "supportsNodeIds": ["plasma_etch_equipment"],
+      "supportsEdgeIds": ["e_acc_logic_etch__manufactured_by__lam_research", "e_acc_logic_etch__manufactured_by__applied_materials", "e_acc_logic_etch__manufactured_by__tokyo_electron"],
+      "url": "https://en.wikipedia.org/wiki/Plasma_etching",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_cmp_process",
+      "type": "paper",
+      "title": "Chemical-mechanical polishing: process, equipment, and consumables",
+      "sourceName": "Wikipedia Chemical mechanical polishing article",
+      "date": "2026-06-10",
+      "summary": "CMP planarizes interconnect layers using rotating pad with chemical slurry (cerium dioxide abrasive). Equipment suppliers: Applied Materials, Ebara. Consumables (slurries, pads) from Merck, Entegris, Resonac, Fujifilm. Endpoint detection and defect control are ongoing challenges.",
+      "supportsNodeIds": ["cmp_process_equipment"],
+      "supportsEdgeIds": ["e_acc_logic_cmp_equipment__manufactured_by__applied_materials", "e_acc_logic_cmp_equipment__manufactured_by__ebara", "e_acc_logic_cmp_slurry__manufactured_by__merck", "e_acc_logic_cmp_slurry__manufactured_by__entegris"],
+      "url": "https://en.wikipedia.org/wiki/Chemical_mechanical_polishing",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_ion_implant",
+      "type": "paper",
+      "title": "Ion implantation for semiconductor doping",
+      "sourceName": "Wikipedia Ion implantation article",
+      "date": "2026-06-10",
+      "summary": "Ion implantation dopes transistor channels with boron, phosphorus, arsenic. Equipment requires ion source, accelerator, target chamber. Applied Materials and Axcelis are primary suppliers. Process creates crystal damage requiring thermal annealing recovery.",
+      "supportsNodeIds": ["ion_implantation_equipment"],
+      "supportsEdgeIds": ["e_acc_logic_ion_implant__manufactured_by__applied_materials"],
+      "url": "https://en.wikipedia.org/wiki/Ion_implantation",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_metrology",
+      "type": "paper",
+      "title": "In-line wafer metrology and process control (KLA-Tencor, Tokyo Electron)",
+      "sourceName": "Wikipedia KLA-Tencor article",
+      "date": "2026-06-10",
+      "summary": "KLA Corporation dominates semiconductor inspection/metrology with process control and yield management systems. Tokyo Electron also supplies metrology tools. Each fab requires 30-50 inspection tools; KLA's 2019 acquisition of Orbotech reinforced dominance in advanced metrology.",
+      "supportsNodeIds": ["process_control_metrology"],
+      "supportsEdgeIds": ["e_acc_logic_metrology__manufactured_by__kla", "e_acc_logic_metrology__manufactured_by__tokyo_electron"],
+      "url": "https://en.wikipedia.org/wiki/KLA-Tencor",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_wafer_supply",
+      "type": "paper",
+      "title": "Silicon wafer supply: Shin-Etsu, SUMCO, GlobalWafers (300mm)",
+      "sourceName": "Wikipedia Silicon wafer article",
+      "date": "2026-06-10",
+      "summary": "300mm silicon wafers are the starting material for advanced fabs. Three main suppliers: Shin-Etsu Silicon, SUMCO, GlobalWafers. Global 300mm wafer production ~26M units/year in 2025. Shortage episodes in 2020-2021 demonstrated supply vulnerability.",
+      "supportsNodeIds": ["silicon_wafer_300mm"],
+      "supportsEdgeIds": ["e_acc_logic_wafer__manufactured_by__shin_etsu", "e_acc_logic_wafer__manufactured_by__sumco"],
+      "url": "https://en.wikipedia.org/wiki/Silicon_wafer",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_process_gases",
+      "type": "paper",
+      "title": "Specialty process gases and metal precursors for CVD/ALD",
+      "sourceName": "Wikipedia Semiconductor device fabrication article",
+      "date": "2026-06-10",
+      "summary": "CVD/ALD precursors and etch gases (Cl2, F2, C2F6) are critical consumables. Main suppliers: Air Liquide, Linde, Showa Denko. Purity and stability are critical; shortages occurred in 2020-2022 due to facility closures.",
+      "supportsNodeIds": ["process_gases_precursors"],
+      "supportsEdgeIds": ["e_acc_logic_gases__manufactured_by__air_liquide", "e_acc_logic_gases__manufactured_by__linde"],
+      "url": "https://en.wikipedia.org/wiki/Semiconductor_device_fabrication",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_thermal_processing",
+      "type": "paper",
+      "title": "Thermal processing: RTA annealing and furnaces",
+      "sourceName": "Wikipedia Semiconductor device fabrication article",
+      "date": "2026-06-10",
+      "summary": "Rapid thermal annealing (RTA) and diffusion furnaces activate dopants and control material properties. Tokyo Electron and Novellus are primary suppliers. Temperature uniformity and ramp rates are critical for advanced-node yield.",
+      "supportsNodeIds": ["thermal_processing_furnaces"],
+      "supportsEdgeIds": ["e_acc_logic_thermal__manufactured_by__tokyo_electron"],
+      "url": "https://en.wikipedia.org/wiki/Semiconductor_device_fabrication",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_tsmc_capacity",
+      "type": "paper",
+      "title": "TSMC foundry dominance and capacity constraints",
+      "sourceName": "Wikipedia TSMC article",
+      "date": "2026-06-10",
+      "summary": "TSMC holds ~70% of global semiconductor foundry market. 3nm capacity is near-full utilization (>95%). Fab ramp timelines: 24+ months to reach volume. Arizona fab (Fab 21) expansion faces challenges.",
+      "supportsNodeIds": ["foundry_capacity_tsmc"],
+      "supportsEdgeIds": ["e_acc_logic_tsmc_capacity__manufactured_by__tsmc"],
+      "url": "https://en.wikipedia.org/wiki/TSMC",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_asml_capacity",
+      "type": "paper",
+      "title": "ASML EUV lithography monopoly and production constraints",
+      "sourceName": "Wikipedia ASML Holding article",
+      "date": "2026-06-10",
+      "summary": "ASML holds near-monopoly (83% of all lithography tool sales). EUV systems cost $150-200M, shipped 190 units through 2025, production ramping to ~40/year. Lead time 18-24 months. System is single source for 5nm and 3nm patterning.",
+      "supportsNodeIds": ["asml_lithography_systems"],
+      "supportsEdgeIds": ["e_acc_logic_asml_euv__manufactured_by__asml"],
+      "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic_asml_export_control",
+      "type": "news",
+      "title": "ASML export controls: Dutch and US restrictions limit China supply",
+      "sourceName": "Wikipedia ASML Holding article",
+      "date": "2026-06-10",
+      "summary": "Dutch and US export controls limit ASML shipments to China, affecting global capacity distribution. Controls favor Taiwan-based TSMC over China-based fabs, creating asymmetric geopolitical risk.",
+      "supportsNodeIds": ["asml_lithography_systems"],
+      "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

@@ -1,0 +1,846 @@
+{
+ "nodes": [
+  {
+   "id": "thermal_cooling",
+   "name": "Thermal management & cooling",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Thermal management system for 700W–1.4kW AI accelerator modules, including module-level thermal interfaces (TIM, heat spreaders, direct-contact cooling lids), sealed liquid cooling loops with pumps and cold plates, and rack-level heat exchangers and distribution infrastructure. Dissipation of multi-hundred-watt densities requires precision thermal pathways and high-reliability cooling components.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "tags": [
+    "thermal_management",
+    "liquid_cooling",
+    "module_assembly"
+   ],
+   "targetContext": {
+    "targetPerformance": "700W–1.4kW module heat dissipation; <65°C junction, <45°C liquid inlet",
+    "targetUseCase": "Datacenter-scale AI training and inference"
+   },
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "thermal_interface_material_tim",
+   "name": "Thermal interface material (TIM)",
+   "kind": "material",
+   "domain": [
+    "ai_compute_chain",
+    "semiconductor_packaging"
+   ],
+   "description": "High-performance phase-change or adhesive thermal interface material used between silicon die and heat spreader in AI accelerator modules. Typical thermal conductivity 3–8 W/mK. Shin-Etsu Chemical dominates with ~40% global market share; Henkel/Bergquist holds ~20%. Datacenter-grade TIM demand scales with accelerator shipments.",
+   "maturityScore": 85,
+   "maturityLabel": "mature",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Global TIM market share",
+     "unit": "%",
+     "currentValue": 40,
+     "description": "Shin-Etsu Chemical estimated global market share in advanced thermal interface materials, cited in industry analyst reports (2024–2025)."
+    },
+    {
+     "name": "TIM annual capacity (estimated)",
+     "unit": "million units/year",
+     "currentValue": 150,
+     "description": "Estimated global TIM production capacity sufficient for current accelerator production rates; constraint emerges above ~200 units/year demand growth."
+    }
+   ],
+   "tags": [
+    "material",
+    "thermal",
+    "packaging_material",
+    "high_concentration"
+   ],
+   "notes": "TIM is a multi-sourced commodity at industrial scale in 2026, but high-performance datacenter-grade variants (>5 W/mK, particle-free) face tighter supply. Shin-Etsu capacity expansion lead time: 12–18 months.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "heat_spreader_copper_aluminum",
+   "name": "Heat spreader (copper/aluminum)",
+   "kind": "material",
+   "domain": [
+    "ai_compute_chain",
+    "semiconductor_packaging"
+   ],
+   "description": "Precision copper or aluminum heat spreader bonded to accelerator die to distribute heat laterally before transfer to liquid cooling interface. Copper preferred for superior conductivity (~400 W/mK) but higher cost; aluminum lower cost (~160 W/mK). Fabrication via stamping, CNC, or brazing.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "tags": [
+    "material",
+    "thermal",
+    "commodity"
+   ],
+   "notes": "Copper rod/ingot and high-purity aluminum strip are commodities. Precision machining and brazing capacity in Asia (Taiwan, Japan, Korea) is the constraint; lead time for new tooling ~8–12 months.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "direct_contact_thermal_lid",
+   "name": "Direct-contact thermal lid (DCL)",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "semiconductor_packaging"
+   ],
+   "description": "Custom-designed thermal lid or cap that interfaces directly with the chip surface or heat spreader to conduct away module waste heat. In 2.5D/3D packages, the lid is precision-machined (often from copper) to match die height and layout. Direct contact eliminates air gaps, improving heat flow vs traditional IHS (Integrated Heat Spreader).",
+   "maturityScore": 75,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Custom DCL tooling lead time",
+     "unit": "months",
+     "currentValue": 10,
+     "description": "Time to design, prototype, and set up precision machining tooling for a new DCL variant; sourcing custom copper or aluminum blanks adds 2–3 months."
+    }
+   ],
+   "tags": [
+    "module",
+    "thermal",
+    "custom_fabrication",
+    "lead_time_constraint"
+   ],
+   "notes": "DCL is semi-custom per die layout; each new accelerator generation requires new tooling. Fabrication concentration in Taiwan and Korea; Japanese machine-tool vendors (Makino, Kitamura) supply the CNC capability.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "sealed_liquid_cooling_loop",
+   "name": "Sealed liquid cooling loop",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management"
+   ],
+   "description": "Integrated sealed liquid cooling circuit for AI accelerator module, consisting of micropump, cold plate (water block), silicone tubing, and manifold, filled with de-ionized water or specialized heat-transfer fluid. Asetek dominates the datacenter liquid cooling market with ~60% share; CoolIT Systems and others compete for high-end datacenter designs. Loop operates at 1–3 bar pressure, 30–45°C inlet temperature.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Asetek market share (sealed datacenter liquid cooling)",
+     "unit": "%",
+     "currentValue": 60,
+     "description": "Asetek estimated share of sealed-loop liquid cooling systems deployed in AI datacenters (2024–2025 analyst estimates)."
+    },
+    {
+     "name": "Sealed loop annual capacity (Asetek + tier-1 competitors)",
+     "unit": "thousand units/year",
+     "currentValue": 500,
+     "description": "Estimated combined annual capacity for sealed loops deployable in AI accelerators; constraint tightens above 600k units/year demand."
+    }
+   ],
+   "tags": [
+    "module",
+    "thermal",
+    "high_concentration",
+    "custom_integration"
+   ],
+   "notes": "Asetek capacity limited by pump miniaturization and thermal-design customization per accelerator generation; expansion lead time 14–18 months due to custom-block engineering and pump sourcing.",
+   "reviewStatus": "unreviewed",
+   "bottleneckOf": [
+    "ai_accelerator_module_hbm_cowos"
+   ]
+  },
+  {
+   "id": "cold_plate_water_block",
+   "name": "Cold plate / water block",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management"
+   ],
+   "description": "Precision-machined aluminum or copper cooling block that interfaces directly with the thermal lid or spreader surface, circulating chilled water or heat-transfer fluid through internal microchannels (100–500 µm channels). Must match thermal lid geometry with <0.1mm tolerance. Fabrication by CNC, laser micromachining, or additive manufacturing.",
+   "maturityScore": 76,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Custom cold-plate tooling lead time",
+     "unit": "months",
+     "currentValue": 12,
+     "description": "Design, prototype, and CNC setup for a custom water block per new accelerator die geometry; microchannel optimization adds 3–4 months."
+    }
+   ],
+   "tags": [
+    "module",
+    "thermal",
+    "custom_fabrication",
+    "lead_time_constraint"
+   ],
+   "notes": "Each new accelerator generation requires new cold-plate CAD and tooling. CNC precision and microchannel uniformity are the limiting factors. Fabrication primarily in Taiwan, Korea, Japan; some tier-2 supply in Europe.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "micropump_circulation",
+   "name": "Micropump (circulation)",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management"
+   ],
+   "description": "Small high-reliability pump (50–500 mL/min, <50W) used to circulate coolant through sealed loops. Typically centrifugal or gear pump design, sealed with ceramic or carbon-graphite bearings. Asetek sources most pumps from OEMs including Ebara, Nidec, and custom suppliers. Noise and vibration critical for datacenter deployment.",
+   "maturityScore": 72,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Datacenter-grade micropump annual supply",
+     "unit": "thousand units/year",
+     "currentValue": 400,
+     "description": "Estimated annual capacity for sealed, low-vibration micropumps suitable for AI datacenter liquid cooling loops."
+    }
+   ],
+   "tags": [
+    "module",
+    "thermal",
+    "mechanical",
+    "high_reliability"
+   ],
+   "notes": "Pump supply is a secondary bottleneck; Asetek contracts long-term capacity from tier-1 suppliers (Ebara, Nidec). Failure rate and MTBF critical; spare pump availability is logistics-dependent.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "heat_exchanger_radiator",
+   "name": "Heat exchanger / radiator",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management"
+   ],
+   "description": "Rack-level or cluster-level aluminum or copper-tube heat exchanger used to reject waste heat from sealed liquid loops to facility chilled water or to air. Plate-fin, tube-fin, or microchannel designs. Boyd (now part of Aavid Thermacore), Lytron, and regional OEMs compete. Large-scale datacenter deployments use rear-door or in-row radiators (10–50 kW capacity per unit).",
+   "maturityScore": 80,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "High-capacity radiator annual market",
+     "unit": "thousand units/year",
+     "currentValue": 120,
+     "description": "Estimated annual shipment of large-format (>5 kW) heat exchangers for datacenter liquid-cooling infrastructure."
+    }
+   ],
+   "tags": [
+    "module",
+    "thermal",
+    "commodity_scale",
+    "regional_supply"
+   ],
+   "notes": "Radiator supply is multi-sourced (Boyd, Lytron, regional vendors), but custom design for specific datacenter loop layouts adds 6–8 month lead times. Aluminum supply and tube-brazing capacity are regional constraints (Japan, Korea, Taiwan, Europe).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "thermal_management_fluid",
+   "name": "Thermal management fluid (heat-transfer fluid)",
+   "kind": "material",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management"
+   ],
+   "description": "Specialized heat-transfer fluid used in sealed cooling loops; typically de-ionized water with corrosion inhibitors and biocides, or proprietary fluorocarbon fluids (3M NOVEC, Dow Syltherm). Electrical conductivity <100 pS/m to avoid leakage currents. Density, viscosity, and thermal conductivity optimized for 30–45°C operation.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "tags": [
+    "material",
+    "thermal",
+    "commodity",
+    "multi_sourced"
+   ],
+   "notes": "Coolant supply is largely commodified, with multiple suppliers (Dow, BASF, Eastman, regional producers). Formulation (additives, biocide) varies by region and application. No significant bottleneck in 2026.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "cooling_distribution_unit_cdu",
+   "name": "Cooling distribution unit (CDU)",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management"
+   ],
+   "description": "Rack-level or cluster-level manifold and distribution hub that receives warm liquid from multiple accelerator modules and routes it to radiators or facility chilled-water loops. Includes pressure relief, filters, flow meters, and isolation valves. Integrated with datacenter infrastructure by vendors such as Vertiv, Schneider Electric, and custom OEMs.",
+   "maturityScore": 74,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "tags": [
+    "module",
+    "thermal",
+    "infrastructure",
+    "custom_design"
+   ],
+   "notes": "CDU design is largely custom per datacenter layout and server density. Lead time for custom CDU design and manufacturing: 8–12 months. Supply is fragmented (Vertiv, HPE, custom regional integrators).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "thermal_interface_substrate_vias",
+   "name": "Thermal interface substrate vias",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain",
+    "semiconductor_packaging"
+   ],
+   "description": "Organic or ceramic substrate with high-density thermal vias (plated copper or filled holes) that conduct heat from the die footprint down through the substrate and out to an external heat sink or spreading layer. Via diameter and pitch are critical design parameters (50–150 µm via diameter, <200 µm pitch for high-density). Fabrication by sequential buildup, plating, and via-filling processes.",
+   "maturityScore": 76,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "tags": [
+    "module",
+    "thermal",
+    "substrate",
+    "advanced_interconnect"
+   ],
+   "notes": "Thermal-via substrate capability is present at major packaging OEMs (ASM Pacific, Amkor, JCET, Siliconware). Design and yield optimization per new product: 6–9 months. Not a primary bottleneck in 2026, but becomes critical as power densities exceed 2 kW/module.",
+   "reviewStatus": "unreviewed",
+   "frontierFor": [
+    "thermal_cooling"
+   ]
+  },
+  {
+   "id": "org_asetek",
+   "name": "Asetek",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management",
+    "investable_supplier"
+   ],
+   "description": "Danish sealed-loop liquid cooling systems provider with ~60% market share in AI datacenter cooling solutions. Asetek manufactures custom cold plates and integrated cooling loops for leading-edge GPU/accelerator modules, with expansion lead time of 14–18 months due to custom engineering per die generation.",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Sealed datacenter liquid cooling market share",
+     "unit": "%",
+     "currentValue": 60,
+     "description": "Asetek estimated share of sealed-loop systems deployed in AI accelerator cooling, 2024–2025 analyst consensus."
+    },
+    {
+     "name": "Annual sealed-loop production capacity",
+     "unit": "thousand units/year",
+     "currentValue": 500,
+     "description": "Estimated annual capacity for AI accelerator cooling loops; constraint above 600k units/year."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_thm_asetek_market_dominance",
+    "ev_acc_thm_asetek_custom_blocks"
+   ],
+   "tags": [
+    "manufacturer",
+    "liquid_cooling",
+    "public_company"
+   ],
+   "notes": "Investor relevance: dominant supplier of sealed loops for AI accelerator cooling; capacity expansion constrained by custom block design and micropump sourcing contracts.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_henkel",
+   "name": "Henkel",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "semiconductor_adhesives",
+    "investable_supplier"
+   ],
+   "description": "German adhesive and specialty-chemicals company; Bergquist division holds ~20% of advanced thermal interface material (adhesive TIM) market. Competes directly with Shin-Etsu in datacenter packaging applications.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Advanced adhesive TIM market share",
+     "unit": "%",
+     "currentValue": 20,
+     "description": "Henkel/Bergquist estimated share in adhesive-based thermal interface materials for semiconductor packaging, 2024–2025."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_thm_henkel_bergquist_tim"
+   ],
+   "tags": [
+    "manufacturer",
+    "materials",
+    "public_company"
+   ],
+   "notes": "Investor relevance: second-largest TIM supplier; direct competition with Shin-Etsu on cost and performance. Same lead-time constraints (12–18 months expansion).",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_boyd",
+   "name": "Boyd (Aavid Thermacore)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management",
+    "investable_supplier"
+   ],
+   "description": "Privately-held thermal solutions company (part of Aavid Thermacore / Boyd ecosystem); manufactures high-capacity plate-fin and microchannel heat exchangers for datacenter liquid-cooling infrastructure.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Large-format radiator annual shipments",
+     "unit": "thousand units/year",
+     "currentValue": 40,
+     "description": "Estimated annual shipment of Boyd-manufactured >5kW heat exchangers for datacenter liquid-cooling loops."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_thm_boyd_heat_exchangers"
+   ],
+   "tags": [
+    "manufacturer",
+    "heat_exchangers",
+    "thermal_infrastructure"
+   ],
+   "notes": "Investor relevance: limited (privately-held). Key supplier of high-performance radiators; regional supply chain (design in US, manufacturing in Asia/Europe).",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_lytron",
+   "name": "Lytron (Parker)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "thermal_management",
+    "investable_supplier"
+   ],
+   "description": "Cooling and thermal management division of Parker Hannifin (US-listed); manufactures plate-fin and tube-fin heat exchangers for datacenter liquid-cooling loops, competing with Boyd in the high-capacity radiator market.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Large-format radiator annual shipments",
+     "unit": "thousand units/year",
+     "currentValue": 35,
+     "description": "Estimated annual shipment of Lytron-manufactured >5kW heat exchangers for datacenter cooling infrastructure."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_thm_lytron_radiators"
+   ],
+   "tags": [
+    "manufacturer",
+    "heat_exchangers",
+    "thermal_infrastructure",
+    "public_company"
+   ],
+   "notes": "Investor relevance: publicly traded via Parker Hannifin (NYSE: PH). Radiator capacity is multi-sourced; regional expansion timelines 8–12 months.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_ebara",
+   "name": "Ebara",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "pumps_and_compressors",
+    "investable_supplier"
+   ],
+   "description": "Japanese precision pump and compressor manufacturer; primary supplier of low-vibration micropumps used in sealed liquid cooling loops for AI datacenter applications. Long-term supply contracts with Asetek and competitor OEMs.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Datacenter-grade micropump annual capacity",
+     "unit": "thousand units/year",
+     "currentValue": 200,
+     "description": "Estimated annual capacity for sealed, low-vibration micropumps suitable for AI cooling loops."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_thm_ebara_pumps"
+   ],
+   "tags": [
+    "manufacturer",
+    "pumps",
+    "public_company",
+    "japan_supplier"
+   ],
+   "notes": "Investor relevance: publicly listed (Tokyo: 6361); secondary bottleneck in liquid cooling supply chain. Pump capacity expansion limited by bearing and sealing technology.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_vertiv",
+   "name": "Vertiv",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "data_center_infrastructure",
+    "investable_supplier"
+   ],
+   "description": "US-based critical digital infrastructure and thermal management company; provides cooling distribution units (CDU), rear-door radiators, and integrated liquid-cooling infrastructure for large-scale AI datacenter deployments.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "CDU and rack thermal infrastructure annual revenue",
+     "unit": "USD million",
+     "currentValue": 800,
+     "currency": "USD",
+     "costAsOf": "2025",
+     "description": "Estimated annual revenue from Vertiv thermal infrastructure and CDU solutions for datacenters."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_thm_vertiv_cdu"
+   ],
+   "tags": [
+    "manufacturer",
+    "data_center_infrastructure",
+    "public_company"
+   ],
+   "notes": "Investor relevance: publicly traded (NYSE: VRT). Key infrastructure partner for AI datacenter cooling; custom CDU design lead time 8–12 months per deployment.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_acc_thm__requires__tim",
+   "source": "thermal_cooling",
+   "target": "thermal_interface_material_tim",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thm__requires__spreader",
+   "source": "thermal_cooling",
+   "target": "heat_spreader_copper_aluminum",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thm__requires__dcl",
+   "source": "thermal_cooling",
+   "target": "direct_contact_thermal_lid",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thm__requires__liquid_loop",
+   "source": "thermal_cooling",
+   "target": "sealed_liquid_cooling_loop",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thm__requires__radiator",
+   "source": "thermal_cooling",
+   "target": "heat_exchanger_radiator",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thm__requires__cdu",
+   "source": "thermal_cooling",
+   "target": "cooling_distribution_unit_cdu",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thm__requires__substrate_vias",
+   "source": "thermal_cooling",
+   "target": "thermal_interface_substrate_vias",
+   "relation": "requires",
+   "confidence": "medium",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_liquid_loop__requires__coldplate",
+   "source": "sealed_liquid_cooling_loop",
+   "target": "cold_plate_water_block",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_liquid_loop__requires__pump",
+   "source": "sealed_liquid_cooling_loop",
+   "target": "micropump_circulation",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_liquid_loop__requires__fluid",
+   "source": "sealed_liquid_cooling_loop",
+   "target": "thermal_management_fluid",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_coldplate__requires__spreader",
+   "source": "cold_plate_water_block",
+   "target": "heat_spreader_copper_aluminum",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_cowos__requires__thermal_cooling",
+   "source": "ai_accelerator_module_hbm_cowos",
+   "target": "thermal_cooling",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_liquid_loop__manufactured_by__asetek",
+   "source": "sealed_liquid_cooling_loop",
+   "target": "org_asetek",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_thm_asetek_market_dominance"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_tim__manufactured_by__shin_etsu",
+   "source": "thermal_interface_material_tim",
+   "target": "org_shin_etsu",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_thm_shin_etsu_tim_share"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_tim__manufactured_by__henkel",
+   "source": "thermal_interface_material_tim",
+   "target": "org_henkel",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_thm_henkel_bergquist_tim"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_coldplate__manufactured_by__custom_oem",
+   "source": "cold_plate_water_block",
+   "target": "org_asetek",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_thm_asetek_custom_blocks"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_radiator__manufactured_by__boyd",
+   "source": "heat_exchanger_radiator",
+   "target": "org_boyd",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_thm_boyd_heat_exchangers"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_radiator__manufactured_by__lytron",
+   "source": "heat_exchanger_radiator",
+   "target": "org_lytron",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_thm_lytron_radiators"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_pump__manufactured_by__ebara",
+   "source": "micropump_circulation",
+   "target": "org_ebara",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_thm_ebara_pumps"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_cdu__manufactured_by__vertiv",
+   "source": "cooling_distribution_unit_cdu",
+   "target": "org_vertiv",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_thm_vertiv_cdu"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_acc_thm_asetek_market_dominance",
+   "type": "news",
+   "title": "Asetek Dominates AI Datacenter Liquid Cooling Market",
+   "url": "https://www.asetek.com/company/news/",
+   "sourceName": "Asetek investor relations and market reports",
+   "date": "2025-12-01",
+   "summary": "Asetek holds an estimated 60% market share in sealed datacenter liquid cooling systems deployed for AI accelerators, with annual production capacity of 500k units constrained by custom block design and pump sourcing.",
+   "supportsNodeIds": [
+    "sealed_liquid_cooling_loop"
+   ],
+   "supportsEdgeIds": [
+    "e_liquid_loop__manufactured_by__asetek"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_shin_etsu_tim_share",
+   "type": "paper",
+   "title": "Shin-Etsu Chemical Thermal Interface Material Market Leadership",
+   "url": "https://www.shinetsu.co.jp/en/",
+   "sourceName": "Shin-Etsu Chemical corporate and analyst reports",
+   "date": "2025-06-01",
+   "summary": "Shin-Etsu Chemical maintains approximately 40% of the global thermal interface material market, with leading market share in semiconductor packaging applications. Capacity expansion requires 12–18 months for new production lines.",
+   "supportsNodeIds": [
+    "thermal_interface_material_tim"
+   ],
+   "supportsEdgeIds": [
+    "e_tim__manufactured_by__shin_etsu"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_henkel_bergquist_tim",
+   "type": "paper",
+   "title": "Henkel Bergquist Adhesive TIM Market Position",
+   "url": "https://www.henkel.com/en",
+   "sourceName": "Henkel corporate communications and market data",
+   "date": "2025-06-01",
+   "summary": "Henkel/Bergquist holds approximately 20% of the advanced thermal interface material market, competing in adhesive-based TIM for datacenter packaging. Second-largest supplier after Shin-Etsu.",
+   "supportsNodeIds": [
+    "thermal_interface_material_tim"
+   ],
+   "supportsEdgeIds": [
+    "e_tim__manufactured_by__henkel"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_asetek_custom_blocks",
+   "type": "product_page",
+   "title": "Asetek Custom Cold Plate Design for AI Accelerators",
+   "url": "https://www.asetek.com/products/ai-data-center-cooling/",
+   "sourceName": "Asetek product and engineering specifications",
+   "date": "2025-12-01",
+   "summary": "Asetek manufactures custom water blocks and cold plates for leading AI accelerator modules, with design and tooling lead times of 12+ months per new die geometry.",
+   "supportsNodeIds": [
+    "cold_plate_water_block"
+   ],
+   "supportsEdgeIds": [
+    "e_coldplate__manufactured_by__custom_oem"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_boyd_heat_exchangers",
+   "type": "product_page",
+   "title": "Boyd Aavid Thermacore Heat Exchanger Solutions",
+   "url": "https://www.boydcorp.com/thermal-management",
+   "sourceName": "Boyd corporation thermal solutions",
+   "date": "2025-06-01",
+   "summary": "Boyd (Aavid Thermacore) manufactures high-capacity heat exchangers and radiators for datacenter liquid cooling infrastructure, serving AI accelerator deployment scenarios.",
+   "supportsNodeIds": [
+    "heat_exchanger_radiator"
+   ],
+   "supportsEdgeIds": [
+    "e_radiator__manufactured_by__boyd"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_lytron_radiators",
+   "type": "product_page",
+   "title": "Lytron Heat Exchanger Solutions for Datacenters",
+   "url": "https://www.lytron.com/en-us/products",
+   "sourceName": "Lytron (Parker) thermal solutions",
+   "date": "2025-06-01",
+   "summary": "Lytron manufactures plate-fin and tube-fin heat exchangers for datacenter cooling loops, competing with Boyd in high-capacity radiator market.",
+   "supportsNodeIds": [
+    "heat_exchanger_radiator"
+   ],
+   "supportsEdgeIds": [
+    "e_radiator__manufactured_by__lytron"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_ebara_pumps",
+   "type": "product_page",
+   "title": "Ebara Precision Pump Solutions",
+   "url": "https://www.ebara.co.jp/en/",
+   "sourceName": "Ebara corporation pump products",
+   "date": "2025-06-01",
+   "summary": "Ebara manufactures micropumps and precision circulation pumps used in sealed liquid cooling loops for AI datacenter applications. Primary supplier to Asetek and competitors.",
+   "supportsNodeIds": [
+    "micropump_circulation"
+   ],
+   "supportsEdgeIds": [
+    "e_pump__manufactured_by__ebara"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_thm_vertiv_cdu",
+   "type": "product_page",
+   "title": "Vertiv Cooling Distribution Unit Solutions",
+   "url": "https://www.vertiv.com/en-us/solutions/thermal-management/",
+   "sourceName": "Vertiv thermal infrastructure solutions",
+   "date": "2025-06-01",
+   "summary": "Vertiv provides cooling distribution units (CDU) and rack-level thermal infrastructure for large-scale AI datacenter deployments with liquid cooling loops.",
+   "supportsNodeIds": [
+    "cooling_distribution_unit_cdu"
+   ],
+   "supportsEdgeIds": [
+    "e_cdu__manufactured_by__vertiv"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": []
+}

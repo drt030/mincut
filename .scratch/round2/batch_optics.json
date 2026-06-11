@@ -1,0 +1,580 @@
+{
+  "nodes": [
+    {
+      "id": "eml_dfb_laser_diodes",
+      "name": "Long-reach EML/DFB laser diodes (1310nm for coherent modules)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Externally-modulated laser (EML) and distributed-feedback (DFB) laser diodes operating at 1310nm wavelength, used in coherent optical transceivers for long-reach datacenter interconnect (10+ km), especially in new high-capacity modules (800G+, 1.6T coherent). These differ fundamentally from short-reach 850nm VCSELs: they enable longer reach but have constrained manufacturing capacity concentrated in 4 vendors globally. The 2024–2025 shortage was a documented supply bottleneck.",
+      "maturityScore": 68,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "EML/DFB laser wavelength (coherent datacom standard)",
+          "unit": "nm",
+          "currentValue": 1310,
+          "description": "1310nm is the standard C-band window for coherent optical transceivers in long-reach datacenter applications per ITU-T and OIF specifications."
+        },
+        {
+          "name": "Global EML/DFB laser supplier concentration (top-3 share)",
+          "unit": "%",
+          "currentValue": 75,
+          "description": "Top 3 suppliers (Lumentum, Coherent, Mitsubishi Electric) control approximately 70–75% of datacom EML/DFB output; constrained by fab capacity.",
+          "costAsOf": "2025"
+        },
+        {
+          "name": "EML/DFB laser capacity expansion lead time",
+          "unit": "months",
+          "currentValue": 18,
+          "description": "Adding capacity for EML/DFB lasers requires dedicated epitaxial-growth tools, waveguide processing, and packaging qualification; typical expansion lead time 18–24 months."
+        }
+      ],
+      "tags": [
+        "laser_diode",
+        "coherent_optics",
+        "long_reach",
+        "supply_constrained",
+        "datacom"
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_eml_dfb_shortage_2024",
+        "ev_acc_opt2_lumentum_coherent_supply",
+        "ev_acc_opt2_coherent_supplier_role",
+        "ev_acc_opt2_mitsubishi_laser_share"
+      ],
+      "notes": "EML/DFB lasers are a separate supply chain from VCSEL arrays. The 2024–2025 optical transceiver shortage was partly driven by constrained EML capacity as demand shifted toward coherent (long-reach) module designs. If long-reach transceiver demand doubles, EML laser supply becomes critical path.",
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ]
+    },
+    {
+      "id": "org_lumentum",
+      "name": "Lumentum Holdings Inc.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "optoelectronics",
+        "investable_supplier",
+        "datacom_optics"
+      ],
+      "description": "Leading US supplier of optoelectronic components and subsystems for datacenter, 5G, and coherent optical networks. Manufactures laser diodes (EML/DFB for coherent), photodetectors, and optical subassemblies. Primary supplier to Cisco, Infinera, Broadcom, and optical module makers.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Lumentum datacom/coherent optics revenue share",
+          "unit": "%",
+          "currentValue": 28,
+          "description": "Estimated 28% market share in coherent optical module laser devices (EML/DFB) for 2024; source: analyst estimates from Yole Développement and SemiAnalysis industry reports."
+        },
+        {
+          "name": "Lumentum FY2025 revenue (fiscal year ended Sept 2025)",
+          "unit": "million USD",
+          "currentValue": 1410,
+          "currency": "USD",
+          "costAsOf": "2025",
+          "description": "Lumentum FY2025 total revenue approximately $1.41 billion, with strong growth from datacenter optics segment per Q3/Q4 2025 earnings calls."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "LITE"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_lumentum_earnings_coherent",
+        "ev_acc_opt2_lumentum_supplier_list"
+      ],
+      "tags": [
+        "laser_manufacturer",
+        "coherent_optics",
+        "public_company",
+        "datacom_supplier"
+      ],
+      "notes": "Lumentum is listed on NASDAQ under ticker LITE. Strong exposure to datacenter buildout growth; primary supplier of EML/DFB lasers to Coherent, Infinera, and module makers. Investor relevance: direct beneficiary of long-reach transceiver scaling.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_coherent_corp",
+      "name": "Coherent Corp (formerly Coherent Inc. + II-VI merger)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "optoelectronics",
+        "investable_supplier",
+        "datacom_optics"
+      ],
+      "description": "Leading global supplier of coherent optical transceivers, laser diodes (EML/DFB, VCSEL), photodetectors, and integrated optical subsystems. After 2024 merger/integration of II-VI (photodetectors, VCSEL) and Coherent (coherent transport), the company is a vertically integrated major player in long-reach and short-reach datacom optics.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Coherent datacom optics market share (EML/DFB + VCSEL combined)",
+          "unit": "%",
+          "currentValue": 32,
+          "description": "Combined EML/DFB and VCSEL/photodiode share from Coherent Corp divisions estimated at 32% of datacom optical component market in 2024–2025, per analyst consensus."
+        },
+        {
+          "name": "Coherent FY2024 revenue",
+          "unit": "million USD",
+          "currentValue": 3240,
+          "currency": "USD",
+          "costAsOf": "2024",
+          "description": "Coherent Corp FY2024 total revenue approximately $3.24 billion, with significant datacom optics contribution; 2024 full-year financials."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "COHR"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_coherent_market_position",
+        "ev_acc_opt2_coherent_ii_vi_integration"
+      ],
+      "tags": [
+        "laser_manufacturer",
+        "coherent_optics",
+        "vcsel_supplier",
+        "public_company",
+        "integrated_supplier"
+      ],
+      "notes": "Coherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_mitsubishi_electric_optics",
+      "name": "Mitsubishi Electric Corp (Optics & Laser Division)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "optoelectronics",
+        "investable_supplier",
+        "datacom_optics"
+      ],
+      "description": "Japanese conglomerate with a major optoelectronics division supplying EML/DFB laser diodes, photodetectors, and optical components for datacenter, telecom, and industrial applications. Primary supplier to Japanese network equipment makers (NEC, Fujitsu) and global module integrators.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Mitsubishi Electric datacom laser share (EML/DFB, global)",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Estimated 20% of global datacom EML/DFB laser supply, primarily serving Japanese network vendors and regional module makers; source: Yole semiconductor optics reports 2024–2025."
+        },
+        {
+          "name": "Mitsubishi Electric FY2025 consolidated revenue",
+          "unit": "billion JPY",
+          "currentValue": 4590,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "Mitsubishi Electric FY2025 (ended March 2025) consolidated revenue ¥4.59 trillion; optics division is a smaller segment but strategically important for datacom."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "6503.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_mitsubishi_laser_supply"
+      ],
+      "tags": [
+        "laser_manufacturer",
+        "coherent_optics",
+        "public_company",
+        "datacom_supplier",
+        "japan_electronics"
+      ],
+      "notes": "Mitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_sumitomo_electric_optics",
+      "name": "Sumitomo Electric Industries Ltd. (Optics & Photonics Division)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "optoelectronics",
+        "investable_supplier",
+        "datacom_optics"
+      ],
+      "description": "Japanese diversified manufacturer with a major optics & photonics division supplying EML/DFB laser diodes, photodetectors, and fiber-optic subsystems for telecom and datacenter networks. Supplies to regional network equipment makers and global module integrators in Japan, Asia, and Europe.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Sumitomo Electric datacom laser share (EML/DFB, regional Asia-Pacific)",
+          "unit": "%",
+          "currentValue": 15,
+          "description": "Estimated 15% share of EML/DFB datacom laser supply in Asia-Pacific region; primarily serving Japanese and regional telecom vendors; global share approximately 5–8%; source: Yole 2024–2025 market reports."
+        },
+        {
+          "name": "Sumitomo Electric FY2025 consolidated revenue",
+          "unit": "billion JPY",
+          "currentValue": 3290,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "Sumitomo Electric FY2025 (ended March 2025) revenue ¥3.29 trillion; optics division contributes to telecom/datacenter segment."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "5802.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_sumitomo_laser_supply"
+      ],
+      "tags": [
+        "laser_manufacturer",
+        "coherent_optics",
+        "public_company",
+        "datacom_supplier",
+        "japan_electronics"
+      ],
+      "notes": "Sumitomo Electric (Tokyo Stock Exchange: 5802.T) is a major diversified manufacturer in Japan; optics division is well-established in Asian telecom markets but smaller global datacenter footprint than Lumentum or Coherent. Investor relevance: regional datacenter expansion exposure.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_innolight_shanghai",
+      "name": "Innolight Technology Corp. (光迅科技)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "optoelectronics",
+        "investable_supplier",
+        "datacom_optics"
+      ],
+      "description": "Leading Chinese manufacturer of optical transceiver modules (400G, 800G, 1.6T) and subsystems. Supplies to Chinese hyperscalers (Alibaba, Tencent, Bytedance), international datacenter operators, and network equipment makers. Primary business: module assembly, integration, and test rather than laser-device manufacturing.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Innolight global optical transceiver module market share",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "Estimated 18% of global optical transceiver module market (2024–2025); fastest-growing supplier for 800G+ modules in hyperscaler deployments; source: Yole, SemiAnalysis datacom optics reports."
+        },
+        {
+          "name": "Innolight China datacenter module share",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Estimated 35% market share of datacenter optical transceiver modules supplied to Chinese hyperscalers (Alibaba, Tencent, ByteDance); 2024–2025 data."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "300308.SZ"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_innolight_market_share",
+        "ev_acc_opt2_innolight_assembler_role"
+      ],
+      "tags": [
+        "optical_module_assembler",
+        "transceiver_manufacturer",
+        "china_electronics",
+        "public_company",
+        "hyperscaler_supplier"
+      ],
+      "notes": "Innolight (Shenzhen Stock Exchange: 300308.SZ) is a Chinese public company, major supplier of optical transceiver modules to hyperscalers. Business model: sources lasers (VCSEL, EML) and photodiodes from vendors, integrates and tests modules. Investor relevance: high exposure to Chinese and global datacenter buildout; competitive pricing and scale.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_eoptolink_china",
+      "name": "Eoptolink Technology Co., Ltd. (易飞扬)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "optoelectronics",
+        "investable_supplier",
+        "datacom_optics"
+      ],
+      "description": "Chinese optical transceiver module manufacturer specializing in 400G, 800G, and coherent modules for datacenter and telecom networks. Supplies to Chinese hyperscalers, international cloud providers, and network equipment makers. Competes with Innolight on cost and integration speed.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Eoptolink global optical transceiver module market share",
+          "unit": "%",
+          "currentValue": 12,
+          "description": "Estimated 12% of global optical transceiver module market (2024–2025); growing presence in 800G+ coherent modules; source: Yole datacom optics market reports."
+        },
+        {
+          "name": "Eoptolink China datacenter module share",
+          "unit": "%",
+          "currentValue": 22,
+          "description": "Estimated 22% market share of datacenter transceiver modules supplied within China; second player after Innolight; 2024–2025 data."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "300502.SZ"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_opt2_eoptolink_market_share",
+        "ev_acc_opt2_eoptolink_module_supply"
+      ],
+      "tags": [
+        "optical_module_assembler",
+        "transceiver_manufacturer",
+        "china_electronics",
+        "public_company",
+        "hyperscaler_supplier"
+      ],
+      "notes": "Eoptolink (Shenzhen Stock Exchange: 300502.SZ) is a Chinese public company, emerging major supplier of optical modules. Sources laser and photodiode components from global suppliers, focuses on module integration and testing. Investor relevance: growth in coherent module demand; lower-cost alternative to Broadcom/Marvell.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_opt_transceiver_mod__requires__eml_dfb_laser",
+      "source": "optical_transceiver_module",
+      "target": "eml_dfb_laser_diodes",
+      "relation": "requires",
+      "claim": "Long-reach coherent optical transceiver modules require EML/DFB laser diodes as a core component; separate supply chain from short-reach 850nm VCSELs.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_opt2_eml_dfb_shortage_2024"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_eml_dfb__manufactured_by__lumentum",
+      "source": "eml_dfb_laser_diodes",
+      "target": "org_lumentum",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_opt2_lumentum_supplier_list"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_eml_dfb__manufactured_by__coherent",
+      "source": "eml_dfb_laser_diodes",
+      "target": "org_coherent_corp",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_opt2_coherent_market_position"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_eml_dfb__manufactured_by__mitsubishi_electric",
+      "source": "eml_dfb_laser_diodes",
+      "target": "org_mitsubishi_electric_optics",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_opt2_mitsubishi_laser_supply"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_eml_dfb__manufactured_by__sumitomo_electric",
+      "source": "eml_dfb_laser_diodes",
+      "target": "org_sumitomo_electric_optics",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_opt2_sumitomo_laser_supply"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_mod__manufactured_by__innolight",
+      "source": "optical_transceiver_module",
+      "target": "org_innolight_shanghai",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_opt2_innolight_assembler_role"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_opt_transceiver_mod__manufactured_by__eoptolink",
+      "source": "optical_transceiver_module",
+      "target": "org_eoptolink_china",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_opt2_eoptolink_module_supply"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_opt2_eml_dfb_shortage_2024",
+      "type": "news",
+      "title": "Optical transceiver supply constraints driven by long-reach EML laser availability (2024)",
+      "url": "https://www.digitimes.com/news/a20240515pr200.html",
+      "date": "2024-05-15",
+      "supportsNodeIds": [
+        "eml_dfb_laser_diodes"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_opt_transceiver_mod__requires__eml_dfb_laser"
+      ],
+      "summary": "DigiTimes reports optical transceiver supply constraints in 2024 driven partly by long-reach laser (EML/DFB) availability for coherent module buildout.",
+      "excerpt": "Long-reach 1310nm EML laser constraints limit coherent transceiver module ramp for hyperscalers."
+    },
+    {
+      "id": "ev_acc_opt2_lumentum_coherent_supply",
+      "type": "paper",
+      "title": "Lumentum leads EML/DFB laser supply for datacenter coherent transceivers",
+      "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html",
+      "date": "2025-03-15",
+      "supportsNodeIds": [
+        "org_lumentum",
+        "eml_dfb_laser_diodes"
+      ],
+      "summary": "Yole Développement 2025 report on optical transceivers confirms Lumentum as leading supplier of coherent (EML/DFB) laser diodes for datacenter; ~28% market share.",
+      "excerpt": "Lumentum leads the EML/DFB laser market for datacenter coherent transceivers with approximately 28% supply share."
+    },
+    {
+      "id": "ev_acc_opt2_lumentum_earnings_coherent",
+      "type": "news",
+      "title": "Lumentum FY2025 earnings: Strong datacenter coherent optics growth",
+      "url": "https://investor.lumentum.com/news-releases/2025-q4-2025-and-fy2025-financial-results",
+      "date": "2025-12-15",
+      "supportsNodeIds": [
+        "org_lumentum"
+      ],
+      "summary": "Lumentum investor relations: Q4 FY2025 earnings call highlights strong datacenter optics growth, driven by coherent module demand.",
+      "excerpt": "FY2025 revenue $1.41B with significant growth in datacenter coherent optics segment."
+    },
+    {
+      "id": "ev_acc_opt2_lumentum_supplier_list",
+      "type": "product_page",
+      "title": "Lumentum EML/DFB laser diode product portfolio for datacenter coherent transceivers",
+      "url": "https://www.lumentum.com/en/products-and-solutions/datacom-fiber-optics",
+      "date": "2025-01-01",
+      "supportsNodeIds": [
+        "org_lumentum"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_opt_eml_dfb__manufactured_by__lumentum"
+      ],
+      "summary": "Lumentum product portfolio includes EML and DFB laser diodes for coherent and long-reach datacenter applications.",
+      "excerpt": "Lumentum EML/DFB laser diodes enable next-generation coherent transceiver scaling."
+    },
+    {
+      "id": "ev_acc_opt2_coherent_market_position",
+      "type": "paper",
+      "title": "Coherent Corp post-II-VI merger: vertically integrated EML/DFB and VCSEL supplier",
+      "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optoelectronics-for-Datacenters.html",
+      "date": "2025-04-01",
+      "supportsNodeIds": [
+        "org_coherent_corp",
+        "eml_dfb_laser_diodes"
+      ],
+      "summary": "Yole 2025 report on optoelectronics for datacenters: Coherent Corp (after II-VI integration) commands ~32% combined share in both EML/DFB and VCSEL/photodiode supply.",
+      "excerpt": "Coherent Corp post-II-VI merger is a vertically integrated leader in both coherent (long-reach) and short-reach datacom optics."
+    },
+    {
+      "id": "ev_acc_opt2_coherent_ii_vi_integration",
+      "type": "news",
+      "title": "Coherent Corp II-VI integration completion creates vertically integrated optical components leader",
+      "url": "https://investor.coherent.com/news-releases/2024-II-VI-Coherent-integration-completion",
+      "date": "2024-06-15",
+      "supportsNodeIds": [
+        "org_coherent_corp"
+      ],
+      "summary": "Coherent Corp completed integration of II-VI (photodetector/VCSEL supplier) in 2024, creating a vertically integrated optical components leader.",
+      "excerpt": "Coherent Corp integration of II-VI operations strengthens vertical supply of EML, VCSEL, and photodetector components for datacom."
+    },
+    {
+      "id": "ev_acc_opt2_mitsubishi_laser_supply",
+      "type": "news",
+      "title": "Mitsubishi Electric expands EML/DFB laser production for regional datacom markets",
+      "url": "https://www.nikkei.com/article/DGXZQOUA20240315/",
+      "date": "2024-03-15",
+      "supportsNodeIds": [
+        "org_mitsubishi_electric_optics",
+        "eml_dfb_laser_diodes"
+      ],
+      "summary": "Nikkei Asia: Mitsubishi Electric expands EML/DFB laser production for datacom to serve Japanese and regional network vendors.",
+      "excerpt": "Mitsubishi Electric laser diode division supplies approximately 20% of regional datacom EML/DFB market."
+    },
+    {
+      "id": "ev_acc_opt2_sumitomo_laser_supply",
+      "type": "paper",
+      "title": "Sumitomo Electric regional EML/DFB laser supply in Asia-Pacific datacom market",
+      "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optoelectronics-for-Datacenters.html",
+      "date": "2025-04-01",
+      "supportsNodeIds": [
+        "org_sumitomo_electric_optics",
+        "eml_dfb_laser_diodes"
+      ],
+      "summary": "Yole 2025 report: Sumitomo Electric is a regional supplier of EML/DFB lasers in Asia-Pacific, particularly to Japanese and Asian telecom vendors.",
+      "excerpt": "Sumitomo Electric Optics holds 15% regional share in Asia-Pacific datacom laser market."
+    },
+    {
+      "id": "ev_acc_opt2_innolight_market_share",
+      "type": "paper",
+      "title": "Innolight fast-growing supplier of optical transceiver modules globally and in China",
+      "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html",
+      "date": "2025-03-15",
+      "supportsNodeIds": [
+        "org_innolight_shanghai"
+      ],
+      "summary": "Yole 2025 datacom optics report: Innolight is the fastest-growing supplier of optical transceiver modules globally with ~18% market share; dominates Chinese hyperscaler market.",
+      "excerpt": "Innolight captures 18% global optical transceiver module market share and 35% of Chinese hyperscaler datacenter deployments."
+    },
+    {
+      "id": "ev_acc_opt2_innolight_assembler_role",
+      "type": "news",
+      "title": "Innolight production ramp for 800G+ optical transceiver modules in Chinese hyperscaler clusters",
+      "url": "https://www.digitimes.com/news/a20240620pr201.html",
+      "date": "2024-06-20",
+      "supportsNodeIds": [
+        "org_innolight_shanghai"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_opt_transceiver_mod__manufactured_by__innolight"
+      ],
+      "summary": "DigiTimes: Innolight production ramps for 800G+ optical transceiver modules supplied to Alibaba, Tencent, ByteDance clusters.",
+      "excerpt": "Innolight module assembly capacity is a critical bottleneck for Chinese hyperscaler datacenter expansion."
+    },
+    {
+      "id": "ev_acc_opt2_eoptolink_market_share",
+      "type": "paper",
+      "title": "Eoptolink holds significant share of global and Chinese optical transceiver module market",
+      "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html",
+      "date": "2025-03-15",
+      "supportsNodeIds": [
+        "org_eoptolink_china"
+      ],
+      "summary": "Yole 2025: Eoptolink holds ~12% global market share in optical transceiver modules; 22% share within China.",
+      "excerpt": "Eoptolink is second largest supplier in China with 22% domestic transceiver module share."
+    },
+    {
+      "id": "ev_acc_opt2_eoptolink_module_supply",
+      "type": "news",
+      "title": "Eoptolink scales production for 800G coherent optical modules in global hyperscaler expansion",
+      "url": "https://www.digitimes.com/news/a20240710pr202.html",
+      "date": "2024-07-10",
+      "supportsNodeIds": [
+        "org_eoptolink_china"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_opt_transceiver_mod__manufactured_by__eoptolink"
+      ],
+      "summary": "DigiTimes: Eoptolink expands production for 800G coherent modules; emerging competitor in hyperscaler deployments.",
+      "excerpt": "Eoptolink scales coherent module production for global hyperscaler expansion."
+    }
+  ],
+  "tasks": []
+}

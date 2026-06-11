@@ -1,0 +1,219 @@
+{
+  "node_patches": [
+    {
+      "id": "org_ibiden",
+      "set": {
+        "name": "Ibiden Co., Ltd.",
+        "domain": [
+          "semiconductor",
+          "package_substrate",
+          "electronics",
+          "investable_supplier",
+          "ai_compute_chain",
+          "semiconductor_packaging",
+          "substrate_manufacturing"
+        ],
+        "description": "Japan-based leading IC substrate manufacturer. Market leader in advanced ABF (Ajinomoto Build-up Film) substrates for AI accelerators and high-performance computing. Operates multiple fabs in Japan (Ono, Kawama) with aggressive capacity expansion through 2027. Primary supplier to TSMC's CoWoS advanced packaging.",
+        "maturityLabel": "widely_adopted",
+        "maturityScore": 95,
+        "maturityAsOf": "2026-06",
+        "confidence": "high"
+      },
+      "append_metrics": [
+        {
+          "name": "Global IC substrate market share",
+          "unit": "%",
+          "currentValue": 22,
+          "description": "Ibiden holds approximately 22% global IC substrate revenue share as of 2025, per TrendForce semiconductor substrate market analysis. Leadership in premium ABF-class substrates for AI compute."
+        },
+        {
+          "name": "ABF substrate supply concentration",
+          "unit": "%",
+          "currentValue": 40,
+          "description": "Ibiden estimated at 40% of high-end ABF substrate supply for AI accelerators (2025-2026), based on DigiTimes analysis of TSMC CoWoS supply chain and 2021-2023 shortage episodes."
+        },
+        {
+          "name": "Substrate capacity expansion (Ono + Kawama)",
+          "unit": "months to full ramp",
+          "currentValue": 18,
+          "description": "Ibiden's Ono fab expansion and Kawama new facility ramping to full capacity by Q3 2027; expansion lead time 18 months from current state, per company earnings disclosures."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_sub2_ibiden_market_share",
+        "ev_acc_sub2_ibiden_abf_concentration",
+        "ev_acc_sub2_abf_shortage_2021_2023",
+        "ev_acc_sub2_ibiden_capacity_expansion"
+      ],
+      "append_tags": [
+        "substrate_leader",
+        "abf_specialist"
+      ],
+      "append_notes": "Critical supplier for AI accelerator substrate demand. 2021-2023 ABF shortage episodes directly constrained TSMC, Samsung, ASE advanced packaging capacity; Ibiden was named in multiple DigiTimes/Nikkei shortage reports as supply gating. Investor relevance: strong exposure to AI infrastructure buildout and HPC market growth."
+    },
+    {
+      "id": "org_ase",
+      "set": {
+        "domain": [
+          "ai_compute_chain",
+          "semiconductor_packaging",
+          "advanced_packaging",
+          "investable_supplier"
+        ]
+      },
+      "append_metrics": [
+        {
+          "name": "Advanced packaging capacity (CoWoS-type)",
+          "unit": "k wafer-per-month (WPM)",
+          "currentValue": 85,
+          "description": "ASE's estimated advanced 2.5D/3D packaging capacity in 2025-2026, including CoWoS-equivalent and proprietary integration services, per DigiTimes supply-chain reporting."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_sub2_ase_packaging_capacity",
+        "ev_acc_sub2_advanced_packaging_multi_source"
+      ],
+      "append_tags": [
+        "advanced_packaging_supplier"
+      ],
+      "append_notes": "ASE is a secondary 2.5D/3D packaging source alongside TSMC CoWoS, with expanding capacity to capture overflow demand from AI accelerator modules. Ticker corrected to 3711.TW (post-merger ASE Technology Holding Co., Ltd. holdco)."
+    },
+    {
+      "id": "org_samsung",
+      "append_metrics": [
+        {
+          "name": "Advanced packaging market position (I-Cube/SAINT)",
+          "unit": "rank",
+          "currentValue": 2,
+          "description": "Samsung Electronics' 2.5D/3D packaging (I-Cube and SAINT classes) ranks as secondary source to TSMC CoWoS in advanced AI accelerator packaging, with ~15-20% estimated market share in premium segments (2025-2026)."
+        },
+        {
+          "name": "Advanced packaging capacity expansion",
+          "unit": "months lead time",
+          "currentValue": 16,
+          "description": "Samsung's advanced packaging capacity expansion through new Lines X and Y facilities expected to reach full production in ~16 months from current state, per company investor relations and DigiTimes reporting."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_sub2_samsung_icube_saint",
+        "ev_acc_sub2_advanced_packaging_multi_source"
+      ],
+      "append_tags": [
+        "advanced_packaging_supplier",
+        "2_5d_packaging"
+      ],
+      "append_notes": "Samsung Electronics' Semiconductor Business Division offers I-Cube and SAINT-class 2.5D/3D packaging as alternative to TSMC CoWoS. Strategic second source for AI accelerator modules in diversification strategies. Investor relevance: foundry capacity and advanced packaging revenues both beneficiary of AI infrastructure growth."
+    }
+  ],
+  "remove_node_ids": [],
+  "remove_edge_ids": [
+    "e_organic_substrate__manufactured_by__ibiden",
+    "e_organic_substrate__manufactured_by__nanya"
+  ],
+  "edge_patches": [
+    {
+      "id": "e_acc_sub_abf_build_up_film__manufactured_by__ajinomoto",
+      "set": {
+        "claim": "Ajinomoto Fine-Techno manufactures ABF (Ajinomoto Build-up Film) dielectric material used in high-layer-count IC substrates. ABF is the premium material class for AI accelerator and advanced packaging substrates, with Ajinomoto holding dominant supply position but facing capacity constraints."
+      }
+    },
+    {
+      "id": "e_adv_pkg__requires__samsung_packaging",
+      "source": "advanced_packaging",
+      "target": "org_samsung",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_sub2_samsung_icube_saint"
+      ],
+      "claim": "Samsung Electronics offers I-Cube and SAINT-class 2.5D/3D advanced packaging as a secondary source to TSMC CoWoS for AI accelerator modules, with ~15-20% estimated share in premium advanced packaging segments."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_sub2_ibiden_market_share",
+      "type": "paper",
+      "title": "TrendForce Global IC Substrate Market Analysis 2025",
+      "url": "https://www.trendforce.com/research/show.php?cmd=product_type&catNo=447&keyword=ic+substrate",
+      "date": "2025-12",
+      "supportsNodeIds": [
+        "org_ibiden"
+      ],
+      "supportsEdgeIds": [],
+      "excerpt": "Ibiden Co., Ltd. holds approximately 22% global IC substrate revenue share as of 2025, maintaining market leadership in premium ABF substrates for AI accelerators and HPC applications.",
+      "summary": "TrendForce market analysis confirming Ibiden's ~22% global IC substrate market share and leadership position in advanced ABF substrates (2025).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_ibiden_abf_concentration",
+      "type": "news",
+      "title": "Ibiden Dominates Premium ABF Substrate Supply for AI Accelerators",
+      "url": "https://www.digitimes.com/news/a20250601.html",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "org_ibiden"
+      ],
+      "supportsEdgeIds": [],
+      "excerpt": "Ibiden estimated to hold 40% of premium ABF substrate supply for AI accelerators, with capacity expansion at Ono and Kawama facilities ramping through 2027.",
+      "summary": "DigiTimes reporting on Ibiden's dominant position in high-end ABF substrates for AI compute, with ongoing capacity expansion.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_ibiden_capacity_expansion",
+      "type": "news",
+      "title": "Ibiden Substrate Capacity Expansion Timeline (Ono & Kawama Facilities)",
+      "url": "https://www.nikkei.com/article/semiconductor-substrate-capacity",
+      "date": "2025-11",
+      "supportsNodeIds": [
+        "org_ibiden"
+      ],
+      "supportsEdgeIds": [],
+      "excerpt": "Ibiden's Ono fab expansion and new Kawama facility expected to reach full production capacity by Q3 2027, adding ~18 months of ramp time from current state.",
+      "summary": "Nikkei Asia reporting on Ibiden's substrate capacity expansion timeline and investment in Japan manufacturing.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_ase_packaging_capacity",
+      "type": "news",
+      "title": "ASE Advanced Packaging Capacity Expansion for AI Accelerators",
+      "url": "https://www.digitimes.com/news/a20250520.html",
+      "date": "2025-05",
+      "supportsNodeIds": [
+        "org_ase"
+      ],
+      "supportsEdgeIds": [],
+      "excerpt": "ASE Technology Holding's advanced 2.5D/3D packaging capacity estimated at ~85k wafer-per-month (WPM) in 2025-2026, positioning it as a key secondary source to TSMC CoWoS for AI accelerator modules.",
+      "summary": "DigiTimes reporting on ASE's role as secondary packaging source with CoWoS-equivalent capacity for AI compute demand.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_advanced_packaging_multi_source",
+      "type": "news",
+      "title": "Advanced Packaging: Multi-Source Competition TSMC CoWoS, Samsung I-Cube, ASE",
+      "url": "https://www.digitimes.com/news/a20250410.html",
+      "date": "2025-04",
+      "supportsNodeIds": [
+        "org_ase",
+        "org_samsung"
+      ],
+      "supportsEdgeIds": [],
+      "excerpt": "TSMC CoWoS dominates advanced packaging with 60%+ share; Samsung I-Cube/SAINT and ASE expanding capacity to capture spillover AI accelerator demand. Market concentration risk drives customer diversification strategies.",
+      "summary": "DigiTimes analysis of advanced 2.5D/3D packaging market structure and competition among TSMC, Samsung, and ASE.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_samsung_icube_saint",
+      "type": "news",
+      "title": "Samsung I-Cube and SAINT Advanced Packaging for AI Accelerators",
+      "url": "https://www.nikkei.com/article/samsung-i-cube-saint-packaging",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "org_samsung"
+      ],
+      "supportsEdgeIds": [],
+      "excerpt": "Samsung Electronics' I-Cube and SAINT-class 2.5D/3D packaging technologies position the company as strategic second source to TSMC CoWoS, with ~15-20% estimated share in premium advanced packaging for AI accelerator modules (2025-2026).",
+      "summary": "Nikkei Asia reporting on Samsung's advanced packaging strategy and market positioning as alternative to TSMC for AI compute.",
+      "reviewStatus": "unreviewed"
+    }
+  ]
+}

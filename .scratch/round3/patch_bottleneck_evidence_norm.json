@@ -1,0 +1,74 @@
+{
+ "node_patches": [
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_high_bandwidth_memory"
+   ],
+   "id": "high_bandwidth_memory"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_hbm_stack_assembly"
+   ],
+   "id": "hbm_stack_assembly_die_bonding"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_hbm_testing"
+   ],
+   "id": "hbm_testing_validation_power_delivery"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_hbm_test_equipment"
+   ],
+   "id": "hbm_test_equipment_and_tooling"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_optical_transceiver"
+   ],
+   "id": "optical_transceiver_module"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_laser_optics"
+   ],
+   "id": "laser_array_and_photodiodes"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_backplane_substrate"
+   ],
+   "id": "backplane_substrate_and_routing"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_chiplet_substrate"
+   ],
+   "id": "chiplet_interconnect_substrate"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_substrate_interposer_parent"
+   ],
+   "id": "substrate_and_interposer"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_power_stage_ic"
+   ],
+   "id": "power_stage_ic"
+  },
+  {
+   "append_evidenceIds": [
+    "ev_acc_bn3_sealed_cooling"
+   ],
+   "id": "sealed_liquid_cooling_loop"
+  }
+ ],
+ "evidence_patches": [],
+ "edge_patches": [],
+ "remove_node_ids": [],
+ "remove_edge_ids": []
+}

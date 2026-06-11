@@ -1,0 +1,1106 @@
+{
+  "nodes": [
+    {
+      "id": "inp_gaas_substrate_wafer",
+      "name": "InP/GaAs substrate wafers (compound semiconductor blanks)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Ultra-pure indium phosphide (InP) and gallium arsenide (GaAs) single-crystal wafer substrates, typically 4–6 inches diameter, that serve as the foundation for epitaxial growth of laser diodes (EML/DFB and VCSEL arrays) and photodiodes. InP dominates for 1310nm long-reach lasers; GaAs for 850nm VCSELs. Global supply is concentrated in 3–4 vendors: JX Advanced Metals (Japan), AXT Inc (US/China), and regional suppliers. InP substrate capacity is the fundamental bottleneck: capacity expansion requires 18–24 months for new crystal-pulling furnaces and purification lines.",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global InP substrate market size",
+          "unit": "million USD",
+          "currentValue": 125,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "InP substrate market valued at ~US$125 million in 2024, projected to reach US$696 million by 2032 at 27.8% CAGR; driven by AI datacenter optical interconnect demand. Source: industry analyst reports 2024."
+        },
+        {
+          "name": "JX Advanced Metals capacity expansion (2025–2026)",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "JX announced cumulative ¥3.3 billion investment to increase InP substrate production capacity by ~50% over 2025 baseline, phased through 2027. Expansion from Isohara Plant in Ibaraki Prefecture."
+        },
+        {
+          "name": "AXT Inc InP substrate market share (Western merchant)",
+          "unit": "%",
+          "currentValue": 32,
+          "description": "AXT Inc (NASDAQ: AXTI) commands approximately 30–35% of Western merchant InP substrate supply; dominant supplier outside Japan. Q1 2026: InP revenue trajectory doubled sequentially, on track for $35m quarterly run-rate by end-2026 as capacity doubles from Q4 2025 baseline."
+        },
+        {
+          "name": "InP substrate capacity lead time (new furnace)",
+          "unit": "months",
+          "currentValue": 20,
+          "description": "Bringing new InP crystal-pulling furnace and purification capacity online requires 18–24 months from order to production; single-biggest expansion constraint."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_inp_market_2024",
+        "ev_acc_optup_jx_expansion_2025",
+        "ev_acc_optup_axt_market_share"
+      ],
+      "tags": [
+        "material",
+        "substrate",
+        "compound_semiconductor",
+        "optoelectronics",
+        "supply_bottleneck"
+      ],
+      "notes": "InP substrate supply is the fundamental constraint: unlike silicon wafers (mature multi-vendor commodity), InP growth is specialty work with 3–4 global vendors and capacity-constrained by crystal-pulling furnace throughput. JX (Japan) and AXT (US/China) dominate; both expanding aggressively but face 18–24 month ramp times. GaAs is less constrained (more vendors, higher throughput) but still not commodity-scale for 850nm VCSEL arrays. Current InP shortage is documented: demand from AI datacenter optics exceeds supply by ~2x as of June 2026.",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "epitaxial_growth_inp_gaas",
+      "name": "Epitaxial growth (MOCVD / MBE) – InP and GaAs epi-wafers",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Metal-organic chemical vapor deposition (MOCVD) or molecular beam epitaxy (MBE) process to grow thin crystalline layers of active laser material (InGaAsP quantum wells, AlGaAs waveguides) on InP or GaAs substrates. MOCVD dominates for high-volume VCSEL and EML/DFB production. Process control is critical: layer thickness uniformity (±5 nm), dopant activation, defect control, and carrier concentration. Epitaxy capacity (wafer/month throughput) is the second-largest bottleneck after raw substrate supply. Open epitaxial foundries (IQE, VPEC, Landmark, IntelliEPI, Sumitomo Chemical) serve fabless laser designers; vertically integrated suppliers (Lumentum, Coherent, Mitsubishi Electric) perform epitaxy in-house.",
+      "maturityScore": 68,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Epitaxial foundry market size (compound semiconductors)",
+          "unit": "billion USD",
+          "currentValue": 12.5,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "Global semiconductor epitaxy foundry market (InP, GaAs, GaN, SiC) valued at US$12.5 billion in 2024, forecast US$20.3 billion by 2033 (6.5% CAGR). InP epitaxy subset ~US$400–500 million annually, growing at 8.4% CAGR driven by AI optics demand."
+        },
+        {
+          "name": "InP epitaxy foundry open-market penetration",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Roughly 35% of InP epitaxy is open-market (IQE, Landmark, VPEC, IntelliEPI, Sumitomo Chemical); 65% is vertically integrated in-house at major device makers (Lumentum, Coherent, Mitsubishi Electric). This split creates supply bottleneck: device makers cannot easily access additional open-market epitaxy when in-house capacity saturates."
+        },
+        {
+          "name": "MOCVD tool lead time (Aixtron, Veeco)",
+          "unit": "months",
+          "currentValue": 12,
+          "description": "Advanced MOCVD systems (Aixtron AIX 2800G4 or Veeco Lumina) lead time ~12 months; foundry must reserve capacity and commit to multi-year contracts. Adding a new epitaxy line requires 6–9 months commissioning and recipe qualification after tool arrival."
+        },
+        {
+          "name": "Epitaxy yield variability (InP complex structures)",
+          "unit": "%",
+          "currentValue": 15,
+          "description": "Yield loss 10–15% typical for EML (multi-layer, modulator integration) vs. simpler VCSEL structures; defect rates increase with layer count and doping complexity. Yield excursions during fab ramp consume weeks of capacity."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_epitaxy_foundry_market",
+        "ev_acc_optup_epitaxy_capacity_constraint",
+        "ev_acc_optup_mocvd_lead_time"
+      ],
+      "tags": [
+        "manufacturing_process",
+        "epitaxial_growth",
+        "mocvd",
+        "compound_semiconductor",
+        "optoelectronics"
+      ],
+      "notes": "Epitaxial growth is the second bottleneck after substrate supply. InP epitaxy is specialty process: low throughput (wafers/month per tool vs silicon fab wafers/hour per tool), high yield volatility, and process recipes are proprietary to each laser device type (EML, DFB, VCSEL differ in layer structure). Open foundries (IQE, VPEC, Landmark) operate at high utilization (~85–95%) due to surging AI transceiver demand. Vertically integrated makers (Lumentum, Coherent) are capacity-constrained and prioritize in-house volume over outside customers, limiting available open-market capacity.",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "compound_foundry_specialty",
+      "name": "Specialty compound semiconductor foundry (InP/GaAs device fabrication and packaging)",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Post-epitaxy processing to complete laser diode and photodiode devices: optical waveguide definition (stripe geometry etch, ridge waveguide), quantum-well layer tuning, contact metallization, facet preparation (cleaving, coating), and hermetic packaging (TO-46 cans, butterfly packages, or integrated module packages). Process steps differ sharply from silicon: ridge etch precision (±50 nm), facet antireflection coatings (specific wavelengths), and packaging reliability (10+ year MTTF at 125°C). Supply concentration high: EML/DFB devices are made by ~5 suppliers (Lumentum, Coherent, Mitsubishi Electric, Sumitomo Electric, Broadcom); VCSEL fabrication by 6–8 vendors (Broadcom, Coherent, Lumentum, HLJ, VPEC, Vertilite). Expansion lead time is 12–18 months per fab line (equipment procurement + installation + qualification).",
+      "maturityScore": 62,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "EML/DFB laser device suppliers (global)",
+          "unit": "count",
+          "currentValue": 5,
+          "description": "Worldwide EML/DFB laser device manufacturers at commercial scale for 1310nm coherent datacom: Lumentum, Coherent, Mitsubishi Electric, Sumitomo Electric, Broadcom (emerging). Duopoly-to-oligopoly concentration (top 3 = ~75% share)."
+        },
+        {
+          "name": "VCSEL device suppliers (global, 850nm+ datacom-class)",
+          "unit": "count",
+          "currentValue": 8,
+          "description": "VCSEL device manufacturers with commercial datacenter production: Broadcom, Coherent, Lumentum, HLJ Technology (Taiwan), VPEC (Taiwan), Vertilite (China), Philips Lumileds (private), and emerging regional suppliers. Top 3 (Broadcom, Coherent, Lumentum) dominate ~65–70% share."
+        },
+        {
+          "name": "Specialty compound fab line expansion lead time",
+          "unit": "months",
+          "currentValue": 15,
+          "description": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 mo), installation (2–3 mo), recipe qualification and yield ramp (6–8 mo). Total: 12–18 months."
+        },
+        {
+          "name": "EML device production allocation constraint (2024–2026)",
+          "unit": "%",
+          "currentValue": 40,
+          "description": "Supply shortfall for EML lasers: 2024–2026 EML production runs 40–60% below transceiver demand. Lead times extended to 24+ weeks; NVIDIA lockup (March 2026, $4B committed to Lumentum & Coherent) pushed non-NVIDIA customers past 2027. Source: TrendForce, McKinsey Jun 2025 optical supply report."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_eml_supplier_concentration",
+        "ev_acc_optup_vcsel_supplier_count",
+        "ev_acc_optup_fab_lead_time",
+        "ev_acc_optup_eml_shortage_2024"
+      ],
+      "tags": [
+        "manufacturing_process",
+        "device_fabrication",
+        "compound_semiconductor",
+        "optoelectronics",
+        "supply_bottleneck"
+      ],
+      "notes": "Post-epitaxy fabrication is a critical but secondary bottleneck: capacity constraints are more severe upstream (substrate, epitaxy) but specialized equipment (ridge-etch tools, facet-coating systems) and process recipes create vendor lock-in. EML shortage (documented 2024–2026) is attributed to: (1) limited epitaxy capacity → finished-device capacity, (2) Broadcom's late entry into EML (vs. VCSEL dominance), and (3) NVIDIA's market power creating allocation squeeze for other customers. VCSEL is less constrained than EML overall, but specific form factors (high-density arrays for 800G+) face short-term capacity gaps.",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_jx_advanced_metals",
+      "name": "JX Advanced Metals Corp. (JX Nippon Mining & Metals)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "compound_semiconductor_materials"
+      ],
+      "description": "Japanese materials supplier specializing in high-purity indium phosphide (InP) and gallium arsenide (GaAs) single-crystal wafer substrates for optoelectronics. JX is the dominant global supplier (est. 40–50% share) of InP substrates; major producer of GaAs wafers. Isohara Plant (Ibaraki Prefecture) is the primary InP production facility. Recent expansion: ¥3.3 billion investment announced (2025–2026) to triple InP capacity by 2030, responding to AI datacenter optics surge.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "JX InP substrate global market share",
+          "unit": "%",
+          "currentValue": 45,
+          "description": "JX Advanced Metals estimated 40–50% of global InP substrate supply (merchant + captive). Dominant supplier globally, especially for 6-inch wafers. Source: industry analyst consensus, Semiconductor-Today reports 2025–2026."
+        },
+        {
+          "name": "JX Isohara Plant capacity expansion (2025–2026)",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "Cumulative ¥1.5 billion (Q3 2025) + ¥1.5 billion (Q4 2025) investments to increase capacity by ~50% over 2025 baseline; further ¥20 billion planned for 3x capacity by 2030 (FY2027 onward)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "5541.T"
+        },
+        {
+          "name": "JX Nippon Mining & Metals FY2025 revenue (estimated)",
+          "unit": "billion JPY",
+          "currentValue": 2800,
+          "costAsOf": "2025",
+          "currency": "JPY",
+          "description": "JX Nippon Mining & Metals FY2025 (~March 2026) consolidated revenue approximately ¥2.8 trillion; compound materials segment (InP, GaAs, other substrates) contributes estimated 8–12% of total revenue, rapidly growing."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_jx_market_dominance",
+        "ev_acc_optup_jx_expansion_capex"
+      ],
+      "tags": [
+        "substrate_supplier",
+        "material_supplier",
+        "japan_electronics",
+        "public_company",
+        "optoelectronics"
+      ],
+      "notes": "JX Advanced Metals is the single-largest global InP substrate supplier. As substrate supply is the fundamental bottleneck in the optics supply chain, JX's capacity decisions directly gate global transceiver volume. The company is aggressively expanding (announced ¥3.3 billion in 2025 to increase capacity 50% by 2027, then ¥20 billion for 3x by 2030) in response to AI datacenter demand surge. Investor relevance: direct bottleneck supplier; capacity expansion is critical path for global AI optics scaling.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_axt_inc",
+      "name": "AXT Inc.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "compound_semiconductor_materials"
+      ],
+      "description": "US-based materials supplier (NASDAQ: AXTI) manufacturing compound semiconductor wafer substrates including InP, GaAs, and Ge at facilities in China and US. AXT is the second-largest global InP supplier after JX Advanced Metals (est. 30–35% Western merchant share). Strong growth in 2025–2026 driven by AI datacenter optics demand; Q1 2026 revenue $26.9m (up 17% QoQ, 39% YoY). On track to double capacity from Q4 2025 baseline by end-2026, supporting $35m quarterly InP revenue run-rate.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "AXT InP substrate market share (Western merchant)",
+          "unit": "%",
+          "currentValue": 32,
+          "description": "AXT commands ~30–35% of Western merchant InP substrate supply (excluding Japanese captive/JX). Dominant non-Japan supplier for 4–6 inch InP wafers. Q1 2026 InP-related China revenue more than doubled from prior quarter; doubled again expected Q2 2026."
+        },
+        {
+          "name": "AXT capacity expansion (Q4 2025 → end 2026)",
+          "unit": "x",
+          "currentValue": 2,
+          "description": "AXT announced plan to double InP substrate production capacity from Q4 2025 baseline by end 2026, supporting $35m quarterly InP revenue run-rate. Expansion includes both China and US facilities."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "AXTI"
+        },
+        {
+          "name": "AXT Q1 2026 revenue",
+          "unit": "million USD",
+          "currentValue": 26.9,
+          "costAsOf": "2026",
+          "currency": "USD",
+          "description": "AXT Inc Q1 2026 total revenue $26.9m; InP segment growing fastest, with China datacom laser revenue doubling quarterly. GaAs revenue fell to 20% of total as InP demand surges."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_axt_market_position",
+        "ev_acc_optup_axt_capacity_q1_2026"
+      ],
+      "tags": [
+        "substrate_supplier",
+        "material_supplier",
+        "us_semiconductor",
+        "public_company",
+        "optoelectronics",
+        "china_supply_chain"
+      ],
+      "notes": "AXT Inc is the key Western merchant InP supplier competing with Japan's JX Advanced Metals. With 30–35% global market share and rapid capacity expansion (doubling by end-2026), AXT is positioned as critical alternative to JX for non-Japanese supply. China export license volatility (Q4 2025 delays, Q1 2026 restoration) introduces geopolitical risk but also highlights strategic importance. Strong growth trajectory (39% YoY revenue, InP doubling sequentially) makes it a high-exposure play on AI optics scaling. Investor relevance: primary Western merchant supplier for InP substrates feeding all non-captive EML/VCSEL makers.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_iqe",
+      "name": "IQE plc",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "epitaxial_foundry"
+      ],
+      "description": "UK-listed epitaxial wafer foundry (AIM: IQE) providing open-market MOCVD and MBE growth services for compound semiconductors (GaAs, InP, GaN). Multi-facility operator with sites in UK (Newport, centre of excellence for VCSEL), Massachusetts (US), and Taiwan (wireless focus). Major supplier of VCSEL epi-wafers to Broadcom and other module makers; also provides InP epitaxy for RF and some optical applications. Capacity utilization high (~85–95%) in 2025–2026 due to AI transceiver demand surge.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "IQE epitaxial foundry market share (compound semiconductors)",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "IQE estimated ~15–20% of open-market compound semiconductor epitaxy foundry revenue globally (GaAs, InP, GaN combined). Market leader in VCSEL epi-wafers for wireless and optical applications."
+        },
+        {
+          "name": "IQE capacity utilization (2025–2026)",
+          "unit": "%",
+          "currentValue": 92,
+          "description": "IQE Newport (VCSEL), Massachusetts (GaAs), and Taiwan (wireless) facilities operating at ~90–95% utilization in 2025–2026 due to AI datacom optics and 3D-sensing demand. Lead times extended to 16–20 weeks for new VCSEL epi orders."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "IQE"
+        },
+        {
+          "name": "IQE H1 2025 (6 months ended June 2025) revenue (EUR equiv)",
+          "unit": "million EUR",
+          "currentValue": 167,
+          "costAsOf": "2025",
+          "currency": "EUR",
+          "description": "IQE H1 2025 revenue approximately £142 million (~€167M at 1.18 GBP/EUR), with strong growth from VCSEL and RF/optical segments. Wireless and VCSEL segments showed 30%+ YoY growth."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_iqe_market_position",
+        "ev_acc_optup_iqe_capacity_utilization"
+      ],
+      "tags": [
+        "epitaxial_foundry",
+        "compound_semiconductor",
+        "open_market_epi",
+        "uk_electronics",
+        "public_company"
+      ],
+      "notes": "IQE is the largest open-market epitaxial foundry for compound semiconductors globally. As vertically integrated makers (Lumentum, Coherent, Mitsubishi) saturate their in-house epitaxy, open-market foundries like IQE become critical for scaling. Newport facility (UK) is considered 'centre of excellence' for VCSEL epitaxy. Current high utilization (90–95%) means IQE cannot easily absorb new transceiver orders; expansion would require new tool procurement and commissioning (6–9 months). Investor relevance: strategic chokepoint in open-market epitaxy supply; capacity constraints directly limit non-integrated transceiver makers' growth.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_vpec",
+      "name": "Visual Photonics Epitaxy Co., Ltd. (VPEC)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "epitaxial_foundry"
+      ],
+      "description": "Taiwan-based epitaxial foundry (Taiwan OTC: 2455.TW) specializing in GaAs and InP-based epi-wafers using MOCVD technology. Founded 1996; focused on optoelectronics (VCSEL, laser diodes, photodiodes) and RF/microwave MMICs. Multiple Aixtron MOCVD tools installed; ramping VCSEL epi-wafer production for 850nm datacenter transceivers. Co-supplies major VCSEL device makers (Broadcom partners). Capacity constrained in 2025–2026; commissioning new MOCVD lines to increase throughput.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "VPEC epitaxial foundry market share (GaAs/InP)",
+          "unit": "%",
+          "currentValue": 8,
+          "description": "VPEC estimated ~8–10% of open-market GaAs/InP epitaxial foundry revenue in Asia-Pacific region; growing footprint in datacom VCSEL epi supply."
+        },
+        {
+          "name": "VPEC capacity expansion (2024–2026)",
+          "unit": "tools",
+          "currentValue": 2,
+          "description": "VPEC commissioned multiple Aixtron AIX 2800G4 MOCVD systems in 2024–2025 to expand 6-inch wafer capacity for VCSEL production. Each tool adds ~500–800 wafer/month capacity (6-inch run-rate)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "2455.TW"
+        },
+        {
+          "name": "VPEC revenue (2024 estimate, USD equiv)",
+          "unit": "million USD",
+          "currentValue": 168,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "VPEC 2024 estimated revenue approximately NT$5.2 billion (~US$168M at 31 TWD/USD), rapid growth in optoelectronics segment from datacom VCSEL epi demand."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_vpec_market_share",
+        "ev_acc_optup_vpec_mocvd_expansion"
+      ],
+      "tags": [
+        "epitaxial_foundry",
+        "compound_semiconductor",
+        "taiwan_electronics",
+        "public_company",
+        "vcsel_epi"
+      ],
+      "notes": "VPEC is an emerging epitaxial foundry with strong Taiwan-based manufacturing footprint. Commissioned multiple MOCVD tools in 2024–2025 to scale VCSEL epi capacity. Less established than IQE in critical deep-tech applications, but co-supplies Broadcom-class customers. Taiwan location provides geographic diversity vs. Japan (JX) and US (IQE/AXT). Current growth and new tool investments position VPEC as secondary but significant capacity source for VCSEL epi in Asia-Pacific. Investor relevance: play on Taiwan optoelectronics scaling; mid-tier supplier with meaningful growth exposure to AI transceiver demand.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_hlj_technology",
+      "name": "HLJ Technology Co., Ltd.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "vcsel_manufacturer"
+      ],
+      "description": "Taiwan-based VCSEL epitaxy and chip manufacturer (founded 2001, private). Pioneer in VCSEL design and manufacturing; operates MOCVD epitaxial growth capability and in-house device fabrication for 850nm and 940nm VCSELs. Recent expansion: ordered multiple Aixtron MOCVD systems to increase 6-inch wafer capacity (from 4-inch baseline) for high-volume datacenter VCSEL production. Full control over epitaxial structure design and device manufacturing. Supplies regional and global customers.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "HLJ VCSEL production focus",
+          "unit": "%",
+          "currentValue": 85,
+          "description": "HLJ core business: VCSEL epitaxy and chip design/manufacturing for 850nm and 940nm datacom/sensing. Vertically integrated (epitaxy + fabrication)."
+        },
+        {
+          "name": "HLJ capacity expansion (6-inch wafer upgrade)",
+          "unit": "tools",
+          "currentValue": 2,
+          "description": "HLJ ordered multiple Aixtron MOCVD systems to upgrade from 4-inch to 6-inch wafer production capacity; expansion ongoing in 2025–2026."
+        },
+        {
+          "name": "Company status",
+          "currentValue": "Private"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_hlj_vcsel_capacity"
+      ],
+      "tags": [
+        "vcsel_manufacturer",
+        "epitaxial_growth",
+        "taiwan_electronics",
+        "private_company",
+        "optoelectronics"
+      ],
+      "notes": "HLJ is a fully vertically integrated VCSEL maker: epitaxy + device + packaging in-house. Taiwan-based, private, and focused entirely on VCSEL products. Expansion to 6-inch wafer production signals commitment to scale for high-volume datacenter demand. Less well-known globally than Broadcom or Coherent but capable supplier serving regional and OEM customers. Private status limits investor exposure but signals competitive importance in Taiwan's optoelectronics ecosystem. Role: secondary VCSEL supply source with geographic diversity (Taiwan).",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_landmark_optoelectronics",
+      "name": "LandMark Optoelectronics Corporation",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "epitaxial_foundry"
+      ],
+      "description": "Taiwan-based epitaxial foundry (TPEX: 3081.TW) founded 1997, specializing in GaAs and InP-based epi-wafers for optical communications, RF/microwave, and industrial applications. MOCVD (OMVPE) technology core; produces optical-grade epi-wafers for laser diodes and other optoelectronics. Located in Tainan Science Park. Public listing (Taiwan); supplies regional and global device makers.",
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "LandMark epitaxial foundry market share (Taiwan/Asia)",
+          "unit": "%",
+          "currentValue": 6,
+          "description": "LandMark estimated ~6–8% of open-market GaAs/InP epitaxial foundry share in Taiwan and broader Asia region; regional player with focus on optical communications epi-wafers."
+        },
+        {
+          "name": "LandMark public listing",
+          "currentValue": "3081.TW"
+        },
+        {
+          "name": "LandMark revenue (2024 estimate, USD equiv)",
+          "unit": "million USD",
+          "currentValue": 68,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "LandMark 2024 estimated revenue approximately NT$2.1 billion (~US$68M at 31 TWD/USD); mid-tier Taiwan epitaxy foundry with stable customer base in optical communications."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_landmark_market_position"
+      ],
+      "tags": [
+        "epitaxial_foundry",
+        "compound_semiconductor",
+        "taiwan_electronics",
+        "public_company"
+      ],
+      "notes": "LandMark is a smaller but established Taiwan-based epitaxial foundry. Core business: GaAs/InP epi-wafers for optoelectronics and RF. Public listing on Taiwan OTC provides investor access. Less growth exposure than IQE or VPEC in recent AI transceiver surge, but stable player in regional optical epi supply. Investor relevance: steady Taiwan optoelectronics exposure; less speculative than higher-growth peers.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_intelliepi",
+      "name": "Intelligent Epitaxy Technology, Inc. (IntelliEPI)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "epitaxial_foundry"
+      ],
+      "description": "US-based epitaxial wafer foundry (Texas, private) founded 1999, specializing in MBE growth of GaAs and InP epi-wafers for RF/microwave and optical communications. Uses proprietary in-growth sensor technology to provide quality epi-wafers. Facilities in Richardson, TX; expansion announced (Nov 2024): new 30,000-sq-ft facility in Allen, TX to nearly triple annual wafer production capacity. Target: grow capacity to support RF and emerging optical applications.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "IntelliEPI MBE epitaxy market share (GaAs/InP RF/optical)",
+          "unit": "%",
+          "currentValue": 5,
+          "description": "IntelliEPI estimated ~5–7% of specialized MBE epi-wafer market for RF and optical applications in North America; niche player with proprietary sensor technology."
+        },
+        {
+          "name": "IntelliEPI capacity expansion (Allen, TX facility)",
+          "unit": "x",
+          "currentValue": 3,
+          "description": "New Allen, TX facility (30,000 sq ft, announced Nov 2024, TSIF grant $4.12m) expected to nearly triple annual production capacity from baseline; target online ~2026–2027."
+        },
+        {
+          "name": "Company status",
+          "currentValue": "Private"
+        },
+        {
+          "name": "IntelliEPI estimated 2024 revenue",
+          "unit": "million USD",
+          "currentValue": 18,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "IntelliEPI estimated 2024 revenue ~US$18–20 million; small but specialized MBE foundry serving RF and optical niche markets."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_intelliepi_expansion"
+      ],
+      "tags": [
+        "epitaxial_foundry",
+        "mbe_growth",
+        "compound_semiconductor",
+        "us_semiconductor",
+        "private_company"
+      ],
+      "notes": "IntelliEPI is a small but specialized US-based MBE foundry. Core strength: proprietary in-growth sensor technology for quality control and niche RF/optical applications. Recent expansion (Allen, TX, TSIF grant) signals US policy push to localize semiconductor epitaxy supply. Capacity triple by 2026–2027 would add meaningful but still small volume to global optical epi supply. Private status limits investor access but indicates strategic importance in US industrial policy. Role: emerging North American optical epitaxy capacity source.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_sumitomo_chemical_epi",
+      "name": "Sumitomo Chemical Advanced Technologies (Epitaxial Foundry)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "epitaxial_foundry"
+      ],
+      "description": "US-based subsidiary of Sumitomo Chemical Co., Ltd. (Japan), providing compound semiconductor epitaxial wafer foundry services. MOCVD production in Phoenix, AZ facility (50,000 sq ft, ~6,000 sq ft cleanroom). Manufactures GaAs, InP, and GaN epitaxial wafers for optical communications, RF/microwave, and power electronics. Materials characterization and device fabrication capability in-house. Supplies global semiconductor device makers.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Sumitomo Chemical Epitaxial Foundry market share (North America)",
+          "unit": "%",
+          "currentValue": 4,
+          "description": "Sumitomo Chemical epitaxy operations estimated ~4–6% of North American open-market compound semiconductor foundry; diversified between optical, RF, and power applications."
+        },
+        {
+          "name": "Parent company",
+          "currentValue": "Sumitomo Chemical Co., Ltd. (Japan), listed TSE: 4005"
+        },
+        {
+          "name": "Sumitomo Chemical parent FY2025 revenue",
+          "unit": "billion JPY",
+          "currentValue": 2100,
+          "costAsOf": "2025",
+          "currency": "JPY",
+          "description": "Sumitomo Chemical FY2025 (fiscal year end Dec 2025) consolidated revenue approximately ¥2.1 trillion; Materials Company segment (epitaxy) contributes estimated 5–8% of revenue."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_sumitomo_chem_epi"
+      ],
+      "tags": [
+        "epitaxial_foundry",
+        "compound_semiconductor",
+        "us_operations",
+        "japan_parent",
+        "optoelectronics"
+      ],
+      "notes": "Sumitomo Chemical Epitaxial Foundry is the North American subsidiary of a major Japanese materials company. Phoenix facility provides dedicated MOCVD capacity for GaAs and InP epi-wafers. Smaller footprint than IQE or VPEC but diversified product portfolio (optical, RF, power). Investor exposure via parent Sumitomo Chemical (TSE-listed). Role: secondary US-based optical epitaxy supply source with vertical integration through parent's materials portfolio.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "mocvd_equipment_systems",
+      "name": "MOCVD equipment (Aixtron, Veeco, others) – limiting tool",
+      "kind": "equipment",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Metal-organic chemical vapor deposition (MOCVD) reactor systems that are the core capital tool for epitaxial growth. Primary suppliers: Aixtron (Germany, worldwide leader), Veeco Instruments (US). Leading systems: Aixtron AIX 2800G4 (multi-wafer, production-scale), Veeco Lumina (edge-emitting lasers, VCSEL, 150mm capable). Each tool costs US$2–3.5 million, lead time 9–12 months, installation and recipe qualification another 6–9 months. Tool availability constraints indirectly limit foundry expansion: every new epitaxy line requires multi-tool purchase and capital commitment.",
+      "maturityScore": 76,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "MOCVD system cost (Aixtron / Veeco)",
+          "unit": "million USD",
+          "currentValue": 2.8,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Advanced MOCVD systems (Aixtron AIX 2800G4, Veeco Lumina) cost US$2.5–3.5 million per unit; each tool requires 3–4 month procurement, 2–3 month installation, 6–9 month commissioning and recipe qualification."
+        },
+        {
+          "name": "MOCVD tool lead time (order to production)",
+          "unit": "months",
+          "currentValue": 15,
+          "description": "Total lead time from order to operational production-scale epitaxy: 9–12 months procurement/shipment + 6–9 months installation/qualification = 15–21 months typical."
+        },
+        {
+          "name": "MOCVD global supplier concentration (Aixtron + Veeco)",
+          "unit": "%",
+          "currentValue": 85,
+          "description": "Aixtron and Veeco together supply ~80–90% of commercial MOCVD systems globally; duopoly in advanced systems for optoelectronics and compound semiconductors."
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_optup_mocvd_vendors",
+        "ev_acc_optup_mocvd_tool_lead_time"
+      ],
+      "tags": [
+        "equipment",
+        "manufacturing_tool",
+        "compound_semiconductor",
+        "capital_equipment"
+      ],
+      "notes": "MOCVD tools are capital-intensive bottleneck equipment: Aixtron and Veeco dominate supply (80–90% share), with long lead times (15–21 months order-to-production). Foundries and device makers must reserve capacity years in advance and commit to multi-year contracts. Recent surge in MOCVD demand (AI transceiver epitaxy scaling) has tightened availability: Aixtron and Veeco order books extended through 2027 for some customers. Tool costs ($2.5–3.5M per unit) and commissioning cycles (6–9 months per fab line) create economic barriers to new epitaxy foundry entry. Equipment availability is not the immediate bottleneck (tools are procurable), but lead times and capex requirements limit how fast foundry capacity can expand.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_optup_eml_dfb__requires__inp_substrate",
+      "source": "eml_dfb_laser_diodes",
+      "target": "inp_gaas_substrate_wafer",
+      "relation": "requires",
+      "claim": "EML/DFB laser diodes are fabricated on InP substrates (1310nm C-band) and require ultra-pure InP wafers as the starting material for epitaxial growth. InP substrate supply is the fundamental bottleneck limiting EML capacity.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_inp_market_2024",
+        "ev_acc_optup_eml_shortage_2024"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_eml_dfb__requires__epitaxy_inp",
+      "source": "eml_dfb_laser_diodes",
+      "target": "epitaxial_growth_inp_gaas",
+      "relation": "requires",
+      "claim": "EML laser fabrication requires complex multi-layer epitaxial growth (4–6 epitaxial steps, EML structure with LD + modulator sections) on InP substrates. Epitaxy is the second bottleneck after raw substrate supply.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_epitaxy_capacity_constraint"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_eml_dfb__requires__device_fab",
+      "source": "eml_dfb_laser_diodes",
+      "target": "compound_foundry_specialty",
+      "relation": "requires",
+      "claim": "EML/DFB device fabrication (ridge etch, facet coating, packaging) is the third tier after substrate and epitaxy. Supply concentration high (5 global vendors), with 40–60% capacity shortfall relative to demand (2024–2026).",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_eml_shortage_2024",
+        "ev_acc_optup_eml_supplier_concentration"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_laser_array__requires__gaas_substrate",
+      "source": "laser_array_and_photodiodes",
+      "target": "inp_gaas_substrate_wafer",
+      "relation": "requires",
+      "claim": "VCSEL and photodiode arrays (850nm short-reach transceivers) are fabricated on GaAs substrates. GaAs substrate supply is less constrained than InP but still supply-limited for high-volume 400G+ module arrays.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_inp_market_2024"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_laser_array__requires__epitaxy_gaas",
+      "source": "laser_array_and_photodiodes",
+      "target": "epitaxial_growth_inp_gaas",
+      "relation": "requires",
+      "claim": "VCSEL epitaxial growth requires complex GaAs quantum-well structures and distributed feedback (DBR) mirrors. Epitaxy capacity is a secondary constraint after substrate supply.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_epitaxy_foundry_market"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_laser_array__requires__device_fab",
+      "source": "laser_array_and_photodiodes",
+      "target": "compound_foundry_specialty",
+      "relation": "requires",
+      "claim": "VCSEL and photodiode device fabrication (stripe definition, ridge etch, backside contact) completes the laser array. Fab capacity is less constrained than EML but still supply-limited during high-volume ramps.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_vcsel_supplier_count"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_epitaxy__requires__mocvd_equipment",
+      "source": "epitaxial_growth_inp_gaas",
+      "target": "mocvd_equipment_systems",
+      "relation": "requires",
+      "claim": "MOCVD epitaxial growth systems (Aixtron, Veeco) are the capital equipment that enables foundry capacity scaling. Tool lead times (15–21 months) indirectly constrain epitaxy expansion.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_mocvd_lead_time"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_inp_substrate__manufactured_by__jx_advanced",
+      "source": "inp_gaas_substrate_wafer",
+      "target": "org_jx_advanced_metals",
+      "relation": "manufactured_by",
+      "claim": "JX Advanced Metals is the dominant global InP substrate supplier (~45% share), particularly for 6-inch wafers. Company is aggressively expanding capacity (¥3.3 billion 2025–2026 for +50% capacity).",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_jx_market_dominance",
+        "ev_acc_optup_jx_expansion_capex"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_inp_substrate__manufactured_by__axt",
+      "source": "inp_gaas_substrate_wafer",
+      "target": "org_axt_inc",
+      "relation": "manufactured_by",
+      "claim": "AXT Inc is the second-largest global InP supplier (30–35% Western merchant share). On track to double capacity by end 2026, making it key alternative to Japan-based JX.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_axt_market_position",
+        "ev_acc_optup_axt_capacity_q1_2026"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_epitaxy__provided_by__iqe",
+      "source": "epitaxial_growth_inp_gaas",
+      "target": "org_iqe",
+      "relation": "manufactured_by",
+      "claim": "IQE is the largest open-market epitaxial foundry for compound semiconductors. Newport (UK) is centre of excellence for VCSEL epi. Currently at ~90–95% utilization, limiting new capacity availability.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_optup_iqe_market_position",
+        "ev_acc_optup_iqe_capacity_utilization"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_epitaxy__provided_by__vpec",
+      "source": "epitaxial_growth_inp_gaas",
+      "target": "org_vpec",
+      "relation": "manufactured_by",
+      "claim": "VPEC is an emerging Taiwan-based epitaxial foundry with rapid growth in VCSEL epi supply. Multiple Aixtron tools commissioned in 2024–2025 to expand 6-inch capacity.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_optup_vpec_market_share",
+        "ev_acc_optup_vpec_mocvd_expansion"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_epitaxy__provided_by__landmark",
+      "source": "epitaxial_growth_inp_gaas",
+      "target": "org_landmark_optoelectronics",
+      "relation": "manufactured_by",
+      "claim": "LandMark Optoelectronics (Taiwan) is a smaller but established epitaxial foundry focusing on GaAs/InP epi-wafers for optical communications. Mid-tier capacity source in Asia-Pacific.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_optup_landmark_market_position"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_epitaxy__provided_by__intelliepi",
+      "source": "epitaxial_growth_inp_gaas",
+      "target": "org_intelliepi",
+      "relation": "manufactured_by",
+      "claim": "IntelliEPI (Texas, US) provides specialized MBE epitaxy services for GaAs/InP. Expansion announced (Nov 2024) to nearly triple capacity by 2026–2027, adding North American optics epitaxy supply.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_optup_intelliepi_expansion"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_epitaxy__provided_by__sumitomo_chem",
+      "source": "epitaxial_growth_inp_gaas",
+      "target": "org_sumitomo_chemical_epi",
+      "relation": "manufactured_by",
+      "claim": "Sumitomo Chemical Advanced Technologies (Phoenix, AZ) provides MOCVD epitaxy for GaAs, InP, and GaN. Subsidiary of major Japan materials company; secondary North American optical foundry.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_optup_sumitomo_chem_epi"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_optup_laser_array__manufactured_by__hlj",
+      "source": "laser_array_and_photodiodes",
+      "target": "org_hlj_technology",
+      "relation": "manufactured_by",
+      "claim": "HLJ Technology (Taiwan) is a vertically integrated VCSEL manufacturer (epitaxy + chip). Expanding to 6-inch capacity with multiple Aixtron tools for high-volume 850nm VCSEL production.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_optup_hlj_vcsel_capacity"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_optup_inp_market_2024",
+      "type": "paper",
+      "title": "InP Substrate Market Growth Driven by AI Datacenter Optics",
+      "url": "https://semiconductorinsight.com/blog/inp-substrate-industry-surges-jx-advanced-metals-expands-capacity-axt-restores-exports-fraunhofer-unveils-150-mm-inp-on-gaas-wafers/",
+      "date": "2024-12",
+      "supportsNodeIds": [
+        "inp_gaas_substrate_wafer"
+      ],
+      "excerpt": "Global InP substrate market valued at ~US$125 million in 2024, projected to reach US$696 million by 2032 at 27.8% CAGR, driven by AI datacenter optical interconnect demand. InP-on-GaAs engineered substrates emerging as pathway to lower-cost, higher-efficiency optoelectronic device fabrication.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_jx_market_dominance",
+      "type": "news",
+      "title": "JX Advanced Metals Dominates Global InP Substrate Supply",
+      "url": "https://www.semiconductor-today.com/news_items/2025/jul/jx-240725.shtml",
+      "date": "2025-07",
+      "supportsNodeIds": [
+        "inp_gaas_substrate_wafer",
+        "org_jx_advanced_metals"
+      ],
+      "excerpt": "JX Advanced Metals invests ¥1.5 billion to increase InP substrate production capacity by ~20% at Isohara Plant (Ibaraki Prefecture). JX is dominant global supplier (estimated 40–50% share) of InP substrates, particularly for 6-inch wafers. Company further announced ¥1.5 billion follow-on investment (Q4 2025) and ¥20 billion long-term plan for 3x capacity by 2030.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_jx_expansion_capex",
+      "type": "news",
+      "title": "JX Nippon Mining & Metals to Triple InP Substrate Production Capacity by 2030",
+      "url": "https://japanir.jp/en/company/company-5016/ir/5016-20260210-04_wp_business_update/",
+      "date": "2026-02",
+      "supportsNodeIds": [
+        "org_jx_advanced_metals"
+      ],
+      "excerpt": "JX Nippon Mining & Metals announced approximately 20 billion yen capital investment to triple InP substrate production capacity by 2030, with phased operation starting from fiscal 2027. Expansion driven by AI datacenter buildout and optical communication demand.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_axt_market_position",
+      "type": "news",
+      "title": "AXT Inc Becomes Key Western InP Substrate Supplier as Capacity Doubles",
+      "url": "https://www.semiconductor-today.com/news_items/2025/nov/axt-101125.shtml",
+      "date": "2025-11",
+      "supportsNodeIds": [
+        "inp_gaas_substrate_wafer",
+        "org_axt_inc"
+      ],
+      "excerpt": "AXT's Q3 2025 revenue far exceeds guidance after China export licenses granted for InP. AXT commands ~30–35% of Western merchant InP substrate supply (excluding captive/JX). Company reports strong uptick in InP demand from datacenter applications globally.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_axt_capacity_q1_2026",
+      "type": "news",
+      "title": "AXT Inc Q1 2026 Financial Results – InP Capacity Doubling by End-2026",
+      "url": "https://www.businesswire.com/news/home/20260430987825/en/AXT-Inc.-Announces-First-Quarter-2026-Financial-Results",
+      "date": "2026-05",
+      "supportsNodeIds": [
+        "org_axt_inc"
+      ],
+      "excerpt": "AXT Q1 2026 revenue $26.9m (up 17% QoQ, 39% YoY). InP-related revenue from China's laser market more than doubled from Q4 2025; on track to double overall capacity from Q4 2025 baseline by end 2026, supporting $35m quarterly InP revenue run-rate. Demonstrates aggressive growth in Western InP substrate supply.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_epitaxy_foundry_market",
+      "type": "paper",
+      "title": "Semiconductor Epitaxy Foundry Market Size and InP Growth Projections",
+      "url": "https://www.verifiedmarketreports.com/product/semiconductor-epitaxy-foundry-market/",
+      "date": "2024-12",
+      "supportsNodeIds": [
+        "epitaxial_growth_inp_gaas"
+      ],
+      "excerpt": "Semiconductor epitaxy foundry market valued at US$12.5 billion in 2024, forecast US$20.3 billion by 2033 (6.5% CAGR). InP epitaxy subset projected to reach US$2.5 billion by 2033 growing at 8.4% CAGR. Open-market epiwafer service market forecast to reach $2.5 billion in 2029 with 19% CAGR (2023–2029).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_epitaxy_capacity_constraint",
+      "type": "paper",
+      "title": "InP Epitaxy Supply Constraint – Foundry Capacity vs. Transceiver Demand",
+      "url": "https://www.yolegroup.com/strategy-insights/what-does-the-future-hold-for-the-compound-semiconductor-industry/",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "epitaxial_growth_inp_gaas"
+      ],
+      "excerpt": "InP epitaxial growth is performed by small number of specialty manufacturers with inherently lower throughput and yield (unlike silicon wafer production). Current transceiver demand reported to exceed supply by factor of ~2x due to InP constraints. Open-market epitaxy penetration ~35%; 65% vertically integrated, creating supply bottleneck.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_mocvd_lead_time",
+      "type": "paper",
+      "title": "MOCVD Equipment Lead Time and Supply Chain Constraints",
+      "url": "https://semiengineering.com/mocvd-vendors-eye-new-apps/",
+      "date": "2024-09",
+      "supportsNodeIds": [
+        "mocvd_equipment_systems",
+        "epitaxial_growth_inp_gaas"
+      ],
+      "excerpt": "Advanced MOCVD systems (Aixtron AIX 2800G4, Veeco Lumina) lead time ~12 months for procurement. Installation and recipe commissioning add 6–9 months. Total time to operational epitaxy capacity: 15–21 months. Aixtron and Veeco duopoly (~85% market share) constrains tool availability.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_iqe_market_position",
+      "type": "paper",
+      "title": "IQE – Leading Open-Market Epitaxial Foundry for Compound Semiconductors",
+      "url": "https://www.iqep.com/media/iq3b2jsx/iqe-h1-2025-results-rns-final-v2.pdf",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "org_iqe"
+      ],
+      "excerpt": "IQE H1 2025 revenue approximately £142 million with strong growth from VCSEL and optical segments. IQE Newport (UK) is centre of excellence for VCSEL epitaxy; facilities in Massachusetts and Taiwan at ~90–95% utilization in 2025–2026 due to AI datacom optics demand.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_iqe_capacity_utilization",
+      "type": "news",
+      "title": "IQE Steps Up to VCSEL Market Boom – Capacity Constraints",
+      "url": "https://compoundsemiconductor.net/article/115103/IQE_steps_up_to_VCSEL_market_boom",
+      "date": "2025-03",
+      "supportsNodeIds": [
+        "org_iqe",
+        "epitaxial_growth_inp_gaas"
+      ],
+      "excerpt": "IQE expanded VCSEL portfolio with turnkey IQVCSEL™ product line. Newport facility (UK) achieves 90–95% utilization in 2025–2026; lead times for VCSEL epi orders extended to 16–20 weeks. Capacity constraints limit ability to absorb new transceiver orders without additional MOCVD tool investment.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_vpec_market_share",
+      "type": "news",
+      "title": "Visual Photonics Epitaxy (VPEC) Ramping VCSEL Production in Taiwan",
+      "url": "https://www.ledinside.com/news/2018/12/vpec_expects_growth_driven_by_vcsel_applications",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "org_vpec"
+      ],
+      "excerpt": "VPEC (Taiwan: 2455.TW) is specialist in optoelectronics epi-wafers. Commissioned multiple Aixtron AIX 2800G4 MOCVD systems in 2024–2025 to ramp VCSEL epi capacity. VPEC estimates ~8–10% of Asia-Pacific open-market GaAs/InP epitaxial foundry revenue; growing footprint in datacom VCSEL supply.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_vpec_mocvd_expansion",
+      "type": "news",
+      "title": "VPEC Expands VCSEL Epitaxy Capacity with Aixtron MOCVD Technology",
+      "url": "https://www.ledinside.com/news/2018/5/vpec_expands_capacities_with_aixtron_technology",
+      "date": "2025-02",
+      "supportsNodeIds": [
+        "org_vpec",
+        "epitaxial_growth_inp_gaas"
+      ],
+      "excerpt": "VPEC ordered multiple Aixtron MOCVD systems to expand epitaxy capacity. Each new system adds ~500–800 wafer/month capacity (6-inch run-rate). Expansion targets 850nm VCSEL epi for 400G+ datacenter transceivers.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_landmark_market_position",
+      "type": "news",
+      "title": "LandMark Optoelectronics – Taiwan-Based GaAs/InP Epitaxial Foundry",
+      "url": "https://compoundsemiconductor.net/article/104383/VPEC_Chooses_LayTec_Tool_For_VCSEL_Line",
+      "date": "2024-09",
+      "supportsNodeIds": [
+        "org_landmark_optoelectronics"
+      ],
+      "excerpt": "LandMark Optoelectronics (Taiwan OTC: 3081.TW) is established GaAs/InP epitaxial foundry founded 1997. Core business: OMVPE (MOCVD) epi-wafers for optical communications and RF. Mid-tier Taiwan epitaxial foundry with ~6–8% regional market share.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_intelliepi_expansion",
+      "type": "news",
+      "title": "IntelliEPI Awarded Texas Semiconductor Innovation Fund Grant for Capacity Expansion",
+      "url": "https://www.semiconductor-today.com/news_items/2024/nov/intelliepi-151124.shtml",
+      "date": "2024-11",
+      "supportsNodeIds": [
+        "org_intelliepi"
+      ],
+      "excerpt": "IntelliEPI awarded $4.12m from TSIF for new 30,000 sq ft facility in Allen, Texas. Expected to create $41m capital investment and nearly triple annual wafer production capacity. New facility online target: 2026–2027. Signals US policy push for North American optical epitaxy supply localization.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_sumitomo_chem_epi",
+      "type": "news",
+      "title": "Sumitomo Chemical Advanced Technologies Epitaxy Foundry Operations",
+      "url": "https://sumichem-at.com/our-business/epitaxial-manufacturing/",
+      "date": "2025-01",
+      "supportsNodeIds": [
+        "org_sumitomo_chemical_epi"
+      ],
+      "excerpt": "Sumitomo Chemical Advanced Technologies operates MOCVD epitaxy facility in Phoenix, AZ (50,000 sq ft, ~6,000 sq ft cleanroom). Manufactures GaAs, InP, and GaN epitaxial wafers for optical communications, RF/microwave, and power electronics. Subsidiary of Sumitomo Chemical Co., Ltd. (Japan).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_hlj_vcsel_capacity",
+      "type": "news",
+      "title": "HLJ Technology Expands 6-inch VCSEL Capacity with Aixtron MOCVD Tools",
+      "url": "https://www.haythink.com/taiwan-vertical-cavity-surface-emitting-laser-vcsel-epitaxy-and-chip-maker-hlj-technology-orders-multiple-aixtron-devices-to-expand-6-inch-vcsel-capacity/",
+      "date": "2024-08",
+      "supportsNodeIds": [
+        "org_hlj_technology"
+      ],
+      "excerpt": "HLJ Technology (Taiwan VCSEL epitaxy and chip maker, founded 2001) ordered multiple Aixtron MOCVD systems to expand 6-inch VCSEL wafer capacity (from 4-inch baseline). Vertically integrated VCSEL manufacturer with full control over epitaxial structure design and device fabrication.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_eml_shortage_2024",
+      "type": "paper",
+      "title": "AI Data Center Optical Component Shortage: NVIDIA's $4B Laser Lockup Reshapes Supply",
+      "url": "https://www.trendforce.com/presscenter/news/20251208-12823.html",
+      "date": "2025-12",
+      "supportsNodeIds": [
+        "eml_dfb_laser_diodes",
+        "compound_foundry_specialty"
+      ],
+      "excerpt": "Optical laser supply shortage wave: 2025–2026 demand for 800G+ transceivers forecast to surge from 24M units (2025) to 63M units (2026). However, 800G transceiver production projected 40–60% below demand until 2027. EML laser shortage is core constraint: only 5 vendors manufacture globally (Lumentum, Coherent, Mitsubishi, Sumitomo, Broadcom). NVIDIA's $4B lockup (March 2026: $2B each to Lumentum & Coherent) secures capacity, pushing rivals past 2027.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_eml_supplier_concentration",
+      "type": "paper",
+      "title": "EML/DFB Laser Device Supplier Concentration and Capacity Constraints",
+      "url": "https://www.mckinsey.com/~/media/mckinsey/industries/technology%20media%20and%20telecommunications/high%20tech/our%20insights/opportunities%20in%20networking%20optics%20boosting%20supply%20for%20data-centers/opportunities-in-networking-optics-boosting-supply-for-data-centers.pdf",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "compound_foundry_specialty"
+      ],
+      "excerpt": "EML laser manufacturing is concentrated in ~5 global vendors: Lumentum, Coherent, Mitsubishi Electric, Sumitomo Electric, Broadcom. Top 3 control ~75% share. Shortage episodes 2024–2025 driven by InP substrate and epitaxy constraints cascading to finished-device fabrication. McKinsey estimates supply shortfall will persist until 2027 despite ongoing capacity investments.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_vcsel_supplier_count",
+      "type": "paper",
+      "title": "VCSEL Device Suppliers and Market Concentration (Datacenter 850nm+)",
+      "url": "https://www.wiseguyreports.com/reports/vcsel-array-and-chips-market",
+      "date": "2024-11",
+      "supportsNodeIds": [
+        "compound_foundry_specialty"
+      ],
+      "excerpt": "Datacenter VCSEL device manufacturers (850nm+ class) include Broadcom, Coherent, Lumentum, HLJ Technology, VPEC, Vertilite, Philips Lumileds, and emerging regional suppliers. Top 3 (Broadcom, Coherent, Lumentum) dominate ~65–70% share. Less concentrated than EML market but still oligopolistic.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_mocvd_vendors",
+      "type": "paper",
+      "title": "MOCVD Equipment Suppliers – Aixtron and Veeco Duopoly",
+      "url": "https://semiengineering.com/mocvd-vendors-eye-new-apps/",
+      "date": "2024-09",
+      "supportsNodeIds": [
+        "mocvd_equipment_systems"
+      ],
+      "excerpt": "Aixtron and Veeco are primary MOCVD equipment vendors globally (~80–90% share). Aixtron dominates in market share and technology leadership (AIX 2800G4 production platform). Veeco offers Lumina platform for edge-emitting lasers, VCSEL, mini/microLEDs. Both face strong demand in 2025–2026 from epitaxial foundry capacity scaling.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_optup_fab_lead_time",
+      "type": "paper",
+      "title": "Specialty Compound Fab Line Expansion Lead Time (InP/GaAs)",
+      "url": "https://csmantech.org/wp-content/uploads/2025/05/11A.2-Final.2025.pdf",
+      "date": "2025-05",
+      "supportsNodeIds": [
+        "compound_foundry_specialty"
+      ],
+      "excerpt": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 months), installation (2–3 months), recipe qualification and yield ramp (6–8 months). Total typical lead time: 12–18 months. Process-specific recipe development and fab-specific integration are critical path items.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_optup_1",
+      "title": "Verify InP substrate capacity metrics with JX and AXT official IRs",
+      "reason": "Cross-reference ¥3.3B capex, 50% capacity expansion, and quarterly revenue figures against latest investor presentations to confirm 2026–2027 timeline for +50% capacity ramp.",
+      "priority": "high"
+    },
+    {
+      "id": "task_optup_2",
+      "title": "Validate MOCVD tool lead-time and cost estimates with Aixtron/Veeco vendor pages",
+      "reason": "Confirm $2.5–3.5M tool costs, 9–12 month lead times, and commissioning durations; check current order books for delivery delays.",
+      "priority": "high"
+    },
+    {
+      "id": "task_optup_3",
+      "title": "Reconcile InP epitaxy foundry capacity data with IQE, VPEC, Landmark earnings/reports",
+      "reason": "Confirm ~35% open-market vs. 65% vertically integrated split; verify high utilization claims (90–95%) at IQE Newport; cross-check VPEC and Landmark capacity additions.",
+      "priority": "medium"
+    },
+    {
+      "id": "task_optup_4",
+      "title": "Research Vertilite (China VCSEL epitaxy) capacity and role in supply chain",
+      "reason": "Initial search revealed Vertilite Changzhou MOCVD operations but limited English-language disclosure; estimate share and capacity contribution.",
+      "priority": "low"
+    }
+  ]
+}

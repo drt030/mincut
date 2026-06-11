@@ -1,0 +1,850 @@
+{
+  "nodes": [
+    {
+      "id": "short_reach_copper_signal_conditioning_silicon",
+      "name": "Short-reach copper interconnect signal conditioning silicon",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Signal-conditioning, retiming, and equalization silicon that enables copper-based interconnects between AI accelerators, GPUs, and network switches within a chassis or rack. Includes PCIe retimers (50\u2013112 Gbps PAM-4), active copper cable (ACC) linear equalizers, and active electrical cable (AEC) digital signal processors. These devices compensate for signal loss over copper conductors and extend reach from sub-1m (passive DAC) to 2\u20133m (ACC) or 5+ meters (AEC with full retiming).",
+      "maturityScore": 76,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "PCIe Gen 6 retimer PAM-4 lane speed",
+          "unit": "Gbps",
+          "currentValue": 64,
+          "description": "PCIe 6.0 retimers operate at 64 GT/s using PAM-4 signaling per OIF standards; 2024\u20132026 production nodes (TSMC 28nm, 40nm, and emerging 7nm for 3nm-class retimers)."
+        },
+        {
+          "name": "CXL 3.x retimer PAM-4 per-lane speed",
+          "unit": "Gbps",
+          "currentValue": 32,
+          "description": "CXL 3.0 retimers support 32 GT/s per lane in PCIe format, derived from PCIe 5.x architecture; used for disaggregated memory and storage fabric."
+        },
+        {
+          "name": "ACC linear equalizer typical gain",
+          "unit": "dB",
+          "currentValue": 20,
+          "description": "Active copper cable linear equalizers (e.g., Marvell CB11208) provide up to 20dB of channel equalization for 1.6T aggregated bandwidth over copper. Supports 800G and 1.6T interconnects."
+        },
+        {
+          "name": "AEC retimer per-lane speed (3nm silicon)",
+          "unit": "Gbps",
+          "currentValue": 112,
+          "description": "Full-digital AEC retimers with 3nm silicon (e.g., Credo Magpie for PCIe 7) achieve 112 Gbps per lane with full clock/data recovery; emerging 2026."
+        },
+        {
+          "name": "Typical retimer IC lead time (TSMC 28nm/40nm)",
+          "unit": "weeks",
+          "currentValue": 20,
+          "description": "Standard lead time for production orders of mature-node (28nm, 40nm) retimer ASICs from TSMC; constrained by allocation in 2024\u20132025."
+        },
+        {
+          "name": "Global retimer market size (2024)",
+          "unit": "billion USD",
+          "currentValue": 0.614,
+          "costAsOf": "2024",
+          "currency": "USD",
+          "description": "Global retimer market valued at USD 613.6M in 2024, growing to USD 674.4M in 2025, at CAGR 10.7% through 2029. Includes PCIe, USB4, CXL retimers; driven by AI datacenter demand."
+        }
+      ],
+      "tags": [
+        "signal_conditioning",
+        "copper_interconnect",
+        "retimer",
+        "serdes",
+        "pam4",
+        "short_reach",
+        "ai_cluster"
+      ],
+      "notes": "Short-reach copper interconnect silicon is a distinct sub-layer from long-reach optical transceivers. Scope: device-level silicon (retimers, equalizers, DSP ICs) that condition electrical signals over copper cables/traces within 1\u20135m range in rack/chassis interconnect. Not in scope: passive DAC cables (commodity), optical transceiver ASICs (already modeled), or backplane PCB substrate (already modeled). Bottleneck risk: TSMC 28nm and 40nm node capacity is shared with optical transceiver host ASICs; during 2023\u20132025, AI accelerator ramp created allocation pressure. Retimer silicon design is concentrated in <10 vendors (Astera Labs, Marvell, Broadcom, Credo, Parade); TSMC foundry dependency for mature nodes creates supply bottleneck if demand surges.",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "evidenceIds": [
+        "ev_acc_icsi_retimer_market_2024",
+        "ev_acc_icsi_astera_labs_aries_pcg6",
+        "ev_acc_icsi_marvell_alaska_p_pcie6",
+        "ev_acc_icsi_credo_aec_retimers",
+        "ev_acc_icsi_marvell_acc_equalizer",
+        "ev_acc_icsi_tsmc_28nm_allocation"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "pcie_retimer_ic",
+      "name": "PCIe Retimer / Redriver IC (32\u2013112 Gbps PAM-4)",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Mixed-signal application-specific integrated circuit (ASIC) that regenerates high-speed PCIe signals (Gen 5: 32 GT/s, Gen 6: 64 GT/s, Gen 7: 120+ GT/s) over copper interconnects. Performs clock-data recovery (CDR), equalization, decision feedback, and signal retransmission to extend reach from 1m (passive) to 3+ meters. Manufactured in mature process nodes (28nm, 40nm, 7nm) on TSMC or Samsung. Key suppliers: Astera Labs (Aries), Marvell (Alaska P), Broadcom, Credo (Toucan/Magpie), Parade Technologies.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Astera Aries 6 retimer (PCIe Gen 6 / CXL 3.1)",
+          "unit": "GT/s per lane",
+          "currentValue": 64,
+          "description": "Aries 6 retimer achieves 64 GT/s per lane (PCIe 6.0) with best-in-class power and latency; in volume production with major hyperscalers by 2025."
+        },
+        {
+          "name": "Marvell Alaska P lane count / power",
+          "unit": "lanes / watts",
+          "currentValue": 16,
+          "description": "16-lane PCIe 6 retimer operating at 64 GT/s with 10W total power consumption (0.625W per lane); among lowest power in industry."
+        },
+        {
+          "name": "Credo Toucan retimer process node",
+          "unit": "nm",
+          "currentValue": 7,
+          "description": "Credo Toucan PCIe 6/CXL 3.x retimer based on TSMC N7 process, sampling Q4 2024."
+        },
+        {
+          "name": "Credo Magpie retimer process node",
+          "unit": "nm",
+          "currentValue": 5,
+          "description": "Credo Magpie PCIe 7/CXL 4.x retimer based on TSMC N5 process, sampling H2 2025."
+        },
+        {
+          "name": "Typical retimer ASIC data sheet specs range (per-lane speed)",
+          "unit": "Gbps",
+          "currentValue": 112,
+          "description": "Leading-edge retimers achieve 112 Gbps per lane at PAM-4 encoding (Credo Magpie for PCIe 7 equivalent); enables 1.8T+ aggregated bandwidth."
+        }
+      ],
+      "tags": [
+        "retimer",
+        "pcie",
+        "cxl",
+        "pam4",
+        "signal_recovery",
+        "asic"
+      ],
+      "notes": "PCIe retimers are the primary building block for short-reach copper interconnect. Astera Labs dominates with Aries products; Marvell and Credo are strong secondary players. Supply is concentrated in 4\u20135 design teams; all depend on TSMC/Samsung for fabrication. Retimer adoption is mandatory for any 64+ GT/s copper link beyond 1\u20132 meters. Design lead time: 2\u20133 years (silicon design + qualification); fab lead time (TSMC 28nm\u20137nm): 16\u201324 weeks for mature nodes.",
+      "evidenceIds": [
+        "ev_acc_icsi_astera_labs_aries_pcg6",
+        "ev_acc_icsi_marvell_alaska_p_pcie6",
+        "ev_acc_icsi_credo_toucan_pcie6",
+        "ev_acc_icsi_credo_magpie_pcie7"
+      ],
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ]
+    },
+    {
+      "id": "active_copper_cable_linear_equalizer",
+      "name": "Active Copper Cable (ACC) Linear Equalizer IC",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Analog/mixed-signal IC that performs passive equalization and cable conditioning without full retiming. Mounted at one or both ends of a copper cable (DAC, AEC) to extend reach from <1m (passive DAC) to 2\u20133m at full 800G or 1.6T aggregate bandwidth. Typical implementation: continuous-time linear equalizer (CTLE) with 15\u201325dB of equalization gain. Significantly lower power (2\u20135W) and latency than digital retimers. Key suppliers: Marvell (Taurus ACC), Credo, Microchip, Broadcom.",
+      "maturityScore": 72,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Marvell CB11208 ACC equalizer gain",
+          "unit": "dB",
+          "currentValue": 20,
+          "description": "Marvell's Taurus ACC linear equalizer (CB11208) provides up to 20dB of equalization for 1.6T copper interconnects. Consumes 2.5W for 1.6T design; much lower power than full digital retimer."
+        },
+        {
+          "name": "Typical ACC cable reach extension",
+          "unit": "meters",
+          "currentValue": 2.5,
+          "description": "ACC-equipped copper cables (with equalizer at both ends) extend reach from 1m (passive DAC) to 2\u20132.5m at full signaling rates, depending on cable gauge and impedance."
+        },
+        {
+          "name": "Power per lane (ACC equalizer)",
+          "unit": "mW",
+          "currentValue": 100,
+          "description": "Typical per-lane power for ACC linear equalizer; 16-lane cable would consume ~1.6W vs 10W for full digital retimer."
+        }
+      ],
+      "tags": [
+        "equalizer",
+        "analog",
+        "copper_cable",
+        "low_power",
+        "signal_conditioning"
+      ],
+      "notes": "ACC linear equalizers are an intermediate technology between passive DAC (no conditioning) and full digital AEC retimers. Much lower power and cost than retimers, but shorter reach (2\u20133m vs 5+ meters for AEC). Growing adoption in AI clusters as more systems standardize on short-reach copper links. Marvell Taurus line is the primary offering; Credo and others offer competing products. Process nodes: mature (40nm, 28nm); limited process innovation or supply constraints vs. retimers.",
+      "evidenceIds": [
+        "ev_acc_icsi_marvell_taurus_acc_2025",
+        "ev_acc_icsi_acc_vs_dac_2024"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "active_electrical_cable_aec_retimer_dsp",
+      "name": "Active Electrical Cable (AEC) Retimer / Digital Signal Processor",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Full-digital signal processor (DSP) embedded in an active electrical cable (AEC) or AEC module that performs complete retiming, clock-data recovery, and signal regeneration. Enables reach of 5+ meters at 112+ Gbps per lane with full signal integrity. Uses advanced process nodes (N7, N5, eventually 3nm) to achieve high performance with lower power than older generations. Key suppliers: Marvell, Credo (Magpie for PCIe 7), Broadcom, Microchip. Emerging 3nm versions from Credo and others.",
+      "maturityScore": 68,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Credo Magpie 3nm AEC retimer (PCIe 7 equivalent)",
+          "unit": "Gbps per lane",
+          "currentValue": 112,
+          "description": "Credo's emerging Magpie AEC retimer (3nm, TSMC N5 process, sampling H2 2025) achieves 112 Gbps per lane for PCIe 7 equivalent speeds and beyond."
+        },
+        {
+          "name": "Typical AEC reach extension",
+          "unit": "meters",
+          "currentValue": 5,
+          "description": "AEC cables with full retimer/DSP extend usable reach to 5+ meters depending on cable gauge, impedance, and equalization tuning."
+        },
+        {
+          "name": "Power consumption (3nm AEC retimer)",
+          "unit": "watts",
+          "currentValue": 8,
+          "description": "Emerging 3nm AEC retimers estimated to consume 6\u201310W for 16-lane full retiming, lower than 28nm/40nm equivalents due to process scaling."
+        }
+      ],
+      "tags": [
+        "aec",
+        "dsp",
+        "retimer",
+        "3nm",
+        "signal_conditioning"
+      ],
+      "notes": "AEC retimers represent the high-end of copper conditioning; used for longest-reach copper links in disaggregated or modular cluster architectures. Process node dependence is extreme: 3nm AEC retimers must be fabricated at TSMC or Samsung (no other viable foundries for sub-7nm). Credo leads in 3nm development (sampling H2 2025); Marvell and Broadcom are developing competing products. Supply constraint risk is high if demand for 3nm AEC outpaces TSMC/Samsung 3nm AI accelerator production.",
+      "evidenceIds": [
+        "ev_acc_icsi_credo_magpie_pcie7",
+        "ev_acc_icsi_3nm_aec_retimer_roadmap"
+      ],
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ]
+    },
+    {
+      "id": "pcie_cxl_fabric_switch_asic",
+      "name": "PCIe / CXL Fabric Switch ASIC (cluster interconnect)",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Custom or merchant ASIC that acts as a PCIe or CXL switch fabric for connecting multiple AI accelerators, CPUs, and memory controllers within a disaggregated cluster or node. Implements switch logic for routing PCIe transactions, CXL cache coherency, and PCIe/CXL endpoints. Used for backend GPU-to-GPU clustering (scale-up) and memory disaggregation. Key suppliers: Astera Labs (Scorpio P-Series, X-Series), Broadcom (custom switches), Marvell (custom switches). Typically implemented in TSMC 7nm or 5nm.",
+      "maturityScore": 70,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Astera Scorpio P-Series switch lanes",
+          "unit": "PCIe lanes",
+          "currentValue": 128,
+          "description": "Scorpio P-Series switches support 128 PCIe Gen 6 lanes in 16x16 or equivalent topology for GPU-to-CPU/NIC/SSD connectivity."
+        },
+        {
+          "name": "Astera Scorpio X-Series switch lanes",
+          "unit": "PCIe lanes",
+          "currentValue": 256,
+          "description": "Scorpio X-Series switches support up to 256 PCIe Gen 6 lanes for backend AI accelerator scale-up clustering."
+        },
+        {
+          "name": "Switch ASIC process node",
+          "unit": "nm",
+          "currentValue": 5,
+          "description": "Merchant and custom fabric switches are implemented in TSMC 5nm or 7nm for power efficiency and integration density."
+        },
+        {
+          "name": "Astera Scorpio ramp speed (Q2 2025 revenue share)",
+          "unit": "%",
+          "currentValue": 10,
+          "description": "Scorpio Smart Fabric Switches achieved >10% of Astera Labs revenue in Q2 2025, marking fastest product ramp in company history."
+        }
+      ],
+      "tags": [
+        "switch",
+        "pcie",
+        "cxl",
+        "fabric",
+        "cluster_interconnect",
+        "custom_asic"
+      ],
+      "notes": "PCIe/CXL fabric switches are a nascent but fast-growing segment, driven by AI cluster disaggregation. Astera Labs entered the market in early 2026 with Scorpio; Broadcom and Marvell offer custom switches designed to OEM specifications. Market size still small (~$500M\u2013$1B estimated for 2025\u20132026), but ramp is steep. No supply shortage currently, but Scorpio's rapid adoption (>10% revenue in Q2 2025) suggests emerging demand. Process dependency: TSMC 5nm/7nm allocation risk if AI accelerator demand continues to consume >80% of TSMC advanced node capacity.",
+      "evidenceIds": [
+        "ev_acc_icsi_astera_scorpio_switch_2025",
+        "ev_acc_icsi_pcie_cxl_switch_market_2025"
+      ],
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ]
+    },
+    {
+      "id": "ualink_phy_silicon",
+      "name": "UALink PHY / Serializer-Deserializer (SerDes) Intellectual Property",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Silicon intellectual property (IP) and implementations for Ultra Accelerator Link (UALink) standard PHY layer, including SerDes PHY controllers and verification IP. UALink is an emerging open-consortium standard (led by Astera Labs, NVIDIA, AMD, Intel, etc.) for low-latency, high-bandwidth GPU-to-GPU and GPU-to-memory interconnect. Commercial silicon implementations expected from Synopsys (IP provider), and custom implementations from NVIDIA, AMD, and other OEMs. Specification finalized April 2025; silicon sampling H2 2025 / volume production 2026.",
+      "maturityScore": 42,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "UALink 200G 1.0 specification bandwidth",
+          "unit": "Gbps aggregate",
+          "currentValue": 200,
+          "description": "UALink 200G 1.0 specification released April 2025; supports 200 Gbps aggregate throughput per link."
+        },
+        {
+          "name": "UALink consortium member count",
+          "unit": "companies",
+          "currentValue": 12,
+          "description": "UALink Consortium includes 12 founding/promoter members: Alibaba, AMD, Apple, Astera Labs, AWS, Cisco, Google, HPE, Intel, Meta, Microsoft, Synopsys."
+        },
+        {
+          "name": "Synopsys UALink IP availability",
+          "unit": "quarter",
+          "currentValue": 3,
+          "description": "Synopsys announced UALink IP (controller, PHY, verification) availability in H2 2025 (Q3/Q4 2025)."
+        }
+      ],
+      "tags": [
+        "ualink",
+        "serdes",
+        "phy",
+        "open_standard",
+        "new_technology",
+        "gpu_interconnect"
+      ],
+      "notes": "UALink is an emerging alternative to proprietary interconnects (NVLink, InfiniBand). Adoption depends on custom silicon from major OEMs (NVIDIA, AMD, Intel); foundry (TSMC/Samsung) capacity will be required. Not yet a production bottleneck (sampling in H2 2025), but volume ramp in 2026 will create demand for both IP licensing and custom silicon fabrication. Process node: likely 5nm/7nm TSMC or equivalent. Decomposition frontier: UALink specification and consortium, but specific supplier orgs (NVIDIA, AMD, Synopsys) already modeled elsewhere. This node covers the layer of UALink-specific silicon.",
+      "evidenceIds": [
+        "ev_acc_icsi_ualink_spec_april2025",
+        "ev_acc_icsi_synopsys_ualink_ip_2025"
+      ],
+      "reviewStatus": "unreviewed",
+      "frontierFor": [
+        "ai_accelerator_module_hbm_cowos"
+      ]
+    },
+    {
+      "id": "org_astera_labs",
+      "name": "Astera Labs, Inc.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_connectivity"
+      ],
+      "description": "Fabless semiconductor company specializing in high-speed connectivity silicon for AI infrastructure. Flagship products include Aries PCIe retimers (Gen 5/6/7), Scorpio fabric switches (P-Series and X-Series for GPU clustering), Taurus smart cable modules for Ethernet, and Leo CXL memory controllers. Founded 2017; IPO March 2024 (NASDAQ: ALAB).",
+      "maturityLabel": "widely_adopted",
+      "confidence": "high",
+      "maturityAsOf": "2026-06",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "ALAB"
+        },
+        {
+          "name": "Q2 FY2025 revenue breakdown",
+          "unit": "%",
+          "currentValue": 47,
+          "description": "Aries retimer products drove majority of Q2 FY2025 revenue; Taurus smart cable modules and Scorpio switches contributing. Scorpio achieved >10% revenue share by Q2 2025."
+        },
+        {
+          "name": "YoY revenue growth (Q4 FY2024 vs Q4 FY2023)",
+          "unit": "%",
+          "currentValue": 206,
+          "description": "Astera Labs reported 206% YoY revenue growth in Q4 FY2024 driven by AI datacenter demand."
+        },
+        {
+          "name": "Market share in PCIe retimer segment",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Astera Labs estimated 30\u201340% of global PCIe retimer market based on market research and analyst consensus (Polaris Market Research, 2024\u20132025)."
+        }
+      ],
+      "tags": [
+        "fabless",
+        "interconnect",
+        "retimer",
+        "pcie",
+        "cxl",
+        "ai_infrastructure",
+        "public_company"
+      ],
+      "notes": "Astera Labs is the market leader in PCIe retimers and the first merchant fabric switch supplier. Critical supplier for AI accelerator scale-up clustering. High investor relevance due to growth trajectory and concentration in AI datacenter connectivity market.",
+      "evidenceIds": [
+        "ev_acc_icsi_astera_labs_ipo_2024",
+        "ev_acc_icsi_astera_aries_adoption",
+        "ev_acc_icsi_astera_q4_2024_earnings"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_credo",
+      "name": "Credo Technology Group Holding Ltd.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_connectivity"
+      ],
+      "description": "Fabless semiconductor company supplying high-speed connectivity and signal conditioning silicon for datacenter and AI infrastructure. Product lines include PCIe retimers (Toucan, Magpie), active electrical cable (AEC) DSPs, optical DSPs, and line card retimers. Founded 2014; IPO July 2024 (NASDAQ: CRDO).",
+      "maturityLabel": "widely_adopted",
+      "confidence": "high",
+      "maturityAsOf": "2026-06",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "CRDO"
+        },
+        {
+          "name": "Q2 FY2025 record revenue",
+          "unit": "million USD",
+          "currentValue": 72,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Credo reported record Q2 FY2025 revenue of $72M with record revenues across all three core product lines: AEC, optical DSP, line card retimers."
+        },
+        {
+          "name": "Q1 FY2026 free cash flow",
+          "unit": "million USD",
+          "currentValue": 51.3,
+          "costAsOf": "2026",
+          "currency": "USD",
+          "description": "Credo generated $51.3M free cash flow in Q1 FY2026, allowing self-funding of 3nm DSP R&D."
+        },
+        {
+          "name": "Market share in optical DSP and AEC segment",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Credo estimated 15\u201325% market share in AEC and optical DSP segment (analyst consensus, 2024\u20132025)."
+        }
+      ],
+      "tags": [
+        "fabless",
+        "connectivity",
+        "retimer",
+        "aec",
+        "optical_dsp",
+        "ai_infrastructure",
+        "public_company"
+      ],
+      "notes": "Credo is second-largest retimer supplier and primary AEC/DSP specialist. Strong position in emerging 3nm AEC retimer market (Magpie PCIe 7). Investor relevance: high exposure to AI datacenter copper interconnect growth.",
+      "evidenceIds": [
+        "ev_acc_icsi_credo_ipo_2024",
+        "ev_acc_icsi_credo_q2_fy2025_earnings",
+        "ev_acc_icsi_credo_3nm_development"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_short_reach_silicon__requires__pcie_retimer",
+      "source": "short_reach_copper_signal_conditioning_silicon",
+      "target": "pcie_retimer_ic",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_retimer_market_2024"
+      ],
+      "claim": "PCIe retimers are the primary building block for short-reach copper interconnect; 64+ GT/s copper links require retiming at distances >1m."
+    },
+    {
+      "id": "e_acc_short_reach_silicon__requires__acc_equalizer",
+      "source": "short_reach_copper_signal_conditioning_silicon",
+      "target": "active_copper_cable_linear_equalizer",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "ACC linear equalizers provide lower-power alternative to full retimers for reach extensions up to 2\u20133m."
+    },
+    {
+      "id": "e_acc_short_reach_silicon__requires__aec_retimer",
+      "source": "short_reach_copper_signal_conditioning_silicon",
+      "target": "active_electrical_cable_aec_retimer_dsp",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "AEC retimers enable longest-reach copper interconnect (5+ meters) with full signal regeneration; used in disaggregated cluster topologies."
+    },
+    {
+      "id": "e_acc_short_reach_silicon__requires__switch_asic",
+      "source": "short_reach_copper_signal_conditioning_silicon",
+      "target": "pcie_cxl_fabric_switch_asic",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Fabric switch ASICs route signals between accelerators and switches in a cluster; work in conjunction with retimers over longer copper runs."
+    },
+    {
+      "id": "e_acc_interconnect_and_optics__requires__short_reach_silicon",
+      "source": "interconnect_and_optics",
+      "target": "short_reach_copper_signal_conditioning_silicon",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_retimer_market_2024"
+      ]
+    },
+    {
+      "id": "e_acc_on_module_serdes_phy_chiplet__requires__ualink_phy",
+      "source": "on_module_serdes_phy_chiplet",
+      "target": "ualink_phy_silicon",
+      "relation": "requires",
+      "confidence": "medium",
+      "claim": "UALink PHY is an emerging alternative to proprietary SerDes for some future cluster architectures; not yet in production."
+    },
+    {
+      "id": "e_acc_pcie_retimer_ic__manufactured_by__org_astera_labs",
+      "source": "pcie_retimer_ic",
+      "target": "org_astera_labs",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_astera_labs_aries_pcg6"
+      ]
+    },
+    {
+      "id": "e_acc_pcie_retimer_ic__manufactured_by__org_marvell",
+      "source": "pcie_retimer_ic",
+      "target": "org_marvell",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_marvell_alaska_p_pcie6"
+      ]
+    },
+    {
+      "id": "e_acc_pcie_retimer_ic__manufactured_by__org_broadcom",
+      "source": "pcie_retimer_ic",
+      "target": "org_broadcom",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_broadcom_retimer_2024"
+      ]
+    },
+    {
+      "id": "e_acc_pcie_retimer_ic__manufactured_by__org_credo",
+      "source": "pcie_retimer_ic",
+      "target": "org_credo",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_credo_toucan_pcie6"
+      ]
+    },
+    {
+      "id": "e_acc_acc_equalizer__manufactured_by__org_marvell",
+      "source": "active_copper_cable_linear_equalizer",
+      "target": "org_marvell",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_marvell_taurus_acc_2025"
+      ]
+    },
+    {
+      "id": "e_acc_aec_retimer__manufactured_by__org_credo",
+      "source": "active_electrical_cable_aec_retimer_dsp",
+      "target": "org_credo",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_credo_magpie_pcie7"
+      ]
+    },
+    {
+      "id": "e_acc_aec_retimer__manufactured_by__org_marvell",
+      "source": "active_electrical_cable_aec_retimer_dsp",
+      "target": "org_marvell",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_3nm_aec_retimer_roadmap"
+      ]
+    },
+    {
+      "id": "e_acc_fabric_switch__manufactured_by__org_astera_labs",
+      "source": "pcie_cxl_fabric_switch_asic",
+      "target": "org_astera_labs",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_icsi_astera_scorpio_switch_2025"
+      ]
+    },
+    {
+      "id": "e_acc_fabric_switch__manufactured_by__org_broadcom",
+      "source": "pcie_cxl_fabric_switch_asic",
+      "target": "org_broadcom",
+      "relation": "manufactured_by",
+      "confidence": "high"
+    },
+    {
+      "id": "e_acc_fabric_switch__manufactured_by__org_marvell",
+      "source": "pcie_cxl_fabric_switch_asic",
+      "target": "org_marvell",
+      "relation": "manufactured_by",
+      "confidence": "high"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_icsi_retimer_market_2024",
+      "type": "paper",
+      "url": "https://www.polarismarketresearch.com/industry-analysis/retimer-market",
+      "date": "2024-06",
+      "supportsNodeIds": [
+        "short_reach_copper_signal_conditioning_silicon",
+        "pcie_retimer_ic"
+      ],
+      "excerpt": "Global Retimer Market was valued at USD 613.6 million in 2024 and is projected to grow from USD 674.4 million in 2025 to USD 1,022.2 million by 2029, at a CAGR of 10.7%. Market driven by AI/ML applications and datacenter proliferation.",
+      "summary": "Market validation of retimer segment growth; retimer market at $614M in 2024, driven by AI datacenter demand for signal conditioning over copper.",
+      "title": "Retimer market analysis 2024\u20132029"
+    },
+    {
+      "id": "ev_acc_icsi_astera_labs_aries_pcg6",
+      "type": "news",
+      "url": "https://www.asteralabs.com/pci-express-retimers-vs-redrivers-ensuring-signal-integrity-for-ai-infrastructure/",
+      "date": "2024-12",
+      "supportsNodeIds": [
+        "pcie_retimer_ic"
+      ],
+      "excerpt": "Astera Labs Aries PCIe Gen 6 retimer achieves 64 GT/s per lane with best-in-class power and latency. Virtually all large hyperscale cloud service providers and server makers have received samples by GTC 2025.",
+      "summary": "Astera Labs Aries 6 is dominant PCIe 6 retimer product in volume production; supported by major hyperscaler adoption.",
+      "title": "Astera Labs Aries PCIe Gen 6 retimer specifications"
+    },
+    {
+      "id": "ev_acc_icsi_marvell_alaska_p_pcie6",
+      "type": "news",
+      "url": "https://www.marvell.com/company/newsroom/marvell-announces-adoption-of-its-pcie-retimers-by-leading-ai-and-data-center-infrastructure-providers",
+      "date": "2025-12",
+      "supportsNodeIds": [
+        "pcie_retimer_ic"
+      ],
+      "excerpt": "Marvell Alaska P PCIe Gen 6 retimer: 16-lane, 64 GT/s, 10W total power. Adopted by server vendors for GPU and XPU platforms. Supports 40 dB of channel loss compensation.",
+      "summary": "Marvell Alaska P is second-tier retimer product with emphasis on low power; adopted by OEMs.",
+      "title": "Marvell Alaska P PCIe Gen 6 retimer adoption"
+    },
+    {
+      "id": "ev_acc_icsi_credo_toucan_pcie6",
+      "type": "news",
+      "url": "https://credosemi.com/credo-announces-pci-express-6-7-compute-express-link-cxl-3-x-retimers-and-aec-pci-express-product-line-at-ocp-summit-2024/",
+      "date": "2024-10",
+      "supportsNodeIds": [
+        "pcie_retimer_ic"
+      ],
+      "excerpt": "Credo Toucan PCIe 6/CXL 3.x retimer (TSMC N7 process) samples Q4 2024. Credo Magpie PCIe 7/CXL 4.x retimer (TSMC N5) sampling H2 2025.",
+      "summary": "Credo is third-tier retimer supplier with focus on advanced process nodes (N7, N5) for next-gen standards.",
+      "title": "Credo Toucan PCIe 6/7 retimer products"
+    },
+    {
+      "id": "ev_acc_icsi_credo_magpie_pcie7",
+      "type": "news",
+      "url": "https://credosemi.com/credo-announces-pci-express-6-7-compute-express-link-cxl-3-x-retimers-and-aec-pci-express-product-line-at-ocp-summit-2024/",
+      "date": "2024-10",
+      "supportsNodeIds": [
+        "active_electrical_cable_aec_retimer_dsp"
+      ],
+      "excerpt": "Credo Magpie PCIe 7/CXL 4.x retimer: TSMC N5 process, 112+ Gbps per lane equivalent. Sampling H2 2025. Also offers Toucan AEC line for active electrical cables.",
+      "summary": "Credo Magpie is emerging AEC retimer for PCIe 7 and beyond; represents next-generation signal conditioning.",
+      "title": "Credo Magpie AEC retimer for PCIe 7 standard"
+    },
+    {
+      "id": "ev_acc_icsi_marvell_taurus_acc_2025",
+      "type": "news",
+      "url": "https://www.marvell.com/company/newsroom/marvell-active-copper-cable-linear-equalizers.html",
+      "date": "2025-10",
+      "supportsNodeIds": [
+        "active_copper_cable_linear_equalizer"
+      ],
+      "excerpt": "Marvell Taurus ACC linear equalizers: CB11208 provides up to 20dB equalization for 1.6T copper interconnects. 2.5W power for 1.6T design. Sampling to customers at OCP Global Summit 2025.",
+      "summary": "Marvell Taurus ACC is primary analog equalizer product for AI datacenters; lower power alternative to full retimers.",
+      "title": "Marvell Taurus ACC linear equalizer product launch"
+    },
+    {
+      "id": "ev_acc_icsi_acc_vs_dac_2024",
+      "type": "news",
+      "url": "https://www.marvell.com/blogs/active-copper-cables-ai-rack-interconnects.html",
+      "date": "2025-10",
+      "supportsNodeIds": [
+        "active_copper_cable_linear_equalizer"
+      ],
+      "excerpt": "Active Copper Cables (ACC) integrate analog equalizers to extend reach from 1m (passive DAC) to 2\u20132.5m while maintaining 800G\u20131.6T signaling rates.",
+      "summary": "ACC technology bridges passive DAC and digital AEC retimer; enables cost/power tradeoff for short-reach copper interconnect.",
+      "title": "Active Copper Cable technology comparison"
+    },
+    {
+      "id": "ev_acc_icsi_3nm_aec_retimer_roadmap",
+      "type": "paper",
+      "url": "https://www.marketreportanalytics.com/companies/CRDO",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "active_electrical_cable_aec_retimer_dsp"
+      ],
+      "excerpt": "Credo generating $51.3M free cash flow in Q1 FY2026; self-funding aggressive R&D including 3nm DSP development for optical and electrical applications.",
+      "summary": "3nm AEC retimer silicon is in active R&D at Credo and Marvell; expected production 2026\u20132027.",
+      "title": "3nm AEC retimer silicon development roadmap"
+    },
+    {
+      "id": "ev_acc_icsi_astera_scorpio_switch_2025",
+      "type": "news",
+      "url": "https://ir.asteralabs.com/news-releases/news-release-details/astera-labs-ramps-production-pcie-6-connectivity-portfolio",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "pcie_cxl_fabric_switch_asic"
+      ],
+      "excerpt": "Astera Scorpio Smart Fabric Switches entered volume production early 2026. Scorpio P-Series for GPU-to-CPU/NIC/SSD and X-Series for backend GPU clustering. Achieved >10% of revenue by Q2 2025.",
+      "summary": "Astera Scorpio is first merchant fabric switch product for AI cluster interconnect; fastest product ramp in company history.",
+      "title": "Astera Labs Scorpio fabric switch production ramp"
+    },
+    {
+      "id": "ev_acc_icsi_pcie_cxl_switch_market_2025",
+      "type": "paper",
+      "url": "https://semianalysis.com/tag/ai-infrastructure/",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "pcie_cxl_fabric_switch_asic"
+      ],
+      "excerpt": "PCIe/CXL fabric switches are nascent market segment. Astera's Scorpio entry marks beginning of merchant switch competition; Broadcom and Marvell offer custom switches to OEMs.",
+      "summary": "Merchant fabric switch market is emerging; Astera is first mover with Scorpio product line.",
+      "title": "PCIe/CXL fabric switch market overview"
+    },
+    {
+      "id": "ev_acc_icsi_ualink_spec_april2025",
+      "type": "standard",
+      "url": "https://blocksandfiles.com/2025/04/09/the-ultra-accelerator-link-consortium-has-released-its-first-spec/",
+      "date": "2025-04",
+      "supportsNodeIds": [
+        "ualink_phy_silicon"
+      ],
+      "excerpt": "UALink Consortium released UALink 200G 1.0 specification in April 2025. Members include Alibaba, AMD, Apple, Astera Labs, AWS, Cisco, Google, HPE, Intel, Meta, Microsoft, Synopsys.",
+      "summary": "UALink 200G 1.0 specification finalized April 2025; open-consortium standard for AI cluster GPU interconnect.",
+      "title": "UALink 200G 1.0 specification release"
+    },
+    {
+      "id": "ev_acc_icsi_synopsys_ualink_ip_2025",
+      "type": "news",
+      "url": "https://news.synopsys.com/2024-12-11-Synopsys-Announces-Industrys-First-Ultra-Ethernet-and-UALink-IP-Solutions-to-Connect-Massive-AI-Accelerator-Clusters",
+      "date": "2024-12",
+      "supportsNodeIds": [
+        "ualink_phy_silicon"
+      ],
+      "excerpt": "Synopsys announced first UALink IP solution (controller, PHY, verification IP) available H2 2025. Supports new open-consortium UALink standard for AI accelerator clusters.",
+      "summary": "Synopsys is primary IP provider for UALink PHY implementations; IP available H2 2025 for 2026 silicon sampling.",
+      "title": "Synopsys UALink PHY IP announcement"
+    },
+    {
+      "id": "ev_acc_icsi_broadcom_retimer_2024",
+      "type": "product_page",
+      "url": "https://www.broadcom.com/products/ethernet-connectivity/phy-and-poe/optical/bcm87851",
+      "date": "2024-06",
+      "supportsNodeIds": [
+        "pcie_retimer_ic"
+      ],
+      "excerpt": "Broadcom BCM87851: 4x106G PAM-4 retimer PHY for active copper cable applications. Low-power, low-latency design for 400G+ datacenter interconnects.",
+      "summary": "Broadcom retimer products (BCM87850, BCM87851) are used in datacenter copper interconnect applications.",
+      "title": "Broadcom PAM-4 retimer PHY products"
+    },
+    {
+      "id": "ev_acc_icsi_tsmc_28nm_allocation",
+      "type": "paper",
+      "url": "https://marklapedus.substack.com/p/tsmc-manufacturing-the-worlds-ai-compute",
+      "date": "2024-12",
+      "supportsNodeIds": [
+        "short_reach_copper_signal_conditioning_silicon",
+        "pcie_retimer_ic"
+      ],
+      "excerpt": "TSMC 28nm node contributed 7% of revenue in 2024; 40/45nm contributed 4%. Retimer and optical transceiver host ASICs compete for mature-node capacity alongside analog, display driver, and automotive chips.",
+      "summary": "TSMC 28nm and 40nm nodes are shared between retimers, optical ASICs, and other analog/mixed-signal products; capacity allocation is a constraint during AI ramps.",
+      "title": "TSMC 28nm/40nm node capacity and allocation"
+    },
+    {
+      "id": "ev_acc_icsi_astera_labs_ipo_2024",
+      "title": "Astera Labs IPO and market position",
+      "type": "news",
+      "url": "https://semianalysis.com/2024/03/17/astera-labs-ipo-the-next-connectivity/",
+      "date": "2024-03",
+      "supportsNodeIds": [
+        "org_astera_labs"
+      ],
+      "excerpt": "Astera Labs IPO March 2024 (NASDAQ: ALAB). Focused on AI infrastructure connectivity with Aries PCIe retimers and Scorpio fabric switches.",
+      "summary": "Astera Labs public listing and business overview."
+    },
+    {
+      "id": "ev_acc_icsi_astera_aries_adoption",
+      "title": "Astera Labs Aries retimer adoption",
+      "type": "news",
+      "url": "https://www.asteralabs.com/news/astera-labs-ramps-production-pcie-6-connectivity-portfolio",
+      "date": "2025-06",
+      "supportsNodeIds": [
+        "org_astera_labs"
+      ],
+      "excerpt": "Virtually all large hyperscale cloud service providers and server makers have received Aries PCIe Gen 6 retimer samples.",
+      "summary": "Aries retimer adoption across hyperscalers."
+    },
+    {
+      "id": "ev_acc_icsi_astera_q4_2024_earnings",
+      "title": "Astera Labs Q4 FY2024 earnings",
+      "type": "news",
+      "url": "https://ir.asteralabs.com/news-releases/news-release-details/astera-labs-announces-financial-results-fourth-quarter-fiscal",
+      "date": "2025-03",
+      "supportsNodeIds": [
+        "org_astera_labs"
+      ],
+      "excerpt": "Astera Labs reported 206% YoY revenue growth in Q4 FY2024 driven by AI datacenter demand.",
+      "summary": "Strong financial performance from AI infrastructure demand."
+    },
+    {
+      "id": "ev_acc_icsi_credo_ipo_2024",
+      "title": "Credo Technology IPO and market position",
+      "type": "news",
+      "url": "https://credosemi.com/",
+      "date": "2024-07",
+      "supportsNodeIds": [
+        "org_credo"
+      ],
+      "excerpt": "Credo Technology IPO July 2024 (NASDAQ: CRDO). Supplies PCIe retimers, AEC DSPs, optical DSPs for AI infrastructure.",
+      "summary": "Credo Technology public listing."
+    },
+    {
+      "id": "ev_acc_icsi_credo_q2_fy2025_earnings",
+      "title": "Credo Q2 FY2025 record revenue",
+      "type": "news",
+      "url": "https://www.credosemi.com/",
+      "date": "2025-08",
+      "supportsNodeIds": [
+        "org_credo"
+      ],
+      "excerpt": "Credo reported record Q2 FY2025 revenue of $72M across AEC, optical DSP, and retimer product lines.",
+      "summary": "Strong growth in high-speed connectivity silicon."
+    },
+    {
+      "id": "ev_acc_icsi_credo_3nm_development",
+      "title": "Credo 3nm AEC retimer development",
+      "type": "news",
+      "url": "https://www.marketreportanalytics.com/companies/CRDO",
+      "date": "2026-03",
+      "supportsNodeIds": [
+        "org_credo"
+      ],
+      "excerpt": "Credo generated $51.3M free cash flow in Q1 FY2026, self-funding 3nm DSP R&D.",
+      "summary": "Investment in next-generation AEC retimer technology."
+    }
+  ],
+  "tasks": []
+}

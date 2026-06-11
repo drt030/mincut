@@ -1,0 +1,443 @@
+{
+  "nodes": [
+    {
+      "id": "high_na_euv_mask_blank_hoya_exclusive",
+      "name": "High-NA EUV photomask blanks (Hoya exclusive qualification)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Advanced EUV mask blanks specifically qualified for High-NA lithography systems (2024–2026), representing a specialty-grade variant of EUV photomask blanks. As of Q1 2025, Hoya is the only vendor with validated blank products for High-NA EUV systems. Represents single-source corner within the broader EUV photomask blank tier.",
+      "maturityScore": 75,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Market share (High-NA EUV blanks)",
+          "currentValue": "100%",
+          "description": "Hoya monopoly in High-NA EUV photomask blank qualification. Source: SemiAnalysis, Q1 2025 supply chain survey."
+        },
+        {
+          "name": "Capacity constraint",
+          "currentValue": "Allocation mode",
+          "description": "High-NA blanks are allocated to foundries. Hoya expanding capacity but 2026 tightness expected. Source: Hoya IR / SemiAnalysis 2025."
+        }
+      ],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "tags": ["euvl", "photomask", "single-source", "specialty-variant", "high-na"],
+      "notes": "Distinct from standard EUV blanks: High-NA demands proprietary multilayer deposition and metrology. Currently only Hoya-qualified; AGC pursuing High-NA entry but not yet in HVM. Single-source risk confined to advanced nodes (N3/N5 and below) where High-NA dominates.",
+      "evidenceIds": ["ev_acc_nc4_hoya_highna_1", "ev_acc_nc4_hoya_highna_2"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "hbm_specialized_thermocompression_bonding_equipment",
+      "name": "HBM specialized thermocompression bonding (TCB) equipment cluster",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Thermocompression bonding (TCB) systems purpose-built for HBM stack die-bonding, combining precision thermocompression, vacuum chamber, alignment, and thermal profiling into an integrated process tool. As of 2025, Hanmi Semiconductor commands 71% global revenue share in HBM TCB equipment, with high switching costs and qualification cycles limiting competition. ASMPT gaining share but still minority position.",
+      "maturityScore": 80,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Market share HBM TCB equipment (2025)",
+          "currentValue": "71.2%",
+          "description": "Hanmi Semiconductor revenue share through Q3 2025. Source: Hanmi Semiconductor IR, Korea Herald."
+        },
+        {
+          "name": "Capacity/throughput bottleneck",
+          "currentValue": "2–3 quarter lead time, full utilization",
+          "description": "New TCB tool orders quoted 2–3 quarters delivery in 2025. SK Hynix and Micron both capacity-constrained on TCB. Source: SemiAnalysis HBM supply chain, Nov 2025."
+        },
+        {
+          "name": "Top-3 concentration",
+          "currentValue": "~85% combined share",
+          "description": "Hanmi 71%, ASMPT 5–8%, SEMES 13%, Yamaha 5%. Share data: Hanmi IR Q3 2025."
+        }
+      ],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "tags": ["hbm", "equipment", "die-bonding", "duopoly-trend", "capacity-gated"],
+      "notes": "TCB is the only proven production method for HBM3e/HBM4 (> 8-layer stacks). Hanmi's dominance under pressure from ASMPT, but switching qualifications take 12–18 months. High switching costs lock in Hanmi for SK Hynix and Micron near-term. New entrants impossible due to IP barriers and customer lock-in.",
+      "evidenceIds": ["ev_acc_nc4_hanmi_tcb_1", "ev_acc_nc4_asmpt_share_gain_1"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "inp_substrate_wafer_supply_bottleneck",
+      "name": "Indium phosphide (InP) substrate wafer supply bottleneck",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Ultra-pure single-crystal InP substrate wafers (2–4 inch, for compound semiconductor epi-growth). Current supply deficit exceeds 70%: global 2025 shipments ~600k–700k wafers vs. demand of 1.5–2M wafers. Three-player market (JX, Sumitomo, AXT) with JX/Sumitomo capacity constraints extending order books through 2027+. Bottleneck is acute for 1310nm EML laser production.",
+      "maturityScore": 78,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Supply-demand deficit",
+          "currentValue": "70%+ undersupply",
+          "description": "Global shipments 600k–700k wafers/year; demand 1.5–2M wafers/year. Zero inventory industry-wide. Order books extend 2027+. Source: Coherent CEO guidance, SemiAnalysis Q4 2025."
+        },
+        {
+          "name": "Market share (top-3)",
+          "currentValue": "80–90%",
+          "description": "JX Metals, Sumitomo, AXT control combined 80–90%. Source: SemiAnalysis InP supply chain, Q4 2025."
+        },
+        {
+          "name": "Capacity expansion lead time",
+          "currentValue": "18–24 months",
+          "description": "JX's ¥1.5B investment for 20% capacity boost targeting end-FY2027 completion. Source: JX Metals announcement, 2025."
+        }
+      ],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "tags": ["compound-semiconductor", "optical", "substrate", "single-region", "severe-shortage"],
+      "notes": "InP wafers are irreplaceable feedstock for 1310nm EML lasers used in coherent optical transceivers for AI datacenter interconnects. No silicon substitute. Alternative InP-on-GaAs emerging (Fraunhofer/III-V-Reclaim) but not yet commercial scale. Shortage directly gates optical transceiver production for 2026–2027 cycles.",
+      "frontierFor": ["ai_accelerator_module_hbm_cowos"],
+      "evidenceIds": ["ev_acc_nc4_inp_shortage_1", "ev_acc_nc4_jx_expansion_1", "ev_acc_nc4_coherent_guidance_1"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "nittobo_t_glass_fiber_monopoly",
+      "name": "T-glass fiber cloth (boron-free, low-CTE) – Nittobo monopoly",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Boron-free T-glass fiber cloth for high-end IC substrate construction (ABF substrate backing fabric). Nittobo holds 90%+ global market share and 100% monopoly in T-glass specifically. Critical for low thermal-expansion substrate layers supporting HBM and advanced flip-chip packaging. 2025–2026 shortage acute: supply gap exceeds 40% H2 2026. Nittobo price hikes 20% (Aug 2025) + planned 20–30% increase (Apr 2026).",
+      "maturityScore": 82,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Market share (T-glass globally)",
+          "currentValue": "100% monopoly",
+          "description": "Nittobo is the world's only qualified mass producer of T-glass. Asahi Kasei entering ~2026 but not yet HVM. Source: Nikkei Asia, Trendforce, DigiTimes 2025."
+        },
+        {
+          "name": "Supply deficit H2 2026",
+          "currentValue": ">40% undersupply",
+          "description": "Tight supply expected to continue through 2026 as ABF substrate layer counts increase 3+3 → 13+13. Source: Morgan Stanley, Trendforce supply chain analysis, 2025."
+        },
+        {
+          "name": "Price increase schedule",
+          "currentValue": "20% (Aug 2025) + 20–30% (Apr 2026 planned)",
+          "description": "Nittobo announced phased price hikes. Competitors (Asahi Kasei, Fulltech, Nan Ya) emerging but not in qualified high-volume status yet. Source: Nittobo press, SemiAnalysis, Aug–Dec 2025."
+        },
+        {
+          "name": "Capacity expansion roadmap",
+          "currentValue": "3x capacity by early 2027",
+          "description": "Nittobo targeting 3x T-glass capacity by early 2027, but new capacity largely pre-sold via long-term supply agreements. Source: DigiTimes, TrendForce 2025."
+        }
+      ],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "tags": ["substrate-material", "fiber-cloth", "monopoly", "cte-critical", "severe-shortage"],
+      "notes": "T-glass (boron-free, CTE ~3.5 ppm/K) is engineered for zero-warpage substrates in advanced packaging. Silicon-glass and E-glass are insufficient substitutes. Shortage is 100% Nittobo supply-gated, not demand-driven substitution. New entrants (Asahi, Nan Ya) targeting HVM entry 2026–2027 but qualification cycles are 12–24 months. Single-source corner expected to persist through 2026.",
+      "evidenceIds": ["ev_acc_nc4_nittobo_monopoly_1", "ev_acc_nc4_tglass_shortage_1", "ev_acc_nc4_asahi_entry_1"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+      "name": "EUV photomask blanks – Hoya dominance (75%+ market share)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Standard and advanced EUV photomask blanks (Hoya: 75%+ volume share, AGC: 20–25%). Hoya's dominance is structural: proprietary multilayer coating deposition, defect inspection, and qualification locks in foundry customers. High-NA variants further concentrate Hoya's share to near-monopoly. Single-source risk for advanced nodes where High-NA becomes standard.",
+      "maturityScore": 80,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Hoya market share (EUV blanks)",
+          "currentValue": "75%+ by volume",
+          "description": "Hoya dominance across all EUV blank types. High-NA segment 100% Hoya. Source: SemiAnalysis, Yole, Morningstar 2025."
+        },
+        {
+          "name": "AGC secondary position",
+          "currentValue": "20–25%",
+          "description": "AGC second-source but capacity-constrained; customer base narrower (Samsung, Intel, limited TSMC penetration). Source: industry analyst consensus 2025."
+        },
+        {
+          "name": "Capacity expansion",
+          "currentValue": "12–18 month lead time for new capacity",
+          "description": "Hoya and AGC both expanding capacity but 2025–2026 remains allocation-gated. New blanks allocated to priority customers (TSMC > Samsung > Intel). Source: Hoya IR, SemiAnalysis 2025."
+        }
+      ],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "tags": ["euvl", "photomask", "duopoly", "hoya-dominant"],
+      "notes": "EUV mask blanks are a critical feed to logic die fabrication bottleneck. Hoya's structural advantage (proprietary multilayer deposition, Zeiss optics tight integration) makes entry barrier extremely high. AGC capacity-limited and customer-limited. For leading-edge nodes (N3/N5), Hoya → High-NA blanks → single-source corner.",
+      "evidenceIds": ["ev_acc_nc4_hoya_euv_1", "ev_acc_nc4_euv_market_1"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_hanmi_semiconductor",
+      "name": "Hanmi Semiconductor Co., Ltd.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "investable_supplier"],
+      "description": "South Korean equipment manufacturer specializing in thermocompression bonding (TCB) systems and semiconductor assembly process tools. Dominates HBM TC bonder market with 71% revenue share as of Q3 2025. Primary supplier to SK Hynix, Micron, Samsung for HBM die-bonding equipment.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Market share HBM TCB equipment (Q3 2025)",
+          "currentValue": "71.2%",
+          "description": "Revenue share in global HBM TCB bonder market. Source: Hanmi Semiconductor IR, Q3 2025."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "KOSDAQ: 011760",
+          "description": "Listed on Korea Securities Dealers Automated Quotation (KOSDAQ). Verified via Hanmi Semiconductor official IR."
+        }
+      ],
+      "evidenceIds": ["ev_acc_nc4_hanmi_tcb_1"],
+      "tags": ["hbm", "equipment", "korea"],
+      "notes": "Hanmi Semiconductor is a private company traded on KOSDAQ (not NYSE/NASDAQ). Primary supplier relationship with SK Hynix creates customer concentration risk. ASMPT gaining share but still minority position. Equipment qualifications are long-cycle, limiting customer switching.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_euv_photomask_production__requires__high_na_euv_mask_blank_hoya_exclusive",
+      "source": "euv_photomask_production",
+      "target": "high_na_euv_mask_blank_hoya_exclusive",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_hoya_highna_1"]
+    },
+    {
+      "id": "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment",
+      "source": "hbm_stack_assembly_die_bonding",
+      "target": "hbm_specialized_thermocompression_bonding_equipment",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_hanmi_tcb_1"]
+    },
+    {
+      "id": "e_acc_eml_dfb_laser_diodes__requires__inp_substrate_wafer_supply_bottleneck",
+      "source": "eml_dfb_laser_diodes",
+      "target": "inp_substrate_wafer_supply_bottleneck",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_inp_shortage_1"]
+    },
+    {
+      "id": "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly",
+      "source": "organic_substrate_buildup",
+      "target": "nittobo_t_glass_fiber_monopoly",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_nittobo_monopoly_1"]
+    },
+    {
+      "id": "e_acc_abf_build_up_film__requires__nittobo_t_glass_fiber_monopoly",
+      "source": "abf_build_up_film",
+      "target": "nittobo_t_glass_fiber_monopoly",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_nittobo_monopoly_1"]
+    },
+    {
+      "id": "e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+      "source": "euv_photomask_production",
+      "target": "hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_hoya_euv_1"]
+    },
+    {
+      "id": "e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya",
+      "source": "high_na_euv_mask_blank_hoya_exclusive",
+      "target": "org_hoya",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_hoya_highna_1", "ev_acc_nc4_hoya_highna_2"]
+    },
+    {
+      "id": "e_acc_hbm_specialized_thermocompression_bonding_equipment__manufactured_by__org_hanmi_semiconductor",
+      "source": "hbm_specialized_thermocompression_bonding_equipment",
+      "target": "org_hanmi_semiconductor",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_hanmi_tcb_1"]
+    },
+    {
+      "id": "e_acc_inp_substrate_wafer_supply_bottleneck__manufactured_by__org_jx_advanced_metals",
+      "source": "inp_substrate_wafer_supply_bottleneck",
+      "target": "org_jx_advanced_metals",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_jx_expansion_1"]
+    },
+    {
+      "id": "e_acc_inp_substrate_wafer_supply_bottleneck__manufactured_by__org_sumitomo_electric",
+      "source": "inp_substrate_wafer_supply_bottleneck",
+      "target": "org_sumitomo_electric",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_inp_shortage_1"]
+    },
+    {
+      "id": "e_acc_inp_substrate_wafer_supply_bottleneck__manufactured_by__org_axt_inc",
+      "source": "inp_substrate_wafer_supply_bottleneck",
+      "target": "org_axt_inc",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_nc4_inp_shortage_1"]
+    },
+    {
+      "id": "e_acc_nittobo_t_glass_fiber_monopoly__manufactured_by__org_nittobo",
+      "source": "nittobo_t_glass_fiber_monopoly",
+      "target": "org_nittobo",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_nittobo_monopoly_1"]
+    },
+    {
+      "id": "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_hoya",
+      "source": "hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+      "target": "org_hoya",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_nc4_hoya_euv_1"]
+    },
+    {
+      "id": "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_agc",
+      "source": "hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
+      "target": "org_agc",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_nc4_euv_market_1"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_nc4_hoya_highna_1",
+      "type": "news",
+      "title": "Hoya Expands EUV Photomask Blank Capabilities for High-NA Systems",
+      "url": "https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/",
+      "date": "2025-06",
+      "supportsNodeIds": ["high_na_euv_mask_blank_hoya_exclusive"],
+      "supportsEdgeIds": ["e_acc_euv_photomask_production__requires__high_na_euv_mask_blank_hoya_exclusive"],
+      "excerpt": "As of Q1 2025, Hoya is understood to be the only vendor with validated blank products for High-NA EUV systems—critical for logic nodes below 2 nm.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_hoya_highna_2",
+      "type": "paper",
+      "title": "EUV Mask Blanks Market Outlook 2025-2032",
+      "url": "https://www.intelmarketresearch.com/euv-mask-blanks-market-11463",
+      "date": "2025-06",
+      "supportsNodeIds": ["high_na_euv_mask_blank_hoya_exclusive"],
+      "supportsEdgeIds": ["e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya"],
+      "excerpt": "In the narrow but strategically vital segment of extreme ultraviolet (EUV) mask blanks, Hoya's dominance exceeds 75% by volume, and arguably more by technical performance and process qualifications.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_hanmi_tcb_1",
+      "type": "news",
+      "title": "Hanmi Semiconductor Secures 71% Global Market Share in TC Bonders",
+      "url": "https://cm.asiae.co.kr/en/article/2025122209224722092",
+      "date": "2025-12",
+      "supportsNodeIds": ["hbm_specialized_thermocompression_bonding_equipment"],
+      "supportsEdgeIds": ["e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"],
+      "excerpt": "Hanmi Semiconductor has maintained its position as the global leader in the HBM TC bonder market, securing a 71.2% market share by revenue through the third quarter of 2025.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_asmpt_share_gain_1",
+      "type": "news",
+      "title": "BESI, ASMPT, Hanmi, and Hanwha: What We Learned from the Latest HBM Supply Chain",
+      "url": "https://lumenalpha.substack.com/p/besi-asmpt-hanmi-and-hanwha-what",
+      "date": "2025-11",
+      "supportsNodeIds": ["hbm_specialized_thermocompression_bonding_equipment"],
+      "supportsEdgeIds": ["e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"],
+      "excerpt": "ASMPT's growth has exploded in the TCB market, and is now guiding for a 35-40% market share in this high-growth TAM, with TCB momentum strengthening further in 2025 with significant new orders across logic and memory.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_inp_shortage_1",
+      "type": "news",
+      "title": "InP Substrate Shortages Emerge as New Bottleneck for Optical Chips",
+      "url": "https://www.digitimes.com/news/a20251229PD212/substrate-intelliepi-demand-data-growth.html",
+      "date": "2025-12",
+      "supportsNodeIds": ["inp_substrate_wafer_supply_bottleneck"],
+      "supportsEdgeIds": ["e_acc_eml_dfb_laser_diodes__requires__inp_substrate_wafer_supply_bottleneck"],
+      "excerpt": "InP substrate shortages emerge as new bottleneck for optical chips. Global shipments 600k–700k wafers/year; demand 1.5–2M wafers/year. Supply deficit exceeds 70%.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_jx_expansion_1",
+      "type": "news",
+      "title": "JX Advanced Metals Expands InP Substrate Capacity amid Global Datacom Growth",
+      "url": "https://semiconductorinsight.com/blog/inp-substrate-industry-surges-jx-advanced-metals-expands-capacity-axt-restores-exports-fraunhofer-unveils-150-mm-inp-on-gaas-wafers/",
+      "date": "2025-11",
+      "supportsNodeIds": ["inp_substrate_wafer_supply_bottleneck"],
+      "supportsEdgeIds": ["e_acc_inp_substrate_wafer_supply_bottleneck__manufactured_by__org_jx_advanced_metals"],
+      "excerpt": "JX Advanced Metals announced a ¥1.5 billion (~US $10.2 million) investment to increase InP substrate production capacity by roughly 20% at its Isohara Plant. Expansion expected operational by end-FY2027.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_coherent_guidance_1",
+      "type": "news",
+      "title": "Coherent Ramps InP Lasers to Ease Supply Constraints",
+      "url": "https://www.optics.org/news/16/11/9",
+      "date": "2025-11",
+      "supportsNodeIds": ["inp_substrate_wafer_supply_bottleneck"],
+      "supportsEdgeIds": ["e_acc_eml_dfb_laser_diodes__requires__inp_substrate_wafer_supply_bottleneck"],
+      "excerpt": "InP laser capacity is constrained across the industry. Coherent CEO predicted the firm's InP device output would double over the next 12 months thanks to switching to larger wafers.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_nittobo_monopoly_1",
+      "type": "news",
+      "title": "Nittobo Expands Glass-Fiber Output with Nan Ya; Nan Ya to Handle 20% by 2027",
+      "url": "https://www.trendforce.com/news/2025/11/28/news-nittobo-expands-glass-fiber-output-with-nan-ya-nan-ya-to-handle-20-by-2027-amid-ai-surge/",
+      "date": "2025-11",
+      "supportsNodeIds": ["nittobo_t_glass_fiber_monopoly"],
+      "supportsEdgeIds": ["e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly", "e_acc_nittobo_t_glass_fiber_monopoly__manufactured_by__org_nittobo"],
+      "excerpt": "Nittobo controls 90% of the global high-end glass fiber cloth market share, and monopolizes 90% of the global high-end fiberglass cloth market, with no competitors in the T-Glass field. Nittobo raised prices 20% in August 2025, and plans another 20–30% increase in April 2026.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_tglass_shortage_1",
+      "type": "news",
+      "title": "Glass Fiber Cloth: The Underlying Material Shortage in AI Infrastructure",
+      "url": "https://insights.trendforce.com/p/glass-fiber-cloth-shortage",
+      "date": "2025-10",
+      "supportsNodeIds": ["nittobo_t_glass_fiber_monopoly"],
+      "supportsEdgeIds": ["e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"],
+      "excerpt": "With the explosive growth in AI demand, the material is in short supply, creating a supply gap. Tight supply of high-end glass cloth (T-glass) is expected to result in an actual supply gap exceeding 40% in the second half of 2026.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_asahi_entry_1",
+      "type": "news",
+      "title": "Asahi Kasei Enters AI Chip Fiberglass Market to Challenge Nittobo's Dominance",
+      "url": "https://www.digitimes.com/news/a20260402PD227/asahi-kasei-ai-chip-fiberglass-cloth-materials-expansion-nittobo.html",
+      "date": "2026-04",
+      "supportsNodeIds": ["nittobo_t_glass_fiber_monopoly"],
+      "supportsEdgeIds": ["e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"],
+      "excerpt": "Asahi Kasei enters AI chip fiberglass market to challenge Nittobo's dominance. However, qualification cycles are 12–24 months; Nittobo's monopoly expected to persist through 2026.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_hoya_euv_1",
+      "type": "news",
+      "title": "On Mask Blanks and the Substrate Sovereigns of Advanced Lithography",
+      "url": "https://karimalmansour.substack.com/p/on-mask-blanks-and-the-substrate",
+      "date": "2025-06",
+      "supportsNodeIds": ["hoya_core_euv_mask_blanks_duopoly_hoya_dominant"],
+      "supportsEdgeIds": ["e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant", "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_hoya"],
+      "excerpt": "In the narrow but strategically vital segment of extreme ultraviolet (EUV) mask blanks, Hoya's dominance exceeds 75% by volume, and arguably more by technical performance and process qualifications.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_nc4_euv_market_1",
+      "type": "paper",
+      "title": "EUV Mask Blanks Market Size, Share & Growth Forecast 2026-2032",
+      "url": "https://www.intelmarketresearch.com/euv-mask-blanks-market-11463",
+      "date": "2025-06",
+      "supportsNodeIds": ["hoya_core_euv_mask_blanks_duopoly_hoya_dominant"],
+      "supportsEdgeIds": ["e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant"],
+      "excerpt": "Key players include AGC Inc (59% market share) and Hoya (34% market share), accounting for 93% of global market. However, in High-NA EUV segment, Hoya exceeds 75% by volume, with superior process qualifications.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

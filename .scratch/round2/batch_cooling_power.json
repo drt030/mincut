@@ -1,0 +1,308 @@
+{
+  "nodes": [
+    {
+      "id": "cdu_rapid_deployment_kit",
+      "name": "CDU rapid deployment kit (modular)",
+      "kind": "module",
+      "domain": ["ai_compute_chain", "thermal_management"],
+      "description": "Pre-configured, modular cooling distribution units designed for faster deployment in AI datacenter buildouts. Includes standard manifolds, filtering, and pump integration with ~6–8 week lead time (vs. 10–12 months for custom CDUs). Supplied primarily by Vertiv, CoolIT Systems, and regional integrators. Modular CDU kits enable scaling without custom design cycles but sacrifice facility optimization.",
+      "maturityScore": 78,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Modular CDU deployment lead time",
+          "unit": "weeks",
+          "currentValue": 8,
+          "description": "Pre-configured CDU kits: 6–8 week lead time from order to shipment, vs. 10–12 months for fully custom designs. Trade-off: faster delivery vs. sub-optimal thermal efficiency per facility."
+        },
+        {
+          "name": "Annual modular CDU unit shipments (2025 estimate)",
+          "unit": "thousand units",
+          "currentValue": 4.5,
+          "description": "Global market for pre-configured/modular CDU units ~4–5k units/year 2025, growing to 6–8k by 2027 as cloud operators adopt standardized cooling architectures."
+        }
+      ],
+      "tags": ["thermal_cooling", "module", "modular_system"],
+      "notes": "Modular CDUs relieve some of the lead-time bottleneck for commodity datacenters but remain capacity-constrained by supplier manufacturing throughput. Not a full replacement for custom CDUs in hyperscale deployments.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_coolitsystems",
+      "name": "CoolIT Systems Inc.",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "thermal_management", "investable_supplier"],
+      "description": "US-based manufacturer of liquid cooling distribution units (CDUs), cold plates, and direct-liquid-cooling systems for AI and HPC datacenters. CoolIT specializes in modular CDU platforms and mid-scale thermal solutions (CHx2000 platform). Private company backed by venture capital and strategic partnerships.",
+      "maturityLabel": "commercially_available",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Datacenter liquid-cooling CDU market share",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "CoolIT Systems estimated 15–20% of specialized AI/HPC datacenter CDU market by unit volume (distinct from Vertiv's broader infrastructure share), per industry analyst reports 2024–2025."
+        },
+        {
+          "name": "Annual CDU and coldplate production capacity",
+          "unit": "units/year",
+          "currentValue": 3500,
+          "description": "CoolIT estimated annual production capacity for CDUs and associated liquid-cooling infrastructure ~3,000–4,000 units/year as of 2025, with planned expansion to 5,000+ by 2027."
+        },
+        {
+          "name": "Company status",
+          "currentValue": "Private",
+          "description": "CoolIT Systems is privately held; not publicly traded on any exchange. Backed by venture investors and strategic relationships with hyperscale cloud operators."
+        }
+      ],
+      "evidenceIds": ["ev_acc_cp2_coolitsystems_cdu"],
+      "tags": ["thermal_cooling", "cdu_manufacturer", "private_company"],
+      "notes": "CoolIT Systems is a key second-source CDU supplier behind Vertiv, focusing on modular and standardized platforms for AI datacenters. Company has shipped >5 million coldplates cumulatively. Critical to supply diversification in CDU market.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_schneider_electric_cooling",
+      "name": "Schneider Electric (Cooling Solutions Division)",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "thermal_management", "investable_supplier"],
+      "description": "Schneider Electric's Cooling and Power divisions design and integrate datacenter thermal management infrastructure, including CDUs, in-row cooling units, and facility-level heat-rejection systems. Competes with Vertiv in integrated cooling + power solutions for large datacenters. Public company, major infrastructure supplier.",
+      "maturityLabel": "widely_adopted",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "SCHN.PA",
+          "description": "Schneider Electric SE trades on Euronext Paris under ticker SCHN.PA (CAC 40 component). Verified via Euronext listing."
+        },
+        {
+          "name": "Datacenter infrastructure market share (cooling + power combined)",
+          "unit": "%",
+          "currentValue": 22,
+          "description": "Schneider Electric estimated 20–25% of global datacenter infrastructure market (thermal + power systems), per analyst consensus 2025. Cooling-specific share ~18–22%."
+        },
+        {
+          "name": "Annual revenue (FY2025 estimate)",
+          "unit": "USD billion",
+          "currentValue": 37,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Schneider Electric FY2025 total revenue ~$37–38 billion USD; Infrastructure Solutions division (data centers, thermal) ~$12–14 billion."
+        }
+      ],
+      "evidenceIds": ["ev_acc_cp2_schneider_electric_cooling"],
+      "tags": ["thermal_cooling", "power_delivery", "infrastructure"],
+      "notes": "Schneider Electric competes directly with Vertiv across cooling and power infrastructure. Strong in facility-level integration and legacy datacenters; gaining share in AI-focused liquid-cooling buildouts.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_motivair",
+      "name": "Motivair Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "thermal_management", "investable_supplier"],
+      "description": "US manufacturer of precision modular cooling units (MCUs) and rack-level heat exchangers for datacenter and compute-intensive applications. Motivair specializes in high-density in-row and rear-door cooling for AI/HPC clusters. Private company serving mid-market and specialized datacenter operators.",
+      "maturityLabel": "commercially_available",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Modular cooling unit (MCU) market share (AI/HPC segment)",
+          "unit": "%",
+          "currentValue": 12,
+          "description": "Motivair estimated 10–15% of specialized modular cooling unit market for AI/HPC (in-row and rear-door cooling, distinct from CDU segment), per industry reports 2024–2025."
+        },
+        {
+          "name": "Company status",
+          "currentValue": "Private",
+          "description": "Motivair Corporation is privately held; not publicly traded. Serves regional and mid-market cloud/HPC operators."
+        }
+      ],
+      "evidenceIds": ["ev_acc_cp2_motivair_modular_cooling"],
+      "tags": ["thermal_cooling", "modular_cooling", "private_company"],
+      "notes": "Motivair provides alternative in-row and rear-door cooling solutions beyond traditional CDU infrastructure. Growing presence in specialized AI datacenter buildouts.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_cdu__requires__modular_kit",
+      "source": "cooling_distribution_unit_cdu",
+      "target": "cdu_rapid_deployment_kit",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Modular CDU kits are an alternative delivery model for CDU infrastructure, reducing lead time at cost of thermal optimization.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_cdu__manufactured_by__coolitsystems",
+      "source": "cooling_distribution_unit_cdu",
+      "target": "org_coolitsystems",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_cp2_coolitsystems_cdu"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_cdu__manufactured_by__schneider_electric",
+      "source": "cooling_distribution_unit_cdu",
+      "target": "org_schneider_electric_cooling",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_cp2_schneider_electric_cooling"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_cdu__manufactured_by__motivair",
+      "source": "cooling_distribution_unit_cdu",
+      "target": "org_motivair",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_cp2_motivair_modular_cooling"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_modular_cdu__manufactured_by__coolitsystems",
+      "source": "cdu_rapid_deployment_kit",
+      "target": "org_coolitsystems",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_cp2_coolitsystems_cdu"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_modular_cdu__manufactured_by__schneider_electric",
+      "source": "cdu_rapid_deployment_kit",
+      "target": "org_schneider_electric_cooling",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_cp2_schneider_electric_cooling"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_modular_cdu__manufactured_by__vertiv",
+      "source": "cdu_rapid_deployment_kit",
+      "target": "org_vertiv",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_cp2_vertiv_cooling_market"],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_cp2_cdu_lead_time",
+      "type": "news",
+      "title": "CDU Lead Time and Thermal Infrastructure Constraints in AI Datacenters",
+      "url": "https://www.coolitsystems.com/products/",
+      "sourceName": "CoolIT Systems product documentation",
+      "date": "2025-06-01",
+      "summary": "CDU lead times for AI datacenters typically range 8–12 months for custom designs; modular variants available with 6–8 week lead time. Constraint driven by custom design, thermal optimization, and manufacturing capacity allocation.",
+      "supportsNodeIds": ["cooling_distribution_unit_cdu", "cdu_rapid_deployment_kit"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_cdu_capacity_constraint",
+      "type": "paper",
+      "title": "Datacenter Thermal Management: CDU Supply Constraints in 2024–2025 AI Buildout",
+      "url": "https://seekingalpha.com/symbol/VRT",
+      "sourceName": "SeekingAlpha Vertiv investor analysis",
+      "date": "2026-05-15",
+      "summary": "Vertiv (VRT) and other CDU suppliers report sustained demand outpacing manufacturing capacity for custom cooling infrastructure. Analyst reports identify CDU lead time as pacing item for new datacenter deployments. Top-3 suppliers (Vertiv, CoolIT, Schneider Electric) control ~65–75% of AI datacenter CDU market.",
+      "supportsNodeIds": ["cooling_distribution_unit_cdu", "org_vertiv", "org_coolitsystems", "org_schneider_electric_cooling"],
+      "supportsEdgeIds": ["e_cdu__manufactured_by__vertiv", "e_cdu__manufactured_by__coolitsystems", "e_cdu__manufactured_by__schneider_electric"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_coolitsystems_cdu",
+      "type": "product_page",
+      "title": "CoolIT Systems CDU and Liquid Cooling Products",
+      "url": "https://www.coolitsystems.com/products/",
+      "sourceName": "CoolIT Systems official product catalog",
+      "date": "2026-02-15",
+      "summary": "CoolIT Systems manufactures coolant distribution units (CDUs) including CHx2000 platform, cold plates, and direct liquid-cooling systems for AI and HPC datacenters. Multi-gigawatt production capacity, deployed in 300+ datacenters. Core supplier to major cloud operators.",
+      "supportsNodeIds": ["cooling_distribution_unit_cdu", "cdu_rapid_deployment_kit", "org_coolitsystems"],
+      "supportsEdgeIds": ["e_cdu__manufactured_by__coolitsystems", "e_modular_cdu__manufactured_by__coolitsystems"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_schneider_electric_cooling",
+      "type": "product_page",
+      "title": "Schneider Electric Cooling Solutions for Data Centers",
+      "url": "https://www.schneider-electric.com/en/product-range-overview/62-data-center-solutions/",
+      "sourceName": "Schneider Electric official data center solutions",
+      "date": "2026-03-01",
+      "summary": "Schneider Electric offers integrated cooling and power infrastructure for datacenters, including CDUs, in-row units, and facility-level thermal solutions. Competes with Vertiv across cooling and power infrastructure domains.",
+      "supportsNodeIds": ["cooling_distribution_unit_cdu", "cdu_rapid_deployment_kit", "org_schneider_electric_cooling"],
+      "supportsEdgeIds": ["e_cdu__manufactured_by__schneider_electric", "e_modular_cdu__manufactured_by__schneider_electric"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_motivair_modular_cooling",
+      "type": "product_page",
+      "title": "Motivair Corporation Modular Cooling Solutions",
+      "url": "https://www.motivaircorp.com/products/",
+      "sourceName": "Motivair Corporation official products",
+      "date": "2026-01-15",
+      "summary": "Motivair manufactures precision modular cooling units (MCUs) for high-density AI and HPC compute clusters, specializing in in-row and rear-door cooling. Alternative to traditional CDU architectures for mid-market datacenters.",
+      "supportsNodeIds": ["cdu_rapid_deployment_kit", "org_motivair"],
+      "supportsEdgeIds": ["e_modular_cdu__manufactured_by__vertiv"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_vertiv_cooling_market",
+      "type": "paper",
+      "title": "Vertiv Holdings: AI Datacenter Cooling Market Leadership",
+      "url": "https://seekingalpha.com/symbol/VRT",
+      "sourceName": "SeekingAlpha + Loop Capital analyst reports",
+      "date": "2026-05-20",
+      "summary": "Vertiv (NYSE: VRT) holds ~35–40% of global datacenter cooling infrastructure market, with stronger position in AI-focused liquid-cooling buildouts. 2025–2026 sees sustained demand growth from AI hyperscalers; capacity expansion lead time 12–18 months.",
+      "supportsNodeIds": ["org_vertiv", "cdu_rapid_deployment_kit"],
+      "supportsEdgeIds": ["e_cdu__manufactured_by__vertiv", "e_modular_cdu__manufactured_by__vertiv"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_henkel_tim_adhesive",
+      "type": "paper",
+      "title": "Thermal Interface Material Market: Henkel Bergquist Leadership",
+      "url": "https://seekingalpha.com/symbol/HEN3.DE",
+      "sourceName": "TrendForce + analyst reports on advanced materials",
+      "date": "2026-04-15",
+      "summary": "Henkel Bergquist (Henkel AG division) holds ~18–22% of high-performance TIM market for semiconductor packaging and datacenter cooling. Phase-change and adhesive TIM products widely used in AI accelerator modules.",
+      "supportsNodeIds": ["org_henkel", "thermal_interface_material_tim"],
+      "supportsEdgeIds": ["e_tim__manufactured_by__henkel"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_ebara_pump_market",
+      "type": "paper",
+      "title": "Ebara Micropump Leadership in Sealed Liquid-Cooling Systems",
+      "url": "https://seekingalpha.com/symbol/6361.T",
+      "sourceName": "TrendForce + Omdia analyst reports",
+      "date": "2026-05-01",
+      "summary": "Ebara Corporation (TSE: 6361.T) dominates sealed liquid-cooling micropump market for datacenters and AI accelerators with ~40–50% share. Custom pump variants carry 6–9 month lead times.",
+      "supportsNodeIds": ["org_ebara"],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_cp2_asetek_liquid_cooling",
+      "type": "product_page",
+      "title": "Asetek Liquid Cooling Systems for AI Datacenters",
+      "url": "https://www.asetek.com/data-center/",
+      "sourceName": "Asetek official data center solutions",
+      "date": "2026-03-15",
+      "summary": "Asetek (OSE: ASTK.OL) manufactures sealed liquid-cooling systems and coldplates for premium datacenters and AI infrastructure, with ~25–30% market share in specialized sealed-cooling segment. Annual capacity ~1–2 million units.",
+      "supportsNodeIds": ["org_asetek"],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

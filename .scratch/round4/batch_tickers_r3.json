@@ -1,0 +1,61 @@
+{
+  "nodes": [],
+  "edges": [],
+  "evidence": [
+    {
+      "id": "ev_acc_tkr4_jx_tse_listing",
+      "type": "news",
+      "title": "JX Advanced Metals IPO on Tokyo Stock Exchange",
+      "url": "https://www.jpx.co.jp/english/news/1031/20250318_02.html",
+      "date": "2025-03-19",
+      "supportsNodeIds": ["org_jx_advanced_metals"],
+      "summary": "JX Advanced Metals Corporation IPO on Tokyo Stock Exchange (TSE) with listing code 5016 on March 19, 2025. IPO priced at 820 yen per share."
+    },
+    {
+      "id": "ev_acc_tkr4_nordson_nasdaq",
+      "type": "paper",
+      "title": "Nordson Corporation SEC 10-Q Filing",
+      "url": "https://www.sec.gov/Archives/edgar/data/0000072331/000007233126000024/ndsn-20260430.htm",
+      "date": "2026-05-31",
+      "supportsNodeIds": ["org_nordson"],
+      "summary": "Nordson Corporation SEC Form 10-Q filing confirms ticker NDSN on NASDAQ (not NSA)."
+    },
+    {
+      "id": "ev_acc_tkr4_suss_xetra",
+      "type": "paper",
+      "title": "SUSS MicroTec SE Frankfurt Stock Exchange Listing",
+      "url": "https://www.bloomberg.com/quote/SMHN:GR",
+      "date": "2026-06-04",
+      "supportsNodeIds": ["org_suss_microtic"],
+      "summary": "SUSS MicroTec SE confirmed trading on Frankfurt Stock Exchange (Xetra) under ticker SMHN (not SUU). As of June 4, 2026, company promoted to MDAX index."
+    },
+    {
+      "id": "ev_acc_tkr4_iqe_aim",
+      "type": "news",
+      "title": "IQE plc London Stock Exchange AIM Listing",
+      "url": "https://finance.yahoo.com/quote/IQE.L/",
+      "date": "2026-06-10",
+      "supportsNodeIds": ["org_iqe"],
+      "summary": "IQE plc confirmed trading on London Stock Exchange (AIM segment) under ticker IQE.L (not bare 'IQE')."
+    },
+    {
+      "id": "ev_acc_tkr4_landmark_tpe",
+      "type": "news",
+      "title": "LandMark Optoelectronics Taipei Exchange Listing",
+      "url": "https://finance.yahoo.com/quote/3081.TWO/",
+      "date": "2026-06-10",
+      "supportsNodeIds": ["org_landmark_optoelectronics"],
+      "summary": "LandMark Optoelectronics Corporation confirmed trading on Taipei Exchange (TPEx) under ticker 3081.TWO (not TWSE). Public listing metric was previously missing."
+    },
+    {
+      "id": "ev_acc_tkr4_wolfspeed_ch11",
+      "type": "news",
+      "title": "Wolfspeed Inc. Chapter 11 Emergence and Restructuring",
+      "url": "https://investor.wolfspeed.com/news/news-details/2025/Wolfspeeds-Plan-of-Reorganization-Confirmed-Clearing-Path-to-Emerge-from-Restructuring-Process-as-a-Financially-Stronger-Company/default.aspx",
+      "date": "2025-09-29",
+      "supportsNodeIds": ["org_wolfspeed"],
+      "summary": "Wolfspeed Inc. emerged from Chapter 11 bankruptcy on September 29, 2025. Ticker WOLF (NYSE) remains valid. Company completed debt reduction of ~70% and equity issuances to Renesas."
+    }
+  ],
+  "tasks": []
+}

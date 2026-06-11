@@ -1,0 +1,36 @@
+{
+ "node_patches": [
+  {
+   "id": "org_intelliepi",
+   "append_metrics": [
+    {
+     "name": "Market position (Taiwan)",
+     "currentValue": "Top-5 fastest-growing semiconductor companies (cumulative revenue ranking, Nov 2025)"
+    },
+    {
+     "name": "Chips Act funding received (2025)",
+     "unit": "USD million",
+     "currentValue": 10.3,
+     "description": "US Chips Act grant to support domestic production scaling for optical communication and cloud-chiplet markets"
+    },
+    {
+     "name": "Capacity utilization (2025 est.)",
+     "unit": "%",
+     "currentValue": 75,
+     "description": "Elevated utilization driven by AI optical communication demand surge; expansion plans underway"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_cmpd_intelliepi_growth",
+    "ev_acc_cmpd_intelliepi_chips_act"
+   ],
+   "append_tags": [],
+   "append_domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "compound_semiconductor"
+   ],
+   "append_notes": "Taiwan-based epi-wafer specialist; competes with Visual Photonics Epitaxy (VPEC) and LandMark Optoelectronics. Critical supplier for InP epi-wafer (optical chiplet) demand surge 2026+; US Chips Act funding signals geopolitical importance. Not a bottleneck for HBM CoWoS but upstream critical for optical interconnect specialty devices (transceiver chiplets, co-packaged optics). Visibility to 2027-2028 suggests capacity risk if datacenter optical demand maintains trajectory."
+  }
+ ]
+}

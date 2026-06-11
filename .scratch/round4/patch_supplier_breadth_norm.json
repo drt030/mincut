@@ -1,0 +1,44 @@
+{
+ "node_patches": [
+  {
+   "id": "optical_transceiver_module",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Additional verified suppliers in long-reach/coherent optical transceiver market include Elite Advanced Laser Corporation (ELASER, Taiwan), LuxNet Corporation, and various regional Chinese suppliers (LTX, Qwest International). Top-4 global covered by Lumentum, InnoLight, Eoptolink, and new Coherent + Applied Optoelectronics entries. Total addressable merchant supplier base ~8–10 companies globally per DigiTimes/TrendForce trade press."
+  },
+  {
+   "id": "cooling_distribution_unit_cdu",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Beyond top-4 wired (Vertiv in-row, Boyd in-row, CoolIT/Ecolab, Motivair), secondary suppliers emerging include AVC and Auras (Taiwan, now wired), Jentech Precision, Kaori, Sunon, and regional providers. Sidecar CDU market led by Delta; in-row market dominated by Vertiv, Boyd. Total public discoverable merchant base estimated ~10+ companies per 2026 DigiTimes tracker. Constraint remains integrated ODM/OEM solutions vs pure-play CDU vendors."
+  },
+  {
+   "id": "thermal_management_module",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Taiwan thermal solution providers (AVC, Auras, Jentech, Kaori, Sunon) collectively captured 60%+ of global AI thermal module market growth in 2026. Additional merchants include Delphi, Denso (automotive-origin), and regional heatsink makers. Total discoverable supplier base ~12–15 companies; concentration highest on cold-plate integration and liquid-loop sub-components."
+  },
+  {
+   "id": "specialty_analog_power_foundry",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Beyond top-3 (TSMC exiting, Samsung SiC restart, GlobalFoundries GaN), secondary suppliers now include VIS (TSMC affiliate via Singapore JV, GaN via TSMC tech license), Innoscience (China, GaN-on-GaN/GaN-on-Si), and emerging suppliers UMC, X-Fab, ON Semiconductor. TSMC planned exit 2027; GF licensing model (licensing from TSMC) creates new capacity pathway. Total merchant GaN/SiC foundry base ~6–8 qualified players globally 2026."
+  },
+  {
+   "id": "organic_substrate_base_structure",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Top-5 (Unimicron 16%, Ibiden 9%, Nan Ya 8%, AT&S 9%, Shinko ~7%) represent ~50% global market per DigiTimes Q1 2026. Additional public merchants include Kinsus (Taiwan), Simmtech (Korea), and regional suppliers. ABF shortage episode (2021–2023, 2023–2025 resurgence) centered on Ajinomoto >95% duopoly in build-up film; substrate makers compete on organic base, RDL, and integration. Total addressable ODM/OSAT supplier base 15+ companies."
+  },
+  {
+   "id": "epitaxial_growth_inp_gaas",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Current wiring (IQE, IntelliEpi, Landmark, Sumitomo Chemical, VPEC) covers pure-play epitaxy and integrated epi-wafer makers. Additional verified merchants: Win Semiconductors (GaAs foundry leader), MACOM (device + wafer integration). MACOM/Akhan relationship and other merchant epi services remain opaque in trade press; IQE confirmed as largest pure-play merchant InP/GaAs epitaxy supplier. Constraint: limited merchant capacity outside Tier-1 IDM in-house epi."
+  },
+  {
+   "id": "power_stage_ic",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Beyond foundry nodes (TSMC, Samsung, GlobalFoundries for logic), power stage ICs for module-level VRM and 800V converters supplied by STMicroelectronics (new), Power Integrations (GaN driver IC), Texas Instruments, Infineon (SiC gate drivers), and Renesas (analog control). Total discoverable power semiconductor merchant base ~8–10 companies for AI module power conversion in 2026."
+  },
+  {
+   "id": "rack_power_supply_unit",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH: Wired suppliers (Delta, Eaton) dominate. Secondary verified merchants include Vicor (48V module platform), Vertiv (via cooling CDU integration), and regional HVDC vendors. 800V-to-12V converter tier expanding; STMicroelectronics (existing org from parcel_sorting_robot domain; edge to power_stage_ic and 48v_converter_module recommended) and others entering IC supply side. Total merchant PSU base remains dominated by 2–3 large integrators per OEM design-in."
+  },
+  {
+   "id": "power_stage_ic",
+   "append_notes": " | ROUND 4 SUPPLIER BREADTH NOTE: STMicroelectronics (org_stmicroelectronics, existing in parcel_sorting_robot domain) should be wired as manufacturer via recommended edges e_acc_power_stage_ic__manufactured_by__org_stmicroelectronics and e_acc_48v_converter_module__manufactured_by__org_stmicroelectronics (not included in batch due to existing org id constraint; manual wiring or domain-expansion of STM org record recommended)."
+  }
+ ],
+ "evidence_patches": [],
+ "edge_patches": [],
+ "remove_node_ids": [],
+ "remove_edge_ids": []
+}

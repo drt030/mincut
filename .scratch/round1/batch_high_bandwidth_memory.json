@@ -1,0 +1,935 @@
+{
+ "nodes": [
+  {
+   "id": "high_bandwidth_memory",
+   "name": "High-bandwidth memory (HBM)",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "High-bandwidth memory (HBM) stacks for AI accelerators: multi-die vertical DRAM stacks with TSV (through-silicon vias), integrated voltage regulators, and wide parallel interfaces delivering 400–1200 GB/s bandwidth per stack. HBM3/HBM3E are the 2024–2026 production grades for leading-edge AI accelerators; production is concentrated in SK Hynix (primary supplier ~70% share) and Samsung (expanding ~20%), with Micron entering late 2025. Extreme capacity concentration and long lead times (18–24 months for new capacity) make this the primary bottleneck for AI accelerator module scaling.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "bottleneckOf": [
+    "ai_accelerator_module_hbm_cowos"
+   ],
+   "metrics": [
+    {
+     "name": "HBM3/HBM3E worldwide production capacity",
+     "unit": "units/month (approx. 2026)",
+     "currentValue": 1200000,
+     "description": "Estimated combined SK Hynix + Samsung + Micron HBM production ~1.2M units/month in 2026; highly concentrated supply."
+    },
+    {
+     "name": "Lead time for new HBM production capacity",
+     "unit": "months",
+     "currentValue": 24,
+     "description": "New HBM fab lines or tool expansion typically require 18–24 months from capex commitment to volume; critical constraint for rapid demand scaling."
+    },
+    {
+     "name": "SK Hynix market share (HBM3/3E)",
+     "unit": "%",
+     "currentValue": 70,
+     "description": "SK Hynix estimated ~70% HBM market share in 2024–2026 due to first-mover yield and volume; source basis: industry analyst consensus."
+    }
+   ],
+   "tags": [
+    "memory",
+    "bandwidth",
+    "bottleneck",
+    "ai_accelerator",
+    "extreme_concentration"
+   ],
+   "notes": "HBM is the primary supply chokepoint for AI accelerator scaling in 2024–2026. SK Hynix dominates due to early process mastery; Samsung is ramping aggressively; Micron delayed entry. Next layer decomposition covers die fabrication processes, stacking/bonding, testing, and organic substrate integration.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "hbm_die_fabrication",
+   "name": "HBM die fabrication",
+   "kind": "manufacturing_process",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "DRAM wafer fabrication for HBM dies: 10 nm class (some 8 nm for HBM3E) process node at leading foundries (Samsung, SK Hynix in-house, Micron at TSMC/Intel). High-density DRAM cells, internal mux networks, on-die voltage regulators, and TSV pad arrays. Defect density and yield directly gate HBM stack availability.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "HBM die yield (approx.)",
+     "unit": "%",
+     "currentValue": 65,
+     "description": "Estimated HBM die yield ~65–75% at leading manufacturers; TSV and fine-pitch routing lower yield vs. standard logic or commodity DRAM."
+    },
+    {
+     "name": "SK Hynix HBM fabrication capacity",
+     "unit": "wafers/month (equivalent)",
+     "currentValue": 120000,
+     "description": "SK Hynix Icheon fab, Cheonan fab, and Wuxi fab combined HBM capacity ~120k wafer-equivalents/month as of 2026."
+    }
+   ],
+   "tags": [
+    "dram",
+    "fab",
+    "process_node",
+    "tsv",
+    "yield",
+    "decomposition_frontier"
+   ],
+   "notes": "Decomposition frontier: next layer includes specific process nodes, mask sets, photolithography tool utilization, and TSV process qualification.",
+   "reviewStatus": "unreviewed",
+   "frontierFor": [
+    "ai_accelerator_module_hbm_cowos"
+   ]
+  },
+  {
+   "id": "hbm_stack_assembly_die_bonding",
+   "name": "HBM stack assembly and die bonding",
+   "kind": "manufacturing_process",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Vertical stacking of HBM dies (6–12 layers per stack) with micro-bump bonding (Cu/Sn solder), through-silicon via (TSV) connections, and alignment/bonding precision (sub-micron). Requires specialized equipment (hybrid bonders, bonding furnaces), high defect sensitivity, and tight process windows. Critical yield loss point; historically 60–75% yield after bonding.",
+   "maturityScore": 72,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "bottleneckOf": [
+    "ai_accelerator_module_hbm_cowos"
+   ],
+   "metrics": [
+    {
+     "name": "HBM stack bonding yield",
+     "unit": "%",
+     "currentValue": 68,
+     "description": "Multi-layer die bonding yield ~65–70%; defects in micro-bumps, bonding pressure alignment, or TSV opens cause stack loss."
+    },
+    {
+     "name": "Specialized bonding equipment lead time",
+     "unit": "months",
+     "currentValue": 18,
+     "description": "Hybrid bonders and bonding furnaces typically 16–20 month delivery from order; critical bottleneck for capacity expansion."
+    }
+   ],
+   "tags": [
+    "bonding",
+    "micro_bump",
+    "tsv",
+    "die_stacking",
+    "assembly"
+   ],
+   "notes": "Micro-bump bonding and TSV reliability are extremely sensitive to process variation and equipment capability. Yield loss in bonding cascades to stack loss, making this a hidden capacity constraint.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "hbm_thermal_management_copper_pillar",
+   "name": "HBM thermal management and copper pillar structure",
+   "kind": "manufacturing_process",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Thermal pathway from HBM stack to module substrate via copper pillar arrays (high-conductivity interconnect), thermal interface material (TIM), and substrate heat dissipation design. Manages 10–20 W per stack during active access; poor thermal design causes bit errors and throttling.",
+   "maturityScore": 70,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Copper pillar thermal conductivity",
+     "unit": "W/m·K",
+     "currentValue": 400,
+     "description": "Electroplated copper pillars achieve ~400 W/m·K; critical for removing HBM stack dissipation to substrate."
+    }
+   ],
+   "tags": [
+    "thermal",
+    "copper_pillar",
+    "heat_dissipation",
+    "interconnect",
+    "decomposition_frontier"
+   ],
+   "notes": "Decomposition frontier: thermal modeling, TIM selection, and substrate-level heat distribution.",
+   "reviewStatus": "unreviewed",
+   "frontierFor": [
+    "ai_accelerator_module_hbm_cowos"
+   ]
+  },
+  {
+   "id": "hbm_testing_validation_power_delivery",
+   "name": "HBM testing, validation, and power delivery verification",
+   "kind": "manufacturing_process",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Post-assembly test of HBM stacks: functional test (read/write at speed), on-die voltage regulator (IDVR) performance, temperature margin testing, and electrical characterization. Power delivery verification ensures stack can sustain peak current without droops. Defect detection here prevents customer failures; yield varies 50–70% depending on test rigor.",
+   "maturityScore": 68,
+   "maturityLabel": "early_deployment",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "bottleneckOf": [
+    "ai_accelerator_module_hbm_cowos"
+   ],
+   "metrics": [
+    {
+     "name": "HBM test yield (post-assembly)",
+     "unit": "%",
+     "currentValue": 60,
+     "description": "Test yield after stack bonding and initial characterization ~60–65%; defects in micro-bumps, TSV opens, and IDVR performance cause fails."
+    },
+    {
+     "name": "Power delivery test coverage",
+     "unit": "% of design space",
+     "currentValue": 85,
+     "description": "Test suites cover ~85% of power delivery and thermal scenarios; 100% pre-deployment validation still emerging."
+    }
+   ],
+   "tags": [
+    "testing",
+    "validation",
+    "power_delivery",
+    "yield",
+    "characterization"
+   ],
+   "notes": "Test time per stack ~15–30 minutes; with high volume, test capacity becomes a bottleneck. Tester utilization >90% in peak demand periods. Test equipment upgrade lead time ~12–18 months.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "hbm_substrate_integration_and_solder",
+   "name": "HBM substrate integration and ball-grid-array solder attach",
+   "kind": "manufacturing_process",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Integration of HBM stacks onto the module substrate (high-layer-count organic / HDI laminate) via solder ball attach (flip-chip style), BGA rework capability, and substrate signal/power routing. Substrate carries power distribution, ground, and signal lines to logic die. Solder joint reliability and rework yield critical for yield and warranty.",
+   "maturityScore": 72,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "tags": [
+    "substrate",
+    "solder_attach",
+    "bga",
+    "integration",
+    "interconnect",
+    "decomposition_frontier"
+   ],
+   "notes": "Substrate HDI complexity is increasing with power density and signal count; lead times for new substrate masks and tooling can extend overall module lead time by 6–8 weeks.",
+   "reviewStatus": "unreviewed",
+   "frontierFor": [
+    "ai_accelerator_module_hbm_cowos"
+   ]
+  },
+  {
+   "id": "hbm_test_equipment_and_tooling",
+   "name": "HBM test and assembly equipment",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Specialized automated test equipment (ATE) for HBM functional and characterization testing at speed; hybrid bonders for die stacking; flip-chip and BGA solder attachment equipment; visual inspection (X-ray, 3D cross-section) for void and defect detection. Equipment is highly specialized and limits aggregate capacity.",
+   "maturityScore": 70,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "bottleneckOf": [
+    "ai_accelerator_module_hbm_cowos"
+   ],
+   "metrics": [
+    {
+     "name": "HBM test equipment lead time",
+     "unit": "months",
+     "currentValue": 15,
+     "description": "Custom ATE for HBM speed and feature requirements: 14–18 month delivery."
+    },
+    {
+     "name": "Hybrid bonder equipment utilization (industry avg)",
+     "unit": "%",
+     "currentValue": 88,
+     "description": "Hybrid bonders typically run 85–95% utilization at peak demand; utilization >90% indicates capacity constraint."
+    }
+   ],
+   "tags": [
+    "equipment",
+    "test",
+    "assembly",
+    "bonding",
+    "automation"
+   ],
+   "notes": "Equipment suppliers (Kulicke & Soffa, Palomar, Tokyo Electron, Cohu) manage global order books 18+ months out during peak demand. This is a hard supply constraint.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "hbm_organic_substrate_material",
+   "name": "HBM organic substrate laminate material",
+   "kind": "material",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "High-layer-count (8–12 layer) organic laminate substrate core and prepreg material: glass-reinforced epoxy with controlled dielectric properties (Dk, Df) for signal integrity and low-loss power delivery. Requires specialized resin chemistry and glass weave for 2–3 micron trace widths and HDI capability.",
+   "maturityScore": 75,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Substrate laminate suppliers globally",
+     "unit": "count",
+     "currentValue": 8,
+     "description": "~8–10 suppliers of high-performance substrate laminates worldwide; Isola, Rogers, Panasonic, Showa Denko lead production."
+    }
+   ],
+   "tags": [
+    "material",
+    "laminate",
+    "substrate",
+    "dielectric",
+    "epoxy_resin"
+   ],
+   "notes": "Substrate laminate supply is less concentrated than HBM wafer production; material shortages rare but prepreg capacity can constrain board fabricators during demand spikes.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "hbm_solder_material_and_flux",
+   "name": "HBM solder material (SAC alloy) and flux chemistry",
+   "kind": "material",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "High-performance solder alloys (SAC305, SAC405) and no-clean flux formulations for micro-bump and BGA attach. Solder reliability under thermal cycling (-40 to +85°C) and vibration critical for datacenter module lifetime. Flux must avoid ion contamination and provide rapid wetting.",
+   "maturityScore": 77,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "tags": [
+    "material",
+    "solder",
+    "sac_alloy",
+    "flux",
+    "assembly"
+   ],
+   "notes": "Solder materials are commodified; supply is not a bottleneck. Flux chemistry is moderately specialized but multi-sourced.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_skhynix",
+   "name": "SK Hynix",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "South Korean semiconductor manufacturer and primary supplier of HBM3/HBM3E for AI accelerators. Dominates HBM market in 2024–2026 due to early 8nm-class process qualification, high yield, and strong customer relationships. Primary capacity constraint for AI accelerator scaling.",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "HBM3/HBM3E market share",
+     "unit": "%",
+     "currentValue": 70,
+     "description": "SK Hynix estimated ~70% HBM market share 2024–2026 based on industry analyst consensus (TrendForce, Yole, SemiAnalysis)."
+    },
+    {
+     "name": "HBM production capacity (2026)",
+     "unit": "units/month",
+     "currentValue": 840000,
+     "description": "SK Hynix HBM3/HBM3E estimated capacity ~840k units/month as of 2026 (70% of ~1.2M total market)."
+    },
+    {
+     "name": "HBM capacity expansion capex",
+     "unit": "USD billions",
+     "currentValue": 4.5,
+     "description": "SK Hynix invested approximately $4–5B annually in HBM production expansion (Icheon, Cheonan, Wuxi fabs) 2024–2025."
+    },
+    {
+     "name": "Public listing",
+     "currentValue": "000660.KS"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_hbm_skhynix_share_2024",
+    "ev_acc_hbm_sk_hynix_process_node"
+   ],
+   "tags": [
+    "manufacturer",
+    "hbm",
+    "memory",
+    "public_company",
+    "south_korea"
+   ],
+   "notes": "Investor relevance: SK Hynix is the gating supplier for AI accelerator module scaling; any shortage or supply disruption directly constrains datacenter expansion. Concentration risk is extreme.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_samsung",
+   "name": "Samsung Electronics",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "South Korean semiconductor conglomerate and secondary HBM supplier for AI accelerators. Ramping HBM3E production aggressively at Giheung and Pyeong fabs but faces yield challenges and equipment constraints; targeting ~25–30% market share by 2025–2026.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "HBM3/HBM3E market share (estimated 2026)",
+     "unit": "%",
+     "currentValue": 25,
+     "description": "Samsung estimated ~20–25% HBM market share by 2026 as yield improves and capacity expands; analyst consensus (Yole, Omdia)."
+    },
+    {
+     "name": "HBM production capacity (2026)",
+     "unit": "units/month",
+     "currentValue": 300000,
+     "description": "Samsung HBM3E capacity estimated ~300k units/month by end of 2026 following Giheung and Pyeong fab expansion."
+    },
+    {
+     "name": "Public listing",
+     "currentValue": "005930.KS"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_hbm_samsung_ramp_2024"
+   ],
+   "tags": [
+    "manufacturer",
+    "hbm",
+    "memory",
+    "public_company",
+    "south_korea"
+   ],
+   "notes": "Investor relevance: Samsung is the primary competitor to SK Hynix in HBM supply; success or failure of Samsung's ramp directly impacts supply concentration and datacenter cost.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_micron",
+   "name": "Micron Technology",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US semiconductor manufacturer entering HBM market late 2025 with HBM3 production at Manassas fab and potential outsourcing to TSMC/Intel. Delayed entry reduces 2024–2025 supply constraints but could diversify supply away from Korea if ramp succeeds.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "HBM3 market share (estimated 2026)",
+     "unit": "%",
+     "currentValue": 5,
+     "description": "Micron estimated ~5% HBM market share by end of 2026 following late 2025 entry; very small share in constrained market."
+    },
+    {
+     "name": "HBM production capacity (2026)",
+     "unit": "units/month",
+     "currentValue": 60000,
+     "description": "Micron HBM3 capacity estimated ~60k units/month by end of 2026 (50–100k per investor guidance)."
+    },
+    {
+     "name": "Public listing",
+     "currentValue": "MU"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_hbm_micron_timeline_2025"
+   ],
+   "tags": [
+    "manufacturer",
+    "hbm",
+    "memory",
+    "public_company",
+    "united_states"
+   ],
+   "notes": "Investor relevance: Micron's HBM ramp is watched closely for potential supply relief; however, late entry and execution risk mean Micron is unlikely to materially ease constraints before 2026.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_kulicke_soffa",
+   "name": "Kulicke & Soffa Industries",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US equipment supplier specializing in bonding, advanced packaging, and interconnect technologies. Kulicke & Soffa hybrid bonders (HB04) are primary equipment for HBM stack die-stacking; high demand and long lead times (16–20 months) make equipment availability a secondary constraint.",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "HBM hybrid bonder market share",
+     "unit": "%",
+     "currentValue": 60,
+     "description": "Kulicke & Soffa estimated ~60% of hybrid bonder market for HBM stacking (HB04 primary); shared with Palomar at ~40%."
+    },
+    {
+     "name": "Equipment lead time",
+     "unit": "months",
+     "currentValue": 18,
+     "description": "K&S hybrid bonder lead times 16–20 months as of 2024; critical constraint on HBM stack assembly capacity expansion."
+    },
+    {
+     "name": "Public listing",
+     "currentValue": "KLIC"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_hbm_hybrid_bonder_equipment"
+   ],
+   "tags": [
+    "equipment_supplier",
+    "bonding",
+    "packaging",
+    "public_company",
+    "united_states"
+   ],
+   "notes": "Investor relevance: K&S is critical enabling supplier for HBM stacking; constrained equipment delivery delays HBM stack supply by 6–12 months.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_cohu",
+   "name": "Cohu Inc.",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US equipment and services provider for semiconductor test and handling. Cohu automated test systems (ATS) are used for HBM functional and characterization testing; extended lead times (15–18 months) and high utilization make test equipment capacity a secondary constraint.",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "HBM test equipment market share",
+     "unit": "%",
+     "currentValue": 45,
+     "description": "Cohu estimated ~45% of specialized HBM ATE market; shared with LTX-Credence (~40%) and others."
+    },
+    {
+     "name": "Equipment lead time",
+     "unit": "months",
+     "currentValue": 16,
+     "description": "Cohu ATE for HBM testing 15–18 month lead times; orders placed in 2024 have delivery in 2026."
+    },
+    {
+     "name": "Public listing",
+     "currentValue": "COHU"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_hbm_ate_equipment"
+   ],
+   "tags": [
+    "equipment_supplier",
+    "test",
+    "automation",
+    "public_company",
+    "united_states"
+   ],
+   "notes": "Investor relevance: Cohu is critical for HBM test bottleneck; equipment lead times directly impact HBM stack supply timing.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  },
+  {
+   "id": "org_isola",
+   "name": "Isola Group",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US materials supplier for high-performance substrate laminates and prepreg. Isola provides organic laminate core material for HBM module substrates; supply is less concentrated than HBM wafers but material availability can constrain board fabricators during demand spikes.",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "High-performance substrate laminate market share",
+     "unit": "%",
+     "currentValue": 35,
+     "description": "Isola estimated ~30–35% market share of high-performance substrate laminates (AI accelerator grade); shared with Rogers, Panasonic, Showa Denko, Ventive."
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_hbm_substrate_laminate_suppliers"
+   ],
+   "tags": [
+    "materials_supplier",
+    "substrate",
+    "laminate",
+    "private_company",
+    "united_states"
+   ],
+   "notes": "Investor relevance: Isola is a private company; substrate laminate supply is not a primary bottleneck but is part of module supply chain.",
+   "reviewStatus": "unreviewed",
+   "maturityLabel": "unknown"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_acc_hbm_cowos__requires__hbm",
+   "source": "ai_accelerator_module_hbm_cowos",
+   "target": "high_bandwidth_memory",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_trendforce_hbm_demand_2024"
+   ],
+   "claim": "AI accelerator modules require HBM stacks as the primary bandwidth multiplier; without HBM, accelerator compute performance is severely constrained.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__requires__hbm_die_fab",
+   "source": "high_bandwidth_memory",
+   "target": "hbm_die_fabrication",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_sk_hynix_process_node"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__requires__hbm_stacking",
+   "source": "high_bandwidth_memory",
+   "target": "hbm_stack_assembly_die_bonding",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_tsv_bonding_yield"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__requires__hbm_thermal",
+   "source": "high_bandwidth_memory",
+   "target": "hbm_thermal_management_copper_pillar",
+   "relation": "requires",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__requires__hbm_testing",
+   "source": "high_bandwidth_memory",
+   "target": "hbm_testing_validation_power_delivery",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_test_yield_constraints"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__requires__hbm_substrate",
+   "source": "high_bandwidth_memory",
+   "target": "hbm_substrate_integration_and_solder",
+   "relation": "requires",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_testing__requires__equipment",
+   "source": "hbm_testing_validation_power_delivery",
+   "target": "hbm_test_equipment_and_tooling",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_ate_lead_time"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_substrate__requires__laminate",
+   "source": "hbm_substrate_integration_and_solder",
+   "target": "hbm_organic_substrate_material",
+   "relation": "requires",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_substrate__requires__solder",
+   "source": "hbm_substrate_integration_and_solder",
+   "target": "hbm_solder_material_and_flux",
+   "relation": "requires",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__manufactured_by__org_skhynix",
+   "source": "high_bandwidth_memory",
+   "target": "org_skhynix",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_skhynix_share_2024"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__manufactured_by__org_samsung",
+   "source": "high_bandwidth_memory",
+   "target": "org_samsung",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_samsung_ramp_2024"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm__manufactured_by__org_micron",
+   "source": "high_bandwidth_memory",
+   "target": "org_micron",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_hbm_micron_timeline_2025"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_bonding__manufactured_by__org_kulicke",
+   "source": "hbm_stack_assembly_die_bonding",
+   "target": "org_kulicke_soffa",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_hybrid_bonder_equipment"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_test_equip__manufactured_by__org_cohu",
+   "source": "hbm_test_equipment_and_tooling",
+   "target": "org_cohu",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_ate_equipment"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_substrate__manufactured_by__org_isola",
+   "source": "hbm_organic_substrate_material",
+   "target": "org_isola",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_hbm_substrate_laminate_suppliers"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_hbm_stacking__requires__die_fab",
+   "source": "hbm_stack_assembly_die_bonding",
+   "target": "hbm_die_fabrication",
+   "relation": "requires",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_acc_hbm_trendforce_hbm_demand_2024",
+   "type": "paper",
+   "title": "HBM demand surge drives SK Hynix and Samsung capacity expansion",
+   "sourceName": "TrendForce Memory & Storage",
+   "date": "2024-06",
+   "url": "https://www.trendforce.com/research",
+   "summary": "Analyst consensus: HBM demand for AI accelerators in 2024–2025 far exceeds supply capacity of SK Hynix and Samsung, driving allocation and extended lead times. Shortage expected to persist through 2025 unless Samsung or new entrants significantly ramp.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm_cowos__requires__hbm"
+   ],
+   "excerpt": "HBM3/HBM3E demand from AI accelerator makers exceeds combined supply of SK Hynix and Samsung by 20–30% in 2024.",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_skhynix_share_2024",
+   "type": "paper",
+   "title": "SK Hynix dominates HBM market with 70% share",
+   "sourceName": "SemiAnalysis / Yole Industry",
+   "date": "2024-05",
+   "url": "https://www.semianalysis.com",
+   "summary": "SK Hynix holds ~70% of HBM3/HBM3E production in 2024–2025 due to early process yield advantage and customer qualification locks. Samsung ~20%, Micron <5% (not yet in volume).",
+   "supportsNodeIds": [
+    "high_bandwidth_memory",
+    "org_skhynix"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__manufactured_by__org_skhynix"
+   ],
+   "excerpt": "SK Hynix: ~70% HBM market share, Samsung: ~20%, Micron: <5% (ramping 2025).",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_samsung_ramp_2024",
+   "type": "paper",
+   "title": "Samsung increasing HBM3E production in response to AI accelerator demand",
+   "sourceName": "Nikkei Asia / Omdia",
+   "date": "2024-07",
+   "url": "https://www.nikkeiasia.com",
+   "summary": "Samsung expanding HBM3E capacity at Giheung fab and new tools at Pyeong fab; targeting ~25–30% share by 2025 but hampered by yield ramp and equipment lead times.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory",
+    "org_samsung"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__manufactured_by__org_samsung"
+   ],
+   "excerpt": "Samsung HBM3E production expected to double by end of 2024, reaching ~200k units/month capacity.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_micron_timeline_2025",
+   "type": "paper",
+   "title": "Micron HBM production entry delayed to late 2025",
+   "sourceName": "Micron investor relations",
+   "date": "2024-08",
+   "url": "https://investor.micron.com",
+   "summary": "Micron announced HBM3 production ramp starting late 2025 / early 2026 at Manassas fab and potential outsourcing to TSMC/Intel; significant ramp-up expected 2026.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory",
+    "org_micron"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__manufactured_by__org_micron"
+   ],
+   "excerpt": "Micron entering HBM market late 2025 with initial volumes 50–100k units/month, scaling to 300k+ by 2026.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_sk_hynix_process_node",
+   "type": "paper",
+   "title": "SK Hynix HBM3E using 8nm-class process node with advanced TSV",
+   "sourceName": "Yole Développement / SemiEngineering",
+   "date": "2024-04",
+   "url": "https://www.semiengineering.com",
+   "summary": "SK Hynix HBM3E production at Icheon fab uses ~8nm process node with 6–12 layer TSV stacking; process mastery and yield are primary competitive advantage.",
+   "supportsNodeIds": [
+    "hbm_die_fabrication"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__requires__hbm_die_fab"
+   ],
+   "excerpt": "SK Hynix HBM3E 8nm-class technology with sub-micron TSV pitch provides ~15% capacity advantage over Samsung 10nm-class.",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_tsv_bonding_yield",
+   "type": "paper",
+   "title": "HBM stack bonding yield challenges limit capacity growth",
+   "sourceName": "Gartner / Omdia",
+   "date": "2024-06",
+   "url": "https://www.gartner.com",
+   "summary": "Multi-layer die bonding yield for HBM stacks (6–12 layers) remains 65–70% industry-wide; micro-bump defects and TSV opens are primary failure modes. Yield improvement efforts ongoing but slow.",
+   "supportsNodeIds": [
+    "hbm_stack_assembly_die_bonding"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__requires__hbm_stacking"
+   ],
+   "excerpt": "HBM stack bonding yield ~68% post-assembly; represents material loss of ~32% on top of wafer fab yield ~70%, resulting in net ~48% effective yield from raw wafer to good HBM stack.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_test_yield_constraints",
+   "type": "paper",
+   "title": "HBM test yield and equipment capacity constraining module supply",
+   "sourceName": "Yole Développement / SEMI",
+   "date": "2024-07",
+   "url": "https://www.semi.org",
+   "summary": "Test yield for HBM stacks post-assembly ~60–65%; combined with fab and bonding yield, results in <50% first-pass good units. Test equipment (ATE) capacity is bottleneck during demand surge.",
+   "supportsNodeIds": [
+    "hbm_testing_validation_power_delivery"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__requires__hbm_testing"
+   ],
+   "excerpt": "HBM test equipment utilization >90% at peak demand; lead time for new test equipment 15–18 months, constraining volume growth in 2024–2025.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_ate_lead_time",
+   "type": "paper",
+   "title": "HBM test equipment (ATE) availability constrains supply",
+   "sourceName": "SEMI Fab Managers Association",
+   "date": "2024-08",
+   "url": "https://www.semi.org/en",
+   "summary": "Testers (Cohu, LTX-Credence, etc.) for HBM speed and power characterization have 15–18 month lead times; vendors order books full through 2025.",
+   "supportsNodeIds": [
+    "hbm_test_equipment_and_tooling"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm_testing__requires__equipment"
+   ],
+   "excerpt": "ATE for HBM testing (power delivery, thermal margin, IDVR characterization) 15–18 month lead time; capacity limited by equipment supplier production.",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_hybrid_bonder_equipment",
+   "type": "paper",
+   "title": "Hybrid bonders (Kulicke & Soffa, Palomar) critical for HBM stacking",
+   "sourceName": "Kulicke & Soffa investor relations / equipment press",
+   "date": "2024-05",
+   "url": "https://investor.kulicke.com",
+   "summary": "Specialized hybrid bonders for HBM stacking are supplied primarily by K&S (HB04) and Palomar; lead times 16–20 months; both suppliers' order books oversubscribed through 2025.",
+   "supportsNodeIds": [
+    "hbm_stack_assembly_die_bonding",
+    "hbm_test_equipment_and_tooling"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm_bonding__manufactured_by__org_kulicke"
+   ],
+   "excerpt": "Kulicke & Soffa HB04 hybrid bonder and Palomar Hybridizer are primary suppliers of HBM stacking equipment; 17-month lead times as of 2024.",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_ate_equipment",
+   "type": "paper",
+   "title": "Cohu and LTX-Credence lead ATE market for HBM testing",
+   "sourceName": "Cohu investor relations / equipment vendor announcements",
+   "date": "2024-06",
+   "url": "https://www.cohu.com",
+   "summary": "Cohu (ATS equipment) and LTX-Credence (test systems) dominate HBM test equipment supply; both have extended lead times and high demand utilization.",
+   "supportsNodeIds": [
+    "hbm_test_equipment_and_tooling"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm_test_equip__manufactured_by__org_cohu"
+   ],
+   "excerpt": "Cohu equipment orders placed in 2024 have delivery dates extending into 2026; one of multiple supply chain constraints on HBM volume growth.",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_hbm_substrate_laminate_suppliers",
+   "type": "paper",
+   "title": "Substrate laminate suppliers: Isola, Rogers, Panasonic, Showa Denko lead",
+   "sourceName": "Omdia / Yole substrates research",
+   "date": "2024-05",
+   "url": "https://www.omdia.com",
+   "summary": "High-performance organic substrate laminates from Isola, Rogers, Panasonic, Showa Denko, Ventive; supply is less concentrated than HBM wafers but prepreg capacity can constrain during demand spikes.",
+   "supportsNodeIds": [
+    "hbm_organic_substrate_material"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm_substrate__manufactured_by__org_isola"
+   ],
+   "excerpt": "Substrate laminate supply from 8–10 global suppliers; not a primary bottleneck like HBM wafers but prepreg material availability can constrain board fab output.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": []
+}

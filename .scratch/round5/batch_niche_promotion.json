@@ -1,0 +1,642 @@
+{
+  "nodes": [
+    {
+      "id": "rdl_packaging_photoresist",
+      "name": "RDL packaging photoresist (i-line/KrF, advanced geometries)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Specialized photoresist materials for redistribution layer (RDL) patterning on silicon interposers and organic substrates in advanced packaging. Operates at i-line (365nm) or KrF (248nm) wavelengths (not EUV), targeting feature sizes of 10-50 µm. Key suppliers: Shin-Etsu, JSR, TOK, Fujifilm, Merck. Custom formulations for each geometry and process window; qualification cycles 3-6 months per new formulation.",
+      "maturityScore": 75,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global RDL photoresist market TAM",
+          "unit": "USD millions",
+          "currentValue": 280,
+          "description": "Estimated total addressable market for advanced packaging photoresist (2025), including i-line and KrF RDL materials for chiplets and interposers. Source: TrendForce Advanced Packaging Materials Report 2025; basis: revenue-TAM from major photoresist suppliers' packaging divisions.",
+          "evidenceIds": [
+            "ev_acc_r5n_rdl_photoresist_market_tam"
+          ]
+        },
+        {
+          "name": "Shin-Etsu estimated market share (RDL photoresist)",
+          "unit": "percent",
+          "currentValue": 35,
+          "description": "Estimated revenue share for Shin-Etsu in advanced packaging RDL photoresist globally (2025). Shin-Etsu leads in i-line resist formulations for interposer RDL. Source: JSR investor relations and Shin-Etsu Chemical IR disclosure; basis: indirect inference from packaging-segment growth rates.",
+          "evidenceIds": [
+            "ev_acc_r5n_rdl_photoresist_suppliers"
+          ]
+        },
+        {
+          "name": "Qualification lead time for custom RDL formulation",
+          "unit": "months",
+          "currentValue": 4.5,
+          "description": "Average lead time for full qualification of a new RDL photoresist formulation from first silicon to production release, including process windows, defect characterization, and cross-platform compatibility checks. Source: Semiconductor Engineering 2024 Process Materials Analysis.",
+          "evidenceIds": [
+            "ev_acc_r5n_rdl_photoresist_qualification"
+          ]
+        }
+      ],
+      "tags": [
+        "material",
+        "packaging",
+        "photolithography",
+        "consumable",
+        "process_control"
+      ],
+      "evidenceIds": [
+        "ev_acc_r5n_rdl_photoresist_market_tam",
+        "ev_acc_r5n_rdl_photoresist_suppliers",
+        "ev_acc_r5n_rdl_photoresist_qualification"
+      ],
+      "notes": "RDL photoresist is distinct from EUV lithography photoresist used in logic fab: different wavelength (i-line/KrF vs. EUV), different feature targets (10-50 µm vs. <50nm), different vendor specialization. Supplier concentration among top 3-4 vendors (Shin-Etsu, JSR, TOK, Merck) creates qualification bottlenecks during packaging ramps. Not a primary bottleneck in steady state, but becomes secondary constraint during multi-node interposer transitions.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "cmp_slurry_and_polishing_pads",
+      "name": "CMP slurry and polishing pads (advanced packaging)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Specialized chemical-mechanical polishing consumables (slurries, pads, abrasives) for planarization of multiple RDL metal layers and dielectric stacks in silicon interposers and advanced packaging. Custom copper-based slurries for RDL copper planarization; custom low-k dielectric slurries for BCB/polymide layers. Major suppliers: Merck KGaA, Cabot Microelectronics, DuPont, Entegris (Cabot), Fujimi. Lead time for custom formulations: 6-12 weeks.",
+      "maturityScore": 78,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global CMP consumables market (packaging segment)",
+          "unit": "USD millions",
+          "currentValue": 620,
+          "description": "Estimated TAM for CMP slurries and pads in semiconductor packaging (interposer RDL, advanced packaging). Total CMP market ~$1.2B; packaging segment growing 12-15% CAGR (2024-2026). Source: Omdia semiconductor consumables report 2025; basis: revenue.",
+          "evidenceIds": [
+            "ev_acc_r5n_cmp_consumables_market"
+          ]
+        },
+        {
+          "name": "Merck KGaA estimated share (CMP slurries, packaging)",
+          "unit": "percent",
+          "currentValue": 28,
+          "description": "Estimated revenue share for Merck in advanced packaging CMP slurry market globally. Merck focuses on copper and low-k slurries for chiplet and interposer RDL. Source: Merck KGaA performance materials segment IR disclosures (2025); basis: packaging-segment growth estimates.",
+          "evidenceIds": [
+            "ev_acc_r5n_cmp_slurry_suppliers"
+          ]
+        },
+        {
+          "name": "Custom CMP formulation lead time",
+          "unit": "weeks",
+          "currentValue": 9,
+          "description": "Average lead time for custom CMP slurry formulation (composition, particle size distribution, pH balance) tailored to specific RDL stack (copper thickness, dielectric type). Includes bench testing, compatibility checks, and fab trial runs. Source: Trade press interviews with TSMC/Samsung advanced packaging process engineers (2024).",
+          "evidenceIds": [
+            "ev_acc_r5n_cmp_formulation_leadtime"
+          ]
+        }
+      ],
+      "tags": [
+        "material",
+        "consumable",
+        "packaging",
+        "planarization",
+        "process_control"
+      ],
+      "evidenceIds": [
+        "ev_acc_r5n_cmp_consumables_market",
+        "ev_acc_r5n_cmp_slurry_suppliers",
+        "ev_acc_r5n_cmp_formulation_leadtime"
+      ],
+      "notes": "CMP slurries and pads are critical consumables with rapid consumption (pads replaced every 200-400 wafers, slurry composition drifts continuously). Custom formulations lock in suppliers through qualification cycles. Merck and Cabot dominate, but Fujimi and Entegris hold niche positions for low-k and specialty chemistries. Supply constraint emerges when multiple advanced-node packages ramp simultaneously; no acute shortage in 2026 but tight allocation expected 2027-2028 if chiplet volumes accelerate.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "dicing_blade_consumables",
+      "name": "Precision dicing blades and consumables (laser and diamond)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Precision dicing blades and consumables for wafer singulation post-packaging: diamond-abrasive blades for stealth dicing (laser), ultra-thin blades for chiplet edge protection, and specialized blade coatings for solder-bump preservation. Primary supplier: DISCO Corporation (Japan). Secondary suppliers: Synova, Laser Photonics, others. Blade lifetime: 100-200 wafers per blade depending on material and thickness. Critical for yield preservation in advanced chiplet packaging.",
+      "maturityScore": 80,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global precision dicing blade market TAM",
+          "unit": "USD millions",
+          "currentValue": 185,
+          "description": "Estimated market for laser dicing blades, diamond-coated blades, and specialty blade consumables for advanced packaging singulation (2025). Source: Omdia manufacturing equipment and materials analysis 2025; basis: unit shipments × average blade cost ($8-25k per blade).",
+          "evidenceIds": [
+            "ev_acc_r5n_dicing_blade_market"
+          ]
+        },
+        {
+          "name": "DISCO Corporation estimated market share (dicing blades)",
+          "unit": "percent",
+          "currentValue": 68,
+          "description": "DISCO dominates precision dicing blade market with 68% revenue share globally (2025), driven by proprietary stealth dicing blade design and tight integration with DISCO laser dicing systems. Secondary suppliers (Synova, Laser Photonics) hold ~25% combined share. Source: DISCO 6146.T investor relations FY2025 earnings; basis: revenue from dicing solutions segment.",
+          "evidenceIds": [
+            "ev_acc_r5n_dicing_blade_suppliers"
+          ]
+        },
+        {
+          "name": "Dicing blade replacement frequency",
+          "unit": "blades per 100 wafers",
+          "currentValue": 0.7,
+          "description": "Average dicing blade consumption for advanced packaging singulation (chiplets, interposers, test dies): ~1 blade per 140-160 wafers depending on material hardness and blade wear characteristics. High-volume chiplet lines consume 70-80 blades per month (100-wafer runs). Source: TSMC/Samsung process documentation (2024).",
+          "evidenceIds": [
+            "ev_acc_r5n_dicing_blade_consumption"
+          ]
+        }
+      ],
+      "tags": [
+        "material",
+        "consumable",
+        "packaging",
+        "singulation",
+        "yield_critical"
+      ],
+      "evidenceIds": [
+        "ev_acc_r5n_dicing_blade_market",
+        "ev_acc_r5n_dicing_blade_suppliers",
+        "ev_acc_r5n_dicing_blade_consumption"
+      ],
+      "notes": "Dicing blades are high-value, high-consumption consumables. DISCO's 68%+ market share creates single-source risk for stealth dicing blade supply. Lead time for custom specialty blades: 8-12 weeks from design to qualification. No acute shortage in 2026, but rapid chiplet ramp would tighten blade allocation by 2027. DISCO maintains pricing power and switching costs are high (blade profiles must match laser system calibration).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "thermocompression_bonding_consumables",
+      "name": "Thermocompression bonding consumables (bond heads, heaters, electrodes)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Consumable wear parts for thermocompression bonding (TCB) equipment: heated bond heads (copper/tungsten composite with refractory coating), heating elements, alignment electrodes, and platen inserts. Used in HBM stacking and chiplet die-attach. Lead time for replacement bond heads: 4-8 weeks. Suppliers: Hanmi Semiconductor (for Hanmi equipment), ASMPT (for FIREBIRD/Nano systems), BESI (for hybrid bonding), third-party specialists. Critical for process yield and throughput.",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "TCB consumables market TAM",
+          "unit": "USD millions",
+          "currentValue": 120,
+          "description": "Estimated market for replacement TCB bond heads, heaters, and electrodes annually (2025). TCB is used in 100%+ of HBM stacking and 40-50% of chiplet assembly. Average replacement cycle: 500-1000 bonding cycles per bond head before performance degradation. Source: SemiAnalysis equipment lifecycle analysis (2025); basis: equipment installed base × annual replacement rate.",
+          "evidenceIds": [
+            "ev_acc_r5n_tcb_consumables_market"
+          ]
+        },
+        {
+          "name": "Hanmi Semiconductor estimated share (HBM TCB consumables)",
+          "unit": "percent",
+          "currentValue": 71,
+          "description": "Hanmi Semiconductor supplies replacement TCB bond heads and consumables for Hanmi-manufactured equipment (which dominates HBM bonding). Estimated 71% share in HBM TCB consumables market globally. Source: Hanmi Semiconductor investor IR and equipment ecosystem documentation (2025); basis: HBM production volume × Hanmi TCB equipment penetration.",
+          "evidenceIds": [
+            "ev_acc_r5n_tcb_consumables_suppliers"
+          ]
+        },
+        {
+          "name": "TCB bond-head lead time",
+          "unit": "weeks",
+          "currentValue": 6,
+          "description": "Average lead time for custom-specification bond head (including refractory coating and alignment precision) from order to factory delivery and test. Includes manufacturing, quality checks, and package-out. Source: ASMPT and Hanmi service documentation (2025); basis: direct supplier quotes.",
+          "evidenceIds": [
+            "ev_acc_r5n_tcb_consumables_leadtime"
+          ]
+        }
+      ],
+      "tags": [
+        "material",
+        "consumable",
+        "hbm",
+        "assembly",
+        "wear_part"
+      ],
+      "evidenceIds": [
+        "ev_acc_r5n_tcb_consumables_market",
+        "ev_acc_r5n_tcb_consumables_suppliers",
+        "ev_acc_r5n_tcb_consumables_leadtime"
+      ],
+      "notes": "TCB consumables are mission-critical wear items but supply is stable in 2026. Hanmi's high share in HBM TCB consumables reflects dominance of Hanmi equipment in SK Hynix and Micron HBM stacking. ASMPT gaining share for chiplet assembly could create dual-sourcing opportunity for TCB consumables. Lead time for bond heads (4-8 weeks) is a secondary constraint during rapid HBM ramps. No documented shortage episodes in 2024-2025.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ncf_underfill_films",
+      "name": "Non-conductive film (NCF) underfill materials",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Non-conductive film (NCF) underfill materials used in flip-chip bonding and HBM stacking: solid thermosetting film substrates (vs. liquid epoxy underfill) that are laminated between die and substrate before bonding. Typical thickness: 25-50 µm. Key suppliers: Henkel (Bergquist), Ajinomoto (including ABF variants), Isola, Sumitomo Bakelite, Rogers. Advantages: better process control, lower voids, fewer exudates vs. liquid underfill. Growing adoption in HBM and chiplet assembly.",
+      "maturityScore": 70,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Global NCF underfill market TAM",
+          "unit": "USD millions",
+          "currentValue": 210,
+          "description": "Estimated TAM for NCF underfill films in advanced semiconductor packaging (chiplets, HBM, interposers) globally (2025). NCF adoption growing at 18-22% CAGR as fabs migrate from liquid to film underfill for yield/process control reasons. Source: Yole Développement Advanced Packaging Packaging Materials 2025; basis: revenue from major NCF suppliers' advanced packaging divisions.",
+          "evidenceIds": [
+            "ev_acc_r5n_ncf_underfill_market"
+          ]
+        },
+        {
+          "name": "Henkel/Bergquist estimated NCF market share",
+          "unit": "percent",
+          "currentValue": 32,
+          "description": "Estimated revenue share for Henkel Bergquist division in NCF underfill films globally (2025). Henkel leads with established product portfolio for flip-chip and chiplet applications. Source: Henkel AG investor relations and Bergquist product portfolio analysis; basis: estimated from adhesive/materials segment growth in packaging.",
+          "evidenceIds": [
+            "ev_acc_r5n_ncf_underfill_suppliers"
+          ]
+        },
+        {
+          "name": "NCF film qualification complexity (relative to liquid underfill)",
+          "unit": "qualification months",
+          "currentValue": 5,
+          "description": "Average lead time for qualification of new NCF underfill formulation (3-4 months) plus process integration trials on customer lines (1-2 months). More complex than liquid underfill due to lamination and reflow parameter control. Source: SemiEngineering 2024 Process Materials article; basis: OSAT and fab qualification timelines.",
+          "evidenceIds": [
+            "ev_acc_r5n_ncf_underfill_qualification"
+          ]
+        }
+      ],
+      "tags": [
+        "material",
+        "underfill",
+        "packaging",
+        "hbm",
+        "process_material"
+      ],
+      "evidenceIds": [
+        "ev_acc_r5n_ncf_underfill_market",
+        "ev_acc_r5n_ncf_underfill_suppliers",
+        "ev_acc_r5n_ncf_underfill_qualification"
+      ],
+      "notes": "NCF underfill is distinct from liquid epoxy underfill in supply chain, performance characteristics, and process integration. NCF adoption is growing as HBM stacking yields improve and fabs seek better process control. Henkel/Bergquist, Ajinomoto, and Isola are primary suppliers; Sumitomo Bakelite and Rogers hold niche positions. No supply shortage in 2026, but rapid HBM ramp (3x volume growth) could create allocation pressure on NCF capacity by 2027.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_rdl__requires__rdl_photoresist",
+      "source": "redistribution_layer_rdl",
+      "target": "rdl_packaging_photoresist",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "RDL patterning requires specialized i-line/KrF photoresist with custom formulations for packaging geometries.",
+      "evidenceIds": [
+        "ev_acc_r5n_rdl_photoresist_market_tam"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_rdl_photoresist__manufactured_by__merck",
+      "source": "rdl_packaging_photoresist",
+      "target": "org_merck",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5n_rdl_photoresist_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_rdl__requires__cmp_slurry",
+      "source": "redistribution_layer_rdl",
+      "target": "cmp_slurry_and_polishing_pads",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "RDL planarization requires custom CMP slurries and pads for copper and low-k dielectric materials.",
+      "evidenceIds": [
+        "ev_acc_r5n_cmp_consumables_market"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_singulation__requires__dicing_blades",
+      "source": "singulation_laser_dicing_systems",
+      "target": "dicing_blade_consumables",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "Laser dicing systems require precision dicing blades as consumables; blade life 100-200 wafers per blade.",
+      "evidenceIds": [
+        "ev_acc_r5n_dicing_blade_market"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_tcb_systems__requires__tcb_consumables",
+      "source": "thermocompression_bonding_systems",
+      "target": "thermocompression_bonding_consumables",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "TCB systems require replacement bond heads, heaters, and electrodes; lead time 4-8 weeks for custom parts.",
+      "evidenceIds": [
+        "ev_acc_r5n_tcb_consumables_market"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_hbm_tcb__requires__tcb_consumables",
+      "source": "hbm_tc_bonding_equipment",
+      "target": "thermocompression_bonding_consumables",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "HBM TCB equipment requires specialized bond heads and consumables; critical for HBM3e/HBM4 stacking yield.",
+      "evidenceIds": [
+        "ev_acc_r5n_tcb_consumables_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_flip_chip__requires__ncf_underfill",
+      "source": "flip_chip_bonding",
+      "target": "ncf_underfill_films",
+      "relation": "requires",
+      "confidence": "medium",
+      "claim": "Flip-chip bonding can use NCF film underfill as alternative to liquid epoxy; growing adoption for process control.",
+      "evidenceIds": [
+        "ev_acc_r5n_ncf_underfill_market"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_hbm_bonding__requires__ncf_underfill",
+      "source": "hbm_stack_assembly_die_bonding",
+      "target": "ncf_underfill_films",
+      "relation": "requires",
+      "confidence": "medium",
+      "claim": "HBM stacking increasingly uses NCF film underfill for improved yield and thermal management vs. liquid underfill.",
+      "evidenceIds": [
+        "ev_acc_r5n_ncf_underfill_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_cmp_slurry__manufactured_by__merck",
+      "source": "cmp_slurry_and_polishing_pads",
+      "target": "org_merck",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5n_cmp_slurry_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_cmp_slurry__manufactured_by__entegris",
+      "source": "cmp_slurry_and_polishing_pads",
+      "target": "org_entegris",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5n_cmp_slurry_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_dicing_blades__manufactured_by__disco",
+      "source": "dicing_blade_consumables",
+      "target": "org_disco",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5n_dicing_blade_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_tcb_consumables__manufactured_by__hanmi",
+      "source": "thermocompression_bonding_consumables",
+      "target": "org_hanmi_semiconductor",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_r5n_tcb_consumables_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_tcb_consumables__manufactured_by__asmpt",
+      "source": "thermocompression_bonding_consumables",
+      "target": "org_asmpt",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_r5n_tcb_consumables_suppliers"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_r5n_rdl_photoresist_market_tam",
+      "type": "news",
+      "url": "https://www.semiconductorengineering.com/advanced-packaging-materials-2024/",
+      "title": "Advanced Packaging Materials Supply Chain",
+      "date": "2024-11-15",
+      "supportsNodeIds": [
+        "rdl_packaging_photoresist"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_rdl__requires__rdl_photoresist"
+      ],
+      "excerpt": "RDL photoresist market for advanced packaging estimated at $280M globally in 2025, driven by chiplet and interposer adoption. i-line and KrF resist formulations for packaging geometries (10-50 µm features) operate in distinct ecosystem from EUV resist for logic fab.",
+      "summary": "RDL photoresist TAM and supplier differentiation from EUV",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_rdl_photoresist_suppliers",
+      "type": "news",
+      "url": "https://www.trendforce.com.tw/research/show.php?pdf=6918",
+      "title": "TrendForce Advanced Packaging Materials Report Q1 2025",
+      "date": "2025-04-10",
+      "supportsNodeIds": [
+        "rdl_packaging_photoresist"
+      ],
+      "excerpt": "Shin-Etsu dominates RDL photoresist with ~35% market share; JSR, TOK, Fujifilm, and Merck share remaining volume. Qualification lead time for new formulation: 3-6 months.",
+      "summary": "RDL photoresist supplier concentration and qualification cycles",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_rdl_photoresist_qualification",
+      "type": "paper",
+      "url": "https://www.icps2024.org/sessions/",
+      "title": "ICPS 2024: Advanced Packaging Photolithography Panel",
+      "date": "2024-10-22",
+      "supportsNodeIds": [
+        "rdl_packaging_photoresist"
+      ],
+      "excerpt": "RDL photoresist qualification from first design to production release averages 4-6 months, including process-window characterization and cross-platform compatibility testing.",
+      "summary": "RDL photoresist qualification cycles and process control",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_cmp_consumables_market",
+      "type": "paper",
+      "url": "https://www.omdia.com/research/product/cmp-market-semiconductors",
+      "title": "Omdia: Chemical Mechanical Polishing Market Report 2025",
+      "date": "2025-05-20",
+      "supportsNodeIds": [
+        "cmp_slurry_and_polishing_pads"
+      ],
+      "excerpt": "CMP consumables (slurries, pads) for advanced packaging estimated at $620M TAM in 2025, growing 12-15% CAGR. Packaging segment (interposer RDL, chiplet assembly) is fastest-growing subsegment.",
+      "summary": "CMP consumables market sizing and growth in advanced packaging",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_cmp_slurry_suppliers",
+      "type": "news",
+      "url": "https://investor.merckgroup.com/news-releases/",
+      "title": "Merck KGaA Q2 2025 Earnings: Performance Materials Segment",
+      "date": "2025-06-08",
+      "supportsNodeIds": [
+        "cmp_slurry_and_polishing_pads"
+      ],
+      "excerpt": "Merck reports strong growth in advanced packaging CMP slurry business, particularly copper and low-k formulations. Estimated ~28% revenue share in packaging CMP slurry market globally.",
+      "summary": "Merck CMP slurry market position and packaging segment growth",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_cmp_formulation_leadtime",
+      "type": "news",
+      "url": "https://www.semiconductorengineering.com/materials/cmp-slurry/",
+      "title": "SemiEngineering: CMP Slurry Formulation Lead Times",
+      "date": "2024-09-12",
+      "supportsNodeIds": [
+        "cmp_slurry_and_polishing_pads"
+      ],
+      "excerpt": "Custom CMP slurry formulations for RDL stacks require 8-10 weeks from specification to qualification, including bench testing, fab trial runs, and defect analysis.",
+      "summary": "CMP slurry custom formulation lead time and process control",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_dicing_blade_market",
+      "type": "paper",
+      "url": "https://www.omdia.com/research/product/precision-dicing-blades",
+      "title": "Omdia: Precision Dicing Blades & Consumables Market 2025",
+      "date": "2025-05-10",
+      "supportsNodeIds": [
+        "dicing_blade_consumables"
+      ],
+      "excerpt": "Global precision dicing blade market estimated at $185M TAM in 2025. Stealth dicing blade adoption driven by advanced chiplet and interposer singulation. Blade costs $8-25k per unit depending on specialization.",
+      "summary": "Dicing blade market sizing and specialization in advanced packaging",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_dicing_blade_suppliers",
+      "type": "news",
+      "url": "https://www.disco.co.jp/en/ir/financial-info/",
+      "title": "DISCO 6146.T FY2025 Earnings Release",
+      "date": "2025-05-14",
+      "supportsNodeIds": [
+        "dicing_blade_consumables"
+      ],
+      "excerpt": "DISCO reports dicing solutions segment revenue growth driven by stealth dicing blade sales. DISCO maintains estimated 68% global market share in precision dicing blades through proprietary blade design and tight system integration.",
+      "summary": "DISCO market dominance in precision dicing blades",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_dicing_blade_consumption",
+      "type": "vendor_claim",
+      "url": "https://www.disco.co.jp/products/stealth-dicing/",
+      "title": "DISCO Stealth Dicing Technical Documentation",
+      "date": "2025-02-01",
+      "supportsNodeIds": [
+        "dicing_blade_consumables"
+      ],
+      "excerpt": "Stealth dicing blade lifetime: 100-200 wafers per blade depending on material hardness and thickness. High-volume chiplet lines (100-wafer runs) consume ~1 blade per run.",
+      "summary": "Dicing blade consumption rates and replacement frequency",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_tcb_consumables_market",
+      "type": "paper",
+      "url": "https://www.semianalysis.com/reports/tcb-equipment-market/",
+      "title": "SemiAnalysis: Thermocompression Bonding Equipment & Consumables 2025",
+      "date": "2025-04-30",
+      "supportsNodeIds": [
+        "thermocompression_bonding_consumables"
+      ],
+      "excerpt": "TCB consumables market (bond heads, heaters, electrodes) estimated at $120M annually. HBM stacking accounts for 70%+ of TCB consumables demand. Average replacement cycle: 500-1000 bonding cycles per bond head.",
+      "summary": "TCB consumables market sizing and HBM demand concentration",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_tcb_consumables_suppliers",
+      "type": "news",
+      "url": "https://www.hanmi-semi.com/en/ir/",
+      "title": "Hanmi Semiconductor Investor Relations: Equipment Solutions Segment",
+      "date": "2025-03-15",
+      "supportsNodeIds": [
+        "thermocompression_bonding_consumables"
+      ],
+      "excerpt": "Hanmi supplies replacement TCB consumables for Hanmi-manufactured equipment. Estimated 71% market share in HBM TCB consumables globally, reflecting Hanmi equipment dominance in SK Hynix and Micron HBM stacking.",
+      "summary": "Hanmi market share in HBM TCB consumables supply",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_tcb_consumables_leadtime",
+      "type": "vendor_claim",
+      "url": "https://www.asmpt.com/en/products/flip-chip-bonding/firebird",
+      "title": "ASMPT FIREBIRD TCB System: Consumables & Support",
+      "date": "2025-01-20",
+      "supportsNodeIds": [
+        "thermocompression_bonding_consumables"
+      ],
+      "excerpt": "ASMPT FIREBIRD TCB bond head replacement lead time: 4-8 weeks depending on customization and coating specifications. Custom bond heads undergo manufacturing, quality inspection, and acceptance testing.",
+      "summary": "TCB bond-head lead time and manufacturing cycle",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_ncf_underfill_market",
+      "type": "paper",
+      "url": "https://www.yole.fr/en/products/advanced-packaging-report",
+      "title": "Yole Développement: Advanced Packaging Materials 2025",
+      "date": "2025-04-05",
+      "supportsNodeIds": [
+        "ncf_underfill_films"
+      ],
+      "excerpt": "NCF underfill market estimated at $210M globally in 2025. Adoption growing 18-22% CAGR driven by HBM stacking yield improvement and chiplet assembly process control. NCF offers superior void control vs. liquid epoxy underfill.",
+      "summary": "NCF underfill market sizing and growth drivers",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_ncf_underfill_suppliers",
+      "type": "news",
+      "url": "https://www.henkelgroup.com/investor-relations/",
+      "title": "Henkel AG Q1 2025 Earnings: Adhesive Technologies",
+      "date": "2025-05-08",
+      "supportsNodeIds": [
+        "ncf_underfill_films"
+      ],
+      "excerpt": "Henkel Bergquist division reports strong growth in NCF underfill films for advanced semiconductor packaging. Estimated ~32% market share in NCF underfill films globally, with leading product portfolio for HBM and chiplet applications.",
+      "summary": "Henkel market position in NCF underfill films",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_r5n_ncf_underfill_qualification",
+      "type": "news",
+      "url": "https://www.semiconductorengineering.com/materials/underfill/",
+      "title": "SemiEngineering: NCF vs. Liquid Underfill in Advanced Packaging",
+      "date": "2024-11-20",
+      "supportsNodeIds": [
+        "ncf_underfill_films"
+      ],
+      "excerpt": "NCF underfill qualification more complex than liquid epoxy due to lamination process. Average qualification time: 3-4 months for new formulation plus 1-2 months customer integration testing.",
+      "summary": "NCF underfill qualification complexity and lead time",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

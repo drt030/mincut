@@ -1,0 +1,37 @@
+{
+ "node_patches": [
+  {
+   "id": "org_schneider_electric",
+   "append_metrics": [
+    {
+     "name": "Datacenter infrastructure market share (cooling + power combined)",
+     "unit": "%",
+     "currentValue": 22,
+     "description": "Schneider Electric estimated 20–25% of global datacenter infrastructure market (thermal + power systems), per analyst consensus 2025. Cooling-specific share ~18–22%."
+    },
+    {
+     "name": "Annual revenue (FY2025 estimate)",
+     "unit": "USD billion",
+     "currentValue": 37,
+     "costAsOf": "2025",
+     "currency": "USD",
+     "description": "Schneider Electric FY2025 total revenue ~$37–38 billion USD; Infrastructure Solutions division (data centers, thermal) ~$12–14 billion."
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_cp2_schneider_electric_cooling"
+   ],
+   "append_tags": [
+    "thermal_cooling",
+    "power_delivery",
+    "infrastructure"
+   ],
+   "append_domain": [
+    "ai_compute_chain",
+    "thermal_management",
+    "investable_supplier"
+   ],
+   "append_notes": "Schneider Electric competes directly with Vertiv across cooling and power infrastructure. Strong in facility-level integration and legacy datacenters; gaining share in AI-focused liquid-cooling buildouts."
+  }
+ ]
+}

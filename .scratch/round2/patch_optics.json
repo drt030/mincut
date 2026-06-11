@@ -1,0 +1,22 @@
+{
+  "node_patches": [
+    {
+      "id": "org_philips_lumileds",
+      "set": {
+        "confidence": "low"
+      },
+      "append_metrics": [
+        {
+          "name": "Datacenter VCSEL market share (revised)",
+          "unit": "%",
+          "currentValue": 8,
+          "description": "Revised estimate: Philips Lumileds datacenter VCSEL/photodiode presence is smaller than previously stated. Primary focus remains on general optoelectronics rather than high-speed datacom VCSELs. Market estimate 2024–2025; low confidence basis."
+        }
+      ],
+      "append_notes": "Lumileds' role in high-speed datacenter VCSELs is limited compared to Broadcom and Coherent/II-VI. Primary exposure is to general optoelectronics, not the cutting-edge datacom VCSEL market. The 20% share estimate from round 1 is not well-founded. Recommend monitoring; if no clear investor-relevant datacenter VCSEL business emerges, consider removing this org node from the transceiver supplier list."
+    }
+  ],
+  "remove_node_ids": [],
+  "remove_edge_ids": [],
+  "edge_patches": []
+}

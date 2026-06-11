@@ -1,0 +1,239 @@
+{
+ "nodes": [
+  {
+   "id": "org_applied_optoelectronics",
+   "name": "Applied Optoelectronics Inc.",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Manufacturer of high-speed optical transceiver modules and coherent optical solutions for multi-rack datacenter interconnect. Produces 800G and 1.6T-class pluggable optics.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "AAOI"
+    },
+    {
+     "name": "Datacenter optical transceiver share",
+     "unit": "%",
+     "currentValue": 6,
+     "description": "Estimated 2026 revenue share in AI datacenter optical transceiver segment"
+    }
+   ],
+   "tags": [
+    "optical",
+    "supplier",
+    "commercial",
+    "investable"
+   ],
+   "reviewStatus": "unreviewed",
+   "notes": "Public: NASDAQ AAOI. Added round 4 to widen optical transceiver base coverage."
+  },
+  {
+   "id": "org_avc",
+   "name": "Acer Thermal Innovation Company (AVC)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Taiwan-based thermal management and liquid cooling solution provider specializing in AI server and datacenter cooling modules, CDUs, and thermal subsystems. Record revenue growth in 2026 driven by liquid cooling adoption.",
+   "maturityScore": 83,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "2338.TW"
+    },
+    {
+     "name": "Liquid cooling thermal module revenue growth",
+     "unit": "%",
+     "currentValue": 150,
+     "description": "Year-over-year growth in AI liquid cooling thermal modules 2026 (DigiTimes Taiwan Thermal Tracker April 2026)"
+    }
+   ],
+   "tags": [
+    "thermal_cooling",
+    "supplier",
+    "commercial",
+    "investable"
+   ],
+   "reviewStatus": "unreviewed",
+   "notes": "Public: TWSE 2338.TW. Added round 4 to expand cooling_distribution_unit supplier base (joins Vertiv, Boyd, Motivair, CoolIT/Ecolab)."
+  },
+  {
+   "id": "org_auras",
+   "name": "Auras Technology Co., Ltd.",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Taiwan-based specialist in thermal solutions and liquid cooling products for AI servers and high-performance computing datacenters. Supplies CDUs and cooling modules to major ODMs.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "6288.TW"
+    },
+    {
+     "name": "AI thermal cooling revenue contribution",
+     "unit": "%",
+     "currentValue": 45,
+     "description": "Estimated revenue contribution from AI thermal cooling systems in 2026 product mix"
+    }
+   ],
+   "tags": [
+    "thermal_cooling",
+    "supplier",
+    "commercial",
+    "investable"
+   ],
+   "reviewStatus": "unreviewed",
+   "notes": "Public: TWSE 6288.TW. Added round 4 to strengthen cooling CDU and thermal module supplier coverage."
+  },
+  {
+   "id": "org_innoscience",
+   "name": "Innoscience Technology Co., Ltd.",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Chinese-based GaN semiconductor and foundry services provider. Offers GaN-on-GaN and GaN-on-Si process technology with cost-competitive manufacturing for power semiconductor applications. Emerging supplier in compound power semiconductor foundry segment.",
+   "maturityScore": 72,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "GaN foundry capacity",
+     "unit": "est. wafers/month",
+     "currentValue": 300,
+     "description": "Estimated GaN-on-GaN/GaN-on-Si monthly capacity based on TrendForce reporting on Chinese semiconductor foundry consolidation (June 2026)"
+    }
+   ],
+   "tags": [
+    "compound_foundry",
+    "gan_sic",
+    "supplier",
+    "commercial"
+   ],
+   "reviewStatus": "unreviewed",
+   "notes": "Private company (China). Added round 4 to broaden specialty_analog_power_foundry coverage (joins TSMC, Samsung, GlobalFoundries, Win Semiconductors) and capture emerging Chinese capacity for GaN."
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_acc_optical_transceiver_module__manufactured_by__org_coherent",
+   "source": "optical_transceiver_module",
+   "target": "org_ii_vi_coherent",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_optical_transceiver_module__manufactured_by__org_applied_optoelectronics",
+   "source": "optical_transceiver_module",
+   "target": "org_applied_optoelectronics",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_cooling_distribution_unit_cdu__manufactured_by__org_avc",
+   "source": "cooling_distribution_unit_cdu",
+   "target": "org_avc",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thermal_management_module__manufactured_by__org_avc",
+   "source": "thermal_management_module",
+   "target": "org_avc",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_thermal_management_module__manufactured_by__org_auras",
+   "source": "thermal_management_module",
+   "target": "org_auras",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_acc_specialty_analog_power_foundry__manufactured_by__org_innoscience",
+   "source": "specialty_analog_power_foundry",
+   "target": "org_innoscience",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_acc_sb4_optical_transceiver_coherent",
+   "title": "Global AI Optical Transceiver Market to Reach US$26 Billion in 2026",
+   "type": "news",
+   "date": "2026-05-20",
+   "url": "https://www.trendforce.com/presscenter/news/20260420-13017.html",
+   "excerpt": "Global AI Optical Transceiver Market to Reach US$26 Billion in 2026; Component Shortages Identified as Primary Capacity Expansion Bottleneck, Says TrendForce. Coherent and Applied Optoelectronics cited as long-reach transceiver suppliers.",
+   "supportsNodeIds": [
+    "org_ii_vi_coherent",
+    "org_applied_optoelectronics"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_optical_transceiver_module__manufactured_by__org_coherent",
+    "e_acc_optical_transceiver_module__manufactured_by__org_applied_optoelectronics"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_sb4_avc_thermal_tracker",
+   "title": "Taiwan cooling suppliers post record March revenue as AI demand lifts liquid cooling",
+   "type": "news",
+   "date": "2026-04-14",
+   "url": "https://www.digitimes.com/news/a20260414PD207/taiwan-liquid-cooling-revenue-thermal-module-demand.html",
+   "excerpt": "Taiwan cooling suppliers post record March revenue as AI demand lifts liquid cooling. AVC and Auras lead 2026 surge in thermal module revenue, with year-over-year growth >150% in liquid cooling CDU and thermal management modules.",
+   "supportsNodeIds": [
+    "org_avc",
+    "org_auras"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_cooling_distribution_unit_cdu__manufactured_by__org_avc",
+    "e_acc_thermal_management_module__manufactured_by__org_avc",
+    "e_acc_thermal_management_module__manufactured_by__org_auras"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_sb4_innoscience_gan",
+   "title": "GaN Industry Enters a New Phase as TSMC Licenses GaN Technologies to VIS and GF",
+   "type": "news",
+   "date": "2026-02-02",
+   "url": "https://www.trendforce.com/news/2026/02/02/news-gan-industry-enters-a-new-phase-as-tsmc-licenses-gan-technologies-to-vis-and-gf/",
+   "excerpt": "GaN Industry Enters a New Phase as TSMC Licenses GaN Technologies to VIS and GF. Chinese suppliers including Innoscience participate in emerging GaN foundry consolidation and capacity expansion, providing cost-competitive alternatives to TSMC/Samsung for GaN-on-GaN/GaN-on-Si production.",
+   "supportsNodeIds": [
+    "org_innoscience"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_specialty_analog_power_foundry__manufactured_by__org_innoscience"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": []
+}

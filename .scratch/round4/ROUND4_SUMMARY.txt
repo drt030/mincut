@@ -1,0 +1,139 @@
+ROUND-4 NARROW-SUPPLIER DECOMPOSITION PASS
+============================================
+Date: 2026-06-10
+Decomposer: Claude Fable 5 (AI Code Agent)
+Scope: Single-source & near-single-source corners within seven level-1 AI compute chain modules
+
+DELIVERABLES CREATED:
+- batch_narrow_corners.json (5 material nodes, 1 organization node, 14 edges, 12 evidence records)
+- patch_narrow_corners.json (updates to existing bottleneck flags & evidence on 8 nodes)
+- zh_narrow_corners.json (Chinese names for new nodes)
+- queries-narrow_corners.log (36 search queries, all logged, all from whitelisted sources)
+
+NARROW CORNERS IDENTIFIED & MODELED:
+=====================================
+
+1. HIGH-NA EUV PHOTOMASK BLANKS (Hoya Exclusive)
+   └─ Node: high_na_euv_mask_blank_hoya_exclusive
+   └─ Single-source: Hoya 100% (High-NA qualification only; standard EUV separate)
+   └─ Constraint: Q1 2025, only Hoya validated for High-NA systems (N3/N5 nodes)
+   └─ Quantified bottleneck: 100% Hoya monopoly in High-NA segment; allocation-gated 2025–2026
+   └─ Parent module: logic_die_fabrication → euv_photomask_production
+   └─ Evidence: ev_acc_nc4_hoya_highna_1, ev_acc_nc4_hoya_highna_2
+
+2. HBM THERMOCOMPRESSION BONDING (TCB) EQUIPMENT CLUSTER
+   └─ Node: hbm_specialized_thermocompression_bonding_equipment
+   └─ Single-source trend: Hanmi 71.2% revenue share (Q3 2025); ASMPT 5–8% growing
+   └─ Constraint: 2–3 quarter lead time, full utilization; SK Hynix & Micron both capacity-gated
+   └─ Quantified bottleneck: 71% market share, 2–3 quarter delivery lead time, $247.7M quarterly revenue
+   └─ Parent module: advanced_packaging → hbm_stack_assembly_die_bonding
+   └─ Evidence: ev_acc_nc4_hanmi_tcb_1, ev_acc_nc4_asmpt_share_gain_1
+   └─ Organization: org_hanmi_semiconductor (KOSDAQ: 011760, Korean equipment maker)
+
+3. INDIUM PHOSPHIDE (InP) SUBSTRATE WAFER SUPPLY
+   └─ Node: inp_substrate_wafer_supply_bottleneck
+   └─ Three-player market: JX Metals (~40%), Sumitomo (~35%), AXT (~15%), combined 80–90%
+   └─ Constraint: Acute shortage, 70%+ undersupply (600k–700k shipments vs 1.5–2M demand)
+   └─ Quantified bottleneck: Zero inventory industry-wide, order books 2027+, 18–24 month capacity lead time
+   └─ Parent module: interconnect_and_optics → eml_dfb_laser_diodes (1310nm coherent lasers)
+   └─ Evidence: ev_acc_nc4_inp_shortage_1, ev_acc_nc4_jx_expansion_1, ev_acc_nc4_coherent_guidance_1
+   └─ Organizations: org_jx_advanced_metals, org_sumitomo_electric, org_axt_inc
+
+4. T-GLASS FIBER CLOTH (Nittobo Monopoly)
+   └─ Node: nittobo_t_glass_fiber_monopoly
+   └─ Single-source: Nittobo 100% monopoly in T-glass (boron-free, low-CTE)
+   └─ Constraint: Severe shortage >40% H2 2026, price hikes 20% (Aug 2025) + 20–30% (Apr 2026 planned)
+   └─ Quantified bottleneck: 100% Nittobo monopoly, 3x capacity by early 2027 but pre-sold via LTAs, >40% supply gap H2 2026
+   └─ Parent module: substrate_and_interposer → organic_substrate_buildup + abf_build_up_film
+   └─ Evidence: ev_acc_nc4_nittobo_monopoly_1, ev_acc_nc4_tglass_shortage_1, ev_acc_nc4_asahi_entry_1
+   └─ Organization: org_nittobo (3110.JP, Tokyo Stock Exchange)
+
+5. HOYA-DOMINANT EUV PHOTOMASK BLANKS (Standard + High-NA Combined)
+   └─ Node: hoya_core_euv_mask_blanks_duopoly_hoya_dominant
+   └─ Duopoly: Hoya 75%+ volume, AGC 20–25%, combined ~93% (duopoly-to-monopoly at High-NA node)
+   └─ Constraint: Allocation-gated 2025–2026, 12–18 month capacity expansion lead time
+   └─ Quantified bottleneck: 75% market share (volume), 12–18 month capacity lead time, allocation priority (TSMC > Samsung > Intel)
+   └─ Parent module: logic_die_fabrication → euv_photomask_production
+   └─ Evidence: ev_acc_nc4_hoya_euv_1, ev_acc_nc4_euv_market_1
+   └─ Organizations: org_hoya (primary), org_agc (secondary)
+
+CORNERS INVESTIGATED BUT REJECTED:
+===================================
+
+1. MOJCVD EQUIPMENT (Veeco / Aixtron)
+   └─ Reason: Duopoly (Veeco 50%, Aixtron 40%, others 10%) — not single-source; multiple qualified suppliers with clear market share distribution. Not a narrow corner.
+
+2. LIQUID COOLING CDU (Coolant Distribution Units)
+   └─ Reason: Highly competitive market (nVent, Boyd, Eaton, Vertiv, Johnson Controls, Carrier, Airedale, Motivair, Nortek, Trane) — no single supplier. Multiple qualified vendors in HVM since 2024–2025.
+
+3. FLIP-CHIP UNDERFILL EPOXY
+   └─ Reason: Multi-sourced (NAMICS, Henkel, Hoenle, Creative Materials) — NAMICS dominant but qualified alternatives available. Not single-source.
+
+4. GaN POWER STAGE ICs
+   └─ Reason: Competitive market (TI, Analog Devices, Power Integrations, Navitas, Renesas, STM, ROHM, Nexperia, EPC) — many qualified suppliers. No single-source corner.
+
+5. SAPPHIRE SEMICONDUCTOR WINDOWS
+   └─ Reason: Multi-sourced globally (Kyocera, CRYSCORE, Xinkehui, SHINKOSHA, MSE Supplies, UniversityWafer) — no single supplier dominance. Competitive market.
+
+6. HIGH-SPEED BACKPLANE PCB LAMINATES (Rogers / Isola)
+   └─ Reason: Duopoly but multi-sourced via strategic alliances. No single-source corner; both Rogers and Isola have full-HVM capabilities with differentiated products (Isola: I-Tera, TerraGreen; Rogers: RF/mmWave dominance). Not a narrow corner.
+
+7. SILICON PHOTONICS FOUNDRY
+   └─ Reason: TSMC COUPE entering HVM (2026), Intel dominant but multi-source ecosystem (GlobalFoundries, Tower Semiconductor, imec, TSMC). Ecosystem spreading, not concentrating. Not a single-source corner.
+
+CORNERS NOT FULLY RESOLVED (Gaps in Evidence):
+===============================================
+
+1. ABF (AJINOMOTO) MONOPOLY (95% market share)
+   └─ Status: IDENTIFIED but NOT MODELED as separate node (already exists: abf_build_up_film)
+   └─ Evidence added via patch: ev_acc_nc4_ajinomoto_abf_monopoly_1
+   └─ Reason: Existing node already bottleneckOf-flagged; patch operation adds narrow-source evidence and quantified 30% price hike constraint
+   └─ Quantified bottleneck: 95% Ajinomoto market share, 30% price increase Q3 2026, Morgan Stanley shortage 2027 projection
+
+DECOMPOSITION FRONTIERS MARKED:
+===============================
+
+1. inp_substrate_wafer_supply_bottleneck
+   └─ Upstream frontier: Raw indium refining, crystal growth techniques (not modeled; upstream of compound semiconductor supply chain)
+   └─ Downstream frontier: InP epitaxy (MOCVD/MBE) and laser device fabrication (modeled separately as epitaxial_growth_inp_gaas, compound_foundry_specialty)
+
+HISTORICAL CHOKEPOINT EPISODES ADDRESSED:
+==========================================
+
+1. abf_substrate_shortage (2021–2023) → Existing node updated with evidence of ongoing supply constraints; 2026–2027 shortage projected
+2. hbm_allocation_selloff (2023–2025) → HBM TCB equipment capacity constraint directly modeled; Hanmi 71% bottleneck
+3. optical_transceiver_eml_laser_lockup (2024–2025) → InP substrate wafer shortage directly gates 1310nm EML laser production; 70% undersupply documented
+4. leading_edge_foundry_capacity_n3_n5 (2023–2026) → EUV photomask blank supply (Hoya dominance) directly constrains TSMC/Samsung/Intel capacity for N3/N5 nodes
+
+DRY-RUN IMPORT STATUS:
+======================
+✓ PASS: npm run import:candidates -- --file .scratch/round4/batch_narrow_corners.json --domain ai_compute_chain --dry-run
+  Result: 6 nodes, 14 edges, 12 evidence items, 0 tasks — schema validation successful
+
+CONFIDENCE & QUALITY NOTES:
+===========================
+- All five corners are evidenced by 2024–2026 trade press, analyst research (SemiAnalysis, Trendforce, Yole, Morningstar), and company filings
+- Single-source claims (Hoya High-NA, Nittobo T-glass) backed by 100% market share statements from independent sources
+- Duopoly claims (Hoya 75%, Hanmi 71%) backed by quantified revenue/market share data from vendor IR and analyst reports
+- Supply deficit claims (InP 70%, T-glass 40%, ABF 2027) backed by capacity figures, order book depth, and shortage episode documentation
+- No vibes-based bottlenecks; every bottleneckOf claim carries quantified capacity, lead time, or market-share evidence at the node itself
+- Confidence levels range high (0.85–0.90) for monopoly/duopoly positions, medium (0.80) for secondary suppliers (AXT, AGC in duopoly positions)
+
+SEARCH METHODOLOGY:
+===================
+- 36 queries total, all from whitelisted sources (DigiTimes, SemiAnalysis, TrendForce, Yole, Morningstar, trade press, company IR/filings, analyst houses)
+- No forbidden sources, no investor-pick commentary, no social media
+- Queries targeted: "sole supplier" + "only qualified" + "monopoly" + tier/component terms in 2021–2026 archives
+- Search fatigue point: After 35+ queries, diminishing returns on new corners; focus narrowed to high-confidence single-source candidates only
+- Quality > quantity: 5 real single-source/duopoly corners beats 20 vague allegations
+
+FINAL NODE COUNTS & EDGES:
+==========================
+- New nodes created: 5 material/equipment (high_na_euv_mask_blank_hoya_exclusive, hbm_specialized_thermocompression_bonding_equipment, inp_substrate_wafer_supply_bottleneck, nittobo_t_glass_fiber_monopoly, hoya_core_euv_mask_blanks_duopoly_hoya_dominant) + 1 organization (org_hanmi_semiconductor)
+- New edges created: 14 (requires, manufactured_by relations linking corners to parents and suppliers)
+- Evidence records: 12 (all unreviewed per ADR-0001; no silent omissions; every org has market-share + listing metric where applicable)
+- Patches: 8 existing nodes updated with bottleneck/evidence refinements
+- Coverage: All 5 corners map to at least one level-1 module; decomposition depth uniform across cores
+
+END SUMMARY
+===========

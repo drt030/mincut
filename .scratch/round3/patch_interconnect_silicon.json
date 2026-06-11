@@ -1,0 +1,116 @@
+{
+  "nodes": [
+    {
+      "id": "org_astera_labs",
+      "name": "Astera Labs, Inc.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_connectivity"
+      ],
+      "description": "Fabless semiconductor company specializing in high-speed connectivity silicon for AI infrastructure. Flagship products include Aries PCIe retimers (Gen 5/6/7), Scorpio fabric switches (P-Series and X-Series for GPU clustering), Taurus smart cable modules for Ethernet, and Leo CXL memory controllers. Founded 2017; IPO March 2024 (NASDAQ: ALAB).",
+      "maturityLabel": "widely_adopted",
+      "confidence": "high",
+      "maturityAsOf": "2026-06",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "ALAB"
+        },
+        {
+          "name": "Q2 FY2025 revenue breakdown",
+          "unit": "%",
+          "currentValue": 47,
+          "description": "Aries retimer products drove majority of Q2 FY2025 revenue; Taurus smart cable modules and Scorpio switches contributing. Scorpio achieved >10% revenue share by Q2 2025."
+        },
+        {
+          "name": "YoY revenue growth (Q4 FY2024 vs Q4 FY2023)",
+          "unit": "%",
+          "currentValue": 206,
+          "description": "Astera Labs reported 206% YoY revenue growth in Q4 FY2024 driven by AI datacenter demand."
+        },
+        {
+          "name": "Market share in PCIe retimer segment",
+          "unit": "%",
+          "currentValue": 35,
+          "description": "Astera Labs estimated 30–40% of global PCIe retimer market based on market research and analyst consensus (Polaris Market Research, 2024–2025)."
+        }
+      ],
+      "tags": [
+        "fabless",
+        "interconnect",
+        "retimer",
+        "pcie",
+        "cxl",
+        "ai_infrastructure",
+        "public_company"
+      ],
+      "notes": "Astera Labs is the market leader in PCIe retimers and the first merchant fabric switch supplier. Critical supplier for AI accelerator scale-up clustering. High investor relevance due to growth trajectory and concentration in AI datacenter connectivity market.",
+      "evidenceIds": [
+        "ev_acc_icsi_astera_labs_ipo_2024",
+        "ev_acc_icsi_astera_aries_adoption",
+        "ev_acc_icsi_astera_q4_2024_earnings"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_credo",
+      "name": "Credo Technology Group Holding Ltd.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_connectivity"
+      ],
+      "description": "Fabless semiconductor company supplying high-speed connectivity and signal conditioning silicon for datacenter and AI infrastructure. Product lines include PCIe retimers (Toucan, Magpie), active electrical cable (AEC) DSPs, optical DSPs, and line card retimers. Founded 2014; IPO July 2024 (NASDAQ: CRDO).",
+      "maturityLabel": "widely_adopted",
+      "confidence": "high",
+      "maturityAsOf": "2026-06",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "CRDO"
+        },
+        {
+          "name": "Q2 FY2025 record revenue",
+          "unit": "million USD",
+          "currentValue": 72,
+          "costAsOf": "2025",
+          "currency": "USD",
+          "description": "Credo reported record Q2 FY2025 revenue of $72M with record revenues across all three core product lines: AEC, optical DSP, line card retimers."
+        },
+        {
+          "name": "Q1 FY2026 free cash flow",
+          "unit": "million USD",
+          "currentValue": 51.3,
+          "costAsOf": "2026",
+          "currency": "USD",
+          "description": "Credo generated $51.3M free cash flow in Q1 FY2026, allowing self-funding of 3nm DSP R&D."
+        },
+        {
+          "name": "Market share in optical DSP and AEC segment",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Credo estimated 15–25% market share in AEC and optical DSP segment (analyst consensus, 2024–2025)."
+        }
+      ],
+      "tags": [
+        "fabless",
+        "connectivity",
+        "retimer",
+        "aec",
+        "optical_dsp",
+        "ai_infrastructure",
+        "public_company"
+      ],
+      "notes": "Credo is second-largest retimer supplier and primary AEC/DSP specialist. Strong position in emerging 3nm AEC retimer market (Magpie PCIe 7). Investor relevance: high exposure to AI datacenter copper interconnect growth.",
+      "evidenceIds": [
+        "ev_acc_icsi_credo_ipo_2024",
+        "ev_acc_icsi_credo_q2_fy2025_earnings",
+        "ev_acc_icsi_credo_3nm_development"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ]
+}

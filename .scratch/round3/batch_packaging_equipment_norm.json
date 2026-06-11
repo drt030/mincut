@@ -1,0 +1,2413 @@
+{
+ "nodes": [
+  {
+   "id": "x_ray_inspection_advanced_packaging",
+   "name": "X-ray inspection for advanced packaging (2.5D/3D solder defects)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Volumetric X-ray inspection systems (CT, laminography) for detecting voids, cracks, missing bumps, head-in-pillow defects, and bond-line thickness variation in micro-bumps, hybrid-bonded interfaces, and solder-joint arrays in 2.5D/3D chiplet packages. Sub-1µm resolution critical for HBM stack qualification. Bottleneck: limited vendor population (Comet Yxlon, Camtek, Onto Innovation, KLA) and 12-18 month lead times for system delivery.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "System delivery lead time",
+     "unit": "months",
+     "currentValue": 16,
+     "description": "Typical lead time from order to installation for advanced X-ray inspection systems; sourced from Comet Yxlon and Camtek product literature."
+    },
+    {
+     "name": "Top-2 vendor market share (Comet Yxlon + Camtek)",
+     "unit": "%",
+     "currentValue": 65,
+     "description": "Combined market share of leading vendors in advanced packaging X-ray inspection; Onto Innovation and KLA serve broader metrology markets. Source: 2025 analyst reports on semiconductor metrology equipment market."
+    },
+    {
+     "name": "Resolution (X-ray imaging)",
+     "unit": "nm",
+     "currentValue": 500,
+     "description": "State-of-the-art sub-micron resolution achieved by Comet Yxlon CA20 and Onto Innovation Dragonfly; required for sub-0.5µm defect detection in fine-pitch interconnects."
+    }
+   ],
+   "tags": [
+    "metrology",
+    "inspection",
+    "advanced_packaging",
+    "quality_control",
+    "bottleneck_adjacent"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_xray_comet",
+    "ev_acc_pkgeq_xray_camtek",
+    "ev_acc_pkgeq_xray_leadtime"
+   ],
+   "bottleneckOf": [],
+   "notes": "X-ray inspection is a critical post-assembly process control step. Market is concentrated: Comet Yxlon leads with CA20 system; Camtek (Eagle family) and Onto Innovation (Dragonfly) serve HBM/2.5D; KLA provides broader metrology but focuses on wafer-fab metrology. Lead time of 12-18 months for custom system commissioning is a secondary constraint on fab ramp capacity. No shortage episodes documented in 2024-2025, but systems are ordered 18+ months ahead for major OSAT capacity buildouts.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "optical_bump_metrology_inspection",
+   "name": "Optical metrology and bump inspection (2D/3D surface topology, height, coplanarity)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "High-resolution automated optical inspection (AOI) and laser-triangulation systems for measuring bump height, coplanarity, surface defects, and 3D topology on flip-chip dies and micro-bumps prior to underfill and reflow. Nanometer-scale vertical resolution (0.5-5nm) required for solder-joint reliability. AI-driven defect classification for high-throughput production yield monitoring. Vendors: Camtek, Confovis, Onto Innovation (Dragonfly 2D). Lower cost alternative to X-ray for high-volume process control.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Vertical resolution",
+     "unit": "nm",
+     "currentValue": 1,
+     "description": "Best-in-class optical metrology systems achieve <1nm vertical measurement repeatability; Confovis WAFERinspect and Camtek Eagle G5 meet this specification."
+    },
+    {
+     "name": "Top-3 vendor presence",
+     "unit": "count",
+     "currentValue": 3,
+     "description": "Camtek (Eagle family), Confovis (WAFERinspect), Onto Innovation (Dragonfly 2D) dominate optical metrology for chiplet assembly; KLA also supplies optical tools."
+    },
+    {
+     "name": "Throughput (typical AOI system)",
+     "unit": "wafers/hour",
+     "currentValue": 8,
+     "description": "High-speed optical metrology systems can process 6-10 wafers/hour depending on die size and sampling strategy; critical for cycle-time management in OSAT lines."
+    }
+   ],
+   "tags": [
+    "metrology",
+    "inspection",
+    "optical",
+    "advanced_packaging",
+    "yield_control"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_optical_camtek",
+    "ev_acc_pkgeq_optical_confovis",
+    "ev_acc_pkgeq_optical_resolution"
+   ],
+   "bottleneckOf": [],
+   "notes": "Optical metrology is less capital-intensive than X-ray and more suitable for 100%-sampling process control in high-volume production. Camtek is the market leader in advanced packaging AOI; Confovis is a specialist focused on 3DIC and chiplet applications (Jena, Germany). Onto Innovation's Dragonfly 2D complements their X-ray 3Di. No documented capacity constraints in 2025, but systems are ordered 6-9 months in advance for major fabs.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "wafer_bonding_alignment_systems",
+   "name": "Wafer-to-wafer (W2W) bonding and alignment systems (hybrid bonding, permanent bonding)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Precision wafer-bonding systems for hybrid bonding (copper-dielectric pad bonding at <350°C) and permanent bonding. Sub-50nm alignment accuracy required for fine-pitch interconnects. Vendors: EVG (SmartView alignment, ~26% market share), SUSS MicroTec (~21%), BESI (leaders in hybrid bonding), Applied Materials, Canon, ASMPT. Lead time 12-18 months. Critical for 2.5D/3D interposer and chiplet assembly.",
+   "maturityScore": 80,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "EVG market share (W2W bonding)",
+     "unit": "%",
+     "currentValue": 26,
+     "description": "EV Group holds leading position in automatic wafer bonding equipment with ~1500+ installed chambers; source: 2025 market analysis."
+    },
+    {
+     "name": "SUSS MicroTec market share (W2W bonding)",
+     "unit": "%",
+     "currentValue": 21,
+     "description": "SUSS MicroTec is the second-largest player in wafer bonding equipment; 2024 revenue €446.1M (+46.6% YoY) driven by HBM/advanced packaging."
+    },
+    {
+     "name": "Alignment accuracy (EVG SmartView)",
+     "unit": "nm",
+     "currentValue": 50,
+     "description": "Industry-leading sub-50nm alignment accuracy achieved by EVG; critical for hybrid bonding fine-pitch (≤5µm pitch) interconnects."
+    },
+    {
+     "name": "System delivery lead time",
+     "unit": "months",
+     "currentValue": 14,
+     "description": "Typical 12-16 month lead time from order to installation for W2W bonding systems; sourced from EVG and SUSS product literature."
+    }
+   ],
+   "tags": [
+    "bonding",
+    "alignment",
+    "process_equipment",
+    "advanced_packaging",
+    "supply_constrained"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_w2w_evg",
+    "ev_acc_pkgeq_w2w_suss",
+    "ev_acc_pkgeq_w2w_hybrid"
+   ],
+   "bottleneckOf": [],
+   "notes": "W2W bonding is a key enabler for hybrid bonding, which is ramping rapidly for HBM4 and advanced logic packaging. EVG is dominant; BESI specialized in hybrid bonding (>150 cumulative orders, 18 customers). No acute shortage in 2025, but OSAT capacity buildouts are constrained by 12-18 month tool delivery windows. Hybrid bonding revenue at BESI projected to grow from €36M (2023) to €476M (2026).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "thermocompression_bonding_systems",
+   "name": "Thermocompression bonding (TCB) systems for chip-to-substrate and die-to-wafer",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Precision thermocompression bonding equipment for micro-bump flip-chip bonding (Cu/Sn solder under 250-280°C, <5 µm placement accuracy). Used for die-attach and chiplet-to-substrate integration. Major vendors: ASMPT (largest installed base, 35-40% market share target by 2027, TAM >$1B), BESI, Kulicke & Soffa (K&S). ASMPT's FIREBIRD TCB delivers ±2µm placement accuracy. Hybrid bonding tool typical cost: $10-20M with 12-18 month lead time.",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "ASMPT installed base",
+     "unit": "tools",
+     "currentValue": 250,
+     "description": "ASMPT shipped 250th thermocompression bonding tool as of 2025; company holds largest installed base globally and targets 35-40% market share by 2027."
+    },
+    {
+     "name": "Placement accuracy (ASMPT FIREBIRD)",
+     "unit": "µm",
+     "currentValue": 2,
+     "description": "±2.0µm placement accuracy for flip-chip bonding; cycle time <2 seconds for high-volume production."
+    },
+    {
+     "name": "Bonding temperature process window",
+     "unit": "°C",
+     "currentValue": 250,
+     "description": "Thermocompression bonding typically 250-280°C; critical for underfill capillary wetting and solder reflow control."
+    },
+    {
+     "name": "Tool delivery lead time (estimated)",
+     "unit": "months",
+     "currentValue": 16,
+     "description": "Bonding tool lead time 12-18 months, mentioned in AMKOR capex disclosure as constraint on 2026 capacity expansion."
+    }
+   ],
+   "tags": [
+    "bonding",
+    "die_attach",
+    "thermocompression",
+    "process_equipment",
+    "supply_constrained"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_tcb_asmpt",
+    "ev_acc_pkgeq_tcb_leadtime",
+    "ev_acc_pkgeq_tcb_market"
+   ],
+   "bottleneckOf": [],
+   "notes": "TCB is critical for flip-chip bonding in HBM and advanced AI accelerators. ASMPT dominates with FIREBIRD and NANO Lite platforms (250+ units shipped). BESI competes in hybrid bonding (W2W) but also offers TCB solutions. K&S historically led but ASMPT gained share via process innovation. Market TAM expected to exceed $1B by 2027. Recent orders: ASMPT secured 19 C2S tools for AI packaging (2024-2025). No acute shortage documented, but tool availability is managed through multi-quarter order books.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "underfill_dispensing_equipment",
+   "name": "Underfill dispensing systems (capillary and jet-based)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Automated dispensing equipment for capillary and high-frequency jet underfill (epoxy, flowable-underfill) application between flip-chip die and substrate. Jet systems (Nordson ASYMTEK IntelliJet up to 1.8M dots/hour, 1kHz frequency) enable tight-gap filling for <20µm pitches. Vendors: Nordson ASYMTEK (dominant, non-contact jetting), ITW EAE/Camalot (capillary+jet hybrid), Axxon (Mycronic), GPD Global. Process window critical: void-free fill with minimal solder-bump squeeze-out and fast cycle time.",
+   "maturityScore": 75,
+   "maturityLabel": "mature",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "ASYMTEK IntelliJet frequency",
+     "unit": "Hz",
+     "currentValue": 1000,
+     "description": "Maximum jetting frequency 1000Hz for ultra-fast underfill fill in tight-pitch geometries; throughput up to 1.8M dots/hour."
+    },
+    {
+     "name": "Minimum gap fillable (jet)",
+     "unit": "µm",
+     "currentValue": 18,
+     "description": "Modern jet systems can fill gaps <20µm with <5% void rate; critical for fine-pitch bump (<25µm) and chiplet assembly."
+    },
+    {
+     "name": "Vendor count (mature market)",
+     "unit": "suppliers",
+     "currentValue": 4,
+     "description": "Nordson ASYMTEK, ITW Camalot, Axxon, GPD Global; established supplier base with multiple capable options."
+    }
+   ],
+   "tags": [
+    "dispensing",
+    "process_equipment",
+    "underfill",
+    "encapsulation",
+    "mature"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_underfill_asymtek",
+    "ev_acc_pkgeq_underfill_itw",
+    "ev_acc_pkgeq_underfill_throughput"
+   ],
+   "bottleneckOf": [],
+   "notes": "Underfill dispensing is a mature, multi-sourced process. Nordson ASYMTEK leads with IntelliJet non-contact jetting technology. ITW Camalot (SmartStream pump) is a strong #2. Equipment cost is moderate (~$0.5-2M) and lead time short (3-6 months). No supply constraints documented. Process innovation focus: improved flowability for void-free fill in narrower gaps and improved thermal conductivity underfill materials (targeting 3-5 W/mK for advanced packages).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "thermal_profiling_and_process_control",
+   "name": "Thermal profiling and process control systems (flip-chip, underfill, reflow)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Sensors and software for real-time temperature profiling of flip-chip thermocompression bonding, underfill curing, and reflow soldering processes. Multi-thermocouple probe design with integrated data acquisition and analytics. Vendors: KIC Thermal (specialized for semiconductor packaging, patented sensor hardware), Datapaq (Fluke subsidiary), Speedline, others. Critical for process validation and yield improvement; part of in-line quality control for advanced packaging lines.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Thermal profiling market CAGR",
+     "unit": "%",
+     "currentValue": 7.3,
+     "description": "Thermal profiling market projected CAGR 2024-2030; market valued at ~$1.8B by 2030. Source: FutureMarketInsights."
+    },
+    {
+     "name": "Measurement accuracy (typical)",
+     "unit": "°C",
+     "currentValue": 2,
+     "description": "±2°C measurement accuracy for multi-thermocouple profilers; critical for process window optimization."
+    }
+   ],
+   "tags": [
+    "process_control",
+    "metrology",
+    "thermal",
+    "quality_assurance"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_thermal_kic",
+    "ev_acc_pkgeq_thermal_market"
+   ],
+   "bottleneckOf": [],
+   "notes": "Thermal profiling is a supporting metrology tool, not a process bottleneck. KIC Thermal is a specialist company serving semiconductor packaging; Datapaq (part of Fluke) serves broader electronics manufacturing. Systems cost $50k-200k and are standard equipment in OSAT advanced packaging lines. No supply constraints.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "wafer_probe_testing_advanced_packaging",
+   "name": "Wafer probe testing and contactors (fine-pitch bumped die, known-good-die qualification)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Automated probe test systems and custom probe heads/contactors for functional and parametric testing of fine-pitch bumped chiplets (100-650µm pitch). Validates power delivery, signal integrity, memory function (HBM core test), and thermal transient response. Integrated with ATE platforms (Teradyne Magnum 7H for HBM, Cohu-Xcerra-LTX-Credence integrated platform). Spring probe technology for WLCSP compatibility. Critical for known-good-die (KGD) and known-good-interposer (KGI) qualification in chiplet assembly flow.",
+   "maturityScore": 80,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Teradyne Magnum 7H data rate (HBM)",
+     "unit": "Gbps",
+     "currentValue": 4.5,
+     "description": "Supports HBM3/3E test data rates up to 4.5 Gbps; configurable up to 9,216 digital pins + 2,560 power pins."
+    },
+    {
+     "name": "Probe pitch range (spring technology)",
+     "unit": "µm",
+     "currentValue": 350,
+     "description": "Spring probe systems cover 100µm to 650µm pitch (HYDRA RF, xWave families); enables fine-pitch WLCSP testing."
+    },
+    {
+     "name": "ATE market leader share (Advantest + Teradyne)",
+     "unit": "%",
+     "currentValue": 70,
+     "description": "Advantest and Teradyne account for 70%+ of global ATE market; Cohu (including Xcerra, LTX-Credence) is the #3 player."
+    }
+   ],
+   "tags": [
+    "test_equipment",
+    "probe",
+    "process_control",
+    "known_good_die",
+    "qualification"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_probe_teradyne",
+    "ev_acc_pkgeq_probe_cohu",
+    "ev_acc_pkgeq_ate_market"
+   ],
+   "bottleneckOf": [],
+   "notes": "Wafer probe testing is a critical quality gate for KGD qualification and HBM stack testing. Teradyne's Magnum 7H platform is industry-standard for HBM base-die and stacked-die testing. Cohu (through Xcerra acquisition) offers integrated ATE + handler solutions with proprietary probe technology (HYDRA RF, xWave). No supply constraints in 2025, but ATE/probe head customization for new HBM variants requires 3-6 month lead time.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "singulation_laser_dicing_systems",
+   "name": "Laser dicing (singulation) systems for chiplets and modules",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Precision laser dicing systems for wafer singulation post-packaging. DISCO stealth dicing and KABRA processes minimize chipping, mechanical stress, and thermal damage to solder bumps and interconnects. Alternative to mechanical saws for advanced packages. DISCO dominates with 70-80% global share and 4,000+ cumulative unit shipments by 2025. Laser dicing market share grew from 26% (2022) to 31.8% (2025) driven by chiplet/advanced-packaging adoption.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "DISCO global market share (dicing equipment)",
+     "unit": "%",
+     "currentValue": 75,
+     "description": "DISCO Corporation holds 70-80% market share in semiconductor dicing saws; ~4,000 cumulative laser dicing units shipped by 2025."
+    },
+    {
+     "name": "Laser dicing market share (vs mechanical)",
+     "unit": "%",
+     "currentValue": 31.8,
+     "description": "Laser dicing product type held 31.8% market share in 2025, up from 26% in 2022, driven by chiplet/2.5D/3D adoption."
+    },
+    {
+     "name": "DISCO system cost (estimated)",
+     "unit": "million USD",
+     "currentValue": 3,
+     "description": "Typical DISCO laser dicing system cost $2-4M depending on specification; lead time 6-9 months."
+    }
+   ],
+   "tags": [
+    "singulation",
+    "dicing",
+    "laser",
+    "process_equipment",
+    "supply_constrained"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_disco_market",
+    "ev_acc_pkgeq_disco_tech",
+    "ev_acc_pkgeq_dicing_growth"
+   ],
+   "bottleneckOf": [
+    "ai_accelerator_module_hbm_cowos"
+   ],
+   "notes": "DISCO is a near-monopolist in laser dicing (70-80% share). Company has immense pricing power and sticky relationships with TSMC, Samsung, SK Hynix. Stealth dicing pioneered by DISCO is preferred for chiplets to minimize stress and bump damage. No acute shortage in 2025, but capacity is allocated to tier-1 fabs months in advance. DISCO stock (6146.T) is debt-free with 54% ROIC. Laser dicing is a secondary (not primary) bottleneck: it is a downstream singulation step after all assembly and test, so it affects module delivery timeline but not module assembly yield.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "plasma_surface_activation_systems",
+   "name": "Plasma surface activation and cleaning (wafer bonding prep)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Plasma treatment systems for pre-bonding wafer surface preparation (N2/O2 plasma activation, megasonic cleaning). Enables low-temperature bonding by creating reactive surface dangling bonds. Vendors: Keylink Technologies, Nordson MARCH, Finetech (Argon plasma module). Now qualification requirement at leading TSMC, Samsung, Intel fabs. Process time ~10-30 min per wafer lot.",
+   "maturityScore": 76,
+   "maturityLabel": "mature",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Vendor count (established market)",
+     "unit": "suppliers",
+     "currentValue": 3,
+     "description": "Keylink Technologies, Nordson MARCH, Finetech are primary established suppliers; multi-sourcing available."
+    },
+    {
+     "name": "Plasma activation time",
+     "unit": "minutes",
+     "currentValue": 20,
+     "description": "Typical N2 plasma activation time 10-30 min per wafer lot; critical for wafer-bonding cycle time."
+    }
+   ],
+   "tags": [
+    "surface_prep",
+    "bonding",
+    "process_equipment",
+    "mature"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_plasma_keylink",
+    "ev_acc_pkgeq_plasma_nordson"
+   ],
+   "bottleneckOf": [],
+   "notes": "Plasma activation is an established, multi-sourced process. Keylink Technologies has supplied systems to leading TSMC/Samsung packaging lines. Nordson MARCH is a diversified supplier. Finetech integrates plasma module into their femto die-bonding platform. No supply constraints documented. Equipment cost moderate (~$0.5-2M) and lead time 6-9 months.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "bump_height_curing_furnace",
+   "name": "Curing and reflow furnace systems (underfill, encapsulant, solder reflow)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Precision thermal processing ovens for underfill curing, encapsulation, and solder reflow in advanced packaging assembly. Temperature ramp/soak/cool profiles critical for stress management and void elimination. Integrated with thermal profiling systems for process validation. Vendors: Despatch, BTU, Heller, others (traditional SMT equipment suppliers). Cost $0.3-1M, lead time 4-8 months.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Temperature profile ramp rate",
+     "unit": "°C/min",
+     "currentValue": 5,
+     "description": "Typical ramp rate 3-10°C/min for underfill curing and solder reflow to minimize thermal stress."
+    },
+    {
+     "name": "Vendor count (established market)",
+     "unit": "suppliers",
+     "currentValue": 5,
+     "description": "Multiple mature vendors (Despatch, BTU, Heller, etc.) offer standard curing ovens; multi-sourcing available."
+    }
+   ],
+   "tags": [
+    "curing",
+    "thermal",
+    "process_equipment",
+    "mature"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_furnace_despatch"
+   ],
+   "bottleneckOf": [],
+   "notes": "Curing and reflow furnaces are commodity equipment with multiple qualified suppliers. No supply constraints. Equipment is integrated with thermal profiling systems (KIC, Datapaq) for process control and validation.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "environmental_test_chambers_qualification",
+   "name": "Environmental test chambers (thermal cycling, burn-in qualification)",
+   "kind": "equipment",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Climatic chambers for thermal cycling (-55°C to +125°C) and burn-in testing of packaged modules. Standard JEDEC qualification: AEC-Q100 500-1000 cycles, burn-in at elevated temp/voltage/power. Vendors: multiple (Unitherm, Weiss, others). Typically racked with test handlers (Cohu, Teradyne) and parallel tester cards. Critical gate for reliability qualification of HBM modules and AI accelerators.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Vendor count (established market)",
+     "unit": "suppliers",
+     "currentValue": 4,
+     "description": "Multiple established chamber suppliers (Unitherm, Weiss, TPS, others); no supply concentration."
+    },
+    {
+     "name": "Thermal cycling standard",
+     "unit": "cycles",
+     "currentValue": 500,
+     "description": "JEDEC AEC-Q100 qualification standard: -55°C to +125°C, 500-1000 cycles, 10-15 min dwell at each extreme."
+    }
+   ],
+   "tags": [
+    "qualification",
+    "test",
+    "thermal",
+    "reliability"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_chamber_thermal"
+   ],
+   "bottleneckOf": [],
+   "notes": "Environmental test chambers are commodity equipment. No supply constraints. Multiple qualified suppliers available. Critical for reliability validation but not a production bottleneck—qualification occurs in parallel with high-volume production.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_onto_innovation",
+   "name": "Onto Innovation (formerly Rudolph Technologies + Nanometrics)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-headquartered metrology and inspection equipment supplier. Dragonfly 2D/3D pattern inspection and bump metrology systems for advanced packaging (HBM, 2.5D logic). Dragonfly 3Di qualified by two HBM manufacturers as of Q3 2025; volume orders expected 2026+. Part of broader WFE metrology suite. Publicly listed NASDAQ: ONTO.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "ONTO (NASDAQ)",
+     "description": "Publicly traded on NASDAQ under ticker ONTO; verified on IR website."
+    },
+    {
+     "name": "Dragonfly 3Di volume orders",
+     "unit": "systems",
+     "currentValue": 10,
+     "description": "Dragonfly 3Di qualified for HBM and 2.5D; double-digit orders for G5 + 3Di received with shipments starting Q2 2026. Source: Q3 2025 earnings."
+    },
+    {
+     "name": "HBM customer qualifications",
+     "unit": "count",
+     "currentValue": 2,
+     "description": "Dragonfly 3Di fully qualified by two major HBM manufacturers as of Q3 2025; critical for high-volume revenue streams."
+    }
+   ],
+   "tags": [
+    "metrology",
+    "inspection",
+    "advanced_packaging",
+    "supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_onto_ir",
+    "ev_acc_pkgeq_onto_qualification"
+   ],
+   "notes": "Onto Innovation is a key player in advanced packaging metrology. Dragonfly platform (2D optical + 3Di X-ray) directly addresses chiplet/HBM inspection needs. No supply constraints documented.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_camtek",
+   "name": "Camtek Ltd. (Israeli optical metrology and inspection)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Israeli metrology and inspection equipment supplier. Specializes in advanced packaging optical inspection (Eagle family: G5, T-AP, T-i, Hawk systems) for 2D/3D surface topology, bump height, RDL thickness measurement, and defect detection down to sub-micron. Market-leading position in advanced packaging AOI (65% share of specialized segment alongside Onto Innovation). Publicly listed on Tel Aviv Stock Exchange (TASE): CAMT.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "CAMT (TASE)",
+     "description": "Publicly traded on Tel Aviv Stock Exchange (TASE) under ticker CAMT; verified on investor relations."
+    },
+    {
+     "name": "Advanced packaging inspection market share (top-2 with ONTO)",
+     "unit": "%",
+     "currentValue": 65,
+     "description": "Camtek and Onto Innovation combined hold ~65% of advanced packaging inspection systems market as of 2025."
+    },
+    {
+     "name": "Resolution capability (Eagle G5)",
+     "unit": "µm",
+     "currentValue": 2,
+     "description": "Sub-micron defect detection and RDL thickness measurement down to 2µm; AI-driven algorithms for yield optimization."
+    }
+   ],
+   "tags": [
+    "metrology",
+    "inspection",
+    "optical",
+    "advanced_packaging",
+    "Israeli_supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_camtek_ir",
+    "ev_acc_pkgeq_camtek_marketshare"
+   ],
+   "notes": "Camtek is the market-leading specialist in advanced packaging optical inspection. Eagle family (G5, T-AP, Hawk) widely deployed at TSMC, Samsung, Amkor, ASE. Focused strategy on chiplet/HBM vertical vs. broad WFE metrology.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_comet_yxlon",
+   "name": "Comet Yxlon (Switzerland, X-ray inspection systems)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Swiss X-ray and computed tomography equipment supplier. Specializes in 3D X-ray inspection for advanced packaging: CA20 (automated 3D X-ray laminography for micro-bump and solder-joint defects, <1µm resolution), FF35 CT systems. 2025 product launches: fully-automated CA20 configurations for lab-to-fab inspection. Primary vendor for hybrid-bonding and HBM package inspection alongside Camtek and Onto Innovation. Parent company: Comet Holding (public, SIX: COMET).",
+   "maturityScore": 78,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Parent company public listing",
+     "currentValue": "COMET (SIX, Switzerland)",
+     "description": "Comet Yxlon is division of Comet Holding AG, publicly traded on SIX under ticker COMET."
+    },
+    {
+     "name": "X-ray resolution (CA20)",
+     "unit": "nm",
+     "currentValue": 500,
+     "description": "Sub-1µm resolution (500nm to <1µm) achievable with Comet Yxlon CA20 for micro-bump and solder-joint metrology."
+    },
+    {
+     "name": "System delivery lead time",
+     "unit": "months",
+     "currentValue": 14,
+     "description": "Typical 12-16 month lead time for custom CA20 system order and installation; competitive parity with Camtek."
+    }
+   ],
+   "tags": [
+    "X-ray",
+    "inspection",
+    "metrology",
+    "advanced_packaging",
+    "Swiss_supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_comet_ir",
+    "ev_acc_pkgeq_comet_ca20"
+   ],
+   "notes": "Comet Yxlon is strong #2-#3 player in advanced packaging X-ray inspection. CA20 system increasingly competitive against Camtek and Onto Innovation; 2025 fully-automated rollout enhances fab throughput. Comet parent company (SIX: COMET) is profitable and growing.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_confovis",
+   "name": "Confovis GmbH (Germany, optical metrology specialist)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "German optical metrology specialist (Jena, Thuringia). WAFERinspect AOI system for 3D optical surface inspection and micro-bump metrology on advanced packaging and 3DIC. Sub-nanometer vertical resolution (<1nm) with AI-driven defect classification. Serves chiplet and HBM packaging lines. Private company; founded 2009. Emerging specialist competing against larger players (Camtek, Onto).",
+   "maturityScore": 76,
+   "maturityLabel": "mature",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Resolution (vertical)",
+     "unit": "nm",
+     "currentValue": 1,
+     "description": "Single-nanometer vertical measurement repeatability on micro-bumps down to 1µm; WAFERinspect AOI platform."
+    },
+    {
+     "name": "Company status",
+     "currentValue": "Private",
+     "description": "Confovis GmbH is private company; no public listing."
+    }
+   ],
+   "tags": [
+    "metrology",
+    "optical",
+    "3DIC",
+    "private_supplier",
+    "German"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_confovis_product"
+   ],
+   "notes": "Confovis is a smaller, specialist optical metrology vendor for advanced packaging. Strong technical position in 3DIC and chiplet inspection. Private company, unlikely to be IPO target in near term but could be acquisition target by larger metrology platforms.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_besi",
+   "name": "BE Semiconductor Industries N.V. (BESI, Netherlands/Asia)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Dutch semiconductor equipment supplier headquartered in Netherlands, with major manufacturing in Asia. Leader in hybrid bonding and thermocompression bonding equipment for advanced packaging. 150+ cumulative hybrid bonding system orders, 18 customers as of 2025. Targets 35-40% market share of TCB/hybrid bonding market by 2027 (TAM >$1B). Publicly listed EURONEXT: BESI.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "BESI (Euronext)",
+     "description": "Publicly traded on Euronext under ticker BESI; Dutch company with Asia operations."
+    },
+    {
+     "name": "Hybrid bonding system orders",
+     "unit": "tools",
+     "currentValue": 150,
+     "description": "Over 150 cumulative hybrid bonding system orders placed with 18 customers as of 2025; fastest-growing segment."
+    },
+    {
+     "name": "Target market share (TCB/hybrid bonding)",
+     "unit": "%",
+     "currentValue": 38,
+     "description": "BESI targets 35-40% market share by 2027 in $1B+ TAM; currently estimated 25-30% share."
+    },
+    {
+     "name": "Hybrid bonding revenue projection 2026",
+     "unit": "million EUR",
+     "currentValue": 476,
+     "description": "BESI hybrid bonding revenue projected to grow from €36M (2023) to €476M (2026), representing 1/3 of total business."
+    }
+   ],
+   "tags": [
+    "bonding",
+    "hybrid_bonding",
+    "thermocompression",
+    "advanced_packaging",
+    "supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_besi_ir",
+    "ev_acc_pkgeq_besi_orders",
+    "ev_acc_pkgeq_besi_market"
+   ],
+   "notes": "BESI is the market leader in hybrid bonding, critical for next-generation HBM4 and advanced logic packaging. Company is experiencing explosive growth driven by AI datacenter buildout. Strong order book 12-18 months out.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_evg",
+   "name": "EV Group (Evatronix, Austria, wafer bonding leader)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Austrian wafer bonding and alignment equipment specialist headquartered in Sankt Florian am Inn. Market leader in automatic wafer bonding systems (W2W permanent bonding, MEMS bonding, hybrid-bonding enabler). 26% global market share with 1500+ installed chambers. SmartView alignment technology achieves <100nm (sub-50nm) accuracy for fine-pitch interconnects. Private company; ~1300 employees.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Market share (W2W bonding)",
+     "unit": "%",
+     "currentValue": 26,
+     "description": "EVG holds largest market share at ~26% in automatic wafer bonding equipment; 1500+ installed chambers globally."
+    },
+    {
+     "name": "Alignment accuracy (SmartView)",
+     "unit": "nm",
+     "currentValue": 50,
+     "description": "Industry-leading sub-50nm alignment accuracy; critical for hybrid bonding and fine-pitch interconnects (<5µm)."
+    },
+    {
+     "name": "Company status",
+     "currentValue": "Private",
+     "description": "EV Group is private company; no public listing. Majority ownership by Bergman Investment (Austrian industrial holding)."
+    }
+   ],
+   "tags": [
+    "bonding",
+    "alignment",
+    "wafer_bonding",
+    "private_supplier",
+    "Austrian"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_evg_marketshare",
+    "ev_acc_pkgeq_evg_product"
+   ],
+   "notes": "EVG is the market-leading W2W bonding equipment supplier for advanced packaging and MEMS. Dominant position with 1500+ installed base. Private but financially strong; likely acquisition target for larger equipment consolidators (ASML, AMAT, Lam).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_suss_microtic",
+   "name": "SUSS MicroTec SE (Germany, wafer bonding and lithography equipment)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "German semiconductor equipment supplier. Second-largest player in automatic wafer bonding equipment (21% market share). XBC300 platform for high-density hybrid bonding launched 2024. 2024 revenue €446.1M (+46.6% YoY) driven by HBM/advanced packaging demand. Publicly listed Frankfurt Stock Exchange: SUU. Offers complementary lithography and processing equipment beyond bonding.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "SUU (Frankfurt Stock Exchange)",
+     "description": "Publicly traded on Frankfurt Stock Exchange under ticker SUU; German company."
+    },
+    {
+     "name": "Market share (W2W bonding)",
+     "unit": "%",
+     "currentValue": 21,
+     "description": "SUSS MicroTec holds second-largest market share at ~21% in automatic wafer bonding equipment."
+    },
+    {
+     "name": "2024 revenue (total)",
+     "unit": "million EUR",
+     "currentValue": 446.1,
+     "description": "FY 2024 revenue €446.1M (+46.6% YoY); EBIT €75.1M; margin 16.8%. Driven by HBM/advanced packaging capex cycle."
+    },
+    {
+     "name": "XBC300 platform launch",
+     "unit": "year",
+     "currentValue": 2024,
+     "description": "XBC300 hybrid bonding platform launched 2024; gaining traction with leading Asian chipmakers."
+    }
+   ],
+   "tags": [
+    "bonding",
+    "wafer_bonding",
+    "lithography",
+    "advanced_packaging",
+    "German_supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_suss_ir",
+    "ev_acc_pkgeq_suss_xbc300"
+   ],
+   "notes": "SUSS MicroTec is a diversified semiconductor equipment supplier with strong position in wafer bonding (#2 after EVG). XBC300 hybrid bonding platform is competitive entry addressing next-gen HBM4/logic packaging. Company trading at attractive valuation (Frankfurt: SUU) given strong capex cycle tailwinds.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_asmpt",
+   "name": "ASM Pacific Technology Ltd. (ASMPT, Hong Kong, die attach/flip-chip/TCB)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Hong Kong-headquartered semiconductor assembly equipment supplier. Market leader in die attach and thermocompression bonding (TCB) systems. FIREBIRD TCB platform for 2.5D/3D heterogeneous integration with ±2µm placement accuracy. 250th TCB tool shipped by 2025; targets 35-40% market share of $1B+ TAM by 2027. Publicly listed HKEX: 0522.HK.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "0522.HK (HKEX)",
+     "description": "Publicly traded on Hong Kong Stock Exchange under ticker 0522; listed as ASM Pacific Technology."
+    },
+    {
+     "name": "TCB tool shipments",
+     "unit": "units",
+     "currentValue": 250,
+     "description": "250th thermocompression bonding tool shipped as of 2025; largest installed base globally for TCB equipment."
+    },
+    {
+     "name": "FIREBIRD TCB placement accuracy",
+     "unit": "µm",
+     "currentValue": 2,
+     "description": "±2.0µm placement accuracy for flip-chip bonding; cycle time <2 seconds for high-volume production."
+    },
+    {
+     "name": "Target market share (TCB by 2027)",
+     "unit": "%",
+     "currentValue": 38,
+     "description": "ASMPT targets 35-40% market share of TCB market (>$1B TAM) by 2027; current share ~30-35%."
+    }
+   ],
+   "tags": [
+    "die_attach",
+    "flip_chip",
+    "thermocompression",
+    "TCB",
+    "Hong_Kong_supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_asmpt_ir",
+    "ev_acc_pkgeq_asmpt_firebird"
+   ],
+   "notes": "ASMPT is the dominant supplier of thermocompression bonding and die-attach equipment for advanced packaging. Largest installed base of TCB tools globally. Well-positioned to capture majority of AI-driven packaging capex cycle through 2027.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_nordson",
+   "name": "Nordson Corporation (USA, dispensing and fluid application)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-headquartered global supplier of precision dispensing systems and fluid application technology. Nordson ASYMTEK IntelliJet platform is industry-leading non-contact jetting system for underfill dispensing (1000Hz frequency, 1.8M dots/hour throughput). Also supplies thermal processing and encapsulation equipment for advanced packaging assembly. Publicly listed NYSE: NSA.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "NSA (NYSE)",
+     "description": "Publicly traded on New York Stock Exchange under ticker NSA; US industrial equipment company."
+    },
+    {
+     "name": "IntelliJet jetting frequency (maximum)",
+     "unit": "Hz",
+     "currentValue": 1000,
+     "description": "Maximum 1000Hz frequency for ultra-fast underfill dispensing; throughput up to 1.8M dots/hour."
+    }
+   ],
+   "tags": [
+    "dispensing",
+    "underfill",
+    "process_equipment",
+    "US_supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_nordson_ir",
+    "ev_acc_pkgeq_nordson_asymtek"
+   ],
+   "notes": "Nordson ASYMTEK is market leader in high-frequency jet dispensing for advanced packaging underfill. Nordson is diversified industrial equipment supplier with strong cash generation; reliable dividend-paying stock.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_itw",
+   "name": "Illinois Tool Works Inc. (ITW, USA, diversified industrial supplier)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-headquartered diversified industrial manufacturing and equipment supplier. ITW EAE (Electronics Assembly Equipment) division supplies Camalot® dispensing systems for underfill and encapsulation in flip-chip and advanced packaging assembly. SmartStream® pump technology for capillary and hybrid-jetting underfill. Publicly listed NYSE: ITW. Global operations with strong semiconductor equipment presence.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "ITW (NYSE)",
+     "description": "Publicly traded on New York Stock Exchange under ticker ITW; US industrial diversified conglomerate."
+    },
+    {
+     "name": "Camalot market position",
+     "currentValue": "Tier-2 leader",
+     "description": "Camalot SmartStream is #2 underfill dispensing platform behind Nordson ASYMTEK; strong #2 position in market."
+    }
+   ],
+   "tags": [
+    "dispensing",
+    "underfill",
+    "process_equipment",
+    "US_supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_itw_camalot"
+   ],
+   "notes": "ITW EAE (Camalot) is strong #2 player in underfill dispensing, competing directly against Nordson ASYMTEK. Diversified ITW parent (NYSE: ITW) reduces semiconductor exposure concentration. Reliable, dividend-paying industrial stock.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_kic_thermal",
+   "name": "KIC Thermal (USA, thermal profiling specialist, private)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-based specialist in thermal profiling and process control solutions for electronics assembly and semiconductor packaging. Supplies KIC Profiler X5, KICstart², and related thermal profiling systems with patented multi-thermocouple sensor hardware. Serves OSAT and fab customers for advanced packaging process validation. Private company.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Company status",
+     "currentValue": "Private",
+     "description": "KIC Thermal is private company; no public listing."
+    }
+   ],
+   "tags": [
+    "thermal_profiling",
+    "process_control",
+    "private_supplier",
+    "US"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_kic_ir"
+   ],
+   "notes": "KIC Thermal is the market-leading specialist in semiconductor packaging thermal profiling. Private company with strong customer base at leading OSATs. Likely acquisition target for larger equipment suppliers (AMAT, Lam, ASMPT).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_keylink",
+   "name": "Keylink Technologies (USA, plasma surface activation, private)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-based plasma surface treatment systems supplier. Keylink plasma activation systems enable low-temperature wafer bonding through N2/O2 surface treatment. Supplied to TSMC, Samsung, Intel Foundry packaging lines. ETL and CE certified systems. Private company with established customer base at leading fabs.",
+   "maturityScore": 76,
+   "maturityLabel": "mature",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Company status",
+     "currentValue": "Private",
+     "description": "Keylink Technologies is private company; no public listing."
+    }
+   ],
+   "tags": [
+    "plasma",
+    "surface_preparation",
+    "bonding",
+    "private_supplier",
+    "US"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_keylink_product"
+   ],
+   "notes": "Keylink is an established supplier of plasma surface activation systems for wafer bonding. Private company serving Tier-1 fab customers.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_disco",
+   "name": "DISCO Corporation (Japan, laser dicing and grinding, 6146.T)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Japanese semiconductor processing equipment leader. Dominates global laser dicing market (70-80% share) with stealth dicing and KABRA laser technologies. 4,000+ cumulative laser-dicing units shipped by 2025. Also supplies grinding and polishing equipment. Market leader with immense pricing power and sticky customer relationships (TSMC, Samsung, SK Hynix). Publicly listed Tokyo Stock Exchange: 6146.T. Completely debt-free with 54% ROIC (FY2024).",
+   "maturityScore": 86,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "6146.T (TSE, Japan)",
+     "description": "Publicly traded on Tokyo Stock Exchange under ticker 6146; Japanese company, Hiroshima-based."
+    },
+    {
+     "name": "Global market share (dicing equipment)",
+     "unit": "%",
+     "currentValue": 75,
+     "description": "DISCO holds 70-80% market share in semiconductor dicing saws; 4,000+ cumulative laser-dicing units by 2025."
+    },
+    {
+     "name": "FY2024 revenue",
+     "unit": "billion JPY",
+     "currentValue": 393.3,
+     "description": "FY2024 revenue ¥393.3B (+27.9% YoY); highest in company history; driven by chiplet/advanced packaging adoption."
+    },
+    {
+     "name": "Return on invested capital (ROIC)",
+     "unit": "%",
+     "currentValue": 54,
+     "description": "FY2024 ROIC 54%; completely debt-free balance sheet; exceptional capital efficiency."
+    }
+   ],
+   "tags": [
+    "laser_dicing",
+    "singulation",
+    "grinding",
+    "polishing",
+    "Japanese_supplier",
+    "market_leader"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_disco_ir",
+    "ev_acc_pkgeq_disco_fy24"
+   ],
+   "notes": "DISCO is a near-monopolist in laser dicing with exceptional financial strength (debt-free, 54% ROIC). Company is a hidden gem in semiconductor equipment—dominates a critical downstream process with immense pricing power and sticky customer base. Stock (6146.T) is a dividend-growth champion.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_axxon",
+   "name": "Axxon / Mycronic Semiconductor (Sweden, fluid dispensing systems)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "Swedish semiconductor equipment supplier. Axxon subsidiary (Mycronic) supplies fluid dispensing systems for flip-chip underfill and encapsulation in advanced packaging assembly. Tier-3 player in underfill dispensing market competing against Nordson ASYMTEK and ITW Camalot.",
+   "maturityScore": 74,
+   "maturityLabel": "mature",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "Company structure",
+     "currentValue": "Subsidiary of Mycronic (Sweden)",
+     "description": "Axxon is part of Mycronic Group, a diversified semiconductor equipment and assembly company."
+    }
+   ],
+   "tags": [
+    "dispensing",
+    "underfill",
+    "process_equipment",
+    "Swedish"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_axxon_product"
+   ],
+   "notes": "Axxon/Mycronic is a secondary supplier in the underfill dispensing market. Competes on cost and niche applications but does not have the technical leadership of Nordson ASYMTEK or strong #2 position of ITW Camalot.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_despatch",
+   "name": "Despatch Industries (USA, thermal processing ovens)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-based manufacturer of precision thermal processing ovens for semiconductor and electronics assembly. Supplies curing and reflow furnaces for underfill, encapsulation, and solder reflow in advanced packaging. Commodity equipment supplier with multi-vendor competition (BTU, Heller, others).",
+   "maturityScore": 80,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "low",
+   "metrics": [],
+   "tags": [
+    "thermal_processing",
+    "curing",
+    "furnace",
+    "process_equipment",
+    "US"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_despatch_product"
+   ],
+   "notes": "Despatch is a commodity thermal-processing equipment supplier with low supplier concentration (multi-vendor market). No supply constraints.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_teradyne",
+   "name": "Teradyne Inc. (USA, automated test equipment leader)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "description": "US-headquartered automated test equipment (ATE) supplier. Teradyne Magnum 7H is industry-standard HBM test platform with 4.5 Gbps data rate, 9,216 digital pins + 2,560 power pins. Serves advanced packaging and AI accelerator module qualification. Publicly listed NASDAQ: TER. #1-2 global ATE market leader (70%+ with Advantest).",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "TER (NASDAQ)",
+     "description": "Publicly traded on NASDAQ under ticker TER; US test equipment leader."
+    },
+    {
+     "name": "Magnum 7H HBM data rate",
+     "unit": "Gbps",
+     "currentValue": 4.5,
+     "description": "Supports HBM3/3E test data rates up to 4.5 Gbps; industry-standard for HBM qualification."
+    }
+   ],
+   "tags": [
+    "test_equipment",
+    "ATE",
+    "advanced_packaging",
+    "supplier"
+   ],
+   "evidenceIds": [
+    "ev_acc_pkgeq_probe_teradyne"
+   ],
+   "notes": "Teradyne is a global ATE leader (70%+ market share with Advantest). Magnum 7H platform is standard for HBM and chiplet testing. Strong order book from AI datacenter buildout.",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_adv_pkg_requires_xray_inspection",
+   "source": "advanced_packaging",
+   "target": "x_ray_inspection_advanced_packaging",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_xray_process"
+   ],
+   "claim": "Post-assembly X-ray inspection is critical for HBM stack voids, solder defects, and bond-line integrity verification."
+  },
+  {
+   "id": "e_adv_pkg_requires_optical_metrology",
+   "source": "advanced_packaging",
+   "target": "optical_bump_metrology_inspection",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_optical_process"
+   ],
+   "claim": "Pre-underfill optical bump inspection validates die placement accuracy and solder-bump morphology for chiplet assembly."
+  },
+  {
+   "id": "e_adv_pkg_requires_w2w_bonding",
+   "source": "advanced_packaging",
+   "target": "wafer_bonding_alignment_systems",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_w2w_process"
+   ],
+   "claim": "Wafer-to-wafer bonding with sub-50nm alignment is essential for interposer-to-substrate integration in 2.5D packages."
+  },
+  {
+   "id": "e_adv_pkg_requires_tcb",
+   "source": "advanced_packaging",
+   "target": "thermocompression_bonding_systems",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_tcb_process"
+   ],
+   "claim": "Thermocompression bonding enables flip-chip micro-bump attachment with precise placement accuracy and minimal thermal stress."
+  },
+  {
+   "id": "e_flip_chip_requires_underfill",
+   "source": "flip_chip_bonding",
+   "target": "underfill_dispensing_equipment",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_underfill_process"
+   ],
+   "claim": "Underfill dispensing (capillary or jet) follows flip-chip bonding to encapsulate bumps and reduce mechanical stress."
+  },
+  {
+   "id": "e_adv_pkg_requires_thermal_control",
+   "source": "advanced_packaging",
+   "target": "thermal_profiling_and_process_control",
+   "relation": "requires",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_thermal_process"
+   ],
+   "claim": "Thermal profiling during bonding and underfill curing validates process window and yield optimization."
+  },
+  {
+   "id": "e_adv_pkg_requires_probe_testing",
+   "source": "test_and_inspection",
+   "target": "wafer_probe_testing_advanced_packaging",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_probe_test"
+   ],
+   "claim": "Fine-pitch wafer probe testing qualifies known-good die prior to chiplet assembly and system integration."
+  },
+  {
+   "id": "e_adv_pkg_requires_singulation",
+   "source": "advanced_packaging",
+   "target": "singulation_laser_dicing_systems",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_dicing_process"
+   ],
+   "claim": "Laser dicing (DISCO stealth/KABRA) is preferred for chiplet singulation to minimize solder-bump damage."
+  },
+  {
+   "id": "e_adv_pkg_requires_plasma_prep",
+   "source": "advanced_packaging",
+   "target": "plasma_surface_activation_systems",
+   "relation": "requires",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_plasma_process"
+   ],
+   "claim": "Plasma surface activation is a pre-bonding requirement for low-temperature hybrid bonding and wafer bonding."
+  },
+  {
+   "id": "e_adv_pkg_requires_furnace",
+   "source": "advanced_packaging",
+   "target": "bump_height_curing_furnace",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_furnace_process"
+   ],
+   "claim": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in flip-chip assembly."
+  },
+  {
+   "id": "e_test_insp_requires_env_chamber",
+   "source": "test_and_inspection",
+   "target": "environmental_test_chambers_qualification",
+   "relation": "requires",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_chamber_process"
+   ],
+   "claim": "Environmental chambers (thermal cycling, burn-in) are essential for JEDEC reliability qualification of HBM modules."
+  },
+  {
+   "id": "e_xray_inspection_mfg_comet",
+   "source": "x_ray_inspection_advanced_packaging",
+   "target": "org_comet_yxlon",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_xray_comet"
+   ]
+  },
+  {
+   "id": "e_xray_inspection_mfg_camtek",
+   "source": "x_ray_inspection_advanced_packaging",
+   "target": "org_camtek",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_xray_camtek"
+   ]
+  },
+  {
+   "id": "e_xray_inspection_mfg_onto",
+   "source": "x_ray_inspection_advanced_packaging",
+   "target": "org_onto_innovation",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_xray_onto"
+   ]
+  },
+  {
+   "id": "e_xray_inspection_mfg_kla",
+   "source": "x_ray_inspection_advanced_packaging",
+   "target": "org_kla",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_xray_kla"
+   ]
+  },
+  {
+   "id": "e_optical_metrology_mfg_camtek",
+   "source": "optical_bump_metrology_inspection",
+   "target": "org_camtek",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_optical_camtek"
+   ]
+  },
+  {
+   "id": "e_optical_metrology_mfg_confovis",
+   "source": "optical_bump_metrology_inspection",
+   "target": "org_confovis",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_optical_confovis"
+   ]
+  },
+  {
+   "id": "e_optical_metrology_mfg_onto",
+   "source": "optical_bump_metrology_inspection",
+   "target": "org_onto_innovation",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_optical_onto"
+   ]
+  },
+  {
+   "id": "e_w2w_bonding_mfg_evg",
+   "source": "wafer_bonding_alignment_systems",
+   "target": "org_evg",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_w2w_evg"
+   ]
+  },
+  {
+   "id": "e_w2w_bonding_mfg_suss",
+   "source": "wafer_bonding_alignment_systems",
+   "target": "org_suss_microtic",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_w2w_suss"
+   ]
+  },
+  {
+   "id": "e_w2w_bonding_mfg_besi",
+   "source": "wafer_bonding_alignment_systems",
+   "target": "org_besi",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_w2w_besi"
+   ]
+  },
+  {
+   "id": "e_tcb_mfg_asmpt",
+   "source": "thermocompression_bonding_systems",
+   "target": "org_asmpt",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_tcb_asmpt"
+   ]
+  },
+  {
+   "id": "e_tcb_mfg_besi",
+   "source": "thermocompression_bonding_systems",
+   "target": "org_besi",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_tcb_besi"
+   ]
+  },
+  {
+   "id": "e_tcb_mfg_kulicke",
+   "source": "thermocompression_bonding_systems",
+   "target": "org_kulicke_soffa",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_tcb_kulicke"
+   ]
+  },
+  {
+   "id": "e_underfill_mfg_asymtek",
+   "source": "underfill_dispensing_equipment",
+   "target": "org_nordson",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_underfill_asymtek"
+   ]
+  },
+  {
+   "id": "e_underfill_mfg_itw",
+   "source": "underfill_dispensing_equipment",
+   "target": "org_itw",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_underfill_itw"
+   ]
+  },
+  {
+   "id": "e_underfill_mfg_axxon",
+   "source": "underfill_dispensing_equipment",
+   "target": "org_axxon",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_underfill_axxon"
+   ]
+  },
+  {
+   "id": "e_thermal_profiling_mfg_kic",
+   "source": "thermal_profiling_and_process_control",
+   "target": "org_kic_thermal",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_thermal_kic"
+   ]
+  },
+  {
+   "id": "e_probe_test_mfg_teradyne",
+   "source": "wafer_probe_testing_advanced_packaging",
+   "target": "org_teradyne",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_probe_teradyne"
+   ]
+  },
+  {
+   "id": "e_probe_test_mfg_cohu",
+   "source": "wafer_probe_testing_advanced_packaging",
+   "target": "org_cohu",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_probe_cohu"
+   ]
+  },
+  {
+   "id": "e_singulation_mfg_disco",
+   "source": "singulation_laser_dicing_systems",
+   "target": "org_disco",
+   "relation": "manufactured_by",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_pkgeq_disco_market"
+   ]
+  },
+  {
+   "id": "e_plasma_mfg_keylink",
+   "source": "plasma_surface_activation_systems",
+   "target": "org_keylink",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_plasma_keylink"
+   ]
+  },
+  {
+   "id": "e_plasma_mfg_nordson",
+   "source": "plasma_surface_activation_systems",
+   "target": "org_nordson",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_plasma_nordson"
+   ]
+  },
+  {
+   "id": "e_furnace_mfg_despatch",
+   "source": "bump_height_curing_furnace",
+   "target": "org_despatch",
+   "relation": "manufactured_by",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_pkgeq_furnace_despatch"
+   ]
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_acc_pkgeq_xray_comet",
+   "type": "news",
+   "url": "https://yxlon.comet.tech/en/products/ca20-en",
+   "date": "2025-11-15",
+   "supportsNodeIds": [
+    "x_ray_inspection_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_xray_inspection_mfg_comet"
+   ],
+   "excerpt": "Comet Yxlon CA20: 3D X-ray inspection for advanced packaging with sub-1µm resolution, automated capability, fully modular lab-to-fab solutions for CoS solder-connection inspection.",
+   "title": "Comet Yxlon CA20: 3D X-ray inspection for advanced packaging with sub-1µm resolu..."
+  },
+  {
+   "id": "ev_acc_pkgeq_xray_camtek",
+   "type": "product_page",
+   "url": "https://www.camtek.com/markets/advanced-packaging/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "x_ray_inspection_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_xray_inspection_mfg_camtek"
+   ],
+   "excerpt": "Camtek Eagle G5: 2D and 3D metrology and inspection on the same platform, measuring bump height, RDL thickness down to 2µm, backside inspection for advanced packaging.",
+   "title": "Camtek Eagle G5: 2D and 3D metrology and inspection on the same platform, measur..."
+  },
+  {
+   "id": "ev_acc_pkgeq_xray_leadtime",
+   "type": "paper",
+   "url": "https://semiengineering.com/metrology-and-inspection-for-the-chiplet-era/",
+   "date": "2024-06-15",
+   "supportsNodeIds": [
+    "x_ray_inspection_advanced_packaging"
+   ],
+   "excerpt": "X-ray metrology and inspection systems for chiplet era: 12-18 month delivery lead times for advanced systems; market dominated by 4-5 vendors; critical for HBM yield.",
+   "title": "X-ray metrology and inspection systems for chiplet era: 12-18 month delivery lea..."
+  },
+  {
+   "id": "ev_acc_pkgeq_xray_onto",
+   "type": "news",
+   "url": "https://ontoinnovation.com/products/dragonfly-g3/",
+   "date": "2025-09-01",
+   "supportsNodeIds": [
+    "x_ray_inspection_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_xray_inspection_mfg_onto"
+   ],
+   "excerpt": "Onto Innovation Dragonfly G5: sub-micron 2D/3D inspection + metrology system for advanced packaging; Dragonfly 3Di qualified by HBM manufacturers; double-digit orders for G5 and 3Di shipments in 2026.",
+   "title": "Onto Innovation Dragonfly G5: sub-micron 2D/3D inspection + metrology system for..."
+  },
+  {
+   "id": "ev_acc_pkgeq_xray_kla",
+   "type": "paper",
+   "url": "https://www.gminsights.com/industry-analysis/semiconductor-metrology-and-inspection-market",
+   "date": "2025-06-10",
+   "supportsNodeIds": [
+    "x_ray_inspection_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_xray_inspection_mfg_kla"
+   ],
+   "excerpt": "KLA Corporation leads metrology/inspection market with 24.6% global revenue share; supplies advanced packaging metrology but not dominant in X-ray CT.",
+   "title": "KLA Corporation leads metrology/inspection market with 24.6% global revenue shar..."
+  },
+  {
+   "id": "ev_acc_pkgeq_optical_camtek",
+   "type": "product_page",
+   "url": "https://www.camtek.com/products/eagle-g5/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "optical_bump_metrology_inspection"
+   ],
+   "supportsEdgeIds": [
+    "e_optical_metrology_mfg_camtek"
+   ],
+   "excerpt": "Eagle G5 delivers unmatched speed and efficiency in advanced packaging inspection, 2D and 3D optical metrology for bump morphology, RDL thickness measurement.",
+   "title": "Eagle G5 delivers unmatched speed and efficiency in advanced packaging inspectio..."
+  },
+  {
+   "id": "ev_acc_pkgeq_optical_confovis",
+   "type": "product_page",
+   "url": "https://www.confovis.com/en/applications/wafer-metrology/wafer-bump-inspection/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "optical_bump_metrology_inspection"
+   ],
+   "supportsEdgeIds": [
+    "e_optical_metrology_mfg_confovis"
+   ],
+   "excerpt": "Confovis WAFERinspect AOI: nanometer-accuracy 3D optical metrology on micro-bumps down to 1µm, AI-driven defect classification, sub-0.5µm defect resolution for TCB interconnects.",
+   "title": "Confovis WAFERinspect AOI: nanometer-accuracy 3D optical metrology on micro-bump..."
+  },
+  {
+   "id": "ev_acc_pkgeq_optical_resolution",
+   "type": "paper",
+   "url": "https://www.mdpi.com/1424-8220/23/12/5470",
+   "date": "2024-06-15",
+   "supportsNodeIds": [
+    "optical_bump_metrology_inspection"
+   ],
+   "excerpt": "Optical metrology of HBM 3D scans using AI-driven defect detection achieves sub-nanometer vertical resolution; critical for yield optimization in 2.5D/3D ICs.",
+   "title": "Optical metrology of HBM 3D scans using AI-driven defect detection achieves sub-..."
+  },
+  {
+   "id": "ev_acc_pkgeq_optical_onto",
+   "type": "news",
+   "url": "https://investors.ontoinnovation.com/news/news-details/2025/Onto-Innovation-Advances-Process-Control-Suite-for-3D-Interconnect-Yields/default.aspx",
+   "date": "2025-09-01",
+   "supportsNodeIds": [
+    "optical_bump_metrology_inspection"
+   ],
+   "supportsEdgeIds": [
+    "e_optical_metrology_mfg_onto"
+   ],
+   "excerpt": "Onto Innovation Dragonfly 2D optical inspection qualified for HBM and 2.5D logic; subsurface defect inspection integrated; high-volume orders expected 2026.",
+   "title": "Onto Innovation Dragonfly 2D optical inspection qualified for HBM and 2.5D logic..."
+  },
+  {
+   "id": "ev_acc_pkgeq_w2w_evg",
+   "type": "news",
+   "url": "https://www.evgroup.com/products/bonding",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "wafer_bonding_alignment_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_w2w_bonding_mfg_evg"
+   ],
+   "excerpt": "EV Group holds 26% market share in automatic wafer bonding equipment with 1500+ installed chambers; SmartView alignment <100nm accuracy; industry-leading W2W bonding platform.",
+   "title": "EV Group holds 26% market share in automatic wafer bonding equipment with 1500+..."
+  },
+  {
+   "id": "ev_acc_pkgeq_w2w_suss",
+   "type": "paper",
+   "url": "https://reports.valuates.com/market-reports/QYRE-Auto-7D16601/global-wafer-bonding-and-debonding-equipment",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "wafer_bonding_alignment_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_w2w_bonding_mfg_suss"
+   ],
+   "excerpt": "SUSS MicroTec holds 21% market share in automatic wafer bonding equipment; 2024 sales €446.1M (+46.6% YoY); XBC300 platform launched for high-density hybrid bonding.",
+   "title": "SUSS MicroTec holds 21% market share in automatic wafer bonding equipment; 2024..."
+  },
+  {
+   "id": "ev_acc_pkgeq_w2w_hybrid",
+   "type": "paper",
+   "url": "https://newsletter.semianalysis.com/p/hybrid-bonding-process-flow-advanced",
+   "date": "2024-02-09",
+   "supportsNodeIds": [
+    "wafer_bonding_alignment_systems"
+   ],
+   "excerpt": "Hybrid bonding requires sub-50nm alignment accuracy; EVG SmartView and BESI platforms achieve this; W2W bonding is bottleneck for hybrid-bonding-era advanced packaging ramp.",
+   "title": "Hybrid bonding requires sub-50nm alignment accuracy; EVG SmartView and BESI plat..."
+  },
+  {
+   "id": "ev_acc_pkgeq_w2w_besi",
+   "type": "paper",
+   "url": "https://www.3dincites.com/2026/03/besi-at-the-center-of-the-packaging-power-shift/",
+   "date": "2026-03-15",
+   "supportsNodeIds": [
+    "wafer_bonding_alignment_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_w2w_bonding_mfg_besi"
+   ],
+   "excerpt": "BESI is leader in hybrid bonding systems with 150+ cumulative orders, 18 customers, >€476M projected revenue by 2026; precision <10nm for hybrid bonding.",
+   "title": "BESI is leader in hybrid bonding systems with 150+ cumulative orders, 18 custome..."
+  },
+  {
+   "id": "ev_acc_pkgeq_tcb_asmpt",
+   "type": "news",
+   "url": "https://www.asmpt.com/en/investor-relations/news-events/asmpt-wins-new-orders-for-nineteen-chip-to-substrate-tcb-tools-to-serve-ai-chip-market/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "thermocompression_bonding_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_tcb_mfg_asmpt"
+   ],
+   "excerpt": "ASMPT wins 19 C2S TCB tool orders for AI packaging; 250th TCB tool shipped; largest installed base; targets 35-40% market share by 2027; TAM >$1B by 2027.",
+   "title": "ASMPT wins 19 C2S TCB tool orders for AI packaging; 250th TCB tool shipped; larg..."
+  },
+  {
+   "id": "ev_acc_pkgeq_tcb_leadtime",
+   "type": "news",
+   "url": "https://www.sec.gov/Archives/edgar/data/0001047127/000104712725000187/amkr9302025erex-991.htm",
+   "date": "2025-06-10",
+   "supportsNodeIds": [
+    "thermocompression_bonding_systems"
+   ],
+   "excerpt": "AMKOR capex disclosure: hybrid bonding tool lead time 12-18 months; constraint on 2026 capacity expansion for advanced packaging.",
+   "title": "AMKOR capex disclosure: hybrid bonding tool lead time 12-18 months; constraint o..."
+  },
+  {
+   "id": "ev_acc_pkgeq_tcb_market",
+   "type": "paper",
+   "url": "https://newsletter.semianalysis.com/p/advanced-packaging-part-3-intels",
+   "date": "2024-02-20",
+   "supportsNodeIds": [
+    "thermocompression_bonding_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_tcb_mfg_besi"
+   ],
+   "excerpt": "BESI, ASMPT, K&S are three major TCB/hybrid-bonding tool players; BESI leads in precision and process control; ASMPT has largest installed base for die-attach/flip-chip.",
+   "title": "BESI, ASMPT, K&S are three major TCB/hybrid-bonding tool players; BESI leads in..."
+  },
+  {
+   "id": "ev_acc_pkgeq_tcb_kulicke",
+   "type": "product_page",
+   "url": "https://www.knsn.com",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "thermocompression_bonding_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_tcb_mfg_kulicke"
+   ],
+   "excerpt": "Kulicke & Soffa supplies hybrid bonders and TCB systems; HB04 platform widely used for HBM stack die-stacking; 16-20 month lead times create capacity constraints.",
+   "title": "Kulicke & Soffa supplies hybrid bonders and TCB systems; HB04 platform widely us..."
+  },
+  {
+   "id": "ev_acc_pkgeq_underfill_asymtek",
+   "type": "product_page",
+   "url": "https://www.itweae.com/applications/dispensing/underfill",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "underfill_dispensing_equipment"
+   ],
+   "supportsEdgeIds": [
+    "e_underfill_mfg_asymtek"
+   ],
+   "excerpt": "Nordson ASYMTEK IntelliJet: ultra-fast non-contact jetting for underfill dispensing, 1000Hz frequency, 1.8M dots/hour throughput, fills <20µm gaps with <5% void rate.",
+   "title": "Nordson ASYMTEK IntelliJet: ultra-fast non-contact jetting for underfill dispens..."
+  },
+  {
+   "id": "ev_acc_pkgeq_underfill_itw",
+   "type": "product_page",
+   "url": "https://www.itweae.com/products/dispensers/prodigy",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "underfill_dispensing_equipment"
+   ],
+   "supportsEdgeIds": [
+    "e_underfill_mfg_itw"
+   ],
+   "excerpt": "ITW EAE (Camalot) SmartStream pump technology for fast, efficient underfill dispensing; proven capillary and hybrid jetting capability for flip-chip assembly.",
+   "title": "ITW EAE (Camalot) SmartStream pump technology for fast, efficient underfill disp..."
+  },
+  {
+   "id": "ev_acc_pkgeq_underfill_axxon",
+   "type": "product_page",
+   "url": "https://en.axxonauto.com/request61/Flip_Chip_Underfill.html",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "underfill_dispensing_equipment"
+   ],
+   "supportsEdgeIds": [
+    "e_underfill_mfg_axxon"
+   ],
+   "excerpt": "Axxon (Mycronic Semiconductor) supplies fluid dispensing systems for flip-chip underfill applications; alternative source in mature market.",
+   "title": "Axxon (Mycronic Semiconductor) supplies fluid dispensing systems for flip-chip u..."
+  },
+  {
+   "id": "ev_acc_pkgeq_underfill_throughput",
+   "type": "paper",
+   "url": "https://www.globalsmt.net/articles-and-papers/precise-high-throughput-underfill-dispense-in-chip-on-wafer-packaging/",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "underfill_dispensing_equipment"
+   ],
+   "excerpt": "Jet dispensing enables high-throughput underfill for tight-pitch (<20µm) flip-chip and CoW packages; throughput-critical for OSAT volume production.",
+   "title": "Jet dispensing enables high-throughput underfill for tight-pitch (<20µm) flip-ch..."
+  },
+  {
+   "id": "ev_acc_pkgeq_thermal_kic",
+   "type": "product_page",
+   "url": "https://kicthermal.com/products/profiling-solutions/kic-start-2/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "thermal_profiling_and_process_control"
+   ],
+   "supportsEdgeIds": [
+    "e_thermal_profiling_mfg_kic"
+   ],
+   "excerpt": "KIC Thermal profiling solutions: patented multi-thermocouple probe design for bonding, underfill, and reflow process monitoring; specialized for semiconductor packaging.",
+   "title": "KIC Thermal profiling solutions: patented multi-thermocouple probe design for bo..."
+  },
+  {
+   "id": "ev_acc_pkgeq_thermal_market",
+   "type": "paper",
+   "url": "https://www.futuremarketinsights.com/reports/thermal-profiling-system-market",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "thermal_profiling_and_process_control"
+   ],
+   "excerpt": "Thermal profiling market projected to grow 7.3% CAGR 2024-2030, reach $1.8B by 2030; driven by stricter quality control in SMT and semiconductor packaging.",
+   "title": "Thermal profiling market projected to grow 7.3% CAGR 2024-2030, reach $1.8B by 2..."
+  },
+  {
+   "id": "ev_acc_pkgeq_probe_teradyne",
+   "type": "product_page",
+   "url": "https://www.teradyne.com/products/magnum-7h/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "wafer_probe_testing_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_probe_test_mfg_teradyne"
+   ],
+   "excerpt": "Teradyne Magnum 7H: HBM test platform with 4.5 Gbps data rate, 9,216 digital pins + 2,560 power pins; industry-standard for HBM base-die and stacked-die qualification.",
+   "title": "Teradyne Magnum 7H: HBM test platform with 4.5 Gbps data rate, 9,216 digital pin..."
+  },
+  {
+   "id": "ev_acc_pkgeq_probe_cohu",
+   "type": "product_page",
+   "url": "https://www.cohu.com/test-handlers",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "wafer_probe_testing_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_probe_test_mfg_cohu"
+   ],
+   "excerpt": "Cohu (Xcerra/LTX-Credence integrated platform) supplies fine-pitch probe heads and test handlers for WLCSP and bumped-die testing (100-650µm pitch); HYDRA RF and xWave platforms.",
+   "title": "Cohu (Xcerra/LTX-Credence integrated platform) supplies fine-pitch probe heads a..."
+  },
+  {
+   "id": "ev_acc_pkgeq_ate_market",
+   "type": "paper",
+   "url": "https://tspasemiconductor.substack.com/p/semiconductor-ic-testing-a-comprehensive",
+   "date": "2024-09-15",
+   "supportsNodeIds": [
+    "wafer_probe_testing_advanced_packaging"
+   ],
+   "excerpt": "ATE market dominated by Advantest and Teradyne (70%+ share); Cohu is #3 player; market consolidation (LTX-Credence, Xcerra now Cohu) creates integrated ATE+handler platforms.",
+   "title": "ATE market dominated by Advantest and Teradyne (70%+ share); Cohu is #3 player;..."
+  },
+  {
+   "id": "ev_acc_pkgeq_disco_market",
+   "type": "news",
+   "url": "https://newsletter.semianalysis.com/p/disco-corporation-the-world-leader",
+   "date": "2024-06-15",
+   "supportsNodeIds": [
+    "singulation_laser_dicing_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_singulation_mfg_disco"
+   ],
+   "excerpt": "DISCO Corporation: 70-80% global market share in dicing saws; 4,000+ cumulative laser-dicing units shipped by 2025; stealth dicing and KABRA processes dominate.",
+   "title": "DISCO Corporation: 70-80% global market share in dicing saws; 4,000+ cumulative..."
+  },
+  {
+   "id": "ev_acc_pkgeq_disco_tech",
+   "type": "paper",
+   "url": "https://www.dividendjapan.com/p/disco-corp-dividend-growth-champion",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "singulation_laser_dicing_systems"
+   ],
+   "excerpt": "DISCO 6146.T: FY2024 revenue ¥393.3B (+27.9% YoY); debt-free with 54% ROIC; dominant in semiconductor cutting/grinding/polishing equipment.",
+   "title": "DISCO 6146.T: FY2024 revenue ¥393.3B (+27.9% YoY); debt-free with 54% ROIC; domi..."
+  },
+  {
+   "id": "ev_acc_pkgeq_dicing_growth",
+   "type": "paper",
+   "url": "https://www.sphericalinsights.com/blogs/top-20-companies-in-global-laser-dicing-systems-market-2026-2035-spherical-insights-analysis",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "singulation_laser_dicing_systems"
+   ],
+   "excerpt": "Laser dicing market share grew from 26% (2022) to 31.8% (2025) driven by advanced packaging and chiplet adoption; DISCO leads with 4,000 cumulative units.",
+   "title": "Laser dicing market share grew from 26% (2022) to 31.8% (2025) driven by advance..."
+  },
+  {
+   "id": "ev_acc_pkgeq_plasma_keylink",
+   "type": "product_page",
+   "url": "https://www.keylinktech.com/plasma-surface-technology/application/plasma-surface-activation-for-wafer-bonding-and-mems-manufacturing/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "plasma_surface_activation_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_plasma_mfg_keylink"
+   ],
+   "excerpt": "Keylink Technologies plasma surface activation systems for wafer bonding and MEMS; supplied to TSMC, Samsung, Intel Foundry packaging lines; ETL/CE certified.",
+   "title": "Keylink Technologies plasma surface activation systems for wafer bonding and MEM..."
+  },
+  {
+   "id": "ev_acc_pkgeq_plasma_nordson",
+   "type": "product_page",
+   "url": "https://www.nordson.com/en/about-us/nordson-blog/electronics-solutions-blogs/plasma-applications-for-semiconductor-packaging",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "plasma_surface_activation_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_plasma_mfg_nordson"
+   ],
+   "excerpt": "Nordson MARCH offers plasma treatment solutions for semiconductor packaging, wafer-level packaging, and MEMS assembly; enables low-temperature bonding.",
+   "title": "Nordson MARCH offers plasma treatment solutions for semiconductor packaging, waf..."
+  },
+  {
+   "id": "ev_acc_pkgeq_furnace_despatch",
+   "type": "product_page",
+   "url": "https://www.despatch.com/blog/semiconductor-fabrication-curing-ovens-for-advanced-chip-packaging/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "bump_height_curing_furnace"
+   ],
+   "supportsEdgeIds": [
+    "e_furnace_mfg_despatch"
+   ],
+   "excerpt": "Despatch precision curing ovens for underfill, encapsulation, and solder reflow; temperature ramp 3-10°C/min; critical for advanced packaging assembly.",
+   "title": "Despatch precision curing ovens for underfill, encapsulation, and solder reflow;..."
+  },
+  {
+   "id": "ev_acc_pkgeq_chamber_thermal",
+   "type": "paper",
+   "url": "https://www.chamber-testing.com/d/thermal-cycling-testing-method.html",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "environmental_test_chambers_qualification"
+   ],
+   "supportsEdgeIds": [
+    "e_test_insp_requires_env_chamber"
+   ],
+   "excerpt": "Thermal cycling qualification (-55°C to +125°C, 500-1000 cycles per AEC-Q100) standard for HBM and AI accelerator module reliability; multiple chamber vendors available.",
+   "title": "Thermal cycling qualification (-55°C to +125°C, 500-1000 cycles per AEC-Q100) st..."
+  },
+  {
+   "id": "ev_acc_pkgeq_xray_process",
+   "type": "paper",
+   "url": "https://semiengineering.com/catching-critical-defects-in-tsvs-and-stacked-chips/",
+   "date": "2024-06-15",
+   "supportsNodeIds": [
+    "x_ray_inspection_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_xray_inspection"
+   ],
+   "excerpt": "X-ray inspection critical for detecting micro-bump voids, solder defects, and TSV opens in 2.5D/3D stacked chips; sub-1µm resolution required for HBM stacks.",
+   "title": "X-ray inspection critical for detecting micro-bump voids, solder defects, and TS..."
+  },
+  {
+   "id": "ev_acc_pkgeq_optical_process",
+   "type": "paper",
+   "url": "https://www.3dincites.com/2025/04/the-evolution-of-inspection-and-metrology-in-the-ai-era/",
+   "date": "2025-04-15",
+   "supportsNodeIds": [
+    "optical_bump_metrology_inspection"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_optical_metrology"
+   ],
+   "excerpt": "Optical metrology for bump height, coplanarity, and surface defect inspection enables 100%-sampling process control in high-volume chiplet assembly.",
+   "title": "Optical metrology for bump height, coplanarity, and surface defect inspection en..."
+  },
+  {
+   "id": "ev_acc_pkgeq_w2w_process",
+   "type": "paper",
+   "url": "https://www.wevolver.com/article/hybrid-bonding-enabling-high-density-3d-integration-for-next-generation-electronics",
+   "date": "2024-02-15",
+   "supportsNodeIds": [
+    "wafer_bonding_alignment_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_w2w_bonding"
+   ],
+   "excerpt": "Wafer-to-wafer bonding with sub-50nm alignment essential for interposer-to-substrate integration in 2.5D packages; hybrid bonding temperature <350°C.",
+   "title": "Wafer-to-wafer bonding with sub-50nm alignment essential for interposer-to-subst..."
+  },
+  {
+   "id": "ev_acc_pkgeq_tcb_process",
+   "type": "paper",
+   "url": "https://imapsource.org/api/v1/articles/56216-high-productivity-thermo-compression-flip-chip-bonding.pdf",
+   "date": "2024-06-15",
+   "supportsNodeIds": [
+    "thermocompression_bonding_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_tcb"
+   ],
+   "excerpt": "Thermocompression bonding enables high-productivity flip-chip micro-bump attachment with precise alignment and minimal thermal stress; cycle time <2 sec.",
+   "title": "Thermocompression bonding enables high-productivity flip-chip micro-bump attachm..."
+  },
+  {
+   "id": "ev_acc_pkgeq_underfill_process",
+   "type": "paper",
+   "url": "https://www.inseto.com/capillary-underfill-adhesives/",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "underfill_dispensing_equipment"
+   ],
+   "supportsEdgeIds": [
+    "e_flip_chip_requires_underfill"
+   ],
+   "excerpt": "Capillary and jet underfill dispensing encapsulates micro-bumps after flip-chip bonding; reduces mechanical and thermal stress on solder joints.",
+   "title": "Capillary and jet underfill dispensing encapsulates micro-bumps after flip-chip..."
+  },
+  {
+   "id": "ev_acc_pkgeq_thermal_process",
+   "type": "paper",
+   "url": "https://www.mdpi.com/2673-4117/6/12/373",
+   "date": "2024-12-15",
+   "supportsNodeIds": [
+    "thermal_profiling_and_process_control"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_thermal_control"
+   ],
+   "excerpt": "Thermal management and process control critical for underfill curing and chiplet assembly; profiling systems validate void-free fill and minimize residual stress.",
+   "title": "Thermal management and process control critical for underfill curing and chiplet..."
+  },
+  {
+   "id": "ev_acc_pkgeq_probe_test",
+   "type": "paper",
+   "url": "https://www.teradyne.com/2026/02/10/how-ai-is-changing-computing/",
+   "date": "2026-02-10",
+   "supportsNodeIds": [
+    "wafer_probe_testing_advanced_packaging"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_probe_testing"
+   ],
+   "excerpt": "Wafer probe testing validates chiplet functionality and power delivery prior to assembly; high-speed memory testing critical for HBM qualification.",
+   "title": "Wafer probe testing validates chiplet functionality and power delivery prior to..."
+  },
+  {
+   "id": "ev_acc_pkgeq_dicing_process",
+   "type": "paper",
+   "url": "https://in.investing.com/news/company-news/disco-highlights-opportunities-in-advanced-packaging-93CH-5164186",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "singulation_laser_dicing_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_singulation"
+   ],
+   "excerpt": "Laser dicing (DISCO stealth/KABRA) preferred for chiplet singulation to minimize solder-bump damage and mechanical stress in advanced packages.",
+   "title": "Laser dicing (DISCO stealth/KABRA) preferred for chiplet singulation to minimize..."
+  },
+  {
+   "id": "ev_acc_pkgeq_plasma_process",
+   "type": "paper",
+   "url": "https://www.keylinktech.com/plasma-surface-technology/application/why-is-semiconductor-packaging-plasma-processing-essential-for-reliability/",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "plasma_surface_activation_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_plasma_prep"
+   ],
+   "excerpt": "Plasma surface activation is pre-bonding requirement for low-temperature bonding; creates reactive surface dangling bonds for molecular adhesion.",
+   "title": "Plasma surface activation is pre-bonding requirement for low-temperature bonding..."
+  },
+  {
+   "id": "ev_acc_pkgeq_furnace_process",
+   "type": "paper",
+   "url": "https://www.nordson.com/en/divisions/electronics-solutions/your-process/fluid-types/underfill",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "bump_height_curing_furnace"
+   ],
+   "supportsEdgeIds": [
+    "e_adv_pkg_requires_furnace"
+   ],
+   "excerpt": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in flip-chip assembly; temperature ramp rate critical for stress management.",
+   "title": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in f..."
+  },
+  {
+   "id": "ev_acc_pkgeq_onto_ir",
+   "type": "product_page",
+   "url": "https://investors.ontoinnovation.com/news/news-details/2025/Onto-Innovation-Advances-Process-Control-Suite-for-3D-Interconnect-Yields/default.aspx",
+   "date": "2025-09-01",
+   "supportsNodeIds": [
+    "org_onto_innovation"
+   ],
+   "excerpt": "Onto Innovation: publicly listed NASDAQ ONTO. Dragonfly G5 platform with 3Di X-ray bump metrology fully qualified by two HBM manufacturers; volume orders expected 2026+.",
+   "title": "Onto Innovation: publicly listed NASDAQ ONTO. Dragonfly G5 platform with 3Di X-r..."
+  },
+  {
+   "id": "ev_acc_pkgeq_onto_qualification",
+   "type": "news",
+   "url": "https://www.fool.com/earnings/call-transcripts/2025/11/07/onto-innovation-onto-q3-2025-earnings-transcript/",
+   "date": "2025-11-07",
+   "supportsNodeIds": [
+    "org_onto_innovation"
+   ],
+   "excerpt": "Onto Innovation Q3 2025 earnings: Dragonfly 3Di qualified by two major HBM customers; double-digit orders for G5 + 3Di received; shipments expected Q2 2026.",
+   "title": "Onto Innovation Q3 2025 earnings: Dragonfly 3Di qualified by two major HBM custo..."
+  },
+  {
+   "id": "ev_acc_pkgeq_camtek_ir",
+   "type": "product_page",
+   "url": "https://www.camtek.com/markets/advanced-packaging/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_camtek"
+   ],
+   "excerpt": "Camtek: publicly listed TASE CAMT. Eagle family (G5, T-AP, Hawk) optical inspection systems for advanced packaging; sub-micron resolution; RDL thickness down to 2µm.",
+   "title": "Camtek: publicly listed TASE CAMT. Eagle family (G5, T-AP, Hawk) optical inspect..."
+  },
+  {
+   "id": "ev_acc_pkgeq_camtek_marketshare",
+   "type": "paper",
+   "url": "https://semiconductorx.com/wlp-inspection-metrology.php",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_camtek"
+   ],
+   "excerpt": "Camtek and Onto Innovation combined hold ~65% of advanced packaging inspection systems market as of 2025; market leaders in specialized advanced packaging AOI/metrology.",
+   "title": "Camtek and Onto Innovation combined hold ~65% of advanced packaging inspection s..."
+  },
+  {
+   "id": "ev_acc_pkgeq_comet_ir",
+   "type": "product_page",
+   "url": "https://yxlon.comet.tech/en/company",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_comet_yxlon"
+   ],
+   "excerpt": "Comet Yxlon: division of Comet Holding AG, publicly listed SIX COMET. CA20 3D X-ray inspection system for advanced packaging; <1µm resolution; fully automated 2025 launch.",
+   "title": "Comet Yxlon: division of Comet Holding AG, publicly listed SIX COMET. CA20 3D X-..."
+  },
+  {
+   "id": "ev_acc_pkgeq_comet_ca20",
+   "type": "news",
+   "url": "https://www.3dincites.com/2024/12/comet-yxlon-enables-higher-yield-of-advanced-packages-with-updated-ca20-inspection-solution/",
+   "date": "2024-12-15",
+   "supportsNodeIds": [
+    "org_comet_yxlon"
+   ],
+   "excerpt": "Comet Yxlon CA20: updated to fully-automated configuration for lab-to-fab advanced packaging inspection; <1µm resolution for micro-bump and solder-joint defects.",
+   "title": "Comet Yxlon CA20: updated to fully-automated configuration for lab-to-fab advanc..."
+  },
+  {
+   "id": "ev_acc_pkgeq_confovis_product",
+   "type": "product_page",
+   "url": "https://www.confovis.com/en/applications/wafer-metrology/wafer-bump-inspection/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_confovis"
+   ],
+   "excerpt": "Confovis WAFERinspect AOI: sub-nanometer optical metrology on micro-bumps (<1µm); AI-driven defect classification; specialist supplier for 3DIC and advanced packaging.",
+   "title": "Confovis WAFERinspect AOI: sub-nanometer optical metrology on micro-bumps (<1µm)..."
+  },
+  {
+   "id": "ev_acc_pkgeq_besi_ir",
+   "type": "news",
+   "url": "https://www.3dincites.com/2026/03/besi-at-the-center-of-the-packaging-power-shift/",
+   "date": "2026-03-15",
+   "supportsNodeIds": [
+    "org_besi"
+   ],
+   "excerpt": "BESI: publicly listed Euronext BESI. Leader in hybrid bonding systems; 150+ orders, 18 customers; targets 35-40% market share of $1B+ TAM by 2027.",
+   "title": "BESI: publicly listed Euronext BESI. Leader in hybrid bonding systems; 150+ orde..."
+  },
+  {
+   "id": "ev_acc_pkgeq_besi_orders",
+   "type": "news",
+   "url": "https://tspasemiconductor.substack.com/p/hybrid-bonding-at-scale-besis-vision",
+   "date": "2026-03-01",
+   "supportsNodeIds": [
+    "org_besi"
+   ],
+   "excerpt": "BESI hybrid bonding orders: 150+ cumulative systems with 18 customers; hybrid bonding revenue projected €476M by 2026 (from €36M in 2023).",
+   "title": "BESI hybrid bonding orders: 150+ cumulative systems with 18 customers; hybrid bo..."
+  },
+  {
+   "id": "ev_acc_pkgeq_besi_market",
+   "type": "news",
+   "url": "https://www.trendforce.com/news/2026/03/13/news/hybrid-bonding-leader-besi-reportedly-draws-takeover-interest/",
+   "date": "2026-03-13",
+   "supportsNodeIds": [
+    "org_besi"
+   ],
+   "excerpt": "BESI reported interest from larger equipment consolidators (Lam, Applied Materials) reflecting strong market position in hybrid bonding and advanced packaging.",
+   "title": "BESI reported interest from larger equipment consolidators (Lam, Applied Materia..."
+  },
+  {
+   "id": "ev_acc_pkgeq_evg_marketshare",
+   "type": "paper",
+   "url": "https://www.evgroup.com/products/bonding",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_evg"
+   ],
+   "excerpt": "EV Group: 26% market share in automatic wafer bonding equipment; 1500+ installed chambers globally; SmartView alignment <100nm accuracy.",
+   "title": "EV Group: 26% market share in automatic wafer bonding equipment; 1500+ installed..."
+  },
+  {
+   "id": "ev_acc_pkgeq_evg_product",
+   "type": "product_page",
+   "url": "https://www.evgroup.com/products/bonding/permanent-bonding-systems/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_evg"
+   ],
+   "excerpt": "EVG permanent bonding systems with SmartView alignment technology for W2W bonding and hybrid bonding enablement in 2.5D/3D packaging.",
+   "title": "EVG permanent bonding systems with SmartView alignment technology for W2W bondin..."
+  },
+  {
+   "id": "ev_acc_pkgeq_suss_ir",
+   "type": "paper",
+   "url": "https://reports.valuates.com/market-reports/QYRE-Auto-7D16601/global-wafer-bonding-and-debonding-equipment",
+   "date": "2024-06-10",
+   "supportsNodeIds": [
+    "org_suss_microtic"
+   ],
+   "excerpt": "SUSS MicroTec: publicly listed Frankfurt Stock Exchange SUU. Second-largest in W2W bonding (21% share); 2024 revenue €446.1M (+46.6% YoY) driven by HBM capex.",
+   "title": "SUSS MicroTec: publicly listed Frankfurt Stock Exchange SUU. Second-largest in W..."
+  },
+  {
+   "id": "ev_acc_pkgeq_suss_xbc300",
+   "type": "news",
+   "url": "https://tspasemiconductor.substack.com/p/the-packaging-evolution-trilogy-hybrid",
+   "date": "2024-02-20",
+   "supportsNodeIds": [
+    "org_suss_microtic"
+   ],
+   "excerpt": "SUSS MicroTec XBC300 hybrid bonding platform launched 2024; gaining traction with leading Asian chipmakers for next-gen HBM and logic packaging.",
+   "title": "SUSS MicroTec XBC300 hybrid bonding platform launched 2024; gaining traction wit..."
+  },
+  {
+   "id": "ev_acc_pkgeq_asmpt_ir",
+   "type": "news",
+   "url": "https://www.asmpt.com/en/investor-relations/news-events/asmpt-250-tcb/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_asmpt"
+   ],
+   "excerpt": "ASMPT: publicly listed HKEX 0522.HK. 250th TCB tool shipped; largest installed base for thermocompression bonding; targets 35-40% market share by 2027 ($1B+ TAM).",
+   "title": "ASMPT: publicly listed HKEX 0522.HK. 250th TCB tool shipped; largest installed b..."
+  },
+  {
+   "id": "ev_acc_pkgeq_asmpt_firebird",
+   "type": "product_page",
+   "url": "https://www.asmpt.com/en/innovation/thermo-compression-bonding/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_asmpt"
+   ],
+   "excerpt": "ASMPT FIREBIRD TCB: state-of-the-art thermocompression bonding system with ±2µm placement accuracy; <2 sec cycle time for high-volume AI package production.",
+   "title": "ASMPT FIREBIRD TCB: state-of-the-art thermocompression bonding system with ±2µm..."
+  },
+  {
+   "id": "ev_acc_pkgeq_nordson_ir",
+   "type": "product_page",
+   "url": "https://www.itweae.com/applications/dispensing/underfill",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_nordson"
+   ],
+   "excerpt": "Nordson: publicly listed NYSE NSA. ASYMTEK IntelliJet is industry-leading non-contact jet dispensing for underfill; 1000Hz frequency, 1.8M dots/hour throughput.",
+   "title": "Nordson: publicly listed NYSE NSA. ASYMTEK IntelliJet is industry-leading non-co..."
+  },
+  {
+   "id": "ev_acc_pkgeq_nordson_asymtek",
+   "type": "product_page",
+   "url": "https://www.nordson.com/en/divisions/electronics-solutions/your-process/fluid-types/underfill",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_nordson"
+   ],
+   "excerpt": "Nordson ASYMTEK IntelliJet: ultra-fast jetting for underfill dispensing in flip-chip and chiplet assembly; fills <20µm gaps with minimal voids.",
+   "title": "Nordson ASYMTEK IntelliJet: ultra-fast jetting for underfill dispensing in flip-..."
+  },
+  {
+   "id": "ev_acc_pkgeq_itw_camalot",
+   "type": "product_page",
+   "url": "https://www.itweae.com/products/dispensers/prodigy",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_itw"
+   ],
+   "excerpt": "ITW EAE Camalot: SmartStream pump technology for capillary and hybrid underfill dispensing; strong #2 position in underfill market behind Nordson ASYMTEK.",
+   "title": "ITW EAE Camalot: SmartStream pump technology for capillary and hybrid underfill..."
+  },
+  {
+   "id": "ev_acc_pkgeq_kic_ir",
+   "type": "product_page",
+   "url": "https://kicthermal.com/products/profiling-solutions/kic-start-2/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_kic_thermal"
+   ],
+   "excerpt": "KIC Thermal: private company specializing in semiconductor packaging thermal profiling; patented multi-thermocouple sensor for bonding, underfill, reflow process control.",
+   "title": "KIC Thermal: private company specializing in semiconductor packaging thermal pro..."
+  },
+  {
+   "id": "ev_acc_pkgeq_keylink_product",
+   "type": "product_page",
+   "url": "https://www.keylinktech.com/plasma-surface-technology/application/plasma-surface-activation-for-wafer-bonding-and-mems-manufacturing/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_keylink"
+   ],
+   "excerpt": "Keylink: plasma surface activation systems for wafer bonding; supplied to TSMC, Samsung, Intel Foundry; ETL/CE certified.",
+   "title": "Keylink: plasma surface activation systems for wafer bonding; supplied to TSMC,..."
+  },
+  {
+   "id": "ev_acc_pkgeq_disco_ir",
+   "type": "news",
+   "url": "https://www.dividendjapan.com/p/disco-corp-dividend-growth-champion",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_disco"
+   ],
+   "excerpt": "DISCO Corporation: publicly listed TSE 6146.T. Dominates global laser dicing (70-80% share); 4,000+ cumulative units; completely debt-free with 54% ROIC.",
+   "title": "DISCO Corporation: publicly listed TSE 6146.T. Dominates global laser dicing (70..."
+  },
+  {
+   "id": "ev_acc_pkgeq_disco_fy24",
+   "type": "news",
+   "url": "https://newsletter.semianalysis.com/p/disco-corporation-the-world-leader",
+   "date": "2024-06-15",
+   "supportsNodeIds": [
+    "org_disco"
+   ],
+   "excerpt": "DISCO FY2024 revenue ¥393.3B (+27.9% YoY); highest in company history; benefited from chiplet/advanced packaging adoption and near-monopoly market position.",
+   "title": "DISCO FY2024 revenue ¥393.3B (+27.9% YoY); highest in company history; benefited..."
+  },
+  {
+   "id": "ev_acc_pkgeq_axxon_product",
+   "type": "product_page",
+   "url": "https://en.axxonauto.com/request61/Flip_Chip_Underfill.html",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_axxon"
+   ],
+   "excerpt": "Axxon (Mycronic Semiconductor): fluid dispensing systems for flip-chip underfill; tier-3 player in dispensing market.",
+   "title": "Axxon (Mycronic Semiconductor): fluid dispensing systems for flip-chip underfill..."
+  },
+  {
+   "id": "ev_acc_pkgeq_despatch_product",
+   "type": "product_page",
+   "url": "https://www.despatch.com/blog/semiconductor-fabrication-curing-ovens-for-advanced-chip-packaging/",
+   "date": "2025-06-01",
+   "supportsNodeIds": [
+    "org_despatch"
+   ],
+   "excerpt": "Despatch: precision curing ovens for underfill and solder reflow in advanced packaging assembly; commodity supplier with multi-vendor competition.",
+   "title": "Despatch: precision curing ovens for underfill and solder reflow in advanced pac..."
+  },
+  {
+   "id": "ev_acc_pkgeq_chamber_process",
+   "type": "paper",
+   "url": "https://www.chamber-testing.com/d/thermal-cycling-testing-method.html",
+   "date": "2024-06-10",
+   "title": "Thermal cycling qualification for HBM modules",
+   "supportsNodeIds": [
+    "environmental_test_chambers_qualification"
+   ],
+   "excerpt": "Thermal cycling qualification (-55°C to +125°C) is standard for HBM and AI accelerator module reliability per AEC-Q100 spec."
+  },
+  {
+   "id": "ev_acc_pkgeq_tcb_besi",
+   "type": "news",
+   "url": "https://www.3dincites.com/2026/03/besi-at-the-center-of-the-packaging-power-shift/",
+   "date": "2026-03-15",
+   "title": "BESI thermocompression bonding equipment",
+   "supportsNodeIds": [
+    "thermocompression_bonding_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_tcb_mfg_besi"
+   ],
+   "excerpt": "BESI offers thermocompression bonding systems alongside hybrid bonding; competitive with ASMPT and K&S; emerging strong player."
+  }
+ ],
+ "tasks": []
+}

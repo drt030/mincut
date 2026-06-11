@@ -1,0 +1,919 @@
+{
+ "nodes": [
+  {
+   "id": "compound_crystal_wafer_substrates",
+   "name": "Compound crystal wafer substrates (GaN, GaAs, InP, SiC)",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Raw feedstock tier of compound/wide-bandgap semiconductor wafers for specialty analog and power device fabrication. Includes GaAs/InP single-crystal wafers for optical communications and RF devices; GaN-on-SiC and SiC crystal wafers for power semiconductor manufacturing. This referent is distinct from silicon-wafer feedstock and carries its own concentrated merchant supplier base (Wolfspeed, Sumitomo, AXT, Freiberger, IntelliEPI). Maturity: GaAs/InP mature commodity for 20+ years; SiC transitioning from 6-inch to 8-inch production (2024-2026); GaN-on-SiC nascent and geopolitically exposed to China gallium controls.",
+   "maturityScore": 72,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Annual GaAs wafer market size",
+     "unit": "USD million",
+     "currentValue": 300,
+     "description": "Stable mature market ~$300M USD (Sumitomo, AXT, Freiberger duopoly/triopoly across 30+ years); 2-inch to 6-inch wafers"
+    },
+    {
+     "name": "SiC wafer industry price trajectory (6-inch)",
+     "unit": "USD per wafer",
+     "currentValue": {
+      "min": 400,
+      "typical": 450,
+      "max": 500
+     },
+     "description": "6-inch SiC oversupply 2024-2025 drove prices from $3000-4000 (end 2023) to $400-500 (Q4 2024); 8-inch ramp ongoing (Wolfspeed 2026)"
+    },
+    {
+     "name": "8-inch (200mm) SiC wafer fab production ramp timeline",
+     "unit": "months",
+     "currentValue": 24,
+     "description": "Wolfspeed shifted from 6-inch to 8-inch production; completed Durham 150mm shutdown early 2026; 200mm production ramp lead time 24-30 months from capacity announcement"
+    },
+    {
+     "name": "Wolfspeed 200mm SiC capacity utilization (Q2 2026 est.)",
+     "unit": "%",
+     "currentValue": 35,
+     "description": "Estimated utilization at leading 8-inch SiC fab post-ramp; industry oversupply persists into 2026"
+    },
+    {
+     "name": "InP optical wafer demand growth (2025-2026)",
+     "unit": "% YoY",
+     "currentValue": 60,
+     "description": "AI 1.6T/800G optical transceiver surge driving InP demand; upstream InP substrate shortage emerging (Coherent, NVIDIA capacity locks through 2027-2030)"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_cmpd_gaa_market",
+    "ev_acc_cmpd_sic_oversupply",
+    "ev_acc_cmpd_wolfspeed_200mm",
+    "ev_acc_cmpd_inp_shortage_optical"
+   ],
+   "tags": [
+    "compound_semiconductor",
+    "feedstock_tier",
+    "supply_constrained",
+    "material_specialty",
+    "merchant_suppliers"
+   ],
+   "notes": "Referent: compound/specialty crystal wafer substrates for power and optical semiconductor manufacturing (silicon independent). SiC substrate market shifted from severe shortage (2022, ~1 year lead time) to oversupply (2024-2025) due to Chinese capacity expansions; current phase: 8-inch ramp and 14-inch research (China 2026) redrawing capacity landscape. GaAs/InP remain stable commodity. InP optical substrate emerging as new bottleneck for AI datacenter 1.6T/800G transceivers; Coherent and NVIDIA securing multi-year LTAs through 2030; China export controls (gallium, indium) create geopolitical exposure. Not a current bottleneck for HBM CoWoS-class AI accelerator modules but critical upstream tier for power-delivery specialty devices in the broader AI platform (power delivery, cooling, optical interconnect).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "epitaxial_layer_growth_and_materials",
+   "name": "Epitaxial layer growth services and MOCVD/MBE materials",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Specialty materials tier: semiconductor epitaxial growth (MOCVD, MBE) for compound devices (GaAs/InP optical and RF devices; GaN power devices). Supplied by dedicated epitaxial service providers (IntelliEPI Taiwan, Visual Photonics Epitaxy, LandMark Optoelectronics) using precursor chemicals (MOCVD trimethylgallium, ammonia, arsine; supplier base: Sumitomo Chemical, Air Liquide, specialty chemical vendors). This tier feeds optical transceiver supply and power-device foundries. Referent: epitaxial growth layer material for compound semiconductors (distinct from logic-die deposition materials already modeled).",
+   "maturityScore": 68,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "IntelliEPI capacity utilization (optical/RF epi-wafer)",
+     "unit": "%",
+     "currentValue": 75,
+     "description": "Taiwan epi-wafer supplier IntelliEPI operating at elevated utilization due to AI optical communication demand surge; Chips Act funding ($10.3M 2025) supporting capacity expansion"
+    },
+    {
+     "name": "InP epitaxial wafer demand growth (2025-2026)",
+     "unit": "% YoY",
+     "currentValue": 65,
+     "description": "Explosive growth in AI 1.6T optical chiplet demand; IntelliEPI and peer suppliers ramping capacity"
+    },
+    {
+     "name": "MOCVD precursor supply lead time (specialty grades)",
+     "unit": "weeks",
+     "currentValue": 12,
+     "description": "Specialty MOCVD precursors (TMGa, ammonia, arsine) supplied by Japanese/European/US vendors with 8-12 week lead times; not a primary bottleneck but subject to supply-base constraints"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_cmpd_intelliepi_growth",
+    "ev_acc_cmpd_epitaxial_market"
+   ],
+   "tags": [
+    "epitaxial_growth",
+    "specialty_material",
+    "compound_semiconductor",
+    "mocvd_precursor",
+    "high_margin_service"
+   ],
+   "notes": "Referent: epitaxial growth layer (epi) for compound semiconductors (GaAs/InP/GaN), distinct from Si/SiO2 deposition in logic-die fabrication. IntelliEPI (Taiwan) leading supplier for optical epi-wafers; Visual Photonics Epitaxy, LandMark also significant. Supply tightening as AI datacenter 1.6T/800G transceiver demand surges; upstream InP substrate shortage cascades to epi-layer bottleneck. MOCVD precursor supply (Sumitomo, Air Liquide, specialty chem vendors) generally available but subject to specialty-grade demand volatility. Not a current bottleneck but visibility into 2027-2028 suggests risk if datacenter optical interconnect demand maintains current trajectory.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "specialty_analog_power_foundry",
+   "name": "Specialty/analog/compound power semiconductor foundry (GaN, SiC, GaAs, InP - non-silicon logic)",
+   "kind": "module",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "Manufacturing facilities for specialty analog and power devices using compound semiconductors (GaN, SiC, GaAs, InP), distinct from silicon-logic foundry. Primary referent: GaN/SiC power semiconductor foundry (e.g., GlobalFoundries, Samsung, DB HiTek, X-FAB GaN-on-Si programs, Wafer Works GaN ramp 2026-2028) plus GaAs/InP optical semiconductor foundry (WIN Semiconductors, VIS, Wafer Works InP pilot 2026). Significant supplier base restructuring in progress: TSMC exiting GaN foundry by 2027; GlobalFoundries licensed TSMC GaN tech (Nov 2025); Samsung ramping 8-inch GaN foundry (Q2 2026); DB HiTek delayed SiC/GaN ramp. Win Semiconductors (pure-play GaAs) remains leader but capacity utilization volatile (45% Q2 2025); InP optical foundry nascent (Wafer Works 6-inch fab groundbreaking 2026).",
+   "maturityScore": 58,
+   "maturityLabel": "early_deployment",
+   "maturityAsOf": "2026-06",
+   "confidence": "medium",
+   "metrics": [
+    {
+     "name": "WIN Semiconductors global GaAs foundry market share (2026 est.)",
+     "unit": "%",
+     "currentValue": 75,
+     "description": "Pure-play GaAs foundry; WIN Semiconductors dominates with ~75% market share of commercial GaAs foundry services (WIN consolidated revenue Dec 2025: NT$1.61B / ~$51M USD)"
+    },
+    {
+     "name": "WIN Semiconductors capacity expansion (2024-2026)",
+     "unit": "%",
+     "currentValue": 20,
+     "description": "20%+ capacity increase announced to meet 1.6T optical communications demand surge; optical boom forecast 2-3x growth 2026"
+    },
+    {
+     "name": "GlobalFoundries total installed capacity (end 2025)",
+     "unit": "KWPM (thousands wafers/month)",
+     "currentValue": 2800,
+     "description": "GF total capacity across Dresden, Singapore, Malta NY, Burlington VT; GaN/SiC portion fraction of total (exact split not disclosed)"
+    },
+    {
+     "name": "Samsung 8-inch GaN foundry production start",
+     "unit": "calendar quarter",
+     "currentValue": "Q2-Q3 2026",
+     "description": "Samsung Electronics kicked off 8-inch GaN power semiconductor foundry, mass production April-June 2026; pivoted from IDM to foundry model after device quality issues"
+    },
+    {
+     "name": "DB HiTek GaN/SiC foundry ramp status (2026)",
+     "unit": "categorical",
+     "currentValue": "delayed",
+     "description": "DB HiTek facing slower ramp in SiC/GaN due to technology barriers and market slowdown; expected Q3-Q4 2026 (vs Samsung Q2-Q3)"
+    },
+    {
+     "name": "TSMC GaN foundry exit timeline",
+     "unit": "years",
+     "currentValue": 2,
+     "description": "TSMC announced exit from GaN foundry by end of 2027; licensing tech to GlobalFoundries and VIS (TSMC affiliate, Taiwan)"
+    },
+    {
+     "name": "VIS Taiwan specialty foundry capacity (2025)",
+     "unit": "million wafers",
+     "currentValue": 3.387,
+     "description": "VIS full-year 2024 capacity ~3.387M wafers; GaN-on-Si and GaN-on-QST offerings; dual-substrate advantage vs single competitors"
+    },
+    {
+     "name": "Wafer Works GaN/InP pilot fab groundbreaking",
+     "unit": "year",
+     "currentValue": 2024,
+     "description": "Wafer Works launched 12-inch fab (Taiwan) 2024; GaN-on-Si 2024-2026; GaN-on-SiC roadmap 2026-2028; InP photonic fab groundbreaking 2026 (first 6-inch InP industrial fab, Eindhoven)"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_cmpd_win_market_position",
+    "ev_acc_cmpd_samsung_gan_foundry",
+    "ev_acc_cmpd_gf_gan_tsmc_license",
+    "ev_acc_cmpd_vis_capacity",
+    "ev_acc_cmpd_wafer_works_inp",
+    "ev_acc_cmpd_db_hitek_delay"
+   ],
+   "tags": [
+    "specialty_foundry",
+    "power_semiconductor",
+    "compound_semiconductor",
+    "gan_sic",
+    "market_restructuring",
+    "supply_concentration"
+   ],
+   "notes": "Referent: specialty/analog/compound foundry (non-silicon-logic). GaN/SiC power semiconductor foundry undergoing major restructuring (TSMC exit, GF ramp, Samsung entry, DB HiTek delayed). WIN Semiconductors pure-play GaAs foundry remains stable market leader but serves optical/RF niche. InP optical foundry nascent; Wafer Works first 6-inch industrial fab groundbreaking 2026 (Eindhoven). Not currently a bottleneck for AI accelerator modules but critical upstream tier for power delivery and optical interconnect specialty devices. GaN/SiC power foundry concentration risk moderate (Samsung, GF, DB HiTek, X-FAB competing but no single dominant player yet post-TSMC exit). InP optical foundry concentration high (Coherent IDM-dominant EML/CW laser supply, limited foundry alternatives 2026).",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_wolfspeed",
+   "name": "Wolfspeed Inc. (formerly Cree)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "compound_semiconductor"
+   ],
+   "description": "Wolfspeed Inc. is the leading global supplier of silicon carbide (SiC) crystal wafers and epitaxial materials for power semiconductors. Vertically integrated: single-crystal SiC growth (Bridgman method), epitaxial growth, and device fabrication. Completed financial restructuring Q3 2025. Transitioning from 150mm (6-inch) to 200mm (8-inch) production as industry standard shifts. Developing 300mm (12-inch) SiC single-crystal wafers for next-generation AI computing platforms.",
+   "maturityScore": 76,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "WOLF (NASDAQ)"
+    },
+    {
+     "name": "Global SiC crystal wafer market share (8-inch, 2026 est.)",
+     "unit": "%",
+     "currentValue": 60,
+     "description": "Wolfspeed dominates 8-inch SiC supply; nearest competitor Sumitomo much smaller; China players (Tiancheng, etc.) emerging 6-inch capacity"
+    },
+    {
+     "name": "Manufacturing footprint",
+     "currentValue": "Mohawk Valley NY (primary 200mm fab), Kulim Malaysia (power device fab), Marcy NY (R&D)"
+    },
+    {
+     "name": "8-inch SiC production status (2026)",
+     "currentValue": "Ramp phase; 200mm epitaxy and bare wafers ready; 300mm research"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_cmpd_wolfspeed_200mm",
+    "ev_acc_cmpd_wolfspeed_300mm"
+   ],
+   "notes": "Sole major 8-inch SiC merchant supplier (2026); geopolitical importance for US SiC manufacturing via Section 48D support. 6-inch market oversupply 2024-2025 pressured pricing; 8-inch ramp alleviates capacity constraints but adoption timeline uncertain (power device design cycles 18-24 months). Private/China SiC players (Tiancheng 14-inch research, Infineon SiCrystal) pose medium-term competition. Critical supplier for power delivery specialty devices in AI datacenter platforms but not on critical path for HBM CoWoS-class accelerator modules.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_win_semiconductors",
+   "name": "WIN Semiconductors Corp.",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "compound_semiconductor"
+   ],
+   "description": "Taiwan-based pure-play GaAs wafer foundry, world's largest merchant GaAs foundry provider. Services for wireless infrastructure, RF, optical, and defense/aerospace customers. Capacity range: HBT, pHEMT, PIN diode, optical device technologies on 2-inch to 6-inch platforms. 2026: Capacity expansion 20%+ to meet 1.6T optical transceiver surge; forecasting 2-3x revenue growth from optical communications.",
+   "maturityScore": 82,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Global GaAs foundry market share (2026 est.)",
+     "unit": "%",
+     "currentValue": 75,
+     "description": "Pure-play market leadership; competitors much smaller (specialty fabs integrated in larger IDMs)"
+    },
+    {
+     "name": "Revenue (consolidated, Dec 2025)",
+     "unit": "USD million",
+     "currentValue": 51,
+     "currentValue_display": "NT$1.61B = ~$51M",
+     "description": "Monthly revenue NT$1.61 billion equivalent (Dec 2025); FY 2025 exit run-rate estimate ~$630M USD annualized"
+    },
+    {
+     "name": "Capacity expansion pace (2024-2026)",
+     "unit": "%",
+     "currentValue": 20,
+     "description": "20%+ wafer manufacturing capacity increase announced to meet 1.6T optical communications demand"
+    },
+    {
+     "name": "Capacity utilization (Q2 2025)",
+     "unit": "%",
+     "currentValue": 45,
+     "description": "Elevated utilization post Wi-Fi 7 ramp and optical communications demand surge; prior Q1 2025 was 35%"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_cmpd_win_market_position",
+    "ev_acc_cmpd_win_capacity_growth"
+   ],
+   "notes": "Taiwan-listed public company (not listed separately in research but major industry player). Dominant pure-play GaAs foundry; only merchant alternative to IDM-integrated suppliers (Infineon GaAs, etc.). Not a bottleneck for HBM CoWoS but critical supplier for optical RF components in power-delivery and thermal-cooling specialty devices (e.g., optical transceiver, thermal control chiplets). Capacity utilization rising (45% Q2 2025) suggests near-term tightness 2026-2027 if optical demand surge sustains.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_globalfoundries",
+   "name": "GlobalFoundries Inc. (GaN/SiC power foundry)",
+   "kind": "organization",
+   "domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "compound_semiconductor"
+   ],
+   "description": "GlobalFoundries is a diversified foundry (analog, RF, embedded memory, power semiconductors) with ~2.8M KWPM installed capacity across Dresden, Singapore, Malta NY, Burlington VT. GaN/SiC power semiconductor foundry capability expanded via November 2025 technology licensing deal with TSMC for 650V and 80V GaN technologies; production ramp H1 2026 with volume production H2 2026+. Strategic partnership with Navitas Semiconductor (GaN specialist) announced November 2025 for jointly advancing US-based GaN manufacturing.",
+   "maturityScore": 75,
+   "maturityLabel": "commercially_available",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "GFS (NASDAQ)"
+    },
+    {
+     "name": "Total installed capacity (end 2025)",
+     "unit": "KWPM (thousand wafers/month)",
+     "currentValue": 2800,
+     "description": "Across four global fab locations; GaN/SiC fraction not separately disclosed"
+    },
+    {
+     "name": "GaN technology development ramp (TSMC license + Navitas partnership)",
+     "currentValue": "Early 2026 dev start; H1 2026 customer sampling; H2 2026+ volume production"
+    },
+    {
+     "name": "Technology scope (GaN)",
+     "currentValue": "650V, 80V platform technologies licensed from TSMC; Navitas partnership for Navitas-branded GaN design and supply chain"
+    }
+   ],
+   "evidenceIds": [
+    "ev_acc_cmpd_gf_gan_tsmc_license",
+    "ev_acc_cmpd_gf_navitas_partnership"
+   ],
+   "notes": "Beneficiary of TSMC GaN foundry exit; licensed TSMC IP at strategic moment. Partnership with Navitas signals joint go-to-market for GaN power customers. Total capacity (2.8M KWPM) offers scale vs smaller entrants. Not a bottleneck (market nascent) but positioned as tier-1 alternative to Samsung for GaN foundry services 2026+. Geographic footprint (US/Europe) aligns with onshoring demand.",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "silicon_wafer_300mm_extended",
+   "name": "300mm silicon wafers (ultra-pure, polished) - Extended with compound feedstock context",
+   "kind": "material",
+   "domain": [
+    "ai_compute_chain"
+   ],
+   "description": "This node extends the existing silicon_wafer_300mm node to contextualize the distinct supplier and supply-chain profile of compound/specialty crystal wafers vs silicon. Silicon wafer supply (Shin-Etsu, SUMCO, GlobalWafers) is fundamentally different from compound wafer supply (Wolfspeed SiC, Sumitomo InP/GaAs, WIN GaAs foundry, AXT, Freiberger) in capacity dynamics, vendor concentration, and geopolitical exposure. Referent note: this extension surfaces the compound/specialty tier as a separate feedstock layer.",
+   "maturityScore": 84,
+   "maturityLabel": "widely_adopted",
+   "maturityAsOf": "2026-06",
+   "confidence": "high",
+   "notes": "Referent clarification: existing silicon_wafer_300mm node models silicon feedstock exclusively. Compound/specialty crystal wafers (GaN, GaAs, InP, SiC) are modeled separately as a distinct tier (see compound_crystal_wafer_substrates node) with its own supplier base and supply-chain dynamics. Silicon oversupply 2024-2025 contrasts with SiC oversupply and InP optical shortage; these dynamics must be tracked separately per referent.",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_logic_die_fab__requires__compound_crystal_wafers",
+   "source": "logic_die_fabrication",
+   "target": "compound_crystal_wafer_substrates",
+   "relation": "requires",
+   "claim": "Logic-die fabrication does not directly require compound crystal wafers; this edge is a boundary marker documenting that compound/specialty wafer feedstock is NOT a bottleneck for silicon-logic AI accelerator modules but is a critical feedstock tier for power-delivery and optical-interconnect specialty devices in the broader AI platform ecosystem.",
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_power_delivery__requires__specialty_foundry",
+   "source": "power_delivery",
+   "target": "specialty_analog_power_foundry",
+   "relation": "requires",
+   "claim": "Power delivery substrate and control electronics for multi-hundred-watt AI accelerator modules increasingly rely on GaN/SiC power semiconductor devices (e.g., gate drivers, buck converters, voltage regulators). These devices are manufactured in specialty/compound foundries (GlobalFoundries, Samsung, DB HiTek GaN/SiC programs), distinct from silicon-logic foundry.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_cmpd_power_gan_demand"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_thermal_cooling__requires__specialty_foundry",
+   "source": "thermal_cooling",
+   "target": "specialty_analog_power_foundry",
+   "relation": "requires",
+   "claim": "Thermal control electronics (e.g., optical transceiver chiplets for liquid-cooling sensor networks, power-control analog devices for cooling fans) rely on specialty analog devices from GaAs/InP foundries (WIN Semiconductors optical RF foundry, VIS) and GaN/SiC power control chiplets.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_cmpd_thermal_optical"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_interconnect_optics__requires__specialty_foundry",
+   "source": "interconnect_and_optics",
+   "target": "specialty_analog_power_foundry",
+   "relation": "requires",
+   "claim": "Advanced optical interconnect for 1.6T and 800G datacenter transceiver modules relies on GaAs/InP optical semiconductor foundries (WIN Semiconductors GaAs, VIS multi-substrate, Wafer Works InP pilot). This is a distinct tier from silicon-logic ASIC foundry.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_optical_foundry"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_specialty_foundry__requires__compound_crystal_wafers",
+   "source": "specialty_analog_power_foundry",
+   "target": "compound_crystal_wafer_substrates",
+   "relation": "requires",
+   "claim": "GaN/SiC/GaAs/InP power and optical semiconductor foundries require their respective compound/specialty crystal wafers (SiC for power devices, InP/GaAs for optical devices). This is the critical upstream feedstock tier for specialty foundries.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_foundry_wafer_link"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_specialty_foundry__requires__epitaxial_growth",
+   "source": "specialty_analog_power_foundry",
+   "target": "epitaxial_layer_growth_and_materials",
+   "relation": "requires",
+   "claim": "GaN/SiC/GaAs/InP specialty foundries rely on epitaxial layer growth services (MOCVD, MBE) to deposit active device layers on crystal wafers. This is a critical upstream materials tier.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_foundry_epi_link"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_compound_crystal_wafers__manufactured_by__wolfspeed",
+   "source": "compound_crystal_wafer_substrates",
+   "target": "org_wolfspeed",
+   "relation": "manufactured_by",
+   "claim": "Wolfspeed is the leading merchant supplier of 8-inch (200mm) SiC crystal wafers for power semiconductor fabrication; transitioning from 6-inch commodity phase to 8-inch ramp 2026+.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_wolfspeed_200mm"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_compound_crystal_wafers__manufactured_by__sumitomo",
+   "source": "compound_crystal_wafer_substrates",
+   "target": "org_sumitomo_electric",
+   "relation": "manufactured_by",
+   "claim": "Sumitomo Electric Industries is the global leader in InP optical wafer supply and among three major GaAs substrate suppliers (duopoly/triopoly with AXT, Freiberger). Critical supplier for optical RF device feedstock.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_sumitomo_inp_leader"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_epitaxial_growth__manufactured_by__intelliepi",
+   "source": "epitaxial_layer_growth_and_materials",
+   "target": "org_intelliepi",
+   "relation": "manufactured_by",
+   "claim": "IntelliEPI is the leading Taiwan-based epitaxial wafer service provider for GaAs/InP/GaSb optical and RF epi-wafers using MBE technology. Elevated capacity utilization 2025-2026 due to AI optical demand surge.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_intelliepi_growth"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_specialty_foundry__manufactured_by__win",
+   "source": "specialty_analog_power_foundry",
+   "target": "org_win_semiconductors",
+   "relation": "manufactured_by",
+   "claim": "WIN Semiconductors is the world's leading pure-play GaAs wafer foundry, serving ~75% of merchant GaAs foundry market. Critical for optical communications and RF device manufacturing.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_win_market_position"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_specialty_foundry__manufactured_by__samsung",
+   "source": "specialty_analog_power_foundry",
+   "target": "org_samsung",
+   "relation": "manufactured_by",
+   "claim": "Samsung Electronics GaN/SiC power foundry entered market Q2-Q3 2026 after pivoting from IDM device model. 8-inch GaN production ramp in progress; SiC samples H2 2026.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_acc_cmpd_samsung_gan_foundry"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_specialty_foundry__manufactured_by__gf",
+   "source": "specialty_analog_power_foundry",
+   "target": "org_globalfoundries",
+   "relation": "manufactured_by",
+   "claim": "GlobalFoundries expanded GaN/SiC power foundry capability via TSMC technology license (Nov 2025) and strategic Navitas partnership; production ramp H1 2026, volume H2 2026+.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_gf_gan_tsmc_license"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_interconnect_optics__requires__coherent_inp_supply",
+   "source": "interconnect_and_optics",
+   "target": "org_ii_vi_coherent",
+   "relation": "requires",
+   "claim": "AI datacenter 1.6T/800G optical transceiver modules depend on Coherent Corp. as the primary supplier of InP-based electro-absorption modulated lasers (EMLs) and continuous-wave lasers (CW-LDS). CEO has warned InP capacity constrained through 2027-2030; NVIDIA multi-billion-dollar LTA secures capacity.",
+   "confidence": "high",
+   "evidenceIds": [
+    "ev_acc_cmpd_coherent_inp_constraint",
+    "ev_acc_cmpd_coherent_nvidia_deal"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_acc_cmpd_gaa_market",
+   "type": "paper",
+   "title": "GaAs Wafer Foundry Market: WIN Semiconductors Dominance and 30-Year Supplier Duopoly",
+   "url": "https://www.digitimes.com/news/a20260212PD227/gaas-2026-revenue-growth-market.html",
+   "date": "2026-02-12",
+   "sourceName": "DigiTimes",
+   "summary": "WIN Semiconductors as world's largest GaAs foundry expects 2-3x surge in optical communications demand 2026. GaAs market mature, ~$300M annual; Sumitomo, AXT, Freiberger duopoly/triopoly model for 30+ years.",
+   "excerpt": "WIN Semiconductors sees 2–3x surge from 1.6T optical boom; pure-play GaAs foundry market leadership ~75% share.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "org_win_semiconductors"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_sic_oversupply",
+   "type": "paper",
+   "title": "SiC Substrate Oversupply 2024-2025: Wolfspeed Capacity Utilization and Price Collapse",
+   "url": "https://www.digitimes.com/news/a20241014PD226/china-sic-substrate-market-oversupply-supplier.html",
+   "date": "2024-10-14",
+   "sourceName": "DigiTimes",
+   "summary": "SiC substrate market shifted from shortage (2022, ~1 year lead time) to oversupply 2024-2025 due to Chinese capacity expansions. Wolfspeed utilization dropped to 25% despite being market leader. 6-inch SiC prices fell from $3,000-4,000 (end 2023) to $400-450 (Q4 2024), ~50% decline.",
+   "excerpt": "Wolfspeed operating at 25% capacity utilization despite market leadership; 6-inch SiC prices plunged from $3,000-4,000 to $400-450 in under 12 months.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "org_wolfspeed"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_wolfspeed_200mm",
+   "type": "paper",
+   "title": "Wolfspeed 200mm (8-inch) SiC Wafer Production Ramp and 300mm Research Milestone",
+   "url": "https://www.trendforce.com/news/2026/03/04/news-wafer-capacity-set-to-surge-a-new-phase-for-sic-industry-in-2026/",
+   "date": "2026-03-04",
+   "sourceName": "TrendForce",
+   "summary": "Wolfspeed completed 150mm fab shutdown early 2026; 200mm SiC epitaxy and bare wafers now ready for qualification. Announced 300mm (12-inch) single-crystal SiC wafer in January 2026. 2026 marks transition from 6-inch commodity to 8-inch industry standard.",
+   "excerpt": "Wolfspeed officially rolled out 200mm SiC material products and manufactures 300mm single-crystal wafer; industry-wide 8-inch production ramp a key 2026 milestone.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "org_wolfspeed"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_inp_shortage_optical",
+   "type": "paper",
+   "title": "InP Substrate Shortage as Bottleneck for 1.6T/800G AI Optical Transceivers; Coherent CEO Warns Capacity Constraint Through 2027-2030",
+   "url": "https://www.digitimes.com/news/a20251229PD212/substrate-intelliepi-demand-data-growth.html",
+   "date": "2025-12-29",
+   "sourceName": "DigiTimes",
+   "summary": "InP substrate shortages emerging as new bottleneck for optical chip production driving AI datacenter 1.6T transceiver ramp. Coherent CEO Jim Anderson warned industry constrained on InP capacity through 2027 most likely; extended backlog visibility 2028-2030. Global AI optical transceiver market forecast $26B (2026 vs $16.5B 2025), 57% YoY growth.",
+   "excerpt": "CEO Jim Anderson: 'constrained on InP capacity, most likely through 2027'; NVIDIA securing multi-billion-dollar LTAs; extended customer backlog visibility 2028-2030.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "epitaxial_layer_growth_and_materials",
+    "org_ii_vi_coherent"
+   ],
+   "supportsEdgeIds": [
+    "e_interconnect_optics__requires__coherent_inp_supply"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_win_market_position",
+   "type": "paper",
+   "title": "WIN Semiconductors Global GaAs Foundry Market Leadership and Capacity Expansion 2026",
+   "url": "https://www.eetimes.com/win-semiconductors-increases-market-leading-gaas-wafer-manufacturing-capacity-by-more-than-20/",
+   "date": "2025-06-01",
+   "sourceName": "EE Times",
+   "summary": "WIN Semiconductors (pure-play GaAs wafer foundry) expanding capacity >20% to meet 1.6T optical communications demand surge. Global GaAs foundry market share ~75% (pure-play leader); consolidated revenue Dec 2025 NT$1.61B (~$51M USD).",
+   "excerpt": "WIN Semiconductors increases market-leading GaAs wafer manufacturing capacity by more than 20% to meet demand surge.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry",
+    "org_win_semiconductors"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_samsung_gan_foundry",
+   "type": "news",
+   "title": "Samsung Electronics Begins GaN Power Semiconductor Foundry Production Q2-Q3 2026; Prepares SiC Samples",
+   "url": "https://www.digitimes.com/news/a20260323VL203/samsung-production-gan-sic-semiconductor-foundry.html",
+   "date": "2026-03-23",
+   "sourceName": "DigiTimes",
+   "summary": "Samsung Electronics entered GaN power semiconductor foundry market Q2-Q3 2026 on 8-inch platform after pivoting from IDM device model (quality issues 2025). SiC foundry samples expected H2 2026. DB HiTek expected to follow 1-2 quarters behind.",
+   "excerpt": "Samsung set to begin GaN foundry production, prepare SiC samples for production later this year.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry",
+    "org_samsung"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_gf_gan_tsmc_license",
+   "type": "paper",
+   "title": "GlobalFoundries Licenses TSMC GaN Technology; TSMC Exits GaN Foundry by 2027; GF Ramps Production H1 2026",
+   "url": "https://www.trendforce.com/news/2025/11/11/news-globalfoundries-licenses-tsmcs-650v-80v-gan-tech-in-sign-of-foundry-leaders-retreat/",
+   "date": "2025-11-11",
+   "sourceName": "TrendForce",
+   "summary": "GlobalFoundries announced Nov 10 technology licensing deal with TSMC for 650V and 80V GaN technologies. Dev start early 2026, production ramp H1 2026, volume H2 2026+. TSMC to exit GaN foundry by end 2027.",
+   "excerpt": "GlobalFoundries licenses TSMC's 650V, 80V GaN tech; TSMC signals GaN foundry retreat and exit timeline.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry",
+    "org_globalfoundries"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_sumitomo_inp_leader",
+   "type": "paper",
+   "title": "Sumitomo Electric Industries as Global Leader in InP Optical Wafer Supply for RF and Optical Communications",
+   "url": "https://www.eetimes.com/sumitomo-plans-u-s-wafer-making-plant-for-gaas-inp-substrates/",
+   "date": "2025-06-15",
+   "sourceName": "EE Times",
+   "summary": "Sumitomo Electric Industries global leader in InP optical substrate supply for RF and optical communication devices. Planning US manufacturing expansion 2026-2027. Also major GaAs supplier (triopoly with AXT, Freiberger, ~30 years stable market).",
+   "excerpt": "Sumitomo Electric the global leader in InP optical wafer supply; plans U.S. fab expansion for GaAs, InP substrates.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "org_sumitomo_electric"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_sumitomo_gaas_triopoly",
+   "type": "news",
+   "title": "GaAs Substrate Market: Sumitomo, AXT, Freiberger 30-Year Duopoly/Triopoly; Impacts of China Gallium Export Control",
+   "url": "https://www.digitimes.com/news/a20230711PD201/gaas-gan-china-supply-chain.html",
+   "date": "2023-07-11",
+   "sourceName": "DigiTimes",
+   "summary": "Sumitomo (Japan), AXT (US), and Freiberger (Germany) dominate global GaAs substrate market for 30+ years; stable triopoly. Market size ~$300M USD; China export controls on gallium create upstream supply exposure.",
+   "excerpt": "Sumitomo in Japan, AXT of the US, and Germany's Freiberger are the three major suppliers and have dominated the global GaAs substrate market for over 30 years.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "org_sumitomo_electric"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_intelliepi_growth",
+   "type": "news",
+   "title": "IntelliEPI Taiwan Epitaxial Wafer Supplier: Top-5 Growth, Chips Act Funding, AI Optical Demand Surge",
+   "url": "https://www.digitimes.com/news/a20250206PD231/intelliepi-chips-act-funding.html",
+   "date": "2025-02-06",
+   "sourceName": "DigiTimes",
+   "summary": "IntelliEPI awarded $10.3M US Chips Act grant to support optical communication and cloud-chiplet capacity expansion. Ranked top-5 fastest-growing semiconductor companies in Taiwan (cumulative revenue, Nov 2025). GaAs/InP epitaxial wafer specialist using MBE technology.",
+   "excerpt": "IntelliEPI secures US$10.3 million Chips Act grant, sees record revenue growth; among Taiwan's top-5 fastest-growing semiconductor companies.",
+   "supportsNodeIds": [
+    "epitaxial_layer_growth_and_materials",
+    "org_intelliepi"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_epitaxial_market",
+   "type": "news",
+   "title": "Epitaxial Wafer Supply for Optical Communications and RF: IntelliEPI, Visual Photonics Epitaxy, LandMark Growth",
+   "url": "https://www.digitimes.com/news/a20251211VL213/photonics-growth-taiwan-cpo-manufacturing.html",
+   "date": "2025-12-11",
+   "sourceName": "DigiTimes",
+   "summary": "Taiwan photonics suppliers (IntelliEPI, VPEC, LandMark) dominating epitaxial wafer growth for optical communications surge. AI optical transceiver demand driving 1.6T market ramp 2026+.",
+   "excerpt": "Taiwan's epi-wafer suppliers including Intelligent Epitaxy Technology (IntelliEPI), Visual Photonics Epitaxy (VPEC) and LandMark supply epitaxial wafers for AI optical chiplet demand.",
+   "supportsNodeIds": [
+    "epitaxial_layer_growth_and_materials",
+    "org_intelliepi"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_win_capacity_growth",
+   "type": "news",
+   "title": "WIN Semiconductors Capacity Expansion and 1.6T Optical Communications Demand Forecast 2026",
+   "url": "https://www.digitimes.com/news/a20260504PD226/gaas-production-demand-gallium-substrate.html",
+   "date": "2026-05-04",
+   "sourceName": "DigiTimes",
+   "summary": "WIN Semiconductors: GaAs and InP supply meets current production demand but capacity expanding 20%+ for 1.6T optical communications ramp. Capacity utilization Q2 2025 at 45%, up 10pp from Q1.",
+   "excerpt": "Win Semiconductors: GaAs and InP supply still meets production demand; capacity utilization rising to 45% Q2 2025.",
+   "supportsNodeIds": [
+    "org_win_semiconductors"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_coherent_inp_constraint",
+   "type": "news",
+   "title": "Coherent InP Capacity Constraint Warning: CEO Predicts Industry Shortage Through 2027-2030",
+   "url": "https://www.digitimes.com/news/a20260508PD217/coherent-capacity-6-inch-optics-demand.html",
+   "date": "2026-05-08",
+   "sourceName": "DigiTimes",
+   "summary": "Coherent Corp. CEO Jim Anderson warned industry is constrained on InP capacity through 2027-2030. Coherent order backlog extends 2028-2030. Company doubling internal InP output by year-end 2026, more than doubling again 2027. 6-inch InP platform deployment ramping.",
+   "excerpt": "Coherent order backlog reaches 2030; InP capacity constrained most likely through 2027; 6-inch platform accelerates capacity.",
+   "supportsNodeIds": [
+    "org_ii_vi_coherent",
+    "compound_crystal_wafer_substrates",
+    "epitaxial_layer_growth_and_materials"
+   ],
+   "supportsEdgeIds": [
+    "e_interconnect_optics__requires__coherent_inp_supply"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_coherent_nvidia_deal",
+   "type": "paper",
+   "title": "NVIDIA-Coherent Strategic Agreement: Multi-Billion-Dollar LTA and $2B Investment to Secure InP Optical Capacity Through 2030",
+   "url": "https://www.eetimes.com/nvidias-4b-photonics-venture-what-you-need-to-know/",
+   "date": "2025-12-10",
+   "sourceName": "EE Times",
+   "summary": "NVIDIA and Coherent announced multi-year strategic agreement with multi-billion-dollar purchase commitment. NVIDIA investing $2B in Coherent to support R&D, capacity, operations. Agreement secures capacity access through 2028+ for AI datacenter 1.6T/800G transceiver supply chain.",
+   "excerpt": "NVIDIA investing $2 billion in Coherent to support research, development, future capacity and operations.",
+   "supportsNodeIds": [
+    "org_ii_vi_coherent"
+   ],
+   "supportsEdgeIds": [
+    "e_interconnect_optics__requires__coherent_inp_supply"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_coherent_capacity_ramp",
+   "type": "news",
+   "title": "Coherent Corp. InP Production Ramp: Double by Year-End 2026, More Than Double Again 2027; 6-Inch Platform",
+   "url": "https://www.digitimes.com/news/a20260504VL207/optical-components-rare-earth-siph-supply-chain.html",
+   "date": "2026-05-04",
+   "sourceName": "DigiTimes",
+   "summary": "Coherent Corp. on track to double internal InP output by year-end 2026 and more than double again by 2027. 6-inch InP platform producing EMLs, CW lasers, photodiodes with higher yields than 3-inch lines. Addresses supply constraint for AI datacenter optical transceivers.",
+   "excerpt": "Coherent doubling internal InP output by year-end with 6-inch platform; more than doubling again by 2027.",
+   "supportsNodeIds": [
+    "org_ii_vi_coherent"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_optical_foundry",
+   "type": "paper",
+   "title": "Global AI Optical Transceiver Market 2026: $26B Market, Component Shortage as Primary Bottleneck; WIN Semiconductors GaAs Foundry Role",
+   "url": "https://www.trendforce.com/presscenter/news/20260420-13017.html",
+   "date": "2026-04-20",
+   "sourceName": "TrendForce",
+   "summary": "Global AI optical transceiver market forecast $26B in 2026 (vs $16.5B 2025), 57% YoY growth. Supply of critical optoelectronic chips (EML, CW lasers) remains tight; demand likely exceeds supply by factor of 2. WIN Semiconductors and other GaAs foundries supporting RF/optical component ecosystem.",
+   "excerpt": "Component shortages identified as primary capacity expansion bottleneck for $26B AI optical transceiver market in 2026.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry",
+    "org_win_semiconductors"
+   ],
+   "supportsEdgeIds": [
+    "e_interconnect_optics__requires__specialty_foundry"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_samsung_device_quality",
+   "type": "news",
+   "title": "Samsung GaN Device Quality Issues Force Pivot from IDM to Foundry Model; Samples Fail Customer Standards 2025",
+   "url": "https://www.digitimes.com/news/a20260522VL205/samsung-gan-semiconductors-sic-business.html",
+   "date": "2026-05-22",
+   "sourceName": "DigiTimes",
+   "summary": "Samsung Electronics failed to secure customer purchase orders for GaN devices after samples fell short of quality/performance standards (2024-2025). Company pivoted from integrated device manufacturer (IDM) to foundry service model to monetize manufacturing capacity and technical expertise.",
+   "excerpt": "Samsung's setback puts foundry shift in focus; company pivots GaN strategy to foundry on customer growth.",
+   "supportsNodeIds": [
+    "org_samsung"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_gf_navitas_partnership",
+   "type": "news",
+   "title": "GlobalFoundries and Navitas Semiconductor Strategic Partnership for GaN Power Device Manufacturing (Nov 2025)",
+   "url": "https://www.digitimes.com/news/a20260521PD208/power-semiconductors-cooling-gan-sic.html",
+   "date": "2025-11-01",
+   "sourceName": "DigiTimes",
+   "summary": "GlobalFoundries and Navitas Semiconductor announced strategic partnership in November 2025 to strengthen US-based GaN technology, design, and manufacturing for data center and industrial power applications. Joint go-to-market for Navitas-designed GaN products.",
+   "excerpt": "GF and Navitas partnership strengthens US-based GaN manufacturing for AI datacenters.",
+   "supportsNodeIds": [
+    "org_globalfoundries"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_db_hitek_delay",
+   "type": "news",
+   "title": "DB HiTek GaN/SiC Foundry Ramp Delayed: Technology Barriers and Market Slowdown Slow Progress (2026)",
+   "url": "https://www.digitimes.com/news/a20260518VL213/gan-sic-production-market-power-semiconductors.html",
+   "date": "2026-05-18",
+   "sourceName": "DigiTimes",
+   "summary": "DB HiTek facing slower ramp in SiC and GaN power semiconductors, testing push into next-generation devices. Technology barriers and market slowdown complicating growth; expected Q3-Q4 2026 production start (vs Samsung Q2-Q3).",
+   "excerpt": "DB HiTek's power-chip push hits delay as technology barriers and market slowdown slow progress.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_power_gan_demand",
+   "type": "news",
+   "title": "Power Semiconductors SiC/GaN Demand Surge in AI Data Centers; Gate Drivers and Buck Converters Drive Specialty Foundry Growth",
+   "url": "https://www.digitimes.com/news/a20260521PD208/power-semiconductors-cooling-gan-sic.html",
+   "date": "2026-05-21",
+   "sourceName": "DigiTimes",
+   "summary": "AI data center power delivery demand (800V, 1200V platforms) driving SiC/GaN power semiconductor adoption for gate drivers, buck converters, voltage regulators. Power chip shortages deepen as foundry capacity becomes constrained.",
+   "excerpt": "Demand surge for power semiconductors reshapes data-center power and cooling, pushing suppliers toward SiC and GaN.",
+   "supportsNodeIds": [
+    "power_delivery",
+    "specialty_analog_power_foundry"
+   ],
+   "supportsEdgeIds": [
+    "e_power_delivery__requires__specialty_foundry"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_thermal_optical",
+   "type": "news",
+   "title": "Optical Transceiver Chiplets and RF Analog Devices for Thermal Control: GaAs/InP Foundry Supply Chain",
+   "url": "https://www.digitimes.com/news/a20251211VL213/photonics-growth-taiwan-cpo-manufacturing.html",
+   "date": "2025-12-11",
+   "sourceName": "DigiTimes",
+   "summary": "Thermal management systems in AI datacenters increasingly rely on optical transceiver chiplets (sensor networks) and RF analog control devices manufactured in GaAs/InP specialty foundries (WIN, VIS, IntelliEPI epi-wafer support).",
+   "excerpt": "Photonics suppliers dominate Taiwan's semiconductor growth rankings on CPO momentum and thermal control optical integration.",
+   "supportsNodeIds": [
+    "thermal_cooling",
+    "specialty_analog_power_foundry"
+   ],
+   "supportsEdgeIds": [
+    "e_thermal_cooling__requires__specialty_foundry"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_foundry_wafer_link",
+   "type": "paper",
+   "title": "Specialty Foundry Supply Chain: GaN/SiC/GaAs/InP Foundries Depend on Compound Crystal Wafer Feedstock",
+   "url": "https://www.trendforce.com/research/download/RP260401AC",
+   "date": "2026-04-01",
+   "sourceName": "TrendForce",
+   "summary": "GaN/SiC power foundries (Samsung, GF, DB HiTek) source crystal wafers from Wolfspeed, Sumitomo, competitors. GaAs/InP optical foundries (WIN, VIS) depend on Sumitomo, AXT, Freiberger substrate supply. Upstream feedstock tier critical to foundry ramp.",
+   "excerpt": "Specialty foundry supply chain depends on compound crystal wafer feedstock from Wolfspeed, Sumitomo, and specialized suppliers.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry",
+    "compound_crystal_wafer_substrates"
+   ],
+   "supportsEdgeIds": [
+    "e_specialty_foundry__requires__compound_crystal_wafers"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_foundry_epi_link",
+   "type": "paper",
+   "title": "Epitaxial Layer Growth Services as Critical Materials Tier for Specialty Foundries",
+   "url": "https://www.trendforce.com/research/download/RP260401OM",
+   "date": "2026-04-01",
+   "sourceName": "TrendForce",
+   "summary": "Specialty foundries (GaN/SiC/GaAs/InP) utilize epitaxial layer growth services (MOCVD, MBE) to deposit active device layers on wafer substrates. IntelliEPI, VPEC, LandMark supply epi-wafers for optical chiplets. Materials bottleneck at epi-layer tier impacts foundry throughput.",
+   "excerpt": "Epitaxial growth services are critical upstream materials tier for specialty semiconductor foundries.",
+   "supportsNodeIds": [
+    "specialty_analog_power_foundry",
+    "epitaxial_layer_growth_and_materials"
+   ],
+   "supportsEdgeIds": [
+    "e_specialty_foundry__requires__epitaxial_growth"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_intelliepi_chips_act",
+   "type": "news",
+   "title": "IntelliEPI US Chips Act Grant: $10.3M Funding for Optical Communication Capacity Expansion",
+   "url": "https://www.digitimes.com/news/a20250206PD231/intelliepi-chips-act-funding.html",
+   "date": "2025-02-06",
+   "sourceName": "DigiTimes",
+   "summary": "IntelliEPI awarded $10.3M from US Chips Act to support production scaling for optical communication and cloud-chiplet markets. Company ramping epitaxial wafer capacity to address AI optical demand surge.",
+   "excerpt": "IntelliEPI secures US$10.3 million Chips Act grant; sees record revenue growth in optical communication epi-wafers.",
+   "supportsNodeIds": [
+    "epitaxial_layer_growth_and_materials",
+    "org_intelliepi"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_cmpd_wolfspeed_300mm",
+   "type": "paper",
+   "title": "Wolfspeed 300mm (12-inch) SiC Single-Crystal Wafer Milestone: Next-Generation AI Computing Platform Support",
+   "url": "https://www.sec.gov/Archives/edgar/data/0000895419/000089541926000012/ex991q2-26.htm",
+   "date": "2026-06-01",
+   "sourceName": "Wolfspeed Investor Relations (Q2 2026 Earnings)",
+   "summary": "Wolfspeed announced manufacture of 300mm (12-inch) SiC single-crystal wafer in January 2026, marking research milestone for next-generation AI computing platforms. Company ramping 200mm (8-inch) production in parallel.",
+   "excerpt": "Wolfspeed manufactures 300mm silicon carbide single-crystal wafer; advancing technology roadmap for next-generation AI platforms.",
+   "supportsNodeIds": [
+    "compound_crystal_wafer_substrates",
+    "org_wolfspeed"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": []
+}

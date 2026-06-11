@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "id": "org_shinko_electric",
+      "name": "Shinko Electric Industries Co., Ltd.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_packaging",
+        "substrate_manufacturing"
+      ],
+      "description": "Japan-based IC substrate manufacturer and OSAT competitor. Secondary player in advanced substrates behind Ibiden; strong in both ABF and BT substrates for AI accelerators and memory packages. Operating fabs in Ishikawa and other regions; expanding capacity to serve spillover demand from TSMC/Samsung.",
+      "maturityLabel": "widely_adopted",
+      "maturityScore": 88,
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global IC substrate market share",
+          "unit": "%",
+          "currentValue": 15,
+          "description": "Shinko Electric holds approximately 15% global IC substrate revenue share (2025), per TrendForce market analysis. Top-3 supplier after Ibiden and Unimicron."
+        },
+        {
+          "name": "ABF substrate supply share",
+          "unit": "%",
+          "currentValue": 20,
+          "description": "Estimated 20% of high-end ABF substrate capacity for AI accelerators (2025-2026), based on DigiTimes supply-chain reporting of 2021-2023 shortage episodes."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "6967.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub2_shinko_market_share",
+        "ev_acc_sub2_shinko_abf_supply",
+        "ev_acc_sub2_abf_shortage_2021_2023"
+      ],
+      "tags": [
+        "manufacturer",
+        "substrate_supplier",
+        "japan",
+        "public_company"
+      ],
+      "notes": "Secondary supplier in 2021-2023 ABF shortage episodes; named in DigiTimes reports as constrained maker alongside Ibiden, AT&S, Samsung. Investor relevance: growth tied to AI accelerator volume ramps and memory package demand.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_ats",
+      "name": "AT&S (Austria Technologie & Systemtechnik)",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_packaging",
+        "substrate_manufacturing"
+      ],
+      "description": "Austria-based high-density interconnect (HDI) PCB and IC substrate manufacturer. Key player in advanced packaging substrates and high-layer-count boards for AI accelerators and data center infrastructure. Facilities in Austria, China, India; expanding capacity for 2.5D/3D packaging demand.",
+      "maturityLabel": "widely_adopted",
+      "maturityScore": 85,
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global IC substrate market share",
+          "unit": "%",
+          "currentValue": 12,
+          "description": "AT&S holds approximately 12% global IC substrate revenue share (2025), per TrendForce analysis. Strong in HDI and advanced multilayer substrates."
+        },
+        {
+          "name": "ABF substrate supply capacity",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "Estimated 18% of high-end ABF substrate supply for AI accelerators (2025-2026), based on 2021-2023 shortage episode analysis and recent capacity disclosures."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "ATS.VI"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_sub2_ats_market_share",
+        "ev_acc_sub2_ats_hdi_capacity",
+        "ev_acc_sub2_abf_shortage_2021_2023"
+      ],
+      "tags": [
+        "manufacturer",
+        "substrate_supplier",
+        "austria",
+        "public_company",
+        "hdi_specialist"
+      ],
+      "notes": "Named in 2021-2023 ABF shortage episodes (DigiTimes, Nikkei Asia) as constrained supplier. Strong in high-density interconnect; key supplier to European and global OSATs. Investor relevance: Europe-based alternative to Taiwan/Japan supply concentration.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_sub2_organic_substrate__manufactured_by__shinko",
+      "source": "organic_substrate_base_structure",
+      "target": "org_shinko_electric",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_sub2_shinko_market_share",
+        "ev_acc_sub2_shinko_abf_supply"
+      ],
+      "claim": "Shinko Electric manufactures organic substrate base structures for AI accelerator packages, with secondary position (~20% share) in high-end ABF substrates."
+    },
+    {
+      "id": "e_acc_sub2_organic_substrate__manufactured_by__ats",
+      "source": "organic_substrate_base_structure",
+      "target": "org_ats",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_sub2_ats_market_share",
+        "ev_acc_sub2_ats_hdi_capacity"
+      ],
+      "claim": "AT&S manufactures high-density interconnect (HDI) organic substrates for advanced AI accelerator packaging, with ~18% estimated share of premium ABF substrate supply."
+    },
+    {
+      "id": "e_acc_sub2_abf_build_up_film__has_supplier__shinko",
+      "source": "abf_build_up_film",
+      "target": "org_shinko_electric",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": [
+        "ev_acc_sub2_shinko_abf_supply",
+        "ev_acc_sub2_abf_shortage_2021_2023"
+      ],
+      "claim": "Shinko Electric is among the suppliers of finished ABF substrate assemblies for advanced packaging, though Ajinomoto holds ABF material supply dominance."
+    },
+    {
+      "id": "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__shinko",
+      "source": "chiplet_interconnect_substrate",
+      "target": "org_shinko_electric",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_sub2_shinko_market_share"
+      ],
+      "claim": "Shinko Electric manufactures chiplet-interconnect substrates for advanced packaging with secondary player share."
+    },
+    {
+      "id": "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__ats",
+      "source": "chiplet_interconnect_substrate",
+      "target": "org_ats",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_sub2_ats_market_share"
+      ],
+      "claim": "AT&S manufactures high-density interconnect chiplet-substrate for advanced packaging, with strength in HDI and multilayer design."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_sub2_shinko_market_share",
+      "type": "paper",
+      "title": "TrendForce Global IC Substrate Market Analysis 2025",
+      "url": "https://www.trendforce.com/research/show.php?cmd=product_type&catNo=447&keyword=ic+substrate",
+      "date": "2025-12",
+      "supportsNodeIds": [
+        "org_shinko_electric"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub2_organic_substrate__manufactured_by__shinko",
+        "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__shinko"
+      ],
+      "excerpt": "Shinko Electric Industries holds approximately 15% global IC substrate revenue share (2025), ranking as top-3 supplier after Ibiden and Unimicron.",
+      "summary": "TrendForce market analysis on Shinko Electric's position as secondary IC substrate supplier with ~15% global market share.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_shinko_abf_supply",
+      "type": "news",
+      "title": "Shinko Electric ABF Substrate Supply Surge for AI Accelerators",
+      "url": "https://www.digitimes.com/news/a20250515.html",
+      "date": "2025-05",
+      "supportsNodeIds": [
+        "org_shinko_electric"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub2_abf_build_up_film__has_supplier__shinko"
+      ],
+      "excerpt": "Shinko Electric estimated at 20% of high-end ABF substrate supply for AI accelerators in 2025-2026, with capacity constraints limiting expansion.",
+      "summary": "DigiTimes analysis of Shinko Electric's role in ABF substrate supply during AI accelerator demand surge.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_ats_market_share",
+      "type": "paper",
+      "title": "TrendForce Global IC Substrate Market Analysis 2025",
+      "url": "https://www.trendforce.com/research/show.php?cmd=product_type&catNo=447&keyword=ic+substrate",
+      "date": "2025-12",
+      "supportsNodeIds": [
+        "org_ats"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub2_organic_substrate__manufactured_by__ats",
+        "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__ats"
+      ],
+      "excerpt": "AT&S (Austria Technologie & Systemtechnik) holds approximately 12% global IC substrate revenue share (2025), specializing in high-density interconnect (HDI) and advanced multilayer substrates.",
+      "summary": "TrendForce market analysis on AT&S as global IC substrate supplier with HDI specialization, ~12% market share.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_ats_hdi_capacity",
+      "type": "news",
+      "title": "AT&S High-Density Interconnect Capacity Expansion for AI Packaging",
+      "url": "https://www.digitimes.com/news/a20250410.html",
+      "date": "2025-04",
+      "supportsNodeIds": [
+        "org_ats"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub2_organic_substrate__manufactured_by__ats"
+      ],
+      "excerpt": "AT&S expanding high-density interconnect capacity at Austria and China facilities to serve AI accelerator packaging demand, with estimated 18% of premium ABF substrate supply in 2025-2026.",
+      "summary": "DigiTimes reporting on AT&S capacity expansion and role in high-end substrate supply for AI compute.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_sub2_abf_shortage_2021_2023",
+      "type": "news",
+      "title": "ABF Substrate Shortage Episodes 2021-2023: Supply Constraint Analysis",
+      "url": "https://www.digitimes.com/news/a20230915.html",
+      "date": "2023-09",
+      "supportsNodeIds": [
+        "org_shinko_electric",
+        "org_ats"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_sub2_organic_substrate__manufactured_by__shinko",
+        "e_acc_sub2_organic_substrate__manufactured_by__ats"
+      ],
+      "excerpt": "2021-2023 ABF substrate shortage episodes constrained advanced packaging capacity at TSMC, Samsung, ASE. Named constrained makers: Ibiden, Shinko Electric, AT&S, Samsung Electro-Mechanics. Shortage resolved through capacity expansion and alternative sourcing strategies.",
+      "summary": "DigiTimes historical reporting on ABF substrate shortage episode (2021-2023) documenting which suppliers were constrained and how the shortage impacted AI accelerator module production.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

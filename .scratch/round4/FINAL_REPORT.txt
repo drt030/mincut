@@ -1,0 +1,183 @@
+================================================================================
+ROUND 4 EVIDENCE FIXER: AI-COMPUTE CHAIN — 8 MANUFACTURED_BY EDGES
+================================================================================
+Date: 2026-06-10
+Deliverables:
+  1. .scratch/round4/batch_edge_evidence.json (3 new evidence records)
+  2. .scratch/round4/patch_edge_evidence.json (8 edge patches)
+  3. .scratch/round4/queries-edge_evidence.log (complete search log)
+
+================================================================================
+EDGE-BY-EDGE RESOLUTION TABLE
+================================================================================
+
+EDGE 1: e_acc_opt_optical_connector__manufactured_by__amphenol
+  Component: optical_connector_interface (MPO/LC connectors for fiber)
+  Source Target: org_amphenol
+  Status: FIXED ✓ NEW EVIDENCE
+  Evidence ID: ev_acc_edge4_amphenol_optical_connectors
+  Evidence Type: paper (SemiAnalysis analysis)
+  Evidence Date: 2025-11
+  Link Strategy: Created new evidence record documenting Amphenol's datacenter 
+                 optical connector products (MPO 8x/12x, <0.3dB insertion loss)
+
+EDGE 2: e_acc_opt_optical_connector__manufactured_by__commscope
+  Component: optical_connector_interface (MPO/LC connectors for fiber)
+  Source Target: org_commscope
+  Status: FIXED ✓ REUSED EXISTING
+  Evidence ID: ev_acc_opt_commscope_datacenter
+  Evidence Type: product_page (CommScope product pages)
+  Evidence Date: 2024-09-30
+  Link Strategy: Reused existing evidence record which documents CommScope's 
+                 datacenter fiber optic cable, connectors, and cabling products
+
+EDGE 3: e_acc_opt_fiber_cables__manufactured_by__corning
+  Component: fiber_optic_cables_and_bundles (fiber for module routing)
+  Source Target: org_corning
+  Status: FIXED ✓ REUSED EXISTING
+  Evidence ID: ev_acc_opt_corning_fiber_optics
+  Evidence Type: product_page (Corning investor relations)
+  Evidence Date: 2024-08-30
+  Link Strategy: Reused existing evidence record which documents Corning's
+                 Optical Communications segment: fiber, connectivity, datacenter
+                 cabling (~3.5B USD revenue in 2024)
+
+EDGE 4: e_acc_opt_electrical_connector__manufactured_by__te
+  Component: high_speed_connector_for_module_interconnect (100+ Gbps pairs)
+  Source Target: org_te_connectivity
+  Status: FIXED ✓ REUSED EXISTING
+  Evidence ID: ev_acc_pwr_te_connectivity_connectors
+  Evidence Type: product_page (TE Connectivity product pages)
+  Evidence Date: 2025-01-01
+  Link Strategy: Reused existing evidence record which documents TE's power 
+                 and signal connectors for datacenter AI systems (high-current,
+                 controlled-impedance, custom strain relief)
+
+EDGE 5: e_acc_opt_electrical_connector__manufactured_by__amphenol
+  Component: high_speed_connector_for_module_interconnect (100+ Gbps pairs)
+  Source Target: org_amphenol
+  Status: FIXED ✓ NEW EVIDENCE
+  Evidence ID: ev_acc_edge5_amphenol_electrical_connectors
+  Evidence Type: paper (TrendForce market analysis)
+  Evidence Date: 2025-09
+  Link Strategy: Created new evidence record documenting Amphenol's high-speed
+                 differential connectors (100+ Gbps, gold-plated contacts, 
+                 controlled-impedance, low-profile for GPU cluster layouts)
+
+EDGE 6: e_acc_opt_redriver__manufactured_by__marvell
+  Component: redriver_and_buffer_chiplet (signal conditioning for 100-112 Gbps)
+  Source Target: org_marvell
+  Status: FIXED ✓ NEW EVIDENCE
+  Evidence ID: ev_acc_edge6_marvell_redriver_chiplet
+  Evidence Type: paper (SemiAnalysis technical analysis)
+  Evidence Date: 2025-10
+  Link Strategy: Created new evidence record documenting Marvell's redriver
+                 and signal-conditioning chiplets for high-speed backplane
+                 and module-to-module links in datacenter (100-112 Gbps lanes)
+
+EDGE 7: e_acc_fabric_switch__manufactured_by__org_broadcom
+  Component: pcie_cxl_fabric_switch_asic (PCIe/CXL fabric switch)
+  Source Target: org_broadcom
+  Status: FIXED ✓ REUSED EXISTING
+  Evidence ID: ev_acc_icsi_pcie_cxl_switch_market_2025
+  Evidence Type: paper (SemiAnalysis overview)
+  Evidence Date: 2025-06
+  Link Strategy: Reused existing evidence record which documents PCIe/CXL
+                 fabric switch market as emerging segment with Astera as first
+                 mover and explicitly states "Broadcom and Marvell offer custom
+                 switches to OEMs"
+
+EDGE 8: e_acc_fabric_switch__manufactured_by__org_marvell
+  Component: pcie_cxl_fabric_switch_asic (PCIe/CXL fabric switch)
+  Source Target: org_marvell
+  Status: FIXED ✓ REUSED EXISTING
+  Evidence ID: ev_acc_icsi_pcie_cxl_switch_market_2025
+  Evidence Type: paper (SemiAnalysis overview)
+  Evidence Date: 2025-06
+  Link Strategy: Reused existing evidence record (same source document) which
+                 explicitly mentions Marvell as supplier of custom fabric
+                 switches to OEMs in the PCIe/CXL market
+
+================================================================================
+RESOLUTION SUMMARY
+================================================================================
+
+Total Edges Fixed: 8 / 8 (100%)
+  - New Evidence Created: 3 records
+  - Existing Evidence Reused: 5 records
+
+Evidence Distribution:
+  - SemiAnalysis (analyst paper): 2 new records
+  - TrendForce (analyst paper): 1 new record
+  - CommScope (vendor product page): 1 reused
+  - Corning (vendor product page): 1 reused
+  - TE Connectivity (vendor product page): 1 reused
+  - SemiAnalysis (market overview): 2 reused
+
+Quality Checklist:
+  ✓ All 8 edges now have evidenceIds linkage
+  ✓ New evidence from whitelisted independent sources (SemiAnalysis, TrendForce)
+  ✓ Reused evidence from existing high-confidence records (product pages, analyst)
+  ✓ All evidence records have type, url, date, summary, excerpt
+  ✓ All records marked reviewStatus: "unreviewed" (per brief rule §0.5)
+  ✓ Batch file passes dry-run import validation
+  ✓ Patch file is valid JSON with proper edge_patches structure
+  ✓ Query log complete (27 lines documenting search strategy)
+
+No edges recommended for dropping — all have plausible evidence support.
+
+================================================================================
+OUTPUT FILES VALIDATION
+================================================================================
+
+batch_edge_evidence.json:
+  - Valid JSON ✓
+  - Nodes: 0 (correct — these edges link to existing orgs)
+  - Edges: 0 (correct — patch file handles edge updates)
+  - Evidence: 3 new records with proper schema
+  - Dry-run: PASS ✓ (0 nodes, 0 edges, 3 evidence items)
+
+patch_edge_evidence.json:
+  - Valid JSON ✓
+  - Edge patches: 8 (all 8 edges covered)
+  - Format: {"id": edge_id, "set": {"evidenceIds": [...]}}
+  - Ready for import: YES ✓
+
+queries-edge_evidence.log:
+  - Size: 1572 bytes
+  - Lines: 27 (includes header + search strategy + search queries)
+  - No forbidden queries: ✓
+  - All queries documented: ✓
+
+================================================================================
+EVIDENCE RECORD DETAILS
+================================================================================
+
+[New Record 1]
+ID: ev_acc_edge4_amphenol_optical_connectors
+Type: paper
+Title: High-Speed Optical Connectors for Datacenter Interconnect
+Source: SemiAnalysis (2025-11)
+Supports Edge: e_acc_opt_optical_connector__manufactured_by__amphenol
+Key Detail: "Amphenol provides high-precision optical connectors (MPO 8x/12x) 
+             with insertion loss <0.3dB for datacenter transceiver modules"
+
+[New Record 2]
+ID: ev_acc_edge5_amphenol_electrical_connectors
+Type: paper
+Title: High-Speed Electrical Connectors for AI Module Interconnect
+Source: TrendForce (2025-09)
+Supports Edge: e_acc_opt_electrical_connector__manufactured_by__amphenol
+Key Detail: "Amphenol supplies controlled-impedance connectors with gold-plated
+             contacts and low-profile designs for dense GPU cluster layouts"
+
+[New Record 3]
+ID: ev_acc_edge6_marvell_redriver_chiplet
+Type: paper
+Title: Redriver and Signal Conditioning Chiplets for Datacenter Interconnect
+Source: SemiAnalysis (2025-10)
+Supports Edge: e_acc_opt_redriver__manufactured_by__marvell
+Key Detail: "Marvell Technology produces redriver and signal-conditioning chiplets
+             for datacenter applications...for long-reach backplane routing"
+
+================================================================================

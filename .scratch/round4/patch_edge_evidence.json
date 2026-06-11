@@ -1,0 +1,52 @@
+{
+  "edge_patches": [
+    {
+      "id": "e_acc_opt_optical_connector__manufactured_by__amphenol",
+      "set": {
+        "evidenceIds": ["ev_acc_edge4_amphenol_optical_connectors"]
+      }
+    },
+    {
+      "id": "e_acc_opt_optical_connector__manufactured_by__commscope",
+      "set": {
+        "evidenceIds": ["ev_acc_opt_commscope_datacenter"]
+      }
+    },
+    {
+      "id": "e_acc_opt_fiber_cables__manufactured_by__corning",
+      "set": {
+        "evidenceIds": ["ev_acc_opt_corning_fiber_optics"]
+      }
+    },
+    {
+      "id": "e_acc_opt_electrical_connector__manufactured_by__te",
+      "set": {
+        "evidenceIds": ["ev_acc_pwr_te_connectivity_connectors"]
+      }
+    },
+    {
+      "id": "e_acc_opt_electrical_connector__manufactured_by__amphenol",
+      "set": {
+        "evidenceIds": ["ev_acc_edge5_amphenol_electrical_connectors"]
+      }
+    },
+    {
+      "id": "e_acc_opt_redriver__manufactured_by__marvell",
+      "set": {
+        "evidenceIds": ["ev_acc_edge6_marvell_redriver_chiplet"]
+      }
+    },
+    {
+      "id": "e_acc_fabric_switch__manufactured_by__org_broadcom",
+      "set": {
+        "evidenceIds": ["ev_acc_icsi_pcie_cxl_switch_market_2025"]
+      }
+    },
+    {
+      "id": "e_acc_fabric_switch__manufactured_by__org_marvell",
+      "set": {
+        "evidenceIds": ["ev_acc_icsi_pcie_cxl_switch_market_2025"]
+      }
+    }
+  ]
+}

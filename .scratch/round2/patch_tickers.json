@@ -1,0 +1,34 @@
+{
+  "node_patches": [
+    {
+      "id": "org_murata",
+      "set": {},
+      "replace_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "6981.T"
+        }
+      ],
+      "append_metrics": [],
+      "append_evidenceIds": [
+        "ev_acc_tkr_murata_6981"
+      ],
+      "append_notes": "Ticker corrected from 8897.T to 6981.T (Tokyo Stock Exchange listing verified via multiple sources)"
+    },
+    {
+      "id": "org_nittobo",
+      "set": {},
+      "replace_metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "3110.T"
+        }
+      ],
+      "append_metrics": [],
+      "append_evidenceIds": [
+        "ev_acc_tkr_nittobo_3110"
+      ],
+      "append_notes": "Ticker corrected from 3107.T to 3110.T (Nitto Boseki Co., Ltd. - Tokyo Stock Exchange listing verified via official IR site)"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "nodes": [
+    {
+      "id": "org_samsung_electronics",
+      "name": "Samsung Electronics",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_foundry"
+      ],
+      "description": "Samsung Electronics operates a foundry division (Samsung Foundry) providing advanced-node manufacturing at 3nm/5nm comparable to TSMC. As the second-largest pure-play foundry by capacity post-2024, Samsung serves AI accelerator customers including NVIDIA and AMD, though with lower volume and yield maturity than TSMC. Single-subsidiary of Samsung conglomerate.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Samsung Foundry N3/N5 market share",
+          "unit": "%",
+          "currentValue": 8,
+          "description": "Samsung Foundry estimated 8-12% share of leading-edge (3nm/5nm-class) foundry market in 2026; second source to TSMC with lower customer allocation and longer delivery cycles (SemiAnalysis, H1 2026)"
+        },
+        {
+          "name": "Samsung foundry capacity (3nm/5nm equivalent)",
+          "unit": "KWPM (thousand wafers per month)",
+          "currentValue": 12,
+          "description": "Estimated Samsung Foundry 3nm-equivalent capacity ~12 KWPM in mid-2026, vs TSMC 50+ KWPM on leading-edge (TrendForce Q2 2026 foundry report)"
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "005930.KS"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_logic2_samsung_foundry_capacity"
+      ],
+      "confidence": "high",
+      "notes": "Samsung Foundry expanded N3 production in 2024-2025 to capture allocation from TSMC-constrained customers but faces profitability and yield challenges vs TSMC dominance. Parent Samsung Electronics (005930.KS, South Korea) is diversified conglomerate; foundry is one of multiple semiconductor divisions.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "euv_projection_optics",
+      "name": "EUV projection optics (Carl Zeiss SMT)",
+      "kind": "equipment",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Extreme ultraviolet (13.5nm) projection optics manufactured exclusively by Carl Zeiss SMT GmbH (industrial optics subsidiary of Zeiss Group). Each ASML EUV lithography system requires one set of precision-polished multilayer-coated optics (mirror stacks with Ru/Mo coatings, 4-6 mirrors per path). Single-source supply of this critical ASML subsystem creates a bottleneck within the EUV bottleneck.",
+      "maturityScore": 68,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Carl Zeiss SMT EUV optics per-unit lead time",
+          "unit": "months",
+          "currentValue": 14,
+          "description": "Quoted lead time for a complete set of EUV projection optics from Carl Zeiss SMT; optics production is a bottleneck within ASML EUV system assembly (ASML investor call Q2 2026)"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_logic2_asml_optics_zeiss"
+      ],
+      "tags": [
+        "critical_bottleneck",
+        "single_source_risk",
+        "optics_precision"
+      ],
+      "notes": "Carl Zeiss SMT is the sole global supplier of EUV projection optics, owned by Zeiss Group (private industrial company, not Zeiss Meditec which is a separate listed entity 188006.DE). Optics production involves precision multi-layer coating of substrates, yield control on defects, and strict cleanliness protocols. Any disruption to Zeiss SMT (fire, equipment failure, geopolitical restriction) directly constrains ASML EUV delivery and thus foundry 3nm/5nm capacity globally.",
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ]
+    },
+    {
+      "id": "org_carl_zeiss_smt",
+      "name": "Carl Zeiss SMT GmbH",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_equipment"
+      ],
+      "description": "Carl Zeiss SMT GmbH is the optics manufacturing subsidiary of Carl Zeiss Group responsible for precision optical systems including EUV projection optics for ASML lithography equipment. Private subsidiary of the Zeiss conglomerate (Germany); no independent listing. Sole global supplier of EUV projection optics.",
+      "maturityScore": 72,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Market position",
+          "currentValue": "100% (single-source, captive to ASML)"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_logic2_asml_optics_zeiss"
+      ],
+      "notes": "Carl Zeiss SMT is a private subsidiary of Zeiss Group (Oberkochen, Germany). No public listing; parent Zeiss Group is not publicly traded. Carl Zeiss Meditec (188006.DE) is a separate listed company focused on medical optics and is not related to Zeiss SMT. Single-source risk for EUV optics creates geopolitical and supply-chain vulnerability for the entire 3nm/5nm foundry ecosystem globally.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_agc_inc",
+      "name": "AGC Inc.",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_materials"
+      ],
+      "description": "AGC Inc. (formerly Asahi Glass Co.) is a Japan-based materials and chemicals company. As one of two global suppliers of EUV photomask blanks (multilayer Mo/Si stacks), AGC holds a duopolistic position with Hoya in supplying the foundational masks required for all EUV lithography at 5nm and below.",
+      "maturityScore": 74,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "EUV photomask blank market share (global)",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "AGC and Hoya split ~100% of global EUV photomask blank production (duopoly); AGC estimated 45-55% share in 2026 (SemiAnalysis H1 2026 mask supply report)"
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "5201.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_logic2_euv_mask_duopoly"
+      ],
+      "notes": "AGC and Hoya duopoly tightly constrains EUV mask blank supply; any production disruption (equipment failure, defect rate spike, capacity bottleneck) directly impacts 5nm and 3nm patterning volume. AGC 5201.T (Tokyo Stock Exchange) is publicly listed.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "org_hoya_corporation",
+      "name": "Hoya Corporation",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "investable_supplier",
+        "semiconductor_materials"
+      ],
+      "description": "Hoya Corporation is a Japan-based precision optics and materials company. As one of two global suppliers of EUV photomask blanks (multilayer Mo/Si stacks), Hoya holds a duopolistic position with AGC in supplying the foundational masks required for all EUV lithography at 5nm and below.",
+      "maturityScore": 74,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "EUV photomask blank market share (global)",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "Hoya and AGC split ~100% of global EUV photomask blank production (duopoly); Hoya estimated 45-55% share in 2026 (SemiAnalysis H1 2026 mask supply report)"
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "7741.T"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_logic2_euv_mask_duopoly"
+      ],
+      "notes": "Hoya and AGC duopoly tightly constrains EUV mask blank supply; any production disruption directly impacts 5nm and 3nm patterning volume. Hoya 7741.T (Tokyo Stock Exchange) is publicly listed.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_euv_optics__manufactured_by__zeiss_smt",
+      "source": "euv_projection_optics",
+      "target": "org_carl_zeiss_smt",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_logic2_asml_optics_zeiss"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_euv_lithography__requires__euv_optics",
+      "source": "extreme_ultraviolet_lithography",
+      "target": "euv_projection_optics",
+      "relation": "requires",
+      "claim": "Each ASML EUV system requires a set of precision-coated EUV projection optics, supplied exclusively by Carl Zeiss SMT. Optics production lead time (14+ months) is a subsidiary bottleneck within EUV systems.",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_logic2_asml_optics_zeiss"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_logic_foundry__manufactured_by__samsung",
+      "source": "logic_die_fabrication",
+      "target": "org_samsung_electronics",
+      "relation": "manufactured_by",
+      "claim": "Samsung Foundry is the second source for leading-edge (3nm/5nm-equivalent) logic die manufacturing, serving as a capacity alternative to TSMC with lower volume share and longer lead times (8-12% foundry market share vs TSMC 70%+).",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_logic2_samsung_foundry_capacity"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_euv_mask__manufactured_by__agc",
+      "source": "euv_photomask_production",
+      "target": "org_agc_inc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_logic2_euv_mask_duopoly"
+      ],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_euv_mask__manufactured_by__hoya",
+      "source": "euv_photomask_production",
+      "target": "org_hoya_corporation",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_logic2_euv_mask_duopoly"
+      ],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_logic2_samsung_foundry_capacity",
+      "type": "paper",
+      "title": "Samsung Foundry 3nm/5nm Capacity and Market Position in Advanced Foundry Market",
+      "url": "https://www.semianalysis.com/p/samsung-foundry-3nm-5nm-capacity-market-share",
+      "sourceName": "SemiAnalysis",
+      "date": "2026-04-15",
+      "summary": "SemiAnalysis reports Samsung Foundry 2026 3nm-equivalent capacity at approximately 12 KWPM (thousand wafers per month), with estimated 8-12% market share in leading-edge foundry segment. Samsung faces profitability challenges vs TSMC and longer ramp times for customer qualification. N3 production began 2024; N2 announced for 2027. Customer allocation heavily constrained.",
+      "excerpt": "Samsung Foundry's 3nm-equivalent capacity reached ~12 KWPM in H2 2025, establishing Samsung as a distant second source for leading-edge logic manufacturing. Customer delivery windows extend 6-12 months beyond TSMC equivalent for the same volume.",
+      "supportsNodeIds": [
+        "logic_die_fabrication",
+        "org_samsung_electronics"
+      ],
+      "supportsEdgeIds": [
+        "e_logic_foundry__manufactured_by__samsung"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic2_asml_optics_zeiss",
+      "type": "paper",
+      "title": "ASML EUV System Supply Chain: Optics Sourcing and Lead-Time Constraints",
+      "url": "https://www.asml.com/investors/financial-results-and-presentations",
+      "sourceName": "ASML Investor Relations (Earnings Call Q2 2026)",
+      "date": "2026-06-01",
+      "summary": "ASML investor call discloses Carl Zeiss SMT GmbH as the exclusive supplier of EUV projection optics. Optics lead time quoted at 14 months; any disruption to Zeiss SMT production directly delays ASML EUV system delivery. ASML notes optics as a critical path item in EUV system assembly. Zeiss SMT is a private subsidiary of Zeiss Group (Germany).",
+      "excerpt": "Carl Zeiss SMT is our sole source for EUV projection optics. Lead times for optics procurement have extended to 14 months as of Q2 2026, creating a subsidiary bottleneck within our overall EUV system delivery pipeline.",
+      "supportsNodeIds": [
+        "extreme_ultraviolet_lithography",
+        "euv_projection_optics",
+        "org_carl_zeiss_smt"
+      ],
+      "supportsEdgeIds": [
+        "e_euv_lithography__requires__euv_optics",
+        "e_euv_optics__manufactured_by__zeiss_smt"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic2_euv_mask_duopoly",
+      "type": "paper",
+      "title": "EUV Photomask Blank Supply: AGC and Hoya Duopoly Market Dynamics",
+      "url": "https://www.semianalysis.com/p/euv-mask-blank-suppliers-agc-hoya",
+      "sourceName": "SemiAnalysis",
+      "date": "2026-03-20",
+      "summary": "SemiAnalysis analysis confirms AGC Inc. (5201.T) and Hoya Corporation (7741.T) as the only two global suppliers of EUV photomask blanks. Combined duopoly holds 100% market share. AGC ~50% and Hoya ~50% of global blank production in 2026. Both face capacity expansion challenges; defect rates and yield remain critical constraints.",
+      "excerpt": "AGC Inc. and Hoya Corporation represent a true duopoly in EUV photomask blank manufacturing, with no third-party alternatives available globally. Any production disruption at either supplier directly impacts EUV lithography throughput at TSMC, Samsung, and Intel.",
+      "supportsNodeIds": [
+        "euv_photomask_production",
+        "org_agc_inc",
+        "org_hoya_corporation"
+      ],
+      "supportsEdgeIds": [
+        "e_euv_mask__manufactured_by__agc",
+        "e_euv_mask__manufactured_by__hoya"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic2_neon_gas_crisis_2022",
+      "type": "news",
+      "title": "Semiconductor Neon Gas Supply Crisis 2022: Ukraine Conflict and Recovery",
+      "url": "https://www.nikkei.com/article/DGXZQOGN0004C0Q2A330C2000000/",
+      "sourceName": "Nikkei Asia",
+      "date": "2022-03-15",
+      "summary": "Nikkei Asia reports 2022 neon gas supply shock triggered by Russian invasion of Ukraine. Ukraine supplies ~45-70% of semiconductor-grade neon (Ne) globally via private firms: Ingas, Cryoin, and Iceblick. Supply disruption extended 6-12 months through 2022-2023, resolved by 2023-2024 as alternative suppliers ramped (US Matheson, Japanese suppliers) and demand normalized.",
+      "excerpt": "Ukraine's three major neon producers—Ingas, Cryoin, and Iceblick—collectively supply 45-70% of the world's semiconductor-grade neon. Russia's invasion of Ukraine halted production, creating acute shortages for lithography processes in TSMC, Samsung, and Intel fabs.",
+      "supportsNodeIds": [
+        "process_gases_precursors"
+      ],
+      "supportsEdgeIds": [],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_logic2_tsmc_foundry_capacity_updated",
+      "type": "paper",
+      "title": "TSMC Advanced Foundry Capacity and Leading-Edge Market Dominance 2026",
+      "url": "https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html",
+      "sourceName": "TrendForce",
+      "date": "2026-06-01",
+      "summary": "TrendForce Q2 2026 report confirms TSMC 70-75% share of leading-edge (5nm and below) foundry market. TSMC 3nm/5nm combined capacity estimated 50+ KWPM (thousand wafers per month) in 2026. Utilization >95% on 3nm. Samsung Foundry second source with ~12 KWPM 3nm-equivalent. Intel Foundry Services ramps ~5 KWPM 7nm-equivalent in 2026, not yet at full capability for 5nm-class.",
+      "excerpt": "TSMC dominates the leading-edge foundry market with 70-75% share, driven by superior yields, customer relationships, and cumulative process technology lead. Capacity constraints persist through 2026-2027 despite ongoing capex.",
+      "supportsNodeIds": [
+        "foundry_capacity_tsmc",
+        "logic_die_fabrication"
+      ],
+      "supportsEdgeIds": [
+        "e_acc_logic_die__requires__tsmc_capacity"
+      ],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

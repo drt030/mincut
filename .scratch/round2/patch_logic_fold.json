@@ -1,0 +1,73 @@
+{
+ "node_patches": [
+  {
+   "id": "org_samsung",
+   "append_metrics": [
+    {
+     "name": "Samsung Foundry N3/N5 market share",
+     "unit": "%",
+     "currentValue": 8,
+     "description": "Samsung Foundry estimated 8-12% share of leading-edge (3nm/5nm-class) foundry market in 2026; second source to TSMC with lower customer allocation and longer delivery cycles (SemiAnalysis, H1 2026)"
+    },
+    {
+     "name": "Samsung foundry capacity (3nm/5nm equivalent)",
+     "unit": "KWPM (thousand wafers per month)",
+     "currentValue": 12,
+     "description": "Estimated Samsung Foundry 3nm-equivalent capacity ~12 KWPM in mid-2026, vs TSMC 50+ KWPM on leading-edge (TrendForce Q2 2026 foundry report)"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_logic2_samsung_foundry_capacity"
+   ],
+   "append_tags": [],
+   "append_domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "semiconductor_foundry"
+   ],
+   "append_notes": "Samsung Foundry expanded N3 production in 2024-2025 to capture allocation from TSMC-constrained customers but faces profitability and yield challenges vs TSMC dominance. Parent Samsung Electronics (005930.KS, South Korea) is diversified conglomerate; foundry is one of multiple semiconductor divisions."
+  },
+  {
+   "id": "org_agc",
+   "append_metrics": [
+    {
+     "name": "EUV photomask blank market share (global)",
+     "unit": "%",
+     "currentValue": 50,
+     "description": "AGC and Hoya split ~100% of global EUV photomask blank production (duopoly); AGC estimated 45-55% share in 2026 (SemiAnalysis H1 2026 mask supply report)"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_logic2_euv_mask_duopoly"
+   ],
+   "append_tags": [],
+   "append_domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "semiconductor_materials"
+   ],
+   "append_notes": "AGC and Hoya duopoly tightly constrains EUV mask blank supply; any production disruption (equipment failure, defect rate spike, capacity bottleneck) directly impacts 5nm and 3nm patterning volume. AGC 5201.T (Tokyo Stock Exchange) is publicly listed."
+  },
+  {
+   "id": "org_hoya",
+   "append_metrics": [
+    {
+     "name": "EUV photomask blank market share (global)",
+     "unit": "%",
+     "currentValue": 50,
+     "description": "Hoya and AGC split ~100% of global EUV photomask blank production (duopoly); Hoya estimated 45-55% share in 2026 (SemiAnalysis H1 2026 mask supply report)"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_logic2_euv_mask_duopoly"
+   ],
+   "append_tags": [],
+   "append_domain": [
+    "ai_compute_chain",
+    "investable_supplier",
+    "semiconductor_materials"
+   ],
+   "append_notes": "Hoya and AGC duopoly tightly constrains EUV mask blank supply; any production disruption directly impacts 5nm and 3nm patterning volume. Hoya 7741.T (Tokyo Stock Exchange) is publicly listed."
+  }
+ ]
+}

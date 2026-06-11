@@ -1,0 +1,87 @@
+{
+ "node_patches": [
+  {
+   "id": "org_jx_advanced_metals",
+   "replace_metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "5016.T"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_tkr4_jx_tse_listing"
+   ],
+   "append_notes": "IPO listing code corrected from 5541.T to 5016.T (TSE listing on March 19, 2025). Verified against TSE official record and multiple financial data providers."
+  },
+  {
+   "id": "org_nordson",
+   "replace_metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "NDSN (NYSE)"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_tkr4_nordson_nasdaq"
+   ],
+   "append_notes": "Corrected ticker from NSA to NDSN (NASDAQ). NSA is not a valid ticker for Nordson Corporation. Verified against SEC filings and NASDAQ official data."
+  },
+  {
+   "id": "org_suss_microtic",
+   "replace_metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "SMHN.DE"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_tkr4_suss_xetra"
+   ],
+   "append_notes": "Corrected ticker from SUU to SMHN.DE (Xetra/Frankfurt Stock Exchange). SUU is not the valid Xetra symbol; SMHN is the correct code. Company also promoted to MDAX index as of June 22, 2026."
+  },
+  {
+   "id": "org_iqe",
+   "replace_metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "IQE.L"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_tkr4_iqe_aim"
+   ],
+   "append_notes": "Updated ticker to IQE.L (London Stock Exchange, AIM segment) for clarity and exchange qualification. Previously listed as bare 'IQE'."
+  },
+  {
+   "id": "org_landmark_optoelectronics",
+   "replace_metrics": [],
+   "append_metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "3081.TWO"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_tkr4_landmark_tpe"
+   ],
+   "append_notes": "Public listing added: 3081.TWO (Taipei Exchange, not TWSE). LandMark Optoelectronics is listed on the Taiwan TPEx (Taipei Exchange), not the main TWSE. Verified against Yahoo Finance and Taipei Exchange."
+  },
+  {
+   "id": "org_wolfspeed",
+   "replace_metrics": [
+    {
+     "name": "Public listing",
+     "currentValue": "WOLF"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_tkr4_wolfspeed_ch11"
+   ],
+   "append_notes": "Ticker remains WOLF (NYSE). Company emerged from Chapter 11 bankruptcy on September 29, 2025, after 70% debt reduction. Equity issuances to Renesas completed Jan 2026. Updated metric to reflect pure ticker symbol without exchange qualifier for consistency."
+  }
+ ],
+ "evidence_patches": [],
+ "edge_patches": [],
+ "remove_node_ids": [],
+ "remove_edge_ids": []
+}

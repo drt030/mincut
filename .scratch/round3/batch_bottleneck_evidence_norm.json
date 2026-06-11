@@ -1,0 +1,172 @@
+{
+ "nodes": [],
+ "edges": [],
+ "evidence": [
+  {
+   "id": "ev_acc_bn3_high_bandwidth_memory",
+   "type": "paper",
+   "title": "HBM3/HBM3E Production Capacity and Supply Concentration 2026",
+   "url": "https://www.trendforce.com/presscenter/news/20260315-hbm-supply-crunch.html",
+   "date": "2026-03-15",
+   "summary": "SK Hynix, Samsung, and Micron combined HBM3/HBM3E production capacity: ~1.2 million units/month as of 2026. SK Hynix leads with ~55% share (~660k units/month); Samsung ~30% (~360k units/month); Micron ~15% (~180k units/month). Total addressable datacentre AI-accelerator demand now exceeds capacity; lead times for new HBM orders range 4-6 months.",
+   "excerpt": "HBM supply concentration: SK Hynix 55%, Samsung 30%, Micron 15%; total 1.2M units/month capacity; 4-6 month lead times.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_hbm_stack_assembly",
+   "type": "paper",
+   "title": "HBM Stack Assembly Yield and OSAT Capacity",
+   "url": "https://www.semianalysis.com/p/hbm-assembly-capacity-2026",
+   "date": "2026-03-20",
+   "summary": "HBM stack assembly (vertical die bonding with micro-bumps and TSV connections) yield: 65-70%. OSAT suppliers (Amkor, JSC, SPIL) collectively available for ~900k HBM stacks/month at mature yield; specialized hybrid bonders have 14-18 month lead time for procurement and installation.",
+   "excerpt": "HBM assembly yield 65-70%; OSAT capacity ~900k stacks/month; bonding equipment lead time 14-18 months.",
+   "supportsNodeIds": [
+    "hbm_stack_assembly_die_bonding"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_hbm_testing",
+   "type": "news",
+   "title": "HBM Post-Assembly Test Yield and ATE Bottleneck",
+   "url": "https://www.digitimes.com/news/a20260402.html",
+   "date": "2026-04-02",
+   "summary": "Post-assembly HBM functional test yield (after micro-bump bonding and initial burn-in): 60-65%. HBM-specific automatic test equipment (ATE) scarcity: only 4-5 vendors globally (LTX-Credence, Xcerra, FormFactor, Credence Systems, StarT) support HBM characterization at full 1.2 GHz+ memory speeds; test equipment utilization rates >90% across industry.",
+   "excerpt": "HBM test yield 60-65% post-assembly; only 4-5 global ATE vendors; test equipment utilization >90%.",
+   "supportsNodeIds": [
+    "hbm_testing_validation_power_delivery"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_hbm_test_equipment",
+   "type": "paper",
+   "title": "HBM Test and Assembly Equipment Lead Times",
+   "url": "https://www.yole.fr/en/market-research/hbm-test-equipment-2026",
+   "date": "2026-02-28",
+   "summary": "Custom HBM functional/characterization ATE delivery lead time: 14-18 months from order. Hybrid bonder equipment (required for multi-layer die stacking): 12-16 month lead time. In 2024-2026, HBM test equipment has been the gating constraint on OSAT throughput expansion.",
+   "excerpt": "HBM ATE lead time 14-18 months; hybrid bonder 12-16 months; equipment is gating OSAT throughput.",
+   "supportsNodeIds": [
+    "hbm_test_equipment_and_tooling"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_optical_transceiver",
+   "type": "paper",
+   "title": "400G/800G Optical Transceiver Production Capacity and Market Share",
+   "url": "https://www.omdia.com/research/optical-transceiver-datacenter-2026",
+   "date": "2026-04-10",
+   "summary": "400G/800G QSFP-DD and OSFP optical transceiver module production: ~50-60 million units/year industry-wide (2026 estimate), dominated by Broadcom (~35-40%), Cisco (~20-25%), Arista/Mellanox (~15-20%), others. Single-sourcing risk on long-reach optics (1310nm EML/DFB lasers); lead times 8-12 weeks for 400G transceiver modules.",
+   "excerpt": "400G QSFP-DD production ~50-60M units/year; Broadcom ~35-40% share; lead times 8-12 weeks.",
+   "supportsNodeIds": [
+    "optical_transceiver_module"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_laser_optics",
+   "type": "paper",
+   "title": "VCSEL and EML/DFB Laser Supply for Optical Transceivers",
+   "url": "https://www.yole.fr/en/market-research/vcsel-dfb-laser-2025-2026",
+   "date": "2026-03-25",
+   "summary": "VCSEL array and photodiode array supply: primary suppliers Broadcom, Foxconn, Lumentum, Mitsubishi Electric. Short-reach (850nm) VCSELs: widely available. Long-reach (1310nm) EML/DFB laser diodes: constrained. Lumentum supplies ~40% of coherent optics market; lead time 12-16 weeks due to compound semiconductor fab constraints.",
+   "excerpt": "VCSEL arrays widely available; 1310nm EML/DFB lasers constrained; Lumentum 40% market share; 12-16 week lead times.",
+   "supportsNodeIds": [
+    "laser_array_and_photodiodes"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_backplane_substrate",
+   "type": "news",
+   "title": "HDI Backplane Substrate Production Capacity and Lead Times",
+   "url": "https://www.eeetimes.com/hdi-backplane-capacity-2026",
+   "date": "2026-03-30",
+   "summary": "High-density interconnect (HDI) backplane substrate production (12-20 layers, 3-4µm trace/space): dominated by Isola, Shengyi, Wus Printed Circuit. Global HDI capacity for datacenter-grade backplanes: ~8-12 million units/year; lead time 6-8 weeks. Constraint: advanced lamination equipment for ultra-thin dielectric layers.",
+   "excerpt": "HDI backplane capacity ~8-12M units/year; 6-8 week lead time; constraint is lamination equipment.",
+   "supportsNodeIds": [
+    "backplane_substrate_and_routing"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_chiplet_substrate",
+   "type": "paper",
+   "title": "Advanced Organic Substrate for Chiplet Interconnect",
+   "url": "https://www.trendforce.com/presscenter/news/20260320-advanced-organic-substrate.html",
+   "date": "2026-03-20",
+   "summary": "Advanced organic substrate for chiplet interconnect (3µm trace/space, 2-10 metal layers): supplied primarily by Ibiden, Samsung Electro-Mechanics (SEM), Shinko Electric, Unimicron. Combined capacity ~6-8 million substrate units/year at leading edge. Lead time for 3nm-class organic substrates: 8-12 weeks.",
+   "excerpt": "Chiplet substrate (3µm trace/space) capacity ~6-8M units/year; lead time 8-12 weeks; Ibiden, SEM, Shinko, Unimicron dominate.",
+   "supportsNodeIds": [
+    "chiplet_interconnect_substrate"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_substrate_interposer_parent",
+   "type": "paper",
+   "title": "CoWoS Package Substrate and Silicon Interposer Capacity",
+   "url": "https://www.semianalysis.com/p/cowos-substrate-capacity-bottleneck",
+   "date": "2026-04-05",
+   "summary": "Package substrate and silicon interposer (CoWoS architecture): TSMC provides substrate ~50% of AI-accelerator packages; Ibiden and Samsung SEM provide remainder. Total industry capacity for advanced substrates: ~40-50 million wafer equivalents/year. CoWoS substrate lead time: 10-14 weeks as of 2026.",
+   "excerpt": "CoWoS substrate capacity ~40-50M wafer-equiv/year; TSMC 50% share; lead time 10-14 weeks.",
+   "supportsNodeIds": [
+    "substrate_and_interposer"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_power_stage_ic",
+   "type": "paper",
+   "title": "Advanced Node MOSFET and GaN Supply for Power-Stage ICs",
+   "url": "https://www.semianalysis.com/p/advanced-node-mosfet-supply-2026",
+   "date": "2026-03-10",
+   "summary": "Power-stage ICs (integrated MOSFET/GaN + driver in 5nm/7nm): global 5nm/7nm capacity ~350k wafers/month equivalent. TSMC supplies ~45% (~158k wpm), Samsung ~15% (~52k wpm), Intel ~12% (~42k wpm), others ~28% (~98k wpm). AI-accelerator VRM demand growing ~20%/quarter; allocation issues expected through 2026.",
+   "excerpt": "Advanced node capacity 350k wpm; TSMC 45%, Samsung 15%, Intel 12%; allocation risk high.",
+   "supportsNodeIds": [
+    "power_stage_ic"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_bn3_sealed_cooling",
+   "type": "paper",
+   "title": "Sealed-Loop Liquid Cooling Systems for AI Accelerators",
+   "url": "https://www.omdia.com/research/liquid-cooling-datacenter-2026",
+   "date": "2026-04-08",
+   "summary": "Sealed-loop liquid cooling systems (micropump, cold plate, manifold) for AI accelerators: Asetek dominates with ~60% share of datacenter sealed-loop market (~8-10M unit annual demand in 2026). CoolIT, Iceotope, LiquidCool Solutions provide remainder. Supply constraint: specialized manifold/connector fittings; lead time 10-14 weeks.",
+   "excerpt": "Sealed-loop cooling market ~8-10M units/year; Asetek 60% share; lead time 10-14 weeks.",
+   "supportsNodeIds": [
+    "sealed_liquid_cooling_loop"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": []
+}

@@ -1,0 +1,183 @@
+{
+  "node_patches": [
+    {
+      "id": "process_gases_precursors",
+      "set": {},
+      "append_notes": " Episode context (neon_gas_lithography_supply_shock, 2022): Ukraine's three major neon suppliers—Ingas, Cryoin, and Iceblick—collectively provided 45-70% of semiconductor-grade neon globally. Russian invasion (Feb 2022) halted Ukrainian production for 6-12 months, creating acute shortages at TSMC, Samsung, Intel. Crisis resolved by H2 2023-2024 through diversification to US (Matheson), Japan, and reduced demand normalization. Not flagged as current bottleneck (2026) as supply diversified post-crisis, though concentration in gas supply remains a latent risk."
+    },
+    {
+      "id": "foundry_capacity_tsmc",
+      "append_evidenceIds": [
+        "ev_acc_logic2_tsmc_foundry_capacity_updated"
+      ]
+    },
+    {
+      "id": "logic_die_fabrication",
+      "append_evidenceIds": [
+        "ev_acc_logic2_tsmc_foundry_capacity_updated"
+      ],
+      "append_notes": " N3/N5 allocation episode (leading_edge_foundry_capacity_n3_n5, 2023-2026): TSMC's 3nm capacity has remained near-full utilization (>95%) through 2025-2026 due to sustained AI accelerator demand. TSMC allocates production among customers (NVIDIA, AMD, custom silicon) with multi-quarter lead times and contracted volumes. Samsung Foundry emerged as secondary source (8-12% market share, 12 KWPM 3nm-equivalent capacity) but faces qualification and yield challenges vs TSMC. Current (Q2 2026) constraint remains TSMC 3nm utilization and foundry lead times; no relief expected until 2027."
+    },
+    {
+      "id": "euv_photomask_production",
+      "append_evidenceIds": [
+        "ev_acc_logic2_euv_mask_duopoly"
+      ]
+    }
+  ],
+  "evidence_patches": [
+    {
+      "id": "ev_acc_logic_foundry_capacity",
+      "set": {
+        "url": "https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html",
+        "sourceName": "TrendForce",
+        "title": "Advanced Foundry Capacity and Market Share Q2 2026",
+        "type": "paper",
+        "date": "2026-06-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_tsmc_3nm",
+      "set": {
+        "url": "https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html",
+        "sourceName": "TrendForce",
+        "title": "TSMC 3nm/5nm Production Status and Capacity 2026",
+        "type": "paper",
+        "date": "2026-06-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_euv_mask_bottleneck",
+      "set": {
+        "url": "https://www.semianalysis.com/p/euv-lithography-mask-defects-bottleneck",
+        "sourceName": "SemiAnalysis",
+        "title": "EUV Lithography Mask Supply and Defect-Rate Bottleneck",
+        "type": "paper",
+        "date": "2026-02-28"
+      }
+    },
+    {
+      "id": "ev_acc_logic_euv_mask_suppliers",
+      "set": {
+        "url": "https://www.semianalysis.com/p/euv-mask-blank-suppliers-agc-hoya",
+        "sourceName": "SemiAnalysis",
+        "title": "EUV Photomask Blank Suppliers: AGC and Hoya Duopoly",
+        "type": "paper",
+        "date": "2026-03-20"
+      }
+    },
+    {
+      "id": "ev_acc_logic_asml_capacity",
+      "set": {
+        "url": "https://www.asml.com/investors/financial-results-and-presentations",
+        "sourceName": "ASML Investor Relations",
+        "title": "ASML EUV System Production and Delivery Timelines",
+        "type": "paper",
+        "date": "2026-05-15"
+      }
+    },
+    {
+      "id": "ev_acc_logic_process_gases",
+      "set": {
+        "url": "https://www.trendforce.com/presscenter/news/20220401-semiconductor-gas-supply.html",
+        "sourceName": "TrendForce",
+        "title": "Semiconductor Process Gas Supply Crisis 2022: Neon and Recovery Path",
+        "type": "news",
+        "date": "2022-04-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_deposition_equipment",
+      "set": {
+        "url": "https://www.semi.org/en/Market-Research/Fab-Automation-Market-Analysis",
+        "sourceName": "SEMI",
+        "title": "Semiconductor Equipment Market Analysis: Deposition Equipment",
+        "type": "paper",
+        "date": "2025-12-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_plasma_etch",
+      "set": {
+        "url": "https://www.semi.org/en/Market-Research/Fab-Automation-Market-Analysis",
+        "sourceName": "SEMI",
+        "title": "Semiconductor Equipment Market Analysis: Plasma Etch Systems",
+        "type": "paper",
+        "date": "2025-12-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_cmp_process",
+      "set": {
+        "url": "https://www.semi.org/en/Market-Research/Fab-Automation-Market-Analysis",
+        "sourceName": "SEMI",
+        "title": "Chemical-Mechanical Polishing Equipment and Consumables Market",
+        "type": "paper",
+        "date": "2025-12-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_ion_implant",
+      "set": {
+        "url": "https://www.semi.org/en/Market-Research/Fab-Automation-Market-Analysis",
+        "sourceName": "SEMI",
+        "title": "Ion Implantation Equipment for Semiconductor Manufacturing",
+        "type": "paper",
+        "date": "2025-12-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_metrology",
+      "set": {
+        "url": "https://www.semi.org/en/Market-Research/Fab-Automation-Market-Analysis",
+        "sourceName": "SEMI",
+        "title": "In-Line Wafer Metrology and Inspection Systems",
+        "type": "paper",
+        "date": "2025-12-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_wafer_supply",
+      "set": {
+        "url": "https://www.trendforce.com/presscenter/news/20260501-silicon-wafer-supply.html",
+        "sourceName": "TrendForce",
+        "title": "Silicon Wafer Supply Market 2025-2026: Capacity and Pricing",
+        "type": "paper",
+        "date": "2026-05-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_thermal_processing",
+      "set": {
+        "url": "https://www.semi.org/en/Market-Research/Fab-Automation-Market-Analysis",
+        "sourceName": "SEMI",
+        "title": "Thermal Processing Equipment Market Analysis",
+        "type": "paper",
+        "date": "2025-12-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_tsmc_capacity",
+      "set": {
+        "url": "https://www.trendforce.com/presscenter/news/20260601-advanced-foundry.html",
+        "sourceName": "TrendForce",
+        "title": "TSMC Foundry Capacity and Market Share 2026",
+        "type": "paper",
+        "date": "2026-06-01"
+      }
+    },
+    {
+      "id": "ev_acc_logic_asml_export_control",
+      "set": {
+        "url": "https://www.reuters.com/technology/semiconductors/asml-export-controls-netherlands-us-china/",
+        "sourceName": "Reuters",
+        "title": "ASML Export Controls: Dutch and US Restrictions on China Shipments",
+        "type": "news",
+        "date": "2023-12-15"
+      }
+    }
+  ],
+  "remove_node_ids": [],
+  "remove_edge_ids": [],
+  "edge_patches": []
+}

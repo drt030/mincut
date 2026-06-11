@@ -1,0 +1,108 @@
+==============================================================================
+AI COMPUTE CHAIN DECOMPOSITION — ROUND 3
+SHORT-REACH COPPER INTERCONNECT SIGNAL CONDITIONING SILICON
+Research Period: June 2026 · Researcher: Claude Code Agent
+==============================================================================
+
+SCOPE COVERED:
+The electrical signal conditioning, retiming, and equalization silicon that 
+connects AI accelerators, GPUs, and network switches over copper within a 
+chassis or rack (1–5m range). Distinct from optical transceiver ICs (already 
+modeled) and backplane substrate (already modeled).
+
+DEVICE CLASSES MODELED (6):
+1. Short-reach copper signal conditioning silicon (parent module)
+2. PCIe Retimer / Redriver IC (32–112 Gbps PAM-4)
+3. Active Copper Cable (ACC) Linear Equalizer IC
+4. Active Electrical Cable (AEC) Retimer / Digital Signal Processor
+5. PCIe / CXL Fabric Switch ASIC (cluster interconnect)
+6. UALink PHY / SerDes Intellectual Property (emerging standard)
+
+SUPPLIERS IDENTIFIED (Primary & Secondary):
+- Astera Labs (market leader in retimers & fabric switches)
+- Marvell (strong #2 in retimers & ACC equalizers)
+- Broadcom (custom switches, retimers, optical ASICs)
+- Credo Technology (AEC DSP specialist, 3nm development)
+- Parade Technologies (USB4 retimers, not datacenter-focused)
+- Microchip Technology (AEC retimers, analog conditioning)
+
+ORG NODES CREATED:
+- org_astera_labs (NASDAQ: ALAB) — IPO March 2024
+- org_credo (NASDAQ: CRDO) — IPO July 2024
+
+BOTTLENECK CLAIMS WITH QUANTIFIED EVIDENCE:
+1. PCIe RETIMER CAPACITY (bottleneckOf: ai_accelerator_module_hbm_cowos)
+   Evidence: TSMC 28nm/40nm node shared with optical transceiver host ASICs.
+   During 2023–2025, AI accelerator ramp created allocation pressure.
+   TSMC 28nm: 7% of 2024 revenue; 40nm: 4%. 
+   Retimer lead time: 20 weeks for mature nodes.
+
+2. AEC RETIMER (3nm) SUPPLY RISK (bottleneckOf: ai_accelerator_module_hbm_cowos)
+   Evidence: Credo Magpie (PCIe 7 equivalent) uses TSMC N5 process.
+   Only TSMC/Samsung can produce sub-7nm silicon.
+   3nm allocation risk if demand for AEC retimers exceeds TSMC advanced-node 
+   allocation for AI accelerators (which currently consume >80% of TSMC 3nm/5nm).
+
+3. FABRIC SWITCH SILICON (bottleneckOf: ai_accelerator_module_hbm_cowos)
+   Evidence: Astera Scorpio switches entered volume production early 2026.
+   Achieved >10% of Astera revenue by Q2 2025 — fastest ramp in company history.
+   TSMC 5nm/7nm allocation: if demand continues, will compete with AI accelerator 
+   logic die for advanced-node capacity.
+
+MARKET EVIDENCE:
+- Global retimer market: $614M (2024), growing to $1,022M by 2029 (CAGR 10.7%)
+- Astera Labs growth: 206% YoY revenue growth (Q4 FY2024 vs Q4 FY2023)
+- Credo record revenue: $72M (Q2 FY2025) with positive free cash flow ($51.3M Q1 FY2026)
+- Market share (PCIe retimers): Astera 30–40%, Marvell/Broadcom/Credo/Parade split remainder
+
+SUPPLY CONCENTRATION:
+- Design: <10 vendors (Astera Labs, Marvell, Broadcom, Credo, Parade, Microchip)
+- Fabrication: TSMC & Samsung only (28nm–7nm for mature nodes; sub-7nm must use 
+  TSMC/Samsung 5nm/3nm)
+
+HISTORICAL EPISODES EXPLAINED:
+- No major documented shortages on retimer ICs during 2023–2025
+- Retimer allocation constrained but not critically short
+- Optical transceiver host ASIC allocation was tighter (2023–2024)
+- Retimer supply constraints emerged as secondary issue behind advanced-node 
+  foundry capacity (primary bottleneck: TSMC 3nm/5nm allocation to AI accelerators)
+
+DECOMPOSITION FRONTIERS / OUT-OF-SCOPE:
+- Passive DAC cables: commodified, multi-sourced, no constraint
+- Optical transceiver ASICs: already modeled in interconnect_and_optics
+- Backplane substrate: already modeled
+- UALink specification and standards body: modeled as PHY IP layer only
+- Custom XPU interconnect (NVIDIA NVLink, AMD): OEM-specific, not modeled as 
+  merchant silicon
+
+HONEST GAPS:
+1. Limited public disclosure on per-supplier retimer/AEC volume production by 
+   TSMC (TSMC publishes node revenue % but not customer allocation for mature nodes)
+2. Credo's market share in AEC segment estimated at 15–25% but no verified third-party 
+   analyst breakdown (relying on company presentations + SemiAnalysis implicit citations)
+3. Parade Technologies' datacenter retimer revenue unclear; focused on USB4/AI PCs rather 
+   than server AI accelerator clustering
+4. Microchip Technology's AEC retimer adoption level unclear; company focused on broad 
+   analog/mixed-signal but not a headline competitor
+
+PROCESS NODES & FOUNDRY DEPENDENCY:
+- 28nm/40nm (TSMC, Samsung): mature nodes, tight allocation during AI ramps
+- 7nm (TSMC N7): Credo Toucan PCIe 6/CXL 3.x retimer
+- 5nm (TSMC N5): Credo Magpie PCIe 7 AEC retimer; Astera Scorpio switches
+- 3nm (TSMC N3): emerging next-gen AEC retimers (Credo, Marvell R&D)
+
+INVESTOR RELEVANCE:
+- Astera Labs: Direct exposure to retimer/fabric switch market (100% of revenue)
+- Credo: High exposure to AEC/optical DSP (>50% of revenue; 3nm development underway)
+- Broadcom: Indirect exposure via custom switch/retimer business (estimated <5% of 
+  corporate revenue but high-margin)
+- Marvell: Retimer/interconnect part of broader portfolio (~10–15% connectivity revenue)
+
+==============================================================================
+DELIVERABLES GENERATED:
+✓ batch_interconnect_silicon.json — 8 nodes, 16 edges, 20 evidence items
+✓ patch_interconnect_silicon.json — 2 org nodes (orgs merged into batch)
+✓ zh_interconnect_silicon.json — Chinese names for all 8 node IDs
+✓ queries-interconnect_silicon.log — 20 search queries (verbatim)
+✓ Dry-run validation: PASS (8 nodes, 16 edges, 20 evidence)
+==============================================================================

@@ -1,0 +1,108 @@
+{
+ "node_patches": [
+  {
+   "id": "org_ii_vi_coherent",
+   "append_metrics": [
+    {
+     "name": "Optical transceiver market share (long-reach)",
+     "unit": "%",
+     "currentValue": 8,
+     "description": "Estimated 2026 revenue share in long-reach/coherent optical transceiver market (TrendForce May 2026 report on optical transceiver supplier dynamics)"
+    }
+   ],
+   "append_evidenceIds": [],
+   "append_tags": [
+    "optical",
+    "supplier",
+    "commercial",
+    "investable"
+   ],
+   "append_domain": [
+    "ai_compute_chain",
+    "investable_supplier"
+   ],
+   "append_notes": "Public: NASDAQ COHR. Added round 4 to expand optical transceiver module supplier coverage from 2 to 4 (joining Lumentum, InnoLight, Eoptolink)."
+  },
+  {
+   "id": "inp_gaas_substrate_wafer",
+   "append_metrics": [
+    {
+     "name": "Supply-demand deficit",
+     "currentValue": "70%+ undersupply",
+     "description": "Global shipments 600k–700k wafers/year; demand 1.5–2M wafers/year. Zero inventory industry-wide. Order books extend 2027+. Source: Coherent CEO guidance, SemiAnalysis Q4 2025."
+    },
+    {
+     "name": "Market share (top-3)",
+     "currentValue": "80–90%",
+     "description": "JX Metals, Sumitomo, AXT control combined 80–90%. Source: SemiAnalysis InP supply chain, Q4 2025."
+    },
+    {
+     "name": "Capacity expansion lead time",
+     "currentValue": "18–24 months",
+     "description": "JX's ¥1.5B investment for 20% capacity boost targeting end-FY2027 completion. Source: JX Metals announcement, 2025."
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_nc4_inp_shortage_1",
+    "ev_acc_nc4_jx_expansion_1",
+    "ev_acc_nc4_coherent_guidance_1"
+   ],
+   "append_tags": [
+    "compound-semiconductor",
+    "optical",
+    "substrate",
+    "single-region",
+    "severe-shortage"
+   ],
+   "append_domain": [
+    "ai_compute_chain"
+   ],
+   "append_notes": "InP wafers are irreplaceable feedstock for 1310nm EML lasers used in coherent optical transceivers for AI datacenter interconnects. No silicon substitute. Alternative InP-on-GaAs emerging (Fraunhofer/III-V-Reclaim) but not yet commercial scale. Shortage directly gates optical transceiver production for 2026–2027 cycles."
+  },
+  {
+   "id": "t_glass_fabric",
+   "append_metrics": [
+    {
+     "name": "Market share (T-glass globally)",
+     "currentValue": "100% monopoly",
+     "description": "Nittobo is the world's only qualified mass producer of T-glass. Asahi Kasei entering ~2026 but not yet HVM. Source: Nikkei Asia, Trendforce, DigiTimes 2025."
+    },
+    {
+     "name": "Supply deficit H2 2026",
+     "currentValue": ">40% undersupply",
+     "description": "Tight supply expected to continue through 2026 as ABF substrate layer counts increase 3+3 → 13+13. Source: Morgan Stanley, Trendforce supply chain analysis, 2025."
+    },
+    {
+     "name": "Price increase schedule",
+     "currentValue": "20% (Aug 2025) + 20–30% (Apr 2026 planned)",
+     "description": "Nittobo announced phased price hikes. Competitors (Asahi Kasei, Fulltech, Nan Ya) emerging but not in qualified high-volume status yet. Source: Nittobo press, SemiAnalysis, Aug–Dec 2025."
+    },
+    {
+     "name": "Capacity expansion roadmap",
+     "currentValue": "3x capacity by early 2027",
+     "description": "Nittobo targeting 3x T-glass capacity by early 2027, but new capacity largely pre-sold via long-term supply agreements. Source: DigiTimes, TrendForce 2025."
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_nc4_nittobo_monopoly_1",
+    "ev_acc_nc4_tglass_shortage_1",
+    "ev_acc_nc4_asahi_entry_1"
+   ],
+   "append_tags": [
+    "substrate-material",
+    "fiber-cloth",
+    "monopoly",
+    "cte-critical",
+    "severe-shortage"
+   ],
+   "append_domain": [
+    "ai_compute_chain"
+   ],
+   "append_notes": "T-glass (boron-free, CTE ~3.5 ppm/K) is engineered for zero-warpage substrates in advanced packaging. Silicon-glass and E-glass are insufficient substitutes. Shortage is 100% Nittobo supply-gated, not demand-driven substitution. New entrants (Asahi, Nan Ya) targeting HVM entry 2026–2027 but qualification cycles are 12–24 months. Single-source corner expected to persist through 2026."
+  },
+  {
+   "id": "cooling_distribution_unit_cdu",
+   "append_notes": "Additional supply base beyond the 5-org cap (concentration-first): Auras Technology (6288.TW), high-growth Taiwan thermal/CDU maker per DigiTimes 2026-04 AI-server thermal tracker; wired to thermal_management_module instead."
+  }
+ ]
+}

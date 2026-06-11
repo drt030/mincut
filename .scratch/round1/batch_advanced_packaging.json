@@ -1,0 +1,1021 @@
+{
+  "nodes": [
+    {
+      "id": "advanced_packaging",
+      "name": "Advanced packaging (2.5D/3D)",
+      "kind": "module",
+      "domain": [
+        "ai_compute_chain"
+      ],
+      "description": "Advanced 2.5D/3D packaging integration of leading-edge logic die and HBM stacks on a silicon interposer or LSI bridge, seated on a high-layer-count organic substrate, with micro-bump interconnects and thermal management. CoWoS (Chip-on-Wafer-on-Substrate) is the primary production architecture, used for NVIDIA and AMD flagship AI accelerators. Process layers include silicon interposer fabrication (TSVs, RDLs), chiplet assembly (flip-chip bonding, underfill), and substrate integration.",
+      "maturityScore": 80,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": [
+        "packaging",
+        "advanced_integration",
+        "supply_constraint",
+        "high_capital_intensity"
+      ],
+      "notes": "CoWoS capacity is the most critical bottleneck in 2.5D/3D packaging for AI accelerators. TSMC CoWoS is oversubscribed through 2026, with capacity expanding from ~40k WPM (2024) to 120-150k WPM (2026). Expansion lead time 12-18 months per new facility. Single-source (TSMC) risk for >70% of high-end CoWoS supply.",
+      "reviewStatus": "unreviewed",
+      "metrics": [
+        {
+          "name": "TSMC CoWoS capacity 2024",
+          "unit": "wafers per month",
+          "currentValue": 40000,
+          "description": "2024 baseline CoWoS capacity from industry estimates and analyst reports."
+        },
+        {
+          "name": "TSMC CoWoS projected capacity 2026",
+          "unit": "wafers per month",
+          "currentValue": 140000,
+          "description": "Target CoWoS throughput by 2026 per TrendForce and industry reports, representing ~250% expansion."
+        },
+        {
+          "name": "NVIDIA CoWoS allocation share",
+          "unit": "%",
+          "currentValue": 60,
+          "description": "NVIDIA estimated to consume ~60% of TSMC CoWoS capacity (2025-2026)."
+        },
+        {
+          "name": "Facility expansion lead time",
+          "unit": "months",
+          "currentValue": 18,
+          "description": "Time to bring new CoWoS capacity online from equipment order to yield optimization, including tool procurement and process ramp."
+        }
+      ],
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "evidenceIds": [
+        "ev_acc_pkg_cowos_architecture",
+        "ev_acc_pkg_tsmc_capacity"
+      ]
+    },
+    {
+      "id": "silicon_interposer_fabrication",
+      "name": "Silicon interposer fabrication",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Fabrication of 2.5D silicon interposer using through-silicon via (TSV) technology and front/back redistribution layers (RDLs). TSVs created via deep reactive ion etching (DRIE) with via fill and passivation. Dual-sided RDLs enable high-density micro-bump pads and signal routing. Key materials: silicon wafer, dielectric (SiO2), copper plating chemistry. Equipment: DRIE etchers, lithography, electroplating systems. Lead time: 8-12 weeks per interposer design from lithography mask to diced chiplets.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": [
+        "silicon",
+        "wafer_level_process",
+        "lithography_dependent",
+        "high_complexity"
+      ],
+      "metrics": [
+        {
+          "name": "Interposer wafer thickness",
+          "unit": "microns",
+          "currentValue": 40,
+          "description": "Typical thinned interposer wafer thickness after TSV processing."
+        },
+        {
+          "name": "TSV via pitch",
+          "unit": "microns",
+          "currentValue": 20,
+          "description": "Fine-pitch TSV spacing on leading-edge interposers."
+        },
+        {
+          "name": "Interposer design cycle",
+          "unit": "weeks",
+          "currentValue": 12,
+          "description": "Time from mask generation to first silicon for new interposer variant."
+        }
+      ],
+      "notes": "Silicon interposer is mature and multi-sourced (TSMC, Samsung, ASE, Amkor), but demand growth and design customization drive capacity constraints. Bottleneck is not supply but integration yield and cycle time with chiplet assembly.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "tsv_process_deep_reactive_ion_etch",
+      "name": "Through-silicon via (TSV) DRIE process",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Deep reactive ion etching (DRIE) process step that creates high-aspect-ratio vias through silicon wafer. Uses Bosch or similar process with alternating C4F8 polymer and SF6 etch steps. Achieves <10 micron via diameter with >20:1 aspect ratio. Critical for TSV density and electrical performance. Equipment dependency: Lam Research, Tokyo Electron, Applied Materials DRIE tools.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "process_step",
+        "etching",
+        "equipment_dependent"
+      ],
+      "notes": "DRIE is not itself a bottleneck but is critical path in interposer turnaround time. Lam Research and Tokyo Electron are primary equipment suppliers; capacity utilization on both vendor fleets is rising. Lead time for new DRIE chamber orders: 6-8 months.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "flip_chip_bonding",
+      "name": "Flip-chip bonding (micro-bumps)",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Assembly process attaching logic die and HBM stacks to silicon interposer via micro-bump solder joints. Micro-bumps (10-50 micron pitch) aligned and reflowed under temperature/pressure. Post-reflow underfill encapsulation with thermally conductive epoxy. Critical for thermal conductance and mechanical reliability. Process requires precision alignment (±5 microns), controlled thermal profiles, and underfill flow optimization.",
+      "maturityScore": 75,
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": [
+        "assembly",
+        "process_step",
+        "thermal_critical"
+      ],
+      "metrics": [
+        {
+          "name": "Micro-bump pitch range",
+          "unit": "microns",
+          "currentValue": 25,
+          "description": "Typical micro-bump pitch on leading-edge HBM-to-interposer connections."
+        },
+        {
+          "name": "Alignment tolerance",
+          "unit": "microns",
+          "currentValue": 5,
+          "description": "Critical alignment tolerance during flip-chip bonding."
+        },
+        {
+          "name": "Assembly cycle time",
+          "unit": "hours",
+          "currentValue": 4,
+          "description": "Time from die placement through underfill cure for single chiplet assembly."
+        }
+      ],
+      "notes": "Flip-chip bonding is multi-sourced across OSATs (TSMC, ASE, Amkor, Samsung) but yield and cycle-time are critical. Equipment constraint: Kulicke & Soffa thermocompression systems and Aptos bonding systems are primary tools. Constraint tightens with larger chiplets (>30mm) requiring custom die-attach recipes.",
+      "reviewStatus": "unreviewed",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "evidenceIds": [
+        "ev_acc_pkg_cowos_architecture",
+        "ev_acc_pkg_flip_chip_equipment"
+      ]
+    },
+    {
+      "id": "underfill_encapsulation",
+      "name": "Underfill encapsulation",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Filled epoxy underfill material dispensed after flip-chip bonding to encapsulate micro-bumps. Reduces stress on interconnects and improves thermal conductivity (3-5 W/mK target for advanced AI packages). Material selection: modulus, filler loading, CTE (coefficient of thermal expansion) critical for reliability. Suppliers include Henkel, Dow Chemical, Namics, Shin-Etsu.",
+      "maturityScore": 80,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "material",
+        "packaging",
+        "thermally_conductive",
+        "multi_sourced"
+      ],
+      "metrics": [
+        {
+          "name": "Advanced underfill thermal conductivity",
+          "unit": "W/mK",
+          "currentValue": 4,
+          "description": "Thermal conductivity of high-performance underfill for AI accelerator packages."
+        },
+        {
+          "name": "Annual global demand estimate",
+          "unit": "metric tons",
+          "currentValue": 8000,
+          "description": "Estimated global underfill volume for advanced packaging, growing 20-25% annually."
+        }
+      ],
+      "notes": "Underfill is widely available from multiple suppliers (Henkel, Dow, Namics) but demand growth outpaces supply. Lead time for custom formulation orders: 4-6 weeks. High-performance variants (>4 W/mK) face tighter availability.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "organic_substrate_buildup",
+      "name": "Organic substrate (high-layer-count build-up)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "High-layer-count (18-30 layer) organic PCB substrate that carries the silicon interposer. ABF or BT-type laminate (Ajinomoto Build-up Film, bismaleimide triazine) with sequential lamination and advanced HDI (high-density interconnect) processing. Typical layer count: 12 signal + 8 power + 4 ground for AI accelerators. Electrical requirements: high trace density (<5 mil trace width), tight impedance control (±10% target), low loss dielectric.",
+      "maturityScore": 76,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": [
+        "material",
+        "substrate",
+        "high_layer_count",
+        "supply_constrained"
+      ],
+      "metrics": [
+        {
+          "name": "Typical layer count",
+          "unit": "layers",
+          "currentValue": 24,
+          "description": "Standard layer count for AI accelerator organic substrates."
+        },
+        {
+          "name": "Trace width / spacing",
+          "unit": "mils",
+          "currentValue": 3,
+          "description": "Advanced HDI trace width and spacing on leading-edge substrates."
+        },
+        {
+          "name": "Annual capacity utilization (leaders)",
+          "unit": "%",
+          "currentValue": 85,
+          "description": "Estimated capacity utilization for Ibiden, Nanya, and other top substrate makers (2025-2026)."
+        },
+        {
+          "name": "Ibiden capacity expansion target 2027",
+          "unit": "% increase from 2024",
+          "currentValue": 150,
+          "description": "Ibiden's announced goal of 150% capacity increase by 2027 (requiring ¥500B investment)."
+        }
+      ],
+      "notes": "Ibiden (Japan) and Nanya PCB (Taiwan) are the technology leaders; other OSATs (ASE, Amkor) and regional suppliers (China DDM, Daeduck) offer lower-performance variants. Bottleneck: lead time for new substrate products 16-20 weeks (5-6 months) due to sequential lamination and HDI drilling/plating cycles. Ibiden capacity limited until Ono plant and Kawama expansions complete (Q2-Q3 2027).",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "reviewStatus": "unreviewed",
+      "evidenceIds": [
+        "ev_acc_pkg_substrate_bottleneck",
+        "ev_acc_pkg_ibiden_expansion"
+      ]
+    },
+    {
+      "id": "hdi_drilling_via_plating",
+      "name": "HDI drilling and via plating",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Laser or mechanical drilling of microvias (3-8 mil diameter) through dielectric layers, followed by electroplating (copper electrodeposition). Critical for signal integrity in 24+ layer substrates. Laser drill (UV/IR) preferred for fine-pitch; electroplating chemistry must control uniformity across hundreds of wafers. Bottleneck equipment: laser drill systems (sources: Posalux, Mitsubishi, Trumpf), electroplating power supplies and cathodes.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "process_step",
+        "equipment_dependent",
+        "high_precision"
+      ],
+      "metrics": [
+        {
+          "name": "Microvia diameter",
+          "unit": "mils",
+          "currentValue": 4,
+          "description": "Typical microvia diameter for HDI via processing."
+        },
+        {
+          "name": "Drilling throughput",
+          "unit": "holes per hour (estimated)",
+          "currentValue": 3000,
+          "description": "Approximate throughput for advanced laser drilling systems on AI substrate panels."
+        }
+      ],
+      "notes": "HDI drilling is a critical path item in substrate manufacturing. Lead time for laser drill systems: 8-10 months. Plating utilization at leading foundries >90% (2025-2026). Supplier concentration: Posalux (laser), Mitsubishi (laser) are primary vendors, creating single-region (Europe, Japan) supply risk.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "micro_bump_copper_pillar",
+      "name": "Micro-bump (copper pillar + solder)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Micro-bump interconnect structure: electroplated copper pillar (3-8 microns diameter, 5-15 microns height) topped with SAC305 lead-free solder (Sn/Ag/Cu). Used for sub-50-micron pitch flip-chip connections on HBM and interposer. Solder composition: 96.5% Sn + 3% Ag + 0.5% Cu. Suppliers: ASE, Amkor, PacTech (bumping services); AIM Solder, Caplinq (solder materials).",
+      "maturityScore": 80,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "material",
+        "interconnect",
+        "high_precision",
+        "multi_sourced"
+      ],
+      "metrics": [
+        {
+          "name": "Copper pillar height",
+          "unit": "microns",
+          "currentValue": 8,
+          "description": "Typical copper pillar height for HBM-to-interposer micro-bumps."
+        },
+        {
+          "name": "Bump pitch range",
+          "unit": "microns",
+          "currentValue": 40,
+          "description": "Common micro-bump pitch on advanced chiplet interconnects."
+        },
+        {
+          "name": "Global bumping capacity (estimated)",
+          "unit": "million bumps per month",
+          "currentValue": 200,
+          "description": "Estimated total global micro-bumping capacity across ASE, Amkor, PacTech, and others (2025)."
+        }
+      ],
+      "notes": "Micro-bump capacity is multi-sourced and not itself a bottleneck, but fine-pitch (15-25 micron) bumping is concentrated at ASE and Amkor with lead time 6-8 weeks for new mask sets. Solder materials (SAC305) are commodity but specialty finishes face 4-6 week lead times.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "redistribution_layer_rdl",
+      "name": "Redistribution layer (RDL) metallization",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Front and back RDL process on silicon interposer: photolithography patterning of dielectric (polymide or BCB) followed by copper electroplating and planarization (CMP). Enables fine-pitch pad routing and signal redistribution. Critical for interconnect density and electrical performance. Process materials: photoresist, dielectric, copper plating chemistry. Equipment: lithography (i-line, KrF), electroplating, CMP tools.",
+      "maturityScore": 80,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "process_step",
+        "lithography",
+        "equipment_dependent"
+      ],
+      "metrics": [
+        {
+          "name": "RDL line / space",
+          "unit": "microns",
+          "currentValue": 2,
+          "description": "Leading-edge RDL metal line width and spacing on interposers."
+        },
+        {
+          "name": "Copper plating rate",
+          "unit": "microns per hour",
+          "currentValue": 1.2,
+          "description": "Typical plating rate for RDL copper electrodeposition."
+        }
+      ],
+      "notes": "RDL is not itself a bottleneck (mature, multi-sourced across OSATs) but process yield and cycle time are critical. Complex designs (e.g., AMD MI300 with >5,000 RDL pads) require 8-10 weeks cycle time vs. simpler designs at 6 weeks. Lithography and CMP tool utilization is high but not overloaded.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "c4_solder_bumps_substrate",
+      "name": "C4 solder bumps (substrate attach)",
+      "kind": "material",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "C4 (Controlled Collapse Chip Connection) solder bumps used to attach silicon interposer to organic substrate. Lead-free SAC305 (96.5% Sn / 3% Ag / 0.5% Cu) solder alloy, bump pitch typically 500-800 microns. Reflow process under nitrogen atmosphere. Material suppliers: AIM Solder, Indium Corporation, Nihon Superior. C4 bumping services: ASE, Amkor, SMA, others.",
+      "maturityScore": 85,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "material",
+        "solder",
+        "commodity",
+        "widely_sourced"
+      ],
+      "metrics": [
+        {
+          "name": "C4 bump pitch",
+          "unit": "microns",
+          "currentValue": 600,
+          "description": "Standard C4 bump pitch for interposer-to-substrate attachment."
+        },
+        {
+          "name": "SAC305 solder availability",
+          "unit": "metric tons annual capacity",
+          "currentValue": 45000,
+          "description": "Estimated global lead-free solder capacity (all applications), with advanced packaging consuming ~5-8%."
+        }
+      ],
+      "notes": "C4 solder and bumping are widely available and not bottlenecks. SAC305 is commodity-grade; specialty variants (grain-refined, additives) face longer lead times (4-6 weeks). Bumping capacity at OSATs is multi-sourced with >80% utilization (2025-2026).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "test_and_inspection",
+      "name": "Test and inspection (post-assembly)",
+      "kind": "manufacturing_process",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging"
+      ],
+      "description": "Electrical test (functional + parametric), visual inspection, and burn-in qualification of packaged modules. Test includes high-speed probe testing (HBM bandwidth verification), power delivery validation, and thermal cycling reliability. Inspection: X-ray (voids, cracks), optical (solder wetting), SEM (interconnect quality). Equipment: testers (Teradyne, LTX-Credence, Xcerra), inspection (KLA, Rudolph, Camtek), environmental chambers.",
+      "maturityScore": 78,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": [
+        "process_step",
+        "test",
+        "equipment_dependent",
+        "utilization_constraint"
+      ],
+      "metrics": [
+        {
+          "name": "Test time per module",
+          "unit": "minutes",
+          "currentValue": 8,
+          "description": "Typical functional + parametric test time for AI accelerator module."
+        },
+        {
+          "name": "Global test cell utilization (Cohu estimate)",
+          "unit": "%",
+          "currentValue": 78,
+          "description": "Cohu reported test cell utilization of 78% at end of Q1 2026, up from 76% in Q4 2025."
+        },
+        {
+          "name": "Burn-in duration",
+          "unit": "hours",
+          "currentValue": 24,
+          "description": "Thermal cycling and burn-in requirement for reliability qualification (10-year life target)."
+        }
+      ],
+      "notes": "Test capacity is becoming constrained at OSATs and IDMs. Cohu reported 78% utilization in Q1 2026, indicating <20% headroom. Test program development lead time: 10-12 weeks per new product. Burn-in oven capacity (thermal cycling) is the tightest constraint; lead time for new burn-in lines: 14-16 weeks.",
+      "bottleneckOf": [
+        "ai_accelerator_module_hbm_cowos"
+      ],
+      "reviewStatus": "unreviewed",
+      "evidenceIds": [
+        "ev_acc_pkg_test_capacity"
+      ]
+    },
+    {
+      "id": "org_ase",
+      "name": "ASE Technology Holding",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging",
+        "investable_supplier"
+      ],
+      "description": "Advanced Semiconductor Engineering, Taiwan-based OSAT. World's second-largest OSAT. Major competitor to TSMC in advanced packaging, offering chiplet assembly, bumping, and substrate integration services. Expanding 2.5D/3D capacity to capture overflow demand.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global OSAT market share (ASE + Amkor + JCET)",
+          "unit": "%",
+          "currentValue": 60,
+          "description": "ASE, Amkor, and JCET together hold 60% of global OSAT revenue (SemiconductorX 2025-12-01)."
+        },
+        {
+          "name": "ASE share of OSAT trio",
+          "unit": "%",
+          "currentValue": 30,
+          "description": "Estimated ASE share within the ASE/Amkor/JCET group (2025-2026)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "2311.TW"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_pkg_osat_share"
+      ],
+      "tags": [
+        "manufacturer",
+        "osat",
+        "public_company"
+      ],
+      "notes": "ASE is investing aggressively in 2.5D/3D capacity. Benefits from TSMC spillover demand. Taiwan-based supplier.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_amkor",
+      "name": "Amkor Technology",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging",
+        "investable_supplier"
+      ],
+      "description": "US-headquartered global OSAT and packaging specialist. Third-largest OSAT globally. Major provider of advanced packaging services including chiplet assembly, flip-chip bonding, and bumping. Expanding 2.5D/3D capacity in Japan and Southeast Asia to serve AI demand.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global OSAT market share (Amkor share of ASE/Amkor/JCET)",
+          "unit": "%",
+          "currentValue": 25,
+          "description": "Estimated Amkor share within top-3 OSAT group (2025-2026)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "AMKR"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_pkg_osat_share"
+      ],
+      "tags": [
+        "manufacturer",
+        "osat",
+        "public_company"
+      ],
+      "notes": "Amkor strong in micro-bump and bumping services. Competes with ASE for TSMC spillover. US-listed for investor access.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_nanya_pcb",
+      "name": "Nanya PCB",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging",
+        "investable_supplier"
+      ],
+      "description": "Taiwan-based substrate manufacturer, affiliated with AU Optronics. Second major supplier of high-end organic substrates for AI accelerators after Ibiden. Offers ABF and BT-type substrates with HDI capability. Capacity less constrained than Ibiden but also ramping to meet demand.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Market position vs Ibiden",
+          "unit": "relative_share",
+          "currentValue": 25,
+          "description": "Estimated Nanya PCB share of advanced AI accelerator substrates vs Ibiden's 60% or higher (2025-2026)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "AUO (AU Optronics parent)"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_pkg_substrate_capacity"
+      ],
+      "tags": [
+        "manufacturer",
+        "substrate",
+        "public_company"
+      ],
+      "notes": "Nanya PCB is alternative supplier to Ibiden, with somewhat higher availability but lower reputation for cutting-edge designs. Taiwan-based.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "org_kulicke_soffa",
+      "name": "Kulicke & Soffa Industries",
+      "kind": "organization",
+      "domain": [
+        "ai_compute_chain",
+        "semiconductor_packaging_equipment",
+        "investable_supplier"
+      ],
+      "description": "US equipment manufacturer specializing in die-attach and thermocompression bonding (TCB) systems for semiconductor packaging. Primary supplier of flip-chip bonding equipment used for micro-bump assembly in advanced chiplet packaging.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "TCB equipment market share (estimated)",
+          "unit": "%",
+          "currentValue": 45,
+          "description": "Kulicke & Soffa estimated share of thermocompression bonding equipment for advanced packaging (2025-2026)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "KLIC"
+        }
+      ],
+      "evidenceIds": [
+        "ev_acc_pkg_flip_chip_equipment"
+      ],
+      "tags": [
+        "equipment_manufacturer",
+        "packaging_equipment",
+        "public_company"
+      ],
+      "notes": "Kulicke & Soffa is critical equipment supplier for flip-chip bonding. TCB systems are essential for micro-bump assembly on interposers. US-based with NASDAQ listing.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_adv_pkg__requires__silicon_interposer",
+      "source": "advanced_packaging",
+      "target": "silicon_interposer_fabrication",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_cowos_architecture"
+      ]
+    },
+    {
+      "id": "e_adv_pkg__requires__flip_chip_bonding",
+      "source": "advanced_packaging",
+      "target": "flip_chip_bonding",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_cowos_architecture"
+      ]
+    },
+    {
+      "id": "e_adv_pkg__requires__organic_substrate",
+      "source": "advanced_packaging",
+      "target": "organic_substrate_buildup",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_cowos_architecture"
+      ]
+    },
+    {
+      "id": "e_adv_pkg__requires__test_inspection",
+      "source": "advanced_packaging",
+      "target": "test_and_inspection",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_test_capacity"
+      ]
+    },
+    {
+      "id": "e_silicon_interposer__requires__tsv_etch",
+      "source": "silicon_interposer_fabrication",
+      "target": "tsv_process_deep_reactive_ion_etch",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_silicon_interposer__requires__rdl",
+      "source": "silicon_interposer_fabrication",
+      "target": "redistribution_layer_rdl",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_flip_chip__requires__micro_bump",
+      "source": "flip_chip_bonding",
+      "target": "micro_bump_copper_pillar",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_flip_chip__requires__underfill",
+      "source": "flip_chip_bonding",
+      "target": "underfill_encapsulation",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_organic_substrate__requires__hdi_drilling",
+      "source": "organic_substrate_buildup",
+      "target": "hdi_drilling_via_plating",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_interposer_attach__requires__c4_bumps",
+      "source": "advanced_packaging",
+      "target": "c4_solder_bumps_substrate",
+      "relation": "requires",
+      "confidence": "high"
+    },
+    {
+      "id": "e_adv_pkg__manufactured_by__tsmc",
+      "source": "advanced_packaging",
+      "target": "org_tsmc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_tsmc_cowos_share",
+        "ev_acc_pkg_tsmc_capacity"
+      ]
+    },
+    {
+      "id": "e_adv_pkg__manufactured_by__ase",
+      "source": "advanced_packaging",
+      "target": "org_ase",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_osat_share"
+      ]
+    },
+    {
+      "id": "e_adv_pkg__manufactured_by__amkor",
+      "source": "advanced_packaging",
+      "target": "org_amkor",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_osat_share"
+      ]
+    },
+    {
+      "id": "e_organic_substrate__manufactured_by__ibiden",
+      "source": "organic_substrate_buildup",
+      "target": "org_ibiden",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_ibiden_expansion",
+        "ev_acc_pkg_substrate_bottleneck"
+      ]
+    },
+    {
+      "id": "e_organic_substrate__manufactured_by__nanya",
+      "source": "organic_substrate_buildup",
+      "target": "org_nanya_pcb",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_substrate_capacity"
+      ]
+    },
+    {
+      "id": "e_flip_chip__manufactured_by__kuls",
+      "source": "flip_chip_bonding",
+      "target": "org_kulicke_soffa",
+      "relation": "implemented_by",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_flip_chip_equipment"
+      ],
+      "claim": "Kulicke & Soffa thermocompression bonding (TCB) systems are primary equipment used for flip-chip micro-bump assembly at OSATs."
+    },
+    {
+      "id": "e_ai_accelerator_module__requires__advanced_packaging",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "advanced_packaging",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": [
+        "ev_acc_pkg_cowos_architecture"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_pkg_cowos_architecture",
+      "type": "paper",
+      "title": "CoWoS and HBM Supply Chain Analysis",
+      "sourceName": "SemiAnalysis",
+      "date": "2025-03-15",
+      "url": "https://newsletter.semianalysis.com/p/ai-expansion-supply-chain-analysis",
+      "summary": "Detailed analysis of CoWoS (Chip-on-Wafer-on-Substrate) architecture as primary packaging technology for AI accelerators. Describes silicon interposer fabrication with TSVs and RDLs, flip-chip bonding to attach logic and HBM dies, and substrate integration. Identifies CoWoS as the primary limiting factor for GPU availability through Q2 2026.",
+      "supportsNodeIds": [
+        "advanced_packaging",
+        "silicon_interposer_fabrication",
+        "flip_chip_bonding"
+      ],
+      "supportsEdgeIds": [
+        "e_adv_pkg__requires__silicon_interposer",
+        "e_adv_pkg__requires__flip_chip_bonding"
+      ],
+      "excerpt": "The primary limiting factor is the CoWoS advanced packaging to put the 5nm ASICs and HBM together. This shortage is projected to create GPU availability issues extending through Q2 of the following year.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_tsmc_cowos_share",
+      "type": "news",
+      "title": "TSMC Expands CoWoS and SoIC Capacity on AI Boom",
+      "sourceName": "DigiTimes",
+      "date": "2026-05-14",
+      "url": "https://www.digitimes.com/news/a20260514PD237/tsmc-cowos-soic-capacity-packaging.html",
+      "summary": "TSMC reports rapid expansion of CoWoS and SoIC (System-on-Integrated-Circuits) capacity in response to AI demand. Construction of 18 new fabs and advanced packaging facilities worldwide. Highlights TSMC's dominant position in 2.5D/3D advanced packaging supply.",
+      "supportsNodeIds": [
+        "advanced_packaging"
+      ],
+      "supportsEdgeIds": [
+        "e_adv_pkg__manufactured_by__tsmc"
+      ],
+      "excerpt": "TSMC said on May 14, 2026, that it is rapidly expanding CoWoS and SoIC advanced packaging capacity as AI demand drives the construction of 18 new fabs and advanced packaging facilities worldwide.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_tsmc_capacity",
+      "type": "paper",
+      "title": "AI Competition Turns into a Supply Chain Arms Race, Tightening Advanced Packaging and 3nm Capacity",
+      "sourceName": "TrendForce",
+      "date": "2026-04-30",
+      "url": "https://www.trendforce.com/presscenter/news/20260430-13028.html",
+      "summary": "TrendForce analysis of global CoWoS and 2.5D/3D packaging capacity constraints. Reports TSMC's plan to expand CoWoS capacity by over 60% by 2027, with severe shortage projected to ease slightly by 2027. Identifies CoWoS, substrate, and HBM as primary bottlenecks.",
+      "supportsNodeIds": [
+        "advanced_packaging"
+      ],
+      "supportsEdgeIds": [
+        "e_adv_pkg__manufactured_by__tsmc"
+      ],
+      "excerpt": "TSMC's CoWoS throughput is set to soar from ~40,000 wafers per month in 2024 to as much as 140,000–150,000 wafers per month by 2026. The severe shortage in global 2.5D packaging capacity will begin to ease slightly by 2027, aided by order spillover and TSMC's plan to expand CoWoS capacity by over 60% by 2027.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_osat_share",
+      "type": "paper",
+      "title": "OSAT Landscape: ASE, Amkor, JCET, PTI, Tongfu",
+      "sourceName": "SemiconductorX",
+      "date": "2025-12-01",
+      "url": "https://semiconductorx.com/packaging-osat.html",
+      "summary": "Market analysis of outsourced semiconductor assembly and test (OSAT) providers. ASE Technology Holding (Taiwan), Amkor Technology (U.S.), and JCET Group (China) together hold more than 60% of global OSAT revenue. Reports on aggressive investment in advanced packaging capacity expansion by all three.",
+      "supportsNodeIds": [
+        "advanced_packaging"
+      ],
+      "supportsEdgeIds": [
+        "e_adv_pkg__manufactured_by__ase",
+        "e_adv_pkg__manufactured_by__amkor"
+      ],
+      "excerpt": "ASE Technology Holding (Taiwan), Amkor Technology (U.S.-headquartered, global operations), and JCET Group (China) together hold more than 60% of global OSAT revenue. OSATs are investing aggressively in advanced packaging capacity to move up the tier — ASE, Amkor, and JCET are all building out 2.5D and fan-out capacity.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_ibiden_expansion",
+      "type": "news",
+      "title": "Japan's Ibiden Channels US$3.3bn into IC Substrate Expansion for AI Servers",
+      "sourceName": "DigiTimes",
+      "date": "2026-02-04",
+      "url": "https://www.digitimes.com/news/a20260204PD227/ibiden-expansion-capacity-production-plant.html",
+      "summary": "Ibiden announces ¥500 billion (~$3.2 billion USD) investment over FY2026-2028 to expand organic substrate production for AI servers. Plans 150% capacity increase by 2027. Major expansions at Kawama Plant (Cell 6) and Ono Plant in Gifu Prefecture. Ono facility began production October 2025.",
+      "supportsNodeIds": [
+        "organic_substrate_buildup"
+      ],
+      "supportsEdgeIds": [
+        "e_organic_substrate__manufactured_by__ibiden"
+      ],
+      "excerpt": "Ibiden announced a massive investment plan of approximately ¥500 billion (roughly $3.2 billion) over three fiscal years from 2026 to 2028, specifically to expand production of high-performance IC package substrates for AI servers. The company plans to expand its production lines from three to five by fiscal year 2025, with a 150 percent capacity increase by 2027 compared to 2024 levels.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_substrate_bottleneck",
+      "type": "news",
+      "title": "Inside the AI Hardware Boom: Servers, Substrates and Advanced Packaging",
+      "sourceName": "I-Connect007",
+      "date": "2025-11-20",
+      "url": "https://iconnect007.com/article/146416/inside-the-ai-hardware-boom-servers-substrates-and-advanced-packaging/146413/flex",
+      "summary": "Analysis of substrate manufacturing as a critical bottleneck in AI accelerator production. Reports that PCB fabricators faced intense demand with revenue growth exceeding 30% in 2024. Notes ABF substrate overcapacity (Ibiden 18% decline, Nanya 20% decline in 2024) but high-end AI substrates remain supply-constrained. Identifies need for tight tolerances, sequential lamination, and advanced HDI processing.",
+      "supportsNodeIds": [
+        "organic_substrate_buildup"
+      ],
+      "supportsEdgeIds": [
+        "e_organic_substrate__manufactured_by__ibiden"
+      ],
+      "excerpt": "The ABF substrate market experienced significant difficulties. Overcapacity and price competition dragged down revenue for leading suppliers with Ibiden experiencing an 18% decrease and Nanya PCB declining over 20% in 2024... manufacturers require tight tolerances, sequential lamination, and advanced HDI processing, indicating the industry is operating near maximum capability to meet AI server specifications.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_substrate_capacity",
+      "type": "news",
+      "title": "Ibiden Weighs Capacity Boost Amid Surging AI Substrate Demand",
+      "sourceName": "Yahoo Finance",
+      "date": "2026-05-20",
+      "url": "https://finance.yahoo.com/news/ibiden-weighs-capacity-boost-amid-205820020.html",
+      "summary": "Recent report on Ibiden's capacity utilization. New facility (Gifu Prefecture) began operations at 25% capacity in late 2025, increased to 50% by early 2026. CEO Koji Kawashima stated demand expected to stay high through 2026. Nanya PCB (Taiwan, affiliated with AU Optronics) identified as major competitor to Ibiden for advanced substrate supply.",
+      "supportsNodeIds": [
+        "organic_substrate_buildup"
+      ],
+      "supportsEdgeIds": [
+        "e_organic_substrate__manufactured_by__ibiden",
+        "e_organic_substrate__manufactured_by__nanya"
+      ],
+      "excerpt": "The company is being built to address surging demand from Nvidia and other AI chip manufacturers. CEO Koji Kawashima stated that demand is projected to stay high until next year.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_test_capacity",
+      "type": "vendor_claim",
+      "title": "Cohu Inc Q1 2026 Earnings Report",
+      "sourceName": "Cohu Inc SEC Filing (Form 10-Q)",
+      "date": "2026-04-28",
+      "url": "https://www.sec.gov/Archives/edgar/data/0000021535/000143774926014308/cohu20260328_10q.htm",
+      "summary": "Cohu reports test cell utilization of 78% at end of Q1 2026 (March 2026), up from 76% estimated in December 2025. Indicates tightening test capacity across semiconductor industry, with less than 20% headroom for demand growth.",
+      "supportsNodeIds": [
+        "test_and_inspection"
+      ],
+      "supportsEdgeIds": [
+        "e_adv_pkg__requires__test_inspection"
+      ],
+      "excerpt": "Cohu's estimated test cell utilization increased to 76% in December (of 2025), and the company achieved an estimated test cell utilization of 78% at the end of March in 2026.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_flip_chip_equipment",
+      "type": "vendor_claim",
+      "title": "Kulicke & Soffa Advanced Solutions Thermocompression Bonding Systems",
+      "sourceName": "Kulicke & Soffa Industries Inc (KLIC) SEC Filing (Form 8-K)",
+      "date": "2026-04-15",
+      "url": "https://www.sec.gov/Archives/edgar/data/0000056978/000005697826000010/ex991liveq12026.htm",
+      "summary": "Kulicke & Soffa reports strong demand for thermocompression (TCB) bonding systems used in flip-chip assembly for advanced packaging. TCB systems are critical equipment for micro-bump assembly at 10-50 micron pitch. Company operates in Advanced Solutions segment focused on die-attach and thermocompression systems.",
+      "supportsNodeIds": [
+        "flip_chip_bonding"
+      ],
+      "supportsEdgeIds": [
+        "e_flip_chip__manufactured_by__kuls"
+      ],
+      "excerpt": "Advanced Solutions reflects the company's design, development, manufacture and sale of die-attach and thermocompression systems and solutions.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_tsv_equipment",
+      "type": "paper",
+      "title": "Through-Silicon Via (TSV) Equipment Market",
+      "sourceName": "DataIntelo Market Research",
+      "date": "2025-06-15",
+      "url": "https://dataintelo.com/report/through-silicon-via-equipment-market",
+      "summary": "Market report on TSV etch and processing equipment. Identifies Lam Research, Tokyo Electron, Applied Materials, and ACM Research as major suppliers of DRIE, deposition, electroplating, and CMP tools for TSV and advanced packaging. Notes strong demand from TSMC, Samsung, and Intel for TSV capacity expansion.",
+      "supportsNodeIds": [
+        "tsv_process_deep_reactive_ion_etch"
+      ],
+      "supportsEdgeIds": [
+        "e_silicon_interposer__requires__tsv_etch"
+      ],
+      "excerpt": "Major semiconductor contract manufacturers and system-on-chip designers, including Taiwan Semiconductor Manufacturing Company, Samsung Electronics, and Intel Corporation, have substantially increased capital expenditures on TSV-capable equipment to maintain manufacturing competitiveness and meet customer demand for next-generation packaging technologies.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_hdi_laser_drill",
+      "type": "news",
+      "title": "Status of High-End Performance Packaging (2.5D & 3D)",
+      "sourceName": "SEMI (Semiconductor Equipment and Materials International)",
+      "date": "2025-06-01",
+      "url": "https://www.semi.org/sites/semi.org/files/2025-06/21_Vishal%20Saroha.pdf",
+      "summary": "SEMI presentation on 2.5D and 3D high-end packaging technologies. Discusses HDI drilling with laser or mechanical methods, copper electroplating for via fill, and sequential lamination constraints. Notes equipment bottlenecks from laser drill and plating tool suppliers.",
+      "supportsNodeIds": [
+        "hdi_drilling_via_plating",
+        "organic_substrate_buildup"
+      ],
+      "supportsEdgeIds": [
+        "e_organic_substrate__requires__hdi_drilling"
+      ],
+      "excerpt": "Advanced packaging techniques require precision drilling of microvias and controlled electroplating, with laser drill systems (Posalux, Mitsubishi, Trumpf) and plating chemistry as critical constraints.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_underfill_material",
+      "type": "vendor_claim",
+      "title": "Underfill Encapsulation for Chiplet Assembly",
+      "sourceName": "AI Technology, Inc. / Master Bond",
+      "date": "2025-12-01",
+      "url": "https://www.aitechnology.com/products/chip-protection/",
+      "summary": "Vendor information on underfill encapsulation materials for advanced chip packaging. Describes filled epoxy underfill with thermal conductivity 3-8 W/mK, stress relief properties, and reliability under thermal cycling. Notes multiple supplier options from Henkel, Dow, Namics, Shin-Etsu, and others.",
+      "supportsNodeIds": [
+        "underfill_encapsulation"
+      ],
+      "supportsEdgeIds": [
+        "e_flip_chip__requires__underfill"
+      ],
+      "excerpt": "Underfill encapsulant provides mechanical protection by enhancing bonding and distributing mechanical stress, thermal protection by improving heat transfer and providing better heat distribution, and relieves mechanical stress from bumps caused by thermal expansion mismatch.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_copper_pillar_bump",
+      "type": "vendor_claim",
+      "title": "Copper Pillar Cu Pillar Technology",
+      "sourceName": "Amkor Technology",
+      "date": "2025-09-01",
+      "url": "https://amkor.com/technology/copper-pillar/",
+      "summary": "Amkor's copper pillar micro-bump technology for advanced flip-chip assembly. Describes Cu pillar electroplating process, fine-pitch capability down to 15 microns, and integration with lead-free solder (SAC305). Identifies Amkor as major provider of bumping services for HBM and chiplet assembly.",
+      "supportsNodeIds": [
+        "micro_bump_copper_pillar"
+      ],
+      "supportsEdgeIds": [
+        "e_flip_chip__requires__micro_bump"
+      ],
+      "excerpt": "Amkor offers various Cu pillar structures including Cu bar type, standard Cu pillar, fine pitch Cu pillar and micro-bumps, and provides different stack-ups from Cu+Ni+Pb-free and Cu+Ni+Cu+Pb-free depending upon application requirements.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pkg_sac305_solder",
+      "type": "vendor_claim",
+      "title": "SAC305 Lead-Free Solder Alloy",
+      "sourceName": "AIM Solder",
+      "date": "2025-10-01",
+      "url": "https://www.aimsolder.com/products/sac305-lead-free-solder-alloy/",
+      "summary": "AIM Solder product information on SAC305 lead-free solder alloy (96.5% Sn / 3% Ag / 0.5% Cu). Used in C4 bumps and micro-bump solder caps for advanced packaging. Describes reliability, fatigue resistance, and availability in multiple forms (wire, bar, paste, preforms).",
+      "supportsNodeIds": [
+        "c4_solder_bumps_substrate",
+        "micro_bump_copper_pillar"
+      ],
+      "supportsEdgeIds": [
+        "e_interposer_attach__requires__c4_bumps"
+      ],
+      "excerpt": "SAC305 is a high purity lead-free alloy containing 96.5% tin, 3% silver, and 0.5% copper. SAC305 provides durable joint strength and the lowest melting point of tin/silver/copper solders.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

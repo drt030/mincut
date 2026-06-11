@@ -1,0 +1,17 @@
+{
+ "node_patches": [
+  {
+   "id": "power_delivery",
+   "append_tags": ["decomposition_frontier"],
+   "append_notes": "SCOPE BOUNDARY (explicit decision, 2026-06-10): facility/grid power infrastructure — large power transformers, switchgear, grid interconnect, datacenter AC distribution above the rack — is deliberately NOT modeled in this product. It is its own chain with its own supplier base, planned as the separate domain ai_dc_power_chain (launch plan, Tue drop). This boundary is a documented judgment, not a coverage miss."
+  },
+  {
+   "id": "high_bandwidth_memory",
+   "append_notes": "SCOPE BOUNDARY (explicit decision, 2026-06-10): the adjacent non-volatile / storage-class memory branch (SSD/NAND tier of the datacenter system) is out of frame for this module-scoped product — the accelerator module itself carries no storage-class memory. The branch has its own supplier population and supply cycle and is a candidate sibling domain at the datacenter-system tier. Recorded per brief §2.12; owner to ratify."
+  },
+  {
+   "id": "leading_edge_ai_compute",
+   "append_notes": "SCOPE BOUNDARIES (explicit decisions, 2026-06-10, per brief §2.12): (1) operator/service-tier entities (cloud operators, compute brokers/lessors above the hardware chain) are not modeled — this is a component decomposition; whether an operator tier belongs in the capability layer at all is an open modeling decision for the owner. (2) Datacenter-system branches not inside the accelerator module (storage-class memory; facility/grid power) are documented boundaries pointing to sibling domains, not coverage gaps."
+  }
+ ]
+}

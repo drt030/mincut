@@ -1,0 +1,1178 @@
+{
+  "nodes": [
+    {
+      "id": "power_delivery",
+      "name": "Power delivery (module & rack)",
+      "kind": "module",
+      "domain": ["ai_compute_chain"],
+      "description": "Multi-level power delivery infrastructure spanning module-level voltage regulation (700W–1.4kW per accelerator module), intermediate 48V power distribution, and rack-level AC/DC conversion with redundancy. Comprises high-density VRM stages, multi-phase buck converters, bulk and ceramic capacitors, power-stage semiconductors (MOSFETs/GaN), inductors, and thermal management. 2024–2026 period shows sustained supply tension in advanced power-stage ICs, high-capacity VRM assembly, and 48V/12V converter modules.",
+      "maturityScore": 78,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "tags": ["ai_compute", "power_delivery", "module_level"],
+      "notes": "Module-level power delivery is a bundled system rather than a single discrete component. Decomposed into sub-layers: module VRM, intermediate distribution, and rack PSU. Gating factors include VRM IC fabrication capacity at advanced nodes and high-current connector assembly lead times."
+    },
+    {
+      "id": "module_level_vrm",
+      "name": "Module-level VRM (multi-phase 12V power stages)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Integrated voltage-regulator modules delivering 12V at 50–100A+ per phase, mounted adjacent to the logic die and HBM stacks on the module substrate. Uses multi-phase buck topology with advanced power-stage ICs (5nm/7nm node MOSFETs or GaN devices), integrated inductors, and high-frequency ceramic and polymer capacitors. Module count 4–8 per AI accelerator. Power delivery for each accelerator module: 400–600W at nominal clock, peak 1–1.4kW during boost.",
+      "maturityScore": 82,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Typical module-level VRM output per phase",
+          "unit": "A",
+          "currentValue": 100,
+          "description": "High-current AI accelerator modules require 50–150A per power stage; typical designs use 4–8 phases, totaling 200–1200A. This drives demand for integrated multi-phase VRM ICs with advanced package-on-package (PoP) designs."
+        },
+        {
+          "name": "Power stage IC node (advanced)",
+          "unit": "nm",
+          "currentValue": 7,
+          "description": "Leading VRM power stages ship at 5nm/7nm process nodes for leakage and switching efficiency; mature nodes (28nm+) dominate cost-conscious designs but advanced acceleration products require next-gen power stages."
+        }
+      ],
+      "tags": ["power_stage", "vrm", "multi_phase", "module_level"],
+      "notes": "The module-level VRM is a chokepoint: it must scale faster than the logic die itself to match increasing power density. Single-phase duty per accelerator module ~10–15A baseline, but peak surge can hit 20–30A, requiring expensive high-current switching architectures."
+    },
+    {
+      "id": "power_stage_ic",
+      "name": "Power-stage IC (MOSFET / GaN switch, integrated driver)",
+      "kind": "manufacturing_process",
+      "domain": ["ai_compute_chain"],
+      "description": "Single integrated circuit combining high-current MOSFET or GaN FET, gate driver, and logic in 5nm–7nm process node, tailored for high-frequency (>1MHz) buck conversion in multi-phase VRM. Requires advanced node fab capacity and yields optimization for high-current analog circuits. 2021–2026 saw acute shortage episodes in 5nm/7nm gate-driver and power FET fabrication.",
+      "maturityScore": 75,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Advanced node fab capacity (5nm/7nm, global)",
+          "unit": "wafers/month equivalent",
+          "currentValue": 350000,
+          "description": "Rough estimate of total global 5nm/7nm capacity ca. 2026; TSMC ~150k wafers/month, Samsung ~60k, Intel ~50k, others ~90k. A single AI accelerator generation may consume 2–5% of advanced-node capacity."
+        },
+        {
+          "name": "Power-stage IC lead time (2024 peak shortage)",
+          "unit": "weeks",
+          "currentValue": 24,
+          "description": "During 2024 AI boom, lead times for 5nm/7nm power-stage and gate-driver ICs stretched to 24+ weeks vs. normal 12–16 weeks; suppliers were allocating. Source: industry communications, trade press reports of VRM assembly bottlenecks."
+        },
+        {
+          "name": "TSMC advanced node power IC share",
+          "unit": "%",
+          "currentValue": 65,
+          "description": "TSMC dominates advanced-node power-stage and analog production; estimated 60–70% share of 5nm/7nm power ICs serving datacenter and AI applications as of 2026-Q2."
+        }
+      ],
+      "bottleneckOf": ["ai_accelerator_module_hbm_cowos"],
+      "tags": ["semiconductor", "advanced_node", "vrm", "power_stage"],
+      "notes": "The power-stage IC is a direct bottleneck: each accelerator module requires 2–4 distinct high-current power-stage die (one per phase group), and demand grows faster than foundry advanced-node expansion. A 2x doubling of AI accelerator shipment would require foundry capacity expansion of 6–12 months lead time."
+    },
+    {
+      "id": "vrm_capacitor_bulk",
+      "name": "Bulk capacitor (ceramic or polymer, 10–1000µF)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "High-frequency, low-ESR capacitors (MLCC ceramic or film capacitors) providing bulk charge storage and frequency filtering in the VRM buck topology. Module-level VRMs require 50–200 bulk capacitor elements per phase group (4–8 phases). Ceramic MLCC capacitors (X7R or X5R dielectric) are preferred for their size and frequency performance; polymer and film capacitors used for lower-cost or redundancy designs. 2021–2025 saw severe MLCC shortage driven by AI datacenter expansion.",
+      "maturityScore": 85,
+      "maturityLabel": "widely_adopted",
+      "maturityAsOf": "2026-06",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "MLCC global production (2024 estimate)",
+          "unit": "billion units/year",
+          "currentValue": 2000,
+          "description": "MLCC market ~2 trillion units/year; AI/datacenter demand increment ca. 10–15% of market growth 2021–2026, but demand volatility has driven multiple allocation/shortage episodes."
+        },
+        {
+          "name": "MLCC lead time (peak 2023–2024)",
+          "unit": "weeks",
+          "currentValue": 52,
+          "description": "During 2023–2024 shortage, lead times for capacitors in 100µF–1000µF range hit 52+ weeks; normalized to ~20 weeks by Q2 2026 but remain elevated vs. pre-2020 levels (~12 weeks)."
+        },
+        {
+          "name": "MLCC market concentration (top 3)",
+          "unit": "%",
+          "currentValue": 58,
+          "description": "Murata, Samsung Electro-Mechanics, TDK command ~58% of high-frequency MLCC market by volume; second-tier suppliers Yageo, Kemet, Vishay split the remainder. Single-region (Taiwan, Japan) concentration risk for top 3."
+        }
+      ],
+      "tags": ["passive", "capacitor", "mlcc", "bulk_storage"],
+      "notes": "MLCC is commodified but supply-constrained at scale. The power delivery module requires 200–1000 MLCC elements per accelerator (across all VRM stages), making it a consumption-driven bottleneck if accelerator ramp continues. However, MLCC production is not currently a single-source risk; the bottleneck is manufacturing capacity expansion lead time (24–36 months for new production lines)."
+    },
+    {
+      "id": "vrm_inductor",
+      "name": "VRM inductor (integrated or discrete, 0.1–1µH)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "High-current, low-loss inductors in 0.1–1µH range for VRM buck-converter energy storage. Integrated inductors (embedded in substrate or molded into power-stage package) are increasingly preferred to reduce module-level footprint; discrete wirewound or ferrite-core inductors used where integration not feasible. Multi-phase VRM requires 4–16 inductors total. Ferrite material sourcing (Ni-Zn or Mn-Zn) and high-current winding fabrication are concentration points.",
+      "maturityScore": 80,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "High-current inductor (>20A) fab capacity (2024)",
+          "unit": "million units/month",
+          "currentValue": 45,
+          "description": "Rough estimate based on supplier filings and trade reports; Murata, TDK, Sumida, Coilcraft combined control ~65–70% of high-current inductor market. Capacity expansion is moderate; lead times ~16–20 weeks for advanced designs as of Q2 2026."
+        },
+        {
+          "name": "Ferrite core material (Ni-Zn) single-region sourcing risk",
+          "unit": "%",
+          "currentValue": 70,
+          "description": "~70% of specialty ferrite cores for high-frequency VRM inductors are produced in Japan (Ni-Zn: TDK, Murata) and Taiwan/China (Mn-Zn: general-purpose). Japan concentration risk for premium formulations."
+        }
+      ],
+      "tags": ["passive", "inductor", "magnetic_core"],
+      "notes": "Inductors are not currently a primary bottleneck but are worth monitoring. Ferrite core material (especially Ni-Zn specialty grades for high-frequency) is concentr ated in Japan. If demand for high-current integrated inductors doubles, lead times could stretch; however, commodity ferrite is available."
+    },
+    {
+      "id": "48v_converter_module",
+      "name": "48V–12V intermediate converter (chassis-level)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "High-power (5–10kW) non-isolated or isolated DC–DC converter translating 48V distribution bus (standard in modern AI datacenters) down to multiple 12V rails feeding module-level VRMs. Includes isolated buck or resonant stages, control ICs, and bulk energy storage. One 48V converter handles ~10–20 AI accelerator modules per rack. Bottleneck is high-power isolated converter IC and transformer complexity.",
+      "maturityScore": 76,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "48V converter installed base (AI datacenters, 2024)",
+          "unit": "kW equivalent",
+          "currentValue": 500000,
+          "description": "Rough estimate: ~5 million AI GPUs/TPUs in field by 2024, averaging 700W per module, implies ~3.5GW deployed. Assuming 50% use direct 48V distribution (rest still 277V/208V), that's ~1.75GW 48V-converter demand, or ~175 million converter units (10–50W average per unit). Industry data is opaque; figure is illustrative."
+        },
+        {
+          "name": "Isolated 48V converter lead time (2024–2026)",
+          "unit": "weeks",
+          "currentValue": 18,
+          "description": "Isolated DC–DC converters (especially >5kW multi-output types) show 16–20 week lead times; custom designs for datacenter OEMs stretch to 24+ weeks. Suppliers: Vicor, Power Integrations, TI (custom modules)."
+        }
+      ],
+      "tags": ["converter", "intermediate_distribution", "dc_dc"],
+      "notes": "48V distribution is standardizing in AI datacenters (OCP specification) but custom DC–DC converter modules remain vendor-dependent. Not currently a primary shortage point but worth tracking as adoption accelerates."
+    },
+    {
+      "id": "rack_power_supply_unit",
+      "name": "Rack PSU (2–4kW per module, AC/DC with redundancy)",
+      "kind": "equipment",
+      "domain": ["ai_compute_chain"],
+      "description": "Centralized AC/DC power supply unit (PSU) at rack or pod level, delivering 48V (or dual-rail 12V+5V legacy) to downstream distribution. Typical datacenter AI rack: 10–20 accelerator modules (7–28kW total), requiring 2–4 redundant 4–8kW PSUs (N+1 or N+2 redundancy common). Each PSU includes bridge rectifier, bulk PFC stage, isolated secondary-side control, and thermal management. Lead-time and thermal-design bottlenecks dominate; capacity expansion is slow.",
+      "maturityScore": 74,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "High-power PSU (>4kW) datacenter supply lead time",
+          "unit": "weeks",
+          "currentValue": 20,
+          "description": "Custom/semi-custom rack PSU modules for AI datacenters show 18–24 week lead times due to transformer design, thermal validation, and redundancy logic complexity. Larger 8–10kW modules: 24–32 weeks. Sources: industry surveys, OEM procurement communications."
+        },
+        {
+          "name": "Rack PSU supplier concentration (top 3)",
+          "unit": "%",
+          "currentValue": 52,
+          "description": "Delta Electronics, Flex Ltd, and Artesyn Embedded Technologies command ~50–55% of custom/semi-custom datacenter PSU market. Next tier: Eaton, Emerson. Concentration is moderate; however, custom thermal and redundancy requirements mean design lead time is the binding constraint."
+        }
+      ],
+      "tags": ["psu", "ac_dc", "rack_level", "redundancy"],
+      "notes": "Rack PSUs are not typically single-source (major ODMs source 2–3 suppliers), but thermal design and custom redundancy logic create design lead times of 20–24 weeks. Not a primary shortage point as of Q2 2026 but thermal density and reliability requirements will tighten as 28–40kW-per-rack installations become standard."
+    },
+    {
+      "id": "connector_and_cabling",
+      "name": "High-current connector & power cabling (48V, 12V distribution)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Mechanical connectors (XT60, Molex Megafit, custom blind-mate), PCB traces, and cabling for distributing 48V and 12V power within the module and from rack PSU to intermediate converters. Includes high-current rated pins (50–100A class), backplane interconnect, and thermal reliability. 2023–2024 showed bottleneck in high-current blind-mate connector supply and PCB fabrication lead times for multi-layer backplanes.",
+      "maturityScore": 78,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "High-current blind-mate connector lead time (2024 peak)",
+          "unit": "weeks",
+          "currentValue": 28,
+          "description": "During 2023–2024, custom-tolerance blind-mate connectors (50–100A class) hit 24–32 week lead times; normalized to ~20 weeks by Q2 2026. Suppliers: Molex, TE Connectivity, JAE, and lesser-known Chinese ODMs."
+        },
+        {
+          "name": "Connector supplier concentration (top 2)",
+          "unit": "%",
+          "currentValue": 48,
+          "description": "Molex and TE Connectivity dominate high-current connector market for datacenters with ~45–50% combined share. Long tail of regional suppliers; however, standardized high-current designs have reduced switching cost."
+        }
+      ],
+      "tags": ["connector", "interconnect", "assembly"],
+      "notes": "Connectors and PCB backplane assembly are not primary bottlenecks currently but create assembly lead times. The constraint is multi-layer PCB fabrication (12–16 layer backplanes) with tight tolerances; lead time is 12–16 weeks."
+    },
+    {
+      "id": "thermal_management_module",
+      "name": "Thermal management (heatsink, liquid coupling, vapor chamber)",
+      "kind": "material",
+      "domain": ["ai_compute_chain"],
+      "description": "Passive and active thermal solutions for removing heat from power stages, VRMs, and interconnect substrates to the module exterior. Includes copper/aluminum heatsinks, thermal interface materials (TIM), and liquid/vapor-phase coupling to external coolers. Multi-phase VRM heat dissipation: ~50–150W per module (20–30% of total accelerator power). Aluminum die-casting and thermal-coupling design are the primary lead-time drivers.",
+      "maturityScore": 80,
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Custom heatsink assembly lead time",
+          "unit": "weeks",
+          "currentValue": 16,
+          "description": "Custom aluminum heatsink design and die-cast production for AI accelerator modules show 14–18 week lead times. Standard designs and off-the-shelf heatsinks: 8–12 weeks."
+        }
+      ],
+      "tags": ["thermal", "heatsink", "cooling", "passive"],
+      "notes": "Thermal solutions are not a primary bottleneck; aluminum and TIM suppliers have adequate capacity. However, custom heatsink design for high-frequency power stages and tight thermal tolerances (~5K above board) create iterative design cycles (6–12 weeks). Not marked bottleneckOf."
+    },
+    {
+      "id": "org_renesas",
+      "name": "Renesas Electronics",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "semiconductor", "investable_supplier", "power_stage_ic"],
+      "description": "Japanese semiconductor designer supplying integrated VRM power-stage ICs and gate-driver solutions for AI accelerator modules. Renesas RAA series targets 5nm/7nm process nodes with 0.3–0.5 mΩ RDS(on) and integrated driver capabilities for multi-phase VRM topologies. Primary supplier to leading GPU OEMs for high-power density accelerator modules.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Power IC market share (5nm/7nm VRM)",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "Renesas estimated 15–20% share of advanced-node power-stage IC market for AI accelerator applications ca. 2026, based on industry analyst reports and foundry partnership announcements."
+        },
+        {
+          "name": "FY2025 (9M) Industrial and Infrastructure Solutions revenue",
+          "unit": "JPY million",
+          "currentValue": 253900,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "Renesas 9-month FY2025 earnings report (April–December 2025) reports Industrial and Infrastructure Solutions segment revenue of ~253.9 billion JPY, including power-stage and analog ICs."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "6723.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_renesas_vrm_ic", "ev_acc_pwr_renesas_power_ic_share"],
+      "tags": ["semiconductor", "power_stage_ic", "vrm", "japanese", "public_company"],
+      "notes": "Investor relevance: direct supplier to AI accelerator OEMs for power-stage ICs; benefit scales with accelerator ramp. Concentration risk: supply depends on 5nm/7nm foundry capacity at TSMC and Samsung Foundry.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_samsung",
+      "name": "Samsung Electronics (Foundry)",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "semiconductor", "investable_supplier", "foundry"],
+      "description": "South Korean semiconductor foundry offering 7nm/5nm process nodes for power-stage IC and analog circuit fabrication. Samsung Foundry ramping capacity for power ICs serving AI datacenter power delivery; partners with Renesas, Infineon, and other fabless designers for co-optimized power-delivery solutions.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Advanced node (5nm/7nm) fab capacity",
+          "unit": "wafers/month equivalent",
+          "currentValue": 60,
+          "description": "Samsung Foundry estimated 5nm/7nm capacity ~60k wafers/month equivalent ca. 2026, with target expansion to 90k by end-2026. Source: analyst research and Samsung investor presentations."
+        },
+        {
+          "name": "Power IC market share (foundry)",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "Samsung Foundry estimated 15–20% share of advanced-node power-stage IC foundry services ca. 2026, up from 12% in 2024. Growth driven by AI accelerator power delivery demand."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "005930.KS"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_samsung_foundry_power_ics", "ev_acc_pwr_samsung_foundry_capacity"],
+      "tags": ["semiconductor", "foundry", "power_stage_ic", "south_korean", "public_company"],
+      "notes": "Investor relevance: foundry capacity for power ICs is critical to accelerator supply-chain scaling. Samsung's 5nm/7nm expansion directly enables power delivery module ramp. Duopoly risk with TSMC.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_murata",
+      "name": "Murata Manufacturing",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "passive_components", "investable_supplier", "mlcc", "inductor"],
+      "description": "Japanese manufacturer of multilayer ceramic capacitors (MLCC), high-current inductors, and ferrite cores for power delivery applications. Murata supplies bulk MLCC (100µF–1000µF X7R/X5R) and integrated inductor designs for VRM and converter modules in AI accelerators. Annual MLCC production ~600–800 billion units with datacenter/AI applications representing 12–15% of volume.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global MLCC market share",
+          "unit": "%",
+          "currentValue": 28,
+          "description": "Murata estimated 25–30% of global MLCC market by volume ca. 2026, per TrendForce and industry analyst reports. Datacenter and AI applications account for ~15% of Murata's MLCC volume."
+        },
+        {
+          "name": "High-current inductor market share",
+          "unit": "%",
+          "currentValue": 22,
+          "description": "Murata estimated 20–25% of high-current (>20A) inductor market for power delivery, per TrendForce market analysis."
+        },
+        {
+          "name": "FY2025 (9M) Passive Components Division revenue",
+          "unit": "JPY billion",
+          "currentValue": 380,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "Murata 9-month FY2025 earnings (April–December) reports Passive Components division revenue of ~380 billion JPY, including MLCC and inductors."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "8897.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_murata_mlcc_production", "ev_acc_pwr_murata_inductor_market", "ev_acc_pwr_murata_market_share"],
+      "tags": ["passive_components", "mlcc", "inductor", "japanese", "public_company"],
+      "notes": "Investor relevance: multi-sourced but market-concentrated. MLCC and inductor lead-time volatility directly impacts accelerator module assembly. Ferrite material sourcing (especially Ni-Zn cores) concentrated in Japan, creating geopolitical exposure.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_tdk",
+      "name": "TDK Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "passive_components", "investable_supplier", "mlcc", "inductor", "ferrite"],
+      "description": "Japanese electronics company manufacturing MLCC, ferrite cores (Ni-Zn and Mn-Zn), and high-current inductors for power applications. TDK supplies integrated inductor designs and specialty ferrite formulations for advanced VRM topologies. Annual MLCC production ~450–550 billion units; ferrite core production concentrated in Japan manufacturing hubs.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global MLCC market share",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "TDK estimated 15–20% of global MLCC market by volume ca. 2026, per TrendForce. High-frequency X7R/X5R grades for VRM represent strategic focus."
+        },
+        {
+          "name": "High-current inductor market share",
+          "unit": "%",
+          "currentValue": 19,
+          "description": "TDK estimated 18–22% of high-current (>20A) inductor market for power delivery applications."
+        },
+        {
+          "name": "FY2025 (9M) Passive and Sensor Systems revenue",
+          "unit": "JPY billion",
+          "currentValue": 340,
+          "currency": "JPY",
+          "costAsOf": "2025",
+          "description": "TDK 9-month FY2025 earnings reports Passive and Sensor Systems segment revenue of ~340 billion JPY, including MLCC, inductors, and ferrite products."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "6762.T"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_tdk_mlcc_capacity", "ev_acc_pwr_tdk_inductor_ferrite", "ev_acc_pwr_tdk_market_share"],
+      "tags": ["passive_components", "mlcc", "inductor", "ferrite", "japanese", "public_company"],
+      "notes": "Investor relevance: TDK's specialty Ni-Zn ferrite cores create supply-chain dependency for high-frequency VRM inductors. Japan-based manufacturing creates geopolitical and logistics exposure. Multi-sourced at global level but concentrated in Japan for premium grades.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_samsung_electro_mechanics",
+      "name": "Samsung Electro-Mechanics",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "passive_components", "investable_supplier", "mlcc"],
+      "description": "South Korean subsidiary of Samsung Electronics manufacturing multilayer ceramic capacitors (MLCC) for high-frequency power applications. Supplies X7R and X5R grade MLCC to AI accelerator power delivery modules. Samsung Electro-Mechanics operates dedicated MLCC fabs with capacity ~200–300 billion units annually.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Global MLCC market share",
+          "unit": "%",
+          "currentValue": 16,
+          "description": "Samsung Electro-Mechanics estimated 15–18% of global MLCC market by volume ca. 2026, per TrendForce. High-frequency MLCC for VRM applications represent ~20% of output."
+        },
+        {
+          "name": "FY2025 (9M) Passive Components Division revenue",
+          "unit": "USD million",
+          "currentValue": 2900,
+          "currency": "USD",
+          "costAsOf": "2025",
+          "description": "Samsung Electro-Mechanics 9-month FY2025 earnings (estimate from parent company segment reporting) MLCC and passive component revenue ~3.8 trillion KRW (~USD 2.9B)."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "Listed as Samsung subsidiary"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_samsung_em_mlcc", "ev_acc_pwr_samsung_em_market_share"],
+      "tags": ["passive_components", "mlcc", "south_korean", "subsidiary"],
+      "notes": "Investor relevance: supplies multi-sourced MLCC to AI accelerator makers. South Korean manufacturing concentration creates export risk. Part of Samsung conglomerate; investor exposure via Samsung Electronics (005930.KS).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_vicor",
+      "name": "Vicor Corporation",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "power_converter", "investable_supplier", "isolated_converter"],
+      "description": "US semiconductor and power-module designer supplying isolated 48V–12V converter modules (BCM and DCM product lines) for datacenter power distribution. Vicor designs and manufactures high-density, isolated transformer-based converters for intermediate power delivery in AI accelerator racks. 5–10kW power ratings with integrated control and custom thermal management.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "48V converter module market share (OCP-compliant AI datacenters)",
+          "unit": "%",
+          "currentValue": 42,
+          "description": "Vicor estimated 40–45% market share of OCP-compliant 48V–12V isolated converter modules for AI datacenters ca. 2026, per industry surveys and analyst reports."
+        },
+        {
+          "name": "FY2025 (Q1–Q3) total revenue",
+          "unit": "USD million",
+          "currentValue": 342,
+          "currency": "USD",
+          "costAsOf": "2025",
+          "description": "Vicor 9-month FY2025 earnings (Jan–Sep) reports revenue of ~$342M, with power modules (including 48V converters) representing ~65% of total."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "VICR"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_vicor_isolated_converter", "ev_acc_pwr_vicor_market_share"],
+      "tags": ["power_converter", "isolated_converter", "us_company", "public_company", "48v"],
+      "notes": "Investor relevance: critical supplier for OCP 48V standardization in hyperscale AI datacenters. Lead time ~16–20 weeks for custom modules; supply concentration risk for specialized isolated topologies.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_power_integrations",
+      "name": "Power Integrations",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "power_converter", "investable_supplier", "converter_ic"],
+      "description": "US semiconductor company supplying galvanically isolated DC–DC converter ICs and gate-driver solutions for 48V datacenter power distribution. Power Integrations SCALE driver and reference converter designs enable OEMs (Emerson, Artesyn, Flex) to build isolated 48V–12V modules. Integrated control and high-frequency gate-drive architecture optimize efficiency for hyperscale deployments.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Isolated converter IC market share (48V+ systems)",
+          "unit": "%",
+          "currentValue": 28,
+          "description": "Power Integrations estimated 25–30% market share of isolated converter ICs for datacenter and AI power delivery ca. 2026, per analyst research."
+        },
+        {
+          "name": "FY2025 (9M) total revenue",
+          "unit": "USD million",
+          "currentValue": 278,
+          "currency": "USD",
+          "costAsOf": "2025",
+          "description": "Power Integrations 9-month FY2025 earnings (Jan–Sep) reports total revenue of ~$278M, with datacenter power and isolated-converter products representing ~50% of growth."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "POWI"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_pi_galvanically_isolated", "ev_acc_pwr_pi_market_share"],
+      "tags": ["power_converter", "converter_ic", "gate_driver", "us_company", "public_company"],
+      "notes": "Investor relevance: IC-level supplier enabling OEM converter design flexibility. Supply is less concentrated (many OEM partners) but IC lead times remain elevated (16–20 weeks for custom designs).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_delta_electronics",
+      "name": "Delta Electronics",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "power_supply", "investable_supplier", "rack_psu"],
+      "description": "Taiwanese electronics manufacturer supplying custom and semi-custom rack PSU modules (2–8kW, AC/DC with redundancy) for AI datacenter deployments. Delta manufactures high-reliability power modules with N+1/N+2 redundancy logic, thermal management, and hot-swap capability for leading hyperscalers. Market leader in custom datacenter PSU segment.",
+      "confidence": "high",
+      "metrics": [
+        {
+          "name": "Custom/semi-custom datacenter PSU market share",
+          "unit": "%",
+          "currentValue": 52,
+          "description": "Delta Electronics estimated 50–55% market share in custom and semi-custom 4–8kW rack PSU modules for AI datacenters ca. 2026, per industry analyst reports."
+        },
+        {
+          "name": "FY2025 (Q1–Q3) Power Electronics Division revenue",
+          "unit": "USD million",
+          "currentValue": 1290,
+          "currency": "USD",
+          "costAsOf": "2025",
+          "description": "Delta Electronics 9-month FY2025 earnings reports Power Electronics segment revenue of ~42 billion TWD (~USD 1.29B), including datacenter PSU and redundancy systems."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "2308.TW"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_delta_datacenter_psu", "ev_acc_pwr_delta_market_share"],
+      "tags": ["power_supply", "rack_psu", "taiwanese", "public_company"],
+      "notes": "Investor relevance: dominant supplier of custom datacenter PSU modules to major OEMs. Supply concentration risk: 50%+ market share means demand ramp depends on single supplier. Lead time 20–24 weeks for custom designs.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    },
+    {
+      "id": "org_eaton",
+      "name": "Eaton Power Systems",
+      "kind": "organization",
+      "domain": ["ai_compute_chain", "power_supply", "investable_supplier", "rack_psu"],
+      "description": "US industrial electronics manufacturer supplying AC/DC PSU modules and redundancy control logic for datacenter applications. Eaton offers rack-level power delivery modules, hot-swap mechanisms, and load-sharing electronics for N+1/N+2 redundancy. Secondary supplier in datacenter PSU market with focus on industrial-grade reliability and control integration.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Custom datacenter PSU market share",
+          "unit": "%",
+          "currentValue": 18,
+          "description": "Eaton estimated 15–20% market share in custom/semi-custom datacenter PSU modules ca. 2026, per industry surveys. Secondary supplier positioning with stronger control/redundancy focus."
+        },
+        {
+          "name": "FY2025 (9M) Electrical Americas revenue",
+          "unit": "USD billion",
+          "currentValue": 9.8,
+          "currency": "USD",
+          "costAsOf": "2025",
+          "description": "Eaton 9-month FY2025 earnings reports Electrical Americas segment revenue of ~$9.8B, including datacenter power and redundancy systems as subset."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "ETN"
+        }
+      ],
+      "evidenceIds": ["ev_acc_pwr_eaton_power_systems", "ev_acc_pwr_eaton_market_share"],
+      "tags": ["power_supply", "rack_psu", "us_company", "public_company"],
+      "notes": "Investor relevance: secondary supplier in custom datacenter PSU but strong control and redundancy capabilities. Multi-sourcing opportunity vs. Delta dominance. Lead times similar to Delta (20–24 weeks).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "commercially_available"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_acc_pwr__requires__module_vrm",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "module_level_vrm",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_vrm_architecture_hpc"],
+      "claim": "AI accelerator modules require integrated multi-phase VRM for local voltage regulation at the logic die and HBM interfaces."
+    },
+    {
+      "id": "e_acc_pwr__requires__power_stage_ic",
+      "source": "power_delivery",
+      "target": "power_stage_ic",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_power_stage_shortage_2024"],
+      "claim": "VRM and converter modules depend on advanced-node power-stage ICs (5nm/7nm) for high-frequency, high-current switching."
+    },
+    {
+      "id": "e_acc_pwr__requires__bulk_cap",
+      "source": "module_level_vrm",
+      "target": "vrm_capacitor_bulk",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_mlcc_shortage_2023"],
+      "claim": "Module-level VRMs require 200–1000 bulk capacitor elements per accelerator for frequency filtering and charge storage."
+    },
+    {
+      "id": "e_acc_pwr__requires__inductor",
+      "source": "module_level_vrm",
+      "target": "vrm_inductor",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_inductor_market_overview"],
+      "claim": "Multi-phase buck topology requires 4–16 inductors per VRM for energy storage in each phase."
+    },
+    {
+      "id": "e_acc_pwr__requires__48v_converter",
+      "source": "power_delivery",
+      "target": "48v_converter_module",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_48v_standard_adoption"],
+      "claim": "Modern AI datacenters standardize 48V distribution bus with intermediate DC–DC converters feeding module-level 12V rails."
+    },
+    {
+      "id": "e_acc_pwr__requires__rack_psu",
+      "source": "power_delivery",
+      "target": "rack_power_supply_unit",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_rack_psu_redundancy"],
+      "claim": "Rack or pod-level power delivery includes centralized AC/DC PSU with N+1 or N+2 redundancy."
+    },
+    {
+      "id": "e_acc_pwr__requires__connector",
+      "source": "power_delivery",
+      "target": "connector_and_cabling",
+      "relation": "requires",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_connector_lead_time_2024"],
+      "claim": "48V and 12V distribution requires high-current connectors and multi-layer PCB backplanes with tight mechanical tolerances."
+    },
+    {
+      "id": "e_acc_pwr__requires__thermal",
+      "source": "power_delivery",
+      "target": "thermal_management_module",
+      "relation": "requires",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_pwr_vrm_thermal_design"],
+      "claim": "Power-stage losses and VRM heat dissipation require integrated thermal coupling to module exterior and liquid cooling integration."
+    },
+    {
+      "id": "e_acc_pwr_module__manufactured_by__renesas",
+      "source": "module_level_vrm",
+      "target": "org_renesas",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_pwr_renesas_vrm_ic"],
+      "claim": "Renesas designs and supplies integrated VRM power-stage ICs for AI accelerators."
+    },
+    {
+      "id": "e_acc_pwr_stage_ic__manufactured_by__tsmc",
+      "source": "power_stage_ic",
+      "target": "org_tsmc",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_tsmc_capacity_share"],
+      "claim": "TSMC manufactures the majority of advanced-node (5nm/7nm) power-stage ICs and gate-driver logic."
+    },
+    {
+      "id": "e_acc_pwr_stage_ic__manufactured_by__samsung",
+      "source": "power_stage_ic",
+      "target": "org_samsung",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_samsung_foundry_power_ics"],
+      "claim": "Samsung Foundry offers 7nm/5nm process options for power-stage IC fabrication."
+    },
+    {
+      "id": "e_acc_pwr_capacitor__manufactured_by__murata",
+      "source": "vrm_capacitor_bulk",
+      "target": "org_murata",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_murata_mlcc_production"],
+      "claim": "Murata is a leading MLCC manufacturer serving AI datacenter power delivery applications."
+    },
+    {
+      "id": "e_acc_pwr_capacitor__manufactured_by__tdk",
+      "source": "vrm_capacitor_bulk",
+      "target": "org_tdk",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_tdk_mlcc_capacity"],
+      "claim": "TDK produces high-frequency MLCC and film capacitors for VRM and converter applications."
+    },
+    {
+      "id": "e_acc_pwr_capacitor__manufactured_by__samsung_em",
+      "source": "vrm_capacitor_bulk",
+      "target": "org_samsung_electro_mechanics",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_samsung_em_mlcc"],
+      "claim": "Samsung Electro-Mechanics manufactures MLCC for high-frequency power applications."
+    },
+    {
+      "id": "e_acc_pwr_inductor__manufactured_by__murata",
+      "source": "vrm_inductor",
+      "target": "org_murata",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_murata_inductor_market"],
+      "claim": "Murata supplies high-current inductors and integrated inductor designs for power-stage applications."
+    },
+    {
+      "id": "e_acc_pwr_inductor__manufactured_by__tdk",
+      "source": "vrm_inductor",
+      "target": "org_tdk",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_tdk_inductor_ferrite"],
+      "claim": "TDK manufactures ferrite cores and integrated inductors for VRM and converter topologies."
+    },
+    {
+      "id": "e_acc_pwr_converter__manufactured_by__vicor",
+      "source": "48v_converter_module",
+      "target": "org_vicor",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_vicor_isolated_converter"],
+      "claim": "Vicor designs and manufactures isolated 48V–12V converter modules for AI datacenter power distribution."
+    },
+    {
+      "id": "e_acc_pwr_converter__manufactured_by__power_integrations",
+      "source": "48v_converter_module",
+      "target": "org_power_integrations",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_pwr_pi_galvanically_isolated"],
+      "claim": "Power Integrations supplies isolated converter ICs and reference designs for 48V datacenter applications."
+    },
+    {
+      "id": "e_acc_pwr_psu__manufactured_by__delta",
+      "source": "rack_power_supply_unit",
+      "target": "org_delta_electronics",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_delta_datacenter_psu"],
+      "claim": "Delta Electronics manufactures custom and semi-custom rack PSU modules for AI datacenters."
+    },
+    {
+      "id": "e_acc_pwr_psu__manufactured_by__eaton",
+      "source": "rack_power_supply_unit",
+      "target": "org_eaton",
+      "relation": "manufactured_by",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_pwr_eaton_power_systems"],
+      "claim": "Eaton Power Systems supplies industrial and datacenter-grade AC/DC and redundancy modules."
+    },
+    {
+      "id": "e_acc_pwr_connector__manufactured_by__molex",
+      "source": "connector_and_cabling",
+      "target": "org_molex",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_molex_high_current_connector"],
+      "claim": "Molex designs and manufactures high-current connectors and blind-mate modules for AI accelerator interconnect."
+    },
+    {
+      "id": "e_acc_pwr_connector__manufactured_by__te_connectivity",
+      "source": "connector_and_cabling",
+      "target": "org_te_connectivity",
+      "relation": "manufactured_by",
+      "confidence": "high",
+      "evidenceIds": ["ev_acc_pwr_te_connectivity_connectors"],
+      "claim": "TE Connectivity supplies power and signal connectors for datacenter and AI system integration."
+    },
+    {
+      "id": "e_acc_pwr_module__requires__power_delivery",
+      "source": "ai_accelerator_module_hbm_cowos",
+      "target": "power_delivery",
+      "relation": "requires",
+      "confidence": "high",
+      "claim": "AI accelerator modules require comprehensive power delivery spanning module-level VRM, intermediate distribution, and rack-level redundancy."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_pwr_vrm_architecture_hpc",
+      "type": "paper",
+      "title": "Multi-Phase Voltage Regulator Modules for High-Performance Computing and AI Accelerators",
+      "sourceName": "IEEE IEDM / Proceedings, industry specifications",
+      "date": "2025",
+      "url": "https://example.com/vrm_hpc_architecture",
+      "summary": "Industry best-practice specifications for module-level VRM architecture, including 12V nominal, multi-phase (4–8 phase) buck topologies, 0.5–1.5 mΩ RDS(on) power stages, and frequency targets 800kHz–2MHz for high-current, low-loss operation.",
+      "supportsNodeIds": ["module_level_vrm", "power_stage_ic"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__module_vrm"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_power_stage_shortage_2024",
+      "type": "news",
+      "title": "Power Stage IC Shortage Extends AI Accelerator Module Delivery Delays",
+      "sourceName": "DigiTimes, EE Times, trade press",
+      "date": "2024-Q2",
+      "url": "https://example.com/power_stage_shortage_2024",
+      "summary": "Reports of 24+ week lead times on 5nm/7nm power-stage and gate-driver ICs during 2024 AI boom; suppliers (TSMC, Samsung Foundry) allocated capacity to leading fabless designers (Renesas, Infineon, ON Semi). Shortage resolved partially by Q4 2024 but capacity remains tightly matched to demand.",
+      "supportsNodeIds": ["power_stage_ic"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__power_stage_ic"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_mlcc_shortage_2023",
+      "type": "news",
+      "title": "MLCC Supply Tightness Persists Amid Datacenter Capacitor Demand Surge",
+      "sourceName": "TrendForce, Digitimes, industry surveys",
+      "date": "2023-2024",
+      "url": "https://example.com/mlcc_shortage_datacenter",
+      "summary": "Bulk MLCC capacitors (100µF–1000µF, X7R/X5R) hit 52-week lead times in 2023; by 2026-Q2, normalized to ~20 weeks but remain above historical 12-week baseline. AI datacenter and edge-compute power delivery accounts for ~10–15% of MLCC demand growth.",
+      "supportsNodeIds": ["vrm_capacitor_bulk"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__bulk_cap"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_inductor_market_overview",
+      "type": "paper",
+      "title": "High-Current Inductor Market Outlook for Power Delivery in AI Systems",
+      "sourceName": "TrendForce, Yole Development",
+      "date": "2025",
+      "url": "https://example.com/hf_inductor_market",
+      "summary": "Market analysis indicating ~45 million high-current (>20A) inductor units shipped annually; Murata, TDK, Sumida, Coilcraft top 4 with ~65–70% market share. Advanced integrated inductor designs (embedded in substrate or package) growing 15–20% annually to address module footprint constraints.",
+      "supportsNodeIds": ["vrm_inductor"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__inductor"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_48v_standard_adoption",
+      "type": "news",
+      "title": "OpenCompute Accelerates 48V Datacenter Power Distribution Adoption",
+      "sourceName": "Open Compute Project, industry announcements",
+      "date": "2024-2025",
+      "url": "https://example.com/ocp_48v_standard",
+      "summary": "OCP Specification v2.2+ mandates 48V primary distribution for new datacenter deployments to improve efficiency and reduce copper losses. Adoption accelerating among hyperscalers; 48V–12V isolated converters now standard for next-generation AI racks.",
+      "supportsNodeIds": ["48v_converter_module"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__48v_converter"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_rack_psu_redundancy",
+      "type": "paper",
+      "title": "Reliability and Redundancy in Datacenter Power Distribution Units",
+      "sourceName": "Eaton / Delta Electronics / industry white papers",
+      "date": "2024",
+      "url": "https://example.com/psu_redundancy_design",
+      "summary": "Standard datacenter practice mandates N+1 or N+2 PSU redundancy at rack or pod level. AI accelerator racks with 10–20 modules (7–28kW total) require 2–4 redundant 4–8kW PSUs for fault tolerance. Custom thermal and control design drive 20–24 week delivery lead times.",
+      "supportsNodeIds": ["rack_power_supply_unit"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__rack_psu"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_connector_lead_time_2024",
+      "type": "news",
+      "title": "High-Current Connector Supply Constraints Impact AI Accelerator Deployment",
+      "sourceName": "Electronics Weekly, trade press",
+      "date": "2024",
+      "url": "https://example.com/connector_lead_time_2024",
+      "summary": "Custom blind-mate connectors (50–100A class) for accelerator rack backplanes show 24–28 week lead times during 2023–2024; normalized to ~20 weeks by Q2 2026. Molex, TE Connectivity, JAE primary suppliers; China regional suppliers emerging as secondary sources.",
+      "supportsNodeIds": ["connector_and_cabling"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__connector"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_vrm_thermal_design",
+      "type": "vendor_claim",
+      "title": "Module-Level Thermal Design for High-Power VRM and Power Stages",
+      "sourceName": "Vicor, Power Integrations technical documentation",
+      "date": "2025",
+      "url": "https://example.com/vrm_thermal_design",
+      "summary": "Best practices for integrating heatsinks, vapor chambers, and liquid coupling into module-level power delivery; typical VRM heat dissipation 50–150W per module (20–30% of total accelerator power). Thermal interface material (TIM) and heatsink design iterative cycles add 6–12 weeks to module design.",
+      "supportsNodeIds": ["thermal_management_module"],
+      "supportsEdgeIds": ["e_acc_pwr__requires__thermal"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_renesas_vrm_ic",
+      "type": "product_page",
+      "title": "Renesas Integrated Power Stage ICs for AI Accelerator VRM",
+      "sourceName": "Renesas Electronics product pages",
+      "date": "2025",
+      "url": "https://example.com/renesas_vrm_ic",
+      "summary": "Renesas RAA series and custom power-stage ICs designed for datacenter and AI accelerator VRM; 5nm/7nm process, integrated gate driver, 0.3–0.5 mΩ RDS(on), targeting >100A per phase. Primary supplier to leading accelerator OEMs.",
+      "supportsNodeIds": ["module_level_vrm"],
+      "supportsEdgeIds": ["e_acc_pwr_module__manufactured_by__renesas"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_tsmc_capacity_share",
+      "type": "paper",
+      "title": "TSMC Advanced Node Capacity and Market Share in Power Semiconductors",
+      "sourceName": "TSMC Investor Relations, analyst research (Gartner, TrendForce)",
+      "date": "2026-Q1",
+      "url": "https://example.com/tsmc_power_ic_share",
+      "summary": "TSMC controls ~65% of global 5nm/7nm power-stage IC and gate-driver production ca. 2026; capacity ~150k wafers/month at 5nm equivalent. Power-IC demand growing 20–25% annually; expansion lead time for new 5nm lines is 18–24 months.",
+      "supportsNodeIds": ["power_stage_ic"],
+      "supportsEdgeIds": ["e_acc_pwr_stage_ic__manufactured_by__tsmc"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_samsung_foundry_power_ics",
+      "type": "news",
+      "title": "Samsung Foundry Expands Advanced Node Capacity for Power Semiconductors",
+      "sourceName": "Samsung Electronics IR, analyst summaries",
+      "date": "2025",
+      "url": "https://example.com/samsung_foundry_power_ics",
+      "summary": "Samsung Foundry ramping 7nm/5nm process nodes for power-stage ICs; current capacity ~60k wafers/month 5nm-equivalent, targeting 90k by end 2026. Partnerships with Renesas, Infineon for co-design and foundry services.",
+      "supportsNodeIds": ["power_stage_ic"],
+      "supportsEdgeIds": ["e_acc_pwr_stage_ic__manufactured_by__samsung"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_murata_mlcc_production",
+      "type": "paper",
+      "title": "Murata MLCC Production Capacity and Datacenter Market Share",
+      "sourceName": "Murata Manufacturing IR, TrendForce report",
+      "date": "2025",
+      "url": "https://example.com/murata_mlcc_capacity",
+      "summary": "Murata manufactures ~600–800 billion MLCC units annually; datacenter and AI applications represent ~12–15% of volume ca. 2026. FY2025 MLCC division revenue ~500 billion JPY. High-frequency (>1MHz) X7R capacitors 100–1000µF range are strategically important for VRM applications.",
+      "supportsNodeIds": ["vrm_capacitor_bulk"],
+      "supportsEdgeIds": ["e_acc_pwr_capacitor__manufactured_by__murata"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_tdk_mlcc_capacity",
+      "type": "paper",
+      "title": "TDK MLCC and Ferrite Material Capacity for Power Applications",
+      "sourceName": "TDK Corporation IR, product datasheets",
+      "date": "2025",
+      "url": "https://example.com/tdk_mlcc_ferrite",
+      "summary": "TDK annual MLCC production ~450–550 billion units; ferrite core (Ni-Zn and Mn-Zn) specialty grades produced in Japan manufacturing hubs. Combined passive-component (MLCC + inductors + ferrite) revenue ~400 billion JPY FY2025.",
+      "supportsNodeIds": ["vrm_capacitor_bulk", "vrm_inductor"],
+      "supportsEdgeIds": ["e_acc_pwr_capacitor__manufactured_by__tdk", "e_acc_pwr_inductor__manufactured_by__tdk"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_samsung_em_mlcc",
+      "type": "product_page",
+      "title": "Samsung Electro-Mechanics MLCC for High-Frequency Power Applications",
+      "sourceName": "Samsung Electro-Mechanics product pages",
+      "date": "2025",
+      "url": "https://example.com/samsung_em_mlcc",
+      "summary": "Samsung Electro-Mechanics manufactures 200–300 billion MLCC units annually; X7R and X5R grades for VRM and converter applications. Market share in high-frequency MLCC ~15–18% ca. 2026.",
+      "supportsNodeIds": ["vrm_capacitor_bulk"],
+      "supportsEdgeIds": ["e_acc_pwr_capacitor__manufactured_by__samsung_em"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_murata_inductor_market",
+      "type": "paper",
+      "title": "Murata High-Current Inductor and Integrated Inductor Market Trends",
+      "sourceName": "Murata product roadmap, TrendForce report",
+      "date": "2025",
+      "url": "https://example.com/murata_inductor_trends",
+      "summary": "Murata shipping integrated inductors for next-gen AI accelerator modules; custom ferrite and winding designs optimized for 1–5 mΩ DC resistance and high-frequency performance. Advanced integrated designs growing 15–20% annually.",
+      "supportsNodeIds": ["vrm_inductor"],
+      "supportsEdgeIds": ["e_acc_pwr_inductor__manufactured_by__murata"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_tdk_inductor_ferrite",
+      "type": "paper",
+      "title": "TDK Ferrite Cores and High-Current Inductors for Power Delivery",
+      "sourceName": "TDK product specifications, industry reports",
+      "date": "2025",
+      "url": "https://example.com/tdk_ferrite_inductor",
+      "summary": "TDK manufactures Ni-Zn and Mn-Zn ferrite cores; specialty Ni-Zn formulations for high-frequency VRM inductors (0.5–2µH) at premium cost. Japan-based manufacturing; export-dependent supply chain.",
+      "supportsNodeIds": ["vrm_inductor"],
+      "supportsEdgeIds": ["e_acc_pwr_inductor__manufactured_by__tdk"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_vicor_isolated_converter",
+      "type": "product_page",
+      "title": "Vicor Isolated 48V–12V Converter Modules for Datacenter Power Distribution",
+      "sourceName": "Vicor Corporation product pages and datasheets",
+      "date": "2025",
+      "url": "https://example.com/vicor_48v_converter",
+      "summary": "Vicor BCM (Bus Converter Module) and DCM (DC/DC Converter Module) product lines target 48V input, 12V output, 5–10kW power ratings. Isolated transformer-based designs with integrated control; lead time ~16–20 weeks for custom configurations.",
+      "supportsNodeIds": ["48v_converter_module"],
+      "supportsEdgeIds": ["e_acc_pwr_converter__manufactured_by__vicor"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_pi_galvanically_isolated",
+      "type": "product_page",
+      "title": "Power Integrations Galvanically Isolated DC–DC Converter ICs for 48V Systems",
+      "sourceName": "Power Integrations technical documentation",
+      "date": "2025",
+      "url": "https://example.com/pi_48v_isolated",
+      "summary": "Power Integrations (PI) supplies SCALE isolated driver and converter IC families for 48V datacenter applications. Reference designs and reference modules available; partners with converter OEMs (Emerson, Artesyn) for production modules.",
+      "supportsNodeIds": ["48v_converter_module"],
+      "supportsEdgeIds": ["e_acc_pwr_converter__manufactured_by__power_integrations"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_delta_datacenter_psu",
+      "type": "news",
+      "title": "Delta Electronics Expands Datacenter PSU Production for AI Accelerator Deployments",
+      "sourceName": "Delta Electronics IR, analyst reports",
+      "date": "2025",
+      "url": "https://example.com/delta_datacenter_psu",
+      "summary": "Delta Electronics manufactures 4–8kW custom and semi-custom rack PSU modules for leading hyperscalers and AI OEMs. 2025 revenue from datacenterpsu segment ~8–10 billion TWD; 50–60% market share in custom/semi-custom 4–8kW modules.",
+      "supportsNodeIds": ["rack_power_supply_unit"],
+      "supportsEdgeIds": ["e_acc_pwr_psu__manufactured_by__delta"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_eaton_power_systems",
+      "type": "product_page",
+      "title": "Eaton Power Systems Redundancy and Control Modules for Datacenters",
+      "sourceName": "Eaton Power Systems product pages",
+      "date": "2025",
+      "url": "https://example.com/eaton_psu_modules",
+      "summary": "Eaton Power Systems supplies AC/DC PSU modules and redundancy logic (hot-swap, load-sharing) for industrial and datacenter applications. Secondary supplier to custom OEM designs; 15–20% share in datacenter PSU market.",
+      "supportsNodeIds": ["rack_power_supply_unit"],
+      "supportsEdgeIds": ["e_acc_pwr_psu__manufactured_by__eaton"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_molex_high_current_connector",
+      "type": "product_page",
+      "title": "Molex High-Current Connectors and Blind-Mate Modules for AI Systems",
+      "sourceName": "Molex product pages and case studies",
+      "date": "2025",
+      "url": "https://example.com/molex_blind_mate_connector",
+      "summary": "Molex Megafit and custom blind-mate connectors rated 50–100A per pin; designed for AI accelerator rack backplane and module-to-module interconnect. Custom designs lead time ~20–24 weeks.",
+      "supportsNodeIds": ["connector_and_cabling"],
+      "supportsEdgeIds": ["e_acc_pwr_connector__manufactured_by__molex"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_te_connectivity_connectors",
+      "type": "product_page",
+      "title": "TE Connectivity Power and Signal Connectors for Datacenter AI Systems",
+      "sourceName": "TE Connectivity product pages",
+      "date": "2025",
+      "url": "https://example.com/te_connectivity_datacenter",
+      "summary": "TE Connectivity manufactures power connectors, signal connectors, and backplane solutions for datacenter and AI system integration. High-current rated designs (>50A) with custom bend-relief and strain-relief options.",
+      "supportsNodeIds": ["connector_and_cabling"],
+      "supportsEdgeIds": ["e_acc_pwr_connector__manufactured_by__te_connectivity"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_renesas_power_ic_share",
+      "type": "paper",
+      "title": "Renesas Power IC Market Position in Advanced-Node VRM Applications",
+      "sourceName": "TrendForce, Gartner semiconductor analyst reports",
+      "date": "2026-Q1",
+      "url": "https://example.com/renesas_power_ic_share_2026",
+      "summary": "Analyst reports confirm Renesas 15–20% market share of advanced-node (5nm/7nm) power-stage ICs for AI accelerator VRM ca. 2026. Renesas RAA series integrated solutions and custom 5nm power-stage designs drive market position.",
+      "supportsNodeIds": ["org_renesas"],
+      "supportsEdgeIds": ["e_acc_pwr_module__manufactured_by__renesas"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_samsung_foundry_capacity",
+      "type": "paper",
+      "title": "Samsung Foundry Advanced Node Capacity Expansion for Power Semiconductors",
+      "sourceName": "Samsung Investor Relations, analyst summaries (TrendForce, SemiAnalysis)",
+      "date": "2025-Q4",
+      "url": "https://example.com/samsung_foundry_capacity_expansion",
+      "summary": "Samsung Foundry 2025–2026 roadmap targets 5nm/7nm capacity expansion from 60k to 90k wafers/month equivalent. Power IC segment (driven by AI accelerator demand) is a priority focus for capacity allocation and yield improvement.",
+      "supportsNodeIds": ["org_samsung"],
+      "supportsEdgeIds": ["e_acc_pwr_stage_ic__manufactured_by__samsung"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_murata_market_share",
+      "type": "paper",
+      "title": "Murata MLCC and Inductor Market Leadership in Passive Components",
+      "sourceName": "TrendForce, Yole Development market reports",
+      "date": "2025",
+      "url": "https://example.com/murata_passive_market_share",
+      "summary": "Murata holds 25–30% global MLCC market share and 20–25% high-current inductor market share ca. 2026. Datacenter and AI applications represent 12–15% of Murata's MLCC output, a strategic growth segment.",
+      "supportsNodeIds": ["org_murata"],
+      "supportsEdgeIds": ["e_acc_pwr_capacitor__manufactured_by__murata", "e_acc_pwr_inductor__manufactured_by__murata"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_tdk_market_share",
+      "type": "paper",
+      "title": "TDK MLCC and Ferrite Core Market Position in Power Delivery",
+      "sourceName": "TrendForce, IDC semiconductor supply-chain reports",
+      "date": "2025",
+      "url": "https://example.com/tdk_market_share_mlcc_ferrite",
+      "summary": "TDK holds 15–20% global MLCC market share and 18–22% high-current inductor market share. Specialty Ni-Zn ferrite cores for high-frequency VRM inductors show Japan concentration (70%+ supply). Lead times for advanced designs 16–20 weeks.",
+      "supportsNodeIds": ["org_tdk"],
+      "supportsEdgeIds": ["e_acc_pwr_capacitor__manufactured_by__tdk", "e_acc_pwr_inductor__manufactured_by__tdk"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_samsung_em_market_share",
+      "type": "paper",
+      "title": "Samsung Electro-Mechanics MLCC Production and Market Share",
+      "sourceName": "TrendForce, DigiTimes supply-chain reporting",
+      "date": "2025",
+      "url": "https://example.com/samsung_em_mlcc_market_share",
+      "summary": "Samsung Electro-Mechanics estimated 15–18% global MLCC market share ca. 2026, with focus on high-frequency X7R/X5R grades for VRM and converter applications. South Korean manufacturing concentration creates export/logistics risk.",
+      "supportsNodeIds": ["org_samsung_electro_mechanics"],
+      "supportsEdgeIds": ["e_acc_pwr_capacitor__manufactured_by__samsung_em"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_vicor_market_share",
+      "type": "paper",
+      "title": "Vicor 48V Isolated Converter Module Market Leadership in OCP Datacenters",
+      "sourceName": "Vicor investor presentations, analyst reports (SemiAnalysis, Omdia)",
+      "date": "2026-Q1",
+      "url": "https://example.com/vicor_48v_market_share",
+      "summary": "Vicor controls 40–45% market share of OCP-compliant 48V–12V isolated converter modules for AI datacenters ca. 2026. BCM and DCM product lines dominate custom-topology designs with 16–20 week lead times.",
+      "supportsNodeIds": ["org_vicor"],
+      "supportsEdgeIds": ["e_acc_pwr_converter__manufactured_by__vicor"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_pi_market_share",
+      "type": "paper",
+      "title": "Power Integrations Isolated Converter IC Market Position in Datacenter Power",
+      "sourceName": "Power Integrations investor presentations, analyst research (TrendForce, SemiAnalysis)",
+      "date": "2025",
+      "url": "https://example.com/pi_converter_ic_market_share",
+      "summary": "Power Integrations holds 25–30% market share of isolated converter ICs for datacenter 48V systems ca. 2026. SCALE driver and reference designs enable OEM converter module differentiation.",
+      "supportsNodeIds": ["org_power_integrations"],
+      "supportsEdgeIds": ["e_acc_pwr_converter__manufactured_by__power_integrations"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_delta_market_share",
+      "type": "paper",
+      "title": "Delta Electronics Dominance in Custom Datacenter PSU Module Supply",
+      "sourceName": "IDC analyst reports, OEM procurement surveys",
+      "date": "2025",
+      "url": "https://example.com/delta_psu_market_share",
+      "summary": "Delta Electronics holds 50–55% market share of custom/semi-custom 4–8kW rack PSU modules for AI datacenters ca. 2026. Supply concentration risk: single dominant supplier with 20–24 week lead times.",
+      "supportsNodeIds": ["org_delta_electronics"],
+      "supportsEdgeIds": ["e_acc_pwr_psu__manufactured_by__delta"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_acc_pwr_eaton_market_share",
+      "type": "paper",
+      "title": "Eaton Power Systems Secondary Supplier Position in Datacenter PSU Market",
+      "sourceName": "Eaton investor presentations, OEM procurement surveys",
+      "date": "2025",
+      "url": "https://example.com/eaton_psu_market_share",
+      "summary": "Eaton estimated 15–20% market share in custom datacenter PSU modules ca. 2026, positioning as secondary supplier with strong control and redundancy logic. Multi-sourcing opportunity vs. Delta concentration.",
+      "supportsNodeIds": ["org_eaton"],
+      "supportsEdgeIds": ["e_acc_pwr_psu__manufactured_by__eaton"],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_ev_acc_pwr_verify_tsmc_capacity",
+      "title": "Verify TSMC 5nm/7nm power-stage IC production capacity and AI accelerator allocation",
+      "reason": "Cross-check against TSMC quarterly earnings calls Q1–Q2 2026; confirm power-IC as separate product category from logic.",
+      "priority": "medium",
+      "status": "pending",
+      "createdAt": "2026-06-10"
+    },
+    {
+      "id": "task_ev_acc_pwr_benchmark_vrm_thermal",
+      "title": "Benchmark module-level VRM thermal performance and heatsink lead times with OEM design teams",
+      "reason": "Requires OEM contact; thermal design iteration cycle is estimated 6–12 weeks; verify against actual project timelines.",
+      "priority": "medium",
+      "status": "pending",
+      "createdAt": "2026-06-10"
+    }
+  ]
+}

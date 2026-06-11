@@ -1,0 +1,77 @@
+{
+ "node_patches": [
+  {
+   "id": "org_ii_vi_coherent",
+   "append_metrics": [
+    {
+     "name": "Coherent datacom optics market share (EML/DFB + VCSEL combined)",
+     "unit": "%",
+     "currentValue": 32,
+     "description": "Combined EML/DFB and VCSEL/photodiode share from Coherent Corp divisions estimated at 32% of datacom optical component market in 2024–2025, per analyst consensus."
+    },
+    {
+     "name": "Coherent FY2024 revenue",
+     "unit": "million USD",
+     "currentValue": 3240,
+     "currency": "USD",
+     "costAsOf": "2024",
+     "description": "Coherent Corp FY2024 total revenue approximately $3.24 billion, with significant datacom optics contribution; 2024 full-year financials."
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_opt2_coherent_market_position",
+    "ev_acc_opt2_coherent_ii_vi_integration"
+   ],
+   "append_tags": [
+    "laser_manufacturer",
+    "coherent_optics",
+    "vcsel_supplier",
+    "public_company",
+    "integrated_supplier"
+   ],
+   "append_domain": [
+    "ai_compute_chain",
+    "optoelectronics",
+    "investable_supplier",
+    "datacom_optics"
+   ],
+   "append_notes": "Coherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling."
+  },
+  {
+   "id": "org_mitsubishi_electric",
+   "append_metrics": [
+    {
+     "name": "Mitsubishi Electric datacom laser share (EML/DFB, global)",
+     "unit": "%",
+     "currentValue": 20,
+     "description": "Estimated 20% of global datacom EML/DFB laser supply, primarily serving Japanese network vendors and regional module makers; source: Yole semiconductor optics reports 2024–2025."
+    },
+    {
+     "name": "Mitsubishi Electric FY2025 consolidated revenue",
+     "unit": "billion JPY",
+     "currentValue": 4590,
+     "currency": "JPY",
+     "costAsOf": "2025",
+     "description": "Mitsubishi Electric FY2025 (ended March 2025) consolidated revenue ¥4.59 trillion; optics division is a smaller segment but strategically important for datacom."
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_opt2_mitsubishi_laser_supply"
+   ],
+   "append_tags": [
+    "laser_manufacturer",
+    "coherent_optics",
+    "public_company",
+    "datacom_supplier",
+    "japan_electronics"
+   ],
+   "append_domain": [
+    "ai_compute_chain",
+    "optoelectronics",
+    "investable_supplier",
+    "datacom_optics"
+   ],
+   "append_notes": "Mitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth."
+  }
+ ]
+}

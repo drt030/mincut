@@ -1,0 +1,59 @@
+{
+ "node_patches": [
+  {
+   "id": "silicon_wafer_300mm",
+   "updates": {
+    "notes": "Silicon wafer supply (Shin-Etsu, SUMCO, GlobalWafers) is stable and mature. NOTE: Compound/specialty crystal wafers (GaN, GaAs, InP, SiC) are modeled separately as a distinct feedstock tier (see compound_crystal_wafer_substrates node) with its own supplier base and supply-chain dynamics. Silicon oversupply 2024-2025 contrasts with SiC/InP supply dynamics; these must be tracked separately per referent discipline (brief §2.11)."
+   }
+  },
+  {
+   "id": "org_sumitomo_electric",
+   "updates": {
+    "domain": [
+     "ai_compute_chain",
+     "investable_supplier",
+     "compound_semiconductor"
+    ],
+    "description": "Sumitomo Electric Industries is a diversified Japanese conglomerate with a major business unit in semiconductor compound materials: single-crystal GaAs and InP substrates (Vertical Bridgman crystal-growth method), and epitaxial growth services. Global leader in InP optical wafer supply for RF and optical communication devices. Also produces SiC/GaN specialty materials. Supplies Sumitomo Metal Mining (SiC wafer joint venture) and standalone optical/RF substrate business.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "notes": "Extended Round 3: Diversified materials supplier; strong InP optical substrate position critical for AI datacenter 1.6T/800G optical transceiver ramp. Planning US manufacturing expansion to diversify from Japan base (geopolitical risk mitigation). SiC involvement (via Sumitomo Metal Mining JV) smaller scale than Wolfspeed. Not a bottleneck for HBM CoWoS but critical for power-delivery and optical-interconnect specialty devices. Public listing 5802.T (Tokyo Stock Exchange); Global InP substrate market share ~50% (optical RF); GaAs market share ~35% (among triopoly with AXT, Freiberger)."
+   }
+  },
+  {
+   "id": "org_samsung",
+   "updates": {
+    "domain": [
+     "ai_compute_chain",
+     "investable_supplier",
+     "semiconductor_logic",
+     "compound_semiconductor"
+    ],
+    "notes": "Extended Round 3: Samsung Electronics Device Solutions (DS) division entered GaN/SiC power semiconductor foundry market in 2026. 8-inch GaN power semiconductor foundry began mass production Q2-Q3 2026 after pivoting from integrated device manufacturer (IDM) model. SiC foundry preparation underway; samples expected H2 2026. Late entrant to GaN foundry market post-TSMC exit. Device quality issues (2025) forced pivot from IDM to foundry services. Competitive with GlobalFoundries (licensed TSMC tech), DB HiTek (delayed), X-FAB (GaN-on-Si MPW Q4 2025). Samsung scale and process capability provide manufacturing advantages but market share vs established players uncertain."
+   }
+  },
+  {
+   "id": "org_ii_vi_coherent",
+   "updates": {
+    "domain": [
+     "ai_compute_chain",
+     "investable_supplier",
+     "optical_semiconductor",
+     "compound_semiconductor"
+    ],
+    "description": "Coherent Corp. (formerly II-VI Incorporated) is the leading supplier of indium phosphide (InP) optical semiconductor devices (EML electro-absorption modulated lasers, CW continuous-wave lasers, photodiodes) for AI datacenter 1.6T and 800G optical transceivers. Vertically integrated: InP wafer design, epi-growth, device fabrication (3-inch and 6-inch platforms ramping). CEO Jim Anderson has warned industry is constrained on InP capacity through 2027-2030. Multi-year strategic agreement with NVIDIA (multi-billion-dollar LTA, $2B NVIDIA investment in Coherent) secures capacity through 2028+.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "notes": "Critical supplier for AI datacenter 1.6T/800G optical transceiver ramp. InP capacity constraint extends 2027-2030 (CEO warning). NVIDIA strategic lock-in (multi-year LTA, $2B investment) signals criticality. Sole/dominant supplier of EML/CW lasers to NVIDIA and hyperscalers. Upstream InP wafer (substrate + epi) sourcing from mix of self-manufactured and external suppliers (e.g., Sumitomo InP wafer). Not a direct bottleneck for HBM CoWoS accelerator modules but critical upstream constraint for optical interconnect specialty devices (transceiver chiplets, co-packaged optics) in broader AI platform ecosystem. Global EML/CW laser market share ~35% (InP optical AI transceiver, 2026 est.). Public listing COHR (NASDAQ)."
+   }
+  }
+ ],
+ "evidence_patches": [],
+ "edge_patches": [],
+ "remove_node_ids": [],
+ "remove_edge_ids": []
+}

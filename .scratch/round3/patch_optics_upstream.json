@@ -1,0 +1,87 @@
+{
+  "node_patches": [
+    {
+      "id": "org_lumentum",
+      "append_domain": ["epitaxial_foundry"],
+      "append_metrics": [
+        {
+          "name": "Lumentum EML laser capacity investment (NVIDIA partnership)",
+          "unit": "billion USD",
+          "currentValue": 2.0,
+          "costAsOf": "2026",
+          "currency": "USD",
+          "description": "NVIDIA invested $2.0 billion in Lumentum (March 2026) for EML laser capacity expansion and priority access. Part of $4B optical supply lockup strategy."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_optup_eml_shortage_2024",
+        "ev_acc_optup_eml_supplier_concentration"
+      ],
+      "append_notes": "As primary EML/DFB supplier (~28% market share), Lumentum is critical to AI transceiver scaling. NVIDIA's $2B investment (March 2026) secures priority capacity and R&D for next-gen laser components. Vertically integrated epitaxy and device fabrication in-house; has locked multi-year InP substrate contracts to mitigate upstream supply risk."
+    },
+    {
+      "id": "org_coherent_corp",
+      "append_domain": ["epitaxial_foundry"],
+      "append_metrics": [
+        {
+          "name": "Coherent InP epitaxy capacity (in-house)",
+          "unit": "estimated wafer per month",
+          "currentValue": 1800,
+          "description": "Coherent operates in-house InP epitaxial growth capability across two fabs (6-inch wafers), estimated 1,500–2,000 wafers/month throughput for laser and photodiode production."
+        },
+        {
+          "name": "Coherent NVIDIA partnership investment",
+          "unit": "billion USD",
+          "currentValue": 2.0,
+          "costAsOf": "2026",
+          "currency": "USD",
+          "description": "NVIDIA invested $2.0 billion in Coherent (March 2026) for integrated photonics capacity expansion and priority supply. Part of $4B optical supply lockup strategy."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_optup_eml_shortage_2024",
+        "ev_acc_optup_eml_supplier_concentration"
+      ],
+      "append_notes": "Coherent (formerly II-VI) is second-largest EML/DFB supplier (~25% share) with full vertical integration: substrate contracts + in-house epitaxy + device fabrication. Performs ~20 years of in-house InP capability, mitigating upstream supply risk. NVIDIA's $2B investment (March 2026) accelerates capacity ramp. Currently supply-constrained but expanding aggressively."
+    },
+    {
+      "id": "org_mitsubishi_electric",
+      "append_domain": ["epitaxial_foundry"],
+      "append_metrics": [
+        {
+          "name": "Mitsubishi Electric EML laser market share",
+          "unit": "%",
+          "currentValue": 22,
+          "description": "Mitsubishi Electric estimated ~20–25% of global EML/DFB datacom laser market share; third-largest supplier after Lumentum and Coherent. In-house epitaxy and device fabrication."
+        }
+      ],
+      "append_evidenceIds": [
+        "ev_acc_optup_eml_supplier_concentration"
+      ],
+      "append_notes": "Mitsubishi Electric is established EML/DFB laser supplier with in-house capability (epitaxy + fabrication). Approximately 20–25% global market share; supplies to regional and global transceiver makers. Capacity less publicized than Lumentum/Coherent but meaningful contributor to global EML supply diversification."
+    },
+    {
+      "id": "org_broadcom_corp",
+      "append_domain": ["epitaxial_foundry"],
+      "append_metrics": [
+        {
+          "name": "Broadcom optical transceiver module market share",
+          "unit": "%",
+          "currentValue": 45,
+          "description": "Broadcom dominates optical transceiver module market (400G+) with ~45% share; primary ASIC and VCSEL supplier integrated into module design."
+        },
+        {
+          "name": "Broadcom EML laser market entry status",
+          "unit": "timeline",
+          "currentValue": 2024,
+          "description": "Broadcom late entrant to EML laser supply (~2024); historically dominant in VCSEL but less vertically integrated in EML epitaxy. Capacity ramp ongoing but lags Lumentum and Coherent."
+        }
+      ],
+      "append_notes": "Broadcom is the largest optical transceiver module supplier (45% share) with in-house VCSEL design/manufacturing. Late entry into EML laser supply (2024) relative to Lumentum/Coherent; currently capacity-constrained in EML relative to market demand. Efforts to expand EML through partnerships and internal development underway."
+    }
+  ],
+  "edge_patches": [],
+  "evidence_patches": [],
+  "remove_node_ids": [],
+  "remove_edge_ids": []
+}

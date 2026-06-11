@@ -1,0 +1,23 @@
+{
+  "power_delivery": "电源管理（模块和机架）",
+  "module_level_vrm": "模块级VRM（多相12V功率级）",
+  "power_stage_ic": "功率级IC（MOSFET/GaN开关，集成驱动）",
+  "vrm_capacitor_bulk": "大容量电容（陶瓷或聚合物，10–1000µF）",
+  "vrm_inductor": "VRM电感（集成或分立，0.1–1µH）",
+  "48v_converter_module": "48V–12V中间转换器（机架级）",
+  "rack_power_supply_unit": "机架PSU（每模块2–4kW，AC/DC带冗余）",
+  "connector_and_cabling": "高电流连接器和电缆（48V、12V分配）",
+  "thermal_management_module": "热管理（散热器、液体耦合、热管）",
+  "org_renesas": "瑞萨电子",
+  "org_tsmc": "台积电",
+  "org_samsung": "三星电子（代工）",
+  "org_murata": "村田制作所",
+  "org_tdk": "TDK株式会社",
+  "org_samsung_electro_mechanics": "三星电机",
+  "org_vicor": "维克公司",
+  "org_power_integrations": "功率集成公司",
+  "org_delta_electronics": "台达电子",
+  "org_eaton": "伊顿公司",
+  "org_molex": "美国莫尔根（Molex）",
+  "org_te_connectivity": "泰科电子"
+}
