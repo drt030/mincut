@@ -380,3 +380,15 @@ test("isDecompositionFrontier: mature node with broad supply (> threshold holder
   const node = (graph as { nodes: { id: string }[] }).nodes[0] as never;
   assert.equal(isDecompositionFrontier(graph, node), false);
 });
+
+test("isDecompositionFrontier: mature organization nodes are not frontiers despite zero holders", () => {
+  const graph = {
+    nodes: [
+      { id: "org_x", name: "org_x", kind: "organization", domain: ["t"], maturityLabel: "widely_adopted" },
+    ],
+    edges: [],
+    evidence: [],
+  } as never;
+  const node = (graph as { nodes: { id: string }[] }).nodes[0] as never;
+  assert.equal(isDecompositionFrontier(graph, node), false);
+});

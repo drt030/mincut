@@ -98,6 +98,21 @@ export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
 }
 
 /**
+ * Kinds the ADR-0005 concentration override applies to: nodes that
+ * decompose along the supply chain and can meaningfully have
+ * "holders". Organizations, metrics, evidence, etc. keep the original
+ * commodified-stop behavior.
+ */
+const CONCENTRATION_OVERRIDE_KINDS = new Set([
+  "product",
+  "module",
+  "equipment",
+  "material",
+  "engineering_method",
+  "manufacturing_process",
+]);
+
+/**
  * Per ADR-0005, a node is a decomposition frontier if EITHER it carries an
  * authored frontier marker (`decomposition_frontier` tag or `frontierFor`
  * ownership), OR its `maturityLabel` is not in {mature, widely_adopted} AND
@@ -118,7 +133,12 @@ export function isDecompositionFrontier(graph: GraphData, node: Node): boolean {
   if ((node.frontierFor?.length ?? 0) > 0) return true;
   const stopLabels = new Set(["mature", "widely_adopted"]);
   const commodified = node.maturityLabel ? stopLabels.has(node.maturityLabel) : false;
-  if (commodified && !isSupplyConcentrated(graph, node.id)) return false;
+  if (
+    commodified &&
+    (!CONCENTRATION_OVERRIDE_KINDS.has(node.kind) || !isSupplyConcentrated(graph, node.id))
+  ) {
+    return false;
+  }
   return !hasExpandedChildren(graph, node.id);
 }
 

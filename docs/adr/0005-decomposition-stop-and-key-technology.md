@@ -100,3 +100,8 @@ frontier penalty + auto-task, decomposition-eligible.
 The threshold starts at 3 (`CONCENTRATION_THRESHOLD`) and is tunable.
 Zero holders also counts as concentrated — either a data gap or true
 scarcity, both worth a frontier task.
+
+The override applies only to decomposable supply-chain kinds (product,
+module, equipment, material, engineering_method, manufacturing_process);
+organizations, metrics, and other descriptive kinds keep the original
+commodified stop so they don't flip to frontier on zero holders.
