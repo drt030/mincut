@@ -1,4 +1,5 @@
 import type { Edge, Evidence, GraphData, Node } from "./schema";
+import { isSupplyConcentrated } from "./supplyConcentration";
 
 export const V0_TARGET_NODE_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
@@ -104,12 +105,20 @@ export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
  * frontier intent even when a node already has some children; the structural
  * arm catches incomplete decomposition where the stop condition has not been
  * met.
+ *
+ * ADR-0005 amendment (2026-06-10, per ADR-0008): commodified maturity no
+ * longer stops decomposition by itself. A `mature` / `widely_adopted` node
+ * whose supply is concentrated (holder count ≤ CONCENTRATION_THRESHOLD via
+ * `manufactured_by` / `implemented_by` edges) is exactly the
+ * "mature but concentrated" habitat the investor learning-focus cares
+ * about, so it remains a frontier when it has no expanded children.
  */
 export function isDecompositionFrontier(graph: GraphData, node: Node): boolean {
   if (node.tags?.includes("decomposition_frontier")) return true;
   if ((node.frontierFor?.length ?? 0) > 0) return true;
   const stopLabels = new Set(["mature", "widely_adopted"]);
-  if (node.maturityLabel && stopLabels.has(node.maturityLabel)) return false;
+  const commodified = node.maturityLabel ? stopLabels.has(node.maturityLabel) : false;
+  if (commodified && !isSupplyConcentrated(graph, node.id)) return false;
   return !hasExpandedChildren(graph, node.id);
 }
 

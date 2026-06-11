@@ -80,3 +80,23 @@ Cost rollup stops at commodified leaves: those leaves are exactly where well-kno
 - The `hard_to_develop` tag begins to require sub-states (e.g., distinguishing "hard but solved" from "still actively researched"), at which point the Phase-2 `developmentDifficulty` field promotion happens.
 - Counterfactual / historical Product studies need per-context maturity, prompting a context-keyed maturity representation (Phases 4/5).
 - The "20% of supply from one country" or similar geopolitical override reasons accumulate enough cases to need their own first-class flag rather than free-text in `notes`.
+
+## Amendment 2026-06-10 — supply concentration promotes mature nodes back to frontier
+
+Per the product/know-how layer design
+(`docs/superpowers/specs/2026-06-10-product-knowhow-layers-design.md`, ADR-0008):
+the original decision listed "supply concentration" as a stated-override
+*exception* for continuing past a commodified node. The investor learning
+focus inverts that: chokepoints live precisely in "mature but
+supply-concentrated" segments, so the exception becomes the rule.
+
+Amended stop condition: a node with `maturityLabel ∈ {mature, widely_adopted}`
+is a default stop **only when its supply is broad**. When its holder count
+(distinct non-deprecated organizations via `manufactured_by` /
+`implemented_by` edges, computed by `src/lib/supplyConcentration.ts`) is
+≤ 3, the node is treated per the frontier row of the state table above:
+frontier penalty + auto-task, decomposition-eligible.
+
+The threshold starts at 3 (`CONCENTRATION_THRESHOLD`) and is tunable.
+Zero holders also counts as concentrated — either a data gap or true
+scarcity, both worth a frontier task.

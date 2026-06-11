@@ -349,3 +349,34 @@ test("vacuum end-effector child layer carries explicit low-confidence cost place
     assert.equal(typeof cost?.currentValue?.max, "number", `${edge!.target} must expose a numeric max cost`);
   }
 });
+
+test("isDecompositionFrontier: mature node with concentrated supply stays a frontier (ADR-0005 amendment)", () => {
+  const graph = {
+    nodes: [
+      { id: "kh", name: "kh", kind: "manufacturing_process", domain: ["t"], maturityLabel: "mature" },
+      { id: "org_a", name: "org_a", kind: "organization", domain: ["t"], maturityLabel: "mature" },
+    ],
+    edges: [
+      { id: "e1", source: "kh", target: "org_a", relation: "implemented_by" },
+    ],
+    evidence: [],
+  } as never;
+  const node = (graph as { nodes: { id: string }[] }).nodes[0] as never;
+  assert.equal(isDecompositionFrontier(graph, node), true);
+});
+
+test("isDecompositionFrontier: mature node with broad supply (> threshold holders) still stops", () => {
+  const orgs = ["a", "b", "c", "d"].map((s) => ({
+    id: `org_${s}`, name: s, kind: "organization", domain: ["t"], maturityLabel: "mature",
+  }));
+  const graph = {
+    nodes: [
+      { id: "kh", name: "kh", kind: "manufacturing_process", domain: ["t"], maturityLabel: "mature" },
+      ...orgs,
+    ],
+    edges: orgs.map((o, i) => ({ id: `e${i}`, source: "kh", target: o.id, relation: "manufactured_by" })),
+    evidence: [],
+  } as never;
+  const node = (graph as { nodes: { id: string }[] }).nodes[0] as never;
+  assert.equal(isDecompositionFrontier(graph, node), false);
+});
