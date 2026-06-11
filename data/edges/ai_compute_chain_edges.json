@@ -1890,5 +1890,893 @@
       "ev_acc_cp2_vertiv_cooling_market"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_eml_dfb__requires__inp_substrate",
+    "source": "eml_dfb_laser_diodes",
+    "target": "inp_gaas_substrate_wafer",
+    "relation": "requires",
+    "claim": "EML/DFB laser diodes are fabricated on InP substrates (1310nm C-band) and require ultra-pure InP wafers as the starting material for epitaxial growth. InP substrate supply is the fundamental bottleneck limiting EML capacity.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_inp_market_2024",
+      "ev_acc_optup_eml_shortage_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_eml_dfb__requires__epitaxy_inp",
+    "source": "eml_dfb_laser_diodes",
+    "target": "epitaxial_growth_inp_gaas",
+    "relation": "requires",
+    "claim": "EML laser fabrication requires complex multi-layer epitaxial growth (4–6 epitaxial steps, EML structure with LD + modulator sections) on InP substrates. Epitaxy is the second bottleneck after raw substrate supply.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_epitaxy_capacity_constraint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_eml_dfb__requires__device_fab",
+    "source": "eml_dfb_laser_diodes",
+    "target": "compound_foundry_specialty",
+    "relation": "requires",
+    "claim": "EML/DFB device fabrication (ridge etch, facet coating, packaging) is the third tier after substrate and epitaxy. Supply concentration high (5 global vendors), with 40–60% capacity shortfall relative to demand (2024–2026).",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_eml_shortage_2024",
+      "ev_acc_optup_eml_supplier_concentration"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_laser_array__requires__gaas_substrate",
+    "source": "laser_array_and_photodiodes",
+    "target": "inp_gaas_substrate_wafer",
+    "relation": "requires",
+    "claim": "VCSEL and photodiode arrays (850nm short-reach transceivers) are fabricated on GaAs substrates. GaAs substrate supply is less constrained than InP but still supply-limited for high-volume 400G+ module arrays.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_inp_market_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_laser_array__requires__epitaxy_gaas",
+    "source": "laser_array_and_photodiodes",
+    "target": "epitaxial_growth_inp_gaas",
+    "relation": "requires",
+    "claim": "VCSEL epitaxial growth requires complex GaAs quantum-well structures and distributed feedback (DBR) mirrors. Epitaxy capacity is a secondary constraint after substrate supply.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_epitaxy_foundry_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_laser_array__requires__device_fab",
+    "source": "laser_array_and_photodiodes",
+    "target": "compound_foundry_specialty",
+    "relation": "requires",
+    "claim": "VCSEL and photodiode device fabrication (stripe definition, ridge etch, backside contact) completes the laser array. Fab capacity is less constrained than EML but still supply-limited during high-volume ramps.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_vcsel_supplier_count"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_epitaxy__requires__mocvd_equipment",
+    "source": "epitaxial_growth_inp_gaas",
+    "target": "mocvd_equipment_systems",
+    "relation": "requires",
+    "claim": "MOCVD epitaxial growth systems (Aixtron, Veeco) are the capital equipment that enables foundry capacity scaling. Tool lead times (15–21 months) indirectly constrain epitaxy expansion.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_mocvd_lead_time"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_inp_substrate__manufactured_by__jx_advanced",
+    "source": "inp_gaas_substrate_wafer",
+    "target": "org_jx_advanced_metals",
+    "relation": "manufactured_by",
+    "claim": "JX Advanced Metals is the dominant global InP substrate supplier (~45% share), particularly for 6-inch wafers. Company is aggressively expanding capacity (¥3.3 billion 2025–2026 for +50% capacity).",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_jx_market_dominance",
+      "ev_acc_optup_jx_expansion_capex"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_inp_substrate__manufactured_by__axt",
+    "source": "inp_gaas_substrate_wafer",
+    "target": "org_axt_inc",
+    "relation": "manufactured_by",
+    "claim": "AXT Inc is the second-largest global InP supplier (30–35% Western merchant share). On track to double capacity by end 2026, making it key alternative to Japan-based JX.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_axt_market_position",
+      "ev_acc_optup_axt_capacity_q1_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_epitaxy__provided_by__iqe",
+    "source": "epitaxial_growth_inp_gaas",
+    "target": "org_iqe",
+    "relation": "manufactured_by",
+    "claim": "IQE is the largest open-market epitaxial foundry for compound semiconductors. Newport (UK) is centre of excellence for VCSEL epi. Currently at ~90–95% utilization, limiting new capacity availability.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_optup_iqe_market_position",
+      "ev_acc_optup_iqe_capacity_utilization"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_epitaxy__provided_by__vpec",
+    "source": "epitaxial_growth_inp_gaas",
+    "target": "org_vpec",
+    "relation": "manufactured_by",
+    "claim": "VPEC is an emerging Taiwan-based epitaxial foundry with rapid growth in VCSEL epi supply. Multiple Aixtron tools commissioned in 2024–2025 to expand 6-inch capacity.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_optup_vpec_market_share",
+      "ev_acc_optup_vpec_mocvd_expansion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_epitaxy__provided_by__landmark",
+    "source": "epitaxial_growth_inp_gaas",
+    "target": "org_landmark_optoelectronics",
+    "relation": "manufactured_by",
+    "claim": "LandMark Optoelectronics (Taiwan) is a smaller but established epitaxial foundry focusing on GaAs/InP epi-wafers for optical communications. Mid-tier capacity source in Asia-Pacific.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_optup_landmark_market_position"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_epitaxy__provided_by__intelliepi",
+    "source": "epitaxial_growth_inp_gaas",
+    "target": "org_intelliepi",
+    "relation": "manufactured_by",
+    "claim": "IntelliEPI (Texas, US) provides specialized MBE epitaxy services for GaAs/InP. Expansion announced (Nov 2024) to nearly triple capacity by 2026–2027, adding North American optics epitaxy supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_optup_intelliepi_expansion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_epitaxy__provided_by__sumitomo_chem",
+    "source": "epitaxial_growth_inp_gaas",
+    "target": "org_sumitomo_chemical_epi",
+    "relation": "manufactured_by",
+    "claim": "Sumitomo Chemical Advanced Technologies (Phoenix, AZ) provides MOCVD epitaxy for GaAs, InP, and GaN. Subsidiary of major Japan materials company; secondary North American optical foundry.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_optup_sumitomo_chem_epi"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_optup_laser_array__manufactured_by__hlj",
+    "source": "laser_array_and_photodiodes",
+    "target": "org_hlj_technology",
+    "relation": "manufactured_by",
+    "claim": "HLJ Technology (Taiwan) is a vertically integrated VCSEL manufacturer (epitaxy + chip). Expanding to 6-inch capacity with multiple Aixtron tools for high-volume 850nm VCSEL production.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_optup_hlj_vcsel_capacity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_logic_die_fab__requires__compound_crystal_wafers",
+    "source": "logic_die_fabrication",
+    "target": "compound_crystal_wafer_substrates",
+    "relation": "requires",
+    "claim": "Logic-die fabrication does not directly require compound crystal wafers; this edge is a boundary marker documenting that compound/specialty wafer feedstock is NOT a bottleneck for silicon-logic AI accelerator modules but is a critical feedstock tier for power-delivery and optical-interconnect specialty devices in the broader AI platform ecosystem.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_power_delivery__requires__specialty_foundry",
+    "source": "power_delivery",
+    "target": "specialty_analog_power_foundry",
+    "relation": "requires",
+    "claim": "Power delivery substrate and control electronics for multi-hundred-watt AI accelerator modules increasingly rely on GaN/SiC power semiconductor devices (e.g., gate drivers, buck converters, voltage regulators). These devices are manufactured in specialty/compound foundries (GlobalFoundries, Samsung, DB HiTek GaN/SiC programs), distinct from silicon-logic foundry.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_cmpd_power_gan_demand"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_thermal_cooling__requires__specialty_foundry",
+    "source": "thermal_cooling",
+    "target": "specialty_analog_power_foundry",
+    "relation": "requires",
+    "claim": "Thermal control electronics (e.g., optical transceiver chiplets for liquid-cooling sensor networks, power-control analog devices for cooling fans) rely on specialty analog devices from GaAs/InP foundries (WIN Semiconductors optical RF foundry, VIS) and GaN/SiC power control chiplets.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_cmpd_thermal_optical"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_interconnect_optics__requires__specialty_foundry",
+    "source": "interconnect_and_optics",
+    "target": "specialty_analog_power_foundry",
+    "relation": "requires",
+    "claim": "Advanced optical interconnect for 1.6T and 800G datacenter transceiver modules relies on GaAs/InP optical semiconductor foundries (WIN Semiconductors GaAs, VIS multi-substrate, Wafer Works InP pilot). This is a distinct tier from silicon-logic ASIC foundry.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_optical_foundry"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_specialty_foundry__requires__compound_crystal_wafers",
+    "source": "specialty_analog_power_foundry",
+    "target": "compound_crystal_wafer_substrates",
+    "relation": "requires",
+    "claim": "GaN/SiC/GaAs/InP power and optical semiconductor foundries require their respective compound/specialty crystal wafers (SiC for power devices, InP/GaAs for optical devices). This is the critical upstream feedstock tier for specialty foundries.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_foundry_wafer_link"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_specialty_foundry__requires__epitaxial_growth",
+    "source": "specialty_analog_power_foundry",
+    "target": "epitaxial_layer_growth_and_materials",
+    "relation": "requires",
+    "claim": "GaN/SiC/GaAs/InP specialty foundries rely on epitaxial layer growth services (MOCVD, MBE) to deposit active device layers on crystal wafers. This is a critical upstream materials tier.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_foundry_epi_link"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_compound_crystal_wafers__manufactured_by__wolfspeed",
+    "source": "compound_crystal_wafer_substrates",
+    "target": "org_wolfspeed",
+    "relation": "manufactured_by",
+    "claim": "Wolfspeed is the leading merchant supplier of 8-inch (200mm) SiC crystal wafers for power semiconductor fabrication; transitioning from 6-inch commodity phase to 8-inch ramp 2026+.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_wolfspeed_200mm"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_compound_crystal_wafers__manufactured_by__sumitomo",
+    "source": "compound_crystal_wafer_substrates",
+    "target": "org_sumitomo_electric",
+    "relation": "manufactured_by",
+    "claim": "Sumitomo Electric Industries is the global leader in InP optical wafer supply and among three major GaAs substrate suppliers (duopoly/triopoly with AXT, Freiberger). Critical supplier for optical RF device feedstock.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_sumitomo_inp_leader"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_epitaxial_growth__manufactured_by__intelliepi",
+    "source": "epitaxial_layer_growth_and_materials",
+    "target": "org_intelliepi",
+    "relation": "manufactured_by",
+    "claim": "IntelliEPI is the leading Taiwan-based epitaxial wafer service provider for GaAs/InP/GaSb optical and RF epi-wafers using MBE technology. Elevated capacity utilization 2025-2026 due to AI optical demand surge.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_intelliepi_growth"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_specialty_foundry__manufactured_by__win",
+    "source": "specialty_analog_power_foundry",
+    "target": "org_win_semiconductors",
+    "relation": "manufactured_by",
+    "claim": "WIN Semiconductors is the world's leading pure-play GaAs wafer foundry, serving ~75% of merchant GaAs foundry market. Critical for optical communications and RF device manufacturing.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_win_market_position"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_specialty_foundry__manufactured_by__samsung",
+    "source": "specialty_analog_power_foundry",
+    "target": "org_samsung",
+    "relation": "manufactured_by",
+    "claim": "Samsung Electronics GaN/SiC power foundry entered market Q2-Q3 2026 after pivoting from IDM device model. 8-inch GaN production ramp in progress; SiC samples H2 2026.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_cmpd_samsung_gan_foundry"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_specialty_foundry__manufactured_by__gf",
+    "source": "specialty_analog_power_foundry",
+    "target": "org_globalfoundries",
+    "relation": "manufactured_by",
+    "claim": "GlobalFoundries expanded GaN/SiC power foundry capability via TSMC technology license (Nov 2025) and strategic Navitas partnership; production ramp H1 2026, volume H2 2026+.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_gf_gan_tsmc_license"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_interconnect_optics__requires__coherent_inp_supply",
+    "source": "interconnect_and_optics",
+    "target": "org_ii_vi_coherent",
+    "relation": "requires",
+    "claim": "AI datacenter 1.6T/800G optical transceiver modules depend on Coherent Corp. as the primary supplier of InP-based electro-absorption modulated lasers (EMLs) and continuous-wave lasers (CW-LDS). CEO has warned InP capacity constrained through 2027-2030; NVIDIA multi-billion-dollar LTA secures capacity.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_cmpd_coherent_inp_constraint",
+      "ev_acc_cmpd_coherent_nvidia_deal"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_short_reach_silicon__requires__pcie_retimer",
+    "source": "short_reach_copper_signal_conditioning_silicon",
+    "target": "pcie_retimer_ic",
+    "relation": "requires",
+    "claim": "PCIe retimers are the primary building block for short-reach copper interconnect; 64+ GT/s copper links require retiming at distances >1m.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_retimer_market_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_short_reach_silicon__requires__acc_equalizer",
+    "source": "short_reach_copper_signal_conditioning_silicon",
+    "target": "active_copper_cable_linear_equalizer",
+    "relation": "requires",
+    "claim": "ACC linear equalizers provide lower-power alternative to full retimers for reach extensions up to 2–3m.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_short_reach_silicon__requires__aec_retimer",
+    "source": "short_reach_copper_signal_conditioning_silicon",
+    "target": "active_electrical_cable_aec_retimer_dsp",
+    "relation": "requires",
+    "claim": "AEC retimers enable longest-reach copper interconnect (5+ meters) with full signal regeneration; used in disaggregated cluster topologies.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_short_reach_silicon__requires__switch_asic",
+    "source": "short_reach_copper_signal_conditioning_silicon",
+    "target": "pcie_cxl_fabric_switch_asic",
+    "relation": "requires",
+    "claim": "Fabric switch ASICs route signals between accelerators and switches in a cluster; work in conjunction with retimers over longer copper runs.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_interconnect_and_optics__requires__short_reach_silicon",
+    "source": "interconnect_and_optics",
+    "target": "short_reach_copper_signal_conditioning_silicon",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_retimer_market_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_on_module_serdes_phy_chiplet__requires__ualink_phy",
+    "source": "on_module_serdes_phy_chiplet",
+    "target": "ualink_phy_silicon",
+    "relation": "requires",
+    "claim": "UALink PHY is an emerging alternative to proprietary SerDes for some future cluster architectures; not yet in production.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pcie_retimer_ic__manufactured_by__org_astera_labs",
+    "source": "pcie_retimer_ic",
+    "target": "org_astera_labs",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_astera_labs_aries_pcg6"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pcie_retimer_ic__manufactured_by__org_marvell",
+    "source": "pcie_retimer_ic",
+    "target": "org_marvell",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_marvell_alaska_p_pcie6"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pcie_retimer_ic__manufactured_by__org_broadcom",
+    "source": "pcie_retimer_ic",
+    "target": "org_broadcom",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_broadcom_retimer_2024"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_pcie_retimer_ic__manufactured_by__org_credo",
+    "source": "pcie_retimer_ic",
+    "target": "org_credo",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_credo_toucan_pcie6"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_acc_equalizer__manufactured_by__org_marvell",
+    "source": "active_copper_cable_linear_equalizer",
+    "target": "org_marvell",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_marvell_taurus_acc_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_aec_retimer__manufactured_by__org_credo",
+    "source": "active_electrical_cable_aec_retimer_dsp",
+    "target": "org_credo",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_credo_magpie_pcie7"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_aec_retimer__manufactured_by__org_marvell",
+    "source": "active_electrical_cable_aec_retimer_dsp",
+    "target": "org_marvell",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_3nm_aec_retimer_roadmap"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_fabric_switch__manufactured_by__org_astera_labs",
+    "source": "pcie_cxl_fabric_switch_asic",
+    "target": "org_astera_labs",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_icsi_astera_scorpio_switch_2025"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_fabric_switch__manufactured_by__org_broadcom",
+    "source": "pcie_cxl_fabric_switch_asic",
+    "target": "org_broadcom",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_fabric_switch__manufactured_by__org_marvell",
+    "source": "pcie_cxl_fabric_switch_asic",
+    "target": "org_marvell",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_xray_inspection",
+    "source": "advanced_packaging",
+    "target": "x_ray_inspection_advanced_packaging",
+    "relation": "requires",
+    "claim": "Post-assembly X-ray inspection is critical for HBM stack voids, solder defects, and bond-line integrity verification.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_xray_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_optical_metrology",
+    "source": "advanced_packaging",
+    "target": "optical_bump_metrology_inspection",
+    "relation": "requires",
+    "claim": "Pre-underfill optical bump inspection validates die placement accuracy and solder-bump morphology for chiplet assembly.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_optical_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_w2w_bonding",
+    "source": "advanced_packaging",
+    "target": "wafer_bonding_alignment_systems",
+    "relation": "requires",
+    "claim": "Wafer-to-wafer bonding with sub-50nm alignment is essential for interposer-to-substrate integration in 2.5D packages.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_w2w_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_tcb",
+    "source": "advanced_packaging",
+    "target": "thermocompression_bonding_systems",
+    "relation": "requires",
+    "claim": "Thermocompression bonding enables flip-chip micro-bump attachment with precise placement accuracy and minimal thermal stress.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_tcb_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_flip_chip_requires_underfill",
+    "source": "flip_chip_bonding",
+    "target": "underfill_dispensing_equipment",
+    "relation": "requires",
+    "claim": "Underfill dispensing (capillary or jet) follows flip-chip bonding to encapsulate bumps and reduce mechanical stress.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_underfill_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_thermal_control",
+    "source": "advanced_packaging",
+    "target": "thermal_profiling_and_process_control",
+    "relation": "requires",
+    "claim": "Thermal profiling during bonding and underfill curing validates process window and yield optimization.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_thermal_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_probe_testing",
+    "source": "test_and_inspection",
+    "target": "wafer_probe_testing_advanced_packaging",
+    "relation": "requires",
+    "claim": "Fine-pitch wafer probe testing qualifies known-good die prior to chiplet assembly and system integration.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_probe_test"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_singulation",
+    "source": "advanced_packaging",
+    "target": "singulation_laser_dicing_systems",
+    "relation": "requires",
+    "claim": "Laser dicing (DISCO stealth/KABRA) is preferred for chiplet singulation to minimize solder-bump damage.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_dicing_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_plasma_prep",
+    "source": "advanced_packaging",
+    "target": "plasma_surface_activation_systems",
+    "relation": "requires",
+    "claim": "Plasma surface activation is a pre-bonding requirement for low-temperature hybrid bonding and wafer bonding.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_plasma_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_furnace",
+    "source": "advanced_packaging",
+    "target": "bump_height_curing_furnace",
+    "relation": "requires",
+    "claim": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in flip-chip assembly.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_furnace_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_test_insp_requires_env_chamber",
+    "source": "test_and_inspection",
+    "target": "environmental_test_chambers_qualification",
+    "relation": "requires",
+    "claim": "Environmental chambers (thermal cycling, burn-in) are essential for JEDEC reliability qualification of HBM modules.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_chamber_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_xray_inspection_mfg_comet",
+    "source": "x_ray_inspection_advanced_packaging",
+    "target": "org_comet_yxlon",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_xray_comet"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_xray_inspection_mfg_camtek",
+    "source": "x_ray_inspection_advanced_packaging",
+    "target": "org_camtek",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_xray_camtek"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_xray_inspection_mfg_onto",
+    "source": "x_ray_inspection_advanced_packaging",
+    "target": "org_onto_innovation",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_xray_onto"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_xray_inspection_mfg_kla",
+    "source": "x_ray_inspection_advanced_packaging",
+    "target": "org_kla",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_xray_kla"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_optical_metrology_mfg_camtek",
+    "source": "optical_bump_metrology_inspection",
+    "target": "org_camtek",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_optical_camtek"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_optical_metrology_mfg_confovis",
+    "source": "optical_bump_metrology_inspection",
+    "target": "org_confovis",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_optical_confovis"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_optical_metrology_mfg_onto",
+    "source": "optical_bump_metrology_inspection",
+    "target": "org_onto_innovation",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_optical_onto"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_w2w_bonding_mfg_evg",
+    "source": "wafer_bonding_alignment_systems",
+    "target": "org_evg",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_w2w_evg"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_w2w_bonding_mfg_suss",
+    "source": "wafer_bonding_alignment_systems",
+    "target": "org_suss_microtic",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_w2w_suss"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_w2w_bonding_mfg_besi",
+    "source": "wafer_bonding_alignment_systems",
+    "target": "org_besi",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_w2w_besi"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tcb_mfg_asmpt",
+    "source": "thermocompression_bonding_systems",
+    "target": "org_asmpt",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_tcb_asmpt"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tcb_mfg_besi",
+    "source": "thermocompression_bonding_systems",
+    "target": "org_besi",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_tcb_besi"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_tcb_mfg_kulicke",
+    "source": "thermocompression_bonding_systems",
+    "target": "org_kulicke_soffa",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_tcb_kulicke"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_underfill_mfg_asymtek",
+    "source": "underfill_dispensing_equipment",
+    "target": "org_nordson",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_underfill_asymtek"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_underfill_mfg_itw",
+    "source": "underfill_dispensing_equipment",
+    "target": "org_itw",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_underfill_itw"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_underfill_mfg_axxon",
+    "source": "underfill_dispensing_equipment",
+    "target": "org_axxon",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_underfill_axxon"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_thermal_profiling_mfg_kic",
+    "source": "thermal_profiling_and_process_control",
+    "target": "org_kic_thermal",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_thermal_kic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_probe_test_mfg_teradyne",
+    "source": "wafer_probe_testing_advanced_packaging",
+    "target": "org_teradyne",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_probe_teradyne"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_probe_test_mfg_cohu",
+    "source": "wafer_probe_testing_advanced_packaging",
+    "target": "org_cohu",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_probe_cohu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_singulation_mfg_disco",
+    "source": "singulation_laser_dicing_systems",
+    "target": "org_disco",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_pkgeq_disco_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_plasma_mfg_keylink",
+    "source": "plasma_surface_activation_systems",
+    "target": "org_keylink",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_plasma_keylink"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_plasma_mfg_nordson",
+    "source": "plasma_surface_activation_systems",
+    "target": "org_nordson",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_plasma_nordson"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_furnace_mfg_despatch",
+    "source": "bump_height_curing_furnace",
+    "target": "org_despatch",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_furnace_despatch"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

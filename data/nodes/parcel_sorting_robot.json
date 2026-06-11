@@ -6628,7 +6628,8 @@
       "investable_supplier",
       "ai_compute_chain",
       "optoelectronics",
-      "datacom_optics"
+      "datacom_optics",
+      "epitaxial_foundry"
     ],
     "description": "Japanese automation supplier for MELSEC PLCs, MELSERVO servo systems, and factory automation components.",
     "confidence": "medium",
@@ -6658,13 +6659,20 @@
         "currency": "JPY",
         "costAsOf": "2025",
         "description": "Mitsubishi Electric FY2025 (ended March 2025) consolidated revenue ¥4.59 trillion; optics division is a smaller segment but strategically important for datacom."
+      },
+      {
+        "name": "Mitsubishi Electric EML laser market share",
+        "unit": "%",
+        "currentValue": 22,
+        "description": "Mitsubishi Electric estimated ~20–25% of global EML/DFB datacom laser market share; third-largest supplier after Lumentum and Coherent. In-house epitaxy and device fabrication."
       }
     ],
     "evidenceIds": [
       "ev_mfg_mitsubishi_plc_servo",
       "ev_mitsubishi_integrated_report_2025_factory_automation",
       "ev_mitsubishi_power_modules_motion_control_2026",
-      "ev_acc_opt2_mitsubishi_laser_supply"
+      "ev_acc_opt2_mitsubishi_laser_supply",
+      "ev_acc_optup_eml_supplier_concentration"
     ],
     "tags": [
       "manufacturer",
@@ -6678,7 +6686,7 @@
       "datacom_supplier",
       "japan_electronics"
     ],
-    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.\nMitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth.",
+    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.\nMitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth.\nMitsubishi Electric is established EML/DFB laser supplier with in-house capability (epitaxy + fabrication). Approximately 20–25% global market share; supplies to regional and global transceiver makers. Capacity less publicized than Lumentum/Coherent but meaningful contributor to global EML supply diversification.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
   },

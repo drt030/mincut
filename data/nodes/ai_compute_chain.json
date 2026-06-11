@@ -1689,6 +1689,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_high_bandwidth_memory"
     ]
   },
   {
@@ -1768,6 +1771,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_hbm_stack_assembly"
     ]
   },
   {
@@ -1840,6 +1846,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_hbm_testing"
     ]
   },
   {
@@ -1905,6 +1914,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_hbm_test_equipment"
     ]
   },
   {
@@ -2224,6 +2236,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_substrate_interposer_parent"
     ]
   },
   {
@@ -2775,7 +2790,8 @@
       "ai_compute_chain",
       "optical_interconnect",
       "semiconductor",
-      "investable_supplier"
+      "investable_supplier",
+      "epitaxial_foundry"
     ],
     "description": "Leading semiconductor and infrastructure software company supplying optical transceiver host ASICs, ethernet switches, and high-speed interconnect solutions for datacenter AI clusters.",
     "maturityLabel": "unknown",
@@ -2804,6 +2820,18 @@
       {
         "name": "Public listing",
         "currentValue": "AVGO"
+      },
+      {
+        "name": "Broadcom optical transceiver module market share",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "Broadcom dominates optical transceiver module market (400G+) with ~45% share; primary ASIC and VCSEL supplier integrated into module design."
+      },
+      {
+        "name": "Broadcom EML laser market entry status",
+        "unit": "timeline",
+        "currentValue": 2024,
+        "description": "Broadcom late entrant to EML laser supply (~2024); historically dominant in VCSEL but less vertically integrated in EML epitaxy. Capacity ramp ongoing but lags Lumentum and Coherent."
       }
     ],
     "evidenceIds": [
@@ -2816,7 +2844,7 @@
       "public_company",
       "designer_and_manufacturer"
     ],
-    "notes": "Broadcom is the largest supplier of optical transceiver host ASICs and also a major VCSEL manufacturer. Critical supplier for AI accelerator cluster interconnect.",
+    "notes": "Broadcom is the largest supplier of optical transceiver host ASICs and also a major VCSEL manufacturer. Critical supplier for AI accelerator cluster interconnect.\nBroadcom is the largest optical transceiver module supplier (45% share) with in-house VCSEL design/manufacturing. Late entry into EML laser supply (2024) relative to Lumentum/Coherent; currently capacity-constrained in EML relative to market demand. Efforts to expand EML through partnerships and internal development underway.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -2873,7 +2901,8 @@
       "optoelectronics",
       "vcsel",
       "investable_supplier",
-      "datacom_optics"
+      "datacom_optics",
+      "epitaxial_foundry"
     ],
     "description": "Optoelectronic and specialty materials company supplying VCSEL arrays, photodiodes, and optical components for datacenter transceivers and laser systems.",
     "maturityLabel": "unknown",
@@ -2908,12 +2937,28 @@
         "currency": "USD",
         "costAsOf": "2024",
         "description": "Coherent Corp FY2024 total revenue approximately $3.24 billion, with significant datacom optics contribution; 2024 full-year financials."
+      },
+      {
+        "name": "Coherent InP epitaxy capacity (in-house)",
+        "unit": "estimated wafer per month",
+        "currentValue": 1800,
+        "description": "Coherent operates in-house InP epitaxial growth capability across two fabs (6-inch wafers), estimated 1,500–2,000 wafers/month throughput for laser and photodiode production."
+      },
+      {
+        "name": "Coherent NVIDIA partnership investment",
+        "unit": "billion USD",
+        "currentValue": 2.0,
+        "costAsOf": "2026",
+        "currency": "USD",
+        "description": "NVIDIA invested $2.0 billion in Coherent (March 2026) for integrated photonics capacity expansion and priority supply. Part of $4B optical supply lockup strategy."
       }
     ],
     "evidenceIds": [
       "ev_acc_opt_vcsel_supply_constraint",
       "ev_acc_opt2_coherent_market_position",
-      "ev_acc_opt2_coherent_ii_vi_integration"
+      "ev_acc_opt2_coherent_ii_vi_integration",
+      "ev_acc_optup_eml_shortage_2024",
+      "ev_acc_optup_eml_supplier_concentration"
     ],
     "tags": [
       "optoelectronics",
@@ -2925,7 +2970,7 @@
       "vcsel_supplier",
       "integrated_supplier"
     ],
-    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.\nCoherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.",
+    "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.\nCoherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.\nCoherent (formerly II-VI) is second-largest EML/DFB supplier (~25% share) with full vertical integration: substrate contracts + in-house epitaxy + device fabrication. Performs ~20 years of in-house InP capability, mitigating upstream supply risk. NVIDIA's $2B investment (March 2026) accelerates capacity ramp. Currently supply-constrained but expanding aggressively.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -3145,6 +3190,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_chiplet_substrate"
     ]
   },
   {
@@ -3225,6 +3273,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_optical_transceiver"
     ]
   },
   {
@@ -3298,6 +3349,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_laser_optics"
     ]
   },
   {
@@ -3415,6 +3469,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_backplane_substrate"
     ]
   },
   {
@@ -3567,7 +3624,10 @@
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_bn3_power_stage_ic"
+    ]
   },
   {
     "id": "vrm_capacitor_bulk",
@@ -4323,6 +4383,9 @@
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
+    ],
+    "evidenceIds": [
+      "ev_acc_bn3_sealed_cooling"
     ]
   },
   {
@@ -4925,7 +4988,8 @@
       "ai_compute_chain",
       "optoelectronics",
       "investable_supplier",
-      "datacom_optics"
+      "datacom_optics",
+      "epitaxial_foundry"
     ],
     "description": "Leading US supplier of optoelectronic components and subsystems for datacenter, 5G, and coherent optical networks. Manufactures laser diodes (EML/DFB for coherent), photodetectors, and optical subassemblies. Primary supplier to Cisco, Infinera, Broadcom, and optical module makers.",
     "maturityLabel": "widely_adopted",
@@ -4949,11 +5013,21 @@
       {
         "name": "Public listing",
         "currentValue": "LITE"
+      },
+      {
+        "name": "Lumentum EML laser capacity investment (NVIDIA partnership)",
+        "unit": "billion USD",
+        "currentValue": 2.0,
+        "costAsOf": "2026",
+        "currency": "USD",
+        "description": "NVIDIA invested $2.0 billion in Lumentum (March 2026) for EML laser capacity expansion and priority access. Part of $4B optical supply lockup strategy."
       }
     ],
     "evidenceIds": [
       "ev_acc_opt2_lumentum_earnings_coherent",
-      "ev_acc_opt2_lumentum_supplier_list"
+      "ev_acc_opt2_lumentum_supplier_list",
+      "ev_acc_optup_eml_shortage_2024",
+      "ev_acc_optup_eml_supplier_concentration"
     ],
     "tags": [
       "laser_manufacturer",
@@ -4961,7 +5035,7 @@
       "public_company",
       "datacom_supplier"
     ],
-    "notes": "Lumentum is listed on NASDAQ under ticker LITE. Strong exposure to datacenter buildout growth; primary supplier of EML/DFB lasers to Coherent, Infinera, and module makers. Investor relevance: direct beneficiary of long-reach transceiver scaling.",
+    "notes": "Lumentum is listed on NASDAQ under ticker LITE. Strong exposure to datacenter buildout growth; primary supplier of EML/DFB lasers to Coherent, Infinera, and module makers. Investor relevance: direct beneficiary of long-reach transceiver scaling.\nAs primary EML/DFB supplier (~28% market share), Lumentum is critical to AI transceiver scaling. NVIDIA's $2B investment (March 2026) secures priority capacity and R&D for next-gen laser components. Vertically integrated epitaxy and device fabrication in-house; has locked multi-year InP substrate contracts to mitigate upstream supply risk.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -5217,5 +5291,2613 @@
     "notes": "Motivair provides alternative in-row and rear-door cooling solutions beyond traditional CDU infrastructure. Growing presence in specialized AI datacenter buildouts.",
     "reviewStatus": "unreviewed",
     "maturityAsOf": "2026-06"
+  },
+  {
+    "id": "inp_gaas_substrate_wafer",
+    "name": "InP/GaAs substrate wafers (compound semiconductor blanks)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Ultra-pure indium phosphide (InP) and gallium arsenide (GaAs) single-crystal wafer substrates, typically 4–6 inches diameter, that serve as the foundation for epitaxial growth of laser diodes (EML/DFB and VCSEL arrays) and photodiodes. InP dominates for 1310nm long-reach lasers; GaAs for 850nm VCSELs. Global supply is concentrated in 3–4 vendors: JX Advanced Metals (Japan), AXT Inc (US/China), and regional suppliers. InP substrate capacity is the fundamental bottleneck: capacity expansion requires 18–24 months for new crystal-pulling furnaces and purification lines.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global InP substrate market size",
+        "unit": "million USD",
+        "currentValue": 125,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "InP substrate market valued at ~US$125 million in 2024, projected to reach US$696 million by 2032 at 27.8% CAGR; driven by AI datacenter optical interconnect demand. Source: industry analyst reports 2024."
+      },
+      {
+        "name": "JX Advanced Metals capacity expansion (2025–2026)",
+        "unit": "%",
+        "currentValue": 50,
+        "description": "JX announced cumulative ¥3.3 billion investment to increase InP substrate production capacity by ~50% over 2025 baseline, phased through 2027. Expansion from Isohara Plant in Ibaraki Prefecture."
+      },
+      {
+        "name": "AXT Inc InP substrate market share (Western merchant)",
+        "unit": "%",
+        "currentValue": 32,
+        "description": "AXT Inc (NASDAQ: AXTI) commands approximately 30–35% of Western merchant InP substrate supply; dominant supplier outside Japan. Q1 2026: InP revenue trajectory doubled sequentially, on track for $35m quarterly run-rate by end-2026 as capacity doubles from Q4 2025 baseline."
+      },
+      {
+        "name": "InP substrate capacity lead time (new furnace)",
+        "unit": "months",
+        "currentValue": 20,
+        "description": "Bringing new InP crystal-pulling furnace and purification capacity online requires 18–24 months from order to production; single-biggest expansion constraint."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_inp_market_2024"
+    ],
+    "tags": [
+      "material",
+      "substrate",
+      "compound_semiconductor",
+      "optoelectronics",
+      "supply_bottleneck"
+    ],
+    "notes": "InP substrate supply is the fundamental constraint: unlike silicon wafers (mature multi-vendor commodity), InP growth is specialty work with 3–4 global vendors and capacity-constrained by crystal-pulling furnace throughput. JX (Japan) and AXT (US/China) dominate; both expanding aggressively but face 18–24 month ramp times. GaAs is less constrained (more vendors, higher throughput) but still not commodity-scale for 850nm VCSEL arrays. Current InP shortage is documented: demand from AI datacenter optics exceeds supply by ~2x as of June 2026.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "epitaxial_growth_inp_gaas",
+    "name": "Epitaxial growth (MOCVD / MBE) – InP and GaAs epi-wafers",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Metal-organic chemical vapor deposition (MOCVD) or molecular beam epitaxy (MBE) process to grow thin crystalline layers of active laser material (InGaAsP quantum wells, AlGaAs waveguides) on InP or GaAs substrates. MOCVD dominates for high-volume VCSEL and EML/DFB production. Process control is critical: layer thickness uniformity (±5 nm), dopant activation, defect control, and carrier concentration. Epitaxy capacity (wafer/month throughput) is the second-largest bottleneck after raw substrate supply. Open epitaxial foundries (IQE, VPEC, Landmark, IntelliEPI, Sumitomo Chemical) serve fabless laser designers; vertically integrated suppliers (Lumentum, Coherent, Mitsubishi Electric) perform epitaxy in-house.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Epitaxial foundry market size (compound semiconductors)",
+        "unit": "billion USD",
+        "currentValue": 12.5,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "Global semiconductor epitaxy foundry market (InP, GaAs, GaN, SiC) valued at US$12.5 billion in 2024, forecast US$20.3 billion by 2033 (6.5% CAGR). InP epitaxy subset ~US$400–500 million annually, growing at 8.4% CAGR driven by AI optics demand."
+      },
+      {
+        "name": "InP epitaxy foundry open-market penetration",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Roughly 35% of InP epitaxy is open-market (IQE, Landmark, VPEC, IntelliEPI, Sumitomo Chemical); 65% is vertically integrated in-house at major device makers (Lumentum, Coherent, Mitsubishi Electric). This split creates supply bottleneck: device makers cannot easily access additional open-market epitaxy when in-house capacity saturates."
+      },
+      {
+        "name": "MOCVD tool lead time (Aixtron, Veeco)",
+        "unit": "months",
+        "currentValue": 12,
+        "description": "Advanced MOCVD systems (Aixtron AIX 2800G4 or Veeco Lumina) lead time ~12 months; foundry must reserve capacity and commit to multi-year contracts. Adding a new epitaxy line requires 6–9 months commissioning and recipe qualification after tool arrival."
+      },
+      {
+        "name": "Epitaxy yield variability (InP complex structures)",
+        "unit": "%",
+        "currentValue": 15,
+        "description": "Yield loss 10–15% typical for EML (multi-layer, modulator integration) vs. simpler VCSEL structures; defect rates increase with layer count and doping complexity. Yield excursions during fab ramp consume weeks of capacity."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_epitaxy_foundry_market",
+      "ev_acc_optup_epitaxy_capacity_constraint",
+      "ev_acc_optup_mocvd_lead_time"
+    ],
+    "tags": [
+      "manufacturing_process",
+      "epitaxial_growth",
+      "mocvd",
+      "compound_semiconductor",
+      "optoelectronics"
+    ],
+    "notes": "Epitaxial growth is the second bottleneck after substrate supply. InP epitaxy is specialty process: low throughput (wafers/month per tool vs silicon fab wafers/hour per tool), high yield volatility, and process recipes are proprietary to each laser device type (EML, DFB, VCSEL differ in layer structure). Open foundries (IQE, VPEC, Landmark) operate at high utilization (~85–95%) due to surging AI transceiver demand. Vertically integrated makers (Lumentum, Coherent) are capacity-constrained and prioritize in-house volume over outside customers, limiting available open-market capacity.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "compound_foundry_specialty",
+    "name": "Specialty compound semiconductor foundry (InP/GaAs device fabrication and packaging)",
+    "kind": "manufacturing_process",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Post-epitaxy processing to complete laser diode and photodiode devices: optical waveguide definition (stripe geometry etch, ridge waveguide), quantum-well layer tuning, contact metallization, facet preparation (cleaving, coating), and hermetic packaging (TO-46 cans, butterfly packages, or integrated module packages). Process steps differ sharply from silicon: ridge etch precision (±50 nm), facet antireflection coatings (specific wavelengths), and packaging reliability (10+ year MTTF at 125°C). Supply concentration high: EML/DFB devices are made by ~5 suppliers (Lumentum, Coherent, Mitsubishi Electric, Sumitomo Electric, Broadcom); VCSEL fabrication by 6–8 vendors (Broadcom, Coherent, Lumentum, HLJ, VPEC, Vertilite). Expansion lead time is 12–18 months per fab line (equipment procurement + installation + qualification).",
+    "maturityScore": 62,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "EML/DFB laser device suppliers (global)",
+        "unit": "count",
+        "currentValue": 5,
+        "description": "Worldwide EML/DFB laser device manufacturers at commercial scale for 1310nm coherent datacom: Lumentum, Coherent, Mitsubishi Electric, Sumitomo Electric, Broadcom (emerging). Duopoly-to-oligopoly concentration (top 3 = ~75% share)."
+      },
+      {
+        "name": "VCSEL device suppliers (global, 850nm+ datacom-class)",
+        "unit": "count",
+        "currentValue": 8,
+        "description": "VCSEL device manufacturers with commercial datacenter production: Broadcom, Coherent, Lumentum, HLJ Technology (Taiwan), VPEC (Taiwan), Vertilite (China), Philips Lumileds (private), and emerging regional suppliers. Top 3 (Broadcom, Coherent, Lumentum) dominate ~65–70% share."
+      },
+      {
+        "name": "Specialty compound fab line expansion lead time",
+        "unit": "months",
+        "currentValue": 15,
+        "description": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 mo), installation (2–3 mo), recipe qualification and yield ramp (6–8 mo). Total: 12–18 months."
+      },
+      {
+        "name": "EML device production allocation constraint (2024–2026)",
+        "unit": "%",
+        "currentValue": 40,
+        "description": "Supply shortfall for EML lasers: 2024–2026 EML production runs 40–60% below transceiver demand. Lead times extended to 24+ weeks; NVIDIA lockup (March 2026, $4B committed to Lumentum & Coherent) pushed non-NVIDIA customers past 2027. Source: TrendForce, McKinsey Jun 2025 optical supply report."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_eml_supplier_concentration",
+      "ev_acc_optup_vcsel_supplier_count",
+      "ev_acc_optup_fab_lead_time",
+      "ev_acc_optup_eml_shortage_2024"
+    ],
+    "tags": [
+      "manufacturing_process",
+      "device_fabrication",
+      "compound_semiconductor",
+      "optoelectronics",
+      "supply_bottleneck"
+    ],
+    "notes": "Post-epitaxy fabrication is a critical but secondary bottleneck: capacity constraints are more severe upstream (substrate, epitaxy) but specialized equipment (ridge-etch tools, facet-coating systems) and process recipes create vendor lock-in. EML shortage (documented 2024–2026) is attributed to: (1) limited epitaxy capacity → finished-device capacity, (2) Broadcom's late entry into EML (vs. VCSEL dominance), and (3) NVIDIA's market power creating allocation squeeze for other customers. VCSEL is less constrained than EML overall, but specific form factors (high-density arrays for 800G+) face short-term capacity gaps.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_jx_advanced_metals",
+    "name": "JX Advanced Metals Corp. (JX Nippon Mining & Metals)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "compound_semiconductor_materials"
+    ],
+    "description": "Japanese materials supplier specializing in high-purity indium phosphide (InP) and gallium arsenide (GaAs) single-crystal wafer substrates for optoelectronics. JX is the dominant global supplier (est. 40–50% share) of InP substrates; major producer of GaAs wafers. Isohara Plant (Ibaraki Prefecture) is the primary InP production facility. Recent expansion: ¥3.3 billion investment announced (2025–2026) to triple InP capacity by 2030, responding to AI datacenter optics surge.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "JX InP substrate global market share",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "JX Advanced Metals estimated 40–50% of global InP substrate supply (merchant + captive). Dominant supplier globally, especially for 6-inch wafers. Source: industry analyst consensus, Semiconductor-Today reports 2025–2026."
+      },
+      {
+        "name": "JX Isohara Plant capacity expansion (2025–2026)",
+        "unit": "%",
+        "currentValue": 50,
+        "description": "Cumulative ¥1.5 billion (Q3 2025) + ¥1.5 billion (Q4 2025) investments to increase capacity by ~50% over 2025 baseline; further ¥20 billion planned for 3x capacity by 2030 (FY2027 onward)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "5541.T"
+      },
+      {
+        "name": "JX Nippon Mining & Metals FY2025 revenue (estimated)",
+        "unit": "billion JPY",
+        "currentValue": 2800,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "JX Nippon Mining & Metals FY2025 (~March 2026) consolidated revenue approximately ¥2.8 trillion; compound materials segment (InP, GaAs, other substrates) contributes estimated 8–12% of total revenue, rapidly growing."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_jx_market_dominance",
+      "ev_acc_optup_jx_expansion_capex"
+    ],
+    "tags": [
+      "substrate_supplier",
+      "material_supplier",
+      "japan_electronics",
+      "public_company",
+      "optoelectronics"
+    ],
+    "notes": "JX Advanced Metals is the single-largest global InP substrate supplier. As substrate supply is the fundamental bottleneck in the optics supply chain, JX's capacity decisions directly gate global transceiver volume. The company is aggressively expanding (announced ¥3.3 billion in 2025 to increase capacity 50% by 2027, then ¥20 billion for 3x by 2030) in response to AI datacenter demand surge. Investor relevance: direct bottleneck supplier; capacity expansion is critical path for global AI optics scaling.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_axt_inc",
+    "name": "AXT Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "compound_semiconductor_materials"
+    ],
+    "description": "US-based materials supplier (NASDAQ: AXTI) manufacturing compound semiconductor wafer substrates including InP, GaAs, and Ge at facilities in China and US. AXT is the second-largest global InP supplier after JX Advanced Metals (est. 30–35% Western merchant share). Strong growth in 2025–2026 driven by AI datacenter optics demand; Q1 2026 revenue $26.9m (up 17% QoQ, 39% YoY). On track to double capacity from Q4 2025 baseline by end-2026, supporting $35m quarterly InP revenue run-rate.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "AXT InP substrate market share (Western merchant)",
+        "unit": "%",
+        "currentValue": 32,
+        "description": "AXT commands ~30–35% of Western merchant InP substrate supply (excluding Japanese captive/JX). Dominant non-Japan supplier for 4–6 inch InP wafers. Q1 2026 InP-related China revenue more than doubled from prior quarter; doubled again expected Q2 2026."
+      },
+      {
+        "name": "AXT capacity expansion (Q4 2025 → end 2026)",
+        "unit": "x",
+        "currentValue": 2,
+        "description": "AXT announced plan to double InP substrate production capacity from Q4 2025 baseline by end 2026, supporting $35m quarterly InP revenue run-rate. Expansion includes both China and US facilities."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "AXTI"
+      },
+      {
+        "name": "AXT Q1 2026 revenue",
+        "unit": "million USD",
+        "currentValue": 26.9,
+        "costAsOf": "2026",
+        "currency": "USD",
+        "description": "AXT Inc Q1 2026 total revenue $26.9m; InP segment growing fastest, with China datacom laser revenue doubling quarterly. GaAs revenue fell to 20% of total as InP demand surges."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_axt_market_position",
+      "ev_acc_optup_axt_capacity_q1_2026"
+    ],
+    "tags": [
+      "substrate_supplier",
+      "material_supplier",
+      "us_semiconductor",
+      "public_company",
+      "optoelectronics",
+      "china_supply_chain"
+    ],
+    "notes": "AXT Inc is the key Western merchant InP supplier competing with Japan's JX Advanced Metals. With 30–35% global market share and rapid capacity expansion (doubling by end-2026), AXT is positioned as critical alternative to JX for non-Japanese supply. China export license volatility (Q4 2025 delays, Q1 2026 restoration) introduces geopolitical risk but also highlights strategic importance. Strong growth trajectory (39% YoY revenue, InP doubling sequentially) makes it a high-exposure play on AI optics scaling. Investor relevance: primary Western merchant supplier for InP substrates feeding all non-captive EML/VCSEL makers.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_iqe",
+    "name": "IQE plc",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "epitaxial_foundry"
+    ],
+    "description": "UK-listed epitaxial wafer foundry (AIM: IQE) providing open-market MOCVD and MBE growth services for compound semiconductors (GaAs, InP, GaN). Multi-facility operator with sites in UK (Newport, centre of excellence for VCSEL), Massachusetts (US), and Taiwan (wireless focus). Major supplier of VCSEL epi-wafers to Broadcom and other module makers; also provides InP epitaxy for RF and some optical applications. Capacity utilization high (~85–95%) in 2025–2026 due to AI transceiver demand surge.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "IQE epitaxial foundry market share (compound semiconductors)",
+        "unit": "%",
+        "currentValue": 18,
+        "description": "IQE estimated ~15–20% of open-market compound semiconductor epitaxy foundry revenue globally (GaAs, InP, GaN combined). Market leader in VCSEL epi-wafers for wireless and optical applications."
+      },
+      {
+        "name": "IQE capacity utilization (2025–2026)",
+        "unit": "%",
+        "currentValue": 92,
+        "description": "IQE Newport (VCSEL), Massachusetts (GaAs), and Taiwan (wireless) facilities operating at ~90–95% utilization in 2025–2026 due to AI datacom optics and 3D-sensing demand. Lead times extended to 16–20 weeks for new VCSEL epi orders."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "IQE"
+      },
+      {
+        "name": "IQE H1 2025 (6 months ended June 2025) revenue (EUR equiv)",
+        "unit": "million EUR",
+        "currentValue": 167,
+        "costAsOf": "2025",
+        "currency": "EUR",
+        "description": "IQE H1 2025 revenue approximately £142 million (~€167M at 1.18 GBP/EUR), with strong growth from VCSEL and RF/optical segments. Wireless and VCSEL segments showed 30%+ YoY growth."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_iqe_market_position",
+      "ev_acc_optup_iqe_capacity_utilization"
+    ],
+    "tags": [
+      "epitaxial_foundry",
+      "compound_semiconductor",
+      "open_market_epi",
+      "uk_electronics",
+      "public_company"
+    ],
+    "notes": "IQE is the largest open-market epitaxial foundry for compound semiconductors globally. As vertically integrated makers (Lumentum, Coherent, Mitsubishi) saturate their in-house epitaxy, open-market foundries like IQE become critical for scaling. Newport facility (UK) is considered 'centre of excellence' for VCSEL epitaxy. Current high utilization (90–95%) means IQE cannot easily absorb new transceiver orders; expansion would require new tool procurement and commissioning (6–9 months). Investor relevance: strategic chokepoint in open-market epitaxy supply; capacity constraints directly limit non-integrated transceiver makers' growth.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_vpec",
+    "name": "Visual Photonics Epitaxy Co., Ltd. (VPEC)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "epitaxial_foundry"
+    ],
+    "description": "Taiwan-based epitaxial foundry (Taiwan OTC: 2455.TW) specializing in GaAs and InP-based epi-wafers using MOCVD technology. Founded 1996; focused on optoelectronics (VCSEL, laser diodes, photodiodes) and RF/microwave MMICs. Multiple Aixtron MOCVD tools installed; ramping VCSEL epi-wafer production for 850nm datacenter transceivers. Co-supplies major VCSEL device makers (Broadcom partners). Capacity constrained in 2025–2026; commissioning new MOCVD lines to increase throughput.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "VPEC epitaxial foundry market share (GaAs/InP)",
+        "unit": "%",
+        "currentValue": 8,
+        "description": "VPEC estimated ~8–10% of open-market GaAs/InP epitaxial foundry revenue in Asia-Pacific region; growing footprint in datacom VCSEL epi supply."
+      },
+      {
+        "name": "VPEC capacity expansion (2024–2026)",
+        "unit": "tools",
+        "currentValue": 2,
+        "description": "VPEC commissioned multiple Aixtron AIX 2800G4 MOCVD systems in 2024–2025 to expand 6-inch wafer capacity for VCSEL production. Each tool adds ~500–800 wafer/month capacity (6-inch run-rate)."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "2455.TW"
+      },
+      {
+        "name": "VPEC revenue (2024 estimate, USD equiv)",
+        "unit": "million USD",
+        "currentValue": 168,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "VPEC 2024 estimated revenue approximately NT$5.2 billion (~US$168M at 31 TWD/USD), rapid growth in optoelectronics segment from datacom VCSEL epi demand."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_vpec_market_share",
+      "ev_acc_optup_vpec_mocvd_expansion"
+    ],
+    "tags": [
+      "epitaxial_foundry",
+      "compound_semiconductor",
+      "taiwan_electronics",
+      "public_company",
+      "vcsel_epi"
+    ],
+    "notes": "VPEC is an emerging epitaxial foundry with strong Taiwan-based manufacturing footprint. Commissioned multiple MOCVD tools in 2024–2025 to scale VCSEL epi capacity. Less established than IQE in critical deep-tech applications, but co-supplies Broadcom-class customers. Taiwan location provides geographic diversity vs. Japan (JX) and US (IQE/AXT). Current growth and new tool investments position VPEC as secondary but significant capacity source for VCSEL epi in Asia-Pacific. Investor relevance: play on Taiwan optoelectronics scaling; mid-tier supplier with meaningful growth exposure to AI transceiver demand.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_hlj_technology",
+    "name": "HLJ Technology Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "vcsel_manufacturer"
+    ],
+    "description": "Taiwan-based VCSEL epitaxy and chip manufacturer (founded 2001, private). Pioneer in VCSEL design and manufacturing; operates MOCVD epitaxial growth capability and in-house device fabrication for 850nm and 940nm VCSELs. Recent expansion: ordered multiple Aixtron MOCVD systems to increase 6-inch wafer capacity (from 4-inch baseline) for high-volume datacenter VCSEL production. Full control over epitaxial structure design and device manufacturing. Supplies regional and global customers.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "HLJ VCSEL production focus",
+        "unit": "%",
+        "currentValue": 85,
+        "description": "HLJ core business: VCSEL epitaxy and chip design/manufacturing for 850nm and 940nm datacom/sensing. Vertically integrated (epitaxy + fabrication)."
+      },
+      {
+        "name": "HLJ capacity expansion (6-inch wafer upgrade)",
+        "unit": "tools",
+        "currentValue": 2,
+        "description": "HLJ ordered multiple Aixtron MOCVD systems to upgrade from 4-inch to 6-inch wafer production capacity; expansion ongoing in 2025–2026."
+      },
+      {
+        "name": "Company status",
+        "currentValue": "Private"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_hlj_vcsel_capacity"
+    ],
+    "tags": [
+      "vcsel_manufacturer",
+      "epitaxial_growth",
+      "taiwan_electronics",
+      "private_company",
+      "optoelectronics"
+    ],
+    "notes": "HLJ is a fully vertically integrated VCSEL maker: epitaxy + device + packaging in-house. Taiwan-based, private, and focused entirely on VCSEL products. Expansion to 6-inch wafer production signals commitment to scale for high-volume datacenter demand. Less well-known globally than Broadcom or Coherent but capable supplier serving regional and OEM customers. Private status limits investor exposure but signals competitive importance in Taiwan's optoelectronics ecosystem. Role: secondary VCSEL supply source with geographic diversity (Taiwan).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_landmark_optoelectronics",
+    "name": "LandMark Optoelectronics Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "epitaxial_foundry"
+    ],
+    "description": "Taiwan-based epitaxial foundry (TPEX: 3081.TW) founded 1997, specializing in GaAs and InP-based epi-wafers for optical communications, RF/microwave, and industrial applications. MOCVD (OMVPE) technology core; produces optical-grade epi-wafers for laser diodes and other optoelectronics. Located in Tainan Science Park. Public listing (Taiwan); supplies regional and global device makers.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "LandMark epitaxial foundry market share (Taiwan/Asia)",
+        "unit": "%",
+        "currentValue": 6,
+        "description": "LandMark estimated ~6–8% of open-market GaAs/InP epitaxial foundry share in Taiwan and broader Asia region; regional player with focus on optical communications epi-wafers."
+      },
+      {
+        "name": "LandMark public listing",
+        "currentValue": "3081.TW"
+      },
+      {
+        "name": "LandMark revenue (2024 estimate, USD equiv)",
+        "unit": "million USD",
+        "currentValue": 68,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "LandMark 2024 estimated revenue approximately NT$2.1 billion (~US$68M at 31 TWD/USD); mid-tier Taiwan epitaxy foundry with stable customer base in optical communications."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_landmark_market_position"
+    ],
+    "tags": [
+      "epitaxial_foundry",
+      "compound_semiconductor",
+      "taiwan_electronics",
+      "public_company"
+    ],
+    "notes": "LandMark is a smaller but established Taiwan-based epitaxial foundry. Core business: GaAs/InP epi-wafers for optoelectronics and RF. Public listing on Taiwan OTC provides investor access. Less growth exposure than IQE or VPEC in recent AI transceiver surge, but stable player in regional optical epi supply. Investor relevance: steady Taiwan optoelectronics exposure; less speculative than higher-growth peers.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_intelliepi",
+    "name": "Intelligent Epitaxy Technology, Inc. (IntelliEPI)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "epitaxial_foundry",
+      "compound_semiconductor"
+    ],
+    "description": "US-based epitaxial wafer foundry (Texas, private) founded 1999, specializing in MBE growth of GaAs and InP epi-wafers for RF/microwave and optical communications. Uses proprietary in-growth sensor technology to provide quality epi-wafers. Facilities in Richardson, TX; expansion announced (Nov 2024): new 30,000-sq-ft facility in Allen, TX to nearly triple annual wafer production capacity. Target: grow capacity to support RF and emerging optical applications.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "IntelliEPI MBE epitaxy market share (GaAs/InP RF/optical)",
+        "unit": "%",
+        "currentValue": 5,
+        "description": "IntelliEPI estimated ~5–7% of specialized MBE epi-wafer market for RF and optical applications in North America; niche player with proprietary sensor technology."
+      },
+      {
+        "name": "IntelliEPI capacity expansion (Allen, TX facility)",
+        "unit": "x",
+        "currentValue": 3,
+        "description": "New Allen, TX facility (30,000 sq ft, announced Nov 2024, TSIF grant $4.12m) expected to nearly triple annual production capacity from baseline; target online ~2026–2027."
+      },
+      {
+        "name": "Company status",
+        "currentValue": "Private"
+      },
+      {
+        "name": "IntelliEPI estimated 2024 revenue",
+        "unit": "million USD",
+        "currentValue": 18,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "IntelliEPI estimated 2024 revenue ~US$18–20 million; small but specialized MBE foundry serving RF and optical niche markets."
+      },
+      {
+        "name": "Market position (Taiwan)",
+        "currentValue": "Top-5 fastest-growing semiconductor companies (cumulative revenue ranking, Nov 2025)"
+      },
+      {
+        "name": "Chips Act funding received (2025)",
+        "unit": "USD million",
+        "currentValue": 10.3,
+        "description": "US Chips Act grant to support domestic production scaling for optical communication and cloud-chiplet markets",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "Capacity utilization (2025 est.)",
+        "unit": "%",
+        "currentValue": 75,
+        "description": "Elevated utilization driven by AI optical communication demand surge; expansion plans underway"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_intelliepi_expansion",
+      "ev_acc_cmpd_intelliepi_growth",
+      "ev_acc_cmpd_intelliepi_chips_act"
+    ],
+    "tags": [
+      "epitaxial_foundry",
+      "mbe_growth",
+      "compound_semiconductor",
+      "us_semiconductor",
+      "private_company"
+    ],
+    "notes": "IntelliEPI is a small but specialized US-based MBE foundry. Core strength: proprietary in-growth sensor technology for quality control and niche RF/optical applications. Recent expansion (Allen, TX, TSIF grant) signals US policy push to localize semiconductor epitaxy supply. Capacity triple by 2026–2027 would add meaningful but still small volume to global optical epi supply. Private status limits investor access but indicates strategic importance in US industrial policy. Role: emerging North American optical epitaxy capacity source.\nTaiwan-based epi-wafer specialist; competes with Visual Photonics Epitaxy (VPEC) and LandMark Optoelectronics. Critical supplier for InP epi-wafer (optical chiplet) demand surge 2026+; US Chips Act funding signals geopolitical importance. Not a bottleneck for HBM CoWoS but upstream critical for optical interconnect specialty devices (transceiver chiplets, co-packaged optics). Visibility to 2027-2028 suggests capacity risk if datacenter optical demand maintains trajectory.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_sumitomo_chemical_epi",
+    "name": "Sumitomo Chemical Advanced Technologies (Epitaxial Foundry)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "epitaxial_foundry"
+    ],
+    "description": "US-based subsidiary of Sumitomo Chemical Co., Ltd. (Japan), providing compound semiconductor epitaxial wafer foundry services. MOCVD production in Phoenix, AZ facility (50,000 sq ft, ~6,000 sq ft cleanroom). Manufactures GaAs, InP, and GaN epitaxial wafers for optical communications, RF/microwave, and power electronics. Materials characterization and device fabrication capability in-house. Supplies global semiconductor device makers.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Sumitomo Chemical Epitaxial Foundry market share (North America)",
+        "unit": "%",
+        "currentValue": 4,
+        "description": "Sumitomo Chemical epitaxy operations estimated ~4–6% of North American open-market compound semiconductor foundry; diversified between optical, RF, and power applications."
+      },
+      {
+        "name": "Parent company",
+        "currentValue": "Sumitomo Chemical Co., Ltd. (Japan), listed TSE: 4005"
+      },
+      {
+        "name": "Sumitomo Chemical parent FY2025 revenue",
+        "unit": "billion JPY",
+        "currentValue": 2100,
+        "costAsOf": "2025",
+        "currency": "JPY",
+        "description": "Sumitomo Chemical FY2025 (fiscal year end Dec 2025) consolidated revenue approximately ¥2.1 trillion; Materials Company segment (epitaxy) contributes estimated 5–8% of revenue."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_sumitomo_chem_epi"
+    ],
+    "tags": [
+      "epitaxial_foundry",
+      "compound_semiconductor",
+      "us_operations",
+      "japan_parent",
+      "optoelectronics"
+    ],
+    "notes": "Sumitomo Chemical Epitaxial Foundry is the North American subsidiary of a major Japanese materials company. Phoenix facility provides dedicated MOCVD capacity for GaAs and InP epi-wafers. Smaller footprint than IQE or VPEC but diversified product portfolio (optical, RF, power). Investor exposure via parent Sumitomo Chemical (TSE-listed). Role: secondary US-based optical epitaxy supply source with vertical integration through parent's materials portfolio.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "mocvd_equipment_systems",
+    "name": "MOCVD equipment (Aixtron, Veeco, others) – limiting tool",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Metal-organic chemical vapor deposition (MOCVD) reactor systems that are the core capital tool for epitaxial growth. Primary suppliers: Aixtron (Germany, worldwide leader), Veeco Instruments (US). Leading systems: Aixtron AIX 2800G4 (multi-wafer, production-scale), Veeco Lumina (edge-emitting lasers, VCSEL, 150mm capable). Each tool costs US$2–3.5 million, lead time 9–12 months, installation and recipe qualification another 6–9 months. Tool availability constraints indirectly limit foundry expansion: every new epitaxy line requires multi-tool purchase and capital commitment.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "MOCVD system cost (Aixtron / Veeco)",
+        "unit": "million USD",
+        "currentValue": 2.8,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Advanced MOCVD systems (Aixtron AIX 2800G4, Veeco Lumina) cost US$2.5–3.5 million per unit; each tool requires 3–4 month procurement, 2–3 month installation, 6–9 month commissioning and recipe qualification."
+      },
+      {
+        "name": "MOCVD tool lead time (order to production)",
+        "unit": "months",
+        "currentValue": 15,
+        "description": "Total lead time from order to operational production-scale epitaxy: 9–12 months procurement/shipment + 6–9 months installation/qualification = 15–21 months typical."
+      },
+      {
+        "name": "MOCVD global supplier concentration (Aixtron + Veeco)",
+        "unit": "%",
+        "currentValue": 85,
+        "description": "Aixtron and Veeco together supply ~80–90% of commercial MOCVD systems globally; duopoly in advanced systems for optoelectronics and compound semiconductors."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_optup_mocvd_vendors"
+    ],
+    "tags": [
+      "equipment",
+      "manufacturing_tool",
+      "compound_semiconductor",
+      "capital_equipment"
+    ],
+    "notes": "MOCVD tools are capital-intensive bottleneck equipment: Aixtron and Veeco dominate supply (80–90% share), with long lead times (15–21 months order-to-production). Foundries and device makers must reserve capacity years in advance and commit to multi-year contracts. Recent surge in MOCVD demand (AI transceiver epitaxy scaling) has tightened availability: Aixtron and Veeco order books extended through 2027 for some customers. Tool costs ($2.5–3.5M per unit) and commissioning cycles (6–9 months per fab line) create economic barriers to new epitaxy foundry entry. Equipment availability is not the immediate bottleneck (tools are procurable), but lead times and capex requirements limit how fast foundry capacity can expand.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "compound_crystal_wafer_substrates",
+    "name": "Compound crystal wafer substrates (GaN, GaAs, InP, SiC)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Raw feedstock tier of compound/wide-bandgap semiconductor wafers for specialty analog and power device fabrication. Includes GaAs/InP single-crystal wafers for optical communications and RF devices; GaN-on-SiC and SiC crystal wafers for power semiconductor manufacturing. This referent is distinct from silicon-wafer feedstock and carries its own concentrated merchant supplier base (Wolfspeed, Sumitomo, AXT, Freiberger, IntelliEPI). Maturity: GaAs/InP mature commodity for 20+ years; SiC transitioning from 6-inch to 8-inch production (2024-2026); GaN-on-SiC nascent and geopolitically exposed to China gallium controls.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Annual GaAs wafer market size",
+        "unit": "USD million",
+        "currentValue": 300,
+        "description": "Stable mature market ~$300M USD (Sumitomo, AXT, Freiberger duopoly/triopoly across 30+ years); 2-inch to 6-inch wafers",
+        "costAsOf": "2024",
+        "currency": "USD"
+      },
+      {
+        "name": "SiC wafer industry price trajectory (6-inch)",
+        "unit": "USD per wafer",
+        "currentValue": {
+          "min": 400,
+          "typical": 450,
+          "max": 500
+        },
+        "description": "6-inch SiC oversupply 2024-2025 drove prices from $3000-4000 (end 2023) to $400-500 (Q4 2024); 8-inch ramp ongoing (Wolfspeed 2026)",
+        "costAsOf": "2026",
+        "currency": "USD"
+      },
+      {
+        "name": "8-inch (200mm) SiC wafer fab production ramp timeline",
+        "unit": "months",
+        "currentValue": 24,
+        "description": "Wolfspeed shifted from 6-inch to 8-inch production; completed Durham 150mm shutdown early 2026; 200mm production ramp lead time 24-30 months from capacity announcement"
+      },
+      {
+        "name": "Wolfspeed 200mm SiC capacity utilization (Q2 2026 est.)",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Estimated utilization at leading 8-inch SiC fab post-ramp; industry oversupply persists into 2026"
+      },
+      {
+        "name": "InP optical wafer demand growth (2025-2026)",
+        "unit": "% YoY",
+        "currentValue": 60,
+        "description": "AI 1.6T/800G optical transceiver surge driving InP demand; upstream InP substrate shortage emerging (Coherent, NVIDIA capacity locks through 2027-2030)"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cmpd_gaa_market",
+      "ev_acc_cmpd_sic_oversupply",
+      "ev_acc_cmpd_wolfspeed_200mm",
+      "ev_acc_cmpd_inp_shortage_optical"
+    ],
+    "tags": [
+      "compound_semiconductor",
+      "feedstock_tier",
+      "supply_constrained",
+      "material_specialty",
+      "merchant_suppliers"
+    ],
+    "notes": "Referent: compound/specialty crystal wafer substrates for power and optical semiconductor manufacturing (silicon independent). SiC substrate market shifted from severe shortage (2022, ~1 year lead time) to oversupply (2024-2025) due to Chinese capacity expansions; current phase: 8-inch ramp and 14-inch research (China 2026) redrawing capacity landscape. GaAs/InP remain stable commodity. InP optical substrate emerging as new bottleneck for AI datacenter 1.6T/800G transceivers; Coherent and NVIDIA securing multi-year LTAs through 2030; China export controls (gallium, indium) create geopolitical exposure. Not a current bottleneck for HBM CoWoS-class AI accelerator modules but critical upstream tier for power-delivery specialty devices in the broader AI platform (power delivery, cooling, optical interconnect).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "epitaxial_layer_growth_and_materials",
+    "name": "Epitaxial layer growth services and MOCVD/MBE materials",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Specialty materials tier: semiconductor epitaxial growth (MOCVD, MBE) for compound devices (GaAs/InP optical and RF devices; GaN power devices). Supplied by dedicated epitaxial service providers (IntelliEPI Taiwan, Visual Photonics Epitaxy, LandMark Optoelectronics) using precursor chemicals (MOCVD trimethylgallium, ammonia, arsine; supplier base: Sumitomo Chemical, Air Liquide, specialty chemical vendors). This tier feeds optical transceiver supply and power-device foundries. Referent: epitaxial growth layer material for compound semiconductors (distinct from logic-die deposition materials already modeled).",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "IntelliEPI capacity utilization (optical/RF epi-wafer)",
+        "unit": "%",
+        "currentValue": 75,
+        "description": "Taiwan epi-wafer supplier IntelliEPI operating at elevated utilization due to AI optical communication demand surge; Chips Act funding ($10.3M 2025) supporting capacity expansion"
+      },
+      {
+        "name": "InP epitaxial wafer demand growth (2025-2026)",
+        "unit": "% YoY",
+        "currentValue": 65,
+        "description": "Explosive growth in AI 1.6T optical chiplet demand; IntelliEPI and peer suppliers ramping capacity"
+      },
+      {
+        "name": "MOCVD precursor supply lead time (specialty grades)",
+        "unit": "weeks",
+        "currentValue": 12,
+        "description": "Specialty MOCVD precursors (TMGa, ammonia, arsine) supplied by Japanese/European/US vendors with 8-12 week lead times; not a primary bottleneck but subject to supply-base constraints"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cmpd_intelliepi_growth",
+      "ev_acc_cmpd_epitaxial_market"
+    ],
+    "tags": [
+      "epitaxial_growth",
+      "specialty_material",
+      "compound_semiconductor",
+      "mocvd_precursor",
+      "high_margin_service"
+    ],
+    "notes": "Referent: epitaxial growth layer (epi) for compound semiconductors (GaAs/InP/GaN), distinct from Si/SiO2 deposition in logic-die fabrication. IntelliEPI (Taiwan) leading supplier for optical epi-wafers; Visual Photonics Epitaxy, LandMark also significant. Supply tightening as AI datacenter 1.6T/800G transceiver demand surges; upstream InP substrate shortage cascades to epi-layer bottleneck. MOCVD precursor supply (Sumitomo, Air Liquide, specialty chem vendors) generally available but subject to specialty-grade demand volatility. Not a current bottleneck but visibility into 2027-2028 suggests risk if datacenter optical interconnect demand maintains current trajectory.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "specialty_analog_power_foundry",
+    "name": "Specialty/analog/compound power semiconductor foundry (GaN, SiC, GaAs, InP - non-silicon logic)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Manufacturing facilities for specialty analog and power devices using compound semiconductors (GaN, SiC, GaAs, InP), distinct from silicon-logic foundry. Primary referent: GaN/SiC power semiconductor foundry (e.g., GlobalFoundries, Samsung, DB HiTek, X-FAB GaN-on-Si programs, Wafer Works GaN ramp 2026-2028) plus GaAs/InP optical semiconductor foundry (WIN Semiconductors, VIS, Wafer Works InP pilot 2026). Significant supplier base restructuring in progress: TSMC exiting GaN foundry by 2027; GlobalFoundries licensed TSMC GaN tech (Nov 2025); Samsung ramping 8-inch GaN foundry (Q2 2026); DB HiTek delayed SiC/GaN ramp. Win Semiconductors (pure-play GaAs) remains leader but capacity utilization volatile (45% Q2 2025); InP optical foundry nascent (Wafer Works 6-inch fab groundbreaking 2026).",
+    "maturityScore": 58,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "WIN Semiconductors global GaAs foundry market share (2026 est.)",
+        "unit": "%",
+        "currentValue": 75,
+        "description": "Pure-play GaAs foundry; WIN Semiconductors dominates with ~75% market share of commercial GaAs foundry services (WIN consolidated revenue Dec 2025: NT$1.61B / ~$51M USD)"
+      },
+      {
+        "name": "WIN Semiconductors capacity expansion (2024-2026)",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "20%+ capacity increase announced to meet 1.6T optical communications demand surge; optical boom forecast 2-3x growth 2026"
+      },
+      {
+        "name": "GlobalFoundries total installed capacity (end 2025)",
+        "unit": "KWPM (thousands wafers/month)",
+        "currentValue": 2800,
+        "description": "GF total capacity across Dresden, Singapore, Malta NY, Burlington VT; GaN/SiC portion fraction of total (exact split not disclosed)"
+      },
+      {
+        "name": "Samsung 8-inch GaN foundry production start",
+        "unit": "calendar quarter",
+        "currentValue": "Q2-Q3 2026",
+        "description": "Samsung Electronics kicked off 8-inch GaN power semiconductor foundry, mass production April-June 2026; pivoted from IDM to foundry model after device quality issues"
+      },
+      {
+        "name": "DB HiTek GaN/SiC foundry ramp status (2026)",
+        "unit": "categorical",
+        "currentValue": "delayed",
+        "description": "DB HiTek facing slower ramp in SiC/GaN due to technology barriers and market slowdown; expected Q3-Q4 2026 (vs Samsung Q2-Q3)"
+      },
+      {
+        "name": "TSMC GaN foundry exit timeline",
+        "unit": "years",
+        "currentValue": 2,
+        "description": "TSMC announced exit from GaN foundry by end of 2027; licensing tech to GlobalFoundries and VIS (TSMC affiliate, Taiwan)"
+      },
+      {
+        "name": "VIS Taiwan specialty foundry capacity (2025)",
+        "unit": "million wafers",
+        "currentValue": 3.387,
+        "description": "VIS full-year 2024 capacity ~3.387M wafers; GaN-on-Si and GaN-on-QST offerings; dual-substrate advantage vs single competitors"
+      },
+      {
+        "name": "Wafer Works GaN/InP pilot fab groundbreaking",
+        "unit": "year",
+        "currentValue": 2024,
+        "description": "Wafer Works launched 12-inch fab (Taiwan) 2024; GaN-on-Si 2024-2026; GaN-on-SiC roadmap 2026-2028; InP photonic fab groundbreaking 2026 (first 6-inch InP industrial fab, Eindhoven)"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cmpd_win_market_position",
+      "ev_acc_cmpd_samsung_gan_foundry",
+      "ev_acc_cmpd_gf_gan_tsmc_license",
+      "ev_acc_cmpd_foundry_wafer_link",
+      "ev_acc_cmpd_db_hitek_delay"
+    ],
+    "tags": [
+      "specialty_foundry",
+      "power_semiconductor",
+      "compound_semiconductor",
+      "gan_sic",
+      "market_restructuring",
+      "supply_concentration"
+    ],
+    "notes": "Referent: specialty/analog/compound foundry (non-silicon-logic). GaN/SiC power semiconductor foundry undergoing major restructuring (TSMC exit, GF ramp, Samsung entry, DB HiTek delayed). WIN Semiconductors pure-play GaAs foundry remains stable market leader but serves optical/RF niche. InP optical foundry nascent; Wafer Works first 6-inch industrial fab groundbreaking 2026 (Eindhoven). Not currently a bottleneck for AI accelerator modules but critical upstream tier for power delivery and optical interconnect specialty devices. GaN/SiC power foundry concentration risk moderate (Samsung, GF, DB HiTek, X-FAB competing but no single dominant player yet post-TSMC exit). InP optical foundry concentration high (Coherent IDM-dominant EML/CW laser supply, limited foundry alternatives 2026).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_wolfspeed",
+    "name": "Wolfspeed Inc. (formerly Cree)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "compound_semiconductor"
+    ],
+    "description": "Wolfspeed Inc. is the leading global supplier of silicon carbide (SiC) crystal wafers and epitaxial materials for power semiconductors. Vertically integrated: single-crystal SiC growth (Bridgman method), epitaxial growth, and device fabrication. Completed financial restructuring Q3 2025. Transitioning from 150mm (6-inch) to 200mm (8-inch) production as industry standard shifts. Developing 300mm (12-inch) SiC single-crystal wafers for next-generation AI computing platforms.",
+    "maturityScore": 76,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "WOLF (NASDAQ)"
+      },
+      {
+        "name": "Global SiC crystal wafer market share (8-inch, 2026 est.)",
+        "unit": "%",
+        "currentValue": 60,
+        "description": "Wolfspeed dominates 8-inch SiC supply; nearest competitor Sumitomo much smaller; China players (Tiancheng, etc.) emerging 6-inch capacity"
+      },
+      {
+        "name": "Manufacturing footprint",
+        "currentValue": "Mohawk Valley NY (primary 200mm fab), Kulim Malaysia (power device fab), Marcy NY (R&D)"
+      },
+      {
+        "name": "8-inch SiC production status (2026)",
+        "currentValue": "Ramp phase; 200mm epitaxy and bare wafers ready; 300mm research"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cmpd_wolfspeed_200mm",
+      "ev_acc_cmpd_wolfspeed_300mm"
+    ],
+    "notes": "Sole major 8-inch SiC merchant supplier (2026); geopolitical importance for US SiC manufacturing via Section 48D support. 6-inch market oversupply 2024-2025 pressured pricing; 8-inch ramp alleviates capacity constraints but adoption timeline uncertain (power device design cycles 18-24 months). Private/China SiC players (Tiancheng 14-inch research, Infineon SiCrystal) pose medium-term competition. Critical supplier for power delivery specialty devices in AI datacenter platforms but not on critical path for HBM CoWoS-class accelerator modules.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_win_semiconductors",
+    "name": "WIN Semiconductors Corp.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "compound_semiconductor"
+    ],
+    "description": "Taiwan-based pure-play GaAs wafer foundry, world's largest merchant GaAs foundry provider. Services for wireless infrastructure, RF, optical, and defense/aerospace customers. Capacity range: HBT, pHEMT, PIN diode, optical device technologies on 2-inch to 6-inch platforms. 2026: Capacity expansion 20%+ to meet 1.6T optical transceiver surge; forecasting 2-3x revenue growth from optical communications.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global GaAs foundry market share (2026 est.)",
+        "unit": "%",
+        "currentValue": 75,
+        "description": "Pure-play market leadership; competitors much smaller (specialty fabs integrated in larger IDMs)"
+      },
+      {
+        "name": "Revenue (consolidated, Dec 2025)",
+        "unit": "USD million",
+        "currentValue": 51,
+        "description": "Monthly revenue NT$1.61 billion equivalent (Dec 2025); FY 2025 exit run-rate estimate ~$630M USD annualized",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "Capacity expansion pace (2024-2026)",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "20%+ wafer manufacturing capacity increase announced to meet 1.6T optical communications demand"
+      },
+      {
+        "name": "Capacity utilization (Q2 2025)",
+        "unit": "%",
+        "currentValue": 45,
+        "description": "Elevated utilization post Wi-Fi 7 ramp and optical communications demand surge; prior Q1 2025 was 35%"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cmpd_win_market_position",
+      "ev_acc_cmpd_win_capacity_growth"
+    ],
+    "notes": "Taiwan-listed public company (not listed separately in research but major industry player). Dominant pure-play GaAs foundry; only merchant alternative to IDM-integrated suppliers (Infineon GaAs, etc.). Not a bottleneck for HBM CoWoS but critical supplier for optical RF components in power-delivery and thermal-cooling specialty devices (e.g., optical transceiver, thermal control chiplets). Capacity utilization rising (45% Q2 2025) suggests near-term tightness 2026-2027 if optical demand surge sustains.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_globalfoundries",
+    "name": "GlobalFoundries Inc. (GaN/SiC power foundry)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "compound_semiconductor"
+    ],
+    "description": "GlobalFoundries is a diversified foundry (analog, RF, embedded memory, power semiconductors) with ~2.8M KWPM installed capacity across Dresden, Singapore, Malta NY, Burlington VT. GaN/SiC power semiconductor foundry capability expanded via November 2025 technology licensing deal with TSMC for 650V and 80V GaN technologies; production ramp H1 2026 with volume production H2 2026+. Strategic partnership with Navitas Semiconductor (GaN specialist) announced November 2025 for jointly advancing US-based GaN manufacturing.",
+    "maturityScore": 75,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "GFS (NASDAQ)"
+      },
+      {
+        "name": "Total installed capacity (end 2025)",
+        "unit": "KWPM (thousand wafers/month)",
+        "currentValue": 2800,
+        "description": "Across four global fab locations; GaN/SiC fraction not separately disclosed"
+      },
+      {
+        "name": "GaN technology development ramp (TSMC license + Navitas partnership)",
+        "currentValue": "Early 2026 dev start; H1 2026 customer sampling; H2 2026+ volume production"
+      },
+      {
+        "name": "Technology scope (GaN)",
+        "currentValue": "650V, 80V platform technologies licensed from TSMC; Navitas partnership for Navitas-branded GaN design and supply chain"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_cmpd_gf_gan_tsmc_license",
+      "ev_acc_cmpd_gf_navitas_partnership"
+    ],
+    "notes": "Beneficiary of TSMC GaN foundry exit; licensed TSMC IP at strategic moment. Partnership with Navitas signals joint go-to-market for GaN power customers. Total capacity (2.8M KWPM) offers scale vs smaller entrants. Not a bottleneck (market nascent) but positioned as tier-1 alternative to Samsung for GaN foundry services 2026+. Geographic footprint (US/Europe) aligns with onshoring demand.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "silicon_wafer_300mm_extended",
+    "name": "300mm silicon wafers (ultra-pure, polished) - Extended with compound feedstock context",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "This node extends the existing silicon_wafer_300mm node to contextualize the distinct supplier and supply-chain profile of compound/specialty crystal wafers vs silicon. Silicon wafer supply (Shin-Etsu, SUMCO, GlobalWafers) is fundamentally different from compound wafer supply (Wolfspeed SiC, Sumitomo InP/GaAs, WIN GaAs foundry, AXT, Freiberger) in capacity dynamics, vendor concentration, and geopolitical exposure. Referent note: this extension surfaces the compound/specialty tier as a separate feedstock layer.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "notes": "Referent clarification: existing silicon_wafer_300mm node models silicon feedstock exclusively. Compound/specialty crystal wafers (GaN, GaAs, InP, SiC) are modeled separately as a distinct tier (see compound_crystal_wafer_substrates node) with its own supplier base and supply-chain dynamics. Silicon oversupply 2024-2025 contrasts with SiC oversupply and InP optical shortage; these dynamics must be tracked separately per referent.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "short_reach_copper_signal_conditioning_silicon",
+    "name": "Short-reach copper interconnect signal conditioning silicon",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Signal-conditioning, retiming, and equalization silicon that enables copper-based interconnects between AI accelerators, GPUs, and network switches within a chassis or rack. Includes PCIe retimers (50–112 Gbps PAM-4), active copper cable (ACC) linear equalizers, and active electrical cable (AEC) digital signal processors. These devices compensate for signal loss over copper conductors and extend reach from sub-1m (passive DAC) to 2–3m (ACC) or 5+ meters (AEC with full retiming).",
+    "maturityScore": 76,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "PCIe Gen 6 retimer PAM-4 lane speed",
+        "unit": "Gbps",
+        "currentValue": 64,
+        "description": "PCIe 6.0 retimers operate at 64 GT/s using PAM-4 signaling per OIF standards; 2024–2026 production nodes (TSMC 28nm, 40nm, and emerging 7nm for 3nm-class retimers)."
+      },
+      {
+        "name": "CXL 3.x retimer PAM-4 per-lane speed",
+        "unit": "Gbps",
+        "currentValue": 32,
+        "description": "CXL 3.0 retimers support 32 GT/s per lane in PCIe format, derived from PCIe 5.x architecture; used for disaggregated memory and storage fabric."
+      },
+      {
+        "name": "ACC linear equalizer typical gain",
+        "unit": "dB",
+        "currentValue": 20,
+        "description": "Active copper cable linear equalizers (e.g., Marvell CB11208) provide up to 20dB of channel equalization for 1.6T aggregated bandwidth over copper. Supports 800G and 1.6T interconnects."
+      },
+      {
+        "name": "AEC retimer per-lane speed (3nm silicon)",
+        "unit": "Gbps",
+        "currentValue": 112,
+        "description": "Full-digital AEC retimers with 3nm silicon (e.g., Credo Magpie for PCIe 7) achieve 112 Gbps per lane with full clock/data recovery; emerging 2026."
+      },
+      {
+        "name": "Typical retimer IC lead time (TSMC 28nm/40nm)",
+        "unit": "weeks",
+        "currentValue": 20,
+        "description": "Standard lead time for production orders of mature-node (28nm, 40nm) retimer ASICs from TSMC; constrained by allocation in 2024–2025."
+      },
+      {
+        "name": "Global retimer market size (2024)",
+        "unit": "billion USD",
+        "currentValue": 0.614,
+        "costAsOf": "2024",
+        "currency": "USD",
+        "description": "Global retimer market valued at USD 613.6M in 2024, growing to USD 674.4M in 2025, at CAGR 10.7% through 2029. Includes PCIe, USB4, CXL retimers; driven by AI datacenter demand."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_retimer_market_2024",
+      "ev_acc_icsi_astera_labs_aries_pcg6",
+      "ev_acc_icsi_marvell_alaska_p_pcie6",
+      "ev_acc_icsi_credo_toucan_pcie6",
+      "ev_acc_icsi_marvell_taurus_acc_2025",
+      "ev_acc_icsi_tsmc_28nm_allocation"
+    ],
+    "tags": [
+      "signal_conditioning",
+      "copper_interconnect",
+      "retimer",
+      "serdes",
+      "pam4",
+      "short_reach",
+      "ai_cluster"
+    ],
+    "notes": "Short-reach copper interconnect silicon is a distinct sub-layer from long-reach optical transceivers. Scope: device-level silicon (retimers, equalizers, DSP ICs) that condition electrical signals over copper cables/traces within 1–5m range in rack/chassis interconnect. Not in scope: passive DAC cables (commodity), optical transceiver ASICs (already modeled), or backplane PCB substrate (already modeled). Bottleneck risk: TSMC 28nm and 40nm node capacity is shared with optical transceiver host ASICs; during 2023–2025, AI accelerator ramp created allocation pressure. Retimer silicon design is concentrated in <10 vendors (Astera Labs, Marvell, Broadcom, Credo, Parade); TSMC foundry dependency for mature nodes creates supply bottleneck if demand surges.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "pcie_retimer_ic",
+    "name": "PCIe Retimer / Redriver IC (32–112 Gbps PAM-4)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Mixed-signal application-specific integrated circuit (ASIC) that regenerates high-speed PCIe signals (Gen 5: 32 GT/s, Gen 6: 64 GT/s, Gen 7: 120+ GT/s) over copper interconnects. Performs clock-data recovery (CDR), equalization, decision feedback, and signal retransmission to extend reach from 1m (passive) to 3+ meters. Manufactured in mature process nodes (28nm, 40nm, 7nm) on TSMC or Samsung. Key suppliers: Astera Labs (Aries), Marvell (Alaska P), Broadcom, Credo (Toucan/Magpie), Parade Technologies.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Astera Aries 6 retimer (PCIe Gen 6 / CXL 3.1)",
+        "unit": "GT/s per lane",
+        "currentValue": 64,
+        "description": "Aries 6 retimer achieves 64 GT/s per lane (PCIe 6.0) with best-in-class power and latency; in volume production with major hyperscalers by 2025."
+      },
+      {
+        "name": "Marvell Alaska P lane count / power",
+        "unit": "lanes / watts",
+        "currentValue": 16,
+        "description": "16-lane PCIe 6 retimer operating at 64 GT/s with 10W total power consumption (0.625W per lane); among lowest power in industry."
+      },
+      {
+        "name": "Credo Toucan retimer process node",
+        "unit": "nm",
+        "currentValue": 7,
+        "description": "Credo Toucan PCIe 6/CXL 3.x retimer based on TSMC N7 process, sampling Q4 2024."
+      },
+      {
+        "name": "Credo Magpie retimer process node",
+        "unit": "nm",
+        "currentValue": 5,
+        "description": "Credo Magpie PCIe 7/CXL 4.x retimer based on TSMC N5 process, sampling H2 2025."
+      },
+      {
+        "name": "Typical retimer ASIC data sheet specs range (per-lane speed)",
+        "unit": "Gbps",
+        "currentValue": 112,
+        "description": "Leading-edge retimers achieve 112 Gbps per lane at PAM-4 encoding (Credo Magpie for PCIe 7 equivalent); enables 1.8T+ aggregated bandwidth."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_astera_labs_aries_pcg6",
+      "ev_acc_icsi_marvell_alaska_p_pcie6",
+      "ev_acc_icsi_credo_toucan_pcie6",
+      "ev_acc_icsi_credo_magpie_pcie7"
+    ],
+    "tags": [
+      "retimer",
+      "pcie",
+      "cxl",
+      "pam4",
+      "signal_recovery",
+      "asic"
+    ],
+    "notes": "PCIe retimers are the primary building block for short-reach copper interconnect. Astera Labs dominates with Aries products; Marvell and Credo are strong secondary players. Supply is concentrated in 4–5 design teams; all depend on TSMC/Samsung for fabrication. Retimer adoption is mandatory for any 64+ GT/s copper link beyond 1–2 meters. Design lead time: 2–3 years (silicon design + qualification); fab lead time (TSMC 28nm–7nm): 16–24 weeks for mature nodes.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "active_copper_cable_linear_equalizer",
+    "name": "Active Copper Cable (ACC) Linear Equalizer IC",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Analog/mixed-signal IC that performs passive equalization and cable conditioning without full retiming. Mounted at one or both ends of a copper cable (DAC, AEC) to extend reach from <1m (passive DAC) to 2–3m at full 800G or 1.6T aggregate bandwidth. Typical implementation: continuous-time linear equalizer (CTLE) with 15–25dB of equalization gain. Significantly lower power (2–5W) and latency than digital retimers. Key suppliers: Marvell (Taurus ACC), Credo, Microchip, Broadcom.",
+    "maturityScore": 72,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Marvell CB11208 ACC equalizer gain",
+        "unit": "dB",
+        "currentValue": 20,
+        "description": "Marvell's Taurus ACC linear equalizer (CB11208) provides up to 20dB of equalization for 1.6T copper interconnects. Consumes 2.5W for 1.6T design; much lower power than full digital retimer."
+      },
+      {
+        "name": "Typical ACC cable reach extension",
+        "unit": "meters",
+        "currentValue": 2.5,
+        "description": "ACC-equipped copper cables (with equalizer at both ends) extend reach from 1m (passive DAC) to 2–2.5m at full signaling rates, depending on cable gauge and impedance."
+      },
+      {
+        "name": "Power per lane (ACC equalizer)",
+        "unit": "mW",
+        "currentValue": 100,
+        "description": "Typical per-lane power for ACC linear equalizer; 16-lane cable would consume ~1.6W vs 10W for full digital retimer."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_marvell_taurus_acc_2025",
+      "ev_acc_icsi_acc_vs_dac_2024"
+    ],
+    "tags": [
+      "equalizer",
+      "analog",
+      "copper_cable",
+      "low_power",
+      "signal_conditioning"
+    ],
+    "notes": "ACC linear equalizers are an intermediate technology between passive DAC (no conditioning) and full digital AEC retimers. Much lower power and cost than retimers, but shorter reach (2–3m vs 5+ meters for AEC). Growing adoption in AI clusters as more systems standardize on short-reach copper links. Marvell Taurus line is the primary offering; Credo and others offer competing products. Process nodes: mature (40nm, 28nm); limited process innovation or supply constraints vs. retimers.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "active_electrical_cable_aec_retimer_dsp",
+    "name": "Active Electrical Cable (AEC) Retimer / Digital Signal Processor",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Full-digital signal processor (DSP) embedded in an active electrical cable (AEC) or AEC module that performs complete retiming, clock-data recovery, and signal regeneration. Enables reach of 5+ meters at 112+ Gbps per lane with full signal integrity. Uses advanced process nodes (N7, N5, eventually 3nm) to achieve high performance with lower power than older generations. Key suppliers: Marvell, Credo (Magpie for PCIe 7), Broadcom, Microchip. Emerging 3nm versions from Credo and others.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Credo Magpie 3nm AEC retimer (PCIe 7 equivalent)",
+        "unit": "Gbps per lane",
+        "currentValue": 112,
+        "description": "Credo's emerging Magpie AEC retimer (3nm, TSMC N5 process, sampling H2 2025) achieves 112 Gbps per lane for PCIe 7 equivalent speeds and beyond."
+      },
+      {
+        "name": "Typical AEC reach extension",
+        "unit": "meters",
+        "currentValue": 5,
+        "description": "AEC cables with full retimer/DSP extend usable reach to 5+ meters depending on cable gauge, impedance, and equalization tuning."
+      },
+      {
+        "name": "Power consumption (3nm AEC retimer)",
+        "unit": "watts",
+        "currentValue": 8,
+        "description": "Emerging 3nm AEC retimers estimated to consume 6–10W for 16-lane full retiming, lower than 28nm/40nm equivalents due to process scaling."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_credo_magpie_pcie7",
+      "ev_acc_icsi_3nm_aec_retimer_roadmap"
+    ],
+    "tags": [
+      "aec",
+      "dsp",
+      "retimer",
+      "3nm",
+      "signal_conditioning"
+    ],
+    "notes": "AEC retimers represent the high-end of copper conditioning; used for longest-reach copper links in disaggregated or modular cluster architectures. Process node dependence is extreme: 3nm AEC retimers must be fabricated at TSMC or Samsung (no other viable foundries for sub-7nm). Credo leads in 3nm development (sampling H2 2025); Marvell and Broadcom are developing competing products. Supply constraint risk is high if demand for 3nm AEC outpaces TSMC/Samsung 3nm AI accelerator production.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "pcie_cxl_fabric_switch_asic",
+    "name": "PCIe / CXL Fabric Switch ASIC (cluster interconnect)",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Custom or merchant ASIC that acts as a PCIe or CXL switch fabric for connecting multiple AI accelerators, CPUs, and memory controllers within a disaggregated cluster or node. Implements switch logic for routing PCIe transactions, CXL cache coherency, and PCIe/CXL endpoints. Used for backend GPU-to-GPU clustering (scale-up) and memory disaggregation. Key suppliers: Astera Labs (Scorpio P-Series, X-Series), Broadcom (custom switches), Marvell (custom switches). Typically implemented in TSMC 7nm or 5nm.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Astera Scorpio P-Series switch lanes",
+        "unit": "PCIe lanes",
+        "currentValue": 128,
+        "description": "Scorpio P-Series switches support 128 PCIe Gen 6 lanes in 16x16 or equivalent topology for GPU-to-CPU/NIC/SSD connectivity."
+      },
+      {
+        "name": "Astera Scorpio X-Series switch lanes",
+        "unit": "PCIe lanes",
+        "currentValue": 256,
+        "description": "Scorpio X-Series switches support up to 256 PCIe Gen 6 lanes for backend AI accelerator scale-up clustering."
+      },
+      {
+        "name": "Switch ASIC process node",
+        "unit": "nm",
+        "currentValue": 5,
+        "description": "Merchant and custom fabric switches are implemented in TSMC 5nm or 7nm for power efficiency and integration density."
+      },
+      {
+        "name": "Astera Scorpio ramp speed (Q2 2025 revenue share)",
+        "unit": "%",
+        "currentValue": 10,
+        "description": "Scorpio Smart Fabric Switches achieved >10% of Astera Labs revenue in Q2 2025, marking fastest product ramp in company history."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_astera_scorpio_switch_2025",
+      "ev_acc_icsi_pcie_cxl_switch_market_2025"
+    ],
+    "tags": [
+      "switch",
+      "pcie",
+      "cxl",
+      "fabric",
+      "cluster_interconnect",
+      "custom_asic"
+    ],
+    "notes": "PCIe/CXL fabric switches are a nascent but fast-growing segment, driven by AI cluster disaggregation. Astera Labs entered the market in early 2026 with Scorpio; Broadcom and Marvell offer custom switches designed to OEM specifications. Market size still small (~$500M–$1B estimated for 2025–2026), but ramp is steep. No supply shortage currently, but Scorpio's rapid adoption (>10% revenue in Q2 2025) suggests emerging demand. Process dependency: TSMC 5nm/7nm allocation risk if AI accelerator demand continues to consume >80% of TSMC advanced node capacity.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "ualink_phy_silicon",
+    "name": "UALink PHY / Serializer-Deserializer (SerDes) Intellectual Property",
+    "kind": "module",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Silicon intellectual property (IP) and implementations for Ultra Accelerator Link (UALink) standard PHY layer, including SerDes PHY controllers and verification IP. UALink is an emerging open-consortium standard (led by Astera Labs, NVIDIA, AMD, Intel, etc.) for low-latency, high-bandwidth GPU-to-GPU and GPU-to-memory interconnect. Commercial silicon implementations expected from Synopsys (IP provider), and custom implementations from NVIDIA, AMD, and other OEMs. Specification finalized April 2025; silicon sampling H2 2025 / volume production 2026.",
+    "maturityScore": 42,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "UALink 200G 1.0 specification bandwidth",
+        "unit": "Gbps aggregate",
+        "currentValue": 200,
+        "description": "UALink 200G 1.0 specification released April 2025; supports 200 Gbps aggregate throughput per link."
+      },
+      {
+        "name": "UALink consortium member count",
+        "unit": "companies",
+        "currentValue": 12,
+        "description": "UALink Consortium includes 12 founding/promoter members: Alibaba, AMD, Apple, Astera Labs, AWS, Cisco, Google, HPE, Intel, Meta, Microsoft, Synopsys."
+      },
+      {
+        "name": "Synopsys UALink IP availability",
+        "unit": "quarter",
+        "currentValue": 3,
+        "description": "Synopsys announced UALink IP (controller, PHY, verification) availability in H2 2025 (Q3/Q4 2025)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_ualink_spec_april2025",
+      "ev_acc_icsi_synopsys_ualink_ip_2025"
+    ],
+    "tags": [
+      "ualink",
+      "serdes",
+      "phy",
+      "open_standard",
+      "new_technology",
+      "gpu_interconnect"
+    ],
+    "notes": "UALink is an emerging alternative to proprietary interconnects (NVLink, InfiniBand). Adoption depends on custom silicon from major OEMs (NVIDIA, AMD, Intel); foundry (TSMC/Samsung) capacity will be required. Not yet a production bottleneck (sampling in H2 2025), but volume ramp in 2026 will create demand for both IP licensing and custom silicon fabrication. Process node: likely 5nm/7nm TSMC or equivalent. Decomposition frontier: UALink specification and consortium, but specific supplier orgs (NVIDIA, AMD, Synopsys) already modeled elsewhere. This node covers the layer of UALink-specific silicon.",
+    "reviewStatus": "unreviewed",
+    "frontierFor": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "org_astera_labs",
+    "name": "Astera Labs, Inc.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_connectivity"
+    ],
+    "description": "Fabless semiconductor company specializing in high-speed connectivity silicon for AI infrastructure. Flagship products include Aries PCIe retimers (Gen 5/6/7), Scorpio fabric switches (P-Series and X-Series for GPU clustering), Taurus smart cable modules for Ethernet, and Leo CXL memory controllers. Founded 2017; IPO March 2024 (NASDAQ: ALAB).",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ALAB"
+      },
+      {
+        "name": "Q2 FY2025 revenue breakdown",
+        "unit": "%",
+        "currentValue": 47,
+        "description": "Aries retimer products drove majority of Q2 FY2025 revenue; Taurus smart cable modules and Scorpio switches contributing. Scorpio achieved >10% revenue share by Q2 2025."
+      },
+      {
+        "name": "YoY revenue growth (Q4 FY2024 vs Q4 FY2023)",
+        "unit": "%",
+        "currentValue": 206,
+        "description": "Astera Labs reported 206% YoY revenue growth in Q4 FY2024 driven by AI datacenter demand."
+      },
+      {
+        "name": "Market share in PCIe retimer segment",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Astera Labs estimated 30–40% of global PCIe retimer market based on market research and analyst consensus (Polaris Market Research, 2024–2025)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_astera_labs_ipo_2024",
+      "ev_acc_icsi_astera_aries_adoption",
+      "ev_acc_icsi_astera_q4_2024_earnings"
+    ],
+    "tags": [
+      "fabless",
+      "interconnect",
+      "retimer",
+      "pcie",
+      "cxl",
+      "ai_infrastructure",
+      "public_company"
+    ],
+    "notes": "Astera Labs is the market leader in PCIe retimers and the first merchant fabric switch supplier. Critical supplier for AI accelerator scale-up clustering. High investor relevance due to growth trajectory and concentration in AI datacenter connectivity market.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_credo",
+    "name": "Credo Technology Group Holding Ltd.",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_connectivity"
+    ],
+    "description": "Fabless semiconductor company supplying high-speed connectivity and signal conditioning silicon for datacenter and AI infrastructure. Product lines include PCIe retimers (Toucan, Magpie), active electrical cable (AEC) DSPs, optical DSPs, and line card retimers. Founded 2014; IPO July 2024 (NASDAQ: CRDO).",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "CRDO"
+      },
+      {
+        "name": "Q2 FY2025 record revenue",
+        "unit": "million USD",
+        "currentValue": 72,
+        "costAsOf": "2025",
+        "currency": "USD",
+        "description": "Credo reported record Q2 FY2025 revenue of $72M with record revenues across all three core product lines: AEC, optical DSP, line card retimers."
+      },
+      {
+        "name": "Q1 FY2026 free cash flow",
+        "unit": "million USD",
+        "currentValue": 51.3,
+        "costAsOf": "2026",
+        "currency": "USD",
+        "description": "Credo generated $51.3M free cash flow in Q1 FY2026, allowing self-funding of 3nm DSP R&D."
+      },
+      {
+        "name": "Market share in optical DSP and AEC segment",
+        "unit": "%",
+        "currentValue": 20,
+        "description": "Credo estimated 15–25% market share in AEC and optical DSP segment (analyst consensus, 2024–2025)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_icsi_credo_ipo_2024",
+      "ev_acc_icsi_credo_q2_fy2025_earnings",
+      "ev_acc_icsi_credo_3nm_development"
+    ],
+    "tags": [
+      "fabless",
+      "connectivity",
+      "retimer",
+      "aec",
+      "optical_dsp",
+      "ai_infrastructure",
+      "public_company"
+    ],
+    "notes": "Credo is second-largest retimer supplier and primary AEC/DSP specialist. Strong position in emerging 3nm AEC retimer market (Magpie PCIe 7). Investor relevance: high exposure to AI datacenter copper interconnect growth.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "x_ray_inspection_advanced_packaging",
+    "name": "X-ray inspection for advanced packaging (2.5D/3D solder defects)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Volumetric X-ray inspection systems (CT, laminography) for detecting voids, cracks, missing bumps, head-in-pillow defects, and bond-line thickness variation in micro-bumps, hybrid-bonded interfaces, and solder-joint arrays in 2.5D/3D chiplet packages. Sub-1µm resolution critical for HBM stack qualification. Bottleneck: limited vendor population (Comet Yxlon, Camtek, Onto Innovation, KLA) and 12-18 month lead times for system delivery.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "System delivery lead time",
+        "unit": "months",
+        "currentValue": 16,
+        "description": "Typical lead time from order to installation for advanced X-ray inspection systems; sourced from Comet Yxlon and Camtek product literature."
+      },
+      {
+        "name": "Top-2 vendor market share (Comet Yxlon + Camtek)",
+        "unit": "%",
+        "currentValue": 65,
+        "description": "Combined market share of leading vendors in advanced packaging X-ray inspection; Onto Innovation and KLA serve broader metrology markets. Source: 2025 analyst reports on semiconductor metrology equipment market."
+      },
+      {
+        "name": "Resolution (X-ray imaging)",
+        "unit": "nm",
+        "currentValue": 500,
+        "description": "State-of-the-art sub-micron resolution achieved by Comet Yxlon CA20 and Onto Innovation Dragonfly; required for sub-0.5µm defect detection in fine-pitch interconnects."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_xray_comet",
+      "ev_acc_pkgeq_xray_camtek",
+      "ev_acc_pkgeq_xray_leadtime"
+    ],
+    "tags": [
+      "metrology",
+      "inspection",
+      "advanced_packaging",
+      "quality_control",
+      "bottleneck_adjacent"
+    ],
+    "notes": "X-ray inspection is a critical post-assembly process control step. Market is concentrated: Comet Yxlon leads with CA20 system; Camtek (Eagle family) and Onto Innovation (Dragonfly) serve HBM/2.5D; KLA provides broader metrology but focuses on wafer-fab metrology. Lead time of 12-18 months for custom system commissioning is a secondary constraint on fab ramp capacity. No shortage episodes documented in 2024-2025, but systems are ordered 18+ months ahead for major OSAT capacity buildouts.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "optical_bump_metrology_inspection",
+    "name": "Optical metrology and bump inspection (2D/3D surface topology, height, coplanarity)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "High-resolution automated optical inspection (AOI) and laser-triangulation systems for measuring bump height, coplanarity, surface defects, and 3D topology on flip-chip dies and micro-bumps prior to underfill and reflow. Nanometer-scale vertical resolution (0.5-5nm) required for solder-joint reliability. AI-driven defect classification for high-throughput production yield monitoring. Vendors: Camtek, Confovis, Onto Innovation (Dragonfly 2D). Lower cost alternative to X-ray for high-volume process control.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Vertical resolution",
+        "unit": "nm",
+        "currentValue": 1,
+        "description": "Best-in-class optical metrology systems achieve <1nm vertical measurement repeatability; Confovis WAFERinspect and Camtek Eagle G5 meet this specification."
+      },
+      {
+        "name": "Top-3 vendor presence",
+        "unit": "count",
+        "currentValue": 3,
+        "description": "Camtek (Eagle family), Confovis (WAFERinspect), Onto Innovation (Dragonfly 2D) dominate optical metrology for chiplet assembly; KLA also supplies optical tools."
+      },
+      {
+        "name": "Throughput (typical AOI system)",
+        "unit": "wafers/hour",
+        "currentValue": 8,
+        "description": "High-speed optical metrology systems can process 6-10 wafers/hour depending on die size and sampling strategy; critical for cycle-time management in OSAT lines."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_optical_camtek",
+      "ev_acc_pkgeq_optical_confovis",
+      "ev_acc_pkgeq_optical_resolution"
+    ],
+    "tags": [
+      "metrology",
+      "inspection",
+      "optical",
+      "advanced_packaging",
+      "yield_control"
+    ],
+    "notes": "Optical metrology is less capital-intensive than X-ray and more suitable for 100%-sampling process control in high-volume production. Camtek is the market leader in advanced packaging AOI; Confovis is a specialist focused on 3DIC and chiplet applications (Jena, Germany). Onto Innovation's Dragonfly 2D complements their X-ray 3Di. No documented capacity constraints in 2025, but systems are ordered 6-9 months in advance for major fabs.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "wafer_bonding_alignment_systems",
+    "name": "Wafer-to-wafer (W2W) bonding and alignment systems (hybrid bonding, permanent bonding)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Precision wafer-bonding systems for hybrid bonding (copper-dielectric pad bonding at <350°C) and permanent bonding. Sub-50nm alignment accuracy required for fine-pitch interconnects. Vendors: EVG (SmartView alignment, ~26% market share), SUSS MicroTec (~21%), BESI (leaders in hybrid bonding), Applied Materials, Canon, ASMPT. Lead time 12-18 months. Critical for 2.5D/3D interposer and chiplet assembly.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "EVG market share (W2W bonding)",
+        "unit": "%",
+        "currentValue": 26,
+        "description": "EV Group holds leading position in automatic wafer bonding equipment with ~1500+ installed chambers; source: 2025 market analysis."
+      },
+      {
+        "name": "SUSS MicroTec market share (W2W bonding)",
+        "unit": "%",
+        "currentValue": 21,
+        "description": "SUSS MicroTec is the second-largest player in wafer bonding equipment; 2024 revenue €446.1M (+46.6% YoY) driven by HBM/advanced packaging."
+      },
+      {
+        "name": "Alignment accuracy (EVG SmartView)",
+        "unit": "nm",
+        "currentValue": 50,
+        "description": "Industry-leading sub-50nm alignment accuracy achieved by EVG; critical for hybrid bonding fine-pitch (≤5µm pitch) interconnects."
+      },
+      {
+        "name": "System delivery lead time",
+        "unit": "months",
+        "currentValue": 14,
+        "description": "Typical 12-16 month lead time from order to installation for W2W bonding systems; sourced from EVG and SUSS product literature."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_w2w_evg",
+      "ev_acc_pkgeq_w2w_suss",
+      "ev_acc_pkgeq_w2w_hybrid"
+    ],
+    "tags": [
+      "bonding",
+      "alignment",
+      "process_equipment",
+      "advanced_packaging",
+      "supply_constrained"
+    ],
+    "notes": "W2W bonding is a key enabler for hybrid bonding, which is ramping rapidly for HBM4 and advanced logic packaging. EVG is dominant; BESI specialized in hybrid bonding (>150 cumulative orders, 18 customers). No acute shortage in 2025, but OSAT capacity buildouts are constrained by 12-18 month tool delivery windows. Hybrid bonding revenue at BESI projected to grow from €36M (2023) to €476M (2026).",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "thermocompression_bonding_systems",
+    "name": "Thermocompression bonding (TCB) systems for chip-to-substrate and die-to-wafer",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Precision thermocompression bonding equipment for micro-bump flip-chip bonding (Cu/Sn solder under 250-280°C, <5 µm placement accuracy). Used for die-attach and chiplet-to-substrate integration. Major vendors: ASMPT (largest installed base, 35-40% market share target by 2027, TAM >$1B), BESI, Kulicke & Soffa (K&S). ASMPT's FIREBIRD TCB delivers ±2µm placement accuracy. Hybrid bonding tool typical cost: $10-20M with 12-18 month lead time.",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "ASMPT installed base",
+        "unit": "tools",
+        "currentValue": 250,
+        "description": "ASMPT shipped 250th thermocompression bonding tool as of 2025; company holds largest installed base globally and targets 35-40% market share by 2027."
+      },
+      {
+        "name": "Placement accuracy (ASMPT FIREBIRD)",
+        "unit": "µm",
+        "currentValue": 2,
+        "description": "±2.0µm placement accuracy for flip-chip bonding; cycle time <2 seconds for high-volume production."
+      },
+      {
+        "name": "Bonding temperature process window",
+        "unit": "°C",
+        "currentValue": 250,
+        "description": "Thermocompression bonding typically 250-280°C; critical for underfill capillary wetting and solder reflow control."
+      },
+      {
+        "name": "Tool delivery lead time (estimated)",
+        "unit": "months",
+        "currentValue": 16,
+        "description": "Bonding tool lead time 12-18 months, mentioned in AMKOR capex disclosure as constraint on 2026 capacity expansion."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_tcb_asmpt",
+      "ev_acc_pkgeq_tcb_leadtime",
+      "ev_acc_pkgeq_tcb_market"
+    ],
+    "tags": [
+      "bonding",
+      "die_attach",
+      "thermocompression",
+      "process_equipment",
+      "supply_constrained"
+    ],
+    "notes": "TCB is critical for flip-chip bonding in HBM and advanced AI accelerators. ASMPT dominates with FIREBIRD and NANO Lite platforms (250+ units shipped). BESI competes in hybrid bonding (W2W) but also offers TCB solutions. K&S historically led but ASMPT gained share via process innovation. Market TAM expected to exceed $1B by 2027. Recent orders: ASMPT secured 19 C2S tools for AI packaging (2024-2025). No acute shortage documented, but tool availability is managed through multi-quarter order books.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "underfill_dispensing_equipment",
+    "name": "Underfill dispensing systems (capillary and jet-based)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Automated dispensing equipment for capillary and high-frequency jet underfill (epoxy, flowable-underfill) application between flip-chip die and substrate. Jet systems (Nordson ASYMTEK IntelliJet up to 1.8M dots/hour, 1kHz frequency) enable tight-gap filling for <20µm pitches. Vendors: Nordson ASYMTEK (dominant, non-contact jetting), ITW EAE/Camalot (capillary+jet hybrid), Axxon (Mycronic), GPD Global. Process window critical: void-free fill with minimal solder-bump squeeze-out and fast cycle time.",
+    "maturityScore": 75,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "ASYMTEK IntelliJet frequency",
+        "unit": "Hz",
+        "currentValue": 1000,
+        "description": "Maximum jetting frequency 1000Hz for ultra-fast underfill fill in tight-pitch geometries; throughput up to 1.8M dots/hour."
+      },
+      {
+        "name": "Minimum gap fillable (jet)",
+        "unit": "µm",
+        "currentValue": 18,
+        "description": "Modern jet systems can fill gaps <20µm with <5% void rate; critical for fine-pitch bump (<25µm) and chiplet assembly."
+      },
+      {
+        "name": "Vendor count (mature market)",
+        "unit": "suppliers",
+        "currentValue": 4,
+        "description": "Nordson ASYMTEK, ITW Camalot, Axxon, GPD Global; established supplier base with multiple capable options."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_underfill_asymtek",
+      "ev_acc_pkgeq_underfill_itw",
+      "ev_acc_pkgeq_underfill_throughput"
+    ],
+    "tags": [
+      "dispensing",
+      "process_equipment",
+      "underfill",
+      "encapsulation",
+      "mature"
+    ],
+    "notes": "Underfill dispensing is a mature, multi-sourced process. Nordson ASYMTEK leads with IntelliJet non-contact jetting technology. ITW Camalot (SmartStream pump) is a strong #2. Equipment cost is moderate (~$0.5-2M) and lead time short (3-6 months). No supply constraints documented. Process innovation focus: improved flowability for void-free fill in narrower gaps and improved thermal conductivity underfill materials (targeting 3-5 W/mK for advanced packages).",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "thermal_profiling_and_process_control",
+    "name": "Thermal profiling and process control systems (flip-chip, underfill, reflow)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Sensors and software for real-time temperature profiling of flip-chip thermocompression bonding, underfill curing, and reflow soldering processes. Multi-thermocouple probe design with integrated data acquisition and analytics. Vendors: KIC Thermal (specialized for semiconductor packaging, patented sensor hardware), Datapaq (Fluke subsidiary), Speedline, others. Critical for process validation and yield improvement; part of in-line quality control for advanced packaging lines.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Thermal profiling market CAGR",
+        "unit": "%",
+        "currentValue": 7.3,
+        "description": "Thermal profiling market projected CAGR 2024-2030; market valued at ~$1.8B by 2030. Source: FutureMarketInsights."
+      },
+      {
+        "name": "Measurement accuracy (typical)",
+        "unit": "°C",
+        "currentValue": 2,
+        "description": "±2°C measurement accuracy for multi-thermocouple profilers; critical for process window optimization."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_thermal_kic",
+      "ev_acc_pkgeq_thermal_market"
+    ],
+    "tags": [
+      "process_control",
+      "metrology",
+      "thermal",
+      "quality_assurance"
+    ],
+    "notes": "Thermal profiling is a supporting metrology tool, not a process bottleneck. KIC Thermal is a specialist company serving semiconductor packaging; Datapaq (part of Fluke) serves broader electronics manufacturing. Systems cost $50k-200k and are standard equipment in OSAT advanced packaging lines. No supply constraints.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "wafer_probe_testing_advanced_packaging",
+    "name": "Wafer probe testing and contactors (fine-pitch bumped die, known-good-die qualification)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Automated probe test systems and custom probe heads/contactors for functional and parametric testing of fine-pitch bumped chiplets (100-650µm pitch). Validates power delivery, signal integrity, memory function (HBM core test), and thermal transient response. Integrated with ATE platforms (Teradyne Magnum 7H for HBM, Cohu-Xcerra-LTX-Credence integrated platform). Spring probe technology for WLCSP compatibility. Critical for known-good-die (KGD) and known-good-interposer (KGI) qualification in chiplet assembly flow.",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Teradyne Magnum 7H data rate (HBM)",
+        "unit": "Gbps",
+        "currentValue": 4.5,
+        "description": "Supports HBM3/3E test data rates up to 4.5 Gbps; configurable up to 9,216 digital pins + 2,560 power pins."
+      },
+      {
+        "name": "Probe pitch range (spring technology)",
+        "unit": "µm",
+        "currentValue": 350,
+        "description": "Spring probe systems cover 100µm to 650µm pitch (HYDRA RF, xWave families); enables fine-pitch WLCSP testing."
+      },
+      {
+        "name": "ATE market leader share (Advantest + Teradyne)",
+        "unit": "%",
+        "currentValue": 70,
+        "description": "Advantest and Teradyne account for 70%+ of global ATE market; Cohu (including Xcerra, LTX-Credence) is the #3 player."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_probe_teradyne",
+      "ev_acc_pkgeq_probe_cohu",
+      "ev_acc_pkgeq_ate_market"
+    ],
+    "tags": [
+      "test_equipment",
+      "probe",
+      "process_control",
+      "known_good_die",
+      "qualification"
+    ],
+    "notes": "Wafer probe testing is a critical quality gate for KGD qualification and HBM stack testing. Teradyne's Magnum 7H platform is industry-standard for HBM base-die and stacked-die testing. Cohu (through Xcerra acquisition) offers integrated ATE + handler solutions with proprietary probe technology (HYDRA RF, xWave). No supply constraints in 2025, but ATE/probe head customization for new HBM variants requires 3-6 month lead time.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "singulation_laser_dicing_systems",
+    "name": "Laser dicing (singulation) systems for chiplets and modules",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Precision laser dicing systems for wafer singulation post-packaging. DISCO stealth dicing and KABRA processes minimize chipping, mechanical stress, and thermal damage to solder bumps and interconnects. Alternative to mechanical saws for advanced packages. DISCO dominates with 70-80% global share and 4,000+ cumulative unit shipments by 2025. Laser dicing market share grew from 26% (2022) to 31.8% (2025) driven by chiplet/advanced-packaging adoption.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "DISCO global market share (dicing equipment)",
+        "unit": "%",
+        "currentValue": 75,
+        "description": "DISCO Corporation holds 70-80% market share in semiconductor dicing saws; ~4,000 cumulative laser dicing units shipped by 2025."
+      },
+      {
+        "name": "Laser dicing market share (vs mechanical)",
+        "unit": "%",
+        "currentValue": 31.8,
+        "description": "Laser dicing product type held 31.8% market share in 2025, up from 26% in 2022, driven by chiplet/2.5D/3D adoption."
+      },
+      {
+        "name": "DISCO system cost (estimated)",
+        "unit": "million USD",
+        "currentValue": 3,
+        "description": "Typical DISCO laser dicing system cost $2-4M depending on specification; lead time 6-9 months."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_disco_market",
+      "ev_acc_pkgeq_disco_tech",
+      "ev_acc_pkgeq_dicing_growth"
+    ],
+    "tags": [
+      "singulation",
+      "dicing",
+      "laser",
+      "process_equipment",
+      "supply_constrained"
+    ],
+    "notes": "DISCO is a near-monopolist in laser dicing (70-80% share). Company has immense pricing power and sticky relationships with TSMC, Samsung, SK Hynix. Stealth dicing pioneered by DISCO is preferred for chiplets to minimize stress and bump damage. No acute shortage in 2025, but capacity is allocated to tier-1 fabs months in advance. DISCO stock (6146.T) is debt-free with 54% ROIC. Laser dicing is a secondary (not primary) bottleneck: it is a downstream singulation step after all assembly and test, so it affects module delivery timeline but not module assembly yield.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "ai_accelerator_module_hbm_cowos"
+    ]
+  },
+  {
+    "id": "plasma_surface_activation_systems",
+    "name": "Plasma surface activation and cleaning (wafer bonding prep)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Plasma treatment systems for pre-bonding wafer surface preparation (N2/O2 plasma activation, megasonic cleaning). Enables low-temperature bonding by creating reactive surface dangling bonds. Vendors: Keylink Technologies, Nordson MARCH, Finetech (Argon plasma module). Now qualification requirement at leading TSMC, Samsung, Intel fabs. Process time ~10-30 min per wafer lot.",
+    "maturityScore": 76,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Vendor count (established market)",
+        "unit": "suppliers",
+        "currentValue": 3,
+        "description": "Keylink Technologies, Nordson MARCH, Finetech are primary established suppliers; multi-sourcing available."
+      },
+      {
+        "name": "Plasma activation time",
+        "unit": "minutes",
+        "currentValue": 20,
+        "description": "Typical N2 plasma activation time 10-30 min per wafer lot; critical for wafer-bonding cycle time."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_plasma_keylink",
+      "ev_acc_pkgeq_plasma_nordson"
+    ],
+    "tags": [
+      "surface_prep",
+      "bonding",
+      "process_equipment",
+      "mature"
+    ],
+    "notes": "Plasma activation is an established, multi-sourced process. Keylink Technologies has supplied systems to leading TSMC/Samsung packaging lines. Nordson MARCH is a diversified supplier. Finetech integrates plasma module into their femto die-bonding platform. No supply constraints documented. Equipment cost moderate (~$0.5-2M) and lead time 6-9 months.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "bump_height_curing_furnace",
+    "name": "Curing and reflow furnace systems (underfill, encapsulant, solder reflow)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Precision thermal processing ovens for underfill curing, encapsulation, and solder reflow in advanced packaging assembly. Temperature ramp/soak/cool profiles critical for stress management and void elimination. Integrated with thermal profiling systems for process validation. Vendors: Despatch, BTU, Heller, others (traditional SMT equipment suppliers). Cost $0.3-1M, lead time 4-8 months.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Temperature profile ramp rate",
+        "unit": "°C/min",
+        "currentValue": 5,
+        "description": "Typical ramp rate 3-10°C/min for underfill curing and solder reflow to minimize thermal stress."
+      },
+      {
+        "name": "Vendor count (established market)",
+        "unit": "suppliers",
+        "currentValue": 5,
+        "description": "Multiple mature vendors (Despatch, BTU, Heller, etc.) offer standard curing ovens; multi-sourcing available."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_furnace_despatch"
+    ],
+    "tags": [
+      "curing",
+      "thermal",
+      "process_equipment",
+      "mature"
+    ],
+    "notes": "Curing and reflow furnaces are commodity equipment with multiple qualified suppliers. No supply constraints. Equipment is integrated with thermal profiling systems (KIC, Datapaq) for process control and validation.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "environmental_test_chambers_qualification",
+    "name": "Environmental test chambers (thermal cycling, burn-in qualification)",
+    "kind": "equipment",
+    "domain": [
+      "ai_compute_chain"
+    ],
+    "description": "Climatic chambers for thermal cycling (-55°C to +125°C) and burn-in testing of packaged modules. Standard JEDEC qualification: AEC-Q100 500-1000 cycles, burn-in at elevated temp/voltage/power. Vendors: multiple (Unitherm, Weiss, others). Typically racked with test handlers (Cohu, Teradyne) and parallel tester cards. Critical gate for reliability qualification of HBM modules and AI accelerators.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Vendor count (established market)",
+        "unit": "suppliers",
+        "currentValue": 4,
+        "description": "Multiple established chamber suppliers (Unitherm, Weiss, TPS, others); no supply concentration."
+      },
+      {
+        "name": "Thermal cycling standard",
+        "unit": "cycles",
+        "currentValue": 500,
+        "description": "JEDEC AEC-Q100 qualification standard: -55°C to +125°C, 500-1000 cycles, 10-15 min dwell at each extreme."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_chamber_thermal"
+    ],
+    "tags": [
+      "qualification",
+      "test",
+      "thermal",
+      "reliability"
+    ],
+    "notes": "Environmental test chambers are commodity equipment. No supply constraints. Multiple qualified suppliers available. Critical for reliability validation but not a production bottleneck—qualification occurs in parallel with high-volume production.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": []
+  },
+  {
+    "id": "org_onto_innovation",
+    "name": "Onto Innovation (formerly Rudolph Technologies + Nanometrics)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-headquartered metrology and inspection equipment supplier. Dragonfly 2D/3D pattern inspection and bump metrology systems for advanced packaging (HBM, 2.5D logic). Dragonfly 3Di qualified by two HBM manufacturers as of Q3 2025; volume orders expected 2026+. Part of broader WFE metrology suite. Publicly listed NASDAQ: ONTO.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ONTO (NASDAQ)",
+        "description": "Publicly traded on NASDAQ under ticker ONTO; verified on IR website."
+      },
+      {
+        "name": "Dragonfly 3Di volume orders",
+        "unit": "systems",
+        "currentValue": 10,
+        "description": "Dragonfly 3Di qualified for HBM and 2.5D; double-digit orders for G5 + 3Di received with shipments starting Q2 2026. Source: Q3 2025 earnings."
+      },
+      {
+        "name": "HBM customer qualifications",
+        "unit": "count",
+        "currentValue": 2,
+        "description": "Dragonfly 3Di fully qualified by two major HBM manufacturers as of Q3 2025; critical for high-volume revenue streams."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_onto_ir",
+      "ev_acc_pkgeq_onto_qualification"
+    ],
+    "tags": [
+      "metrology",
+      "inspection",
+      "advanced_packaging",
+      "supplier"
+    ],
+    "notes": "Onto Innovation is a key player in advanced packaging metrology. Dragonfly platform (2D optical + 3Di X-ray) directly addresses chiplet/HBM inspection needs. No supply constraints documented.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_camtek",
+    "name": "Camtek Ltd. (Israeli optical metrology and inspection)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Israeli metrology and inspection equipment supplier. Specializes in advanced packaging optical inspection (Eagle family: G5, T-AP, T-i, Hawk systems) for 2D/3D surface topology, bump height, RDL thickness measurement, and defect detection down to sub-micron. Market-leading position in advanced packaging AOI (65% share of specialized segment alongside Onto Innovation). Publicly listed on Tel Aviv Stock Exchange (TASE): CAMT.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "CAMT (TASE)",
+        "description": "Publicly traded on Tel Aviv Stock Exchange (TASE) under ticker CAMT; verified on investor relations."
+      },
+      {
+        "name": "Advanced packaging inspection market share (top-2 with ONTO)",
+        "unit": "%",
+        "currentValue": 65,
+        "description": "Camtek and Onto Innovation combined hold ~65% of advanced packaging inspection systems market as of 2025."
+      },
+      {
+        "name": "Resolution capability (Eagle G5)",
+        "unit": "µm",
+        "currentValue": 2,
+        "description": "Sub-micron defect detection and RDL thickness measurement down to 2µm; AI-driven algorithms for yield optimization."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_camtek_ir",
+      "ev_acc_pkgeq_camtek_marketshare"
+    ],
+    "tags": [
+      "metrology",
+      "inspection",
+      "optical",
+      "advanced_packaging",
+      "Israeli_supplier"
+    ],
+    "notes": "Camtek is the market-leading specialist in advanced packaging optical inspection. Eagle family (G5, T-AP, Hawk) widely deployed at TSMC, Samsung, Amkor, ASE. Focused strategy on chiplet/HBM vertical vs. broad WFE metrology.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_comet_yxlon",
+    "name": "Comet Yxlon (Switzerland, X-ray inspection systems)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Swiss X-ray and computed tomography equipment supplier. Specializes in 3D X-ray inspection for advanced packaging: CA20 (automated 3D X-ray laminography for micro-bump and solder-joint defects, <1µm resolution), FF35 CT systems. 2025 product launches: fully-automated CA20 configurations for lab-to-fab inspection. Primary vendor for hybrid-bonding and HBM package inspection alongside Camtek and Onto Innovation. Parent company: Comet Holding (public, SIX: COMET).",
+    "maturityScore": 78,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Parent company public listing",
+        "currentValue": "COMET (SIX, Switzerland)",
+        "description": "Comet Yxlon is division of Comet Holding AG, publicly traded on SIX under ticker COMET."
+      },
+      {
+        "name": "X-ray resolution (CA20)",
+        "unit": "nm",
+        "currentValue": 500,
+        "description": "Sub-1µm resolution (500nm to <1µm) achievable with Comet Yxlon CA20 for micro-bump and solder-joint metrology."
+      },
+      {
+        "name": "System delivery lead time",
+        "unit": "months",
+        "currentValue": 14,
+        "description": "Typical 12-16 month lead time for custom CA20 system order and installation; competitive parity with Camtek."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_comet_ir",
+      "ev_acc_pkgeq_comet_ca20"
+    ],
+    "tags": [
+      "X-ray",
+      "inspection",
+      "metrology",
+      "advanced_packaging",
+      "Swiss_supplier"
+    ],
+    "notes": "Comet Yxlon is strong #2-#3 player in advanced packaging X-ray inspection. CA20 system increasingly competitive against Camtek and Onto Innovation; 2025 fully-automated rollout enhances fab throughput. Comet parent company (SIX: COMET) is profitable and growing.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_confovis",
+    "name": "Confovis GmbH (Germany, optical metrology specialist)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "German optical metrology specialist (Jena, Thuringia). WAFERinspect AOI system for 3D optical surface inspection and micro-bump metrology on advanced packaging and 3DIC. Sub-nanometer vertical resolution (<1nm) with AI-driven defect classification. Serves chiplet and HBM packaging lines. Private company; founded 2009. Emerging specialist competing against larger players (Camtek, Onto).",
+    "maturityScore": 76,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Resolution (vertical)",
+        "unit": "nm",
+        "currentValue": 1,
+        "description": "Single-nanometer vertical measurement repeatability on micro-bumps down to 1µm; WAFERinspect AOI platform."
+      },
+      {
+        "name": "Company status",
+        "currentValue": "Private",
+        "description": "Confovis GmbH is private company; no public listing."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_confovis_product"
+    ],
+    "tags": [
+      "metrology",
+      "optical",
+      "3DIC",
+      "private_supplier",
+      "German"
+    ],
+    "notes": "Confovis is a smaller, specialist optical metrology vendor for advanced packaging. Strong technical position in 3DIC and chiplet inspection. Private company, unlikely to be IPO target in near term but could be acquisition target by larger metrology platforms.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_besi",
+    "name": "BE Semiconductor Industries N.V. (BESI, Netherlands/Asia)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Dutch semiconductor equipment supplier headquartered in Netherlands, with major manufacturing in Asia. Leader in hybrid bonding and thermocompression bonding equipment for advanced packaging. 150+ cumulative hybrid bonding system orders, 18 customers as of 2025. Targets 35-40% market share of TCB/hybrid bonding market by 2027 (TAM >$1B). Publicly listed EURONEXT: BESI.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "BESI (Euronext)",
+        "description": "Publicly traded on Euronext under ticker BESI; Dutch company with Asia operations."
+      },
+      {
+        "name": "Hybrid bonding system orders",
+        "unit": "tools",
+        "currentValue": 150,
+        "description": "Over 150 cumulative hybrid bonding system orders placed with 18 customers as of 2025; fastest-growing segment."
+      },
+      {
+        "name": "Target market share (TCB/hybrid bonding)",
+        "unit": "%",
+        "currentValue": 38,
+        "description": "BESI targets 35-40% market share by 2027 in $1B+ TAM; currently estimated 25-30% share."
+      },
+      {
+        "name": "Hybrid bonding revenue projection 2026",
+        "unit": "million EUR",
+        "currentValue": 476,
+        "description": "BESI hybrid bonding revenue projected to grow from €36M (2023) to €476M (2026), representing 1/3 of total business."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_besi_ir",
+      "ev_acc_pkgeq_besi_orders",
+      "ev_acc_pkgeq_besi_market"
+    ],
+    "tags": [
+      "bonding",
+      "hybrid_bonding",
+      "thermocompression",
+      "advanced_packaging",
+      "supplier"
+    ],
+    "notes": "BESI is the market leader in hybrid bonding, critical for next-generation HBM4 and advanced logic packaging. Company is experiencing explosive growth driven by AI datacenter buildout. Strong order book 12-18 months out.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_evg",
+    "name": "EV Group (Evatronix, Austria, wafer bonding leader)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Austrian wafer bonding and alignment equipment specialist headquartered in Sankt Florian am Inn. Market leader in automatic wafer bonding systems (W2W permanent bonding, MEMS bonding, hybrid-bonding enabler). 26% global market share with 1500+ installed chambers. SmartView alignment technology achieves <100nm (sub-50nm) accuracy for fine-pitch interconnects. Private company; ~1300 employees.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Market share (W2W bonding)",
+        "unit": "%",
+        "currentValue": 26,
+        "description": "EVG holds largest market share at ~26% in automatic wafer bonding equipment; 1500+ installed chambers globally."
+      },
+      {
+        "name": "Alignment accuracy (SmartView)",
+        "unit": "nm",
+        "currentValue": 50,
+        "description": "Industry-leading sub-50nm alignment accuracy; critical for hybrid bonding and fine-pitch interconnects (<5µm)."
+      },
+      {
+        "name": "Company status",
+        "currentValue": "Private",
+        "description": "EV Group is private company; no public listing. Majority ownership by Bergman Investment (Austrian industrial holding)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_evg_marketshare",
+      "ev_acc_pkgeq_evg_product"
+    ],
+    "tags": [
+      "bonding",
+      "alignment",
+      "wafer_bonding",
+      "private_supplier",
+      "Austrian"
+    ],
+    "notes": "EVG is the market-leading W2W bonding equipment supplier for advanced packaging and MEMS. Dominant position with 1500+ installed base. Private but financially strong; likely acquisition target for larger equipment consolidators (ASML, AMAT, Lam).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_suss_microtic",
+    "name": "SUSS MicroTec SE (Germany, wafer bonding and lithography equipment)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "German semiconductor equipment supplier. Second-largest player in automatic wafer bonding equipment (21% market share). XBC300 platform for high-density hybrid bonding launched 2024. 2024 revenue €446.1M (+46.6% YoY) driven by HBM/advanced packaging demand. Publicly listed Frankfurt Stock Exchange: SUU. Offers complementary lithography and processing equipment beyond bonding.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "SUU (Frankfurt Stock Exchange)",
+        "description": "Publicly traded on Frankfurt Stock Exchange under ticker SUU; German company."
+      },
+      {
+        "name": "Market share (W2W bonding)",
+        "unit": "%",
+        "currentValue": 21,
+        "description": "SUSS MicroTec holds second-largest market share at ~21% in automatic wafer bonding equipment."
+      },
+      {
+        "name": "2024 revenue (total)",
+        "unit": "million EUR",
+        "currentValue": 446.1,
+        "description": "FY 2024 revenue €446.1M (+46.6% YoY); EBIT €75.1M; margin 16.8%. Driven by HBM/advanced packaging capex cycle."
+      },
+      {
+        "name": "XBC300 platform launch",
+        "unit": "year",
+        "currentValue": 2024,
+        "description": "XBC300 hybrid bonding platform launched 2024; gaining traction with leading Asian chipmakers."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_suss_ir",
+      "ev_acc_pkgeq_suss_xbc300"
+    ],
+    "tags": [
+      "bonding",
+      "wafer_bonding",
+      "lithography",
+      "advanced_packaging",
+      "German_supplier"
+    ],
+    "notes": "SUSS MicroTec is a diversified semiconductor equipment supplier with strong position in wafer bonding (#2 after EVG). XBC300 hybrid bonding platform is competitive entry addressing next-gen HBM4/logic packaging. Company trading at attractive valuation (Frankfurt: SUU) given strong capex cycle tailwinds.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_asmpt",
+    "name": "ASM Pacific Technology Ltd. (ASMPT, Hong Kong, die attach/flip-chip/TCB)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Hong Kong-headquartered semiconductor assembly equipment supplier. Market leader in die attach and thermocompression bonding (TCB) systems. FIREBIRD TCB platform for 2.5D/3D heterogeneous integration with ±2µm placement accuracy. 250th TCB tool shipped by 2025; targets 35-40% market share of $1B+ TAM by 2027. Publicly listed HKEX: 0522.HK.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "0522.HK (HKEX)",
+        "description": "Publicly traded on Hong Kong Stock Exchange under ticker 0522; listed as ASM Pacific Technology."
+      },
+      {
+        "name": "TCB tool shipments",
+        "unit": "units",
+        "currentValue": 250,
+        "description": "250th thermocompression bonding tool shipped as of 2025; largest installed base globally for TCB equipment."
+      },
+      {
+        "name": "FIREBIRD TCB placement accuracy",
+        "unit": "µm",
+        "currentValue": 2,
+        "description": "±2.0µm placement accuracy for flip-chip bonding; cycle time <2 seconds for high-volume production."
+      },
+      {
+        "name": "Target market share (TCB by 2027)",
+        "unit": "%",
+        "currentValue": 38,
+        "description": "ASMPT targets 35-40% market share of TCB market (>$1B TAM) by 2027; current share ~30-35%."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_asmpt_ir",
+      "ev_acc_pkgeq_asmpt_firebird"
+    ],
+    "tags": [
+      "die_attach",
+      "flip_chip",
+      "thermocompression",
+      "TCB",
+      "Hong_Kong_supplier"
+    ],
+    "notes": "ASMPT is the dominant supplier of thermocompression bonding and die-attach equipment for advanced packaging. Largest installed base of TCB tools globally. Well-positioned to capture majority of AI-driven packaging capex cycle through 2027.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_nordson",
+    "name": "Nordson Corporation (USA, dispensing and fluid application)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-headquartered global supplier of precision dispensing systems and fluid application technology. Nordson ASYMTEK IntelliJet platform is industry-leading non-contact jetting system for underfill dispensing (1000Hz frequency, 1.8M dots/hour throughput). Also supplies thermal processing and encapsulation equipment for advanced packaging assembly. Publicly listed NYSE: NSA.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "NSA (NYSE)",
+        "description": "Publicly traded on New York Stock Exchange under ticker NSA; US industrial equipment company."
+      },
+      {
+        "name": "IntelliJet jetting frequency (maximum)",
+        "unit": "Hz",
+        "currentValue": 1000,
+        "description": "Maximum 1000Hz frequency for ultra-fast underfill dispensing; throughput up to 1.8M dots/hour."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_nordson_ir",
+      "ev_acc_pkgeq_nordson_asymtek"
+    ],
+    "tags": [
+      "dispensing",
+      "underfill",
+      "process_equipment",
+      "US_supplier"
+    ],
+    "notes": "Nordson ASYMTEK is market leader in high-frequency jet dispensing for advanced packaging underfill. Nordson is diversified industrial equipment supplier with strong cash generation; reliable dividend-paying stock.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_itw",
+    "name": "Illinois Tool Works Inc. (ITW, USA, diversified industrial supplier)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-headquartered diversified industrial manufacturing and equipment supplier. ITW EAE (Electronics Assembly Equipment) division supplies Camalot® dispensing systems for underfill and encapsulation in flip-chip and advanced packaging assembly. SmartStream® pump technology for capillary and hybrid-jetting underfill. Publicly listed NYSE: ITW. Global operations with strong semiconductor equipment presence.",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ITW (NYSE)",
+        "description": "Publicly traded on New York Stock Exchange under ticker ITW; US industrial diversified conglomerate."
+      },
+      {
+        "name": "Camalot market position",
+        "currentValue": "Tier-2 leader",
+        "description": "Camalot SmartStream is #2 underfill dispensing platform behind Nordson ASYMTEK; strong #2 position in market."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_itw_camalot"
+    ],
+    "tags": [
+      "dispensing",
+      "underfill",
+      "process_equipment",
+      "US_supplier"
+    ],
+    "notes": "ITW EAE (Camalot) is strong #2 player in underfill dispensing, competing directly against Nordson ASYMTEK. Diversified ITW parent (NYSE: ITW) reduces semiconductor exposure concentration. Reliable, dividend-paying industrial stock.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_kic_thermal",
+    "name": "KIC Thermal (USA, thermal profiling specialist, private)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-based specialist in thermal profiling and process control solutions for electronics assembly and semiconductor packaging. Supplies KIC Profiler X5, KICstart², and related thermal profiling systems with patented multi-thermocouple sensor hardware. Serves OSAT and fab customers for advanced packaging process validation. Private company.",
+    "maturityScore": 82,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Company status",
+        "currentValue": "Private",
+        "description": "KIC Thermal is private company; no public listing."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_kic_ir"
+    ],
+    "tags": [
+      "thermal_profiling",
+      "process_control",
+      "private_supplier",
+      "US"
+    ],
+    "notes": "KIC Thermal is the market-leading specialist in semiconductor packaging thermal profiling. Private company with strong customer base at leading OSATs. Likely acquisition target for larger equipment suppliers (AMAT, Lam, ASMPT).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_keylink",
+    "name": "Keylink Technologies (USA, plasma surface activation, private)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-based plasma surface treatment systems supplier. Keylink plasma activation systems enable low-temperature wafer bonding through N2/O2 surface treatment. Supplied to TSMC, Samsung, Intel Foundry packaging lines. ETL and CE certified systems. Private company with established customer base at leading fabs.",
+    "maturityScore": 76,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Company status",
+        "currentValue": "Private",
+        "description": "Keylink Technologies is private company; no public listing."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_keylink_product"
+    ],
+    "tags": [
+      "plasma",
+      "surface_preparation",
+      "bonding",
+      "private_supplier",
+      "US"
+    ],
+    "notes": "Keylink is an established supplier of plasma surface activation systems for wafer bonding. Private company serving Tier-1 fab customers.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_disco",
+    "name": "DISCO Corporation (Japan, laser dicing and grinding, 6146.T)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Japanese semiconductor processing equipment leader. Dominates global laser dicing market (70-80% share) with stealth dicing and KABRA laser technologies. 4,000+ cumulative laser-dicing units shipped by 2025. Also supplies grinding and polishing equipment. Market leader with immense pricing power and sticky customer relationships (TSMC, Samsung, SK Hynix). Publicly listed Tokyo Stock Exchange: 6146.T. Completely debt-free with 54% ROIC (FY2024).",
+    "maturityScore": 86,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "6146.T (TSE, Japan)",
+        "description": "Publicly traded on Tokyo Stock Exchange under ticker 6146; Japanese company, Hiroshima-based."
+      },
+      {
+        "name": "Global market share (dicing equipment)",
+        "unit": "%",
+        "currentValue": 75,
+        "description": "DISCO holds 70-80% market share in semiconductor dicing saws; 4,000+ cumulative laser-dicing units by 2025."
+      },
+      {
+        "name": "FY2024 revenue",
+        "unit": "billion JPY",
+        "currentValue": 393.3,
+        "description": "FY2024 revenue ¥393.3B (+27.9% YoY); highest in company history; driven by chiplet/advanced packaging adoption."
+      },
+      {
+        "name": "Return on invested capital (ROIC)",
+        "unit": "%",
+        "currentValue": 54,
+        "description": "FY2024 ROIC 54%; completely debt-free balance sheet; exceptional capital efficiency."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_disco_ir",
+      "ev_acc_pkgeq_disco_fy24"
+    ],
+    "tags": [
+      "laser_dicing",
+      "singulation",
+      "grinding",
+      "polishing",
+      "Japanese_supplier",
+      "market_leader"
+    ],
+    "notes": "DISCO is a near-monopolist in laser dicing with exceptional financial strength (debt-free, 54% ROIC). Company is a hidden gem in semiconductor equipment—dominates a critical downstream process with immense pricing power and sticky customer base. Stock (6146.T) is a dividend-growth champion.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_axxon",
+    "name": "Axxon / Mycronic Semiconductor (Sweden, fluid dispensing systems)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "Swedish semiconductor equipment supplier. Axxon subsidiary (Mycronic) supplies fluid dispensing systems for flip-chip underfill and encapsulation in advanced packaging assembly. Tier-3 player in underfill dispensing market competing against Nordson ASYMTEK and ITW Camalot.",
+    "maturityScore": 74,
+    "maturityLabel": "mature",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Company structure",
+        "currentValue": "Subsidiary of Mycronic (Sweden)",
+        "description": "Axxon is part of Mycronic Group, a diversified semiconductor equipment and assembly company."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_axxon_product"
+    ],
+    "tags": [
+      "dispensing",
+      "underfill",
+      "process_equipment",
+      "Swedish"
+    ],
+    "notes": "Axxon/Mycronic is a secondary supplier in the underfill dispensing market. Competes on cost and niche applications but does not have the technical leadership of Nordson ASYMTEK or strong #2 position of ITW Camalot.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_despatch",
+    "name": "Despatch Industries (USA, thermal processing ovens)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-based manufacturer of precision thermal processing ovens for semiconductor and electronics assembly. Supplies curing and reflow furnaces for underfill, encapsulation, and solder reflow in advanced packaging. Commodity equipment supplier with multi-vendor competition (BTU, Heller, others).",
+    "maturityScore": 80,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_acc_pkgeq_despatch_product"
+    ],
+    "tags": [
+      "thermal_processing",
+      "curing",
+      "furnace",
+      "process_equipment",
+      "US"
+    ],
+    "notes": "Despatch is a commodity thermal-processing equipment supplier with low supplier concentration (multi-vendor market). No supply constraints.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_teradyne",
+    "name": "Teradyne Inc. (USA, automated test equipment leader)",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier"
+    ],
+    "description": "US-headquartered automated test equipment (ATE) supplier. Teradyne Magnum 7H is industry-standard HBM test platform with 4.5 Gbps data rate, 9,216 digital pins + 2,560 power pins. Serves advanced packaging and AI accelerator module qualification. Publicly listed NASDAQ: TER. #1-2 global ATE market leader (70%+ with Advantest).",
+    "maturityScore": 84,
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "TER (NASDAQ)",
+        "description": "Publicly traded on NASDAQ under ticker TER; US test equipment leader."
+      },
+      {
+        "name": "Magnum 7H HBM data rate",
+        "unit": "Gbps",
+        "currentValue": 4.5,
+        "description": "Supports HBM3/3E test data rates up to 4.5 Gbps; industry-standard for HBM qualification."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_pkgeq_probe_teradyne"
+    ],
+    "tags": [
+      "test_equipment",
+      "ATE",
+      "advanced_packaging",
+      "supplier"
+    ],
+    "notes": "Teradyne is a global ATE leader (70%+ market share with Advantest). Magnum 7H platform is standard for HBM and chiplet testing. Strong order book from AI datacenter buildout.",
+    "reviewStatus": "unreviewed"
   }
 ]
