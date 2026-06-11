@@ -9,23 +9,26 @@
 > Mechanical URL audit (all 345 domain evidence records, 2026-06-11): 79×404 · 25×unreachable
 > · 39×generic_homepage · 51×paywalled · 1×wrong_topic · 3×shared_url. Every record now
 > carries `sourceStatus`; only reviewer-confirmed `ok_exact` counts for review-flips.
-> Rebuild in flight (priority per owner): #9 #11 #12 → #2 #13 → lead-time numbers → edge
-> semantics (ADR proposal). Item statuses below.
+> REBUILD DONE 2026-06-11 for #2 #5 #6 #9 #11 #12 #13 #15: 22 new evidence records (quote-
+> verified by the orchestrator in-loop — 12 ok_exact, 3 paywalled_snippet, rest fetch_ok/
+> meta), 4 fabricated precisions caught and removed at verification, all unsourced lead-time
+> numbers removed. Remaining for flips: owner re-reads the 8 rebuilt items + #1/#3/#4/#7/
+> #8/#10 claim-scope rewrites (queued) + edge-semantics ADR (post-launch).
 > # 1 `t_glass_fabric` — **links-ok (content unverified)**
-> # 2 `high_na_euv_mask_blanks` — **partial** (`ev_acc_nc4_hoya_highna_2`:generic_homepage)
+> # 2 `high_na_euv_mask_blanks` — **REBUILT+VERIFIED — exclusivity claim removed (no source says 'only vendor'); Hoya = 'one of few capable players' (quote-verified); confidence low**
 > # 3 `hbm_tc_bonding_equipment` — **links-ok (content unverified)**
 > # 4 `abf_build_up_film` — **links-ok (content unverified)**
-> # 5 `euv_projection_optics` — **REBUILD** (`ev_acc_logic2_asml_optics_zeiss`:404)
-> # 6 `asml_lithography_systems` — **partial** (`ev_acc_logic_asml_capacity`:404)
+> # 5 `euv_projection_optics` — **REBUILT+VERIFIED — Zeiss 24.9%/EUR1B/EUR760M partnership ok_exact (ASML PR 2016); '14-month lead time' removed (unsourced)**
+> # 6 `asml_lithography_systems` — **REBUILT+VERIFIED — 48 EUV systems sold 2025 ok_exact (ASML AR landing page); '18-24mo lead time' removed (unsourced)**
 > # 7 `singulation_laser_dicing_systems` — **links-ok (content unverified)**
 > # 8 `silicon_interposer_rdl` — **links-ok (content unverified)**
-> # 9 `high_bandwidth_memory` — **REBUILD** (`ev_acc_bn3_high_bandwidth_memory`:404, `ev_acc_hbm_trendforce_hbm_demand_2024`:generic_homepage, `ev_acc_hbm_skhynix_share_2024`:generic_homepage…)
+> # 9 `high_bandwidth_memory` — **REBUILT+VERIFIED — SK hynix '>50% bit share 2026' ok_exact; Samsung 250k wpm ok_exact; 30B Gb ok_exact; fabricated 50/59/28 trajectory + '1.2M units/mo' + Samsung mid-20% removed**
 > #10 `inp_gaas_substrate_wafer` — **links-ok (content unverified)**
-> #11 `eml_dfb_laser_diodes` — **REBUILD** (`ev_acc_opt2_eml_dfb_shortage_2024`:wrong_topic, `ev_acc_opt2_lumentum_coherent_supply`:unreachable, `ev_acc_opt2_coherent_market_position`:unreachable…)
-> #12 `foundry_capacity_tsmc` — **REBUILD** (`ev_acc_logic_tsmc_capacity`:404, `ev_acc_logic_tsmc_3nm`:404, `ev_acc_logic2_tsmc_foundry_capacity_updated`:404…)
-> #13 `euv_mask_blanks` — **REBUILD** (`ev_acc_nc4_hoya_euv_1`:404, `ev_acc_nc4_euv_market_1`:generic_homepage)
+> #11 `eml_dfb_laser_diodes` — **REBUILT+VERIFIED — Coherent 'constrained, doubling in 12mo' ok_exact (owner-verified optics.org); '40-60% short' removed; top-3 share downgraded to qualitative (paywalled)**
+> #12 `foundry_capacity_tsmc` — **REBUILT+VERIFIED — TSMC 70.4% 4Q25 top-10 foundry revenue share ok_exact (TrendForce 2026-03-12); '>95% utilization' + '24+mo ramps' removed (unsourced)**
+> #13 `euv_mask_blanks` — **REBUILT+VERIFIED — share split CONTESTED and documented: SEO-grade report shows AGC >59%/~93% combined; legacy 'Hoya 75%' unsourced; treat split as unverified**
 > #14 `cooling_distribution_unit_cdu` — **partial** (`ev_acc_cp2_cdu_lead_time`:generic_homepage, `ev_acc_thm_vertiv_cdu`:404, `ev_acc_cp2_coolitsystems_cdu`:generic_homepage)
-> #15 `compound_foundry_specialty` — **partial** (`ev_acc_optup_eml_supplier_concentration`:unreachable)
+> #15 `compound_foundry_specialty` — **REBUILT+VERIFIED — '40-60% short' removed; NVIDIA $2B+$2B prepays recorded as events; supplier concentration qualitative (paywalled Yole)**
 
 **2026-06-10 · prepared by the orchestrator session.** Flip `reviewStatus` to `reviewed` on the node (and its listed `manufactured_by` edges where you also checked the supplier wiring) only after personally checking the cited URLs. Ranked: single-source corners first, then capacity-gating claims. Per ADR-0001 these flips are owner-only; nothing here is agent-flippable.
 
