@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterCanvasGraph, resolveCanvasRootId } from "../src/lib/canvasGraph";
+import { filterCanvasGraph, resolveCanvasRootId, isKnowHowNode, isArtifactCanvasNode } from "../src/lib/canvasGraph";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
@@ -213,4 +213,48 @@ test("resolveCanvasRootId falls back to the first product when the v0 target is 
     evidence: [],
   };
   assert.equal(resolveCanvasRootId(graph), "some_product");
+});
+
+test("isKnowHowNode / isArtifactCanvasNode partition the canvas kinds", () => {
+  const kh = { id: "k", name: "k", kind: "engineering_method", domain: ["t"], maturityLabel: "mature" } as never;
+  const mod = { id: "m", name: "m", kind: "module", domain: ["t"], maturityLabel: "mature" } as never;
+  assert.equal(isKnowHowNode(kh), true);
+  assert.equal(isKnowHowNode(mod), false);
+  assert.equal(isArtifactCanvasNode(mod), true);
+  assert.equal(isArtifactCanvasNode(kh), false);
+});
+
+test("filterCanvasGraph attaches implemented_by-only know-how nodes to the union graph", () => {
+  const graph = {
+    nodes: [
+      { id: "root", name: "root", kind: "product", domain: ["t"], maturityLabel: "lab_prototype" },
+      { id: "mod", name: "mod", kind: "module", domain: ["t"], maturityLabel: "mature" },
+      { id: "kh_impl", name: "kh", kind: "engineering_method", domain: ["t"], maturityLabel: "lab_prototype" },
+    ],
+    edges: [
+      { id: "e1", source: "root", target: "mod", relation: "requires" },
+      { id: "e2", source: "mod", target: "kh_impl", relation: "implemented_by" },
+    ],
+    evidence: [],
+  } as never;
+  const filtered = filterCanvasGraph(graph, "root");
+  assert.ok(filtered.nodes.some((n) => n.id === "kh_impl"), "implemented_by know-how node attached");
+  assert.ok(filtered.edges.some((e) => e.id === "e2"), "attachment edge included");
+});
+
+test("filterCanvasGraph does NOT attach implemented_by organizations", () => {
+  const graph = {
+    nodes: [
+      { id: "root", name: "root", kind: "product", domain: ["t"], maturityLabel: "lab_prototype" },
+      { id: "mod", name: "mod", kind: "module", domain: ["t"], maturityLabel: "mature" },
+      { id: "org", name: "org", kind: "organization", domain: ["t"], maturityLabel: "mature" },
+    ],
+    edges: [
+      { id: "e1", source: "root", target: "mod", relation: "requires" },
+      { id: "e2", source: "mod", target: "org", relation: "implemented_by" },
+    ],
+    evidence: [],
+  } as never;
+  const filtered = filterCanvasGraph(graph, "root");
+  assert.equal(filtered.nodes.some((n) => n.id === "org"), false);
 });

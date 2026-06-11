@@ -12,6 +12,34 @@ const CANVAS_KINDS: ReadonlySet<NodeKind> = new Set([
   "material",
 ]);
 
+/** Per ADR-0008: display-layer umbrella "Know-how" = these two kinds. */
+export const KNOW_HOW_KINDS: ReadonlySet<NodeKind> = new Set([
+  "engineering_method",
+  "manufacturing_process",
+]);
+
+export function isKnowHowNode(node: Node): boolean {
+  return KNOW_HOW_KINDS.has(node.kind);
+}
+
+/** Canvas node that is a purchasable/buildable artifact (product layer content). */
+export function isArtifactCanvasNode(node: Node): boolean {
+  return isCanvasNode(node) && !isKnowHowNode(node);
+}
+
+/**
+ * Per ADR-0008: the canvas tree is built from `requires` edges PLUS
+ * `implemented_by` edges whose target is a know-how node (5 know-how
+ * nodes in the parcel graph attach only that way). `implemented_by`
+ * edges to organizations stay panel-only.
+ */
+export function isCanvasTreeEdge(edge: Edge, nodeById: Map<string, Node>): boolean {
+  if (edge.relation === "requires") return true;
+  if (edge.relation !== "implemented_by") return false;
+  const target = nodeById.get(edge.target);
+  return target !== undefined && isKnowHowNode(target);
+}
+
 const GENERIC_OPERATIONAL_TAGS = new Set([
   "deployment",
   "maintenance",
@@ -89,14 +117,15 @@ export function filterCanvasGraph(
   );
   baseEligibleIds.add(focal.id);
 
-  const requiresEdges = graph.edges.filter((edge) =>
-    edge.relation === "requires" &&
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const treeEdges = graph.edges.filter((edge) =>
+    isCanvasTreeEdge(edge, nodeById) &&
     baseEligibleIds.has(edge.source) &&
     baseEligibleIds.has(edge.target),
   );
 
   const childrenByParent = new Map<string, string[]>();
-  for (const edge of requiresEdges) {
+  for (const edge of treeEdges) {
     if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
     childrenByParent.get(edge.source)!.push(edge.target);
   }
@@ -124,7 +153,7 @@ export function filterCanvasGraph(
   const nodes = graph.nodes.filter((node) => reachable.has(node.id));
   const seen = new Set<string>();
   const edges: Edge[] = [];
-  for (const edge of requiresEdges) {
+  for (const edge of treeEdges) {
     if (!reachable.has(edge.source) || !reachable.has(edge.target)) continue;
     const key = edgeKey(edge);
     if (seen.has(key)) continue;
