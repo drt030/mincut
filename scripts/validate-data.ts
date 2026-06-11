@@ -102,6 +102,14 @@ errors.push(...validateCostMetricFreshness(graph));
 errors.push(...validateProductTargetCostHasNoNumbers(graph));
 errors.push(...validateMaturityHistoryOrdering(graph));
 
+const transactabilityWarnings = warnKnowHowTransactability(graph);
+for (const warning of transactabilityWarnings) console.warn(warning);
+if (transactabilityWarnings.length > 0) {
+  console.warn(
+    `warn: ${transactabilityWarnings.length} know-how nodes missing transactability`,
+  );
+}
+
 if (errors.length) {
   console.error("Data validation failed:");
   for (const error of errors) console.error(`- ${error}`);
@@ -301,6 +309,25 @@ function validateMaturityLabelPresence(graph: GraphData): string[] {
     }
   }
   return errors;
+}
+
+/**
+ * Per ADR-0008, know-how nodes (engineering_method, manufacturing_process)
+ * should carry `transactability` ("procurable" | "must_build"). Until backfill
+ * is complete, missing values generate warnings (not errors) so validation
+ * passes but the maintainer is alerted to incomplete data.
+ */
+function warnKnowHowTransactability(graph: GraphData): string[] {
+  const warnings: string[] = [];
+  for (const node of graph.nodes) {
+    if (node.kind !== "engineering_method" && node.kind !== "manufacturing_process") continue;
+    if (node.reviewStatus === "deprecated") continue;
+    if (node.transactability !== undefined) continue;
+    warnings.push(
+      `warn: know-how node ${node.id} has no transactability (procurable | must_build) — ADR-0008 backfill pending`,
+    );
+  }
+  return warnings;
 }
 
 /**

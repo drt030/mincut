@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useLanguage } from "./LanguageProvider";
+import { defaultFocalProduct } from "@/lib/graphTraversal";
 import type { GraphData } from "@/lib/schema";
 
 export function HomeContent({ graph }: { graph: GraphData }) {
   const { nodeName, t } = useLanguage();
-  const product = graph.nodes.find((node) => node.id === "low_cost_parcel_sorting_robot_300k_rmb");
+  const product = defaultFocalProduct(graph);
   const productName = product ? nodeName(product.id, product.name) : "";
+  const productHref = product ? `/product/${product.id}` : "/graph";
 
   return (
     <div className="page">
@@ -25,7 +27,7 @@ export function HomeContent({ graph }: { graph: GraphData }) {
             <Link href="/graph" className="button">
               {t("homeStartCta")}
             </Link>
-            <Link href="/product/low_cost_parcel_sorting_robot_300k_rmb" className="button secondary">
+            <Link href={productHref} className="button secondary">
               {t("productView")}
             </Link>
           </div>
@@ -78,13 +80,13 @@ export function HomeContent({ graph }: { graph: GraphData }) {
         <Link href="/gate" className="card card-link">
           <h3>{t("homeCardGateTitle")}</h3>
           <p className="muted">{t("homeCardGateHint")}</p>
-          <code>npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run</code>
+          <code>{`npm run gate -- --target ${product?.id ?? "<product-id>"} --dry-run`}</code>
         </Link>
         <Link href="/tasks" className="card card-link">
           <h3>{t("homeCardTasksTitle")}</h3>
           <p className="muted">{t("homeCardTasksHint")}</p>
         </Link>
-        <Link href="/product/low_cost_parcel_sorting_robot_300k_rmb" className="card card-link">
+        <Link href={productHref} className="card card-link">
           <h3>{t("homeCardProductTitle")}</h3>
           <p className="muted">{t("homeCardProductHint")}</p>
         </Link>

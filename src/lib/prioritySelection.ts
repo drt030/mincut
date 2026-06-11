@@ -4,10 +4,9 @@ import {
   type ColorMode,
 } from "@/lib/edgeStyleFor";
 import { focusedSubset } from "@/lib/focusedSubset";
+import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { nodeRisk } from "@/lib/nodeRisk";
 import type { GraphData, Node } from "@/lib/schema";
-
-const FOCAL_PRODUCT_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
 export type PriorityEntry = {
   nodeId: string;
@@ -29,8 +28,9 @@ export function selectTopN(
   if (n <= 0) return [];
   if (mode === "relation") return [];
 
+  const focalId = defaultFocalProduct(graph)?.id;
   const scope: Set<string> =
-    focusedSubsetIds ?? focusedSubset(FOCAL_PRODUCT_ID, graph).nodes;
+    focusedSubsetIds ?? (focalId ? focusedSubset(focalId, graph).nodes : new Set<string>());
 
   type Candidate = { node: Node; score: number; band: 1 | 2 | 3 | 4 | 5 };
   const candidates: Candidate[] = [];

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { defaultFocalProduct } from "@/lib/graphTraversal";
+import { defaultFocalProduct, V0_TARGET_NODE_ID } from "@/lib/graphTraversal";
 import { useSearchParams } from "next/navigation";
 import {
   Background,
@@ -350,7 +350,7 @@ function ZoomBridge({
   return <ZoomContext.Provider value={representative}>{children}</ZoomContext.Provider>;
 }
 
-const DEFAULT_ROOT_NODE_ID = "low_cost_parcel_sorting_robot_300k_rmb";
+const DEFAULT_ROOT_NODE_ID = V0_TARGET_NODE_ID;
 
 type AgentExpansionStatus = "idle" | "listing" | "queued" | "error";
 
