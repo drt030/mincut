@@ -1,4 +1,5 @@
-import type { GraphData } from "./schema";
+import type { GraphData, Node } from "./schema";
+import { isCanvasTreeEdge } from "./canvasGraph";
 
 /**
  * Per ADR-0006 §"Focus interaction" and slice B3 of
@@ -50,17 +51,18 @@ export function focusedSubset(
     return { nodes: new Set(), edges: new Set() };
   }
 
-  // BFS forward via `requires` edges from focus. Deterministic
+  // BFS forward via canvas tree edges from focus. Deterministic
   // because we iterate `graph.edges` in its (stable) input order for
   // every BFS step, and the visited set short-circuits already-seen
   // descendants.
+  const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
   const nodes = new Set<string>([focusId]);
   const queue: string[] = [focusId];
   while (queue.length > 0) {
     const cur = queue.shift()!;
     for (const edge of graph.edges) {
       if (edge.source !== cur) continue;
-      if (edge.relation !== "requires") continue;
+      if (!isCanvasTreeEdge(edge, nodeById)) continue;
       if (nodes.has(edge.target)) continue;
       nodes.add(edge.target);
       queue.push(edge.target);

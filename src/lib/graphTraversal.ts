@@ -1,4 +1,5 @@
 import type { Edge, Evidence, GraphData, Node } from "./schema";
+import { isSupplyConcentrated } from "./supplyConcentration";
 
 export const V0_TARGET_NODE_ID = "ai_accelerator_module_hbm_cowos";
 
@@ -97,6 +98,21 @@ export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
 }
 
 /**
+ * Kinds the ADR-0005 concentration override applies to: nodes that
+ * decompose along the supply chain and can meaningfully have
+ * "holders". Organizations, metrics, evidence, etc. keep the original
+ * commodified-stop behavior.
+ */
+const CONCENTRATION_OVERRIDE_KINDS = new Set([
+  "product",
+  "module",
+  "equipment",
+  "material",
+  "engineering_method",
+  "manufacturing_process",
+]);
+
+/**
  * Per ADR-0005, a node is a decomposition frontier if EITHER it carries an
  * authored frontier marker (`decomposition_frontier` tag or `frontierFor`
  * ownership), OR its `maturityLabel` is not in {mature, widely_adopted} AND
@@ -104,12 +120,25 @@ export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
  * frontier intent even when a node already has some children; the structural
  * arm catches incomplete decomposition where the stop condition has not been
  * met.
+ *
+ * ADR-0005 amendment (2026-06-10, per ADR-0008): commodified maturity no
+ * longer stops decomposition by itself. A `mature` / `widely_adopted` node
+ * whose supply is concentrated (holder count ≤ CONCENTRATION_THRESHOLD via
+ * `manufactured_by` / `implemented_by` edges) is exactly the
+ * "mature but concentrated" habitat the investor learning-focus cares
+ * about, so it remains a frontier when it has no expanded children.
  */
 export function isDecompositionFrontier(graph: GraphData, node: Node): boolean {
   if (node.tags?.includes("decomposition_frontier")) return true;
   if ((node.frontierFor?.length ?? 0) > 0) return true;
   const stopLabels = new Set(["mature", "widely_adopted"]);
-  if (node.maturityLabel && stopLabels.has(node.maturityLabel)) return false;
+  const commodified = node.maturityLabel ? stopLabels.has(node.maturityLabel) : false;
+  if (
+    commodified &&
+    (!CONCENTRATION_OVERRIDE_KINDS.has(node.kind) || !isSupplyConcentrated(graph, node.id))
+  ) {
+    return false;
+  }
   return !hasExpandedChildren(graph, node.id);
 }
 

@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-10
 **Author**: brainstorming session (Claude Fable 5)
-**Status**: accepted in discussion 2026-06-10; implementation plan pending
+**Status**: implemented on branch `worktree-product-knowhow-layers` (2026-06-10); pending user review/merge
 **Related ADRs**: ADR-0004 (capability/product layering, unchanged), ADR-0005 (decomposition stop — amendment required), ADR-0006 / ADR-0007 (graph surface this design extends). A new ADR-0008 will record the ontology decision.
 
 ## Problem

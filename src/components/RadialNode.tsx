@@ -26,9 +26,11 @@ import { radialBandFor } from "../lib/lod";
  * Word-boundary truncation would be nicer but is overkill for the band-2
  * marker — the band-3 card always shows the full name.
  *
- * The band-2 outline is a neutral affordance channel only. It marks
- * current selection supplied by `GraphExplorer`; analytical colour
- * remains on edges so node contours do not contradict nearby lines.
+ * The band-2 outline carries selection affordance, plus — in the
+ * know-how layer only — a red zero-holder risk mark supplied by
+ * `GraphExplorer` (ADR-0007 lists node outline among the switchable
+ * analysis channels). In the product layer, analytical colour stays on
+ * edges so node contours do not contradict nearby lines.
  *
  * The band-3 badge currently shows the maturity label string; B1 will
  * extend this to a mode-aware badge.
@@ -63,9 +65,11 @@ export type RadialNodeProps = {
    */
   withHandles?: boolean;
   /**
-   * Neutral per-node outline colour. This must not encode cost,
-   * maturity, or bottleneck-risk; `GraphExplorer` uses it only for
-   * selection affordance. Falls back to grey when undefined.
+   * Per-node outline colour. In the product layer, carries selection
+   * affordance only. In the know-how layer, `GraphExplorer` also paints
+   * it red (#dc2626) for zero-holder nodes (ADR-0007: node outline
+   * among switchable analysis channels). Falls back to grey when
+   * undefined.
    */
   outlineColor?: string;
   /**
@@ -76,6 +80,14 @@ export type RadialNodeProps = {
   visualRole?: "root" | "anchor" | "branch" | "leaf";
   /** Suppress low-zoom labels for quiet texture nodes. */
   showLabel?: boolean;
+  /** Per ADR-0008: "diamond" renders know-how nodes in the know-how layer. */
+  shape?: "circle" | "diamond";
+  /**
+   * Count of hidden know-how dependencies carrying `bottleneckOf`.
+   * > 0 renders a red-ring count badge (bands 2 and 3) so the product
+   * layer keeps answering "where is the biggest bottleneck".
+   */
+  knowHowBottleneckCount?: number;
 };
 
 /**
@@ -129,6 +141,18 @@ function truncateLabel(name: string): string {
   return `${name.slice(0, KEEP_LABEL_CHARS)}${ELLIPSIS}`;
 }
 
+function KnowHowBottleneckBadge({ count, cx, cy }: { count: number; cx: number; cy: number }) {
+  if (count <= 0) return null;
+  return (
+    <g data-knowhow-bottlenecks={count}>
+      <circle cx={cx} cy={cy} r={9} fill="#fff" stroke="#dc2626" strokeWidth={2} />
+      <text x={cx} y={cy + 3.5} textAnchor="middle" fontSize={10} fontWeight={700} fill="#dc2626">
+        {count}
+      </text>
+    </g>
+  );
+}
+
 export function RadialNode({
   name,
   fill,
@@ -138,6 +162,8 @@ export function RadialNode({
   outlineColor,
   visualRole = "branch",
   showLabel = true,
+  shape = "circle",
+  knowHowBottleneckCount = 0,
 }: RadialNodeProps) {
   const band = radialBandFor(zoom);
   // Keep node contour neutral: active analysis colour belongs to edges,
@@ -164,7 +190,20 @@ export function RadialNode({
       <>
         {withHandles ? <HiddenHandles top={BAND3_CENTER_Y} /> : null}
         <svg width={BAND3_WIDTH} height={BAND3_HEIGHT} aria-hidden="true">
-          <circle cx={BAND3_CENTER_X} cy={BAND3_CENTER_Y} r={r} fill={fill} opacity={opacity} />
+          {shape === "diamond" ? (
+            <rect
+              data-node-shape="diamond"
+              x={BAND3_CENTER_X - r}
+              y={BAND3_CENTER_Y - r}
+              width={r * 2}
+              height={r * 2}
+              transform={`rotate(45 ${BAND3_CENTER_X} ${BAND3_CENTER_Y})`}
+              fill={fill}
+              opacity={opacity}
+            />
+          ) : (
+            <circle cx={BAND3_CENTER_X} cy={BAND3_CENTER_Y} r={r} fill={fill} opacity={opacity} />
+          )}
         </svg>
       </>
     );
@@ -201,14 +240,34 @@ export function RadialNode({
             height={BAND2_HEIGHT}
             fill="transparent"
           />
-          <circle
-            cx={BAND2_CENTER_X}
-            cy={BAND2_CIRCLE_Y}
-            r={r}
-            fill={fill}
-            opacity={opacity}
-            stroke={outline}
-            strokeWidth={hasOutline ? 1.5 : 0}
+          {shape === "diamond" ? (
+            <rect
+              data-node-shape="diamond"
+              x={BAND2_CENTER_X - r}
+              y={BAND2_CIRCLE_Y - r}
+              width={r * 2}
+              height={r * 2}
+              transform={`rotate(45 ${BAND2_CENTER_X} ${BAND2_CIRCLE_Y})`}
+              fill={fill}
+              opacity={opacity}
+              stroke={outline}
+              strokeWidth={hasOutline ? 1.5 : 0}
+            />
+          ) : (
+            <circle
+              cx={BAND2_CENTER_X}
+              cy={BAND2_CIRCLE_Y}
+              r={r}
+              fill={fill}
+              opacity={opacity}
+              stroke={outline}
+              strokeWidth={hasOutline ? 1.5 : 0}
+            />
+          )}
+          <KnowHowBottleneckBadge
+            count={knowHowBottleneckCount}
+            cx={BAND2_CENTER_X + r}
+            cy={BAND2_CIRCLE_Y - r}
           />
           {showLabel ? (
             <text
@@ -250,6 +309,7 @@ export function RadialNode({
               flexDirection: "column",
               justifyContent: "space-between",
               overflow: "hidden",
+              position: "relative",
             }}
           >
             <span
@@ -276,6 +336,25 @@ export function RadialNode({
             >
               {maturityLabel}
             </span>
+            {knowHowBottleneckCount > 0 ? (
+              <span
+                data-knowhow-bottlenecks={knowHowBottleneckCount}
+                style={{
+                  position: "absolute",
+                  top: 4,
+                  right: 4,
+                  fontSize: 10,
+                  fontWeight: 700,
+                  color: "#dc2626",
+                  background: "#fff",
+                  border: "2px solid #dc2626",
+                  borderRadius: 9,
+                  padding: "0 5px",
+                }}
+              >
+                {knowHowBottleneckCount}
+              </span>
+            ) : null}
           </div>
         </foreignObject>
       </svg>

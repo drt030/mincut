@@ -215,7 +215,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Expanded on 2026-06-07 into model deployment optimization, inference runtime, camera frame acquisition, latency/timestamp budgeting, and fanless thermal management. Startup opportunity: package a reproducible low-cost real-time vision stack with deterministic camera acquisition, inference runtime pinning, thermal control, and latency diagnostics for parcel cells."
+    "notes": "Expanded on 2026-06-07 into model deployment optimization, inference runtime, camera frame acquisition, latency/timestamp budgeting, and fanless thermal management. Startup opportunity: package a reproducible low-cost real-time vision stack with deterministic camera acquisition, inference runtime pinning, thermal control, and latency diagnostics for parcel cells. transactability=procurable (agent backfill 2026-06-10, needs review): system integrators sell vision-compute integration",
+    "transactability": "procurable"
   },
   {
     "id": "industrial_edge_ai_computer",
@@ -273,7 +274,8 @@
       "software"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Kept distinct from model accuracy: the bottleneck is whether a good-enough model can meet latency and thermal limits on the selected low-cost hardware."
+    "notes": "Kept distinct from model accuracy: the bottleneck is whether a good-enough model can meet latency and thermal limits on the selected low-cost hardware. transactability=procurable (agent backfill 2026-06-10, needs review): deployment/optimization consulting and tooling market exists",
+    "transactability": "procurable"
   },
   {
     "id": "vision_inference_runtime_stack",
@@ -301,7 +303,8 @@
       "software"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "The runtime layer is mature as a product category, but parcel-cell reliability depends on model conversion, driver versions, camera I/O, and deployment discipline."
+    "notes": "The runtime layer is mature as a product category, but parcel-cell reliability depends on model conversion, driver versions, camera I/O, and deployment discipline. transactability=procurable (agent backfill 2026-06-10, needs review): commercial/licensable runtimes (TensorRT, ONNX Runtime)",
+    "transactability": "procurable"
   },
   {
     "id": "camera_sdk_frame_acquisition_pipeline",
@@ -330,7 +333,8 @@
       "latency"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Separated from the camera hardware because dropped frames, buffering, trigger timing, and vendor SDK coupling can break real-time sorting even when camera specs look adequate."
+    "notes": "Separated from the camera hardware because dropped frames, buffering, trigger timing, and vendor SDK coupling can break real-time sorting even when camera specs look adequate. transactability=procurable (agent backfill 2026-06-10, needs review): vendor SDKs plus integration services",
+    "transactability": "procurable"
   },
   {
     "id": "vision_latency_budget_and_timestamping",
@@ -363,7 +367,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "This is a high-risk integration point: the cell can have good cameras and models but still miss parcels if timestamps, buffering, and conveyor position alignment are not budgeted."
+    "notes": "This is a high-risk integration point: the cell can have good cameras and models but still miss parcels if timestamps, buffering, and conveyor position alignment are not budgeted. transactability=must_build (agent backfill 2026-06-10, needs review): integrator-internal engineering discipline, not sold separately",
+    "transactability": "must_build"
   },
   {
     "id": "fanless_compute_thermal_management",
@@ -421,7 +426,8 @@
       "software",
       "perception"
     ],
-    "notes": "Expanded on 2026-06-07 into label localization, barcode decoding runtime, OCR runtime, no-read recovery, training data, and benchmark metrics. Supplier links remain candidate product-line evidence, not confirmed target-cell BOM."
+    "notes": "Expanded on 2026-06-07 into label localization, barcode decoding runtime, OCR runtime, no-read recovery, training data, and benchmark metrics. Supplier links remain candidate product-line evidence, not confirmed target-cell BOM. transactability=procurable (agent backfill 2026-06-10, needs review): commercial packages (Cognex, Zebra, Datalogic)",
+    "transactability": "procurable"
   },
   {
     "id": "parcel_label_localization",
@@ -450,7 +456,8 @@
       "software"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Localization is separated because reflective, wrinkled, and partially covered parcel labels can fail before any decoder or OCR model runs."
+    "notes": "Localization is separated because reflective, wrinkled, and partially covered parcel labels can fail before any decoder or OCR model runs. transactability=procurable (agent backfill 2026-06-10, needs review): shipped inside commercial barcode/OCR offerings",
+    "transactability": "procurable"
   },
   {
     "id": "industrial_barcode_decoding_runtime",
@@ -480,7 +487,8 @@
       "machine_vision"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "The decoder layer is commercially mature in product-line evidence, but parcel-cell fit still depends on optics, lighting, speed, code quality, and integration."
+    "notes": "The decoder layer is commercially mature in product-line evidence, but parcel-cell fit still depends on optics, lighting, speed, code quality, and integration. transactability=procurable (agent backfill 2026-06-10, needs review): commercial decoder runtimes",
+    "transactability": "procurable"
   },
   {
     "id": "parcel_ocr_model_runtime",
@@ -507,7 +515,8 @@
       "software"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "OCR is kept separate from barcode decoding because label text fallback has different data, latency, accuracy, and exception-handling risks."
+    "notes": "OCR is kept separate from barcode decoding because label text fallback has different data, latency, accuracy, and exception-handling risks. transactability=procurable (agent backfill 2026-06-10, needs review): commercial OCR runtimes/licensable models",
+    "transactability": "procurable"
   },
   {
     "id": "barcode_ocr_no_read_recovery",
@@ -541,7 +550,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "No-read recovery is modeled as a bottleneck because failed reads can turn an automated cell into a manual exception workflow even when readers and OCR tools are available."
+    "notes": "No-read recovery is modeled as a bottleneck because failed reads can turn an automated cell into a manual exception workflow even when readers and OCR tools are available. transactability=must_build (agent backfill 2026-06-10, needs review): line-specific exception workflow, integrator-built",
+    "transactability": "must_build"
   },
   {
     "id": "parcel_label_training_dataset",
@@ -571,7 +581,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Dataset scope remains a frontier: the next layer should split collection, labeling, synthetic augmentation, privacy handling, and benchmark holdout coverage."
+    "notes": "Dataset scope remains a frontier: the next layer should split collection, labeling, synthetic augmentation, privacy handling, and benchmark holdout coverage. transactability=procurable (agent backfill 2026-06-10, needs review): data products and annotation services market",
+    "transactability": "procurable"
   },
   {
     "id": "barcode_ocr_benchmark_metrics",
@@ -599,7 +610,8 @@
       "metric_protocol"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Benchmarking is modeled explicitly so gate reports can expose missing read-rate and exception-rate evidence instead of relying on vendor product claims."
+    "notes": "Benchmarking is modeled explicitly so gate reports can expose missing read-rate and exception-rate evidence instead of relying on vendor product claims. transactability=must_build (agent backfill 2026-06-10, needs review): internal benchmarking method",
+    "transactability": "must_build"
   },
   {
     "id": "parcel_detection_and_tracking",
@@ -771,7 +783,8 @@
       "decomposition_frontier"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: the cup array was less mature than its elastomer feedstock child, so this node captures the missing parcel-contact bottleneck. Mature elastomer supply does not prove robust pickup on variable logistics packaging."
+    "notes": "Consistency backfill: the cup array was less mature than its elastomer feedstock child, so this node captures the missing parcel-contact bottleneck. Mature elastomer supply does not prove robust pickup on variable logistics packaging. transactability=procurable (agent backfill 2026-06-10, needs review): vacuum vendors offer application qualification engineering",
+    "transactability": "procurable"
   },
   {
     "id": "vacuum_generator_or_ejector",
@@ -864,7 +877,8 @@
       "decomposition_frontier"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: valve and blow-off control was less mature than its material child, so this node captures the missing dynamic-control bottleneck. The hard part is synchronized pickup/release behavior, not elastomer availability."
+    "notes": "Consistency backfill: valve and blow-off control was less mature than its material child, so this node captures the missing dynamic-control bottleneck. The hard part is synchronized pickup/release behavior, not elastomer availability. transactability=must_build (agent backfill 2026-06-10, needs review): cell-specific tuning know-how",
+    "transactability": "must_build"
   },
   {
     "id": "vacuum_pressure_sensing",
@@ -920,7 +934,8 @@
       "robot_motion",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: needs better evidence for calibration workflow, tolerance, operator time, and impact on parcel pickup success."
+    "notes": "Expansion frontier: needs better evidence for calibration workflow, tolerance, operator time, and impact on parcel pickup success. transactability=must_build (agent backfill 2026-06-10, needs review): in-house calibration procedure",
+    "transactability": "must_build"
   },
   {
     "id": "servo_drive_controller",
@@ -1031,7 +1046,8 @@
       "tuning",
       "vibration_suppression"
     ],
-    "notes": "Firmware/control-loop layer for current, velocity, and position regulation. The limiting issues for a low-cost robot arm are tuning quality, vibration suppression, encoder timing, and recovery from payload variation rather than basic availability."
+    "notes": "Firmware/control-loop layer for current, velocity, and position regulation. The limiting issues for a low-cost robot arm are tuning quality, vibration suppression, encoder timing, and recovery from payload variation rather than basic availability. transactability=must_build (agent backfill 2026-06-10, needs review): drive vendor embedded firmware know-how, not sold separately",
+    "transactability": "must_build"
   },
   {
     "id": "servo_drive_safety_sto",
@@ -1089,7 +1105,8 @@
       "reliability",
       "cabinet_design"
     ],
-    "notes": "Thermal and EMC design is not a commodity part; it is a design/integration capability. In low-cost arms it can become a reliability bottleneck if heat sinking, grounding, shielding, or conducted-emission margin is cut too aggressively."
+    "notes": "Thermal and EMC design is not a commodity part; it is a design/integration capability. In low-cost arms it can become a reliability bottleneck if heat sinking, grounding, shielding, or conducted-emission margin is cut too aggressively. transactability=must_build (agent backfill 2026-06-10, needs review): vendor-internal design capability",
+    "transactability": "must_build"
   },
   {
     "id": "precision_reducer_gearbox",
@@ -1259,7 +1276,8 @@
       "constraint_technical_maturity",
       "constraint_maintenance_operations"
     ],
-    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost. Hard-to-develop rationale: long-cycle endurance testing capability is itself a barrier - without it, low-cost reducers cannot be qualified for industrial duty cycles. Startup opportunity: independent reducer life-test, grease-interval, and backlash-growth qualification services for lower-cost robot-arm suppliers."
+    "notes": "Expansion frontier: needs better evidence for actual reducer factory process, grease interval, overload failure, backlash growth, and cost. Hard-to-develop rationale: long-cycle endurance testing capability is itself a barrier - without it, low-cost reducers cannot be qualified for industrial duty cycles. Startup opportunity: independent reducer life-test, grease-interval, and backlash-growth qualification services for lower-cost robot-arm suppliers. transactability=must_build (agent backfill 2026-06-10, needs review): reducer-vendor internal process; life-test know-how is the moat",
+    "transactability": "must_build"
   },
   {
     "id": "industrial_servo_motor",
@@ -1556,7 +1574,8 @@
       "servo",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: next layer needs better evidence for actual factory process flow, quality gates, yield, and cost drivers."
+    "notes": "Expansion frontier: next layer needs better evidence for actual factory process flow, quality gates, yield, and cost drivers. transactability=procurable (agent backfill 2026-06-10, needs review): contract manufacturing services exist",
+    "transactability": "procurable"
   },
   {
     "id": "servo_motor_feedback_alignment",
@@ -1583,7 +1602,8 @@
       "manufacturing",
       "decomposition_frontier"
     ],
-    "notes": "Expansion frontier: needs source-backed process detail for encoder mounting, offset calibration, signal verification, and robot-joint integration."
+    "notes": "Expansion frontier: needs source-backed process detail for encoder mounting, offset calibration, signal verification, and robot-joint integration. transactability=must_build (agent backfill 2026-06-10, needs review): motor-manufacturing internal process know-how",
+    "transactability": "must_build"
   },
   {
     "id": "servo_motor_integrated_brake_option",
@@ -1720,7 +1740,8 @@
       "motion_control",
       "robot_arm"
     ],
-    "notes": "Bottleneck relevance is integration quality, not basic availability: the hard part for a parcel cell is deterministic coordination with vision, conveyor timing, safety stops, and fault recovery under low-cost hardware constraints."
+    "notes": "Bottleneck relevance is integration quality, not basic availability: the hard part for a parcel cell is deterministic coordination with vision, conveyor timing, safety stops, and fault recovery under low-cost hardware constraints. transactability=procurable (agent backfill 2026-06-10, needs review): licensable RT runtimes and control platforms",
+    "transactability": "procurable"
   },
   {
     "id": "robot_fieldbus_gateway",
@@ -1833,7 +1854,8 @@
       "commissioning",
       "robot_arm"
     ],
-    "notes": "The hardware and vendor tools exist, but the parcel-cell value depends on app-specific fault taxonomy, recoverability, and logs that help a low-skill operator restore flow without a controls engineer on site."
+    "notes": "The hardware and vendor tools exist, but the parcel-cell value depends on app-specific fault taxonomy, recoverability, and logs that help a low-skill operator restore flow without a controls engineer on site. transactability=procurable (agent backfill 2026-06-10, needs review): ships as controller product feature",
+    "transactability": "procurable"
   },
   {
     "id": "robot_cabling_and_power",
@@ -1896,7 +1918,8 @@
       "decomposition_frontier"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: the mounting structure was less mature than its steel material child, so this node captures the missing deployment bottleneck: repeatable field alignment, anchoring, vibration control, and commissioning for a low-cost cell."
+    "notes": "Consistency backfill: the mounting structure was less mature than its steel material child, so this node captures the missing deployment bottleneck: repeatable field alignment, anchoring, vibration control, and commissioning for a low-cost cell. transactability=procurable (agent backfill 2026-06-10, needs review): installation/commissioning service market",
+    "transactability": "procurable"
   },
   {
     "id": "robot_arm_assembly_process",
@@ -1916,7 +1939,9 @@
       "assembly",
       "robot_arm"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "transactability": "procurable",
+    "notes": "transactability=procurable (agent backfill 2026-06-10, needs review): contract manufacturing/EMS services"
   },
   {
     "id": "conveyor_integration",
@@ -2057,7 +2082,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Expanded on 2026-06-07 into singulation/metering, dynamic gap control, induction sensing, variable-speed drive control, and exception recovery. This is a throughput bottleneck because poor spacing wastes sorter pitch, causes no-reads, and creates robot timing misses even when the downstream robot arm is nominally fast enough. Startup opportunity: retrofit induction/gapping controls and exception-recovery software that raise usable pph without replacing the whole sortation line."
+    "notes": "Expanded on 2026-06-07 into singulation/metering, dynamic gap control, induction sensing, variable-speed drive control, and exception recovery. This is a throughput bottleneck because poor spacing wastes sorter pitch, causes no-reads, and creates robot timing misses even when the downstream robot arm is nominally fast enough. Startup opportunity: retrofit induction/gapping controls and exception-recovery software that raise usable pph without replacing the whole sortation line. transactability=must_build (agent backfill 2026-06-10, needs review): sortation integrator core control logic",
+    "transactability": "must_build"
   },
   {
     "id": "parcel_singulation_and_metering",
@@ -2089,7 +2115,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "For a low-cost robot-arm cell this is often a process-control problem rather than a full high-speed parcel singulator: enough metering to avoid double-presented parcels and wasted scan/sort windows without buying a large upstream singulation system."
+    "notes": "For a low-cost robot-arm cell this is often a process-control problem rather than a full high-speed parcel singulator: enough metering to avoid double-presented parcels and wasted scan/sort windows without buying a large upstream singulation system. transactability=procurable (agent backfill 2026-06-10, needs review): purchasable singulator subsystems from sortation vendors",
+    "transactability": "procurable"
   },
   {
     "id": "dynamic_gap_control_logic",
@@ -2123,7 +2150,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "The practical tradeoff is pitch utilization: fixed blow-through gapping is simpler, while dynamic control can reduce wasted space but adds sensing, drive tuning, and commissioning effort."
+    "notes": "The practical tradeoff is pitch utilization: fixed blow-through gapping is simpler, while dynamic control can reduce wasted space but adds sensing, drive tuning, and commissioning effort. transactability=must_build (agent backfill 2026-06-10, needs review): integrator-specific control logic",
+    "transactability": "must_build"
   },
   {
     "id": "induction_sensor_array",
@@ -2211,7 +2239,8 @@
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "This is a throughput and labor bottleneck: the target pph is credible only if exception parcels are identified and routed or retried without frequent manual stops."
+    "notes": "This is a throughput and labor bottleneck: the target pph is credible only if exception parcels are identified and routed or retried without frequent manual stops. transactability=must_build (agent backfill 2026-06-10, needs review): integrator-built exception workflow",
+    "transactability": "must_build"
   },
   {
     "id": "plc_and_wcs_integration",
@@ -2268,7 +2297,8 @@
       "decomposition_frontier"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Consistency backfill: PLC/WCS integration was less mature than its semiconductor child, so this node captures the missing software-and-controls bottleneck. Mature electronics do not prove the parcel identity, timing, acknowledgement, and exception-recovery loop."
+    "notes": "Consistency backfill: PLC/WCS integration was less mature than its semiconductor child, so this node captures the missing software-and-controls bottleneck. Mature electronics do not prove the parcel identity, timing, acknowledgement, and exception-recovery loop. transactability=procurable (agent backfill 2026-06-10, needs review): system-integrator service offering",
+    "transactability": "procurable"
   },
   {
     "id": "sortation_chutes_and_bins",
@@ -2323,7 +2353,8 @@
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
     ],
-    "notes": "Expansion frontier: needs field evidence for jam modes, sensor coverage, recovery time, false alarms, and operator intervention rate."
+    "notes": "Expansion frontier: needs field evidence for jam modes, sensor coverage, recovery time, false alarms, and operator intervention rate. transactability=must_build (agent backfill 2026-06-10, needs review): integrator-built detection/recovery logic",
+    "transactability": "must_build"
   },
   {
     "id": "sorting_decision_system",
@@ -2509,7 +2540,8 @@
     "bottleneckOf": [
       "affordable_small_warehouse_automation"
     ],
-    "notes": "Consistency backfill: delta_robot_sorting carried the low-jam-rate bottleneck, but its direct children were generic shared modules. This node captures the missing delta-specific parcel-variability and jam-control driver."
+    "notes": "Consistency backfill: delta_robot_sorting carried the low-jam-rate bottleneck, but its direct children were generic shared modules. This node captures the missing delta-specific parcel-variability and jam-control driver. transactability=must_build (agent backfill 2026-06-10, needs review): no separate market; sibling-product embedded know-how",
+    "transactability": "must_build"
   },
   {
     "id": "conveyor_diverter_sorting",
@@ -3011,7 +3043,8 @@
       "decomposition_frontier"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Frontier candidate: next layer should model station-by-station fab steps, jig/fixture standardization, line-side parts-supply, integration test protocols, and per-module cost roll-up."
+    "notes": "Frontier candidate: next layer should model station-by-station fab steps, jig/fixture standardization, line-side parts-supply, integration test protocols, and per-module cost roll-up. transactability=must_build (agent backfill 2026-06-10, needs review): the maker's own production system design",
+    "transactability": "must_build"
   },
   {
     "id": "warehouse_machine_safety_standard",
@@ -3082,7 +3115,8 @@
       "supply_chain",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model ore grade, mine permitting, smelting/refining capacity, recycled copper, sulfuric acid constraints, and regional supply risk. Cost is a low-confidence upstream allocation embedded inside the refined copper conductor material estimate, not an independent robot-cell purchase line."
+    "notes": "Mineral-level frontier: next layer may model ore grade, mine permitting, smelting/refining capacity, recycled copper, sulfuric acid constraints, and regional supply risk. Cost is a low-confidence upstream allocation embedded inside the refined copper conductor material estimate, not an independent robot-cell purchase line. transactability=procurable (agent backfill 2026-06-10, needs review): commodity industry chain; output traded openly",
+    "transactability": "procurable"
   },
   {
     "id": "electrical_steel_lamination_material",
@@ -3177,7 +3211,8 @@
       "supply_chain",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model iron ore, scrap supply, alloying elements, blast furnace/basic oxygen furnace route, electric-arc furnace route, energy intensity, and emissions. Cost is a low-confidence upstream allocation embedded inside steel material estimates, not an independent robot-cell purchase line."
+    "notes": "Mineral-level frontier: next layer may model iron ore, scrap supply, alloying elements, blast furnace/basic oxygen furnace route, electric-arc furnace route, energy intensity, and emissions. Cost is a low-confidence upstream allocation embedded inside steel material estimates, not an independent robot-cell purchase line. transactability=procurable (agent backfill 2026-06-10, needs review): commodity industry chain",
+    "transactability": "procurable"
   },
   {
     "id": "bauxite_alumina_aluminum_chain",
@@ -3209,7 +3244,8 @@
       "investor_relevant",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model bauxite ore, Bayer alumina refining, Hall-Heroult smelting, recycled aluminum, energy cost, and extrusion/casting capacity. Candidate public-company exposure added for upstream aluminum-chain research; exact target-cell supplier share is unverified."
+    "notes": "Mineral-level frontier: next layer may model bauxite ore, Bayer alumina refining, Hall-Heroult smelting, recycled aluminum, energy cost, and extrusion/casting capacity. Candidate public-company exposure added for upstream aluminum-chain research; exact target-cell supplier share is unverified. transactability=procurable (agent backfill 2026-06-10, needs review): commodity industry chain",
+    "transactability": "procurable"
   },
   {
     "id": "aluminum_structural_material",
@@ -3268,7 +3304,8 @@
       "supply_chain",
       "decomposition_frontier"
     ],
-    "notes": "Mineral-level frontier: next layer may model quartz quality, submerged-arc furnace silicon metal, polysilicon, wafer fabrication, chip packaging, and supply concentration."
+    "notes": "Mineral-level frontier: next layer may model quartz quality, submerged-arc furnace silicon metal, polysilicon, wafer fabrication, chip packaging, and supply concentration. transactability=procurable (agent backfill 2026-06-10, needs review): commodity chain at the parcel-robot consumption tier",
+    "transactability": "procurable"
   },
   {
     "id": "semiconductor_grade_silicon_and_electronics",
@@ -6301,9 +6338,11 @@
       "robot_arm",
       "public_company"
     ],
-    "notes": "Investor relevance: robot-body supplier; benefit depends on whether low-cost cells use standard industrial arms or locally integrated robot arms.",
+    "notes": "Investor relevance: robot-body supplier; benefit depends on whether low-cost cells use standard industrial arms or locally integrated robot arms. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6954.T"
   },
   {
     "id": "org_estun",
@@ -6352,9 +6391,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: domestic robot-arm supplier in the same cost-sensitive China market as the target product.",
+    "notes": "Investor relevance: domestic robot-arm supplier in the same cost-sensitive China market as the target product. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "002747.SZ"
   },
   {
     "id": "org_inovance",
@@ -6428,9 +6469,11 @@
       "real_time_control",
       "investable_supplier"
     ],
-    "notes": "Investor relevance: vertically exposed to servo, control, and industrial robot subsystems; the same report also cites 26.3% China SCARA share, which is useful context but not the target six-axis parcel-cell architecture by itself.",
+    "notes": "Investor relevance: vertically exposed to servo, control, and industrial robot subsystems; the same report also cites 26.3% China SCARA share, which is useful context but not the target six-axis parcel-cell architecture by itself. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "300124.SZ"
   },
   {
     "id": "org_abb_robotics",
@@ -6490,9 +6533,11 @@
       "parcel_induction",
       "public_company"
     ],
-    "notes": "Investor relevance: closest public reference for an industrial robot-arm parcel-induction module, but its positioning is higher-end than the 300,000 RMB target.",
+    "notes": "Investor relevance: closest public reference for an industrial robot-arm parcel-induction module, but its positioning is higher-end than the 300,000 RMB target. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "ABBN.SW"
   },
   {
     "id": "org_yaskawa",
@@ -6546,9 +6591,11 @@
       "servo_drive",
       "investable_supplier"
     ],
-    "notes": "Investor relevance: exposed to both robot arms and servo systems; exact share in parcel-sorting cells is not established.",
+    "notes": "Investor relevance: exposed to both robot arms and servo systems; exact share in parcel-sorting cells is not established. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6506.T"
   },
   {
     "id": "org_siemens",
@@ -6613,9 +6660,11 @@
       "conveyor_tracking",
       "investable_supplier"
     ],
-    "notes": "Investor relevance: PLC and motion-control exposure; the low-cost China target may substitute domestic controls where price pressure dominates.",
+    "notes": "Investor relevance: PLC and motion-control exposure; the low-cost China target may substitute domestic controls where price pressure dominates. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "SIE.DE"
   },
   {
     "id": "org_mitsubishi_electric",
@@ -6686,9 +6735,11 @@
       "datacom_supplier",
       "japan_electronics"
     ],
-    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.\nMitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth.\nMitsubishi Electric is established EML/DFB laser supplier with in-house capability (epitaxy + fabrication). Approximately 20–25% global market share; supplies to regional and global transceiver makers. Capacity less publicized than Lumentum/Coherent but meaningful contributor to global EML supply diversification.",
+    "notes": "Investor relevance: automation-control supplier; market-share values are omitted here because current verified share data is weaker than product-line evidence.\nMitsubishi Electric (Tokyo Stock Exchange: 6503.T) is a diversified manufacturer; optics division supplies Japanese vendors primarily but expanding global presence. Investor relevance: diversified exposure but optics/laser business benefits from AI datacenter growth.\nMitsubishi Electric is established EML/DFB laser supplier with in-house capability (epitaxy + fabrication). Approximately 20–25% global market share; supplies to regional and global transceiver makers. Capacity less publicized than Lumentum/Coherent but meaningful contributor to global EML supply diversification. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6503.T"
   },
   {
     "id": "org_rockwell_automation",
@@ -6743,9 +6794,11 @@
       "public_company",
       "investable_supplier"
     ],
-    "notes": "Investor relevance: strong North American automation exposure; less direct for a China-first 300,000 RMB target but important for global logistics automation.",
+    "notes": "Investor relevance: strong North American automation exposure; less direct for a China-first 300,000 RMB target but important for global logistics automation. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "ROK"
   },
   {
     "id": "org_schneider_electric",
@@ -6816,9 +6869,11 @@
       "power_delivery",
       "infrastructure"
     ],
-    "notes": "Investor relevance: PLC/electrical-control exposure; exact parcel-cell adoption share is unverified.\nSchneider Electric competes directly with Vertiv across cooling and power infrastructure. Strong in facility-level integration and legacy datacenters; gaining share in AI-focused liquid-cooling buildouts.",
+    "notes": "Investor relevance: PLC/electrical-control exposure; exact parcel-cell adoption share is unverified.\nSchneider Electric competes directly with Vertiv across cooling and power infrastructure. Strong in facility-level integration and legacy datacenters; gaining share in AI-focused liquid-cooling buildouts. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "SU.PA"
   },
   {
     "id": "org_nabtesco",
@@ -6851,9 +6906,11 @@
       "precision_reducer",
       "public_company"
     ],
-    "notes": "Investor relevance: reducer cost/life is a bottleneck-like cost and reliability lever for robot arms; company-claimed share still requires review.",
+    "notes": "Investor relevance: reducer cost/life is a bottleneck-like cost and reliability lever for robot arms; company-claimed share still requires review. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6268.T"
   },
   {
     "id": "org_harmonic_drive_systems",
@@ -6882,9 +6939,11 @@
       "precision_reducer",
       "public_company"
     ],
-    "notes": "Investor relevance: exposed to compact robot-joint reducers; current candidate omits a numeric share because public share estimates conflict by region and reducer type.",
+    "notes": "Investor relevance: exposed to compact robot-joint reducers; current candidate omits a numeric share because public share estimates conflict by region and reducer type. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6324.T"
   },
   {
     "id": "org_leaderdrive",
@@ -6914,9 +6973,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: domestic harmonic reducer exposure; share data needs a cleaner source before numeric market share should be displayed.",
+    "notes": "Investor relevance: domestic harmonic reducer exposure; share data needs a cleaner source before numeric market share should be displayed. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "688017.SS"
   },
   {
     "id": "org_shuanghuan_transmission",
@@ -6944,9 +7005,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: domestic RV reducer supplier; numeric China RV reducer share is weak-source and should be researched further before promotion.",
+    "notes": "Investor relevance: domestic RV reducer supplier; numeric China RV reducer share is weak-source and should be researched further before promotion. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "002472.SZ"
   },
   {
     "id": "org_nvidia",
@@ -6977,9 +7040,11 @@
       "robotics",
       "public_company"
     ],
-    "notes": "Investor relevance: direct exposure to embedded AI modules and inference software stack; not evidence of target-cell supplier status.",
+    "notes": "Investor relevance: direct exposure to embedded AI modules and inference software stack; not evidence of target-cell supplier status. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "NVDA"
   },
   {
     "id": "org_intel",
@@ -7010,9 +7075,11 @@
       "inference_runtime",
       "public_company"
     ],
-    "notes": "Investor relevance: public-equity exposure to edge inference hardware and runtime tooling; exact parcel-cell adoption is not verified.",
+    "notes": "Investor relevance: public-equity exposure to edge inference hardware and runtime tooling; exact parcel-cell adoption is not verified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "INTC"
   },
   {
     "id": "org_advantech",
@@ -7041,9 +7108,11 @@
       "edge_ai",
       "public_company"
     ],
-    "notes": "Investor relevance: industrial edge-computing and AIoT exposure; target-product supplier status is not confirmed.",
+    "notes": "Investor relevance: industrial edge-computing and AIoT exposure; target-product supplier status is not confirmed. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "2395.TW"
   },
   {
     "id": "org_adlink_technology",
@@ -7072,9 +7141,11 @@
       "edge_ai",
       "public_company"
     ],
-    "notes": "Investor relevance: listed industrial edge-AI and embedded-computing exposure; exact parcel-cell supplier status is not verified.",
+    "notes": "Investor relevance: listed industrial edge-AI and embedded-computing exposure; exact parcel-cell supplier status is not verified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6166.TW"
   },
   {
     "id": "org_hikrobot",
@@ -7109,9 +7180,11 @@
       "china_supplier",
       "public_company_exposure"
     ],
-    "notes": "Investor relevance: direct exposure to camera and code-reading components through Hikvision 002415.SZ rather than an independently listed Hikrobot ticker; market-share data is product-specific and older.",
+    "notes": "Investor relevance: direct exposure to camera and code-reading components through Hikvision 002415.SZ rather than an independently listed Hikrobot ticker; market-share data is product-specific and older. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "subsidiary",
+    "ticker": "002415.SZ"
   },
   {
     "id": "org_keyence",
@@ -7150,9 +7223,11 @@
       "safety",
       "public_company"
     ],
-    "notes": "Investor relevance: spans perception and safety; numeric share estimates are weak-source and omitted in this candidate.",
+    "notes": "Investor relevance: spans perception and safety; numeric share estimates are weak-source and omitted in this candidate. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6861.T"
   },
   {
     "id": "org_cognex",
@@ -7189,9 +7264,11 @@
       "barcode",
       "public_company"
     ],
-    "notes": "Investor relevance: direct exposure to smart cameras and code readers; exact parcel-cell share is unverified.",
+    "notes": "Investor relevance: direct exposure to smart cameras and code readers; exact parcel-cell share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "CGNX"
   },
   {
     "id": "org_datalogic",
@@ -7221,9 +7298,11 @@
       "logistics_automation",
       "public_company"
     ],
-    "notes": "Investor relevance: listed exposure to industrial code readers and logistics scanning; exact parcel-cell market share is unverified.",
+    "notes": "Investor relevance: listed exposure to industrial code readers and logistics scanning; exact parcel-cell market share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "DAL.MI"
   },
   {
     "id": "org_zebra_technologies",
@@ -7253,9 +7332,11 @@
       "logistics_automation",
       "public_company"
     ],
-    "notes": "Investor relevance: public-equity exposure to logistics barcode scanning and machine-vision automation; target product supplier status is not confirmed.",
+    "notes": "Investor relevance: public-equity exposure to logistics barcode scanning and machine-vision automation; target product supplier status is not confirmed. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "ZBRA"
   },
   {
     "id": "org_basler",
@@ -7283,9 +7364,11 @@
       "industrial_camera",
       "public_company"
     ],
-    "notes": "Investor relevance: camera-component exposure; share values not included until source quality improves.",
+    "notes": "Investor relevance: camera-component exposure; share values not included until source quality improves. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "BSL.DE"
   },
   {
     "id": "org_opt_machine_vision",
@@ -7314,9 +7397,11 @@
       "china_supplier",
       "public_company"
     ],
-    "notes": "Investor relevance: controlled lighting is a bottleneck-like parcel perception driver; exact parcel logistics share is unverified.",
+    "notes": "Investor relevance: controlled lighting is a bottleneck-like parcel perception driver; exact parcel logistics share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "688686.SS"
   },
   {
     "id": "org_smc",
@@ -7356,9 +7441,11 @@
       "pneumatic",
       "public_company"
     ],
-    "notes": "Investor relevance: vacuum pads/ejectors are recurring wear and reliability components for suction-based parcel handling.",
+    "notes": "Investor relevance: vacuum pads/ejectors are recurring wear and reliability components for suction-based parcel handling. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6273.T"
   },
   {
     "id": "org_schmalz",
@@ -7386,9 +7473,10 @@
       "end_effector",
       "private_company"
     ],
-    "notes": "Investor relevance: not directly public, but important as a benchmark supplier for EOAT reliability and component design.",
+    "notes": "Investor relevance: not directly public, but important as a benchmark supplier for EOAT reliability and component design. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_piab",
@@ -7416,9 +7504,10 @@
       "end_effector",
       "private_company"
     ],
-    "notes": "Investor relevance: private benchmark supplier for suction-cup and vacuum technology.",
+    "notes": "Investor relevance: private benchmark supplier for suction-cup and vacuum technology. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "subsidiary"
   },
   {
     "id": "org_festo",
@@ -7454,9 +7543,10 @@
       "sensor",
       "valve"
     ],
-    "notes": "Investor relevance: private supplier; useful for technical benchmarking rather than direct public equity exposure.",
+    "notes": "Investor relevance: private supplier; useful for technical benchmarking rather than direct public equity exposure. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_onrobot",
@@ -7484,9 +7574,10 @@
       "end_effector",
       "private_company"
     ],
-    "notes": "Investor relevance: private supplier but useful benchmark for low-deployment-cost EOAT.",
+    "notes": "Investor relevance: private supplier but useful benchmark for low-deployment-cost EOAT. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_wayzim",
@@ -7530,9 +7621,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: one of the closest listed China suppliers for robotic parcel infeed plus conveyor sortation; price point and delivered unit economics still need field evidence.",
+    "notes": "Investor relevance: one of the closest listed China suppliers for robotic parcel infeed plus conveyor sortation; price point and delivered unit economics still need field evidence. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "688211.SS"
   },
   {
     "id": "org_dematic_kion",
@@ -7569,9 +7662,11 @@
       "wcs",
       "public_company"
     ],
-    "notes": "Investor relevance: downstream and integration exposure; usually larger-system supplier rather than low-cost single-cell component vendor.",
+    "notes": "Investor relevance: downstream and integration exposure; usually larger-system supplier rather than low-cost single-cell component vendor. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "subsidiary",
+    "ticker": "KGX.DE"
   },
   {
     "id": "org_vanderlande_toyota",
@@ -7599,9 +7694,11 @@
       "conveyor",
       "public_company"
     ],
-    "notes": "Investor relevance: large sortation-system exposure; adjacent to the target cell rather than proof of a 300,000 RMB robot product.",
+    "notes": "Investor relevance: large sortation-system exposure; adjacent to the target cell rather than proof of a 300,000 RMB robot product. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "subsidiary",
+    "ticker": "6201.T"
   },
   {
     "id": "org_interroll",
@@ -7630,9 +7727,11 @@
       "sorter",
       "public_company"
     ],
-    "notes": "Investor relevance: core conveyor/sorter module supplier; strong fit for upstream material-handling exposure.",
+    "notes": "Investor relevance: core conveyor/sorter module supplier; strong fit for upstream material-handling exposure. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "IRN.SW"
   },
   {
     "id": "org_daifuku",
@@ -7661,9 +7760,11 @@
       "sorter",
       "public_company"
     ],
-    "notes": "Investor relevance: broad logistics-automation exposure; less specific to the low-cost robot-arm cell.",
+    "notes": "Investor relevance: broad logistics-automation exposure; less specific to the low-cost robot-arm cell. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6383.T"
   },
   {
     "id": "org_honeywell_intelligrated",
@@ -7708,9 +7809,11 @@
       "wcs",
       "public_company"
     ],
-    "notes": "Investor relevance: WES/WCS and sortation integration exposure; exact exposure to low-cost Chinese parcel cells is uncertain.",
+    "notes": "Investor relevance: WES/WCS and sortation integration exposure; exact exposure to low-cost Chinese parcel cells is uncertain. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "subsidiary",
+    "ticker": "HON"
   },
   {
     "id": "org_manhattan_associates",
@@ -7744,9 +7847,11 @@
       "warehouse_software",
       "public_company"
     ],
-    "notes": "Investor relevance: software integration exposure, especially where robot cells must connect to warehouse execution layers.",
+    "notes": "Investor relevance: software integration exposure, especially where robot cells must connect to warehouse execution layers. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "MANH"
   },
   {
     "id": "org_sick",
@@ -7786,9 +7891,10 @@
       "vacuum",
       "conveyor_sensor"
     ],
-    "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited, but safety and code-reading reliability are adoption-critical.",
+    "notes": "Investor relevance: private benchmark supplier; direct public-equity exposure is limited, but safety and code-reading reliability are adoption-critical. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_dupont",
@@ -7818,9 +7924,11 @@
       "polymer",
       "public_company"
     ],
-    "notes": "Investor relevance: public upstream elastomer/polymer supplier; exact suction-cup feedstock share is unverified.",
+    "notes": "Investor relevance: public upstream elastomer/polymer supplier; exact suction-cup feedstock share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "DD"
   },
   {
     "id": "org_shin_etsu",
@@ -7860,9 +7968,11 @@
       "semiconductor_material",
       "public_company"
     ],
-    "notes": "Investor relevance: public upstream silicone and semiconductor-material supplier. Exact suction-cup feedstock share and exact target-cell semiconductor-material exposure are unverified.",
+    "notes": "Investor relevance: public upstream silicone and semiconductor-material supplier. Exact suction-cup feedstock share and exact target-cell semiconductor-material exposure are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "4063.T"
   },
   {
     "id": "org_dow",
@@ -7892,9 +8002,11 @@
       "elastomer",
       "public_company"
     ],
-    "notes": "Investor relevance: public upstream material supplier; feedstock exposure is broad and not parcel-specific.",
+    "notes": "Investor relevance: public upstream material supplier; feedstock exposure is broad and not parcel-specific. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "DOW"
   },
   {
     "id": "org_wacker_chemie",
@@ -7933,9 +8045,11 @@
       "elastomer",
       "public_company"
     ],
-    "notes": "Investor relevance: public upstream silicone/elastomer supplier; exact suction-cup supply-chain share is unverified.",
+    "notes": "Investor relevance: public upstream silicone/elastomer supplier; exact suction-cup supply-chain share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "WCH.DE"
   },
   {
     "id": "org_ifm",
@@ -7965,9 +8079,10 @@
       "vacuum",
       "private_company"
     ],
-    "notes": "Investor relevance: private benchmark supplier for sensor architecture and pricing; direct public-equity exposure is limited.",
+    "notes": "Investor relevance: private benchmark supplier for sensor architecture and pricing; direct public-equity exposure is limited. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_airtac",
@@ -7997,9 +8112,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: public pneumatic component supplier; target-cell use and market share are unverified.",
+    "notes": "Investor relevance: public pneumatic component supplier; target-cell use and market share are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "1590.TW"
   },
   {
     "id": "org_ckd",
@@ -8029,9 +8146,11 @@
       "valve",
       "public_company"
     ],
-    "notes": "Investor relevance: public pneumatic/vacuum component exposure; exact parcel-sorting share is unverified.",
+    "notes": "Investor relevance: public pneumatic/vacuum component exposure; exact parcel-sorting share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6407.T"
   },
   {
     "id": "org_omron",
@@ -8062,9 +8181,11 @@
       "conveyor_sensor",
       "public_company"
     ],
-    "notes": "Investor relevance: machine-safety and industrial sensor exposure; exact low-cost parcel-cell share is unverified.",
+    "notes": "Investor relevance: machine-safety and industrial sensor exposure; exact low-cost parcel-cell share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6645.T"
   },
   {
     "id": "org_leuze",
@@ -8094,9 +8215,10 @@
       "conveyor_sensor",
       "private_company"
     ],
-    "notes": "Investor relevance: private safety/optical sensor benchmark supplier.",
+    "notes": "Investor relevance: private safety/optical sensor benchmark supplier. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_jlmag",
@@ -8125,9 +8247,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: upstream magnet exposure; robot-cell demand is indirect through servo motors and industrial automation.",
+    "notes": "Investor relevance: upstream magnet exposure; robot-cell demand is indirect through servo motors and industrial automation. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "300748.SZ"
   },
   {
     "id": "org_zhongke_sanhuan",
@@ -8156,9 +8280,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: upstream magnet exposure; share by robot servo market remains unverified.",
+    "notes": "Investor relevance: upstream magnet exposure; share by robot servo market remains unverified. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "000970.SZ"
   },
   {
     "id": "org_ningbo_yunsheng",
@@ -8193,9 +8319,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: upstream magnet capacity exposure; verify grade mix and servo-motor customer exposure before investment inference.",
+    "notes": "Investor relevance: upstream magnet capacity exposure; verify grade mix and servo-motor customer exposure before investment inference. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "600366.SS"
   },
   {
     "id": "org_china_northern_rare_earth",
@@ -8224,9 +8352,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: upstream feedstock exposure; not a direct robot component supplier.",
+    "notes": "Investor relevance: upstream feedstock exposure; not a direct robot component supplier. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "600111.SS"
   },
   {
     "id": "org_mp_materials",
@@ -8261,9 +8391,11 @@
       "feedstock",
       "public_company"
     ],
-    "notes": "Investor relevance: diversification exposure if rare-earth magnet supply becomes a bottleneck; indirect to low-cost China robot cells.",
+    "notes": "Investor relevance: diversification exposure if rare-earth magnet supply becomes a bottleneck; indirect to low-cost China robot cells. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "MP"
   },
   {
     "id": "org_lynas_rare_earths",
@@ -8299,9 +8431,11 @@
       "feedstock",
       "public_company"
     ],
-    "notes": "Investor relevance: upstream rare-earth diversification and Dy/Tb product exposure; not a direct robot component supplier.",
+    "notes": "Investor relevance: upstream rare-earth diversification and Dy/Tb product exposure; not a direct robot component supplier. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "LYC.AX"
   },
   {
     "id": "org_china_rare_earth_resources",
@@ -8337,9 +8471,10 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: listed China medium-heavy rare-earth separation/feedstock exposure. Treat as upstream supplier exposure, not confirmed parcel-robot BOM participation.",
+    "notes": "Investor relevance: listed China medium-heavy rare-earth separation/feedstock exposure. Treat as upstream supplier exposure, not confirmed parcel-robot BOM participation. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "unknown"
   },
   {
     "id": "org_xiamen_tungsten",
@@ -8372,9 +8507,11 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: listed upstream and magnet-material exposure around rare-earth separation and permanent magnets. Product mix and Dy/Tb allocation for servo magnets remain unreviewed.",
+    "notes": "Investor relevance: listed upstream and magnet-material exposure around rare-earth separation and permanent magnets. Product mix and Dy/Tb allocation for servo magnets remain unreviewed. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "600549.SS"
   },
   {
     "id": "org_banner_engineering",
@@ -8401,9 +8538,10 @@
       "conveyor",
       "private_company"
     ],
-    "notes": "Investor relevance: private supplier, useful for technical benchmarking of induction sensor arrays rather than direct public-equity exposure.",
+    "notes": "Investor relevance: private supplier, useful for technical benchmarking of induction sensor arrays rather than direct public-equity exposure. listing backfill 2026-06-10 (agent, needs review)",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_infineon_technologies",
@@ -8439,11 +8577,13 @@
       "servo_drive",
       "public_company"
     ],
-    "notes": "Investor relevance: exposed to power modules and gate-driver content that can scale with industrial motion-control electrification; exact share in this target robot-cell BOM is not established.",
+    "notes": "Investor relevance: exposed to power modules and gate-driver content that can scale with industrial motion-control electrification; exact share in this target robot-cell BOM is not established. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "IFX.DE"
   },
   {
     "id": "org_stmicroelectronics",
@@ -8470,11 +8610,13 @@
       "servo_drive",
       "public_company"
     ],
-    "notes": "Investor relevance: power-stage, MCU, and motor-control silicon exposure; exact share in low-cost Chinese parcel-sorting robots is unverified.",
+    "notes": "Investor relevance: power-stage, MCU, and motor-control silicon exposure; exact share in low-cost Chinese parcel-sorting robots is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "STM"
   },
   {
     "id": "org_onsemi",
@@ -8502,11 +8644,13 @@
       "current_sensing",
       "public_company"
     ],
-    "notes": "Investor relevance: exposed to motor-drive IPM and sensing content; not evidence of direct adoption in this exact robot-cell architecture.",
+    "notes": "Investor relevance: exposed to motor-drive IPM and sensing content; not evidence of direct adoption in this exact robot-cell architecture. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "ON"
   },
   {
     "id": "org_texas_instruments",
@@ -8533,11 +8677,13 @@
       "analog_semiconductor",
       "public_company"
     ],
-    "notes": "Investor relevance: analog current-sensing and isolation content; exact share in robot servo drives is unverified.",
+    "notes": "Investor relevance: analog current-sensing and isolation content; exact share in robot servo drives is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "TXN"
   },
   {
     "id": "org_allegro_microsystems",
@@ -8564,11 +8710,13 @@
       "motion_control",
       "public_company"
     ],
-    "notes": "Investor relevance: current-sensing exposure in motion-control and power-conversion loops; exact parcel-robot BOM share is unverified.",
+    "notes": "Investor relevance: current-sensing exposure in motion-control and power-conversion loops; exact parcel-robot BOM share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "ALGM"
   },
   {
     "id": "org_lem",
@@ -8594,11 +8742,13 @@
       "industrial_drive",
       "public_company"
     ],
-    "notes": "Investor relevance: specialized current-transducer exposure; exact supplier position in this target robot-cell BOM is unverified.",
+    "notes": "Investor relevance: specialized current-transducer exposure; exact supplier position in this target robot-cell BOM is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "LEHN.SW"
   },
   {
     "id": "servo_drive_power_stage_cost",
@@ -9069,11 +9219,13 @@
       "cross_roller_bearing",
       "public_company"
     ],
-    "notes": "Investor relevance: robot-joint bearing exposure; exact share in target reducers is unverified.",
+    "notes": "Investor relevance: robot-joint bearing exposure; exact share in target reducers is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6481.T"
   },
   {
     "id": "org_nsk",
@@ -9103,11 +9255,13 @@
       "bearing",
       "electric_motor"
     ],
-    "notes": "Investor relevance: broad precision-bearing exposure; exact reducer output-bearing selection and share are unverified. Also used as a candidate supplier for servo motor bearings/shafts; exact target motor bearing selection is unverified.",
+    "notes": "Investor relevance: broad precision-bearing exposure; exact reducer output-bearing selection and share are unverified. Also used as a candidate supplier for servo motor bearings/shafts; exact target motor bearing selection is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6471.T"
   },
   {
     "id": "org_schaeffler",
@@ -9137,11 +9291,13 @@
       "bearing",
       "electric_motor"
     ],
-    "notes": "Investor relevance: precision bearing and industrial automation exposure; exact target-cell BOM position is unverified. Also used as a candidate supplier for servo motor bearings/shafts; exact target motor bearing selection is unverified.",
+    "notes": "Investor relevance: precision bearing and industrial automation exposure; exact target-cell BOM position is unverified. Also used as a candidate supplier for servo motor bearings/shafts; exact target motor bearing selection is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "SHA.DE"
   },
   {
     "id": "org_citic_special_steel",
@@ -9168,11 +9324,13 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: precision steel and bearing/gear steel upstream exposure; exact reducer-grade share is unverified.",
+    "notes": "Investor relevance: precision steel and bearing/gear steel upstream exposure; exact reducer-grade share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "000708.SZ"
   },
   {
     "id": "org_baosteel",
@@ -9203,11 +9361,13 @@
       "china_supplier",
       "electrical_steel"
     ],
-    "notes": "Investor relevance: upstream special-steel exposure; exact target reducer material qualification and share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified.",
+    "notes": "Investor relevance: upstream special-steel exposure; exact target reducer material qualification and share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "600019.SS"
   },
   {
     "id": "org_nippon_steel",
@@ -9237,11 +9397,13 @@
       "public_company",
       "electrical_steel"
     ],
-    "notes": "Investor relevance: upstream steel exposure; exact reducer steel grade and target BOM share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified.",
+    "notes": "Investor relevance: upstream steel exposure; exact reducer steel grade and target BOM share are unverified. Electrical-steel supplier candidacy added for servo stator laminations; exact grade and target BOM share are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "5401.T"
   },
   {
     "id": "org_chalco",
@@ -9277,11 +9439,13 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: listed upstream aluminum-chain and aluminum-alloy exposure; target parcel-cell extrusion/profile supplier share remains unverified.",
+    "notes": "Investor relevance: listed upstream aluminum-chain and aluminum-alloy exposure; target parcel-cell extrusion/profile supplier share remains unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "601600.SS"
   },
   {
     "id": "org_alcoa",
@@ -9316,11 +9480,13 @@
       "structural_material",
       "public_company"
     ],
-    "notes": "Investor relevance: public upstream aluminum-chain exposure; not a direct parcel-cell structural supplier claim.",
+    "notes": "Investor relevance: public upstream aluminum-chain exposure; not a direct parcel-cell structural supplier claim. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "AA"
   },
   {
     "id": "org_norsk_hydro",
@@ -9360,11 +9526,13 @@
       "structural_material",
       "public_company"
     ],
-    "notes": "Investor relevance: integrated aluminum-chain and extrusion/recycling exposure; target parcel-cell profile supplier share remains unverified.",
+    "notes": "Investor relevance: integrated aluminum-chain and extrusion/recycling exposure; target parcel-cell profile supplier share remains unverified. listing backfill 2026-06-10 (agent, needs review)",
     "kind": "organization",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "NHY.OL"
   },
   {
     "kind": "organization",
@@ -9394,7 +9562,9 @@
       "electrical_steel",
       "public_company"
     ],
-    "notes": "Investor relevance: upstream electrical-steel exposure; exact servo-motor lamination grade and target BOM share are unverified."
+    "notes": "Investor relevance: upstream electrical-steel exposure; exact servo-motor lamination grade and target BOM share are unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "005490.KS"
   },
   {
     "kind": "organization",
@@ -9424,7 +9594,8 @@
       "servo_feedback",
       "private_company"
     ],
-    "notes": "Investor relevance: private benchmark supplier for high-quality motor feedback rather than a direct public-equity exposure."
+    "notes": "Investor relevance: private benchmark supplier for high-quality motor feedback rather than a direct public-equity exposure. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "private"
   },
   {
     "kind": "organization",
@@ -9455,7 +9626,9 @@
       "motion_control",
       "public_company"
     ],
-    "notes": "Investor relevance: public exposure to precision encoder and metrology content; exact servo-motor BOM share is unverified."
+    "notes": "Investor relevance: public exposure to precision encoder and metrology content; exact servo-motor BOM share is unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "RSW.L"
   },
   {
     "kind": "organization",
@@ -9487,7 +9660,8 @@
       "servo_feedback",
       "private_company"
     ],
-    "notes": "Investor relevance: private benchmark supplier for encoder/resolver feedback; direct public-equity exposure is limited."
+    "notes": "Investor relevance: private benchmark supplier for encoder/resolver feedback; direct public-equity exposure is limited. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "private"
   },
   {
     "kind": "organization",
@@ -9518,7 +9692,9 @@
       "electric_motor",
       "public_company"
     ],
-    "notes": "Investor relevance: broad bearing exposure to electric motors and industrial automation; exact target servo-motor bearing share is unverified."
+    "notes": "Investor relevance: broad bearing exposure to electric motors and industrial automation; exact target servo-motor bearing share is unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "SKF-B.ST"
   },
   {
     "kind": "organization",
@@ -9549,7 +9725,9 @@
       "electric_motor",
       "public_company"
     ],
-    "notes": "Investor relevance: public bearing exposure to electric motor applications; exact target servo-motor bearing share is unverified."
+    "notes": "Investor relevance: public bearing exposure to electric motor applications; exact target servo-motor bearing share is unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "6472.T"
   },
   {
     "kind": "organization",
@@ -9580,7 +9758,9 @@
       "cable",
       "public_company"
     ],
-    "notes": "Investor relevance: public interconnect exposure to industrial motion-control content; exact target connector BOM share is unverified."
+    "notes": "Investor relevance: public interconnect exposure to industrial motion-control content; exact target connector BOM share is unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "APH"
   },
   {
     "kind": "organization",
@@ -9611,7 +9791,9 @@
       "cable",
       "public_company"
     ],
-    "notes": "Investor relevance: public connector exposure to servo motor and industrial automation interfaces; exact target connector BOM share is unverified."
+    "notes": "Investor relevance: public connector exposure to servo motor and industrial automation interfaces; exact target connector BOM share is unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "TEL"
   },
   {
     "kind": "organization",
@@ -9641,7 +9823,8 @@
       "cable",
       "private_company"
     ],
-    "notes": "Investor relevance: private/Koch subsidiary benchmark for industrial robot connectivity; direct public-equity exposure is limited."
+    "notes": "Investor relevance: private/Koch subsidiary benchmark for industrial robot connectivity; direct public-equity exposure is limited. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "subsidiary"
   },
   {
     "kind": "organization",
@@ -9672,7 +9855,9 @@
       "servo_motor_brake",
       "public_company"
     ],
-    "notes": "Investor relevance: public exposure to industrial brake content; exact target servo-axis integration and share are unverified."
+    "notes": "Investor relevance: public exposure to industrial brake content; exact target servo-axis integration and share are unverified. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "public",
+    "ticker": "KENDR.AS"
   },
   {
     "kind": "organization",
@@ -9702,7 +9887,8 @@
       "servo_motor_brake",
       "private_company"
     ],
-    "notes": "Investor relevance: private benchmark supplier for servo holding/safety brake design; direct public-equity exposure is limited."
+    "notes": "Investor relevance: private benchmark supplier for servo holding/safety brake design; direct public-equity exposure is limited. listing backfill 2026-06-10 (agent, needs review)",
+    "listingStatus": "private"
   },
   {
     "id": "gripper_tcp_pattern_calibration_cost",
@@ -9939,10 +10125,12 @@
       "foundry",
       "public_company"
     ],
-    "notes": "Investor relevance: large public foundry exposure for the semiconductor/electronics chain; exact chips used in the target parcel-cell BOM are unverified.",
+    "notes": "Investor relevance: large public foundry exposure for the semiconductor/electronics chain; exact chips used in the target parcel-cell BOM are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "2330.TW"
   },
   {
     "id": "org_smic",
@@ -9980,10 +10168,12 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: domestic foundry exposure for control, power, and industrial electronics supply chains; exact target-cell chip content and wafer-fab source are unverified.",
+    "notes": "Investor relevance: domestic foundry exposure for control, power, and industrial electronics supply chains; exact target-cell chip content and wafer-fab source are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "0981.HK"
   },
   {
     "id": "org_gcl_technology",
@@ -10026,10 +10216,12 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: upstream silicon-material exposure. Current evidence is solar/granular-silicon oriented, so it should not be read as semiconductor-grade silicon wafer supply for the target BOM.",
+    "notes": "Investor relevance: upstream silicon-material exposure. Current evidence is solar/granular-silicon oriented, so it should not be read as semiconductor-grade silicon wafer supply for the target BOM. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "3800.HK"
   },
   {
     "id": "org_jiangxi_copper",
@@ -10066,10 +10258,12 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: public upstream copper and copper-processing exposure; exact conductor supplier, copper grade, and target-cell share are unverified.",
+    "notes": "Investor relevance: public upstream copper and copper-processing exposure; exact conductor supplier, copper grade, and target-cell share are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "600362.SS"
   },
   {
     "id": "org_zijin_mining",
@@ -10113,10 +10307,12 @@
       "public_company",
       "china_supplier"
     ],
-    "notes": "Investor relevance: copper mining and resource exposure; exact contribution to refined copper conductor material used in the target system is unverified.",
+    "notes": "Investor relevance: copper mining and resource exposure; exact contribution to refined copper conductor material used in the target system is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "601899.SS"
   },
   {
     "id": "org_freeport_mcmoran",
@@ -10150,10 +10346,12 @@
       "mining",
       "public_company"
     ],
-    "notes": "Investor relevance: public copper mining exposure; not a direct target-cell conductor supplier claim.",
+    "notes": "Investor relevance: public copper mining exposure; not a direct target-cell conductor supplier claim. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "FCX"
   },
   {
     "id": "org_arcelormittal",
@@ -10193,10 +10391,12 @@
       "iron_ore",
       "public_company"
     ],
-    "notes": "Investor relevance: global steel and iron-ore exposure; exact low-cost parcel-cell steel source and grade share are unverified.",
+    "notes": "Investor relevance: global steel and iron-ore exposure; exact low-cost parcel-cell steel source and grade share are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "MT"
   },
   {
     "id": "modular_cell_manufacturing_cost",
@@ -10430,10 +10630,12 @@
       "process_chemical",
       "public_company"
     ],
-    "notes": "Investor relevance: public photoresist and lithography-chemical exposure. Exact share in target parcel-cell electronics is not verified.",
+    "notes": "Investor relevance: public photoresist and lithography-chemical exposure. Exact share in target parcel-cell electronics is not verified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "4186.T"
   },
   {
     "id": "org_jsr",
@@ -10466,10 +10668,11 @@
       "photoresist",
       "private_company"
     ],
-    "notes": "Investor relevance: important private semiconductor-material supplier and technical benchmark, not direct public-equity exposure. Target-cell electronics material share is unverified.",
+    "notes": "Investor relevance: important private semiconductor-material supplier and technical benchmark, not direct public-equity exposure. Target-cell electronics material share is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "private"
   },
   {
     "id": "org_ase_technology",
@@ -10506,10 +10709,12 @@
       "test",
       "public_company"
     ],
-    "notes": "Investor relevance: public semiconductor packaging/test exposure. Exact chips and package technologies inside the target parcel cell are unverified.",
+    "notes": "Investor relevance: public semiconductor packaging/test exposure. Exact chips and package technologies inside the target parcel cell are unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "3711.TW"
   },
   {
     "id": "org_amkor_technology",
@@ -10548,10 +10753,12 @@
       "test",
       "public_company"
     ],
-    "notes": "Investor relevance: public OSAT exposure. Exact package supplier for chips in the target parcel-cell BOM is unverified.",
+    "notes": "Investor relevance: public OSAT exposure. Exact package supplier for chips in the target parcel-cell BOM is unverified. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "maturityLabel": "unknown"
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "AMKR"
   },
   {
     "id": "org_ibiden",
@@ -10611,12 +10818,14 @@
       "substrate_leader",
       "abf_specialist"
     ],
-    "notes": "Investor relevance: public package-substrate exposure. Exact substrate content in target parcel-cell electronics is not verified.\nCritical supplier for AI accelerator substrate demand. 2021-2023 ABF shortage episodes directly constrained TSMC, Samsung, ASE advanced packaging capacity; Ibiden was named in multiple DigiTimes/Nikkei shortage reports as supply gating. Investor relevance: strong exposure to AI infrastructure buildout and HPC market growth.",
+    "notes": "Investor relevance: public package-substrate exposure. Exact substrate content in target parcel-cell electronics is not verified.\nCritical supplier for AI accelerator substrate demand. 2021-2023 ABF shortage episodes directly constrained TSMC, Samsung, ASE advanced packaging capacity; Ibiden was named in multiple DigiTimes/Nikkei shortage reports as supply gating. Investor relevance: strong exposure to AI infrastructure buildout and HPC market growth. listing backfill 2026-06-10 (agent, needs review)",
     "confidence": "high",
     "reviewStatus": "unreviewed",
     "maturityLabel": "widely_adopted",
     "maturityScore": 95,
-    "maturityAsOf": "2026-06"
+    "maturityAsOf": "2026-06",
+    "listingStatus": "public",
+    "ticker": "4062.T"
   },
   {
     "id": "copper_ore_mining_and_refining_chain_cost",

@@ -4,12 +4,18 @@ These scenarios define the current website-level evaluation target for the
 parcel-sorting robot graph. They are meant to be answered from the rendered
 local app, not by reading repo files.
 
-## Target Audiences
+## Learning Focuses (audiences)
 
-- Startup founder evaluating where to build a wedge product.
-- Public-equity investor looking for listed suppliers exposed to bottlenecks.
-- Manufacturing analyst trying to explain cost, throughput, and adoption risk.
-- Curious operator comparing whether the product boundary is credible.
+"Learner" is the umbrella — every persona is a learner with a
+different focus. Feature priority follows the order below
+(re-ranked 2026-06-10 per ADR-0008):
+
+1. Retail secondary-market investor (散户) hunting supply-chain
+   chokepoints: irreplaceable, high-barrier, supply-concentrated,
+   market-ignored upstream segments with listed suppliers.
+2. Startup founder evaluating where to build a wedge product.
+3. Manufacturing analyst explaining cost, throughput, and adoption risk.
+4. Curious operator comparing whether the product boundary is credible.
 
 ## Scenario Questions
 
@@ -20,6 +26,15 @@ local app, not by reading repo files.
 5. Why might throughput fail to scale: raw materials, component availability, technical maturity, integration/commissioning, or maintenance/operations?
 6. If starting a company, which bottleneck, high-cost, or low-maturity subsystem looks like the best opportunity?
 7. Where is the answer weak because evidence is unreviewed, vendor-only, proxy-based, or still missing?
+8. Which know-how dependencies of the focal product are must-build
+   (no market sells them), and who are the few organizations that
+   hold them?
+9. For a given bottleneck know-how, how many holders exist and how
+   many are listed (with tickers visible)?
+10. Which mature-looking nodes stay decomposition-eligible because
+    their supply is concentrated (≤ 3 holders)?
+11. Where is substitution pressure visible — i.e. which sibling
+    product candidates are maturing under the same capability?
 
 ## Website Success Criteria
 
