@@ -26,9 +26,11 @@ import { radialBandFor } from "../lib/lod";
  * Word-boundary truncation would be nicer but is overkill for the band-2
  * marker — the band-3 card always shows the full name.
  *
- * The band-2 outline is a neutral affordance channel only. It marks
- * current selection supplied by `GraphExplorer`; analytical colour
- * remains on edges so node contours do not contradict nearby lines.
+ * The band-2 outline carries selection affordance, plus — in the
+ * know-how layer only — a red zero-holder risk mark supplied by
+ * `GraphExplorer` (ADR-0007 lists node outline among the switchable
+ * analysis channels). In the product layer, analytical colour stays on
+ * edges so node contours do not contradict nearby lines.
  *
  * The band-3 badge currently shows the maturity label string; B1 will
  * extend this to a mode-aware badge.
@@ -63,9 +65,11 @@ export type RadialNodeProps = {
    */
   withHandles?: boolean;
   /**
-   * Neutral per-node outline colour. This must not encode cost,
-   * maturity, or bottleneck-risk; `GraphExplorer` uses it only for
-   * selection affordance. Falls back to grey when undefined.
+   * Per-node outline colour. In the product layer, carries selection
+   * affordance only. In the know-how layer, `GraphExplorer` also paints
+   * it red (#dc2626) for zero-holder nodes (ADR-0007: node outline
+   * among switchable analysis channels). Falls back to grey when
+   * undefined.
    */
   outlineColor?: string;
   /**
