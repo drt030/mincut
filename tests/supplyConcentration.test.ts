@@ -38,7 +38,7 @@ test("holdersForNode counts distinct orgs across manufactured_by and implemented
   const holders = holdersForNode(graph, "kh");
   assert.equal(holders.total, 2);
   assert.equal(holders.listed, 1);
-  assert.deepEqual(holders.organizationIds.sort(), ["org_a", "org_b"]);
+  assert.deepEqual(holders.organizationIds, ["org_a", "org_b"]);
 });
 
 test("holdersForNode excludes deprecated orgs and deprecated edges", () => {

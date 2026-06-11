@@ -35,12 +35,13 @@ export function isOrgListed(org: Node): boolean {
 }
 
 export function holdersForNode(graph: GraphData, nodeId: string): HolderSummary {
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
   const orgs = new Map<string, Node>();
   for (const edge of graph.edges) {
     if (!HOLDER_RELATIONS.has(edge.relation)) continue;
     if (edge.source !== nodeId) continue;
     if (edge.reviewStatus === "deprecated") continue;
-    const target = graph.nodes.find((node) => node.id === edge.target);
+    const target = nodeById.get(edge.target);
     if (!target || target.kind !== "organization") continue;
     if (target.reviewStatus === "deprecated") continue;
     orgs.set(target.id, target);
