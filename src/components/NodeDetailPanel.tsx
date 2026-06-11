@@ -14,6 +14,9 @@ import {
   suppliedNodesForOrganization,
   upstream,
 } from "@/lib/graphTraversal";
+import { isKnowHowNode } from "@/lib/canvasGraph";
+import { holdersForNode } from "@/lib/supplyConcentration";
+import { listingInfoForOrg } from "@/lib/knowHowLayer";
 import { formatMaturityLabel, maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
 import {
   eligibleCostSubsystemIds,
@@ -106,6 +109,40 @@ export function NodeDetailPanel({ graph, node, onSelectNode }: Props) {
 }
 
 /**
+ * Per Task 8: transactability and listing status chips for know-how dependencies.
+ */
+function TransactabilityChip({ value, t }: { value?: "procurable" | "must_build"; t: (k: string) => string }) {
+  const label = value === "procurable"
+    ? t("transactabilityProcurable")
+    : value === "must_build"
+    ? t("transactabilityMustBuild")
+    : t("transactabilityUnset");
+  const color = value === "procurable" ? "#15803d" : value === "must_build" ? "#b45309" : "#64748b";
+  return (
+    <span
+      data-transactability={value ?? "unset"}
+      style={{ fontSize: 11, border: `1px solid ${color}`, color, borderRadius: 4, padding: "0 4px", marginLeft: 6 }}
+    >
+      {label}
+    </span>
+  );
+}
+
+function ListingChip({ org }: { org: Node }) {
+  const info = listingInfoForOrg(org);
+  if (info.status === "unknown" && !info.ticker) return null;
+  const label = info.ticker ?? info.status;
+  return (
+    <span
+      data-listing-status={info.status}
+      style={{ fontSize: 11, background: "#f1f5f9", borderRadius: 4, padding: "0 4px", marginLeft: 6 }}
+    >
+      {label}
+    </span>
+  );
+}
+
+/**
  * Full detail content (description, priority strip, maturity history,
  * metrics, cost rollup, bottlenecks, upstream/downstream, sibling
  * products, evidence). Slotted by `NodeDetailRail` into its expanded
@@ -141,6 +178,45 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   );
   const implementerDeprecatedCount = implementerLinksAll.length - implementerLinks.length;
   const implementerCandidateIds = new Set(implementerLinksAll.map((link) => link.organization.id));
+
+  // Per Task 8: know-how dependencies (requires or implemented_by) from this node
+  const knowHowDepsAll = graph.edges
+    .filter((edge) =>
+      edge.source === node.id &&
+      (edge.relation === "requires" || edge.relation === "implemented_by") &&
+      edge.reviewStatus !== "deprecated")
+    .map((edge) => graph.nodes.find((n) => n.id === edge.target))
+    .filter((child): child is NonNullable<typeof child> => Boolean(child))
+    .filter((child) => isKnowHowNode(child) && child.reviewStatus !== "deprecated");
+
+  // Dedupe by node id (a node can be linked via both requires and implemented_by)
+  const knowHowDepsByIdMap = new Map<string, typeof knowHowDepsAll[0]>();
+  for (const dep of knowHowDepsAll) {
+    knowHowDepsByIdMap.set(dep.id, dep);
+  }
+  const knowHowDeps = Array.from(knowHowDepsByIdMap.values());
+
+  // Per Task 8: hosting artifacts for know-how nodes (requires or implemented_by pointing to this know-how)
+  const knowHowHostsAll = isKnowHowNode(node)
+    ? graph.edges
+        .filter((edge) =>
+          edge.target === node.id &&
+          (edge.relation === "requires" || edge.relation === "implemented_by") &&
+          edge.reviewStatus !== "deprecated")
+        .map((edge) => graph.nodes.find((n) => n.id === edge.source))
+        .filter((host): host is NonNullable<typeof host> => Boolean(host))
+        .filter((host) => !isKnowHowNode(host) && host.kind !== "organization")
+    : [];
+
+  // Dedupe hosts by node id
+  const knowHowHostsByIdMap = new Map<string, typeof knowHowHostsAll[0]>();
+  for (const host of knowHowHostsAll) {
+    knowHowHostsByIdMap.set(host.id, host);
+  }
+  const knowHowHosts = Array.from(knowHowHostsByIdMap.values());
+
+  // Per Task 8: holder summary for know-how nodes
+  const holderSummary = isKnowHowNode(node) ? holdersForNode(graph, node.id) : null;
   const supplierExposureAll =
     node.kind === "organization" ? suppliedNodesForOrganization(graph, node.id).filter((child) => child.kind !== "metric") : [];
   const supplierExposure = supplierExposureAll.filter((child) => child.reviewStatus !== "deprecated");
@@ -232,6 +308,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
               {item}
             </span>
           ))}
+          {node.kind === "organization" ? <ListingChip org={node} /> : null}
         </div>
       </div>
       <DetailPrioritySummary
@@ -397,6 +474,74 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         </details>
       ) : null}
       {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
+      {/* Per Task 8: Know-how dependencies section for artifacts */}
+      {knowHowDeps.length > 0 ? (
+        <div data-testid="knowhow-section">
+          <strong>{t("knowHowSectionTitle")}</strong>
+          <ul>
+            {knowHowDeps.map((dep) => (
+              <li key={dep.id}>
+                {onSelectNode ? (
+                  <button
+                    className="link-button"
+                    type="button"
+                    onClick={() => onSelectNode(dep.id)}
+                    title={nodeName(dep.id, dep.name)}
+                  >
+                    {nodeName(dep.id, dep.name)}
+                  </button>
+                ) : (
+                  <span>{nodeName(dep.id, dep.name)}</span>
+                )}
+                <TransactabilityChip value={dep.transactability} t={t} />
+                {(dep.bottleneckOf?.length ?? 0) > 0 ? (
+                  <span style={{ color: "#dc2626", marginLeft: 6 }} title="bottleneck">●</span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {/* Per Task 8: Know-how meta (transactability chip + holders summary) for know-how nodes */}
+      {isKnowHowNode(node) ? (
+        <div data-testid="knowhow-meta">
+          <strong>{t("knowHowSectionTitle")}</strong>
+          <TransactabilityChip value={node.transactability} t={t} />
+          {holderSummary ? (
+            <p
+              data-testid="holders-summary"
+              data-holders-total={holderSummary.total}
+              data-holders-listed={holderSummary.listed}
+              style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
+            >
+              {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
+            </p>
+          ) : null}
+          {knowHowHosts.length > 0 ? (
+            <div data-testid="knowhow-hosted-by">
+              <strong>{t("knowHowHostedBy")}</strong>
+              <ul>
+                {knowHowHosts.map((host) => (
+                  <li key={host.id}>
+                    {onSelectNode ? (
+                      <button
+                        className="link-button"
+                        type="button"
+                        onClick={() => onSelectNode(host.id)}
+                        title={nodeName(host.id, host.name)}
+                      >
+                        {nodeName(host.id, host.name)}
+                      </button>
+                    ) : (
+                      <span>{nodeName(host.id, host.name)}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
       <NodeList
         title={t("downstreamBottlenecks")}
         nodes={bottlenecks}
@@ -1659,7 +1804,10 @@ function OrganizationListItem({
   const summary = organizationMetricSummary(organization);
   return (
     <li>
-      <NodeListLink node={organization} displayName={nodeName(organization.id, organization.name)} onSelectNode={onSelectNode} />
+      <div>
+        <NodeListLink node={organization} displayName={nodeName(organization.id, organization.name)} onSelectNode={onSelectNode} />
+        <ListingChip org={organization} />
+      </div>
       {summary ? <span className="muted supplier-list-meta"> {" - "}{summary}</span> : null}
       <EdgeContextSummary edge={edge} />
     </li>
