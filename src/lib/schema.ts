@@ -304,11 +304,32 @@ export const evidenceTypeSchema = z.enum([
   "historical_source",
 ]);
 
+/**
+ * Per the 2026-06-11 owner audit: a citation's existence is not its validity.
+ * `sourceStatus` records the latest verification outcome of the evidence URL.
+ * Set mechanically by the URL-audit pass; upgraded to `ok_exact` only after a
+ * human or strong-model reviewer confirmed the page supports the claim
+ * (quote-level match).
+ */
+export const evidenceSourceStatusSchema = z.enum([
+  "ok_exact",          // fetched + claim-level match confirmed by reviewer
+  "fetch_ok",          // URL resolves (200); content not yet claim-checked
+  "paywalled_snippet", // 403/401/paywall; verified only via snippet/secondary
+  "generic_homepage",  // resolves but points at a homepage/section, not the claim
+  "shared_url_suspect",// one URL recycled across many records; needs splitting
+  "404",               // dead link
+  "unreachable",       // DNS/timeout
+  "wrong_topic",       // resolves to unrelated content
+  "vendor_marketing",  // resolves but is the vendor's own marketing page
+  "market_report_seo", // SEO-grade market-report page; numbers need a better source
+]);
+
 export const evidenceSchema = z.object({
   id: z.string().min(1),
   type: evidenceTypeSchema,
   title: z.string().min(1),
   url: z.string().url().optional(),
+  sourceStatus: evidenceSourceStatusSchema.optional(),
   sourceName: z.string().optional(),
   date: z.string().optional(),
   summary: z.string().optional(),

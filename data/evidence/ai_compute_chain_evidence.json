@@ -15,7 +15,8 @@
       "e_acc_logic_die__requires__tsmc_capacity"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_tsmc_3nm",
@@ -33,7 +34,8 @@
       "e_acc_logic_die_fabrication__requires__ai_accelerator"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_euv_mask_bottleneck",
@@ -51,7 +53,8 @@
       "e_acc_logic_euv__requires__euv_mask"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_euv_mask_suppliers",
@@ -69,7 +72,8 @@
       "e_acc_logic_euv_mask__manufactured_by__hoya"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_euv_resist_challenge",
@@ -87,7 +91,8 @@
       "e_acc_logic_euv_resist__manufactured_by__jsr"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_logic_deposition_equipment",
@@ -106,7 +111,8 @@
       "e_acc_logic_deposition__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_logic_plasma_etch",
@@ -125,7 +131,8 @@
       "e_acc_logic_etch__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_logic_cmp_process",
@@ -145,7 +152,8 @@
       "e_acc_logic_cmp_slurry__manufactured_by__entegris"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_logic_ion_implant",
@@ -162,7 +170,8 @@
       "e_acc_logic_ion_implant__manufactured_by__applied_materials"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_logic_metrology",
@@ -180,7 +189,8 @@
       "e_acc_logic_metrology__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_logic_wafer_supply",
@@ -198,7 +208,8 @@
       "e_acc_logic_wafer__manufactured_by__sumco"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_process_gases",
@@ -216,7 +227,8 @@
       "e_acc_logic_gases__manufactured_by__linde"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_thermal_processing",
@@ -233,7 +245,8 @@
       "e_acc_logic_thermal__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_logic_tsmc_capacity",
@@ -250,7 +263,8 @@
       "e_acc_logic_tsmc_capacity__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_asml_capacity",
@@ -267,7 +281,8 @@
       "e_acc_logic_asml_euv__manufactured_by__asml"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic_asml_export_control",
@@ -281,7 +296,8 @@
       "asml_lithography_systems"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkg_cowos_architecture",
@@ -302,7 +318,8 @@
       "e_adv_pkg__requires__flip_chip_bonding"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_tsmc_cowos_share",
@@ -320,7 +337,8 @@
       "e_adv_pkg__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_tsmc_capacity",
@@ -338,7 +356,8 @@
       "e_adv_pkg__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_osat_share",
@@ -357,7 +376,8 @@
       "e_adv_pkg__manufactured_by__amkor"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_pkg_ibiden_expansion",
@@ -373,7 +393,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_substrate_bottleneck",
@@ -389,7 +410,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_substrate_capacity",
@@ -405,7 +427,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_test_capacity",
@@ -423,7 +446,8 @@
       "e_adv_pkg__requires__test_inspection"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkg_flip_chip_equipment",
@@ -441,7 +465,8 @@
       "e_flip_chip__manufactured_by__kuls"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkg_tsv_equipment",
@@ -459,7 +484,8 @@
       "e_silicon_interposer__requires__tsv_etch"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkg_hdi_laser_drill",
@@ -478,7 +504,8 @@
       "e_organic_substrate__requires__hdi_drilling"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkg_underfill_material",
@@ -496,7 +523,8 @@
       "e_flip_chip__requires__underfill"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_copper_pillar_bump",
@@ -514,7 +542,8 @@
       "e_flip_chip__requires__micro_bump"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkg_sac305_solder",
@@ -533,7 +562,8 @@
       "e_interposer_attach__requires__c4_bumps"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_hbm_trendforce_hbm_demand_2024",
@@ -551,7 +581,8 @@
       "e_acc_hbm_cowos__requires__hbm"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_hbm_skhynix_share_2024",
@@ -570,7 +601,8 @@
       "e_acc_hbm__manufactured_by__org_skhynix"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_hbm_samsung_ramp_2024",
@@ -589,7 +621,8 @@
       "e_acc_hbm__manufactured_by__org_samsung"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_hbm_micron_timeline_2025",
@@ -608,7 +641,8 @@
       "e_acc_hbm__manufactured_by__org_micron"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_hbm_sk_hynix_process_node",
@@ -626,7 +660,8 @@
       "e_acc_hbm__requires__hbm_die_fab"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_hbm_tsv_bonding_yield",
@@ -644,7 +679,8 @@
       "e_acc_hbm__requires__hbm_stacking"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_hbm_test_yield_constraints",
@@ -662,7 +698,8 @@
       "e_acc_hbm__requires__hbm_testing"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_hbm_ate_lead_time",
@@ -680,7 +717,8 @@
       "e_acc_hbm_testing__requires__equipment"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_hbm_hybrid_bonder_equipment",
@@ -699,7 +737,8 @@
       "e_acc_hbm_bonding__manufactured_by__org_kulicke"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_hbm_ate_equipment",
@@ -717,7 +756,8 @@
       "e_acc_hbm_test_equip__manufactured_by__org_cohu"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_hbm_substrate_laminate_suppliers",
@@ -735,7 +775,8 @@
       "e_acc_hbm_substrate__manufactured_by__org_isola"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_sub_tsmc_cowos_capacity_2026",
@@ -753,7 +794,8 @@
       "e_acc_sub_silicon_interposer__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_samsung_iCube_2024",
@@ -767,7 +809,8 @@
       "silicon_interposer_rdl"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_ajinomoto_abf_2025",
@@ -785,7 +828,8 @@
       "e_acc_sub_abf_build_up__manufactured_by__ajinomoto"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_sub_ajinomoto_expansion_2030",
@@ -800,7 +844,8 @@
       "org_ajinomoto_fine_techno"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_ajinomoto_q4_2025_earnings",
@@ -814,7 +859,8 @@
       "org_ajinomoto_fine_techno"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_sub_nittobo_tglass_shortage",
@@ -832,7 +878,8 @@
       "e_acc_sub_t_glass__manufactured_by__nittobo"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_nittobo_capacity_expansion",
@@ -848,7 +895,8 @@
       "org_nan_ya_pcb"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_nittobo_price_increases",
@@ -863,7 +911,8 @@
       "org_nittobo"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_kinsus_revenue_2025",
@@ -878,7 +927,8 @@
       "organic_substrate_base_structure"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_digitimes_substrate_leaders",
@@ -899,7 +949,8 @@
       "e_acc_sub_organic_substrate__manufactured_by__nan_ya"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_unimicron_market_share",
@@ -914,7 +965,8 @@
       "abf_build_up_film"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_mitsubishi_bt_resin",
@@ -932,7 +984,8 @@
       "e_acc_sub_bt_resin__manufactured_by__mitsubishi"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_sub_nan_ya_nittobo_partnership",
@@ -947,7 +1000,8 @@
       "org_nittobo"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub_thermal_via_equipment_lead_time",
@@ -965,7 +1019,8 @@
       "e_acc_sub_substrate_interposer__requires__thermal_vias"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_opt_broadcom_transceiver_capacity",
@@ -983,7 +1038,8 @@
       "e_acc_opt_interconnect__requires__optical_transceiver_module"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_opt_broadcom_transceiver_asic",
@@ -1001,7 +1057,8 @@
       "e_acc_opt_transceiver_host_silicon__manufactured_by__broadcom"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_opt_marvell_transceiver_asic",
@@ -1019,7 +1076,8 @@
       "e_acc_opt_transceiver_host_silicon__manufactured_by__marvell"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_opt_intel_transceiver_asic",
@@ -1037,7 +1095,8 @@
       "e_acc_opt_transceiver_host_silicon__manufactured_by__intel"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_opt_vcsel_supply_constraint",
@@ -1056,7 +1115,8 @@
       "e_acc_opt_laser_photodiode__manufactured_by__ii_vi"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_opt_osat_substrate_capacity",
@@ -1077,7 +1137,8 @@
       "e_acc_opt_backplane_substrate__manufactured_by__ibiden"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_opt_commscope_datacenter",
@@ -1092,7 +1153,8 @@
       "org_commscope"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_opt_corning_fiber_optics",
@@ -1107,7 +1169,8 @@
       "org_corning"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pwr_vrm_architecture_hpc",
@@ -1125,7 +1188,8 @@
       "e_acc_pwr_power_delivery__requires__module_vrm"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_power_stage_shortage_2024",
@@ -1142,7 +1206,8 @@
       "e_acc_pwr__requires__power_stage_ic"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_mlcc_shortage_2023",
@@ -1159,7 +1224,8 @@
       "e_acc_pwr__requires__bulk_cap"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_inductor_market_overview",
@@ -1176,7 +1242,8 @@
       "e_acc_pwr__requires__inductor"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_48v_standard_adoption",
@@ -1193,7 +1260,8 @@
       "e_acc_pwr__requires__48v_converter"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_rack_psu_redundancy",
@@ -1210,7 +1278,8 @@
       "e_acc_pwr__requires__rack_psu"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_connector_lead_time_2024",
@@ -1227,7 +1296,8 @@
       "e_acc_pwr__requires__connector"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_vrm_thermal_design",
@@ -1244,7 +1314,8 @@
       "e_acc_pwr__requires__thermal"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_renesas_vrm_ic",
@@ -1261,7 +1332,8 @@
       "e_acc_pwr_module__manufactured_by__renesas"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_tsmc_capacity_share",
@@ -1278,7 +1350,8 @@
       "e_acc_pwr_stage_ic__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_samsung_foundry_power_ics",
@@ -1295,7 +1368,8 @@
       "e_acc_pwr_stage_ic__manufactured_by__samsung"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_murata_mlcc_production",
@@ -1312,7 +1386,8 @@
       "e_acc_pwr_capacitor__manufactured_by__murata"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_tdk_mlcc_capacity",
@@ -1331,7 +1406,8 @@
       "e_acc_pwr_inductor__manufactured_by__tdk"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_samsung_em_mlcc",
@@ -1348,7 +1424,8 @@
       "e_acc_pwr_capacitor__manufactured_by__samsung_em"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_murata_inductor_market",
@@ -1365,7 +1442,8 @@
       "e_acc_pwr_inductor__manufactured_by__murata"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_tdk_inductor_ferrite",
@@ -1382,7 +1460,8 @@
       "e_acc_pwr_inductor__manufactured_by__tdk"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_vicor_isolated_converter",
@@ -1399,7 +1478,8 @@
       "e_acc_pwr_converter__manufactured_by__vicor"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_pi_galvanically_isolated",
@@ -1416,7 +1496,8 @@
       "e_acc_pwr_converter__manufactured_by__power_integrations"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_delta_datacenter_psu",
@@ -1433,7 +1514,8 @@
       "e_acc_pwr_psu__manufactured_by__delta"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_eaton_power_systems",
@@ -1450,7 +1532,8 @@
       "e_acc_pwr_psu__manufactured_by__eaton"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_molex_high_current_connector",
@@ -1467,7 +1550,8 @@
       "e_acc_pwr_connector__manufactured_by__molex"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_te_connectivity_connectors",
@@ -1484,7 +1568,8 @@
       "e_acc_pwr_connector__manufactured_by__te_connectivity"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_renesas_power_ic_share",
@@ -1501,7 +1586,8 @@
       "e_acc_pwr_module__manufactured_by__renesas"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_samsung_foundry_capacity",
@@ -1518,7 +1604,8 @@
       "e_acc_pwr_stage_ic__manufactured_by__samsung"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_murata_market_share",
@@ -1536,7 +1623,8 @@
       "e_acc_pwr_inductor__manufactured_by__murata"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_tdk_market_share",
@@ -1554,7 +1642,8 @@
       "e_acc_pwr_inductor__manufactured_by__tdk"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_samsung_em_market_share",
@@ -1571,7 +1660,8 @@
       "e_acc_pwr_capacitor__manufactured_by__samsung_em"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_vicor_market_share",
@@ -1588,7 +1678,8 @@
       "e_acc_pwr_converter__manufactured_by__vicor"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_pi_market_share",
@@ -1605,7 +1696,8 @@
       "e_acc_pwr_converter__manufactured_by__power_integrations"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_delta_market_share",
@@ -1622,7 +1714,8 @@
       "e_acc_pwr_psu__manufactured_by__delta"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pwr_eaton_market_share",
@@ -1639,7 +1732,8 @@
       "e_acc_pwr_psu__manufactured_by__eaton"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_thm_asetek_market_dominance",
@@ -1656,7 +1750,8 @@
       "e_liquid_loop__manufactured_by__asetek"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_thm_shin_etsu_tim_share",
@@ -1673,7 +1768,8 @@
       "e_tim__manufactured_by__shin_etsu"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_thm_henkel_bergquist_tim",
@@ -1690,7 +1786,8 @@
       "e_tim__manufactured_by__henkel"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_thm_asetek_custom_blocks",
@@ -1707,7 +1804,8 @@
       "e_coldplate__manufactured_by__custom_oem"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_thm_boyd_heat_exchangers",
@@ -1724,7 +1822,8 @@
       "e_radiator__manufactured_by__boyd"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_thm_lytron_radiators",
@@ -1741,7 +1840,8 @@
       "e_radiator__manufactured_by__lytron"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_thm_ebara_pumps",
@@ -1758,7 +1858,8 @@
       "e_pump__manufactured_by__ebara"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_thm_vertiv_cdu",
@@ -1775,7 +1876,8 @@
       "e_cdu__manufactured_by__vertiv"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_sub2_shinko_market_share",
@@ -1792,7 +1894,8 @@
       "e_acc_sub2_organic_substrate__manufactured_by__shinko",
       "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__shinko"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_sub2_shinko_abf_supply",
@@ -1808,7 +1911,8 @@
     "supportsEdgeIds": [
       "e_acc_sub2_abf_build_up_film__has_supplier__shinko"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_ats_market_share",
@@ -1825,7 +1929,8 @@
       "e_acc_sub2_organic_substrate__manufactured_by__ats",
       "e_acc_sub2_chiplet_interconnect_substrate__manufactured_by__ats"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_sub2_ats_hdi_capacity",
@@ -1841,7 +1946,8 @@
     "supportsEdgeIds": [
       "e_acc_sub2_organic_substrate__manufactured_by__ats"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_abf_shortage_2021_2023",
@@ -1859,7 +1965,8 @@
       "e_acc_sub2_organic_substrate__manufactured_by__shinko",
       "e_acc_sub2_organic_substrate__manufactured_by__ats"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_tkr_murata_6981",
@@ -1871,7 +1978,8 @@
     "supportsNodeIds": [
       "org_murata"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_tkr_nittobo_3110",
@@ -1883,7 +1991,8 @@
     "supportsNodeIds": [
       "org_nittobo"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_ibiden_market_share",
@@ -1897,7 +2006,8 @@
       "org_ibiden"
     ],
     "supportsEdgeIds": [],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_sub2_ibiden_abf_concentration",
@@ -1911,7 +2021,8 @@
       "org_ibiden"
     ],
     "supportsEdgeIds": [],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_ibiden_capacity_expansion",
@@ -1925,7 +2036,8 @@
       "org_ibiden"
     ],
     "supportsEdgeIds": [],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_ase_packaging_capacity",
@@ -1939,7 +2051,8 @@
       "org_ase"
     ],
     "supportsEdgeIds": [],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_advanced_packaging_multi_source",
@@ -1954,7 +2067,8 @@
       "org_samsung"
     ],
     "supportsEdgeIds": [],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sub2_samsung_icube_saint",
@@ -1968,7 +2082,8 @@
       "org_samsung"
     ],
     "supportsEdgeIds": [],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_logic2_samsung_foundry_capacity",
@@ -1987,7 +2102,8 @@
       "e_logic_foundry__manufactured_by__samsung"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic2_asml_optics_zeiss",
@@ -2008,7 +2124,8 @@
       "e_euv_optics__manufactured_by__zeiss_smt"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic2_euv_mask_duopoly",
@@ -2029,7 +2146,8 @@
       "e_acc_logic_euv_mask__manufactured_by__hoya"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic2_neon_gas_crisis_2022",
@@ -2045,7 +2163,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_logic2_tsmc_foundry_capacity_updated",
@@ -2064,7 +2183,8 @@
       "e_acc_logic_die__requires__tsmc_capacity"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_opt2_eml_dfb_shortage_2024",
@@ -2080,7 +2200,8 @@
     "supportsEdgeIds": [
       "e_acc_opt_transceiver_mod__requires__eml_dfb_laser"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "wrong_topic"
   },
   {
     "id": "ev_acc_opt2_lumentum_coherent_supply",
@@ -2094,7 +2215,8 @@
       "org_lumentum",
       "eml_dfb_laser_diodes"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_opt2_lumentum_earnings_coherent",
@@ -2107,7 +2229,8 @@
     "supportsNodeIds": [
       "org_lumentum"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_opt2_lumentum_supplier_list",
@@ -2123,7 +2246,8 @@
     "supportsEdgeIds": [
       "e_acc_opt_eml_dfb__manufactured_by__lumentum"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_opt2_coherent_market_position",
@@ -2137,7 +2261,8 @@
       "org_ii_vi_coherent",
       "eml_dfb_laser_diodes"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_opt2_coherent_ii_vi_integration",
@@ -2150,7 +2275,8 @@
     "supportsNodeIds": [
       "org_ii_vi_coherent"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_opt2_mitsubishi_laser_supply",
@@ -2164,7 +2290,8 @@
       "org_mitsubishi_electric",
       "eml_dfb_laser_diodes"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_opt2_sumitomo_laser_supply",
@@ -2178,7 +2305,8 @@
       "org_sumitomo_electric",
       "eml_dfb_laser_diodes"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_opt2_innolight_market_share",
@@ -2191,7 +2319,8 @@
     "supportsNodeIds": [
       "org_innolight"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_opt2_innolight_assembler_role",
@@ -2207,7 +2336,8 @@
     "supportsEdgeIds": [
       "e_acc_opt_transceiver_mod__manufactured_by__innolight"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_opt2_eoptolink_market_share",
@@ -2220,7 +2350,8 @@
     "supportsNodeIds": [
       "org_eoptolink"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_opt2_eoptolink_module_supply",
@@ -2236,7 +2367,8 @@
     "supportsEdgeIds": [
       "e_acc_opt_transceiver_mod__manufactured_by__eoptolink"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cp2_cdu_lead_time",
@@ -2251,7 +2383,8 @@
       "cdu_rapid_deployment_kit"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_cp2_cdu_capacity_constraint",
@@ -2273,7 +2406,8 @@
       "e_cdu__manufactured_by__schneider_electric"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cp2_coolitsystems_cdu",
@@ -2293,7 +2427,8 @@
       "e_modular_cdu__manufactured_by__coolitsystems"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_cp2_schneider_electric_cooling",
@@ -2313,7 +2448,8 @@
       "e_modular_cdu__manufactured_by__schneider_electric"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_cp2_motivair_modular_cooling",
@@ -2331,7 +2467,8 @@
       "e_modular_cdu__manufactured_by__vertiv"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_cp2_vertiv_cooling_market",
@@ -2350,7 +2487,8 @@
       "e_modular_cdu__manufactured_by__vertiv"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cp2_henkel_tim_adhesive",
@@ -2368,7 +2506,8 @@
       "e_tim__manufactured_by__henkel"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_cp2_ebara_pump_market",
@@ -2383,7 +2522,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_cp2_asetek_liquid_cooling",
@@ -2398,7 +2538,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_optup_inp_market_2024",
@@ -2410,7 +2551,8 @@
     "supportsNodeIds": [
       "inp_gaas_substrate_wafer"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_jx_market_dominance",
@@ -2423,7 +2565,8 @@
       "inp_gaas_substrate_wafer",
       "org_jx_advanced_metals"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_jx_expansion_capex",
@@ -2435,7 +2578,8 @@
     "supportsNodeIds": [
       "org_jx_advanced_metals"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_axt_market_position",
@@ -2448,7 +2592,8 @@
       "inp_gaas_substrate_wafer",
       "org_axt_inc"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_axt_capacity_q1_2026",
@@ -2460,7 +2605,8 @@
     "supportsNodeIds": [
       "org_axt_inc"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_optup_epitaxy_foundry_market",
@@ -2472,7 +2618,8 @@
     "supportsNodeIds": [
       "epitaxial_growth_inp_gaas"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_epitaxy_capacity_constraint",
@@ -2484,7 +2631,8 @@
     "supportsNodeIds": [
       "epitaxial_growth_inp_gaas"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_mocvd_lead_time",
@@ -2497,7 +2645,8 @@
       "mocvd_equipment_systems",
       "epitaxial_growth_inp_gaas"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_optup_iqe_market_position",
@@ -2509,7 +2658,8 @@
     "supportsNodeIds": [
       "org_iqe"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_iqe_capacity_utilization",
@@ -2522,7 +2672,8 @@
       "org_iqe",
       "epitaxial_growth_inp_gaas"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_vpec_market_share",
@@ -2534,7 +2685,8 @@
     "supportsNodeIds": [
       "org_vpec"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_vpec_mocvd_expansion",
@@ -2547,7 +2699,8 @@
       "org_vpec",
       "epitaxial_growth_inp_gaas"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_landmark_market_position",
@@ -2559,7 +2712,8 @@
     "supportsNodeIds": [
       "org_landmark_optoelectronics"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_intelliepi_expansion",
@@ -2571,7 +2725,8 @@
     "supportsNodeIds": [
       "org_intelliepi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_sumitomo_chem_epi",
@@ -2583,7 +2738,8 @@
     "supportsNodeIds": [
       "org_sumitomo_chemical_epi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_hlj_vcsel_capacity",
@@ -2595,7 +2751,8 @@
     "supportsNodeIds": [
       "org_hlj_technology"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_optup_eml_shortage_2024",
@@ -2608,7 +2765,8 @@
       "eml_dfb_laser_diodes",
       "compound_foundry_specialty"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_eml_supplier_concentration",
@@ -2620,7 +2778,8 @@
     "supportsNodeIds": [
       "compound_foundry_specialty"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_optup_vcsel_supplier_count",
@@ -2632,7 +2791,8 @@
     "supportsNodeIds": [
       "compound_foundry_specialty"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_optup_mocvd_vendors",
@@ -2644,7 +2804,8 @@
     "supportsNodeIds": [
       "mocvd_equipment_systems"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_optup_fab_lead_time",
@@ -2656,7 +2817,8 @@
     "supportsNodeIds": [
       "compound_foundry_specialty"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_gaa_market",
@@ -2672,7 +2834,8 @@
       "org_win_semiconductors"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_sic_oversupply",
@@ -2688,7 +2851,8 @@
       "org_wolfspeed"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_wolfspeed_200mm",
@@ -2704,7 +2868,8 @@
       "org_wolfspeed"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_cmpd_inp_shortage_optical",
@@ -2724,7 +2889,8 @@
       "e_interconnect_optics__requires__coherent_inp_supply"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_win_market_position",
@@ -2740,7 +2906,8 @@
       "org_win_semiconductors"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_cmpd_samsung_gan_foundry",
@@ -2756,7 +2923,8 @@
       "org_samsung"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_gf_gan_tsmc_license",
@@ -2772,7 +2940,8 @@
       "org_globalfoundries"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_sumitomo_inp_leader",
@@ -2788,7 +2957,8 @@
       "org_sumitomo_electric"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_cmpd_sumitomo_gaas_triopoly",
@@ -2804,7 +2974,8 @@
       "org_sumitomo_electric"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_intelliepi_growth",
@@ -2820,7 +2991,8 @@
       "org_intelliepi"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_epitaxial_market",
@@ -2836,7 +3008,8 @@
       "org_intelliepi"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_win_capacity_growth",
@@ -2851,7 +3024,8 @@
       "org_win_semiconductors"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_coherent_inp_constraint",
@@ -2871,7 +3045,8 @@
       "e_interconnect_optics__requires__coherent_inp_supply"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_coherent_nvidia_deal",
@@ -2889,7 +3064,8 @@
       "e_interconnect_optics__requires__coherent_inp_supply"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_cmpd_coherent_capacity_ramp",
@@ -2904,7 +3080,8 @@
       "org_ii_vi_coherent"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_optical_foundry",
@@ -2923,7 +3100,8 @@
       "e_interconnect_optics__requires__specialty_foundry"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_samsung_device_quality",
@@ -2938,7 +3116,8 @@
       "org_samsung"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_gf_navitas_partnership",
@@ -2953,7 +3132,8 @@
       "org_globalfoundries"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_db_hitek_delay",
@@ -2968,7 +3148,8 @@
       "specialty_analog_power_foundry"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_power_gan_demand",
@@ -2987,7 +3168,8 @@
       "e_power_delivery__requires__specialty_foundry"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_thermal_optical",
@@ -3006,7 +3188,8 @@
       "e_thermal_cooling__requires__specialty_foundry"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_foundry_wafer_link",
@@ -3025,7 +3208,8 @@
       "e_specialty_foundry__requires__compound_crystal_wafers"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_foundry_epi_link",
@@ -3044,7 +3228,8 @@
       "e_specialty_foundry__requires__epitaxial_growth"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_intelliepi_chips_act",
@@ -3060,7 +3245,8 @@
       "org_intelliepi"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_cmpd_wolfspeed_300mm",
@@ -3076,7 +3262,8 @@
       "org_wolfspeed"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_icsi_retimer_market_2024",
@@ -3090,7 +3277,8 @@
       "short_reach_copper_signal_conditioning_silicon",
       "pcie_retimer_ic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_icsi_astera_labs_aries_pcg6",
@@ -3103,7 +3291,8 @@
     "supportsNodeIds": [
       "pcie_retimer_ic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_icsi_marvell_alaska_p_pcie6",
@@ -3116,7 +3305,8 @@
     "supportsNodeIds": [
       "pcie_retimer_ic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_icsi_credo_toucan_pcie6",
@@ -3129,7 +3319,8 @@
     "supportsNodeIds": [
       "pcie_retimer_ic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_icsi_credo_magpie_pcie7",
@@ -3142,7 +3333,8 @@
     "supportsNodeIds": [
       "active_electrical_cable_aec_retimer_dsp"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_icsi_marvell_taurus_acc_2025",
@@ -3155,7 +3347,8 @@
     "supportsNodeIds": [
       "active_copper_cable_linear_equalizer"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_icsi_acc_vs_dac_2024",
@@ -3168,7 +3361,8 @@
     "supportsNodeIds": [
       "active_copper_cable_linear_equalizer"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_icsi_3nm_aec_retimer_roadmap",
@@ -3181,7 +3375,8 @@
     "supportsNodeIds": [
       "active_electrical_cable_aec_retimer_dsp"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_icsi_astera_scorpio_switch_2025",
@@ -3194,7 +3389,8 @@
     "supportsNodeIds": [
       "pcie_cxl_fabric_switch_asic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_icsi_pcie_cxl_switch_market_2025",
@@ -3207,7 +3403,8 @@
     "supportsNodeIds": [
       "pcie_cxl_fabric_switch_asic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_icsi_ualink_spec_april2025",
@@ -3220,7 +3417,8 @@
     "supportsNodeIds": [
       "ualink_phy_silicon"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_icsi_synopsys_ualink_ip_2025",
@@ -3233,7 +3431,8 @@
     "supportsNodeIds": [
       "ualink_phy_silicon"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_icsi_broadcom_retimer_2024",
@@ -3246,7 +3445,8 @@
     "supportsNodeIds": [
       "pcie_retimer_ic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_icsi_tsmc_28nm_allocation",
@@ -3260,7 +3460,8 @@
       "short_reach_copper_signal_conditioning_silicon",
       "pcie_retimer_ic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_icsi_astera_labs_ipo_2024",
@@ -3273,7 +3474,8 @@
     "supportsNodeIds": [
       "org_astera_labs"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_icsi_astera_aries_adoption",
@@ -3286,7 +3488,8 @@
     "supportsNodeIds": [
       "org_astera_labs"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_icsi_astera_q4_2024_earnings",
@@ -3299,7 +3502,8 @@
     "supportsNodeIds": [
       "org_astera_labs"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_icsi_credo_ipo_2024",
@@ -3312,7 +3516,8 @@
     "supportsNodeIds": [
       "org_credo"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_icsi_credo_q2_fy2025_earnings",
@@ -3325,7 +3530,8 @@
     "supportsNodeIds": [
       "org_credo"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_icsi_credo_3nm_development",
@@ -3338,7 +3544,8 @@
     "supportsNodeIds": [
       "org_credo"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_xray_comet",
@@ -3353,7 +3560,8 @@
     "supportsEdgeIds": [
       "e_xray_inspection_mfg_comet"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_xray_camtek",
@@ -3368,7 +3576,8 @@
     "supportsEdgeIds": [
       "e_xray_inspection_mfg_camtek"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_xray_leadtime",
@@ -3380,7 +3589,8 @@
     "supportsNodeIds": [
       "x_ray_inspection_advanced_packaging"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_pkgeq_xray_onto",
@@ -3395,7 +3605,8 @@
     "supportsEdgeIds": [
       "e_xray_inspection_mfg_onto"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_xray_kla",
@@ -3410,7 +3621,8 @@
     "supportsEdgeIds": [
       "e_xray_inspection_mfg_kla"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_optical_camtek",
@@ -3425,7 +3637,8 @@
     "supportsEdgeIds": [
       "e_optical_metrology_mfg_camtek"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_optical_confovis",
@@ -3440,7 +3653,8 @@
     "supportsEdgeIds": [
       "e_optical_metrology_mfg_confovis"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_optical_resolution",
@@ -3452,7 +3666,8 @@
     "supportsNodeIds": [
       "optical_bump_metrology_inspection"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_optical_onto",
@@ -3467,7 +3682,8 @@
     "supportsEdgeIds": [
       "e_optical_metrology_mfg_onto"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_w2w_evg",
@@ -3482,7 +3698,8 @@
     "supportsEdgeIds": [
       "e_w2w_bonding_mfg_evg"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_w2w_suss",
@@ -3497,7 +3714,8 @@
     "supportsEdgeIds": [
       "e_w2w_bonding_mfg_suss"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_w2w_hybrid",
@@ -3509,7 +3727,8 @@
     "supportsNodeIds": [
       "wafer_bonding_alignment_systems"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_w2w_besi",
@@ -3524,7 +3743,8 @@
     "supportsEdgeIds": [
       "e_w2w_bonding_mfg_besi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "shared_url_suspect"
   },
   {
     "id": "ev_acc_pkgeq_tcb_asmpt",
@@ -3539,7 +3759,8 @@
     "supportsEdgeIds": [
       "e_tcb_mfg_asmpt"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_tcb_leadtime",
@@ -3551,7 +3772,8 @@
     "supportsNodeIds": [
       "thermocompression_bonding_systems"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_tcb_market",
@@ -3566,7 +3788,8 @@
     "supportsEdgeIds": [
       "e_tcb_mfg_besi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_tcb_kulicke",
@@ -3581,7 +3804,8 @@
     "supportsEdgeIds": [
       "e_tcb_mfg_kulicke"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_pkgeq_underfill_asymtek",
@@ -3596,7 +3820,8 @@
     "supportsEdgeIds": [
       "e_underfill_mfg_asymtek"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_underfill_itw",
@@ -3611,7 +3836,8 @@
     "supportsEdgeIds": [
       "e_underfill_mfg_itw"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_underfill_axxon",
@@ -3626,7 +3852,8 @@
     "supportsEdgeIds": [
       "e_underfill_mfg_axxon"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_underfill_throughput",
@@ -3638,7 +3865,8 @@
     "supportsNodeIds": [
       "underfill_dispensing_equipment"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_thermal_kic",
@@ -3653,7 +3881,8 @@
     "supportsEdgeIds": [
       "e_thermal_profiling_mfg_kic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_thermal_market",
@@ -3665,7 +3894,8 @@
     "supportsNodeIds": [
       "thermal_profiling_and_process_control"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_probe_teradyne",
@@ -3680,7 +3910,8 @@
     "supportsEdgeIds": [
       "e_probe_test_mfg_teradyne"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_probe_cohu",
@@ -3695,7 +3926,8 @@
     "supportsEdgeIds": [
       "e_probe_test_mfg_cohu"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_pkgeq_ate_market",
@@ -3707,7 +3939,8 @@
     "supportsNodeIds": [
       "wafer_probe_testing_advanced_packaging"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_disco_market",
@@ -3722,7 +3955,8 @@
     "supportsEdgeIds": [
       "e_singulation_mfg_disco"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_disco_tech",
@@ -3734,7 +3968,8 @@
     "supportsNodeIds": [
       "singulation_laser_dicing_systems"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_dicing_growth",
@@ -3746,7 +3981,8 @@
     "supportsNodeIds": [
       "singulation_laser_dicing_systems"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_plasma_keylink",
@@ -3761,7 +3997,8 @@
     "supportsEdgeIds": [
       "e_plasma_mfg_keylink"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_plasma_nordson",
@@ -3776,7 +4013,8 @@
     "supportsEdgeIds": [
       "e_plasma_mfg_nordson"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_furnace_despatch",
@@ -3791,7 +4029,8 @@
     "supportsEdgeIds": [
       "e_furnace_mfg_despatch"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_chamber_thermal",
@@ -3806,7 +4045,8 @@
     "supportsEdgeIds": [
       "e_test_insp_requires_env_chamber"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_xray_process",
@@ -3821,7 +4061,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_xray_inspection"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_pkgeq_optical_process",
@@ -3836,7 +4077,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_optical_metrology"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_w2w_process",
@@ -3851,7 +4093,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_w2w_bonding"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_tcb_process",
@@ -3866,7 +4109,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_tcb"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_underfill_process",
@@ -3881,7 +4125,8 @@
     "supportsEdgeIds": [
       "e_flip_chip_requires_underfill"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_pkgeq_thermal_process",
@@ -3896,7 +4141,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_thermal_control"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_probe_test",
@@ -3911,7 +4157,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_probe_testing"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_dicing_process",
@@ -3926,7 +4173,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_singulation"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_plasma_process",
@@ -3941,7 +4189,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_plasma_prep"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_furnace_process",
@@ -3956,7 +4205,8 @@
     "supportsEdgeIds": [
       "e_adv_pkg_requires_furnace"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_onto_ir",
@@ -3968,7 +4218,8 @@
     "supportsNodeIds": [
       "org_onto_innovation"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_onto_qualification",
@@ -3980,7 +4231,8 @@
     "supportsNodeIds": [
       "org_onto_innovation"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_camtek_ir",
@@ -3992,7 +4244,8 @@
     "supportsNodeIds": [
       "org_camtek"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_camtek_marketshare",
@@ -4004,7 +4257,8 @@
     "supportsNodeIds": [
       "org_camtek"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_pkgeq_comet_ir",
@@ -4016,7 +4270,8 @@
     "supportsNodeIds": [
       "org_comet_yxlon"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_comet_ca20",
@@ -4028,7 +4283,8 @@
     "supportsNodeIds": [
       "org_comet_yxlon"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_confovis_product",
@@ -4040,7 +4296,8 @@
     "supportsNodeIds": [
       "org_confovis"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_besi_ir",
@@ -4052,7 +4309,8 @@
     "supportsNodeIds": [
       "org_besi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "shared_url_suspect"
   },
   {
     "id": "ev_acc_pkgeq_besi_orders",
@@ -4064,7 +4322,8 @@
     "supportsNodeIds": [
       "org_besi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_besi_market",
@@ -4076,7 +4335,8 @@
     "supportsNodeIds": [
       "org_besi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_pkgeq_evg_marketshare",
@@ -4088,7 +4348,8 @@
     "supportsNodeIds": [
       "org_evg"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_evg_product",
@@ -4100,7 +4361,8 @@
     "supportsNodeIds": [
       "org_evg"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_suss_ir",
@@ -4112,7 +4374,8 @@
     "supportsNodeIds": [
       "org_suss_microtic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_suss_xbc300",
@@ -4124,7 +4387,8 @@
     "supportsNodeIds": [
       "org_suss_microtic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_asmpt_ir",
@@ -4136,7 +4400,8 @@
     "supportsNodeIds": [
       "org_asmpt"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_asmpt_firebird",
@@ -4148,7 +4413,8 @@
     "supportsNodeIds": [
       "org_asmpt"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_nordson_ir",
@@ -4160,7 +4426,8 @@
     "supportsNodeIds": [
       "org_nordson"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_nordson_asymtek",
@@ -4172,7 +4439,8 @@
     "supportsNodeIds": [
       "org_nordson"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_itw_camalot",
@@ -4184,7 +4452,8 @@
     "supportsNodeIds": [
       "org_itw"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_kic_ir",
@@ -4196,7 +4465,8 @@
     "supportsNodeIds": [
       "org_kic_thermal"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_keylink_product",
@@ -4208,7 +4478,8 @@
     "supportsNodeIds": [
       "org_keylink"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_disco_ir",
@@ -4220,7 +4491,8 @@
     "supportsNodeIds": [
       "org_disco"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_disco_fy24",
@@ -4232,7 +4504,8 @@
     "supportsNodeIds": [
       "org_disco"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_axxon_product",
@@ -4244,7 +4517,8 @@
     "supportsNodeIds": [
       "org_axxon"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_despatch_product",
@@ -4256,7 +4530,8 @@
     "supportsNodeIds": [
       "org_despatch"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_pkgeq_chamber_process",
@@ -4268,7 +4543,8 @@
     "supportsNodeIds": [
       "environmental_test_chambers_qualification"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_pkgeq_tcb_besi",
@@ -4283,7 +4559,8 @@
     "supportsEdgeIds": [
       "e_tcb_mfg_besi"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "shared_url_suspect"
   },
   {
     "id": "ev_acc_bn3_high_bandwidth_memory",
@@ -4298,7 +4575,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_bn3_hbm_stack_assembly",
@@ -4313,7 +4591,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_bn3_hbm_testing",
@@ -4328,7 +4607,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_bn3_hbm_test_equipment",
@@ -4343,7 +4623,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_bn3_optical_transceiver",
@@ -4358,7 +4639,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_bn3_laser_optics",
@@ -4373,7 +4655,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_bn3_backplane_substrate",
@@ -4388,7 +4671,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_bn3_chiplet_substrate",
@@ -4403,7 +4687,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_bn3_substrate_interposer_parent",
@@ -4418,7 +4703,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_bn3_power_stage_ic",
@@ -4433,7 +4719,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_bn3_sealed_cooling",
@@ -4448,7 +4735,8 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_sb4_optical_transceiver_coherent",
@@ -4465,7 +4753,8 @@
       "e_acc_optical_transceiver_module__manufactured_by__org_coherent",
       "e_acc_optical_transceiver_module__manufactured_by__org_applied_optoelectronics"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sb4_avc_thermal_tracker",
@@ -4483,7 +4772,8 @@
       "e_acc_thermal_management_module__manufactured_by__org_avc",
       "e_acc_thermal_management_module__manufactured_by__org_auras"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_sb4_innoscience_gan",
@@ -4498,7 +4788,8 @@
     "supportsEdgeIds": [
       "e_acc_specialty_analog_power_foundry__manufactured_by__org_innoscience"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_hoya_highna_1",
@@ -4513,7 +4804,8 @@
     "supportsEdgeIds": [
       "e_acc_euv_photomask_production__requires__high_na_euv_mask_blank_hoya_exclusive"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_hoya_highna_2",
@@ -4528,7 +4820,8 @@
     "supportsEdgeIds": [
       "e_acc_high_na_euv_mask_blank_hoya_exclusive__manufactured_by__org_hoya"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_nc4_hanmi_tcb_1",
@@ -4543,7 +4836,8 @@
     "supportsEdgeIds": [
       "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_asmpt_share_gain_1",
@@ -4558,7 +4852,8 @@
     "supportsEdgeIds": [
       "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_inp_shortage_1",
@@ -4573,7 +4868,8 @@
     "supportsEdgeIds": [
       "e_acc_optup_eml_dfb__requires__inp_substrate"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_jx_expansion_1",
@@ -4588,7 +4884,8 @@
     "supportsEdgeIds": [
       "e_acc_optup_inp_substrate__manufactured_by__jx_advanced"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_coherent_guidance_1",
@@ -4603,7 +4900,8 @@
     "supportsEdgeIds": [
       "e_acc_optup_eml_dfb__requires__inp_substrate"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_nittobo_monopoly_1",
@@ -4619,7 +4917,8 @@
       "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly",
       "e_acc_sub_t_glass__manufactured_by__nittobo"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_tglass_shortage_1",
@@ -4634,7 +4933,8 @@
     "supportsEdgeIds": [
       "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_asahi_entry_1",
@@ -4649,7 +4949,8 @@
     "supportsEdgeIds": [
       "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_nc4_hoya_euv_1",
@@ -4665,7 +4966,8 @@
       "e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant",
       "e_acc_hoya_core_euv_mask_blanks_duopoly_hoya_dominant__manufactured_by__org_hoya"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_nc4_euv_market_1",
@@ -4680,7 +4982,8 @@
     "supportsEdgeIds": [
       "e_acc_euv_photomask_production__requires__hoya_core_euv_mask_blanks_duopoly_hoya_dominant"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_tkr4_jx_tse_listing",
@@ -4692,7 +4995,8 @@
     "supportsNodeIds": [
       "org_jx_advanced_metals"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_tkr4_nordson_nasdaq",
@@ -4704,7 +5008,8 @@
     "supportsNodeIds": [
       "org_nordson"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_tkr4_suss_xetra",
@@ -4716,7 +5021,8 @@
     "supportsNodeIds": [
       "org_suss_microtic"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_tkr4_iqe_aim",
@@ -4728,7 +5034,8 @@
     "supportsNodeIds": [
       "org_iqe"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_tkr4_landmark_tpe",
@@ -4740,7 +5047,8 @@
     "supportsNodeIds": [
       "org_landmark_optoelectronics"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_tkr4_wolfspeed_ch11",
@@ -4752,7 +5060,8 @@
     "supportsNodeIds": [
       "org_wolfspeed"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_sub4_mgc_bt_independent",
@@ -4765,7 +5074,8 @@
     "supportsNodeIds": [
       "org_mitsubishi_gas_chemical"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_edge4_amphenol_optical_connectors",
@@ -4783,7 +5093,8 @@
       "e_acc_opt_optical_connector__manufactured_by__amphenol"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_edge5_amphenol_electrical_connectors",
@@ -4801,7 +5112,8 @@
       "e_acc_opt_electrical_connector__manufactured_by__amphenol"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_edge6_marvell_redriver_chiplet",
@@ -4819,7 +5131,8 @@
       "e_acc_opt_redriver__manufactured_by__marvell"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5w_advantest_ate_memory",
@@ -4835,7 +5148,8 @@
     "supportsEdgeIds": [
       "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_advantest"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5w_amkor_flip_chip",
@@ -4851,7 +5165,8 @@
     "supportsEdgeIds": [
       "e_acc_flip_chip_bonding__manufactured_by__org_amkor"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_ase_flip_chip",
@@ -4867,7 +5182,8 @@
     "supportsEdgeIds": [
       "e_acc_flip_chip_bonding__manufactured_by__org_ase"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_asmpt_flip_chip",
@@ -4883,7 +5199,8 @@
     "supportsEdgeIds": [
       "e_acc_flip_chip_bonding__manufactured_by__org_asmpt"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_unimicron_substrate",
@@ -4899,7 +5216,8 @@
     "supportsEdgeIds": [
       "e_acc_organic_substrate_buildup__manufactured_by__org_unimicron"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_shinko_substrate",
@@ -4915,7 +5233,8 @@
     "supportsEdgeIds": [
       "e_acc_organic_substrate_buildup__manufactured_by__org_shinko_electric"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5w_kinsus_substrate",
@@ -4931,7 +5250,8 @@
     "supportsEdgeIds": [
       "e_acc_organic_substrate_buildup__manufactured_by__org_kinsus"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_teradyne_ate",
@@ -4947,7 +5267,8 @@
     "supportsEdgeIds": [
       "e_acc_test_and_inspection__manufactured_by__org_teradyne"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_kla_inspection",
@@ -4963,7 +5284,8 @@
     "supportsEdgeIds": [
       "e_acc_test_and_inspection__manufactured_by__org_kla"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_camtek_inspection",
@@ -4979,7 +5301,8 @@
     "supportsEdgeIds": [
       "e_acc_test_and_inspection__manufactured_by__org_camtek"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_onto_inspection",
@@ -4995,7 +5318,8 @@
     "supportsEdgeIds": [
       "e_acc_test_and_inspection__manufactured_by__org_onto_innovation"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_teradyne_hbm_test",
@@ -5011,7 +5335,8 @@
     "supportsEdgeIds": [
       "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_teradyne"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_lumentum_compound",
@@ -5027,7 +5352,8 @@
     "supportsEdgeIds": [
       "e_acc_compound_foundry_specialty__manufactured_by__org_lumentum"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_coherent_compound",
@@ -5043,7 +5369,8 @@
     "supportsEdgeIds": [
       "e_acc_compound_foundry_specialty__manufactured_by__org_ii_vi_coherent"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_sumitomo_electric_compound",
@@ -5059,7 +5386,8 @@
     "supportsEdgeIds": [
       "e_acc_compound_foundry_specialty__manufactured_by__org_sumitomo_electric"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_r5w_broadcom_compound",
@@ -5075,7 +5403,8 @@
     "supportsEdgeIds": [
       "e_acc_compound_foundry_specialty__manufactured_by__org_broadcom"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5w_mitsubishi_electric_compound",
@@ -5091,7 +5420,8 @@
     "supportsEdgeIds": [
       "e_acc_compound_foundry_specialty__manufactured_by__org_mitsubishi_electric"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5n_rdl_photoresist_market_tam",
@@ -5107,7 +5437,8 @@
     "supportsEdgeIds": [
       "e_acc_rdl__requires__rdl_photoresist"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "generic_homepage"
   },
   {
     "id": "ev_acc_r5n_rdl_photoresist_suppliers",
@@ -5120,7 +5451,8 @@
     "supportsNodeIds": [
       "rdl_packaging_photoresist"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5n_rdl_photoresist_qualification",
@@ -5133,7 +5465,8 @@
     "supportsNodeIds": [
       "rdl_packaging_photoresist"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_r5n_cmp_consumables_market",
@@ -5146,7 +5479,8 @@
     "supportsNodeIds": [
       "cmp_slurry_and_polishing_pads"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_r5n_cmp_slurry_suppliers",
@@ -5159,7 +5493,8 @@
     "supportsNodeIds": [
       "cmp_slurry_and_polishing_pads"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_r5n_cmp_formulation_leadtime",
@@ -5172,7 +5507,8 @@
     "supportsNodeIds": [
       "cmp_slurry_and_polishing_pads"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_r5n_dicing_blade_market",
@@ -5185,7 +5521,8 @@
     "supportsNodeIds": [
       "dicing_blade_consumables"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "paywalled_snippet"
   },
   {
     "id": "ev_acc_r5n_dicing_blade_suppliers",
@@ -5198,7 +5535,8 @@
     "supportsNodeIds": [
       "dicing_blade_consumables"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_r5n_dicing_blade_consumption",
@@ -5211,7 +5549,8 @@
     "supportsNodeIds": [
       "dicing_blade_consumables"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   },
   {
     "id": "ev_acc_r5n_tcb_consumables_market",
@@ -5224,7 +5563,8 @@
     "supportsNodeIds": [
       "thermocompression_bonding_consumables"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5n_tcb_consumables_suppliers",
@@ -5237,7 +5577,8 @@
     "supportsNodeIds": [
       "thermocompression_bonding_consumables"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_r5n_tcb_consumables_leadtime",
@@ -5250,7 +5591,8 @@
     "supportsNodeIds": [
       "thermocompression_bonding_consumables"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404"
   },
   {
     "id": "ev_acc_r5n_ncf_underfill_market",
@@ -5263,7 +5605,8 @@
     "supportsNodeIds": [
       "ncf_underfill_films"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_r5n_ncf_underfill_suppliers",
@@ -5276,7 +5619,8 @@
     "supportsNodeIds": [
       "ncf_underfill_films"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable"
   },
   {
     "id": "ev_acc_r5n_ncf_underfill_qualification",
@@ -5289,6 +5633,7 @@
     "supportsNodeIds": [
       "ncf_underfill_films"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "fetch_ok"
   }
 ]
