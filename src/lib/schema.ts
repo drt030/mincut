@@ -194,12 +194,51 @@ const nodeBaseSchema = z.object({
    */
   bottleneckOf: z.array(z.string()).optional(),
   frontierFor: z.array(z.string()).optional(),
+  /**
+   * Per ADR-0008 (product/know-how layer split): the transactional form
+   * of a know-how node. `procurable` = a real market sells this as a
+   * service / dataset / license (conceptually a service product);
+   * `must_build` = no one sells it separately — it exists embodied in
+   * firms' products or vertical integration (moat / bottleneck
+   * candidate). Only meaningful on `engineering_method` /
+   * `manufacturing_process` nodes (enforced by refinement below).
+   */
+  transactability: z.enum(["procurable", "must_build"]).optional(),
+  /**
+   * Per ADR-0008 + investor-operator scenario Q3: public-market
+   * visibility of an organization. `subsidiary` = belongs to a listed
+   * parent (the parent's ticker goes in `ticker`). Only meaningful on
+   * `organization` nodes (enforced by refinement below).
+   */
+  listingStatus: z.enum(["public", "private", "subsidiary", "unknown"]).optional(),
+  /** Exchange ticker (e.g. "6954.T", "NVDA"). Organization nodes only. */
+  ticker: z.string().min(1).optional(),
+  /**
+   * Reserved per ADR-0008 (maturityHistory pattern: field first,
+   * population deferred): months of lead time to expand supply
+   * capacity for this node — the shiso-leaf criterion with no other
+   * graph counterpart. Not populated in v0.
+   */
+  capacityLeadTimeMonths: z.number().positive().optional(),
 });
 
-export const nodeSchema = nodeBaseSchema.refine(maturityAsOfRequiredWhenSet, {
-  message: maturityAsOfRequiredMessage,
-  path: ["maturityAsOf"],
-});
+const NODE_KNOW_HOW_KINDS = new Set(["engineering_method", "manufacturing_process"]);
+
+export const nodeSchema = nodeBaseSchema
+  .refine(maturityAsOfRequiredWhenSet, {
+    message: maturityAsOfRequiredMessage,
+    path: ["maturityAsOf"],
+  })
+  .refine(
+    (node) => node.transactability === undefined || NODE_KNOW_HOW_KINDS.has(node.kind),
+    { message: "transactability is only valid on engineering_method / manufacturing_process nodes" },
+  )
+  .refine(
+    (node) =>
+      (node.listingStatus === undefined && node.ticker === undefined) ||
+      node.kind === "organization",
+    { message: "listingStatus / ticker are only valid on organization nodes" },
+  );
 
 /**
  * Strict variants for `scripts/import-candidates.ts`. The "loose" form (no
@@ -357,6 +396,8 @@ export type Evidence = z.infer<typeof evidenceSchema>;
 export type GateQuestion = z.infer<typeof gateQuestionSchema>;
 export type GateReport = z.infer<typeof gateReportSchema>;
 export type ResearchTask = z.infer<typeof researchTaskSchema>;
+export type Transactability = "procurable" | "must_build";
+export type ListingStatus = "public" | "private" | "subsidiary" | "unknown";
 
 export type GraphData = {
   graphVersion: string;
