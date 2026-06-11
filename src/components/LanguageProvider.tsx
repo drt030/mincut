@@ -984,6 +984,13 @@ const nodeTextZh: Record<string, string> = {
   org_avc: "宏碁散热创新",
   org_hanmi_semiconductor: "韩美半导体有限公司",
   org_innoscience: "瑞能半导体",
+  // ai_compute_chain round-5 (2026-06-10)
+  cmp_slurry_and_polishing_pads: "CMP抛光液和抛光垫（先进封装用）",
+  dicing_blade_consumables: "精密切割刀片和消耗品（激光和金刚石）",
+  ncf_underfill_films: "非导电膜（NCF）底部填充材料",
+  org_advantest: "Advantest公司",
+  rdl_packaging_photoresist: "RDL封装光刻胶（i线/KrF，高级几何结构）",
+  thermocompression_bonding_consumables: "热压键合消耗品（键头、加热器、电极）",
 };
 
 const kindTextZh: Record<string, string> = {
