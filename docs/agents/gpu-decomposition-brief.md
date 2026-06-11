@@ -197,3 +197,25 @@ explain the episode: which node gated, who the constrained suppliers were, how i
 
 Sources for each: `.eval/dev/public_chokepoints.json` is the curated reference — Decomposers do
 not read `.eval/**`, so research the episodes directly from trade press/analyst archives.
+
+## §4.5 Evidence verification discipline (binding, per ADR-0009 — added 2026-06-11)
+
+Your output is CANDIDATE evidence; an orchestrator verification layer re-checks it. Rules:
+
+1. **No quote, no number.** Any quantified claim (share, capacity, lead time, price, ratio)
+   must carry a verbatim `excerpt` from the page plus basis (revenue/unit/capacity/bit — they
+   are different numbers), scope, and asOf date in `summary`. If you cannot quote it, write
+   the claim as qualitative — that is a fully acceptable deliverable.
+2. **One claim, one fact.** Never bundle share + price + capex + lead time into one statement
+   or one metric.
+3. **sourceStatus**: self-report `fetch_ok` (you actually fetched a SPECIFIC page) or
+   `paywalled_snippet` (visible snippet quoted). `ok_exact` is reserved for the verifier —
+   never self-assign it. Deep links only; a homepage/section page is not a citation.
+4. **Banned for numbers**: SEO market-report farms, personal or investing substacks/newsletters,
+   aggregator reblogs. Vendor IR/product pages are fine for who-makes-what facts (type
+   `vendor_claim`/`product_page`), weak for market structure. Single-source/"only qualified"/
+   "100%" claims need one primary source or two independent quality sources — otherwise state
+   "reported, unverified".
+5. **Honest misses beat filled blanks.** "No claim-specific source found" is a valid, expected
+   answer; fabricated precision voids the batch. Expect your self-reports to be spot-checked —
+   observed rejection rates on unverified batches ran 24–85%.

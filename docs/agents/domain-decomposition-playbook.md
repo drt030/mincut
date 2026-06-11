@@ -88,3 +88,41 @@ that layer. Expect exposure to be WEAK (~0.2–0.5). That is fine; do not iterat
 `scripts/export-decomposition.mjs` (eval export) and the round-N normalize/apply scripts in
 `.scratch/` (alias fold / auto-fold / patch applier with parcel-fallback + append_domain).
 Promote to `scripts/` if a third domain confirms the shapes are stable.
+
+## The verification layer (added 2026-06-11 after the evidence audits)
+
+Everything above produces CANDIDATE truth. Nothing ships to an owner review queue without
+passing this layer — added after an owner audit found 404/wrong-topic/SEO citations and
+fabricated precision behind "all URLs verified ✓" agent self-reports.
+
+1. **Agent self-attestation is worth zero.** Observed rejection rates when actually checked:
+   ~24% of "fetch_ok" edge citations, ~85% of a qualification-evidence batch, 4 fabricated
+   precisions inside "rebuilt + verified" packages. Every record gets a mechanical URL pass
+   (status code, redirect target, homepage/duplicate detection) recorded as `sourceStatus`;
+   every NUMBER gets an in-loop quote check by the orchestrator (strongest model) before
+   import. `ok_exact` is granted ONLY by the verifier, never self-assigned.
+2. **No quote, no number.** A quantified claim carries: verbatim `excerpt`, `basis`
+   (revenue/unit/capacity/bit share are different numbers), `scope`, `asOf`. Otherwise it
+   ships as qualitative ("highly concentrated", "reported tight") — which is still useful
+   and still gradeable.
+3. **One claim, one fact.** Never bundle share + price + capex + lead time in one statement;
+   one wrong number poisons the whole node. Metric-level facts each cite their own record.
+4. **Fact-whitelist sweeps, not keyword filters.** When stripping unsourced numbers, list the
+   facts ALLOWED to be numeric (each with its verified record) and delete every other numeric
+   metric — keyword filters miss renamed claims ("allocation" vs "pre-lock": 36 metrics
+   survived three keyword passes and fell to one whitelist pass).
+5. **Demote, don't delete.** Bad citations move to `rejectedEvidenceIds` (+ reason in the
+   record's `limitations`) so the audit trail survives; they never count as support.
+6. **Source-class rules** (ADR-0009): SEO market-report farms, personal/investing substacks,
+   aggregator reblogs — never citable for numbers; vendor IR/product pages — fine for
+   who-makes-what, weak for market structure; primary IR/filings/transcripts + named analyst
+   houses + first-tier trade press — citable. Single-source/exclusivity claims need one
+   primary or two independent quality sources.
+7. **Edge semantics are claims too.** `manufactured_by` means "manufactures today";
+   qualification, ownership, strategic supply, capacity provision, second-source status use
+   their own relations (ADR-0009) — an unverified capability report is
+   `reported_capable_supplier`, never `manufactured_by`.
+8. **The review gate is explicit** (see the review-queue doc): flip-eligible =
+   all-supporting-evidence ok_exact + quote + single-fact + scope/basis + asOf + correct edge
+   type + owner-checked URL. The last criterion is the owner's alone — the pipeline's job is
+   to make the first six true and provable.
