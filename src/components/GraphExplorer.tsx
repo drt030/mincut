@@ -562,6 +562,8 @@ const PX_SCALE = 2.4;
 
 type Props = {
   graph: GraphData;
+  /** Per-domain routes (/d/[slug]) pin the canvas root server-side; ?root= still wins for in-canvas navigation. */
+  initialRootId?: string;
 };
 
 function svgNumber(value: number): string {
@@ -775,11 +777,14 @@ function parentResearchRootId(graph: GraphData, currentRootId: string): string |
   return incomingParents[0] ?? null;
 }
 
-export function GraphExplorer({ graph }: Props) {
+export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) {
   const { kindName, nodeName, t } = useLanguage();
   const holderTeasers = useHolderTeasers();
   const searchParams = useSearchParams();
-  const initialRootId = resolveCanvasRootId(graph, searchParams?.get("root")) ?? DEFAULT_ROOT_NODE_ID;
+  const initialRootId =
+    resolveCanvasRootId(graph, searchParams?.get("root")) ??
+    resolveCanvasRootId(graph, initialRootProp ?? null) ??
+    DEFAULT_ROOT_NODE_ID;
   const [currentRootId, setCurrentRootId] = useState(initialRootId);
   const [workingGraph, setWorkingGraph] = useState(graph);
   useEffect(() => {
