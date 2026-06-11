@@ -1,7 +1,7 @@
 import type { Edge, Evidence, GraphData, Node } from "./schema";
 import { isSupplyConcentrated } from "./supplyConcentration";
 
-export const V0_TARGET_NODE_ID = "ai_accelerator_module_hbm_cowos";
+export const V0_TARGET_NODE_ID = "low_cost_parcel_sorting_robot_300k_rmb";
 
 export function nodeById(graph: GraphData, id: string): Node | undefined {
   return graph.nodes.find((node) => node.id === id);
