@@ -9,31 +9,47 @@ export const GATED_DOMAINS: GatedDomain[] = [
   // parcel_sorting_robot is deliberately absent — full free demo.
 ];
 
+/**
+ * Chain tags identifying fully-free domains. Real imported nodes mix chain
+ * tags with category labels inside `domain` (investable_supplier,
+ * semiconductor_equipment, ...), so gating keys on registered chain tags
+ * only and fails closed: an org escapes stripping only through a free
+ * chain tag, an entitlement on one of its chains, or an explicit
+ * `free_teaser` tag (Decision 5) — never through a category label.
+ */
+export const FREE_CHAIN_TAGS = ["parcel_sorting_robot"];
+
 export function stripExposureLayer(
   graph: GraphData,
   entitlements: string[],
   gatedDomains: GatedDomain[] = GATED_DOMAINS,
 ) {
-  const lockedTags = gatedDomains.filter(
+  const lockedDomains = gatedDomains.filter(
     (d) => !entitlements.includes("all") && !entitlements.includes(d.entitlement),
   );
-  const locked: { domainTag: string; entitlement: string; hiddenOrgCount: number }[] = [];
-  const hiddenNodeIds = new Set<string>();
+  const lockedChainTags = new Set(lockedDomains.map((d) => d.domainTag));
+  const openChainTags = new Set([
+    ...FREE_CHAIN_TAGS,
+    ...gatedDomains.filter((d) => !lockedChainTags.has(d.domainTag)).map((d) => d.domainTag),
+  ]);
 
-  for (const d of lockedTags) {
-    let count = 0;
-    for (const n of graph.nodes) {
-      const tags = (n as { domain?: string[] }).domain ?? [];
-      const tagsLockedOnly = tags.length > 0 && tags.every((t) =>
-        lockedTags.some((lt) => lt.domainTag === t),
-      );
-      if (n.kind === "organization" && tags.includes(d.domainTag) && tagsLockedOnly) {
-        hiddenNodeIds.add(n.id);
-        count += 1;
-      }
-    }
-    locked.push({ domainTag: d.domainTag, entitlement: d.entitlement, hiddenOrgCount: count });
+  const hiddenNodeIds = new Set<string>();
+  for (const n of graph.nodes) {
+    if (n.kind !== "organization") continue;
+    if ((n.tags ?? []).includes("free_teaser")) continue;
+    const domainTags = n.domain ?? [];
+    if (!domainTags.some((t) => lockedChainTags.has(t))) continue;
+    if (domainTags.some((t) => openChainTags.has(t))) continue;
+    hiddenNodeIds.add(n.id);
   }
+
+  const locked = lockedDomains.map((d) => ({
+    domainTag: d.domainTag,
+    entitlement: d.entitlement,
+    hiddenOrgCount: graph.nodes.filter(
+      (n) => hiddenNodeIds.has(n.id) && (n.domain ?? []).includes(d.domainTag),
+    ).length,
+  }));
 
   if (hiddenNodeIds.size === 0) return { graph, locked };
 
