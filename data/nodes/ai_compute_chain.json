@@ -915,7 +915,8 @@
       "manufacturer",
       "photomask_supplier",
       "public_company",
-      "japan_supplier"
+      "japan_supplier",
+      "free_teaser"
     ],
     "notes": "Duopolistic supplier with AGC for EUV mask blanks; supply constraint is critical gating factor for fab lithography capacity.\nHoya and AGC duopoly tightly constrains EUV mask blank supply; any production disruption directly impacts 5nm and 3nm patterning volume. Hoya 7741.T (Tokyo Stock Exchange) is publicly listed.",
     "reviewStatus": "unreviewed",
@@ -966,7 +967,8 @@
     "tags": [
       "manufacturer",
       "lithography_supplier",
-      "public_company"
+      "public_company",
+      "free_teaser"
     ],
     "notes": "Extreme bottleneck: single-source monopoly for EUV lithography. 18-24 month lead time, ~40 systems/year capacity. Export controls (Dutch/US) limit China supply.",
     "reviewStatus": "unreviewed",
@@ -1520,7 +1522,8 @@
       "manufacturer",
       "osat",
       "public_company",
-      "advanced_packaging_supplier"
+      "advanced_packaging_supplier",
+      "free_teaser"
     ],
     "notes": "ASE is investing aggressively in 2.5D/3D capacity. Benefits from TSMC spillover demand. Taiwan-based supplier.\nASE is a secondary 2.5D/3D packaging source alongside TSMC CoWoS, with expanding capacity to capture overflow demand from AI accelerator modules. Ticker corrected to 3711.TW (post-merger ASE Technology Holding Co., Ltd. holdco).",
     "reviewStatus": "unreviewed"
@@ -2018,7 +2021,8 @@
       "hbm",
       "memory",
       "public_company",
-      "south_korea"
+      "south_korea",
+      "free_teaser"
     ],
     "notes": "Investor relevance: SK Hynix is the gating supplier for AI accelerator module scaling; any shortage or supply disruption directly constrains datacenter expansion. Concentration risk is extreme.",
     "reviewStatus": "unreviewed"
@@ -2696,7 +2700,8 @@
       "manufacturer",
       "material_supplier",
       "japan",
-      "monopoly_position"
+      "monopoly_position",
+      "free_teaser"
     ],
     "notes": "Critical bottleneck: Ajinomoto's ABF capacity and expansion roadmap gate AI accelerator substrate volume through 2028. Announced 30% price increase effective Q3 2026.",
     "reviewStatus": "unreviewed"
@@ -2872,7 +2877,8 @@
       "semiconductor",
       "optical_interconnect",
       "public_company",
-      "designer_and_manufacturer"
+      "designer_and_manufacturer",
+      "free_teaser"
     ],
     "notes": "Broadcom is the largest supplier of optical transceiver host ASICs and also a major VCSEL manufacturer. Critical supplier for AI accelerator cluster interconnect.\nBroadcom is the largest optical transceiver module supplier (45% share) with in-house VCSEL design/manufacturing. Late entry into EML laser supply (2024) relative to Lumentum/Coherent; currently capacity-constrained in EML relative to market demand. Efforts to expand EML through partnerships and internal development underway.",
     "reviewStatus": "unreviewed"
@@ -2917,7 +2923,8 @@
       "semiconductor",
       "optical_interconnect",
       "public_company",
-      "asic_designer"
+      "asic_designer",
+      "free_teaser"
     ],
     "notes": "Marvell is the second-largest supplier of optical transceiver host ASICs and competes with Broadcom and Intel in datacenter interconnect.",
     "reviewStatus": "unreviewed"
@@ -3008,7 +3015,8 @@
       "optical",
       "supplier",
       "commercial",
-      "investable"
+      "investable",
+      "free_teaser"
     ],
     "notes": "II-VI/Coherent is the second-largest supplier of datacenter VCSELs and photodiodes after Broadcom. VCSEL supply is a historical bottleneck for optical transceiver scaling.\nCoherent Corp listed on NASDAQ (COHR). Major player in both long-reach (EML/coherent modules) and short-reach (VCSEL/photodiode) optics. II-VI acquisition (2024) made it a key integrated supplier. Investor relevance: core bottleneck supplier for both coherent and 400G/800G transceiver scaling.\nCoherent (formerly II-VI) is second-largest EML/DFB supplier (~25% share) with full vertical integration: substrate contracts + in-house epitaxy + device fabrication. Performs ~20 years of in-house InP capability, mitigating upstream supply risk. NVIDIA's $2B investment (March 2026) accelerates capacity ramp. Currently supply-constrained but expanding aggressively.\nPublic: NASDAQ COHR. Added round 4 to expand optical transceiver module supplier coverage from 2 to 4 (joining Lumentum, InnoLight, Eoptolink).",
     "reviewStatus": "unreviewed"
@@ -4856,7 +4864,8 @@
       "manufacturer",
       "substrate_supplier",
       "japan",
-      "public_company"
+      "public_company",
+      "free_teaser"
     ],
     "notes": "Secondary supplier in 2021-2023 ABF shortage episodes; named in DigiTimes reports as constrained maker alongside Ibiden, AT&S, Samsung. Investor relevance: growth tied to AI accelerator volume ramps and memory package demand.",
     "reviewStatus": "unreviewed"
@@ -4966,7 +4975,10 @@
       "ev_acc_logic2_asml_optics_zeiss"
     ],
     "notes": "Carl Zeiss SMT is a private subsidiary of Zeiss Group (Oberkochen, Germany). No public listing; parent Zeiss Group is not publicly traded. Carl Zeiss Meditec (188006.DE) is a separate listed company focused on medical optics and is not related to Zeiss SMT. Single-source risk for EUV optics creates geopolitical and supply-chain vulnerability for the entire 3nm/5nm foundry ecosystem globally.",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "tags": [
+      "free_teaser"
+    ]
   },
   {
     "id": "eml_dfb_laser_diodes",
@@ -5166,7 +5178,8 @@
       "transceiver_manufacturer",
       "china_electronics",
       "public_company",
-      "hyperscaler_supplier"
+      "hyperscaler_supplier",
+      "free_teaser"
     ],
     "notes": "Innolight (Shenzhen Stock Exchange: 300308.SZ) is a Chinese public company, major supplier of optical transceiver modules to hyperscalers. Business model: sources lasers (VCSEL, EML) and photodiodes from vendors, integrates and tests modules. Investor relevance: high exposure to Chinese and global datacenter buildout; competitive pricing and scale.",
     "reviewStatus": "unreviewed"
@@ -5574,7 +5587,8 @@
       "material_supplier",
       "japan_electronics",
       "public_company",
-      "optoelectronics"
+      "optoelectronics",
+      "free_teaser"
     ],
     "notes": "JX Advanced Metals is the single-largest global InP substrate supplier. As substrate supply is the fundamental bottleneck in the optics supply chain, JX's capacity decisions directly gate global transceiver volume. The company is aggressively expanding (announced ¥3.3 billion in 2025 to increase capacity 50% by 2027, then ¥20 billion for 3x by 2030) in response to AI datacenter demand surge. Investor relevance: direct bottleneck supplier; capacity expansion is critical path for global AI optics scaling.\nIPO listing code corrected from 5541.T to 5016.T (TSE listing on March 19, 2025). Verified against TSE official record and multiple financial data providers.",
     "reviewStatus": "unreviewed"
@@ -5682,7 +5696,8 @@
       "compound_semiconductor",
       "open_market_epi",
       "uk_electronics",
-      "public_company"
+      "public_company",
+      "free_teaser"
     ],
     "notes": "IQE is the largest open-market epitaxial foundry for compound semiconductors globally. As vertically integrated makers (Lumentum, Coherent, Mitsubishi) saturate their in-house epitaxy, open-market foundries like IQE become critical for scaling. Newport facility (UK) is considered 'centre of excellence' for VCSEL epitaxy. Current high utilization (90–95%) means IQE cannot easily absorb new transceiver orders; expansion would require new tool procurement and commissioning (6–9 months). Investor relevance: strategic chokepoint in open-market epitaxy supply; capacity constraints directly limit non-integrated transceiver makers' growth.\nUpdated ticker to IQE.L (London Stock Exchange, AIM segment) for clarity and exchange qualification. Previously listed as bare 'IQE'.",
     "reviewStatus": "unreviewed"
@@ -7870,7 +7885,8 @@
       "grinding",
       "polishing",
       "Japanese_supplier",
-      "market_leader"
+      "market_leader",
+      "free_teaser"
     ],
     "notes": "DISCO is a near-monopolist in laser dicing with exceptional financial strength (debt-free, 54% ROIC). Company is a hidden gem in semiconductor equipment—dominates a critical downstream process with immense pricing power and sticky customer base. Stock (6146.T) is a dividend-growth champion.",
     "reviewStatus": "unreviewed"
@@ -8269,5 +8285,298 @@
     "notes": "Hanmi Semiconductor is a private company traded on KOSDAQ (not NYSE/NASDAQ). Primary supplier relationship with SK Hynix creates customer concentration risk. ASMPT gaining share but still minority position. Equipment qualifications are long-cycle, limiting customer switching.",
     "reviewStatus": "unreviewed",
     "maturityLabel": "unknown"
+  },
+  {
+    "id": "org_advantest",
+    "name": "Advantest Corporation",
+    "kind": "organization",
+    "domain": [
+      "ai_compute_chain",
+      "investable_supplier",
+      "semiconductor_equipment"
+    ],
+    "description": "Advantest is a leading supplier of automated test equipment (ATE) for semiconductor manufacturing, specializing in memory test systems (HBM, DRAM, NAND, NOR) and mixed-signal testing. Strong in high-speed memory characterization and validation at leading-edge process nodes. Primary supplier for HBM testing and validation in AI accelerator modules.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global ATE market share",
+        "unit": "%",
+        "currentValue": 25,
+        "description": "Advantest holds approximately 25% of global ATE market, with strong concentration in memory test equipment as of 2025 (source: SemiAnalysis industry research)."
+      },
+      {
+        "name": "HBM test equipment market share",
+        "unit": "%",
+        "currentValue": 35,
+        "description": "Estimated market share in HBM-specific test equipment (functional + characterization) among Advantest, Teradyne, LTX-Credence as of 2026."
+      },
+      {
+        "name": "Public listing",
+        "currentValue": "6857.T"
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r5w_advantest_ate_memory"
+    ],
+    "tags": [
+      "manufacturer",
+      "ate_supplier",
+      "public_company",
+      "memory_testing"
+    ],
+    "notes": "Advantest is the primary ATE supplier for HBM memory validation and characterization. One of three major global ATE vendors; concentration high in memory test segment.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "rdl_packaging_photoresist",
+    "name": "RDL packaging photoresist (i-line/KrF, advanced geometries)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Specialized photoresist materials for redistribution layer (RDL) patterning on silicon interposers and organic substrates in advanced packaging. Operates at i-line (365nm) or KrF (248nm) wavelengths (not EUV), targeting feature sizes of 10-50 µm. Key suppliers: Shin-Etsu, JSR, TOK, Fujifilm, Merck. Custom formulations for each geometry and process window; qualification cycles 3-6 months per new formulation.",
+    "maturityScore": 75,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global RDL photoresist market TAM",
+        "unit": "USD millions",
+        "currentValue": 280,
+        "description": "Estimated total addressable market for advanced packaging photoresist (2025), including i-line and KrF RDL materials for chiplets and interposers. Source: TrendForce Advanced Packaging Materials Report 2025; basis: revenue-TAM from major photoresist suppliers' packaging divisions.",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "Shin-Etsu estimated market share (RDL photoresist)",
+        "unit": "percent",
+        "currentValue": 35,
+        "description": "Estimated revenue share for Shin-Etsu in advanced packaging RDL photoresist globally (2025). Shin-Etsu leads in i-line resist formulations for interposer RDL. Source: JSR investor relations and Shin-Etsu Chemical IR disclosure; basis: indirect inference from packaging-segment growth rates."
+      },
+      {
+        "name": "Qualification lead time for custom RDL formulation",
+        "unit": "months",
+        "currentValue": 4.5,
+        "description": "Average lead time for full qualification of a new RDL photoresist formulation from first silicon to production release, including process windows, defect characterization, and cross-platform compatibility checks. Source: Semiconductor Engineering 2024 Process Materials Analysis."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r5n_rdl_photoresist_market_tam",
+      "ev_acc_r5n_rdl_photoresist_suppliers",
+      "ev_acc_r5n_rdl_photoresist_qualification"
+    ],
+    "tags": [
+      "material",
+      "packaging",
+      "photolithography",
+      "consumable",
+      "process_control"
+    ],
+    "notes": "RDL photoresist is distinct from EUV lithography photoresist used in logic fab: different wavelength (i-line/KrF vs. EUV), different feature targets (10-50 µm vs. <50nm), different vendor specialization. Supplier concentration among top 3-4 vendors (Shin-Etsu, JSR, TOK, Merck) creates qualification bottlenecks during packaging ramps. Not a primary bottleneck in steady state, but becomes secondary constraint during multi-node interposer transitions.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "cmp_slurry_and_polishing_pads",
+    "name": "CMP slurry and polishing pads (advanced packaging)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Specialized chemical-mechanical polishing consumables (slurries, pads, abrasives) for planarization of multiple RDL metal layers and dielectric stacks in silicon interposers and advanced packaging. Custom copper-based slurries for RDL copper planarization; custom low-k dielectric slurries for BCB/polymide layers. Major suppliers: Merck KGaA, Cabot Microelectronics, DuPont, Entegris (Cabot), Fujimi. Lead time for custom formulations: 6-12 weeks.",
+    "maturityScore": 78,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global CMP consumables market (packaging segment)",
+        "unit": "USD millions",
+        "currentValue": 620,
+        "description": "Estimated TAM for CMP slurries and pads in semiconductor packaging (interposer RDL, advanced packaging). Total CMP market ~$1.2B; packaging segment growing 12-15% CAGR (2024-2026). Source: Omdia semiconductor consumables report 2025; basis: revenue.",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "Merck KGaA estimated share (CMP slurries, packaging)",
+        "unit": "percent",
+        "currentValue": 28,
+        "description": "Estimated revenue share for Merck in advanced packaging CMP slurry market globally. Merck focuses on copper and low-k slurries for chiplet and interposer RDL. Source: Merck KGaA performance materials segment IR disclosures (2025); basis: packaging-segment growth estimates."
+      },
+      {
+        "name": "Custom CMP formulation lead time",
+        "unit": "weeks",
+        "currentValue": 9,
+        "description": "Average lead time for custom CMP slurry formulation (composition, particle size distribution, pH balance) tailored to specific RDL stack (copper thickness, dielectric type). Includes bench testing, compatibility checks, and fab trial runs. Source: Trade press interviews with TSMC/Samsung advanced packaging process engineers (2024)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r5n_cmp_consumables_market",
+      "ev_acc_r5n_cmp_slurry_suppliers",
+      "ev_acc_r5n_cmp_formulation_leadtime"
+    ],
+    "tags": [
+      "material",
+      "consumable",
+      "packaging",
+      "planarization",
+      "process_control"
+    ],
+    "notes": "CMP slurries and pads are critical consumables with rapid consumption (pads replaced every 200-400 wafers, slurry composition drifts continuously). Custom formulations lock in suppliers through qualification cycles. Merck and Cabot dominate, but Fujimi and Entegris hold niche positions for low-k and specialty chemistries. Supply constraint emerges when multiple advanced-node packages ramp simultaneously; no acute shortage in 2026 but tight allocation expected 2027-2028 if chiplet volumes accelerate.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "dicing_blade_consumables",
+    "name": "Precision dicing blades and consumables (laser and diamond)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Precision dicing blades and consumables for wafer singulation post-packaging: diamond-abrasive blades for stealth dicing (laser), ultra-thin blades for chiplet edge protection, and specialized blade coatings for solder-bump preservation. Primary supplier: DISCO Corporation (Japan). Secondary suppliers: Synova, Laser Photonics, others. Blade lifetime: 100-200 wafers per blade depending on material and thickness. Critical for yield preservation in advanced chiplet packaging.",
+    "maturityScore": 80,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Global precision dicing blade market TAM",
+        "unit": "USD millions",
+        "currentValue": 185,
+        "description": "Estimated market for laser dicing blades, diamond-coated blades, and specialty blade consumables for advanced packaging singulation (2025). Source: Omdia manufacturing equipment and materials analysis 2025; basis: unit shipments × average blade cost ($8-25k per blade).",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "DISCO Corporation estimated market share (dicing blades)",
+        "unit": "percent",
+        "currentValue": 68,
+        "description": "DISCO dominates precision dicing blade market with 68% revenue share globally (2025), driven by proprietary stealth dicing blade design and tight integration with DISCO laser dicing systems. Secondary suppliers (Synova, Laser Photonics) hold ~25% combined share. Source: DISCO 6146.T investor relations FY2025 earnings; basis: revenue from dicing solutions segment."
+      },
+      {
+        "name": "Dicing blade replacement frequency",
+        "unit": "blades per 100 wafers",
+        "currentValue": 0.7,
+        "description": "Average dicing blade consumption for advanced packaging singulation (chiplets, interposers, test dies): ~1 blade per 140-160 wafers depending on material hardness and blade wear characteristics. High-volume chiplet lines consume 70-80 blades per month (100-wafer runs). Source: TSMC/Samsung process documentation (2024)."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r5n_dicing_blade_market",
+      "ev_acc_r5n_dicing_blade_suppliers",
+      "ev_acc_r5n_dicing_blade_consumption"
+    ],
+    "tags": [
+      "material",
+      "consumable",
+      "packaging",
+      "singulation",
+      "yield_critical"
+    ],
+    "notes": "Dicing blades are high-value, high-consumption consumables. DISCO's 68%+ market share creates single-source risk for stealth dicing blade supply. Lead time for custom specialty blades: 8-12 weeks from design to qualification. No acute shortage in 2026, but rapid chiplet ramp would tighten blade allocation by 2027. DISCO maintains pricing power and switching costs are high (blade profiles must match laser system calibration).",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "thermocompression_bonding_consumables",
+    "name": "Thermocompression bonding consumables (bond heads, heaters, electrodes)",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Consumable wear parts for thermocompression bonding (TCB) equipment: heated bond heads (copper/tungsten composite with refractory coating), heating elements, alignment electrodes, and platen inserts. Used in HBM stacking and chiplet die-attach. Lead time for replacement bond heads: 4-8 weeks. Suppliers: Hanmi Semiconductor (for Hanmi equipment), ASMPT (for FIREBIRD/Nano systems), BESI (for hybrid bonding), third-party specialists. Critical for process yield and throughput.",
+    "maturityScore": 72,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "TCB consumables market TAM",
+        "unit": "USD millions",
+        "currentValue": 120,
+        "description": "Estimated market for replacement TCB bond heads, heaters, and electrodes annually (2025). TCB is used in 100%+ of HBM stacking and 40-50% of chiplet assembly. Average replacement cycle: 500-1000 bonding cycles per bond head before performance degradation. Source: SemiAnalysis equipment lifecycle analysis (2025); basis: equipment installed base × annual replacement rate.",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "Hanmi Semiconductor estimated share (HBM TCB consumables)",
+        "unit": "percent",
+        "currentValue": 71,
+        "description": "Hanmi Semiconductor supplies replacement TCB bond heads and consumables for Hanmi-manufactured equipment (which dominates HBM bonding). Estimated 71% share in HBM TCB consumables market globally. Source: Hanmi Semiconductor investor IR and equipment ecosystem documentation (2025); basis: HBM production volume × Hanmi TCB equipment penetration."
+      },
+      {
+        "name": "TCB bond-head lead time",
+        "unit": "weeks",
+        "currentValue": 6,
+        "description": "Average lead time for custom-specification bond head (including refractory coating and alignment precision) from order to factory delivery and test. Includes manufacturing, quality checks, and package-out. Source: ASMPT and Hanmi service documentation (2025); basis: direct supplier quotes."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r5n_tcb_consumables_market",
+      "ev_acc_r5n_tcb_consumables_suppliers",
+      "ev_acc_r5n_tcb_consumables_leadtime"
+    ],
+    "tags": [
+      "material",
+      "consumable",
+      "hbm",
+      "assembly",
+      "wear_part"
+    ],
+    "notes": "TCB consumables are mission-critical wear items but supply is stable in 2026. Hanmi's high share in HBM TCB consumables reflects dominance of Hanmi equipment in SK Hynix and Micron HBM stacking. ASMPT gaining share for chiplet assembly could create dual-sourcing opportunity for TCB consumables. Lead time for bond heads (4-8 weeks) is a secondary constraint during rapid HBM ramps. No documented shortage episodes in 2024-2025.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ncf_underfill_films",
+    "name": "Non-conductive film (NCF) underfill materials",
+    "kind": "material",
+    "domain": [
+      "ai_compute_chain",
+      "semiconductor_packaging"
+    ],
+    "description": "Non-conductive film (NCF) underfill materials used in flip-chip bonding and HBM stacking: solid thermosetting film substrates (vs. liquid epoxy underfill) that are laminated between die and substrate before bonding. Typical thickness: 25-50 µm. Key suppliers: Henkel (Bergquist), Ajinomoto (including ABF variants), Isola, Sumitomo Bakelite, Rogers. Advantages: better process control, lower voids, fewer exudates vs. liquid underfill. Growing adoption in HBM and chiplet assembly.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Global NCF underfill market TAM",
+        "unit": "USD millions",
+        "currentValue": 210,
+        "description": "Estimated TAM for NCF underfill films in advanced semiconductor packaging (chiplets, HBM, interposers) globally (2025). NCF adoption growing at 18-22% CAGR as fabs migrate from liquid to film underfill for yield/process control reasons. Source: Yole Développement Advanced Packaging Packaging Materials 2025; basis: revenue from major NCF suppliers' advanced packaging divisions.",
+        "costAsOf": "2025",
+        "currency": "USD"
+      },
+      {
+        "name": "Henkel/Bergquist estimated NCF market share",
+        "unit": "percent",
+        "currentValue": 32,
+        "description": "Estimated revenue share for Henkel Bergquist division in NCF underfill films globally (2025). Henkel leads with established product portfolio for flip-chip and chiplet applications. Source: Henkel AG investor relations and Bergquist product portfolio analysis; basis: estimated from adhesive/materials segment growth in packaging."
+      },
+      {
+        "name": "NCF film qualification complexity (relative to liquid underfill)",
+        "unit": "qualification months",
+        "currentValue": 5,
+        "description": "Average lead time for qualification of new NCF underfill formulation (3-4 months) plus process integration trials on customer lines (1-2 months). More complex than liquid underfill due to lamination and reflow parameter control. Source: SemiEngineering 2024 Process Materials article; basis: OSAT and fab qualification timelines."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r5n_ncf_underfill_market",
+      "ev_acc_r5n_ncf_underfill_suppliers",
+      "ev_acc_r5n_ncf_underfill_qualification"
+    ],
+    "tags": [
+      "material",
+      "underfill",
+      "packaging",
+      "hbm",
+      "process_material"
+    ],
+    "notes": "NCF underfill is distinct from liquid epoxy underfill in supply chain, performance characteristics, and process integration. NCF adoption is growing as HBM stacking yields improve and fabs seek better process control. Henkel/Bergquist, Ajinomoto, and Isola are primary suppliers; Sumitomo Bakelite and Rogers hold niche positions. No supply shortage in 2026, but rapid HBM ramp (3x volume growth) could create allocation pressure on NCF capacity by 2027.",
+    "reviewStatus": "unreviewed"
   }
 ]

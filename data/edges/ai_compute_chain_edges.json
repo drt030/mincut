@@ -2961,5 +2961,359 @@
       "ev_acc_nc4_euv_market_1"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_flip_chip_bonding__manufactured_by__org_amkor",
+    "source": "flip_chip_bonding",
+    "target": "org_amkor",
+    "relation": "manufactured_by",
+    "claim": "Amkor Technology is one of the top-2 OSAT providers offering flip-chip bonding with micro-bump assembly and underfill for advanced packaging (2.5D/3D).",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_amkor_flip_chip"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_flip_chip_bonding__manufactured_by__org_ase",
+    "source": "flip_chip_bonding",
+    "target": "org_ase",
+    "relation": "manufactured_by",
+    "claim": "ASE Technology Holding is one of the top-2 OSAT providers with advanced flip-chip bonding capability for HBM-on-interposer assembly.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_ase_flip_chip"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_flip_chip_bonding__manufactured_by__org_asmpt",
+    "source": "flip_chip_bonding",
+    "target": "org_asmpt",
+    "relation": "manufactured_by",
+    "claim": "ASMPT (ASM Pacific Technology) provides flip-chip bonding and TCB (Thermal Compression Bonding) services as part of advanced packaging offerings.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_asmpt_flip_chip"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_organic_substrate_buildup__manufactured_by__org_unimicron",
+    "source": "organic_substrate_buildup",
+    "target": "org_unimicron",
+    "relation": "manufactured_by",
+    "claim": "Unimicron Technology is the largest supplier of high-layer-count organic substrates (ABF build-up film) for advanced packaging, serving AI accelerator OEMs.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_unimicron_substrate"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_organic_substrate_buildup__manufactured_by__org_shinko_electric",
+    "source": "organic_substrate_buildup",
+    "target": "org_shinko_electric",
+    "relation": "manufactured_by",
+    "claim": "Shinko Electric Industries manufactures high-layer-count organic substrates (BT/ABF laminates) with advanced HDI for packaging modules.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_shinko_substrate"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_organic_substrate_buildup__manufactured_by__org_kinsus",
+    "source": "organic_substrate_buildup",
+    "target": "org_kinsus",
+    "relation": "manufactured_by",
+    "claim": "Kinsus Interconnect Technology manufactures high-layer-count organic substrates for advanced packaging and IC carrier applications.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_r5w_kinsus_substrate"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_test_and_inspection__manufactured_by__org_teradyne",
+    "source": "test_and_inspection",
+    "target": "org_teradyne",
+    "relation": "manufactured_by",
+    "claim": "Teradyne supplies automated test equipment (ATE) for functional and parametric testing of packaged modules, including high-speed pin electronics and thermal chambers.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_teradyne_ate"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_test_and_inspection__manufactured_by__org_kla",
+    "source": "test_and_inspection",
+    "target": "org_kla",
+    "relation": "manufactured_by",
+    "claim": "KLA Corporation supplies optical and metrology inspection equipment (defect inspection, SEM-class imaging) for post-assembly quality assurance.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_kla_inspection"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_test_and_inspection__manufactured_by__org_camtek",
+    "source": "test_and_inspection",
+    "target": "org_camtek",
+    "relation": "manufactured_by",
+    "claim": "Camtek provides optical metrology and X-ray inspection systems for detecting voids, cracks, and interconnect defects in advanced packages.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_camtek_inspection"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_test_and_inspection__manufactured_by__org_onto_innovation",
+    "source": "test_and_inspection",
+    "target": "org_onto_innovation",
+    "relation": "manufactured_by",
+    "claim": "Onto Innovation (formerly Rudolph Technologies + Nanometrics) supplies optical inspection and overlay metrology systems used in packaging process control.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_r5w_onto_inspection"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_teradyne",
+    "source": "hbm_testing_validation_power_delivery",
+    "target": "org_teradyne",
+    "relation": "manufactured_by",
+    "claim": "Teradyne is a supplier of high-speed memory ATE for HBM functional testing, bandwidth characterization, and power delivery margin validation.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_teradyne_hbm_test"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_testing_validation_power_delivery__manufactured_by__org_advantest",
+    "source": "hbm_testing_validation_power_delivery",
+    "target": "org_advantest",
+    "relation": "manufactured_by",
+    "claim": "Advantest is a primary supplier of ATE systems for HBM testing and characterization, including IDVR performance validation and temperature margin testing.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_advantest_ate_memory"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_compound_foundry_specialty__manufactured_by__org_lumentum",
+    "source": "compound_foundry_specialty",
+    "target": "org_lumentum",
+    "relation": "manufactured_by",
+    "claim": "Lumentum manufactures EML and DFB laser diodes and VCSEL devices with post-epitaxy processing (stripe etch, facet prep, hermetic packaging) for optical interconnect.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_lumentum_compound"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_compound_foundry_specialty__manufactured_by__org_ii_vi_coherent",
+    "source": "compound_foundry_specialty",
+    "target": "org_ii_vi_coherent",
+    "relation": "manufactured_by",
+    "claim": "Coherent Corp. (formerly II-VI) manufactures integrated photonic devices including EML lasers, photodiodes, and specialty InP/GaAs components with full packaging.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_coherent_compound"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_compound_foundry_specialty__manufactured_by__org_sumitomo_electric",
+    "source": "compound_foundry_specialty",
+    "target": "org_sumitomo_electric",
+    "relation": "manufactured_by",
+    "claim": "Sumitomo Electric Industries (Optics & Photonics Division) manufactures InP-based optical devices, semiconductor lasers, and photonic modules with integrated packaging.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_sumitomo_electric_compound"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_compound_foundry_specialty__manufactured_by__org_mitsubishi_electric",
+    "source": "compound_foundry_specialty",
+    "target": "org_mitsubishi_electric",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric manufactures InP/GaAs-based optical devices including EML/DFB lasers and photodiodes with integrated epitaxy, device processing, and hermetic packaging.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_mitsubishi_electric_compound"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_compound_foundry_specialty__manufactured_by__org_broadcom",
+    "source": "compound_foundry_specialty",
+    "target": "org_broadcom",
+    "relation": "manufactured_by",
+    "claim": "Broadcom manufactures VCSEL and optical device arrays with integrated packaging for optical interconnect and sensor applications.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5w_broadcom_compound"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_rdl__requires__rdl_photoresist",
+    "source": "redistribution_layer_rdl",
+    "target": "rdl_packaging_photoresist",
+    "relation": "requires",
+    "claim": "RDL patterning requires specialized i-line/KrF photoresist with custom formulations for packaging geometries.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_rdl_photoresist_market_tam"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_rdl_photoresist__manufactured_by__merck",
+    "source": "rdl_packaging_photoresist",
+    "target": "org_merck",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_rdl_photoresist_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_rdl__requires__cmp_slurry",
+    "source": "redistribution_layer_rdl",
+    "target": "cmp_slurry_and_polishing_pads",
+    "relation": "requires",
+    "claim": "RDL planarization requires custom CMP slurries and pads for copper and low-k dielectric materials.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_cmp_consumables_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_singulation__requires__dicing_blades",
+    "source": "singulation_laser_dicing_systems",
+    "target": "dicing_blade_consumables",
+    "relation": "requires",
+    "claim": "Laser dicing systems require precision dicing blades as consumables; blade life 100-200 wafers per blade.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_dicing_blade_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_tcb_systems__requires__tcb_consumables",
+    "source": "thermocompression_bonding_systems",
+    "target": "thermocompression_bonding_consumables",
+    "relation": "requires",
+    "claim": "TCB systems require replacement bond heads, heaters, and electrodes; lead time 4-8 weeks for custom parts.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_tcb_consumables_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_tcb__requires__tcb_consumables",
+    "source": "hbm_tc_bonding_equipment",
+    "target": "thermocompression_bonding_consumables",
+    "relation": "requires",
+    "claim": "HBM TCB equipment requires specialized bond heads and consumables; critical for HBM3e/HBM4 stacking yield.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_tcb_consumables_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_flip_chip__requires__ncf_underfill",
+    "source": "flip_chip_bonding",
+    "target": "ncf_underfill_films",
+    "relation": "requires",
+    "claim": "Flip-chip bonding can use NCF film underfill as alternative to liquid epoxy; growing adoption for process control.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_r5n_ncf_underfill_market"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_hbm_bonding__requires__ncf_underfill",
+    "source": "hbm_stack_assembly_die_bonding",
+    "target": "ncf_underfill_films",
+    "relation": "requires",
+    "claim": "HBM stacking increasingly uses NCF film underfill for improved yield and thermal management vs. liquid underfill.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_r5n_ncf_underfill_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_cmp_slurry__manufactured_by__merck",
+    "source": "cmp_slurry_and_polishing_pads",
+    "target": "org_merck",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_cmp_slurry_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_cmp_slurry__manufactured_by__entegris",
+    "source": "cmp_slurry_and_polishing_pads",
+    "target": "org_entegris",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_cmp_slurry_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_dicing_blades__manufactured_by__disco",
+    "source": "dicing_blade_consumables",
+    "target": "org_disco",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_dicing_blade_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_tcb_consumables__manufactured_by__hanmi",
+    "source": "thermocompression_bonding_consumables",
+    "target": "org_hanmi_semiconductor",
+    "relation": "manufactured_by",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_r5n_tcb_consumables_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_tcb_consumables__manufactured_by__asmpt",
+    "source": "thermocompression_bonding_consumables",
+    "target": "org_asmpt",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_r5n_tcb_consumables_suppliers"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]
