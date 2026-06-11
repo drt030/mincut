@@ -1117,7 +1117,10 @@
     "target": "org_amphenol",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_edge4_amphenol_optical_connectors"
+    ]
   },
   {
     "id": "e_acc_opt_optical_connector__manufactured_by__commscope",
@@ -1125,7 +1128,10 @@
     "target": "org_commscope",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_opt_commscope_datacenter"
+    ]
   },
   {
     "id": "e_acc_opt_fiber_cables__manufactured_by__corning",
@@ -1133,7 +1139,10 @@
     "target": "org_corning",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_opt_corning_fiber_optics"
+    ]
   },
   {
     "id": "e_acc_opt_electrical_connector__manufactured_by__te",
@@ -1141,7 +1150,10 @@
     "target": "org_te_connectivity",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_pwr_te_connectivity_connectors"
+    ]
   },
   {
     "id": "e_acc_opt_electrical_connector__manufactured_by__amphenol",
@@ -1149,7 +1161,10 @@
     "target": "org_amphenol",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_edge5_amphenol_electrical_connectors"
+    ]
   },
   {
     "id": "e_acc_opt_redriver__manufactured_by__marvell",
@@ -1157,7 +1172,10 @@
     "target": "org_marvell",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_edge6_marvell_redriver_chiplet"
+    ]
   },
   {
     "id": "e_acc_pwr_power_delivery__requires__module_vrm",
@@ -2384,7 +2402,10 @@
     "target": "org_broadcom",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_icsi_pcie_cxl_switch_market_2025"
+    ]
   },
   {
     "id": "e_acc_fabric_switch__manufactured_by__org_marvell",
@@ -2392,7 +2413,10 @@
     "target": "org_marvell",
     "relation": "manufactured_by",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_icsi_pcie_cxl_switch_market_2025"
+    ]
   },
   {
     "id": "e_adv_pkg_requires_xray_inspection",

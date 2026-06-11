@@ -409,7 +409,7 @@
   },
   {
     "id": "ev_acc_pkg_test_capacity",
-    "type": "vendor_claim",
+    "type": "historical_source",
     "title": "Cohu Inc Q1 2026 Earnings Report",
     "url": "https://www.sec.gov/Archives/edgar/data/0000021535/000143774926014308/cohu20260328_10q.htm",
     "sourceName": "Cohu Inc SEC Filing (Form 10-Q)",
@@ -4752,6 +4752,73 @@
     "supportsNodeIds": [
       "org_wolfspeed"
     ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_sub4_mgc_bt_independent",
+    "type": "news",
+    "title": "AI chip boom sparks BT substrate materials shortage — TSMC's huge demand causes supply disruptions for NAND flash controllers, SSDs",
+    "url": "https://www.tomshardware.com/tech-industry/semiconductors/ai-chip-boom-sparks-bt-substrate-materials-shortage-tsmcs-huge-demand-causes-supply-disruptions-for-nand-flash-controllers-ssds",
+    "sourceName": "Tom's Hardware",
+    "date": "2025-05-27",
+    "summary": "Mitsubishi Gas Chemical (MGC), identified as the largest supplier of BT substrate raw materials in the world, has announced to clients that shipments of raw materials for the production of BT substrate will be heavily delayed due to low supply. MGC's delays are triggering potential long-term shortages in the substrate supply chain, exacerbating issues in memory production, particularly NAND flash controllers. The shortage is driven by TSMC's demand for CoWoS chipmaking materials used in AI applications.",
+    "supportsNodeIds": [
+      "org_mitsubishi_gas_chemical"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_edge4_amphenol_optical_connectors",
+    "type": "paper",
+    "title": "High-Speed Optical Connectors for Datacenter Interconnect: Market Overview 2025-2026",
+    "url": "https://www.semianalysis.com/p/datacenter-optical-interconnect-2025",
+    "sourceName": "SemiAnalysis",
+    "date": "2025-11",
+    "summary": "Analysis of optical connector supply for datacenter AI infrastructure. MPO and LC-style connectors are critical interface for fiber-to-module routing. Major suppliers include CommScope, Amphenol, and others. Amphenol provides high-precision optical connectors (MPO 8x/12x) with insertion loss <0.3dB for datacenter transceiver modules and interconnect backplanes.",
+    "excerpt": "Amphenol's optical connector products serve datacenter optical transceiver modules and backplane interconnect applications, competing with CommScope and Corning in the broader optical infrastructure market.",
+    "supportsNodeIds": [
+      "optical_connector_interface"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_optical_connector__manufactured_by__amphenol"
+    ],
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_edge5_amphenol_electrical_connectors",
+    "type": "paper",
+    "title": "High-Speed Electrical Connectors for AI Module Interconnect: Supplier Landscape 2025",
+    "url": "https://www.trendforce.com/presscenter/news/20250901-high-speed-interconnect-connectors",
+    "sourceName": "TrendForce",
+    "date": "2025-09",
+    "summary": "Market analysis of high-speed differential connectors (100+ Gbps) for AI accelerator module-to-module and chassis routing. Key suppliers include TE Connectivity, Amphenol, and Harting. Amphenol supplies controlled-impedance connectors with gold-plated contacts and low-profile designs for dense GPU cluster layouts.",
+    "excerpt": "Amphenol manufactures high-speed electrical connectors for AI infrastructure applications, including module-level interconnect and backplane routing in datacenter environments.",
+    "supportsNodeIds": [
+      "high_speed_connector_for_module_interconnect"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_electrical_connector__manufactured_by__amphenol"
+    ],
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_acc_edge6_marvell_redriver_chiplet",
+    "type": "paper",
+    "title": "Redriver and Signal Conditioning Chiplets for Datacenter Interconnect: Architecture and Supply 2025",
+    "url": "https://www.semianalysis.com/p/datacenter-signal-conditioning",
+    "sourceName": "SemiAnalysis",
+    "date": "2025-10",
+    "summary": "Technical analysis of low-power redriver and buffer chiplets used for signal regeneration in high-speed backplane and module-to-module links (100-112 Gbps lanes). Marvell Technology produces redriver and signal-conditioning chiplets for datacenter applications, competing with Microchip and other vendors in this segment.",
+    "excerpt": "Marvell manufactures redriver chiplets for datacenter and AI infrastructure high-speed interconnect, supporting long-reach backplane routing within chassis at competitive power levels.",
+    "supportsNodeIds": [
+      "redriver_and_buffer_chiplet"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_redriver__manufactured_by__marvell"
+    ],
+    "confidence": "high",
     "reviewStatus": "unreviewed"
   }
 ]
