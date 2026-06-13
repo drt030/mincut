@@ -38,11 +38,15 @@ test("the parcel robot route is a full-free depth demo", () => {
   assert.equal(domain.portfolioState, "full-free-depth-demo");
 });
 
-test("humanoid and controlled-fusion routes are live paid candidates", () => {
+test("humanoid, controlled-fusion, and SpaceX routes are live paid candidates", () => {
   const humanoid = domainBySlug("humanoid-robotics");
   const fusion = domainBySlug("controlled-fusion");
+  const reusableLaunch = domainBySlug("spacex-reusable-launch");
+  const orbitalDataCenter = domainBySlug("spacex-orbital-data-center");
   assert.ok(humanoid, "humanoid route should be registered");
   assert.ok(fusion, "controlled-fusion route should be registered");
+  assert.ok(reusableLaunch, "SpaceX reusable launch route should be registered");
+  assert.ok(orbitalDataCenter, "SpaceX orbital data center route should be registered");
 
   assert.equal(humanoid.rootId, "humanoid_robot_key_component_stack");
   assert.equal(humanoid.domainTag, "humanoid_robotics");
@@ -53,6 +57,21 @@ test("humanoid and controlled-fusion routes are live paid candidates", () => {
   assert.equal(fusion.domainTag, "controlled_fusion");
   assert.equal(fusion.entitlement, "power");
   assert.equal(fusion.portfolioState, "paid-candidate");
+
+  assert.equal(reusableLaunch.rootId, "spacex_reusable_launch_stack");
+  assert.equal(reusableLaunch.domainTag, "spacex_reusable_launch");
+  assert.equal(reusableLaunch.entitlement, "space");
+  assert.equal(reusableLaunch.portfolioState, "paid-candidate");
+
+  assert.equal(orbitalDataCenter.rootId, "spacex_orbital_data_center_system");
+  assert.equal(orbitalDataCenter.domainTag, "spacex_orbital_data_center");
+  assert.equal(orbitalDataCenter.entitlement, "space");
+  assert.equal(orbitalDataCenter.portfolioState, "paid-candidate");
+  assert.match(
+    orbitalDataCenter.description,
+    /future-product map/i,
+    "orbital data center should be framed as a future-product candidate, not a mature commercial service",
+  );
 });
 
 test("controlled-fusion route map does not reuse legacy commercial-fusion fixture nodes", () => {
@@ -84,6 +103,29 @@ test("controlled-fusion route map does not reuse legacy commercial-fusion fixtur
   }
 });
 
+test("SpaceX candidate maps stay conservative about listing and regulatory status", () => {
+  const graph = loadGraphData();
+  const spacex = graph.nodes.find((node) => node.id === "org_spacex");
+  assert.ok(spacex, "SpaceX organization node should exist");
+  assert.equal(spacex.listingStatus, "unknown");
+  assert.equal(spacex.ticker, undefined);
+  assert.equal(spacex.tags?.includes("public_company"), false);
+
+  const fcc = graph.evidence.find((item) => item.id === "ev_space_fcc_orbital_data_center_2026");
+  const faa = graph.evidence.find((item) => item.id === "ev_space_faa_starship_cadence");
+  assert.ok(fcc, "FCC public notice evidence should exist");
+  assert.ok(faa, "FAA review context evidence should exist");
+  assert.notEqual(fcc.type, "regulatory_approval");
+  assert.notEqual(faa.type, "regulatory_approval");
+
+  const spaceEdges = graph.edges.filter((edge) => edge.id.startsWith("e_space_"));
+  assert.equal(
+    spaceEdges.some((edge) => edge.relation === "strategic_supplier_to"),
+    false,
+    "demand-side launch-customer exposure must not be modeled with supplier semantics",
+  );
+});
+
 test("domain portfolio state model covers free, preview, waitlist, and paid candidate states", async () => {
   const domainsModule = await import("../src/lib/domains");
   const states = new Set(
@@ -101,7 +143,7 @@ test("domain portfolio state model covers free, preview, waitlist, and paid cand
   }
 });
 
-test("portfolio entries expose four commercial domains and all candidate maps have registered routes", async () => {
+test("portfolio entries expose six commercial domains and all candidate maps have registered routes", async () => {
   const domainsModule = await import("../src/lib/domains");
   const portfolio =
     (domainsModule as {
@@ -116,11 +158,25 @@ test("portfolio entries expose four commercial domains and all candidate maps ha
 
   assert.deepEqual(
     portfolio.map((entry) => entry.slug),
-    ["ai-compute", "parcel-robot", "humanoid-robotics", "controlled-fusion"],
+    [
+      "ai-compute",
+      "parcel-robot",
+      "humanoid-robotics",
+      "controlled-fusion",
+      "spacex-reusable-launch",
+      "spacex-orbital-data-center",
+    ],
   );
   assert.deepEqual(
     portfolio.filter((entry) => entry.liveGraphRoute).map((entry) => entry.slug),
-    ["ai-compute", "parcel-robot", "humanoid-robotics", "controlled-fusion"],
+    [
+      "ai-compute",
+      "parcel-robot",
+      "humanoid-robotics",
+      "controlled-fusion",
+      "spacex-reusable-launch",
+      "spacex-orbital-data-center",
+    ],
   );
   assert.deepEqual(
     portfolio.filter((entry) => !entry.liveGraphRoute).map((entry) => [entry.slug, entry.portfolioState]),
@@ -128,6 +184,8 @@ test("portfolio entries expose four commercial domains and all candidate maps ha
   );
   assert.equal(domainBySlug("humanoid-robotics")?.href, "/d/humanoid-robotics");
   assert.equal(domainBySlug("controlled-fusion")?.href, "/d/controlled-fusion");
+  assert.equal(domainBySlug("spacex-reusable-launch")?.href, "/d/spacex-reusable-launch");
+  assert.equal(domainBySlug("spacex-orbital-data-center")?.href, "/d/spacex-orbital-data-center");
 });
 
 test("AI-compute route access resolves full-free even if a stale locked summary is present", () => {

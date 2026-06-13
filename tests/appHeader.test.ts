@@ -23,8 +23,14 @@ test("launch header includes live paid-candidate domain maps", () => {
   assert.match(html, /<option value="\/d\/humanoid-robotics">Humanoid robotics component stack<\/option>/);
   assert.match(html, /href="\/d\/controlled-fusion"/);
   assert.match(html, /<option value="\/d\/controlled-fusion">Controlled fusion route portfolio<\/option>/);
+  assert.match(html, /href="\/d\/spacex-reusable-launch"/);
+  assert.match(html, /<option value="\/d\/spacex-reusable-launch">SpaceX reusable launch stack<\/option>/);
+  assert.match(html, /href="\/d\/spacex-orbital-data-center"/);
+  assert.match(html, /<option value="\/d\/spacex-orbital-data-center">SpaceX orbital data center system<\/option>/);
   assert.match(html, /Humanoid robotics component stack/);
   assert.match(html, /Controlled fusion route portfolio/);
+  assert.match(html, /SpaceX reusable launch stack/);
+  assert.match(html, /SpaceX orbital data center system/);
 });
 
 test("launch header does not expose legacy research routes as primary nav", () => {

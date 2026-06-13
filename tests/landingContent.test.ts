@@ -17,10 +17,14 @@ test("landing page presents reference maps without overexplaining free access", 
   assert.match(html, /href="\/d\/parcel-robot"/);
   assert.match(html, /Humanoid robotics component stack/);
   assert.match(html, /Controlled fusion route portfolio/);
+  assert.match(html, /SpaceX reusable launch stack/);
+  assert.match(html, /SpaceX orbital data center system/);
   assert.match(html, /Paid candidate preview/i);
   assert.match(html, /href="\/d\/humanoid-robotics"/);
   assert.match(html, /href="\/d\/controlled-fusion"/);
-  assert.match(html, /component routes and evidence are visible/i);
+  assert.match(html, /href="\/d\/spacex-reusable-launch"/);
+  assert.match(html, /href="\/d\/spacex-orbital-data-center"/);
+  assert.match(html, /route logic and evidence are visible/i);
   assert.match(html, /paid-candidate previews/i);
   assert.match(html, /exposure layer, checkout, and update model remain under review/i);
   assert.match(html, /Supplier identities, tickers/);
@@ -28,7 +32,7 @@ test("landing page presents reference maps without overexplaining free access", 
   assert.match(html, /Cited evidence/i);
   assert.match(html, /Review states visible/i);
   assert.match(html, /Reviewed only when human-checked/i);
-  assert.equal((html.match(/class="landing-domain-card"/g) ?? []).length, 4);
+  assert.equal((html.match(/class="landing-domain-card"/g) ?? []).length, 6);
 
   assert.doesNotMatch(html, /\$9/);
   assert.doesNotMatch(html, /\$29 once/);

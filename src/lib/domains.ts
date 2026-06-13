@@ -108,6 +108,38 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     cta: "Open route portfolio",
     liveGraphRoute: true,
   },
+  {
+    slug: "spacex-reusable-launch",
+    rootId: "spacex_reusable_launch_stack",
+    domainTag: "spacex_reusable_launch",
+    entitlement: "space",
+    portfolioState: "paid-candidate",
+    statusLabel: "Paid candidate preview",
+    title: "SpaceX reusable launch stack",
+    description:
+      "SpaceX-centered reusable launch map separating Falcon 9 operational reuse from Starship/Super Heavy rapid-reuse development constraints.",
+    detail:
+      "Live candidate map. Reuse mechanics, launch cadence, refurbishment constraints, and customer exposure are visible; public-market exposure remains gated until checkout and entitlement are verified.",
+    href: "/d/spacex-reusable-launch",
+    cta: "Open SpaceX reuse map",
+    liveGraphRoute: true,
+  },
+  {
+    slug: "spacex-orbital-data-center",
+    rootId: "spacex_orbital_data_center_system",
+    domainTag: "spacex_orbital_data_center",
+    entitlement: "space",
+    portfolioState: "paid-candidate",
+    statusLabel: "Future product preview",
+    title: "SpaceX orbital data center system",
+    description:
+      "SpaceX-centered future-product map for orbital AI compute, grounded in FCC application evidence but not presented as a mature commercial service.",
+    detail:
+      "Live candidate map for a future product. The graph highlights power, thermal, radiation, optical-link, launch, and regulatory bottlenecks; organization exposure remains gated and unreviewed.",
+    href: "/d/spacex-orbital-data-center",
+    cta: "Open orbital compute map",
+    liveGraphRoute: true,
+  },
 ];
 
 function isDomainRoute(entry: DomainPortfolioEntry): entry is DomainRoute {

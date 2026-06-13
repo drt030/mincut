@@ -11,6 +11,8 @@ export const GATED_DOMAINS: GatedDomain[] = [
   { domainTag: "humanoid_robotics", entitlement: "humanoid" },
   { domainTag: "ai_dc_power_chain", entitlement: "power" },
   { domainTag: "controlled_fusion", entitlement: "power" },
+  { domainTag: "spacex_reusable_launch", entitlement: "space" },
+  { domainTag: "spacex_orbital_data_center", entitlement: "space" },
   // world_model chains can be added here once registered.
 ];
 

@@ -40,6 +40,40 @@ test("entitled viewer keeps everything", () => {
   assert.equal(graph.nodes.length, fixture.nodes.length);
 });
 
+test("SpaceX paid-candidate org exposure is gated behind the space entitlement", () => {
+  const graph = loadActiveGraphData("spacex_orbital_data_center_system");
+  const errors = validateGraphReferences(graph);
+  assert.deepEqual(errors, []);
+
+  const { graph: lockedGraph, locked } = stripExposureLayer(graph, []);
+  const lockedSpaceX = lockedGraph.nodes.find((node) => node.id === "org_spacex");
+  assert.ok(lockedSpaceX, "SpaceX owner identity should stay visible as route context");
+  assert.equal(lockedSpaceX.listingStatus, "unknown");
+  assert.equal(lockedSpaceX.ticker, undefined);
+  assert.equal(lockedSpaceX.tags?.includes("public_company"), false);
+  assert.ok(!lockedGraph.nodes.some((node) => node.id === "org_rocket_lab"), "public comparable exposure should be gated");
+  assert.ok(locked.some((entry) => entry.domainTag === "spacex_orbital_data_center" && entry.entitlement === "space" && entry.hiddenOrgCount > 0));
+
+  const { graph: unlockedGraph } = stripExposureLayer(graph, ["space"]);
+  assert.ok(unlockedGraph.nodes.some((node) => node.id === "org_spacex"), "space entitlement should reveal SpaceX exposure");
+  assert.ok(unlockedGraph.nodes.some((node) => node.id === "org_rocket_lab"), "space entitlement should reveal public comparable exposure");
+});
+
+test("SpaceX route roots survive locked exposure redaction", () => {
+  for (const slug of ["spacex-reusable-launch", "spacex-orbital-data-center"]) {
+    const domain = domainBySlug(slug);
+    assert.ok(domain, `${slug} route should be registered`);
+    const sourceGraph = loadActiveGraphData(domain.rootId);
+    const { graph } = stripExposureLayer(sourceGraph, []);
+    assert.ok(graph.nodes.some((node) => node.id === domain.rootId), `${domain.rootId} should remain the route root`);
+    assert.equal(
+      graph.nodes.some((node) => node.id.startsWith("locked_supplier_") && node.id.endsWith(domain.rootId.replace(/^spacex_/, ""))),
+      false,
+      `${domain.rootId} must not be rewritten as a locked supplier placeholder`,
+    );
+  }
+});
+
 // Real imported org nodes mix chain tags with category labels in `domain`
 // (e.g. ["ai_compute_chain","investable_supplier","semiconductor_equipment"])
 // and carry a separate `tags` field. The gate must key on registered chain

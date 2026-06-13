@@ -296,5 +296,65 @@
     "priority": "medium",
     "status": "pending",
     "createdAt": "2026-06-08T04:55:42.305Z"
+  },
+  {
+    "id": "task_space_reusable_launch_supplier_audit_20260613153000",
+    "title": "Audit direct supplier evidence for the SpaceX reusable launch stack",
+    "reason": "The first SpaceX reusable-launch map intentionally models SpaceX and demand-side public-company exposure, but it does not yet prove direct supplier relationships for engines, avionics, structures, landing hardware, or ground systems. Add only primary filings, procurement records, official supplier statements, or reviewed evidence before promoting supplier identities.",
+    "targetNodeId": "spacex_reusable_launch_stack",
+    "suggestedNodeKind": "organization",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-06-13T15:30:00.000Z"
+  },
+  {
+    "id": "task_space_starship_rapid_reuse_quant_metrics_20260613153000",
+    "title": "Quantify Starship rapid-reuse bottleneck metrics",
+    "reason": "Starship/Super Heavy is modeled as a separate development route with heat-shield, tower-catch, Raptor, ground-propellant, and license-cadence bottlenecks. It still needs reviewed quantitative evidence for turnaround time, post-flight refurbishment hours, engine relight/reuse margins, tile replacement rate, and launch-site cadence.",
+    "targetNodeId": "starship_superheavy_reusable_branch",
+    "suggestedNodeKind": "metric",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-06-13T15:30:00.000Z"
+  },
+  {
+    "id": "task_space_launch_customer_exposure_relation_design_20260613153000",
+    "title": "Design and audit launch-customer exposure before surfacing tickers",
+    "reason": "The first SpaceX reusable-launch pass found public-company customer filings tied to Falcon 9 or Starship demand, but the current schema lacks a precise demand/customer-exposure relation. Do not model these as supplier exposure; design the relation and review primary filings before showing customer tickers in the paid layer.",
+    "targetNodeId": "spacex_launch_customer_exposure_research",
+    "suggestedNodeKind": "organization",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-06-13T15:30:00.000Z"
+  },
+  {
+    "id": "task_space_orbital_data_center_direct_spacex_evidence_20260613153000",
+    "title": "Audit direct SpaceX evidence for orbital data centers",
+    "reason": "The SpaceX orbital data-center map is intentionally framed as a future-product candidate because public evidence currently supports an FCC application and investor-facing intent, not commercial deployment. Audit the FCC application file, SpaceX filings, and any official technical exhibits before upgrading maturity or access positioning.",
+    "targetNodeId": "spacex_orbital_data_center_system",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-06-13T15:30:00.000Z"
+  },
+  {
+    "id": "task_space_orbital_compute_thermal_power_model_20260613153000",
+    "title": "Build a quantitative thermal and power model for orbital compute",
+    "reason": "The first orbital data-center graph correctly marks power and thermal rejection as first-order bottlenecks, but it lacks a checked watts-to-radiator-area model, eclipse duty cycle, useful compute kW estimate, battery mass, and throttling assumptions. Add calculations and reviewed evidence before presenting values in the UI.",
+    "targetNodeId": "orbital_thermal_rejection_stack",
+    "suggestedNodeKind": "metric",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-06-13T15:30:00.000Z"
+  },
+  {
+    "id": "task_space_orbital_compute_public_exposure_audit_20260613153000",
+    "title": "Audit public-market exposure for orbital compute suppliers",
+    "reason": "Rocket Lab, Redwire, L3Harris, Honeywell, and RTX are currently modeled only as public capability exposure candidates, not confirmed SpaceX suppliers. Confirm direct relevance with primary evidence or demote/remove nodes before paid exposure is promoted.",
+    "targetNodeId": "spacex_orbital_data_center_system",
+    "suggestedNodeKind": "organization",
+    "priority": "medium",
+    "status": "pending",
+    "createdAt": "2026-06-13T15:30:00.000Z"
   }
 ]
