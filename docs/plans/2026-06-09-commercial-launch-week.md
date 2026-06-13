@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Launch a retail-focused chokepoint-map product: GPU/AI-compute chain as flagship (Fri 6/12), humanoid actuator chain (Sat 6/13), AI-datacenter power chain (Tue 6/16) — free decomposition graphs, paid "exposure layer" (which listed companies make each bottleneck), Stripe $9/domain · $29 founding all-access.
+**Goal:** Launch a retail-focused chokepoint-map product with the GPU/AI-compute chain as the **full-free flagship/trust demo** (Fri 6/12). AI compute should expose the whole map, evidence ladder, and supplier exposure for free because the obvious AI-compute exposure set is already externally over-disclosed. Paid/waitlist demand now shifts to less over-disclosed emerging domains such as humanoid robotics, world models, controlled fusion, and later domains; do not present humanoid/power/fusion as live unless the data, route, review state, and Stripe target actually support it.
 
-**Architecture:** Unchanged app + flat-JSON data. **Paywall = exposure-layer gating, NOT depth gating**: full decomposition/bottleneck/evidence structure is free (shareable, viral); `organization` nodes, `manufactured_by` edges, and the Investor-panel "Candidate exposure" block are stripped server-side for non-entitled viewers. Entitlements = signed JWT cookie granted by Stripe-session verification on redirect (no DB, no webhooks). Parcel-sorting domain stays FULLY free as the "see what paid looks like" demo.
+**Architecture:** Unchanged app + flat-JSON data. AI compute and parcel sorting are full-free demos: full decomposition, bottlenecks, evidence/review states, gate reports, `organization` nodes, `manufactured_by` edges, and Investor-panel exposure are visible. Paywall plumbing remains useful for future paid emerging domains: when a paid domain is intentionally live, server-side stripping can hide org/exposure bytes from non-entitled viewers, with entitlements granted by signed JWT cookie after Stripe-session verification on redirect (no DB, no webhooks).
 
 **Tech Stack:** Next.js 15 on Vercel, Stripe Payment Links + `stripe` SDK, `jose`, Buttondown, Vercel Analytics, existing pipeline (`import:candidates`, `validate:data`, `gate`).
 
@@ -16,17 +16,17 @@
 - Bottlenecks live on nodes as `bottleneckOf: string[]` (ADR-0006); nodes carry `domain: string[]` tags; risk = (1 − maturityScore/100) × cost_share (`src/lib/nodeRisk.ts`) — a relative heat signal, NOT a probability.
 
 **Decisions locked (owner can override):**
-1. **Free/paid line:** decomposition + bottlenecks + evidence free for ALL domains; exposure layer (orgs/tickers/share) paid per domain ($9) or founding all-access ($29, cap ~200). Parcel demo: everything free including exposure.
-2. **Domain drumbeat:** Fri = AI-compute chain (flagship: wafer → CoWoS → HBM → ABF substrate → InP photonics → cooling/power-delivery). Sat = humanoid actuator chain (max reuse of existing reducer/servo subtrees). Tue = AI-datacenter power chain (gas turbines, large transformers, HVDC — framed as "the power wall gating AI buildout", not generic 发电站). Each drop is its own X post.
+1. **Free/paid line:** AI compute is full-free flagship; parcel sorting remains the secondary full-free demo. Future paid domains can charge for verified living maps, freshness, and curated exposure, but AI compute is not the paid unit.
+2. **Domain drumbeat:** Fri = AI-compute chain as a free trust drop (wafer → CoWoS → HBM → ABF substrate → InP photonics → cooling/power-delivery). Sat/Tue beats become waitlist or research-drop beats for emerging domains unless their data/routes/review state are actually ready. Candidate paid areas: humanoid robotics, world models, controlled fusion; AI-datacenter power is no longer promised as a live paid drop by default.
 3. **Positioning:** we map chains ourselves from supply-chain facts; exposure falls out of the data. NOT a Serenity tracker, no copying his picks, no buy/sell language. Disclaimer site-wide.
 4. **MVP fixes from exploration ship before launch:** default lens = bottleneck-risk + URL deep links; Investor panel promoted to first screen after node click; "Risk 46%" relabeled to heat score with plain-language tooltip.
-5. **Referral** ("invite 3 signups → unlock 1 domain") ships Tue 6/16 with the power-chain drop + Show HN.
+5. **Referral** ("invite 3 signups → priority/future unlock") ships only when there is a real paid emerging-domain target; before then it collects waitlist/referral demand.
 6. **RESOLVED 2026-06-10:** domain = **drt030.com** (purchased). Display brand stays "Capability Graph Explorer" for launch (rename is a one-line metadata change later if desired).
-7. **Information architecture (2026-06-10):** one site, **one route per domain** — `/d/ai-compute`, `/d/humanoid-actuators`, `/d/dc-power`, `/d/parcel-robot` (full-free demo) — each loading only its domain-tagged subgraph (+ shared dependency closure, deduped by node id), each with its own `generateMetadata`/OG card and gate target; header domain switcher; `/graph` redirects to the default domain. Rationale: per-drop share links + OG, SEO per domain, ELK perf (312 nodes/page, not 800+ merged), clean per-domain paywall/analytics. The `/unlock` route redirects to the purchased domain's page (entitlement → slug map), not generic `/graph`.
-8. **Teaser rule ("tuna free, perilla paid"):** every chokepoint shows its single most famous supplier free (org nodes tagged `free_teaser`, e.g. TSMC on CoWoS — zero-value-loss trust builder); obscure/single-source suppliers stay locked. Lock CTA shows counts only: "N more suppliers · M listed · top-2 share >80%". `stripExposureLayer` passes `free_teaser`-tagged orgs.
-9. **Stripe hardening (per stripe-best-practices):** the `/unlock` route uses a **Restricted API Key** (Checkout Sessions read-only), not the full secret key; separate test/live keys; keys only in `.env.local`/Vercel env vars.
+7. **Information architecture (2026-06-10, strategy-migrated):** one site, one route per ready domain — `/d/ai-compute` and `/d/parcel-robot` are full-free; `/d/humanoid-actuators` or other emerging-domain routes should only be promoted when backed by real data. Header switcher, per-domain OG/metadata/gate, and `/unlock` remain, but `/unlock` redirects only for an actually live paid domain or founding target.
+8. **Teaser rule ("tuna free, perilla paid") for future paid domains only:** a famous supplier can remain free as a trust builder; obscure/single-source suppliers may stay locked. AI compute does not use teaser gating because the entire flagship is free.
+9. **Stripe hardening (per stripe-best-practices):** the `/unlock` route uses a **Restricted API Key** (Checkout Sessions read-only), not the full secret key; separate test/live keys; keys only in `.env.local`/Vercel env vars. Do not switch AI-compute checkout live; owner-only live Stripe targets the next paid emerging-domain/founding stream.
 
-**Non-goals this week:** depth gating (replaced by exposure gating), B2B, accounts/DB, CN mirror, Substack, guided tours, canvas mobile optimization, key-tech 🔑 backfill beyond the flagship handful (or drop the glyph from marketing if not backfilled).
+**Non-goals this week:** depth gating, AI-compute paid gating, B2B, accounts/DB, CN mirror, Substack, guided tours, canvas mobile optimization, key-tech 🔑 backfill beyond the flagship handful (or drop the glyph from marketing if not backfilled).
 
 ---
 
@@ -102,21 +102,21 @@ test("research-tasks POST returns 403 when OPERATOR_WRITES is not set", async ()
 ### Task 7: Kick off AI-compute-chain agent research TONIGHT (longest pole)
 
 - [ ] **Step 1:** Define roots per ADR-0004: Capability `leading_edge_ai_compute` → Product `ai_accelerator_module_hbm_cowos` (flagship). Modules: leading-edge logic die (N4/N3) · CoWoS advanced packaging · HBM3E stack · ABF substrate · interposer · optical interconnect (InP lasers / photonics) · power delivery · liquid cooling.
-- [ ] **Step 2:** Agent research brief — for each module: maturity (`maturityAsOf: "2026-06"`), capacity-expansion lead time, top-3 chokepoints with `bottleneckOf`, **org nodes with `manufactured_by` edges carrying listing + market-share metrics** (the paid layer: e.g. TSMC 2330.TW/TSM, SK hynix 000660.KS, Ibiden 4062.T, Unimicron 3037.TW, ASMPT 0522.HK, AXT AXTI, Coherent COHR…), every claim → evidence record with URL + accessed date, review status `unreviewed`.
+- [ ] **Step 2:** Agent research brief — for each module: maturity (`maturityAsOf: "2026-06"`), capacity-expansion lead time, top-3 chokepoints with `bottleneckOf`, **org nodes with `manufactured_by` edges carrying listing + market-share metrics** as part of the free flagship trust demo (e.g. TSMC 2330.TW/TSM, SK hynix 000660.KS, Ibiden 4062.T, Unimicron 3037.TW, ASMPT 0522.HK, AXT AXTI, Coherent COHR…), every claim → evidence record with URL + accessed date, review status `unreviewed`.
 - [ ] **Step 3:** Run overnight; import/review is Fri morning (Task 14). Tag all nodes `domain: ["ai_compute_chain"]`.
 
 ---
 
 ## Day 2 — Thu 2026-06-11: payments + exposure paywall + retail MVP fixes + landing
 
-### Task 8: Stripe products + entitlement library
+### Task 8: Stripe products + entitlement library for future paid domains
 
 **Files:** Create `src/lib/entitlements.ts` · Test `tests/entitlements.test.ts`
 
-- [ ] **Step 1 (owner, dashboard):** Products/prices: "AI compute chain — exposure layer" $9 · "Humanoid actuator chain — exposure layer" $9 · "Founding all-access" $29. Payment Links each with redirect `https://<DOMAIN>/unlock?session_id={CHECKOUT_SESSION_ID}`. Enable Stripe Tax + Alipay.
+- [ ] **Step 1 (owner, dashboard):** Do **not** create or switch live an AI-compute paid product. Create live products only for an actually ready emerging-domain paid drop or a founding stream, for example "Founding living-map stream" and a named next-domain product once data/route/review are ready. Payment Links each redirect to `https://<DOMAIN>/unlock?session_id={CHECKOUT_SESSION_ID}`. Enable Stripe Tax + Alipay when the live paid stream exists.
 - [ ] **Step 2:** `npm install stripe jose`; `openssl rand -hex 32` → `ENTITLEMENT_SECRET`.
 
-Env (`.env.local` + Vercel): `STRIPE_SECRET_KEY`, `ENTITLEMENT_SECRET`, `STRIPE_PRICE_AI_COMPUTE`, `STRIPE_PRICE_HUMANOID`, `STRIPE_PRICE_FOUNDING`, `NEXT_PUBLIC_STRIPE_LINK_AI_COMPUTE`, `NEXT_PUBLIC_STRIPE_LINK_HUMANOID`, `NEXT_PUBLIC_STRIPE_LINK_FOUNDING`.
+Env (`.env.local` + Vercel): `STRIPE_SECRET_KEY`, `ENTITLEMENT_SECRET`, `STRIPE_PRICE_EMERGING_DOMAIN`, `STRIPE_PRICE_FOUNDING`, `NEXT_PUBLIC_STRIPE_LINK_EMERGING_DOMAIN`, `NEXT_PUBLIC_STRIPE_LINK_FOUNDING`. Add domain-specific price/link env vars only when a paid domain is live.
 
 - [ ] **Step 3: Failing test**
 
@@ -128,10 +128,10 @@ import { grantCookieValue, readEntitlements } from "../src/lib/entitlements";
 
 test("entitlement cookie round-trips and merges", async () => {
   process.env.ENTITLEMENT_SECRET = "test-secret";
-  const v1 = await grantCookieValue("ai_compute", []);
-  assert.deepEqual(await readEntitlements(v1), ["ai_compute"]);
+  const v1 = await grantCookieValue("emerging_domain", []);
+  assert.deepEqual(await readEntitlements(v1), ["emerging_domain"]);
   const v2 = await grantCookieValue("all", await readEntitlements(v1));
-  assert.deepEqual((await readEntitlements(v2)).sort(), ["ai_compute", "all"]);
+  assert.deepEqual((await readEntitlements(v2)).sort(), ["all", "emerging_domain"]);
 });
 
 test("tampered cookie reads as empty", async () => {
@@ -183,9 +183,7 @@ import Stripe from "stripe";
 import { ENTITLEMENT_COOKIE, grantCookieValue, readEntitlements } from "@/lib/entitlements";
 
 const PRICE_ENV_TO_ENTITLEMENT: [string, string][] = [
-  ["STRIPE_PRICE_AI_COMPUTE", "ai_compute"],
-  ["STRIPE_PRICE_HUMANOID", "humanoid"],
-  ["STRIPE_PRICE_POWER", "power"],
+  ["STRIPE_PRICE_EMERGING_DOMAIN", "emerging_domain"],
   ["STRIPE_PRICE_FOUNDING", "all"],
 ];
 
@@ -206,7 +204,7 @@ export async function GET(request: Request) {
 
   const existing = request.headers.get("cookie")?.match(new RegExp(`${ENTITLEMENT_COOKIE}=([^;]+)`))?.[1];
   const value = await grantCookieValue(entitlement, await readEntitlements(existing));
-  const res = NextResponse.redirect(new URL("/graph?unlocked=1", url.origin));
+  const res = NextResponse.redirect(new URL("/?founding=1", url.origin));
   res.headers.append(
     "Set-Cookie",
     `${ENTITLEMENT_COOKIE}=${value}; Path=/; Max-Age=34560000; HttpOnly; Secure; SameSite=Lax`,
@@ -215,11 +213,11 @@ export async function GET(request: Request) {
 }
 ```
 
-- [ ] **Step 2:** Stripe test mode end-to-end (test card → redirect → cookie set → exposure visible). Switch to live keys. Commit `"feat: stripe session verification unlock route"`.
+- [ ] **Step 2:** Stripe test mode end-to-end (test card → redirect → cookie set → future paid-domain/founding entitlement visible in diagnostics). Switch to live keys only for the next paid emerging-domain/founding stream, not for AI compute. Commit `"feat: stripe session verification unlock route"`.
 
-### Task 10: Exposure-layer gating (the paywall — replaces depth trimming)
+### Task 10: Exposure-layer gating for future paid domains
 
-Free viewers get full structure; `organization` nodes, `manufactured_by` edges, and org-only evidence are stripped server-side for gated domains.
+AI compute and parcel sorting are deliberately full-free. For future paid domains only, free viewers get full structure while `organization` nodes, `manufactured_by` edges, and org-only evidence can be stripped server-side until entitlement is present.
 
 **Files:** Create `src/lib/exposureGate.ts` · Test `tests/exposureGate.test.ts` · Modify `src/app/graph/page.tsx`, `src/app/product/[id]/page.tsx` · Create `src/components/ExposureLockCta.tsx`
 
@@ -235,24 +233,24 @@ import { stripExposureLayer } from "../src/lib/exposureGate";
 const fixture: GraphData = {
   graphVersion: "test",
   nodes: [
-    { id: "cowos", name: "CoWoS", kind: "module", domain: ["ai_compute_chain"] },
-    { id: "tsmc", name: "TSMC", kind: "organization", domain: ["ai_compute_chain"] },
+    { id: "joint", name: "Humanoid joint module", kind: "module", domain: ["future_emerging_chain"] },
+    { id: "supplier", name: "Specialist Supplier", kind: "organization", domain: ["future_emerging_chain"] },
     { id: "fanuc", name: "FANUC", kind: "organization", domain: ["parcel_sorting_robot"] },
   ] as GraphData["nodes"],
   edges: [
-    { id: "e1", source: "cowos", target: "tsmc", relation: "manufactured_by", evidenceIds: ["ev_org"] },
+    { id: "e1", source: "joint", target: "supplier", relation: "manufactured_by", evidenceIds: ["ev_org"] },
   ] as GraphData["edges"],
   evidence: [
-    { id: "ev_org", type: "industry_report", title: "CoWoS supply", supportsNodeIds: ["tsmc"] },
-    { id: "ev_keep", type: "industry_report", title: "CoWoS process" },
+    { id: "ev_org", type: "industry_report", title: "Specialist supply", supportsNodeIds: ["supplier"] },
+    { id: "ev_keep", type: "industry_report", title: "Module process" },
   ] as GraphData["evidence"],
 };
 
 test("strips org nodes, manufactured_by edges, org-only evidence for locked domains", () => {
   const { graph, locked } = stripExposureLayer(fixture, [], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
+    { domainTag: "future_emerging_chain", entitlement: "emerging_domain" },
   ]);
-  assert.ok(!graph.nodes.some((n) => n.id === "tsmc"));
+  assert.ok(!graph.nodes.some((n) => n.id === "supplier"));
   assert.ok(graph.nodes.some((n) => n.id === "fanuc"));          // other-domain org untouched
   assert.equal(graph.edges.length, 0);
   assert.ok(!graph.evidence.some((ev) => ev.id === "ev_org"));
@@ -261,8 +259,8 @@ test("strips org nodes, manufactured_by edges, org-only evidence for locked doma
 });
 
 test("entitled viewer keeps everything", () => {
-  const { graph } = stripExposureLayer(fixture, ["ai_compute"], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
+  const { graph } = stripExposureLayer(fixture, ["emerging_domain"], [
+    { domainTag: "future_emerging_chain", entitlement: "emerging_domain" },
   ]);
   assert.equal(graph.nodes.length, fixture.nodes.length);
 });
@@ -277,10 +275,8 @@ import type { GraphData } from "@/lib/schema";
 export type GatedDomain = { domainTag: string; entitlement: string };
 
 export const GATED_DOMAINS: GatedDomain[] = [
-  { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
-  { domainTag: "humanoid_actuator", entitlement: "humanoid" },
-  { domainTag: "ai_dc_power_chain", entitlement: "power" },
-  // parcel_sorting_robot is deliberately absent — full free demo.
+  // Add future emerging paid domains here only after data, route, review state, and Stripe target are ready.
+  // ai_compute_chain and parcel_sorting_robot are deliberately absent — full-free demos.
 ];
 
 export function stripExposureLayer(
@@ -345,11 +341,11 @@ const { graph, locked } = stripExposureLayer(full, ents);
 
 - [ ] **Step 6: `ExposureLockCta.tsx`** — rendered in the Investor answer panel's "Candidate exposure" slot and node detail when the selected node's domain is locked:
 
-> 🔒 **Who makes this — and who's listed?** {hiddenOrgCount} suppliers with tickers, market share, and capacity signals. Unlock this chain **$9** · founding all-access **$29**. zh: 「🔒 谁在造它？{n} 家供应商（含上市代码与市场份额）· 解锁本链 $9 · 创始会员 $29（支持支付宝）」
+> 🔒 **Who makes this — and who's listed?** {hiddenOrgCount} suppliers with tickers, market share, and capacity signals. Unlock this emerging-domain drop or join founding access. zh: 「🔒 谁在造它？{n} 家供应商（含上市代码与市场份额）· 解锁这个新兴领域或加入创始订阅」
 
 `track("unlock_click", { domain })` on CTA click (`import { track } from "@vercel/analytics"`).
 
-- [ ] **Step 7: Leak check.** No cookie: `curl -s <preview>/graph | grep -ci "tsmc"` → 0 on gated domain views; with cookie → present. Parcel page still shows FANUC/Estun free.
+- [ ] **Step 7: Leak check.** No cookie: `curl -s <preview>/<paid-domain-route> | grep -ci "<locked-supplier-name>"` → 0 on gated domain views; with cookie → present. AI compute and parcel pages still show their exposure layers free.
 - [ ] **Step 8:** `npm run verify`; commit `"feat: exposure-layer paywall for gated domains"`.
 
 ### Task 11: Retail MVP fixes (from 2026-06-10 exploration)
@@ -367,11 +363,11 @@ const { graph, locked } = stripExposureLayer(full, ents);
 
 - [ ] **Step 1:** Move current home → `/explore` (verbatim `HomeContent` page). `/` renders `LandingContent`.
 - [ ] **Step 2: Landing copy (final; zh keys added for every string):**
-  1. **Hero:** H1 "Find the chokepoint before the market does." Sub "Free interactive bottleneck maps of real supply chains — every claim cited. The exposure layer (who makes it, who's listed) is what you pay for." CTA "See the AI compute chain →" (`/graph?lens=bottleneck`).
-  2. **Domain cards (4):** AI compute chain — map FREE · exposure $9 | Humanoid actuators — "drops Saturday" → email | AI datacenter power — "drops Tuesday" → email | Parcel-sorting robot — FULL DEMO incl. exposure, free ("this is what unlocked looks like").
-  3. **Founding offer:** $29 once · exposure layer on every domain ever · first 200.
+  1. **Hero:** H1 "Find the chokepoint before the market does." Sub "Free interactive bottleneck maps of real supply chains — every claim cited. The AI compute flagship is fully open so you can judge the method." CTA "See the free AI compute chain →" (`/d/ai-compute?lens=bottleneck`).
+  2. **Domain cards:** AI compute chain — FULL FREE flagship incl. supplier exposure | Parcel-sorting robot — FULL FREE depth demo | Humanoid robotics — next emerging-domain waitlist | World models — waitlist | Controlled fusion — waitlist. Do not label humanoid/power/fusion as live unless their routes/data are actually ready.
+  3. **Founding offer:** founding interest for the verified living-map stream across future emerging domains; no AI-compute unlock promise.
   4. **Trust:** glyph legend + "claims carry unreviewed/reviewed/disputed status; disputed ranks below unreviewed. Gate reports public →" `/gate`.
-  5. **Email capture** (Buttondown embed): "One new chain map per week."
+  5. **Email capture** (Buttondown embed): "Get the next under-disclosed domain drop."
 - [ ] **Step 3:** Mobile pass at 380px (cards stack, buy buttons thumb-reachable). `/graph` <768px: collapse the MAP/LENS panel to a toggle button; notice "Best on desktop — the ranked list below works great on mobile".
 - [ ] **Step 4:** OG images 1200×630 (bottleneck-lens beauty shot + wordmark) → `public/og/`; per-page metadata; validate X card.
 - [ ] **Step 5:** Fix tests assuming `/` is research home (`grep -rn 'href="/"' src/ tests/`); `npm run verify`; deploy; commit `"feat: retail landing, mobile lens collapse, OG cards"`.
@@ -383,42 +379,42 @@ const { graph, locked } = stripExposureLayer(full, ents);
 ### Task 13: Import + finalize AI-compute chain (morning)
 
 - [ ] Import overnight batch: `npm run import:candidates -- <batch>`; `npm run validate:data && npm run check:active-graph-scope`.
-- [ ] Verify exposure layer: org nodes carry listing + share metrics; investor panel renders them when entitled; lock CTA when not.
+- [ ] Verify free exposure layer: AI-compute org nodes carry listing + share metrics; investor panel renders them with no entitlement; no lock CTA appears on AI compute.
 - [ ] **Review pass (the credibility move):** personally verify the 10–15 core chokepoint claims (CoWoS capacity, HBM booking, ABF, InP) → flip those to `reviewed`. The ladder needs real rungs before we market it.
 - [ ] 🔑 backfill on 3–5 true key techs (CoWoS, HBM TSV, InP epitaxy) — or remove 🔑 from landing legend.
 - [ ] zh names for new visible roots (`nodeTextZh`; languageCoverage test enforces). `npm run gate -- --target ai_accelerator_module_hbm_cowos --dry-run`.
-- [ ] `npm run verify`; commit `"data: AI compute chain v1 (cited, partially reviewed, exposure layer)"`; `npx vercel deploy --prod`.
+- [ ] `npm run verify`; commit `"data: AI compute chain v1 (cited, partially reviewed, full-free flagship)"`; `npx vercel deploy --prod`.
 
 ### Task 14: Launch (target 10:00 ET; floor Sat 09:00)
 
-- [ ] **Smoke:** real $9 purchase with own card → exposure unlocks → self-refund. All routes, OG card, forms, 403 guard, mobile landing.
+- [ ] **Smoke:** AI compute full-free route, parcel full-free route, OG card, email/founding-interest forms, 403 guard, mobile landing. If a future paid domain is already ready, run a real-card checkout + self-refund there; otherwise keep paid checkout in test mode and do not block the AI-compute launch on it.
 - [ ] **EN thread** (final draft):
 
 > **1/** Everyone's hunting AI-supply-chain chokepoints. Almost nobody can show you the map. I built one — interactive, cited, free: the full AI compute chain from wafer to rack. [screenshot + deep link `/graph?lens=bottleneck`]
 > **2/** Every ⚠ node = currently gating the buildout. CoWoS capacity. HBM booked out. ABF substrates. InP lasers. Click any of them: evidence, maturity, lead times. All free. [zoom screenshot]
 > **3/** The graph is honest about what it doesn't know — every claim is labeled reviewed/unreviewed, disputed ranks *below* unreviewed, and the validation gate report is public. [evidence panel screenshot]
-> **4/** The one thing behind a paywall: the **exposure layer** — who actually makes each bottleneck, market share, and who's listed. $9 per chain. Founding members: $29 once, every chain we ever map (first 200). [lock CTA screenshot]
-> **5/** Free full demo (exposure included) on a 300k-RMB parcel-sorting robot — 312 nodes to commodity leaves, so you can judge the method before paying. Humanoid actuators drop tomorrow; AI datacenter power Tuesday. One new chain per week → [email]. Research tool, not investment advice.
+> **4/** Why free? AI compute exposure has been talked to death. I'm using the whole thing as a trust demo: decomposition, evidence, suppliers, review states, all visible.
+> **5/** The paid work moves to domains that are earlier and less mapped: humanoid robotics, world models, controlled fusion. Join the waitlist/founding stream for those drops. Free full demo also exists for a 300k-RMB parcel-sorting robot. Research tool, not investment advice.
 
-- [ ] **zh channels:** same structure, 「这周大家都在聊卡脖子。我把 GPU 算力链拆成了可交互的瓶颈图谱，免费看；谁在造+上市代码是付费层（$9，支持支付宝）。研究工具，不荐股。」 No tickers in the post itself.
+- [ ] **zh channels:** same structure, 「这周大家都在聊 AI 算力链。我把 GPU 算力链拆成了可交互的瓶颈图谱：结构、证据、谁在造、上市信息都免费看。付费/创始订阅会转向更早期、没被充分披露的新兴领域，比如人形机器人、世界模型、可控核聚变。研究工具，不荐股。」 No tickers in the post itself.
 - [ ] All-day engagement: answer with graph screenshots; quote-RT into chokepoint conversations; do NOT reply-spam Serenity.
 
 ---
 
-## Sat 6/13: humanoid drop (second beat)
+## Sat 6/13: emerging-domain waitlist/research beat
 
-- [ ] **Task 15:** Humanoid actuator chain: Capability `humanoid_robot_actuator_joint` → Products `rotary_actuator_harmonic` / `linear_actuator_roller_screw` / `dexterous_hand_actuator`; **link into existing** `precision_reducer_gearbox`/servo subtrees (no duplication); deltas researched Fri night by agent (roller screws + grinding capacity, frameless torque motors, 六维力/力矩传感器, encoders, tendons); orgs with listings on the paid layer (Harmonic Drive 6324.T, 绿的谐波 688017.SH, THK 6481.T, NSK 6471.T…); tag `domain: ["humanoid_actuator"]`; 10+ core claims personally `reviewed`; zh names; validate + gate dry-run; deploy.
-- [ ] **Task 16:** Drop post EN+zh: "Chain #2: humanoid robot actuators. The market learned last week a harmonic reducer can gate a $40B narrative. Here's the whole joint, mapped. Map free; who-makes-it $9." Label-truncation polish (LOD width bump) if time.
+- [ ] **Task 15:** Humanoid robotics candidate: only promote a live route if the graph is actually ready. Target boundary can start at Capability `humanoid_robot_actuator_joint` → Products `rotary_actuator_harmonic` / `linear_actuator_roller_screw` / `dexterous_hand_actuator`; **link into existing** `precision_reducer_gearbox`/servo subtrees (no duplication); deltas researched by agent (roller screws + grinding capacity, frameless torque motors, 六维力/力矩传感器, encoders, tendons); org/listing exposure belongs to the future paid/waitlist layer; tag `domain: ["humanoid_actuator"]`; 10+ core claims personally `reviewed`; zh names; validate + gate dry-run before deploy.
+- [ ] **Task 16:** If route/data are ready, publish "Chain #2: humanoid robot actuators" as a research drop with clear review status. If not ready, publish a waitlist post: "AI compute is free; the next paid living-map candidates are humanoid robotics, world models, and controlled fusion. Vote/join waitlist." Label-truncation polish (LOD width bump) if time.
 
-## Sun 6/14: iterate + power-chain research kickoff
+## Sun 6/14: iterate + next paid-domain selection
 
-- [ ] Fix top friction from analytics; founding-count post if honest; kick off AI-DC power-chain agent batch overnight (gas turbines GE Vernova GEV / Siemens Energy ENR.DE / MHI 7011.T, large power transformers + lead times, HVDC, switchgear, grid interconnect queues; tag `ai_dc_power_chain`).
+- [ ] Fix top friction from analytics; founding/waitlist-count post if honest; choose the next paid-domain candidate from actual demand and strategic fit (humanoid robotics, world models, controlled fusion, or another under-disclosed domain). Kick off agent research only after the product boundary is clarified.
 
-## Tue 6/16: power drop + referral + Show HN (third beat)
+## Tue 6/16: referral/waitlist + Show HN (third beat)
 
-- [ ] **Task 17:** Import + finalize power chain (same DoD as Task 15); Stripe price/link for `power`; landing card flips live.
-- [ ] **Task 18:** Referral: "invite 3 confirmed signups → unlock 1 chain" — ref code → Buttondown attribution → at 3, email a signed unlock link (reuse `grantCookieValue`; Upstash free tier for counters). Own announcement post.
-- [ ] **Task 19:** Show HN ~14:00 UTC: `Show HN: Interactive bottleneck maps of supply chains (AI compute, humanoid robots, datacenter power)`. First comment: architecture + the review-status honesty ladder + public gate reports + ADRs. Epistemics first, investing second.
+- [ ] **Task 17:** Import/finalize the selected next paid-domain candidate only if it meets the same DoD as Task 15; create Stripe price/link only after the route/data/review target are ready. Landing card flips from waitlist to live only then.
+- [ ] **Task 18:** Referral: "invite 3 confirmed signups → priority or future unlock" — ref code → Buttondown attribution → at threshold, email a signed unlock/priority link once a paid domain exists (reuse `grantCookieValue`; Upstash free tier for counters). Own announcement post.
+- [ ] **Task 19:** Show HN ~14:00 UTC: `Show HN: Interactive bottleneck maps of supply chains`. First comment: architecture + the review-status honesty ladder + public gate reports + ADRs + why AI compute is full-free and paid work moves to under-disclosed domains. Epistemics first, investing second.
 
 ---
 
@@ -427,18 +423,18 @@ const { graph, locked } = stripExposureLayer(full, ents);
 | Risk | Mitigation |
 |---|---|
 | AI-compute content thin by Fri | Research started Wed night; flagship needs top-8 chokepoints with evidence, not commodity-leaf depth; parcel demo carries the depth story; floor = Sat launch |
-| Exposure layer leaks | Server-side strip + curl leak check (Task 10 Step 7); gate/tasks pages checked for org enumeration |
+| Future paid-domain exposure leaks | Server-side strip + curl leak check (Task 10 Step 7) before any paid-domain deploy; gate/tasks pages checked for org enumeration |
 | "Risk %" misread as probability | Heat relabel + tooltip ships before launch (Task 11 Step 3) |
 | Reads as stock-tip site | We map chains, exposure = factual supply data; disclaimers; no tickers in zh posts; no buy/sell language anywhere |
-| Stripe verification delay | Account created today; Payment Links need no extra approval |
-| Payment flow breaks | Real-card test + self-refund before the thread goes out |
+| Stripe verification delay | No longer blocks AI-compute free launch; it blocks only the next paid emerging-domain/founding stream |
+| Payment flow breaks | Real-card test + self-refund before any paid-domain thread goes out |
 | 100% unreviewed undermines trust story | Fri/Sat review passes put real rungs on the ladder before we market it |
-| Wave decays | Drumbeat structure (Fri/Sat/Tue drops) creates three news moments instead of one |
+| Wave decays | AI-compute free flagship captures the current wave; follow-up beats collect demand for less over-disclosed domains |
 
 ## Metrics (review Sun + post-HN)
 
-Unlocks per domain + founding take-rate (Stripe) · `unlock_click` per domain (orders week-2 production) · email signups · deep-link CTR from threads · `/graph` median session · X saves.
+AI-compute sessions · email/waitlist signups · founding-interest clicks · future paid-domain unlocks once live · deep-link CTR from threads · `/graph` median session · X saves.
 
 ## Week-2 preview
 
-Domain #4 by launch-thread vote · price test $9 vs $12 · Substack deep-dives · exposure-layer API teaser for quant-ish users · CN mirror decision on zh funnel data.
+Next paid-domain choice by launch-thread vote/waitlist signal · first emerging-domain price test · Substack deep-dives · verified living-map API teaser for quant-ish users · CN mirror decision on zh funnel data.

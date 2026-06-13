@@ -55,3 +55,13 @@ Capture durable lessons that should prevent repeated mistakes in this repo.
 - prevention checklist item: Gate UIs must make the latest report visually primary and mark older reports as stale/historical. Pending gate-generated tasks should refresh source report metadata on rerun while preserving manual status changes such as `done` or `in_progress`.
 - where recorded: `src/components/GateReportView.tsx`, `src/lib/taskGenerator.ts`, `docs/agent-learn.md`
 - validation needed: After gate logic changes, run the gate command, inspect `/gate` and `/tasks`, and confirm current report/task provenance cannot be confused with stale historical output.
+
+- date: 2026-06-12
+- source: user feedback during humanoid robotics and controlled fusion domain expansion
+- feedback: Data collection agents can be cheap, but data-quality judgment must use a stronger agent; the same agent should not both generate and validate launch-critical graph decisions.
+- root cause: Earlier goal design mixed generation, selection, and validation too tightly, which let gray nodes, messy edges, and incomplete route coverage survive until the user inspected the UI.
+- scope: `confirmed default`
+- target surface: `policy` | `checklist`
+- prevention checklist item: For new paid-domain graph expansion, split roles explicitly: inexpensive collectors gather candidate sources/components/routes, while a stronger reviewer decides evidence quality, merge/split boundaries, and whether nodes/edges are launch-ready. Replace reviewer agents between major review rounds instead of repeatedly asking the same reviewer to re-approve.
+- where recorded: `docs/plans/MASTER-PLAN.md`, `docs/agent-learn.md`
+- validation needed: Before declaring a new paid domain ready, report which role performed collection, which role performed quality judgment, and what route/product boundaries were merged or kept separate.

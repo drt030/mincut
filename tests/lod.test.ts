@@ -32,8 +32,7 @@ import { RadialEdge } from "../src/components/RadialEdge";
  *                            no foreignObject. Edges are plain thin
  *                            lines, no arrowheads, no labels.
  *   Band 2 (0.5 ≤ z < 1.5):  12px circular marker, fill = subsystem
- *                            hue, truncated name label (≤ 12 chars +
- *                            ellipsis), neutral outline present for
+ *                            hue, two-line name label, neutral outline present for
  *                            selection/root affordance. Edges gain
  *                            arrowheads (`marker-end`) but stay
  *                            unlabelled.
@@ -223,7 +222,7 @@ test("RadialNode band 1 visual hierarchy: anchors are larger than readable quiet
   assert.match(leafHtml, /opacity=["']0\.46["']/, `quiet leaf should be low-opacity texture; got: ${leafHtml}`);
 });
 
-test("RadialNode band 2 (zoom 1.0): larger readable label marker, truncated label, outline element", () => {
+test("RadialNode band 2 (zoom 1.0): larger readable label marker, two-line label, outline element", () => {
   const html = renderNode({ ...SAMPLE_NODE_PROPS_BASE, zoom: 1.0 });
   assert.match(html, /<circle/, `band-2 must contain a <circle>; got: ${html}`);
   // 16px radius for ordinary branch nodes.
@@ -232,29 +231,17 @@ test("RadialNode band 2 (zoom 1.0): larger readable label marker, truncated labe
     /r=["']16["']/,
     `band-2 circle must have r=16; got: ${html}`,
   );
-  // Truncated name visible. The supplied name "Vision Processing
-  // Compute Module" is 33 chars; the band-2 truncation rule is "≤ 12
-  // chars + ellipsis". We don't pin the exact truncation algorithm
-  // (the GREEN commit may choose word-boundary vs hard slice), only
-  // that (a) the rendered label is at most 13 chars including the
-  // ellipsis character, and (b) it ends in a "…" / "..." marker.
-  const textMatch = html.match(/<text[^>]*>([^<]+)<\/text>/);
+  // The supplied name should wrap on words into two readable lines
+  // instead of being hard-sliced into a single truncated title.
+  const textMatch = html.match(/<text[^>]*>([\s\S]*?)<\/text>/);
   assert.ok(
     textMatch,
     `band-2 must contain a <text> label element; got: ${html}`,
   );
-  const labelText = textMatch![1];
-  // Allow the unicode ellipsis or three-dot ASCII fallback.
-  assert.ok(
-    labelText.endsWith("…") || labelText.endsWith("..."),
-    `band-2 label must end with an ellipsis marker; got "${labelText}"`,
-  );
-  // Length cap (12 chars of content + 1 ellipsis char, or 12 + 3 ASCII
-  // dots). We bound at 15 to allow either ellipsis style.
-  assert.ok(
-    labelText.length <= 15,
-    `band-2 label must be ≤ 15 chars (12 chars + ellipsis); got length=${labelText.length} text="${labelText}"`,
-  );
+  assert.match(html, /<tspan[^>]*>Vision Processing<\/tspan>/, `band-2 should keep the first English phrase intact; got: ${html}`);
+  assert.match(html, /<tspan[^>]*>Compute Module<\/tspan>/, `band-2 should keep the second English phrase intact; got: ${html}`);
+  const tspanCount = (html.match(/<tspan/g) ?? []).length;
+  assert.equal(tspanCount, 2, `band-2 labels should render at most two lines; got: ${html}`);
   // Outline channel exists. The GREEN commit may implement this as a
   // second concentric <circle> with `stroke` set and `fill="none"`, or
   // as a `stroke` attribute on the primary circle, or as a wrapping
@@ -268,8 +255,8 @@ test("RadialNode band 2 (zoom 1.0): larger readable label marker, truncated labe
   );
   assert.match(
     html,
-    /font-size=["']13["']|fontSize:13|font-size:13px/,
-    `band-2 label should use a larger readable 13px font; got: ${html}`,
+    /font-size=["']12["']|fontSize:12|font-size:12px/,
+    `band-2 label should use a readable two-line 12px font; got: ${html}`,
   );
   assert.match(
     html,
@@ -292,6 +279,92 @@ test("RadialNode band 2 (zoom 1.0): larger readable label marker, truncated labe
     /foreignObject/,
     `band-2 must NOT render the HTML detail card; got: ${html}`,
   );
+});
+
+test("RadialNode band 2: Chinese labels wrap to two balanced lines", () => {
+  const html = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "高扭矩关节执行器模组",
+    zoom: 1.0,
+  });
+
+  assert.match(html, /<tspan[^>]*>高扭矩关节<\/tspan>/, `band-2 should keep a readable first Chinese line; got: ${html}`);
+  assert.match(html, /<tspan[^>]*>执行器模组<\/tspan>/, `band-2 should keep a readable second Chinese line; got: ${html}`);
+  const tspanCount = (html.match(/<tspan/g) ?? []).length;
+  assert.equal(tspanCount, 2, `band-2 Chinese labels should render at most two lines; got: ${html}`);
+  assert.doesNotMatch(html, /高扭矩关节执行器模…/, `band-2 Chinese labels should not be hard-sliced into a single line; got: ${html}`);
+});
+
+test("RadialNode band 2: Chinese labels prefer semantic breakpoints", () => {
+  const cmpHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "化学机械抛光设备和耗材",
+    zoom: 1.0,
+  });
+  assert.match(cmpHtml, /<tspan[^>]*>化学机械抛光<\/tspan>/, `band-2 should not split the Chinese term 抛光; got: ${cmpHtml}`);
+  assert.match(cmpHtml, /<tspan[^>]*>设备和耗材<\/tspan>/, `band-2 should move the equipment phrase to line two; got: ${cmpHtml}`);
+
+  const furnaceHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "热处理炉（退火、氧化、扩散）",
+    zoom: 1.0,
+  });
+  assert.match(furnaceHtml, /<tspan[^>]*>热处理炉<\/tspan>/, `band-2 should keep the base Chinese term before the parenthetical; got: ${furnaceHtml}`);
+  assert.match(furnaceHtml, /<tspan[^>]*>（退火、氧化、扩散）<\/tspan>/, `band-2 should keep the parenthetical phrase intact; got: ${furnaceHtml}`);
+
+  const rdlHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "硅晶圆贴片与重新分布层(RDL)",
+    zoom: 1.0,
+  });
+  assert.match(rdlHtml, /<tspan[^>]*>硅晶圆贴片<\/tspan>/, `band-2 should prefer the connector boundary before 与; got: ${rdlHtml}`);
+  assert.match(rdlHtml, /<tspan[^>]*>与重新分布层\(RDL\)<\/tspan>/, `band-2 should keep 重新分布层 intact; got: ${rdlHtml}`);
+});
+
+test("RadialNode band 2: very long labels ellipsize only on the second line", () => {
+  const html = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Electrohydraulic actuator position feedback assembly",
+    zoom: 1.0,
+  });
+
+  const textBlock = html.match(/<text[^>]*>([\s\S]*?)<\/text>/)?.[1] ?? "";
+  const tspanLabels = [...textBlock.matchAll(/<tspan[^>]*>([^<]*)<\/tspan>/g)].map((match) => match[1]);
+  assert.equal(tspanLabels.length, 2, `band-2 long labels should still render exactly two lines; got: ${html}`);
+  assert.equal(tspanLabels[0].includes("…"), false, `first line should remain readable and not carry the ellipsis; got: ${html}`);
+  assert.equal(tspanLabels[1].endsWith("…"), true, `second line should carry the ellipsis when truncation is unavoidable; got: ${html}`);
+});
+
+test("RadialNode band 2: English punctuation keeps readable spacing", () => {
+  const html = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Battery, power, and charging system",
+    zoom: 1.0,
+  });
+
+  assert.match(html, /<tspan[^>]*>Battery,<\/tspan>/, `band-2 should keep comma spacing while compacting long English labels; got: ${html}`);
+  assert.match(html, /<tspan[^>]*>power \+ charging<\/tspan>/, `band-2 should use compact symbols instead of a cramped conjunction line; got: ${html}`);
+  assert.doesNotMatch(html, /Battery,power/, `band-2 English labels must not concatenate comma-separated words; got: ${html}`);
+});
+
+test("RadialNode band 2: common technical phrases are abbreviated for canvas readability", () => {
+  const html = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Vision-language-action policy model",
+    zoom: 1.0,
+  });
+
+  assert.match(html, /VLA policy/, `band-2 should abbreviate common technical phrases such as VLA policy; got: ${html}`);
+  assert.doesNotMatch(html, /Vision-language-actionpolicy/, `band-2 should not visually concatenate long technical phrases; got: ${html}`);
+
+  const computeHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Onboard compute and control electronics",
+    zoom: 1.0,
+  });
+  assert.match(computeHtml, /<tspan[^>]*>Compute\/control<\/tspan>/, `band-2 should abbreviate long control-electronics labels; got: ${computeHtml}`);
+  assert.match(computeHtml, /<tspan[^>]*>elec\.<\/tspan>/, `band-2 should keep the electronics abbreviation readable on line two; got: ${computeHtml}`);
+  assert.doesNotMatch(computeHtml, /\+ control elec\./, `band-2 should not leave a plus sign at the start of line two; got: ${computeHtml}`);
 });
 
 test("RadialNode band 2: labels can be suppressed for leaf texture nodes", () => {
@@ -426,8 +499,27 @@ test("RadialEdge branch emphasis keeps analysis stroke color while getting thick
   });
   const normal = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 0.3, isFocusEndpoint: false, emphasis: "normal" });
   assert.match(branch, /stroke=["']#ef4444["']/, `branch emphasis should preserve the active lens stroke; got: ${branch}`);
-  assert.match(branch, /strokeWidth=["']4\.6["']|stroke-width=["']4\.6["']/, `branch emphasis should be thick; got: ${branch}`);
+  assert.match(branch, /strokeWidth=["']2\.4["']|stroke-width=["']2\.4["']/, `overview branch emphasis should be visible without dominating the map; got: ${branch}`);
   assert.doesNotMatch(normal, /stroke=["']#ef4444["']/, `normal edge should not inherit branch stroke without emphasis; got: ${normal}`);
+});
+
+test("RadialEdge band 2: normal high-risk edges keep a visible width signal without using raw width", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 1.0,
+    isFocusEndpoint: false,
+    emphasis: "normal",
+    stroke: "#ef4444",
+    strokeWidth: 7.2,
+  });
+
+  assert.match(html, /stroke=["']#ef4444["']/, `risk color can remain as a secondary signal; got: ${html}`);
+  assert.match(
+    html,
+    /strokeWidth=["']4\.68(?:0000000000001)?["']|stroke-width=["']4\.68(?:0000000000001)?["']/,
+    `normal band-2 risk edges should keep a readable thick-edge signal at mid zoom; got: ${html}`,
+  );
+  assert.doesNotMatch(html, /strokeWidth=["']7\.2["']|stroke-width=["']7\.2["']/, `raw risk width should not dominate overview edges; got: ${html}`);
 });
 
 test("RadialEdge arrowhead uses the rendered stroke and follows the path end", () => {

@@ -1,5 +1,6 @@
-import type { GraphData, NodeKind } from "./schema";
+import type { Edge, GraphData, NodeKind } from "./schema";
 import { defaultFocalProduct } from "./graphTraversal";
+import { isCanvasTreeEdge } from "./canvasGraph";
 
 /**
  * Per ADR-0006 §Color and spec
@@ -14,21 +15,23 @@ import { defaultFocalProduct } from "./graphTraversal";
  *      canonical default focal product (`defaultFocalProduct`: the active
  *      v0 target, falling back to first product in graph order). Returns
  *      neutral grey.
- *   2. First-layer subsystems = focal root's `requires`-children among
- *      structural kinds (product / module / material / engineering_method /
- *      manufacturing_process). Materials directly wired from the focal
- *      product are NOT first-layer subsystems (materials always grey).
+ *   2. First-layer subsystems = focal root's canvas-tree children. The
+ *      canvas tree relation set is shared with `filterCanvasGraph`:
+ *      `requires` plus `implemented_by` edges whose target is know-how.
+ *      Materials directly wired from the focal product are NOT first-layer
+ *      subsystems (materials always grey).
  *      Sorted alphabetically by id for deterministic sector-index
  *      assignment. N = count.
  *   3. Each first-layer subsystem i ∈ [0, N) gets
  *        `hue_i = (i × 360 / N + HUE_OFFSET) % 360`
  *      at saturation 0.65, lightness 0.55 — the default coloured tone.
- *   4. A `requires`-descendant of a first-layer subsystem inherits that
- *      subsystem's hue triple bit-for-bit IFF the descendant has exactly
- *      ONE incoming `requires` parent inside the focal subtree.
- *   5. A non-first-layer descendant with ≥ 2 incoming `requires` parents
- *      inside the focal subtree is neutral grey — its primary-parent
- *      assignment is arbitrary per ADR-0006 §Layout.
+ *   4. A canvas-tree descendant of a first-layer subsystem inherits that
+ *      subsystem's hue triple bit-for-bit.
+ *   5. A non-first-layer descendant with ≥ 2 incoming canvas-tree parents
+ *      inside the focal subtree inherits exactly one primary parent's
+ *      hue family. Weighted canvas-tree edges pick the highest-weight
+ *      parent; ties and unweighted edges use the stable sector/id
+ *      fallback shared with `radialLayout`.
  *   6. Exception: if a node IS a first-layer subsystem AND ALSO required
  *      by other modules (so its incoming-edge count from the focal
  *      subtree is ≥ 2 because the focal-product edge plus other module
@@ -71,10 +74,26 @@ type SubsystemIndex = {
   focalId: string | undefined;
   sectorIndexById: Map<string, number>;
   firstLayerAncestor: Map<string, string>;
-  inCountFromSubtree: Map<string, number>;
+  canonicalFirstLayerAncestor: Map<string, string>;
   subtree: Set<string>;
   N: number;
 };
+
+type IncomingCanvasTreeEdge = {
+  source: string;
+  edge: Edge;
+};
+
+type SharedParentCandidate = {
+  source: string;
+  weight: number | undefined;
+};
+
+function edgeWeight(edge: Edge): number | undefined {
+  return typeof edge.weight === "number" && Number.isFinite(edge.weight)
+    ? edge.weight
+    : undefined;
+}
 
 function buildSubsystemIndex(graph: GraphData, rootId?: string | null): SubsystemIndex {
   const requestedRoot = rootId ? graph.nodes.find((n) => n.id === rootId) : undefined;
@@ -84,35 +103,36 @@ function buildSubsystemIndex(graph: GraphData, rootId?: string | null): Subsyste
       focalId: undefined,
       sectorIndexById: new Map(),
       firstLayerAncestor: new Map(),
-      inCountFromSubtree: new Map(),
+      canonicalFirstLayerAncestor: new Map(),
       subtree: new Set(),
       N: 0,
     };
   }
 
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
   const nodeKindById = new Map<string, NodeKind>();
   for (const node of graph.nodes) {
     nodeKindById.set(node.id, node.kind);
   }
 
-  // `requires`-children index. The first-layer ring takes EVERY
-  // `requires`-child of the focal product (excluding materials, which
-  // always belong on the outer grey ring). Descendants of those first-
-  // layer subsystems are walked through `requires` edges restricted to
-  // structural-on-structural so descriptive subtrees (metrics under a
-  // scientific_principle, etc.) don't pollute the family.
+  // Canvas-tree children index. The first-layer ring takes EVERY
+  // canvas-tree child of the focal product (excluding materials, which
+  // always belong on the outer grey ring). This deliberately mirrors
+  // filterCanvasGraph/radialLayout so visible implemented_by know-how
+  // nodes inherit the same family ancestry that placed them on-canvas.
   const childrenByParent = new Map<string, string[]>();
   for (const edge of graph.edges) {
-    if (edge.relation !== "requires") continue;
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
     if (!childrenByParent.has(edge.source)) childrenByParent.set(edge.source, []);
     childrenByParent.get(edge.source)!.push(edge.target);
   }
 
-  // First-layer subsystems = focal product's `requires`-children
+  // First-layer subsystems = focal product's canvas-tree children
   // EXCLUDING materials (materials are always grey per Rule 7). We do
-  // NOT filter by structural kind here — the test contract counts every
-  // `requires`-child of the focal product as a first-layer subsystem
-  // and expects each to receive its own hue family.
+  // NOT filter by structural kind here — the historical test contract
+  // counted every `requires`-child of the focal product as a first-layer
+  // subsystem, and the canvas-tree relation set now extends that same
+  // rule to visible know-how children.
   const firstLayerCandidates = (childrenByParent.get(focal.id) ?? []).filter(
     (id) => nodeKindById.get(id) !== "material",
   );
@@ -121,8 +141,7 @@ function buildSubsystemIndex(graph: GraphData, rootId?: string | null): Subsyste
   const sectorIndexById = new Map<string, number>();
   firstLayer.forEach((id, i) => sectorIndexById.set(id, i));
 
-  // BFS from the focal product (via `requires` edges only, structural
-  // restriction already applied) → the focal subtree.
+  // BFS from the focal product via canvas-tree edges → the focal subtree.
   const subtree = new Set<string>();
   {
     const queue: string[] = [focal.id];
@@ -157,21 +176,82 @@ function buildSubsystemIndex(graph: GraphData, rootId?: string | null): Subsyste
     }
   }
 
-  // Count incoming `requires` edges per target, restricted to edges whose
-  // BOTH endpoints sit inside the focal subtree. The shared-parent check
-  // looks at this map.
-  const inCountFromSubtree = new Map<string, number>();
+  const incomingByTarget = new Map<string, IncomingCanvasTreeEdge[]>();
   for (const edge of graph.edges) {
-    if (edge.relation !== "requires") continue;
-    if (!subtree.has(edge.source) || !subtree.has(edge.target)) continue;
-    inCountFromSubtree.set(edge.target, (inCountFromSubtree.get(edge.target) ?? 0) + 1);
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
+    if (!incomingByTarget.has(edge.target)) incomingByTarget.set(edge.target, []);
+    incomingByTarget.get(edge.target)!.push({ source: edge.source, edge });
+  }
+
+  const canonicalParentByShared = new Map<string, string>();
+  for (const [targetId, inEdges] of incomingByTarget) {
+    if (sectorIndexById.has(targetId)) continue;
+    if (targetId === focal.id) continue;
+    if (!subtree.has(targetId)) continue;
+
+    const subtreeEdges = inEdges.filter(
+      ({ source }) => subtree.has(source) && firstLayerAncestor.has(source),
+    );
+    if (subtreeEdges.length < 2) continue;
+
+    const candidates: SharedParentCandidate[] = subtreeEdges.map(({ source, edge }) => ({
+      source,
+      weight: edgeWeight(edge),
+    }));
+    candidates.sort((a, b) => {
+      const aw = a.weight ?? Number.NEGATIVE_INFINITY;
+      const bw = b.weight ?? Number.NEGATIVE_INFINITY;
+      if (aw !== bw) return bw - aw;
+      const ai = sectorIndexById.get(firstLayerAncestor.get(a.source)!)!;
+      const bi = sectorIndexById.get(firstLayerAncestor.get(b.source)!)!;
+      if (ai !== bi) return ai - bi;
+      return a.source.localeCompare(b.source);
+    });
+    canonicalParentByShared.set(targetId, candidates[0].source);
+  }
+
+  const canonicalFirstLayerAncestor = new Map<string, string>();
+  const resolveCanonicalAncestor = (
+    id: string,
+    visiting = new Set<string>(),
+  ): string | undefined => {
+    if (sectorIndexById.has(id)) {
+      canonicalFirstLayerAncestor.set(id, id);
+      return id;
+    }
+
+    const memo = canonicalFirstLayerAncestor.get(id);
+    if (memo !== undefined) return memo;
+    if (visiting.has(id)) return firstLayerAncestor.get(id);
+
+    visiting.add(id);
+    const primaryParent = canonicalParentByShared.get(id);
+    const ancestor = primaryParent !== undefined
+      ? resolveCanonicalAncestor(primaryParent, visiting) ?? firstLayerAncestor.get(primaryParent)
+      : (() => {
+        const candidateParents = (incomingByTarget.get(id) ?? [])
+          .map(({ source }) => source)
+          .filter((source) => subtree.has(source) && firstLayerAncestor.has(source));
+        return candidateParents.length === 1
+          ? resolveCanonicalAncestor(candidateParents[0], visiting) ??
+              firstLayerAncestor.get(candidateParents[0])
+          : firstLayerAncestor.get(id);
+      })();
+    visiting.delete(id);
+
+    if (ancestor !== undefined) canonicalFirstLayerAncestor.set(id, ancestor);
+    return ancestor;
+  };
+
+  for (const id of subtree) {
+    resolveCanonicalAncestor(id);
   }
 
   return {
     focalId: focal.id,
     sectorIndexById,
     firstLayerAncestor,
-    inCountFromSubtree,
+    canonicalFirstLayerAncestor,
     subtree,
     N,
   };
@@ -246,15 +326,11 @@ export function subsystemHue(
   // are grey.
   if (!index.subtree.has(nodeId)) return { ...NEUTRAL_GREY };
 
-  // Rule 5: shared non-first-layer descendants (≥ 2 incoming `requires`
-  // parents inside the focal subtree) are grey.
-  if ((index.inCountFromSubtree.get(nodeId) ?? 0) >= 2) return { ...NEUTRAL_GREY };
-
-  // Rule 4: single-parent descendant inherits its first-layer ancestor's
-  // hue. The BFS above guaranteed each subtree node has a deterministic
-  // first-layer ancestor entry (smallest sector index in case of DAG
-  // cross-edges).
-  const ancestor = index.firstLayerAncestor.get(nodeId);
+  // Rules 4/5: descendants inherit the canonical first-layer ancestor's
+  // hue. Shared descendants use one primary parent; unshared descendants
+  // follow their only parent path.
+  const ancestor = index.canonicalFirstLayerAncestor.get(nodeId) ??
+    index.firstLayerAncestor.get(nodeId);
   if (ancestor === undefined) return { ...NEUTRAL_GREY };
   const ancestorSector = index.sectorIndexById.get(ancestor);
   if (ancestorSector === undefined) return { ...NEUTRAL_GREY };

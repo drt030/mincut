@@ -8,8 +8,9 @@ import { isCanvasTreeEdge, isKnowHowNode } from "./canvasGraph";
  * identity).
  *
  *  - "product": artifact kinds only — answers "what do you buy/build".
- *  - "knowhow": know-how nodes light up colored by transactability;
- *    artifact nodes stay as dimmed grey context.
+ *  - "knowhow": know-how nodes keep their subsystem-family colour so
+ *    the user can still read where each method/process belongs; artifact
+ *    nodes stay as dimmed grey context.
  */
 export type GraphLayer = "product" | "knowhow";
 
@@ -29,6 +30,10 @@ export function knowHowFill(node: Node): string {
   if (node.transactability === "procurable") return KNOW_HOW_FILLS.procurable;
   if (node.transactability === "must_build") return KNOW_HOW_FILLS.must_build;
   return KNOW_HOW_FILLS.unset;
+}
+
+export function knowHowLayerFill(node: Node, subsystemFamilyFill: string): string {
+  return isKnowHowNode(node) ? subsystemFamilyFill : ARTIFACT_DIM_FILL;
 }
 
 export function layerHidesNode(node: Node, layer: GraphLayer): boolean {

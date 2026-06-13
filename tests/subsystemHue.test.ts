@@ -29,8 +29,9 @@ import { defaultFocalProduct } from "../src/lib/graphTraversal";
  *   3. Materials (`kind === "material"`) are neutral grey (saturation 0).
  *   4. Shared structural nodes — those with ≥ 2 incoming `requires` parents
  *      inside the focal subtree, excluding the first-layer subsystems
- *      themselves — are neutral grey (their primary-parent assignment is
- *      arbitrary per the spec; we do not pretend they have a real family).
+ *      themselves — inherit exactly one primary parent's family. Edge
+ *      weights choose the primary parent when present; otherwise the
+ *      stable sector/id fallback applies.
  *   5. The focal product itself is a dedicated neutral root colour,
  *      near-white rather than mid-grey.
  *   6. A structural node not reachable from the focal product (sibling
@@ -44,7 +45,7 @@ import { defaultFocalProduct } from "../src/lib/graphTraversal";
  *     lightness: number,  // 0..1; mid value (e.g. 0.5) by default
  *   }
  *
- * The "is neutral grey" predicate used by every test below is
+ * The "is neutral grey" predicate used by grey-path tests below is
  * `result.saturation === 0`. The hue value of a grey result is not
  * pinned — implementations may return hue: 0 or any other value — only
  * the saturation matters for the grey case.
@@ -95,10 +96,45 @@ function buildFocalSubtree(graph: GraphData): {
   return { focalId: focal!.id, firstLayer, subtree, inCountFromSubtree };
 }
 
+function sharedHueFixture(weighted: boolean): GraphData {
+  return {
+    graphVersion: weighted ? "test-hue-weighted-shared-parent" : "test-hue-fallback-shared-parent",
+    nodes: [
+      { id: "P", name: "Focal product", kind: "product", domain: ["test"] },
+      { id: "S0", name: "Stable fallback subsystem", kind: "module", domain: ["test"] },
+      { id: "S1", name: "Middle subsystem", kind: "module", domain: ["test"] },
+      { id: "S2", name: "Weighted primary subsystem", kind: "module", domain: ["test"] },
+      { id: "H", name: "Shared module", kind: "module", domain: ["test"] },
+      { id: "M0", name: "Shared material", kind: "material", domain: ["test"] },
+    ],
+    edges: [
+      { id: "ePS0", source: "P", target: "S0", relation: "requires" },
+      { id: "ePS1", source: "P", target: "S1", relation: "requires" },
+      { id: "ePS2", source: "P", target: "S2", relation: "requires" },
+      {
+        id: "eS0H",
+        source: "S0",
+        target: "H",
+        relation: "requires",
+        ...(weighted ? { weight: 0.2 } : {}),
+      },
+      {
+        id: "eS2H",
+        source: "S2",
+        target: "H",
+        relation: "requires",
+        ...(weighted ? { weight: 0.9 } : {}),
+      },
+      { id: "eS0M0", source: "S0", target: "M0", relation: "requires", weight: 0.2 },
+      { id: "eS2M0", source: "S2", target: "M0", relation: "requires", weight: 0.9 },
+    ],
+    evidence: [],
+  };
+}
+
 /**
- * Property 1: a first-layer subsystem and any of its `requires`-
- * descendants (that are NOT themselves shared modules — those are grey,
- * see property 5) must return identical `{ hue, saturation, lightness }`.
+ * Property 1: a first-layer subsystem and any of its unshared `requires`-
+ * descendants must return identical `{ hue, saturation, lightness }`.
  *
  * The migrated parcel-sorting data places `machine_vision_lens_and_optics`,
  * `controlled_machine_vision_lighting`, and `vision_processing_compute`
@@ -209,19 +245,28 @@ test("subsystemHue P4: materials are neutral grey", () => {
   );
 });
 
+test("subsystemHue keeps materials neutral even when their requires parents are weighted", () => {
+  const graph = sharedHueFixture(true);
+
+  assert.equal(
+    subsystemHue("M0", graph).saturation,
+    0,
+    "material nodes should stay neutral grey instead of inheriting a weighted primary parent's hue",
+  );
+});
+
 /**
  * Property 5: a shared structural node — one with ≥ 2 incoming `requires`
  * parents inside the focal subtree, excluding the first-layer subsystems
- * themselves — is neutral grey. Its primary-parent assignment is
- * arbitrary per ADR-0006 §Layout, so we do not paint it with a hue
- * family.
+ * themselves — inherits exactly one primary parent's hue family instead
+ * of falling back to neutral grey.
  *
  * In the real parcel-sorting data, `industrial_area_scan_camera` is a
  * non-first-layer module with two `requires` parents inside the focal
  * subtree (confirmed during spec drafting). Pinning the assertion to
  * that id keeps the test deterministic against the migrated fixture.
  */
-test("subsystemHue P5: shared structural nodes with >= 2 requires parents are neutral grey", () => {
+test("subsystemHue P5: shared structural nodes with >= 2 requires parents are not neutral grey", () => {
   const graph = loadGraphData();
   const { firstLayer, inCountFromSubtree, focalId } = buildFocalSubtree(graph);
   const sharedId = "industrial_area_scan_camera";
@@ -240,10 +285,39 @@ test("subsystemHue P5: shared structural nodes with >= 2 requires parents are ne
   );
 
   const result = subsystemHue(sharedId, graph);
-  assert.equal(
-    result.saturation,
-    0,
-    `shared structural node ${sharedId} must be neutral grey (saturation=0); got ${JSON.stringify(result)}`,
+  assert.ok(
+    result.saturation > 0,
+    `shared structural node ${sharedId} must inherit a primary parent's coloured hue; got ${JSON.stringify(result)}`,
+  );
+});
+
+test("subsystemHue uses the highest-weight requires parent as a shared node's hue family", () => {
+  const graph = sharedHueFixture(true);
+
+  const sharedHue = subsystemHue("H", graph);
+  const primaryParentHue = subsystemHue("S2", graph);
+  const secondaryParentHue = subsystemHue("S0", graph);
+
+  assert.deepEqual(
+    sharedHue,
+    primaryParentHue,
+    "weighted shared node H should inherit the highest-weight parent S2 hue family",
+  );
+  assert.notDeepEqual(
+    sharedHue,
+    secondaryParentHue,
+    "weighted shared node H should not inherit the lower-weight secondary parent S0 hue family",
+  );
+  assert.ok(sharedHue.saturation > 0, "weighted shared structural nodes should not be neutral grey");
+});
+
+test("subsystemHue falls back to stable sector ordering for unweighted shared parents", () => {
+  const graph = sharedHueFixture(false);
+
+  assert.deepEqual(
+    subsystemHue("H", graph),
+    subsystemHue("S0", graph),
+    "without requires weights, shared node H should keep the existing stable fallback parent S0",
   );
 });
 
@@ -355,6 +429,41 @@ test("subsystemHue reroots colour families around a module research root", () =>
     Math.round(servoHue.hue),
     "different direct children under the rerooted module should not collapse to the same hue",
   );
+});
+
+test("subsystemHue colours implemented_by-only know-how nodes through the canvas tree ancestry", () => {
+  const graph = loadGraphData();
+  const rootId = "low_cost_parcel_sorting_robot_300k_rmb";
+  const canvas = filterCanvasGraph(graph, rootId);
+  const nodeById = new Map(canvas.nodes.map((node) => [node.id, node]));
+  const implementedByOnlyKnowHowIds = [
+    "gripper_tcp_pattern_calibration",
+    "servo_drive_motion_control_loop",
+    "servo_drive_thermal_emc_design",
+    "jam_detection_and_recovery",
+  ];
+
+  for (const id of implementedByOnlyKnowHowIds) {
+    const node = nodeById.get(id);
+    assert.equal(
+      node?.kind,
+      "engineering_method",
+      `${id} should be visible as a know-how engineering_method in the parcel canvas`,
+    );
+    const incomingCanvasRelations = canvas.edges
+      .filter((edge) => edge.target === id)
+      .map((edge) => edge.relation);
+    assert.deepEqual(
+      incomingCanvasRelations,
+      ["implemented_by"],
+      `${id} should be attached to the parcel canvas only by implemented_by, proving hue ancestry must match canvas tree semantics`,
+    );
+    const hue = subsystemHue(id, canvas, rootId);
+    assert.ok(
+      hue.saturation > 0,
+      `${id} must inherit a coloured subsystem family instead of staying non-material neutral; got ${JSON.stringify(hue)}`,
+    );
+  }
 });
 
 // Reference to TWO_PI so eslint doesn't flag the import-style geometric

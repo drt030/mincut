@@ -5,6 +5,7 @@ export const DEFAULT_CANVAS_MAX_DEPTH = 4;
 
 const CANVAS_KINDS: ReadonlySet<NodeKind> = new Set([
   "product",
+  "technical_route",
   "module",
   "engineering_method",
   "manufacturing_process",
@@ -35,6 +36,7 @@ export function isArtifactCanvasNode(node: Node): boolean {
  */
 export function isCanvasTreeEdge(edge: Edge, nodeById: Map<string, Node>): boolean {
   if (edge.relation === "requires") return true;
+  if (edge.relation === "has_route") return true;
   if (edge.relation !== "implemented_by") return false;
   const target = nodeById.get(edge.target);
   return target !== undefined && isKnowHowNode(target);

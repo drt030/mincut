@@ -1,7 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import type { GraphData } from "../src/lib/schema";
-import { stripExposureLayer } from "../src/lib/exposureGate";
+import { domainBySlug } from "../src/lib/domains";
+import { GATED_DOMAINS, stripExposureLayer } from "../src/lib/exposureGate";
+import { loadActiveGraphData, validateGraphReferences } from "../src/lib/graphLoader";
+
+const EXPLICIT_AI_COMPUTE_GATE = [{ domainTag: "ai_compute_chain", entitlement: "ai_compute" }];
 
 const fixture: GraphData = {
   graphVersion: "test",
@@ -22,9 +26,7 @@ const fixture: GraphData = {
 };
 
 test("strips org nodes, manufactured_by edges, org-only evidence for locked domains", () => {
-  const { graph, locked } = stripExposureLayer(fixture, [], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
-  ]);
+  const { graph, locked } = stripExposureLayer(fixture, [], EXPLICIT_AI_COMPUTE_GATE);
   assert.ok(!graph.nodes.some((n) => n.id === "tsmc"));
   assert.ok(graph.nodes.some((n) => n.id === "fanuc"));          // other-domain org untouched
   assert.equal(graph.edges.length, 0);
@@ -34,9 +36,7 @@ test("strips org nodes, manufactured_by edges, org-only evidence for locked doma
 });
 
 test("entitled viewer keeps everything", () => {
-  const { graph } = stripExposureLayer(fixture, ["ai_compute"], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
-  ]);
+  const { graph } = stripExposureLayer(fixture, ["ai_compute"], EXPLICIT_AI_COMPUTE_GATE);
   assert.equal(graph.nodes.length, fixture.nodes.length);
 });
 
@@ -79,25 +79,443 @@ const realShapeFixture: GraphData = {
 };
 
 test("category labels in domain do not exempt locked-chain orgs (leak regression)", () => {
-  const { graph, locked } = stripExposureLayer(realShapeFixture, [], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
-  ]);
+  const { graph, locked } = stripExposureLayer(realShapeFixture, [], EXPLICIT_AI_COMPUTE_GATE);
   assert.ok(!graph.nodes.some((n) => n.id === "org_amat"), "non-teaser locked org must be stripped");
   assert.ok(!graph.edges.some((e) => e.id === "e_amat"), "its manufactured_by edge must go too");
   assert.equal(locked[0].hiddenOrgCount, 1);
 });
 
 test("free_teaser org survives the strip with its edge", () => {
-  const { graph } = stripExposureLayer(realShapeFixture, [], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
-  ]);
+  const { graph } = stripExposureLayer(realShapeFixture, [], EXPLICIT_AI_COMPUTE_GATE);
   assert.ok(graph.nodes.some((n) => n.id === "org_tsmc_teaser"), "free_teaser org stays");
   assert.ok(graph.edges.some((e) => e.id === "e_tsmc"), "teaser org keeps its manufactured_by edge");
 });
 
 test("org with no locked chain tag is untouched regardless of labels", () => {
-  const { graph } = stripExposureLayer(realShapeFixture, [], [
-    { domainTag: "ai_compute_chain", entitlement: "ai_compute" },
-  ]);
+  const { graph } = stripExposureLayer(realShapeFixture, [], EXPLICIT_AI_COMPUTE_GATE);
   assert.ok(graph.nodes.some((n) => n.id === "org_estun"));
 });
+
+// 2026-06-11 audit rewrites moved supplier names into free component prose,
+// and some component-linked evidence names locked suppliers in its titles.
+// The free layer must not NAME locked orgs: our own prose is redacted in
+// place (the lock marker is the tease), and name-bearing evidence records
+// belong to the exposure layer. Quoted source text is never altered — only
+// re-layered. Teaser org names stay visible everywhere.
+const textLeakFixture: GraphData = {
+  graphVersion: "test",
+  nodes: [
+    {
+      id: "t_glass",
+      name: "T-glass fabric",
+      kind: "material",
+      domain: ["ai_compute_chain"],
+      description: "Qualified by TSMC; supply is highly concentrated around Acme Specialty with relief in 2027.",
+      notes: "Acme Specialty holds the qualified base; second sources are in qualification.",
+      metrics: [
+        {
+          name: "Acme Specialty market share",
+          unit: "%",
+          currentValue: 43,
+          description: "Acme Specialty estimated share of this qualified material niche.",
+        },
+        {
+          name: "TSMC qualification status",
+          currentValue: "qualified",
+          description: "Qualified by TSMC",
+        },
+        {
+          name: "Specialty glass availability",
+          currentValue: "tight",
+        },
+      ],
+    },
+    {
+      id: "org_acme",
+      name: "Acme Specialty Co., Ltd.",
+      kind: "organization",
+      domain: ["ai_compute_chain", "investable_supplier"],
+      tags: ["manufacturer"],
+    },
+    {
+      id: "org_tsmc_teaser",
+      name: "TSMC",
+      kind: "organization",
+      domain: ["ai_compute_chain"],
+      tags: ["free_teaser"],
+    },
+  ] as GraphData["nodes"],
+  edges: [
+    { id: "e_acme", source: "t_glass", target: "org_acme", relation: "manufactured_by" },
+    {
+      id: "e_req",
+      source: "t_glass",
+      target: "org_tsmc_teaser",
+      relation: "manufactured_by",
+      claim: "Acme Specialty supplies the qualified cloth",
+    },
+  ] as GraphData["edges"],
+  evidence: [
+    { id: "ev_named_title", type: "expert_review", title: "Acme Specialty expands fiber output", supportsNodeIds: ["t_glass"] },
+    {
+      id: "ev_named_summary",
+      type: "expert_review",
+      title: "Fiber output expansion",
+      summary: "Acme Specialty plans another qualified line.",
+      supportsNodeIds: ["t_glass"],
+    },
+    {
+      id: "ev_named_source",
+      type: "expert_review",
+      title: "Fiber output source",
+      sourceName: "Acme Specialty investor relations",
+      supportsNodeIds: ["t_glass"],
+    },
+    {
+      id: "ev_named_excerpt",
+      type: "expert_review",
+      title: "Fiber output quote",
+      excerpt: "Acme Specialty said it would expand.",
+      supportsNodeIds: ["t_glass"],
+    },
+    {
+      id: "ev_named_source_quote",
+      type: "expert_review",
+      title: "Fiber output source quote",
+      sourceQuote: "Acme Specialty capacity remains tight.",
+      supportsNodeIds: ["t_glass"],
+    },
+    { id: "ev_clean", type: "expert_review", title: "Specialty glass shortage persists", supportsNodeIds: ["t_glass"] },
+  ] as GraphData["evidence"],
+};
+
+const TEXT_GATE = EXPLICIT_AI_COMPUTE_GATE;
+
+test("locked org names are redacted from free prose (description, notes, edge claims)", () => {
+  const { graph } = stripExposureLayer(textLeakFixture, [], TEXT_GATE);
+  const node = graph.nodes.find((n) => n.id === "t_glass")!;
+  assert.ok(!/Acme/i.test(node.description ?? ""), "description must not name a locked supplier");
+  assert.ok(!/Acme/i.test((node as { notes?: string }).notes ?? ""), "notes must not name a locked supplier");
+  assert.match(node.description ?? "", /locked supplier/);
+  const edge = graph.edges.find((e) => e.id === "e_req")!;
+  assert.ok(!/Acme/i.test(edge.claim ?? ""), "edge claim must not name a locked supplier");
+});
+
+test("locked org names are redacted from metric names without deleting free metrics", () => {
+  const { graph } = stripExposureLayer(textLeakFixture, [], TEXT_GATE);
+  const json = JSON.stringify(graph);
+  assert.doesNotMatch(json, /Acme Specialty/, "stripped graph JSON must not name locked suppliers");
+
+  const node = graph.nodes.find((n) => n.id === "t_glass")!;
+  const metrics = node.metrics ?? [];
+  const redactedMetric = metrics.find((metric) => metric.currentValue === 43);
+  assert.equal(redactedMetric?.name, "locked supplier market share");
+  assert.equal(redactedMetric?.currentValue, 43);
+  assert.ok(metrics.some((metric) => metric.name === "TSMC qualification status"), "free teaser org name survives");
+  assert.ok(metrics.some((metric) => metric.name === "Specialty glass availability"), "clean metric name survives");
+});
+
+test("teaser org names survive redaction", () => {
+  const { graph } = stripExposureLayer(textLeakFixture, [], TEXT_GATE);
+  assert.match(graph.nodes.find((n) => n.id === "t_glass")!.description ?? "", /TSMC/);
+});
+
+test("component evidence naming a locked org moves to the exposure layer (stripped)", () => {
+  const { graph } = stripExposureLayer(textLeakFixture, [], TEXT_GATE);
+  for (const evidenceId of [
+    "ev_named_title",
+    "ev_named_summary",
+    "ev_named_source",
+    "ev_named_excerpt",
+    "ev_named_source_quote",
+  ]) {
+    assert.ok(!graph.evidence.some((ev) => ev.id === evidenceId), `${evidenceId} is exposure-layer`);
+  }
+  assert.ok(graph.evidence.some((ev) => ev.id === "ev_clean"), "clean component evidence stays free");
+});
+
+test("entitled viewer gets unredacted prose and the named evidence", () => {
+  const { graph } = stripExposureLayer(textLeakFixture, ["ai_compute"], TEXT_GATE);
+  assert.match(graph.nodes.find((n) => n.id === "t_glass")!.description ?? "", /Acme Specialty/);
+  assert.ok(graph.evidence.some((ev) => ev.id === "ev_named_title"));
+});
+
+const mixedCaseAliasFixture: GraphData = {
+  graphVersion: "test",
+  nodes: [
+    {
+      id: "epi_growth",
+      name: "Epitaxial layer growth",
+      kind: "manufacturing_process",
+      domain: ["ai_compute_chain"],
+      description: "IntelliEPI appears in mixed-case parenthetical aliases and must be locked.",
+    },
+    {
+      id: "org_intelliepi",
+      name: "Intelligent Epitaxy Technology, Inc. (IntelliEPI)",
+      kind: "organization",
+      domain: ["ai_compute_chain", "investable_supplier"],
+      tags: ["manufacturer"],
+    },
+  ] as GraphData["nodes"],
+  edges: [] as GraphData["edges"],
+  evidence: [
+    {
+      id: "ev_intelliepi_alias",
+      type: "expert_review",
+      title: "Epitaxy capacity note",
+      summary: "IntelliEPI capacity is cited in this note.",
+      supportsNodeIds: ["epi_growth"],
+    },
+    {
+      id: "ev_clean_mixed_support",
+      type: "expert_review",
+      title: "Epitaxy growth process overview",
+      summary: "Clean process note with mixed visible and hidden supports.",
+      supportsNodeIds: ["epi_growth", "org_intelliepi"],
+    },
+  ] as GraphData["evidence"],
+};
+
+test("mixed-case parenthetical aliases are locked identities and hidden evidence supports are pruned", () => {
+  const { graph } = stripExposureLayer(mixedCaseAliasFixture, [], TEXT_GATE);
+  assert.equal(findIdentityLeak(graph, "IntelliEPI"), undefined, "mixed-case hidden alias must not leak");
+  assert.ok(!graph.evidence.some((ev) => ev.id === "ev_intelliepi_alias"), "alias-bearing evidence is exposure-layer");
+  assert.deepEqual(
+    graph.evidence.find((ev) => ev.id === "ev_clean_mixed_support")?.supportsNodeIds,
+    ["epi_growth"],
+    "retained clean evidence drops hidden support ids",
+  );
+  assert.deepEqual(validateGraphReferences(graph), []);
+});
+
+test("default gated domains do not include the AI compute full-free flagship", () => {
+  assert.equal(
+    GATED_DOMAINS.some((domain) => domain.domainTag === "ai_compute_chain"),
+    false,
+  );
+});
+
+test("default strip keeps AI compute organizations visible", () => {
+  const domain = domainBySlug("ai-compute");
+  assert.ok(domain, "ai-compute domain route must exist");
+
+  const sourceGraph = loadActiveGraphData(domain.rootId);
+  const sourceOrgIds = sourceGraph.nodes
+    .filter((node) => node.kind === "organization" && (node.domain ?? []).includes(domain.domainTag))
+    .map((node) => node.id);
+  assert.ok(sourceOrgIds.length > 0, "probe must cover AI compute supplier organizations");
+
+  const { graph, locked } = stripExposureLayer(sourceGraph, []);
+  const visibleOrgIds = new Set(graph.nodes.map((node) => node.id));
+  assert.deepEqual(
+    sourceOrgIds.filter((id) => !visibleOrgIds.has(id)),
+    [],
+    "default strip must not remove AI compute supplier organizations",
+  );
+  assert.equal(locked.some((entry) => entry.domainTag === domain.domainTag), false);
+});
+
+test("explicit AI compute gate still omits hidden organization names and keeps teaser org names", () => {
+  const domain = domainBySlug("ai-compute");
+  assert.ok(domain, "ai-compute domain route must exist");
+
+  const sourceGraph = loadActiveGraphData(domain.rootId);
+  const { graph } = stripExposureLayer(loadActiveGraphData(domain.rootId), [], EXPLICIT_AI_COMPUTE_GATE);
+  const json = JSON.stringify(graph);
+  const hiddenOrgNames = hiddenOrganizationSearchTerms(sourceGraph, domain.domainTag);
+  assert.ok(hiddenOrgNames.includes("Hanmi"), "probe must cover the historical Hanmi leak");
+  assert.ok(hiddenOrgNames.includes("Nittobo"), "probe must cover the historical Nittobo leak");
+  assert.ok(hiddenOrgNames.includes("IntelliEPI"), "probe must cover mixed-case parenthetical aliases");
+
+  for (const hiddenOrgName of hiddenOrgNames) {
+    const leak = findIdentityLeak(graph, hiddenOrgName);
+    assert.equal(
+      leak,
+      undefined,
+      `${hiddenOrgName} must not appear in stripped graph string fields${leak ? ` (${leak})` : ""}`,
+    );
+  }
+
+  for (const hiddenMetricName of [
+    "Asetek market share",
+    "Merck KGaA estimated share",
+    "Henkel/Bergquist estimated NCF market share",
+  ]) {
+    assert.equal(json.includes(hiddenMetricName), false, `${hiddenMetricName} must not appear in stripped graph JSON`);
+  }
+  assert.equal(findIdentityLeak(graph, "Hanmi"), undefined, "historical Hanmi leak must not appear");
+  assert.equal(findIdentityLeak(graph, "Nittobo"), undefined, "historical Nittobo leak must not appear");
+  assert.equal(findIdentityLeak(graph, "IntelliEPI"), undefined, "historical IntelliEPI leak must not appear");
+  assert.deepEqual(validateGraphReferences(graph), [], "stripped graph must not retain references to hidden nodes");
+
+  const teaserOrgNames = sourceGraph.nodes
+    .filter(
+      (node) =>
+        node.kind === "organization" &&
+        (node.domain ?? []).includes(domain.domainTag) &&
+        (node.tags ?? []).includes("free_teaser"),
+    )
+    .map((node) => node.name);
+  assert.ok(teaserOrgNames.some((name) => json.includes(name)), "at least one free_teaser org name stays visible");
+  assert.ok(graph.nodes.some((node) => node.id === domain.rootId), "free technical graph root stays visible");
+});
+
+function hiddenOrganizationSearchTerms(graph: GraphData, domainTag: string): string[] {
+  const hiddenOrganizations = graph.nodes.filter(
+    (node) =>
+      node.kind === "organization" &&
+      (node.domain ?? []).includes(domainTag) &&
+      !(node.tags ?? []).includes("free_teaser"),
+  );
+  const visibleTerms = new Set(
+    graph.nodes
+      .filter((node) => node.kind === "organization" && !hiddenOrganizations.some((hidden) => hidden.id === node.id))
+      .flatMap(visibleOrganizationIdentityTerms)
+      .map((term) => term.toLocaleLowerCase()),
+  );
+
+  return uniqueTerms(
+    hiddenOrganizations
+      .flatMap((node) => organizationIdentityTerms(node.name))
+      .filter((term) => !visibleTerms.has(term.toLocaleLowerCase())),
+  );
+}
+
+function visibleOrganizationIdentityTerms(node: GraphData["nodes"][number]): string[] {
+  return uniqueTerms([
+    ...organizationIdentityTerms(node.name),
+    typeof node.ticker === "string" ? node.ticker : "",
+    ...(node.metrics ?? []).flatMap((metric) => [
+      typeof metric.currentValue === "string" ? metric.currentValue : "",
+      typeof metric.targetValue === "string" ? metric.targetValue : "",
+    ]),
+  ]);
+}
+
+function organizationIdentityTerms(name: string): string[] {
+  const primaryName = name.replace(/\s*\([^)]*\)/g, "").trim();
+  const primarySegments = primaryName.split(/\s+\/\s+/).map((part) => normalizeOrganizationName(part));
+  const parentheticalAliases = [...name.matchAll(/\(([^)]*)\)/g)]
+    .flatMap((match) => match[1].split(/[;,/]/))
+    .map((part) => normalizeOrganizationName(part))
+    .filter(isUsefulAlias);
+  const terms = uniqueTerms([
+    name.trim(),
+    primaryName,
+    ...primarySegments,
+    ...parentheticalAliases,
+    ...primarySegments.flatMap((term) => organizationRootTerms(term)),
+  ]);
+
+  return terms.filter((term) => term.length >= 3);
+}
+
+function normalizeOrganizationName(name: string): string {
+  const beforeComma = name.split(",")[0]?.trim() ?? name.trim();
+  let next = beforeComma;
+  let previous = "";
+  while (next !== previous) {
+    previous = next;
+    next = next
+      .replace(
+        /(?:[\s,]+(?:Inc\.?|Incorporated|Corporation|Corp\.?|Co\.?|Company|Ltd\.?|Limited|plc|S\.?A\.?|N\.?V\.?|B\.?V\.?|GmbH|KGaA|SE|S\.?E\.?|Holdings?|Industries?))\.?$/i,
+        "",
+      )
+      .trim();
+  }
+  return next;
+}
+
+function organizationRootTerms(name: string): string[] {
+  const firstToken = name.split(/\s+/)[0]?.replace(/[^\p{L}\p{N}&.-]/gu, "") ?? "";
+  if (!isDistinctiveRootTerm(firstToken)) return [];
+
+  const words = name.split(/\s+/).filter((part) => part !== "&");
+  const ampersandAcronym =
+    name.includes("&") && words.length >= 2 ? words.map((part) => part[0]).join("&") : undefined;
+
+  return [firstToken, ampersandAcronym].filter((term): term is string => Boolean(term));
+}
+
+function isUsefulAlias(value: string): boolean {
+  if (value.length < 2) return false;
+  if (
+    /^(formerly|former|division|foundry|usa|germany|japan|korea|hong kong|switzerland|austria|private|netherlands|asia|sweden|israeli?|optics|photonics)\b/i.test(
+      value,
+    )
+  ) {
+    return false;
+  }
+  if (/\b(foundry|division)\b/i.test(value)) return false;
+  if (/^[A-Z0-9&.+-]{2,12}$/.test(value)) return true;
+  if (/^(?=.*[a-z])(?=.*[A-Z])[\p{L}\p{N}&.+-]{4,24}$/u.test(value)) return true;
+  return /^[A-Z][\p{L}\p{N}&.+-]*(?:\s+[A-Z][\p{L}\p{N}&.+-]*){1,3}$/u.test(value);
+}
+
+function isDistinctiveRootTerm(value: string): boolean {
+  if (value.length < 3) return false;
+  if (/^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo)$/i.test(value)) return false;
+  return true;
+}
+
+function uniqueTerms(terms: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const term of terms.map((item) => item.trim()).filter(Boolean)) {
+    const key = term.toLocaleLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(term);
+  }
+  return result.sort((a, b) => b.length - a.length || a.localeCompare(b));
+}
+
+function findIdentityLeak(value: unknown, term: string, path = "graph"): string | undefined {
+  if (typeof value === "string") {
+    return stringContainsIdentity(value, term) ? `${path}: ${value}` : undefined;
+  }
+  if (Array.isArray(value)) {
+    for (let index = 0; index < value.length; index += 1) {
+      const leak = findIdentityLeak(value[index], term, `${path}[${index}]`);
+      if (leak) return leak;
+    }
+    return undefined;
+  }
+  if (!value || typeof value !== "object") return undefined;
+  for (const [key, entry] of Object.entries(value)) {
+    const leak = findIdentityLeak(entry, term, `${path}.${key}`);
+    if (leak) return leak;
+  }
+  return undefined;
+}
+
+function stringContainsIdentity(value: string, term: string): boolean {
+  return (
+    identityTextPattern(term).test(value) ||
+    identityIdentifierPattern(term).test(value) ||
+    (looksUrlLike(value) && compactIdentityString(term).length >= 5 && compactIdentityString(value).includes(compactIdentityString(term)))
+  );
+}
+
+function identityTextPattern(term: string): RegExp {
+  return new RegExp(`(^|[^\\p{L}\\p{N}_])${escapeRegExp(term)}(?=$|[^\\p{L}\\p{N}_])`, "iu");
+}
+
+function identityIdentifierPattern(term: string): RegExp {
+  const parts = term.split(/[^\p{L}\p{N}]+/u).filter(Boolean).map(escapeRegExp);
+  if (parts.length === 0) return /$a/;
+  return new RegExp(`(^|[^\\p{L}\\p{N}])${parts.join("[^\\p{L}\\p{N}]+")}(?=$|[^\\p{L}\\p{N}])`, "iu");
+}
+
+function looksUrlLike(value: string): boolean {
+  return /https?:\/\/|www\.|[a-z0-9-]+\.[a-z]{2,}/i.test(value);
+}
+
+function compactIdentityString(value: string): string {
+  return value.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}

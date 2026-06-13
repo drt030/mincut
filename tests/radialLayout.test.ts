@@ -97,6 +97,27 @@ function handBuiltFixture(): GraphData {
   };
 }
 
+function weightedSharedFixture(): GraphData {
+  return {
+    graphVersion: "test-radial-weighted-shared-parent",
+    nodes: [
+      { id: "P", name: "Focal product", kind: "product", domain: ["test"] },
+      { id: "S0", name: "Lower-weight subsystem", kind: "module", domain: ["test"] },
+      { id: "S1", name: "Middle subsystem", kind: "module", domain: ["test"] },
+      { id: "S2", name: "Higher-weight subsystem", kind: "module", domain: ["test"] },
+      { id: "H", name: "Shared module", kind: "module", domain: ["test"] },
+    ],
+    edges: [
+      { id: "ePS0", source: "P", target: "S0", relation: "requires" },
+      { id: "ePS1", source: "P", target: "S1", relation: "requires" },
+      { id: "ePS2", source: "P", target: "S2", relation: "requires" },
+      { id: "eS0H", source: "S0", target: "H", relation: "requires", weight: 0.2 },
+      { id: "eS2H", source: "S2", target: "H", relation: "requires", weight: 0.9 },
+    ],
+    evidence: [],
+  };
+}
+
 function unevenTreeFixture(): GraphData {
   const bigDescendants = Array.from({ length: 14 }, (_, i) => ({
     id: `B${i}`,
@@ -411,6 +432,34 @@ test("radialLayout P5: shared node has one position; secondary parent edges mark
   assert.ok(
     hTheta >= start - 1e-9 && hTheta <= end + 1e-9,
     `H.theta (${hTheta}) must be in canonical parent ${canonicalParentId}'s balanced sector [${start}, ${end}]`,
+  );
+});
+
+test("radialLayout chooses the highest-weight requires parent as a shared node's primary parent", () => {
+  const graph = weightedSharedFixture();
+  const result = radialLayout(graph);
+
+  assert.equal(
+    result.edges.get("eS2H")?.style,
+    "primary",
+    "the highest-weight requires edge should be the shared node's primary tree edge",
+  );
+  assert.equal(
+    result.edges.get("eS0H")?.style,
+    "cross",
+    "lower-weight shared-parent edges should stay as cross-link hints",
+  );
+
+  const h = result.positions.get("H");
+  const sector = result.sectors.get("S2");
+  assert.ok(h, "weighted shared node H must be positioned");
+  assert.ok(sector, "primary parent S2 must have a sector");
+  const hTheta = ((h!.theta % TWO_PI) + TWO_PI) % TWO_PI;
+  const start = sector!.center - sector!.width / 2;
+  const end = sector!.center + sector!.width / 2;
+  assert.ok(
+    hTheta >= start - 1e-9 && hTheta <= end + 1e-9,
+    `weighted shared node H should sit in S2's sector; got theta=${hTheta}, sector=[${start}, ${end}]`,
   );
 });
 

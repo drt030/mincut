@@ -45,6 +45,31 @@ test("know-how node detail shows hosted-by and holder summary", () => {
   assert.match(html, /data-holders-listed="1"/);
 });
 
+test("know-how node detail hoists build/buy, holders, and host context into the reader priority area", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(NodeDetailContent, { graph, node: (graph as { nodes: never[] }).nodes[1] }),
+  );
+
+  assert.match(html, /data-testid="detail-knowhow-priority"/);
+  assert.match(html, /data-testid="detail-knowhow-transactability"[\s\S]*data-transactability="must_build"/);
+  assert.match(html, /data-testid="detail-knowhow-holder-priority"[^>]*data-holders-total="2"[^>]*data-holders-listed="1"/);
+  assert.match(html, /data-testid="detail-knowhow-hosted-by-priority"[\s\S]*mod/);
+  assert.match(html, /Heat 83\/100/);
+  assert.doesNotMatch(html, /Heat 0\/100/);
+  assert.ok(
+    html.indexOf('data-testid="detail-knowhow-priority"') < html.indexOf('data-testid="detail-exposure-evidence-summary"'),
+    `know-how build/buy and holder context should appear before supplier/evidence secondary detail; got: ${html}`,
+  );
+  assert.ok(
+    html.indexOf('data-testid="detail-knowhow-priority"') < html.indexOf('data-testid="detail-reader-secondary-signals"'),
+    `know-how build/buy and holder context should appear before collapsed signal chips; got: ${html}`,
+  );
+  assert.ok(
+    html.indexOf('data-testid="detail-knowhow-priority"') < html.indexOf('data-testid="detail-inspect-next"'),
+    `know-how build/buy and holder context should appear before deeper drill-down prompts; got: ${html}`,
+  );
+});
+
 test("organization links carry listing chips with ticker", () => {
   const html = renderToStaticMarkup(
     React.createElement(NodeDetailContent, { graph, node: (graph as { nodes: never[] }).nodes[1] }),
@@ -52,4 +77,31 @@ test("organization links carry listing chips with ticker", () => {
   assert.match(html, /data-listing-status="public"/);
   assert.match(html, /6954\.T/);
   assert.match(html, /data-listing-status="private"/);
+});
+
+test("know-how node with no modeled holders does not look like Heat zero or a concatenated count", () => {
+  const gapGraph = {
+    nodes: [
+      node("host", "module"),
+      node("kh_gap", "engineering_method", {
+        transactability: "must_build",
+        maturityScore: 40,
+      }),
+    ],
+    edges: [
+      { id: "e_gap", source: "host", target: "kh_gap", relation: "requires" },
+    ],
+    evidence: [],
+  } as never;
+
+  const html = renderToStaticMarkup(
+    React.createElement(NodeDetailContent, { graph: gapGraph, node: (gapGraph as { nodes: never[] }).nodes[1] }),
+  );
+
+  assert.match(html, /data-testid="detail-knowhow-holder-priority"[^>]*data-holders-total="0"/);
+  assert.match(html, /0 holders/);
+  assert.match(html, /No modeled holders yet/);
+  assert.match(html, /Unscored/);
+  assert.doesNotMatch(html, /Heat 0\/100/);
+  assert.doesNotMatch(html, /holders0\s*0 listed/i);
 });

@@ -10,7 +10,7 @@ import { radialBandFor } from "../lib/lod";
  * `RadialNode` branches its rendered output on `radialBandFor(zoom)`:
  *
  *   Band 1 (zoom < 0.5):    centered overview dot in the detail footprint.
- *   Band 2 (0.5 ≤ z < 1.5): larger circle + truncated label + outline.
+ *   Band 2 (0.5 ≤ z < 1.5): larger circle + two-line label + outline.
  *   Band 3 (zoom ≥ 1.5):    136×72 HTML card with full name + maturity badge.
  *
  * The component takes `zoom` as an explicit prop (not subscribed via
@@ -21,10 +21,9 @@ import { radialBandFor } from "../lib/lod";
  * value through React Flow's `data` prop to a thin wrapper that calls
  * this component.
  *
- * Band-2 truncation rule: a name longer than 12 chars is hard-sliced
- * at 11 chars and a Unicode ellipsis appended (final length 12).
- * Word-boundary truncation would be nicer but is overkill for the band-2
- * marker — the band-3 card always shows the full name.
+ * Band-2 label rule: labels wrap to at most two lines. English wraps on
+ * words; CJK labels can wrap between characters. If a label still does
+ * not fit, only the second line is ellipsized.
  *
  * The band-2 outline carries selection affordance, plus — in the
  * know-how layer only — a red zero-holder risk mark supplied by
@@ -122,8 +121,8 @@ function HiddenHandles({ top }: { top: number }) {
   );
 }
 
-const MAX_LABEL_CHARS = 15;
-const KEEP_LABEL_CHARS = 14;
+const MAX_BAND2_LINE_UNITS = 18;
+const BAND2_LABEL_FONT_SIZE = 12;
 const ELLIPSIS = "…";
 const BAND2_WIDTH = 108;
 const BAND2_HEIGHT = 64;
@@ -134,11 +133,203 @@ const BAND3_CENTER_Y = BAND3_HEIGHT / 2;
 const BAND2_OFFSET_X = (BAND3_WIDTH - BAND2_WIDTH) / 2;
 const BAND2_OFFSET_Y = (BAND3_HEIGHT - BAND2_HEIGHT) / 2;
 const BAND2_CENTER_X = BAND2_OFFSET_X + BAND2_WIDTH / 2;
-const BAND2_CIRCLE_Y = BAND2_OFFSET_Y + 20;
+const BAND2_CIRCLE_Y = BAND2_OFFSET_Y + 19;
 
-function truncateLabel(name: string): string {
-  if (name.length <= MAX_LABEL_CHARS) return name;
-  return `${name.slice(0, KEEP_LABEL_CHARS)}${ELLIPSIS}`;
+const CJK_RE = /[\u3400-\u9fff\uf900-\ufaff]/u;
+const LATIN_WORD_RE = /^[A-Za-z0-9][A-Za-z0-9+.#-]*$/u;
+const JOIN_WITHOUT_SPACE_BEFORE = new Set([
+  "/",
+  "\\",
+  "·",
+  "-",
+  "–",
+  "—",
+  ")",
+  "]",
+  "}",
+  "）",
+  "】",
+  "》",
+  ",",
+  ".",
+  ":",
+  ";",
+  "，",
+  "。",
+  "：",
+  "；",
+  "、",
+]);
+const JOIN_WITHOUT_SPACE_AFTER = new Set([
+  "/",
+  "\\",
+  "·",
+  "-",
+  "–",
+  "—",
+  "(",
+  "[",
+  "{",
+  "（",
+  "【",
+  "《",
+  "、",
+]);
+const JOIN_WITH_SPACE_AFTER = new Set([",", ".", ":", ";"]);
+const ENGLISH_LINE_END_ORPHANS = new Set([
+  "and",
+  "or",
+  "of",
+  "for",
+  "to",
+  "with",
+  "in",
+  "on",
+  "by",
+]);
+
+function tokenWeight(token: string): number {
+  let weight = 0;
+  for (const char of token) {
+    if (CJK_RE.test(char)) weight += 2;
+    else if (char === " ") weight += 0.5;
+    else if (/[A-Z0-9]/.test(char)) weight += 1.05;
+    else if (/[/\\·.,:;()[\]{}+\-–—#]/.test(char)) weight += 0.55;
+    else weight += 0.95;
+  }
+  return weight;
+}
+
+function lineWeight(line: string): number {
+  return tokenWeight(line);
+}
+
+function tokenizeLabel(name: string): string[] {
+  const normalized = compactCanvasLabel(name)
+    .replace(/\s*([/\\·])\s*/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+  return normalized.match(/[\u3400-\u9fff\uf900-\ufaff]|[A-Za-z0-9][A-Za-z0-9+.#-]*|[^\sA-Za-z0-9\u3400-\u9fff\uf900-\ufaff]/gu) ?? [];
+}
+
+function compactCanvasLabel(name: string): string {
+  return name
+    .replace(/\bonboard compute and control electronics\b/gi, "Compute/control elec.")
+    .replace(/\breal-time MCU and safety controller\b/gi, "RT MCU safety ctrl")
+    .replace(/\bvision-language-action\b/gi, "VLA")
+    .replace(/\bsimulation-to-real\b/gi, "Sim-to-real")
+    .replace(/\bend-of-line\b/gi, "EOL")
+    .replace(/\bmanagement system\b/gi, "mgmt")
+    .replace(/\bcharging system\b/gi, "charging")
+    .replace(/\btactile system\b/gi, "tactile")
+    .replace(/\bcontrol electronics\b/gi, "control elec.")
+    .replace(/\bpolicy model\b/gi, "policy")
+    .replace(/\bmanufacturing\b/gi, "mfg")
+    .replace(/\bmanagement\b/gi, "mgmt")
+    .replace(/\bconfiguration\b/gi, "config")
+    .replace(/,\s+and\s+/gi, " + ")
+    .replace(/\s+and\s+/gi, " + ");
+}
+
+function shouldInsertSpace(previous: string, next: string): boolean {
+  if (!previous || !next) return false;
+  if (JOIN_WITHOUT_SPACE_BEFORE.has(next) || JOIN_WITHOUT_SPACE_AFTER.has(previous)) return false;
+  if (previous === "+" || next === "+") return true;
+  if (JOIN_WITH_SPACE_AFTER.has(previous)) return true;
+  if (CJK_RE.test(previous) || CJK_RE.test(next)) return false;
+  return LATIN_WORD_RE.test(previous) && LATIN_WORD_RE.test(next);
+}
+
+function joinLabelTokens(tokens: string[]): string {
+  let line = "";
+  let previous = "";
+  for (const token of tokens) {
+    if (!token) continue;
+    line += shouldInsertSpace(previous, token) ? ` ${token}` : token;
+    previous = token;
+  }
+  return line;
+}
+
+function badBreakPenalty(leftTokens: string[], rightTokens: string[]): number {
+  const left = leftTokens[leftTokens.length - 1] ?? "";
+  const right = rightTokens[0] ?? "";
+  if (!left || !right) return 0;
+  if (["(", "[", "{", "（", "【", "《"].includes(left)) return 12;
+  if ([")", "]", "}", "）", "】", "》"].includes(right)) return 12;
+  if (left === "+" || right === "+") return 12;
+  if (JOIN_WITHOUT_SPACE_AFTER.has(left) || JOIN_WITHOUT_SPACE_BEFORE.has(right)) return 8;
+  if (ENGLISH_LINE_END_ORPHANS.has(left.toLowerCase())) return 20;
+  return 0;
+}
+
+function preferredBreakBonus(left: string, right: string): number {
+  let bonus = 0;
+  if (/^[（(【《]/u.test(right)) bonus -= 8;
+  if (/^[与和及或]/u.test(right)) bonus -= 8;
+  if (/^(设备|系统|模组|模块|材料|工艺|产能|制造|组装|封装)/u.test(right)) bonus -= 4;
+  if (/(设备|系统|模组|模块|材料|工艺|产能)$/u.test(left)) bonus -= 2;
+  return bonus;
+}
+
+function truncateLineTokens(tokens: string[]): string {
+  let accepted: string[] = [];
+  for (const token of tokens) {
+    const candidate = [...accepted, token];
+    if (lineWeight(`${joinLabelTokens(candidate)}${ELLIPSIS}`) <= MAX_BAND2_LINE_UNITS) {
+      accepted = candidate;
+      continue;
+    }
+    break;
+  }
+
+  if (accepted.length > 0) return `${joinLabelTokens(accepted)}${ELLIPSIS}`;
+
+  let line = "";
+  for (const char of joinLabelTokens(tokens)) {
+    if (lineWeight(`${line}${char}${ELLIPSIS}`) > MAX_BAND2_LINE_UNITS) break;
+    line += char;
+  }
+  return line ? `${line}${ELLIPSIS}` : ELLIPSIS;
+}
+
+function splitLabelLines(name: string): string[] {
+  const tokens = tokenizeLabel(name);
+  if (tokens.length === 0) return [name];
+  const full = joinLabelTokens(tokens);
+  if (lineWeight(full) <= MAX_BAND2_LINE_UNITS) return [full];
+
+  let best: { lines: [string, string]; score: number } | null = null;
+  for (let i = 1; i < tokens.length; i += 1) {
+    const leftTokens = tokens.slice(0, i);
+    const rightTokens = tokens.slice(i);
+    const left = joinLabelTokens(leftTokens);
+    const right = joinLabelTokens(rightTokens);
+    const leftWeight = lineWeight(left);
+    const rightWeight = lineWeight(right);
+    if (leftWeight > MAX_BAND2_LINE_UNITS || rightWeight > MAX_BAND2_LINE_UNITS) continue;
+    const score =
+      Math.abs(leftWeight - rightWeight) +
+      Math.max(leftWeight, rightWeight) * 0.02 +
+      badBreakPenalty(leftTokens, rightTokens) +
+      preferredBreakBonus(left, right);
+    if (!best || score < best.score) best = { lines: [left, right], score };
+  }
+  if (best) return best.lines;
+
+  const firstLineTokens: string[] = [];
+  for (let i = 0; i < tokens.length - 1; i += 1) {
+    const candidate = [...firstLineTokens, tokens[i]];
+    if (lineWeight(joinLabelTokens(candidate)) > MAX_BAND2_LINE_UNITS) break;
+    firstLineTokens.push(tokens[i]);
+  }
+  if (firstLineTokens.length === 0) {
+    firstLineTokens.push(tokens[0]);
+  }
+
+  const firstLine = joinLabelTokens(firstLineTokens);
+  const secondLine = truncateLineTokens(tokens.slice(firstLineTokens.length));
+  return [firstLine, secondLine].filter(Boolean);
 }
 
 function KnowHowBottleneckBadge({ count, cx, cy }: { count: number; cx: number; cy: number }) {
@@ -214,7 +405,7 @@ export function RadialNode({
     // visible content stays 108×64, but the outer SVG reserves the
     // 136×72 detail footprint so every display mode uses the same layout
     // box.
-    const label = truncateLabel(name);
+    const labelLines = splitLabelLines(name);
     const radiusByRole = {
       root: 18,
       anchor: 17,
@@ -272,12 +463,20 @@ export function RadialNode({
           {showLabel ? (
             <text
               x={BAND2_CENTER_X}
-              y={BAND2_OFFSET_Y + 54}
               textAnchor="middle"
-              fontSize={13}
+              fontSize={BAND2_LABEL_FONT_SIZE}
+              fontWeight={650}
               fill="#0f172a"
             >
-              {label}
+              {labelLines.map((line, index) => (
+                <tspan
+                  key={`${line}-${index}`}
+                  x={BAND2_CENTER_X}
+                  y={labelLines.length === 1 ? BAND2_OFFSET_Y + 57 : BAND2_OFFSET_Y + 50 + index * 13}
+                >
+                  {line}
+                </tspan>
+              ))}
             </text>
           ) : null}
         </svg>
@@ -321,6 +520,8 @@ export function RadialNode({
                 display: "-webkit-box",
                 WebkitBoxOrient: "vertical",
                 WebkitLineClamp: 2,
+                overflowWrap: "break-word",
+                wordBreak: "normal",
               }}
             >
               {name}

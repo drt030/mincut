@@ -28,6 +28,28 @@ export function nodeRisk(node: Node, graph: GraphData): number {
   return Math.max(0, Math.min(1, maturityFactor * costShare));
 }
 
+/**
+ * Reader-facing priority signal. Keep `nodeRisk` as the strict
+ * maturity-by-cost formula; this helper lets authored bottleneck claims
+ * surface in ranking even before cost data is available.
+ */
+export function nodeRiskSignal(node: Node, graph: GraphData): number {
+  const computed = nodeRisk(node, graph);
+  if ((node.bottleneckOf?.length ?? 0) > 0) {
+    const targetsProduct = node.bottleneckOf?.some((targetId) => {
+      const target = graph.nodes.find((candidate) => candidate.id === targetId);
+      return target?.kind === "product";
+    });
+    const explicitBase = targetsProduct ? 0.9 : 0.78;
+    const maturityPressure =
+      typeof node.maturityScore === "number"
+        ? Math.max(0, Math.min(0.09, (1 - node.maturityScore / 100) * 0.09))
+        : 0.05;
+    return Math.max(computed, Math.min(0.99, explicitBase + maturityPressure));
+  }
+  return computed;
+}
+
 function costShareInGraph(node: Node, graph: GraphData): number {
   // Per spec §5: cost_share reflects how much of the graph's cost the node
   // is responsible for. We use the node's *rolled-up* cost (max of direct

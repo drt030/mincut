@@ -4,6 +4,7 @@ import {
   KNOW_HOW_FILLS,
   ARTIFACT_DIM_FILL,
   knowHowFill,
+  knowHowLayerFill,
   layerHidesNode,
   layerHidesEdge,
   knowHowBottleneckCounts,
@@ -55,6 +56,14 @@ test("knowHowFill maps transactability to the three fills", () => {
   assert.equal(knowHowFill(khU), KNOW_HOW_FILLS.unset);
   assert.notEqual(KNOW_HOW_FILLS.must_build, KNOW_HOW_FILLS.procurable);
   assert.equal(typeof ARTIFACT_DIM_FILL, "string");
+});
+
+test("knowHowLayerFill preserves know-how subsystem color and dims artifact context", () => {
+  const [, mod, khB] = (graph as { nodes: never[] }).nodes;
+  const subsystemFill = "hsl(212, 68%, 52%)";
+
+  assert.equal(knowHowLayerFill(khB, subsystemFill), subsystemFill);
+  assert.equal(knowHowLayerFill(mod, subsystemFill), ARTIFACT_DIM_FILL);
 });
 
 test("knowHowBottleneckCounts counts hidden bottleneck know-how per host", () => {

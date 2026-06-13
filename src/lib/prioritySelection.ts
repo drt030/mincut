@@ -5,7 +5,7 @@ import {
 } from "@/lib/edgeStyleFor";
 import { focusedSubset } from "@/lib/focusedSubset";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
-import { nodeRisk } from "@/lib/nodeRisk";
+import { nodeRiskSignal } from "@/lib/nodeRisk";
 import type { GraphData, Node } from "@/lib/schema";
 
 export type PriorityEntry = {
@@ -73,12 +73,12 @@ function scoreFor(
       return { score, band: bandForValue(node.maturityScore, "maturity") };
     }
     case "bottleneck-risk": {
-      const risk = nodeRisk(node, graph);
+      const risk = nodeRiskSignal(node, graph);
       if (risk <= 0) return null;
       return { score: risk, band: bandForValue(risk, "bottleneck-risk") };
     }
     case "overall": {
-      const risk = nodeRisk(node, graph);
+      const risk = nodeRiskSignal(node, graph);
       if (risk <= 0) return null;
       return { score: risk, band: bandForValue(risk, "overall") };
     }

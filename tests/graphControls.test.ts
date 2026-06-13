@@ -4,7 +4,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { GraphControls } from "../src/components/GraphControls";
 
-test("GraphControls exposes one compact Full System + route control surface", () => {
+test("GraphControls exposes one compact lens control surface without static map controls", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
       routeMode: "cost-drivers",
@@ -14,7 +14,8 @@ test("GraphControls exposes one compact Full System + route control surface", ()
   );
 
   assert.match(html, /data-testid="graph-controls"/);
-  assert.match(html, /Full system/i);
+  assert.doesNotMatch(html, /Full system/i);
+  assert.doesNotMatch(html, /完整系统/);
   assert.match(html, /Cost drivers/i);
   assert.match(html, /System decomposition/i);
   assert.match(html, /Bottleneck risk/i);
@@ -36,7 +37,8 @@ test("GraphControls explains the active risk lens without Top 1-5 rank copy", ()
 
   assert.match(html, /data-testid="lens-legend"/);
   assert.match(html, /Edge color \+ width/i);
-  assert.match(html, /target node risk/i);
+  assert.match(html, /commercialization bottleneck risk/i);
+  assert.match(html, /block scale, cost, or adoption/i);
   assert.doesNotMatch(html, /Sector tint/i);
   assert.doesNotMatch(html, /structural grouping/i);
   assert.doesNotMatch(html, /Top 1-5/i);
@@ -92,8 +94,8 @@ test("GraphControls reverses the maturity legend so warm means least mature", ()
     }),
   );
 
-  assert.match(html, /least mature/i);
-  assert.match(html, /uncertain/i);
+  assert.match(html, /maturity gap/i);
+  assert.match(html, /less proven/i);
   assert.match(html, /mature/i);
   assert.doesNotMatch(html, /Top 1-5/i);
 });

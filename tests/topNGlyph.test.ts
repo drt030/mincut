@@ -12,9 +12,9 @@ import { loadGraphData } from "../src/lib/graphLoader";
 import { focusedSubset } from "../src/lib/focusedSubset";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
 import { bandForValue, nodeTypicalCostRmb } from "../src/lib/edgeStyleFor";
-import { nodeRisk } from "../src/lib/nodeRisk";
+import { nodeRiskSignal } from "../src/lib/nodeRisk";
 import { selectTopN } from "../src/lib/prioritySelection";
-import type { GraphData } from "../src/lib/schema";
+import type { Edge, GraphData, Node } from "../src/lib/schema";
 
 // ------------------------------------------------------------------
 // Fixture: the real loaded dataset.
@@ -37,11 +37,11 @@ const focalIds: Set<string> = focusedSubset(FOCAL_PRODUCT_ID, graph).nodes;
 // Test 4 — selectTopN(mode='bottleneck-risk', n=3) sorted desc, band typed
 // ==================================================================
 //
-// In bottleneck-risk mode, the top-N MUST be sorted by node risk
+// In bottleneck-risk mode, the top-N MUST be sorted by reader risk signal
 // descending. The band field MUST match the 5-band scheme returned
 // by `bandForValue(risk, 'bottleneck-risk')`. Oracle: we compute the
 // expected rank-1 node by scanning the focal subtree with the same
-// risk function and confirm `selectTopN` agrees.
+// signal function and confirm `selectTopN` agrees.
 // ==================================================================
 test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by risk desc, band matches scheme", () => {
   const top = selectTopN(graph, "bottleneck-risk", 3, null);
@@ -52,13 +52,13 @@ test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by risk desc, band mat
     `selectTopN(..., n=3) must return exactly 3 entries; got ${top.length}`,
   );
 
-  // Sorted by underlying risk descending. We re-compute risk per
-  // node via nodeRisk to avoid depending on whether `selectTopN`
+  // Sorted by underlying risk signal descending. We re-compute per
+  // node via nodeRiskSignal to avoid depending on whether `selectTopN`
   // returns the risk value itself.
   const ranked = top.map((t) => {
     const node = graph.nodes.find((n) => n.id === t.nodeId);
     assert.ok(node, `selectTopN returned unknown nodeId ${t.nodeId}`);
-    return { nodeId: t.nodeId, risk: nodeRisk(node!, graph), band: t.band };
+    return { nodeId: t.nodeId, risk: nodeRiskSignal(node!, graph), band: t.band };
   });
   for (let i = 1; i < ranked.length; i += 1) {
     assert.ok(
@@ -88,6 +88,59 @@ test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by risk desc, band mat
       `selectTopN entry[${i}].rank must equal ${i + 1}; got ${top[i].rank}`,
     );
   }
+});
+
+test("selectTopN(bottleneck-risk): explicit bottleneck claims rank even before cost data exists", () => {
+  const nodes: Node[] = [
+    {
+      id: "candidate_product",
+      name: "Candidate product",
+      kind: "product",
+      domain: ["test"],
+      reviewStatus: "unreviewed",
+    },
+    {
+      id: "explicit_constraint",
+      name: "Explicit constraint",
+      kind: "module",
+      domain: ["test"],
+      maturityScore: 45,
+      maturityLabel: "prototype",
+      maturityAsOf: "2026-06",
+      bottleneckOf: ["candidate_product"],
+      reviewStatus: "unreviewed",
+    },
+    {
+      id: "unpriced_component",
+      name: "Unpriced component",
+      kind: "module",
+      domain: ["test"],
+      maturityScore: 20,
+      maturityLabel: "hypothesis",
+      maturityAsOf: "2026-06",
+      reviewStatus: "unreviewed",
+    },
+  ];
+  const edges: Edge[] = [
+    { id: "e_candidate_explicit", source: "candidate_product", target: "explicit_constraint", relation: "requires" },
+    { id: "e_candidate_unpriced", source: "candidate_product", target: "unpriced_component", relation: "requires" },
+  ];
+  const fixture: GraphData = { graphVersion: "explicit-bottleneck-priority", nodes, edges, evidence: [] };
+
+  const top = selectTopN(
+    fixture,
+    "bottleneck-risk",
+    3,
+    new Set(nodes.map((node) => node.id)),
+  );
+
+  assert.equal(top[0]?.nodeId, "explicit_constraint");
+  assert.equal(top[0]?.band, 5);
+  assert.equal(
+    top.some((entry) => entry.nodeId === "unpriced_component"),
+    false,
+    "unpriced low-maturity nodes without explicit bottleneck claims should not appear just because cost data is missing",
+  );
 });
 
 // ==================================================================
@@ -300,7 +353,7 @@ test("GraphExplorer.tsx regression guard: no legacy banner strings in JSX text",
   }
 });
 
-test("LanguageProvider.tsx regression guard: Chinese manufacturer label stays candidate-scoped", () => {
+test("LanguageProvider.tsx regression guard: Chinese manufacturer label stays audit-scoped", () => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -310,8 +363,8 @@ test("LanguageProvider.tsx regression guard: Chinese manufacturer label stays ca
   const raw = fs.readFileSync(filePath, "utf8");
 
   assert.ok(
-    raw.includes('manufacturerCandidates: "候选制造商 / 投资暴露"'),
-    "Chinese manufacturer heading should state candidate / investment exposure, not confirmed market leadership",
+    raw.includes('manufacturerCandidates: "已建模制造商连接"'),
+    "Chinese manufacturer heading should state modeled graph links, not confirmed market leadership",
   );
   assert.equal(
     raw.includes('manufacturerCandidates: "主要制造商"'),
@@ -319,8 +372,8 @@ test("LanguageProvider.tsx regression guard: Chinese manufacturer label stays ca
     'Chinese manufacturer heading must not regress to "主要制造商"',
   );
   assert.ok(
-    raw.includes("unreviewed 不等于已确认的市场主导者"),
-    "Chinese manufacturer hint should explain that unreviewed entries are not confirmed leaders",
+    raw.includes("不是已验证 BOM、排名或投资建议"),
+    "Chinese manufacturer hint should explain that graph links are audit-only, not a verified BOM, ranking, or recommendation",
   );
 });
 
@@ -406,7 +459,30 @@ test("GraphExplorer.tsx regression guard: node hue uses the active canvas root c
   );
 });
 
-test("GraphExplorer.tsx regression guard: node selection does not refresh full-system fit inputs", () => {
+test("GraphExplorer.tsx regression guard: default analysis lens is bottleneck risk", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.match(
+    noLineComments,
+    /useState<ColorMode>\(["']bottleneck-risk["']\)/,
+    "GraphExplorer should open retail visitors on the bottleneck-risk heat lens by default",
+  );
+  assert.doesNotMatch(
+    noLineComments,
+    /useState<ColorMode>\(["']cost["']\)/,
+    "GraphExplorer must not default the main graph entry to the cost lens",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: node selection does not refresh reader-fit inputs", () => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -417,7 +493,7 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh full-s
   const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
   const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
   const fitNodesBlock =
-    noLineComments.match(/const fullSystemFitNodes = useMemo\([\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ??
+    noLineComments.match(/const readerFitNodes = useMemo\([\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ??
     "";
 
   assert.ok(
@@ -427,12 +503,267 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh full-s
   assert.equal(
     fitNodesBlock.includes("flowNodes.map"),
     false,
-    "full-system fit inputs must not be derived from flowNodes because flowNodes changes when selectedId changes",
+    "reader-fit inputs must not be derived from flowNodes because flowNodes changes when selectedId changes",
   );
   assert.equal(
     fitNodesBlock.includes("selectedId"),
     false,
     "selecting a node should not change fitFullSystemView dependencies or reset the user's zoom/pan",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: product nodes keep summary first while know-how opens detail", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const onSelectBlock =
+    noLineComments.match(/const onSelect = useCallback\(\(nodeId: string\) => \{[\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ??
+    "";
+
+  assert.ok(onSelectBlock.length > 0, "GraphExplorer should keep an explicit onSelect callback");
+  assert.match(onSelectBlock, /setSelectedId\(nodeId\);/);
+  assert.match(
+    onSelectBlock,
+    /const isKnowHowSelection = Boolean\(target && isKnowHowNode\(target\)\);/,
+    "node selection should explicitly distinguish product-layer nodes from know-how nodes",
+  );
+  assert.match(
+    onSelectBlock,
+    /setRailPanel\(isKnowHowSelection \? ["']detail["'] : ["']route["']\);/,
+    "product nodes should keep the reader summary first, while know-how nodes should open the technical detail panel",
+  );
+  assert.doesNotMatch(
+    onSelectBlock,
+    /setRailPanel\(["']detail["']\);/,
+    "node selection must not force every node directly into the full technical detail tab",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: URL focus starts on the reader summary panel", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.match(
+    noLineComments,
+    /const \[railPanel, setRailPanel\] = useState<["']route["'] \| ["']detail["']>\(["']route["']\);/,
+    "URL focus/path may preselect a node, but the first rail screen should still be the reader summary route tab",
+  );
+  assert.doesNotMatch(
+    noLineComments,
+    /initialFocus === currentRootId \? ["']route["'] : ["']detail["']/,
+    "initial URL focus must not force the rail straight into the full detail tab",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: RouteDetailRail receives controlled panel and access state", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const railBlock = noLineComments.match(/<RouteDetailRail[\s\S]*?\/>/)?.[0] ?? "";
+
+  assert.ok(railBlock.length > 0, "GraphExplorer should render RouteDetailRail explicitly");
+  assert.match(railBlock, /selectedNode=\{selectedNode\}/);
+  assert.match(railBlock, /exposureAccess=\{exposureAccess\}/);
+  assert.match(railBlock, /panel=\{railPanel\}/);
+  assert.match(railBlock, /onPanelChange=\{setRailPanel\}/);
+});
+
+test("mobile graph route layout shows the map before the reader rail", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const mobileBlock = css.match(/@media \(max-width:\s*900px\)\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+
+  assert.match(
+    mobileBlock,
+    /\.graph-map-column\s*\{[\s\S]*order:\s*1/,
+    "mobile graph routes should keep product summary, layer switch, controls, and map before the reader rail",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-toolbar-row\s*\{[\s\S]*order:\s*2/,
+    "mobile graph routes should show the layer switch and compact lens controls outside the map instead of covering nodes",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-canvas-route-led\s*\{[\s\S]*order:\s*3/,
+    "mobile graph routes should put the map before the reader rail",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*order:\s*2/,
+    "mobile graph routes should keep the route detail rail after the map column",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*max-height:\s*none/,
+    "mobile route detail rail should not clip the Start here / supplier / evidence summary",
+  );
+  assert.match(
+    mobileBlock,
+    /\.layer-toggle\s*\{[\s\S]*position:\s*static/,
+    "mobile graph routes should keep the layer toggle in document flow instead of overlaying reader text",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-toolbar-row\s*>\s*\.graph-controls\s*\{[\s\S]*position:\s*static/,
+    "mobile graph controls should be in document flow instead of overlaying the map",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-toolbar-row\s*>\s*\.graph-controls\s+\.graph-controls-label,\s*\n\s*\.graph-toolbar-row\s*>\s*\.graph-controls\s+\.lens-legend\s*\{[\s\S]*display:\s*none/,
+    "mobile graph routes should hide dense control labels and legends from the first map viewport",
+  );
+  assert.match(
+    mobileBlock,
+    /\.domain-thesis-actions\s*\{[\s\S]*display:\s*none/,
+    "mobile graph routes should defer paid-candidate explanation from the first viewport so the graph appears sooner",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-root-parent-button\s*\{[\s\S]*display:\s*none/,
+    "mobile graph routes should hide secondary parent-root navigation from the product strip",
+  );
+});
+
+test("route-led graph does not render a card overlay over the real graph", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const graphExplorerSource = fs.readFileSync(
+    path.join(process.cwd(), "src", "components", "GraphExplorer.tsx"),
+    "utf8",
+  );
+  const noBlockComments = graphExplorerSource.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.doesNotMatch(
+    noLineComments,
+    /RouteMapPreviewOverlay|route-map-preview-/,
+    "route-led graph must not add MODULE preview cards that cover the real React Flow graph",
+  );
+  assert.doesNotMatch(
+    css,
+    /\.route-map-preview-/,
+    "route-led graph CSS should not keep dead preview-card overlay styles",
+  );
+  assert.match(
+    css,
+    /\.graph-canvas-route-led\s+\.react-flow__viewport\s*\{[\s\S]*opacity:\s*1/,
+    "the real React Flow graph should remain fully visible in route-led pages",
+  );
+  const viewportBlocks = css.match(/\.graph-canvas-route-led[^{]*\.react-flow__viewport\s*\{[^}]*\}/g) ?? [];
+  assert.ok(viewportBlocks.length > 0, "route-led graph should have explicit viewport visibility rules");
+  for (const block of viewportBlocks) {
+    assert.doesNotMatch(
+      block,
+      /opacity:\s*0\.(22|3|62)/,
+      "route-led pages should not dim the real graph to make room for non-graph cards",
+    );
+  }
+});
+
+test("route-led desktop layout keeps the graph dominant over the detail rail", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const layoutBlock = css.match(/\.graph-layout-radial\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+  const railBlock = css.match(/\.route-detail-rail\s*\{\n\s*background:[\s\S]*?\n\}/)?.[0] ?? "";
+
+  assert.match(
+    layoutBlock,
+    /grid-template-columns:\s*minmax\(0,\s*1fr\)\s+clamp\(360px,\s*30vw,\s*420px\)/,
+    "desktop route layout should reserve the larger column for the graph and keep the reader rail secondary",
+  );
+  assert.match(
+    railBlock,
+    /width:\s*clamp\(360px,\s*30vw,\s*420px\)/,
+    "route detail rail should be readable without taking nearly half of a 1280px viewport",
+  );
+  assert.doesNotMatch(
+    `${layoutBlock}\n${railBlock}`,
+    /clamp\(520px,\s*40vw,\s*620px\)|width:\s*520px/,
+    "route detail rail must not return to the oversized 520px+ layout that makes the graph feel small",
+  );
+});
+
+test("desktop graph layer toggle stays in the toolbar instead of covering the graph", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const explorerSource = fs.readFileSync(
+    path.join(process.cwd(), "src", "components", "GraphExplorer.tsx"),
+    "utf8",
+  );
+  const layerToggleBlock = css.match(/\.layer-toggle\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+  const toolbarBlock = css.match(/\.graph-toolbar-row\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+
+  assert.match(
+    explorerSource,
+    /className="graph-toolbar-row"[\s\S]*<LayerToggleFloatingButton[\s\S]*<GraphControls/,
+    "GraphExplorer should render the layer toggle and lens controls inside the same toolbar before the canvas",
+  );
+  assert.match(
+    toolbarBlock,
+    /display:\s*flex/,
+    "graph toolbar should use ordinary document flow instead of a canvas overlay",
+  );
+  assert.match(
+    layerToggleBlock,
+    /position:\s*static/,
+    "desktop layer toggle should not be absolutely positioned over graph nodes",
+  );
+  assert.doesNotMatch(
+    layerToggleBlock,
+    /position:\s*(absolute|fixed)/,
+    "desktop layer toggle must not float over the graph or access-policy text",
+  );
+});
+
+test("route-led graph hides oversized sector labels by default", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+
+  assert.match(
+    css,
+    /\.graph-canvas-route-led\s+\.sector-label-layer\s*\{[\s\S]*display:\s*none/,
+    "route-led graph views should not let large sector labels compete with the reader rail or overlap controls",
+  );
+});
+
+test("RadialEdge overview keeps non-route primary edges visually quiet", () => {
+  const filePath = path.join(process.cwd(), "src", "components", "RadialEdge.tsx");
+  const raw = fs.readFileSync(filePath, "utf8");
+
+  assert.match(
+    raw,
+    /Math\.min\(Math\.max\(strokeWidth \* 0\.4,\s*highlighted \? 1 : 0\.55\),\s*1\.15\)/,
+    "normal overview primary edges should be thin enough that route branches and labels carry attention",
+  );
+  assert.match(
+    raw,
+    /Math\.min\(Math\.max\(strokeWidth \* 0\.65,\s*0\.9\),\s*4\.8\)/,
+    "mid-zoom non-branch risk edges should preserve visible 5-band width differences without using raw 7.2px lines",
+  );
+  assert.match(
+    raw,
+    /band === 1 \? 2\.4 : band === 2 \? 3\.2 : 4\.6/,
+    "overview branch emphasis should be visible without becoming a thick red route bundle",
+  );
+  assert.match(
+    raw,
+    /isOuterDetail \? 0\.1 : 0\.24/,
+    "normal overview primary edges should stay low-opacity so AI compute does not read as a red edge bundle",
   );
 });
 
@@ -477,6 +808,27 @@ test("GraphExplorer.tsx regression guard: node outline stays neutral while root 
     /return\s+["']transparent["']/.test(outlineBlock),
     true,
     "ordinary node contours should stay visually absent; only selected/root nodes should keep a neutral outline affordance",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: know-how layer keeps subsystem fill color", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+
+  assert.match(
+    raw,
+    /knowHowLayerFill\(node,\s*baseFill\)/,
+    "know-how layer nodes should preserve subsystem-family colour instead of replacing fill with status colour",
+  );
+  assert.doesNotMatch(
+    raw,
+    /isKh\s*\?\s*knowHowFill\(node\)\s*:\s*ARTIFACT_DIM_FILL/,
+    "GraphExplorer must not gray or status-color know-how nodes as their primary fill",
   );
 });
 

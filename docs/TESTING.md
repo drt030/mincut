@@ -26,7 +26,7 @@ npm run check:active-graph-scope
 npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run
 ```
 
-`check:active-graph-scope` covers active v0 graph exposure, reference consistency, and the product detail full graph guard.
+`check:active-graph-scope` covers active v0 graph exposure, reference consistency, the `/explore` active graph research home, `/d/[slug]` domain-registry switching, and the product detail full graph guard. Root `/` is the commercial landing page and must not load graph data.
 
 Verification and QA gate checks should use `--dry-run` so they do not write a new report or update `data/tasks/pending_tasks.json`.
 
@@ -59,7 +59,7 @@ This script is necessary but not sufficient. It cannot judge whether the graph i
 
 For changes touching `src/components`, `src/app/globals.css`, app routes, graph rendering, filters, layout, or language display, open a clean dev server and test the changed surface manually.
 
-Run build before starting the browser-check dev server, or restart the dev server after running `npm run build`. `next build` writes `.next` and can corrupt an already-running `next dev` process, producing false browser failures.
+Run build before starting the browser-check dev server, or restart the dev server after running `npm run build`. `next build` writes `.next` and can corrupt an already-running `next dev` process, producing false browser failures. If a dev server is already running for manual testing, do not run `npm run build` or `npm run verify:ui` in a worker handoff; leave final build and `verify:ui` to the main agent after they intentionally stop or replace the dev server.
 
 When the user is actively using their browser, run browser checks in the background instead of reusing their window. Prefer a clean dev server on an unused port plus a temporary headless browser profile, for example Chrome with `--headless=new` and a throwaway `--user-data-dir`. Report when the in-app browser is unavailable and which fallback browser surface was used.
 

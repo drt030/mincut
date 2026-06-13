@@ -33,6 +33,14 @@ type Props = {
   product: Node;
 };
 
+function heatScoreValue(score: number): string {
+  return `${Math.round(score * 100)}/100`;
+}
+
+function heatScoreLabel(t: (key: string) => string, score: number): string {
+  return `${t("risk")} ${heatScoreValue(score)}`;
+}
+
 export function ProductView({ graph, product }: Props) {
   const { language, nodeName, t } = useLanguage();
   const modules = requiredModules(graph, product.id);
@@ -134,7 +142,13 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
             <div className="metric-detail-row-head">
               <span>{t("topRiskBottleneck")}</span>
               {answer.topRiskScore !== null ? (
-                <span className="pill">{t("risk")} {Math.round(answer.topRiskScore * 100)}%</span>
+                <span
+                  className="pill"
+                  title={t("heatScoreTooltip")}
+                  aria-label={heatScoreLabel(t, answer.topRiskScore)}
+                >
+                  {heatScoreLabel(t, answer.topRiskScore)}
+                </span>
               ) : null}
             </div>
             <p className="metric-detail-description">
@@ -248,7 +262,7 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
               </div>
               <div className="metric-detail-row-values">
                 <span>
-                  <strong>{t("risk")}:</strong> {Math.round(nodeRisk(entry.node, graph) * 100)}%
+                  <strong>{t("risk")}:</strong> {heatScoreValue(nodeRisk(entry.node, graph))}
                 </span>
                 {entry.costTypicalRmb !== null ? (
                   <span>
@@ -873,14 +887,14 @@ function ProductViewTopBlockers({ graph, product }: { graph: GraphData; product:
               <a
                 className="link-button top-blockers-link"
                 href={`/graph?stage=focused&focus=${encodeURIComponent(entry.id)}`}
-                title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
-                aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · risk ${Math.round(entry.risk * 100)}%`}
+                title={t("topBlockersRiskTooltip")}
+                aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · ${heatScoreLabel(t, entry.risk)}`}
               >
                 <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
                 <span className="top-blockers-meta muted">{maturityText}</span>
               </a>
               <span className="top-blockers-risk" aria-hidden="true">
-                {Math.round(entry.risk * 100)}%
+                {heatScoreLabel(t, entry.risk)}
               </span>
             </li>
           );

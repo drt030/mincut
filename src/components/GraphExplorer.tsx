@@ -32,17 +32,19 @@ import { packRectangularNodes } from "@/lib/cardAwareLayout";
 import { subsystemHue } from "@/lib/subsystemHue";
 import {
   edgeStyleFor,
+  nodeCostSignalRmb,
   type ColorMode,
 } from "@/lib/edgeStyleFor";
+import { nodeRiskSignal } from "@/lib/nodeRisk";
 import { focusedSubset } from "@/lib/focusedSubset";
 import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId, isCanvasTreeEdge, isKnowHowNode } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
+import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { Edge, GraphData, Node } from "@/lib/schema";
 import {
-  ARTIFACT_DIM_FILL,
   DEFAULT_GRAPH_LAYER,
   knowHowBottleneckCounts,
-  knowHowFill,
+  knowHowLayerFill,
   layerHidesEdge,
   layerHidesNode,
   type GraphLayer,
@@ -269,7 +271,7 @@ function SectorTintLayer({
             key={w.id}
             d={w.d}
             fill={w.fill}
-            fillOpacity={0.075}
+            fillOpacity={0.045}
             stroke="none"
           />
         ))}
@@ -427,6 +429,7 @@ function mergeGraphPatch(graph: GraphData, patch: { nodes?: Node[]; edges?: Edge
 
 function GraphProductStrip({
   rootNode,
+  graphLayer,
   parentRootNode,
   subsystemCount,
   routeCount,
@@ -438,6 +441,7 @@ function GraphProductStrip({
   onRequestAgentExpansion,
 }: {
   rootNode: Node;
+  graphLayer: GraphLayer;
   parentRootNode: Node | null;
   subsystemCount: number;
   routeCount: number;
@@ -452,7 +456,9 @@ function GraphProductStrip({
   const copy = language === "zh"
     ? {
       product: "产品视图",
+      knowHow: "技术诀窍视图",
       majorComponents: "直接依赖",
+      technicalNodes: "技术节点",
       costTargets: "成本目标",
       parentRoot: "回到上一级",
       resetRoot: "回到包裹分拣机器人",
@@ -464,7 +470,9 @@ function GraphProductStrip({
     }
     : {
       product: "Research root",
+      knowHow: "Technical know-how",
       majorComponents: "direct dependencies",
+      technicalNodes: "technical nodes",
       costTargets: "cost targets",
       parentRoot: "Parent root",
       resetRoot: "Original product",
@@ -490,11 +498,11 @@ function GraphProductStrip({
   return (
     <div className="graph-product-strip" data-testid="graph-product-strip">
       <div className="graph-product-title-block">
-        <span>{copy.product}</span>
+        <span>{graphLayer === "knowhow" ? copy.knowHow : copy.product}</span>
         <strong>{nodeName(rootNode.id, rootNode.name)}</strong>
       </div>
       <div className="graph-product-stat-row">
-        <span>{subsystemCount} {copy.majorComponents}</span>
+        <span>{subsystemCount} {graphLayer === "knowhow" ? copy.technicalNodes : copy.majorComponents}</span>
         <span>{routeCount} {copy.costTargets}</span>
         {parentRootNode ? (
           <a
@@ -571,6 +579,7 @@ type Props = {
   graph: GraphData;
   /** Per-domain routes (/d/[slug]) pin the canvas root server-side; ?root= still wins for in-canvas navigation. */
   initialRootId?: string;
+  exposureAccess?: RouteExposureAccessState;
 };
 
 function svgNumber(value: number): string {
@@ -784,7 +793,7 @@ function parentResearchRootId(graph: GraphData, currentRootId: string): string |
   return incomingParents[0] ?? null;
 }
 
-export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) {
+export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureAccess }: Props) {
   const { kindName, nodeName, t } = useLanguage();
   const holderTeasers = useHolderTeasers();
   const searchParams = useSearchParams();
@@ -819,14 +828,11 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
     return currentRootId;
   })();
   const [selectedId, setSelectedId] = useState(initialFocus);
-  const [railPanel, setRailPanel] = useState<"route" | "detail">(
-    initialFocus === currentRootId ? "route" : "detail",
-  );
+  const [railPanel, setRailPanel] = useState<"route" | "detail">("route");
 
-  // Full System first pass: cost is the default analysis overlay, and
-  // label-band disclosure keeps the map readable without exposing the
-  // old display-mode switcher as separate chrome.
-  const [colorMode, setColorMode] = useState<ColorMode>("cost");
+  // Retail launch entry opens on the bottleneck heat lens; /explore can
+  // still request other modes via its query wiring.
+  const [colorMode, setColorMode] = useState<ColorMode>("bottleneck-risk");
   const [displayMode] = useState<LodDisplayMode>("labels");
   const [graphLayer, setGraphLayer] = useState<GraphLayer>(DEFAULT_GRAPH_LAYER);
 
@@ -937,11 +943,12 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
 
   const onSelect = useCallback((nodeId: string) => {
     const target = canvasGraph.nodes.find((node) => node.id === nodeId);
-    if (target && isKnowHowNode(target)) {
+    const isKnowHowSelection = Boolean(target && isKnowHowNode(target));
+    if (isKnowHowSelection) {
       setGraphLayer("knowhow");
     }
     setSelectedId(nodeId);
-    setRailPanel("detail");
+    setRailPanel(isKnowHowSelection ? "detail" : "route");
   }, [canvasGraph.nodes]);
 
   const requestAgentExpansion = useCallback(async () => {
@@ -1075,7 +1082,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
       const baseFill = `hsl(${hue.hue}, ${hue.saturation * 100}%, ${hue.lightness * 100}%)`;
       const isKh = isKnowHowNode(node);
       const layerFill = graphLayer === "knowhow"
-        ? (isKh ? knowHowFill(node) : ARTIFACT_DIM_FILL)
+        ? knowHowLayerFill(node, baseFill)
         : baseFill;
       const isFocal = node.id === focalId;
       const dim = !subset.nodes.has(node.id) && node.id !== selectedId && !isFocal;
@@ -1375,21 +1382,22 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
 
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
-  const fullSystemFitNodes = useMemo(() => {
+  const readerFitNodes = useMemo(() => {
+    const candidateIds = new Set<string>([currentRootId, ...firstLayerSubsystems]);
     const nodes: Array<{ id: string }> = [];
-    for (const node of canvasGraph.nodes) {
-      if (!focalSubtree.has(node.id)) continue;
-      if (!activeNodePositions.has(node.id)) continue;
-      nodes.push({ id: node.id });
+    for (const id of candidateIds) {
+      if (!focalSubtree.has(id)) continue;
+      if (!activeNodePositions.has(id)) continue;
+      nodes.push({ id });
     }
-    return nodes;
-  }, [canvasGraph.nodes, focalSubtree, activeNodePositions]);
+    return nodes.length > 1 ? nodes : [{ id: currentRootId }];
+  }, [currentRootId, firstLayerSubsystems, focalSubtree, activeNodePositions]);
   const fitFullSystemView = useCallback((
     inst: ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>>,
     duration: number,
   ) => {
     inst.fitView({
-      nodes: fullSystemFitNodes,
+      nodes: readerFitNodes,
       padding: 0.18,
       duration: 0,
       maxZoom: 0.92,
@@ -1404,7 +1412,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
       },
       { duration },
     );
-  }, [fullSystemFitNodes]);
+  }, [readerFitNodes]);
 
   // Fit the radial overview to the viewport once nodes are measured.
   // The radial layout spans roughly 1990×1597 unscaled px; at ReactFlow's
@@ -1611,105 +1619,119 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
     agentExpansionRootId === currentRootId ? agentExpansionStatus : "idle";
   const visibleAgentExpansionProgress =
     agentExpansionRootId === currentRootId ? agentExpansionProgress : null;
-
   return (
-    <div>
+    <div className="graph-explorer-shell">
       <div className="graph-layout graph-layout-radial">
-        <div
-          className={[
-            "graph-canvas graph-canvas-radial graph-canvas-route-led",
-            rootTransitioning ? "graph-canvas-root-transitioning" : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        >
+        <div className="graph-map-column">
           {rootNode ? (
-                <GraphProductStrip
-                  rootNode={rootNode}
-                  parentRootNode={parentRootNode}
-                  subsystemCount={firstLayerSubsystems.length}
-                  routeCount={activeRoute.steps.length}
-                  isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
-                  agentExpansionStatus={visibleAgentExpansionStatus}
-                  agentExpansionProgress={visibleAgentExpansionProgress}
-                  onBackToParentRoot={() => {
-                    if (parentRootNode) setGraphRoot(parentRootNode.id);
+            <GraphProductStrip
+              rootNode={rootNode}
+              graphLayer={graphLayer}
+              parentRootNode={parentRootNode}
+              subsystemCount={firstLayerSubsystems.length}
+              routeCount={activeRoute.steps.length}
+              isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
+              agentExpansionStatus={visibleAgentExpansionStatus}
+              agentExpansionProgress={visibleAgentExpansionProgress}
+              onBackToParentRoot={() => {
+                if (parentRootNode) setGraphRoot(parentRootNode.id);
+              }}
+              onResetRoot={() => setGraphRoot(DEFAULT_ROOT_NODE_ID)}
+              onRequestAgentExpansion={requestAgentExpansion}
+            />
+          ) : null}
+          <div className="graph-toolbar-row" aria-label={t("layerToggleLabel")}>
+            <LayerToggleFloatingButton
+              layer={graphLayer}
+              onSelect={setGraphLayer}
+              labels={{ toggle: t("layerToggleLabel"), product: t("layerProduct"), knowHow: t("layerKnowHow") }}
+            />
+            <GraphControls
+              routeMode={activeRoute.mode}
+              analysisMode={colorMode}
+              onAnalysisModeChange={setColorMode}
+            />
+          </div>
+          <div
+            className={[
+              "graph-canvas graph-canvas-radial graph-canvas-route-led",
+              rootTransitioning ? "graph-canvas-root-transitioning" : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            data-flow-node-count={flowNodes.length}
+            data-flow-edge-count={flowEdges.length}
+          >
+            <ReactFlowProvider>
+              <ZoomBridge displayMode={displayMode}>
+                <ReactFlow
+                  nodes={flowNodes}
+                  edges={flowEdges}
+                  nodeTypes={nodeTypes}
+                  edgeTypes={edgeTypes}
+                  onInit={(instance) => {
+                    flowInstanceRef.current = instance;
+                    // Try to fit immediately; if nodes aren't measured yet,
+                    // the polling useEffect below retries with short
+                    // delays. `requestAnimationFrame` lets React Flow's
+                    // first measurement pass complete first.
+                    if (typeof window !== "undefined") {
+                      window.requestAnimationFrame(() => {
+                        if (initialFitDoneRef.current) return;
+                        try {
+                          fitFullSystemView(instance, 0);
+                          initialFitDoneRef.current = true;
+                        } catch {
+                          // Retry path in the useEffect below.
+                        }
+                      });
+                    }
                   }}
-                  onResetRoot={() => setGraphRoot(DEFAULT_ROOT_NODE_ID)}
-                  onRequestAgentExpansion={requestAgentExpansion}
-                />
-              ) : null}
-          <ReactFlowProvider>
-            <ZoomBridge displayMode={displayMode}>
-              <ReactFlow
-                nodes={flowNodes}
-                edges={flowEdges}
-                nodeTypes={nodeTypes}
-                edgeTypes={edgeTypes}
-                onInit={(instance) => {
-                  flowInstanceRef.current = instance;
-                  // Try to fit immediately; if nodes aren't measured yet,
-                  // the polling useEffect below retries with short
-                  // delays. `requestAnimationFrame` lets React Flow's
-                  // first measurement pass complete first.
-                  if (typeof window !== "undefined") {
-                    window.requestAnimationFrame(() => {
-                      if (initialFitDoneRef.current) return;
-                      try {
-                        fitFullSystemView(instance, 0);
-                        initialFitDoneRef.current = true;
-                      } catch {
-                        // Retry path in the useEffect below.
-                      }
-                    });
-                  }
-                }}
-                fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
-                minZoom={0.2}
-                maxZoom={2.5}
-                panOnScroll
-                panOnScrollMode={PanOnScrollMode.Free}
-                zoomOnPinch
-                zoomOnDoubleClick={false}
-                nodesDraggable={false}
-                onNodeClick={(_, node) => {
-                  onSelect(node.id);
-                }}
-                onPaneClick={() => {
-                  setSelectedId(currentRootId);
-                  setFocusPath([]);
-                  setRailPanel("route");
-                }}
-              >
-                <Background />
-                <Controls />
-                {/* Sector tint (B1): translucent SVG wedge layer
-                    rendered as a viewport overlay so it transforms
-                    together with the radial canvas. The wedges sit
-                    behind the React Flow node DOM via a fixed-position
-                    SVG mounted as a sibling in the React Flow viewport,
-                    rather than as a Background pattern, so they pick up
-                    the same pan/zoom transform as the nodes. */}
-                <SectorTintLayer
-                  wedges={sectorTintWedges}
-                  backgroundOuterR={backgroundOuterR}
-                />
-                {displayMode === "detail" ? null : <SectorLabelLayer labels={sectorLabels} />}
-              </ReactFlow>
-            </ZoomBridge>
-          </ReactFlowProvider>
-          <GraphControls
-            routeMode={activeRoute.mode}
-            analysisMode={colorMode}
-            onAnalysisModeChange={setColorMode}
-          />
+                  fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
+                  minZoom={0.2}
+                  maxZoom={2.5}
+                  panOnScroll
+                  panOnScrollMode={PanOnScrollMode.Free}
+                  zoomOnPinch
+                  zoomOnDoubleClick={false}
+                  nodesDraggable={false}
+                  onlyRenderVisibleElements={false}
+                  onNodeClick={(_, node) => {
+                    onSelect(node.id);
+                  }}
+                  onPaneClick={() => {
+                    setSelectedId(currentRootId);
+                    setFocusPath([]);
+                    setRailPanel("route");
+                  }}
+                >
+                  <Background />
+                  <Controls />
+                  {/* Sector tint (B1): translucent SVG wedge layer
+                      rendered as a viewport overlay so it transforms
+                      together with the radial canvas. The wedges sit
+                      behind the React Flow node DOM via a fixed-position
+                      SVG mounted as a sibling in the React Flow viewport,
+                      rather than as a Background pattern, so they pick up
+                      the same pan/zoom transform as the nodes. */}
+                  <SectorTintLayer
+                    wedges={sectorTintWedges}
+                    backgroundOuterR={backgroundOuterR}
+                  />
+                  {displayMode === "detail" ? null : <SectorLabelLayer labels={sectorLabels} />}
+                </ReactFlow>
+              </ZoomBridge>
+            </ReactFlowProvider>
+          </div>
         </div>
         <RouteDetailRail
           graph={workingGraph}
           route={activeRoute}
           selectedNode={selectedNode}
           analysisMode={colorMode}
+          graphLayer={graphLayer}
           priorityEntries={topPriorityEntries}
+          exposureAccess={exposureAccess}
           systemNodeIds={firstLayerSubsystems}
           currentRootId={currentRootId}
           rootableNodeIds={rootableNodeIds}
@@ -1720,11 +1742,6 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp }: Props) 
           onSetRootNode={setGraphRoot}
         />
       </div>
-      <LayerToggleFloatingButton
-        layer={graphLayer}
-        onSelect={setGraphLayer}
-        labels={{ toggle: t("layerToggleLabel"), product: t("layerProduct"), knowHow: t("layerKnowHow") }}
-      />
       {/* C2: Cmd+K search modal. Mounted at the top level so the
           backdrop covers everything (canvas + rail + controls).
           Selecting a result both selects the node (rail content

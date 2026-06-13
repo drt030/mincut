@@ -20,22 +20,6 @@ export type LayerToggleFloatingButtonProps = {
   labels: { toggle: string; product: string; knowHow: string };
 };
 
-const WRAPPER_STYLE: React.CSSProperties = {
-  position: "fixed",
-  bottom: "96px",
-  left: "16px",
-  zIndex: 50,
-};
-
-const CONTROL_STYLE: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 6,
-  padding: 8,
-  borderRadius: 8,
-  background: "#0f172a",
-};
-
 const OPTION_BASE_STYLE: React.CSSProperties = {
   minHeight: 28,
   padding: "5px 10px",
@@ -61,8 +45,8 @@ export function LayerToggleFloatingButton({ layer, onSelect, labels }: LayerTogg
     { value: "knowhow", label: labels.knowHow },
   ];
   return (
-    <div style={WRAPPER_STYLE} data-testid="layer-toggle" aria-label={labels.toggle}>
-      <div style={CONTROL_STYLE}>
+    <div className="layer-toggle" data-testid="layer-toggle" aria-label={labels.toggle}>
+      <div className="layer-toggle-control">
         {options.map((option) => (
           <button
             key={option.value}

@@ -14,3 +14,18 @@ test("tampered cookie reads as empty", async () => {
   process.env.ENTITLEMENT_SECRET = "test-secret";
   assert.deepEqual(await readEntitlements("garbage.token.here"), []);
 });
+
+test("missing entitlement secret fails closed when reading an existing cookie", async () => {
+  process.env.ENTITLEMENT_SECRET = "test-secret";
+  const value = await grantCookieValue("all", []);
+
+  delete process.env.ENTITLEMENT_SECRET;
+
+  assert.deepEqual(await readEntitlements(value), []);
+});
+
+test("missing entitlement secret rejects grant attempts", async () => {
+  delete process.env.ENTITLEMENT_SECRET;
+
+  await assert.rejects(() => grantCookieValue("all", []), /ENTITLEMENT_SECRET/);
+});

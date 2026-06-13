@@ -402,12 +402,16 @@ export function RadialEdge({
   const markerId = `arrow-${id}`;
   const isBranch = emphasis === "branch";
   const renderedStrokeWidth = isBranch
-    ? band === 1 ? 4.6 : 5.4
-    : edgeKind === "cross"
-      ? Math.max(strokeWidth, 0.8)
-      : band === 1
-        ? Math.min(Math.max(strokeWidth * 0.55, highlighted ? 1.2 : 0.75), 1.5)
-        : Math.max(strokeWidth * 1.05, 1);
+    ? band === 1 ? 2.4 : band === 2 ? 3.2 : 4.6
+      : edgeKind === "cross"
+        ? Math.max(strokeWidth, 0.8)
+        : band === 1
+          ? Math.min(Math.max(strokeWidth * 0.4, highlighted ? 1 : 0.55), 1.15)
+          : band === 2
+          ? highlighted
+            ? Math.min(Math.max(strokeWidth * 0.9, 1.25), 5.6)
+            : Math.min(Math.max(strokeWidth * 0.65, 0.9), 4.8)
+          : Math.max(strokeWidth * 1.05, 1);
   const showArrowhead = band >= 2;
   const arrowLength = showArrowhead
     ? Math.max(MIN_ARROW_LENGTH, renderedStrokeWidth * ARROW_LENGTH_TO_STROKE)
@@ -499,9 +503,11 @@ export function RadialEdge({
   const opacity = edgeKind === "cross"
     ? highlighted ? 0.52 : 0.18
     : isBranch
-      ? 0.94
+      ? band === 1 ? 0.72 : band === 2 ? 0.78 : 0.9
       : band === 1
-        ? isOuterDetail ? 0.2 : 0.38
+        ? isOuterDetail ? 0.1 : 0.24
+        : band === 2
+        ? highlighted ? 0.66 : 0.42
         : highlighted ? 0.72 : 0.66;
 
   return (

@@ -26,13 +26,13 @@ import {
   type CostRollupResult,
 } from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
-import { nodeRisk } from "@/lib/nodeRisk";
+import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
-import type { Edge, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
+import type { Edge, Evidence, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { EvidenceList } from "./EvidenceList";
 import { useLanguage } from "./LanguageProvider";
 import { NodeDetailRail, handleRailKeydown } from "./NodeDetailRail";
-import { ExposureLockCta, useLockedDomainForNode } from "./ExposureLockCta";
+import { ExposureLockCta, type LockedDomainSummary, useLockedDomainForNode } from "./ExposureLockCta";
 import { useHolderTeaser } from "./HolderTeaserProvider";
 
 type Props = {
@@ -129,13 +129,117 @@ function TransactabilityChip({ value, t }: { value?: "procurable" | "must_build"
   );
 }
 
+function KnowHowPrioritySummary({
+  node,
+  holderSummary,
+  knowHowHosts,
+  onSelectNode,
+}: {
+  node: Node;
+  holderSummary: { total: number; listed: number } | null;
+  knowHowHosts: Node[];
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  if (!isKnowHowNode(node)) return null;
+  return (
+    <section className="detail-reader-knowhow" data-testid="detail-knowhow-priority">
+      <div className="detail-reader-mini-heading">{t("knowHowSectionTitle")}</div>
+      <div className="detail-reader-knowhow-grid">
+        <div
+          className={["detail-reader-knowhow-signal", node.transactability === "must_build" ? "warning" : ""]
+            .filter(Boolean)
+            .join(" ")}
+          data-testid="detail-knowhow-transactability"
+        >
+          <span>{t("knowHowTransactability")}</span>
+          <strong>
+            <TransactabilityChip value={node.transactability} t={t} />
+          </strong>
+        </div>
+        {holderSummary ? (
+          <div
+            className={["detail-reader-knowhow-signal", holderSummary.total === 0 ? "danger" : ""]
+              .filter(Boolean)
+              .join(" ")}
+            data-testid="detail-knowhow-holder-priority"
+            data-holders-total={holderSummary.total}
+            data-holders-listed={holderSummary.listed}
+          >
+            <span>{t("knowHowHoldersLabel")}</span>
+            <strong>{formatCopy(t("knowHowHoldersValue"), { n: holderSummary.total })}</strong>
+            <small>
+              {holderSummary.total === 0
+                ? t("knowHowNoHoldersSignal")
+                : formatCopy(t("knowHowListedValue"), { n: holderSummary.listed })}
+            </small>
+          </div>
+        ) : null}
+      </div>
+      {knowHowHosts.length > 0 ? (
+        <div className="detail-reader-knowhow-hosts" data-testid="detail-knowhow-hosted-by-priority">
+          <span>{t("knowHowHostedBy")}</span>
+          <div>
+            {knowHowHosts.slice(0, 3).map((host) => {
+              const label = nodeName(host.id, host.name);
+              return onSelectNode ? (
+                <button
+                  className="link-button"
+                  key={host.id}
+                  type="button"
+                  onClick={() => onSelectNode(host.id)}
+                  title={label}
+                >
+                  {label}
+                </button>
+              ) : (
+                <span key={host.id}>{label}</span>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
+const TICKER_VENUE_SUFFIXES: Array<[suffix: string, venue: string]> = [
+  [".TWO", "Taipei Exchange"],
+  [".SS", "Shanghai"],
+  [".SZ", "Shenzhen"],
+  [".HK", "Hong Kong"],
+  [".TW", "Taiwan"],
+  [".KS", "Korea"],
+  [".KQ", "KOSDAQ"],
+  [".T", "Tokyo"],
+  [".SW", "SIX Swiss"],
+  [".DE", "Xetra"],
+  [".PA", "Euronext Paris"],
+  [".MI", "Milan"],
+  [".AX", "ASX"],
+  [".L", "London"],
+  [".OL", "Oslo"],
+  [".ST", "Stockholm"],
+  [".AS", "Amsterdam"],
+  [".TA", "Tel Aviv"],
+];
+
+function tickerVenueFor(ticker?: string): string | null {
+  if (!ticker) return null;
+  const normalized = ticker.toUpperCase();
+  return TICKER_VENUE_SUFFIXES.find(([suffix]) => normalized.endsWith(suffix))?.[1] ?? null;
+}
+
 function ListingChip({ org }: { org: Node }) {
   const info = listingInfoForOrg(org);
   if (info.status === "unknown" && !info.ticker) return null;
-  const label = info.ticker ?? info.status;
+  const venue = tickerVenueFor(info.ticker);
+  const label = info.ticker ? (venue ? `${info.ticker} · ${venue}` : info.ticker) : info.status;
   return (
     <span
       data-listing-status={info.status}
+      data-listing-venue={venue ?? undefined}
+      title={info.ticker && venue ? `${info.ticker} listing venue: ${venue}` : undefined}
       style={{ fontSize: 11, background: "#f1f5f9", borderRadius: 4, padding: "0 4px", marginLeft: 6 }}
     >
       {label}
@@ -144,16 +248,16 @@ function ListingChip({ org }: { org: Node }) {
 }
 
 /**
- * Full detail content (description, priority strip, maturity history,
- * metrics, cost rollup, bottlenecks, upstream/downstream, sibling
- * products, evidence). Slotted by `NodeDetailRail` into its expanded
+ * Full detail content (reader priority, evidence, graph appendix, and
+ * technical metadata). Slotted by `NodeDetailRail` into its expanded
  * state. Behaviour is identical to the pre-B4 `NodeDetailPanel`
  * render body — we only renamed the entry point so the rail can host
  * it.
  */
 export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphData; node: Node; onSelectNode?: (nodeId: string) => void }) {
   const { kindName, nodeName, t } = useLanguage();
-  const lockedEntry = useLockedDomainForNode(node);
+  const rawLockedEntry = useLockedDomainForNode(node);
+  const lockedEntry = isAiComputeNode(node) ? null : rawLockedEntry;
   const holderTeaser = useHolderTeaser(node.id);
   // Per v3 iter-14: when the user clicks a different node, the previous
   // scroll position in the panel was preserved → they could land
@@ -204,10 +308,10 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         .filter((edge) =>
           edge.target === node.id &&
           (edge.relation === "requires" || edge.relation === "implemented_by") &&
-          edge.reviewStatus !== "deprecated")
-        .map((edge) => graph.nodes.find((n) => n.id === edge.source))
-        .filter((host): host is NonNullable<typeof host> => Boolean(host))
-        .filter((host) => !isKnowHowNode(host) && host.kind !== "organization")
+      edge.reviewStatus !== "deprecated")
+    .map((edge) => graph.nodes.find((n) => n.id === edge.source))
+    .filter((host): host is NonNullable<typeof host> => Boolean(host))
+    .filter((host) => host.kind !== "organization")
     : [];
 
   // Dedupe hosts by node id
@@ -242,15 +346,9 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   );
   const down = downRaw.filter((child) => child.reviewStatus !== "deprecated");
   const downDeprecatedCount = downRaw.length - down.length;
-  const metrics = metricsForNode(graph, node.id).filter((child) => child.reviewStatus !== "deprecated");
-  const organizationMetrics = node.kind === "organization" ? (node.metrics ?? []) : [];
   const bottlenecksAll = bottlenecksForNode(graph, node.id).filter((child) => child.kind !== "metric");
   const bottlenecks = bottlenecksAll.filter((child) => child.reviewStatus !== "deprecated");
   const bottlenecksDeprecatedCount = bottlenecksAll.length - bottlenecks.length;
-  const bottleneckParentCount = (node.bottleneckOf ?? []).filter((parentId) => {
-    const parent = nodeById(graph, parentId);
-    return parent && parent.reviewStatus !== "deprecated";
-  }).length;
   const evidence = evidenceForNode(graph, node.id);
   const opportunityCandidates = opportunityCandidatesForNode(graph, node).filter((candidate) => candidate.reviewStatus !== "deprecated");
   const isExpansionFrontier = node.tags?.includes("decomposition_frontier") ?? false;
@@ -265,7 +363,6 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
   const siblingDeprecatedCount = siblingCandidatesAll.length - siblingCandidates.length;
   const isDeprecated = node.reviewStatus === "deprecated";
   const isDisputed = node.reviewStatus === "disputed";
-  const dependencyCount = down.length;
   const evidenceCount = evidence.length;
 
   return (
@@ -283,7 +380,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
       aria-live="polite"
       aria-labelledby="detail-heading"
     >
-      <div>
+      <div className="detail-reader-header">
         <h2 id="detail-heading">
           {nodeName(node.id, node.name)}
           {isDeprecated ? (
@@ -305,23 +402,20 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
             </span>
           ) : null}
         </h2>
-        <div className="pill-row">
-          <span className="pill">{kindName(node.kind)}</span>
-          {node.domain.map((item) => (
-            <span className="pill" key={item}>
-              {item}
-            </span>
-          ))}
-          {node.kind === "organization" ? <ListingChip org={node} /> : null}
-        </div>
       </div>
-      <DetailPrioritySummary
+      <NodeReaderPriority
         graph={graph}
         node={node}
-        dependencyCount={dependencyCount}
-        bottleneckCount={bottlenecks.length}
-        bottleneckParentCount={bottleneckParentCount}
-        evidenceCount={evidenceCount}
+        evidence={evidence}
+        lockedEntry={lockedEntry}
+        priorityAddon={(
+          <KnowHowPrioritySummary
+            node={node}
+            holderSummary={holderSummary}
+            knowHowHosts={knowHowHosts}
+            onSelectNode={onSelectNode}
+          />
+        )}
       />
       {node.kind === "product" ? (
         <InvestorAnswerPanel
@@ -331,23 +425,17 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
           onSelectNode={onSelectNode}
         />
       ) : null}
-      {evidenceCount === 0 ? (
-        <div className="evidence-gap-callout">
-          <strong>{t("evidenceGapTitle")}</strong>
-          <p>{t("evidenceGapHint")}</p>
-        </div>
-      ) : null}
       {/*
         Keep the next drill target directly below the summary. The graph
         surface is a research workflow, so after "what is this node?" the
         next visible answer should be "what should I inspect next?"
       */}
-      {(node.kind === "product" || node.kind === "module") ? (
-        <TopBlockers graph={graph} parent={node} onSelectNode={onSelectNode} />
-      ) : null}
-      {opportunityCandidates.length > 0 ? (
-        <OpportunityCandidateList graph={graph} nodes={opportunityCandidates} onSelectNode={onSelectNode} />
-      ) : null}
+      <NodeDetailInspectNext
+        graph={graph}
+        node={node}
+        evidenceCount={evidenceCount}
+        onSelectNode={onSelectNode}
+      />
       {isDeprecated && node.notes?.trim() ? (
         <div className="deprecated-callout">
           <strong>{t("supersessionReason")}</strong>
@@ -366,247 +454,228 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
           <p>{node.notes ?? t("expansionFrontierHint")}</p>
         </div>
       ) : null}
-      {constraintFactors.length > 0 ? (
-        <div>
-          <strong>{t("constraintFactors")}</strong>
+      <details className="panel-section panel-section-collapsible" data-testid="detail-full-evidence-list">
+        <summary>
+          <strong>{t("fullEvidenceList")}</strong>
+        </summary>
+        <EvidenceList evidence={evidence} />
+      </details>
+      <details className="panel-section panel-section-collapsible" data-testid="detail-technical-metadata">
+        <summary>
+          <strong>{t("technicalDetails")}</strong>
+        </summary>
+        <div className="detail-technical-metadata">
           <div className="pill-row">
-            {constraintFactors.map((factor) => (
-              <span className="pill" key={factor.tag}>
-                {factor.label}
+            <span className="pill">{kindName(node.kind)}</span>
+            {node.domain.map((item) => (
+              <span className="pill" key={item}>
+                {item}
               </span>
             ))}
+            {node.kind === "organization" ? <ListingChip org={node} /> : null}
           </div>
-        </div>
-      ) : null}
-      <div>
-        <strong>{t("maturity")}</strong>
-        <div className="maturity-pill-row">
-          {(() => {
-            const visual = maturityVisualFor(node);
-            const asOf = maturityAsOfVisualFor(node);
-            const asOfTooltip = asOf.hasValue
-              ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
-              : t("maturityAsOfMissing");
-            return (
-              <>
-                <span
-                  className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
-                  style={{
-                    background: visual.bg,
-                    color: visual.fg,
-                    opacity: visual.hasLabel ? 1 : 0.65,
-                  }}
-                  title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
-                >
-                  {visual.label}
-                  {typeof node.maturityScore === "number" ? (
-                    <span className="maturity-pill-score">· {node.maturityScore}</span>
-                  ) : null}
-                </span>
-                <span
-                  className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
-                  title={asOfTooltip}
-                  aria-label={asOfTooltip}
-                >
-                  <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
-                  {t("maturityAsOf")}: {asOf.label}
-                </span>
-                {isHardToDevelop ? (
-                  <span
-                    className="key-technology-pill"
-                    title={t("hardToDevelopGlyphTooltip")}
-                    aria-label={t("hardToDevelopGlyphTooltip")}
-                  >
-                    <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
-                    {t("keyTechnologyPill")}
+          <p>{node.description ?? t("noDescription")}</p>
+          {constraintFactors.length > 0 ? (
+            <div>
+              <strong>{t("constraintFactors")}</strong>
+              <div className="pill-row">
+                {constraintFactors.map((factor) => (
+                  <span className="pill" key={factor.tag}>
+                    {factor.label}
                   </span>
-                ) : null}
-                {isFrontierByJudgment ? (
-                  <span
-                    className="frontier-pill"
-                    title={t("frontierPillTooltip")}
-                    aria-label={t("frontierPillTooltip")}
-                  >
-                    {t("frontierPill")}
-                  </span>
-                ) : null}
-              </>
-            );
-          })()}
-          {node.confidence ? (
-            <span className="muted">
-              {t("confidence")}: {node.confidence}
-            </span>
+                ))}
+              </div>
+            </div>
           ) : null}
-        </div>
-        <MaturityHistoryTimeline node={node} />
-      </div>
-      <MetricNodeList title={t("metrics")} metrics={metrics} onSelectNode={onSelectNode} />
-      {organizationMetrics.length > 0 ? (
-        <InlineMetricList title={t("organizationMetrics")} metrics={organizationMetrics} />
-      ) : null}
-      {/*
-        Slice-1 follow-up (2026-05-10 ux-flow Flow 1.5/1.6): the cost
-        rollup card + ⚠ inversion badge were gated to `product` kind
-        only — which meant the very node the user reported the bug on
-        (parcel_manipulation_or_diverter, kind=module) couldn't surface
-        the inversion. Expand to all "physical thing" kinds where cost
-        rollup is semantically meaningful.
-      */}
-      {isCostSummaryNode(node) ? (
-        <ProductCostRollupCard graph={graph} product={node} />
-      ) : null}
-      <p>{node.description ?? t("noDescription")}</p>
-      {node.targetContext ? (
-        // Per UX Flow v3 iter-7 (progressive disclosure): target
-        // context is reference detail (6 fields of free-form text),
-        // useful to read but not first-glance signal. Default
-        // collapsed so the panel surfaces cost / maturity / bottlenecks
-        // first; user expands when curious.
-        <details className="panel-section panel-section-collapsible">
-          <summary aria-label={`${t("targetContext")} (${Object.keys(node.targetContext).length})`}>
-            <strong>{t("targetContext")}</strong>{" "}
-            <span className="muted">({Object.keys(node.targetContext).length})</span>
-          </summary>
-          <ul>
-            {Object.entries(node.targetContext).map(([key, value]) => (
-              <li key={key}>
-                {key}: {value}
-              </li>
-            ))}
-          </ul>
-        </details>
-      ) : null}
-      {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
-      {/* Per Task 8: Know-how dependencies section for artifacts */}
-      {knowHowDeps.length > 0 ? (
-        <div data-testid="knowhow-section">
-          <strong>{t("knowHowSectionTitle")}</strong>
-          <ul>
-            {knowHowDeps.map((dep) => (
-              <li key={dep.id}>
-                {onSelectNode ? (
-                  <button
-                    className="link-button"
-                    type="button"
-                    onClick={() => onSelectNode(dep.id)}
-                    title={nodeName(dep.id, dep.name)}
-                  >
-                    {nodeName(dep.id, dep.name)}
-                  </button>
-                ) : (
-                  <span>{nodeName(dep.id, dep.name)}</span>
-                )}
-                <TransactabilityChip value={dep.transactability} t={t} />
-                {(dep.bottleneckOf?.length ?? 0) > 0 ? (
-                  <span style={{ color: "#dc2626", marginLeft: 6 }} title="bottleneck">●</span>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      {/* Per Task 8: Know-how meta (transactability chip + holders summary) for know-how nodes */}
-      {isKnowHowNode(node) ? (
-        <div data-testid="knowhow-meta">
-          <strong>{t("knowHowSectionTitle")}</strong>
-          <TransactabilityChip value={node.transactability} t={t} />
-          {holderSummary ? (
-            <p
-              data-testid="holders-summary"
-              data-holders-total={holderSummary.total}
-              data-holders-listed={holderSummary.listed}
-              style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
-            >
-              {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
-            </p>
-          ) : null}
-          {knowHowHosts.length > 0 ? (
-            <div data-testid="knowhow-hosted-by">
-              <strong>{t("knowHowHostedBy")}</strong>
-              <ul>
-                {knowHowHosts.map((host) => (
-                  <li key={host.id}>
-                    {onSelectNode ? (
-                      <button
-                        className="link-button"
-                        type="button"
-                        onClick={() => onSelectNode(host.id)}
-                        title={nodeName(host.id, host.name)}
+          <div>
+            <strong>{t("maturity")}</strong>
+            <div className="maturity-pill-row">
+              {(() => {
+                const visual = maturityVisualFor(node);
+                const asOf = maturityAsOfVisualFor(node);
+                const asOfTooltip = asOf.hasValue
+                  ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
+                  : t("maturityAsOfMissing");
+                return (
+                  <>
+                    <span
+                      className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
+                      style={{
+                        background: visual.bg,
+                        color: visual.fg,
+                        opacity: visual.hasLabel ? 1 : 0.65,
+                      }}
+                      title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
+                    >
+                      {visual.label}
+                      {typeof node.maturityScore === "number" ? (
+                        <span className="maturity-pill-score">· {node.maturityScore}</span>
+                      ) : null}
+                    </span>
+                    <span
+                      className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+                      title={asOfTooltip}
+                      aria-label={asOfTooltip}
+                    >
+                      <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
+                      {t("maturityAsOf")}: {asOf.label}
+                    </span>
+                    {isHardToDevelop ? (
+                      <span
+                        className="key-technology-pill"
+                        title={t("hardToDevelopGlyphTooltip")}
+                        aria-label={t("hardToDevelopGlyphTooltip")}
                       >
-                        {nodeName(host.id, host.name)}
-                      </button>
-                    ) : (
-                      <span>{nodeName(host.id, host.name)}</span>
-                    )}
+                        <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
+                        {t("keyTechnologyPill")}
+                      </span>
+                    ) : null}
+                    {isFrontierByJudgment ? (
+                      <span
+                        className="frontier-pill"
+                        title={t("frontierPillTooltip")}
+                        aria-label={t("frontierPillTooltip")}
+                      >
+                        {t("frontierPill")}
+                      </span>
+                    ) : null}
+                  </>
+                );
+              })()}
+              {node.confidence ? (
+                <span className="muted">
+                  {t("confidence")}: {node.confidence}
+                </span>
+              ) : null}
+            </div>
+            <MaturityHistoryTimeline node={node} />
+          </div>
+          {node.targetContext ? (
+            <details className="panel-section panel-section-collapsible">
+              <summary aria-label={`${t("targetContext")} (${Object.keys(node.targetContext).length})`}>
+                <strong>{t("targetContext")}</strong>{" "}
+                <span className="muted">({Object.keys(node.targetContext).length})</span>
+              </summary>
+              <ul>
+                {Object.entries(node.targetContext).map(([key, value]) => (
+                  <li key={key}>
+                    {key}: {value}
                   </li>
                 ))}
               </ul>
-            </div>
+            </details>
           ) : null}
+          {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
         </div>
-      ) : null}
-      <NodeList
-        title={t("downstreamBottlenecks")}
-        nodes={bottlenecks}
-        onSelectNode={onSelectNode}
-        deprecatedHiddenCount={bottlenecksDeprecatedCount}
-      />
-      {manufacturerLinksAll.length > 0 ? (
-        <OrganizationNodeList
-          title={t("manufacturerCandidates")}
-          links={manufacturerLinks}
-          onSelectNode={onSelectNode}
-          subtitle={t("manufacturerCandidatesHint")}
-          deprecatedHiddenCount={manufacturerDeprecatedCount}
-        />
-      ) : null}
-      {lockedEntry ? <ExposureLockCta entry={lockedEntry} /> : null}
-      {implementerLinksAll.length > 0 ? (
-        <OrganizationNodeList
-          title={t("serviceCandidates")}
-          links={implementerLinks}
-          onSelectNode={onSelectNode}
-          subtitle={t("serviceCandidatesHint")}
-          deprecatedHiddenCount={implementerDeprecatedCount}
-        />
-      ) : null}
-      {node.kind === "organization" ? (
+      </details>
+      <details className="panel-section panel-section-collapsible" data-testid="detail-relationship-lists">
+        <summary>
+          <strong>{t("relationshipLists")}</strong>
+        </summary>
+        <p className="muted">{t("relationshipListsHint")}</p>
+        {(node.kind === "product" || node.kind === "module") ? (
+          <TopBlockers graph={graph} parent={node} />
+        ) : null}
+        {opportunityCandidates.length > 0 ? (
+          <OpportunityCandidateList graph={graph} nodes={opportunityCandidates} />
+        ) : null}
+        {knowHowDeps.length > 0 ? (
+          <div data-testid="knowhow-section">
+            <strong>{t("knowHowSectionTitle")}</strong>
+            <ul>
+              {knowHowDeps.map((dep) => (
+                <li key={dep.id}>
+                  <span>{nodeName(dep.id, dep.name)}</span>
+                  <TransactabilityChip value={dep.transactability} t={t} />
+                  {(dep.bottleneckOf?.length ?? 0) > 0 ? (
+                    <span style={{ color: "#dc2626", marginLeft: 6 }} title="bottleneck">●</span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {isKnowHowNode(node) ? (
+          <div data-testid="knowhow-meta">
+            <strong>{t("knowHowSectionTitle")}</strong>
+            <TransactabilityChip value={node.transactability} t={t} />
+            {holderSummary ? (
+              <p
+                data-testid="holders-summary"
+                data-holders-total={holderSummary.total}
+                data-holders-listed={holderSummary.listed}
+                style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
+              >
+                {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
+              </p>
+            ) : null}
+            {knowHowHosts.length > 0 ? (
+              <div data-testid="knowhow-hosted-by">
+                <strong>{t("knowHowHostedBy")}</strong>
+                <ul>
+                  {knowHowHosts.map((host) => (
+                    <li key={host.id}>
+                      <span>{nodeName(host.id, host.name)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
         <NodeList
-          title={t("supplierExposure")}
-          nodes={supplierExposure}
-          onSelectNode={onSelectNode}
-          subtitle={t("supplierExposureHint")}
-          deprecatedHiddenCount={supplierExposureDeprecatedCount}
+          title={t("downstreamBottlenecks")}
+          nodes={bottlenecks}
+          deprecatedHiddenCount={bottlenecksDeprecatedCount}
         />
-      ) : null}
-      {node.kind === "organization" ? (
+        {manufacturerLinksAll.length > 0 ? (
+          <OrganizationNodeList
+            title={t("manufacturerCandidates")}
+            links={manufacturerLinks}
+            subtitle={t("manufacturerCandidatesHint")}
+            deprecatedHiddenCount={manufacturerDeprecatedCount}
+          />
+        ) : null}
+        {implementerLinksAll.length > 0 ? (
+          <OrganizationNodeList
+            title={t("serviceCandidates")}
+            links={implementerLinks}
+            subtitle={t("serviceCandidatesHint")}
+            deprecatedHiddenCount={implementerDeprecatedCount}
+          />
+        ) : null}
+        {node.kind === "organization" ? (
+          <NodeList
+            title={t("supplierExposure")}
+            nodes={supplierExposure}
+            subtitle={t("supplierExposureHint")}
+            deprecatedHiddenCount={supplierExposureDeprecatedCount}
+          />
+        ) : null}
+        {node.kind === "organization" ? (
+          <NodeList
+            title={t("implementationExposure")}
+            nodes={implementationExposure}
+            subtitle={t("implementationExposureHint")}
+            deprecatedHiddenCount={implementationExposureDeprecatedCount}
+          />
+        ) : null}
+        <NodeList title={t("upstream")} nodes={up} />
         <NodeList
-          title={t("implementationExposure")}
-          nodes={implementationExposure}
-          onSelectNode={onSelectNode}
-          subtitle={t("implementationExposureHint")}
-          deprecatedHiddenCount={implementationExposureDeprecatedCount}
+          title={t("downstream")}
+          nodes={down}
+          subtitle={t("nonMetricChildrenHint")}
+          deprecatedHiddenCount={downDeprecatedCount}
         />
-      ) : null}
-      <NodeList title={t("upstream")} nodes={up} onSelectNode={onSelectNode} />
-      <NodeList
-        title={t("downstream")}
-        nodes={down}
-        onSelectNode={onSelectNode}
-        subtitle={t("nonMetricChildrenHint")}
-        deprecatedHiddenCount={downDeprecatedCount}
-      />
-      {node.kind === "product" ? (
-        <NodeList
-          title={t("siblingCandidates")}
-          nodes={siblingCandidates}
-          onSelectNode={onSelectNode}
-          subtitle={t("siblingCandidatesHint")}
-          deprecatedHiddenCount={siblingDeprecatedCount}
-        />
-      ) : null}
-      <EvidenceList evidence={evidence} />
+        {node.kind === "product" ? (
+          <NodeList
+            title={t("siblingCandidates")}
+            nodes={siblingCandidates}
+            subtitle={t("siblingCandidatesHint")}
+            deprecatedHiddenCount={siblingDeprecatedCount}
+          />
+        ) : null}
+      </details>
     </div>
   );
 }
@@ -689,7 +758,7 @@ function OpportunityCandidateList({
           const factors = constraintFactorsForNode(candidate, t);
           const exposure = candidateExposureForNode(graph, candidate.id);
           const opportunityText = startupOpportunityText(candidate);
-          const risk = Math.round(nodeRisk(candidate, graph) * 100);
+          const risk = nodeRisk(candidate, graph);
           return (
             <li className="metric-detail-row" key={candidate.id}>
               <div className="metric-detail-row-head">
@@ -705,7 +774,13 @@ function OpportunityCandidateList({
                 ) : (
                   <span>{nodeName(candidate.id, candidate.name)}</span>
                 )}
-                <span className="pill">{t("risk")} {risk}%</span>
+                <span
+                  className="pill"
+                  title={t("heatScoreTooltip")}
+                  aria-label={heatScoreLabel(t, risk)}
+                >
+                  {heatScoreLabel(t, risk)}
+                </span>
               </div>
               {factors.length > 0 ? (
                 <div className="pill-row">
@@ -766,7 +841,8 @@ function InvestorAnswerPanel({
   onSelectNode?: (nodeId: string) => void;
 }) {
   const { nodeName, t } = useLanguage();
-  const lockedEntry = useLockedDomainForNode(product);
+  const rawLockedEntry = useLockedDomainForNode(product);
+  const lockedEntry = isAiComputeNode(product) ? null : rawLockedEntry;
   const answer = useMemo<InvestorAnswer>(
     () => investorAnswerForProduct(graph, product, opportunityCandidates),
     [graph, product, opportunityCandidates],
@@ -784,16 +860,21 @@ function InvestorAnswerPanel({
   const throughputMetricValues = answer.throughputMetric ? metricNodeValueSummary(answer.throughputMetric) : null;
   const throughputStatus = answer.throughputMetric ? throughputStatusText(answer.throughputMetric, t) : null;
   return (
-    <div>
-      <strong>{t("investorAnswerPanel")}</strong>
+    <div className="detail-reader-product-readout" data-testid="detail-product-readout">
+      <strong>{t("productBottleneckReadout")}</strong>
+      <p className="muted">{t("readerNonInvestmentAdvice")}</p>
       <ul className="metric-detail-list">
         {answer.topRiskNode ? (
           <li className="metric-detail-row">
             <div className="metric-detail-row-head">
               <span>{t("topRiskBottleneck")}</span>
               {answer.topRiskScore !== null ? (
-                <span className="pill">
-                  {t("risk")} {Math.round(answer.topRiskScore * 100)}%
+                <span
+                  className="pill"
+                  title={t("heatScoreTooltip")}
+                  aria-label={heatScoreLabel(t, answer.topRiskScore)}
+                >
+                  {heatScoreLabel(t, answer.topRiskScore)}
                 </span>
               ) : null}
             </div>
@@ -918,7 +999,7 @@ function InvestorAnswerPanel({
               </div>
               <div className="metric-detail-row-values">
                 <span>
-                  <strong>{t("risk")}:</strong> {Math.round(nodeRisk(entry.node, graph) * 100)}%
+                  <strong>{t("risk")}:</strong> {heatScoreValue(nodeRisk(entry.node, graph))}
                 </span>
                 {entry.costTypicalRmb !== null ? (
                   <span>
@@ -1140,6 +1221,515 @@ function startupOpportunityText(node: Node): string {
   return notes.slice(index).trim();
 }
 
+function heatScoreValue(score: number): string {
+  return `${Math.round(score * 100)}/100`;
+}
+
+function heatScoreLabel(t: (key: string) => string, score: number): string {
+  return `${t("risk")} ${heatScoreValue(score)}`;
+}
+
+function firstSentenceDescription(text: string | undefined): string | null {
+  const trimmed = text?.trim();
+  if (!trimmed) return null;
+  const match = trimmed.match(/^.*?[.!?。！？](?:\s|$)/);
+  return (match ? match[0] : trimmed).trim();
+}
+
+function formatCopy(template: string, replacements: Record<string, string | number>): string {
+  return Object.entries(replacements).reduce(
+    (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
+    template,
+  );
+}
+
+function compactReaderClause(text: string, maxChars = 170): string {
+  const compact = text.replace(/\s+/g, " ").trim();
+  if (compact.length <= maxChars) return compact;
+
+  const hardCut = compact.slice(0, Math.max(0, maxChars - 3)).trimEnd();
+  const softCut = Math.max(hardCut.lastIndexOf(";"), hardCut.lastIndexOf(","));
+  if (softCut >= Math.floor(maxChars * 0.55)) {
+    return `${hardCut.slice(0, softCut).trimEnd()}...`;
+  }
+  const wordCut = hardCut.lastIndexOf(" ");
+  if (wordCut >= Math.floor(maxChars * 0.55)) {
+    return `${hardCut.slice(0, wordCut).trimEnd()}...`;
+  }
+  return `${hardCut}...`;
+}
+
+function sentenceClause(text: string): string {
+  const trimmed = text.trim();
+  if (!trimmed || /[.!?。！？…]$/u.test(trimmed)) return trimmed;
+  return `${trimmed}.`;
+}
+
+function isAiComputeNode(node: Pick<Node, "domain"> | null | undefined): boolean {
+  return Boolean(node?.domain?.includes("ai_compute_chain"));
+}
+
+function isParcelRobotNode(node: Pick<Node, "id" | "domain"> | null | undefined): boolean {
+  return Boolean(
+    node?.id === "low_cost_parcel_sorting_robot_300k_rmb" ||
+    node?.domain?.includes("parcel_sorting_robot"),
+  );
+}
+
+function detailImportanceText(node: Node, t: (key: string) => string): string {
+  if (isAiComputeNode(node)) return t("readerAiComputeImportance");
+  if (isParcelRobotNode(node)) return t("readerParcelRobotImportance");
+  if (node.kind === "product") return t("readerProductImportance");
+  return t("readerDefaultImportance");
+}
+
+function readerEvidenceStatusText(evidence: Evidence[], t: (key: string) => string): string {
+  if (evidence.length === 0) return t("noDirectEvidence");
+  const reviewed = evidence.filter((item) => item.reviewStatus === "reviewed").length;
+  return formatCopy(t("readerEvidenceStatusCount"), {
+    reviewed,
+    total: evidence.length,
+  });
+}
+
+function readerBottleneckRoleText(
+  graph: GraphData,
+  node: Node,
+  nodeName: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+): string {
+  const parents = (node.bottleneckOf ?? [])
+    .map((parentId) => nodeById(graph, parentId))
+    .filter((parent): parent is Node => Boolean(parent && parent.reviewStatus !== "deprecated"));
+  if (parents.length === 0) return t("readerNoBottleneckMarker");
+  const visible = parents.slice(0, 2).map((parent) => nodeName(parent.id, parent.name));
+  const suffix = parents.length > visible.length ? ` +${parents.length - visible.length}` : "";
+  return formatCopy(t("readerBottleneckFor"), { targets: `${visible.join(", ")}${suffix}` });
+}
+
+function detailBottleneckThesisText(
+  graph: GraphData,
+  node: Node,
+  nodeName: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+  evidence: Evidence[],
+): string {
+  const where = sentenceClause(compactReaderClause(firstSentenceDescription(node.description) ?? t("noDescription")));
+  const parents = (node.bottleneckOf ?? [])
+    .map((parentId) => nodeById(graph, parentId))
+    .filter((parent): parent is Node => Boolean(parent && parent.reviewStatus !== "deprecated"));
+  const targetNames = parents.slice(0, 2).map((parent) => nodeName(parent.id, parent.name));
+  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  const why = targetNames.length > 0
+    ? formatCopy(t("readerThesisMarkedBottleneck"), { targets: targetNames.join(", ") })
+    : factors.length > 0
+      ? formatCopy(t("readerThesisConstraintFactors"), { factors: factors.slice(0, 2).join(" · ") })
+      : evidence.length === 0
+        ? t("readerThesisThinEvidence")
+        : t("readerThesisCandidateConstraint");
+  const impact = targetNames.length > 0 ? targetNames.join(", ") : t("readerSelectedRouteImpact");
+  return formatCopy(t("readerBottleneckThesisSentence"), {
+    importance: detailImportanceText(node, t),
+    where,
+    why,
+    impact,
+  });
+}
+
+function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) => string): string[] {
+  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  if (typeof node.maturityScore === "number") factors.push(`${t("maturity")} ${Math.round(node.maturityScore)}/100`);
+  const cost = detailCostSignalText(graph, node);
+  if (cost) factors.push(cost);
+  if (factors.length === 0) factors.push(t("readerThesisCandidateConstraint"));
+  return factors.slice(0, 4);
+}
+
+function detailCostSignalText(graph: GraphData, node: Node): string | null {
+  if (!isCostSummaryNode(node)) return null;
+  try {
+    const rollup = rollupCost(graph, node.id);
+    if (!rollup.anyChildContributed && !rollup.directOnly) return null;
+    return formatMetricValue(rollup.rolledUp, "RMB", "RMB").compact;
+  } catch {
+    return null;
+  }
+}
+
+function NodeReaderPriority({
+  graph,
+  node,
+  evidence,
+  lockedEntry,
+  priorityAddon,
+}: {
+  graph: GraphData;
+  node: Node;
+  evidence: Evidence[];
+  lockedEntry: LockedDomainSummary | null;
+  priorityAddon?: React.ReactNode;
+}) {
+  const { nodeName, t } = useLanguage();
+  const riskScore = nodeRiskSignal(node, graph);
+  const riskLabel = isKnowHowNode(node) && riskScore === 0
+    ? t("readerHeatUnscored")
+    : heatScoreLabel(t, riskScore);
+  const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
+  return (
+    <section className="detail-reader-priority" data-testid="detail-reader-priority">
+      <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
+        <span>{t("readerBottleneckThesis")}</span>
+        <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>
+      </div>
+      <div className="detail-reader-role" data-testid="detail-where-stuck">
+        <span>{t("readerWhereStuck")}</span>
+        <div className="pill-row">
+          {detailWhereStuckFactors(graph, node, t).map((factor) => (
+            <span className="pill" key={factor}>{factor}</span>
+          ))}
+        </div>
+      </div>
+      <div className="detail-reader-role" data-testid="detail-evidence-summary">
+        <span>{t("readerKeyEvidenceSummary")}</span>
+        <p>{quickPath.text}</p>
+      </div>
+      {priorityAddon}
+      <ExposureEvidenceSummary
+        graph={graph}
+        node={node}
+        evidence={evidence}
+        lockedEntry={lockedEntry}
+      />
+      <details
+        className="detail-reader-secondary-details detail-reader-signal-details"
+        data-testid="detail-reader-secondary-signals"
+      >
+        <summary>{t("readerSecondarySignals")}</summary>
+        <div className="detail-reader-signal-grid">
+          <div className="detail-reader-signal">
+            <span>{t("risk")}</span>
+            <strong>{riskLabel}</strong>
+            <small>{t("readerHeatExplanation")}</small>
+          </div>
+          <div className="detail-reader-signal">
+            <span>{t("readerBottleneckRole")}</span>
+            <strong>{readerBottleneckRoleText(graph, node, nodeName, t)}</strong>
+          </div>
+          <div className="detail-reader-signal">
+            <span>{t("readerEvidenceStatus")}</span>
+            <strong>{readerEvidenceStatusText(evidence, t)}</strong>
+          </div>
+        </div>
+        {lockedEntry ? (
+          <div className="detail-reader-access locked" data-testid="detail-reader-exposure">
+            <strong>{t("readerExposureLayerLocked")}</strong>
+            <span>{formatCopy(t("readerExposureLayerLockedBody"), { n: lockedEntry.hiddenOrgCount })}</span>
+          </div>
+        ) : null}
+      </details>
+    </section>
+  );
+}
+
+const EXPOSURE_ORG_RELATIONS = ["manufactured_by", "implemented_by"] as const;
+const EXPOSURE_ONE_HOP_RELATIONS = ["requires", "part_of", "has_route", "implemented_by"] as const;
+
+type ExposureOrgRelation = (typeof EXPOSURE_ORG_RELATIONS)[number];
+
+type ExposureCandidate = {
+  organization: Node;
+  edge: Edge | null;
+  relation: ExposureOrgRelation | "organization";
+  viaNode: Node | null;
+  depth: 0 | 1;
+  sourceRank: number;
+};
+
+type EvidenceQuickPath = {
+  text: string;
+  viaNode: Node | null;
+};
+
+function ExposureEvidenceSummary({
+  graph,
+  node,
+  evidence,
+  lockedEntry,
+}: {
+  graph: GraphData;
+  node: Node;
+  evidence: Evidence[];
+  lockedEntry: LockedDomainSummary | null;
+}) {
+  const { nodeName, relationName, t } = useLanguage();
+  const candidates = lockedEntry ? [] : exposureCandidatesForNode(graph, node, 3);
+  const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
+  return (
+    <div className="detail-reader-exposure-evidence" data-testid="detail-exposure-evidence-summary">
+      <details className="detail-reader-secondary-details detail-reader-exposure-details">
+        <summary>
+          <strong>{t("exposureEvidenceSummaryTitle")}</strong>{" "}
+          <span className="muted">
+            {candidates.length > 0
+              ? formatCopy(t("exposureCandidateCount"), { n: String(candidates.length) })
+              : t("exposureCandidateHeading")}
+          </span>
+        </summary>
+        <div className="detail-reader-exposure-grid">
+          <div>
+            <span className="detail-reader-mini-heading">{t("exposureCandidateHeading")}</span>
+            <p className="muted">{t("exposureCandidateHint")}</p>
+            {candidates.length > 0 ? (
+              <ul className="metric-detail-list">
+                {candidates.map((candidate) => {
+                  const displayName = nodeName(candidate.organization.id, candidate.organization.name);
+                  const candidateSummary = organizationMetricSummary(candidate.organization, {
+                    includeDescriptions: false,
+                    limit: 2,
+                  });
+                  const via = candidate.viaNode
+                    ? formatCopy(t("exposureCandidateVia"), {
+                        node: nodeName(candidate.viaNode.id, candidate.viaNode.name),
+                      })
+                    : relationName(candidate.relation);
+                  const reviewStatus = candidate.edge?.reviewStatus;
+                  return (
+                    <li className="metric-detail-row" key={`${candidate.organization.id}-${candidate.edge?.id ?? "self"}`}>
+                      <div className="metric-detail-row-head">
+                        <span>{displayName}</span>
+                        <ListingChip org={candidate.organization} />
+                      </div>
+                      <p className="metric-detail-description">
+                        {via}
+                        {reviewStatus ? <span className="muted"> · {reviewStatus}</span> : null}
+                      </p>
+                      {candidateSummary ? (
+                        <p className="metric-detail-description muted">{candidateSummary}</p>
+                      ) : null}
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p className="muted">{t("exposureCandidateFallback")}</p>
+            )}
+          </div>
+          <div>
+            <span className="detail-reader-mini-heading">{t("evidenceQuickPathHeading")}</span>
+            <p>
+              {quickPath.text}
+              {quickPath.viaNode ? (
+                <span className="muted">
+                  {" "}
+                  {formatCopy(t("evidenceNearestVia"), {
+                    node: nodeName(quickPath.viaNode.id, quickPath.viaNode.name),
+                  })}
+                </span>
+              ) : null}
+            </p>
+          </div>
+        </div>
+      </details>
+    </div>
+  );
+}
+
+function exposureCandidatesForNode(graph: GraphData, node: Node, limit: number): ExposureCandidate[] {
+  const candidates: ExposureCandidate[] = [];
+  const seen = new Set<string>();
+  const addCandidate = (candidate: ExposureCandidate) => {
+    if (candidate.organization.reviewStatus === "deprecated") return;
+    if (seen.has(candidate.organization.id)) return;
+    seen.add(candidate.organization.id);
+    candidates.push(candidate);
+  };
+
+  if (node.kind === "organization") {
+    addCandidate({
+      organization: node,
+      edge: null,
+      relation: "organization",
+      viaNode: null,
+      depth: 0,
+      sourceRank: 0,
+    });
+  }
+
+  for (const edge of organizationEdgesFromSource(graph, node.id)) {
+    const organization = nodeById(graph, edge.target);
+    if (!organization || organization.kind !== "organization") continue;
+    addCandidate({
+      organization,
+      edge,
+      relation: edge.relation as ExposureOrgRelation,
+      viaNode: null,
+      depth: 0,
+      sourceRank: 0,
+    });
+  }
+
+  const oneHopSources = oneHopExposureSources(graph, node);
+  for (const { child, rank } of oneHopSources) {
+    for (const edge of organizationEdgesFromSource(graph, child.id)) {
+      const organization = nodeById(graph, edge.target);
+      if (!organization || organization.kind !== "organization") continue;
+      addCandidate({
+        organization,
+        edge,
+        relation: edge.relation as ExposureOrgRelation,
+        viaNode: child,
+        depth: 1,
+        sourceRank: rank,
+      });
+    }
+  }
+
+  return candidates
+    .sort((a, b) => exposureCandidateRank(graph, node, a) - exposureCandidateRank(graph, node, b))
+    .slice(0, limit);
+}
+
+function organizationEdgesFromSource(graph: GraphData, sourceId: string): Edge[] {
+  return graph.edges.filter((edge) => {
+    if (edge.source !== sourceId) return false;
+    if (edge.reviewStatus === "deprecated") return false;
+    if (!EXPOSURE_ORG_RELATIONS.includes(edge.relation as ExposureOrgRelation)) return false;
+    return nodeById(graph, edge.target)?.kind === "organization";
+  });
+}
+
+function oneHopExposureSources(graph: GraphData, node: Node): Array<{ child: Node; rank: number }> {
+  return graph.edges
+    .map((edge, index) => ({ edge, index }))
+    .filter(({ edge }) => edge.source === node.id && edge.reviewStatus !== "deprecated")
+    .filter(({ edge }) => EXPOSURE_ONE_HOP_RELATIONS.includes(edge.relation as (typeof EXPOSURE_ONE_HOP_RELATIONS)[number]))
+    .map(({ edge, index }) => ({ child: nodeById(graph, edge.target), index }))
+    .filter((entry): entry is { child: Node; index: number } => Boolean(entry.child))
+    .filter(({ child }) => child.reviewStatus !== "deprecated")
+    .filter(({ child }) => child.kind !== "organization" && child.kind !== "metric" && child.kind !== "evidence")
+    .sort((a, b) => exposureSourceRank(node, a.child, a.index) - exposureSourceRank(node, b.child, b.index))
+    .map((entry, rank) => ({ child: entry.child, rank }));
+}
+
+function exposureSourceRank(parent: Node, child: Node, index: number): number {
+  const bottleneckBoost = child.bottleneckOf?.includes(parent.id) ? 0 : 1;
+  const maturity = typeof child.maturityScore === "number" ? child.maturityScore : 101;
+  return bottleneckBoost * 10_000 + maturity * 100 + index;
+}
+
+function exposureCandidateRank(graph: GraphData, node: Node, candidate: ExposureCandidate): number {
+  const depth = candidate.depth * 1_000_000;
+  const source = candidate.sourceRank * 10_000;
+  const listing = listingInfoForOrg(candidate.organization);
+  const listingPenalty = listing.ticker || listing.status !== "unknown" ? 0 : 1_000;
+  const edgeIndex = candidate.edge ? graph.edges.findIndex((edge) => edge.id === candidate.edge?.id) : 0;
+  const stableEdge = edgeIndex >= 0 ? edgeIndex : graph.edges.length;
+  const selfPenalty = candidate.organization.id === node.id ? -1_000 : 0;
+  return depth + source + listingPenalty + stableEdge + selfPenalty;
+}
+
+function evidenceQuickPathForNode(
+  graph: GraphData,
+  node: Node,
+  evidence: Evidence[],
+  t: (key: string) => string,
+): EvidenceQuickPath {
+  const directEvidence = evidence.filter((item) => item.reviewStatus !== "deprecated");
+  if (directEvidence.length > 0) {
+    const reviewed = directEvidence.filter((item) => item.reviewStatus === "reviewed").length;
+    return {
+      text: reviewed > 0
+        ? formatCopy(t("evidenceDirectReviewedSummary"), { reviewed, total: directEvidence.length })
+        : formatCopy(t("evidenceDirectUnreviewedSummary"), { total: directEvidence.length }),
+      viaNode: null,
+    };
+  }
+
+  const nearest = nearestEvidenceForNode(graph, node);
+  if (nearest) {
+    return {
+      text: formatCopy(t("evidenceNearestTitle"), { title: nearest.evidence.title }),
+      viaNode: nearest.viaNode,
+    };
+  }
+
+  return {
+    text: t("evidenceQuickPathFallback"),
+    viaNode: null,
+  };
+}
+
+function nearestEvidenceForNode(graph: GraphData, node: Node): { evidence: Evidence; viaNode: Node } | null {
+  const candidates: Array<{ evidence: Evidence; viaNode: Node; sourceRank: number; evidenceRank: number }> = [];
+  for (const { child, rank } of oneHopExposureSources(graph, node)) {
+    const records = evidenceForNode(graph, child.id).filter((item) => item.reviewStatus !== "deprecated");
+    records.forEach((record, evidenceRank) => {
+      candidates.push({ evidence: record, viaNode: child, sourceRank: rank, evidenceRank });
+    });
+  }
+  if (candidates.length === 0) return null;
+  candidates.sort((a, b) => {
+    const dateCompare = (b.evidence.date ?? "").localeCompare(a.evidence.date ?? "");
+    if (dateCompare !== 0) return dateCompare;
+    const reviewedCompare = Number(b.evidence.reviewStatus === "reviewed") - Number(a.evidence.reviewStatus === "reviewed");
+    if (reviewedCompare !== 0) return reviewedCompare;
+    return a.sourceRank - b.sourceRank || a.evidenceRank - b.evidenceRank;
+  });
+  return { evidence: candidates[0].evidence, viaNode: candidates[0].viaNode };
+}
+
+function NodeDetailInspectNext({
+  graph,
+  node,
+  evidenceCount,
+  onSelectNode,
+}: {
+  graph: GraphData;
+  node: Node;
+  evidenceCount: number;
+  onSelectNode?: (nodeId: string) => void;
+}) {
+  const { nodeName, t } = useLanguage();
+  const ranked = useMemo(() => rankedInspectCandidatesForNode(graph, node), [graph, node]);
+  if (ranked.length === 0 && evidenceCount > 0) return null;
+  return (
+    <section className="detail-reader-inspect" data-testid="detail-inspect-next">
+      <strong>{t("readerInspectNext")}</strong>
+      {ranked.length > 0 ? (
+        <div className="detail-reader-inspect-list">
+          {ranked.map((entry) => {
+            const displayName = nodeName(entry.id, entry.child.name);
+            const meta = entry.source === "explicit" ? t("bottleneckBadge") : heatScoreLabel(t, entry.risk);
+            return onSelectNode ? (
+              <button
+                className="detail-reader-inspect-item"
+                key={entry.id}
+                type="button"
+                onClick={() => onSelectNode(entry.id)}
+                aria-label={`${t("readerInspect")} ${displayName}`}
+              >
+                <span>{displayName}</span>
+                <small>{meta}</small>
+              </button>
+            ) : (
+              <div className="detail-reader-inspect-item" key={entry.id}>
+                <span>{displayName}</span>
+                <small>{meta}</small>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
+      {evidenceCount === 0 ? (
+        <div className="detail-reader-inspect-gap">
+          <span>{t("evidenceGapTitle")}</span>
+          <p>{t("evidenceGapHint")}</p>
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
 function DetailPrioritySummary({
   graph,
   node,
@@ -1169,12 +1759,17 @@ function DetailPrioritySummary({
     rollup && rollup.anyChildContributed
       ? formatMetricValue(rollup.rolledUp, "RMB", "RMB").compact
       : t("metricNoValue");
-  const riskScore = nodeRisk(node, graph);
-  const risk = `${Math.round(riskScore * 100)}%`;
+  const riskScore = nodeRiskSignal(node, graph);
+  const risk = isKnowHowNode(node) && riskScore === 0 ? t("readerHeatUnscored") : heatScoreValue(riskScore);
+  const riskAria = isKnowHowNode(node) && riskScore === 0 ? `${t("risk")} ${risk}` : heatScoreLabel(t, riskScore);
   const isBottleneckForParent = bottleneckParentCount > 0;
   return (
     <div className="detail-priority-strip" aria-label={t("detailPrioritySummary")}>
-      <div className={["detail-priority-tile", riskScore >= 0.4 ? "danger" : riskScore >= 0.2 ? "warning" : ""].filter(Boolean).join(" ")}>
+      <div
+        className={["detail-priority-tile", riskScore >= 0.4 ? "danger" : riskScore >= 0.2 ? "warning" : ""].filter(Boolean).join(" ")}
+        title={t("heatScoreTooltip")}
+        aria-label={`${riskAria}. ${t("heatScoreTooltip")}`}
+      >
         <span>{t("risk")}</span>
         <strong>{risk}</strong>
       </div>
@@ -1938,6 +2533,56 @@ function NodeListBody({
   );
 }
 
+type RankedInspectCandidate = {
+  id: string;
+  child: Node;
+  risk: number;
+  source: "explicit" | "dependency";
+};
+
+function rankedInspectCandidatesForNode(graph: GraphData, parent: Node, limit = 3): RankedInspectCandidate[] {
+  const explicitBottlenecks = bottlenecksForNode(graph, parent.id)
+    .filter((child) => child.reviewStatus !== "deprecated")
+    .map((child) => ({
+      id: child.id,
+      child,
+      risk: nodeRisk(child, graph),
+      source: "explicit" as const,
+    }));
+  const explicitIds = new Set(explicitBottlenecks.map((entry) => entry.id));
+  const childIds = new Set<string>();
+  for (const edge of graph.edges) {
+    if (edge.source !== parent.id || edge.relation !== "requires") continue;
+    const child = graph.nodes.find((n) => n.id === edge.target);
+    if (!child) continue;
+    if (explicitIds.has(child.id)) continue;
+    if (
+      child.kind === "metric" ||
+      child.kind === "evidence" ||
+      child.kind === "bottleneck" ||
+      child.kind === "placeholder_breakthrough"
+    ) {
+      continue;
+    }
+    if (child.reviewStatus === "deprecated") continue;
+    childIds.add(child.id);
+  }
+  const scored = Array.from(childIds)
+    .map((id): RankedInspectCandidate | null => {
+      const child = graph.nodes.find((n) => n.id === id);
+      if (!child) return null;
+      return {
+        id,
+        child,
+        risk: nodeRisk(child, graph),
+        source: "dependency" as const,
+      };
+    })
+    .filter((entry): entry is RankedInspectCandidate => entry !== null);
+  scored.sort((a, b) => b.risk - a.risk);
+  return [...explicitBottlenecks, ...scored.filter((entry) => entry.risk > 0.1)].slice(0, limit);
+}
+
 /**
  * Per UX Flow v3 iter-11: a learner's first question is usually
  * "what's gating this thing?" Put explicit `bottlenecked_by` nodes first,
@@ -1959,58 +2604,17 @@ function TopBlockers({
   onSelectNode?: (nodeId: string) => void;
 }) {
   const { nodeName, t } = useLanguage();
-  const ranked = useMemo(() => {
-    const explicitBottlenecks = bottlenecksForNode(graph, parent.id)
-      .filter((child) => child.reviewStatus !== "deprecated")
-      .map((child) => ({
-        id: child.id,
-        child,
-        risk: nodeRisk(child, graph),
-        source: "explicit" as const,
-      }));
-    const explicitIds = new Set(explicitBottlenecks.map((entry) => entry.id));
-    const childIds = new Set<string>();
-    for (const edge of graph.edges) {
-      if (edge.source !== parent.id || edge.relation !== "requires") continue;
-      const child = graph.nodes.find((n) => n.id === edge.target);
-      if (!child) continue;
-      if (explicitIds.has(child.id)) continue;
-      if (
-        child.kind === "metric" ||
-        child.kind === "evidence" ||
-        child.kind === "bottleneck" ||
-        child.kind === "placeholder_breakthrough"
-      ) {
-        continue;
-      }
-      if (child.reviewStatus === "deprecated") continue;
-      childIds.add(child.id);
-    }
-    const scored = Array.from(childIds)
-      .map((id) => {
-        const child = graph.nodes.find((n) => n.id === id);
-        if (!child) return null;
-        return {
-          id,
-          child,
-          risk: nodeRisk(child, graph),
-          source: "dependency" as const,
-        };
-      })
-      .filter((entry): entry is { id: string; child: Node; risk: number; source: "dependency" } => entry !== null);
-    scored.sort((a, b) => b.risk - a.risk);
-    return [...explicitBottlenecks, ...scored.filter((entry) => entry.risk > 0.1)].slice(0, 3);
-  }, [graph, parent.id]);
+  const ranked = useMemo(() => rankedInspectCandidatesForNode(graph, parent), [graph, parent]);
   if (ranked.length === 0) return null;
   return (
     <div className="top-blockers">
-      <strong>🎯 {t("topBlockersTitle")}</strong>
+      <strong>🎯 {onSelectNode ? t("topBlockersTitle") : t("topBlockersStaticTitle")}</strong>
       <ol className="top-blockers-list">
         {ranked.map((entry) => {
           const maturityLabel = entry.child.maturityLabel ?? "unknown";
           const maturityText = formatMaturityLabel(maturityLabel);
           const sourceText = entry.source === "explicit" ? t("explicitBottleneck") : maturityText;
-          const badgeText = entry.source === "explicit" ? t("bottleneckBadge") : `${Math.round(entry.risk * 100)}%`;
+          const badgeText = entry.source === "explicit" ? t("bottleneckBadge") : heatScoreLabel(t, entry.risk);
           const factors = constraintFactorsForNode(entry.child, t);
           const riskDrivers = riskDriverText(entry.child, graph, t);
           return (
@@ -2020,8 +2624,8 @@ function TopBlockers({
                   className="link-button top-blockers-link"
                   type="button"
                   onClick={() => onSelectNode(entry.id)}
-                  title={t("topBlockersRiskTooltip").replace("{risk}", entry.risk.toFixed(2))}
-                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${sourceText} · risk ${Math.round(entry.risk * 100)}%`}
+                  title={t("topBlockersRiskTooltip")}
+                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${sourceText} · ${heatScoreLabel(t, entry.risk)}`}
                 >
                   <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
                   <span className="top-blockers-meta muted">

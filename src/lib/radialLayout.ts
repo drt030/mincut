@@ -26,8 +26,10 @@ import { isCanvasTreeEdge } from "./canvasGraph";
  *      sector; `r = R1 + depth * R_STEP`.
  *   4. A *shared* structural node has ≥ 2 incoming `requires` edges among
  *      visited parents. It is given exactly ONE position in its CANONICAL
- *      primary parent's sector — the parent whose first-layer ancestor
- *      has the smallest sector index (ties broken by smallest parent id).
+ *      primary parent's sector — the parent connected by the highest
+ *      weighted `requires` edge when weights exist, otherwise the parent
+ *      whose first-layer ancestor has the smallest sector index (ties
+ *      broken by smallest parent id).
  *      Cross-sector `requires` edges from non-canonical parents are
  *      tagged `'cross'` in the `edges` Map; the canonical edge is
  *      tagged `'primary'`. Edges to the canonical position from any
@@ -67,6 +69,7 @@ import { isCanvasTreeEdge } from "./canvasGraph";
 const TWO_PI = Math.PI * 2;
 const STRUCTURAL_KINDS: ReadonlySet<NodeKind> = new Set([
   "product",
+  "technical_route",
   "module",
   "equipment",
   "material",
@@ -85,6 +88,11 @@ export type RadialLayoutResult = {
   positions: Map<string, PolarPosition>;
   sectors: Map<string, RadialSector>;
   edges: Map<string, { style: EdgeStyle }>;
+};
+
+type SharedParentCandidate = {
+  source: string;
+  weight: number | undefined;
 };
 
 /**
@@ -110,6 +118,12 @@ function fnv1aHash(input: string): number {
 function hashToTheta(nodeId: string): number {
   const bucket = fnv1aHash(nodeId) % 4096;
   return (bucket / 4096) * TWO_PI;
+}
+
+function edgeWeight(edge: Edge): number | undefined {
+  return typeof edge.weight === "number" && Number.isFinite(edge.weight)
+    ? edge.weight
+    : undefined;
 }
 
 function buildChildIndex(graph: GraphData): {
@@ -222,11 +236,11 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
   }
 
   // Identify shared structural nodes (≥ 2 incoming requires parents).
-  // For each, pick the canonical parent: parent whose first-layer
-  // ancestor has the smallest sector index; ties broken by smallest
-  // parent id. Excludes the focal product as a parent and excludes
-  // the case where the shared node IS a first-layer subsystem (those
-  // are positioned above).
+  // For each, pick the canonical parent: highest edge weight first;
+  // ties and unweighted edges fall back to the original stable rule
+  // (smallest first-layer sector, then smallest parent id). Excludes
+  // the focal product as a parent and excludes the case where the shared
+  // node IS a first-layer subsystem (those are positioned above).
   const canonicalParentByShared = new Map<string, string>();
   for (const [targetId, inEdges] of incomingByTarget) {
     if (sectorIndex.has(targetId)) continue; // already-positioned first-layer
@@ -234,17 +248,20 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
     if (inEdges.length < 2) continue;
     // Candidate parents must have a known first-layer ancestor (i.e.
     // they sit somewhere inside one of the N sectors).
-    const candidates = inEdges
-      .map(({ source }) => source)
-      .filter((src) => firstLayerAncestor.has(src));
+    const candidates: SharedParentCandidate[] = inEdges
+      .filter(({ source }) => firstLayerAncestor.has(source))
+      .map(({ source, edge }) => ({ source, weight: edgeWeight(edge) }));
     if (candidates.length === 0) continue;
     candidates.sort((a, b) => {
-      const ai = sectorIndex.get(firstLayerAncestor.get(a)!)!;
-      const bi = sectorIndex.get(firstLayerAncestor.get(b)!)!;
+      const aw = a.weight ?? Number.NEGATIVE_INFINITY;
+      const bw = b.weight ?? Number.NEGATIVE_INFINITY;
+      if (aw !== bw) return bw - aw;
+      const ai = sectorIndex.get(firstLayerAncestor.get(a.source)!)!;
+      const bi = sectorIndex.get(firstLayerAncestor.get(b.source)!)!;
       if (ai !== bi) return ai - bi;
-      return a.localeCompare(b);
+      return a.source.localeCompare(b.source);
     });
-    canonicalParentByShared.set(targetId, candidates[0]);
+    canonicalParentByShared.set(targetId, candidates[0].source);
   }
 
   // Track maximum descendant depth so we can pick R_OUTER for materials.
@@ -255,11 +272,30 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
   // canonical first-layer ancestor is `sub`. For non-shared nodes,
   // canonical first-layer ancestor === firstLayerAncestor[node]. For
   // shared nodes, it is firstLayerAncestor[canonicalParent].
-  const canonicalSectorOf = (id: string): string | undefined => {
+  const canonicalSectorMemo = new Map<string, string | undefined>();
+  const canonicalSectorOf = (id: string, visiting = new Set<string>()): string | undefined => {
+    if (sectorIndex.has(id)) return id;
+    if (canonicalSectorMemo.has(id)) return canonicalSectorMemo.get(id);
+    if (visiting.has(id)) return firstLayerAncestor.get(id);
+
+    visiting.add(id);
     if (canonicalParentByShared.has(id)) {
-      return firstLayerAncestor.get(canonicalParentByShared.get(id)!);
+      const parentId = canonicalParentByShared.get(id)!;
+      const sector = canonicalSectorOf(parentId, visiting) ?? firstLayerAncestor.get(parentId);
+      visiting.delete(id);
+      canonicalSectorMemo.set(id, sector);
+      return sector;
     }
-    return firstLayerAncestor.get(id);
+
+    const candidateParents = (incomingByTarget.get(id) ?? [])
+      .map(({ source }) => source)
+      .filter((source) => firstLayerAncestor.has(source));
+    const sector = candidateParents.length === 1
+      ? canonicalSectorOf(candidateParents[0], visiting) ?? firstLayerAncestor.get(candidateParents[0])
+      : firstLayerAncestor.get(id);
+    visiting.delete(id);
+    canonicalSectorMemo.set(id, sector);
+    return sector;
   };
 
   // ADR-0007 balanced overview: allocate first-layer angular width by

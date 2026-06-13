@@ -9,7 +9,7 @@ import { HolderTeaserProvider } from "../src/components/HolderTeaserProvider";
 import { NodeDetailContent } from "../src/components/NodeDetailPanel";
 
 const node = (id: string, kind: string, overrides: object = {}) =>
-  ({ id, name: id, kind, domain: ["ai_compute_chain"], maturityLabel: "mature", ...overrides }) as never;
+  ({ id, name: id, kind, domain: ["humanoid_actuator"], maturityLabel: "mature", ...overrides }) as never;
 
 const edge = (id: string, source: string, target: string, relation: string) =>
   ({ id, source, target, relation }) as never;

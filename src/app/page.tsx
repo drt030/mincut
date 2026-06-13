@@ -1,7 +1,5 @@
-import { HomeContent } from "@/components/HomeContent";
-import { loadActiveGraphData } from "@/lib/graphLoader";
+import { LandingContent } from "@/components/LandingContent";
 
 export default function HomePage() {
-  const graph = loadActiveGraphData();
-  return <HomeContent graph={graph} />;
+  return <LandingContent />;
 }

@@ -15,6 +15,7 @@ test("renders both layer options with the active one marked", () => {
     }),
   );
   assert.match(html, /data-testid="layer-toggle"/);
+  assert.match(html, /class="layer-toggle"/);
   assert.match(html, /data-layer-option="product"[^>]*aria-pressed="true"|aria-pressed="true"[^>]*data-layer-option="product"/);
   assert.match(html, /data-layer-option="knowhow"[^>]*aria-pressed="false"|aria-pressed="false"[^>]*data-layer-option="knowhow"/);
   assert.match(html, /Know-how/);

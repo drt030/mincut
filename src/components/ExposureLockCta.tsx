@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, type ReactNode } from "react";
+import React, { createContext, useContext, type ReactNode } from "react";
+import Link from "next/link";
 import { track } from "@vercel/analytics";
 import type { Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
@@ -41,40 +42,79 @@ export function useLockedDomainForNode(node: Pick<Node, "domain"> | null | undef
   return locked.find((entry) => entry.hiddenOrgCount > 0 && tags.includes(entry.domainTag)) ?? null;
 }
 
-const UNLOCK_LINKS: Record<string, string | undefined> = {
-  ai_compute: process.env.NEXT_PUBLIC_STRIPE_LINK_AI_COMPUTE,
-  humanoid: process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID,
-  power: process.env.NEXT_PUBLIC_STRIPE_LINK_POWER,
-};
-const FOUNDING_LINK = process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
+function unlockHrefForEntitlement(entitlement: string): string | undefined {
+  switch (entitlement) {
+    case "humanoid":
+    case "power":
+      return undefined;
+    default:
+      return undefined;
+  }
+}
+
+function foundingHref(): string | undefined {
+  return process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
+}
+
+export function ExposureCheckoutLinks({
+  entry,
+  missingLabel,
+  className = "pill-row",
+}: {
+  entry: LockedDomainSummary;
+  missingLabel?: string;
+  className?: string;
+}) {
+  const { t } = useLanguage();
+  const unlockHref = unlockHrefForEntitlement(entry.entitlement);
+  const foundingLink = foundingHref();
+
+  if (!unlockHref && !foundingLink) {
+    return (
+      <div className={className}>
+        {missingLabel ? <p className="exposure-checkout-missing">{missingLabel}</p> : null}
+        <Link
+          className="link-button"
+          href="/#weekly-map"
+          onClick={() => track("waitlist_click", { domain: entry.domainTag, product: "founding" })}
+        >
+          {t("exposureLockWaitlist")}
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className={className}>
+      {unlockHref ? (
+        <a
+          className="link-button"
+          href={unlockHref}
+          onClick={() => track("unlock_click", { domain: entry.domainTag })}
+        >
+          {t("exposureLockUnlock")}
+        </a>
+      ) : null}
+      {foundingLink ? (
+        <a
+          className="link-button"
+          href={foundingLink}
+          onClick={() => track("unlock_click", { domain: entry.domainTag, product: "founding" })}
+        >
+          {t("exposureLockFounding")}
+        </a>
+      ) : null}
+    </div>
+  );
+}
 
 export function ExposureLockCta({ entry }: { entry: LockedDomainSummary }) {
   const { t } = useLanguage();
-  const unlockHref = UNLOCK_LINKS[entry.entitlement];
   return (
     <div className="evidence-gap-callout exposure-lock-cta" data-testid="exposure-lock-cta">
       <strong>{t("exposureLockHeading")}</strong>
       <p>{t("exposureLockSummary").replace("{n}", String(entry.hiddenOrgCount))}</p>
-      <div className="pill-row">
-        {unlockHref ? (
-          <a
-            className="link-button"
-            href={unlockHref}
-            onClick={() => track("unlock_click", { domain: entry.domainTag })}
-          >
-            {t("exposureLockUnlock")}
-          </a>
-        ) : null}
-        {FOUNDING_LINK ? (
-          <a
-            className="link-button"
-            href={FOUNDING_LINK}
-            onClick={() => track("unlock_click", { domain: entry.domainTag, product: "founding" })}
-          >
-            {t("exposureLockFounding")}
-          </a>
-        ) : null}
-      </div>
+      <ExposureCheckoutLinks entry={entry} missingLabel={t("exposureCheckoutMissing")} />
     </div>
   );
 }

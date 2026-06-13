@@ -64,7 +64,7 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   cost: {
     title: "Legend",
-    summary: "Follow the expensive chain first.",
+    summary: "Wider edge = larger downstream cost burden.",
     low: "Lower",
     high: "Higher",
     edgeLabel: "Edge color + width",
@@ -72,19 +72,19 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   "bottleneck-risk": {
     title: "Legend",
-    summary: "Find where feasibility can get stuck.",
+    summary: "Wider edge = commercialization bottleneck risk.",
     low: "Low risk",
     high: "Critical",
     edgeLabel: "Edge color + width",
-    edgeValue: "target node risk",
+    edgeValue: "target node can block scale, cost, or adoption",
   },
   maturity: {
     title: "Legend",
-    summary: "Warm edges point to least mature or uncertain dependencies.",
+    summary: "Wider edge = maturity gap or thin evidence.",
     low: "Mature",
     high: "Least mature",
     edgeLabel: "Edge color + width",
-    edgeValue: "target node maturity, reversed so warm means least mature",
+    edgeValue: "target node maturity, reversed so warm means less proven",
   },
 };
 
@@ -99,7 +99,7 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   cost: {
     title: "图例",
-    summary: "先沿着最重的成本链看。",
+    summary: "线越粗 = 下游成本负担越大。",
     low: "较低",
     high: "较高",
     edgeLabel: "线条颜色 + 粗细",
@@ -107,19 +107,19 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   "bottleneck-risk": {
     title: "图例",
-    summary: "看清可行性最容易卡住的位置。",
+    summary: "线越粗 = 商业化卡点风险越高。",
     low: "低风险",
     high: "关键瓶颈",
     edgeLabel: "线条颜色 + 粗细",
-    edgeValue: "下游节点的风险",
+    edgeValue: "下游节点可能卡住扩产、成本或采用",
   },
   maturity: {
     title: "图例",
-    summary: "暖色线条指向更不成熟或更不确定的依赖。",
+    summary: "线越粗 = 成熟度缺口或证据更薄。",
     low: "成熟",
     high: "最不成熟",
     edgeLabel: "线条颜色 + 粗细",
-    edgeValue: "下游节点成熟度，已反向编码：暖色表示不成熟",
+    edgeValue: "下游节点成熟度，已反向编码：暖色表示更不成熟",
   },
 };
 
@@ -204,17 +204,6 @@ export function GraphControls({
       role="group"
       aria-label="Graph view controls"
     >
-      <div className="graph-controls-section">
-        <div className="graph-controls-label">{copy.map}</div>
-        <button
-          type="button"
-          className="graph-control-button active"
-          aria-pressed="true"
-        >
-          <span className="graph-control-icon" aria-hidden="true">◎</span>
-          <span>{copy.fullSystem}</span>
-        </button>
-      </div>
       <div className="graph-controls-section">
         <div className="graph-controls-label">{copy.lens}</div>
         {ANALYSIS_MODE_OPTIONS.map((mode) => {
