@@ -49,6 +49,16 @@ const waitlistDomain = {
   portfolioState: "waitlist",
 };
 
+const auditPreviewDomain = {
+  slug: "spacex-reusable-launch",
+  rootId: "spacex_reusable_launch_stack",
+  title: "SpaceX reusable launch stack",
+  description: "test",
+  domainTag: "spacex_reusable_launch",
+  entitlement: "space",
+  portfolioState: "audit-preview",
+};
+
 function withoutCheckoutLinks() {
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID;
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_POWER;
@@ -140,6 +150,23 @@ test("preview portfolio banner does not present a future domain as full-free or 
   assert.doesNotMatch(html, /Full-free flagship demo/);
   assert.doesNotMatch(html, /Full-free depth demo/);
   assert.doesNotMatch(html, /Exposure layer unlocked/);
+});
+
+test("audit-preview banner stays review-only and does not render checkout links", async () => {
+  withoutCheckoutLinks();
+  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
+  const html = renderToStaticMarkup(
+    React.createElement(ExposureAccessBanner, {
+      domain: auditPreviewDomain,
+      locked: [{ domainTag: "spacex_reusable_launch", entitlement: "space", hiddenOrgCount: 3 }],
+    }),
+  );
+
+  assert.match(html, /Research preview/);
+  assert.match(html, /not for paid access yet/i);
+  assert.match(html, /not a purchasable product/i);
+  assert.doesNotMatch(html, /Gated exposure/);
+  assert.doesNotMatch(html, /Join founding waitlist/);
 });
 
 test("waitlist portfolio banner does not imply paid or live graph access exists", async () => {

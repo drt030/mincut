@@ -38,7 +38,7 @@ test("the parcel robot route is a full-free depth demo", () => {
   assert.equal(domain.portfolioState, "full-free-depth-demo");
 });
 
-test("humanoid, controlled-fusion, and SpaceX routes are live paid candidates", () => {
+test("humanoid and controlled-fusion are paid candidates while SpaceX maps stay audit previews", () => {
   const humanoid = domainBySlug("humanoid-robotics");
   const fusion = domainBySlug("controlled-fusion");
   const reusableLaunch = domainBySlug("spacex-reusable-launch");
@@ -61,12 +61,12 @@ test("humanoid, controlled-fusion, and SpaceX routes are live paid candidates", 
   assert.equal(reusableLaunch.rootId, "spacex_reusable_launch_stack");
   assert.equal(reusableLaunch.domainTag, "spacex_reusable_launch");
   assert.equal(reusableLaunch.entitlement, "space");
-  assert.equal(reusableLaunch.portfolioState, "paid-candidate");
+  assert.equal(reusableLaunch.portfolioState, "audit-preview");
 
   assert.equal(orbitalDataCenter.rootId, "spacex_orbital_data_center_system");
   assert.equal(orbitalDataCenter.domainTag, "spacex_orbital_data_center");
   assert.equal(orbitalDataCenter.entitlement, "space");
-  assert.equal(orbitalDataCenter.portfolioState, "paid-candidate");
+  assert.equal(orbitalDataCenter.portfolioState, "audit-preview");
   assert.match(
     orbitalDataCenter.description,
     /future-product map/i,
@@ -126,7 +126,25 @@ test("SpaceX candidate maps stay conservative about listing and regulatory statu
   );
 });
 
-test("domain portfolio state model covers free, preview, waitlist, and paid candidate states", async () => {
+test("SpaceX orbital data-center economics expose blocking unknown metrics instead of blank placeholders", () => {
+  const graph = loadGraphData();
+  for (const id of [
+    "orbital_compute_power_per_satellite_metric",
+    "orbital_launch_cost_per_kw_metric",
+  ]) {
+    const node = graph.nodes.find((candidate) => candidate.id === id);
+    assert.ok(node, `${id} should exist`);
+    assert.ok(node.tags?.includes("audit_gap"), `${id} should be marked as an audit gap`);
+    assert.ok(node.tags?.includes("blocking_unknown"), `${id} should be marked as a blocking unknown`);
+    assert.equal(
+      node.metrics?.some((metric) => metric.currentValue === "unknown - no reviewed public value"),
+      true,
+      `${id} should expose an explicit unknown value instead of an empty metric placeholder`,
+    );
+  }
+});
+
+test("domain portfolio state model covers free, audit preview, waitlist, and paid candidate states", async () => {
   const domainsModule = await import("../src/lib/domains");
   const states = new Set(
     (domainsModule as { DOMAIN_PORTFOLIO_STATES?: readonly string[] }).DOMAIN_PORTFOLIO_STATES ?? [],
@@ -137,6 +155,7 @@ test("domain portfolio state model covers free, preview, waitlist, and paid cand
     "full-free-depth-demo",
     "waitlist",
     "preview",
+    "audit-preview",
     "paid-candidate",
   ]) {
     assert.ok(states.has(state), `portfolio state model should include ${state}`);
@@ -213,6 +232,13 @@ test("future portfolio states do not resolve to full-free just because no entitl
       [],
     ),
     { status: "waitlist" },
+  );
+  assert.deepEqual(
+    resolveRouteExposureAccess(
+      { slug: "spacex-reusable-launch", domainTag: "spacex_reusable_launch", portfolioState: "audit-preview" },
+      [],
+    ),
+    { status: "audit-preview" },
   );
   assert.deepEqual(
     resolveRouteExposureAccess(

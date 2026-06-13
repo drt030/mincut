@@ -75,7 +75,8 @@ test("auditGraphTopology does not treat duplicate visible edges from one parent 
 test("commercial route topology audits have no unexplained non-material neutral canvas nodes", () => {
   for (const route of DOMAIN_ROUTES) {
     const audit = auditGraphTopology(loadActiveGraphData(route.rootId), route.rootId);
-    const minimumStructuralNodeCount = route.portfolioState === "paid-candidate" ? 45 : 80;
+    const minimumStructuralNodeCount =
+      route.portfolioState === "paid-candidate" || route.portfolioState === "audit-preview" ? 45 : 80;
 
     assert.ok(
       audit.structuralNodeCount >= minimumStructuralNodeCount,

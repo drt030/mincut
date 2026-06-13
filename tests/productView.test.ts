@@ -44,7 +44,7 @@ test("ProductView surfaces an investor answer summary for the active product", (
   );
   assert.match(
     html,
-    /Relative pressure signal: \(1 - maturity\) x cost share\. Not a probability\./,
+    /Relative pressure signal: cost\/maturity where available, boosted by explicit bottleneck claims\. Not a probability\./,
     `ProductView heat score tooltip must explain the score is not a probability; got: ${html}`,
   );
   assert.match(html, /Parcel pick-and-place execution subsystem/);

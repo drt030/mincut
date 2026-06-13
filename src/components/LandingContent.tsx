@@ -12,14 +12,14 @@ export function LandingContent() {
           <h1 id="landing-title">Find the chokepoint before the market does.</h1>
           <p className="landing-lede">
             AI compute and parcel robot are reference maps for judging the method. Humanoid robotics and controlled
-            fusion are paid-candidate previews. SpaceX reusable launch and orbital data centers add the space vertical:
-            route logic and evidence are visible, while organization exposure stays locked until checkout and entitlement
-            gates are verified.
+            fusion are paid-candidate previews. SpaceX reusable launch and orbital data centers add the space vertical as
+            research previews: route logic and evidence are visible, while organization exposure stays locked until audit,
+            checkout, and entitlement gates are verified.
           </p>
           <p className="landing-zh">
             AI compute 和 parcel robot 是用于判断方法的参考图谱。Humanoid robotics 与 controlled fusion 现在是
-            paid-candidate preview；SpaceX reusable launch 与 orbital data center 是太空方向候选图谱。部件路线和证据可见，
-            组织与股票 exposure 仍在付费层锁定，直到 checkout 与 entitlement gate 验证完成。本工具用于产业研究，不构成投资建议。
+            paid-candidate preview；SpaceX reusable launch 与 orbital data center 是太空方向 research preview。部件路线和证据可见，
+            组织与股票 exposure 仍锁定，直到审计、checkout 与 entitlement gate 验证完成。本工具用于产业研究，不构成投资建议。
           </p>
           <div className="button-row landing-cta-row">
             <Link href="/d/ai-compute" className="button">
@@ -68,9 +68,9 @@ export function LandingContent() {
           <p className="landing-eyebrow">Current drops</p>
           <h2 id="domains-title">One route per chain, one map you can inspect.</h2>
           <p className="muted">
-            AI compute and parcel-sorting robot are reference maps. Humanoid robotics, controlled fusion, and SpaceX
-            space maps are visible as paid-candidate previews while their exposure layer, checkout, and update model
-            remain under review.
+            AI compute and parcel-sorting robot are reference maps. Humanoid robotics and controlled fusion are visible
+            as paid-candidate previews. SpaceX maps are research previews until their exposure evidence, checkout, and
+            update model pass review.
           </p>
         </div>
         <div className="landing-domain-grid">

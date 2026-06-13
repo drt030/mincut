@@ -93,21 +93,23 @@ main {
   background: #14213d;
   color: white;
   display: flex;
-  gap: 24px;
-  height: 64px;
+  gap: 18px;
+  min-height: 52px;
   justify-content: space-between;
-  padding: 0 28px;
+  padding: 8px 28px;
 }
 
 .header-actions {
   align-items: center;
   display: flex;
-  gap: 18px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .brand {
   font-size: 17px;
   font-weight: 700;
+  line-height: 1.15;
 }
 
 nav {
@@ -122,8 +124,9 @@ nav a {
 
 .header-nav {
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
+  min-width: 0;
 }
 
 .header-nav-label {
@@ -139,6 +142,7 @@ nav a {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
   color: #ffffff;
+  display: none;
   font-weight: 700;
   padding: 7px 10px;
 }
@@ -150,7 +154,31 @@ nav a {
 }
 
 .header-domain-select-label {
-  display: none;
+  display: inline-flex;
+  min-width: min(360px, 36vw);
+  position: relative;
+}
+
+.header-domain-select-label span {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.header-domain-select-label select {
+  appearance: none;
+  background: rgba(248, 250, 252, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+  color: #14213d;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  min-height: 34px;
+  padding: 7px 34px 7px 10px;
+  width: 100%;
 }
 
 .header-secondary-link {
@@ -205,10 +233,10 @@ nav a {
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
   color: #172033;
   display: grid;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
-  margin-bottom: 12px;
-  padding: 18px;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.45fr);
+  margin-bottom: 8px;
+  padding: 10px 12px;
 }
 
 .domain-thesis-banner-direct {
@@ -218,7 +246,7 @@ nav a {
 .domain-thesis-copy,
 .domain-thesis-actions {
   display: grid;
-  gap: 8px;
+  gap: 5px;
 }
 
 .domain-thesis-eyebrow {
@@ -232,7 +260,7 @@ nav a {
 
 .domain-thesis-banner h1 {
   color: #14213d;
-  font-size: 28px;
+  font-size: 23px;
   letter-spacing: 0;
   line-height: 1.12;
   margin: 0;
@@ -240,15 +268,23 @@ nav a {
 
 .domain-thesis-banner p {
   color: #475569;
-  line-height: 1.45;
+  font-size: 14px;
+  line-height: 1.38;
   margin: 0;
+}
+
+.domain-thesis-copy > p:not(.domain-thesis-eyebrow) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .domain-thesis-actions {
   background: #f8fafc;
   border: 1px solid rgba(15, 23, 42, 0.1);
   border-radius: 8px;
-  padding: 14px;
+  padding: 10px;
 }
 
 .domain-thesis-status {
@@ -936,8 +972,8 @@ li {
 .graph-layout-radial {
   align-items: start;
   display: grid;
-  gap: 20px;
-  grid-template-columns: minmax(0, 1fr) clamp(360px, 30vw, 420px);
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) clamp(320px, 26vw, 360px);
   position: relative;
 }
 
@@ -947,7 +983,7 @@ li {
 
 .graph-map-column {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
 }
 
@@ -966,8 +1002,8 @@ li {
 .graph-canvas-radial {
   background: #fffefb;
   border-color: rgba(15, 23, 42, 0.16);
-  height: min(760px, calc(100vh - 156px));
-  min-height: 520px;
+  height: min(820px, calc(100vh - 120px));
+  min-height: 560px;
 }
 
 .graph-canvas-radial .react-flow__background {
@@ -1037,10 +1073,10 @@ li {
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.055);
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px;
   justify-content: space-between;
   min-height: 0;
-  padding: 9px 12px;
+  padding: 7px 10px;
   position: static;
   z-index: 2;
 }
@@ -1049,7 +1085,7 @@ li {
   display: flex;
   flex-direction: column;
   flex: 1 1 260px;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -1074,7 +1110,7 @@ li {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
   justify-content: flex-end;
 }
 
@@ -1088,6 +1124,18 @@ li {
   line-height: 1;
   padding: 6px 8px;
   white-space: nowrap;
+}
+
+.graph-product-stat-row .graph-route-state {
+  background: #f1f5f9;
+  border-color: rgba(71, 85, 105, 0.18);
+  color: #475569;
+}
+
+.graph-product-stat-row .graph-route-state.paid-locked {
+  background: #fff7ed;
+  border-color: rgba(234, 88, 12, 0.2);
+  color: #9a3412;
 }
 
 .graph-root-reset-button {
@@ -1206,7 +1254,7 @@ li {
   justify-content: flex-end;
   opacity: 1;
   overflow-x: auto;
-  padding: 6px;
+  padding: 5px;
   transition: opacity 180ms ease, background 180ms ease;
   width: auto;
 }
@@ -1236,8 +1284,8 @@ li {
   flex: 0 0 auto;
   font-size: 11px;
   justify-content: center;
-  min-height: 30px;
-  padding: 6px 8px;
+  min-height: 28px;
+  padding: 5px 7px;
   white-space: nowrap;
   width: auto;
 }
@@ -1255,7 +1303,7 @@ li {
   display: flex;
   flex: 0 1 220px;
   gap: 8px;
-  min-height: 30px;
+  min-height: 28px;
   min-width: 160px;
   padding: 6px 8px;
 }
@@ -1456,7 +1504,8 @@ li {
 
 .graph-layout-radial > .route-detail-rail {
   backdrop-filter: blur(12px);
-  height: min(760px, calc(100vh - 156px));
+  height: min(820px, calc(100vh - 120px));
+  min-height: 560px;
   position: static;
   z-index: 8;
 }
@@ -1465,15 +1514,20 @@ li {
   background: rgba(255, 253, 248, 0.98);
   border: 1px solid rgba(15, 23, 42, 0.14);
   border-radius: 8px;
-  box-shadow: 0 22px 52px rgba(15, 23, 42, 0.18);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
   color: #172033;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   min-height: 0;
   overflow: hidden;
-  padding: 14px;
-  width: clamp(360px, 30vw, 420px);
+  padding: 12px;
+  width: clamp(320px, 26vw, 360px);
+}
+
+.route-detail-rail-audit-preview {
+  background: rgba(248, 250, 252, 0.98);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
 .route-rail-header {
@@ -1484,7 +1538,7 @@ li {
 }
 
 .route-rail-header h2 {
-  font-size: 18px;
+  font-size: 16px;
   margin: 2px 0 0;
 }
 
@@ -1538,6 +1592,24 @@ li {
 .route-access-chip.full-free {
   background: #ecfdf5;
   color: #166534;
+}
+
+.route-access-chip.audit-preview,
+.route-reader-access.audit-preview {
+  background: #f1f5f9;
+  border-color: rgba(71, 85, 105, 0.18);
+  color: #475569;
+}
+
+.route-rail-audit-badge {
+  background: #f1f5f9;
+  border: 1px solid rgba(71, 85, 105, 0.18);
+  color: #475569;
+  height: auto;
+  max-width: 138px;
+  min-height: 28px;
+  min-width: 0;
+  text-align: right;
 }
 
 .route-rail-tabs {
@@ -1941,6 +2013,12 @@ li {
 .route-reader-access.full-free {
   background: #ecfdf5;
   border-color: rgba(22, 163, 74, 0.2);
+}
+
+.route-reader-access.audit-preview {
+  background: #f1f5f9;
+  border-color: rgba(71, 85, 105, 0.18);
+  color: #475569;
 }
 
 .route-reader-access strong {

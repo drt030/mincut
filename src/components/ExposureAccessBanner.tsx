@@ -54,6 +54,22 @@ export function ExposureAccessBanner({
     return null;
   }
 
+  if (domain.portfolioState === "audit-preview") {
+    return (
+      <section
+        className="exposure-access-banner exposure-access-banner-preview"
+        data-testid="exposure-access-banner"
+        id="paid-exposure-access"
+      >
+        <div>
+          <p className="exposure-access-eyebrow">{t("exposureAccessAuditPreviewEyebrow")}</p>
+          <h2>{t("exposureAccessAuditPreviewTitle")}</h2>
+          <p>{formatCopy(t("exposureAccessAuditPreviewBody"), { domain: domainName })}</p>
+        </div>
+      </section>
+    );
+  }
+
   if (domain.portfolioState === "preview") {
     return (
       <section

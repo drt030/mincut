@@ -25,12 +25,32 @@ test("domain thesis leads with the product thesis before the access banner", () 
   assert.match(html, /Humanoid robot component chain across actuators/);
   assert.doesNotMatch(html, /Paid-candidate route for humanoid robot actuators/);
   assert.match(html, /Paid-candidate preview/);
-  assert.match(html, /Supplier exposure is gated/);
-  assert.match(html, /Review status is shown per claim/);
+  assert.match(html, /Preview now: product map, bottlenecks, and evidence summary/);
+  assert.match(html, /locked exposure is not treated as reviewed investment advice/);
   assert.doesNotMatch(html, /Free: thesis, decomposition graph, bottlenecks, and evidence/);
   assert.doesNotMatch(html, /19 records, none reviewed yet/);
   assert.doesNotMatch(html, /Start with graph/);
   assert.doesNotMatch(html, /href="#domain-graph"/);
+});
+
+test("domain thesis labels audit-preview maps as research, not paid access", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(DomainThesisBanner, {
+      domain: {
+        slug: "spacex-reusable-launch",
+        rootId: "spacex_reusable_launch_stack",
+        title: "SpaceX reusable launch stack",
+        description: "SpaceX-centered reusable launch map.",
+        portfolioState: "audit-preview",
+      },
+      evidence: { reviewed: 0, total: 9 },
+    }),
+  );
+
+  assert.match(html, /Research preview/);
+  assert.match(html, /Supplier and ticker exposure is not sold/);
+  assert.match(html, /Visible evidence: 9 records, none reviewed yet/);
+  assert.doesNotMatch(html, /Paid-candidate preview/);
 });
 
 test("domain thesis does not spend first-screen attention explaining free access", () => {

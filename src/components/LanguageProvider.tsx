@@ -32,6 +32,7 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisNextSteps: "Research map next steps",
     domainThesisStatusFlagship: "Full-free flagship demo",
     domainThesisStatusDepthDemo: "Full-free depth demo",
+    domainThesisStatusAuditPreview: "Research preview",
     domainThesisStatusPaidCandidate: "Paid-candidate preview",
     domainThesisStatusWaitlist: "Waitlist domain",
     domainThesisStatusPreview: "Preview domain",
@@ -39,15 +40,17 @@ const uiText: Record<Language, Record<string, string>> = {
       "Complete graph, supplier exposure, tickers, listing context, and evidence are visible for free.",
     domainThesisAccessDepthDemo:
       "Complete depth graph and exposure layer are visible for free as a second demo chain.",
+    domainThesisAccessAuditPreview:
+      "Open research map. Supplier and ticker exposure is not sold until the review gate confirms evidence quality.",
     domainThesisAccessPaidCandidate:
-      "Supplier exposure is gated; the graph, bottlenecks, and candidate evidence remain visible.",
+      "Preview now: product map, bottlenecks, and evidence summary. Paid layer: supplier exposure, tickers, and listing venue.",
     domainThesisAccessWaitlist: "No checkout or paid access exists yet; route promotion requires reviewed graph and access gates.",
     domainThesisAccessPreview: "Graph, evidence, and access model are still being reviewed before live access.",
     domainThesisEvidenceReviewed: "Visible evidence: {reviewed} reviewed / {total} total records.",
     domainThesisEvidenceUnreviewed:
       "Visible evidence: {total} records, none reviewed yet. Treat this as candidate research until the review gate promotes it.",
     domainThesisEvidenceCandidate:
-      "Review status is shown per claim. Candidate evidence is visible; supplier exposure remains gated.",
+      "Candidate domain: locked exposure is not treated as reviewed investment advice until the audit gate passes.",
     allDomains: "All domains",
     allNodeKinds: "All node kinds",
     allRelations: "All relations",
@@ -211,6 +214,10 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureAccessWaitlistTitle: "Waitlist domain: not a live graph route yet",
     exposureAccessWaitlistBody:
       "{domain} is on the portfolio waitlist. No checkout or paid access exists for this domain yet; promotion requires a reviewed graph, evidence, and route gate.",
+    exposureAccessAuditPreviewEyebrow: "Research preview",
+    exposureAccessAuditPreviewTitle: "Research preview: not for paid access yet",
+    exposureAccessAuditPreviewBody:
+      "{domain} is visible for review, but supplier/ticker exposure remains locked and is not a purchasable product until evidence, metrics, checkout, and entitlement checks pass.",
     exposureAccessPaidCandidateEyebrow: "Paid candidate",
     exposureAccessPaidCandidateTitle: "Paid candidate: access is not live yet",
     exposureAccessPaidCandidateBody:
@@ -252,6 +259,8 @@ const uiText: Record<Language, Record<string, string>> = {
       "Open Detail from here; supplier exposure and tickers are included free for this depth demo.",
     readerStartNextUnlockedBody: "Open Detail from here to inspect evidence, supplier exposure, and tickers.",
     readerStartNextLockedBody: "Open Detail for evidence. Supplier exposure and tickers remain in the locked exposure layer for this domain.",
+    readerStartNextAuditPreviewBody:
+      "Review evidence first. Supplier exposure and tickers are intentionally held back until this route passes audit.",
     readerStartNextDefaultBody: "Open Detail from here to inspect evidence and connected suppliers where modeled.",
     readerSecondarySignals: "Secondary signals",
     readerThesisMarkedBottleneck: "it is marked as a bottleneck for {targets}",
@@ -293,6 +302,10 @@ const uiText: Record<Language, Record<string, string>> = {
     readerExposurePointOfNeedAccessDetails: "Review access details",
     readerPreviewAccessTitle: "Preview only: graph route not live",
     readerPreviewAccessBody: "The graph, evidence, and access model is still being reviewed before live access.",
+    readerAuditPreviewAccessTitle: "Research preview: exposure not reviewed",
+    readerAuditPreviewAccessBody:
+      "This route is visible for review. Supplier exposure, tickers, and paid access stay locked until evidence review and checkout gates pass.",
+    readerAuditPreviewScoreBadge: "Not scored for paid use",
     readerWaitlistAccessTitle: "Waitlist domain: graph route not live",
     readerWaitlistAccessBody: "No checkout or paid access exists for this domain yet.",
     readerPaidCandidateAccessTitle: "Paid candidate: access not live",
@@ -434,8 +447,10 @@ const uiText: Record<Language, Record<string, string>> = {
     nodeListMoreSuffix: "more — expand to see all",
     topBlockersTitle: "Top blockers (click to focus)",
     topBlockersStaticTitle: "Top blockers",
-    heatScoreTooltip: "Relative pressure signal: (1 - maturity) x cost share. Not a probability.",
-    topBlockersRiskTooltip: "Relative pressure signal: (1 - maturity) x cost share. Not a probability.",
+    heatScoreTooltip:
+      "Relative pressure signal: cost/maturity where available, boosted by explicit bottleneck claims. Not a probability.",
+    topBlockersRiskTooltip:
+      "Relative pressure signal: cost/maturity where available, boosted by explicit bottleneck claims. Not a probability.",
     topBlockersMaturityGap: "Maturity gap",
     topBlockersP50Cost: "p50 cost",
     explicitBottleneck: "Explicit bottleneck",
@@ -506,18 +521,23 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisNextSteps: "图谱下一步",
     domainThesisStatusFlagship: "完整免费旗舰 Demo",
     domainThesisStatusDepthDemo: "完整免费深度 Demo",
+    domainThesisStatusAuditPreview: "研究预览",
     domainThesisStatusPaidCandidate: "付费候选预览",
     domainThesisStatusWaitlist: "Waitlist 领域",
     domainThesisStatusPreview: "预览领域",
     domainThesisAccessFlagship: "完整图谱、供应商 exposure、股票代码、上市地和证据都免费可见。",
     domainThesisAccessDepthDemo: "完整深度图谱和 exposure 层免费可见，用作第二条 demo 链路。",
-    domainThesisAccessPaidCandidate: "供应商 exposure 已 gate；图谱、瓶颈和候选证据保持可见。",
+    domainThesisAccessAuditPreview:
+      "开放研究图谱；供应商和股票代码 exposure 在证据质量复审通过前，不作为付费内容售卖。",
+    domainThesisAccessPaidCandidate:
+      "免费预览：产品图谱、瓶颈和证据摘要。付费层：供应商 exposure、股票代码和上市地。",
     domainThesisAccessWaitlist: "尚无 checkout 或付费访问；上线需要先通过已审图谱和访问 gate。",
     domainThesisAccessPreview: "图谱、证据和访问模型仍在复审，暂未作为实时路线开放。",
     domainThesisEvidenceReviewed: "可见证据：{reviewed} 条已审 / 共 {total} 条记录。",
     domainThesisEvidenceUnreviewed:
       "可见证据：共 {total} 条记录，尚无已审证据。复审 gate 通过前，只能视为候选研究。",
-    domainThesisEvidenceCandidate: "每条 claim 都显示复审状态。候选证据可见，供应商 exposure 保持 gate。",
+    domainThesisEvidenceCandidate:
+      "候选领域：锁定 exposure 在审计通过前，不会被当成已审投资建议展示。",
     allDomains: "全部领域",
     allNodeKinds: "全部节点类型",
     allRelations: "全部关系",
@@ -667,6 +687,10 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureAccessWaitlistTitle: "Waitlist 领域：尚不是实时图谱路线",
     exposureAccessWaitlistBody:
       "{domain} 当前在 portfolio waitlist 中。本领域尚无 checkout 或付费访问；升级前需要已复审图谱、证据与路线 gate。",
+    exposureAccessAuditPreviewEyebrow: "研究预览",
+    exposureAccessAuditPreviewTitle: "研究预览：暂不开放付费访问",
+    exposureAccessAuditPreviewBody:
+      "{domain} 当前用于复审；供应商/股票代码 exposure 仍锁定，证据、指标、checkout 和 entitlement 检查通过前，不作为可购买产品。",
     exposureAccessPaidCandidateEyebrow: "付费候选",
     exposureAccessPaidCandidateTitle: "付费候选：访问尚未上线",
     exposureAccessPaidCandidateBody:
@@ -708,6 +732,8 @@ const uiText: Record<Language, Record<string, string>> = {
       "从这里打开详情；这个深度 demo 已免费包含供应商 exposure 和股票代码。",
     readerStartNextUnlockedBody: "从这里打开详情，查看证据、供应商 exposure 和股票代码。",
     readerStartNextLockedBody: "打开详情查看证据。本领域的供应商 exposure 和股票代码仍在锁定层。",
+    readerStartNextAuditPreviewBody:
+      "先复核证据。供应商 exposure 和股票代码会刻意保留，直到这条路线通过审计。",
     readerStartNextDefaultBody: "从这里打开详情，查看证据以及已建模的相关供应商。",
     readerSecondarySignals: "次级信号",
     readerThesisMarkedBottleneck: "图谱已标记为 {targets} 的瓶颈",
@@ -745,6 +771,10 @@ const uiText: Record<Language, Record<string, string>> = {
     readerExposurePointOfNeedAccessDetails: "查看访问详情",
     readerPreviewAccessTitle: "仅预览：图谱路线尚未上线",
     readerPreviewAccessBody: "图谱、证据与访问模型仍在复审，尚不能视为已解锁或已付费访问。",
+    readerAuditPreviewAccessTitle: "研究预览：exposure 尚未复审",
+    readerAuditPreviewAccessBody:
+      "这条路线当前用于复审。供应商 exposure、股票代码和付费访问会保持锁定，直到证据复审与 checkout gate 通过。",
+    readerAuditPreviewScoreBadge: "未按付费评分",
     readerWaitlistAccessTitle: "Waitlist 领域：图谱路线尚未上线",
     readerWaitlistAccessBody: "本领域尚无 checkout 或付费访问。",
     readerPaidCandidateAccessTitle: "付费候选：访问尚未上线",
@@ -881,8 +911,8 @@ const uiText: Record<Language, Record<string, string>> = {
     nodeListMoreSuffix: "项 — 展开查看全部",
     topBlockersTitle: "优先关注 (点击聚焦)",
     topBlockersStaticTitle: "优先关注",
-    heatScoreTooltip: "相对压力信号：(1-成熟度)×成本占比，不是概率。",
-    topBlockersRiskTooltip: "相对压力信号：(1-成熟度)×成本占比，不是概率。",
+    heatScoreTooltip: "相对压力信号：优先用成本/成熟度，显式瓶颈声明会提高排序；不是概率。",
+    topBlockersRiskTooltip: "相对压力信号：优先用成本/成熟度，显式瓶颈声明会提高排序；不是概率。",
     topBlockersMaturityGap: "成熟度缺口",
     topBlockersP50Cost: "p50 成本",
     explicitBottleneck: "明确瓶颈",

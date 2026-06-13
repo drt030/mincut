@@ -214,6 +214,15 @@ function tokenizeLabel(name: string): string[] {
 
 function compactCanvasLabel(name: string): string {
   return name
+    .replace(/\bSpaceX orbital data center system\b/gi, "SpaceX orbital DC")
+    .replace(/\bSpaceX reusable launch stack\b/gi, "SpaceX reusable launch")
+    .replace(/\bHumanoid robot key component stack\b/gi, "Humanoid component stack")
+    .replace(/\bBattery,\s*power,?\s*(and|\+)\s*charging system\b/gi, "Battery + power")
+    .replace(/\bDexterous hand\s*(and|\+)\s*tactile(?: system)?\b/gi, "Hand + tactile")
+    .replace(/\bPerception\s*(and|\+)\s*sensing stack\b/gi, "Perception stack")
+    .replace(/\bStructure,\s*materials,?\s*(and|\+)\s*harness\b/gi, "Structure + harness")
+    .replace(/\bManufacturing,\s*test,\s*safety,?\s*(and|\+)\s*service\b/gi, "Mfg/test/service")
+    .replace(/\bThermal management(?: system)?\b/gi, "Thermal mgmt")
     .replace(/\bonboard compute and control electronics\b/gi, "Compute/control elec.")
     .replace(/\breal-time MCU and safety controller\b/gi, "RT MCU safety ctrl")
     .replace(/\bvision-language-action\b/gi, "VLA")

@@ -679,6 +679,33 @@ test("RouteDetailRail renders preview access distinctly instead of labeling it u
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
 });
 
+test("RouteDetailRail renders audit previews as review-only without saying the graph route is offline", () => {
+  const graph = graphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      exposureAccess: { status: "audit-preview" },
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = selectedSummary(html);
+  const start = startHereCard(html);
+
+  assert.match(summary, /Research preview: exposure not reviewed/i);
+  assert.match(summary, /Supplier exposure, tickers, and paid access stay locked/i);
+  assert.match(html, /Not scored for paid use/i);
+  assert.match(start, /Review evidence first/i);
+  assert.doesNotMatch(start, /Suppliers &amp; tickers/i);
+  assert.doesNotMatch(summary, /graph route not live/i);
+  assert.doesNotMatch(summary, /Exposure layer unlocked/i);
+});
+
 test("RouteDetailRail parcel free route keeps access state silent", () => {
   const graph = parcelReaderGraphFixture();
   const route = selectCostDriverRoute(graph, "low_cost_parcel_sorting_robot_300k_rmb", { limit: 2 });

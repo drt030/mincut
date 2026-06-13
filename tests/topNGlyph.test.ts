@@ -585,6 +585,11 @@ test("GraphExplorer.tsx regression guard: RouteDetailRail receives controlled pa
   assert.match(railBlock, /exposureAccess=\{exposureAccess\}/);
   assert.match(railBlock, /panel=\{railPanel\}/);
   assert.match(railBlock, /onPanelChange=\{setRailPanel\}/);
+  assert.match(
+    noLineComments,
+    /<GraphProductStrip[\s\S]*exposureAccess=\{exposureAccess\}/,
+    "GraphProductStrip should receive exposureAccess so route-state chips stay visible above the map",
+  );
 });
 
 test("mobile graph route layout shows the map before the reader rail", () => {
@@ -685,12 +690,12 @@ test("route-led desktop layout keeps the graph dominant over the detail rail", (
 
   assert.match(
     layoutBlock,
-    /grid-template-columns:\s*minmax\(0,\s*1fr\)\s+clamp\(360px,\s*30vw,\s*420px\)/,
+    /grid-template-columns:\s*minmax\(0,\s*1fr\)\s+clamp\(320px,\s*26vw,\s*360px\)/,
     "desktop route layout should reserve the larger column for the graph and keep the reader rail secondary",
   );
   assert.match(
     railBlock,
-    /width:\s*clamp\(360px,\s*30vw,\s*420px\)/,
+    /width:\s*clamp\(320px,\s*26vw,\s*360px\)/,
     "route detail rail should be readable without taking nearly half of a 1280px viewport",
   );
   assert.doesNotMatch(
@@ -752,8 +757,8 @@ test("RadialEdge overview keeps non-route primary edges visually quiet", () => {
   );
   assert.match(
     raw,
-    /Math\.min\(Math\.max\(strokeWidth \* 0\.65,\s*0\.9\),\s*4\.8\)/,
-    "mid-zoom non-branch risk edges should preserve visible 5-band width differences without using raw 7.2px lines",
+    /Math\.min\(Math\.max\(strokeWidth \* 0\.48,\s*0\.75\),\s*3\.2\)/,
+    "mid-zoom non-branch risk edges should preserve visible 5-band width differences without turning the canvas into a red bundle",
   );
   assert.match(
     raw,
@@ -764,6 +769,11 @@ test("RadialEdge overview keeps non-route primary edges visually quiet", () => {
     raw,
     /isOuterDetail \? 0\.1 : 0\.24/,
     "normal overview primary edges should stay low-opacity so AI compute does not read as a red edge bundle",
+  );
+  assert.match(
+    raw,
+    /highlighted \? 0\.58 : 0\.32/,
+    "mid-zoom non-highlighted risk edges should stay quiet enough for labels and the recommended path to dominate",
   );
 });
 

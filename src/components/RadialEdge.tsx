@@ -409,8 +409,8 @@ export function RadialEdge({
           ? Math.min(Math.max(strokeWidth * 0.4, highlighted ? 1 : 0.55), 1.15)
           : band === 2
           ? highlighted
-            ? Math.min(Math.max(strokeWidth * 0.9, 1.25), 5.6)
-            : Math.min(Math.max(strokeWidth * 0.65, 0.9), 4.8)
+            ? Math.min(Math.max(strokeWidth * 0.74, 1.15), 4.5)
+            : Math.min(Math.max(strokeWidth * 0.48, 0.75), 3.2)
           : Math.max(strokeWidth * 1.05, 1);
   const showArrowhead = band >= 2;
   const arrowLength = showArrowhead
@@ -507,7 +507,7 @@ export function RadialEdge({
       : band === 1
         ? isOuterDetail ? 0.1 : 0.24
         : band === 2
-        ? highlighted ? 0.66 : 0.42
+        ? highlighted ? 0.58 : 0.32
         : highlighted ? 0.72 : 0.66;
 
   return (

@@ -43,8 +43,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 // signal we can give the GREEN sub-agent.
 import { NodeDetailRail, handleRailKeydown } from "../src/components/NodeDetailRail";
 import { ExposureLockProvider } from "../src/components/ExposureLockCta";
-import { loadGraphData } from "../src/lib/graphLoader";
-import type { Node } from "../src/lib/schema";
+import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
+import type { GraphData, Node } from "../src/lib/schema";
 
 // ------------------------------------------------------------------
 // Fixture nodes — pulled from the real dataset via loadGraphData so
@@ -75,12 +75,18 @@ function nodeById(id: string): Node {
   return node!;
 }
 
+function nodeByIdIn(graphData: GraphData, id: string): Node {
+  const node = graphData.nodes.find((n) => n.id === id);
+  assert.ok(node, `fixture node ${id} must exist in the scoped dataset`);
+  return node!;
+}
+
 // We cast NodeDetailRail to a permissive props type so the test can
 // reference props that the GREEN commit will declare. The GREEN
 // commit's actual signature must accept (at minimum) the fields used
 // below.
 type NodeDetailRailTestProps = {
-  graph: typeof graph;
+  graph: GraphData;
   focusedNode: Node | null;
   expanded: boolean;
   onToggleExpand: () => void;
@@ -883,7 +889,7 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
   );
   assert.match(
     html,
-    /Relative pressure signal: \(1 - maturity\) x cost share\. Not a probability\./,
+    /Relative pressure signal: cost\/maturity where available, boosted by explicit bottleneck claims\. Not a probability\./,
     `heat score tooltip must explain the pressure signal is not a probability; got: ${html}`,
   );
   assert.match(
@@ -988,6 +994,37 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
     /#3[\s\S]*Parcel induction and spacing control[\s\S]*Capacity \/ scale/,
     `investor panel must include induction/gapping as a ranked throughput opportunity; got: ${html}`,
   );
+});
+
+test("expanded: SpaceX product readout uses the same bottleneck signal as the route rail", () => {
+  const cases = [
+    "spacex_reusable_launch_stack",
+    "spacex_orbital_data_center_system",
+  ];
+
+  for (const rootId of cases) {
+    const scopedGraph = loadActiveGraphData(rootId);
+    const focused = nodeByIdIn(scopedGraph, rootId);
+    const html = render({
+      graph: scopedGraph,
+      focusedNode: focused,
+      expanded: true,
+      onToggleExpand: noop,
+      onClose: noop,
+    });
+    const topRiskRow = html.match(/Top risk bottleneck[\s\S]*?<\/li>/)?.[0] ?? "";
+
+    assert.match(
+      topRiskRow,
+      /Heat (9[0-9]|100)\/100/,
+      `SpaceX product readout should honor explicit bottleneck claims instead of showing a zero-cost fallback for ${rootId}; got: ${topRiskRow || html}`,
+    );
+    assert.doesNotMatch(
+      topRiskRow,
+      /Heat 0\/100/,
+      `SpaceX product readout must not show a 0/100 top-risk contradiction for ${rootId}; got: ${topRiskRow}`,
+    );
+  }
 });
 
 test("expanded: product detail promotes the investor answer and suppresses raw metric-heavy sections", () => {

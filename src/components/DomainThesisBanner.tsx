@@ -26,6 +26,7 @@ function formatCopy(template: string, replacements: Record<string, string | numb
 function statusKey(portfolioState: DomainPortfolioState): string {
   if (portfolioState === "full-free-flagship") return "domainThesisStatusFlagship";
   if (portfolioState === "full-free-depth-demo") return "domainThesisStatusDepthDemo";
+  if (portfolioState === "audit-preview") return "domainThesisStatusAuditPreview";
   if (portfolioState === "paid-candidate") return "domainThesisStatusPaidCandidate";
   if (portfolioState === "waitlist") return "domainThesisStatusWaitlist";
   return "domainThesisStatusPreview";
@@ -34,6 +35,7 @@ function statusKey(portfolioState: DomainPortfolioState): string {
 function accessKey(portfolioState: DomainPortfolioState): string {
   if (portfolioState === "full-free-flagship") return "domainThesisAccessFlagship";
   if (portfolioState === "full-free-depth-demo") return "domainThesisAccessDepthDemo";
+  if (portfolioState === "audit-preview") return "domainThesisAccessAuditPreview";
   if (portfolioState === "paid-candidate") return "domainThesisAccessPaidCandidate";
   if (portfolioState === "waitlist") return "domainThesisAccessWaitlist";
   return "domainThesisAccessPreview";
@@ -65,6 +67,7 @@ export function DomainThesisBanner({
   return (
     <section
       className={["domain-thesis-banner", explainsAccess ? "" : "domain-thesis-banner-direct"]
+        .concat(`domain-thesis-banner-${domain.portfolioState}`)
         .filter(Boolean)
         .join(" ")}
       data-testid="domain-thesis-banner"

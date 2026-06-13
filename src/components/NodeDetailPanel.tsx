@@ -1036,7 +1036,7 @@ function InvestorAnswerPanel({
 
 function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCandidates: Node[]): InvestorAnswer {
   const topRiskNode = topRiskNodeForProduct(graph, product.id);
-  const topRiskScore = topRiskNode ? nodeRisk(topRiskNode, graph) : null;
+  const topRiskScore = topRiskNode ? nodeRiskSignal(topRiskNode, graph) : null;
   const costGap = productCostGapRmb(graph, product.id);
   const costRoute = selectCostDriverRoute(graph, product.id, { limit: 1 });
   const topCostStep = costRoute.steps[0] ?? null;
@@ -1117,7 +1117,7 @@ function topRiskNodeForProduct(graph: GraphData, productId: string): Node | null
     if (node.id === productId || !reachable.has(node.id)) continue;
     if (node.reviewStatus === "deprecated") continue;
     if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
-    const risk = nodeRisk(node, graph);
+    const risk = nodeRiskSignal(node, graph);
     if (!best || risk > best.risk || (risk === best.risk && node.name.localeCompare(best.node.name) < 0)) {
       best = { node, risk };
     }
@@ -1153,7 +1153,7 @@ function throughputConstraintNodesForProduct(graph: GraphData, productId: string
 
   return [...candidates.values()]
     .sort((a, b) => {
-      const riskDelta = nodeRisk(b, graph) - nodeRisk(a, graph);
+      const riskDelta = nodeRiskSignal(b, graph) - nodeRiskSignal(a, graph);
       if (riskDelta !== 0) return riskDelta;
       const maturityDelta = (a.maturityScore ?? 101) - (b.maturityScore ?? 101);
       if (maturityDelta !== 0) return maturityDelta;
@@ -2546,7 +2546,7 @@ function rankedInspectCandidatesForNode(graph: GraphData, parent: Node, limit = 
     .map((child) => ({
       id: child.id,
       child,
-      risk: nodeRisk(child, graph),
+      risk: nodeRiskSignal(child, graph),
       source: "explicit" as const,
     }));
   const explicitIds = new Set(explicitBottlenecks.map((entry) => entry.id));
@@ -2574,7 +2574,7 @@ function rankedInspectCandidatesForNode(graph: GraphData, parent: Node, limit = 
       return {
         id,
         child,
-        risk: nodeRisk(child, graph),
+        risk: nodeRiskSignal(child, graph),
         source: "dependency" as const,
       };
     })
@@ -2590,7 +2590,8 @@ function rankedInspectCandidatesForNode(graph: GraphData, parent: Node, limit = 
  * top action aligned with the graph's bottleneck edge semantics instead
  * of making the user scan the lower Bottlenecks list.
  *
- * Risk uses nodeRisk(child, graph) = (1 - maturity/100) × cost_share.
+ * Risk uses nodeRiskSignal(child, graph), so explicit bottleneck markers
+ * rank consistently with the route rail even when cost data is missing.
  * If no bottleneck and no child has risk > 0.1 we render nothing (avoids a useless
  * "top blockers: ..." row when everything is mature).
  */

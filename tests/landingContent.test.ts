@@ -11,7 +11,7 @@ test("landing page presents reference maps without overexplaining free access", 
 
   assert.match(html, /AI compute chain/);
   assert.match(html, /AI compute and parcel robot are reference maps/i);
-  assert.match(html, /organization exposure stays locked until checkout and entitlement gates are verified/i);
+  assert.match(html, /organization exposure stays locked until audit, checkout, and entitlement gates are verified/i);
   assert.match(html, /Parcel-sorting robot/);
   assert.match(html, /Depth reference/);
   assert.match(html, /href="\/d\/parcel-robot"/);
@@ -20,13 +20,15 @@ test("landing page presents reference maps without overexplaining free access", 
   assert.match(html, /SpaceX reusable launch stack/);
   assert.match(html, /SpaceX orbital data center system/);
   assert.match(html, /Paid candidate preview/i);
+  assert.match(html, /Research preview/i);
   assert.match(html, /href="\/d\/humanoid-robotics"/);
   assert.match(html, /href="\/d\/controlled-fusion"/);
   assert.match(html, /href="\/d\/spacex-reusable-launch"/);
   assert.match(html, /href="\/d\/spacex-orbital-data-center"/);
   assert.match(html, /route logic and evidence are visible/i);
   assert.match(html, /paid-candidate previews/i);
-  assert.match(html, /exposure layer, checkout, and update model remain under review/i);
+  assert.match(html, /SpaceX maps are research previews/i);
+  assert.match(html, /exposure evidence, checkout, and update model pass review/i);
   assert.match(html, /Supplier identities, tickers/);
   assert.match(html, /founding interest/i);
   assert.match(html, /Cited evidence/i);

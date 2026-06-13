@@ -10,6 +10,7 @@ export const DOMAIN_PORTFOLIO_STATES = [
   "full-free-depth-demo",
   "waitlist",
   "preview",
+  "audit-preview",
   "paid-candidate",
 ] as const;
 
@@ -34,7 +35,7 @@ export type DomainRoute = DomainPortfolioBase & {
   rootId: string;
   domainTag: string;
   liveGraphRoute: true;
-  portfolioState: "full-free-flagship" | "full-free-depth-demo" | "paid-candidate";
+  portfolioState: "full-free-flagship" | "full-free-depth-demo" | "audit-preview" | "paid-candidate";
   href: `/d/${string}`;
 };
 
@@ -113,13 +114,13 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "spacex_reusable_launch_stack",
     domainTag: "spacex_reusable_launch",
     entitlement: "space",
-    portfolioState: "paid-candidate",
-    statusLabel: "Paid candidate preview",
+    portfolioState: "audit-preview",
+    statusLabel: "Research preview",
     title: "SpaceX reusable launch stack",
     description:
       "SpaceX-centered reusable launch map separating Falcon 9 operational reuse from Starship/Super Heavy rapid-reuse development constraints.",
     detail:
-      "Live candidate map. Reuse mechanics, launch cadence, refurbishment constraints, and customer exposure are visible; public-market exposure remains gated until checkout and entitlement are verified.",
+      "Research preview. Reuse mechanics, launch cadence, refurbishment constraints, and customer exposure hypotheses are visible; public-market exposure stays locked until evidence review passes.",
     href: "/d/spacex-reusable-launch",
     cta: "Open SpaceX reuse map",
     liveGraphRoute: true,
@@ -129,13 +130,13 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "spacex_orbital_data_center_system",
     domainTag: "spacex_orbital_data_center",
     entitlement: "space",
-    portfolioState: "paid-candidate",
-    statusLabel: "Future product preview",
+    portfolioState: "audit-preview",
+    statusLabel: "Research preview",
     title: "SpaceX orbital data center system",
     description:
       "SpaceX-centered future-product map for orbital AI compute, grounded in FCC application evidence but not presented as a mature commercial service.",
     detail:
-      "Live candidate map for a future product. The graph highlights power, thermal, radiation, optical-link, launch, and regulatory bottlenecks; organization exposure remains gated and unreviewed.",
+      "Research preview for a future product. The graph highlights power, thermal, radiation, optical-link, launch, and regulatory bottlenecks; organization exposure stays locked until audit review passes.",
     href: "/d/spacex-orbital-data-center",
     cta: "Open orbital compute map",
     liveGraphRoute: true,

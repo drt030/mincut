@@ -485,6 +485,12 @@ export function RouteDetailRail({
             title: t("readerPreviewAccessTitle"),
             body: t("readerPreviewAccessBody"),
           }
+          : effectiveExposureAccess.status === "audit-preview"
+            ? {
+              className: "audit-preview",
+              title: t("readerAuditPreviewAccessTitle"),
+              body: t("readerAuditPreviewAccessBody"),
+            }
           : effectiveExposureAccess.status === "waitlist"
             ? {
               className: "waitlist",
@@ -517,7 +523,9 @@ export function RouteDetailRail({
       ? t("readerStartNextLockedBody")
       : effectiveExposureAccess?.status === "unlocked"
         ? t("readerStartNextUnlockedBody")
-        : t("readerStartNextDefaultBody");
+        : effectiveExposureAccess?.status === "audit-preview"
+          ? t("readerStartNextAuditPreviewBody")
+          : t("readerStartNextDefaultBody");
   const exposureIntentRef = useRef<HTMLDivElement | null>(null);
   const exposurePointOfNeed = effectiveExposureAccess?.status === "locked"
     ? {
@@ -612,10 +620,41 @@ export function RouteDetailRail({
     : activeAnalysisMode === "cost"
     ? route.steps.length
     : activePriorityEntries.length;
+  const isAuditPreviewAccess = effectiveExposureAccess?.status === "audit-preview";
+  const startNextItems = [
+    {
+      key: "evidence",
+      label: t("readerStartNextEvidence"),
+      intent: "default" as DetailIntent,
+      hint: t("readerStartNextOpenDetail"),
+    },
+    ...(
+      isAuditPreviewAccess
+        ? []
+        : [
+          {
+            key: "exposure",
+            label: t("readerStartNextSuppliersTickers"),
+            intent: effectiveExposureAccess?.status === "locked" ? "exposure" as DetailIntent : "default" as DetailIntent,
+            hint: effectiveExposureAccess?.status === "locked"
+              ? t("readerStartNextOpenExposure")
+              : t("readerStartNextOpenDetail"),
+          },
+        ]
+    ),
+    {
+      key: "thesis",
+      label: t("readerBottleneckThesis"),
+      intent: "default" as DetailIntent,
+      hint: t("readerStartNextOpenDetail"),
+    },
+  ];
 
   return (
     <aside
-      className="route-detail-rail"
+      className={["route-detail-rail", isAuditPreviewAccess ? "route-detail-rail-audit-preview" : ""]
+        .filter(Boolean)
+        .join(" ")}
       data-testid="route-detail-rail"
       aria-label={activePanel === "detail" ? copy.nodeDetail : displayRailTitle}
     >
@@ -631,7 +670,11 @@ export function RouteDetailRail({
                 {exposureAccessText.title}
               </span>
             ) : null}
-            <span className="route-rail-count">{railCount}</span>
+            {isAuditPreviewAccess ? (
+              <span className="route-rail-count route-rail-audit-badge">{t("readerAuditPreviewScoreBadge")}</span>
+            ) : (
+              <span className="route-rail-count">{railCount}</span>
+            )}
           </div>
         ) : null}
       </header>
@@ -746,28 +789,7 @@ export function RouteDetailRail({
                     <span className="route-start-role">{startRoleText(featuredStartNode)}</span>
                   </button>
                   <div className="route-rail-chip-row" aria-label={t("readerStartNextTitle")}>
-                    {[
-                      {
-                        key: "evidence",
-                        label: t("readerStartNextEvidence"),
-                        intent: "default" as DetailIntent,
-                        hint: t("readerStartNextOpenDetail"),
-                      },
-                      {
-                        key: "exposure",
-                        label: t("readerStartNextSuppliersTickers"),
-                        intent: effectiveExposureAccess?.status === "locked" ? "exposure" as DetailIntent : "default" as DetailIntent,
-                        hint: effectiveExposureAccess?.status === "locked"
-                          ? t("readerStartNextOpenExposure")
-                          : t("readerStartNextOpenDetail"),
-                      },
-                      {
-                        key: "thesis",
-                        label: t("readerBottleneckThesis"),
-                        intent: "default" as DetailIntent,
-                        hint: t("readerStartNextOpenDetail"),
-                      },
-                    ].map((item) => (
+                    {startNextItems.map((item) => (
                       <button
                         key={item.key}
                         type="button"

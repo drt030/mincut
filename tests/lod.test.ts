@@ -342,9 +342,9 @@ test("RadialNode band 2: English punctuation keeps readable spacing", () => {
     zoom: 1.0,
   });
 
-  assert.match(html, /<tspan[^>]*>Battery,<\/tspan>/, `band-2 should keep comma spacing while compacting long English labels; got: ${html}`);
-  assert.match(html, /<tspan[^>]*>power \+ charging<\/tspan>/, `band-2 should use compact symbols instead of a cramped conjunction line; got: ${html}`);
+  assert.match(html, /Battery \+ power/, `band-2 should use a concise canvas label for battery and power nodes; got: ${html}`);
   assert.doesNotMatch(html, /Battery,power/, `band-2 English labels must not concatenate comma-separated words; got: ${html}`);
+  assert.doesNotMatch(html, /charging system/, `band-2 should move verbose system wording out of the canvas label; got: ${html}`);
 });
 
 test("RadialNode band 2: common technical phrases are abbreviated for canvas readability", () => {
@@ -365,6 +365,43 @@ test("RadialNode band 2: common technical phrases are abbreviated for canvas rea
   assert.match(computeHtml, /<tspan[^>]*>Compute\/control<\/tspan>/, `band-2 should abbreviate long control-electronics labels; got: ${computeHtml}`);
   assert.match(computeHtml, /<tspan[^>]*>elec\.<\/tspan>/, `band-2 should keep the electronics abbreviation readable on line two; got: ${computeHtml}`);
   assert.doesNotMatch(computeHtml, /\+ control elec\./, `band-2 should not leave a plus sign at the start of line two; got: ${computeHtml}`);
+
+  const spaceHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "SpaceX orbital data center system",
+    zoom: 1.0,
+  });
+  assert.match(spaceHtml, /SpaceX orbital DC/, `band-2 should abbreviate orbital data-center labels on the canvas; got: ${spaceHtml}`);
+
+  const mfgHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Manufacturing, test, safety, and service",
+    zoom: 1.0,
+  });
+  assert.match(mfgHtml, /Mfg\/test\/service/, `band-2 should abbreviate manufacturing/test/service labels; got: ${mfgHtml}`);
+  assert.doesNotMatch(mfgHtml, /Manufacturing,test/, `band-2 should not visually concatenate long comma-separated labels; got: ${mfgHtml}`);
+
+  const handHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Dexterous hand and tactile system",
+    zoom: 1.0,
+  });
+  assert.match(handHtml, /Hand \+ tactile/, `band-2 should abbreviate dexterous-hand labels; got: ${handHtml}`);
+  assert.doesNotMatch(handHtml, /Dexteroushand/, `band-2 should not split into visually concatenated hand labels; got: ${handHtml}`);
+
+  const perceptionHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Perception and sensing stack",
+    zoom: 1.0,
+  });
+  assert.match(perceptionHtml, /Perception stack/, `band-2 should abbreviate perception/sensing labels; got: ${perceptionHtml}`);
+
+  const structureHtml = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Structure, materials, and harness",
+    zoom: 1.0,
+  });
+  assert.match(structureHtml, /Structure \+ harness/, `band-2 should abbreviate structure/materials/harness labels; got: ${structureHtml}`);
 });
 
 test("RadialNode band 2: labels can be suppressed for leaf texture nodes", () => {
@@ -516,8 +553,8 @@ test("RadialEdge band 2: normal high-risk edges keep a visible width signal with
   assert.match(html, /stroke=["']#ef4444["']/, `risk color can remain as a secondary signal; got: ${html}`);
   assert.match(
     html,
-    /strokeWidth=["']4\.68(?:0000000000001)?["']|stroke-width=["']4\.68(?:0000000000001)?["']/,
-    `normal band-2 risk edges should keep a readable thick-edge signal at mid zoom; got: ${html}`,
+    /strokeWidth=["']3\.2["']|stroke-width=["']3\.2["']/,
+    `normal band-2 risk edges should keep a readable but quiet thick-edge signal at mid zoom; got: ${html}`,
   );
   assert.doesNotMatch(html, /strokeWidth=["']7\.2["']|stroke-width=["']7\.2["']/, `raw risk width should not dominate overview edges; got: ${html}`);
 });

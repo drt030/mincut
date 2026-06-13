@@ -438,6 +438,7 @@ function GraphProductStrip({
   operatorMode,
   agentExpansionStatus,
   agentExpansionProgress,
+  exposureAccess,
   onBackToParentRoot,
   onResetRoot,
   onRequestAgentExpansion,
@@ -452,6 +453,7 @@ function GraphProductStrip({
   operatorMode: boolean;
   agentExpansionStatus: AgentExpansionStatus;
   agentExpansionProgress: AgentExpansionProgress | null;
+  exposureAccess?: RouteExposureAccessState;
   onBackToParentRoot: () => void;
   onResetRoot: () => void;
   onRequestAgentExpansion: () => void;
@@ -471,6 +473,8 @@ function GraphProductStrip({
       agentQueued: (count: number) => count > 0 ? `已列出 ${count} 个候选` : "证据任务已入队",
       agentError: "加入失败，重试",
       agentProgress: (nodes: number, edges: number) => `已加入 ${nodes} 个节点 / ${edges} 条边；证据收集任务已入队`,
+      auditPreviewOnly: "研究预览",
+      paidLayerLocked: "付费层已锁定",
     }
     : {
       product: "Research root",
@@ -485,6 +489,8 @@ function GraphProductStrip({
       agentQueued: (count: number) => count > 0 ? `Listed ${count} candidates` : "Evidence task queued",
       agentError: "Retry queue",
       agentProgress: (nodes: number, edges: number) => `Added ${nodes} nodes / ${edges} edges; evidence task queued`,
+      auditPreviewOnly: "Research preview only",
+      paidLayerLocked: "Paid layer locked",
     };
   const agentLabel = agentExpansionStatus === "listing"
     ? copy.agentListing
@@ -499,6 +505,11 @@ function GraphProductStrip({
     : agentExpansionProgress && agentExpansionProgress.listedNodes > 0
       ? 82
       : 64;
+  const routeState = exposureAccess?.status === "audit-preview"
+    ? { className: "audit-preview", label: copy.auditPreviewOnly }
+    : exposureAccess?.status === "locked" || exposureAccess?.status === "paid-candidate"
+      ? { className: "paid-locked", label: copy.paidLayerLocked }
+      : null;
   return (
     <div className="graph-product-strip" data-testid="graph-product-strip">
       <div className="graph-product-title-block">
@@ -506,6 +517,9 @@ function GraphProductStrip({
         <strong>{nodeName(rootNode.id, rootNode.name)}</strong>
       </div>
       <div className="graph-product-stat-row">
+        {routeState ? (
+          <span className={`graph-route-state ${routeState.className}`}>{routeState.label}</span>
+        ) : null}
         <span>{subsystemCount} {graphLayer === "knowhow" ? copy.technicalNodes : copy.majorComponents}</span>
         {routeCount > 0 ? <span>{routeCount} {copy.costTargets}</span> : null}
         {parentRootNode ? (
@@ -1644,6 +1658,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
               operatorMode={operatorMode}
               agentExpansionStatus={visibleAgentExpansionStatus}
               agentExpansionProgress={visibleAgentExpansionProgress}
+              exposureAccess={exposureAccess}
               onBackToParentRoot={() => {
                 if (parentRootNode) setGraphRoot(parentRootNode.id);
               }}
