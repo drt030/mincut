@@ -897,8 +897,8 @@ test("GraphExplorer.tsx regression guard: root switch has an explicit canvas tra
   );
   assert.match(
     noLineComments,
-    /data-testid="reset-root-node-button"[\s\S]*href="\/graph"/,
-    "resetting the graph root should have an href fallback so returning to the product works before hydration",
+    /data-testid="reset-root-node-button"[\s\S]*href=\{graphRootHref\(resetRootNode\.id\)\}/,
+    "resetting the graph root should have an href fallback to the current product root before hydration",
   );
 
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
@@ -906,6 +906,51 @@ test("GraphExplorer.tsx regression guard: root switch has an explicit canvas tra
     css,
     /\.graph-canvas-route-led\.graph-canvas-root-transitioning\s+\.react-flow__node\s*\{[\s\S]*transition:\s*transform\s+6\d\dms/,
     "root switch should animate node transform positions during the re-rooted layout transition",
+  );
+});
+
+test("commercial domain routes hide operator controls and keep reset scoped to the route root", () => {
+  const graphExplorerPath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const domainPagePath = path.join(process.cwd(), "src", "app", "d", "[slug]", "page.tsx");
+  const raw = fs.readFileSync(graphExplorerPath, "utf8");
+  const domainPage = fs.readFileSync(domainPagePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.match(
+    domainPage,
+    /<GraphExplorer[\s\S]*initialRootId=\{domain\.rootId\}[\s\S]*operatorMode=\{false\}/,
+    "commercial /d/[slug] pages should not expose local operator-only expansion controls",
+  );
+  assert.match(
+    noLineComments,
+    /operatorMode = OPERATOR_MODE/,
+    "/graph can still opt into operator mode while domain routes override it",
+  );
+  assert.match(
+    noLineComments,
+    /isCustomRoot=\{currentRootId !== initialRootId\}/,
+    "route-led maps should treat their route root as the product root, not the global parcel demo",
+  );
+  assert.match(
+    noLineComments,
+    /onResetRoot=\{\(\) => setGraphRoot\(initialRootId\)\}/,
+    "reset should return to the current domain root",
+  );
+  assert.match(
+    noLineComments,
+    /routeCount > 0 \? <span>\{routeCount\} \{copy\.costTargets\}<\/span> : null/,
+    "commercial pages should not show a useless 0 cost-target badge",
+  );
+  assert.doesNotMatch(
+    noLineComments,
+    /回到包裹分拣机器人/,
+    "route strip copy must not hard-code the parcel demo on every paid candidate page",
   );
 });
 

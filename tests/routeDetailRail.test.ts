@@ -855,8 +855,8 @@ test("research-root links keep href fallback but prevent hydrated navigation", (
   );
   assert.match(
     graphExplorerSource,
-    /href="\/graph"[\s\S]*?onClick=\{\(event\) => \{\s*event\.preventDefault\(\);\s*onResetRoot\(\);[\s\S]*?\}\}/,
-    "reset-root link should keep its href fallback but prevent hydrated navigation so returning to the product root can animate",
+    /href=\{graphRootHref\(resetRootNode\.id\)\}[\s\S]*?onClick=\{\(event\) => \{\s*event\.preventDefault\(\);\s*onResetRoot\(\);[\s\S]*?\}\}/,
+    "reset-root link should keep its current product-root href fallback but prevent hydrated navigation so returning to the product root can animate",
   );
 });
 

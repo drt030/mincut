@@ -77,7 +77,12 @@ export default async function DomainPage({ params }: PageProps) {
         <div id="domain-graph">
           <ExposureLockProvider locked={locked}>
             <HolderTeaserProvider teasers={holderTeasers}>
-              <GraphExplorer graph={graph} initialRootId={domain.rootId} exposureAccess={exposureAccess} />
+              <GraphExplorer
+                graph={graph}
+                initialRootId={domain.rootId}
+                exposureAccess={exposureAccess}
+                operatorMode={false}
+              />
             </HolderTeaserProvider>
           </ExposureLockProvider>
         </div>

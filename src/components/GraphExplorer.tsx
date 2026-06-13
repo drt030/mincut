@@ -429,11 +429,13 @@ function mergeGraphPatch(graph: GraphData, patch: { nodes?: Node[]; edges?: Edge
 
 function GraphProductStrip({
   rootNode,
+  resetRootNode,
   graphLayer,
   parentRootNode,
   subsystemCount,
   routeCount,
   isCustomRoot,
+  operatorMode,
   agentExpansionStatus,
   agentExpansionProgress,
   onBackToParentRoot,
@@ -441,11 +443,13 @@ function GraphProductStrip({
   onRequestAgentExpansion,
 }: {
   rootNode: Node;
+  resetRootNode: Node;
   graphLayer: GraphLayer;
   parentRootNode: Node | null;
   subsystemCount: number;
   routeCount: number;
   isCustomRoot: boolean;
+  operatorMode: boolean;
   agentExpansionStatus: AgentExpansionStatus;
   agentExpansionProgress: AgentExpansionProgress | null;
   onBackToParentRoot: () => void;
@@ -461,7 +465,7 @@ function GraphProductStrip({
       technicalNodes: "技术节点",
       costTargets: "成本目标",
       parentRoot: "回到上一级",
-      resetRoot: "回到包裹分拣机器人",
+      resetRoot: "回到产品根节点",
       agentExpand: "Agent 继续展开",
       agentListing: "正在列候选节点",
       agentQueued: (count: number) => count > 0 ? `已列出 ${count} 个候选` : "证据任务已入队",
@@ -475,7 +479,7 @@ function GraphProductStrip({
       technicalNodes: "technical nodes",
       costTargets: "cost targets",
       parentRoot: "Parent root",
-      resetRoot: "Original product",
+      resetRoot: "Product root",
       agentExpand: "Agent expand",
       agentListing: "Listing candidates",
       agentQueued: (count: number) => count > 0 ? `Listed ${count} candidates` : "Evidence task queued",
@@ -503,7 +507,7 @@ function GraphProductStrip({
       </div>
       <div className="graph-product-stat-row">
         <span>{subsystemCount} {graphLayer === "knowhow" ? copy.technicalNodes : copy.majorComponents}</span>
-        <span>{routeCount} {copy.costTargets}</span>
+        {routeCount > 0 ? <span>{routeCount} {copy.costTargets}</span> : null}
         {parentRootNode ? (
           <a
             className="graph-root-reset-button graph-root-parent-button"
@@ -521,7 +525,7 @@ function GraphProductStrip({
           <a
             className="graph-root-reset-button"
             data-testid="reset-root-node-button"
-            href="/graph"
+            href={graphRootHref(resetRootNode.id)}
             onClick={(event) => {
               event.preventDefault();
               onResetRoot();
@@ -530,7 +534,7 @@ function GraphProductStrip({
             {copy.resetRoot}
           </a>
         ) : null}
-        {OPERATOR_MODE ? (
+        {operatorMode ? (
           <button
             type="button"
             className="graph-root-reset-button graph-agent-expand-button"
@@ -546,7 +550,7 @@ function GraphProductStrip({
           </button>
         ) : null}
       </div>
-      {OPERATOR_MODE && showAgentProgress ? (
+      {operatorMode && showAgentProgress ? (
         <div
           className="graph-agent-progress"
           data-testid="agent-expand-progress"
@@ -580,6 +584,7 @@ type Props = {
   /** Per-domain routes (/d/[slug]) pin the canvas root server-side; ?root= still wins for in-canvas navigation. */
   initialRootId?: string;
   exposureAccess?: RouteExposureAccessState;
+  operatorMode?: boolean;
 };
 
 function svgNumber(value: number): string {
@@ -780,9 +785,9 @@ function findRequiresNodePath(graph: GraphData, rootId: string, targetId: string
   return null;
 }
 
-function parentResearchRootId(graph: GraphData, currentRootId: string): string | null {
-  if (currentRootId === DEFAULT_ROOT_NODE_ID) return null;
-  const canonicalPath = findRequiresNodePath(graph, DEFAULT_ROOT_NODE_ID, currentRootId);
+function parentResearchRootId(graph: GraphData, currentRootId: string, baseRootId = DEFAULT_ROOT_NODE_ID): string | null {
+  if (currentRootId === baseRootId) return null;
+  const canonicalPath = findRequiresNodePath(graph, baseRootId, currentRootId);
   if (canonicalPath && canonicalPath.length >= 2) {
     return canonicalPath[canonicalPath.length - 2];
   }
@@ -793,7 +798,7 @@ function parentResearchRootId(graph: GraphData, currentRootId: string): string |
   return incomingParents[0] ?? null;
 }
 
-export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureAccess }: Props) {
+export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureAccess, operatorMode = OPERATOR_MODE }: Props) {
   const { kindName, nodeName, t } = useLanguage();
   const holderTeasers = useHolderTeasers();
   const searchParams = useSearchParams();
@@ -1610,11 +1615,15 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     () => workingGraph.nodes.find((n) => n.id === currentRootId) ?? null,
     [workingGraph.nodes, currentRootId],
   );
+  const resetRootNode: Node | null = useMemo(
+    () => workingGraph.nodes.find((n) => n.id === initialRootId) ?? null,
+    [workingGraph.nodes, initialRootId],
+  );
   const parentRootNode: Node | null = useMemo(() => {
-    const parentId = parentResearchRootId(workingGraph, currentRootId);
+    const parentId = parentResearchRootId(workingGraph, currentRootId, initialRootId);
     if (!parentId) return null;
     return workingGraph.nodes.find((node) => node.id === parentId) ?? null;
-  }, [workingGraph, currentRootId]);
+  }, [workingGraph, currentRootId, initialRootId]);
   const visibleAgentExpansionStatus =
     agentExpansionRootId === currentRootId ? agentExpansionStatus : "idle";
   const visibleAgentExpansionProgress =
@@ -1623,20 +1632,22 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     <div className="graph-explorer-shell">
       <div className="graph-layout graph-layout-radial">
         <div className="graph-map-column">
-          {rootNode ? (
+          {rootNode && resetRootNode ? (
             <GraphProductStrip
               rootNode={rootNode}
+              resetRootNode={resetRootNode}
               graphLayer={graphLayer}
               parentRootNode={parentRootNode}
               subsystemCount={firstLayerSubsystems.length}
               routeCount={activeRoute.steps.length}
-              isCustomRoot={currentRootId !== DEFAULT_ROOT_NODE_ID}
+              isCustomRoot={currentRootId !== initialRootId}
+              operatorMode={operatorMode}
               agentExpansionStatus={visibleAgentExpansionStatus}
               agentExpansionProgress={visibleAgentExpansionProgress}
               onBackToParentRoot={() => {
                 if (parentRootNode) setGraphRoot(parentRootNode.id);
               }}
-              onResetRoot={() => setGraphRoot(DEFAULT_ROOT_NODE_ID)}
+              onResetRoot={() => setGraphRoot(initialRootId)}
               onRequestAgentExpansion={requestAgentExpansion}
             />
           ) : null}
