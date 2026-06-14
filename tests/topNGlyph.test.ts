@@ -973,6 +973,16 @@ test("commercial domain routes hide operator controls and keep reset scoped to t
     /routeCount > 0 \? <span>\{routeCount\} \{copy\.costTargets\}<\/span> : null/,
     "commercial pages should not show a useless 0 cost-target badge",
   );
+  assert.match(
+    noLineComments,
+    /freeReference:\s*"Free reference map"/,
+    "free demo routes should have a small visible reference-map chip without adding a separate card",
+  );
+  assert.match(
+    noLineComments,
+    /exposureAccess\?\.status === "full-free"[\s\S]*className:\s*"full-free"[\s\S]*label:\s*copy\.freeReference/,
+    "full-free route access should render the free reference chip in the graph strip",
+  );
   assert.doesNotMatch(
     noLineComments,
     /回到包裹分拣机器人/,

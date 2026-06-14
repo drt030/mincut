@@ -867,7 +867,7 @@ test("RouteDetailRail renders preview access distinctly instead of labeling it u
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
 });
 
-test("RouteDetailRail renders audit previews as review-only without saying the graph route is offline", () => {
+test("RouteDetailRail renders audit previews as future paid domains with exposure locked", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
@@ -885,17 +885,16 @@ test("RouteDetailRail renders audit previews as review-only without saying the g
   const summary = selectedSummary(html);
   const start = startHereCard(html);
 
-  assert.match(summary, /Exposure not shown/i);
-  assert.match(summary, /Supplier\/ticker identities are held back in this preview/i);
+  assert.match(summary, /Company exposure locked/i);
+  assert.match(summary, /Company identities and listing details open only when this paid domain launches/i);
   assert.doesNotMatch(html, /Under review/i);
-  assert.match(start, /Review evidence first/i);
-  assert.match(start, /commercial research map/i);
+  assert.match(start, /Map and evidence are visible now/i);
+  assert.match(start, /Company exposure opens only when this paid domain launches/i);
   assert.doesNotMatch(summary, /paid access/i);
   assert.doesNotMatch(summary, /Supplier exposure/i);
   assert.doesNotMatch(summary, /tickers/i);
-  assert.doesNotMatch(summary, /locked/i);
-  assert.match(start, /Suppliers &amp; tickers/i);
-  assert.match(start, /Review exposure policy/i);
+  assert.match(start, /Paid exposure/i);
+  assert.match(start, /Locked until launch/i);
   assert.doesNotMatch(start, /Show locked exposure/i);
   assert.doesNotMatch(html, /checkout/i);
   assert.doesNotMatch(html, /paid unlock/i);
@@ -938,6 +937,9 @@ test("RouteDetailRail audit-preview detail keeps supplier exposure hidden until 
   );
 
   assert.match(html, /Key sources/i);
+  assert.match(html, /data-testid="route-detail-access-boundary"/);
+  assert.match(html, /Company exposure locked/i);
+  assert.match(html, /Company identities and listing details open only when this paid domain launches/i);
   assert.match(html, /No direct evidence linked/i);
   assert.doesNotMatch(html, /paid-candidate route/i);
   assert.doesNotMatch(html, /Supplier\/ticker exposure is gated/i);

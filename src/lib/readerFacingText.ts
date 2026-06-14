@@ -6,6 +6,8 @@ export function readerFacingNote(notes: string | null | undefined): string {
     .replace(/\s*\([^)]*\bagent backfill\b[^)]*\)/gi, " ")
     .replace(/\baudit-only\b/gi, "graph-linked")
     .replace(/\bunder audit\b/gi, "in preview")
+    .replace(/\breviewed only as\b/gi, "used only as")
+    .replace(/\breviewed only for\b/gi, "used only for")
     .replace(/\bno reviewed source\b/gi, "no public source")
     .replace(/\breviewed price\/BOM\b/gi, "price/BOM")
     .replace(/\breviewed public value\b/gi, "public value")

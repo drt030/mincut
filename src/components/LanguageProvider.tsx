@@ -166,12 +166,12 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureEvidenceSummaryTitle: "Evidence, suppliers, tickers",
     exposureEvidencePolicyTitle: "Evidence and exposure policy",
     exposureCandidateHeading: "Company / ticker candidates",
-    exposureCandidateAuditHeading: "Exposure held back",
+    exposureCandidateAuditHeading: "Company exposure locked",
     exposureCandidateCount: "{n} candidates",
     exposureCandidateHint:
       "Use these after the bottleneck thesis looks credible. They are graph-linked exposure leads, not direct proof, a confirmed BOM, or investment advice.",
     exposureCandidateAuditHint:
-      "Supplier and ticker exposure is held back until evidence review and access controls are ready.",
+      "Company identities and listing details open only when this paid domain launches.",
     exposureCandidateVia: "via {node}",
     exposureCandidateFallback:
       "No company or ticker candidates are modeled here yet. Open evidence details to inspect the gap.",
@@ -270,10 +270,11 @@ const uiText: Record<Language, Record<string, string>> = {
       "Follow this node to check capacity, yield, expansion, and supplier exposure before lower-level branches.",
     readerStartNextTitle: "Next: evidence / suppliers / tickers",
     readerStartNextSuppliersTickers: "Suppliers & tickers",
+    readerStartNextPaidExposure: "Paid exposure",
     readerStartNextEvidence: "Evidence",
     readerStartNextOpenDetail: "Open Detail",
     readerStartNextOpenExposure: "Show locked exposure",
-    readerStartNextOpenExposurePolicy: "Review exposure policy",
+    readerStartNextOpenExposurePolicy: "Locked until launch",
     readerStartNextFullFreeBody:
       "Open Detail from here; supplier exposure and tickers are included free for this flagship demo.",
     readerStartNextDepthFreeBody:
@@ -281,7 +282,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerStartNextUnlockedBody: "Open Detail from here to inspect evidence, supplier exposure, and tickers.",
     readerStartNextLockedBody: "Open Detail for evidence. Supplier exposure and tickers remain in the locked exposure layer for this domain.",
     readerStartNextAuditPreviewBody:
-      "Review evidence first. This route is still being checked before it becomes a commercial research map.",
+      "Map and evidence are visible now. Company exposure opens only when this paid domain launches.",
     readerStartNextDefaultBody: "Open Detail from here to inspect evidence and connected suppliers where modeled.",
     readerSecondarySignals: "Secondary signals",
     readerThesisMarkedBottleneck: "it constrains {targets}",
@@ -336,7 +337,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerExposurePointOfNeedScopeDefault:
       "Scope: suppliers and listed companies connected to the selected chain.",
     readerExposurePointOfNeedScopeAuditPreview:
-      "Scope: supplier identities and tickers are not shown in this preview.",
+      "Scope: company identities and listing details are not shown on this route yet.",
     readerExposurePointOfNeedScopeUnlocked: "Supplier/listing evidence is available for this chain.",
     readerExposurePointOfNeedTickers: "Supplier identities with tickers and listing venues where available.",
     readerExposurePointOfNeedCapacity: "Market-share, capacity, and expansion notes tied to the selected chain.",
@@ -344,15 +345,15 @@ const uiText: Record<Language, Record<string, string>> = {
     readerExposurePointOfNeedEvidenceBoundary:
       "Held-back supplier exposure is separate from component evidence; thin component evidence stays visible as a research gap.",
     readerExposurePointOfNeedCheckout:
-      "Paid unlock is not live in this preview; use private beta access until review and access controls are ready.",
+      "Paid unlock is not live yet; use private beta access until checkout and access controls are ready.",
     readerExposurePointOfNeedAuditBoundary:
-      "Supplier and ticker identities are withheld here until evidence and access boundaries are ready.",
+      "This is the paid layer: map and evidence stay visible, while company/listing data waits for launch.",
     readerExposurePointOfNeedAccessDetails: "Review access details",
     readerPreviewAccessTitle: "Preview only: graph route not live",
     readerPreviewAccessBody: "Supplier/ticker exposure is not shown on this route yet.",
-    readerAuditPreviewAccessTitle: "Exposure not shown",
+    readerAuditPreviewAccessTitle: "Company exposure locked",
     readerAuditPreviewAccessBody:
-      "Supplier/ticker identities are held back in this preview.",
+      "Company identities and listing details open only when this paid domain launches.",
     readerAuditPreviewScoreBadge: "Preview",
     readerRailCountTop: "Top {count}",
     readerWaitlistAccessTitle: "Waitlist domain: graph route not live",
@@ -696,10 +697,10 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureEvidenceSummaryTitle: "证据、供应商、股票代码",
     exposureEvidencePolicyTitle: "证据与 exposure 策略",
     exposureCandidateHeading: "公司 / 股票候选",
-    exposureCandidateAuditHeading: "Exposure 暂不披露",
+    exposureCandidateAuditHeading: "公司 exposure 已锁定",
     exposureCandidateCount: "{n} 个候选",
     exposureCandidateHint: "只有在瓶颈 thesis 看起来可信之后再看这些线索；它们是图谱连接的 exposure 线索，不是直接证据、已确认 BOM 或投资建议。",
-    exposureCandidateAuditHint: "供应商和股票 exposure 会等证据复审和访问控制准备好后再展示。",
+    exposureCandidateAuditHint: "公司身份和上市信息只会在该付费领域上线后开放。",
     exposureCandidateVia: "经由 {node}",
     exposureCandidateFallback: "此节点还没有建模公司或股票候选。打开证据详情查看缺口。",
     exposureCandidateLockedFallback:
@@ -794,10 +795,11 @@ const uiText: Record<Language, Record<string, string>> = {
       "从这个节点继续查产能、良率、扩产和供应暴露，再下钻到更低层分支。",
     readerStartNextTitle: "下一步：证据 / 供应商 / 股票代码",
     readerStartNextSuppliersTickers: "供应商与股票代码",
+    readerStartNextPaidExposure: "付费 exposure",
     readerStartNextEvidence: "证据",
     readerStartNextOpenDetail: "打开详情",
     readerStartNextOpenExposure: "查看锁定 exposure",
-    readerStartNextOpenExposurePolicy: "查看披露政策",
+    readerStartNextOpenExposurePolicy: "上线后开放",
     readerStartNextFullFreeBody:
       "从这里打开详情；这个旗舰 demo 已免费包含供应商 exposure 和股票代码。",
     readerStartNextDepthFreeBody:
@@ -805,7 +807,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerStartNextUnlockedBody: "从这里打开详情，查看证据、供应商 exposure 和股票代码。",
     readerStartNextLockedBody: "打开详情查看证据。本领域的供应商 exposure 和股票代码仍在锁定层。",
     readerStartNextAuditPreviewBody:
-      "先复核证据。这条路线仍在检查，暂不作为商业研究地图。",
+      "图谱和证据现在可见。公司 exposure 只会在该付费领域上线后开放。",
     readerStartNextDefaultBody: "从这里打开详情，查看证据以及已建模的相关供应商。",
     readerSecondarySignals: "次级信号",
     readerThesisMarkedBottleneck: "它约束了 {targets}",
@@ -858,20 +860,20 @@ const uiText: Record<Language, Record<string, string>> = {
       "范围：核聚变主要路线，以及氚、包层、磁体、材料、远程维护、靶丸和电站级约束供应商。",
     readerExposurePointOfNeedScopeDefault: "范围：与当前链路连接的供应商和上市公司。",
     readerExposurePointOfNeedScopeAuditPreview:
-      "范围：此预览不展示供应商身份和股票代码。",
+      "范围：这条路线暂不展示公司身份和上市信息。",
     readerExposurePointOfNeedScopeUnlocked: "本链的供应商 / 上市证据可见。",
     readerExposurePointOfNeedTickers: "供应商身份，以及可获得时的股票代码和上市地。",
     readerExposurePointOfNeedCapacity: "与当前链路相关的市场份额、产能和扩产备注。",
     readerExposurePointOfNeedEvidence: "组织级证据，与组件证据分开呈现。",
     readerExposurePointOfNeedEvidenceBoundary: "暂不披露的是供应商 / 股票层；组件证据偏薄时仍会作为研究缺口直接展示。",
-    readerExposurePointOfNeedCheckout: "本地预览暂不开放付费解锁；证据复审和访问控制准备好前，请使用私测访问。",
-    readerExposurePointOfNeedAuditBoundary: "这里先不披露供应商和股票身份，直到证据边界和访问边界准备好。",
+    readerExposurePointOfNeedCheckout: "当前暂不开放付费解锁；checkout 和访问控制准备好前，请使用私测访问。",
+    readerExposurePointOfNeedAuditBoundary: "这是付费层：图谱和证据保持可见，公司/上市信息等到上线后开放。",
     readerExposurePointOfNeedAccessDetails: "查看访问详情",
     readerPreviewAccessTitle: "仅预览：图谱路线尚未上线",
     readerPreviewAccessBody: "此路线暂不展示供应商 / 股票 exposure。",
-    readerAuditPreviewAccessTitle: "Exposure 暂不展示",
+    readerAuditPreviewAccessTitle: "公司 exposure 已锁定",
     readerAuditPreviewAccessBody:
-      "此预览暂不披露供应商和股票身份。",
+      "公司身份和上市信息只会在该付费领域上线后开放。",
     readerAuditPreviewScoreBadge: "预览",
     readerRailCountTop: "前 {count}",
     readerWaitlistAccessTitle: "Waitlist 领域：图谱路线尚未上线",

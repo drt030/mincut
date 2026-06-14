@@ -728,7 +728,7 @@ export function RouteDetailRail({
         ? [
           {
             key: "exposure",
-            label: t("readerStartNextSuppliersTickers"),
+            label: t("readerStartNextPaidExposure"),
             intent: "exposure" as DetailIntent,
             hint: t("readerStartNextOpenExposurePolicy"),
           },
@@ -767,7 +767,7 @@ export function RouteDetailRail({
         </div>
         {activePanel === "route" ? (
           <div className="route-rail-header-badges">
-            {exposureAccessText && !isAuditPreviewAccess ? (
+            {exposureAccessText ? (
               <span className={`route-access-chip ${exposureAccessText.className}`}>
                 {exposureAccessText.title}
               </span>
@@ -830,6 +830,15 @@ export function RouteDetailRail({
                   </ul>
                 ) : null}
                 <a href="#paid-exposure-access">{t("readerExposurePointOfNeedAccessDetails")}</a>
+              </div>
+            ) : null}
+            {detailIntent !== "exposure" && isAuditPreviewAccess && exposureAccessText ? (
+              <div
+                className={`route-reader-access route-reader-access-compact ${exposureAccessText.className}`}
+                data-testid="route-detail-access-boundary"
+              >
+                <strong>{exposureAccessText.title}</strong>
+                <span>{exposureAccessText.body}</span>
               </div>
             ) : null}
             <NodeDetailContent
