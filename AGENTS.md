@@ -118,3 +118,12 @@ The five canonical triage roles use their default strings (`needs-triage`, `need
 ### Domain docs
 
 Single-context: one `CONTEXT.md` and `docs/adr/` at the repo root, created lazily by `/grill-with-docs`. See `docs/agents/domain.md`.
+
+## Evidence audit protocol
+
+When asked to audit evidence / check source credibility for a domain, follow the FIXED method — do not improvise:
+
+- **Entry point:** `/audit-evidence <domain-slug>` (`.claude/commands/audit-evidence.md`) runs the whole pipeline. The runtime method lives in `docs/agents/evidence-audit-brief.md`.
+- **Two axes (ADR-0001, amended 2026-06-14):** `reviewStatus` is **owner-only** (human judgment, only path to 5/5). `machineCheck` is **agent-granted** (source re-fetched, quote+number confirmed) and lifts an unreviewed claim's gate cap 3/5 → 4/5. They are orthogonal.
+- **Hard invariants:** an agent **NEVER** writes `reviewStatus: "reviewed"` (owner-only, applied via `applyOwnerFlips`; test-guarded in `tests/auditNeverWritesReviewed.test.ts`); escalate **≤ 10** records; demote dead/wrong sources to `rejectedEvidenceIds` / `machineCheck=failed`, never delete; one fact per claim with verbatim quote (ADR-0009); verification subagents run **Opus 4.8**.
+- **Deterministic core:** `npm run audit:evidence -- --domain <slug> [--refresh] [--write] [--verdicts <file>]` (`src/lib/evidenceAudit.ts`). Triage + HTTP source-status + machineCheck stamping are pure/tested code; only the quote/basis judgment uses the LLM.
