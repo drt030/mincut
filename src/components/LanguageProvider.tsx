@@ -272,10 +272,12 @@ const uiText: Record<Language, Record<string, string>> = {
       "Follow this node to check capacity, yield, expansion, and supplier exposure before lower-level branches.",
     readerStartNextTitle: "Next: evidence / suppliers / tickers",
     readerStartNextSuppliersTickers: "Suppliers & tickers",
+    readerStartNextCompanies: "Companies",
     readerStartNextPaidExposure: "Paid exposure",
     readerStartNextEvidence: "Evidence",
     readerStartNextOpenDetail: "Open Detail",
     readerStartNextOpenExposure: "Show locked exposure",
+    readerStartNextCheckAvailability: "Check availability",
     readerStartNextOpenExposurePolicy: "Locked until launch",
     readerStartNextFullFreeBody:
       "Open Detail from here; supplier exposure and tickers are included free for this flagship demo.",
@@ -284,7 +286,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerStartNextUnlockedBody: "Open Detail from here to inspect evidence, supplier exposure, and tickers.",
     readerStartNextLockedBody: "Open Detail for evidence. Supplier exposure and tickers remain in the locked exposure layer for this domain.",
     readerStartNextAuditPreviewBody:
-      "Map and evidence are visible now. Company exposure opens only when this paid domain launches.",
+      "Open Detail from here to inspect the thesis, evidence, cost signal, and next chokepoints.",
     readerStartNextDefaultBody: "Open Detail from here to inspect evidence and connected suppliers where modeled.",
     readerSecondarySignals: "Secondary signals",
     readerThesisMarkedBottleneck: "it constrains {targets}",
@@ -801,10 +803,12 @@ const uiText: Record<Language, Record<string, string>> = {
       "从这个节点继续查产能、良率、扩产和供应暴露，再下钻到更低层分支。",
     readerStartNextTitle: "下一步：证据 / 供应商 / 股票代码",
     readerStartNextSuppliersTickers: "供应商与股票代码",
+    readerStartNextCompanies: "公司",
     readerStartNextPaidExposure: "付费 exposure",
     readerStartNextEvidence: "证据",
     readerStartNextOpenDetail: "打开详情",
     readerStartNextOpenExposure: "查看锁定 exposure",
+    readerStartNextCheckAvailability: "查看可用性",
     readerStartNextOpenExposurePolicy: "上线后开放",
     readerStartNextFullFreeBody:
       "从这里打开详情；这个旗舰 demo 已免费包含供应商 exposure 和股票代码。",
@@ -813,7 +817,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerStartNextUnlockedBody: "从这里打开详情，查看证据、供应商 exposure 和股票代码。",
     readerStartNextLockedBody: "打开详情查看证据。本领域的供应商 exposure 和股票代码仍在锁定层。",
     readerStartNextAuditPreviewBody:
-      "图谱和证据现在可见。公司 exposure 只会在该付费领域上线后开放。",
+      "从这里打开详情，查看研究判断、证据、成本信号和下一步瓶颈。",
     readerStartNextDefaultBody: "从这里打开详情，查看证据以及已建模的相关供应商。",
     readerSecondarySignals: "次级信号",
     readerThesisMarkedBottleneck: "它约束了 {targets}",

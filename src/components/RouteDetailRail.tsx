@@ -735,6 +735,7 @@ export function RouteDetailRail({
     ? route.steps.length
     : activePriorityEntries.length;
   const isAuditPreviewAccess = effectiveExposureAccess?.status === "audit-preview";
+  const routeAccessChipText = isAuditPreviewAccess ? null : exposureAccessText;
   const startNextItems = [
     {
       key: "evidence",
@@ -747,9 +748,9 @@ export function RouteDetailRail({
         ? [
           {
             key: "exposure",
-            label: t("readerStartNextPaidExposure"),
+            label: t("readerStartNextCompanies"),
             intent: "exposure" as DetailIntent,
-            hint: t("readerStartNextOpenExposurePolicy"),
+            hint: t("readerStartNextCheckAvailability"),
           },
         ]
         : [
@@ -786,9 +787,9 @@ export function RouteDetailRail({
         </div>
         {activePanel === "route" ? (
           <div className="route-rail-header-badges">
-            {exposureAccessText ? (
-              <span className={`route-access-chip ${exposureAccessText.className}`}>
-                {exposureAccessText.title}
+            {routeAccessChipText ? (
+              <span className={`route-access-chip ${routeAccessChipText.className}`}>
+                {routeAccessChipText.title}
               </span>
             ) : null}
             <span className="route-rail-count">{formatCopy(t("readerRailCountTop"), { count: railCount })}</span>
@@ -849,15 +850,6 @@ export function RouteDetailRail({
                   </ul>
                 ) : null}
                 <a href="#paid-exposure-access">{t("readerExposurePointOfNeedAccessDetails")}</a>
-              </div>
-            ) : null}
-            {detailIntent !== "exposure" && isAuditPreviewAccess && exposureAccessText ? (
-              <div
-                className={`route-reader-access route-reader-access-compact ${exposureAccessText.className}`}
-                data-testid="route-detail-access-boundary"
-              >
-                <strong>{exposureAccessText.title}</strong>
-                <span>{exposureAccessText.body}</span>
               </div>
             ) : null}
             <NodeDetailContent
@@ -956,10 +948,10 @@ export function RouteDetailRail({
                         <span key={factor}>{factor}</span>
                       ))}
                     </div>
-                    {exposureAccessText ? (
-                      <div className={`route-reader-access ${exposureAccessText.className}`}>
-                        <strong>{exposureAccessText.title}</strong>
-                        <span>{exposureAccessText.body}</span>
+                    {routeAccessChipText ? (
+                      <div className={`route-reader-access ${routeAccessChipText.className}`}>
+                        <strong>{routeAccessChipText.title}</strong>
+                        <span>{routeAccessChipText.body}</span>
                       </div>
                     ) : null}
                   </details>
@@ -1147,10 +1139,10 @@ export function RouteDetailRail({
                       <span>{bottleneckRoleText(selectedSummaryNode)}</span>
                       <span>{t("readerEvidenceStatus")}: {evidenceStatusText(selectedSummaryNode)}</span>
                     </div>
-                    {exposureAccessText ? (
-                      <div className={`route-reader-access ${exposureAccessText.className}`}>
-                        <strong>{exposureAccessText.title}</strong>
-                        <span>{exposureAccessText.body}</span>
+                    {routeAccessChipText ? (
+                      <div className={`route-reader-access ${routeAccessChipText.className}`}>
+                        <strong>{routeAccessChipText.title}</strong>
+                        <span>{routeAccessChipText.body}</span>
                       </div>
                     ) : null}
                     {(() => {
