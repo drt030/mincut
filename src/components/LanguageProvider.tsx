@@ -246,9 +246,9 @@ const uiText: Record<Language, Record<string, string>> = {
     readerKeyChokepoints: "Key chokepoints",
     readerBottleneckThesis: "Bottom line",
     readerBottleneckThesisSentence:
-      "{where} Impact: {impact}. Constraint type: {factors}. Relief: {relief}. Evidence: {evidence}.",
+      "{where} It matters because {impact} depends on this constraint scaling.",
     readerDetailBottleneckThesisSentence:
-      "{where} Impact: {impact}. Constraint type: {factors}. Relief: {relief}. Evidence: {evidence}.",
+      "{where} It matters because {impact} depends on this constraint scaling.",
     readerAiComputeImportance:
       "AI infrastructure growth turns this into a capacity, yield, and supplier-concentration gate.",
     readerAiComputeConstraintSummary: "Memory capacity · advanced packaging capacity · supplier concentration",
@@ -771,9 +771,9 @@ const uiText: Record<Language, Record<string, string>> = {
     readerKeyChokepoints: "关键瓶颈",
     readerBottleneckThesis: "核心判断",
     readerBottleneckThesisSentence:
-      "{where} 影响：{impact}。约束类型：{factors}。缓解周期：{relief}。证据：{evidence}。",
+      "{where} 它重要，因为 {impact} 的规模化会受这个约束影响。",
     readerDetailBottleneckThesisSentence:
-      "{where} 影响：{impact}。约束类型：{factors}。缓解周期：{relief}。证据：{evidence}。",
+      "{where} 它重要，因为 {impact} 的规模化会受这个约束影响。",
     readerAiComputeImportance:
       "AI 基础设施增长会在这里变成产能、良率和供应商集中度约束。",
     readerAiComputeConstraintSummary: "存储容量 · 先进封装产能 · 供应商集中度",

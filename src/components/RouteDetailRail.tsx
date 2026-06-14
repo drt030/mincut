@@ -611,26 +611,32 @@ export function RouteDetailRail({
           ? t("readerStartNextAuditPreviewBody")
           : t("readerStartNextDefaultBody");
   const exposureIntentRef = useRef<HTMLDivElement | null>(null);
-  const exposurePointOfNeed = effectiveExposureAccess?.status === "locked"
-    ? {
-      className: "locked",
-      title: formatCopy(t("readerExposurePointOfNeedTitle"), { n: effectiveExposureAccess.hiddenOrgCount }),
-      body: t("readerExposurePointOfNeedBody"),
-      scope: isControlledFusionRoute
-        ? t("readerExposurePointOfNeedScopeFusion")
-        : isHumanoidRoute
-          ? t("readerExposurePointOfNeedScopeHumanoid")
-          : t("readerExposurePointOfNeedScopeDefault"),
-      bullets: [
-        t("readerExposurePointOfNeedTickers"),
-        t("readerExposurePointOfNeedCapacity"),
-        t("readerExposurePointOfNeedEvidence"),
-        t("readerExposurePointOfNeedEvidenceBoundary"),
-        t("readerExposurePointOfNeedCheckout"),
-      ],
+  const exposureAccessStatus = effectiveExposureAccess?.status;
+  const exposureHiddenOrgCount = effectiveExposureAccess?.status === "locked"
+    ? effectiveExposureAccess.hiddenOrgCount
+    : 0;
+  const exposurePointOfNeed = useMemo(() => {
+    if (exposureAccessStatus === "locked") {
+      return {
+        className: "locked",
+        title: formatCopy(t("readerExposurePointOfNeedTitle"), { n: exposureHiddenOrgCount }),
+        body: t("readerExposurePointOfNeedBody"),
+        scope: isControlledFusionRoute
+          ? t("readerExposurePointOfNeedScopeFusion")
+          : isHumanoidRoute
+            ? t("readerExposurePointOfNeedScopeHumanoid")
+            : t("readerExposurePointOfNeedScopeDefault"),
+        bullets: [
+          t("readerExposurePointOfNeedTickers"),
+          t("readerExposurePointOfNeedCapacity"),
+          t("readerExposurePointOfNeedEvidence"),
+          t("readerExposurePointOfNeedEvidenceBoundary"),
+          t("readerExposurePointOfNeedCheckout"),
+        ],
+      };
     }
-    : effectiveExposureAccess?.status === "audit-preview"
-      ? {
+    if (exposureAccessStatus === "audit-preview") {
+      return {
         className: "audit-preview",
         title: t("exposureEvidencePolicyTitle"),
         body: t("exposureCandidateAuditHint"),
@@ -639,16 +645,19 @@ export function RouteDetailRail({
           t("readerExposurePointOfNeedEvidenceBoundary"),
           t("readerExposurePointOfNeedAuditBoundary"),
         ],
-      }
-    : effectiveExposureAccess?.status === "unlocked"
-      ? {
+      };
+    }
+    if (exposureAccessStatus === "unlocked") {
+      return {
         className: "unlocked",
         title: t("readerExposureLayerUnlocked"),
         body: t("readerExposureLayerUnlockedBody"),
         scope: t("readerExposurePointOfNeedScopeUnlocked"),
         bullets: [] as string[],
-      }
-      : null;
+      };
+    }
+    return null;
+  }, [exposureAccessStatus, exposureHiddenOrgCount, isControlledFusionRoute, isHumanoidRoute, t]);
   const openStartDetail = (intent: DetailIntent = "default") => {
     if (!featuredStartNode) return;
     setDetailIntent(intent);
@@ -665,6 +674,16 @@ export function RouteDetailRail({
       element.scrollIntoView({ block: "center", inline: "nearest", behavior: "auto" });
     });
   }, [activePanel, detailIntent, selectedNode?.id]);
+  useEffect(() => {
+    if (activePanel !== "detail" || detailIntent !== "exposure" || exposurePointOfNeed) return;
+    if (typeof window === "undefined") return;
+    const element = document.querySelector<HTMLElement>('[data-testid="detail-exposure-evidence-summary"]');
+    if (!element) return;
+
+    window.requestAnimationFrame(() => {
+      element.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
+    });
+  }, [activePanel, detailIntent, exposurePointOfNeed, selectedNode?.id]);
   const startSignalLabel = featuredStartNode
     ? activeAnalysisMode === "maturity"
       ? `${copy.maturityScore} ${formatMaturityScore(featuredStartNode) ?? "—"}`
@@ -737,7 +756,7 @@ export function RouteDetailRail({
           {
             key: "exposure",
             label: t("readerStartNextSuppliersTickers"),
-            intent: effectiveExposureAccess?.status === "locked" ? "exposure" as DetailIntent : "default" as DetailIntent,
+            intent: "exposure" as DetailIntent,
             hint: effectiveExposureAccess?.status === "locked"
               ? t("readerStartNextOpenExposure")
               : t("readerStartNextOpenDetail"),
@@ -847,6 +866,7 @@ export function RouteDetailRail({
               onSelectNode={onSelectNode}
               lockedExposureMode={isAuditPreviewAccess ? "audit-preview" : "paid-candidate"}
               showExposureSummary={detailIntent === "exposure" || !isAuditPreviewAccess}
+              defaultOpenExposureSummary={detailIntent === "exposure"}
             />
             {canSetSelectedAsRoot ? (
               <details className="route-reader-research-controls" data-testid="route-reader-research-controls">
@@ -897,7 +917,6 @@ export function RouteDetailRail({
                     <span className="route-start-name">{nodeName(featuredStartNode.id, featuredStartNode.name)}</span>
                     <span className="route-start-role">{startRoleText(featuredStartNode)}</span>
                   </button>
-                  {routeDecisionBrief(featuredStartNode)}
                   <div className="route-reader-factors route-reader-stuck" data-testid="route-start-where-stuck">
                     <span>{t("readerWhereStuck")}</span>
                     <div className="pill-row">
@@ -909,6 +928,7 @@ export function RouteDetailRail({
                       <p>{keyStuckReasonForNode(featuredStartNode)}</p>
                     ) : null}
                   </div>
+                  {routeDecisionBrief(featuredStartNode)}
                   <div className="route-rail-chip-row" aria-label={t("readerStartNextTitle")}>
                     {startNextItems.map((item) => (
                       <button
@@ -1086,18 +1106,21 @@ export function RouteDetailRail({
                     <span>{t("readerBottleneckThesis")}</span>
                     <p>{bottleneckThesisText(selectedSummaryNode)}</p>
                   </div>
-                  {routeDecisionBrief(selectedSummaryNode)}
-                  <div className="route-reader-evidence-summary">
-                    <span>{t("readerKeyEvidenceSummary")}</span>
-                    <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
-                  </div>
-                  <div className="route-reader-factors">
+                  <div className="route-reader-factors route-reader-stuck">
                     <span>{t("readerWhereStuck")}</span>
                     <div className="route-rail-chip-row">
                       {keyFactorsForNode(selectedSummaryNode).map((factor) => (
                         <span key={factor}>{factor}</span>
                       ))}
                     </div>
+                    {keyStuckReasonForNode(selectedSummaryNode) ? (
+                      <p>{keyStuckReasonForNode(selectedSummaryNode)}</p>
+                    ) : null}
+                  </div>
+                  {routeDecisionBrief(selectedSummaryNode)}
+                  <div className="route-reader-evidence-summary">
+                    <span>{t("readerKeyEvidenceSummary")}</span>
+                    <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
                   </div>
                   {inspectNextNodes.length > 0 ? (
                     <div className="route-reader-inspect">

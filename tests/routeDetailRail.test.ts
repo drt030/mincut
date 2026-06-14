@@ -336,8 +336,8 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
 
   assert.match(summary, /Bottom line/i);
   assert.match(summary, /Robot arm moves parcels into the sorter\./);
-  assert.match(summary, /Impact: Sorting robot/i);
-  assert.match(summary, /Constraint type:/i);
+  assert.match(summary, /Sorting robot depends on this constraint scaling/i);
+  assert.doesNotMatch(summary, /Constraint type:|Relief:|Evidence:/i);
   assert.doesNotMatch(summary, /Current signal:/i);
   assert.doesNotMatch(summary, /it is marked as a bottleneck/i);
   assert.doesNotMatch(summary, /\{importance\}/);
@@ -352,7 +352,7 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.match(summary, /18 months/i);
   assert.match(summary, /Maturity 58\/100/i);
   const whereStart = summary.indexOf("Where it is stuck");
-  const whereEnd = summary.indexOf("Inspect next");
+  const whereEnd = summary.indexOf("Investor brief");
   const whereStuck = whereStart >= 0 ? summary.slice(whereStart, whereEnd >= 0 ? whereEnd : undefined) : "";
   assert.doesNotMatch(
     whereStuck,
@@ -609,14 +609,14 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   const start = startHereCard(html);
   assert.match(start, /Bottom line/i);
   assert.match(start, /Precision gearbox limits repeatable arm motion\./);
-  assert.match(start, /Impact: Sorting robot/i);
+  assert.match(start, /Sorting robot depends on this constraint scaling/i);
   assert.match(start, /Investor brief/i);
   assert.match(start, /Cost \/ gap/i);
   assert.match(start, /Supply constraint/i);
   assert.match(start, /Relief timing/i);
   assert.ok(
-    start.indexOf("Investor brief") < start.indexOf("Where it is stuck"),
-    `start-here investor brief should appear before stuck-factor tags; got: ${start}`,
+    start.indexOf("Where it is stuck") < start.indexOf("Investor brief"),
+    `start-here stuck-factor tags should appear before investor brief; got: ${start}`,
   );
   assert.doesNotMatch(start, /Current signal:/i);
   assert.doesNotMatch(start, /it is marked as a bottleneck/i);

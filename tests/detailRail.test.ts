@@ -42,6 +42,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 // time with a "cannot find module" error, which is the cleanest RED
 // signal we can give the GREEN sub-agent.
 import { NodeDetailRail, handleRailKeydown } from "../src/components/NodeDetailRail";
+import { NodeDetailContent } from "../src/components/NodeDetailPanel";
 import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
 import type { GraphData, Node } from "../src/lib/schema";
@@ -587,10 +588,10 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
 
   assert.ok(thesisIndex >= 0, `full detail must start with bottleneck thesis; got: ${html}`);
   assert.ok(decisionBriefIndex >= 0, `decision brief should be present; got: ${html}`);
-  assert.ok(thesisIndex < decisionBriefIndex, `bottom line should lead into the investor brief; got: ${html}`);
+  assert.ok(thesisIndex < whereIndex, `bottom line should lead into stuck-factor detail; got: ${html}`);
+  assert.ok(whereIndex < decisionBriefIndex, `stuck-factor detail should precede the investor brief; got: ${html}`);
   assert.ok(decisionBriefIndex < evidenceSummaryIndex, `investor brief should come before key evidence; got: ${html}`);
   assert.ok(evidenceSummaryIndex > decisionBriefIndex, `key evidence summary should follow decision brief; got: ${html}`);
-  assert.ok(whereIndex > evidenceSummaryIndex, `where-stuck factors should follow the key evidence summary; got: ${html}`);
   assert.ok(exposureSummaryIndex > evidenceSummaryIndex, `supplier/evidence quick path should follow the evidence summary; got: ${html}`);
   assert.ok(inspectIndex > exposureSummaryIndex, `inspect next should follow the supplier/evidence quick path; got: ${html}`);
   assert.equal(evidenceStatusIndex, -1, `public detail must not expose internal evidence status language; got: ${html}`);
@@ -695,8 +696,8 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
   assert.ok(summaryIndex >= 0, `supplier/evidence summary should be present; got: ${html}`);
   assert.ok(whereStuckIndex >= 0, `Where it is stuck should be present; got: ${html}`);
   assert.ok(evidenceSummaryIndex > 0, `key evidence summary should be present; got: ${html}`);
-  assert.ok(evidenceSummaryIndex < whereStuckIndex, `key evidence summary should appear before Where it is stuck; got: ${html}`);
-  assert.ok(summaryIndex > whereStuckIndex, `supplier/ticker quick path should appear after bottom line/evidence/stuck factors; got: ${html}`);
+  assert.ok(whereStuckIndex < evidenceSummaryIndex, `Where it is stuck should appear before key evidence; got: ${html}`);
+  assert.ok(summaryIndex > evidenceSummaryIndex, `supplier/ticker quick path should appear after bottom line/stuck factors/evidence; got: ${html}`);
   assert.ok(relationshipListsIndex > summaryIndex, `supplier/ticker summary must appear before Relationship lists; got: ${html}`);
   assert.ok(secondarySignalsIndex > summaryIndex, `supplier/ticker summary should appear before secondary Heat/Evidence signals; got: ${html}`);
   assert.doesNotMatch(
@@ -716,6 +717,24 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
   assert.doesNotMatch(summary, /77 suppliers hidden|paid exposure layer/i);
   assert.doesNotMatch(relationshipLists, /Supplier \/ evidence quick path|Evidence quick path/i);
   assert.doesNotMatch(relationshipLists, /2330\.TW|000660\.KS|2311\.TW|005930\.KS/);
+});
+
+test("expanded: supplier/ticker intent opens the exposure summary at the point of need", () => {
+  const focused = nodeById("high_bandwidth_memory");
+  const html = renderToStaticMarkup(
+    React.createElement(NodeDetailContent, {
+      graph,
+      node: focused,
+      defaultOpenExposureSummary: true,
+    }),
+  );
+  const exposureSummary = html.match(
+    /<details[^>]*class="detail-reader-secondary-details detail-reader-exposure-details"[^>]*>[\s\S]*?<\/details>/,
+  )?.[0] ?? "";
+
+  assert.match(exposureSummary, /<details[^>]*open=""/, `supplier/ticker intent should expand exposure details; got: ${html}`);
+  assert.match(exposureSummary, /SK Hynix|Samsung Electronics|Micron Technology/i);
+  assert.match(exposureSummary, /000660\.KS|005930\.KS|MU/i);
 });
 
 test("expanded: locked paid-domain exposure says gated instead of missing data", () => {
@@ -805,8 +824,8 @@ test("expanded: detail bottleneck thesis stays compact so the decision brief is 
   });
   const thesis = detailReaderPriority(html).match(/<div[^>]*data-testid="detail-bottleneck-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(thesis, /Impact:/i, `detail thesis should still explain what the node affects; got: ${thesis}`);
-  assert.match(thesis, /Constraint type:/i, `detail thesis should classify why the node is hard to clear; got: ${thesis}`);
+  assert.match(thesis, /depends on this constraint scaling/i, `detail thesis should explain what the node affects; got: ${thesis}`);
+  assert.doesNotMatch(thesis, /Constraint type:|Relief:|Evidence:/i, `detail thesis should not duplicate the investor brief; got: ${thesis}`);
   assert.doesNotMatch(
     thesis,
     /Current signal:/i,
@@ -814,9 +833,9 @@ test("expanded: detail bottleneck thesis stays compact so the decision brief is 
   );
   assert.ok(
     html.indexOf('data-testid="detail-bottleneck-thesis"') < html.indexOf('data-testid="detail-decision-brief"') &&
-      html.indexOf('data-testid="detail-decision-brief"') < html.indexOf('data-testid="detail-evidence-summary"') &&
-      html.indexOf('data-testid="detail-evidence-summary"') < html.indexOf('data-testid="detail-where-stuck"'),
-    `detail should show bottom line, investor brief, evidence, then stuck-factor tags; got: ${html}`,
+      html.indexOf('data-testid="detail-where-stuck"') < html.indexOf('data-testid="detail-decision-brief"') &&
+      html.indexOf('data-testid="detail-decision-brief"') < html.indexOf('data-testid="detail-evidence-summary"'),
+    `detail should show bottom line, stuck-factor tags, investor brief, then evidence; got: ${html}`,
   );
 });
 
@@ -862,10 +881,9 @@ test("expanded: detail where-stuck keeps maturity score out of the primary expla
   const decisionIndex = priority.indexOf('data-testid="detail-decision-brief"');
   const evidenceIndex = priority.indexOf('data-testid="detail-evidence-summary"');
   assert.ok(whereIndex >= 0, `detail should include where-stuck factors; got: ${priority}`);
+  assert.ok(whereIndex < decisionIndex, `where-stuck tags should precede investor brief; got: ${priority}`);
   assert.ok(decisionIndex < evidenceIndex, `investor brief should precede evidence; got: ${priority}`);
-  assert.ok(evidenceIndex < whereIndex, `where-stuck tags should follow evidence; got: ${priority}`);
-  const exposureIndex = priority.indexOf('data-testid="detail-exposure-evidence-summary"');
-  const whereStuck = priority.slice(whereIndex, exposureIndex >= 0 ? exposureIndex : undefined);
+  const whereStuck = priority.slice(whereIndex, decisionIndex >= 0 ? decisionIndex : undefined);
 
   assert.match(whereStuck, /Component availability/i);
   assert.match(whereStuck, /Capacity \/ scale/i);

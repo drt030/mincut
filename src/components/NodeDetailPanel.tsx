@@ -195,12 +195,14 @@ export function NodeDetailContent({
   onSelectNode,
   lockedExposureMode = "paid-candidate",
   showExposureSummary = true,
+  defaultOpenExposureSummary = false,
 }: {
   graph: GraphData;
   node: Node;
   onSelectNode?: (nodeId: string) => void;
   lockedExposureMode?: LockedExposureMode;
   showExposureSummary?: boolean;
+  defaultOpenExposureSummary?: boolean;
 }) {
   const { kindName, nodeName, t } = useLanguage();
   const rawLockedEntry = useLockedDomainForNode(node);
@@ -357,6 +359,7 @@ export function NodeDetailContent({
         lockedEntry={lockedEntry}
         lockedExposureMode={lockedExposureMode}
         showExposureSummary={showExposureSummary}
+        defaultOpenExposureSummary={defaultOpenExposureSummary}
       />
       {node.kind === "product" ? (
         <InvestorAnswerPanel
@@ -1367,6 +1370,7 @@ function NodeReaderPriority({
   lockedEntry,
   lockedExposureMode,
   showExposureSummary,
+  defaultOpenExposureSummary,
 }: {
   graph: GraphData;
   node: Node;
@@ -1374,6 +1378,7 @@ function NodeReaderPriority({
   lockedEntry: LockedDomainSummary | null;
   lockedExposureMode: LockedExposureMode;
   showExposureSummary: boolean;
+  defaultOpenExposureSummary: boolean;
 }) {
   const { nodeName, t } = useLanguage();
   const riskScore = nodeRiskSignal(node, graph);
@@ -1387,11 +1392,6 @@ function NodeReaderPriority({
         <span>{t("readerBottleneckThesis")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>
       </div>
-      <DecisionBrief graph={graph} node={node} evidence={evidence} />
-      <div className="detail-reader-role" data-testid="detail-evidence-summary">
-        <span>{t("readerKeyEvidenceSummary")}</span>
-        <p>{quickPath.text}</p>
-      </div>
       <div className="detail-reader-role" data-testid="detail-where-stuck">
         <span>{t("readerWhereStuck")}</span>
         <div className="pill-row">
@@ -1403,6 +1403,11 @@ function NodeReaderPriority({
           <p className="detail-reader-stuck-note">{detailWhereStuckReason(node)}</p>
         ) : null}
       </div>
+      <DecisionBrief graph={graph} node={node} evidence={evidence} />
+      <div className="detail-reader-role" data-testid="detail-evidence-summary">
+        <span>{t("readerKeyEvidenceSummary")}</span>
+        <p>{quickPath.text}</p>
+      </div>
       {showExposureSummary ? (
         <ExposureEvidenceSummary
           graph={graph}
@@ -1410,6 +1415,7 @@ function NodeReaderPriority({
           evidence={evidence}
           lockedEntry={lockedEntry}
           lockedExposureMode={lockedExposureMode}
+          defaultOpen={defaultOpenExposureSummary}
         />
       ) : null}
       <details
@@ -1514,12 +1520,14 @@ function ExposureEvidenceSummary({
   evidence,
   lockedEntry,
   lockedExposureMode,
+  defaultOpen,
 }: {
   graph: GraphData;
   node: Node;
   evidence: Evidence[];
   lockedEntry: LockedDomainSummary | null;
   lockedExposureMode: LockedExposureMode;
+  defaultOpen: boolean;
 }) {
   const { nodeName, relationName, t } = useLanguage();
   const candidates = lockedEntry ? [] : exposureCandidatesForNode(graph, node, 3);
@@ -1530,7 +1538,7 @@ function ExposureEvidenceSummary({
   const candidateHint = isAuditPreviewLocked ? t("exposureCandidateAuditHint") : t("exposureCandidateHint");
   return (
     <div className="detail-reader-exposure-evidence" data-testid="detail-exposure-evidence-summary">
-      <details className="detail-reader-secondary-details detail-reader-exposure-details">
+      <details className="detail-reader-secondary-details detail-reader-exposure-details" open={defaultOpen}>
         <summary>
           <strong>{summaryTitle}</strong>{" "}
           <span className="muted">
