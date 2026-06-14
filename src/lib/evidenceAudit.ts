@@ -1,3 +1,4 @@
+import { z } from "zod";
 import type { Evidence, GraphData } from "@/lib/schema";
 
 export type TriageBucket = "demote" | "failed" | "needs_fetch" | "structural_ok";
@@ -122,4 +123,46 @@ export function applyMechanicalChanges(
   });
 
   return { graph: { ...graph, nodes, evidence }, changes };
+}
+
+export const agentVerdictsSchema = z.object({
+  verified: z.array(
+    z.object({
+      id: z.string(),
+      quoteMatch: z.enum(["exact", "partial", "absent", "not_checked"]),
+      numberInQuote: z.boolean().optional(),
+      notes: z.string().optional(),
+    }),
+  ),
+  escalations: z.array(z.object({ id: z.string(), question: z.string() })).max(10),
+});
+export type AgentVerdicts = z.infer<typeof agentVerdictsSchema>;
+
+/** Marks machineCheck=verified for the agent's confirmed records. NEVER touches reviewStatus. */
+export function applyAgentVerdicts(graph: GraphData, verdicts: AgentVerdicts, checkedAsOf: string): { graph: GraphData } {
+  const byId = new Map(verdicts.verified.map((v) => [v.id, v]));
+  const evidence = graph.evidence.map((item) => {
+    const v = byId.get(item.id);
+    if (!v) return item;
+    return {
+      ...item,
+      machineCheck: {
+        status: "verified" as const,
+        checkedAsOf,
+        quoteMatch: v.quoteMatch,
+        numberInQuote: v.numberInQuote,
+        notes: v.notes,
+      },
+    };
+  });
+  return { graph: { ...graph, evidence } };
+}
+
+/** The ONLY function in the audit core that promotes a record to the reviewed review-status. Owner-gated via --apply-flips. */
+export function applyOwnerFlips(graph: GraphData, flipIds: string[]): { graph: GraphData } {
+  const flips = new Set(flipIds);
+  const evidence = graph.evidence.map((item) =>
+    flips.has(item.id) ? { ...item, reviewStatus: "reviewed" as const } : item,
+  );
+  return { graph: { ...graph, evidence } };
 }
