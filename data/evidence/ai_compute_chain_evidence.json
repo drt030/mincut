@@ -421,11 +421,11 @@
     "id": "ev_acc_pkg_tsmc_capacity",
     "type": "paper",
     "title": "AI Competition Turns into a Supply Chain Arms Race, Tightening Advanced Packaging and 3nm Capacity",
-    "url": "https://www.trendforce.com/presscenter/news/20260430-13028.html",
-    "sourceName": "TrendForce",
-    "date": "2026-04-30",
-    "summary": "TrendForce analysis of global CoWoS and 2.5D/3D packaging capacity constraints. Reports TSMC's plan to expand CoWoS capacity by over 60% by 2027, with severe shortage projected to ease slightly by 2027. Identifies CoWoS, substrate, and HBM as primary bottlenecks.",
-    "excerpt": "TSMC's CoWoS throughput is set to soar from ~40,000 wafers per month in 2024 to as much as 140,000–150,000 wafers per month by 2026. The severe shortage in global 2.5D packaging capacity will begin to ease slightly by 2027, aided by order spillover and TSMC's plan to expand CoWoS capacity by over 60% by 2027.",
+    "url": "https://www.trendforce.com/news/2024/10/21/news-cowos-capacity-doubles-for-two-years-still-insufficient-positive-outlook-for-suppliers/",
+    "sourceName": "TrendForce (Oct 2024, citing MoneyDJ)",
+    "date": "2024-10-21",
+    "summary": "2024 TrendForce/MoneyDJ projection of TSMC CoWoS monthly wafer capacity scaling toward 140,000-150,000 wafers/month by 2026. Aggressive AI-demand scenario; TrendForce's own later (Dec 2024) estimate is more conservative (~90,000/month by end-2026).",
+    "excerpt": "TSMC's CoWoS monthly capacity is expected to reach 35,000 to 40,000 wafers this year [2024] ... potentially reaching 140,000 to 150,000 wafers per month by 2026.",
     "supportsNodeIds": [
       "advanced_packaging"
     ],
@@ -434,11 +434,13 @@
     ],
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
+    },
+    "limitations": "Projection made in 2024 for 2026; other estimates (incl. TrendForce Dec-2024) run lower (~90k/month). Basis: monthly CoWoS wafer capacity."
   },
   {
     "id": "ev_acc_pkg_osat_share",
@@ -531,11 +533,11 @@
     "id": "ev_acc_pkg_test_capacity",
     "type": "historical_source",
     "title": "Cohu Inc Q1 2026 Earnings Report",
-    "url": "https://www.sec.gov/Archives/edgar/data/0000021535/000143774926014308/cohu20260328_10q.htm",
-    "sourceName": "Cohu Inc SEC Filing (Form 10-Q)",
-    "date": "2026-04-28",
-    "summary": "Cohu reports test cell utilization of 78% at end of Q1 2026 (March 2026), up from 76% estimated in December 2025. Indicates tightening test capacity across semiconductor industry, with less than 20% headroom for demand growth.",
-    "excerpt": "Cohu's estimated test cell utilization increased to 76% in December (of 2025), and the company achieved an estimated test cell utilization of 78% at the end of March in 2026.",
+    "url": "https://www.fool.com/earnings/call-transcripts/2026/04/30/cohu-cohu-q1-2026-earnings-call-transcript/",
+    "sourceName": "Cohu Q1-2026 earnings call (transcript)",
+    "date": "2026-04-30",
+    "summary": "Cohu-estimated blended semiconductor test-cell utilization across its installed ATE base (ALL end-markets, not HBM/advanced-package-specific): 78% at end of Q1-2026, up from 76% in December 2025 (Cohu Q4-2025 call). Used as a back-end test-tightening proxy.",
+    "excerpt": "Estimated semiconductor test utilization also increased sequentially to 78% at the end of the first quarter.",
     "supportsNodeIds": [
       "test_and_inspection"
     ],
@@ -544,11 +546,13 @@
     ],
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
+    },
+    "limitations": "Blended industry proxy; Cohu does not break out HBM/advanced-package test utilization. Dec-2025 76% from the Cohu Q4-2025 call (2026-02-12)."
   },
   {
     "id": "ev_acc_pkg_flip_chip_equipment",
@@ -809,24 +813,26 @@
     "id": "ev_acc_hbm_tsv_bonding_yield",
     "type": "paper",
     "title": "HBM stack bonding yield challenges limit capacity growth",
-    "url": "https://www.gartner.com",
-    "sourceName": "Gartner / Omdia",
-    "date": "2024-06",
-    "summary": "Multi-layer die bonding yield for HBM stacks (6–12 layers) remains 65–70% industry-wide; micro-bump defects and TSV opens are primary failure modes. Yield improvement efforts ongoing but slow.",
-    "excerpt": "HBM stack bonding yield ~68% post-assembly; represents material loss of ~32% on top of wafer fab yield ~70%, resulting in net ~48% effective yield from raw wafer to good HBM stack.",
+    "url": "https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm",
+    "sourceName": "Best-estimate (SemiAnalysis model + SK hynix)",
+    "date": "2026-06-14",
+    "summary": "Estimate, not a directly cited figure. Method: per-layer yield compounding (SemiAnalysis: 8-layer at 99%/layer ~= 92%, 12-layer ~= 87%); SK hynix states HBM4 hybrid-bonding yield is 'not yet high'. The prior 68/32/70/48 yield chain was unsourced and has been removed.",
+    "excerpt": "[Best-estimate] Exact HBM stacking yields are proprietary. A first-order per-layer compounding model (~99%/layer) implies roughly 85-90% effective yield for an 8-12-high stack, lower for hybrid bonding.",
     "supportsNodeIds": [
       "hbm_stack_assembly_die_bonding"
     ],
     "supportsEdgeIds": [
       "e_acc_hbm__requires__hbm_stacking"
     ],
-    "confidence": "medium",
+    "confidence": "low",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "fetch_ok",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-14",
+      "notes": "best-estimate, not source-verified; see limitations"
+    },
+    "limitations": "Best-estimate from a per-layer compounding model; exact HBM stacking/bonding yields are proprietary and undisclosed."
   },
   {
     "id": "ev_acc_hbm_test_yield_constraints",
@@ -3151,16 +3157,21 @@
     "title": "InP Epitaxy Supply Constraint – Foundry Capacity vs. Transceiver Demand",
     "url": "https://www.yolegroup.com/strategy-insights/what-does-the-future-hold-for-the-compound-semiconductor-industry/",
     "date": "2025-06",
-    "excerpt": "InP epitaxial growth is performed by small number of specialty manufacturers with inherently lower throughput and yield (unlike silicon wafer production). Current transceiver demand reported to exceed supply by factor of ~2x due to InP constraints. Open-market epitaxy penetration ~35%; 65% vertically integrated, creating supply bottleneck.",
+    "excerpt": "[Best-estimate] InP epitaxy is a specialty, low-throughput step; transceiver demand is estimated to exceed InP epitaxy supply by roughly 2x (per SemiAnalysis's InP-bottleneck thesis). InP epitaxy is mostly vertically integrated.",
     "supportsNodeIds": [
       "epitaxial_growth_inp_gaas"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-14",
+      "notes": "best-estimate, not source-verified; see limitations"
+    },
+    "summary": "Estimate. Method/anchor: SemiAnalysis InP-bottleneck thesis for the ~2x demand/supply ratio (primary article paywalled, not directly quotable). The prior '~35% open-market / 65% integrated' split had no traceable source and has been removed.",
+    "sourceName": "Best-estimate (SemiAnalysis thesis; Yole topic anchor)",
+    "confidence": "low",
+    "limitations": "Best-estimate. ~2x ratio anchored to SemiAnalysis (paywalled, not quotable verbatim). The 35%/65% open-vs-integrated split is removed (no traceable source)."
   },
   {
     "id": "ev_acc_optup_mocvd_lead_time",
@@ -3312,8 +3323,8 @@
     "type": "paper",
     "title": "AI Data Center Optical Component Shortage: NVIDIA's $4B Laser Lockup Reshapes Supply",
     "url": "https://www.trendforce.com/presscenter/news/20251208-12823.html",
-    "date": "2025-12",
-    "excerpt": "Optical laser supply shortage wave: 2025–2026 demand for 800G+ transceivers forecast to surge from 24M units (2025) to 63M units (2026). However, 800G transceiver production projected 40–60% below demand until 2027. EML laser shortage is core constraint: only 5 vendors manufacture globally (Lumentum, Coherent, Mitsubishi, Sumitomo, Broadcom). NVIDIA's $4B lockup (March 2026: $2B each to Lumentum & Coherent) secures capacity, pushing rivals past 2027.",
+    "date": "2025-12-08",
+    "excerpt": "Demand for 800G+ transceivers is forecast to surge from 24M units (2025) to 63M units (2026); McKinsey projects 800-gigabit-per-second transceiver production will fall 40 to 60 percent short of demand through 2027.",
     "supportsNodeIds": [
       "eml_dfb_laser_diodes",
       "compound_foundry_specialty"
@@ -3321,9 +3332,14 @@
     "reviewStatus": "unreviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
+    },
+    "summary": "EML/laser is a severe optical bottleneck. The 40-60% shortfall is McKinsey's figure for 800G TRANSCEIVERS (not EML chips specifically). Separately, NVIDIA made a ~$4B EQUITY investment ($2B each in Lumentum and Coherent, Mar 2026) plus an undisclosed multibillion purchase commitment - equity, not a prepay.",
+    "sourceName": "TrendForce (units) + McKinsey via TechTimes (shortfall)",
+    "confidence": "medium",
+    "limitations": "$4B/$2B are equity investments (NVIDIA newsroom 2026-03; CNBC), NOT a prepay; the purchase commitment dollar amount is undisclosed. No published EML-chip-specific shortfall %; the 40-60% is the 800G-transceiver basis (McKinsey)."
   },
   {
     "id": "ev_acc_optup_eml_supplier_concentration",
@@ -5890,9 +5906,9 @@
     "id": "ev_acc_nc4_nittobo_monopoly_1",
     "type": "news",
     "title": "Nittobo Expands Glass-Fiber Output with Nan Ya; Nan Ya to Handle 20% by 2027",
-    "url": "https://www.trendforce.com/news/2025/11/28/news-nittobo-expands-glass-fiber-output-with-nan-ya-nan-ya-to-handle-20-by-2027-amid-ai-surge/",
-    "date": "2025-11",
-    "excerpt": "Nittobo controls 90% of the global high-end glass fiber cloth market share, and monopolizes 90% of the global high-end fiberglass cloth market, with no competitors in the T-Glass field. Nittobo raised prices 20% in August 2025, and plans another 20–30% increase in April 2026.",
+    "url": "https://insights.trendforce.com/p/glass-fiber-cloth-shortage",
+    "date": "2026-04-30",
+    "excerpt": "Nittobo, the leading manufacturer holding approximately 90% market share in T-glass and 60-70% in NER-glass ... raised prices across its glass fiber product line by 20% in August 2025, and plans another increase of roughly 20%-30% in April 2026.",
     "supportsNodeIds": [
       "t_glass_fabric"
     ],
@@ -5901,11 +5917,16 @@
       "e_acc_sub_t_glass__manufactured_by__nittobo"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
+    },
+    "summary": "TrendForce: Nittobo holds ~90% of the high-end T-glass market; raised glass-fiber prices ~20% (Aug 2025) with a further ~20-30% planned (Apr 2026). Price hikes are line-wide, not high-end-only.",
+    "sourceName": "TrendForce Insights",
+    "confidence": "high",
+    "limitations": "~90% basis is T-glass (high-end); the 20% / 20-30% hikes are across Nittobo's glass-fiber line, not high-end-only."
   },
   {
     "id": "ev_acc_nc4_tglass_shortage_1",
@@ -5913,7 +5934,7 @@
     "title": "Glass Fiber Cloth: The Underlying Material Shortage in AI Infrastructure",
     "url": "https://insights.trendforce.com/p/glass-fiber-cloth-shortage",
     "date": "2025-10",
-    "excerpt": "With the explosive growth in AI demand, the material is in short supply, creating a supply gap. Tight supply of high-end glass cloth (T-glass) is expected to result in an actual supply gap exceeding 40% in the second half of 2026.",
+    "excerpt": "[Best-estimate] Low-Dk/T-glass cloth supply gap on the order of 30-50% across 2026, easing from ~mid-2027. No source states a precise '2H2026' cloth figure.",
     "supportsNodeIds": [
       "t_glass_fabric"
     ],
@@ -5923,9 +5944,14 @@
     "reviewStatus": "unreviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-14",
+      "notes": "best-estimate, not source-verified; see limitations"
+    },
+    "summary": "Estimate, not a directly cited figure. Method: triangulate (a) widely-reported '>40% T-glass gap by 2026' for IC-substrate fabric and (b) China Securities' 30-50% gap for specialty low-Dk-2/low-CTE cloth (full-year 2026). Source-backed parts: qualitative shortage, +20% Aug-2025 price hike, relief not before mid-2027 (TrendForce).",
+    "sourceName": "Best-estimate (TrendForce qualitative + China Securities)",
+    "confidence": "low",
+    "limitations": "Best-estimate. Exact 2H2026 cloth gap % is not published. Anchors: TrendForce glass-fiber-cloth shortage page; China Securities via huxiu.com/article/4850455.html; news.futunn.com."
   },
   {
     "id": "ev_acc_nc4_asahi_entry_1",
