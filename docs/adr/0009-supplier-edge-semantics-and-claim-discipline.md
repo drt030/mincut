@@ -70,3 +70,27 @@ high-tier sourcing above. Flips are per-FACT, not per-node; reviewStatus stays o
   "% of quantified claims with ok_exact quotes", not "% of claims with a URL".
 - Full claim-object schema (the YAML shape in the audit) is deferred to post-launch; the interim
   encoding is disciplined metrics + descriptions as above.
+
+## Amendment 2026-06-14: remediation ladder for unsupported quantified claims
+
+When an audit finds a quantified claim whose cited source does not support the number
+(fabricated precision, wrong basis/scope, or dead/wrong-topic source), apply this ladder in
+order — never silently keep the number:
+
+1. **Re-source.** Search for an authoritative source (one primary, or two independent quality
+   secondary sources) that states the number at the **same basis and scope**; a **verbatim
+   quote** is required. If found, replace the citation (`url` + verbatim `excerpt` + basis +
+   `asOf`) and re-verify. Correct a mislabelled basis here too (e.g. equity vs prepay,
+   revenue vs unit vs bit share, transceiver-gap vs component-gap).
+2. **Downgrade to estimate.** If no source states the exact number but it is a defensible
+   estimate from public anchors, relabel it as an **estimate / best-estimate**: record the
+   estimation **method** and the **anchor sources** in the record (`limitations` / notes),
+   set `confidence: low`, and present it as an estimate — never as a cited fact.
+3. **Downgrade to qualitative.** If the qualitative claim holds but no defensible number
+   exists, drop the number and keep the qualitative statement.
+4. **Delete.** If neither the number nor the qualitative claim is supportable, remove it
+   (move evidence to `rejectedEvidenceIds`; never delete the record outright).
+
+This ladder is the standard disposition for audit escalations; it operationalises the
+"No quote → no number" rule above. The audit agent proposes the disposition; the owner
+approves any `reviewed` flip (ADR-0001).

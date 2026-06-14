@@ -52,6 +52,25 @@ and `docs/superpowers/specs/2026-06-14-evidence-credibility-audit-agent-design.m
 - Everything else (clean but not high-stakes, or minor wording drift) → leave for the
   deterministic core's `structural_ok`; do not add it anywhere.
 
+## Remediation ladder (disposition of an unsupported number)
+
+When an escalated number is not supported by its cited source, the owner (or a follow-up
+research pass) applies this ladder in order — never silently keep the number. See ADR-0009
+(amendment 2026-06-14):
+
+1. **Re-source** — find an authoritative source stating the number at the **same basis** with
+   a **verbatim quote**; replace `url` + `excerpt` + basis + `asOf`; correct any mislabelled
+   basis (equity vs prepay, revenue vs unit vs bit share, transceiver-gap vs component-gap).
+2. **Downgrade to estimate** — defensible from public anchors but not directly stated: relabel
+   as **estimate / best-estimate**, record the **method** + **anchor sources**, set
+   `confidence: low`; never present an estimate as a cited fact.
+3. **Downgrade to qualitative** — keep the qualitative claim, drop the number.
+4. **Delete** — neither number nor qualitative claim supportable: move evidence to
+   `rejectedEvidenceIds` (never delete the record).
+
+A re-sourcing pass = one Opus subagent per claim that returns FOUND (url + verbatim quote +
+basis + asOf) or NOT-FOUND (with the recommended ladder rung + method/anchors).
+
 ## Output (must validate against `agentVerdictsSchema`)
 
 ```json
