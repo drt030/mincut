@@ -334,31 +334,38 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Bottleneck thesis/i);
-  assert.match(summary, /Why it matters:/i);
-  assert.match(summary, /Constraint: Robot arm moves parcels into the sorter\./);
-  assert.match(summary, /Why hard to clear: it constrains Sorting robot/i);
+  assert.match(summary, /Bottom line/i);
+  assert.match(summary, /Robot arm moves parcels into the sorter\./);
+  assert.match(summary, /Impact: Sorting robot/i);
+  assert.match(summary, /Constraint type:/i);
   assert.doesNotMatch(summary, /Current signal:/i);
   assert.doesNotMatch(summary, /it is marked as a bottleneck/i);
   assert.doesNotMatch(summary, /\{importance\}/);
   assert.doesNotMatch(summary, /sorter\.\./);
   assert.match(summary, /Where it is stuck/i);
-  assert.match(summary, /Decision brief/i);
-  assert.match(summary, /Cost/i);
+  assert.match(summary, /Investor brief/i);
+  assert.match(summary, /Cost \/ gap/i);
   assert.match(summary, /Supply constraint/i);
   assert.match(summary, /Capacity \/ scale/i);
   assert.match(summary, /Component availability/i);
   assert.match(summary, /Relief timing/i);
   assert.match(summary, /18 months/i);
   assert.match(summary, /Maturity 58\/100/i);
-  const whereStuck = summary.match(/route-reader-factors[\s\S]*?route-reader-decision-brief/)?.[0] ?? "";
+  const whereStart = summary.indexOf("Where it is stuck");
+  const whereEnd = summary.indexOf("Inspect next");
+  const whereStuck = whereStart >= 0 ? summary.slice(whereStart, whereEnd >= 0 ? whereEnd : undefined) : "";
   assert.doesNotMatch(
     whereStuck,
     /Maturity 58\/100/i,
-    `Where it is stuck should show constraint factors and cost, not raw score; got: ${whereStuck}`,
+    `Where it is stuck should show constraint factors, not raw score; got: ${whereStuck}`,
+  );
+  assert.doesNotMatch(
+    whereStuck,
+    /RMB|Not priceable/i,
+    `Where it is stuck should not mix in cost or pricing audit gaps; got: ${whereStuck}`,
   );
   assert.match(summary, /Key sources/i);
-  assert.match(summary, /3 source records linked/i);
+  assert.match(summary, /3 sources/i);
   assert.doesNotMatch(summary, /Evidence status/i);
   assert.doesNotMatch(summary, /reviewed \/ .*total evidence records/i);
   assert.match(summary, /Inspect next/i);
@@ -367,7 +374,7 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.match(summary, /Vision kit/);
   assert.doesNotMatch(summary, /Vacuum end effector/);
 
-  const thesisIndex = summary.indexOf("Bottleneck thesis");
+  const thesisIndex = summary.indexOf("Bottom line");
   assert.ok(thesisIndex >= 0, `selected summary should start with a bottleneck thesis; got: ${summary}`);
   for (const later of ["Heat"]) {
     const index = summary.indexOf(later);
@@ -423,13 +430,13 @@ test("RouteDetailRail selected summary demotes Heat and exposure after the thesi
   );
   const summary = selectedSummary(html);
   const signalBeforeExposure = beforeExposureMiniCard(summary);
-  const thesisIndex = summary.indexOf("Bottleneck thesis");
+  const thesisIndex = summary.indexOf("Bottom line");
   const secondaryIndex = summary.indexOf("route-reader-secondary-signals");
 
   assert.ok(thesisIndex >= 0, `selected summary should include a thesis; got: ${summary}`);
   assert.ok(secondaryIndex > thesisIndex, `secondary chips should follow the thesis; got: ${summary}`);
   assert.match(signalBeforeExposure, /Heat/i);
-  assert.match(signalBeforeExposure, /Source trail/i);
+  assert.match(signalBeforeExposure, /Evidence strength/i);
   assert.doesNotMatch(signalBeforeExposure, /Evidence status/i);
   assert.doesNotMatch(signalBeforeExposure, /Maturity/i);
   assert.doesNotMatch(signalBeforeExposure, /Cost signal/i);
@@ -464,13 +471,13 @@ test("RouteDetailRail names unknown cost and lead-time as audit gaps, not intern
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Not priceable from reviewed data/i);
-  assert.match(summary, /No audited lead-time basis yet/i);
+  assert.match(summary, /Cost gap unknown/i);
+  assert.match(summary, /Lead-time not yet quantified/i);
   assert.doesNotMatch(summary, /Cost not modeled yet/i);
   assert.doesNotMatch(summary, /Lead time not modeled yet/i);
 });
 
-test("RouteDetailRail explains why an explicitly disclosed cost is not priceable", () => {
+test("RouteDetailRail explains why an explicitly disclosed cost is not verified", () => {
   const graph: GraphData = {
     graphVersion: "route-detail-rail-cost-disclosure-test",
     evidence: [],
@@ -506,8 +513,9 @@ test("RouteDetailRail explains why an explicitly disclosed cost is not priceable
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Not priceable from reviewed data/i);
-  assert.match(summary, /No reviewed source prices the qualification and utilization reserve/i);
+  assert.match(summary, /Cost gap unknown/i);
+  assert.match(summary, /Needs proxy price, BOM quote, or capacity\/capex source/i);
+  assert.match(summary, /no public source prices the qualification and utilization reserve/i);
   assert.match(summary, /18 months/i);
 });
 
@@ -574,7 +582,7 @@ test("RouteDetailRail selected summary does not lead with raw kind or domain tag
   assert.doesNotMatch(summary, /internal_tag_should_not_lead/);
   assert.doesNotMatch(summary, />module</i);
   assert.ok(
-    summary.indexOf("Bottleneck thesis") < summary.indexOf("Heat"),
+    summary.indexOf("Bottom line") < summary.indexOf("Heat"),
     "plain-language bottleneck thesis should appear before signal chips",
   );
 });
@@ -599,23 +607,23 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   );
 
   const start = startHereCard(html);
-  assert.match(start, /Bottleneck thesis/i);
-  assert.match(start, /Why it matters:/i);
-  assert.match(start, /Constraint: Precision gearbox limits repeatable arm motion\./);
-  assert.match(start, /Decision brief/i);
-  assert.match(start, /Cost/i);
+  assert.match(start, /Bottom line/i);
+  assert.match(start, /Precision gearbox limits repeatable arm motion\./);
+  assert.match(start, /Impact: Sorting robot/i);
+  assert.match(start, /Investor brief/i);
+  assert.match(start, /Cost \/ gap/i);
   assert.match(start, /Supply constraint/i);
   assert.match(start, /Relief timing/i);
   assert.ok(
-    start.indexOf("Decision brief") < start.indexOf("Evidence"),
-    `start-here decision brief should appear before next-step buttons; got: ${start}`,
+    start.indexOf("Investor brief") < start.indexOf("Where it is stuck"),
+    `start-here investor brief should appear before stuck-factor tags; got: ${start}`,
   );
   assert.doesNotMatch(start, /Current signal:/i);
   assert.doesNotMatch(start, /it is marked as a bottleneck/i);
   assert.doesNotMatch(start, /\{importance\}/);
   assert.doesNotMatch(start, /motion\.\./);
   assert.ok(
-    start.indexOf("Bottleneck thesis") < start.indexOf("Heat"),
+    start.indexOf("Bottom line") < start.indexOf("Heat"),
     `start-here card should explain the bottleneck before Heat; got: ${start}`,
   );
   assert.match(
@@ -628,7 +636,8 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   assert.match(chokepoints, /Precision gearbox/);
   assert.match(chokepoints, /Precision gearbox limits repeatable arm motion\./);
   assert.doesNotMatch(chokepoints, /Maturity 42\/100/);
-  assert.match(chokepoints, /p50 RMB 80,000/);
+  assert.doesNotMatch(chokepoints, /p50 RMB 80,000/);
+  assert.match(chokepoints, /Evidence coverage is still thin\./);
   assert.match(chokepoints, /class="route-step-signal"[\s\S]*Heat \d+\/100/);
   assert.doesNotMatch(
     chokepoints.slice(0, chokepoints.indexOf("Precision gearbox limits repeatable arm motion.")),
@@ -737,7 +746,7 @@ test("AI compute Start here prefers the HBM / advanced-packaging mainline over s
   assert.match(start, /capacity, yield, and supplier concentration/i);
   assert.match(start, /Suppliers &amp; tickers/i);
   assert.match(start, /Evidence/i);
-  assert.match(start, /Bottleneck thesis/i);
+  assert.match(start, /Bottom line/i);
   assert.ok(
     start.indexOf("Evidence") < start.indexOf("Suppliers &amp; tickers"),
     `Start here should send readers to evidence before supplier/ticker exposure; got: ${start}`,
@@ -757,7 +766,7 @@ test("AI compute Start here prefers the HBM / advanced-packaging mainline over s
   );
   assert.match(
     start,
-    /<details[^>]*data-testid="route-start-secondary-signals"[\s\S]*Heat[\s\S]*Source trail[\s\S]*<\/details>/,
+    /<details[^>]*data-testid="route-start-secondary-signals"[\s\S]*Heat[\s\S]*Evidence strength[\s\S]*<\/details>/,
     `Heat and source trail should be collapsed secondary signals on the start card; got: ${start}`,
   );
 
@@ -854,7 +863,7 @@ test("RouteDetailRail renders preview access distinctly instead of labeling it u
   const summary = selectedSummary(html);
 
   assert.match(summary, /Preview only: graph route not live/i);
-  assert.match(summary, /access model is still being reviewed/i);
+  assert.match(summary, /Supplier\/ticker exposure is not shown on this route yet/i);
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
 });
 
@@ -876,21 +885,25 @@ test("RouteDetailRail renders audit previews as review-only without saying the g
   const summary = selectedSummary(html);
   const start = startHereCard(html);
 
-  assert.match(summary, /Research preview/i);
-  assert.match(summary, /evidence review and product QA/i);
-  assert.match(html, /Under review/i);
+  assert.match(summary, /Exposure not shown/i);
+  assert.match(summary, /Supplier\/ticker identities are held back in this preview/i);
+  assert.doesNotMatch(html, /Under review/i);
   assert.match(start, /Review evidence first/i);
   assert.match(start, /commercial research map/i);
   assert.doesNotMatch(summary, /paid access/i);
   assert.doesNotMatch(summary, /Supplier exposure/i);
   assert.doesNotMatch(summary, /tickers/i);
   assert.doesNotMatch(summary, /locked/i);
-  assert.doesNotMatch(start, /Suppliers &amp; tickers/i);
+  assert.match(start, /Suppliers &amp; tickers/i);
+  assert.match(start, /Review exposure policy/i);
+  assert.doesNotMatch(start, /Show locked exposure/i);
+  assert.doesNotMatch(html, /checkout/i);
+  assert.doesNotMatch(html, /paid unlock/i);
   assert.doesNotMatch(summary, /graph route not live/i);
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
 });
 
-test("RouteDetailRail audit-preview detail does not call held-back exposure a paid-candidate gate", () => {
+test("RouteDetailRail audit-preview detail keeps supplier exposure hidden until point of need", () => {
   const graph = graphFixture();
   const graphWithLockedDomain: GraphData = {
     ...graph,
@@ -924,10 +937,15 @@ test("RouteDetailRail audit-preview detail does not call held-back exposure a pa
     ),
   );
 
-  assert.match(html, /Organization exposure is held back while this route is under review/i);
-  assert.match(html, /5 organization records are modeled for QA/i);
+  assert.match(html, /Key sources/i);
+  assert.match(html, /No direct evidence linked/i);
   assert.doesNotMatch(html, /paid-candidate route/i);
   assert.doesNotMatch(html, /Supplier\/ticker exposure is gated/i);
+  assert.doesNotMatch(html, /Evidence, suppliers, tickers/i);
+  assert.doesNotMatch(html, /Evidence and exposure policy/i);
+  assert.doesNotMatch(html, /Exposure held back/i);
+  assert.doesNotMatch(html, /organization records are modeled for QA/i);
+  assert.doesNotMatch(html, /Company \/ ticker candidates/i);
   assert.doesNotMatch(html, /exposure-lock-cta/i);
 });
 
@@ -978,7 +996,7 @@ test("RouteDetailRail selected summary says when there is no direct evidence", (
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Source trail/i);
+  assert.match(summary, /Evidence strength/i);
   assert.match(summary, /No direct evidence/i);
 });
 
@@ -1073,10 +1091,12 @@ test("RouteDetailRail exposes a selected-node action for changing the graph root
 
   assert.match(html, /data-testid="set-root-node-button"/);
   assert.match(html, /Set as research root/i);
+  assert.match(html, /<summary>Map tools<\/summary>/);
+  assert.doesNotMatch(html, /Research controls/);
   assert.match(
     html,
     /<details[^>]*data-testid="route-reader-research-controls"[\s\S]*Set as research root/,
-    "root action should be inside collapsed research controls instead of the first-screen summary body",
+    "root action should be inside collapsed map tools instead of the first-screen summary body",
   );
   assert.match(
     html,

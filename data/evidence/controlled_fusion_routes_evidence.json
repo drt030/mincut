@@ -234,7 +234,7 @@
     "date": "2026-06-12",
     "summary": "ITER describes lithium-bearing breeding blankets, test blanket modules, tritium extraction, closed fuel-cycle experiments, and the need for future fusion plants to breed their own tritium. Used to support tritium breeding as a shared D-T plant constraint.",
     "supportsNodeIds": ["controlled_fusion_tritium_breeding_fuel_cycle", "fusion_breeding_blanket_heat_extraction", "fusion_shared_plant_constraint_stack"],
-    "supportsEdgeIds": ["e_fusion_shared__requires__tritium_cycle", "e_tokamak_route__requires__tritium_cycle", "e_stellarator_route__requires__tritium_cycle"],
+    "supportsEdgeIds": ["e_fusion_shared__requires__tritium_cycle", "e_tokamak_route__bottlenecked_by__tritium_cycle", "e_stellarator_route__bottlenecked_by__tritium_cycle"],
     "limitations": "Reviewed only for the need to breed tritium and for ITER TBM/fuel-cycle testing context. It does not demonstrate commercial-scale tritium production, recycling, or plant readiness.",
     "confidence": "high",
     "reviewStatus": "reviewed"

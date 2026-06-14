@@ -107,6 +107,13 @@ function renderNode(props: RadialNodeTestProps): string {
   );
 }
 
+function visibleTextFromMarkup(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function renderEdge(props: RadialEdgeTestProps): string {
   return renderToStaticMarkup(
     React.createElement(RadialEdge as unknown as React.FC<RadialEdgeTestProps>, props),
@@ -238,7 +245,7 @@ test("RadialNode band 2 (zoom 1.0): larger readable label marker, two-line label
     textMatch,
     `band-2 must contain a <text> label element; got: ${html}`,
   );
-  assert.match(html, /<tspan[^>]*>Vision Processing<\/tspan>/, `band-2 should keep the first English phrase intact; got: ${html}`);
+  assert.match(html, /<tspan[^>]*>Vision Processing\s*<\/tspan>/, `band-2 should keep the first English phrase intact; got: ${html}`);
   assert.match(html, /<tspan[^>]*>Compute Module<\/tspan>/, `band-2 should keep the second English phrase intact; got: ${html}`);
   const tspanCount = (html.match(/<tspan/g) ?? []).length;
   assert.equal(tspanCount, 2, `band-2 labels should render at most two lines; got: ${html}`);
@@ -362,7 +369,7 @@ test("RadialNode band 2: common technical phrases are abbreviated for canvas rea
     name: "Onboard compute and control electronics",
     zoom: 1.0,
   });
-  assert.match(computeHtml, /<tspan[^>]*>Compute\/control<\/tspan>/, `band-2 should abbreviate long control-electronics labels; got: ${computeHtml}`);
+  assert.match(computeHtml, /<tspan[^>]*>Compute\/control\s*<\/tspan>/, `band-2 should abbreviate long control-electronics labels; got: ${computeHtml}`);
   assert.match(computeHtml, /<tspan[^>]*>elec\.<\/tspan>/, `band-2 should keep the electronics abbreviation readable on line two; got: ${computeHtml}`);
   assert.doesNotMatch(computeHtml, /\+ control elec\./, `band-2 should not leave a plus sign at the start of line two; got: ${computeHtml}`);
 
@@ -402,6 +409,18 @@ test("RadialNode band 2: common technical phrases are abbreviated for canvas rea
     zoom: 1.0,
   });
   assert.match(structureHtml, /Structure \+ harness/, `band-2 should abbreviate structure/materials/harness labels; got: ${structureHtml}`);
+});
+
+test("RadialNode band 2: two-line English labels preserve text-extraction spacing", () => {
+  const html = renderNode({
+    ...SAMPLE_NODE_PROPS_BASE,
+    name: "Five-finger hand mechanism",
+    zoom: 1.0,
+  });
+  const text = visibleTextFromMarkup(html);
+
+  assert.match(text, /Five-finger hand mechanism/, `band-2 extracted text should keep word spacing; got: ${text}`);
+  assert.doesNotMatch(text, /Five-fingerhand/, `band-2 extracted text must not concatenate line-boundary words; got: ${text}`);
 });
 
 test("RadialNode band 2: labels can be suppressed for leaf texture nodes", () => {

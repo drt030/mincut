@@ -37,7 +37,7 @@ test("GraphControls explains the active risk lens without Top 1-5 rank copy", ()
 
   assert.match(html, /data-testid="lens-legend"/);
   assert.match(html, /Edge color \+ width/i);
-  assert.match(html, /commercialization bottleneck risk/i);
+  assert.match(html, /Wider = bottleneck risk/i);
   assert.match(html, /block scale, cost, or adoption/i);
   assert.doesNotMatch(html, /Sector tint/i);
   assert.doesNotMatch(html, /structural grouping/i);

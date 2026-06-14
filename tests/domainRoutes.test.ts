@@ -52,23 +52,27 @@ test("humanoid, controlled-fusion, and SpaceX maps stay audit previews until evi
   assert.equal(humanoid.domainTag, "humanoid_robotics");
   assert.equal(humanoid.entitlement, "humanoid");
   assert.equal(humanoid.portfolioState, "audit-preview");
-  assert.match(humanoid.detail, /reviewed evidence, gate reports/i);
+  assert.equal(humanoid.statusLabel, "Future paid domain");
+  assert.match(humanoid.detail, /supplier\/ticker exposure opens only when this paid domain launches/i);
 
   assert.equal(fusion.rootId, "controlled_fusion_route_portfolio");
   assert.equal(fusion.domainTag, "controlled_fusion");
   assert.equal(fusion.entitlement, "power");
   assert.equal(fusion.portfolioState, "audit-preview");
-  assert.match(fusion.detail, /gate reports support promotion/i);
+  assert.equal(fusion.statusLabel, "Future paid domain");
+  assert.match(fusion.detail, /organization exposure opens only when this paid domain launches/i);
 
   assert.equal(reusableLaunch.rootId, "spacex_reusable_launch_stack");
   assert.equal(reusableLaunch.domainTag, "spacex_reusable_launch");
   assert.equal(reusableLaunch.entitlement, "space");
   assert.equal(reusableLaunch.portfolioState, "audit-preview");
+  assert.equal(reusableLaunch.statusLabel, "Future paid domain");
 
   assert.equal(orbitalDataCenter.rootId, "spacex_orbital_data_center_system");
   assert.equal(orbitalDataCenter.domainTag, "spacex_orbital_data_center");
   assert.equal(orbitalDataCenter.entitlement, "space");
   assert.equal(orbitalDataCenter.portfolioState, "audit-preview");
+  assert.equal(orbitalDataCenter.statusLabel, "Future paid domain");
   assert.match(
     orbitalDataCenter.description,
     /future-product map/i,

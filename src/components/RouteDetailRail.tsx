@@ -8,6 +8,7 @@ import { nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import type { GraphLayer } from "@/lib/knowHowLayer";
 import { nodeRiskSignal } from "@/lib/nodeRisk";
 import { selectTopN } from "@/lib/prioritySelection";
+import { readerFacingConstraintReason, readerFacingCostAnswer } from "@/lib/readerFacingText";
 import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { RouteHighlight } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
@@ -383,43 +384,33 @@ export function RouteDetailRail({
     const suffix = targetNames.length > visible.length ? ` +${targetNames.length - visible.length}` : "";
     return formatCopy(t("readerBottleneckFor"), { targets: `${visible.join(", ")}${suffix}` });
   };
-  const bottleneckImportanceText = (node: Node): string => {
-    if (isAiComputeNode(node)) return t("readerAiComputeImportance");
-    if (isParcelDepthDemoNode(node)) return t("readerParcelRobotImportance");
-    if (node.kind === "product") return t("readerProductImportance");
-    return t("readerDefaultImportance");
-  };
   const bottleneckThesisText = (node: Node): string => {
     const where = sentenceClause(nodeRoleText(node));
     const targetNames = bottleneckTargetNames(node);
     const visibleTargets = targetNames.slice(0, 2).join(", ");
-    const factors = constraintFactorsForNode(node, t);
-    const why = targetNames.length > 0
-      ? formatCopy(t("readerThesisMarkedBottleneck"), { targets: visibleTargets })
-      : factors.length > 0
-        ? formatCopy(t("readerThesisConstraintFactors"), { factors: factors.slice(0, 2).join(" · ") })
-        : directEvidenceSummary(graph, node).total === 0
-          ? t("readerThesisThinEvidence")
-          : t("readerThesisCandidateConstraint");
-    const impact = targetNames.length > 0 ? visibleTargets : t("readerSelectedRouteImpact");
+    const impact = targetNames.length > 0
+      ? visibleTargets
+      : routeRoot
+        ? nodeName(routeRoot.id, routeRoot.name)
+        : t("readerSelectedRouteImpact");
     return formatCopy(t("readerBottleneckThesisSentence"), {
-      importance: bottleneckImportanceText(node),
       where,
-      why,
       impact,
+      factors: constraintSummaryText(node),
+      relief: reliefTimingText(node),
+      evidence: evidenceStatusText(node),
     });
   };
   const keyFactorsForNode = (node: Node): string[] => {
     const factors = constraintFactorsForNode(node, t);
-    const cost = nodeCostSignalRmb(node, graph);
-    if (cost) factors.push(formatRmb(cost));
-    if (!cost) {
-      const disclosure = costDisclosureText(node, t);
-      if (disclosure) factors.push(disclosure);
+    if (factors.length === 0) {
+      factors.push(directEvidenceSummary(graph, node).total === 0
+        ? t("readerEvidenceThin")
+        : t("readerThesisCandidateConstraint"));
     }
-    if (factors.length === 0 && directEvidenceSummary(graph, node).total === 0) factors.push(t("readerEvidenceThin"));
     return factors.slice(0, 2);
   };
+  const keyStuckReasonForNode = (node: Node): string => readerFacingConstraintReason(node.description);
   const keyEvidenceSummaryText = (node: Node): string => {
     const summary = directEvidenceSummary(graph, node);
     if (summary.total === 0) return t("readerEvidenceThin");
@@ -427,7 +418,9 @@ export function RouteDetailRail({
   };
   const constraintSummaryText = (node: Node): string => {
     const factors = constraintFactorsForNode(node, t);
-    return factors.length > 0 ? factors.join(" · ") : t("readerConstraintUnclassified");
+    if (factors.length > 0) return factors.join(" · ");
+    if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeConstraintSummary");
+    return t("readerConstraintUnclassified");
   };
   const reliefTimingText = (node: Node): string => {
     const months = node.capacityLeadTimeMonths;
@@ -440,6 +433,7 @@ export function RouteDetailRail({
       }
       return formatCopy(t("readerReliefTimingLong"), { months });
     }
+    if (isAiComputeNode(node) && node.kind === "product") return t("readerReliefTimingLikelyLong");
     return reliefTimingReasonText(node);
   };
   const reliefTimingReasonText = (node: Node): string => {
@@ -460,10 +454,13 @@ export function RouteDetailRail({
   };
   const routeDecisionBrief = (node: Node): React.ReactNode => {
     const cost = nodeCostSignalRmb(node, graph);
-    const costAnswer = cost
-      ? formatRmb(cost)
-      : costDisclosureText(node, t, { includeReason: true }) ?? t("readerCostNotModeled");
-    const costIsLong = costAnswer.length > 54;
+    const costAnswer = readerFacingCostAnswer({
+      valueText: cost ? formatRmb(cost) : null,
+      disclosureText: costDisclosureText(node, t, { includeReason: true }),
+      fallback: t("readerCostNotModeled"),
+      disclosurePrimary: t("readerCostNotPriceableShort"),
+      disclosureSecondary: t("readerCostMissingReviewedSource"),
+    });
     return (
       <div
         className="detail-decision-brief route-reader-decision-brief"
@@ -471,9 +468,10 @@ export function RouteDetailRail({
       >
         <strong>{t("readerDecisionBrief")}</strong>
         <div className="detail-decision-grid">
-          <div className={costIsLong ? "wide" : undefined}>
+          <div title={costAnswer.full}>
             <span>{t("readerCostMagnitude")}</span>
-            <strong>{costAnswer}</strong>
+            <strong>{costAnswer.primary}</strong>
+            {costAnswer.secondary ? <small>{costAnswer.secondary}</small> : null}
           </div>
           <div>
             <span>{t("readerSupplyConstraint")}</span>
@@ -631,6 +629,17 @@ export function RouteDetailRail({
         t("readerExposurePointOfNeedCheckout"),
       ],
     }
+    : effectiveExposureAccess?.status === "audit-preview"
+      ? {
+        className: "audit-preview",
+        title: t("exposureEvidencePolicyTitle"),
+        body: t("exposureCandidateAuditHint"),
+        scope: t("readerExposurePointOfNeedScopeAuditPreview"),
+        bullets: [
+          t("readerExposurePointOfNeedEvidenceBoundary"),
+          t("readerExposurePointOfNeedAuditBoundary"),
+        ],
+      }
     : effectiveExposureAccess?.status === "unlocked"
       ? {
         className: "unlocked",
@@ -716,7 +725,14 @@ export function RouteDetailRail({
     },
     ...(
       isAuditPreviewAccess
-        ? []
+        ? [
+          {
+            key: "exposure",
+            label: t("readerStartNextSuppliersTickers"),
+            intent: "exposure" as DetailIntent,
+            hint: t("readerStartNextOpenExposurePolicy"),
+          },
+        ]
         : [
           {
             key: "exposure",
@@ -751,16 +767,12 @@ export function RouteDetailRail({
         </div>
         {activePanel === "route" ? (
           <div className="route-rail-header-badges">
-            {exposureAccessText ? (
+            {exposureAccessText && !isAuditPreviewAccess ? (
               <span className={`route-access-chip ${exposureAccessText.className}`}>
                 {exposureAccessText.title}
               </span>
             ) : null}
-            {isAuditPreviewAccess ? (
-              <span className="route-rail-count route-rail-audit-badge">{t("readerAuditPreviewScoreBadge")}</span>
-            ) : (
-              <span className="route-rail-count">{formatCopy(t("readerRailCountTop"), { count: railCount })}</span>
-            )}
+            <span className="route-rail-count">{formatCopy(t("readerRailCountTop"), { count: railCount })}</span>
           </div>
         ) : null}
       </header>
@@ -825,6 +837,7 @@ export function RouteDetailRail({
               node={selectedNode}
               onSelectNode={onSelectNode}
               lockedExposureMode={isAuditPreviewAccess ? "audit-preview" : "paid-candidate"}
+              showExposureSummary={detailIntent === "exposure" || !isAuditPreviewAccess}
             />
             {canSetSelectedAsRoot ? (
               <details className="route-reader-research-controls" data-testid="route-reader-research-controls">
@@ -865,7 +878,7 @@ export function RouteDetailRail({
                   <button
                     type="button"
                     className="route-start-button"
-                    onClick={() => onSelectNode?.(featuredStartNode.id)}
+                    onClick={() => openStartDetail("default")}
                     aria-label={routeStepAriaLabel([
                       nodeName(featuredStartNode.id, featuredStartNode.name),
                       startThesisText(featuredStartNode),
@@ -876,6 +889,17 @@ export function RouteDetailRail({
                     <span className="route-start-role">{startRoleText(featuredStartNode)}</span>
                   </button>
                   {routeDecisionBrief(featuredStartNode)}
+                  <div className="route-reader-factors route-reader-stuck" data-testid="route-start-where-stuck">
+                    <span>{t("readerWhereStuck")}</span>
+                    <div className="pill-row">
+                      {keyFactorsForNode(featuredStartNode).map((factor) => (
+                        <span className="pill" key={factor}>{factor}</span>
+                      ))}
+                    </div>
+                    {keyStuckReasonForNode(featuredStartNode) ? (
+                      <p>{keyStuckReasonForNode(featuredStartNode)}</p>
+                    ) : null}
+                  </div>
                   <div className="route-rail-chip-row" aria-label={t("readerStartNextTitle")}>
                     {startNextItems.map((item) => (
                       <button
@@ -1053,6 +1077,11 @@ export function RouteDetailRail({
                     <span>{t("readerBottleneckThesis")}</span>
                     <p>{bottleneckThesisText(selectedSummaryNode)}</p>
                   </div>
+                  {routeDecisionBrief(selectedSummaryNode)}
+                  <div className="route-reader-evidence-summary">
+                    <span>{t("readerKeyEvidenceSummary")}</span>
+                    <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
+                  </div>
                   <div className="route-reader-factors">
                     <span>{t("readerWhereStuck")}</span>
                     <div className="route-rail-chip-row">
@@ -1060,11 +1089,6 @@ export function RouteDetailRail({
                         <span key={factor}>{factor}</span>
                       ))}
                     </div>
-                  </div>
-                  {routeDecisionBrief(selectedSummaryNode)}
-                  <div className="route-reader-evidence-summary">
-                    <span>{t("readerKeyEvidenceSummary")}</span>
-                    <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
                   </div>
                   {inspectNextNodes.length > 0 ? (
                     <div className="route-reader-inspect">

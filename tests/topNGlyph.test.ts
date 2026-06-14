@@ -510,6 +510,11 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh reader
     false,
     "selecting a node should not change fitFullSystemView dependencies or reset the user's zoom/pan",
   );
+  assert.match(
+    fitNodesBlock,
+    /firstLayerSubsystems\.length <= 6 \|\| !readerStartNodeId/,
+    "dense commercial maps should not shrink every node by forcing all first-layer modules into the first reader fit",
+  );
 });
 
 test("GraphExplorer.tsx regression guard: explicit node clicks open detail while URL focus starts on summary", () => {
@@ -592,14 +597,14 @@ test("GraphExplorer.tsx regression guard: RouteDetailRail receives controlled pa
   );
 });
 
-test("mobile graph route layout shows the map before the reader rail", () => {
+test("mobile graph route layout shows the reader rail before the map", () => {
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
   const mobileBlock = css.match(/@media \(max-width:\s*900px\)\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
 
   assert.match(
     mobileBlock,
-    /\.graph-map-column\s*\{[\s\S]*order:\s*1/,
-    "mobile graph routes should keep product summary, layer switch, controls, and map before the reader rail",
+    /\.graph-map-column\s*\{[\s\S]*order:\s*2/,
+    "mobile graph routes should put the map column after the reader rail so the first screen shows the decision summary",
   );
   assert.match(
     mobileBlock,
@@ -609,12 +614,12 @@ test("mobile graph route layout shows the map before the reader rail", () => {
   assert.match(
     mobileBlock,
     /\.graph-canvas-route-led\s*\{[\s\S]*order:\s*3/,
-    "mobile graph routes should put the map before the reader rail",
+    "mobile graph routes should keep the map after the compact toolbar inside the map column",
   );
   assert.match(
     mobileBlock,
-    /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*order:\s*2/,
-    "mobile graph routes should keep the route detail rail after the map column",
+    /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*order:\s*1/,
+    "mobile graph routes should show the route detail rail before the map column",
   );
   assert.match(
     mobileBlock,
@@ -687,6 +692,7 @@ test("route-led desktop layout keeps the graph dominant over the detail rail", (
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
   const layoutBlock = css.match(/\.graph-layout-radial\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
   const railBlock = css.match(/\.route-detail-rail\s*\{\n\s*background:[\s\S]*?\n\}/)?.[0] ?? "";
+  const radialRailBlock = css.match(/\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
 
   assert.match(
     layoutBlock,
@@ -702,6 +708,16 @@ test("route-led desktop layout keeps the graph dominant over the detail rail", (
     `${layoutBlock}\n${railBlock}`,
     /clamp\(520px,\s*40vw,\s*620px\)|width:\s*520px/,
     "route detail rail must not return to the oversized 520px+ layout that makes the graph feel small",
+  );
+  assert.match(
+    radialRailBlock,
+    /position:\s*sticky/,
+    "desktop route detail rail should stay in view while the user pans or scrolls the graph workspace",
+  );
+  assert.match(
+    radialRailBlock,
+    /top:\s*8px/,
+    "sticky rail needs a small top inset instead of clipping against the viewport edge",
   );
 });
 

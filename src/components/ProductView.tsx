@@ -25,6 +25,7 @@ import {
   type CostRollupResult,
 } from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
+import { readerFacingNote, readerFacingStartupOpportunity } from "@/lib/readerFacingText";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 
@@ -529,7 +530,7 @@ function constraintFactorSummary(nodes: Node[], t: (key: string) => string): str
 }
 
 function startupOpportunityText(node: Node): string {
-  return node.notes?.split("Startup opportunity:")[1]?.trim() ?? "";
+  return readerFacingStartupOpportunity(node.notes);
 }
 
 function constraintTagCount(node: Node): number {
@@ -600,7 +601,9 @@ function CandidateOrganizationCard({
                 </a>
                 {summary ? <span className="pill">{summary}</span> : null}
               </div>
-              {node.notes ? <p className="metric-detail-description">{node.notes}</p> : null}
+              {readerFacingNote(node.notes) ? (
+                <p className="metric-detail-description">{readerFacingNote(node.notes)}</p>
+              ) : null}
             </li>
           );
         })}

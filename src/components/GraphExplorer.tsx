@@ -472,7 +472,7 @@ function GraphProductStrip({
       agentQueued: (count: number) => count > 0 ? `已列出 ${count} 个候选` : "证据任务已入队",
       agentError: "加入失败，重试",
       agentProgress: (nodes: number, edges: number) => `已加入 ${nodes} 个节点 / ${edges} 条边；证据收集任务已入队`,
-      auditPreviewOnly: "研究预览",
+      auditPreviewOnly: "未来付费领域",
       paidLayerLocked: "付费层已锁定",
     }
     : {
@@ -488,7 +488,7 @@ function GraphProductStrip({
       agentQueued: (count: number) => count > 0 ? `Listed ${count} candidates` : "Evidence task queued",
       agentError: "Retry queue",
       agentProgress: (nodes: number, edges: number) => `Added ${nodes} nodes / ${edges} edges; evidence task queued`,
-      auditPreviewOnly: "Research preview only",
+      auditPreviewOnly: "Future paid domain",
       paidLayerLocked: "Paid layer locked",
     };
   const agentLabel = agentExpansionStatus === "listing"
@@ -984,12 +984,6 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   // Therefore even label mode needs packed centers; otherwise adjacent node
   // boxes can overlap and a click on one node is intercepted by its neighbor.
   const activeNodePositions = packedNodePositions;
-  const activeNodePositionsRef = useRef(activeNodePositions);
-
-  useEffect(() => {
-    activeNodePositionsRef.current = activeNodePositions;
-  }, [activeNodePositions]);
-
   // Focal root id (used so the central dot can render as the visual anchor).
   const focalId = useMemo(
     () => canvasGraph.nodes.some((n) => n.id === currentRootId) ? currentRootId : null,
@@ -1002,9 +996,11 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     if (isKnowHowSelection) {
       setGraphLayer("knowhow");
     }
+    const nextFocusPath = focusPathForNode(nodeId, canvasGraph, currentRootId);
     setSelectedId(nodeId);
+    setFocusPath((prev) => (samePath(prev, nextFocusPath) ? prev : nextFocusPath));
     setRailPanel("detail");
-  }, [canvasGraph.nodes]);
+  }, [canvasGraph, currentRootId]);
 
   const requestAgentExpansion = useCallback(async () => {
     setAgentExpansionRootId(currentRootId);
@@ -1449,14 +1445,19 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
   const readerFitNodes = useMemo(() => {
-    const candidateIds = new Set<string>([currentRootId, ...firstLayerSubsystems]);
+    const candidateIds = new Set<string>([currentRootId]);
+    if (firstLayerSubsystems.length <= 6 || !readerStartNodeId) {
+      for (const id of firstLayerSubsystems) candidateIds.add(id);
+    }
     if (readerStartNodeId) {
       candidateIds.add(readerStartNodeId);
       for (const ancestor of focusPathForNode(readerStartNodeId, canvasGraph, currentRootId)) {
         candidateIds.add(ancestor);
       }
-      for (const child of childrenByParent.get(readerStartNodeId) ?? []) {
-        candidateIds.add(child);
+      if (firstLayerSubsystems.length <= 6) {
+        for (const child of childrenByParent.get(readerStartNodeId) ?? []) {
+          candidateIds.add(child);
+        }
       }
     }
     const nodes: Array<{ id: string }> = [];
@@ -1468,15 +1469,33 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     }
     return nodes.length > 1 ? nodes : [{ id: currentRootId }];
   }, [currentRootId, firstLayerSubsystems, readerStartNodeId, canvasGraph, childrenByParent, focalSubtree, activeNodePositions, layerVisibleNodeIds]);
+  const focusFitNodes = useMemo(() => {
+    const focusId = selectedId !== currentRootId ? selectedId : focusPath.at(-1);
+    if (!focusId) return readerFitNodes;
+    const candidateIds = new Set<string>([focusId]);
+    const visibleChildren = (childrenByParent.get(focusId) ?? [])
+      .filter((id) => focalSubtree.has(id) && activeNodePositions.has(id) && layerVisibleNodeIds.has(id))
+      .slice(0, 3);
+    for (const child of visibleChildren) candidateIds.add(child);
+
+    const nodes: Array<{ id: string }> = [];
+    for (const id of candidateIds) {
+      if (!focalSubtree.has(id)) continue;
+      if (!activeNodePositions.has(id)) continue;
+      if (!layerVisibleNodeIds.has(id)) continue;
+      nodes.push({ id });
+    }
+    return nodes.length > 0 ? nodes : [{ id: focusId }];
+  }, [currentRootId, selectedId, focusPath, childrenByParent, focalSubtree, activeNodePositions, layerVisibleNodeIds, readerFitNodes]);
   const fitFullSystemView = useCallback((
     inst: ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>>,
     duration: number,
   ) => {
     inst.fitView({
       nodes: readerFitNodes,
-      padding: 0.18,
+      padding: 0.32,
       duration: 0,
-      maxZoom: 0.92,
+      maxZoom: 0.72,
       minZoom: 0.18,
     });
     const viewport = inst.getViewport();
@@ -1612,16 +1631,16 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Viewport "soft zoom" stepped per focus level.
-  //   L0 (overview): fitView.
-  //   L1: zoom 1.5× toward the focused branch.
-  //   L2: zoom 2.25× toward the focused child node when available.
-  //   L3+: zoom 3.0× toward the deepest selected node when available.
+  // Viewport "soft zoom" follows the reader's selected bottleneck.
+  //   L0 (overview): fit the route overview.
+  //   Focused selection: fit the selected node plus a small local
+  //   downstream neighborhood so labels remain readable during exploration.
   // Geometry stays stable; only the viewport moves.
   useEffect(() => {
     const inst = flowInstanceRef.current;
     if (!inst) return;
-    if (focusPath.length === 0) {
+    const hasSelectedFocus = selectedId !== currentRootId;
+    if (focusPath.length === 0 && !hasSelectedFocus) {
       // Return to the full-system view while keeping route highlight as an overlay.
       try {
         fitFullSystemView(inst, 600);
@@ -1630,53 +1649,42 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       }
       return;
     }
-    if (focusPath.length === 1) {
+    if (focusPath.length > 0 || hasSelectedFocus) {
+      const focusId = selectedId !== currentRootId ? selectedId : focusPath.at(-1);
+      const focusPosition = focusId ? activeNodePositions.get(focusId) : null;
+      const flowBounds = typeof document === "undefined"
+        ? null
+        : document.querySelector(".react-flow")?.getBoundingClientRect() ?? null;
+      if (focusPosition && flowBounds) {
+        const zoom = 0.96;
+        try {
+          inst.setViewport(
+            {
+              x: flowBounds.width / 2 - focusPosition.x * zoom,
+              y: flowBounds.height / 2 - focusPosition.y * zoom,
+              zoom,
+            },
+            { duration: 600 },
+          );
+          return;
+        } catch {
+          // Fall through to the viewport fallback below.
+        }
+      }
       try {
-        inst.fitView({ padding: 0.18, duration: 600, maxZoom: 0.9, minZoom: 0.25 });
+        inst.fitView({
+          nodes: focusFitNodes,
+          padding: 0.28,
+          duration: 600,
+          maxZoom: 0.96,
+          minZoom: 0.42,
+        });
       } catch {
         // Ignore: React Flow may not be ready immediately.
       }
       return;
     }
-    // Pick the target by level. Read the latest positions from a ref so
-    // changing display modes does not itself trigger a camera jump.
-    const outerId = focusPath[0];
-    const outerEntry = layout.sectors.get(outerId);
-    if (!outerEntry) return;
-    let cx = 145 * PX_SCALE * Math.cos(outerEntry.center);
-    let cy = 145 * PX_SCALE * Math.sin(outerEntry.center);
-    let zoom = 0.9;
-    if (focusPath.length >= 2) {
-      const innerId = focusPath[1];
-      const innerPos = activeNodePositionsRef.current.get(innerId);
-      if (innerPos) {
-        cx = innerPos.x;
-        cy = innerPos.y;
-      }
-      zoom = 1.25;
-    }
-    if (focusPath.length >= 3) {
-      const deepestPos = activeNodePositionsRef.current.get(focusPath[focusPath.length - 1]);
-      if (deepestPos) {
-        cx = deepestPos.x;
-        cy = deepestPos.y;
-      }
-      zoom = 1.6;
-    }
-    // Half-viewport guess; React Flow doesn't expose the container
-    // bounds synchronously for non-fit transitions. Slightly-off
-    // centring is acceptable per ADR-0006 ("soft" zoom).
-    const W_HALF = 448;
-    const H_HALF = 294;
-    try {
-      inst.setViewport(
-        { x: W_HALF - cx * zoom, y: H_HALF - cy * zoom, zoom },
-        { duration: 600 },
-      );
-    } catch {
-      // Ignore: React Flow may throw before nodes are measured.
-    }
-  }, [focusPath, layout.sectors, fitFullSystemView]);
+  }, [focusPath, fitFullSystemView, focusFitNodes, selectedId, currentRootId, activeNodePositions]);
 
   const selectedNode: Node = useMemo(
     () => workingGraph.nodes.find((n) => n.id === selectedId) ?? workingGraph.nodes[0],

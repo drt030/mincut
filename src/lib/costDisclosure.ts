@@ -1,4 +1,5 @@
 import type { MetricValue, Node } from "./schema";
+import { readerFacingNote } from "./readerFacingText";
 
 type Translator = (key: string) => string;
 
@@ -51,7 +52,7 @@ function statusText(value: MetricValue | undefined, t: Translator): string {
 }
 
 function compactReason(text: string, maxLength: number): string {
-  const trimmed = text.trim();
+  const trimmed = readerFacingNote(text);
   if (!trimmed) return "";
   const sentence = trimmed.match(/^.*?[.!?。！？](?:\s|$)/)?.[0].trim() ?? trimmed;
   if (sentence.length <= maxLength) return sentence;

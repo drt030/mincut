@@ -2223,6 +2223,7 @@
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 6,
     "evidenceIds": [
       "ev_perf_wayzim_robotic_parcel_infeed_2026",
       "ev_mfg_honeywell_irregulars_sorter_2026",
@@ -2233,7 +2234,9 @@
       "jam",
       "conveyor",
       "operator_workflow",
-      "bottleneck"
+      "bottleneck",
+      "constraint_integration_commissioning",
+      "constraint_maintenance_operations"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"
@@ -2338,8 +2341,10 @@
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
     "confidence": "low",
+    "capacityLeadTimeMonths": 6,
     "evidenceIds": [
-      "ev_banner_conveying_sortation_sensors"
+      "ev_banner_conveying_sortation_sensors",
+      "ev_mfg_sick_photoelectric_sensors_2026"
     ],
     "tags": [
       "jam",
@@ -2467,11 +2472,19 @@
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-04",
     "confidence": "low",
+    "capacityLeadTimeMonths": 6,
+    "evidenceIds": [
+      "ev_maintenance_abb_robotics_service_2026",
+      "ev_maintenance_fanuc_pm_checklist_2023",
+      "ev_maintenance_conveyor_cost_factors_2026",
+      "ev_maintenance_workflow_cost_2025"
+    ],
     "tags": [
       "maintenance",
       "deployment",
       "startup_opportunity_candidate",
-      "constraint_maintenance_operations"
+      "constraint_maintenance_operations",
+      "constraint_integration_commissioning"
     ],
     "bottleneckOf": [
       "low_cost_parcel_sorting_robot_300k_rmb"

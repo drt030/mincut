@@ -83,12 +83,12 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     domainTag: "humanoid_robotics",
     entitlement: "humanoid",
     portfolioState: "audit-preview",
-    statusLabel: "Candidate under audit",
+    statusLabel: "Future paid domain",
     title: "Humanoid robotics component stack",
     description:
       "Humanoid robot component chain across actuators, hands, battery, thermal, sensing, compute, control software, manufacturing, and service.",
     detail:
-      "Research preview under audit. Component graph is visible; supplier/ticker exposure is held until reviewed evidence, gate reports, checkout, and entitlement checks pass.",
+      "Map, bottleneck thesis, and evidence trail are visible. Supplier/ticker exposure opens only when this paid domain launches.",
     href: "/d/humanoid-robotics",
     cta: "Review candidate map",
     liveGraphRoute: true,
@@ -99,12 +99,12 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     domainTag: "controlled_fusion",
     entitlement: "power",
     portfolioState: "audit-preview",
-    statusLabel: "Candidate under audit",
+    statusLabel: "Future paid domain",
     title: "Controlled fusion route portfolio",
     description:
       "Fusion route portfolio comparing tokamak, stellarator, laser inertial, MTF/FRC/Z-pinch, and shared tritium, blanket, materials, and maintenance constraints.",
     detail:
-      "Research preview under audit. Route logic and evidence are visible; organization exposure is held until evidence quality and gate reports support promotion.",
+      "Route logic and evidence are visible. Organization exposure opens only when this paid domain launches.",
     href: "/d/controlled-fusion",
     cta: "Review route portfolio",
     liveGraphRoute: true,
@@ -115,12 +115,12 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     domainTag: "spacex_reusable_launch",
     entitlement: "space",
     portfolioState: "audit-preview",
-    statusLabel: "Research preview",
+    statusLabel: "Future paid domain",
     title: "SpaceX reusable launch stack",
     description:
       "SpaceX-centered reusable launch map separating Falcon 9 operational reuse from Starship/Super Heavy rapid-reuse development constraints.",
     detail:
-      "Research preview. Reuse mechanics, launch cadence, refurbishment constraints, and customer exposure hypotheses are visible; public-market exposure stays locked until evidence review passes.",
+      "Reuse mechanics, launch cadence, refurbishment constraints, and customer exposure hypotheses are visible. Public-market exposure opens only when this paid domain launches.",
     href: "/d/spacex-reusable-launch",
     cta: "Open SpaceX reuse map",
     liveGraphRoute: true,
@@ -131,12 +131,12 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     domainTag: "spacex_orbital_data_center",
     entitlement: "space",
     portfolioState: "audit-preview",
-    statusLabel: "Research preview",
+    statusLabel: "Future paid domain",
     title: "SpaceX orbital data center system",
     description:
       "SpaceX-centered future-product map for orbital AI compute, grounded in FCC application evidence but not presented as a mature commercial service.",
     detail:
-      "Research preview for a future product. The graph highlights power, thermal, radiation, optical-link, launch, and regulatory bottlenecks; organization exposure stays locked until audit review passes.",
+      "Future-product map highlighting power, thermal, radiation, optical-link, launch, and regulatory bottlenecks. Organization exposure opens only when this paid domain launches.",
     href: "/d/spacex-orbital-data-center",
     cta: "Open orbital compute map",
     liveGraphRoute: true,

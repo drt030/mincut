@@ -214,14 +214,77 @@ function tokenizeLabel(name: string): string[] {
 
 function compactCanvasLabel(name: string): string {
   return name
+    .replace(/\bAI accelerator module\b/gi, "AI accel module")
+    .replace(/\bleading-edge logic die fabrication\b/gi, "Logic die fab")
+    .replace(/\bEUV photomask blank (and|\+) patterned mask manufacturing\b/gi, "EUV mask mfg")
+    .replace(/\bEUV photoresist materials and formulation\b/gi, "EUV resist")
+    .replace(/\bDeposition equipment\s*\(([^)]+)\)/gi, "$1 dep.")
+    .replace(/\bPlasma etch\s*\(([^)]+)\)\s*process equipment\b/gi, "$1 etch tools")
+    .replace(/\bChemical-mechanical polishing\s*\((CMP)\)\s*equipment and slurries\b/gi, "$1 tools + slurry")
+    .replace(/\bIon implantation equipment\b/gi, "Ion implant tools")
+    .replace(/\bThermal processing\s*\(([^)]+)\)/gi, "Thermal process")
+    .replace(/\bTSMC leading-edge foundry capacity\b/gi, "TSMC capacity")
+    .replace(/\bASML EUV lithography systems\b/gi, "ASML EUV tools")
+    .replace(/\bHigh-bandwidth memory\b/gi, "HBM")
+    .replace(/\bOrganic substrate\b/gi, "Org. substrate")
+    .replace(/\bABF\s*\(Ajinomoto Build-up Film\)/gi, "ABF film")
+    .replace(/\bT-glass\s*\(Boron-free glass fiber cloth\)/gi, "T-glass cloth")
+    .replace(/\bModule-level VRM\b/gi, "Module VRM")
+    .replace(/\bDirect-contact thermal lid\b/gi, "Thermal lid")
+    .replace(/\bWafer-to-wafer\s*\((W2W)\)\s*bonding and alignment systems\b/gi, "$1 bonding tools")
+    .replace(/\bThermocompression bonding\s*\((TCB)\)\s*systems\b/gi, "$1 bonding tools")
+    .replace(/\bUnderfill dispensing systems\b/gi, "Underfill dispense")
+    .replace(/\bPlanetary roller screw\b/gi, "Roller screw")
+    .replace(/\bRare-earth magnet supply\b/gi, "Rare-earth magnets")
+    .replace(/\bFrameless BLDC torque motor\b/gi, "Frameless BLDC")
+    .replace(/\bJoint inverter power stage\b/gi, "Joint inverter")
+    .replace(/\bBattery thermal safety\b/gi, "Battery safety")
+    .replace(/\bSpace-grade connector supply\b/gi, "Space connectors")
+    .replace(/\bVacuum-compatible compute harness\b/gi, "Vacuum compute harness")
     .replace(/\bSpaceX orbital data center system\b/gi, "SpaceX orbital DC")
     .replace(/\bSpaceX reusable launch stack\b/gi, "SpaceX reusable launch")
+    .replace(/\bStarship \/ Super Heavy reusable branch\b/gi, "Starship/Super Heavy reuse")
+    .replace(/\bCommon reuse enablers\b/gi, "Reuse enablers")
+    .replace(/\bLaunch and ground operations stack\b/gi, "Launch/ground ops")
+    .replace(/\bFalcon 9 reusable branch\b/gi, "Falcon 9 reuse")
+    .replace(/\bFalcon 9 booster reuse stack\b/gi, "Falcon 9 booster reuse")
+    .replace(/\bFalcon 9 Merlin engine cluster\b/gi, "Falcon 9 Merlin cluster")
+    .replace(/\bFalcon 9 aluminum-lithium tank structure\b/gi, "Falcon 9 tank structure")
+    .replace(/\bFalcon 9 fault-tolerant avionics and GNC\b/gi, "Falcon 9 avionics/GNC")
+    .replace(/\bFalcon 9 pneumatic stage separation\b/gi, "Falcon 9 stage sep.")
+    .replace(/\bFalcon 9 fairing recovery and reuse\b/gi, "Falcon 9 fairing reuse")
+    .replace(/\bSuper Heavy reusable booster\b/gi, "Super Heavy booster")
+    .replace(/\bSuper Heavy 33-Raptor engine cluster\b/gi, "33-Raptor cluster")
+    .replace(/\bSuper Heavy tower-catch interface\b/gi, "Tower-catch interface")
+    .replace(/\bStarship sea-level and vacuum Raptor mix\b/gi, "Starship Raptor mix")
     .replace(/\bHumanoid robot key component stack\b/gi, "Humanoid component stack")
     .replace(/\bBattery,\s*power,?\s*(and|\+)\s*charging system\b/gi, "Battery + power")
     .replace(/\bDexterous hand\s*(and|\+)\s*tactile(?: system)?\b/gi, "Hand + tactile")
     .replace(/\bPerception\s*(and|\+)\s*sensing stack\b/gi, "Perception stack")
     .replace(/\bStructure,\s*materials,?\s*(and|\+)\s*harness\b/gi, "Structure + harness")
     .replace(/\bManufacturing,\s*test,\s*safety,?\s*(and|\+)\s*service\b/gi, "Mfg/test/service")
+    .replace(/\bTendon or cable hand transmission\b/gi, "Tendon/cable hand")
+    .replace(/\bBattery pack enclosure and interconnect\b/gi, "Battery enclosure")
+    .replace(/\bHigh-current power distribution bus\b/gi, "Power distribution")
+    .replace(/\bAirflow or liquid cooling loop\b/gi, "Air/liquid cooling")
+    .replace(/\bProximity and touch safety sensing\b/gi, "Proximity safety")
+    .replace(/\bAudio and microphone array\b/gi, "Audio array")
+    .replace(/\bWiring harness and connectors\b/gi, "Wiring harness")
+    .replace(/\bFoot contact structure\b/gi, "Foot contact")
+    .replace(/\bTokamak magnetic-confinement route\b/gi, "Tokamak route")
+    .replace(/\bStellarator magnetic-confinement route\b/gi, "Stellarator route")
+    .replace(/\bLaser inertial fusion energy route\b/gi, "Laser IFE route")
+    .replace(/\bZ-pinch pulsed-power route\b/gi, "Z-pinch route")
+    .replace(/\bShared plant constraint stack\b/gi, "Shared plant constraints")
+    .replace(/\bTokamak remote-maintenance interface\b/gi, "Tokamak remote maint.")
+    .replace(/\bStellarator blanket and maintenance access\b/gi, "Stellarator blanket access")
+    .replace(/\bLaser driver efficiency and repetition rate\b/gi, "Laser driver rep-rate")
+    .replace(/\bLaser IFE pulse balance of plant\b/gi, "Laser IFE BOP")
+    .replace(/\bLiquid-metal compatibility and tritium extraction\b/gi, "Liquid metal + tritium")
+    .replace(/\bFRC formation and sustainment\b/gi, "FRC formation")
+    .replace(/\bFRC direct energy conversion\b/gi, "FRC direct conversion")
+    .replace(/\bZ-pinch electrode or liner lifetime\b/gi, "Z-pinch liner life")
+    .replace(/\bZ-pinch fuel injection and preparation\b/gi, "Z-pinch fuel prep")
     .replace(/\bThermal management(?: system)?\b/gi, "Thermal mgmt")
     .replace(/\bonboard compute and control electronics\b/gi, "Compute/control elec.")
     .replace(/\breal-time MCU and safety controller\b/gi, "RT MCU safety ctrl")
@@ -339,6 +402,16 @@ function splitLabelLines(name: string): string[] {
   const firstLine = joinLabelTokens(firstLineTokens);
   const secondLine = truncateLineTokens(tokens.slice(firstLineTokens.length));
   return [firstLine, secondLine].filter(Boolean);
+}
+
+function lineBreakText(lines: string[], index: number): string {
+  const line = lines[index] ?? "";
+  const next = lines[index + 1] ?? "";
+  if (!line || !next) return line;
+  const last = line.charAt(line.length - 1);
+  const first = next.charAt(0);
+  if (CJK_RE.test(last) || CJK_RE.test(first)) return line;
+  return `${line} `;
 }
 
 function KnowHowBottleneckBadge({ count, cx, cy }: { count: number; cx: number; cy: number }) {
@@ -483,7 +556,7 @@ export function RadialNode({
                   x={BAND2_CENTER_X}
                   y={labelLines.length === 1 ? BAND2_OFFSET_Y + 57 : BAND2_OFFSET_Y + 50 + index * 13}
                 >
-                  {line}
+                  {lineBreakText(labelLines, index)}
                 </tspan>
               ))}
             </text>

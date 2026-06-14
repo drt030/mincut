@@ -28,6 +28,12 @@ import {
 import { costDisclosureText } from "@/lib/costDisclosure";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
+import {
+  readerFacingConstraintReason,
+  readerFacingCostAnswer,
+  readerFacingNote,
+  readerFacingStartupOpportunity,
+} from "@/lib/readerFacingText";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { Edge, Evidence, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { EvidenceList } from "./EvidenceList";
@@ -130,80 +136,6 @@ function TransactabilityChip({ value, t }: { value?: "procurable" | "must_build"
   );
 }
 
-function KnowHowPrioritySummary({
-  node,
-  holderSummary,
-  knowHowHosts,
-  onSelectNode,
-}: {
-  node: Node;
-  holderSummary: { total: number; listed: number } | null;
-  knowHowHosts: Node[];
-  onSelectNode?: (nodeId: string) => void;
-}) {
-  const { nodeName, t } = useLanguage();
-  if (!isKnowHowNode(node)) return null;
-  return (
-    <section className="detail-reader-knowhow" data-testid="detail-knowhow-priority">
-      <div className="detail-reader-mini-heading">{t("knowHowSectionTitle")}</div>
-      <div className="detail-reader-knowhow-grid">
-        <div
-          className={["detail-reader-knowhow-signal", node.transactability === "must_build" ? "warning" : ""]
-            .filter(Boolean)
-            .join(" ")}
-          data-testid="detail-knowhow-transactability"
-        >
-          <span>{t("knowHowTransactability")}</span>
-          <strong>
-            <TransactabilityChip value={node.transactability} t={t} />
-          </strong>
-        </div>
-        {holderSummary ? (
-          <div
-            className={["detail-reader-knowhow-signal", holderSummary.total === 0 ? "danger" : ""]
-              .filter(Boolean)
-              .join(" ")}
-            data-testid="detail-knowhow-holder-priority"
-            data-holders-total={holderSummary.total}
-            data-holders-listed={holderSummary.listed}
-          >
-            <span>{t("knowHowHoldersLabel")}</span>
-            <strong>{formatCopy(t("knowHowHoldersValue"), { n: holderSummary.total })}</strong>
-            <small>
-              {holderSummary.total === 0
-                ? t("knowHowNoHoldersSignal")
-                : formatCopy(t("knowHowListedValue"), { n: holderSummary.listed })}
-            </small>
-          </div>
-        ) : null}
-      </div>
-      {knowHowHosts.length > 0 ? (
-        <div className="detail-reader-knowhow-hosts" data-testid="detail-knowhow-hosted-by-priority">
-          <span>{t("knowHowHostedBy")}</span>
-          <div>
-            {knowHowHosts.slice(0, 3).map((host) => {
-              const label = nodeName(host.id, host.name);
-              return onSelectNode ? (
-                <button
-                  className="link-button"
-                  key={host.id}
-                  type="button"
-                  onClick={() => onSelectNode(host.id)}
-                  title={label}
-                >
-                  {label}
-                </button>
-              ) : (
-                <span key={host.id}>{label}</span>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
-    </section>
-  );
-}
-
 const TICKER_VENUE_SUFFIXES: Array<[suffix: string, venue: string]> = [
   [".TWO", "Taipei Exchange"],
   [".SS", "Shanghai"],
@@ -262,11 +194,13 @@ export function NodeDetailContent({
   node,
   onSelectNode,
   lockedExposureMode = "paid-candidate",
+  showExposureSummary = true,
 }: {
   graph: GraphData;
   node: Node;
   onSelectNode?: (nodeId: string) => void;
   lockedExposureMode?: LockedExposureMode;
+  showExposureSummary?: boolean;
 }) {
   const { kindName, nodeName, t } = useLanguage();
   const rawLockedEntry = useLockedDomainForNode(node);
@@ -422,14 +356,7 @@ export function NodeDetailContent({
         evidence={evidence}
         lockedEntry={lockedEntry}
         lockedExposureMode={lockedExposureMode}
-        priorityAddon={(
-          <KnowHowPrioritySummary
-            node={node}
-            holderSummary={holderSummary}
-            knowHowHosts={knowHowHosts}
-            onSelectNode={onSelectNode}
-          />
-        )}
+        showExposureSummary={showExposureSummary}
       />
       {node.kind === "product" ? (
         <InvestorAnswerPanel
@@ -466,7 +393,7 @@ export function NodeDetailContent({
       {isExpansionFrontier ? (
         <div className="frontier-callout">
           <strong>{t("expansionFrontier")}</strong>
-          <p>{node.notes ?? t("expansionFrontierHint")}</p>
+          <p>{readerFacingNote(node.notes) || t("expansionFrontierHint")}</p>
         </div>
       ) : null}
       <details className="panel-section panel-section-collapsible" data-testid="detail-full-evidence-list">
@@ -1232,11 +1159,7 @@ function constraintFactorSummary(nodes: Node[], t: (key: string) => string): str
 }
 
 function startupOpportunityText(node: Node): string {
-  const notes = node.notes ?? "";
-  const marker = "Startup opportunity:";
-  const index = notes.indexOf(marker);
-  if (index === -1) return "";
-  return notes.slice(index).trim();
+  return readerFacingStartupOpportunity(node.notes);
 }
 
 function heatScoreValue(score: number): string {
@@ -1287,20 +1210,6 @@ function isAiComputeNode(node: Pick<Node, "domain"> | null | undefined): boolean
   return Boolean(node?.domain?.includes("ai_compute_chain"));
 }
 
-function isParcelRobotNode(node: Pick<Node, "id" | "domain"> | null | undefined): boolean {
-  return Boolean(
-    node?.id === "low_cost_parcel_sorting_robot_300k_rmb" ||
-    node?.domain?.includes("parcel_sorting_robot"),
-  );
-}
-
-function detailImportanceText(node: Node, t: (key: string) => string): string {
-  if (isAiComputeNode(node)) return t("readerAiComputeImportance");
-  if (isParcelRobotNode(node)) return t("readerParcelRobotImportance");
-  if (node.kind === "product") return t("readerProductImportance");
-  return t("readerDefaultImportance");
-}
-
 function readerEvidenceStatusText(evidence: Evidence[], t: (key: string) => string): string {
   if (evidence.length === 0) return t("noDirectEvidence");
   if (evidence.length === 1) return t("readerEvidenceStatusCountSingular");
@@ -1331,39 +1240,40 @@ function detailBottleneckThesisText(
   t: (key: string) => string,
   evidence: Evidence[],
 ): string {
-  const where = sentenceClause(compactReaderClause(firstSentenceDescription(node.description) ?? t("noDescription")));
+  const where = sentenceClause(compactReaderClause(
+    isAiComputeNode(node) && node.kind === "product"
+      ? t("readerAiComputeImportance")
+      : firstSentenceDescription(node.description) ?? t("noDescription"),
+  ));
   const parents = (node.bottleneckOf ?? [])
     .map((parentId) => nodeById(graph, parentId))
     .filter((parent): parent is Node => Boolean(parent && parent.reviewStatus !== "deprecated"));
   const targetNames = parents.slice(0, 2).map((parent) => nodeName(parent.id, parent.name));
-  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  const why = targetNames.length > 0
-    ? formatCopy(t("readerThesisMarkedBottleneck"), { targets: targetNames.join(", ") })
-    : factors.length > 0
-      ? formatCopy(t("readerThesisConstraintFactors"), { factors: factors.slice(0, 2).join(" · ") })
-      : evidence.length === 0
-        ? t("readerThesisThinEvidence")
-        : t("readerThesisCandidateConstraint");
   const impact = targetNames.length > 0 ? targetNames.join(", ") : t("readerSelectedRouteImpact");
   return formatCopy(t("readerDetailBottleneckThesisSentence"), {
-    importance: detailImportanceText(node, t),
     where,
-    why,
     impact,
+    factors: constraintSummaryText(node, t),
+    relief: reliefTimingText(node, t),
+    evidence: readerEvidenceStatusText(evidence, t),
   });
 }
 
-function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) => string): string[] {
+function detailWhereStuckFactors(node: Node, t: (key: string) => string): string[] {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  const cost = detailCostSignalText(graph, node) ?? costDisclosureText(node, t);
-  if (cost) factors.push(cost);
   if (factors.length === 0) factors.push(t("readerThesisCandidateConstraint"));
   return factors.slice(0, 4);
 }
 
+function detailWhereStuckReason(node: Node): string {
+  return readerFacingConstraintReason(node.description);
+}
+
 function constraintSummaryText(node: Node, t: (key: string) => string): string {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  return factors.length > 0 ? factors.join(" · ") : t("readerConstraintUnclassified");
+  if (factors.length > 0) return factors.join(" · ");
+  if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeConstraintSummary");
+  return t("readerConstraintUnclassified");
 }
 
 function reliefTimingText(node: Node, t: (key: string) => string): string {
@@ -1377,6 +1287,7 @@ function reliefTimingText(node: Node, t: (key: string) => string): string {
     }
     return formatCopy(t("readerReliefTimingLong"), { months });
   }
+  if (isAiComputeNode(node) && node.kind === "product") return t("readerReliefTimingLikelyLong");
   return reliefTimingReasonText(node, t);
 }
 
@@ -1416,18 +1327,21 @@ function DecisionBrief({
   evidence: Evidence[];
 }) {
   const { t } = useLanguage();
-  const cost =
-    detailCostSignalText(graph, node) ??
-    costDisclosureText(node, t, { includeReason: true }) ??
-    t("readerCostNotModeled");
-  const costIsLong = cost.length > 54;
+  const cost = readerFacingCostAnswer({
+    valueText: detailCostSignalText(graph, node),
+    disclosureText: costDisclosureText(node, t, { includeReason: true }),
+    fallback: t("readerCostNotModeled"),
+    disclosurePrimary: t("readerCostNotPriceableShort"),
+    disclosureSecondary: t("readerCostMissingReviewedSource"),
+  });
   return (
     <div className="detail-decision-brief" data-testid="detail-decision-brief">
       <strong>{t("readerDecisionBrief")}</strong>
       <div className="detail-decision-grid">
-        <div className={costIsLong ? "wide" : undefined}>
+        <div title={cost.full}>
           <span>{t("readerCostMagnitude")}</span>
-          <strong>{cost}</strong>
+          <strong>{cost.primary}</strong>
+          {cost.secondary ? <small>{cost.secondary}</small> : null}
         </div>
         <div>
           <span>{t("readerSupplyConstraint")}</span>
@@ -1452,14 +1366,14 @@ function NodeReaderPriority({
   evidence,
   lockedEntry,
   lockedExposureMode,
-  priorityAddon,
+  showExposureSummary,
 }: {
   graph: GraphData;
   node: Node;
   evidence: Evidence[];
   lockedEntry: LockedDomainSummary | null;
   lockedExposureMode: LockedExposureMode;
-  priorityAddon?: React.ReactNode;
+  showExposureSummary: boolean;
 }) {
   const { nodeName, t } = useLanguage();
   const riskScore = nodeRiskSignal(node, graph);
@@ -1469,31 +1383,35 @@ function NodeReaderPriority({
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
-      <DecisionBrief graph={graph} node={node} evidence={evidence} />
       <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
         <span>{t("readerBottleneckThesis")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>
       </div>
-      <div className="detail-reader-role" data-testid="detail-where-stuck">
-        <span>{t("readerWhereStuck")}</span>
-        <div className="pill-row">
-          {detailWhereStuckFactors(graph, node, t).map((factor) => (
-            <span className="pill" key={factor}>{factor}</span>
-          ))}
-        </div>
-      </div>
+      <DecisionBrief graph={graph} node={node} evidence={evidence} />
       <div className="detail-reader-role" data-testid="detail-evidence-summary">
         <span>{t("readerKeyEvidenceSummary")}</span>
         <p>{quickPath.text}</p>
       </div>
-      {priorityAddon}
-      <ExposureEvidenceSummary
-        graph={graph}
-        node={node}
-        evidence={evidence}
-        lockedEntry={lockedEntry}
-        lockedExposureMode={lockedExposureMode}
-      />
+      <div className="detail-reader-role" data-testid="detail-where-stuck">
+        <span>{t("readerWhereStuck")}</span>
+        <div className="pill-row">
+          {detailWhereStuckFactors(node, t).map((factor) => (
+            <span className="pill" key={factor}>{factor}</span>
+          ))}
+        </div>
+        {detailWhereStuckReason(node) ? (
+          <p className="detail-reader-stuck-note">{detailWhereStuckReason(node)}</p>
+        ) : null}
+      </div>
+      {showExposureSummary ? (
+        <ExposureEvidenceSummary
+          graph={graph}
+          node={node}
+          evidence={evidence}
+          lockedEntry={lockedEntry}
+          lockedExposureMode={lockedExposureMode}
+        />
+      ) : null}
       <details
         className="detail-reader-secondary-details detail-reader-signal-details"
         data-testid="detail-reader-secondary-signals"
@@ -1544,6 +1462,52 @@ type EvidenceQuickPath = {
   viaNode: Node | null;
 };
 
+function evidenceRank(item: Evidence, index: number): number {
+  const review = item.reviewStatus === "reviewed" ? 0 : item.reviewStatus === "disputed" ? 2 : 1;
+  const sourceStatus = item.sourceStatus === "ok_exact" ? 0 : item.sourceStatus === "fetch_ok" ? 1 : 2;
+  const typeRank = item.type === "standard" ||
+    item.type === "paper" ||
+    item.type === "regulatory_approval" ||
+    item.type === "expert_review" ||
+    item.type === "benchmark" ||
+    item.type === "field_case"
+    ? 0
+    : item.type === "vendor_claim" || item.type === "news"
+      ? 2
+      : 1;
+  const confidence = item.confidence === "high" ? 0 : item.confidence === "medium" ? 1 : 2;
+  return review * 100_000 + sourceStatus * 10_000 + typeRank * 1_000 + confidence * 100 + index;
+}
+
+function strongestEvidence(evidence: Evidence[]): Evidence | null {
+  const active = evidence.filter((item) => item.reviewStatus !== "deprecated");
+  if (active.length === 0) return null;
+  return active
+    .map((item, index) => ({ item, rank: evidenceRank(item, index) }))
+    .sort((left, right) => left.rank - right.rank)[0]?.item ?? null;
+}
+
+function evidenceQualityText(item: Evidence): string {
+  return [
+    item.type.replace(/_/g, " "),
+    item.sourceName,
+    item.confidence ? `${item.confidence} confidence` : null,
+  ].filter(Boolean).join(" · ");
+}
+
+function evidenceReaderSummary(item: Evidence, total: number, t: (key: string) => string): string {
+  const limitation = readerFacingNote(item.limitations);
+  const prefix = total > 1
+    ? `${formatCopy(t("evidenceDirectSourceSummary"), { total })} `
+    : `${t("evidenceDirectSourceSummarySingular")} `;
+  const sourceText = formatCopy(t("evidenceStrongestSource"), {
+    title: item.title,
+    quality: evidenceQualityText(item),
+  });
+  const limitText = limitation ? ` ${formatCopy(t("evidenceLimitation"), { limitation })}` : "";
+  return `${prefix}${sourceText}${limitText}`;
+}
+
 function ExposureEvidenceSummary({
   graph,
   node,
@@ -1560,21 +1524,25 @@ function ExposureEvidenceSummary({
   const { nodeName, relationName, t } = useLanguage();
   const candidates = lockedEntry ? [] : exposureCandidatesForNode(graph, node, 3);
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
+  const isAuditPreviewLocked = Boolean(lockedEntry && lockedExposureMode === "audit-preview");
+  const summaryTitle = isAuditPreviewLocked ? t("exposureEvidencePolicyTitle") : t("exposureEvidenceSummaryTitle");
+  const candidateHeading = isAuditPreviewLocked ? t("exposureCandidateAuditHeading") : t("exposureCandidateHeading");
+  const candidateHint = isAuditPreviewLocked ? t("exposureCandidateAuditHint") : t("exposureCandidateHint");
   return (
     <div className="detail-reader-exposure-evidence" data-testid="detail-exposure-evidence-summary">
       <details className="detail-reader-secondary-details detail-reader-exposure-details">
         <summary>
-          <strong>{t("exposureEvidenceSummaryTitle")}</strong>{" "}
+          <strong>{summaryTitle}</strong>{" "}
           <span className="muted">
             {candidates.length > 0
               ? formatCopy(t("exposureCandidateCount"), { n: String(candidates.length) })
-              : t("exposureCandidateHeading")}
+              : candidateHeading}
           </span>
         </summary>
         <div className="detail-reader-exposure-grid">
           <div>
-            <span className="detail-reader-mini-heading">{t("exposureCandidateHeading")}</span>
-            <p className="muted">{t("exposureCandidateHint")}</p>
+            <span className="detail-reader-mini-heading">{candidateHeading}</span>
+            <p className="muted">{candidateHint}</p>
             {candidates.length > 0 ? (
               <ul className="metric-detail-list">
                 {candidates.map((candidate) => {
@@ -1740,11 +1708,10 @@ function evidenceQuickPathForNode(
   t: (key: string) => string,
 ): EvidenceQuickPath {
   const directEvidence = evidence.filter((item) => item.reviewStatus !== "deprecated");
-  if (directEvidence.length > 0) {
+  const strongestDirect = strongestEvidence(directEvidence);
+  if (strongestDirect) {
     return {
-      text: directEvidence.length === 1
-        ? t("evidenceDirectSourceSummarySingular")
-        : formatCopy(t("evidenceDirectSourceSummary"), { total: directEvidence.length }),
+      text: evidenceReaderSummary(strongestDirect, directEvidence.length, t),
       viaNode: null,
     };
   }
@@ -1752,7 +1719,9 @@ function evidenceQuickPathForNode(
   const nearest = nearestEvidenceForNode(graph, node);
   if (nearest) {
     return {
-      text: formatCopy(t("evidenceNearestTitle"), { title: nearest.evidence.title }),
+      text: `${formatCopy(t("evidenceNearestTitle"), { title: nearest.evidence.title })} (${evidenceQualityText(nearest.evidence)}).${
+        nearest.evidence.limitations ? ` ${formatCopy(t("evidenceLimitation"), { limitation: readerFacingNote(nearest.evidence.limitations) })}` : ""
+      }`,
       viaNode: nearest.viaNode,
     };
   }

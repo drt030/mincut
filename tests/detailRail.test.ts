@@ -587,9 +587,10 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
 
   assert.ok(thesisIndex >= 0, `full detail must start with bottleneck thesis; got: ${html}`);
   assert.ok(decisionBriefIndex >= 0, `decision brief should be present; got: ${html}`);
-  assert.ok(decisionBriefIndex < thesisIndex, `decision brief should be the first reader block after the title; got: ${html}`);
-  assert.ok(whereIndex > thesisIndex, `where-stuck factors should follow the thesis; got: ${html}`);
-  assert.ok(evidenceSummaryIndex > whereIndex, `key evidence summary should follow factors; got: ${html}`);
+  assert.ok(thesisIndex < decisionBriefIndex, `bottom line should lead into the investor brief; got: ${html}`);
+  assert.ok(decisionBriefIndex < evidenceSummaryIndex, `investor brief should come before key evidence; got: ${html}`);
+  assert.ok(evidenceSummaryIndex > decisionBriefIndex, `key evidence summary should follow decision brief; got: ${html}`);
+  assert.ok(whereIndex > evidenceSummaryIndex, `where-stuck factors should follow the key evidence summary; got: ${html}`);
   assert.ok(exposureSummaryIndex > evidenceSummaryIndex, `supplier/evidence quick path should follow the evidence summary; got: ${html}`);
   assert.ok(inspectIndex > exposureSummaryIndex, `inspect next should follow the supplier/evidence quick path; got: ${html}`);
   assert.equal(evidenceStatusIndex, -1, `public detail must not expose internal evidence status language; got: ${html}`);
@@ -601,13 +602,13 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.ok(downstreamListIndex >= 0, `technical downstream lists should still render later; got: ${html}`);
   assert.ok(decisionBriefIndex < rawKindIndex, "decision brief should appear before the raw kind tag");
   assert.ok(thesisIndex < rawKindIndex, "reader thesis should appear before the raw kind tag");
-  assert.ok(whereIndex < exposureSummaryIndex, "Where it is stuck should appear before the supplier/evidence quick path");
+  assert.ok(whereIndex < exposureSummaryIndex, "Where it is stuck should still appear before the supplier/evidence quick path");
   assert.ok(evidenceSummaryIndex < rawDomainIndex, "evidence summary should appear before raw domain tags");
   assert.ok(evidenceSummaryIndex < evidenceListIndex, "evidence summary should appear before the full evidence list");
   assert.ok(evidenceListIndex < relationshipListsIndex, "full evidence should appear before the duplicate graph appendix");
-  assert.match(html, /Bottleneck thesis/i, `full detail should lead with a bottleneck thesis; got: ${html}`);
+  assert.match(html, /Bottom line/i, `full detail should lead with a bottom-line decision; got: ${html}`);
   assert.match(html, /Where it is stuck/i, `full detail should expose stuck factors before raw metadata; got: ${html}`);
-  assert.match(html, /Decision brief/i, `full detail should lead with a concise investor research decision brief; got: ${html}`);
+  assert.match(html, /Investor brief/i, `full detail should include a concise investor research brief after the bottom line; got: ${html}`);
   assert.match(html, /Supply constraint/i, `decision brief should classify the bottleneck reason; got: ${html}`);
   assert.match(html, /Relief timing/i, `decision brief should say whether the constraint is quick or slow to relieve; got: ${html}`);
   assert.match(html, /Inspect next/i, `full detail should give the reader next inspection targets; got: ${html}`);
@@ -693,8 +694,9 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
 
   assert.ok(summaryIndex >= 0, `supplier/evidence summary should be present; got: ${html}`);
   assert.ok(whereStuckIndex >= 0, `Where it is stuck should be present; got: ${html}`);
-  assert.ok(evidenceSummaryIndex > whereStuckIndex, `key evidence summary should appear after Where it is stuck; got: ${html}`);
-  assert.ok(summaryIndex > evidenceSummaryIndex, `supplier/ticker quick path should appear after why/stuck/evidence; got: ${html}`);
+  assert.ok(evidenceSummaryIndex > 0, `key evidence summary should be present; got: ${html}`);
+  assert.ok(evidenceSummaryIndex < whereStuckIndex, `key evidence summary should appear before Where it is stuck; got: ${html}`);
+  assert.ok(summaryIndex > whereStuckIndex, `supplier/ticker quick path should appear after bottom line/evidence/stuck factors; got: ${html}`);
   assert.ok(relationshipListsIndex > summaryIndex, `supplier/ticker summary must appear before Relationship lists; got: ${html}`);
   assert.ok(secondarySignalsIndex > summaryIndex, `supplier/ticker summary should appear before secondary Heat/Evidence signals; got: ${html}`);
   assert.doesNotMatch(
@@ -803,15 +805,18 @@ test("expanded: detail bottleneck thesis stays compact so the decision brief is 
   });
   const thesis = detailReaderPriority(html).match(/<div[^>]*data-testid="detail-bottleneck-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(thesis, /Why it matters:/i, `detail thesis should still explain why the node matters; got: ${thesis}`);
+  assert.match(thesis, /Impact:/i, `detail thesis should still explain what the node affects; got: ${thesis}`);
+  assert.match(thesis, /Constraint type:/i, `detail thesis should classify why the node is hard to clear; got: ${thesis}`);
   assert.doesNotMatch(
     thesis,
     /Current signal:/i,
     `detail thesis should not spend first-screen space on internal graph-signal phrasing; got: ${thesis}`,
   );
   assert.ok(
-    html.indexOf('data-testid="detail-decision-brief"') < html.indexOf('data-testid="detail-bottleneck-thesis"'),
-    `decision brief should appear before the compact thesis block; got: ${html}`,
+    html.indexOf('data-testid="detail-bottleneck-thesis"') < html.indexOf('data-testid="detail-decision-brief"') &&
+      html.indexOf('data-testid="detail-decision-brief"') < html.indexOf('data-testid="detail-evidence-summary"') &&
+      html.indexOf('data-testid="detail-evidence-summary"') < html.indexOf('data-testid="detail-where-stuck"'),
+    `detail should show bottom line, investor brief, evidence, then stuck-factor tags; got: ${html}`,
   );
 });
 
@@ -854,17 +859,20 @@ test("expanded: detail where-stuck keeps maturity score out of the primary expla
   });
   const priority = detailReaderPriority(html);
   const whereIndex = priority.indexOf('data-testid="detail-where-stuck"');
+  const decisionIndex = priority.indexOf('data-testid="detail-decision-brief"');
   const evidenceIndex = priority.indexOf('data-testid="detail-evidence-summary"');
   assert.ok(whereIndex >= 0, `detail should include where-stuck factors; got: ${priority}`);
-  assert.ok(evidenceIndex > whereIndex, `evidence summary should follow where-stuck; got: ${priority}`);
-  const whereStuck = priority.slice(whereIndex, evidenceIndex);
+  assert.ok(decisionIndex < evidenceIndex, `investor brief should precede evidence; got: ${priority}`);
+  assert.ok(evidenceIndex < whereIndex, `where-stuck tags should follow evidence; got: ${priority}`);
+  const exposureIndex = priority.indexOf('data-testid="detail-exposure-evidence-summary"');
+  const whereStuck = priority.slice(whereIndex, exposureIndex >= 0 ? exposureIndex : undefined);
 
   assert.match(whereStuck, /Component availability/i);
   assert.match(whereStuck, /Capacity \/ scale/i);
   assert.match(whereStuck, /Technical maturity/i);
   assert.doesNotMatch(
     whereStuck,
-    /Maturity 50\/100|early_deployment/i,
+    /Maturity 50\/100|early_deployment|Not priceable|RMB/i,
     `Where it is stuck should explain the constraint type, not expose a raw maturity score; got: ${whereStuck}`,
   );
 });
@@ -942,10 +950,50 @@ test("expanded: detail decision brief explains explicit cost disclosure gaps", (
     onClose: noop,
   });
   const decision = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? html;
+  const whereStuck = html.match(/<div[^>]*data-testid="detail-where-stuck"[\s\S]*?detail-decision-brief/)?.[0] ?? "";
 
-  assert.match(decision, /Not priceable from reviewed data/i);
-  assert.match(decision, /No reviewed source prices the qualification and utilization reserve/i);
+  assert.match(decision, /Cost gap unknown/i);
+  assert.match(decision, /Needs proxy price, BOM quote, or capacity\/capex source/i);
+  assert.match(decision, /no public source prices the qualification and utilization reserve/i);
   assert.match(decision, /24 months/i);
+  assert.doesNotMatch(
+    whereStuck,
+    /Not priceable|reviewed price|BOM|RMB/i,
+    `Where it is stuck should not mix in cost audit gaps; got: ${whereStuck}`,
+  );
+});
+
+test("expanded: frontier callout hides internal audit suffixes from users", () => {
+  const scopedGraph: GraphData = {
+    graphVersion: "frontier-note-sanitizer-test",
+    evidence: [],
+    nodes: [
+      {
+        id: "frontier_node",
+        name: "Frontier node",
+        kind: "engineering_method",
+        domain: ["test"],
+        description: "Field recovery workflow.",
+        tags: ["decomposition_frontier", "constraint_integration_commissioning"],
+        notes:
+          "Expansion frontier: needs field evidence for jam modes and operator intervention rate. transactability=must_build (agent backfill 2026-06-10, needs review): integrator-built recovery logic",
+      },
+    ],
+    edges: [],
+  };
+  const html = render({
+    graph: scopedGraph,
+    focusedNode: nodeByIdIn(scopedGraph, "frontier_node"),
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  const frontier = html.match(/<div class="frontier-callout">[\s\S]*?<\/div>/)?.[0] ?? html;
+  assert.match(frontier, /Expansion frontier: needs field evidence for jam modes and operator intervention rate/i);
+  assert.doesNotMatch(frontier, /transactability=/i);
+  assert.doesNotMatch(frontier, /agent backfill/i);
+  assert.doesNotMatch(frontier, /needs review/i);
 });
 
 test("expanded: organization detail surfaces the components it supplies", () => {

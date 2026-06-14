@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { ProductView } from "../src/components/ProductView";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { nodeById } from "../src/lib/graphTraversal";
+import type { GraphData } from "../src/lib/schema";
 
 test("ProductView surfaces supplier candidates for material nodes", () => {
   const graph = loadGraphData();
@@ -19,6 +20,45 @@ test("ProductView surfaces supplier candidates for material nodes", () => {
   assert.match(html, /Beijing Zhong Ke San Huan/);
   assert.match(html, /Ningbo Yunsheng/);
   assert.match(html, /Public listing/);
+});
+
+test("ProductView hides internal backfill notes in candidate organization cards", () => {
+  const graph: GraphData = {
+    graphVersion: "product-view-reader-note-test",
+    nodes: [
+      {
+        id: "product",
+        name: "Product",
+        kind: "product",
+        domain: ["test"],
+        description: "Test product.",
+      },
+      {
+        id: "org_candidate",
+        name: "Candidate supplier",
+        kind: "organization",
+        domain: ["test"],
+        notes: "Investor relevance: useful benchmark supplier. listing backfill 2026-06-10 (agent, needs review)",
+      },
+    ],
+    edges: [
+      {
+        id: "e_product_org",
+        source: "product",
+        target: "org_candidate",
+        relation: "manufactured_by",
+      },
+    ],
+    evidence: [],
+  };
+  const product = nodeById(graph, "product");
+  assert.ok(product);
+
+  const html = renderToStaticMarkup(React.createElement(ProductView, { graph, product }));
+
+  assert.match(html, /Investor relevance: useful benchmark supplier/i);
+  assert.doesNotMatch(html, /listing backfill/i);
+  assert.doesNotMatch(html, /needs review/i);
 });
 
 test("ProductView surfaces an investor answer summary for the active product", () => {

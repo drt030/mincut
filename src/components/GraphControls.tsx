@@ -64,7 +64,7 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   cost: {
     title: "Legend",
-    summary: "Wider edge = larger downstream cost burden.",
+    summary: "Wider = cost burden.",
     low: "Lower",
     high: "Higher",
     edgeLabel: "Edge color + width",
@@ -72,7 +72,7 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   "bottleneck-risk": {
     title: "Legend",
-    summary: "Wider edge = commercialization bottleneck risk.",
+    summary: "Wider = bottleneck risk.",
     low: "Low risk",
     high: "Critical",
     edgeLabel: "Edge color + width",
@@ -80,7 +80,7 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   maturity: {
     title: "Legend",
-    summary: "Wider edge = maturity gap or thin evidence.",
+    summary: "Wider = maturity gap.",
     low: "Mature",
     high: "Least mature",
     edgeLabel: "Edge color + width",
@@ -99,7 +99,7 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   cost: {
     title: "图例",
-    summary: "线越粗 = 下游成本负担越大。",
+    summary: "线越粗 = 成本负担。",
     low: "较低",
     high: "较高",
     edgeLabel: "线条颜色 + 粗细",
@@ -107,7 +107,7 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   "bottleneck-risk": {
     title: "图例",
-    summary: "线越粗 = 商业化卡点风险越高。",
+    summary: "线越粗 = 瓶颈风险。",
     low: "低风险",
     high: "关键瓶颈",
     edgeLabel: "线条颜色 + 粗细",
@@ -115,7 +115,7 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   maturity: {
     title: "图例",
-    summary: "线越粗 = 成熟度缺口或证据更薄。",
+    summary: "线越粗 = 成熟度缺口。",
     low: "成熟",
     high: "最不成熟",
     edgeLabel: "线条颜色 + 粗细",
@@ -139,7 +139,12 @@ function LensLegend({
   const legend = copy[activeMode];
   const showEncodedLegend = activeMode !== "relation";
   return (
-    <div className="lens-legend" data-testid="lens-legend" data-lens-mode={activeMode}>
+    <div
+      className="lens-legend"
+      data-testid="lens-legend"
+      data-lens-mode={activeMode}
+      title={`${legend.summary} ${legend.edgeValue}`}
+    >
       <div className="lens-legend-heading">
         <span>{legend.title}</span>
         <strong>{legend.summary}</strong>
