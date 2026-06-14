@@ -37,7 +37,7 @@ import {
 } from "@/lib/edgeStyleFor";
 import { nodeRiskSignal } from "@/lib/nodeRisk";
 import { focusedSubset } from "@/lib/focusedSubset";
-import { filterCanvasGraph, isRootableCanvasNode, resolveCanvasRootId, isCanvasTreeEdge, isKnowHowNode } from "@/lib/canvasGraph";
+import { filterCanvasGraph, resolveCanvasRootId, isCanvasTreeEdge, isKnowHowNode } from "@/lib/canvasGraph";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { Edge, GraphData, Node } from "@/lib/schema";
@@ -832,10 +832,6 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     setWorkingGraph(graph);
   }, [graph]);
   const canvasGraph = useMemo(() => filterCanvasGraph(workingGraph, currentRootId), [workingGraph, currentRootId]);
-  const rootableNodeIds = useMemo(
-    () => workingGraph.nodes.filter(isRootableCanvasNode).map((node) => node.id),
-    [workingGraph.nodes],
-  );
 
   // Initial selection: URL ?focus= if present and valid; otherwise, a
   // bookmarked ?path= view selects the deepest path node so the detail
@@ -853,7 +849,8 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     return currentRootId;
   })();
   const [selectedId, setSelectedId] = useState(initialFocus);
-  const [railPanel, setRailPanel] = useState<"route" | "detail">("route");
+  const initialRailPanel = initialFocus === currentRootId ? "route" : "detail";
+  const [railPanel, setRailPanel] = useState<"route" | "detail">(initialRailPanel);
 
   // Retail launch entry opens on the bottleneck heat lens; /explore can
   // still request other modes via its query wiring.
@@ -1827,13 +1824,9 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
           priorityEntries={topPriorityEntries}
           exposureAccess={exposureAccess}
           systemNodeIds={firstLayerSubsystems}
-          currentRootId={currentRootId}
-          rootableNodeIds={rootableNodeIds}
-          rootTransitioning={rootTransitioning}
           panel={railPanel}
           onPanelChange={setRailPanel}
           onSelectNode={onSelect}
-          onSetRootNode={setGraphRoot}
         />
       </div>
       {/* C2: Cmd+K search modal. Mounted at the top level so the

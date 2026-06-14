@@ -632,6 +632,29 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   );
 });
 
+test("expanded: primary reader path has no nested disclosure controls", () => {
+  const focused = nodeById(FOCAL_PRODUCT_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const priority = detailReaderPriority(html);
+
+  assert.doesNotMatch(
+    priority,
+    /<details\b/i,
+    `primary reader path should expose the decision sequence directly; nested disclosure belongs only in supplementary appendix, got: ${priority}`,
+  );
+  assert.doesNotMatch(
+    priority,
+    /<summary\b/i,
+    `primary reader path should not require opening a summary row to see supplier/evidence quick paths; got: ${priority}`,
+  );
+});
+
 test("expanded: AI compute detail treats locked exposure input as silently available", () => {
   const focused = nodeById(AI_COMPUTE_ROOT_ID);
   const html = renderWithLockedExposure({
@@ -708,7 +731,7 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
   assert.doesNotMatch(summary, /77 suppliers hidden|paid exposure layer/i);
 });
 
-test("expanded: supplier/ticker intent opens the exposure summary at the point of need", () => {
+test("expanded: supplier/ticker intent highlights the exposure summary at the point of need", () => {
   const focused = nodeById("high_bandwidth_memory");
   const html = renderToStaticMarkup(
     React.createElement(NodeDetailContent, {
@@ -717,11 +740,10 @@ test("expanded: supplier/ticker intent opens the exposure summary at the point o
       defaultOpenExposureSummary: true,
     }),
   );
-  const exposureSummary = html.match(
-    /<details[^>]*class="detail-reader-secondary-details detail-reader-exposure-details"[^>]*>[\s\S]*?<\/details>/,
-  )?.[0] ?? "";
+  const exposureSummary = detailDisclosure(html, "detail-exposure-evidence-summary");
 
-  assert.match(exposureSummary, /<details[^>]*open=""/, `supplier/ticker intent should expand exposure details; got: ${html}`);
+  assert.match(exposureSummary, /data-point-of-need="true"/, `supplier/ticker intent should mark the exposure block as the active point of need; got: ${html}`);
+  assert.doesNotMatch(exposureSummary, /<details\b|<summary\b/i, `supplier/ticker quick path should not be hidden in a nested disclosure; got: ${exposureSummary}`);
   assert.match(exposureSummary, /SK Hynix|Samsung Electronics|Micron Technology/i);
   assert.match(exposureSummary, /000660\.KS|005930\.KS|MU/i);
 });
@@ -1343,10 +1365,18 @@ test("expanded: product detail promotes the investor answer and suppresses raw m
   });
 
   const investorIndex = html.indexOf("Product bottleneck readout");
+  const exposureIndex = html.indexOf('data-testid="detail-exposure-evidence-summary"');
+  const inspectIndex = html.indexOf('data-testid="detail-inspect-next"');
   const metricsIndex = html.indexOf('data-testid="detail-metric-details"');
   const costRollupIndex = html.indexOf("cost-rollup-card");
 
   assert.ok(investorIndex >= 0, `product detail must render the product bottleneck readout; got: ${html}`);
+  assert.ok(exposureIndex >= 0, `product detail must render the supplier/evidence quick path; got: ${html}`);
+  assert.ok(inspectIndex >= 0, `product detail must render inspect-next before secondary readouts; got: ${html}`);
+  assert.ok(
+    exposureIndex < inspectIndex && inspectIndex < investorIndex,
+    `product detail should keep the primary workflow exposure -> Inspect next -> product readout; got: ${html}`,
+  );
   assert.equal(metricsIndex, -1, `product detail must not render a raw metrics section; got: ${html}`);
   assert.equal(costRollupIndex, -1, `product detail must not expose the internal cost-rollup card; got: ${html}`);
 });

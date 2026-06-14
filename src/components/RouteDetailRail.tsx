@@ -39,12 +39,8 @@ export type RouteDetailRailProps = {
   systemNodeIds?: readonly string[];
   panel?: "route" | "detail";
   initialPanel?: "route" | "detail";
-  currentRootId?: string;
-  rootableNodeIds?: readonly string[];
-  rootTransitioning?: boolean;
   onPanelChange?: (panel: "route" | "detail") => void;
   onSelectNode?: (nodeId: string) => void;
-  onSetRootNode?: (nodeId: string) => void;
 };
 
 function formatRmb(value: number): string {
@@ -76,10 +72,6 @@ function formatCopy(template: string, replacements: Record<string, string | numb
     (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
     template,
   );
-}
-
-function graphRootHref(nodeId: string): string {
-  return `/graph?root=${encodeURIComponent(nodeId)}`;
 }
 
 function railAnalysisMode(mode: ColorMode | undefined): RailAnalysisMode {
@@ -235,12 +227,8 @@ export function RouteDetailRail({
   systemNodeIds,
   panel: controlledPanel,
   initialPanel = "route",
-  currentRootId,
-  rootableNodeIds,
-  rootTransitioning = false,
   onPanelChange,
   onSelectNode,
-  onSetRootNode,
 }: RouteDetailRailProps) {
   const [uncontrolledPanel, setUncontrolledPanel] = useState<"route" | "detail">(initialPanel);
   const [detailIntent, setDetailIntent] = useState<DetailIntent>("default");
@@ -330,9 +318,6 @@ export function RouteDetailRail({
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
       routeEntry: "路线入口",
-      setAsRoot: "作为产品根研究",
-      settingRoot: "正在切换产品视图",
-      setAsRootLabel: (name: string) => `将 ${name} 设为新的产品研究根`,
     }
     : {
       fullSystem: "Full system",
@@ -362,9 +347,6 @@ export function RouteDetailRail({
       noPriorityNodes: "No sortable nodes in this lens yet.",
       noNodeSelected: "No node selected.",
       routeEntry: "Route entry",
-      setAsRoot: "Set as research root",
-      settingRoot: "Switching research root",
-      setAsRootLabel: (name: string) => `Set ${name} as the graph research root`,
     };
   const evidenceStatusText = (node: Node): string => {
     const summary = directEvidenceSummary(graph, node);
@@ -717,12 +699,6 @@ export function RouteDetailRail({
     }
     return nodes;
   }, [activePriorityEntries, directChildIdsByNodeId, nodeById, selectedSummaryNode]);
-  const canSetSelectedAsRoot = Boolean(
-    selectedNode &&
-    onSetRootNode &&
-    selectedNode.id !== currentRootId &&
-    (!rootableNodeIds || rootableNodeIds.includes(selectedNode.id)),
-  );
   const railTitle = activeAnalysisMode === "relation"
     ? copy.systemDecomposition
     : activeAnalysisMode === "bottleneck-risk"
@@ -865,30 +841,6 @@ export function RouteDetailRail({
               showExposureSummary={detailIntent === "exposure" || !isAuditPreviewAccess}
               defaultOpenExposureSummary={detailIntent === "exposure"}
             />
-            {canSetSelectedAsRoot ? (
-              <details className="route-reader-research-controls" data-testid="route-reader-research-controls">
-                <summary>{t("readerResearchControls")}</summary>
-                <div className="route-rail-action-row">
-                  <a
-                    className="route-rail-action-button"
-                    data-testid="set-root-node-button"
-                    href={graphRootHref(selectedNode.id)}
-                    aria-label={copy.setAsRootLabel(nodeName(selectedNode.id, selectedNode.name))}
-                    aria-disabled={rootTransitioning}
-                    aria-busy={rootTransitioning}
-                    onClick={(event) => {
-                      event.preventDefault();
-                      if (rootTransitioning) {
-                        return;
-                      }
-                      onSetRootNode?.(selectedNode.id);
-                    }}
-                  >
-                    {rootTransitioning ? copy.settingRoot : copy.setAsRoot}
-                  </a>
-                </div>
-              </details>
-            ) : null}
           </section>
         ) : (
           <>
@@ -1116,30 +1068,6 @@ export function RouteDetailRail({
                         ))}
                       </div>
                     </div>
-                  ) : null}
-                  {selectedNode && canSetSelectedAsRoot ? (
-                    <details className="route-reader-research-controls" data-testid="route-reader-research-controls">
-                      <summary>{t("readerResearchControls")}</summary>
-                      <div className="route-rail-action-row">
-                        <a
-                          className="route-rail-action-button"
-                          data-testid="set-root-node-button"
-                          href={graphRootHref(selectedNode.id)}
-                          aria-label={copy.setAsRootLabel(nodeName(selectedNode.id, selectedNode.name))}
-                          aria-disabled={rootTransitioning}
-                          aria-busy={rootTransitioning}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            if (rootTransitioning) {
-                              return;
-                            }
-                            onSetRootNode?.(selectedNode.id);
-                          }}
-                        >
-                          {rootTransitioning ? copy.settingRoot : copy.setAsRoot}
-                        </a>
-                      </div>
-                    </details>
                   ) : null}
                 </>
               ) : (

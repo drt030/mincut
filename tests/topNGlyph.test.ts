@@ -517,7 +517,7 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh reader
   );
 });
 
-test("GraphExplorer.tsx regression guard: explicit node clicks open detail while URL focus starts on summary", () => {
+test("GraphExplorer.tsx regression guard: explicit node clicks open detail", () => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -550,7 +550,7 @@ test("GraphExplorer.tsx regression guard: explicit node clicks open detail while
   );
 });
 
-test("GraphExplorer.tsx regression guard: URL focus starts on the reader summary panel", () => {
+test("GraphExplorer.tsx regression guard: URL focus opens the node detail panel", () => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -563,13 +563,13 @@ test("GraphExplorer.tsx regression guard: URL focus starts on the reader summary
 
   assert.match(
     noLineComments,
-    /const \[railPanel, setRailPanel\] = useState<["']route["'] \| ["']detail["']>\(["']route["']\);/,
-    "URL focus/path may preselect a node, but the first rail screen should still be the reader summary route tab",
+    /const initialRailPanel = initialFocus === currentRootId \? ["']route["'] : ["']detail["'];/,
+    "URL focus/path should open node detail first so reloads and shared links preserve the selected-node workflow",
   );
-  assert.doesNotMatch(
+  assert.match(
     noLineComments,
-    /initialFocus === currentRootId \? ["']route["'] : ["']detail["']/,
-    "initial URL focus must not force the rail straight into the full detail tab",
+    /const \[railPanel, setRailPanel\] = useState<["']route["'] \| ["']detail["']>\(initialRailPanel\);/,
+    "rail panel state should be initialized from the initial URL focus rather than hard-coded to Start here",
   );
 });
 

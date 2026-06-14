@@ -1070,8 +1070,6 @@ test("RouteDetailRail can render the full selected-node detail view", () => {
       route,
       selectedNode,
       initialPanel: "detail",
-      currentRootId: "root_product",
-      onSetRootNode: () => {},
       onSelectNode: () => {},
     }),
   );
@@ -1080,13 +1078,14 @@ test("RouteDetailRail can render the full selected-node detail view", () => {
   assert.match(html, /Node detail/i);
   assert.match(html, /Robot arm description/);
   assert.match(html, /Maturity/i);
-  assert.ok(
-    html.indexOf('data-testid="detail-bottleneck-thesis"') < html.indexOf('data-testid="set-root-node-button"'),
-    `research-root control must not appear before the node summary in the detail tab; got: ${html}`,
+  assert.doesNotMatch(
+    html,
+    /data-testid="set-root-node-button"|Map tools|Set as research root/i,
+    `selected-node detail should stay in the detail workflow and not offer a root-switching control; got: ${html}`,
   );
 });
 
-test("RouteDetailRail exposes a selected-node action for changing the graph root", () => {
+test("RouteDetailRail keeps selected-node exploration in-place instead of offering a root switch", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
@@ -1096,48 +1095,21 @@ test("RouteDetailRail exposes a selected-node action for changing the graph root
       graph,
       route,
       selectedNode,
-      currentRootId: "root_product",
-      onSetRootNode: () => {},
       onSelectNode: () => {},
     }),
   );
 
-  assert.match(html, /data-testid="set-root-node-button"/);
-  assert.match(html, /Set as research root/i);
-  assert.match(html, /<summary>Map tools<\/summary>/);
-  assert.doesNotMatch(html, /Research controls/);
-  assert.match(
-    html,
-    /<details[^>]*data-testid="route-reader-research-controls"[\s\S]*Set as research root/,
-    "root action should be inside collapsed map tools instead of the first-screen summary body",
-  );
-  assert.match(
-    html,
-    /aria-label="Set Robot arm as the graph research root"/,
-    "root action should describe that it re-centres the graph research view",
-  );
-  assert.match(
-    html,
-    /href="\/graph\?root=arm"/,
-    "root action should have an href fallback so the research-root jump works before hydration",
-  );
+  assert.doesNotMatch(html, /data-testid="set-root-node-button"/);
+  assert.doesNotMatch(html, /Set as research root|Map tools|route-reader-research-controls/i);
+  assert.match(html, /Robot arm/);
 });
 
-test("research-root links keep href fallback but prevent hydrated navigation", () => {
-  const routeRailSource = fs.readFileSync(
-    path.join(process.cwd(), "src", "components", "RouteDetailRail.tsx"),
-    "utf8",
-  );
+test("reset-root links keep href fallback but prevent hydrated navigation", () => {
   const graphExplorerSource = fs.readFileSync(
     path.join(process.cwd(), "src", "components", "GraphExplorer.tsx"),
     "utf8",
   );
 
-  assert.match(
-    routeRailSource,
-    /href=\{graphRootHref\(selectedNode\.id\)\}[\s\S]*?onClick=\{\(event\) => \{\s*event\.preventDefault\(\);\s*if \(rootTransitioning\)[\s\S]*?onSetRootNode\?\.\(selectedNode\.id\);[\s\S]*?\}\}/,
-    "set-root link should keep its href fallback but prevent hydrated navigation so the in-place root transition can animate",
-  );
   assert.match(
     graphExplorerSource,
     /href=\{graphRootHref\(resetRootNode\.id\)\}[\s\S]*?onClick=\{\(event\) => \{\s*event\.preventDefault\(\);\s*onResetRoot\(\);[\s\S]*?\}\}/,

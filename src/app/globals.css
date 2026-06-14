@@ -2218,12 +2218,6 @@ li {
   margin-top: 10px;
 }
 
-.route-reader-research-controls {
-  border-top: 1px solid rgba(15, 23, 42, 0.08);
-  margin-top: 12px;
-  padding-top: 10px;
-}
-
 .route-rail-selected h3 {
   font-size: 15px;
   line-height: 1.25;
@@ -3297,9 +3291,27 @@ input {
   padding: 9px;
 }
 
-.detail-reader-exposure-evidence > strong {
+.detail-reader-exposure-evidence.point-of-need {
+  border-color: rgba(37, 99, 235, 0.28);
+  box-shadow: inset 3px 0 0 rgba(37, 99, 235, 0.42);
+}
+
+.detail-reader-exposure-head {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  justify-content: space-between;
+}
+
+.detail-reader-exposure-head > strong {
   color: var(--ink);
   font-size: 12px;
+}
+
+.detail-reader-exposure-head > span {
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .detail-reader-exposure-grid {
