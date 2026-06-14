@@ -1336,7 +1336,6 @@ function detailBottleneckThesisText(
 
 function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) => string): string[] {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  if (typeof node.maturityScore === "number") factors.push(`${t("maturity")} ${Math.round(node.maturityScore)}/100`);
   const cost = detailCostSignalText(graph, node);
   if (cost) factors.push(cost);
   if (factors.length === 0) factors.push(t("readerThesisCandidateConstraint"));
@@ -1356,11 +1355,11 @@ function reliefTimingText(node: Node, t: (key: string) => string): string {
     return formatCopy(t("readerReliefTimingLong"), { months });
   }
   const tags = new Set(node.tags ?? []);
-  if (
-    tags.has("constraint_capacity_scale") ||
-    tags.has("constraint_material_supply_chain") ||
-    tags.has("constraint_component_availability")
-  ) {
+  if (tags.has("constraint_economic_validation")) return t("readerReliefTimingEconomics");
+  if (tags.has("constraint_material_supply_chain")) return t("readerReliefTimingMaterial");
+  if (tags.has("constraint_component_availability")) return t("readerReliefTimingComponent");
+  if (tags.has("constraint_regulatory_approval")) return t("readerReliefTimingRegulatory");
+  if (tags.has("constraint_capacity_scale")) {
     return t("readerReliefTimingLikelyLong");
   }
   if (tags.has("constraint_integration_commissioning") || tags.has("constraint_technical_maturity")) {

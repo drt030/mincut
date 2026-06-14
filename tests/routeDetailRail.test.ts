@@ -350,6 +350,12 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.match(summary, /Relief timing/i);
   assert.match(summary, /18 months/i);
   assert.match(summary, /Maturity 58\/100/i);
+  const whereStuck = summary.match(/route-reader-factors[\s\S]*?route-reader-decision-brief/)?.[0] ?? "";
+  assert.doesNotMatch(
+    whereStuck,
+    /Maturity 58\/100/i,
+    `Where it is stuck should show constraint factors and cost, not raw score; got: ${whereStuck}`,
+  );
   assert.match(summary, /Key sources/i);
   assert.match(summary, /3 source records linked/i);
   assert.doesNotMatch(summary, /Evidence status/i);
@@ -367,6 +373,36 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
     assert.ok(index > thesisIndex, `${later} should be secondary to the thesis; got: ${summary}`);
   }
   assert.doesNotMatch(summary, /Full-free flagship demo/i);
+});
+
+test("RouteDetailRail root selection summarizes the route entry instead of root audit gaps", () => {
+  const graph = readerGraphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "root_product")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      priorityEntries: [
+        { nodeId: "arm", rank: 1, band: 5 },
+        { nodeId: "gearbox", rank: 2, band: 4 },
+        { nodeId: "motor", rank: 3, band: 3 },
+      ],
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = selectedSummary(html);
+
+  assert.match(summary, /Route entry/i);
+  assert.match(summary, /Robot arm/);
+  assert.match(summary, /Capacity \/ scale/i);
+  assert.match(summary, /Component availability/i);
+  assert.match(summary, /18 months/i);
+  assert.doesNotMatch(summary, /Constraint not classified yet/i);
+  assert.doesNotMatch(summary, /Not priceable from reviewed data/i);
 });
 
 test("RouteDetailRail selected summary demotes Heat and exposure after the thesis", () => {
@@ -397,6 +433,83 @@ test("RouteDetailRail selected summary demotes Heat and exposure after the thesi
   assert.doesNotMatch(signalBeforeExposure, /Maturity/i);
   assert.doesNotMatch(signalBeforeExposure, /Cost signal/i);
   assert.doesNotMatch(signalBeforeExposure, /p50 RMB/i);
+});
+
+test("RouteDetailRail names unknown cost and lead-time as audit gaps, not internal fields", () => {
+  const graph: GraphData = {
+    graphVersion: "route-detail-rail-audit-gap-test",
+    evidence: [],
+    nodes: [
+      node("root_product", "Frontier product", "product"),
+      node("unknown_constraint", "Unknown constraint", "module", undefined, {
+        description: "Unknown constraint blocks commercialization.",
+      }),
+    ],
+    edges: [
+      edge("e_root_unknown", "root_product", "unknown_constraint"),
+    ],
+  };
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "unknown_constraint")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = selectedSummary(html);
+
+  assert.match(summary, /Not priceable from reviewed data/i);
+  assert.match(summary, /No audited lead-time basis yet/i);
+  assert.doesNotMatch(summary, /Cost not modeled yet/i);
+  assert.doesNotMatch(summary, /Lead time not modeled yet/i);
+});
+
+test("RouteDetailRail relief timing explains the kind of unresolved constraint", () => {
+  const graph: GraphData = {
+    graphVersion: "route-detail-rail-relief-timing-test",
+    evidence: [],
+    nodes: [
+      node("root_product", "Frontier product", "product"),
+      node("economics", "Business model", "module", undefined, {
+        tags: ["constraint_economic_validation", "constraint_regulatory_approval"],
+        description: "Business model must prove demand, utilization, and economics.",
+      }),
+      node("material", "Tritium fuel cycle", "module", undefined, {
+        tags: ["constraint_material_supply_chain", "constraint_regulatory_approval"],
+        description: "Fuel cycle must scale scarce material and qualification.",
+      }),
+      node("component", "Qualified component", "module", undefined, {
+        tags: ["constraint_component_availability"],
+        description: "Qualified component supply is not yet broad enough.",
+      }),
+    ],
+    edges: [
+      edge("e_root_economics", "root_product", "economics"),
+      edge("e_root_material", "root_product", "material"),
+      edge("e_root_component", "root_product", "component"),
+    ],
+  };
+
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+
+  const renderSelected = (id: string) => selectedSummary(renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode: graph.nodes.find((entry) => entry.id === id)!,
+      analysisMode: "bottleneck-risk",
+      onSelectNode: () => {},
+    }),
+  ));
+
+  assert.match(renderSelected("economics"), /Unknown until demand, utilization, and unit economics are validated/i);
+  assert.match(renderSelected("material"), /material supply and qualification must scale together/i);
+  assert.match(renderSelected("component"), /qualified components or second sources must scale/i);
 });
 
 test("RouteDetailRail selected summary does not lead with raw kind or domain tags", () => {
@@ -472,7 +585,7 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   const chokepoints = keyChokepointsCard(html);
   assert.match(chokepoints, /Precision gearbox/);
   assert.match(chokepoints, /Precision gearbox limits repeatable arm motion\./);
-  assert.match(chokepoints, /Maturity 42\/100/);
+  assert.doesNotMatch(chokepoints, /Maturity 42\/100/);
   assert.match(chokepoints, /p50 RMB 80,000/);
   assert.match(chokepoints, /class="route-step-signal"[\s\S]*Heat \d+\/100/);
   assert.doesNotMatch(

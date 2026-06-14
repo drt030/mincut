@@ -837,6 +837,61 @@ test("expanded: bottleneck detail surfaces structured constraint factors", () =>
   );
 });
 
+test("expanded: detail where-stuck keeps maturity score out of the primary explanation", () => {
+  const scopedGraph = loadActiveGraphData("humanoid_robot_key_component_stack");
+  const focused = nodeByIdIn(scopedGraph, "humanoid_reducer_transmission_stack");
+  const html = render({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const priority = detailReaderPriority(html);
+  const whereIndex = priority.indexOf('data-testid="detail-where-stuck"');
+  const evidenceIndex = priority.indexOf('data-testid="detail-evidence-summary"');
+  assert.ok(whereIndex >= 0, `detail should include where-stuck factors; got: ${priority}`);
+  assert.ok(evidenceIndex > whereIndex, `evidence summary should follow where-stuck; got: ${priority}`);
+  const whereStuck = priority.slice(whereIndex, evidenceIndex);
+
+  assert.match(whereStuck, /Component availability/i);
+  assert.match(whereStuck, /Capacity \/ scale/i);
+  assert.match(whereStuck, /Technical maturity/i);
+  assert.doesNotMatch(
+    whereStuck,
+    /Maturity 50\/100|early_deployment/i,
+    `Where it is stuck should explain the constraint type, not expose a raw maturity score; got: ${whereStuck}`,
+  );
+});
+
+test("expanded: detail relief timing distinguishes component, material, and economic constraints", () => {
+  const fusionGraph = loadActiveGraphData("controlled_fusion_route_portfolio");
+  const spaceGraph = loadActiveGraphData("spacex_orbital_data_center_system");
+  const renderDecisionBrief = (graphData: GraphData, nodeId: string) => {
+    const html = render({
+      graph: graphData,
+      focusedNode: nodeByIdIn(graphData, nodeId),
+      expanded: true,
+      onToggleExpand: noop,
+      onClose: noop,
+    });
+    return html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? html;
+  };
+
+  assert.match(
+    renderDecisionBrief(fusionGraph, "fusion_breeding_blanket_heat_extraction"),
+    /material supply and qualification must scale together/i,
+  );
+  assert.match(
+    renderDecisionBrief(spaceGraph, "high_volume_compute_satellite_factory_line"),
+    /qualified components or second sources must scale/i,
+  );
+  assert.match(
+    renderDecisionBrief(spaceGraph, "orbital_compute_business_model_validation"),
+    /Unknown until demand, utilization, and unit economics are validated/i,
+  );
+});
+
 test("expanded: organization detail surfaces the components it supplies", () => {
   const focused = nodeById(NABTESCO_ID);
   const html = render({

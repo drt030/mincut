@@ -321,6 +321,7 @@ export function RouteDetailRail({
       maturityUnknown: "成熟度未设置",
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
+      routeEntry: "路线入口",
       setAsRoot: "作为产品根研究",
       settingRoot: "正在切换产品视图",
       setAsRootLabel: (name: string) => `将 ${name} 设为新的产品研究根`,
@@ -352,6 +353,7 @@ export function RouteDetailRail({
       maturityUnknown: "maturity not set",
       noPriorityNodes: "No sortable nodes in this lens yet.",
       noNodeSelected: "No node selected.",
+      routeEntry: "Route entry",
       setAsRoot: "Set as research root",
       settingRoot: "Switching research root",
       setAsRootLabel: (name: string) => `Set ${name} as the graph research root`,
@@ -407,7 +409,6 @@ export function RouteDetailRail({
   };
   const keyFactorsForNode = (node: Node): string[] => {
     const factors = constraintFactorsForNode(node, t);
-    if (typeof node.maturityScore === "number") factors.push(`${copy.maturityScore} ${Math.round(node.maturityScore)}/100`);
     const cost = nodeCostSignalRmb(node, graph);
     if (cost) factors.push(formatRmb(cost));
     if (factors.length === 0 && directEvidenceSummary(graph, node).total === 0) factors.push(t("readerEvidenceThin"));
@@ -430,10 +431,12 @@ export function RouteDetailRail({
       return formatCopy(t("readerReliefTimingLong"), { months });
     }
     const tags = new Set(node.tags ?? []);
+    if (tags.has("constraint_economic_validation")) return t("readerReliefTimingEconomics");
+    if (tags.has("constraint_material_supply_chain")) return t("readerReliefTimingMaterial");
+    if (tags.has("constraint_component_availability")) return t("readerReliefTimingComponent");
+    if (tags.has("constraint_regulatory_approval")) return t("readerReliefTimingRegulatory");
     if (
-      tags.has("constraint_capacity_scale") ||
-      tags.has("constraint_material_supply_chain") ||
-      tags.has("constraint_component_availability")
+      tags.has("constraint_capacity_scale")
     ) {
       return t("readerReliefTimingLikelyLong");
     }
@@ -510,6 +513,17 @@ export function RouteDetailRail({
   const featuredStartNode = isKnowHowLayer
     ? selectedKnowHowNode ?? knowHowStartNode ?? startNode
     : startNode;
+  const selectedSummaryNode = selectedNode &&
+    selectedNode.id === route.rootId &&
+    featuredStartNode &&
+    featuredStartNode.id !== selectedNode.id
+    ? featuredStartNode
+    : selectedNode;
+  const selectedSummaryUsesRouteEntry = Boolean(
+    selectedNode &&
+    selectedSummaryNode &&
+    selectedSummaryNode.id !== selectedNode.id,
+  );
   const isAiComputeFlagship = isAiComputeRoute || isAiComputeNode(startNode);
   const routeRoot = nodeById.get(route.rootId) ?? null;
   const isHumanoidRoute = Boolean(
@@ -631,8 +645,8 @@ export function RouteDetailRail({
       : `${copy.riskScore} ${formatHeatScore(nodeRiskSignal(featuredStartNode, graph))}`
     : null;
   const inspectNextNodes = useMemo(() => {
-    if (!selectedNode) return [] as Node[];
-    const childIds = directChildIdsByNodeId.get(selectedNode.id) ?? [];
+    if (!selectedSummaryNode) return [] as Node[];
+    const childIds = directChildIdsByNodeId.get(selectedSummaryNode.id) ?? [];
     const childIdSet = new Set(childIds);
     const orderedIds = [
       ...activePriorityEntries
@@ -640,7 +654,7 @@ export function RouteDetailRail({
         .map((entry) => entry.nodeId),
       ...childIds,
       ...activePriorityEntries
-        .filter((entry) => entry.nodeId !== selectedNode.id)
+        .filter((entry) => entry.nodeId !== selectedSummaryNode.id)
         .map((entry) => entry.nodeId),
     ];
     const seen = new Set<string>();
@@ -654,7 +668,7 @@ export function RouteDetailRail({
       if (nodes.length >= 3) break;
     }
     return nodes;
-  }, [activePriorityEntries, directChildIdsByNodeId, nodeById, selectedNode]);
+  }, [activePriorityEntries, directChildIdsByNodeId, nodeById, selectedSummaryNode]);
   const canSetSelectedAsRoot = Boolean(
     selectedNode &&
     onSetRootNode &&
@@ -1011,26 +1025,28 @@ export function RouteDetailRail({
               className="route-rail-card route-rail-selected"
               data-testid="route-rail-selected-summary"
             >
-              <div className="route-rail-section-title">{copy.selected}</div>
-              {selectedNode ? (
+              <div className="route-rail-section-title">
+                {selectedSummaryUsesRouteEntry ? copy.routeEntry : copy.selected}
+              </div>
+              {selectedSummaryNode ? (
                 <>
-                  <h3>{nodeName(selectedNode.id, selectedNode.name)}</h3>
+                  <h3>{nodeName(selectedSummaryNode.id, selectedSummaryNode.name)}</h3>
                   <div className="route-reader-thesis">
                     <span>{t("readerBottleneckThesis")}</span>
-                    <p>{bottleneckThesisText(selectedNode)}</p>
+                    <p>{bottleneckThesisText(selectedSummaryNode)}</p>
                   </div>
                   <div className="route-reader-factors">
                     <span>{t("readerWhereStuck")}</span>
                     <div className="route-rail-chip-row">
-                      {keyFactorsForNode(selectedNode).map((factor) => (
+                      {keyFactorsForNode(selectedSummaryNode).map((factor) => (
                         <span key={factor}>{factor}</span>
                       ))}
                     </div>
                   </div>
-                  {routeDecisionBrief(selectedNode)}
+                  {routeDecisionBrief(selectedSummaryNode)}
                   <div className="route-reader-evidence-summary">
                     <span>{t("readerKeyEvidenceSummary")}</span>
-                    <p>{keyEvidenceSummaryText(selectedNode)}</p>
+                    <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
                   </div>
                   {inspectNextNodes.length > 0 ? (
                     <div className="route-reader-inspect">
@@ -1053,9 +1069,9 @@ export function RouteDetailRail({
                   <details className="route-reader-secondary-details" data-testid="route-selected-secondary-signals">
                     <summary>{t("readerSecondarySignals")}</summary>
                     <div className="route-rail-chip-row route-reader-secondary-signals">
-                      <span>{copy.riskScore} {formatHeatScore(nodeRiskSignal(selectedNode, graph))}</span>
-                      <span>{bottleneckRoleText(selectedNode)}</span>
-                      <span>{t("readerEvidenceStatus")}: {evidenceStatusText(selectedNode)}</span>
+                      <span>{copy.riskScore} {formatHeatScore(nodeRiskSignal(selectedSummaryNode, graph))}</span>
+                      <span>{bottleneckRoleText(selectedSummaryNode)}</span>
+                      <span>{t("readerEvidenceStatus")}: {evidenceStatusText(selectedSummaryNode)}</span>
                     </div>
                     {exposureAccessText ? (
                       <div className={`route-reader-access ${exposureAccessText.className}`}>
@@ -1064,8 +1080,8 @@ export function RouteDetailRail({
                       </div>
                     ) : null}
                     {(() => {
-                      const maturity = formatMaturityScore(selectedNode);
-                      const cost = nodeCostSignalRmb(selectedNode, graph);
+                      const maturity = formatMaturityScore(selectedSummaryNode);
+                      const cost = nodeCostSignalRmb(selectedSummaryNode, graph);
                       if (!maturity && !cost) return null;
                       return (
                         <div className="route-rail-chip-row route-reader-secondary-meta">
@@ -1075,7 +1091,7 @@ export function RouteDetailRail({
                       );
                     })()}
                   </details>
-                  {canSetSelectedAsRoot ? (
+                  {selectedNode && canSetSelectedAsRoot ? (
                     <details className="route-reader-research-controls" data-testid="route-reader-research-controls">
                       <summary>{t("readerResearchControls")}</summary>
                       <div className="route-rail-action-row">
