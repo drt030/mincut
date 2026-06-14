@@ -3077,6 +3077,102 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_acc_product_logic_die__requires__euv_photomask_production",
+    "source": "logic_die_fabrication",
+    "target": "euv_photomask_production",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: leading-edge logic die fabrication depends on EUV mask supply. The EUV lithography know-how node remains as the explanatory process layer, not the artifact parent.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_logic_die__requires__euv_photoresist_materials",
+    "source": "logic_die_fabrication",
+    "target": "euv_photoresist_materials",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: leading-edge logic die fabrication depends on EUV photoresist materials. The EUV process node remains as know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_logic_euv_resist_challenge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_logic_die__requires__euv_projection_optics",
+    "source": "logic_die_fabrication",
+    "target": "euv_projection_optics",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: leading-edge logic die fabrication depends on EUV tool optics capacity. The lithography process node explains why the optics bottleneck matters.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_hbm__requires__hbm_tc_bonding_equipment",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_tc_bonding_equipment",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: HBM capacity depends on specialized thermocompression bonding equipment. The stack assembly process remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_nc4_hanmi_tcb_1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_hbm__requires__hbm_test_equipment_and_tooling",
+    "source": "high_bandwidth_memory",
+    "target": "hbm_test_equipment_and_tooling",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: HBM capacity depends on test and validation equipment. The testing process node remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_hbm_ate_lead_time"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_adv_pkg__requires__underfill_dispensing_equipment",
+    "source": "advanced_packaging",
+    "target": "underfill_dispensing_equipment",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: advanced packaging capacity depends on underfill dispensing equipment. Flip-chip bonding remains know-how context.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_adv_pkg__requires__wafer_probe_testing_equipment",
+    "source": "advanced_packaging",
+    "target": "wafer_probe_testing_advanced_packaging",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: advanced packaging capacity depends on fine-pitch wafer probe and contactor tooling. Test and inspection remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_probe_test"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_adv_pkg__requires__environmental_test_chambers",
+    "source": "advanced_packaging",
+    "target": "environmental_test_chambers_qualification",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: advanced packaging qualification capacity depends on environmental test chambers. Reliability testing remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_pkgeq_chamber_process"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_acc_product_eml_dfb_laser__requires__mocvd_equipment",
+    "source": "eml_dfb_laser_diodes",
+    "target": "mocvd_equipment_systems",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: long-reach EML/DFB laser diode supply depends on MOCVD tool capacity. The epitaxy process node remains know-how context.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_acc_r7_org_coolit_systems__owned_by__org_ecolab",
     "source": "org_coolit_systems",
     "target": "org_ecolab",

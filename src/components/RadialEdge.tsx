@@ -56,10 +56,10 @@ export type RadialEdgeProps = {
   /** Current radial root, used to keep root incident edges visually direct. */
   rootNodeId?: string;
   /**
-   * B3 (greyscale focus): when true, the edge wraps in a `<g>` with
-   * the `.radial-dim` class so CSS animates `filter: saturate(0)`
-   * over 400ms. Defaults to false so the unit tests (which don't
-   * thread focus state) render at full saturation.
+   * B3 (chromatic focus): when true, the edge wraps in a `<g>` with
+   * the `.radial-dim` class so CSS lowers opacity while preserving
+   * stroke hue. Defaults to false so the unit tests (which don't
+   * thread focus state) render at full emphasis.
    */
   dim?: boolean;
   /** Emphasise the edge when it is incident to the selected/hovered node. */

@@ -118,6 +118,25 @@ function weightedSharedFixture(): GraphData {
   };
 }
 
+function artifactWithKnowHowParentFixture(): GraphData {
+  return {
+    graphVersion: "test-radial-artifact-product-parent-first",
+    nodes: [
+      { id: "P", name: "Focal product", kind: "product", domain: ["test"] },
+      { id: "PRODUCT_BRANCH", name: "Product branch", kind: "module", domain: ["test"] },
+      { id: "A_KNOW_HOW", name: "Know-how process", kind: "manufacturing_process", domain: ["test"] },
+      { id: "ARTIFACT_TOOL", name: "Artifact tool", kind: "equipment", domain: ["test"] },
+    ],
+    edges: [
+      { id: "ePBranch", source: "P", target: "PRODUCT_BRANCH", relation: "requires" },
+      { id: "eBranchKnowHow", source: "PRODUCT_BRANCH", target: "A_KNOW_HOW", relation: "requires" },
+      { id: "eKnowHowTool", source: "A_KNOW_HOW", target: "ARTIFACT_TOOL", relation: "requires", weight: 0.99 },
+      { id: "eBranchTool", source: "PRODUCT_BRANCH", target: "ARTIFACT_TOOL", relation: "requires" },
+    ],
+    evidence: [],
+  };
+}
+
 function unevenTreeFixture(): GraphData {
   const bigDescendants = Array.from({ length: 14 }, (_, i) => ({
     id: `B${i}`,
@@ -460,6 +479,22 @@ test("radialLayout chooses the highest-weight requires parent as a shared node's
   assert.ok(
     hTheta >= start - 1e-9 && hTheta <= end + 1e-9,
     `weighted shared node H should sit in S2's sector; got theta=${hTheta}, sector=[${start}, ${end}]`,
+  );
+});
+
+test("radialLayout prefers artifact parents over know-how parents for artifact targets", () => {
+  const graph = artifactWithKnowHowParentFixture();
+  const result = radialLayout(graph);
+
+  assert.equal(
+    result.edges.get("eBranchTool")?.style,
+    "primary",
+    "artifact targets should use the product/artifact parent as the primary layout edge",
+  );
+  assert.equal(
+    result.edges.get("eKnowHowTool")?.style,
+    "cross",
+    "know-how-to-artifact edges should remain context, not the product-layer parent",
   );
 });
 

@@ -103,8 +103,8 @@ type RadialNodeData = {
    * B3: true when this node falls outside the focused `requires`
    * subtree (or when there is no focus and the node is otherwise
    * out-of-scope — never the case in current data). The radial-dim
-   * class applies a `filter: saturate(0)` over a 400ms transition so
-   * the cross-fade between focus changes feels smooth.
+   * class lowers opacity while preserving hue so node family remains
+   * legible outside the focused path.
    */
   dim: boolean;
   visualRole: "root" | "anchor" | "branch" | "leaf";
@@ -179,8 +179,7 @@ type RadialEdgeData = {
   /**
    * B3: true when at least one endpoint is outside the focused
    * `requires` subtree. The `.radial-dim` class wraps the SVG `<g>`
-   * so `filter: saturate(0)` desaturates the stroke + arrowhead
-   * uniformly with the node fade.
+   * so opacity fades the stroke + arrowhead uniformly with the node.
    */
   dim: boolean;
 };
@@ -947,7 +946,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     if (shouldOpenDetail) setRailPanel("detail");
   }, [initialRootProp, searchParams, searchParamsSignature, workingGraph]);
   // Back-compat alias for code that still references a single focused
-  // id (e.g. greyscale dim flag, sector-tint colour, viewport math).
+  // id (e.g. dim flag, sector-tint colour, viewport math).
   const focusedId = focusPath.length > 0 ? focusPath[0] : null;
 
   // Focal subtree — A3 renders only these nodes. Orphans (sibling
@@ -1094,7 +1093,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   // is in the set — the overview reads "everything bright". The
   // memoised result becomes the source-of-truth for the per-node
   // and per-edge `dim` flag below; flipping the flag triggers the
-  // 400ms saturate(0) CSS transition on `.radial-dim`.
+  // opacity transition on `.radial-dim`.
   const subset = useMemo(
     () => focusedSubset(focusedId, canvasGraph),
     [focusedId, canvasGraph],

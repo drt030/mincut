@@ -3,19 +3,19 @@ import assert from "node:assert/strict";
 
 // RED Slice B3 (spec:
 // docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md
-// § "Slice B3 — Greyscale focus";
+// § "Slice B3 — Chromatic focus";
 // ADR-0006 § "Focus interaction").
 //
 // `focusedSubset` is the NEW pure function the GREEN commit will add
 // at src/lib/focusedSubset.ts. It returns the set of node ids and the
-// set of edge ids that should remain at FULL saturation while the
-// rest of the canvas desaturates to greyscale.
+// set of edge ids that should remain at full emphasis while the
+// rest of the canvas uses lower opacity but preserves hue.
 //
 // Signature (pinned by this test):
 //
 //   export type FocusedSubset = {
-//     nodes: Set<string>;   // node ids that stay full-saturation
-//     edges: Set<string>;   // edge ids (graph.edges[i].id) that stay full-saturation
+//     nodes: Set<string>;   // node ids that stay full-emphasis
+//     edges: Set<string>;   // edge ids (graph.edges[i].id) that stay full-emphasis
 //   };
 //   export function focusedSubset(
 //     focusId: string | null,
@@ -23,9 +23,9 @@ import assert from "node:assert/strict";
 //   ): FocusedSubset;
 //
 // Contract (per ADR-0006 § "Focus interaction"):
-//   > X and all of X's descendants stay full saturation; ancestors,
-//   > siblings, sibling subtrees, and all other sectors desaturate
-//   > to greyscale (positions preserved).
+//   > X and all of X's descendants stay full emphasis; ancestors,
+//   > siblings, sibling subtrees, and all other sectors dim while
+//   > preserving hue and position.
 //
 // Concrete rules pinned by this test:
 //   - focusId === null  → ALL node ids AND ALL edge ids are in the
@@ -36,7 +36,7 @@ import assert from "node:assert/strict";
 //     NOT ancestors. NOT siblings. NOT unrelated subtrees. Only the
 //     downward `requires`-subtree.
 //   - focusId === <unknown id>  → returns empty sets. Forces the
-//     GREEN UI to default to "everything desaturated", which surfaces
+//     GREEN UI to default to "everything dimmed", which surfaces
 //     the bug rather than silently falling back to "everything bright".
 //   - edges: an edge id is in `edges` iff BOTH `source` and `target`
 //     are in `nodes`. Read the edge id from `graph.edges[i].id` —
@@ -98,9 +98,9 @@ function requiresDescendants(start: string, adj: Map<string, string[]>): Set<str
 // must appear in `nodes`, and every edge id (regardless of relation
 // — `measured_by`, `manufactured_by`, etc., not only `requires`)
 // must appear in `edges`. Pinning "every edge" rather than "every
-// `requires` edge" makes the contract unambiguous: greyscale is a
-// pure visual concern; without focus, nothing is visually demoted.
-test("focusId=null: every node and every edge is in the full-saturation subset", () => {
+// `requires` edge" makes the contract unambiguous: dimming is a pure
+// visual concern; without focus, nothing is visually demoted.
+test("focusId=null: every node and every edge is in the full-emphasis subset", () => {
   const graph = loadGraphData();
   const subset = focusedSubset(null, graph);
 
@@ -293,8 +293,8 @@ test("focusId=leaf module (no requires children): nodes = {self}, edges = empty"
 // ------------------------------------------------------------------
 //
 // If the focus id isn't in the graph, the function returns EMPTY
-// sets — not the all-saturated fallback. Per the slice brief:
-// "forces GREEN UI to default to 'everything desaturated' which
+// sets — not the all-emphasis fallback. Per the slice brief:
+// "forces GREEN UI to default to 'everything dimmed' which
 // surfaces the bug" rather than papering over it.
 test("focusId=<unknown id>: nodes and edges are both empty", () => {
   const graph = loadGraphData();
@@ -403,8 +403,8 @@ test("determinism: same input produces bit-identical sorted sets across runs", (
 //
 // `industrial_area_scan_camera` is a shared module with TWO parents
 // in the real data: `vision_barcode_label_recognition` and
-// `parcel_detection_and_tracking`. The greyscale rule from ADR-0006
-// is purely downward: "X and all of X's descendants" — so whether
+// `parcel_detection_and_tracking`. The focus rule from ADR-0006 is
+// purely downward: "X and all of X's descendants" — so whether
 // scan-camera is "in" depends on whether it's reachable from the
 // focus via `requires`, NOT on whether any of its parents happens
 // to be focused indirectly through a sibling subtree.

@@ -688,6 +688,28 @@ test("route-led graph does not render a card overlay over the real graph", () =>
   }
 });
 
+test("route-led focus dimming preserves node and edge hue", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const dotDimBlock = css.match(/\.graph-canvas-route-led\s+\.radial-dot\.radial-dim\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  const edgeDimBlock = css.match(/\.graph-canvas-route-led\s+\.react-flow__edge\s+\.radial-dim\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  const transitionBlock = css.match(/\.radial-dot\s*\{[\s\S]*?transition:[\s\S]*?\}/)?.[0] ?? "";
+
+  assert.ok(dotDimBlock.length > 0, "route-led graph should keep an explicit dimmed-node rule");
+  assert.ok(edgeDimBlock.length > 0, "route-led graph should keep an explicit dimmed-edge rule");
+  assert.match(dotDimBlock, /opacity:\s*0\.44/, "dimmed nodes should become lighter through opacity");
+  assert.match(edgeDimBlock, /opacity:\s*0\.36/, "dimmed edges should become lighter through opacity");
+  assert.doesNotMatch(
+    css,
+    /filter:\s*saturate\(0\)|filter:\s*grayscale/i,
+    "focus dimming must preserve hue so product, know-how, and module colors remain readable",
+  );
+  assert.match(
+    transitionBlock,
+    /transition:\s*opacity\s+240ms\s+ease/,
+    "focus dimming should animate opacity directly rather than color filters",
+  );
+});
+
 test("route-led desktop layout keeps the graph dominant over the detail rail", () => {
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
   const layoutBlock = css.match(/\.graph-layout-radial\s*\{[\s\S]*?\n\}/)?.[0] ?? "";

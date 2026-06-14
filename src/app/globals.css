@@ -2304,39 +2304,29 @@ li {
 }
 
 /*
- * Slice B3 — greyscale focus.
+ * Slice B3 — chromatic focus.
  *
  * Per ADR-0006 §"Focus interaction" and slice B3 of the
  * 2026-05-13 radial-progressive-disclosure spec, clicking a
- * structural node desaturates every node + edge outside its
- * `requires`-subtree to greyscale while preserving spatial
- * position. The `.radial-dim` class is applied by `GraphExplorer`
- * to both node wrappers (`.radial-dot.radial-dim`) and edge
- * groups (`<g class="radial-dim">` inside `RadialEdge`) based on
- * the `focusedSubset(focusId, graph)` membership sets.
+ * structural node lowers opacity for nodes + edges outside its
+ * `requires`-subtree while preserving spatial position and hue.
+ * The `.radial-dim` class is applied by `GraphExplorer` to both
+ * node wrappers (`.radial-dot.radial-dim`) and edge groups
+ * (`<g class="radial-dim">` inside `RadialEdge`) based on the
+ * `focusedSubset(focusId, graph)` membership sets.
  *
- * The `filter` transition lives on every `.radial-dot` and on the
- * SVG edge group regardless of class state so that *both*
- * directions cross-fade smoothly: when a node enters the dimmed
- * state, filter animates 1 → 0; when it leaves (focus cleared or
- * changed), filter animates 0 → 1. 400ms ease is per the ADR.
- *
- * Sector tint wedges intentionally do NOT desaturate in B3 — the
- * elastic expansion (B2) already redirects gaze to the focused
- * sector, and dimming the tint would compound with B1's
- * already-subtle 12% opacity into invisibility.
+ * The opacity transition lives on every `.radial-dot` and on the
+ * SVG edge group regardless of class state so that both directions
+ * cross-fade smoothly. Preserving hue keeps subsystem / node-type
+ * context readable while still making the focused path dominant.
  */
-.radial-dim {
-  filter: saturate(0);
-}
-
 .radial-dot {
-  transition: filter 400ms ease;
+  transition: opacity 240ms ease;
 }
 
 .react-flow__edge .radial-dim,
 .react-flow__edge > g {
-  transition: filter 400ms ease;
+  transition: opacity 240ms ease;
 }
 
 .radial-guide-ring {

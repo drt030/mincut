@@ -5,16 +5,16 @@ import { isCanvasTreeEdge } from "./canvasGraph";
  * Per ADR-0006 §"Focus interaction" and slice B3 of
  * `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`,
  * a click on a structural node X must keep X and its `requires`
- * descendants at full saturation while every other node fades to
- * greyscale.
+ * descendants at full emphasis while every other node fades with
+ * lower opacity but preserves hue.
  *
  * `focusedSubset` is the pure function that computes the two
  * membership sets the renderer applies the `.radial-dim` CSS class
  * against:
  *
- *   - `nodes`: node ids that stay full-saturation.
+ *   - `nodes`: node ids that stay full-emphasis.
  *   - `edges`: edge ids (matching `graph.edges[i].id`, A2's
- *     convention) that stay full-saturation. An edge is in iff
+ *     convention) that stay full-emphasis. An edge is in iff
  *     BOTH its source and target are in `nodes`.
  *
  * Contract (pinned by `tests/focusedSubset.test.ts`):
@@ -25,8 +25,8 @@ import { isCanvasTreeEdge } from "./canvasGraph";
  *     (source → target). Ancestors / siblings / unrelated subtrees
  *     are excluded — only the downward `requires`-subtree counts.
  *   - `focusId === <unknown id>` → empty sets. The renderer defaults
- *     to "everything desaturated", surfacing the bug rather than
- *     silently falling back to bright.
+ *     to "everything dimmed", surfacing the bug rather than silently
+ *     falling back to bright.
  *   - Deterministic: same input ⇒ identical sets across runs.
  */
 export type FocusedSubset = {

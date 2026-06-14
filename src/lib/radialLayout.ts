@@ -1,6 +1,6 @@
 import type { Edge, GraphData, Node, NodeKind } from "./schema";
 import { defaultFocalProduct } from "./graphTraversal";
-import { isCanvasTreeEdge } from "./canvasGraph";
+import { isArtifactCanvasNode, isCanvasTreeEdge, isKnowHowNode } from "./canvasGraph";
 
 /**
  * Per ADR-0007 and
@@ -26,10 +26,12 @@ import { isCanvasTreeEdge } from "./canvasGraph";
  *      sector; `r = R1 + depth * R_STEP`.
  *   4. A *shared* structural node has ≥ 2 incoming `requires` edges among
  *      visited parents. It is given exactly ONE position in its CANONICAL
- *      primary parent's sector — the parent connected by the highest
- *      weighted `requires` edge when weights exist, otherwise the parent
- *      whose first-layer ancestor has the smallest sector index (ties
- *      broken by smallest parent id).
+ *      primary parent's sector. Artifact targets prefer artifact parents
+ *      over know-how parents so the product graph stays structurally
+ *      intact when the know-how layer is hidden. Within the same parent
+ *      class, the highest weighted `requires` edge wins when weights
+ *      exist; otherwise the parent whose first-layer ancestor has the
+ *      smallest sector index wins (ties broken by smallest parent id).
  *      Cross-sector `requires` edges from non-canonical parents are
  *      tagged `'cross'` in the `edges` Map; the canonical edge is
  *      tagged `'primary'`. Edges to the canonical position from any
@@ -93,6 +95,7 @@ export type RadialLayoutResult = {
 type SharedParentCandidate = {
   source: string;
   weight: number | undefined;
+  sourceIsKnowHow: boolean;
 };
 
 /**
@@ -236,23 +239,37 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
   }
 
   // Identify shared structural nodes (≥ 2 incoming requires parents).
-  // For each, pick the canonical parent: highest edge weight first;
-  // ties and unweighted edges fall back to the original stable rule
-  // (smallest first-layer sector, then smallest parent id). Excludes
-  // the focal product as a parent and excludes the case where the shared
-  // node IS a first-layer subsystem (those are positioned above).
+  // For each, pick the canonical parent. Artifact targets prefer an
+  // artifact parent over a know-how parent; then highest edge weight
+  // wins, with ties and unweighted edges falling back to the original
+  // stable rule (smallest first-layer sector, then smallest parent id).
+  // Excludes the focal product as a parent and excludes the case where
+  // the shared node IS a first-layer subsystem (those are positioned
+  // above).
   const canonicalParentByShared = new Map<string, string>();
   for (const [targetId, inEdges] of incomingByTarget) {
     if (sectorIndex.has(targetId)) continue; // already-positioned first-layer
     if (targetId === focal.id) continue;
     if (inEdges.length < 2) continue;
+    const target = nodeById.get(targetId);
+    const targetIsArtifact = target !== undefined && isArtifactCanvasNode(target);
     // Candidate parents must have a known first-layer ancestor (i.e.
     // they sit somewhere inside one of the N sectors).
     const candidates: SharedParentCandidate[] = inEdges
       .filter(({ source }) => firstLayerAncestor.has(source))
-      .map(({ source, edge }) => ({ source, weight: edgeWeight(edge) }));
+      .map(({ source, edge }) => {
+        const sourceNode = nodeById.get(source);
+        return {
+          source,
+          weight: edgeWeight(edge),
+          sourceIsKnowHow: sourceNode !== undefined && isKnowHowNode(sourceNode),
+        };
+      });
     if (candidates.length === 0) continue;
     candidates.sort((a, b) => {
+      if (targetIsArtifact && a.sourceIsKnowHow !== b.sourceIsKnowHow) {
+        return a.sourceIsKnowHow ? 1 : -1;
+      }
       const aw = a.weight ?? Number.NEGATIVE_INFINITY;
       const bw = b.weight ?? Number.NEGATIVE_INFINITY;
       if (aw !== bw) return bw - aw;

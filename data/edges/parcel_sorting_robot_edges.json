@@ -7506,5 +7506,47 @@
       "ev_raw_metal_supply_chain_cost_backfill_2025"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_vision_compute_requires_fanless_thermal_management",
+    "source": "vision_processing_compute",
+    "target": "fanless_compute_thermal_management",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: the vision compute module needs fanless thermal management for sustained deployment. The real-time integration node remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_compute_nvidia_jetson_orin_2026",
+      "ev_compute_advantech_edge_ai_systems_2026",
+      "ev_compute_adlink_edge_ai_2026"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_conveyor_requires_induction_sensor_array",
+    "source": "conveyor_integration",
+    "target": "induction_sensor_array",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: conveyor integration needs induction sensor feedback hardware. Parcel induction and spacing control remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_banner_conveying_sortation_sensors",
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_product_conveyor_requires_variable_speed_induction_drive",
+    "source": "conveyor_integration",
+    "target": "variable_speed_induction_drive",
+    "relation": "requires",
+    "claim": "Product-layer structural edge: conveyor integration needs variable-speed induction drive hardware. Parcel induction and spacing control remains know-how context.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_induction_bastian_gapping_conveyor_2026",
+      "ev_mfg_interroll_mcp_play_2026",
+      "ev_mfg_dematic_sortation_controls"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

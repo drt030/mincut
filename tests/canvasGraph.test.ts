@@ -1,6 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterCanvasGraph, resolveCanvasRootId, isKnowHowNode, isArtifactCanvasNode } from "../src/lib/canvasGraph";
+import {
+  filterCanvasGraph,
+  resolveCanvasRootId,
+  isKnowHowNode,
+  isArtifactCanvasNode,
+  isCanvasTreeEdge,
+} from "../src/lib/canvasGraph";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
@@ -222,6 +228,35 @@ test("isKnowHowNode / isArtifactCanvasNode partition the canvas kinds", () => {
   assert.equal(isKnowHowNode(mod), false);
   assert.equal(isArtifactCanvasNode(mod), true);
   assert.equal(isArtifactCanvasNode(kh), false);
+});
+
+test("artifact canvas nodes are not structurally parented only by know-how nodes", () => {
+  const graph = loadGraphData();
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const incomingTreeParents = new Map<string, Node[]>();
+
+  for (const edge of graph.edges) {
+    if (edge.reviewStatus === "deprecated") continue;
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
+    const source = nodeById.get(edge.source);
+    const target = nodeById.get(edge.target);
+    if (!source || !target) continue;
+    if (!isArtifactCanvasNode(target)) continue;
+    const list = incomingTreeParents.get(target.id) ?? [];
+    list.push(source);
+    incomingTreeParents.set(target.id, list);
+  }
+
+  const offenders = [...incomingTreeParents.entries()]
+    .filter(([, parents]) => parents.length > 0 && parents.every(isKnowHowNode))
+    .map(([targetId, parents]) => `${targetId} <- ${parents.map((parent) => parent.id).join(", ")}`)
+    .sort();
+
+  assert.deepEqual(
+    offenders,
+    [],
+    "product-layer artifact nodes must have at least one product/artifact structural parent; know-how nodes are overlays, not product-tree parents",
+  );
 });
 
 test("filterCanvasGraph attaches implemented_by-only know-how nodes to the union graph", () => {
