@@ -43,6 +43,8 @@ const landingCopy = {
     statusTitle: "Evidence strength ladder",
     reviewedTitle: "Strong",
     reviewedBody: "Claim backed by a direct source and clear scope.",
+    sourceCheckedTitle: "Source-checked",
+    sourceCheckedBody: "Source re-fetched; quote and number confirmed. Not yet owner-reviewed.",
     unreviewedTitle: "Thin",
     unreviewedBody: "Useful direction, but needs stronger sourcing before exposure is opened.",
     disputedTitle: "Conflicting",
@@ -94,6 +96,8 @@ const landingCopy = {
     statusTitle: "证据强度",
     reviewedTitle: "强",
     reviewedBody: "有直接来源，并且适用范围清楚。",
+    sourceCheckedTitle: "来源已核",
+    sourceCheckedBody: "已重新抓取来源、确认引用与数字；尚未经 owner 人工复核。",
     unreviewedTitle: "薄",
     unreviewedBody: "可以作为研究方向，但需要更强来源后才开放 exposure。",
     disputedTitle: "冲突",
@@ -287,6 +291,10 @@ export function LandingContent() {
             <li>
               <strong>{copy.reviewedTitle}</strong>
               <span>{copy.reviewedBody}</span>
+            </li>
+            <li>
+              <strong>{copy.sourceCheckedTitle}</strong>
+              <span>{copy.sourceCheckedBody}</span>
             </li>
             <li>
               <strong>{copy.unreviewedTitle}</strong>

@@ -60,3 +60,9 @@ test("landing page presents reference maps without overexplaining free access", 
   assert.doesNotMatch(html, /Unreviewed/i);
   assert.doesNotMatch(html, /Join private beta waitlist[\s\S]{0,220}weekly map/i);
 });
+
+test("landing honesty ladder includes the source-checked rung", async () => {
+  const { LandingContent } = await import("../src/components/LandingContent");
+  const html = renderToStaticMarkup(React.createElement(LandingContent));
+  assert.match(html, /Source-checked/i);
+});
