@@ -851,7 +851,9 @@ export function RouteDetailRail({
                     ))}
                   </ul>
                 ) : null}
-                <a href="#paid-exposure-access">{t("readerExposurePointOfNeedAccessDetails")}</a>
+                {exposureAccessStatus === "audit-preview" ? null : (
+                  <a href="#paid-exposure-access">{t("readerExposurePointOfNeedAccessDetails")}</a>
+                )}
               </div>
             ) : null}
             <NodeDetailContent
