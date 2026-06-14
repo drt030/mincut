@@ -1,4 +1,4 @@
-import type { Evidence } from "@/lib/schema";
+import type { Evidence, GraphData } from "@/lib/schema";
 
 export type TriageBucket = "demote" | "failed" | "needs_fetch" | "structural_ok";
 
@@ -69,4 +69,57 @@ export function buildWorklist(input: WorklistInput): RecordAudit[] {
     }
     return audit;
   });
+}
+
+export type MechanicalChanges = { demoted: string[]; markedStructuralOk: string[]; markedFailed: string[] };
+
+const BUCKET_TO_STATUS: Record<TriageBucket, "structural_ok" | "failed" | "needs_fetch" | null> = {
+  demote: null, // handled via rejectedEvidenceIds, not a machineCheck status
+  failed: "failed",
+  needs_fetch: "needs_fetch",
+  structural_ok: "structural_ok",
+};
+
+/**
+ * Apply ONLY safe, reversible changes: demote dead records to
+ * rejectedEvidenceIds (preserved, never deleted) and stamp machineCheck for
+ * non-verified buckets. NEVER writes reviewStatus (red line — see
+ * tests/auditNeverWritesReviewed.test.ts). The `verified` status is written
+ * separately by applyAgentVerdicts.
+ */
+export function applyMechanicalChanges(
+  graph: GraphData,
+  audits: RecordAudit[],
+  checkedAsOf: string,
+): { graph: GraphData; changes: MechanicalChanges } {
+  const byId = new Map(audits.map((a) => [a.id, a]));
+  const demoted = new Set(audits.filter((a) => a.bucket === "demote").map((a) => a.id));
+  const changes: MechanicalChanges = { demoted: [...demoted], markedStructuralOk: [], markedFailed: [] };
+
+  const nodes = graph.nodes.map((node) => {
+    const ev = (node as { evidenceIds?: string[] }).evidenceIds ?? [];
+    const toDemote = ev.filter((id) => demoted.has(id));
+    if (toDemote.length === 0) return node;
+    const rejected = (node as { rejectedEvidenceIds?: string[] }).rejectedEvidenceIds ?? [];
+    return {
+      ...node,
+      evidenceIds: ev.filter((id) => !demoted.has(id)),
+      rejectedEvidenceIds: [...rejected, ...toDemote.filter((id) => !rejected.includes(id))],
+    };
+  });
+
+  const evidence = graph.evidence.map((item) => {
+    const audit = byId.get(item.id);
+    if (!audit || audit.bucket === "demote") return item;
+    const status = BUCKET_TO_STATUS[audit.bucket];
+    if (!status) return item;
+    if (status === "structural_ok") changes.markedStructuralOk.push(item.id);
+    if (status === "failed") changes.markedFailed.push(item.id);
+    return {
+      ...item,
+      machineCheck: { status, checkedAsOf, notes: audit.reasons.join("; ") || undefined },
+    };
+  });
+
+  return { graph: { ...graph, nodes, evidence }, changes };
 }
