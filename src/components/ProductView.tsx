@@ -39,14 +39,6 @@ type Props = {
   product: Node;
 };
 
-function heatScoreValue(score: number): string {
-  return `${Math.round(score * 100)}/100`;
-}
-
-function heatScoreLabel(t: (key: string) => string, score: number): string {
-  return `${t("risk")} ${heatScoreValue(score)}`;
-}
-
 export function ProductView({ graph, product }: Props) {
   const { language, nodeName, t } = useLanguage();
   const modules = requiredModules(graph, product.id);
@@ -147,15 +139,6 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
           <li className="metric-detail-row">
             <div className="metric-detail-row-head">
               <span>{t("topRiskBottleneck")}</span>
-              {answer.topRiskScore !== null ? (
-                <span
-                  className="pill"
-                  title={t("heatScoreTooltip")}
-                  aria-label={heatScoreLabel(t, answer.topRiskScore)}
-                >
-                  {heatScoreLabel(t, answer.topRiskScore)}
-                </span>
-              ) : null}
             </div>
             <p className="metric-detail-description">
               <a className="link-button" href={`/product/${encodeURIComponent(answer.topRiskNode.id)}`}>
@@ -270,16 +253,23 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
                     {nodeName(entry.node.id, entry.node.name)}
                   </a>
                 </span>
-                <span className="pill">{t("opportunityScore")} {Math.round(entry.score)}</span>
+                {constraintFactors[0] ? <span className="pill">{constraintFactors[0].label}</span> : null}
               </div>
               <div className="metric-detail-row-values">
                 <span>
-                  <strong>{t("risk")}:</strong> {heatScoreValue(nodeRisk(entry.node, graph))}
+                  <strong>{t("readerWhereStuck")}:</strong>{" "}
+                  {constraintFactors.length > 0
+                    ? constraintFactors.map((factor) => factor.label).join(" · ")
+                    : t("readerThesisCandidateConstraint")}
                 </span>
                 {entry.costTypicalRmb !== null ? (
                   <span>
                     <strong>{t("costSignal")}:</strong>{" "}
-                    {formatMetricValue(entry.costTypicalRmb, "RMB", "RMB").compact}
+                    {readerFacingCostSignalText({
+                      valueText: formatMetricValue(entry.costTypicalRmb, "RMB", "RMB").compact,
+                      kind: "modeled",
+                      t,
+                    })}
                   </span>
                 ) : null}
               </div>
@@ -891,7 +881,7 @@ function ProductViewTopBlockers({ graph, product }: { graph: GraphData; product:
   if (ranked.length === 0) return null;
   return (
     <div className="top-blockers">
-      <strong>🎯 {t("topBlockersTitle")}</strong>
+      <strong>{t("topBlockersTitle")}</strong>
       <ol className="top-blockers-list">
         {ranked.map((entry) => {
           const maturityLabel = entry.child.maturityLabel ?? "unknown";
@@ -901,14 +891,14 @@ function ProductViewTopBlockers({ graph, product }: { graph: GraphData; product:
               <a
                 className="link-button top-blockers-link"
                 href={`/graph?stage=focused&focus=${encodeURIComponent(entry.id)}`}
-                title={t("topBlockersRiskTooltip")}
-                aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · ${heatScoreLabel(t, entry.risk)}`}
+                title={blockerSignalText(entry.child, t)}
+                aria-label={`${nodeName(entry.id, entry.child.name)} — ${maturityText} · ${blockerSignalText(entry.child, t)}`}
               >
                 <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
                 <span className="top-blockers-meta muted">{maturityText}</span>
               </a>
               <span className="top-blockers-risk" aria-hidden="true">
-                {heatScoreLabel(t, entry.risk)}
+                {blockerSignalText(entry.child, t)}
               </span>
             </li>
           );
@@ -916,4 +906,9 @@ function ProductViewTopBlockers({ graph, product }: { graph: GraphData; product:
       </ol>
     </div>
   );
+}
+
+function blockerSignalText(node: Node, t: (key: string) => string): string {
+  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  return factors.length > 0 ? factors.slice(0, 2).join(" · ") : t("readerThesisCandidateConstraint");
 }

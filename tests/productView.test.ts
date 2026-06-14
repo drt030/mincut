@@ -61,7 +61,7 @@ test("ProductView hides internal backfill notes in candidate organization cards"
   assert.doesNotMatch(html, /needs review/i);
 });
 
-test("ProductView surfaces an investor answer summary for the active product", () => {
+test("ProductView surfaces a reader-facing chokepoint readout for the active product", () => {
   const graph = loadGraphData();
   const node = nodeById(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.ok(node);
@@ -69,25 +69,21 @@ test("ProductView surfaces an investor answer summary for the active product", (
   const html = renderToStaticMarkup(React.createElement(ProductView, { graph, product: node }));
 
   assert.match(html, /product-investor-answer-panel/);
-  assert.match(html, /Investor answer panel/);
+  assert.match(html, /Chokepoint readout/);
+  assert.doesNotMatch(html, /Investor answer panel/);
   assert.match(html, /Candidate exposure is graph-linked/);
   assert.match(html, /Top risk bottleneck/);
-  assert.match(
-    html,
-    /Heat \d+\/100/,
-    `ProductView investor answer must display the pressure score as Heat N/100; got: ${html}`,
-  );
+  assert.doesNotMatch(html, /Heat \d+\/100/);
   assert.doesNotMatch(
     html,
     /Risk \d+%/,
     `ProductView investor answer must not display risk scores as probability-like percentages; got: ${html}`,
   );
-  assert.match(
+  assert.doesNotMatch(
     html,
-    /Relative pressure signal: cost\/maturity where available, boosted by explicit bottleneck claims\. Not a probability\./,
-    `ProductView heat score tooltip must explain the score is not a probability; got: ${html}`,
+    /Relative pressure signal:/,
+    `ProductView reader-facing readout should not need an internal Heat tooltip; got: ${html}`,
   );
-  assert.match(html, /Parcel pick-and-place execution subsystem/);
   assert.match(html, /Cost gap/);
   assert.match(html, /169,079 RMB/);
   assert.match(html, /Throughput constraints/);
@@ -95,16 +91,28 @@ test("ProductView surfaces an investor answer summary for the active product", (
   assert.match(html, /not a quantified shortfall attribution/);
   assert.match(html, /Top startup opportunities/);
   assert.match(html, /Reducer lubrication and life testing/);
+  assert.match(html, /Modeled cost: [^<]+RMB/);
+  assert.doesNotMatch(html, /Top blockers \(click to focus\)|🎯/);
+  assert.doesNotMatch(
+    html.match(/<section[^>]*data-testid="product-investor-answer-panel"[\s\S]*?<\/section>/)?.[0] ?? "",
+    /<strong>Cost signal:<\/strong>\s*p50 RMB/i,
+    `ProductView should not expose a naked p50 cost signal in the chokepoint readout; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html.match(/<section[^>]*data-testid="product-investor-answer-panel"[\s\S]*?<\/section>/)?.[0] ?? "",
+    /Opportunity score|<strong>Risk:<\/strong>/i,
+    `ProductView should not expose internal opportunity score or risk labels by default; got: ${html}`,
+  );
   assert.match(html, /Cost coverage complete/);
   assert.doesNotMatch(html, /targetCost:/);
 
   assert.ok(
-    html.indexOf("Investor answer panel") < html.indexOf("Rolled-up cost"),
-    "ProductView should promote the investor answer before rolled-up cost sections",
+    html.indexOf("Chokepoint readout") < html.indexOf("Rolled-up cost"),
+    "ProductView should promote the chokepoint readout before rolled-up cost sections",
   );
   assert.ok(
-    html.indexOf("Investor answer panel") < html.indexOf("Required Modules"),
-    "ProductView should promote the investor answer before long product detail sections",
+    html.indexOf("Chokepoint readout") < html.indexOf("Required Modules"),
+    "ProductView should promote the chokepoint readout before long product detail sections",
   );
 });
 

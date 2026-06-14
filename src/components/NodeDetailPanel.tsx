@@ -2578,7 +2578,7 @@ function TopBlockers({
   if (ranked.length === 0) return null;
   return (
     <div className="top-blockers">
-      <strong>🎯 {onSelectNode ? t("topBlockersTitle") : t("topBlockersStaticTitle")}</strong>
+      <strong>{onSelectNode ? t("topBlockersTitle") : t("topBlockersStaticTitle")}</strong>
       <ol className="top-blockers-list">
         {ranked.map((entry) => {
           const maturityLabel = entry.child.maturityLabel ?? "unknown";
