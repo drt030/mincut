@@ -987,6 +987,7 @@ test("expanded: detail decision brief explains explicit cost disclosure gaps", (
   const whereStuck = html.match(/<div[^>]*data-testid="detail-where-stuck"[\s\S]*?detail-decision-brief/)?.[0] ?? "";
 
   assert.match(decision, /Cost gap unknown/i);
+  assert.match(decision, /Needed evidence: demand, utilization, and unit-economics proxy/i);
   assert.match(decision, /Needed evidence: qualification cost, lifetime, and replacement-rate basis/i);
   assert.match(decision, /no public source prices the qualification and utilization reserve/i);
   assert.match(decision, /24 months/i);
@@ -994,6 +995,25 @@ test("expanded: detail decision brief explains explicit cost disclosure gaps", (
     whereStuck,
     /Not priceable|reviewed price|BOM|RMB/i,
     `Where it is stuck should not mix in cost audit gaps; got: ${whereStuck}`,
+  );
+});
+
+test("expanded: detail decision brief labels modeled cost before showing p50 values", () => {
+  const html = render({
+    graph,
+    focusedNode: nodeById(REDUCER_ID),
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const decision = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? html;
+
+  assert.match(decision, /Modeled cost: p50/i);
+  assert.match(decision, /Basis: graph model or rollup; not supplier quote or audited BOM/i);
+  assert.doesNotMatch(
+    decision,
+    /<strong>p50 RMB/i,
+    `decision brief should not expose a naked p50 value; got: ${decision}`,
   );
 });
 

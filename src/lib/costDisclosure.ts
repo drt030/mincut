@@ -45,22 +45,23 @@ export function costEvidenceNeedText(node: Node, t: Translator): string {
     .join(" ")
     .toLowerCase();
 
-  if (hasAny(haystack, ["qualification", "qualified", "lifetime", "durability", "replacement", "reserve"])) {
-    return t("readerCostNeedQualification");
-  }
-  if (hasAny(haystack, ["utilization", "unit economics", "business model", "demand", "revenue", "payback"])) {
-    return t("readerCostNeedUnitEconomics");
-  }
-  if (hasAny(haystack, ["launch", "$/kg", "per kg", "per kw", "mass to orbit", "kg to orbit"])) {
-    return t("readerCostNeedLaunchEconomics");
+  const needs: string[] = [];
+  if (hasAny(haystack, ["bom", "quote", "quoted", "supplier price", "proxy price", "market price", "pricing", "asp", "component"])) {
+    needs.push(t("readerCostNeedPriceBom"));
   }
   if (hasAny(haystack, ["capacity", "capex", "capital", "factory", "line", "tooling", "expansion", "commissioning"])) {
-    return t("readerCostNeedCapacityCapex");
+    needs.push(t("readerCostNeedCapacityCapex"));
   }
-  if (hasAny(haystack, ["bom", "quote", "quoted", "supplier", "price", "pricing", "asp", "component"])) {
-    return t("readerCostNeedPriceBom");
+  if (hasAny(haystack, ["utilization", "unit economics", "business model", "demand", "revenue", "payback"])) {
+    needs.push(t("readerCostNeedUnitEconomics"));
   }
-  return t("readerCostMissingReviewedSource");
+  if (hasAny(haystack, ["qualification", "qualified", "lifetime", "durability", "replacement", "reserve"])) {
+    needs.push(t("readerCostNeedQualification"));
+  }
+  if (hasAny(haystack, ["launch", "$/kg", "per kg", "per kw", "mass to orbit", "kg to orbit"])) {
+    needs.push(t("readerCostNeedLaunchEconomics"));
+  }
+  return needs.length > 0 ? needs.join("; ") : t("readerCostMissingReviewedSource");
 }
 
 function costDisclosureMetric(node: Node): NodeMetric | null {

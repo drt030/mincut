@@ -30,6 +30,21 @@ export type ReaderFacingCostAnswer = {
   full?: string;
 };
 
+type ReaderCostSignalKind = "modeled" | "estimated";
+
+export function readerFacingCostSignalText({
+  valueText,
+  kind,
+  t,
+}: {
+  valueText: string;
+  kind: ReaderCostSignalKind;
+  t: (key: string) => string;
+}): string {
+  const prefix = kind === "estimated" ? t("readerEstimatedCostPrefix") : t("readerModeledCostPrefix");
+  return `${prefix}: ${valueText}`;
+}
+
 export function readerFacingCostAnswer({
   valueText,
   disclosureText,

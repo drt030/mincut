@@ -251,10 +251,10 @@ test("RouteDetailRail prioritizes route explanation before selected node detail"
   assert.match(html, /Cost drivers/i);
   assert.match(html, /Start here/i);
   assert.match(html, /Precision gearbox/);
-  assert.match(html, /p50 RMB 80,000/);
+  assert.match(html, /Modeled cost: p50 RMB 80,000/);
   assert.match(
     html,
-    /aria-label="Precision gearbox, module, 2 links, p50 RMB 80,000"/,
+    /aria-label="Precision gearbox, module, 2 links, Modeled cost: p50 RMB 80,000"/,
     `route step button should expose a spaced accessible label instead of concatenated child text; got: ${html}`,
   );
   assert.match(html, /Selected/i);
@@ -278,7 +278,7 @@ test("RouteDetailRail selected summary uses rolled-up cost for aggregate nodes",
 
   assert.match(
     html,
-    /p50 RMB 149,500/,
+    /Modeled cost: p50 RMB 149,500/,
     "selected aggregate node should show the same rolled-up cost signal used by graph edges and detail cards",
   );
 });
@@ -514,6 +514,7 @@ test("RouteDetailRail explains why an explicitly disclosed cost is not verified"
   const summary = selectedSummary(html);
 
   assert.match(summary, /Cost gap unknown/i);
+  assert.match(summary, /Needed evidence: demand, utilization, and unit-economics proxy/i);
   assert.match(summary, /Needed evidence: qualification cost, lifetime, and replacement-rate basis/i);
   assert.match(summary, /no public source prices the qualification and utilization reserve/i);
   assert.match(summary, /18 months/i);
@@ -552,7 +553,7 @@ test("RouteDetailRail labels heuristic route cost signals as estimated", () => {
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /p50 RMB 250,000 estimated/i);
+  assert.match(summary, /Estimated cost: p50 RMB 250,000/i);
   assert.match(summary, /Basis: domain\/tag heuristic; not supplier quote or BOM/i);
 });
 

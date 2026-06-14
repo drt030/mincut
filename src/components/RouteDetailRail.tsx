@@ -8,7 +8,11 @@ import { nodeCostSignalKind, nodeCostSignalRmb, type ColorMode } from "@/lib/edg
 import type { GraphLayer } from "@/lib/knowHowLayer";
 import { nodeRiskSignal } from "@/lib/nodeRisk";
 import { selectTopN } from "@/lib/prioritySelection";
-import { readerFacingConstraintReason, readerFacingCostAnswer } from "@/lib/readerFacingText";
+import {
+  readerFacingConstraintReason,
+  readerFacingCostAnswer,
+  readerFacingCostSignalText,
+} from "@/lib/readerFacingText";
 import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { RouteHighlight } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
@@ -255,6 +259,12 @@ export function RouteDetailRail({
     onPanelChange?.(next);
   };
   const { kindName, language, nodeName, t } = useLanguage();
+  const costSignalText = (value: number, kind: "modeled" | "estimated" | "missing") =>
+    readerFacingCostSignalText({
+      valueText: formatRmb(value),
+      kind: kind === "estimated" ? "estimated" : "modeled",
+      t,
+    });
   const nodeById = useMemo(
     () => new Map(graph.nodes.map((node) => [node.id, node])),
     [graph.nodes],
@@ -456,7 +466,9 @@ export function RouteDetailRail({
     const cost = nodeCostSignalRmb(node, graph);
     const costKind = nodeCostSignalKind(node, graph);
     const costAnswer = readerFacingCostAnswer({
-      valueText: cost ? `${formatRmb(cost)}${costKind === "estimated" ? ` ${t("readerCostEstimateShort")}` : ""}` : null,
+      valueText: cost
+        ? costSignalText(cost, costKind)
+        : null,
       disclosureText: costDisclosureText(node, t, { includeReason: true }),
       fallback: t("readerCostNotModeled"),
       disclosurePrimary: t("readerCostNotPriceableShort"),
@@ -464,6 +476,8 @@ export function RouteDetailRail({
     });
     if (costKind === "estimated") {
       costAnswer.secondary = t("readerCostEstimateBasisShort");
+    } else if (cost) {
+      costAnswer.secondary = t("readerCostModeledBasisShort");
     }
     return (
       <div
@@ -1004,7 +1018,8 @@ export function RouteDetailRail({
                     const node = nodeById.get(step.nodeId);
                     const label = node ? nodeName(node.id, node.name) : step.nodeId;
                     const kindLabel = node ? kindName(node.kind) : "node";
-                    const factors = node ? keyFactorsForNode(node) : [formatRmb(step.costTypicalRmb)];
+                    const signal = costSignalText(step.costTypicalRmb, step.costSignalKind);
+                    const factors = node ? keyFactorsForNode(node) : [signal];
                     return (
                       <li key={step.nodeId} className="route-step">
                         <button
@@ -1014,7 +1029,7 @@ export function RouteDetailRail({
                             label,
                             kindLabel,
                             `${step.pathEdgeIds.length} ${copy.links}`,
-                            formatRmb(step.costTypicalRmb),
+                            signal,
                           ])}
                           onClick={() => onSelectNode?.(step.nodeId)}
                         >
@@ -1026,7 +1041,7 @@ export function RouteDetailRail({
                             </span>
                             <span className="route-step-factors">{factors.join(" · ")}</span>
                           </span>
-                          <span className="route-step-signal">{formatRmb(step.costTypicalRmb)}</span>
+                          <span className="route-step-signal">{signal}</span>
                         </button>
                       </li>
                     );
@@ -1152,11 +1167,16 @@ export function RouteDetailRail({
                     {(() => {
                       const maturity = formatMaturityScore(selectedSummaryNode);
                       const cost = nodeCostSignalRmb(selectedSummaryNode, graph);
+                      const costKind = nodeCostSignalKind(selectedSummaryNode, graph);
                       if (!maturity && !cost) return null;
                       return (
                         <div className="route-rail-chip-row route-reader-secondary-meta">
                           {maturity ? <span>{copy.maturityScore} {maturity}</span> : null}
-                          {cost ? <span>{formatRmb(cost)}</span> : null}
+                          {cost ? (
+                            <span>
+                              {costSignalText(cost, costKind)}
+                            </span>
+                          ) : null}
                         </div>
                       );
                     })()}

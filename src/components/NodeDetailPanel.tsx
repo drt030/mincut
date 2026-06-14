@@ -33,6 +33,7 @@ import { nodeCostDriverRmb } from "@/lib/edgeStyleFor";
 import {
   readerFacingConstraintReason,
   readerFacingCostAnswer,
+  readerFacingCostSignalText,
   readerFacingNote,
   readerFacingStartupOpportunity,
 } from "@/lib/readerFacingText";
@@ -912,8 +913,11 @@ function InvestorAnswerPanel({
               <span>{t("topCostDriver")}</span>
               {answer.topCostTypicalRmb !== null ? (
                 <span className="pill">
-                  {formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}
-                  {answer.topCostEstimated ? ` ${t("readerCostEstimateShort")}` : null}
+                  {readerFacingCostSignalText({
+                    valueText: formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact,
+                    kind: answer.topCostEstimated ? "estimated" : "modeled",
+                    t,
+                  })}
                 </span>
               ) : null}
             </div>
@@ -1349,12 +1353,21 @@ function DecisionBrief({
   const { t } = useLanguage();
   const modeledCostText = detailCostSignalText(graph, node);
   const estimatedCost = modeledCostText ? null : estimatedCostForNode(node);
+  const valueText = modeledCostText
+    ? readerFacingCostSignalText({
+        valueText: modeledCostText,
+        kind: "modeled",
+        t,
+      })
+    : estimatedCost
+      ? readerFacingCostSignalText({
+          valueText: formatMetricValue(estimatedCost.range, "RMB", "RMB").compact,
+          kind: "estimated",
+          t,
+        })
+      : null;
   const cost = readerFacingCostAnswer({
-    valueText: modeledCostText ?? (
-      estimatedCost
-        ? `${formatMetricValue(estimatedCost.range, "RMB", "RMB").compact} ${t("readerCostEstimateShort")}`
-        : null
-    ),
+    valueText,
     disclosureText: costDisclosureText(node, t, { includeReason: true }),
     fallback: t("readerCostNotModeled"),
     disclosurePrimary: t("readerCostNotPriceableShort"),
@@ -1363,6 +1376,8 @@ function DecisionBrief({
   if (estimatedCost && !modeledCostText) {
     cost.secondary = t("readerCostEstimateBasisShort");
     cost.full = estimatedCost.basis;
+  } else if (modeledCostText) {
+    cost.secondary = t("readerCostModeledBasisShort");
   }
   return (
     <div className="detail-decision-brief" data-testid="detail-decision-brief">

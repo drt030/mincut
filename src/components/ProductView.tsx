@@ -25,7 +25,11 @@ import {
   type CostRollupResult,
 } from "@/lib/costRollup";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
-import { readerFacingNote, readerFacingStartupOpportunity } from "@/lib/readerFacingText";
+import {
+  readerFacingCostSignalText,
+  readerFacingNote,
+  readerFacingStartupOpportunity,
+} from "@/lib/readerFacingText";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 
@@ -218,8 +222,11 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
               <span>{t("topCostDriver")}</span>
               {answer.topCostTypicalRmb !== null ? (
                 <span className="pill">
-                  {formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}
-                  {answer.topCostEstimated ? ` ${t("readerCostEstimateShort")}` : null}
+                  {readerFacingCostSignalText({
+                    valueText: formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact,
+                    kind: answer.topCostEstimated ? "estimated" : "modeled",
+                    t,
+                  })}
                 </span>
               ) : null}
             </div>

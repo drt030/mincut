@@ -233,5 +233,19 @@
     "limitations": "Not a confirmed SpaceX supplier claim.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_nasa_orbiter_tps_maintenance",
+    "type": "expert_review",
+    "title": "NASA Kennedy Space Shuttle Orbiter Thermal Protection System",
+    "url": "https://www3.nasa.gov/centers/kennedy/pdf/167473main_TPS-06rev.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "NASA Kennedy Space Center",
+    "date": "accessed 2026-06-14",
+    "summary": "NASA Kennedy's thermal-protection-system brief describes reusable tile inspection and repair after missions, average tile replacement, silicone adhesive tile bonding to strain-isolator pads, gap control, gap fillers, and rewaterproofing. It supports the bottleneck logic that reusable tile TPS is a maintenance, bonding, inspection, and turnaround process rather than just a material.",
+    "supportsNodeIds": ["starship_heat_shield_tile_system", "starship_heat_shield_tile_bonding_process"],
+    "limitations": "Space Shuttle operational heritage, not Starship-specific hardware, process timing, cost, or reflight acceptance evidence. Used only as independent TPS-process analogue until Starship-specific audited turnaround data exists.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
   }
 ]

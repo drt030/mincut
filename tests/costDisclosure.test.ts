@@ -101,3 +101,20 @@ test("costEvidenceNeedText classifies cost gaps by missing evidence type", () =>
     "price-bom",
   );
 });
+
+test("costEvidenceNeedText keeps multiple missing evidence types when they both apply", () => {
+  assert.equal(
+    costEvidenceNeedText(
+      node({
+        metrics: [{
+          name: "Cost disclosure",
+          unit: "audit status",
+          currentValue: "not priceable from reviewed data",
+          description: "No source prices qualification, replacement rate, utilization reserve, and unit economics.",
+        }],
+      }),
+      t,
+    ),
+    "unit-economics; qualification",
+  );
+});
