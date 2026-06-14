@@ -247,7 +247,7 @@ test("expanded: 400px-wide rail shows description without surfacing raw metrics"
   // surface should not expose a first-class Metrics section.
   assert.match(
     html,
-    /Evidence, suppliers, tickers/,
+    /Company and ticker leads/,
     `expanded rail must keep the reader path focused on evidence and company/ticker leads; got: ${html}`,
   );
   assert.doesNotMatch(
@@ -475,7 +475,7 @@ test("expanded: component detail surfaces manufacturer candidates with share and
 
   assert.match(
     html,
-    /Evidence, suppliers, tickers/,
+    /Company and ticker leads/,
     `expanded component detail must surface a clearly caveated supplier/ticker quick path; got: ${html}`,
   );
   assert.match(
@@ -515,7 +515,7 @@ test("expanded: vacuum end-effector parent surfaces key suction EOAT supplier ca
 
   assert.match(
     html,
-    /Evidence, suppliers, tickers/,
+    /Company and ticker leads/,
     `expanded EOAT parent detail must surface candidate supplier/ticker leads; got: ${html}`,
   );
 
@@ -632,6 +632,39 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   );
 });
 
+test("expanded: primary path has one source summary and exposure stays focused on company leads", () => {
+  const focused = nodeById(AI_COMPUTE_ROOT_ID);
+  const html = renderWithLockedExposure({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const priority = detailReaderPriority(html);
+  const exposureSummary = detailDisclosure(html, "detail-exposure-evidence-summary");
+  const sourceSummaryCount =
+    (priority.match(/Key sources/g) ?? []).length +
+    (priority.match(/Source quick path/g) ?? []).length;
+
+  assert.equal(
+    sourceSummaryCount,
+    1,
+    `primary reader path should expose exactly one source summary concept; got: ${priority}`,
+  );
+  assert.match(priority, /Key sources/i, `the single source summary should stay in the evidence slot; got: ${priority}`);
+  assert.doesNotMatch(
+    exposureSummary,
+    /Source quick path|Best source|sources?\. Best source/i,
+    `exposure section should focus on company/ticker leads instead of repeating the evidence summary; got: ${exposureSummary}`,
+  );
+  assert.match(
+    exposureSummary,
+    /Top connected leads|not a complete exposure list/i,
+    `company/ticker leads should clarify they are ranked leads, not a full exposure list; got: ${exposureSummary}`,
+  );
+});
+
 test("expanded: primary reader path has no nested disclosure controls", () => {
   const focused = nodeById(FOCAL_PRODUCT_ID);
   const html = render({
@@ -688,6 +721,29 @@ test("expanded: AI compute detail treats locked exposure input as silently avail
   );
 });
 
+test("expanded: AI compute root explains real stuck factors instead of evidence fallback", () => {
+  const focused = nodeById(AI_COMPUTE_ROOT_ID);
+  const html = renderWithLockedExposure({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const whereStuck = detailDisclosure(html, "detail-where-stuck");
+
+  assert.doesNotMatch(
+    whereStuck,
+    /evidence is still thin|Flagship AI accelerator module architecture/i,
+    `AI compute root should explain the industrial constraint, not fall back to evidence or architecture copy; got: ${whereStuck}`,
+  );
+  assert.match(
+    whereStuck,
+    /HBM capacity|advanced packaging|yield|supplier concentration/i,
+    `AI compute root should name the capacity/yield/supplier-concentration bottlenecks; got: ${whereStuck}`,
+  );
+});
+
 test("expanded: AI compute detail exposes supplier tickers after the why/stuck/evidence sequence without graph appendix noise", () => {
   const focused = nodeById(AI_COMPUTE_ROOT_ID);
   const html = renderWithLockedExposure({
@@ -726,7 +782,7 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
     /(2330\.TW|2311\.TW) · Taiwan|(000660\.KS|005930\.KS) · Korea/,
     `supplier ticker chips should clarify non-US trading venues; got: ${summary}`,
   );
-  assert.match(summary, /Source quick path/i);
+  assert.doesNotMatch(summary, /Source quick path/i);
   assert.doesNotMatch(summary.trim(), /^0 reviewed/i);
   assert.doesNotMatch(summary, /77 suppliers hidden|paid exposure layer/i);
 });

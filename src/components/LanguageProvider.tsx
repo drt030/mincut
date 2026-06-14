@@ -165,13 +165,13 @@ const uiText: Record<Language, Record<string, string>> = {
       "Candidate exposure is graph-linked, not a confirmed BOM, market-share ranking, or investment recommendation.",
     productBottleneckReadout: "Product bottleneck readout",
     readerNonInvestmentAdvice: "Not investment advice. Company and ticker context is supporting evidence, not a recommendation.",
-    exposureEvidenceSummaryTitle: "Evidence, suppliers, tickers",
+    exposureEvidenceSummaryTitle: "Company and ticker leads",
     exposureEvidencePolicyTitle: "Evidence and exposure policy",
     exposureCandidateHeading: "Company / ticker candidates",
     exposureCandidateAuditHeading: "Company exposure locked",
     exposureCandidateCount: "{n} candidates",
     exposureCandidateHint:
-      "Use these after the bottleneck thesis looks credible. They are graph-linked exposure leads, not direct proof, a confirmed BOM, or investment advice.",
+      "Top connected leads, not a complete exposure list. Use these after the bottleneck thesis looks credible. They are graph-linked exposure leads, not direct proof, a confirmed BOM, or investment advice.",
     exposureCandidateAuditHint:
       "Company identities and listing details open only when this paid domain launches.",
     exposureCandidateVia: "via {node}",
@@ -181,7 +181,6 @@ const uiText: Record<Language, Record<string, string>> = {
       "Supplier/ticker exposure is gated for this paid-candidate route. {n} organization records are modeled for this domain.",
     exposureCandidateAuditPreviewFallback:
       "Organization exposure is held back while this route is under review. {n} organization records are modeled for QA but not shown here.",
-    evidenceQuickPathHeading: "Source quick path",
     evidenceDirectReviewedSummary: "{total} sources.",
     evidenceDirectUnreviewedSummary: "{total} sources.",
     evidenceDirectSourceSummary: "{total} sources.",
@@ -191,7 +190,6 @@ const uiText: Record<Language, Record<string, string>> = {
     evidenceQualityReviewed: "reviewed",
     evidenceQualityUnreviewed: "not reviewed",
     evidenceNearestTitle: "No direct source on this node yet. Nearest source: {title}",
-    evidenceNearestVia: "via {node}",
     evidenceQuickPathFallback: "No direct evidence yet. Open evidence details or relationship lists to inspect the data gap.",
     exposureLockHeading: "Who makes this, and who's listed?",
     exposureLockSummary: "{n} supplier records with tickers, listing context, market-share signals, and capacity notes.",
@@ -254,6 +252,12 @@ const uiText: Record<Language, Record<string, string>> = {
     readerAiComputeImportance:
       "AI infrastructure growth turns this into a capacity, yield, and supplier-concentration gate.",
     readerAiComputeConstraintSummary: "Memory capacity · advanced packaging capacity · supplier concentration",
+    readerAiComputeStuckHbmCapacity: "HBM capacity",
+    readerAiComputeStuckPackagingCapacity: "advanced packaging slots",
+    readerAiComputeStuckYieldLearning: "yield learning",
+    readerAiComputeStuckSupplierConcentration: "supplier concentration",
+    readerAiComputeStuckReason:
+      "Scale is constrained by HBM supply, CoWoS-class packaging capacity, yield learning, and concentrated supplier availability. These are slow-cycle capacity problems, not quick software fixes.",
     readerParcelRobotImportance:
       "Warehouse automation ROI depends on this node hitting throughput, uptime, and cost targets.",
     readerProductImportance:
@@ -710,12 +714,12 @@ const uiText: Record<Language, Record<string, string>> = {
     investorAnswerCaveat: "候选暴露来自图谱连接，不等于已确认 BOM、市场份额排名或投资建议。",
     productBottleneckReadout: "产品瓶颈读出",
     readerNonInvestmentAdvice: "这不是投资建议。公司和股票代码只作为支撑证据，不是推荐。",
-    exposureEvidenceSummaryTitle: "证据、供应商、股票代码",
+    exposureEvidenceSummaryTitle: "公司和股票线索",
     exposureEvidencePolicyTitle: "证据与 exposure 策略",
     exposureCandidateHeading: "公司 / 股票候选",
     exposureCandidateAuditHeading: "公司 exposure 已锁定",
     exposureCandidateCount: "{n} 个候选",
-    exposureCandidateHint: "只有在瓶颈 thesis 看起来可信之后再看这些线索；它们是图谱连接的 exposure 线索，不是直接证据、已确认 BOM 或投资建议。",
+    exposureCandidateHint: "这些是 Top connected leads，不是完整 exposure 清单。只有在瓶颈 thesis 看起来可信之后再看这些线索；它们是图谱连接的 exposure 线索，不是直接证据、已确认 BOM 或投资建议。",
     exposureCandidateAuditHint: "公司身份和上市信息只会在该付费领域上线后开放。",
     exposureCandidateVia: "经由 {node}",
     exposureCandidateFallback: "此节点还没有建模公司或股票候选。打开证据详情查看缺口。",
@@ -723,7 +727,6 @@ const uiText: Record<Language, Record<string, string>> = {
       "该付费候选路线的供应商/股票 exposure 已被 gated。此领域已建模 {n} 条组织记录。",
     exposureCandidateAuditPreviewFallback:
       "这条路线仍在复审，组织 exposure 暂不展示。当前有 {n} 条组织记录用于 QA，但不在这里披露。",
-    evidenceQuickPathHeading: "来源快捷入口",
     evidenceDirectReviewedSummary: "{total} 条来源。",
     evidenceDirectUnreviewedSummary: "{total} 条来源。",
     evidenceDirectSourceSummary: "{total} 条来源。",
@@ -733,7 +736,6 @@ const uiText: Record<Language, Record<string, string>> = {
     evidenceQualityReviewed: "已复审",
     evidenceQualityUnreviewed: "未复审",
     evidenceNearestTitle: "此节点暂无直接来源。最近来源：{title}",
-    evidenceNearestVia: "经由 {node}",
     evidenceQuickPathFallback: "暂无直接证据。打开证据详情或关系列表查看数据缺口。",
     exposureLockHeading: "谁在造它？谁已经上市？",
     exposureLockSummary: "{n} 条供应商记录，包含股票代码、上市地、市场份额信号与产能备注。",
@@ -793,6 +795,12 @@ const uiText: Record<Language, Record<string, string>> = {
     readerAiComputeImportance:
       "AI 基础设施增长会在这里变成产能、良率和供应商集中度约束。",
     readerAiComputeConstraintSummary: "存储容量 · 先进封装产能 · 供应商集中度",
+    readerAiComputeStuckHbmCapacity: "HBM 产能",
+    readerAiComputeStuckPackagingCapacity: "先进封装 slots",
+    readerAiComputeStuckYieldLearning: "良率爬坡",
+    readerAiComputeStuckSupplierConcentration: "供应商集中度",
+    readerAiComputeStuckReason:
+      "规模受 HBM 供给、CoWoS 类先进封装产能、良率爬坡和供应商集中度限制。这些是慢周期产能问题，不是能快速补上的软件缺口。",
     readerParcelRobotImportance:
       "仓储自动化的 ROI 取决于这个节点能否达到吞吐、稳定性和成本目标。",
     readerProductImportance:

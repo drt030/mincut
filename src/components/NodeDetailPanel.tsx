@@ -1145,11 +1145,20 @@ function detailBottleneckThesisText(
 
 function detailWhereStuckFactors(node: Node, t: (key: string) => string): string[] {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  if (factors.length === 0 && isAiComputeNode(node) && node.kind === "product") {
+    return [
+      t("readerAiComputeStuckHbmCapacity"),
+      t("readerAiComputeStuckPackagingCapacity"),
+      t("readerAiComputeStuckYieldLearning"),
+      t("readerAiComputeStuckSupplierConcentration"),
+    ];
+  }
   if (factors.length === 0) factors.push(t("readerThesisCandidateConstraint"));
   return factors.slice(0, 4);
 }
 
-function detailWhereStuckReason(node: Node): string {
+function detailWhereStuckReason(node: Node, t: (key: string) => string): string {
+  if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeStuckReason");
   return readerFacingConstraintReason(node.description);
 }
 
@@ -1297,8 +1306,8 @@ function NodeReaderPriority({
             <span className="pill" key={factor}>{factor}</span>
           ))}
         </div>
-        {detailWhereStuckReason(node) ? (
-          <p className="detail-reader-stuck-note">{detailWhereStuckReason(node)}</p>
+        {detailWhereStuckReason(node, t) ? (
+          <p className="detail-reader-stuck-note">{detailWhereStuckReason(node, t)}</p>
         ) : null}
       </div>
       <DecisionBrief graph={graph} node={node} evidence={evidence} />
@@ -1310,7 +1319,6 @@ function NodeReaderPriority({
         <ExposureEvidenceSummary
           graph={graph}
           node={node}
-          evidence={evidence}
           lockedEntry={lockedEntry}
           lockedExposureMode={lockedExposureMode}
           defaultOpen={defaultOpenExposureSummary}
@@ -1388,21 +1396,18 @@ function evidenceReaderSummary(item: Evidence, total: number, t: (key: string) =
 function ExposureEvidenceSummary({
   graph,
   node,
-  evidence,
   lockedEntry,
   lockedExposureMode,
   defaultOpen,
 }: {
   graph: GraphData;
   node: Node;
-  evidence: Evidence[];
   lockedEntry: LockedDomainSummary | null;
   lockedExposureMode: LockedExposureMode;
   defaultOpen: boolean;
 }) {
   const { nodeName, relationName, t } = useLanguage();
   const candidates = lockedEntry ? [] : exposureCandidatesForNode(graph, node, 3);
-  const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   const isAuditPreviewLocked = Boolean(lockedEntry && lockedExposureMode === "audit-preview");
   const summaryTitle = isAuditPreviewLocked ? t("exposureEvidencePolicyTitle") : t("exposureEvidenceSummaryTitle");
   const candidateHeading = isAuditPreviewLocked ? t("exposureCandidateAuditHeading") : t("exposureCandidateHeading");
@@ -1422,67 +1427,51 @@ function ExposureEvidenceSummary({
         </span>
       </div>
       <div className="detail-reader-exposure-grid">
-        <div>
-          <span className="detail-reader-mini-heading">{candidateHeading}</span>
-          <p className="muted">{candidateHint}</p>
-          {candidates.length > 0 ? (
-            <ul className="metric-detail-list">
-              {candidates.map((candidate) => {
-                const displayName = nodeName(candidate.organization.id, candidate.organization.name);
-                const candidateSummary = organizationMetricSummary(candidate.organization, {
-                  includeDescriptions: false,
-                  limit: 2,
-                });
-                const via = candidate.viaNode
-                  ? formatCopy(t("exposureCandidateVia"), {
-                      node: nodeName(candidate.viaNode.id, candidate.viaNode.name),
-                    })
-                  : relationName(candidate.relation);
-                return (
-                  <li className="metric-detail-row" key={`${candidate.organization.id}-${candidate.edge?.id ?? "self"}`}>
-                    <div className="metric-detail-row-head">
-                      <span>{displayName}</span>
-                      <ListingChip org={candidate.organization} />
-                    </div>
-                    <p className="metric-detail-description">
-                      {via}
-                    </p>
-                    {candidateSummary ? (
-                      <p className="metric-detail-description muted">{candidateSummary}</p>
-                    ) : null}
-                  </li>
-                );
-              })}
-            </ul>
-          ) : lockedEntry ? (
-            <p className="muted">
-              {formatCopy(
-                t(
-                  lockedExposureMode === "audit-preview"
-                    ? "exposureCandidateAuditPreviewFallback"
-                    : "exposureCandidateLockedFallback",
-                ),
-                { n: lockedEntry.hiddenOrgCount },
-              )}
-            </p>
-          ) : (
-            <p className="muted">{t("exposureCandidateFallback")}</p>
-          )}
-        </div>
-        <div>
-          <span className="detail-reader-mini-heading">{t("evidenceQuickPathHeading")}</span>
-          <p>
-            {quickPath.text}
-            {quickPath.viaNode ? (
-              <span className="muted">
-                {" "}
-                {formatCopy(t("evidenceNearestVia"), {
-                  node: nodeName(quickPath.viaNode.id, quickPath.viaNode.name),
-                })}
-              </span>
-            ) : null}
+        <span className="detail-reader-mini-heading">{candidateHeading}</span>
+        <p className="muted">{candidateHint}</p>
+        {candidates.length > 0 ? (
+          <ul className="metric-detail-list">
+            {candidates.map((candidate) => {
+              const displayName = nodeName(candidate.organization.id, candidate.organization.name);
+              const candidateSummary = organizationMetricSummary(candidate.organization, {
+                includeDescriptions: false,
+                limit: 2,
+              });
+              const via = candidate.viaNode
+                ? formatCopy(t("exposureCandidateVia"), {
+                    node: nodeName(candidate.viaNode.id, candidate.viaNode.name),
+                  })
+                : relationName(candidate.relation);
+              return (
+                <li className="metric-detail-row" key={`${candidate.organization.id}-${candidate.edge?.id ?? "self"}`}>
+                  <div className="metric-detail-row-head">
+                    <span>{displayName}</span>
+                    <ListingChip org={candidate.organization} />
+                  </div>
+                  <p className="metric-detail-description">
+                    {via}
+                  </p>
+                  {candidateSummary ? (
+                    <p className="metric-detail-description muted">{candidateSummary}</p>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        ) : lockedEntry ? (
+          <p className="muted">
+            {formatCopy(
+              t(
+                lockedExposureMode === "audit-preview"
+                  ? "exposureCandidateAuditPreviewFallback"
+                  : "exposureCandidateLockedFallback",
+              ),
+              { n: lockedEntry.hiddenOrgCount },
+            )}
           </p>
-        </div>
+        ) : (
+          <p className="muted">{t("exposureCandidateFallback")}</p>
+        )}
       </div>
     </section>
   );
