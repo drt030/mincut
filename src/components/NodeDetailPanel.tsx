@@ -25,6 +25,7 @@ import {
   targetCostFor,
   type CostRollupResult,
 } from "@/lib/costRollup";
+import { costDisclosureText } from "@/lib/costDisclosure";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
@@ -1336,7 +1337,7 @@ function detailBottleneckThesisText(
 
 function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) => string): string[] {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  const cost = detailCostSignalText(graph, node);
+  const cost = detailCostSignalText(graph, node) ?? costDisclosureText(node, t);
   if (cost) factors.push(cost);
   if (factors.length === 0) factors.push(t("readerThesisCandidateConstraint"));
   return factors.slice(0, 4);
@@ -1352,8 +1353,16 @@ function reliefTimingText(node: Node, t: (key: string) => string): string {
   if (typeof months === "number") {
     if (months <= 3) return formatCopy(t("readerReliefTimingShort"), { months });
     if (months <= 12) return formatCopy(t("readerReliefTimingMedium"), { months });
+    const reason = reliefTimingReasonText(node, t);
+    if (reason !== t("readerReliefTimingUnknown")) {
+      return formatCopy(t("readerReliefTimingLongWithReason"), { months, reason });
+    }
     return formatCopy(t("readerReliefTimingLong"), { months });
   }
+  return reliefTimingReasonText(node, t);
+}
+
+function reliefTimingReasonText(node: Node, t: (key: string) => string): string {
   const tags = new Set(node.tags ?? []);
   if (tags.has("constraint_economic_validation")) return t("readerReliefTimingEconomics");
   if (tags.has("constraint_material_supply_chain")) return t("readerReliefTimingMaterial");
@@ -1369,7 +1378,7 @@ function reliefTimingText(node: Node, t: (key: string) => string): string {
 }
 
 function detailCostSignalText(graph: GraphData, node: Node): string | null {
-  if (!isCostSummaryNode(node)) return null;
+  if (!canSurfaceCostAnswer(node)) return null;
   try {
     const rollup = rollupCost(graph, node.id);
     if (!rollup.anyChildContributed && !rollup.directOnly) return null;
@@ -1391,12 +1400,16 @@ function DecisionBrief({
   lockedEntry: LockedDomainSummary | null;
 }) {
   const { t } = useLanguage();
-  const cost = detailCostSignalText(graph, node) ?? t("readerCostNotModeled");
+  const cost =
+    detailCostSignalText(graph, node) ??
+    costDisclosureText(node, t, { includeReason: true }) ??
+    t("readerCostNotModeled");
+  const costIsLong = cost.length > 54;
   return (
     <div className="detail-decision-brief" data-testid="detail-decision-brief">
       <strong>{t("readerDecisionBrief")}</strong>
       <div className="detail-decision-grid">
-        <div>
+        <div className={costIsLong ? "wide" : undefined}>
           <span>{t("readerCostMagnitude")}</span>
           <strong>{cost}</strong>
         </div>
@@ -1873,6 +1886,10 @@ function DetailPrioritySummary({
 
 function isCostSummaryNode(node: Node): boolean {
   return node.kind === "product" || node.kind === "module" || node.kind === "equipment" || node.kind === "material";
+}
+
+function canSurfaceCostAnswer(node: Node): boolean {
+  return isCostSummaryNode(node) || node.kind === "engineering_method" || node.kind === "manufacturing_process";
 }
 
 const CONSTRAINT_FACTOR_TAG_KEYS: ReadonlyArray<{ tag: string; labelKey: string }> = [

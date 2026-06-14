@@ -1,4 +1,5 @@
 import { DOMAIN_ROUTES } from "../src/lib/domains";
+import { hasCostDisclosure } from "../src/lib/costDisclosure";
 import { nodeCostSignalRmb } from "../src/lib/edgeStyleFor";
 import { loadActiveGraphData, loadGateReports } from "../src/lib/graphLoader";
 import { selectTopN } from "../src/lib/prioritySelection";
@@ -6,7 +7,7 @@ import type { GraphData, Node } from "../src/lib/schema";
 
 type TopNodeReadiness = {
   id: string;
-  cost: boolean;
+  costAnswer: boolean;
   leadTime: boolean;
   constraint: boolean;
   reviewedNonVendorEvidence: number;
@@ -37,7 +38,7 @@ function topReadiness(graph: GraphData): TopNodeReadiness[] {
     if (!node) {
       return {
         id: entry.nodeId,
-        cost: false,
+        costAnswer: false,
         leadTime: false,
         constraint: false,
         reviewedNonVendorEvidence: 0,
@@ -45,7 +46,7 @@ function topReadiness(graph: GraphData): TopNodeReadiness[] {
     }
     return {
       id: node.id,
-      cost: Boolean(nodeCostSignalRmb(node, graph)),
+      costAnswer: Boolean(nodeCostSignalRmb(node, graph)) || hasCostDisclosure(node),
       leadTime: typeof node.capacityLeadTimeMonths === "number",
       constraint: hasConstraintReason(node),
       reviewedNonVendorEvidence: directReviewedNonVendorEvidence(graph, node),
@@ -55,7 +56,7 @@ function topReadiness(graph: GraphData): TopNodeReadiness[] {
 
 function formatTopNode(entry: TopNodeReadiness): string {
   const gaps = [
-    entry.cost ? null : "cost",
+    entry.costAnswer ? null : "cost",
     entry.leadTime ? null : "leadTime",
     entry.constraint ? null : "constraint",
     entry.reviewedNonVendorEvidence > 0 ? null : "reviewedEvidence",
@@ -74,7 +75,7 @@ for (const domain of DOMAIN_ROUTES) {
   const top = topReadiness(graph);
   const topGapCount = top.reduce((count, entry) => {
     const ready =
-      entry.cost &&
+      entry.costAnswer &&
       entry.leadTime &&
       entry.constraint &&
       entry.reviewedNonVendorEvidence > 0;
@@ -101,7 +102,7 @@ for (const domain of DOMAIN_ROUTES) {
     failures.push(`${domain.slug} paid-candidate has no local gate report for ${domain.rootId}.`);
   }
   for (const entry of top) {
-    if (!entry.cost) failures.push(`${domain.slug}/${entry.id} missing cost magnitude.`);
+    if (!entry.costAnswer) failures.push(`${domain.slug}/${entry.id} missing cost answer.`);
     if (!entry.leadTime) failures.push(`${domain.slug}/${entry.id} missing capacityLeadTimeMonths.`);
     if (!entry.constraint) failures.push(`${domain.slug}/${entry.id} missing constraint_* tag.`);
     if (entry.reviewedNonVendorEvidence === 0) {

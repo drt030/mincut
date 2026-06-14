@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { isKnowHowNode } from "@/lib/canvasGraph";
+import { costDisclosureText } from "@/lib/costDisclosure";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import type { GraphLayer } from "@/lib/knowHowLayer";
@@ -411,6 +412,10 @@ export function RouteDetailRail({
     const factors = constraintFactorsForNode(node, t);
     const cost = nodeCostSignalRmb(node, graph);
     if (cost) factors.push(formatRmb(cost));
+    if (!cost) {
+      const disclosure = costDisclosureText(node, t);
+      if (disclosure) factors.push(disclosure);
+    }
     if (factors.length === 0 && directEvidenceSummary(graph, node).total === 0) factors.push(t("readerEvidenceThin"));
     return factors.slice(0, 2);
   };
@@ -428,8 +433,15 @@ export function RouteDetailRail({
     if (typeof months === "number") {
       if (months <= 3) return formatCopy(t("readerReliefTimingShort"), { months });
       if (months <= 12) return formatCopy(t("readerReliefTimingMedium"), { months });
+      const reason = reliefTimingReasonText(node);
+      if (reason !== t("readerReliefTimingUnknown")) {
+        return formatCopy(t("readerReliefTimingLongWithReason"), { months, reason });
+      }
       return formatCopy(t("readerReliefTimingLong"), { months });
     }
+    return reliefTimingReasonText(node);
+  };
+  const reliefTimingReasonText = (node: Node): string => {
     const tags = new Set(node.tags ?? []);
     if (tags.has("constraint_economic_validation")) return t("readerReliefTimingEconomics");
     if (tags.has("constraint_material_supply_chain")) return t("readerReliefTimingMaterial");
@@ -447,6 +459,10 @@ export function RouteDetailRail({
   };
   const routeDecisionBrief = (node: Node): React.ReactNode => {
     const cost = nodeCostSignalRmb(node, graph);
+    const costAnswer = cost
+      ? formatRmb(cost)
+      : costDisclosureText(node, t, { includeReason: true }) ?? t("readerCostNotModeled");
+    const costIsLong = costAnswer.length > 54;
     return (
       <div
         className="detail-decision-brief route-reader-decision-brief"
@@ -454,9 +470,9 @@ export function RouteDetailRail({
       >
         <strong>{t("readerDecisionBrief")}</strong>
         <div className="detail-decision-grid">
-          <div>
+          <div className={costIsLong ? "wide" : undefined}>
             <span>{t("readerCostMagnitude")}</span>
-            <strong>{cost ? formatRmb(cost) : t("readerCostNotModeled")}</strong>
+            <strong>{costAnswer}</strong>
           </div>
           <div>
             <span>{t("readerSupplyConstraint")}</span>

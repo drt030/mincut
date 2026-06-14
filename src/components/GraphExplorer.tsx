@@ -772,6 +772,10 @@ function focusPathForNode(nodeId: string, graph: GraphData, rootId: string): str
   return [];
 }
 
+function samePath(left: readonly string[], right: readonly string[]): boolean {
+  return left.length === right.length && left.every((id, index) => id === right[index]);
+}
+
 function findRequiresNodePath(graph: GraphData, rootId: string, targetId: string): string[] | null {
   if (rootId === targetId) return [rootId];
   const childrenByParent = new Map<string, string[]>();
@@ -905,6 +909,39 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     if (!ids.every((id) => known.has(id))) return [];
     return focusPathForNode(ids[ids.length - 1], canvasGraph, currentRootId);
   });
+  const searchParamsSignature = searchParams?.toString() ?? "";
+  useEffect(() => {
+    const nextRootId =
+      resolveCanvasRootId(workingGraph, searchParams?.get("root")) ??
+      resolveCanvasRootId(workingGraph, initialRootProp ?? null) ??
+      DEFAULT_ROOT_NODE_ID;
+    const known = new Set(workingGraph.nodes.map((node) => node.id));
+    const focusIdFromUrl = searchParams?.get("focus");
+    const pathRaw = searchParams?.get("path");
+
+    let nextSelectedId = nextRootId;
+    let nextFocusPath: string[] = [];
+    let shouldOpenDetail = false;
+
+    if (focusIdFromUrl && known.has(focusIdFromUrl)) {
+      nextSelectedId = focusIdFromUrl;
+      nextFocusPath = focusPathForNode(focusIdFromUrl, workingGraph, nextRootId);
+      shouldOpenDetail = focusIdFromUrl !== nextRootId;
+    } else if (pathRaw) {
+      const ids = pathRaw.split(",").map((s) => s.trim()).filter((s) => s.length > 0);
+      const deepest = ids.at(-1);
+      if (deepest && ids.every((id) => known.has(id))) {
+        nextSelectedId = deepest;
+        nextFocusPath = focusPathForNode(deepest, workingGraph, nextRootId);
+        shouldOpenDetail = deepest !== nextRootId;
+      }
+    }
+
+    setCurrentRootId((prev) => (prev === nextRootId ? prev : nextRootId));
+    setSelectedId((prev) => (prev === nextSelectedId ? prev : nextSelectedId));
+    setFocusPath((prev) => (samePath(prev, nextFocusPath) ? prev : nextFocusPath));
+    if (shouldOpenDetail) setRailPanel("detail");
+  }, [initialRootProp, searchParams, searchParamsSignature, workingGraph]);
   // Back-compat alias for code that still references a single focused
   // id (e.g. greyscale dim flag, sector-tint colour, viewport math).
   const focusedId = focusPath.length > 0 ? focusPath[0] : null;

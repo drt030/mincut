@@ -469,6 +469,47 @@ test("RouteDetailRail names unknown cost and lead-time as audit gaps, not intern
   assert.doesNotMatch(summary, /Lead time not modeled yet/i);
 });
 
+test("RouteDetailRail explains why an explicitly disclosed cost is not priceable", () => {
+  const graph: GraphData = {
+    graphVersion: "route-detail-rail-cost-disclosure-test",
+    evidence: [],
+    nodes: [
+      node("root_product", "Frontier product", "product"),
+      node("audited_unknown", "Audited unknown cost", "module", [
+        {
+          name: "Cost disclosure",
+          unit: "audit status",
+          currentValue: "not priceable from reviewed data",
+          description: "No reviewed source prices the qualification and utilization reserve.",
+        },
+      ], {
+        capacityLeadTimeMonths: 18,
+        tags: ["constraint_technical_maturity"],
+      }),
+    ],
+    edges: [
+      edge("e_root_unknown_cost", "root_product", "audited_unknown"),
+    ],
+  };
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "audited_unknown")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = selectedSummary(html);
+
+  assert.match(summary, /Not priceable from reviewed data/i);
+  assert.match(summary, /No reviewed source prices the qualification and utilization reserve/i);
+  assert.match(summary, /18 months/i);
+});
+
 test("RouteDetailRail relief timing explains the kind of unresolved constraint", () => {
   const graph: GraphData = {
     graphVersion: "route-detail-rail-relief-timing-test",

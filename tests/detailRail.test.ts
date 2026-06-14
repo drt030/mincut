@@ -892,6 +892,57 @@ test("expanded: detail relief timing distinguishes component, material, and econ
   );
 });
 
+test("expanded: detail decision brief explains explicit cost disclosure gaps", () => {
+  const scopedGraph: GraphData = {
+    graphVersion: "detail-cost-disclosure-test",
+    evidence: [],
+    nodes: [
+      {
+        id: "frontier_product",
+        name: "Frontier product",
+        kind: "product",
+        domain: ["test"],
+      },
+      {
+        id: "cost_unknown_node",
+        name: "Cost unknown node",
+        kind: "engineering_method",
+        domain: ["test"],
+        description: "Qualification path is not yet commercially priced.",
+        maturityScore: 20,
+        maturityLabel: "prototype",
+        maturityAsOf: "2026-06",
+        capacityLeadTimeMonths: 24,
+        transactability: "must_build",
+        tags: ["constraint_technical_maturity"],
+        metrics: [
+          {
+            name: "Cost disclosure",
+            unit: "audit status",
+            currentValue: "not priceable from reviewed data",
+            description: "No reviewed source prices the qualification and utilization reserve.",
+          },
+        ],
+      },
+    ],
+    edges: [
+      { id: "e_frontier_unknown", source: "frontier_product", target: "cost_unknown_node", relation: "requires" },
+    ],
+  };
+  const html = render({
+    graph: scopedGraph,
+    focusedNode: nodeByIdIn(scopedGraph, "cost_unknown_node"),
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const decision = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? html;
+
+  assert.match(decision, /Not priceable from reviewed data/i);
+  assert.match(decision, /No reviewed source prices the qualification and utilization reserve/i);
+  assert.match(decision, /24 months/i);
+});
+
 test("expanded: organization detail surfaces the components it supplies", () => {
   const focused = nodeById(NABTESCO_ID);
   const html = render({
