@@ -35,7 +35,14 @@ export function isArtifactCanvasNode(node: Node): boolean {
  * edges to organizations stay panel-only.
  */
 export function isCanvasTreeEdge(edge: Edge, nodeById: Map<string, Node>): boolean {
-  if (edge.relation === "requires") return true;
+  if (edge.relation === "requires") {
+    const source = nodeById.get(edge.source);
+    const target = nodeById.get(edge.target);
+    if (source && target && isKnowHowNode(source) && isArtifactCanvasNode(target)) {
+      return false;
+    }
+    return true;
+  }
   if (edge.relation === "has_route") return true;
   if (edge.relation !== "implemented_by") return false;
   const target = nodeById.get(edge.target);

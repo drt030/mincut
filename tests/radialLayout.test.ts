@@ -493,8 +493,8 @@ test("radialLayout prefers artifact parents over know-how parents for artifact t
   );
   assert.equal(
     result.edges.get("eKnowHowTool")?.style,
-    "cross",
-    "know-how-to-artifact edges should remain context, not the product-layer parent",
+    undefined,
+    "know-how-to-artifact edges should stay out of the structural layout instead of becoming cross-link positioning hints",
   );
 });
 

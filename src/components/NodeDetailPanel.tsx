@@ -14,7 +14,7 @@ import {
   suppliedNodesForOrganization,
   upstream,
 } from "@/lib/graphTraversal";
-import { isKnowHowNode } from "@/lib/canvasGraph";
+import { isArtifactCanvasNode, isKnowHowNode } from "@/lib/canvasGraph";
 import { holdersForNode } from "@/lib/supplyConcentration";
 import { listingInfoForOrg } from "@/lib/knowHowLayer";
 import { formatMaturityLabel, maturityAsOfVisualFor, maturityVisualFor } from "@/lib/maturityVisual";
@@ -392,6 +392,40 @@ export function NodeDetailContent({
         evidenceCount={evidenceCount}
         onSelectNode={onSelectNode}
       />
+      {isKnowHowNode(node) ? (
+        <section className="panel-section detail-knowhow-context" data-testid="detail-knowhow-context">
+          <strong>{t("knowHowSectionTitle")}</strong>
+          <div className="detail-knowhow-context-grid">
+            <div>
+              <span className="detail-reader-mini-heading">{t("knowHowTransactability")}</span>
+              <TransactabilityChip value={node.transactability} t={t} />
+            </div>
+            {holderSummary ? (
+              <div>
+                <span className="detail-reader-mini-heading">{t("knowHowHoldersLabel")}</span>
+                <p
+                  data-testid="holders-summary"
+                  data-holders-total={holderSummary.total}
+                  data-holders-listed={holderSummary.listed}
+                  style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
+                >
+                  {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
+                </p>
+              </div>
+            ) : null}
+          </div>
+          {knowHowHosts.length > 0 ? (
+            <div className="detail-knowhow-hosts" data-testid="knowhow-hosted-by">
+              <span className="detail-reader-mini-heading">{t("knowHowHostedBy")}</span>
+              <div>
+                {knowHowHosts.map((host) => (
+                  <span key={host.id}>{nodeName(host.id, host.name)}</span>
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
       {isDeprecated && node.notes?.trim() ? (
         <div className="deprecated-callout">
           <strong>{t("supersessionReason")}</strong>
@@ -480,162 +514,6 @@ export function NodeDetailContent({
           <strong>{t("fullEvidenceList")}</strong>
           <EvidenceList evidence={evidence} />
         </section>
-        <section className="detail-supplementary-section" data-testid="detail-technical-metadata">
-          <strong>{t("technicalDetails")}</strong>
-          <div className="detail-technical-metadata">
-            <div className="pill-row">
-              <span className="pill">{kindName(node.kind)}</span>
-              {node.domain.map((item) => (
-                <span className="pill" key={item}>
-                  {item}
-                </span>
-              ))}
-              {node.kind === "organization" ? <ListingChip org={node} /> : null}
-            </div>
-            <p>{node.description ?? t("noDescription")}</p>
-            {constraintFactors.length > 0 ? (
-              <div>
-                <strong>{t("constraintFactors")}</strong>
-                <div className="pill-row">
-                  {constraintFactors.map((factor) => (
-                    <span className="pill" key={factor.tag}>
-                      {factor.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            <div>
-              <strong>{t("maturity")}</strong>
-              <div className="maturity-pill-row">
-                {(() => {
-                  const visual = maturityVisualFor(node);
-                  const asOf = maturityAsOfVisualFor(node);
-                  const asOfTooltip = asOf.hasValue
-                    ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
-                    : t("maturityAsOfMissing");
-                  return (
-                    <>
-                      <span
-                        className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
-                        style={{
-                          background: visual.bg,
-                          color: visual.fg,
-                          opacity: visual.hasLabel ? 1 : 0.65,
-                        }}
-                        title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
-                      >
-                        {visual.label}
-                        {typeof node.maturityScore === "number" ? (
-                          <span className="maturity-pill-score">· {node.maturityScore}</span>
-                        ) : null}
-                      </span>
-                      <span
-                        className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
-                        title={asOfTooltip}
-                        aria-label={asOfTooltip}
-                      >
-                        <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
-                        {t("maturityAsOf")}: {asOf.label}
-                      </span>
-                      {isHardToDevelop ? (
-                        <span
-                          className="key-technology-pill"
-                          title={t("hardToDevelopGlyphTooltip")}
-                          aria-label={t("hardToDevelopGlyphTooltip")}
-                        >
-                          <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
-                          {t("keyTechnologyPill")}
-                        </span>
-                      ) : null}
-                      {isFrontierByJudgment ? (
-                        <span
-                          className="frontier-pill"
-                          title={t("frontierPillTooltip")}
-                          aria-label={t("frontierPillTooltip")}
-                        >
-                          {t("frontierPill")}
-                        </span>
-                      ) : null}
-                    </>
-                  );
-                })()}
-                {node.confidence ? (
-                  <span className="muted">
-                    {t("confidence")}: {node.confidence}
-                  </span>
-                ) : null}
-              </div>
-              <MaturityHistoryTimeline node={node} />
-            </div>
-            {node.targetContext ? (
-              <div className="detail-target-context">
-                <strong>{t("targetContext")}</strong>{" "}
-                <span className="muted">({Object.keys(node.targetContext).length})</span>
-                <ul>
-                  {Object.entries(node.targetContext).map(([key, value]) => (
-                    <li key={key}>
-                      {key}: {value}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-            {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
-          </div>
-        </section>
-        <section className="detail-supplementary-section" data-testid="detail-relationship-lists">
-          <strong>{t("relationshipLists")}</strong>
-          <p className="muted">{t("relationshipListsHint")}</p>
-          {isKnowHowNode(node) ? (
-            <div data-testid="knowhow-meta">
-              <strong>{t("knowHowSectionTitle")}</strong>
-              <TransactabilityChip value={node.transactability} t={t} />
-              {holderSummary ? (
-                <p
-                  data-testid="holders-summary"
-                  data-holders-total={holderSummary.total}
-                  data-holders-listed={holderSummary.listed}
-                  style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
-                >
-                  {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
-                </p>
-              ) : null}
-              {knowHowHosts.length > 0 ? (
-                <div data-testid="knowhow-hosted-by">
-                  <strong>{t("knowHowHostedBy")}</strong>
-                  <ul>
-                    {knowHowHosts.map((host) => (
-                      <li key={host.id}>
-                        <span>{nodeName(host.id, host.name)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-          <NodeList
-            title={t("downstreamBottlenecks")}
-            nodes={bottlenecks}
-            deprecatedHiddenCount={bottlenecksDeprecatedCount}
-          />
-          <NodeList title={t("upstream")} nodes={up} />
-          <NodeList
-            title={t("downstream")}
-            nodes={down}
-            subtitle={t("nonMetricChildrenHint")}
-            deprecatedHiddenCount={downDeprecatedCount}
-          />
-          {node.kind === "product" ? (
-            <NodeList
-              title={t("siblingCandidates")}
-              nodes={siblingCandidates}
-              subtitle={t("siblingCandidatesHint")}
-              deprecatedHiddenCount={siblingDeprecatedCount}
-            />
-          ) : null}
-        </section>
       </details>
     </div>
   );
@@ -719,7 +597,6 @@ function OpportunityCandidateList({
           const factors = constraintFactorsForNode(candidate, t);
           const exposure = candidateExposureForNode(graph, candidate.id);
           const opportunityText = startupOpportunityText(candidate);
-          const risk = nodeRisk(candidate, graph);
           return (
             <li className="metric-detail-row" key={candidate.id}>
               <div className="metric-detail-row-head">
@@ -735,13 +612,6 @@ function OpportunityCandidateList({
                 ) : (
                   <span>{nodeName(candidate.id, candidate.name)}</span>
                 )}
-                <span
-                  className="pill"
-                  title={t("heatScoreTooltip")}
-                  aria-label={heatScoreLabel(t, risk)}
-                >
-                  {heatScoreLabel(t, risk)}
-                </span>
               </div>
               {factors.length > 0 ? (
                 <div className="pill-row">
@@ -833,15 +703,6 @@ function InvestorAnswerPanel({
           <li className="metric-detail-row">
             <div className="metric-detail-row-head">
               <span>{t("topRiskBottleneck")}</span>
-              {answer.topRiskScore !== null ? (
-                <span
-                  className="pill"
-                  title={t("heatScoreTooltip")}
-                  aria-label={heatScoreLabel(t, answer.topRiskScore)}
-                >
-                  {heatScoreLabel(t, answer.topRiskScore)}
-                </span>
-              ) : null}
             </div>
             <p className="metric-detail-description">
               <NodeListLink
@@ -970,7 +831,10 @@ function InvestorAnswerPanel({
               </div>
               <div className="metric-detail-row-values">
                 <span>
-                  <strong>{t("risk")}:</strong> {heatScoreValue(nodeRisk(entry.node, graph))}
+                  <strong>{t("readerWhereStuck")}:</strong>{" "}
+                  {factors.length > 0
+                    ? factors.map((factor) => factor.label).join(" · ")
+                    : t("readerThesisCandidateConstraint")}
                 </span>
                 {entry.costTypicalRmb !== null ? (
                   <span>
@@ -1071,10 +935,6 @@ function constraintTagCount(node: Node): number {
 const INVESTOR_RISK_NODE_KINDS = new Set<Node["kind"]>([
   "module",
   "technical_route",
-  "scientific_principle",
-  "empirical_principle",
-  "engineering_method",
-  "manufacturing_process",
   "equipment",
   "material",
 ]);
@@ -1085,7 +945,7 @@ function topRiskNodeForProduct(graph: GraphData, productId: string): Node | null
   for (const node of graph.nodes) {
     if (node.id === productId || !reachable.has(node.id)) continue;
     if (node.reviewStatus === "deprecated") continue;
-    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
+    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind) || !isArtifactCanvasNode(node)) continue;
     const risk = nodeRiskSignal(node, graph);
     if (!best || risk > best.risk || (risk === best.risk && node.name.localeCompare(best.node.name) < 0)) {
       best = { node, risk };
@@ -1116,7 +976,7 @@ function throughputConstraintNodesForProduct(graph: GraphData, productId: string
     if (!throughputMetricIds.has(edge.target)) continue;
     const node = nodeById(graph, edge.source);
     if (!node || node.reviewStatus === "deprecated") continue;
-    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
+    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind) || !isArtifactCanvasNode(node)) continue;
     candidates.set(node.id, node);
   }
 
@@ -1423,10 +1283,6 @@ function NodeReaderPriority({
   defaultOpenExposureSummary: boolean;
 }) {
   const { nodeName, t } = useLanguage();
-  const riskScore = nodeRiskSignal(node, graph);
-  const riskLabel = isKnowHowNode(node) && riskScore === 0
-    ? t("readerHeatUnscored")
-    : heatScoreLabel(t, riskScore);
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
@@ -1460,33 +1316,6 @@ function NodeReaderPriority({
           defaultOpen={defaultOpenExposureSummary}
         />
       ) : null}
-      <details
-        className="detail-reader-secondary-details detail-reader-signal-details"
-        data-testid="detail-reader-secondary-signals"
-      >
-        <summary>{t("readerSecondarySignals")}</summary>
-        <div className="detail-reader-signal-grid">
-          <div className="detail-reader-signal">
-            <span>{t("risk")}</span>
-            <strong>{riskLabel}</strong>
-            <small>{t("readerHeatExplanation")}</small>
-          </div>
-          <div className="detail-reader-signal">
-            <span>{t("readerBottleneckRole")}</span>
-            <strong>{readerBottleneckRoleText(graph, node, nodeName, t)}</strong>
-          </div>
-          <div className="detail-reader-signal">
-            <span>{t("readerSourceTrail")}</span>
-            <strong>{readerEvidenceStatusText(evidence, t)}</strong>
-          </div>
-        </div>
-        {lockedEntry && lockedExposureMode !== "audit-preview" ? (
-          <div className="detail-reader-access locked" data-testid="detail-reader-exposure">
-            <strong>{t("readerExposureLayerLocked")}</strong>
-            <span>{formatCopy(t("readerExposureLayerLockedBody"), { n: lockedEntry.hiddenOrgCount })}</span>
-          </div>
-        ) : null}
-      </details>
     </section>
   );
 }
@@ -1822,7 +1651,7 @@ function NodeDetailInspectNext({
         <div className="detail-reader-inspect-list">
           {ranked.map((entry) => {
             const displayName = nodeName(entry.id, entry.child.name);
-            const meta = entry.source === "explicit" ? t("bottleneckBadge") : heatScoreLabel(t, entry.risk);
+            const meta = readerFacingCandidateSignal(entry.child, entry.source, t);
             return onSelectNode ? (
               <button
                 className="detail-reader-inspect-item"
@@ -1951,6 +1780,17 @@ function constraintFactorsForNode(node: Node, t: (key: string) => string): Array
   return CONSTRAINT_FACTOR_TAG_KEYS
     .filter((entry) => tags.has(entry.tag))
     .map((entry) => ({ tag: entry.tag, label: t(entry.labelKey) }));
+}
+
+function readerFacingCandidateSignal(
+  node: Node,
+  source: RankedInspectCandidate["source"],
+  t: (key: string) => string,
+): string {
+  if (source === "explicit") return t("bottleneckBadge");
+  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  if (factors.length > 0) return factors.slice(0, 2).join(" · ");
+  return t("readerThesisCandidateConstraint");
 }
 
 function opportunityCandidatesForNode(graph: GraphData, node: Node): Node[] {
@@ -2744,7 +2584,7 @@ function TopBlockers({
           const maturityLabel = entry.child.maturityLabel ?? "unknown";
           const maturityText = formatMaturityLabel(maturityLabel);
           const sourceText = entry.source === "explicit" ? t("explicitBottleneck") : maturityText;
-          const badgeText = entry.source === "explicit" ? t("bottleneckBadge") : heatScoreLabel(t, entry.risk);
+          const badgeText = readerFacingCandidateSignal(entry.child, entry.source, t);
           const factors = constraintFactorsForNode(entry.child, t);
           const riskDrivers = riskDriverText(entry.child, graph, t);
           return (
@@ -2755,7 +2595,7 @@ function TopBlockers({
                   type="button"
                   onClick={() => onSelectNode(entry.id)}
                   title={t("topBlockersRiskTooltip")}
-                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${sourceText} · ${heatScoreLabel(t, entry.risk)}`}
+                  aria-label={`${nodeName(entry.id, entry.child.name)} — ${sourceText} · ${badgeText}`}
                 >
                   <span className="top-blockers-name">{nodeName(entry.id, entry.child.name)}</span>
                   <span className="top-blockers-meta muted">

@@ -1,8 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { isArtifactCanvasNode, isCanvasTreeEdge, isKnowHowNode } from "../src/lib/canvasGraph";
 import { auditGraphTopology } from "../src/lib/graphTopologyAudit";
 import { DOMAIN_ROUTES } from "../src/lib/domains";
-import { loadActiveGraphData } from "../src/lib/graphLoader";
+import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
 import type { GraphData } from "../src/lib/schema";
 
 function topologyFixture(): GraphData {
@@ -109,4 +110,23 @@ test("commercial route topology audits have no unexplained non-material neutral 
       );
     }
   }
+});
+
+test("product-layer artifacts are never tree-positioned under know-how nodes", () => {
+  const graph = loadGraphData();
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const violations = graph.edges.flatMap((edge) => {
+    const source = nodeById.get(edge.source);
+    const target = nodeById.get(edge.target);
+    if (!source || !target) return [];
+    if (!isCanvasTreeEdge(edge, nodeById)) return [];
+    if (!isKnowHowNode(source) || !isArtifactCanvasNode(target)) return [];
+    return [`${edge.id}:${source.id}->${target.id}`];
+  });
+
+  assert.deepEqual(
+    violations,
+    [],
+    "product-first graph layout must not use know-how nodes as tree parents for artifact/product-layer nodes",
+  );
 });

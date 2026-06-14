@@ -41,6 +41,9 @@ export type ColorMode =
   | "relation";
 
 export type EdgeStyle = { stroke: string; width: number };
+export type EdgeStyleOptions = {
+  costScopeGraph?: GraphData;
+};
 
 /** 5-band width steps. Index = band-1; e.g. WIDTHS[0] = 0.8 px = band 1. */
 export const WIDTHS = [0.8, 1.6, 2.8, 4.6, 7.2] as const;
@@ -97,15 +100,15 @@ function quantizeToBand(normalised: number): 1 | 2 | 3 | 4 | 5 {
  * is one walk on the first invocation and a Map lookup on subsequent
  * calls — important because edges call this for every render.
  */
-const costThresholdsCache = new WeakMap<GraphData, number[]>();
+const costThresholdsCache = new WeakMap<GraphData, WeakMap<GraphData, number[]>>();
 const costSignalCache = new WeakMap<GraphData, Map<string, number | null>>();
 const costSignalKindCache = new WeakMap<GraphData, Map<string, CostSignalKind>>();
 const COST_FALLBACK_CAP_RMB = 100_000;
 
 export type CostSignalKind = "modeled" | "estimated" | "missing";
 
-function bandForCost(cost: number, graph: GraphData): 1 | 2 | 3 | 4 | 5 {
-  const thresholds = computeCostThresholds(graph);
+function bandForCost(cost: number, costScopeGraph: GraphData, costSignalGraph: GraphData = costScopeGraph): 1 | 2 | 3 | 4 | 5 {
+  const thresholds = computeCostThresholds(costScopeGraph, costSignalGraph);
   if (thresholds.length === 0) {
     // Fallback: fixed-cap normalisation.
     return quantizeToBand(cost / COST_FALLBACK_CAP_RMB);
@@ -121,17 +124,28 @@ function bandForCost(cost: number, graph: GraphData): 1 | 2 | 3 | 4 | 5 {
   return 1;
 }
 
-function computeCostThresholds(graph: GraphData): number[] {
-  const cached = costThresholdsCache.get(graph);
+function computeCostThresholds(costScopeGraph: GraphData, costSignalGraph: GraphData = costScopeGraph): number[] {
+  let scopeCache = costThresholdsCache.get(costScopeGraph);
+  if (!scopeCache) {
+    scopeCache = new WeakMap<GraphData, number[]>();
+    costThresholdsCache.set(costScopeGraph, scopeCache);
+  }
+  const cached = scopeCache.get(costSignalGraph);
   if (cached) return cached;
+
+  const signalNodeById =
+    costScopeGraph === costSignalGraph
+      ? null
+      : new Map(costSignalGraph.nodes.map((node) => [node.id, node]));
   const costs: number[] = [];
-  for (const node of graph.nodes) {
-    const c = nodeCostSignalRmb(node, graph);
+  for (const node of costScopeGraph.nodes) {
+    const signalNode = signalNodeById?.get(node.id) ?? node;
+    const c = nodeCostSignalRmb(signalNode, costSignalGraph);
     if (c !== null && c > 0) costs.push(c);
   }
   costs.sort((a, b) => a - b);
   if (costs.length < 5) {
-    costThresholdsCache.set(graph, []);
+    scopeCache.set(costSignalGraph, []);
     return [];
   }
   // Linear interpolation quantiles.
@@ -143,7 +157,7 @@ function computeCostThresholds(graph: GraphData): number[] {
     return costs[lo] + (idx - lo) * (costs[hi] - costs[lo]);
   };
   const thresholds = [q(0.2), q(0.4), q(0.6), q(0.8)];
-  costThresholdsCache.set(graph, thresholds);
+  scopeCache.set(costSignalGraph, thresholds);
   return thresholds;
 }
 
@@ -168,10 +182,11 @@ export function bandForValue(
   value: number,
   mode: ColorMode,
   graph?: GraphData,
+  costSignalGraph?: GraphData,
 ): 1 | 2 | 3 | 4 | 5 {
   switch (mode) {
     case "cost": {
-      if (graph) return bandForCost(value, graph);
+      if (graph) return bandForCost(value, graph, costSignalGraph ?? graph);
       // Caller didn't pass graph — fall back to fixed-cap binning.
       return quantizeToBand(value / COST_FALLBACK_CAP_RMB);
     }
@@ -203,6 +218,7 @@ export function edgeStyleFor(
   edge: Edge,
   mode: ColorMode,
   graph: GraphData,
+  options: EdgeStyleOptions = {},
 ): EdgeStyle {
   if (mode === "relation") {
     return { stroke: NEUTRAL_TINT, width: RELATION_WIDTH };
@@ -213,7 +229,7 @@ export function edgeStyleFor(
     return { stroke: NEUTRAL_TINT, width: RELATION_WIDTH };
   }
 
-  const band = bandForEdgeTarget(target, mode, graph);
+  const band = bandForEdgeTarget(target, mode, graph, options.costScopeGraph ?? graph);
   return styleForBand(band);
 }
 
@@ -233,11 +249,12 @@ function bandForEdgeTarget(
   target: Node,
   mode: ColorMode,
   graph: GraphData,
+  costScopeGraph: GraphData,
 ): 1 | 2 | 3 | 4 | 5 {
   switch (mode) {
     case "cost": {
       const cost = nodeCostSignalRmb(target, graph) ?? 0;
-      return bandForValue(cost, "cost", graph);
+      return bandForValue(cost, "cost", costScopeGraph, graph);
     }
     case "maturity": {
       // Missing maturity → band 5 (treat as "unknown / risky")? No — per

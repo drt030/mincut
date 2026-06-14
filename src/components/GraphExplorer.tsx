@@ -1246,7 +1246,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       // A4 wires `isFocusEndpoint` to the current selection; Phase B
       // will replace `selectedId` with a richer focus state.
       const isFocusEndpoint = edge.source === selectedId || edge.target === selectedId;
-      const { stroke, width } = edgeStyleFor(edge, colorMode, workingGraph);
+      const { stroke, width } = edgeStyleFor(edge, colorMode, workingGraph, { costScopeGraph: canvasGraph });
       const isRouteEdge = routeHighlight?.edgeIds.has(edge.id) ?? false;
       const dim = !subset.edges.has(edge.id) && edge.source !== selectedId && edge.target !== selectedId;
       const edgeKind = layout.edges.get(edge.id)?.style ?? "primary";

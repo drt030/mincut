@@ -35,38 +35,40 @@ test("artifact node detail lists its know-how dependencies with transactability 
   assert.match(html, /data-transactability="must_build"/);
 });
 
-test("know-how node detail shows hosted-by and holder summary", () => {
+test("know-how node detail shows hosted-by and holder summary as secondary context", () => {
   const html = renderToStaticMarkup(
     React.createElement(NodeDetailContent, { graph, node: (graph as { nodes: never[] }).nodes[1] }),
   );
+  assert.match(html, /data-testid="detail-knowhow-context"/);
   assert.match(html, /data-testid="knowhow-hosted-by"/);
   assert.match(html, /data-testid="holders-summary"/);
   assert.match(html, /data-holders-total="2"/);
   assert.match(html, /data-holders-listed="1"/);
 });
 
-test("know-how node detail keeps build/buy and holder context in the graph appendix", () => {
+test("know-how node detail keeps build/buy and holder context below primary answers", () => {
   const html = renderToStaticMarkup(
     React.createElement(NodeDetailContent, { graph, node: (graph as { nodes: never[] }).nodes[1] }),
   );
 
   assert.doesNotMatch(html, /data-testid="detail-knowhow-priority"/);
-  assert.match(html, /data-testid="knowhow-meta"[\s\S]*data-transactability="must_build"/);
+  assert.match(html, /data-testid="detail-knowhow-context"[\s\S]*data-transactability="must_build"/);
   assert.match(html, /data-testid="holders-summary"[^>]*data-holders-total="2"[^>]*data-holders-listed="1"/);
   assert.match(html, /data-testid="knowhow-hosted-by"[\s\S]*mod/);
-  assert.match(html, /Heat 83\/100/);
+  assert.doesNotMatch(html, /Heat 83\/100/);
   assert.doesNotMatch(html, /Heat 0\/100/);
   assert.ok(
-    html.indexOf('data-testid="detail-reader-priority"') < html.indexOf('data-testid="knowhow-meta"'),
+    html.indexOf('data-testid="detail-reader-priority"') < html.indexOf('data-testid="detail-knowhow-context"'),
     `know-how build/buy and holder context should stay below the reader priority area; got: ${html}`,
   );
   assert.ok(
-    html.indexOf('data-testid="detail-inspect-next"') < html.indexOf('data-testid="knowhow-meta"'),
+    html.indexOf('data-testid="detail-inspect-next"') < html.indexOf('data-testid="detail-knowhow-context"'),
     `know-how build/buy and holder context should not compete with first-screen drill-down prompts; got: ${html}`,
   );
-  assert.ok(
-    html.indexOf('data-testid="detail-relationship-lists"') < html.indexOf('data-testid="knowhow-meta"'),
-    `know-how build/buy and holder context should appear inside the graph appendix; got: ${html}`,
+  assert.equal(
+    html.indexOf('data-testid="detail-relationship-lists"'),
+    -1,
+    `know-how detail should not expose duplicate graph appendix lists; got: ${html}`,
   );
 });
 

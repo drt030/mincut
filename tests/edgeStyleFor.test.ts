@@ -22,6 +22,7 @@ import {
   WIDTHS,
   type ColorMode,
 } from "../src/lib/edgeStyleFor";
+import { filterCanvasGraph } from "../src/lib/canvasGraph";
 import { loadGraphData } from "../src/lib/graphLoader";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 
@@ -149,6 +150,7 @@ test("cost mode: lowest cost-bin → cool + width 0.8; highest cost-bin → warm
 
 test("cost mode: aggregator edge uses rolled-up cost, not stale direct cost", () => {
   const graph = loadGraphData();
+  const parcelCanvas = filterCanvasGraph(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   const parentEdge = edgeTargeting(graph, "parcel_manipulation_or_diverter");
   const childEdge = edgeTargeting(graph, "industrial_robot_arm_body");
   const parent = graph.nodes.find((node) => node.id === "parcel_manipulation_or_diverter");
@@ -160,15 +162,20 @@ test("cost mode: aggregator edge uses rolled-up cost, not stale direct cost", ()
   const childCost = nodeCostSignalRmb(child!, graph);
   assert.ok(parentCost !== null && parentCost > 100_000, `expected rolled-up parent cost >100k, got ${parentCost}`);
   assert.ok(childCost !== null && childCost > 60_000, `expected rolled-up child cost >60k, got ${childCost}`);
-  const parentStyle = edgeStyleFor(parentEdge, "cost", graph);
-  const childStyle = edgeStyleFor(childEdge, "cost", graph);
+  const parentStyle = edgeStyleFor(parentEdge, "cost", graph, { costScopeGraph: parcelCanvas });
+  const childStyle = edgeStyleFor(childEdge, "cost", graph, { costScopeGraph: parcelCanvas });
+  const globalChildStyle = edgeStyleFor(childEdge, "cost", graph);
   assert.ok(
     parentStyle.width >= childStyle.width,
     `rolled-up parent edge should be at least as prominent as the child cost edge; parent=${parentStyle.width}, child=${childStyle.width}`,
   );
   assert.ok(
+    childStyle.width > globalChildStyle.width,
+    `product-scoped cost lens should keep route cost drivers prominent instead of compressing them against the whole portfolio; scoped=${childStyle.width}, global=${globalChildStyle.width}`,
+  );
+  assert.ok(
     childStyle.width >= 4.6,
-    `child cost edge should remain in a high-cost warm band after estimate-backed domains widen the distribution; got ${childStyle.width}`,
+    `child cost edge should remain in a high-cost warm band within its product route; got ${childStyle.width}`,
   );
 });
 

@@ -87,10 +87,6 @@ function railAnalysisMode(mode: ColorMode | undefined): RailAnalysisMode {
   return "cost";
 }
 
-function formatHeatScore(value: number): string {
-  return `${Math.round(value * 100)}/100`;
-}
-
 function formatMaturityScore(node: Node): string | null {
   if (typeof node.maturityScore !== "number") return null;
   return `${Math.round(node.maturityScore)}/100`;
@@ -323,7 +319,7 @@ export function RouteDetailRail({
       keyRiskNodes: "关键风险节点",
       leastMatureDependencies: "最不成熟的依赖",
       structureHint: "中性视角只展示系统拆解，不表达成本、风险或成熟度。",
-      riskHint: "按风险信号排序，帮助先看最可能卡住的节点。",
+      riskHint: "优先看最可能影响规模、成本或采用的约束。",
       maturityHint: "优先看分数低、标签不成熟或不确定的依赖。",
       selected: "选中节点",
       links: "条链路",
@@ -355,7 +351,7 @@ export function RouteDetailRail({
       keyRiskNodes: "Key risk nodes",
       leastMatureDependencies: "Least mature dependencies",
       structureHint: "Neutral view: system breakdown only, with no cost, risk, or maturity signal.",
-      riskHint: "Sorted by risk signal so likely bottlenecks are easier to inspect first.",
+      riskHint: "Start with constraints most likely to affect scale, cost, or adoption.",
       maturityHint: "Start with the lowest scores and least mature labels.",
       selected: "Selected",
       links: "links",
@@ -387,13 +383,6 @@ export function RouteDetailRail({
         return target && target.reviewStatus !== "deprecated" ? nodeName(target.id, target.name) : null;
       })
       .filter((value): value is string => Boolean(value));
-  const bottleneckRoleText = (node: Node): string => {
-    const targetNames = bottleneckTargetNames(node);
-    if (targetNames.length === 0) return t("readerNoBottleneckMarker");
-    const visible = targetNames.slice(0, 2);
-    const suffix = targetNames.length > visible.length ? ` +${targetNames.length - visible.length}` : "";
-    return formatCopy(t("readerBottleneckFor"), { targets: `${visible.join(", ")}${suffix}` });
-  };
   const bottleneckThesisText = (node: Node): string => {
     const where = sentenceClause(nodeRoleText(node));
     const targetNames = bottleneckTargetNames(node);
@@ -702,11 +691,6 @@ export function RouteDetailRail({
       element.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "auto" });
     });
   }, [activePanel, detailIntent, exposurePointOfNeed, selectedNode?.id]);
-  const startSignalLabel = featuredStartNode
-    ? activeAnalysisMode === "maturity"
-      ? `${copy.maturityScore} ${formatMaturityScore(featuredStartNode) ?? "—"}`
-      : `${copy.riskScore} ${formatHeatScore(nodeRiskSignal(featuredStartNode, graph))}`
-    : null;
   const inspectNextNodes = useMemo(() => {
     if (!selectedSummaryNode) return [] as Node[];
     const childIds = directChildIdsByNodeId.get(selectedSummaryNode.id) ?? [];
@@ -954,25 +938,6 @@ export function RouteDetailRail({
                     ))}
                   </div>
                   <p className="route-rail-hint">{startNextBody}</p>
-                  <details
-                    className="route-reader-secondary-details"
-                    data-testid="route-start-secondary-signals"
-                  >
-                    <summary>{t("readerSecondarySignals")}</summary>
-                    <div className="route-rail-chip-row">
-                      {startSignalLabel ? <span>{startSignalLabel}</span> : null}
-                      <span>{t("readerEvidenceStatus")}: {evidenceStatusText(featuredStartNode)}</span>
-                      {keyFactorsForNode(featuredStartNode).map((factor) => (
-                        <span key={factor}>{factor}</span>
-                      ))}
-                    </div>
-                    {routeAccessChipText ? (
-                      <div className={`route-reader-access ${routeAccessChipText.className}`}>
-                        <strong>{routeAccessChipText.title}</strong>
-                        <span>{routeAccessChipText.body}</span>
-                      </div>
-                    ) : null}
-                  </details>
                 </>
               ) : (
                 <p className="muted">{copy.noPriorityNodes}</p>
@@ -1060,16 +1025,14 @@ export function RouteDetailRail({
                       const node = nodeById.get(entry.nodeId);
                       const label = node ? nodeName(node.id, node.name) : entry.nodeId;
                       const kindLabel = node ? kindName(node.kind) : "node";
-                      const scoreLabel = node && activeAnalysisMode === "bottleneck-risk"
-                        ? formatHeatScore(nodeRiskSignal(node, graph))
-                        : node
-                          ? formatMaturityScore(node) ?? "—"
-                          : "—";
+                      const scoreLabel = node ? formatMaturityScore(node) ?? "—" : "—";
                       const metaLabel = node
                         ? `${nodeRoleText(node)} · ${evidenceStatusText(node)}`
                         : kindLabel;
-                      const valueLabel = activeAnalysisMode === "bottleneck-risk"
-                        ? `${copy.riskScore} ${scoreLabel}`
+                      const valueLabel = node
+                        ? activeAnalysisMode === "maturity"
+                          ? `${copy.maturityScore} ${scoreLabel}`
+                          : evidenceStatusText(node)
                         : scoreLabel;
                       const factors = node ? keyFactorsForNode(node) : [];
                       return (
@@ -1145,42 +1108,12 @@ export function RouteDetailRail({
                             aria-label={`${t("readerInspect")} ${nodeName(node.id, node.name)}`}
                           >
                             <span>{nodeName(node.id, node.name)}</span>
-                            <small>{copy.riskScore} {formatHeatScore(nodeRiskSignal(node, graph))}</small>
+                            <small>{keyFactorsForNode(node)[0] ?? evidenceStatusText(node)}</small>
                           </button>
                         ))}
                       </div>
                     </div>
                   ) : null}
-                  <details className="route-reader-secondary-details" data-testid="route-selected-secondary-signals">
-                    <summary>{t("readerSecondarySignals")}</summary>
-                    <div className="route-rail-chip-row route-reader-secondary-signals">
-                      <span>{copy.riskScore} {formatHeatScore(nodeRiskSignal(selectedSummaryNode, graph))}</span>
-                      <span>{bottleneckRoleText(selectedSummaryNode)}</span>
-                      <span>{t("readerEvidenceStatus")}: {evidenceStatusText(selectedSummaryNode)}</span>
-                    </div>
-                    {routeAccessChipText ? (
-                      <div className={`route-reader-access ${routeAccessChipText.className}`}>
-                        <strong>{routeAccessChipText.title}</strong>
-                        <span>{routeAccessChipText.body}</span>
-                      </div>
-                    ) : null}
-                    {(() => {
-                      const maturity = formatMaturityScore(selectedSummaryNode);
-                      const cost = nodeCostSignalRmb(selectedSummaryNode, graph);
-                      const costKind = nodeCostSignalKind(selectedSummaryNode, graph);
-                      if (!maturity && !cost) return null;
-                      return (
-                        <div className="route-rail-chip-row route-reader-secondary-meta">
-                          {maturity ? <span>{copy.maturityScore} {maturity}</span> : null}
-                          {cost ? (
-                            <span>
-                              {costSignalText(cost, costKind)}
-                            </span>
-                          ) : null}
-                        </div>
-                      );
-                    })()}
-                  </details>
                   {selectedNode && canSetSelectedAsRoot ? (
                     <details className="route-reader-research-controls" data-testid="route-reader-research-controls">
                       <summary>{t("readerResearchControls")}</summary>

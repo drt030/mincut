@@ -696,8 +696,8 @@ test("route-led focus dimming preserves node and edge hue", () => {
 
   assert.ok(dotDimBlock.length > 0, "route-led graph should keep an explicit dimmed-node rule");
   assert.ok(edgeDimBlock.length > 0, "route-led graph should keep an explicit dimmed-edge rule");
-  assert.match(dotDimBlock, /opacity:\s*0\.44/, "dimmed nodes should become lighter through opacity");
-  assert.match(edgeDimBlock, /opacity:\s*0\.36/, "dimmed edges should become lighter through opacity");
+  assert.match(dotDimBlock, /opacity:\s*0\.62/, "dimmed nodes should stay readable through opacity");
+  assert.match(edgeDimBlock, /opacity:\s*0\.48/, "dimmed edges should stay readable through opacity");
   assert.doesNotMatch(
     css,
     /filter:\s*saturate\(0\)|filter:\s*grayscale/i,

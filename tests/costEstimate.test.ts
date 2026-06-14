@@ -50,3 +50,19 @@ test("live route artifact nodes always expose a modeled or estimated cost signal
     );
   }
 });
+
+test("all graph artifact nodes expose a modeled or estimated cost signal", () => {
+  const graph = loadGraphData();
+  const missing = graph.nodes.filter((node) => {
+    if (!isArtifactCanvasNode(node)) return false;
+    if (node.kind === "product") return false;
+    if (node.reviewStatus === "deprecated") return false;
+    return nodeCostSignalKind(node, graph) === "missing";
+  });
+
+  assert.deepEqual(
+    missing.map((node) => `${node.id}:${node.kind}:${node.domain.join("|")}`),
+    [],
+    "artifact nodes should never leave reader-facing cost drivers blank; use low-confidence estimates when audited cost is absent",
+  );
+});

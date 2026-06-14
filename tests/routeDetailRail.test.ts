@@ -203,14 +203,6 @@ function selectedSummary(html: string): string {
   return match[0];
 }
 
-function beforeExposureMiniCard(summary: string): string {
-  const gridIndex = summary.indexOf("route-reader-secondary-signals");
-  const accessIndex = summary.indexOf("route-reader-access");
-  assert.notEqual(gridIndex, -1, `selected summary should include secondary signal chips; got: ${summary}`);
-  assert.notEqual(accessIndex, -1, `selected summary should include an exposure mini-card; got: ${summary}`);
-  return summary.slice(gridIndex, accessIndex);
-}
-
 function startHereCard(html: string): string {
   const match = html.match(/<section[^>]*class="[^"]*route-rail-start[^"]*"[\s\S]*?<\/section>/);
   assert.ok(match, `start-here card should be addressable; got: ${html}`);
@@ -305,7 +297,8 @@ test("RouteDetailRail renders a bottleneck-risk lens summary instead of a cost r
   assert.match(html, /Start here/i);
   assert.match(html, /Key chokepoints/i);
   assert.match(html, /Precision gearbox/);
-  assert.match(html, /Heat \d+\/100/i);
+  assert.doesNotMatch(html, /Heat \d+\/100/i);
+  assert.doesNotMatch(html, /Secondary signals/i);
   assert.doesNotMatch(html, /Risk \d+%/i);
   assert.doesNotMatch(html, /Top 1-5/i);
   assert.doesNotMatch(html, /Primary cost chain/i);
@@ -350,7 +343,7 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.match(summary, /Component availability/i);
   assert.match(summary, /Relief timing/i);
   assert.match(summary, /18 months/i);
-  assert.match(summary, /Maturity 58\/100/i);
+  assert.doesNotMatch(summary, /Maturity 58\/100/i);
   const whereStart = summary.indexOf("Where it is stuck");
   const whereEnd = summary.indexOf("Investor brief");
   const whereStuck = whereStart >= 0 ? summary.slice(whereStart, whereEnd >= 0 ? whereEnd : undefined) : "";
@@ -376,10 +369,8 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
 
   const thesisIndex = summary.indexOf("Bottom line");
   assert.ok(thesisIndex >= 0, `selected summary should start with a bottleneck thesis; got: ${summary}`);
-  for (const later of ["Heat"]) {
-    const index = summary.indexOf(later);
-    assert.ok(index > thesisIndex, `${later} should be secondary to the thesis; got: ${summary}`);
-  }
+  assert.doesNotMatch(summary, /Heat \d+\/100/i);
+  assert.doesNotMatch(summary, /Secondary signals/i);
   assert.doesNotMatch(summary, /Full-free flagship demo/i);
 });
 
@@ -413,7 +404,7 @@ test("RouteDetailRail root selection summarizes the route entry instead of root 
   assert.doesNotMatch(summary, /Not priceable from reviewed data/i);
 });
 
-test("RouteDetailRail selected summary demotes Heat and exposure after the thesis", () => {
+test("RouteDetailRail selected summary omits internal Heat and access state by default", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
@@ -429,18 +420,14 @@ test("RouteDetailRail selected summary demotes Heat and exposure after the thesi
     }),
   );
   const summary = selectedSummary(html);
-  const signalBeforeExposure = beforeExposureMiniCard(summary);
   const thesisIndex = summary.indexOf("Bottom line");
-  const secondaryIndex = summary.indexOf("route-reader-secondary-signals");
 
   assert.ok(thesisIndex >= 0, `selected summary should include a thesis; got: ${summary}`);
-  assert.ok(secondaryIndex > thesisIndex, `secondary chips should follow the thesis; got: ${summary}`);
-  assert.match(signalBeforeExposure, /Heat/i);
-  assert.match(signalBeforeExposure, /Evidence strength/i);
-  assert.doesNotMatch(signalBeforeExposure, /Evidence status/i);
-  assert.doesNotMatch(signalBeforeExposure, /Maturity/i);
-  assert.doesNotMatch(signalBeforeExposure, /Cost signal/i);
-  assert.doesNotMatch(signalBeforeExposure, /p50 RMB/i);
+  assert.match(summary, /Evidence strength/i);
+  assert.doesNotMatch(summary, /Heat/i);
+  assert.doesNotMatch(summary, /route-reader-secondary-signals/i);
+  assert.doesNotMatch(summary, /Full-free flagship demo/i);
+  assert.doesNotMatch(summary, /Maturity/i);
 });
 
 test("RouteDetailRail names unknown cost and lead-time as audit gaps, not internal fields", () => {
@@ -619,13 +606,11 @@ test("RouteDetailRail selected summary does not lead with raw kind or domain tag
 
   assert.doesNotMatch(summary, /internal_tag_should_not_lead/);
   assert.doesNotMatch(summary, />module</i);
-  assert.ok(
-    summary.indexOf("Bottom line") < summary.indexOf("Heat"),
-    "plain-language bottleneck thesis should appear before signal chips",
-  );
+  assert.match(summary, /Bottom line/i);
+  assert.doesNotMatch(summary, /Heat \d+\/100/i);
 });
 
-test("RouteDetailRail start-here and chokepoints explain why before showing Heat", () => {
+test("RouteDetailRail start-here and chokepoints explain why without exposing Heat", () => {
   const graph = readerGraphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
 
@@ -660,15 +645,9 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   assert.doesNotMatch(start, /it is marked as a bottleneck/i);
   assert.doesNotMatch(start, /\{importance\}/);
   assert.doesNotMatch(start, /motion\.\./);
-  assert.ok(
-    start.indexOf("Bottom line") < start.indexOf("Heat"),
-    `start-here card should explain the bottleneck before Heat; got: ${start}`,
-  );
-  assert.match(
-    start,
-    /<details[^>]*data-testid="route-start-secondary-signals"[\s\S]*Heat[\s\S]*<\/details>/,
-    `start-here Heat and evidence status should live in collapsed secondary signals; got: ${start}`,
-  );
+  assert.doesNotMatch(start, /Heat \d+\/100/i);
+  assert.doesNotMatch(start, /route-start-secondary-signals/i);
+  assert.doesNotMatch(start, /Secondary signals/i);
 
   const chokepoints = keyChokepointsCard(html);
   assert.match(chokepoints, /Precision gearbox/);
@@ -676,12 +655,8 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   assert.doesNotMatch(chokepoints, /Maturity 42\/100/);
   assert.doesNotMatch(chokepoints, /p50 RMB 80,000/);
   assert.match(chokepoints, /Evidence coverage is still thin\./);
-  assert.match(chokepoints, /class="route-step-signal"[\s\S]*Heat \d+\/100/);
-  assert.doesNotMatch(
-    chokepoints.slice(0, chokepoints.indexOf("Precision gearbox limits repeatable arm motion.")),
-    /Heat \d+\/100/,
-    `key chokepoints should lead each item with node + why, not Heat; got: ${chokepoints}`,
-  );
+  assert.match(chokepoints, /class="route-step-signal"[\s\S]*(?:source|evidence|No direct evidence)/i);
+  assert.doesNotMatch(chokepoints, /Heat \d+\/100/i);
 });
 
 test("RouteDetailRail know-how layer names the technical view and starts from selected know-how", () => {
@@ -802,16 +777,10 @@ test("AI compute Start here prefers the HBM / advanced-packaging mainline over s
     /<button[^>]*class="[^"]*route-reader-next-step-button[^"]*"[\s\S]*Evidence[\s\S]*<\/button>/,
     `Start here should expose evidence as a working Detail CTA; got: ${start}`,
   );
-  assert.match(
-    start,
-    /<details[^>]*data-testid="route-start-secondary-signals"[\s\S]*Heat[\s\S]*Evidence strength[\s\S]*<\/details>/,
-    `Heat and source trail should be collapsed secondary signals on the start card; got: ${start}`,
-  );
-
-  const beforeSignals = start.slice(0, start.indexOf('data-testid="route-start-secondary-signals"'));
-  assert.doesNotMatch(beforeSignals, /Heat \d+\/100/i);
-  assert.doesNotMatch(beforeSignals, /Evidence status/i);
-  assert.doesNotMatch(beforeSignals, /\d+ reviewed \/ \d+ total evidence records/i);
+  assert.doesNotMatch(start, /route-start-secondary-signals/i);
+  assert.doesNotMatch(start, /Heat \d+\/100/i);
+  assert.doesNotMatch(start, /Evidence status/i);
+  assert.doesNotMatch(start, /\d+ reviewed \/ \d+ total evidence records/i);
   assert.doesNotMatch(html, /77 suppliers hidden/i);
   assert.doesNotMatch(html, /paid exposure layer/i);
 });
@@ -883,7 +852,7 @@ test("RouteDetailRail locked supplier CTA advertises exposure at the point of ne
   assert.match(start, /Show locked exposure/);
 });
 
-test("RouteDetailRail renders preview access distinctly instead of labeling it unlocked", () => {
+test("RouteDetailRail keeps preview access state out of selected summary", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
@@ -900,8 +869,8 @@ test("RouteDetailRail renders preview access distinctly instead of labeling it u
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Preview only: graph route not live/i);
-  assert.match(summary, /Supplier\/ticker exposure is not shown on this route yet/i);
+  assert.doesNotMatch(summary, /Preview only: graph route not live/i);
+  assert.doesNotMatch(summary, /Supplier\/ticker exposure is not shown on this route yet/i);
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
 });
 

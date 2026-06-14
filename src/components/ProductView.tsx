@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import { useLanguage } from "./LanguageProvider";
 import { EvidenceList } from "./EvidenceList";
 import { ExposureLockCta, useLockedDomainForNode } from "./ExposureLockCta";
+import { isArtifactCanvasNode } from "@/lib/canvasGraph";
 import {
   bottlenecksForNode,
   evidenceForNode,
@@ -356,10 +357,6 @@ function investorAnswerForProduct(graph: GraphData, product: Node): ProductInves
 const INVESTOR_RISK_NODE_KINDS = new Set<Node["kind"]>([
   "module",
   "technical_route",
-  "scientific_principle",
-  "empirical_principle",
-  "engineering_method",
-  "manufacturing_process",
   "equipment",
   "material",
 ]);
@@ -370,7 +367,7 @@ function topRiskNodeForProduct(graph: GraphData, productId: string): Node | null
   for (const node of graph.nodes) {
     if (node.id === productId || !reachable.has(node.id)) continue;
     if (node.reviewStatus === "deprecated") continue;
-    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
+    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind) || !isArtifactCanvasNode(node)) continue;
     const risk = nodeRisk(node, graph);
     if (!best || risk > best.risk || (risk === best.risk && node.name.localeCompare(best.node.name) < 0)) {
       best = { node, risk };
@@ -430,7 +427,7 @@ function throughputConstraintNodesForProduct(graph: GraphData, productId: string
     if (edge.relation !== "depends_on_metric" || !throughputMetricIds.has(edge.target)) continue;
     const node = nodeById(graph, edge.source);
     if (!node || node.reviewStatus === "deprecated") continue;
-    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind)) continue;
+    if (!INVESTOR_RISK_NODE_KINDS.has(node.kind) || !isArtifactCanvasNode(node)) continue;
     candidates.set(node.id, node);
   }
   return [...candidates.values()]

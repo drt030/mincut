@@ -544,25 +544,25 @@ test("expanded: bottleneck role is distinct from downstream bottleneck count", (
     onClose: noop,
   });
 
-  assert.match(
+  assert.doesNotMatch(
     html,
     /Bottleneck role/,
-    `a node that blocks an upstream product must surface its own bottleneck role; got: ${html}`,
+    `bottleneck role must not appear as a low-value secondary signal block; got: ${html}`,
   );
   assert.match(
     html,
-    /Bottleneck for/,
-    `bottleneck-role signal must name what the node blocks instead of relying on an "Active" tile; got: ${html}`,
+    /300,000 RMB parcel-sorting robot depends on this constraint scaling/,
+    `bottleneck impact should be integrated into the bottom-line thesis; got: ${html}`,
   );
   assert.doesNotMatch(
     html,
     /<span>Bottlenecks<\/span><strong>0<\/strong>/,
     `a node that is itself a bottleneck must not render the misleading "Bottlenecks 0" priority tile; got: ${html}`,
   );
-  assert.match(
+  assert.doesNotMatch(
     html,
     /Downstream bottleneck children/,
-    `downstream bottleneck lists should be explicitly scoped to child nodes; got: ${html}`,
+    `duplicate downstream bottleneck lists should stay out of the reader UI; got: ${html}`,
   );
 });
 
@@ -586,13 +586,10 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   const secondaryResearchIndex = html.indexOf('data-testid="detail-secondary-research"');
   const supplementaryIndex = html.indexOf('data-testid="detail-supplementary-appendix"');
   const technicalMetadataIndex = html.indexOf('data-testid="detail-technical-metadata"');
-  const rawDomainIndex = html.indexOf(focused.domain[0], technicalMetadataIndex);
-  const rawKindIndex = html.indexOf(`>${focused.kind}<`, technicalMetadataIndex);
   const metricsIndex = html.indexOf('data-testid="detail-metric-details"');
   const relationshipListsIndex = html.indexOf('data-testid="detail-relationship-lists"');
   const downstreamListIndex = html.indexOf("Downstream bottleneck children");
   const evidenceListIndex = html.indexOf('data-testid="evidence-list"');
-  const relationshipLists = detailDisclosure(html, "detail-relationship-lists");
 
   assert.ok(thesisIndex >= 0, `full detail must start with bottleneck thesis; got: ${html}`);
   assert.ok(decisionBriefIndex >= 0, `decision brief should be present; got: ${html}`);
@@ -607,21 +604,15 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.doesNotMatch(
     html,
     /<details[^>]*data-testid="detail-(full-evidence-list|technical-metadata|relationship-lists)"/,
-    "full evidence, raw metadata, and duplicate relationship lists should be sections inside the single supplementary appendix, not separate accordions",
+    "full evidence should be the single supplementary appendix section, not nested accordions",
   );
   assert.equal(evidenceStatusIndex, -1, `public detail must not expose internal evidence status language; got: ${html}`);
-  assert.ok(technicalMetadataIndex >= 0, `technical metadata should still render after the reader block; got: ${html}`);
-  assert.ok(rawDomainIndex >= 0, `raw domain tag should still render later; got: ${html}`);
-  assert.ok(rawKindIndex >= 0, `raw kind tag should still render later; got: ${html}`);
+  assert.equal(technicalMetadataIndex, -1, `public detail must not expose raw technical metadata; got: ${html}`);
   assert.equal(metricsIndex, -1, `raw metrics should not render as a user-facing detail section; got: ${html}`);
-  assert.ok(relationshipListsIndex > technicalMetadataIndex, `graph appendix should sit below the primary evidence and metadata path; got: ${html}`);
-  assert.ok(downstreamListIndex >= 0, `technical downstream lists should still render later; got: ${html}`);
-  assert.ok(decisionBriefIndex < rawKindIndex, "decision brief should appear before the raw kind tag");
-  assert.ok(thesisIndex < rawKindIndex, "reader thesis should appear before the raw kind tag");
+  assert.equal(relationshipListsIndex, -1, `public detail must not expose duplicate relationship lists; got: ${html}`);
+  assert.equal(downstreamListIndex, -1, `public detail must not repeat graph upstream/downstream lists; got: ${html}`);
   assert.ok(whereIndex < exposureSummaryIndex, "Where it is stuck should still appear before the supplier/evidence quick path");
-  assert.ok(evidenceSummaryIndex < rawDomainIndex, "evidence summary should appear before raw domain tags");
   assert.ok(evidenceSummaryIndex < evidenceListIndex, "evidence summary should appear before the full evidence list");
-  assert.ok(evidenceListIndex < relationshipListsIndex, "full evidence should appear before the duplicate graph appendix");
   assert.match(html, /Bottom line/i, `full detail should lead with a bottom-line decision; got: ${html}`);
   assert.match(html, /Where it is stuck/i, `full detail should expose stuck factors before raw metadata; got: ${html}`);
   assert.match(html, /Investor brief/i, `full detail should include a concise investor research brief after the bottom line; got: ${html}`);
@@ -629,21 +620,6 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.match(html, /Relief timing/i, `decision brief should say whether the constraint is quick or slow to relieve; got: ${html}`);
   assert.match(html, /Inspect next/i, `full detail should give the reader next inspection targets; got: ${html}`);
   assert.match(html.slice(supplementaryIndex, supplementaryIndex + 260), /Supplementary appendix/i);
-  assert.match(
-    detailDisclosure(html, "detail-technical-metadata"),
-    /<strong>Technical details<\/strong>/,
-    "raw kind/domain/targetContext should be inside the supplementary technical metadata block",
-  );
-  assert.match(
-    detailDisclosure(html, "detail-relationship-lists"),
-    /<strong>Graph appendix<\/strong>/,
-    "upstream/downstream/sibling lists should be demoted into the supplementary graph appendix",
-  );
-  assert.doesNotMatch(
-    relationshipLists,
-    /<button[^>]*class="link-button"/,
-    "graph appendix should be static audit context and must not change the focused node",
-  );
   assert.match(
     detailDisclosure(html, "detail-full-evidence-list"),
     /data-testid="evidence-list"/,
@@ -689,7 +665,7 @@ test("expanded: AI compute detail treats locked exposure input as silently avail
   );
 });
 
-test("expanded: AI compute detail exposes supplier tickers after the why/stuck/evidence sequence and before relationship lists", () => {
+test("expanded: AI compute detail exposes supplier tickers after the why/stuck/evidence sequence without graph appendix noise", () => {
   const focused = nodeById(AI_COMPUTE_ROOT_ID);
   const html = renderWithLockedExposure({
     graph,
@@ -703,10 +679,9 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
   const whereStuckIndex = html.indexOf('data-testid="detail-where-stuck"');
   const evidenceSummaryIndex = html.indexOf('data-testid="detail-evidence-summary"');
   const relationshipListsIndex = html.indexOf('data-testid="detail-relationship-lists"');
-  const secondarySignalsIndex = html.indexOf("detail-reader-signal-grid");
+  const supplementaryIndex = html.indexOf('data-testid="detail-supplementary-appendix"');
   const summaryStart = html.lastIndexOf("<div", summaryIndex);
-  const summary = html.slice(summaryStart, secondarySignalsIndex);
-  const relationshipLists = detailDisclosure(html, "detail-relationship-lists");
+  const summary = html.slice(summaryStart, supplementaryIndex);
   const thesis = detailReaderPriority(html).match(/<div[^>]*data-testid="detail-bottleneck-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
   assert.ok(summaryIndex >= 0, `supplier/evidence summary should be present; got: ${html}`);
@@ -714,8 +689,8 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
   assert.ok(evidenceSummaryIndex > 0, `key evidence summary should be present; got: ${html}`);
   assert.ok(whereStuckIndex < evidenceSummaryIndex, `Where it is stuck should appear before key evidence; got: ${html}`);
   assert.ok(summaryIndex > evidenceSummaryIndex, `supplier/ticker quick path should appear after bottom line/stuck factors/evidence; got: ${html}`);
-  assert.ok(relationshipListsIndex > summaryIndex, `supplier/ticker summary must appear before Relationship lists; got: ${html}`);
-  assert.ok(secondarySignalsIndex > summaryIndex, `supplier/ticker summary should appear before secondary Heat/Evidence signals; got: ${html}`);
+  assert.equal(relationshipListsIndex, -1, `supplier/ticker summary must not be followed by duplicate Relationship lists; got: ${html}`);
+  assert.ok(supplementaryIndex > summaryIndex, `supplier/ticker summary should appear before the collapsed supplementary evidence appendix; got: ${html}`);
   assert.doesNotMatch(
     thesis,
     /carried on a high-layer-count organic substrate/i,
@@ -731,8 +706,6 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
   assert.match(summary, /Source quick path/i);
   assert.doesNotMatch(summary.trim(), /^0 reviewed/i);
   assert.doesNotMatch(summary, /77 suppliers hidden|paid exposure layer/i);
-  assert.doesNotMatch(relationshipLists, /Supplier \/ evidence quick path|Evidence quick path/i);
-  assert.doesNotMatch(relationshipLists, /2330\.TW|000660\.KS|2311\.TW|005930\.KS/);
 });
 
 test("expanded: supplier/ticker intent opens the exposure summary at the point of need", () => {
@@ -865,20 +838,22 @@ test("expanded: bottleneck detail surfaces structured constraint factors", () =>
     onClose: noop,
   });
 
-  assert.match(
+  const whereStuck = html.match(/<div[^>]*data-testid="detail-where-stuck"[\s\S]*?<\/div>/)?.[0] ?? "";
+  const decisionBrief = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? "";
+  assert.doesNotMatch(
     html,
     /Constraint factors/,
-    `expanded bottleneck detail must expose a dedicated constraint-factor section; got: ${html}`,
+    `constraint factors should not be exposed as a separate metadata section; got: ${html}`,
   );
   assert.match(
-    html,
+    whereStuck,
     /Technical maturity/,
-    `constraint-factor section must show technical maturity as a limiting factor; got: ${html}`,
+    `Where it is stuck must show technical maturity as a limiting factor; got: ${html}`,
   );
   assert.match(
-    html,
+    decisionBrief,
     /Integration \/ commissioning/,
-    `constraint-factor section must show integration/commissioning as a limiting factor; got: ${html}`,
+    `Investor brief must show integration/commissioning as a limiting factor; got: ${html}`,
   );
 });
 
@@ -1119,12 +1094,13 @@ test("expanded: organization detail keeps raw metrics out of the main UI while p
     /Organization metrics \/ investor exposure/,
     `organization detail should not expose raw node-level metrics as a main UI section; got: ${html}`,
   );
-  assert.match(
-    html,
+  const mainUi = html.slice(0, html.indexOf('data-testid="detail-supplementary-appendix"'));
+  assert.doesNotMatch(
+    mainUi,
     /FY2025 Digital Industries revenue/,
-    `Siemens detail must show its annual-report automation exposure metric; got: ${html}`,
+    `organization detail must not expose raw revenue metrics in the main reader UI; got: ${html}`,
   );
-  assert.match(html, /17\.788/, `Siemens detail must show the revenue value; got: ${html}`);
+  assert.doesNotMatch(mainUi, /17\.788/, `organization detail must not expose raw revenue values in the main reader UI; got: ${html}`);
   assert.match(
     html,
     /Siemens Annual Report 2025/,
@@ -1200,25 +1176,30 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
     /Top risk bottleneck/,
     `product readout must explicitly identify the top risk bottleneck; got: ${html}`,
   );
-  assert.match(
+  assert.doesNotMatch(
     html,
     /Heat \d+\/100/,
-    `investor panel must display the pressure score as Heat N/100 instead of a probability; got: ${html}`,
+    `product readout must not expose internal Heat scores by default; got: ${html}`,
   );
   assert.doesNotMatch(
     html,
     /Risk \d+%/,
     `investor panel must not display risk scores as probability-like percentages; got: ${html}`,
   );
-  assert.match(
+  assert.doesNotMatch(
     html,
-    /Relative pressure signal: cost\/maturity where available, boosted by explicit bottleneck claims\. Not a probability\./,
-    `heat score tooltip must explain the pressure signal is not a probability; got: ${html}`,
+    /Relative pressure signal:/,
+    `product readout should not need an internal score tooltip when Heat is hidden; got: ${html}`,
   );
   assert.match(
     html,
-    /Parcel pick-and-place execution subsystem/,
-    `investor panel must surface the highest-risk product subsystem; got: ${html}`,
+    /Conveyor integration/,
+    `investor panel must surface the highest-risk product-layer artifact subsystem; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html.match(/<div[^>]*data-testid="detail-product-readout"[\s\S]*?<\/div>/)?.[0] ?? "",
+    /Maintenance workflow/,
+    `product-level top risk must not be an operational workflow hidden from the canvas artifact layer; got: ${html}`,
   );
   assert.match(
     html,
@@ -1339,13 +1320,13 @@ test("expanded: SpaceX product readout uses the same bottleneck signal as the ro
 
     assert.match(
       topRiskRow,
-      /Heat (9[0-9]|100)\/100/,
-      `SpaceX product readout should honor explicit bottleneck claims instead of showing a zero-cost fallback for ${rootId}; got: ${topRiskRow || html}`,
+      /Top risk bottleneck/,
+      `SpaceX product readout should still identify the top bottleneck for ${rootId}; got: ${topRiskRow || html}`,
     );
     assert.doesNotMatch(
       topRiskRow,
-      /Heat 0\/100/,
-      `SpaceX product readout must not show a 0/100 top-risk contradiction for ${rootId}; got: ${topRiskRow}`,
+      /Heat \d+\/100/,
+      `SpaceX product readout must not show an internal Heat score for ${rootId}; got: ${topRiskRow}`,
     );
   }
 });
