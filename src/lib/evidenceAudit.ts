@@ -125,6 +125,38 @@ export function applyMechanicalChanges(
   return { graph: { ...graph, nodes, evidence }, changes };
 }
 
+/**
+ * Persist machineCheck onto a flat evidence array (one source file). Pure: returns
+ * a new array. Demoted/dead records are stamped `failed` (visibly flagged); records
+ * in `verifiedIds` are stamped `verified` (overrides their bucket). Records with no
+ * audit entry are left untouched. NEVER writes reviewStatus.
+ */
+export function stampMachineChecks(
+  evidence: Evidence[],
+  audits: RecordAudit[],
+  checkedAsOf: string,
+  verifiedIds: Set<string>,
+): Evidence[] {
+  const byId = new Map(audits.map((a) => [a.id, a]));
+  return evidence.map((item) => {
+    if (verifiedIds.has(item.id)) {
+      return { ...item, machineCheck: { status: "verified" as const, checkedAsOf } };
+    }
+    const audit = byId.get(item.id);
+    if (!audit) return item;
+    const status: "structural_ok" | "failed" | "needs_fetch" =
+      audit.bucket === "demote" || audit.bucket === "failed"
+        ? "failed"
+        : audit.bucket === "needs_fetch"
+          ? "needs_fetch"
+          : "structural_ok";
+    return {
+      ...item,
+      machineCheck: { status, checkedAsOf, notes: audit.reasons.join("; ") || undefined },
+    };
+  });
+}
+
 export const agentVerdictsSchema = z.object({
   verified: z.array(
     z.object({

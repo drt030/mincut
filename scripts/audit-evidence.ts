@@ -7,11 +7,12 @@
 // and summarized; persisting them to data/ files (and the agent judgment layer)
 // are separate steps. Number-vs-quote verification is deferred to the agent
 // layer because metric nodes carry no structured numeric value field yet.
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, readFileSync, readdirSync, mkdirSync } from "node:fs";
+import path from "node:path";
 import { DOMAIN_ROUTES } from "../src/lib/domains";
 import { loadGraphData } from "../src/lib/graphLoader";
-import { buildWorklist, applyMechanicalChanges, type RecordAudit } from "../src/lib/evidenceAudit";
-import type { GraphData } from "../src/lib/schema";
+import { buildWorklist, applyMechanicalChanges, stampMachineChecks, type RecordAudit } from "../src/lib/evidenceAudit";
+import type { Evidence, GraphData } from "../src/lib/schema";
 
 const arg = (flag: string): string | undefined => {
   const i = process.argv.indexOf(flag);
@@ -78,6 +79,30 @@ async function main() {
     highStakesEvidenceIds,
   });
   const { changes } = applyMechanicalChanges(graph, worklist, today());
+
+  // --write: persist machineCheck onto the evidence source file(s) that hold these ids.
+  // --verdicts <file>: a judgment-layer output ({ verified:[{id}], escalations:[] }); its
+  //   ids are stamped `verified` (overriding their bucket).
+  if (has("--write")) {
+    const verdictsPath = arg("--verdicts");
+    const verifiedIds = new Set<string>(
+      verdictsPath
+        ? (JSON.parse(readFileSync(verdictsPath, "utf8")).verified ?? []).map((v: { id: string }) => v.id)
+        : [],
+    );
+    const auditedIds = new Set(worklist.map((r) => r.id));
+    const evDir = path.join("data", "evidence");
+    let filesChanged = 0;
+    for (const file of readdirSync(evDir).filter((f) => f.endsWith(".json"))) {
+      const full = path.join(evDir, file);
+      const records: Evidence[] = JSON.parse(readFileSync(full, "utf8"));
+      if (!Array.isArray(records) || !records.some((r) => auditedIds.has(r.id))) continue;
+      const stamped = stampMachineChecks(records, worklist, today(), verifiedIds);
+      writeFileSync(full, JSON.stringify(stamped, null, 2) + "\n");
+      filesChanged += 1;
+    }
+    console.log(`--write: stamped machineCheck across ${filesChanged} evidence file(s); verified=${verifiedIds.size}.`);
+  }
 
   const outDir = `.scratch/audit-${slug}-${today()}`;
   mkdirSync(outDir, { recursive: true });
