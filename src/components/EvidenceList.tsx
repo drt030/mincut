@@ -6,17 +6,18 @@ import type { Evidence } from "@/lib/schema";
 
 type EvidenceListProps = {
   evidence: Evidence[];
+  showInternalReviewState?: boolean;
 };
 
-export function EvidenceList({ evidence }: EvidenceListProps) {
+export function EvidenceList({ evidence, showInternalReviewState = false }: EvidenceListProps) {
   const { t } = useLanguage();
+  const displayEvidenceText = showInternalReviewState ? rawEvidenceText : publicEvidenceText;
   return (
     <div className="evidence-list-section" data-testid="evidence-list">
       <strong>{t("evidence")}</strong>
       {evidence.length ? (
         <ul className="metric-detail-list evidence-detail-list">
           {evidence.map((item) => {
-            const status = item.reviewStatus ?? "unreviewed";
             return (
               <li className="metric-detail-row" key={item.id}>
                 <div className="metric-detail-row-head">
@@ -28,7 +29,9 @@ export function EvidenceList({ evidence }: EvidenceListProps) {
                     <span>{item.title}</span>
                   )}
                   <span className="pill">{t("evidenceTypeLabel")}: {humanizeEvidenceToken(item.type)}</span>
-                  <span className="pill">{t("reviewStatusLabel")}: {status}</span>
+                  {showInternalReviewState ? (
+                    <span className="pill">{t("reviewStatusLabel")}: {item.reviewStatus ?? "unreviewed"}</span>
+                  ) : null}
                   {item.confidence ? (
                     <span className="pill">{t("confidence")}: {item.confidence}</span>
                   ) : null}
@@ -47,10 +50,10 @@ export function EvidenceList({ evidence }: EvidenceListProps) {
                     ) : null}
                   </div>
                 ) : null}
-                {item.summary ? <p className="metric-detail-description">{item.summary}</p> : null}
+                {item.summary ? <p className="metric-detail-description">{displayEvidenceText(item.summary)}</p> : null}
                 {item.limitations ? (
                   <p className="metric-detail-description">
-                    <strong>{t("evidenceLimitations")}:</strong> {item.limitations}
+                    <strong>{t("evidenceLimitations")}:</strong> {displayEvidenceText(item.limitations)}
                   </p>
                 ) : null}
               </li>
@@ -66,4 +69,17 @@ export function EvidenceList({ evidence }: EvidenceListProps) {
 
 function humanizeEvidenceToken(value: string): string {
   return value.replace(/_/g, " ");
+}
+
+function rawEvidenceText(value: string): string {
+  return value;
+}
+
+function publicEvidenceText(value: string): string {
+  return value
+    .replace(/\bunreviewed\b/gi, "not independently validated")
+    .replace(/\bneed human review\b/gi, "pending independent validation")
+    .replace(/\bneeds human review\b/gi, "pending independent validation")
+    .replace(/\bneed review\b/gi, "pending independent validation")
+    .replace(/\bneeds review\b/gi, "pending independent validation");
 }

@@ -967,7 +967,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       setGraphLayer("knowhow");
     }
     setSelectedId(nodeId);
-    setRailPanel(isKnowHowSelection ? "detail" : "route");
+    setRailPanel("detail");
   }, [canvasGraph.nodes]);
 
   const requestAgentExpansion = useCallback(async () => {

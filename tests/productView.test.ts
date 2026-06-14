@@ -68,19 +68,22 @@ test("ProductView surfaces an investor answer summary for the active product", (
   );
 });
 
-test("ProductView evidence card exposes provenance and review quality", () => {
+test("ProductView evidence card exposes provenance without raw review state", () => {
   const graph = loadGraphData();
   const node = nodeById(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.ok(node);
 
   const html = renderToStaticMarkup(React.createElement(ProductView, { graph, product: node }));
+  const evidenceStart = html.indexOf('data-testid="evidence-list"');
+  assert.ok(evidenceStart >= 0, `ProductView should render the evidence list; got: ${html}`);
+  const evidenceHtml = html.slice(evidenceStart);
 
-  assert.match(html, /Initial target definition for a 300,000 RMB parcel sorting cell/);
-  assert.match(html, /Type.*internal note/);
-  assert.match(html, /Status.*reviewed/);
-  assert.match(html, /confidence.*medium/);
-  assert.match(html, /Source.*Project initialization document/);
-  assert.match(html, /Date.*2026-04-26/);
-  assert.match(html, /Limitations.*Internal planning evidence only/);
-  assert.match(html, /Status.*unreviewed/);
+  assert.match(evidenceHtml, /Initial target definition for a 300,000 RMB parcel sorting cell/);
+  assert.match(evidenceHtml, /Type.*internal note/);
+  assert.match(evidenceHtml, /confidence.*medium/);
+  assert.match(evidenceHtml, /Source.*Project initialization document/);
+  assert.match(evidenceHtml, /Date.*2026-04-26/);
+  assert.match(evidenceHtml, /Limitations.*Internal planning evidence only/);
+  assert.doesNotMatch(evidenceHtml, /Status.*(?:reviewed|unreviewed)/i);
+  assert.doesNotMatch(evidenceHtml, /reviewStatus/i);
 });

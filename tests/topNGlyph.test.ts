@@ -512,7 +512,7 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh reader
   );
 });
 
-test("GraphExplorer.tsx regression guard: product nodes keep summary first while know-how opens detail", () => {
+test("GraphExplorer.tsx regression guard: explicit node clicks open detail while URL focus starts on summary", () => {
   const filePath = path.join(
     process.cwd(),
     "src",
@@ -535,13 +535,13 @@ test("GraphExplorer.tsx regression guard: product nodes keep summary first while
   );
   assert.match(
     onSelectBlock,
-    /setRailPanel\(isKnowHowSelection \? ["']detail["'] : ["']route["']\);/,
-    "product nodes should keep the reader summary first, while know-how nodes should open the technical detail panel",
+    /setRailPanel\(["']detail["']\);/,
+    "an explicit graph node click should keep the user's exploration flow in node detail, regardless of product vs know-how layer",
   );
   assert.doesNotMatch(
     onSelectBlock,
-    /setRailPanel\(["']detail["']\);/,
-    "node selection must not force every node directly into the full technical detail tab",
+    /setRailPanel\(isKnowHowSelection \? ["']detail["'] : ["']route["']\);/,
+    "product node clicks must not bounce the rail back to Start here",
   );
 });
 

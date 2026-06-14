@@ -103,6 +103,8 @@ function readerGraphFixture(): GraphData {
         maturityScore: 58,
         maturityLabel: "prototype",
         bottleneckOf: ["root_product"],
+        capacityLeadTimeMonths: 18,
+        tags: ["constraint_capacity_scale", "constraint_component_availability"],
       }),
       costNode("gearbox", "Precision gearbox", 80_000, {
         domain: ["ai_compute_chain"],
@@ -338,9 +340,18 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.doesNotMatch(summary, /\{importance\}/);
   assert.doesNotMatch(summary, /sorter\.\./);
   assert.match(summary, /Where it is stuck/i);
+  assert.match(summary, /Decision brief/i);
+  assert.match(summary, /Cost/i);
+  assert.match(summary, /Supply constraint/i);
+  assert.match(summary, /Capacity \/ scale/i);
+  assert.match(summary, /Component availability/i);
+  assert.match(summary, /Relief timing/i);
+  assert.match(summary, /18 months/i);
   assert.match(summary, /Maturity 58\/100/i);
-  assert.match(summary, /Key evidence summary/i);
-  assert.match(summary, /2 reviewed \/ 3 total evidence records/i);
+  assert.match(summary, /Key sources/i);
+  assert.match(summary, /3 source records linked/i);
+  assert.doesNotMatch(summary, /Evidence status/i);
+  assert.doesNotMatch(summary, /reviewed \/ .*total evidence records/i);
   assert.match(summary, /Inspect next/i);
   assert.match(summary, /Precision gearbox/);
   assert.match(summary, /Servo motor/);
@@ -349,14 +360,14 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
 
   const thesisIndex = summary.indexOf("Bottleneck thesis");
   assert.ok(thesisIndex >= 0, `selected summary should start with a bottleneck thesis; got: ${summary}`);
-  for (const later of ["Heat", "Evidence status"]) {
+  for (const later of ["Heat"]) {
     const index = summary.indexOf(later);
     assert.ok(index > thesisIndex, `${later} should be secondary to the thesis; got: ${summary}`);
   }
   assert.doesNotMatch(summary, /Full-free flagship demo/i);
 });
 
-test("RouteDetailRail selected summary demotes Heat, evidence status, and exposure after the thesis", () => {
+test("RouteDetailRail selected summary demotes Heat and exposure after the thesis", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
@@ -379,7 +390,8 @@ test("RouteDetailRail selected summary demotes Heat, evidence status, and exposu
   assert.ok(thesisIndex >= 0, `selected summary should include a thesis; got: ${summary}`);
   assert.ok(secondaryIndex > thesisIndex, `secondary chips should follow the thesis; got: ${summary}`);
   assert.match(signalBeforeExposure, /Heat/i);
-  assert.match(signalBeforeExposure, /Evidence status/i);
+  assert.match(signalBeforeExposure, /Source trail/i);
+  assert.doesNotMatch(signalBeforeExposure, /Evidence status/i);
   assert.doesNotMatch(signalBeforeExposure, /Maturity/i);
   assert.doesNotMatch(signalBeforeExposure, /Cost signal/i);
   assert.doesNotMatch(signalBeforeExposure, /p50 RMB/i);
@@ -578,8 +590,8 @@ test("AI compute Start here prefers the HBM / advanced-packaging mainline over s
   );
   assert.match(
     start,
-    /<details[^>]*data-testid="route-start-secondary-signals"[\s\S]*Heat[\s\S]*Evidence status[\s\S]*<\/details>/,
-    `Heat and Evidence status should be collapsed secondary signals on the start card; got: ${start}`,
+    /<details[^>]*data-testid="route-start-secondary-signals"[\s\S]*Heat[\s\S]*Source trail[\s\S]*<\/details>/,
+    `Heat and source trail should be collapsed secondary signals on the start card; got: ${start}`,
   );
 
   const beforeSignals = start.slice(0, start.indexOf('data-testid="route-start-secondary-signals"'));
@@ -753,7 +765,7 @@ test("RouteDetailRail selected summary says when there is no direct evidence", (
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Evidence status/i);
+  assert.match(summary, /Source trail/i);
   assert.match(summary, /No direct evidence/i);
 });
 

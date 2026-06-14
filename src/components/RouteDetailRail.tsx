@@ -416,6 +416,59 @@ export function RouteDetailRail({
     if (summary.total === 0) return t("readerEvidenceThin");
     return evidenceStatusText(node);
   };
+  const constraintSummaryText = (node: Node): string => {
+    const factors = constraintFactorsForNode(node, t);
+    return factors.length > 0 ? factors.join(" · ") : t("readerConstraintUnclassified");
+  };
+  const reliefTimingText = (node: Node): string => {
+    const months = node.capacityLeadTimeMonths;
+    if (typeof months === "number") {
+      if (months <= 3) return formatCopy(t("readerReliefTimingShort"), { months });
+      if (months <= 12) return formatCopy(t("readerReliefTimingMedium"), { months });
+      return formatCopy(t("readerReliefTimingLong"), { months });
+    }
+    const tags = new Set(node.tags ?? []);
+    if (
+      tags.has("constraint_capacity_scale") ||
+      tags.has("constraint_material_supply_chain") ||
+      tags.has("constraint_component_availability")
+    ) {
+      return t("readerReliefTimingLikelyLong");
+    }
+    if (tags.has("constraint_integration_commissioning") || tags.has("constraint_technical_maturity")) {
+      return t("readerReliefTimingExecution");
+    }
+    return t("readerReliefTimingUnknown");
+  };
+  const routeDecisionBrief = (node: Node): React.ReactNode => {
+    const cost = nodeCostSignalRmb(node, graph);
+    return (
+      <div
+        className="detail-decision-brief route-reader-decision-brief"
+        data-testid="route-selected-decision-brief"
+      >
+        <strong>{t("readerDecisionBrief")}</strong>
+        <div className="detail-decision-grid">
+          <div>
+            <span>{t("readerCostMagnitude")}</span>
+            <strong>{cost ? formatRmb(cost) : t("readerCostNotModeled")}</strong>
+          </div>
+          <div>
+            <span>{t("readerSupplyConstraint")}</span>
+            <strong>{constraintSummaryText(node)}</strong>
+          </div>
+          <div>
+            <span>{t("readerReliefTiming")}</span>
+            <strong>{reliefTimingText(node)}</strong>
+          </div>
+          <div>
+            <span>{t("readerSourceTrail")}</span>
+            <strong>{evidenceStatusText(node)}</strong>
+          </div>
+        </div>
+      </div>
+    );
+  };
   const defaultStartNodeId = activeAnalysisMode === "relation"
     ? firstLayerNodes[0]?.id
     : activeAnalysisMode === "cost"
@@ -971,6 +1024,7 @@ export function RouteDetailRail({
                       ))}
                     </div>
                   </div>
+                  {routeDecisionBrief(selectedNode)}
                   <div className="route-reader-evidence-summary">
                     <span>{t("readerKeyEvidenceSummary")}</span>
                     <p>{keyEvidenceSummaryText(selectedNode)}</p>

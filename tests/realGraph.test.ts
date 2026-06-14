@@ -2,9 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { rollupCost } from "../src/lib/costRollup";
+import { nodeCostSignalRmb } from "../src/lib/edgeStyleFor";
 import { nodeRisk } from "../src/lib/nodeRisk";
 import { edgeTintFor } from "../src/lib/edgeTint";
-import { siblingProductsForProduct } from "../src/lib/graphTraversal";
+import { manufacturersForNode, siblingProductsForProduct } from "../src/lib/graphTraversal";
 
 /**
  * Integration tests against the real parcel-sorting graph. Unlike the
@@ -201,4 +202,62 @@ test("real graph: throughput constraints carry structured constraint-factor tags
       );
     }
   }
+});
+
+test("real graph: humanoid paid workflow nodes carry decision-grade investor data", () => {
+  const graph = loadGraphData();
+  const nodesById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const evidenceIds = new Set(graph.evidence.map((item) => item.id));
+  const requiredConstraintTags = new Set([
+    "constraint_component_availability",
+    "constraint_capacity_scale",
+    "constraint_material_supply_chain",
+    "constraint_technical_maturity",
+    "constraint_integration_commissioning",
+  ]);
+  const requiredNodes = [
+    "humanoid_actuation_system",
+    "humanoid_reducer_transmission_stack",
+  ];
+
+  for (const nodeId of requiredNodes) {
+    const node = nodesById.get(nodeId);
+    assert.ok(node, `${nodeId} must exist`);
+    assert.ok(
+      nodeCostSignalRmb(node!, graph) !== null,
+      `${nodeId} must expose a cost magnitude for paid-user bottleneck exploration`,
+    );
+    assert.ok(
+      typeof node!.capacityLeadTimeMonths === "number" && node!.capacityLeadTimeMonths > 0,
+      `${nodeId} must expose whether the constraint can be relieved quickly or slowly`,
+    );
+    assert.ok(
+      (node!.tags ?? []).some((tag) => requiredConstraintTags.has(tag)),
+      `${nodeId} must classify the bottleneck reason with a structured constraint tag`,
+    );
+    assert.ok(
+      (node!.evidenceIds ?? []).some((id) => evidenceIds.has(id)),
+      `${nodeId} must have direct source records before it appears in a paid workflow`,
+    );
+  }
+
+  const reducerManufacturers = manufacturersForNode(graph, "humanoid_reducer_transmission_stack");
+  const listedTickers = reducerManufacturers.map((org) => org.ticker).filter(Boolean).sort();
+  assert.ok(
+    reducerManufacturers.some((org) => org.id === "org_humanoid_nabtesco"),
+    "reducer stack must directly expose Nabtesco as a precision reducer supplier candidate",
+  );
+  assert.ok(
+    reducerManufacturers.some((org) => org.id === "org_humanoid_harmonic_drive_systems"),
+    "reducer stack must directly expose Harmonic Drive Systems as a strain-wave supplier candidate",
+  );
+  assert.ok(
+    reducerManufacturers.some((org) => org.id === "org_humanoid_leaderdrive"),
+    "reducer stack must directly expose Leaderdrive as a China-listed strain-wave supplier candidate",
+  );
+  assert.deepEqual(
+    listedTickers.filter((ticker): ticker is string => Boolean(ticker)).slice(0, 3),
+    ["6268.T", "6324.T", "688017.SS"],
+    `reducer stack must expose listed tickers with non-US venues; got ${listedTickers.join(", ")}`,
+  );
 });

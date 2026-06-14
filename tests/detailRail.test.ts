@@ -102,19 +102,20 @@ function render(props: NodeDetailRailTestProps): string {
   );
 }
 
-function renderWithLockedExposure(props: NodeDetailRailTestProps): string {
+function renderWithLockedExposure(
+  props: NodeDetailRailTestProps,
+  locked = [
+    {
+      domainTag: "ai_compute_chain",
+      entitlement: "ai_compute",
+      hiddenOrgCount: 77,
+    },
+  ],
+): string {
   return renderToStaticMarkup(
     React.createElement(
       ExposureLockProvider,
-      {
-        locked: [
-          {
-            domainTag: "ai_compute_chain",
-            entitlement: "ai_compute",
-            hiddenOrgCount: 77,
-          },
-        ],
-      },
+      { locked },
       React.createElement(
         NodeDetailRail as unknown as React.FC<NodeDetailRailTestProps>,
         props,
@@ -483,7 +484,11 @@ test("expanded: component detail surfaces manufacturer candidates with share and
     /6268\.T · Tokyo/,
     `non-US ticker chips should clarify the trading venue for US retail users; got: ${html}`,
   );
-  assert.match(html, /unreviewed/, `manufacturer section must surface edge review status; got: ${html}`);
+  assert.doesNotMatch(
+    html,
+    /Status:\s*(?:reviewed|unreviewed)|reviewStatus|unreviewed/i,
+    `public manufacturer section must not surface internal review state; got: ${html}`,
+  );
   assert.match(
     html,
     /Company-claimed approximately 60% global share/,
@@ -568,6 +573,7 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   const exposureSummaryIndex = html.indexOf('data-testid="detail-exposure-evidence-summary"');
   const whereIndex = html.indexOf('data-testid="detail-where-stuck"');
   const evidenceStatusIndex = html.indexOf("Evidence status");
+  const decisionBriefIndex = html.indexOf('data-testid="detail-decision-brief"');
   const evidenceSummaryIndex = html.indexOf('data-testid="detail-evidence-summary"');
   const inspectIndex = html.indexOf('data-testid="detail-inspect-next"');
   const technicalMetadataIndex = html.indexOf('data-testid="detail-technical-metadata"');
@@ -580,25 +586,30 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   const relationshipLists = detailDisclosure(html, "detail-relationship-lists");
 
   assert.ok(thesisIndex >= 0, `full detail must start with bottleneck thesis; got: ${html}`);
+  assert.ok(decisionBriefIndex >= 0, `decision brief should be present; got: ${html}`);
+  assert.ok(decisionBriefIndex < thesisIndex, `decision brief should be the first reader block after the title; got: ${html}`);
   assert.ok(whereIndex > thesisIndex, `where-stuck factors should follow the thesis; got: ${html}`);
   assert.ok(evidenceSummaryIndex > whereIndex, `key evidence summary should follow factors; got: ${html}`);
   assert.ok(exposureSummaryIndex > evidenceSummaryIndex, `supplier/evidence quick path should follow the evidence summary; got: ${html}`);
   assert.ok(inspectIndex > exposureSummaryIndex, `inspect next should follow the supplier/evidence quick path; got: ${html}`);
-  assert.ok(evidenceStatusIndex >= 0, `full detail must show evidence status near the top; got: ${html}`);
+  assert.equal(evidenceStatusIndex, -1, `public detail must not expose internal evidence status language; got: ${html}`);
   assert.ok(technicalMetadataIndex >= 0, `technical metadata should still render after the reader block; got: ${html}`);
   assert.ok(rawDomainIndex >= 0, `raw domain tag should still render later; got: ${html}`);
   assert.ok(rawKindIndex >= 0, `raw kind tag should still render later; got: ${html}`);
   assert.equal(metricsIndex, -1, `raw metrics should not render as a user-facing detail section; got: ${html}`);
   assert.ok(relationshipListsIndex > technicalMetadataIndex, `graph appendix should sit below the primary evidence and metadata path; got: ${html}`);
   assert.ok(downstreamListIndex >= 0, `technical downstream lists should still render later; got: ${html}`);
+  assert.ok(decisionBriefIndex < rawKindIndex, "decision brief should appear before the raw kind tag");
   assert.ok(thesisIndex < rawKindIndex, "reader thesis should appear before the raw kind tag");
   assert.ok(whereIndex < exposureSummaryIndex, "Where it is stuck should appear before the supplier/evidence quick path");
   assert.ok(evidenceSummaryIndex < rawDomainIndex, "evidence summary should appear before raw domain tags");
-  assert.ok(evidenceStatusIndex < downstreamListIndex, "evidence status should appear before exhaustive technical lists");
   assert.ok(evidenceSummaryIndex < evidenceListIndex, "evidence summary should appear before the full evidence list");
   assert.ok(evidenceListIndex < relationshipListsIndex, "full evidence should appear before the duplicate graph appendix");
   assert.match(html, /Bottleneck thesis/i, `full detail should lead with a bottleneck thesis; got: ${html}`);
   assert.match(html, /Where it is stuck/i, `full detail should expose stuck factors before raw metadata; got: ${html}`);
+  assert.match(html, /Decision brief/i, `full detail should lead with a concise investor research decision brief; got: ${html}`);
+  assert.match(html, /Supply constraint/i, `decision brief should classify the bottleneck reason; got: ${html}`);
+  assert.match(html, /Relief timing/i, `decision brief should say whether the constraint is quick or slow to relieve; got: ${html}`);
   assert.match(html, /Inspect next/i, `full detail should give the reader next inspection targets; got: ${html}`);
   assert.match(
     detailDisclosure(html, "detail-technical-metadata"),
@@ -619,6 +630,11 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
     detailDisclosure(html, "detail-full-evidence-list"),
     /data-testid="evidence-list"/,
     "full evidence list should be behind a collapsed disclosure after the summary",
+  );
+  assert.doesNotMatch(
+    detailDisclosure(html, "detail-full-evidence-list"),
+    /Status:\s*unreviewed|Status:\s*reviewed|reviewStatus/i,
+    "public evidence list should not expose raw review-state bookkeeping",
   );
 });
 
@@ -693,11 +709,105 @@ test("expanded: AI compute detail exposes supplier tickers after the why/stuck/e
     /(2330\.TW|2311\.TW) · Taiwan|(000660\.KS|005930\.KS) · Korea/,
     `supplier ticker chips should clarify non-US trading venues; got: ${summary}`,
   );
-  assert.match(summary, /Evidence quick path/i);
+  assert.match(summary, /Source quick path/i);
   assert.doesNotMatch(summary.trim(), /^0 reviewed/i);
   assert.doesNotMatch(summary, /77 suppliers hidden|paid exposure layer/i);
   assert.doesNotMatch(relationshipLists, /Supplier \/ evidence quick path|Evidence quick path/i);
   assert.doesNotMatch(relationshipLists, /2330\.TW|000660\.KS|2311\.TW|005930\.KS/);
+});
+
+test("expanded: locked paid-domain exposure says gated instead of missing data", () => {
+  const scopedGraph = loadActiveGraphData("humanoid_robot_key_component_stack");
+  const focused = nodeByIdIn(scopedGraph, "humanoid_reducer_transmission_stack");
+  const html = renderWithLockedExposure(
+    {
+      graph: scopedGraph,
+      focusedNode: focused,
+      expanded: true,
+      onToggleExpand: noop,
+      onClose: noop,
+    },
+    [
+      {
+        domainTag: "humanoid_robotics",
+        entitlement: "humanoid",
+        hiddenOrgCount: 12,
+      },
+    ],
+  );
+
+  assert.match(
+    html,
+    /Supplier\/ticker exposure is gated/i,
+    `locked paid-domain detail should name the paywall at the point of need; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /12 organization records/i,
+    `locked paid-domain detail should show modeled exposure exists without revealing it; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html,
+    /No company or ticker candidates are modeled here yet/i,
+    `locked paid-domain detail must not mislead the user into thinking supplier/ticker data is absent; got: ${html}`,
+  );
+});
+
+test("expanded: locked supplier/ticker state is visible inside the decision brief", () => {
+  const scopedGraph = loadActiveGraphData("humanoid_robot_key_component_stack");
+  const focused = nodeByIdIn(scopedGraph, "humanoid_reducer_transmission_stack");
+  const html = renderWithLockedExposure(
+    {
+      graph: scopedGraph,
+      focusedNode: focused,
+      expanded: true,
+      onToggleExpand: noop,
+      onClose: noop,
+    },
+    [
+      {
+        domainTag: "humanoid_robotics",
+        entitlement: "humanoid",
+        hiddenOrgCount: 12,
+      },
+    ],
+  );
+  const decisionBrief = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? "";
+
+  assert.match(
+    decisionBrief,
+    /Supplier\/ticker/i,
+    `locked supplier/ticker state should be in the first-screen decision brief; got: ${decisionBrief || html}`,
+  );
+  assert.match(
+    decisionBrief,
+    /12 organization records gated/i,
+    `decision brief should say modeled exposure exists but is gated; got: ${decisionBrief || html}`,
+  );
+});
+
+test("expanded: detail bottleneck thesis stays compact so the decision brief is visible early", () => {
+  const scopedGraph = loadActiveGraphData("humanoid_robot_key_component_stack");
+  const focused = nodeByIdIn(scopedGraph, "humanoid_reducer_transmission_stack");
+  const html = render({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const thesis = detailReaderPriority(html).match(/<div[^>]*data-testid="detail-bottleneck-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
+
+  assert.match(thesis, /Why it matters:/i, `detail thesis should still explain why the node matters; got: ${thesis}`);
+  assert.doesNotMatch(
+    thesis,
+    /Current signal:/i,
+    `detail thesis should not spend first-screen space on internal graph-signal phrasing; got: ${thesis}`,
+  );
+  assert.ok(
+    html.indexOf('data-testid="detail-decision-brief"') < html.indexOf('data-testid="detail-bottleneck-thesis"'),
+    `decision brief should appear before the compact thesis block; got: ${html}`,
+  );
 });
 
 test("expanded: bottleneck detail surfaces structured constraint factors", () => {
@@ -774,10 +884,10 @@ test("expanded: maintenance workflow surfaces service implementation candidates"
     /FANUC/,
     `maintenance workflow must list FANUC as a service candidate; got: ${html}`,
   );
-  assert.match(
+  assert.doesNotMatch(
     html,
     /unreviewed/,
-    `service candidate section must surface edge review status; got: ${html}`,
+    `public service candidate section must not surface raw edge review status; got: ${html}`,
   );
 });
 

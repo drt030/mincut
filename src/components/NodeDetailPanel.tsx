@@ -1285,9 +1285,7 @@ function detailImportanceText(node: Node, t: (key: string) => string): string {
 
 function readerEvidenceStatusText(evidence: Evidence[], t: (key: string) => string): string {
   if (evidence.length === 0) return t("noDirectEvidence");
-  const reviewed = evidence.filter((item) => item.reviewStatus === "reviewed").length;
   return formatCopy(t("readerEvidenceStatusCount"), {
-    reviewed,
     total: evidence.length,
   });
 }
@@ -1328,7 +1326,7 @@ function detailBottleneckThesisText(
         ? t("readerThesisThinEvidence")
         : t("readerThesisCandidateConstraint");
   const impact = targetNames.length > 0 ? targetNames.join(", ") : t("readerSelectedRouteImpact");
-  return formatCopy(t("readerBottleneckThesisSentence"), {
+  return formatCopy(t("readerDetailBottleneckThesisSentence"), {
     importance: detailImportanceText(node, t),
     where,
     why,
@@ -1345,6 +1343,32 @@ function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) 
   return factors.slice(0, 4);
 }
 
+function constraintSummaryText(node: Node, t: (key: string) => string): string {
+  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  return factors.length > 0 ? factors.join(" · ") : t("readerConstraintUnclassified");
+}
+
+function reliefTimingText(node: Node, t: (key: string) => string): string {
+  const months = node.capacityLeadTimeMonths;
+  if (typeof months === "number") {
+    if (months <= 3) return formatCopy(t("readerReliefTimingShort"), { months });
+    if (months <= 12) return formatCopy(t("readerReliefTimingMedium"), { months });
+    return formatCopy(t("readerReliefTimingLong"), { months });
+  }
+  const tags = new Set(node.tags ?? []);
+  if (
+    tags.has("constraint_capacity_scale") ||
+    tags.has("constraint_material_supply_chain") ||
+    tags.has("constraint_component_availability")
+  ) {
+    return t("readerReliefTimingLikelyLong");
+  }
+  if (tags.has("constraint_integration_commissioning") || tags.has("constraint_technical_maturity")) {
+    return t("readerReliefTimingExecution");
+  }
+  return t("readerReliefTimingUnknown");
+}
+
 function detailCostSignalText(graph: GraphData, node: Node): string | null {
   if (!isCostSummaryNode(node)) return null;
   try {
@@ -1354,6 +1378,50 @@ function detailCostSignalText(graph: GraphData, node: Node): string | null {
   } catch {
     return null;
   }
+}
+
+function DecisionBrief({
+  graph,
+  node,
+  evidence,
+  lockedEntry,
+}: {
+  graph: GraphData;
+  node: Node;
+  evidence: Evidence[];
+  lockedEntry: LockedDomainSummary | null;
+}) {
+  const { t } = useLanguage();
+  const cost = detailCostSignalText(graph, node) ?? t("readerCostNotModeled");
+  return (
+    <div className="detail-decision-brief" data-testid="detail-decision-brief">
+      <strong>{t("readerDecisionBrief")}</strong>
+      <div className="detail-decision-grid">
+        <div>
+          <span>{t("readerCostMagnitude")}</span>
+          <strong>{cost}</strong>
+        </div>
+        <div>
+          <span>{t("readerSupplyConstraint")}</span>
+          <strong>{constraintSummaryText(node, t)}</strong>
+        </div>
+        <div>
+          <span>{t("readerReliefTiming")}</span>
+          <strong>{reliefTimingText(node, t)}</strong>
+        </div>
+        <div>
+          <span>{t("readerSourceTrail")}</span>
+          <strong>{readerEvidenceStatusText(evidence, t)}</strong>
+        </div>
+        {lockedEntry ? (
+          <div>
+            <span>{t("readerSupplierTickerExposure")}</span>
+            <strong>{formatCopy(t("readerSupplierTickerGated"), { n: lockedEntry.hiddenOrgCount })}</strong>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
 }
 
 function NodeReaderPriority({
@@ -1377,6 +1445,7 @@ function NodeReaderPriority({
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
+      <DecisionBrief graph={graph} node={node} evidence={evidence} lockedEntry={lockedEntry} />
       <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
         <span>{t("readerBottleneckThesis")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>
@@ -1416,7 +1485,7 @@ function NodeReaderPriority({
             <strong>{readerBottleneckRoleText(graph, node, nodeName, t)}</strong>
           </div>
           <div className="detail-reader-signal">
-            <span>{t("readerEvidenceStatus")}</span>
+            <span>{t("readerSourceTrail")}</span>
             <strong>{readerEvidenceStatusText(evidence, t)}</strong>
           </div>
         </div>
@@ -1492,7 +1561,6 @@ function ExposureEvidenceSummary({
                         node: nodeName(candidate.viaNode.id, candidate.viaNode.name),
                       })
                     : relationName(candidate.relation);
-                  const reviewStatus = candidate.edge?.reviewStatus;
                   return (
                     <li className="metric-detail-row" key={`${candidate.organization.id}-${candidate.edge?.id ?? "self"}`}>
                       <div className="metric-detail-row-head">
@@ -1501,7 +1569,6 @@ function ExposureEvidenceSummary({
                       </div>
                       <p className="metric-detail-description">
                         {via}
-                        {reviewStatus ? <span className="muted"> · {reviewStatus}</span> : null}
                       </p>
                       {candidateSummary ? (
                         <p className="metric-detail-description muted">{candidateSummary}</p>
@@ -1510,6 +1577,10 @@ function ExposureEvidenceSummary({
                   );
                 })}
               </ul>
+            ) : lockedEntry ? (
+              <p className="muted">
+                {formatCopy(t("exposureCandidateLockedFallback"), { n: lockedEntry.hiddenOrgCount })}
+              </p>
             ) : (
               <p className="muted">{t("exposureCandidateFallback")}</p>
             )}
@@ -1636,11 +1707,8 @@ function evidenceQuickPathForNode(
 ): EvidenceQuickPath {
   const directEvidence = evidence.filter((item) => item.reviewStatus !== "deprecated");
   if (directEvidence.length > 0) {
-    const reviewed = directEvidence.filter((item) => item.reviewStatus === "reviewed").length;
     return {
-      text: reviewed > 0
-        ? formatCopy(t("evidenceDirectReviewedSummary"), { reviewed, total: directEvidence.length })
-        : formatCopy(t("evidenceDirectUnreviewedSummary"), { total: directEvidence.length }),
+      text: formatCopy(t("evidenceDirectSourceSummary"), { total: directEvidence.length }),
       viaNode: null,
     };
   }
@@ -2467,7 +2535,7 @@ function formatOrganizationNumber(value: number): string {
 }
 
 function EdgeContextSummary({ edge }: { edge: Edge }) {
-  const status = [edge.reviewStatus ?? "unreviewed", edge.confidence].filter(Boolean).join(", ");
+  const status = edge.confidence;
   const claim = edge.claim?.trim();
   const context = edge.context?.trim();
   if (!status && !claim && !context) return null;
