@@ -17,7 +17,7 @@
     "type": "product_page",
     "title": "Falcon Payload User's Guide",
     "url": "https://www.spacex.com/assets/media/falcon-users-guide-2025-05-09.pdf",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceX",
     "date": "2025-05-09",
     "summary": "The 2025 Falcon payload guide documents fault-tolerant avionics/GNC, redundant/triplicated elements, upper-stage Merlin Vacuum, and payload integration interfaces.",
@@ -77,16 +77,16 @@
     "date": "2026-02-13",
     "summary": "FAA project page describes SpaceX Starship/Super Heavy launch operations and environmental/license review context for up to 25 annual orbital launches and landings at Boca Chica.",
     "supportsNodeIds": ["spacex_launch_ground_stack", "integrated_launch_tower_chopsticks", "range_safety_airspace_coordination", "faa_launch_reentry_license_cadence", "starship_superheavy_reusable_branch"],
-    "limitations": "Site-specific regulatory context; not a global fleet authorization or commercial throughput guarantee.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "limitations": "Reviewed only for Boca Chica site-specific regulatory/environmental and cadence context. Not a global fleet authorization, reliability proof, cost curve, or commercial throughput guarantee.",
+    "confidence": "high",
+    "reviewStatus": "reviewed"
   },
   {
     "id": "ev_space_smithsonian_grid_fin",
     "type": "historical_source",
     "title": "Smithsonian Falcon 9 grid fin collection record",
     "url": "https://airandspace.si.edu/collection-objects/grid-fin-rocket-launch-vehicle-falcon-9/nasm_A20220607000",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Smithsonian National Air and Space Museum",
     "date": "accessed 2026-06-13",
     "summary": "Smithsonian record explains Falcon 9 first-stage vertical landing, recovery, reuse, and the role of grid fins in reentry control.",
@@ -104,9 +104,9 @@
     "date": "2026-02-04",
     "summary": "FCC notice says SpaceX filed on January 30, 2026 for authority to launch and operate a new NGSO system of up to one million satellites as the SpaceX Orbital Data Center system, primarily relying on optical inter-satellite links and possible Starlink interconnection.",
     "supportsNodeIds": ["spacex_orbital_data_center_system", "optical_isl_network_fabric", "starlink_laser_terminal_backhaul", "ttc_ka_ku_ground_links", "starlink_interconnect_gateway", "orbital_deployment_launch_stack", "orbital_shell_constellation_operations", "collision_avoidance_deorbit_compliance", "space_environment_regulatory_license"],
-    "limitations": "Application/public-notice stage; not evidence of commercial deployment or service maturity.",
+    "limitations": "Reviewed only for the filing/public-notice status and stated NGSO orbital data-center system scope. Not evidence of approval, deployment, technical feasibility, economics, or service maturity.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "reviewed"
   },
   {
     "id": "ev_space_starlink_technology_lasers",
@@ -127,26 +127,28 @@
     "type": "expert_review",
     "title": "NASA Small Spacecraft Technology: thermal control",
     "url": "https://www.nasa.gov/smallsat-institute/sst-soa/thermal-control/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "NASA",
     "date": "2026-05-07",
     "summary": "NASA thermal-control chapter explains spacecraft heat balance, thermal radiation, passive/active thermal technologies, deployable radiators, heat pipes, coatings, and small spacecraft thermal constraints.",
     "supportsNodeIds": ["orbital_thermal_rejection_stack", "deployable_radiator_panels", "heat_pipe_loop_heat_pipe_network", "radiator_surface_coatings_degradation", "thermal_vacuum_test_campaign", "orbital_thermal_dissipation_margin_metric"],
+    "limitations": "Reviewed only for general spacecraft thermal-control constraints and technologies. It does not prove orbital data-center heat rejection at high compute scale.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "reviewed"
   },
   {
     "id": "ev_space_nasa_nepp_radiation_effects",
     "type": "expert_review",
     "title": "NASA NEPP radiation effects primer",
     "url": "https://nepp.nasa.gov/docuploads/392333B0-7A48-4A04-A3A72B0B1DD73343/Rad_Effects_101_WebEx.pdf",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "NASA NEPP",
     "date": "2004",
     "summary": "NASA NEPP material explains radiation effects such as total ionizing dose and single-event effects. Used for radiation-risk logic in orbital compute electronics.",
     "supportsNodeIds": ["radiation_tolerant_compute_board", "orbital_error_correcting_memory_storage", "radhard_power_distribution_unit", "radiation_environment_mitigation", "total_ionizing_dose_shielding", "single_event_effect_watchdog_recovery", "radiation_test_campaign"],
+    "limitations": "Reviewed only for general space-radiation effects and mitigation need. It does not prove any SpaceX compute board, Starlink system, or orbital data-center payload is radiation-qualified.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "reviewed"
   },
   {
     "id": "ev_space_nasa_spacecraft_bus",
