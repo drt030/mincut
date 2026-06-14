@@ -1,4 +1,4 @@
-import { nodeTypicalCostRmb } from "./edgeStyleFor";
+import { nodeCostDriverRmb, type CostSignalKind } from "./edgeStyleFor";
 import type { Edge, GraphData, Node } from "./schema";
 
 export type RouteMode = "cost-drivers";
@@ -6,6 +6,7 @@ export type RouteMode = "cost-drivers";
 export type RouteStep = {
   nodeId: string;
   costTypicalRmb: number;
+  costSignalKind: CostSignalKind;
   pathNodeIds: string[];
   pathEdgeIds: string[];
 };
@@ -47,9 +48,9 @@ export function selectCostDriverRoute(
       if (!STRUCTURAL_KINDS.has(node.kind)) return [];
       if (node.reviewStatus === "deprecated") return [];
       const costNode = costGraph.nodes.find((entry) => entry.id === node.id) ?? node;
-      const cost = nodeTypicalCostRmb(costNode, costGraph);
-      if (cost === null || cost <= 0) return [];
-      return [{ node, cost }];
+      const cost = nodeCostDriverRmb(costNode, costGraph);
+      if (!cost || cost.value <= 0) return [];
+      return [{ node, cost: cost.value, costSignalKind: cost.kind }];
     })
     .sort((left, right) => {
       const delta = right.cost - left.cost;
@@ -69,6 +70,7 @@ export function selectCostDriverRoute(
     steps.push({
       nodeId: candidate.node.id,
       costTypicalRmb: candidate.cost,
+      costSignalKind: candidate.costSignalKind,
       pathNodeIds: path.nodeIds,
       pathEdgeIds: path.edgeIds,
     });

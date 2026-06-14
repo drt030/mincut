@@ -1,6 +1,6 @@
 import {
   bandForValue,
-  nodeTypicalCostRmb,
+  nodeCostDriverRmb,
   type ColorMode,
 } from "@/lib/edgeStyleFor";
 import { focusedSubset } from "@/lib/focusedSubset";
@@ -63,9 +63,9 @@ function scoreFor(
 ): { score: number; band: 1 | 2 | 3 | 4 | 5 } | null {
   switch (mode) {
     case "cost": {
-      const cost = nodeTypicalCostRmb(node, graph);
-      if (cost === null || cost <= 0) return null;
-      return { score: cost, band: bandForValue(cost, "cost", graph) };
+      const cost = nodeCostDriverRmb(node, graph);
+      if (!cost || cost.value <= 0) return null;
+      return { score: cost.value, band: bandForValue(cost.value, "cost", graph) };
     }
     case "maturity": {
       if (typeof node.maturityScore !== "number") return null;

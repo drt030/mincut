@@ -11,7 +11,7 @@ import path from "node:path";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { focusedSubset } from "../src/lib/focusedSubset";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
-import { bandForValue, nodeTypicalCostRmb } from "../src/lib/edgeStyleFor";
+import { bandForValue, nodeCostDriverRmb } from "../src/lib/edgeStyleFor";
 import { nodeRiskSignal } from "../src/lib/nodeRisk";
 import { selectTopN } from "../src/lib/prioritySelection";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
@@ -147,12 +147,12 @@ test("selectTopN(bottleneck-risk): explicit bottleneck claims rank even before c
 // Test 5 — selectTopN(mode='cost', n=5) sorted by typical RMB cost desc
 // ==================================================================
 //
-// In cost mode, the top-N MUST be sorted by typical cost desc.
-// Oracle: re-rank the focal subtree by `nodeTypicalCostRmb` and
-// confirm `selectTopN`'s ordering matches the descending
-// trajectory. Nodes without a cost reading are excluded.
+// In cost mode, the top-N MUST be sorted by UI cost signal desc.
+// Oracle: re-rank the focal subtree by `nodeCostDriverRmb` and
+// confirm `selectTopN`'s ordering matches the descending trajectory.
+// The signal uses modeled costs first, then low-confidence estimates.
 // ==================================================================
-test("selectTopN(cost, n=5): returns up to 5, sorted by typical cost desc", () => {
+test("selectTopN(cost, n=5): returns up to 5, sorted by cost signal desc", () => {
   const top = selectTopN(graph, "cost", 5, null);
 
   assert.ok(
@@ -166,13 +166,13 @@ test("selectTopN(cost, n=5): returns up to 5, sorted by typical cost desc", () =
     assert.ok(node, `selectTopN returned unknown nodeId ${t.nodeId}`);
     return {
       nodeId: t.nodeId,
-      cost: nodeTypicalCostRmb(node!, graph) ?? 0,
+      cost: nodeCostDriverRmb(node!, graph)?.value ?? 0,
     };
   });
   for (let i = 1; i < ranked.length; i += 1) {
     assert.ok(
       ranked[i].cost <= ranked[i - 1].cost,
-      `cost-mode top-N must be sorted by typical cost desc; entry ${i} cost=${ranked[i].cost} > entry ${i - 1} cost=${ranked[i - 1].cost}`,
+      `cost-mode top-N must be sorted by cost signal desc; entry ${i} cost=${ranked[i].cost} > entry ${i - 1} cost=${ranked[i - 1].cost}`,
     );
   }
 });
@@ -838,7 +838,7 @@ test("GraphExplorer.tsx regression guard: node outline stays neutral while root 
     "node contour color should not change with the active cost/maturity/risk lens",
   );
   assert.equal(
-    /\bRAMP\b|bandForValue|nodeTypicalCostRmb|nodeRisk\(/.test(outlineBlock),
+    /\bRAMP\b|bandForValue|nodeCostDriverRmb|nodeRisk\(/.test(outlineBlock),
     false,
     "node contour should not duplicate the edge/lens band calculation",
   );

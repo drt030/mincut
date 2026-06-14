@@ -217,7 +217,10 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
             <div className="metric-detail-row-head">
               <span>{t("topCostDriver")}</span>
               {answer.topCostTypicalRmb !== null ? (
-                <span className="pill">{formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}</span>
+                <span className="pill">
+                  {formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}
+                  {answer.topCostEstimated ? ` ${t("readerCostEstimateShort")}` : null}
+                </span>
               ) : null}
             </div>
             <p className="metric-detail-description">
@@ -305,6 +308,7 @@ type ProductInvestorAnswer = {
   costGapDirection: "over" | "under" | null;
   topCostNode: Node | null;
   topCostTypicalRmb: number | null;
+  topCostEstimated: boolean;
   candidateExposure: Node[];
   startupOpportunities: ProductStartupOpportunity[];
   throughputConstraints: Node[];
@@ -334,6 +338,7 @@ function investorAnswerForProduct(graph: GraphData, product: Node): ProductInves
     costGapDirection: costGap === null ? null : costGap >= 0 ? "over" : "under",
     topCostNode: topCostNode && topCostNode.reviewStatus !== "deprecated" ? topCostNode : null,
     topCostTypicalRmb: topCostStep ? topCostStep.costTypicalRmb : null,
+    topCostEstimated: topCostStep ? topCostStep.costSignalKind === "estimated" : false,
     candidateExposure: topCostStep ? candidateExposureForNode(graph, topCostStep.nodeId) : [],
     startupOpportunities: rankedStartupOpportunitiesForProduct(graph, product),
     throughputConstraints: throughputConstraintNodesForProduct(graph, product.id),

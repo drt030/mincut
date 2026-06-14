@@ -26,8 +26,10 @@ import {
   type CostRollupResult,
 } from "@/lib/costRollup";
 import { costDisclosureText } from "@/lib/costDisclosure";
+import { estimatedCostForNode } from "@/lib/costEstimate";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
+import { nodeCostDriverRmb } from "@/lib/edgeStyleFor";
 import {
   readerFacingConstraintReason,
   readerFacingCostAnswer,
@@ -760,6 +762,7 @@ type InvestorAnswer = {
   costGapDirection: "over" | "under" | null;
   topCostNode: Node | null;
   topCostTypicalRmb: number | null;
+  topCostEstimated: boolean;
   candidateExposure: Node[];
   startupOpportunities: RankedStartupOpportunity[];
   throughputConstraints: Node[];
@@ -895,7 +898,10 @@ function InvestorAnswerPanel({
             <div className="metric-detail-row-head">
               <span>{t("topCostDriver")}</span>
               {answer.topCostTypicalRmb !== null ? (
-                <span className="pill">{formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}</span>
+                <span className="pill">
+                  {formatMetricValue(answer.topCostTypicalRmb, "RMB", "RMB").compact}
+                  {answer.topCostEstimated ? ` ${t("readerCostEstimateShort")}` : null}
+                </span>
               ) : null}
             </div>
             <p className="metric-detail-description">
@@ -997,6 +1003,7 @@ function investorAnswerForProduct(graph: GraphData, product: Node, opportunityCa
     costGapDirection: costGap === null ? null : costGap >= 0 ? "over" : "under",
     topCostNode: topCostNode && topCostNode.reviewStatus !== "deprecated" ? topCostNode : null,
     topCostTypicalRmb: topCostStep ? topCostStep.costTypicalRmb : null,
+    topCostEstimated: topCostStep ? topCostStep.costSignalKind === "estimated" : false,
     candidateExposure: topCostStep ? candidateExposureForNode(graph, topCostStep.nodeId) : [],
     startupOpportunities: rankedStartupOpportunitiesForProduct(graph, opportunityCandidates),
     throughputConstraints: throughputConstraintNodesForProduct(graph, product.id),
@@ -1035,12 +1042,9 @@ function rankedStartupOpportunitiesForProduct(
 }
 
 function opportunityCostSignalRmb(graph: GraphData, nodeId: string): number | null {
-  try {
-    const rollup = rollupCost(graph, nodeId);
-    return rollup.anyChildContributed ? rollup.rolledUp.typical : null;
-  } catch {
-    return null;
-  }
+  const node = nodeById(graph, nodeId);
+  if (!node) return null;
+  return nodeCostDriverRmb(node, graph)?.value ?? null;
 }
 
 function constraintTagCount(node: Node): number {
@@ -1330,13 +1334,23 @@ function DecisionBrief({
   evidence: Evidence[];
 }) {
   const { t } = useLanguage();
+  const modeledCostText = detailCostSignalText(graph, node);
+  const estimatedCost = modeledCostText ? null : estimatedCostForNode(node);
   const cost = readerFacingCostAnswer({
-    valueText: detailCostSignalText(graph, node),
+    valueText: modeledCostText ?? (
+      estimatedCost
+        ? `${formatMetricValue(estimatedCost.range, "RMB", "RMB").compact} ${t("readerCostEstimateShort")}`
+        : null
+    ),
     disclosureText: costDisclosureText(node, t, { includeReason: true }),
     fallback: t("readerCostNotModeled"),
     disclosurePrimary: t("readerCostNotPriceableShort"),
     disclosureSecondary: t("readerCostMissingReviewedSource"),
   });
+  if (estimatedCost && !modeledCostText) {
+    cost.secondary = t("readerCostEstimateCaveat");
+    cost.full = estimatedCost.basis;
+  }
   return (
     <div className="detail-decision-brief" data-testid="detail-decision-brief">
       <strong>{t("readerDecisionBrief")}</strong>

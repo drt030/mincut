@@ -1268,8 +1268,8 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
   );
   assert.match(
     html,
-    /#1[\s\S]*PLC and WCS integration[\s\S]*Opportunity score[\s\S]*Cost signal:[\s\S]*43\.7k RMB/,
-    `investor panel must rank the PLC/WCS integration opportunity with score and cost context; got: ${html}`,
+    /#1[\s\S]*PLC and WCS integration[\s\S]*Opportunity score 26[\s\S]*Cost signal:[\s\S]*26k RMB/,
+    `investor panel must rank the PLC/WCS integration opportunity with direct cost-driver context; got: ${html}`,
   );
   assert.match(
     html,

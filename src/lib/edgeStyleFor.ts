@@ -2,6 +2,7 @@ import type { Edge, GraphData, Node } from "./schema";
 import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
 import { nodeRisk } from "./nodeRisk";
 import { rollupCost } from "./costRollup";
+import { estimatedCostForNode } from "./costEstimate";
 
 /**
  * Per ADR-0006 §"Color mode (cost / maturity / risk) — K4 layering" and
@@ -98,7 +99,10 @@ function quantizeToBand(normalised: number): 1 | 2 | 3 | 4 | 5 {
  */
 const costThresholdsCache = new WeakMap<GraphData, number[]>();
 const costSignalCache = new WeakMap<GraphData, Map<string, number | null>>();
+const costSignalKindCache = new WeakMap<GraphData, Map<string, CostSignalKind>>();
 const COST_FALLBACK_CAP_RMB = 100_000;
+
+export type CostSignalKind = "modeled" | "estimated" | "missing";
 
 function bandForCost(cost: number, graph: GraphData): 1 | 2 | 3 | 4 | 5 {
   const thresholds = computeCostThresholds(graph);
@@ -311,13 +315,55 @@ export function nodeCostSignalRmb(node: Node, graph: GraphData): number | null {
     rolled = null;
   }
 
-  const value = rolled !== null && rolled > 0
+  let value = rolled !== null && rolled > 0
     ? rolled
     : direct !== null && direct > 0
       ? direct
       : null;
+  if (value === null) {
+    value = estimatedCostForNode(node)?.range.typical ?? null;
+  }
   graphCache.set(node.id, value);
   return value;
+}
+
+export function nodeCostSignalKind(node: Node, graph: GraphData): CostSignalKind {
+  let graphCache = costSignalKindCache.get(graph);
+  if (!graphCache) {
+    graphCache = new Map<string, CostSignalKind>();
+    costSignalKindCache.set(graph, graphCache);
+  }
+  if (graphCache.has(node.id)) return graphCache.get(node.id)!;
+
+  const direct = nodeTypicalCostRmb(node, graph);
+  if (direct !== null && direct > 0) {
+    graphCache.set(node.id, "modeled");
+    return "modeled";
+  }
+  try {
+    const result = rollupCost(graph, node.id);
+    if (result.anyChildContributed || (result.directOnly?.typical ?? 0) > 0) {
+      graphCache.set(node.id, "modeled");
+      return "modeled";
+    }
+  } catch {
+    // Keep falling through to the heuristic estimate.
+  }
+
+  const kind: CostSignalKind = estimatedCostForNode(node) ? "estimated" : "missing";
+  graphCache.set(node.id, kind);
+  return kind;
+}
+
+export function nodeCostDriverRmb(
+  node: Node,
+  graph: GraphData,
+): { value: number; kind: Exclude<CostSignalKind, "missing"> } | null {
+  const direct = nodeTypicalCostRmb(node, graph);
+  if (direct !== null && direct > 0) return { value: direct, kind: "modeled" };
+  const estimate = estimatedCostForNode(node)?.range.typical ?? null;
+  if (estimate !== null && estimate > 0) return { value: estimate, kind: "estimated" };
+  return null;
 }
 
 function typicalCostFromOwnMetrics(node: Node): number | null {

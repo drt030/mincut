@@ -1,7 +1,7 @@
 import type { GraphData, Node } from "./schema";
 import {
   bandForValue,
-  nodeTypicalCostRmb,
+  nodeCostSignalRmb,
   type ColorMode,
 } from "./edgeStyleFor";
 import { nodeRisk } from "./nodeRisk";
@@ -85,7 +85,7 @@ export function sectorAggregate(
     case "cost": {
       let sum = 0;
       for (const node of nodes) {
-        const cost = nodeTypicalCostRmb(node, graph);
+        const cost = nodeCostSignalRmb(node, graph);
         if (cost === null) continue;
         sum += cost;
       }
