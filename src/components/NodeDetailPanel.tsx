@@ -255,7 +255,19 @@ function ListingChip({ org }: { org: Node }) {
  * render body — we only renamed the entry point so the rail can host
  * it.
  */
-export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphData; node: Node; onSelectNode?: (nodeId: string) => void }) {
+type LockedExposureMode = "paid-candidate" | "audit-preview";
+
+export function NodeDetailContent({
+  graph,
+  node,
+  onSelectNode,
+  lockedExposureMode = "paid-candidate",
+}: {
+  graph: GraphData;
+  node: Node;
+  onSelectNode?: (nodeId: string) => void;
+  lockedExposureMode?: LockedExposureMode;
+}) {
   const { kindName, nodeName, t } = useLanguage();
   const rawLockedEntry = useLockedDomainForNode(node);
   const lockedEntry = isAiComputeNode(node) ? null : rawLockedEntry;
@@ -409,6 +421,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
         node={node}
         evidence={evidence}
         lockedEntry={lockedEntry}
+        lockedExposureMode={lockedExposureMode}
         priorityAddon={(
           <KnowHowPrioritySummary
             node={node}
@@ -424,6 +437,7 @@ export function NodeDetailContent({ graph, node, onSelectNode }: { graph: GraphD
           product={node}
           opportunityCandidates={opportunityCandidates}
           onSelectNode={onSelectNode}
+          lockedExposureMode={lockedExposureMode}
         />
       ) : null}
       {/*
@@ -835,15 +849,18 @@ function InvestorAnswerPanel({
   product,
   opportunityCandidates,
   onSelectNode,
+  lockedExposureMode,
 }: {
   graph: GraphData;
   product: Node;
   opportunityCandidates: Node[];
   onSelectNode?: (nodeId: string) => void;
+  lockedExposureMode: LockedExposureMode;
 }) {
   const { nodeName, t } = useLanguage();
   const rawLockedEntry = useLockedDomainForNode(product);
   const lockedEntry = isAiComputeNode(product) ? null : rawLockedEntry;
+  const showPaidLockCta = Boolean(lockedEntry && lockedExposureMode !== "audit-preview");
   const answer = useMemo<InvestorAnswer>(
     () => investorAnswerForProduct(graph, product, opportunityCandidates),
     [graph, product, opportunityCandidates],
@@ -855,7 +872,7 @@ function InvestorAnswerPanel({
     answer.candidateExposure.length > 0 ||
     answer.startupOpportunities.length > 0 ||
     answer.throughputConstraints.length > 0 ||
-    lockedEntry !== null;
+    showPaidLockCta;
   if (!hasSignal) return null;
   const throughputConstraintFactors = constraintFactorSummary(answer.throughputConstraints, t);
   const throughputMetricValues = answer.throughputMetric ? metricNodeValueSummary(answer.throughputMetric) : null;
@@ -968,7 +985,7 @@ function InvestorAnswerPanel({
             ) : null}
           </li>
         ) : null}
-        {lockedEntry ? (
+        {showPaidLockCta && lockedEntry ? (
           <li className="metric-detail-row">
             <ExposureLockCta entry={lockedEntry} />
           </li>
@@ -1286,6 +1303,7 @@ function detailImportanceText(node: Node, t: (key: string) => string): string {
 
 function readerEvidenceStatusText(evidence: Evidence[], t: (key: string) => string): string {
   if (evidence.length === 0) return t("noDirectEvidence");
+  if (evidence.length === 1) return t("readerEvidenceStatusCountSingular");
   return formatCopy(t("readerEvidenceStatusCount"), {
     total: evidence.length,
   });
@@ -1392,12 +1410,10 @@ function DecisionBrief({
   graph,
   node,
   evidence,
-  lockedEntry,
 }: {
   graph: GraphData;
   node: Node;
   evidence: Evidence[];
-  lockedEntry: LockedDomainSummary | null;
 }) {
   const { t } = useLanguage();
   const cost =
@@ -1425,12 +1441,6 @@ function DecisionBrief({
           <span>{t("readerSourceTrail")}</span>
           <strong>{readerEvidenceStatusText(evidence, t)}</strong>
         </div>
-        {lockedEntry ? (
-          <div>
-            <span>{t("readerSupplierTickerExposure")}</span>
-            <strong>{formatCopy(t("readerSupplierTickerGated"), { n: lockedEntry.hiddenOrgCount })}</strong>
-          </div>
-        ) : null}
       </div>
     </div>
   );
@@ -1441,12 +1451,14 @@ function NodeReaderPriority({
   node,
   evidence,
   lockedEntry,
+  lockedExposureMode,
   priorityAddon,
 }: {
   graph: GraphData;
   node: Node;
   evidence: Evidence[];
   lockedEntry: LockedDomainSummary | null;
+  lockedExposureMode: LockedExposureMode;
   priorityAddon?: React.ReactNode;
 }) {
   const { nodeName, t } = useLanguage();
@@ -1457,7 +1469,7 @@ function NodeReaderPriority({
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
-      <DecisionBrief graph={graph} node={node} evidence={evidence} lockedEntry={lockedEntry} />
+      <DecisionBrief graph={graph} node={node} evidence={evidence} />
       <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
         <span>{t("readerBottleneckThesis")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>
@@ -1480,6 +1492,7 @@ function NodeReaderPriority({
         node={node}
         evidence={evidence}
         lockedEntry={lockedEntry}
+        lockedExposureMode={lockedExposureMode}
       />
       <details
         className="detail-reader-secondary-details detail-reader-signal-details"
@@ -1501,7 +1514,7 @@ function NodeReaderPriority({
             <strong>{readerEvidenceStatusText(evidence, t)}</strong>
           </div>
         </div>
-        {lockedEntry ? (
+        {lockedEntry && lockedExposureMode !== "audit-preview" ? (
           <div className="detail-reader-access locked" data-testid="detail-reader-exposure">
             <strong>{t("readerExposureLayerLocked")}</strong>
             <span>{formatCopy(t("readerExposureLayerLockedBody"), { n: lockedEntry.hiddenOrgCount })}</span>
@@ -1536,11 +1549,13 @@ function ExposureEvidenceSummary({
   node,
   evidence,
   lockedEntry,
+  lockedExposureMode,
 }: {
   graph: GraphData;
   node: Node;
   evidence: Evidence[];
   lockedEntry: LockedDomainSummary | null;
+  lockedExposureMode: LockedExposureMode;
 }) {
   const { nodeName, relationName, t } = useLanguage();
   const candidates = lockedEntry ? [] : exposureCandidatesForNode(graph, node, 3);
@@ -1591,7 +1606,14 @@ function ExposureEvidenceSummary({
               </ul>
             ) : lockedEntry ? (
               <p className="muted">
-                {formatCopy(t("exposureCandidateLockedFallback"), { n: lockedEntry.hiddenOrgCount })}
+                {formatCopy(
+                  t(
+                    lockedExposureMode === "audit-preview"
+                      ? "exposureCandidateAuditPreviewFallback"
+                      : "exposureCandidateLockedFallback",
+                  ),
+                  { n: lockedEntry.hiddenOrgCount },
+                )}
               </p>
             ) : (
               <p className="muted">{t("exposureCandidateFallback")}</p>
@@ -1720,7 +1742,9 @@ function evidenceQuickPathForNode(
   const directEvidence = evidence.filter((item) => item.reviewStatus !== "deprecated");
   if (directEvidence.length > 0) {
     return {
-      text: formatCopy(t("evidenceDirectSourceSummary"), { total: directEvidence.length }),
+      text: directEvidence.length === 1
+        ? t("evidenceDirectSourceSummarySingular")
+        : formatCopy(t("evidenceDirectSourceSummary"), { total: directEvidence.length }),
       viaNode: null,
     };
   }

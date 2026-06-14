@@ -362,6 +362,7 @@ export function RouteDetailRail({
   const evidenceStatusText = (node: Node): string => {
     const summary = directEvidenceSummary(graph, node);
     if (summary.total === 0) return t("noDirectEvidence");
+    if (summary.total === 1) return t("readerEvidenceStatusCountSingular");
     return formatCopy(t("readerEvidenceStatusCount"), {
       reviewed: summary.reviewed,
       total: summary.total,
@@ -823,6 +824,7 @@ export function RouteDetailRail({
               graph={graph}
               node={selectedNode}
               onSelectNode={onSelectNode}
+              lockedExposureMode={isAuditPreviewAccess ? "audit-preview" : "paid-candidate"}
             />
             {canSetSelectedAsRoot ? (
               <details className="route-reader-research-controls" data-testid="route-reader-research-controls">

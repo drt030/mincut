@@ -173,7 +173,7 @@ test("preview portfolio banner does not present a future domain as full-free or 
   assert.doesNotMatch(html, /Exposure layer unlocked/);
 });
 
-test("audit-preview banner stays review-only and does not render checkout links", async () => {
+test("audit-preview does not render an access banner before the user asks for supplier exposure", async () => {
   withoutCheckoutLinks();
   const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
   const html = renderToStaticMarkup(
@@ -183,10 +183,11 @@ test("audit-preview banner stays review-only and does not render checkout links"
     }),
   );
 
-  assert.match(html, /Research preview/);
-  assert.match(html, /not for paid access yet/i);
-  assert.match(html, /not a purchasable product/i);
+  assert.equal(html, "");
+  assert.doesNotMatch(html, /Research preview/);
+  assert.doesNotMatch(html, /paid access/i);
   assert.doesNotMatch(html, /Gated exposure/);
+  assert.doesNotMatch(html, /3/);
   assert.doesNotMatch(html, /Request private beta access/);
 });
 

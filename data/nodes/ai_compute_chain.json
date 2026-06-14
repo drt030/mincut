@@ -162,6 +162,7 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "high",
+    "capacityLeadTimeMonths": 18,
     "metrics": [
       {
         "name": "EUV mask blank suppliers",
@@ -174,13 +175,24 @@
         "unit": "days",
         "currentValue": 14,
         "description": "Typical turnaround for e-beam repair of critical defects on EUV masks; constrains overall photomask availability."
+      },
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local sources support duopoly supply and capacity-expansion pressure, but not a reviewed EUV mask blank or patterned-mask price for accelerator-module capacity modeling."
       }
     ],
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7_agc_euvl_capacity_official",
+      "ev_acc_r6_euv_blanks_agc_hoya_duopoly"
+    ],
     "tags": [
       "supply_bottleneck",
       "duopoly",
-      "mask_defect_control"
+      "mask_defect_control",
+      "constraint_component_availability",
+      "constraint_capacity_scale"
     ],
     "notes": "EUV mask production is a known bottleneck with slow cycle times. Only AGC Inc. and Hoya Corporation produce blank masks globally; in-house pattering at TSMC/Samsung limits external capacity. Mask defect rates and repair cycles directly limit lithography throughput.",
     "reviewStatus": "unreviewed",
@@ -1660,13 +1672,23 @@
     "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [],
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Public sources support allocation pressure, supplier concentration, and 2026 capacity signals, but not a reviewed per-stack HBM price or stable accelerator-module BOM contribution."
+      }
+    ],
     "tags": [
       "memory",
       "bandwidth",
       "bottleneck",
       "ai_accelerator",
-      "extreme_concentration"
+      "extreme_concentration",
+      "constraint_capacity_scale",
+      "constraint_component_availability"
     ],
     "notes": "HBM is the primary supply chokepoint for AI accelerator scaling in 2024–2026. SK Hynix dominates due to early process mastery; Samsung is ramping aggressively; Micron delayed entry. Next layer decomposition covers die fabrication processes, stacking/bonding, testing, and organic substrate integration.\nSCOPE BOUNDARY (explicit decision, 2026-06-10): the adjacent non-volatile / storage-class memory branch (SSD/NAND tier of the datacenter system) is out of frame for this module-scoped product — the accelerator module itself carries no storage-class memory. The branch has its own supplier population and supply cycle and is a candidate sibling domain at the datacenter-system tier. Recorded per brief §2.12; owner to ratify.",
     "reviewStatus": "unreviewed",
@@ -1751,6 +1773,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
     "metrics": [
       {
         "name": "HBM stack bonding yield",
@@ -1832,6 +1855,7 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
     "metrics": [
       {
         "name": "HBM test yield (post-assembly)",
@@ -1850,6 +1874,12 @@
         "unit": "months",
         "currentValue": 6,
         "description": "HBM ATE equipment lead time 2026: >6 months for Advantest and other suppliers. Source: DigiTimes ev_acc_r6h_advantest_ate_lead_time, date 2026-06-11, sourced January 2026"
+      },
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local sources support test-yield and ATE lead-time pressure, but not a reviewed per-stack test, validation, and power-delivery verification cost."
       }
     ],
     "tags": [
@@ -1857,7 +1887,9 @@
       "validation",
       "power_delivery",
       "yield",
-      "characterization"
+      "characterization",
+      "constraint_capacity_scale",
+      "constraint_integration_commissioning"
     ],
     "notes": "Test time per stack ~15–30 minutes; with high volume, test capacity becomes a bottleneck. Tester utilization >90% in peak demand periods. Test equipment upgrade lead time ~12–18 months.",
     "reviewStatus": "unreviewed",
@@ -1907,6 +1939,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
     "metrics": [
       {
         "name": "HBM test equipment lead time",
@@ -3486,6 +3519,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
     "metrics": [
       {
         "name": "Backplane substrate metal layers",
@@ -3498,20 +3532,30 @@
         "unit": "µm",
         "currentValue": 4,
         "description": "Leading-edge backplane substrates achieve 3–4 µm trace/space; required for 100+ Gbps signaling per channel."
+      },
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local data supports layer count and trace/space needs, but not a reviewed high-speed backplane substrate BOM or supplier quote for accelerator rack scaling."
       }
     ],
     "tags": [
       "backplane",
       "substrate",
       "signal_routing",
-      "power_delivery"
+      "power_delivery",
+      "constraint_component_availability",
+      "constraint_capacity_scale"
     ],
     "notes": "Backplane substrate manufacturing is concurrent with module substrate but from same suppliers (Ibiden, Nan Ya, Unimicron). Capacity is shared; doubling accelerator production requires proportional backplane substrate tooling investment.",
     "reviewStatus": "unreviewed",
     "bottleneckOf": [
       "ai_accelerator_module_hbm_cowos"
     ],
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_opt_osat_substrate_capacity"
+    ],
     "rejectedEvidenceIds": [
       "ev_acc_bn3_backplane_substrate"
     ]
@@ -4980,12 +5024,25 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [],
-    "evidenceIds": [],
+    "capacityLeadTimeMonths": 24,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local sources support Zeiss sole-source exposure and ASML partnership, but not a reviewed replacement price, output capacity, or qualified optics delivery cost for EUV scanner scaling."
+      }
+    ],
+    "evidenceIds": [
+      "ev_acc_r6l_zeiss_sole_source",
+      "ev_acc_r6l_zeiss_asml_partnership"
+    ],
     "tags": [
       "critical_bottleneck",
       "single_source_risk",
-      "optics_precision"
+      "optics_precision",
+      "constraint_component_availability",
+      "constraint_capacity_scale"
     ],
     "notes": "Carl Zeiss SMT is the sole global supplier of EUV projection optics, owned by Zeiss Group (private industrial company, not Zeiss Meditec which is a separate listed entity 188006.DE). Optics production involves precision multi-layer coating of substrates, yield control on defects, and strict cleanliness protocols. Any disruption to Zeiss SMT (fire, equipment failure, geopolitical restriction) directly constrains ASML EUV delivery and thus foundry 3nm/5nm capacity globally.",
     "reviewStatus": "unreviewed",
@@ -5037,6 +5094,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "high",
+    "capacityLeadTimeMonths": 18,
     "metrics": [
       {
         "name": "InP substrate demand for EML/DFB production",
@@ -5046,15 +5104,26 @@
         "evidenceIds": [
           "ev_acc_r6o_coherent_inp_capacity"
         ]
+      },
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local sources support InP capacity constraint and supplier concentration, but not a reviewed EML/DFB laser ASP, allocation premium, or transceiver BOM contribution."
       }
     ],
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6o_coherent_inp_capacity",
+      "ev_acc_optup_eml_shortage_2024"
+    ],
     "tags": [
       "laser_diode",
       "coherent_optics",
       "long_reach",
       "supply_constrained",
-      "datacom"
+      "datacom",
+      "constraint_component_availability",
+      "constraint_capacity_scale"
     ],
     "notes": "EML/DFB lasers are a separate supply chain from VCSEL arrays. The 2024–2025 optical transceiver supply tightness was partly driven by constrained EML capacity as demand shifted toward coherent (long-reach) module designs. Current constraint is upstream at the InP substrate and epitaxy layers rather than finished-device packaging. If long-reach transceiver demand doubles, EML laser supply becomes critical path.",
     "reviewStatus": "unreviewed",
@@ -5464,6 +5533,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "high",
+    "capacityLeadTimeMonths": 18,
     "metrics": [
       {
         "name": "Epitaxial foundry market size (compound semiconductors)",
@@ -5501,7 +5571,9 @@
       "epitaxial_growth",
       "mocvd",
       "compound_semiconductor",
-      "optoelectronics"
+      "optoelectronics",
+      "constraint_capacity_scale",
+      "constraint_component_availability"
     ],
     "notes": "Epitaxial growth is the second bottleneck after substrate supply. InP epitaxy is specialty process: low throughput (wafers/month per tool vs silicon fab wafers/hour per tool), high yield volatility, and process recipes are proprietary to each laser device type (EML, DFB, VCSEL differ in layer structure). Open foundries (IQE, VPEC, Landmark) operate at high utilization (~85–95%) due to surging AI transceiver demand. Vertically integrated makers (Lumentum, Coherent) are capacity-constrained and prioritize in-house volume over outside customers, limiting available open-market capacity.\n | ROUND 4 SUPPLIER BREADTH: Current wiring (IQE, IntelliEpi, Landmark, Sumitomo Chemical, VPEC) covers pure-play epitaxy and integrated epi-wafer makers. Additional verified merchants: Win Semiconductors (GaAs foundry leader), MACOM (device + wafer integration). MACOM/Akhan relationship and other merchant epi services remain opaque in trade press; IQE confirmed as largest pure-play merchant InP/GaAs epitaxy supplier. Constraint: limited merchant capacity outside Tier-1 IDM in-house epi.",
     "reviewStatus": "unreviewed",
@@ -5524,7 +5596,15 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "high",
-    "metrics": [],
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local sources support 12-18 month device-fab expansion and supplier concentration, but not a reviewed EML/DFB or VCSEL device-fabrication price by qualified foundry line."
+      }
+    ],
     "evidenceIds": [
       "ev_acc_optup_vcsel_supplier_count",
       "ev_acc_optup_fab_lead_time",
@@ -5535,7 +5615,10 @@
       "device_fabrication",
       "compound_semiconductor",
       "optoelectronics",
-      "supply_bottleneck"
+      "supply_bottleneck",
+      "constraint_capacity_scale",
+      "constraint_component_availability",
+      "constraint_integration_commissioning"
     ],
     "notes": "Post-epitaxy fabrication is a critical but secondary bottleneck: capacity constraints are more severe upstream (InP substrate and epitaxy layers) but specialized equipment (ridge-etch tools, facet-coating systems) and process recipes create vendor lock-in. EML constraint is attributed to: (1) limited InP epitaxy capacity feeding device fabs, (2) specialized device fab lines with long setup times, and (3) capacity pre-allocation by tier-1 customers. VCSEL is less constrained than EML overall, but specific form factors (high-density arrays for 800G+) face short-term capacity gaps. Hyperscaler prepayments and long-term capacity contracts (e.g., NVIDIA $2B Lumentum investment March 2026, $2B Coherent investment) are separate capacity-lock events and are not modeled in this node.",
     "reviewStatus": "unreviewed",
@@ -6112,6 +6195,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
     "metrics": [
       {
         "name": "IntelliEPI capacity utilization (optical/RF epi-wafer)",
@@ -6581,6 +6665,7 @@
     "maturityLabel": "commercially_available",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
     "metrics": [
       {
         "name": "Credo Magpie 3nm AEC retimer (PCIe 7 equivalent)",
@@ -6599,6 +6684,12 @@
         "unit": "watts",
         "currentValue": 8,
         "description": "Emerging 3nm AEC retimers estimated to consume 6–10W for 16-lane full retiming, lower than 28nm/40nm equivalents due to process scaling."
+      },
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Local sources support reach, process-node, and power characteristics, but not a reviewed AEC retimer/DSP price, allocation status, or rack-level cable BOM contribution."
       }
     ],
     "evidenceIds": [
@@ -6609,7 +6700,9 @@
       "dsp",
       "retimer",
       "3nm",
-      "signal_conditioning"
+      "signal_conditioning",
+      "constraint_component_availability",
+      "constraint_capacity_scale"
     ],
     "notes": "AEC retimers represent the high-end of copper conditioning; used for longest-reach copper links in disaggregated or modular cluster architectures. Process node dependence is extreme: 3nm AEC retimers must be fabricated at TSMC or Samsung (no other viable foundries for sub-7nm). Credo leads in 3nm development (sampling H2 2025); Marvell and Broadcom are developing competing products. Supply constraint risk is high if demand for 3nm AEC outpaces TSMC/Samsung 3nm AI accelerator production.",
     "reviewStatus": "unreviewed",

@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { RouteDetailRail } from "../src/components/RouteDetailRail";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { selectCostDriverRoute } from "../src/lib/routeHighlight";
@@ -875,13 +876,59 @@ test("RouteDetailRail renders audit previews as review-only without saying the g
   const summary = selectedSummary(html);
   const start = startHereCard(html);
 
-  assert.match(summary, /Research preview: exposure not reviewed/i);
-  assert.match(summary, /Supplier exposure, tickers, and paid access stay locked/i);
-  assert.match(html, /Not scored for paid use/i);
+  assert.match(summary, /Research preview/i);
+  assert.match(summary, /evidence review and product QA/i);
+  assert.match(html, /Under review/i);
   assert.match(start, /Review evidence first/i);
+  assert.match(start, /commercial research map/i);
+  assert.doesNotMatch(summary, /paid access/i);
+  assert.doesNotMatch(summary, /Supplier exposure/i);
+  assert.doesNotMatch(summary, /tickers/i);
+  assert.doesNotMatch(summary, /locked/i);
   assert.doesNotMatch(start, /Suppliers &amp; tickers/i);
   assert.doesNotMatch(summary, /graph route not live/i);
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
+});
+
+test("RouteDetailRail audit-preview detail does not call held-back exposure a paid-candidate gate", () => {
+  const graph = graphFixture();
+  const graphWithLockedDomain: GraphData = {
+    ...graph,
+    nodes: graph.nodes.map((entry) =>
+      entry.id === "arm"
+        ? { ...entry, domain: ["spacex_orbital_data_center"] }
+        : entry,
+    ),
+  };
+  const route = selectCostDriverRoute(graphWithLockedDomain, "root_product", { limit: 2 });
+  const selectedNode = graphWithLockedDomain.nodes.find((entry) => entry.id === "arm")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(
+      ExposureLockProvider,
+      {
+        locked: [{
+          domainTag: "spacex_orbital_data_center",
+          entitlement: "space",
+          hiddenOrgCount: 5,
+        }],
+      },
+      React.createElement(RouteDetailRail, {
+        graph: graphWithLockedDomain,
+        route,
+        selectedNode,
+        initialPanel: "detail",
+        exposureAccess: { status: "audit-preview" },
+        onSelectNode: () => {},
+      }),
+    ),
+  );
+
+  assert.match(html, /Organization exposure is held back while this route is under review/i);
+  assert.match(html, /5 organization records are modeled for QA/i);
+  assert.doesNotMatch(html, /paid-candidate route/i);
+  assert.doesNotMatch(html, /Supplier\/ticker exposure is gated/i);
+  assert.doesNotMatch(html, /exposure-lock-cta/i);
 });
 
 test("RouteDetailRail parcel free route keeps access state silent", () => {

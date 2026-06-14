@@ -753,7 +753,7 @@ test("expanded: locked paid-domain exposure says gated instead of missing data",
   );
 });
 
-test("expanded: locked supplier/ticker state is visible inside the decision brief", () => {
+test("expanded: locked supplier/ticker state stays out of the first-screen decision brief", () => {
   const scopedGraph = loadActiveGraphData("humanoid_robot_key_component_stack");
   const focused = nodeByIdIn(scopedGraph, "humanoid_reducer_transmission_stack");
   const html = renderWithLockedExposure(
@@ -774,15 +774,20 @@ test("expanded: locked supplier/ticker state is visible inside the decision brie
   );
   const decisionBrief = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? "";
 
-  assert.match(
+  assert.doesNotMatch(
     decisionBrief,
     /Supplier\/ticker/i,
-    `locked supplier/ticker state should be in the first-screen decision brief; got: ${decisionBrief || html}`,
+    `decision brief should answer the research question before advertising the lock; got: ${decisionBrief || html}`,
   );
-  assert.match(
+  assert.doesNotMatch(
     decisionBrief,
     /12 organization records gated/i,
-    `decision brief should say modeled exposure exists but is gated; got: ${decisionBrief || html}`,
+    `decision brief should keep gated organization counts out of the first screen; got: ${decisionBrief || html}`,
+  );
+  assert.match(
+    html,
+    /Supplier\/ticker exposure is gated/i,
+    `locked supplier/ticker state should still appear at the supplier/ticker point of need; got: ${html}`,
   );
 });
 
