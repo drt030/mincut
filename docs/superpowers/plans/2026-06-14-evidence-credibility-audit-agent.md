@@ -4,7 +4,7 @@
 
 **Goal:** Build a script-core + agent-judgment audit pipeline that scales machine verification of evidence, lifts a new `machineCheck` credibility axis (max 4/5 gate), and leaves the owner only owner-`reviewed` flips and ≤10 escalations.
 
-**Architecture:** A new `machineCheck` field on evidence (orthogonal to owner-only `reviewStatus`). A deterministic library (`src/lib/evidenceAudit.ts`) does all structural checks + triage with zero LLM tokens; a CLI (`scripts/audit-evidence.ts`) refreshes `sourceStatus` over HTTP, auto-applies safe mechanical changes, and emits a worklist; a Sonnet subagent (driven by a brief in `docs/agents/`) does only online quote-judgment on the high-stakes subset and emits verdicts; an apply step writes machine verdicts and, separately, owner-approved `reviewed` flips. The gate lifts the unreviewed cap from 3/5 to 4/5 when an unreviewed claim's evidence is `machineCheck.status==="verified"`.
+**Architecture:** A new `machineCheck` field on evidence (orthogonal to owner-only `reviewStatus`). A deterministic library (`src/lib/evidenceAudit.ts`) does all structural checks + triage with zero LLM tokens; a CLI (`scripts/audit-evidence.ts`) refreshes `sourceStatus` over HTTP, auto-applies safe mechanical changes, and emits a worklist; an Opus 4.8 subagent (driven by a brief in `docs/agents/`) does only online quote-judgment on the high-stakes subset and emits verdicts; an apply step writes machine verdicts and, separately, owner-approved `reviewed` flips. The gate lifts the unreviewed cap from 3/5 to 4/5 when an unreviewed claim's evidence is `machineCheck.status==="verified"`.
 
 **Tech Stack:** TypeScript, Zod (`src/lib/schema.ts`), `tsx --test` (node:test + `assert/strict`), Next.js client components for UI, existing graph loaders (`src/lib/graphLoader.ts`).
 
@@ -848,14 +848,14 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 **Files:**
 - Create: `docs/agents/evidence-audit-brief.md`
 
-This is a documented deliverable (no code test). The orchestrator runs it with the Agent tool (Sonnet) over each `needs_fetch` batch from `worklist.json`.
+This is a documented deliverable (no code test). The orchestrator runs it with the Agent tool (Opus 4.8) over each `needs_fetch` batch from `worklist.json`.
 
 - [ ] **Step 1: Write the brief** with these sections (fill with concrete instructions, not placeholders):
   - **Input:** a batch of `needs_fetch` records (id, url, excerpt, the claim text + supported numbers).
   - **Per record:** WebFetch the url; decide whether the `excerpt` is actually present and whether the page supports the claimed number at the **same basis/scope** (revenue vs unit vs bit share, etc.).
   - **Output (must match `agentVerdictsSchema`):** `verified[]` for confirmed records (with `quoteMatch`, `numberInQuote`); `escalations[]` (≤10) for partial/conflicting/ambiguous-basis/suspicious-precision/paywalled-flip-candidate, each with a one-line specific question.
   - **Red lines:** never output `reviewStatus`; never claim a human reviewed anything; if >10 would escalate, keep the 10 highest-stakes and list the rest as deferred fixes.
-  - **Model:** Sonnet (per repo convention for subagents).
+  - **Model:** Opus 4.8 (verification judgment, not a simple search — per the 2026-06-14 model policy).
 
 - [ ] **Step 2: Commit**
 
@@ -1119,7 +1119,7 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 
 - [ ] `npm run verify` → green (lint + graph-ux + all tests).
 - [ ] `npm run audit:evidence -- --domain ai-compute --refresh` → review `.scratch/audit-ai-compute-<date>/report.md`.
-- [ ] Hand the `needs_fetch` batch to the Sonnet audit subagent (Task C2 brief) via the Agent tool; collect verdicts JSON.
+- [ ] Hand the `needs_fetch` batch to the Opus 4.8 audit subagent (Task C2 brief) via the Agent tool; collect verdicts JSON.
 - [ ] Apply verdicts (`applyAgentVerdicts`) + persist; present the owner the flip-ready queue and the ≤10 escalations.
 - [ ] Owner confirms flips → `applyOwnerFlips`; re-run `npm run check:commercial-readiness` to confirm reviewed/source-checked counts moved.
 

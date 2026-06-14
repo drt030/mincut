@@ -121,7 +121,7 @@ Receives **only** the `needs_fetch` subset. For each:
 - Partial / conflicting / ambiguous-basis / suspiciously-precise / paywalled-can't-confirm
   → add to the **≤10 escalation list** with a specific question.
 
-Runs on a cheaper model (Sonnet) per project convention.
+Runs on Opus 4.8 — evidence verification is judgment work, not a simple search, so it does not use the cheap-model tier (the deterministic core already removed the high-volume bulk).
 
 ## 4. Escalation rubric (the ≤10)
 
