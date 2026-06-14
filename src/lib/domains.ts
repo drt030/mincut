@@ -82,15 +82,15 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "humanoid_robot_key_component_stack",
     domainTag: "humanoid_robotics",
     entitlement: "humanoid",
-    portfolioState: "paid-candidate",
-    statusLabel: "Paid candidate preview",
+    portfolioState: "audit-preview",
+    statusLabel: "Candidate under audit",
     title: "Humanoid robotics component stack",
     description:
       "Humanoid robot component chain across actuators, hands, battery, thermal, sensing, compute, control software, manufacturing, and service.",
     detail:
-      "Live candidate map. Component graph is visible; supplier identities and tickers sit behind the paid exposure layer until checkout and entitlement are verified.",
+      "Research preview under audit. Component graph is visible; supplier/ticker exposure is held until reviewed evidence, gate reports, checkout, and entitlement checks pass.",
     href: "/d/humanoid-robotics",
-    cta: "Open candidate map",
+    cta: "Review candidate map",
     liveGraphRoute: true,
   },
   {
@@ -98,15 +98,15 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "controlled_fusion_route_portfolio",
     domainTag: "controlled_fusion",
     entitlement: "power",
-    portfolioState: "paid-candidate",
-    statusLabel: "Paid candidate preview",
+    portfolioState: "audit-preview",
+    statusLabel: "Candidate under audit",
     title: "Controlled fusion route portfolio",
     description:
       "Fusion route portfolio comparing tokamak, stellarator, laser inertial, MTF/FRC/Z-pinch, and shared tritium, blanket, materials, and maintenance constraints.",
     detail:
-      "Live candidate map. Route logic and evidence are visible; organization exposure remains locked because direct public pure-play exposure is thin and mostly supplier-based.",
+      "Research preview under audit. Route logic and evidence are visible; organization exposure is held until evidence quality and gate reports support promotion.",
     href: "/d/controlled-fusion",
-    cta: "Open route portfolio",
+    cta: "Review route portfolio",
     liveGraphRoute: true,
   },
   {

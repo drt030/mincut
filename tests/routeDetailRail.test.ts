@@ -335,8 +335,10 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
 
   assert.match(summary, /Bottleneck thesis/i);
   assert.match(summary, /Why it matters:/i);
-  assert.match(summary, /Stuck point: Robot arm moves parcels into the sorter\./);
-  assert.match(summary, /Current signal: it is marked as a bottleneck for Sorting robot/i);
+  assert.match(summary, /Constraint: Robot arm moves parcels into the sorter\./);
+  assert.match(summary, /Why hard to clear: it constrains Sorting robot/i);
+  assert.doesNotMatch(summary, /Current signal:/i);
+  assert.doesNotMatch(summary, /it is marked as a bottleneck/i);
   assert.doesNotMatch(summary, /\{importance\}/);
   assert.doesNotMatch(summary, /sorter\.\./);
   assert.match(summary, /Where it is stuck/i);
@@ -444,7 +446,17 @@ test("RouteDetailRail start-here and chokepoints explain why before showing Heat
   const start = startHereCard(html);
   assert.match(start, /Bottleneck thesis/i);
   assert.match(start, /Why it matters:/i);
-  assert.match(start, /Stuck point: Precision gearbox limits repeatable arm motion\./);
+  assert.match(start, /Constraint: Precision gearbox limits repeatable arm motion\./);
+  assert.match(start, /Decision brief/i);
+  assert.match(start, /Cost/i);
+  assert.match(start, /Supply constraint/i);
+  assert.match(start, /Relief timing/i);
+  assert.ok(
+    start.indexOf("Decision brief") < start.indexOf("Evidence"),
+    `start-here decision brief should appear before next-step buttons; got: ${start}`,
+  );
+  assert.doesNotMatch(start, /Current signal:/i);
+  assert.doesNotMatch(start, /it is marked as a bottleneck/i);
   assert.doesNotMatch(start, /\{importance\}/);
   assert.doesNotMatch(start, /motion\.\./);
   assert.ok(

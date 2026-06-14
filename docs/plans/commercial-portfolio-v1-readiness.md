@@ -66,8 +66,10 @@ Updated after the 2026-06-12 reset pass:
   routes. `/d/ai-compute` and `/d/parcel-robot` are the only live routes.
   `humanoid-robotics` and `controlled-fusion` are portfolio entries only.
 - AI compute is modeled as `full-free-flagship`; parcel robot is modeled as
-  `full-free-depth-demo`; humanoid robotics is `preview`; controlled fusion
-  is `waitlist`.
+  `full-free-depth-demo`; humanoid robotics and controlled fusion are live
+  research routes but have been demoted to `audit-preview` until reviewed
+  evidence, local gate reports, checkout, and entitlement checks support a
+  paid-candidate promotion.
 - `src/lib/subsystemHue.ts` now traces canvas colour ancestry through the
   same `implemented_by -> know-how` relation used by the canvas filter, so
   parcel engineering-method nodes no longer appear as unexplained grey
@@ -404,8 +406,8 @@ The commercial portfolio v1 goal is complete only when:
 - Product UI clearly presents AI compute, parcel robot, humanoid robotics,
   and controlled fusion with truthful access states.
 - AI compute and parcel remain complete free demos.
-- Humanoid and fusion have honest preview/waitlist/paid-roadmap states, or
-  are promoted only after the domain promotion gate passes.
+- Humanoid and fusion have honest audit-preview states, or are promoted only
+  after the domain promotion gate passes.
 - Route-level graph verifier passes with no unexplained non-material grey
   nodes.
 - `npm run check:graph-topology` passes for every live domain route.

@@ -22,7 +22,7 @@ const uiText: Record<Language, Record<string, string>> = {
     navProduct: "Product",
     navGate: "Gate",
     navTasks: "Tasks",
-    navLiveMaps: "Live maps",
+    navLiveMaps: "Map portfolio",
     navExplore: "Explore",
     primaryNavigation: "Primary navigation",
     language: "Language",
@@ -50,7 +50,7 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisEvidenceUnreviewed:
       "Evidence visible; none reviewed yet. Research preview only.",
     domainThesisEvidenceCandidate:
-      "Private beta only; no paid unlock or investment advice.",
+      "Private beta waitlist; exposure access opens only after audit and entitlement checks pass. Not investment advice.",
     domainThesisJoinWaitlist: "Join private beta waitlist",
     domainThesisReviewAccess: "Review access state",
     allDomains: "All domains",
@@ -234,7 +234,8 @@ const uiText: Record<Language, Record<string, string>> = {
     readerHeatUnscored: "Unscored",
     readerKeyChokepoints: "Key chokepoints",
     readerBottleneckThesis: "Bottleneck thesis",
-    readerBottleneckThesisSentence: "Why it matters: {importance} Stuck point: {where} Current signal: {why}. Impact: {impact}.",
+    readerBottleneckThesisSentence:
+      "Why it matters: {importance} Constraint: {where} Why hard to clear: {why}. Research impact: {impact}.",
     readerDetailBottleneckThesisSentence: "Why it matters: {importance} Constraint: {where} Blocks: {impact}.",
     readerAiComputeImportance:
       "AI infrastructure growth turns this into a capacity, yield, and supplier-concentration gate.",
@@ -243,7 +244,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerProductImportance:
       "The product cannot scale affordably until this constraint improves.",
     readerDefaultImportance:
-      "This is where a technical constraint can become a manufacturability, cost, or adoption constraint.",
+      "This can gate cost, scale, or adoption.",
     readerAiComputeStartHbm:
       "Start with HBM because AI accelerator scaling turns into memory capacity, yield, and supplier concentration here.",
     readerAiComputeStartAdvancedPackaging:
@@ -269,8 +270,8 @@ const uiText: Record<Language, Record<string, string>> = {
       "Review evidence first. Supplier exposure and tickers are intentionally held back until this route passes audit.",
     readerStartNextDefaultBody: "Open Detail from here to inspect evidence and connected suppliers where modeled.",
     readerSecondarySignals: "Secondary signals",
-    readerThesisMarkedBottleneck: "it is marked as a bottleneck for {targets}",
-    readerThesisConstraintFactors: "the graph flags {factors}",
+    readerThesisMarkedBottleneck: "it constrains {targets}",
+    readerThesisConstraintFactors: "constraint factors are {factors}",
     readerThesisThinEvidence: "direct evidence is still thin",
     readerThesisCandidateConstraint: "the graph treats it as a candidate constraint",
     readerSelectedRouteImpact: "the selected route",
@@ -327,6 +328,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerAuditPreviewAccessBody:
       "This route is visible for review. Supplier exposure, tickers, and paid access stay locked until evidence review and checkout gates pass.",
     readerAuditPreviewScoreBadge: "Not scored for paid use",
+    readerRailCountTop: "Top {count}",
     readerWaitlistAccessTitle: "Waitlist domain: graph route not live",
     readerWaitlistAccessBody: "No checkout or paid access exists for this domain yet.",
     readerPaidCandidateAccessTitle: "Private beta candidate",
@@ -532,7 +534,7 @@ const uiText: Record<Language, Record<string, string>> = {
     navProduct: "产品",
     navGate: "验证",
     navTasks: "任务",
-    navLiveMaps: "实时图谱",
+    navLiveMaps: "图谱组合",
     navExplore: "研究入口",
     primaryNavigation: "主导航",
     language: "语言",
@@ -558,7 +560,7 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisEvidenceUnreviewed:
       "证据可见；尚无已审证据。仅作研究预览。",
     domainThesisEvidenceCandidate:
-      "仅限私测候补；没有付费解锁或投资建议。",
+      "私测候补；exposure 访问只会在审计和 entitlement gate 通过后开放。不构成投资建议。",
     domainThesisJoinWaitlist: "加入私测候补",
     domainThesisReviewAccess: "查看访问状态",
     allDomains: "全部领域",
@@ -729,7 +731,8 @@ const uiText: Record<Language, Record<string, string>> = {
     readerHeatUnscored: "未评分",
     readerKeyChokepoints: "关键瓶颈",
     readerBottleneckThesis: "瓶颈判断",
-    readerBottleneckThesisSentence: "为什么重要：{importance} 卡点：{where} 当前信号：{why}。影响：{impact}。",
+    readerBottleneckThesisSentence:
+      "为什么重要：{importance} 约束点：{where} 为什么难补：{why}。研究影响：{impact}。",
     readerDetailBottleneckThesisSentence: "为什么重要：{importance} 约束：{where} 影响：{impact}。",
     readerAiComputeImportance:
       "AI 基础设施增长会在这里变成产能、良率和供应商集中度约束。",
@@ -738,7 +741,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerProductImportance:
       "这个约束不改善，产品就很难以可接受成本规模化。",
     readerDefaultImportance:
-      "技术约束会在这里转化为制造、成本或采用约束。",
+      "这里可能卡住成本、规模化或采用。",
     readerAiComputeStartHbm:
       "先看 HBM，因为 AI 加速器扩张在这里变成存储容量、良率和供应商集中度问题。",
     readerAiComputeStartAdvancedPackaging:
@@ -764,8 +767,8 @@ const uiText: Record<Language, Record<string, string>> = {
       "先复核证据。供应商 exposure 和股票代码会刻意保留，直到这条路线通过审计。",
     readerStartNextDefaultBody: "从这里打开详情，查看证据以及已建模的相关供应商。",
     readerSecondarySignals: "次级信号",
-    readerThesisMarkedBottleneck: "图谱已标记为 {targets} 的瓶颈",
-    readerThesisConstraintFactors: "图谱标记了 {factors}",
+    readerThesisMarkedBottleneck: "它约束了 {targets}",
+    readerThesisConstraintFactors: "约束因素是 {factors}",
     readerThesisThinEvidence: "直接证据仍然偏薄",
     readerThesisCandidateConstraint: "图谱把它作为候选约束",
     readerSelectedRouteImpact: "当前路线",
@@ -818,6 +821,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerAuditPreviewAccessBody:
       "这条路线当前用于复审。供应商 exposure、股票代码和付费访问会保持锁定，直到证据复审与 checkout gate 通过。",
     readerAuditPreviewScoreBadge: "未按付费评分",
+    readerRailCountTop: "前 {count}",
     readerWaitlistAccessTitle: "Waitlist 领域：图谱路线尚未上线",
     readerWaitlistAccessBody: "本领域尚无 checkout 或付费访问。",
     readerPaidCandidateAccessTitle: "私测候选",

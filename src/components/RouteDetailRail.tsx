@@ -726,7 +726,7 @@ export function RouteDetailRail({
             {isAuditPreviewAccess ? (
               <span className="route-rail-count route-rail-audit-badge">{t("readerAuditPreviewScoreBadge")}</span>
             ) : (
-              <span className="route-rail-count">{railCount}</span>
+              <span className="route-rail-count">{formatCopy(t("readerRailCountTop"), { count: railCount })}</span>
             )}
           </div>
         ) : null}
@@ -841,6 +841,7 @@ export function RouteDetailRail({
                     <span className="route-start-name">{nodeName(featuredStartNode.id, featuredStartNode.name)}</span>
                     <span className="route-start-role">{startRoleText(featuredStartNode)}</span>
                   </button>
+                  {routeDecisionBrief(featuredStartNode)}
                   <div className="route-rail-chip-row" aria-label={t("readerStartNextTitle")}>
                     {startNextItems.map((item) => (
                       <button

@@ -11,7 +11,7 @@ const landingCopy = {
     eyebrow: "Capability Graph Explorer · drt030.com",
     title: "Find the chokepoint before the market does.",
     lede:
-      "AI compute is the full free demo. Humanoid robotics and controlled fusion are paid-candidate previews: the map, bottleneck thesis, and evidence trail are visible, while supplier/ticker exposure stays locked until audit and access gates pass. SpaceX reusable launch and orbital data centers are research previews only.",
+      "AI compute is the full free demo. Humanoid robotics and controlled fusion are candidate maps under audit: the map, bottleneck thesis, and evidence trail are visible, while supplier/ticker exposure stays locked until evidence and access gates pass. SpaceX reusable launch and orbital data centers are research previews only.",
     disclaimer: "Industrial research only. Company and ticker context supports diligence; it is not investment advice.",
     primaryCta: "Open the AI compute map",
     secondaryCta: "Preview fusion routes",
@@ -27,7 +27,7 @@ const landingCopy = {
     currentDropsEyebrow: "Current drops",
     currentDropsTitle: "One route per chain, one map you can inspect.",
     currentDropsBody:
-      "Free demos show the full method. Paid candidates show the research map before the exposure layer is promoted. SpaceX maps stay in research preview until evidence quality and access gates pass.",
+      "Free demos show the full method. Candidate maps stay in research preview until reviewed evidence, gate reports, and access checks support promotion.",
     offerEyebrow: "Private beta",
     offerTitle: "Paid domains open only after audit and access gates pass.",
     offerBody:
@@ -63,7 +63,7 @@ const landingCopy = {
     eyebrow: "能力图谱探索器 · drt030.com",
     title: "在市场之前找到卡点。",
     lede:
-      "AI compute 是完整免费的样板图谱。人形机器人和可控核聚变是付费候选预览：产品图谱、瓶颈判断和证据链可见，供应商/股票 exposure 会在审计和访问 gate 通过前保持锁定。SpaceX 可回收发射和太空数据中心目前只作为研究预览。",
+      "AI compute 是完整免费的样板图谱。人形机器人和可控核聚变是审计中的候选图谱：产品图谱、瓶颈判断和证据链可见，供应商/股票 exposure 会在证据和访问 gate 通过前保持锁定。SpaceX 可回收发射和太空数据中心目前只作为研究预览。",
     disclaimer: "仅用于产业研究。公司和股票代码是尽调线索，不构成投资建议。",
     primaryCta: "打开 AI compute 图谱",
     secondaryCta: "预览核聚变路线",
@@ -79,7 +79,7 @@ const landingCopy = {
     currentDropsEyebrow: "当前图谱",
     currentDropsTitle: "每条产业链一张可检查的路线图。",
     currentDropsBody:
-      "免费样板展示完整方法。付费候选先展示研究图谱，exposure 层通过商业 gate 后再开放。SpaceX 图谱在证据质量和访问 gate 通过前保持研究预览。",
+      "免费样板展示完整方法。候选图谱在 reviewed evidence、gate report 和访问检查支持 promotion 之前保持研究预览。",
     offerEyebrow: "私测候补",
     offerTitle: "付费领域必须通过审计和访问 gate 后再开放。",
     offerBody:
@@ -125,14 +125,14 @@ const domainLandingCopy = {
       cta: "Open parcel map",
     },
     "humanoid-robotics": {
-      status: "Paid candidate preview",
-      detail: "Map, bottlenecks, and evidence are visible. Supplier/ticker exposure waits for private beta access.",
-      cta: "Open candidate map",
+      status: "Candidate under audit",
+      detail: "Map, bottlenecks, and evidence are visible. Supplier/ticker exposure stays locked until evidence and access gates pass.",
+      cta: "Review candidate map",
     },
     "controlled-fusion": {
-      status: "Paid candidate preview",
-      detail: "Route logic and evidence are visible. Organization exposure stays locked until audit and access gates pass.",
-      cta: "Open route portfolio",
+      status: "Candidate under audit",
+      detail: "Route logic and evidence are visible. Organization exposure stays locked until gate-backed promotion.",
+      cta: "Review route portfolio",
     },
     "spacex-reusable-launch": {
       status: "Research preview",
@@ -157,14 +157,14 @@ const domainLandingCopy = {
       cta: "打开包裹分拣图谱",
     },
     "humanoid-robotics": {
-      status: "付费候选预览",
-      detail: "图谱、瓶颈和证据可见；供应商/股票 exposure 等待私测访问开放。",
-      cta: "打开候选图谱",
+      status: "审计中的候选图谱",
+      detail: "图谱、瓶颈和证据可见；供应商/股票 exposure 会在证据和访问 gate 通过前保持锁定。",
+      cta: "复核候选图谱",
     },
     "controlled-fusion": {
-      status: "付费候选预览",
-      detail: "路线逻辑和证据可见；组织 exposure 在审计和访问 gate 通过前保持锁定。",
-      cta: "打开路线组合",
+      status: "审计中的候选图谱",
+      detail: "路线逻辑和证据可见；组织 exposure 会保持锁定，直到 gate 支持 promotion。",
+      cta: "复核路线组合",
     },
     "spacex-reusable-launch": {
       status: "研究预览",

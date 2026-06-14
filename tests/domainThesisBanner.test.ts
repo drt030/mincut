@@ -26,7 +26,8 @@ test("domain thesis leads with the product thesis before the access banner", () 
   assert.doesNotMatch(html, /Paid-candidate route for humanoid robot actuators/);
   assert.match(html, /Paid-candidate preview/);
   assert.match(html, /Map and evidence visible; supplier\/ticker exposure locked/);
-  assert.match(html, /Private beta only; no paid unlock or investment advice/);
+  assert.match(html, /Private beta waitlist; exposure access opens only after audit and entitlement checks pass/);
+  assert.doesNotMatch(html, /no paid unlock/i);
   assert.match(html, /Join private beta waitlist/);
   assert.match(html, /href="\/#private-beta"/);
   assert.doesNotMatch(html, /Free: thesis, decomposition graph, bottlenecks, and evidence/);

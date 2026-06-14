@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { DOMAIN_ROUTES, domainBySlug } from "../src/lib/domains";
-import { loadGraphData } from "../src/lib/graphLoader";
+import { loadActiveGraphData, loadGateReports, loadGraphData } from "../src/lib/graphLoader";
 import { reachableNodeIdsFrom, V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 import { resolveRouteExposureAccess } from "../src/lib/routeAccess";
 
@@ -38,7 +38,7 @@ test("the parcel robot route is a full-free depth demo", () => {
   assert.equal(domain.portfolioState, "full-free-depth-demo");
 });
 
-test("humanoid and controlled-fusion are paid candidates while SpaceX maps stay audit previews", () => {
+test("humanoid, controlled-fusion, and SpaceX maps stay audit previews until evidence and gate checks pass", () => {
   const humanoid = domainBySlug("humanoid-robotics");
   const fusion = domainBySlug("controlled-fusion");
   const reusableLaunch = domainBySlug("spacex-reusable-launch");
@@ -51,12 +51,14 @@ test("humanoid and controlled-fusion are paid candidates while SpaceX maps stay 
   assert.equal(humanoid.rootId, "humanoid_robot_key_component_stack");
   assert.equal(humanoid.domainTag, "humanoid_robotics");
   assert.equal(humanoid.entitlement, "humanoid");
-  assert.equal(humanoid.portfolioState, "paid-candidate");
+  assert.equal(humanoid.portfolioState, "audit-preview");
+  assert.match(humanoid.detail, /reviewed evidence, gate reports/i);
 
   assert.equal(fusion.rootId, "controlled_fusion_route_portfolio");
   assert.equal(fusion.domainTag, "controlled_fusion");
   assert.equal(fusion.entitlement, "power");
-  assert.equal(fusion.portfolioState, "paid-candidate");
+  assert.equal(fusion.portfolioState, "audit-preview");
+  assert.match(fusion.detail, /gate reports support promotion/i);
 
   assert.equal(reusableLaunch.rootId, "spacex_reusable_launch_stack");
   assert.equal(reusableLaunch.domainTag, "spacex_reusable_launch");
@@ -205,6 +207,22 @@ test("portfolio entries expose six commercial domains and all candidate maps hav
   assert.equal(domainBySlug("controlled-fusion")?.href, "/d/controlled-fusion");
   assert.equal(domainBySlug("spacex-reusable-launch")?.href, "/d/spacex-reusable-launch");
   assert.equal(domainBySlug("spacex-orbital-data-center")?.href, "/d/spacex-orbital-data-center");
+});
+
+test("paid-candidate routes cannot be promoted without reviewed evidence and a local gate report", () => {
+  const gateReports = loadGateReports();
+  for (const domain of DOMAIN_ROUTES.filter((entry) => entry.portfolioState === "paid-candidate")) {
+    const graph = loadActiveGraphData(domain.rootId);
+    const reviewedEvidenceCount = graph.evidence.filter((item) => item.reviewStatus === "reviewed").length;
+    assert.ok(
+      reviewedEvidenceCount >= 5,
+      `${domain.slug} cannot be paid-candidate with only ${reviewedEvidenceCount} reviewed evidence records`,
+    );
+    assert.ok(
+      gateReports.some((report) => report.targetNodeId === domain.rootId),
+      `${domain.slug} cannot be paid-candidate without a local gate report for ${domain.rootId}`,
+    );
+  }
 });
 
 test("AI-compute route access resolves full-free even if a stale locked summary is present", () => {

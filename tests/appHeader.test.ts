@@ -14,10 +14,12 @@ test("launch header links to registered domain maps", () => {
   assert.match(html, /href="\/d\/parcel-robot"/);
 });
 
-test("launch header includes live paid-candidate domain maps", () => {
+test("launch header includes the registered domain portfolio without calling every route live", () => {
   const html = renderToStaticMarkup(React.createElement(AppHeader));
 
-  assert.match(html, /Live maps/);
+  assert.match(html, /Map portfolio/);
+  assert.doesNotMatch(html, /Live maps/);
+  assert.doesNotMatch(html, /Paid candidate preview/);
   assert.match(html, /data-testid="mobile-domain-select"/);
   assert.match(html, /href="\/d\/humanoid-robotics"/);
   assert.match(html, /<option value="\/d\/humanoid-robotics">Humanoid robotics component stack<\/option>/);
