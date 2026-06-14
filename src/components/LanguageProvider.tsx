@@ -41,16 +41,18 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisAccessDepthDemo:
       "Complete depth graph and exposure layer are visible for free as a second demo chain.",
     domainThesisAccessAuditPreview:
-      "Open research map. Supplier and ticker exposure is not sold until the review gate confirms evidence quality.",
+      "Research map open; exposure is not sold until review passes.",
     domainThesisAccessPaidCandidate:
-      "Preview now: product map, bottlenecks, and evidence summary. Paid layer: supplier exposure, tickers, and listing venue.",
+      "Map and evidence visible; supplier/ticker exposure locked.",
     domainThesisAccessWaitlist: "No checkout or paid access exists yet; route promotion requires reviewed graph and access gates.",
     domainThesisAccessPreview: "Graph, evidence, and access model are still being reviewed before live access.",
     domainThesisEvidenceReviewed: "Visible evidence: {reviewed} reviewed / {total} total records.",
     domainThesisEvidenceUnreviewed:
-      "Visible evidence: {total} records, none reviewed yet. Treat this as candidate research until the review gate promotes it.",
+      "Evidence visible; none reviewed yet. Research preview only.",
     domainThesisEvidenceCandidate:
-      "Candidate domain: locked exposure is not treated as reviewed investment advice until the audit gate passes.",
+      "Private beta only; no paid unlock or investment advice.",
+    domainThesisJoinWaitlist: "Join private beta waitlist",
+    domainThesisReviewAccess: "Review access state",
     allDomains: "All domains",
     allNodeKinds: "All node kinds",
     allRelations: "All relations",
@@ -179,13 +181,13 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureLockSummary: "{n} supplier records with tickers, listing context, market-share signals, and capacity notes.",
     exposureLockUnlock: "Unlock this chain — $9",
     exposureLockFounding: "Founding all-access — $29",
-    exposureLockWaitlist: "Join founding waitlist",
+    exposureLockWaitlist: "Request private beta access",
     exposureCheckoutMissing:
-      "Checkout is not configured in this local preview. Paid access should stay in waitlist mode until Stripe links and entitlement checks are live.",
+      "Checkout is not live. Supplier/ticker exposure should stay in private beta until payment links and entitlement checks are verified.",
     exposureAccessLockedEyebrow: "Access policy",
     exposureAccessLockedTitle: "Supplier exposure policy: {n} records gated",
     exposureAccessLockedBody:
-      "{domain}: graph, bottlenecks, component evidence, and validation context are visible now.",
+      "{domain}: graph, bottlenecks, component evidence, and validation context are visible now. Paid unlock is not live until checkout and entitlement checks are verified.",
     exposureAccessLayerComparison: "Access policy",
     exposureAccessFreeLayer: "Visible now",
     exposureAccessPaidLayer: "Gated exposure",
@@ -221,7 +223,7 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureAccessPaidCandidateEyebrow: "Paid candidate",
     exposureAccessPaidCandidateTitle: "Paid candidate: access is not live yet",
     exposureAccessPaidCandidateBody:
-      "{domain} can become paid only after its living map, updates, curated exposure, checkout, and entitlement checks are verified.",
+      "{domain} is a private-beta candidate, not a live checkout product. It can become paid only after its living map, updates, curated exposure, checkout, and entitlement checks are verified.",
     exposureAccessUnlockedEyebrow: "Access state",
     exposureAccessUnlockedTitle: "Exposure layer unlocked",
     exposureAccessUnlockedBody: "{domain} includes supplier identities, listing signals, and organization evidence.",
@@ -298,7 +300,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerExposurePointOfNeedEvidenceBoundary:
       "Locked supplier exposure is separate from component evidence; thin component evidence stays visible as a research gap.",
     readerExposurePointOfNeedCheckout:
-      "Checkout is pending in this local preview; use the waitlist until Stripe links and entitlement checks are live.",
+      "No paid unlock is active in this preview; use the private beta waitlist until checkout and entitlement checks are live.",
     readerExposurePointOfNeedAccessDetails: "Review access details",
     readerPreviewAccessTitle: "Preview only: graph route not live",
     readerPreviewAccessBody: "The graph, evidence, and access model is still being reviewed before live access.",
@@ -308,8 +310,8 @@ const uiText: Record<Language, Record<string, string>> = {
     readerAuditPreviewScoreBadge: "Not scored for paid use",
     readerWaitlistAccessTitle: "Waitlist domain: graph route not live",
     readerWaitlistAccessBody: "No checkout or paid access exists for this domain yet.",
-    readerPaidCandidateAccessTitle: "Paid candidate: access not live",
-    readerPaidCandidateAccessBody: "Paid access requires verified map, exposure, checkout, and entitlement gates first.",
+    readerPaidCandidateAccessTitle: "Private beta candidate",
+    readerPaidCandidateAccessBody: "Map and evidence are visible now; supplier/ticker exposure waits for audit, checkout, and entitlement gates.",
     readerFullFreeDemo: "Full-free flagship demo: exposure included",
     readerFullFreeDemoBody:
       "The complete map and exposure layer are visible, including supplier exposure, tickers, and evidence; use it to judge the method before checking other domains.",
@@ -528,16 +530,18 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisAccessFlagship: "完整图谱、供应商 exposure、股票代码、上市地和证据都免费可见。",
     domainThesisAccessDepthDemo: "完整深度图谱和 exposure 层免费可见，用作第二条 demo 链路。",
     domainThesisAccessAuditPreview:
-      "开放研究图谱；供应商和股票代码 exposure 在证据质量复审通过前，不作为付费内容售卖。",
+      "研究图谱开放；exposure 在复审通过前不售卖。",
     domainThesisAccessPaidCandidate:
-      "免费预览：产品图谱、瓶颈和证据摘要。付费层：供应商 exposure、股票代码和上市地。",
+      "图谱和证据可见；供应商/股票 exposure 锁定。",
     domainThesisAccessWaitlist: "尚无 checkout 或付费访问；上线需要先通过已审图谱和访问 gate。",
     domainThesisAccessPreview: "图谱、证据和访问模型仍在复审，暂未作为实时路线开放。",
     domainThesisEvidenceReviewed: "可见证据：{reviewed} 条已审 / 共 {total} 条记录。",
     domainThesisEvidenceUnreviewed:
-      "可见证据：共 {total} 条记录，尚无已审证据。复审 gate 通过前，只能视为候选研究。",
+      "证据可见；尚无已审证据。仅作研究预览。",
     domainThesisEvidenceCandidate:
-      "候选领域：锁定 exposure 在审计通过前，不会被当成已审投资建议展示。",
+      "仅限私测候补；没有付费解锁或投资建议。",
+    domainThesisJoinWaitlist: "加入私测候补",
+    domainThesisReviewAccess: "查看访问状态",
     allDomains: "全部领域",
     allNodeKinds: "全部节点类型",
     allRelations: "全部关系",
@@ -656,11 +660,12 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureLockSummary: "{n} 条供应商记录，包含股票代码、上市地、市场份额信号与产能备注。",
     exposureLockUnlock: "解锁本链 $9",
     exposureLockFounding: "创始会员 $29（支持支付宝）",
-    exposureLockWaitlist: "加入创始会员 waitlist",
-    exposureCheckoutMissing: "本地预览未配置结账链接。Stripe 链接和 entitlement 检查上线前，付费访问应保持 waitlist 状态。",
+    exposureLockWaitlist: "申请 private beta 访问",
+    exposureCheckoutMissing: "Checkout 尚未上线。Stripe 链接和 entitlement 检查验证前，供应商/股票 exposure 应保持 private beta 状态。",
     exposureAccessLockedEyebrow: "访问策略",
     exposureAccessLockedTitle: "供应商 exposure 策略：{n} 条记录处于 gated 状态",
-    exposureAccessLockedBody: "{domain}：图谱、瓶颈、组件证据和验证上下文当前可见。",
+    exposureAccessLockedBody:
+      "{domain}：图谱、瓶颈、组件证据和验证上下文当前可见。checkout 与 entitlement 检查上线前，付费解锁不会开放。",
     exposureAccessLayerComparison: "访问策略",
     exposureAccessFreeLayer: "当前可见",
     exposureAccessPaidLayer: "Gated exposure",
@@ -694,7 +699,7 @@ const uiText: Record<Language, Record<string, string>> = {
     exposureAccessPaidCandidateEyebrow: "付费候选",
     exposureAccessPaidCandidateTitle: "付费候选：访问尚未上线",
     exposureAccessPaidCandidateBody:
-      "{domain} 只有在 living map、updates、curated exposure、checkout 与 entitlement 检查都验证后，才可能成为付费域。",
+      "{domain} 当前是私测候选，不是已开放 checkout 的付费产品。只有在 living map、updates、curated exposure、checkout 与 entitlement 检查都验证后，才可能成为付费域。",
     exposureAccessUnlockedEyebrow: "访问状态",
     exposureAccessUnlockedTitle: "Exposure 层已解锁",
     exposureAccessUnlockedBody: "{domain} 已包含供应商身份、上市信号和组织级证据。",
@@ -767,7 +772,7 @@ const uiText: Record<Language, Record<string, string>> = {
     readerExposurePointOfNeedCapacity: "与当前链路相关的市场份额、产能和扩产备注。",
     readerExposurePointOfNeedEvidence: "组织级证据和复审状态，与组件证据分开呈现。",
     readerExposurePointOfNeedEvidenceBoundary: "锁住的是供应商 exposure；组件证据偏薄时仍会作为研究缺口直接展示。",
-    readerExposurePointOfNeedCheckout: "本地预览中 checkout 仍未上线；Stripe 链接和 entitlement 检查上线前请使用 waitlist。",
+    readerExposurePointOfNeedCheckout: "本地预览没有付费解锁；checkout 和 entitlement 检查上线前请使用私测候补。",
     readerExposurePointOfNeedAccessDetails: "查看访问详情",
     readerPreviewAccessTitle: "仅预览：图谱路线尚未上线",
     readerPreviewAccessBody: "图谱、证据与访问模型仍在复审，尚不能视为已解锁或已付费访问。",
@@ -777,8 +782,8 @@ const uiText: Record<Language, Record<string, string>> = {
     readerAuditPreviewScoreBadge: "未按付费评分",
     readerWaitlistAccessTitle: "Waitlist 领域：图谱路线尚未上线",
     readerWaitlistAccessBody: "本领域尚无 checkout 或付费访问。",
-    readerPaidCandidateAccessTitle: "付费候选：访问尚未上线",
-    readerPaidCandidateAccessBody: "付费访问需要先完成图谱、exposure、checkout 与 entitlement gate 验证。",
+    readerPaidCandidateAccessTitle: "私测候选",
+    readerPaidCandidateAccessBody: "图谱和证据当前可见；供应商/股票 exposure 等待审计、checkout 与 entitlement gate。",
     readerFullFreeDemo: "完整免费旗舰 Demo：已包含 exposure 层",
     readerFullFreeDemoBody:
       "完整地图和 exposure 层可见，并包含供应商 exposure、股票代码和证据；先用它判断方法，再看其他领域。",

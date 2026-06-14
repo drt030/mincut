@@ -25,12 +25,15 @@ test("domain thesis leads with the product thesis before the access banner", () 
   assert.match(html, /Humanoid robot component chain across actuators/);
   assert.doesNotMatch(html, /Paid-candidate route for humanoid robot actuators/);
   assert.match(html, /Paid-candidate preview/);
-  assert.match(html, /Preview now: product map, bottlenecks, and evidence summary/);
-  assert.match(html, /locked exposure is not treated as reviewed investment advice/);
+  assert.match(html, /Map and evidence visible; supplier\/ticker exposure locked/);
+  assert.match(html, /Private beta only; no paid unlock or investment advice/);
+  assert.match(html, /Join private beta waitlist/);
+  assert.match(html, /href="\/#private-beta"/);
   assert.doesNotMatch(html, /Free: thesis, decomposition graph, bottlenecks, and evidence/);
   assert.doesNotMatch(html, /19 records, none reviewed yet/);
   assert.doesNotMatch(html, /Start with graph/);
   assert.doesNotMatch(html, /href="#domain-graph"/);
+  assert.doesNotMatch(html, /href="\/#weekly-map"/);
 });
 
 test("domain thesis labels audit-preview maps as research, not paid access", () => {
@@ -48,8 +51,9 @@ test("domain thesis labels audit-preview maps as research, not paid access", () 
   );
 
   assert.match(html, /Research preview/);
-  assert.match(html, /Supplier and ticker exposure is not sold/);
-  assert.match(html, /Visible evidence: 9 records, none reviewed yet/);
+  assert.match(html, /Research map open; exposure is not sold until review passes/);
+  assert.match(html, /Evidence visible; none reviewed yet. Research preview only/);
+  assert.match(html, /Review access state/);
   assert.doesNotMatch(html, /Paid-candidate preview/);
 });
 

@@ -60,6 +60,7 @@ const auditPreviewDomain = {
 };
 
 function withoutCheckoutLinks() {
+  delete process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT;
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID;
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_POWER;
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
@@ -96,13 +97,32 @@ test("locked future-domain banner explains free vs paid layers and hidden suppli
   assert.match(html, /Gated exposure/);
   assert.match(html, /decomposition graph/);
   assert.match(html, /hidden supplier identities/);
-  assert.match(html, /Checkout is not configured in this local preview\./);
-  assert.match(html, /Paid access should stay in waitlist mode/);
-  assert.match(html, /href="\/#weekly-map"/);
-  assert.match(html, /Join founding waitlist/);
+  assert.match(html, /Checkout is not live\./);
+  assert.match(html, /stay in private beta/);
+  assert.match(html, /href="\/#private-beta"/);
+  assert.match(html, /Request private beta access/);
 });
 
-test("locked banner ignores future-domain checkout links and only renders founding links", async () => {
+test("locked banner hides paid links unless paid checkout is explicitly enabled", async () => {
+  process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID = "https://buy.example/humanoid";
+  process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.example/founding";
+  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
+  const html = renderToStaticMarkup(
+    React.createElement(ExposureAccessBanner, {
+      domain: futureGatedDomain,
+      locked: [{ domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 }],
+    }),
+  );
+
+  assert.doesNotMatch(html, /href="https:\/\/buy\.example\/humanoid"/);
+  assert.doesNotMatch(html, /href="https:\/\/buy\.example\/founding"/);
+  assert.match(html, /href="\/#private-beta"/);
+  assert.match(html, /Checkout is not live/);
+  assert.doesNotMatch(html, /href="\/#weekly-map"/);
+});
+
+test("locked banner only renders founding checkout when paid checkout flag is enabled", async () => {
+  process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT = "1";
   process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID = "https://buy.example/humanoid";
   process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.example/founding";
   const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
@@ -115,8 +135,9 @@ test("locked banner ignores future-domain checkout links and only renders foundi
 
   assert.doesNotMatch(html, /href="https:\/\/buy\.example\/humanoid"/);
   assert.match(html, /href="https:\/\/buy\.example\/founding"/);
-  assert.doesNotMatch(html, /Checkout is not configured/);
-  assert.doesNotMatch(html, /href="\/#weekly-map"/);
+  assert.doesNotMatch(html, /Checkout is not live/);
+  assert.doesNotMatch(html, /href="\/#private-beta"/);
+  withoutCheckoutLinks();
 });
 
 test("parcel robot does not render a free access banner", async () => {
@@ -166,7 +187,7 @@ test("audit-preview banner stays review-only and does not render checkout links"
   assert.match(html, /not for paid access yet/i);
   assert.match(html, /not a purchasable product/i);
   assert.doesNotMatch(html, /Gated exposure/);
-  assert.doesNotMatch(html, /Join founding waitlist/);
+  assert.doesNotMatch(html, /Request private beta access/);
 });
 
 test("waitlist portfolio banner does not imply paid or live graph access exists", async () => {

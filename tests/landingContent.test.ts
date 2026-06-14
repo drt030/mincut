@@ -10,8 +10,9 @@ test("landing page presents reference maps without overexplaining free access", 
   const html = renderToStaticMarkup(React.createElement(LandingContent));
 
   assert.match(html, /AI compute chain/);
-  assert.match(html, /AI compute and parcel robot are reference maps/i);
-  assert.match(html, /organization exposure stays locked until audit, checkout, and entitlement gates are verified/i);
+  assert.match(html, /AI compute is the full free demo/i);
+  assert.match(html, /supplier\/ticker exposure stays locked until audit and access gates pass/i);
+  assert.match(html, /not investment advice/i);
   assert.match(html, /Parcel-sorting robot/);
   assert.match(html, /Depth reference/);
   assert.match(html, /href="\/d\/parcel-robot"/);
@@ -25,12 +26,14 @@ test("landing page presents reference maps without overexplaining free access", 
   assert.match(html, /href="\/d\/controlled-fusion"/);
   assert.match(html, /href="\/d\/spacex-reusable-launch"/);
   assert.match(html, /href="\/d\/spacex-orbital-data-center"/);
-  assert.match(html, /route logic and evidence are visible/i);
   assert.match(html, /paid-candidate previews/i);
-  assert.match(html, /SpaceX maps are research previews/i);
-  assert.match(html, /exposure evidence, checkout, and update model pass review/i);
-  assert.match(html, /Supplier identities, tickers/);
-  assert.match(html, /founding interest/i);
+  assert.match(html, /SpaceX reusable launch and orbital data centers are research previews only/i);
+  assert.match(html, /Free demos show the full method/i);
+  assert.match(html, /No checkout is live in this preview/i);
+  assert.match(html, /Private beta/i);
+  assert.match(html, /id="private-beta"/);
+  assert.match(html, /Request beta access/);
+  assert.match(html, /metadata__source/);
   assert.match(html, /Cited evidence/i);
   assert.match(html, /Review states visible/i);
   assert.match(html, /Reviewed only when human-checked/i);
@@ -49,4 +52,5 @@ test("landing page presents reference maps without overexplaining free access", 
   assert.doesNotMatch(html, /live paid-candidate maps/i);
   assert.doesNotMatch(html, /Preview waitlist/);
   assert.doesNotMatch(html, /Research waitlist/);
+  assert.doesNotMatch(html, /Join private beta waitlist[\s\S]{0,220}weekly map/i);
 });

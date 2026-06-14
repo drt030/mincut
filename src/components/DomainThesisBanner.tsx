@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { DomainPortfolioState } from "@/lib/domains";
 import { useLanguage } from "./LanguageProvider";
 
@@ -55,6 +56,8 @@ export function DomainThesisBanner({
   const { nodeName, t } = useLanguage();
   const domainName = nodeName(domain.rootId, domain.title);
   const explainsAccess = shouldExplainAccess(domain.portfolioState);
+  const showWaitlistCta = domain.portfolioState === "paid-candidate";
+  const showAccessDetailsCta = domain.portfolioState === "audit-preview";
   const evidenceText = domain.portfolioState === "paid-candidate"
     ? t("domainThesisEvidenceCandidate")
     : evidence.total > 0 && evidence.reviewed === 0
@@ -82,6 +85,16 @@ export function DomainThesisBanner({
           <span className="domain-thesis-status">{t(statusKey(domain.portfolioState))}</span>
           <p>{t(accessKey(domain.portfolioState))}</p>
           <p className="domain-thesis-evidence">{evidenceText}</p>
+          {showWaitlistCta ? (
+            <Link className="domain-thesis-cta" href="/#private-beta">
+              {t("domainThesisJoinWaitlist")}
+            </Link>
+          ) : null}
+          {showAccessDetailsCta ? (
+            <a className="domain-thesis-cta domain-thesis-cta-muted" href="#paid-exposure-access">
+              {t("domainThesisReviewAccess")}
+            </a>
+          ) : null}
         </div>
       ) : null}
     </section>

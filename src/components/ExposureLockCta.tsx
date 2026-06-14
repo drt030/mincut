@@ -53,6 +53,9 @@ function unlockHrefForEntitlement(entitlement: string): string | undefined {
 }
 
 function foundingHref(): string | undefined {
+  if (process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT !== "1") {
+    return undefined;
+  }
   return process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
 }
 
@@ -75,8 +78,8 @@ export function ExposureCheckoutLinks({
         {missingLabel ? <p className="exposure-checkout-missing">{missingLabel}</p> : null}
         <Link
           className="link-button"
-          href="/#weekly-map"
-          onClick={() => track("waitlist_click", { domain: entry.domainTag, product: "founding" })}
+          href="/#private-beta"
+          onClick={() => track("waitlist_click", { domain: entry.domainTag, product: "private_beta" })}
         >
           {t("exposureLockWaitlist")}
         </Link>

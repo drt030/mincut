@@ -233,10 +233,10 @@ nav a {
   box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
   color: #172033;
   display: grid;
-  gap: 10px;
-  grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.45fr);
-  margin-bottom: 8px;
-  padding: 10px 12px;
+  gap: 9px;
+  grid-template-columns: minmax(0, 1fr) minmax(400px, 0.45fr);
+  margin-bottom: 7px;
+  padding: 8px 10px;
 }
 
 .domain-thesis-banner-direct {
@@ -245,8 +245,12 @@ nav a {
 
 .domain-thesis-copy,
 .domain-thesis-actions {
+  align-content: start;
+  gap: 4px;
+}
+
+.domain-thesis-copy {
   display: grid;
-  gap: 5px;
 }
 
 .domain-thesis-eyebrow {
@@ -260,7 +264,7 @@ nav a {
 
 .domain-thesis-banner h1 {
   color: #14213d;
-  font-size: 23px;
+  font-size: 22px;
   letter-spacing: 0;
   line-height: 1.12;
   margin: 0;
@@ -268,8 +272,8 @@ nav a {
 
 .domain-thesis-banner p {
   color: #475569;
-  font-size: 14px;
-  line-height: 1.38;
+  font-size: 13px;
+  line-height: 1.34;
   margin: 0;
 }
 
@@ -280,16 +284,29 @@ nav a {
   -webkit-line-clamp: 2;
 }
 
+.domain-thesis-actions > p {
+  flex: 1 1 220px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
 .domain-thesis-actions {
+  align-items: center;
   background: #f8fafc;
   border: 1px solid rgba(15, 23, 42, 0.1);
   border-radius: 8px;
-  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  padding: 6px 8px;
 }
 
 .domain-thesis-status {
   color: #0f766e;
-  font-size: 12px;
+  flex: 0 0 auto;
+  font-size: 11px;
   font-weight: 850;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -297,8 +314,40 @@ nav a {
 
 .domain-thesis-evidence {
   color: #7c2d12;
-  font-size: 13px;
+  flex-basis: 260px;
+  font-size: 12px;
   font-weight: 750;
+}
+
+.domain-thesis-cta {
+  align-items: center;
+  background: #172033;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  border-radius: 7px;
+  color: #f8fafc;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 850;
+  justify-content: center;
+  margin-top: 0;
+  min-height: 28px;
+  padding: 5px 8px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.domain-thesis-cta:hover {
+  background: #0f172a;
+}
+
+.domain-thesis-cta-muted {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.domain-thesis-cta-muted:hover {
+  background: #e2e8f0;
 }
 
 .exposure-access-banner {
@@ -666,11 +715,16 @@ li {
   max-width: 760px;
 }
 
-.landing-zh {
+.landing-disclaimer {
+  background: rgba(15, 23, 42, 0.045);
+  border-left: 4px solid #0f766e;
+  border-radius: 6px;
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
   max-width: 760px;
+  padding: 10px 12px;
 }
 
 .landing-cta-row .button {
@@ -983,7 +1037,7 @@ li {
 
 .graph-map-column {
   display: grid;
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
 }
 
@@ -1073,10 +1127,10 @@ li {
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.055);
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   justify-content: space-between;
   min-height: 0;
-  padding: 7px 10px;
+  padding: 5px 8px;
   position: static;
   z-index: 2;
 }
@@ -1091,7 +1145,7 @@ li {
 
 .graph-product-title-block span {
   color: #64748b;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1099,8 +1153,8 @@ li {
 
 .graph-product-title-block strong {
   color: #172033;
-  font-size: 15px;
-  line-height: 1.25;
+  font-size: 14px;
+  line-height: 1.18;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1119,10 +1173,10 @@ li {
   border: 1px solid rgba(15, 118, 110, 0.16);
   border-radius: 999px;
   color: #115e59;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 800;
   line-height: 1;
-  padding: 6px 8px;
+  padding: 5px 7px;
   white-space: nowrap;
 }
 
@@ -1237,9 +1291,23 @@ li {
 .graph-toolbar-row {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: 5px;
   justify-content: space-between;
   min-width: 0;
+}
+
+.graph-toolbar-row .layer-toggle-control {
+  border-radius: 7px;
+  flex-wrap: nowrap;
+  gap: 4px;
+  padding: 4px;
+}
+
+.graph-toolbar-row .layer-toggle-control button {
+  font-size: 11px !important;
+  min-height: 26px !important;
+  padding: 4px 8px !important;
+  white-space: nowrap;
 }
 
 .graph-toolbar-row > .graph-controls {
@@ -1250,11 +1318,11 @@ li {
   color: #334155;
   flex: 1 1 auto;
   flex-direction: row;
-  gap: 6px;
+  gap: 5px;
   justify-content: flex-end;
   opacity: 1;
   overflow-x: auto;
-  padding: 5px;
+  padding: 4px;
   transition: opacity 180ms ease, background 180ms ease;
   width: auto;
 }
@@ -1268,7 +1336,7 @@ li {
 .graph-toolbar-row > .graph-controls .graph-controls-section {
   align-items: center;
   flex-direction: row;
-  gap: 6px;
+  gap: 5px;
   min-width: 0;
 }
 
@@ -1284,8 +1352,8 @@ li {
   flex: 0 0 auto;
   font-size: 11px;
   justify-content: center;
-  min-height: 28px;
-  padding: 5px 7px;
+  min-height: 26px;
+  padding: 4px 7px;
   white-space: nowrap;
   width: auto;
 }
@@ -1303,9 +1371,9 @@ li {
   display: flex;
   flex: 0 1 220px;
   gap: 8px;
-  min-height: 28px;
+  min-height: 26px;
   min-width: 160px;
-  padding: 6px 8px;
+  padding: 4px 7px;
 }
 
 .graph-toolbar-row > .graph-controls .lens-legend-heading {
