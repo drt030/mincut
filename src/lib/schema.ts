@@ -347,6 +347,20 @@ export const evidenceSourceStatusSchema = z.enum([
   "market_report_seo", // SEO-grade market-report page; numbers need a better source
 ]);
 
+/**
+ * Orthogonal to reviewStatus. Granted by the audit agent, NEVER implies human
+ * judgment (see ADR-0001). Only `verified` (source re-fetched, excerpt found,
+ * number supported) earns the public "source re-checked" signal and the 4/5
+ * gate cap lift. See docs/superpowers/specs/2026-06-14-evidence-credibility-audit-agent-design.md.
+ */
+export const machineCheckSchema = z.object({
+  status: z.enum(["verified", "structural_ok", "needs_fetch", "failed"]),
+  checkedAsOf: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "machineCheck.checkedAsOf must be ISO YYYY-MM-DD"),
+  quoteMatch: z.enum(["exact", "partial", "absent", "not_checked"]).optional(),
+  numberInQuote: z.boolean().optional(),
+  notes: z.string().optional(),
+});
+
 export const evidenceSchema = z.object({
   id: z.string().min(1),
   type: evidenceTypeSchema,
@@ -362,6 +376,7 @@ export const evidenceSchema = z.object({
   limitations: z.string().optional(),
   confidence: confidenceSchema.optional(),
   reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),
+  machineCheck: machineCheckSchema.optional(),
 });
 
 export const gateQuestionSchema = z.object({
@@ -437,6 +452,7 @@ export type Node = z.infer<typeof nodeSchema>;
 export type EdgeRelation = z.infer<typeof edgeRelationSchema>;
 export type Edge = z.infer<typeof edgeSchema>;
 export type Evidence = z.infer<typeof evidenceSchema>;
+export type MachineCheck = z.infer<typeof machineCheckSchema>;
 export type GateQuestion = z.infer<typeof gateQuestionSchema>;
 export type GateReport = z.infer<typeof gateReportSchema>;
 export type ResearchTask = z.infer<typeof researchTaskSchema>;
