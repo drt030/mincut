@@ -42,3 +42,26 @@ Each `reviewStatus` value carries distinct semantics and a distinct gate-scoring
 - Cap values (3/5 for `unreviewed`, 2/5 for `disputed`) prove unhelpful in practice.
 - A real workflow need emerges for distinguishing sub-states of `disputed` (e.g. "actively contested" vs "minor caveat noted").
 - The "soft-delete" semantics of `deprecated` conflict with an actual versioning need (a `versionedDeprecated` or snapshot mechanism would supersede it).
+
+## Amendment 2026-06-14: machine-verification axis (`machineCheck`)
+
+`reviewStatus` stays a human-only judgment with the four values above. A new,
+**orthogonal** field `machineCheck` (on evidence records) is granted by the audit agent
+and **never implies human review**:
+
+- `machineCheck.status = "verified"` means the source was re-fetched, the stored `excerpt`
+  was found on the page, and the claimed number is supported at the stated basis/scope.
+- An `unreviewed` claim whose non-deprecated evidence includes a `verified` record has its
+  gate cap **lifted one rung, from 3/5 to 4/5** (`MACHINE_VERIFIED_CAP` in `gateRunner.ts`).
+- Only owner `reviewed` reaches 5/5. `disputed` (2/5) and `deprecated` (excluded) are **not**
+  rescued by machine verification.
+- The audit agent may write `machineCheck` but **never** `reviewStatus: reviewed` — that
+  remains owner-only, applied through a separate `applyOwnerFlips` step (test-enforced).
+- v1 scope: the lift applies to the **global** review-status cap only; the cost-scoped cap
+  (`costScopedReviewStatusCap`) is unchanged because it keys on metric-node `reviewStatus`,
+  which an evidence-level signal does not map onto cleanly.
+
+The resulting scoring ladder: `disputed` 2 < `unreviewed` 3 < `unreviewed + machineCheck:verified` 4 < `reviewed` 5.
+
+See ADR-0009 (claim discipline / `sourceStatus`) and
+`docs/superpowers/specs/2026-06-14-evidence-credibility-audit-agent-design.md`.

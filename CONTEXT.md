@@ -65,12 +65,14 @@ The four `reviewStatus` values, with distinct semantics and gate effects:
 
 | Status | Meaning | Gate effect | Who can write | Auto-task |
 |---|---|---|---|---|
-| `unreviewed` | Added but no human review. Default for fresh records. | Counts as coverage (presence). Caps relevant scores at 3/5. | Default for `import:candidates`; default for any new record | "Human-review this claim" task |
+| `unreviewed` | Added but no human review. Default for fresh records. | Counts as coverage (presence). Caps relevant scores at 3/5 — **lifted to 4/5** when the claim's evidence is `machineCheck: verified` (see machine-verification axis below). | Default for `import:candidates`; default for any new record | "Human-review this claim" task |
 | `reviewed` | A human has looked at it and judges it plausibly true. | `reviewed + high confidence + non-vendor + non-internal evidence` → trusted, can lift to 5/5. Other reviewed records (medium/low confidence, vendor, internal) → weak, capped at 4. | Human only. Import is allowed only via `--dry-run --allow-reviewed` preview. | None |
 | `disputed` | A human has looked **and finds counter-evidence or active disagreement**. Distinct from `unreviewed` (which means "not yet looked at"). | Counts as coverage but caps relevant scores at 2/5 — *lower* than `unreviewed`, because `unreviewed` is "unknown" while `disputed` is "known to be problematic". | Human only. Not allowed in `import:candidates`. | "Resolve dispute" task |
 | `deprecated` | Was once true / once accepted but is now superseded or no longer applicable. Soft delete — kept for graph history and lineage. | **Completely excluded** from gate scoring. Not counted in trusted, weak, or coverage tallies. UI hides by default. | Human only. Not allowed in `import:candidates`. | None |
 
 The asymmetry between `unreviewed` and `disputed` is deliberate: rewarding `disputed` with the same 3/5 cap as `unreviewed` would create an incentive to mark uncertain claims `disputed` to "occupy a slot" while signalling caution. Capping `disputed` lower than `unreviewed` keeps the honest signal — "we looked and found a problem" — without letting it lift the score.
+
+**Machine-verification axis (`machineCheck`, ADR-0001 amendment 2026-06-14)**: orthogonal to `reviewStatus`, granted by the audit agent, never implying human judgment. `machineCheck: verified` (source re-fetched, excerpt found in the source, number supported at the stated basis) lifts an `unreviewed` claim's gate cap one rung, from 3/5 to **4/5**. Only owner `reviewed` reaches 5/5; `disputed` (2/5) and `deprecated` (excluded) are not rescued by machine verification. The full ladder is therefore: `disputed` 2 < `unreviewed` 3 < `unreviewed + machineCheck:verified` 4 < `reviewed` 5. See ADR-0001, ADR-0009, and `docs/superpowers/specs/2026-06-14-evidence-credibility-audit-agent-design.md`.
 
 **Validation gate**:
 A scoring procedure that answers predefined competency questions about a Product node using only local graph data. Must not consult the web, model memory, or external search at gate time. The agent-assisted online research/import workflow is a separate loop that runs *before* the gate.
