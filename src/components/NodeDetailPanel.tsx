@@ -25,7 +25,7 @@ import {
   targetCostFor,
   type CostRollupResult,
 } from "@/lib/costRollup";
-import { costDisclosureText } from "@/lib/costDisclosure";
+import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
 import { estimatedCostForNode } from "@/lib/costEstimate";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
@@ -1358,10 +1358,10 @@ function DecisionBrief({
     disclosureText: costDisclosureText(node, t, { includeReason: true }),
     fallback: t("readerCostNotModeled"),
     disclosurePrimary: t("readerCostNotPriceableShort"),
-    disclosureSecondary: t("readerCostMissingReviewedSource"),
+    disclosureSecondary: costEvidenceNeedText(node, t),
   });
   if (estimatedCost && !modeledCostText) {
-    cost.secondary = t("readerCostEstimateCaveat");
+    cost.secondary = t("readerCostEstimateBasisShort");
     cost.full = estimatedCost.basis;
   }
   return (

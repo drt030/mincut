@@ -514,9 +514,46 @@ test("RouteDetailRail explains why an explicitly disclosed cost is not verified"
   const summary = selectedSummary(html);
 
   assert.match(summary, /Cost gap unknown/i);
-  assert.match(summary, /Needs proxy price, BOM quote, or capacity\/capex source/i);
+  assert.match(summary, /Needed evidence: qualification cost, lifetime, and replacement-rate basis/i);
   assert.match(summary, /no public source prices the qualification and utilization reserve/i);
   assert.match(summary, /18 months/i);
+});
+
+test("RouteDetailRail labels heuristic route cost signals as estimated", () => {
+  const graph: GraphData = {
+    graphVersion: "route-detail-rail-estimated-cost-test",
+    evidence: [],
+    nodes: [
+      node("root_product", "Humanoid product", "product", undefined, {
+        domain: ["humanoid_robotics"],
+      }),
+      node("factory_service_loop", "Factory service loop", "module", undefined, {
+        domain: ["humanoid_robotics"],
+        description: "Factory calibration and field service process.",
+        capacityLeadTimeMonths: 18,
+        tags: ["constraint_capacity_scale"],
+      }),
+    ],
+    edges: [
+      edge("e_root_service", "root_product", "factory_service_loop"),
+    ],
+  };
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "factory_service_loop")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = selectedSummary(html);
+
+  assert.match(summary, /p50 RMB 250,000 estimated/i);
+  assert.match(summary, /Basis: domain\/tag heuristic; not supplier quote or BOM/i);
 });
 
 test("RouteDetailRail relief timing explains the kind of unresolved constraint", () => {

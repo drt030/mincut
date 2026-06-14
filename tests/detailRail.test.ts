@@ -987,7 +987,7 @@ test("expanded: detail decision brief explains explicit cost disclosure gaps", (
   const whereStuck = html.match(/<div[^>]*data-testid="detail-where-stuck"[\s\S]*?detail-decision-brief/)?.[0] ?? "";
 
   assert.match(decision, /Cost gap unknown/i);
-  assert.match(decision, /Needs proxy price, BOM quote, or capacity\/capex source/i);
+  assert.match(decision, /Needed evidence: qualification cost, lifetime, and replacement-rate basis/i);
   assert.match(decision, /no public source prices the qualification and utilization reserve/i);
   assert.match(decision, /24 months/i);
   assert.doesNotMatch(

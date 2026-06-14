@@ -2,9 +2,9 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { isKnowHowNode } from "@/lib/canvasGraph";
-import { costDisclosureText } from "@/lib/costDisclosure";
+import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
-import { nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
+import { nodeCostSignalKind, nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import type { GraphLayer } from "@/lib/knowHowLayer";
 import { nodeRiskSignal } from "@/lib/nodeRisk";
 import { selectTopN } from "@/lib/prioritySelection";
@@ -454,13 +454,17 @@ export function RouteDetailRail({
   };
   const routeDecisionBrief = (node: Node): React.ReactNode => {
     const cost = nodeCostSignalRmb(node, graph);
+    const costKind = nodeCostSignalKind(node, graph);
     const costAnswer = readerFacingCostAnswer({
-      valueText: cost ? formatRmb(cost) : null,
+      valueText: cost ? `${formatRmb(cost)}${costKind === "estimated" ? ` ${t("readerCostEstimateShort")}` : ""}` : null,
       disclosureText: costDisclosureText(node, t, { includeReason: true }),
       fallback: t("readerCostNotModeled"),
       disclosurePrimary: t("readerCostNotPriceableShort"),
-      disclosureSecondary: t("readerCostMissingReviewedSource"),
+      disclosureSecondary: costEvidenceNeedText(node, t),
     });
+    if (costKind === "estimated") {
+      costAnswer.secondary = t("readerCostEstimateBasisShort");
+    }
     return (
       <div
         className="detail-decision-brief route-reader-decision-brief"
