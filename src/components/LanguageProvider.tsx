@@ -47,6 +47,8 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisAccessWaitlist: "No checkout or paid access exists yet; route promotion requires reviewed graph and access gates.",
     domainThesisAccessPreview: "Graph, evidence, and access model are still being reviewed before live access.",
     domainThesisEvidenceReviewed: "Visible evidence: {reviewed} reviewed / {total} total records.",
+    domainThesisEvidenceSourceChecked:
+      "{checked} of {total} claims source-checked; owner review in progress.",
     domainThesisEvidenceUnreviewed:
       "Evidence visible; source strength is still thin.",
     domainThesisEvidenceCandidate:
@@ -609,6 +611,8 @@ const uiText: Record<Language, Record<string, string>> = {
     domainThesisAccessWaitlist: "尚无 checkout 或付费访问；上线需要先通过已审图谱和访问 gate。",
     domainThesisAccessPreview: "图谱、证据和访问模型仍在复审，暂未作为实时路线开放。",
     domainThesisEvidenceReviewed: "可见证据：{reviewed} 条已审 / 共 {total} 条记录。",
+    domainThesisEvidenceSourceChecked:
+      "共 {total} 条声明中 {checked} 条来源已核；owner 复核进行中。",
     domainThesisEvidenceUnreviewed:
       "证据可见；来源强度仍然偏薄。",
     domainThesisEvidenceCandidate:

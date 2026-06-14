@@ -66,9 +66,10 @@ export default async function DomainPage({ params }: PageProps) {
       if (item.reviewStatus === "deprecated") return summary;
       summary.total += 1;
       if (item.reviewStatus === "reviewed") summary.reviewed += 1;
+      if (item.reviewStatus !== "reviewed" && item.machineCheck?.status === "verified") summary.sourceChecked += 1;
       return summary;
     },
-    { reviewed: 0, total: 0 },
+    { reviewed: 0, sourceChecked: 0, total: 0 },
   );
   return (
     <div className="page graph-page">

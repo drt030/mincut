@@ -14,6 +14,7 @@ type DomainThesisBannerDomain = {
 
 type EvidenceReviewSummary = {
   reviewed: number;
+  sourceChecked?: number;
   total: number;
 };
 
@@ -62,12 +63,17 @@ export function DomainThesisBanner({
   const showAccessDetailsCta = false;
   const evidenceText = domain.portfolioState === "paid-candidate"
     ? t("domainThesisEvidenceCandidate")
-    : evidence.total > 0 && evidence.reviewed === 0
-      ? formatCopy(t("domainThesisEvidenceUnreviewed"), { total: evidence.total })
-      : formatCopy(t("domainThesisEvidenceReviewed"), {
-      reviewed: evidence.reviewed,
-      total: evidence.total,
-    });
+    : evidence.total > 0 && evidence.reviewed === 0 && (evidence.sourceChecked ?? 0) > 0
+      ? formatCopy(t("domainThesisEvidenceSourceChecked"), {
+        checked: evidence.sourceChecked ?? 0,
+        total: evidence.total,
+      })
+      : evidence.total > 0 && evidence.reviewed === 0
+        ? formatCopy(t("domainThesisEvidenceUnreviewed"), { total: evidence.total })
+        : formatCopy(t("domainThesisEvidenceReviewed"), {
+          reviewed: evidence.reviewed,
+          total: evidence.total,
+        });
 
   return (
     <section

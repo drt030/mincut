@@ -84,3 +84,20 @@ test("domain thesis does not spend first-screen attention explaining free access
   assert.doesNotMatch(html, /Visible evidence: 5 reviewed \/ 21 total records/);
   assert.doesNotMatch(html, /none reviewed yet/);
 });
+
+test("domain thesis reports source-checked count when reviewed is 0 but sources are checked", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(DomainThesisBanner, {
+      domain: {
+        slug: "humanoid-robotics",
+        rootId: "humanoid_robot_key_component_stack",
+        title: "Humanoid robotics component stack",
+        description: "Humanoid robot component chain.",
+        portfolioState: "preview",
+      },
+      evidence: { reviewed: 0, sourceChecked: 12, total: 27 },
+    }),
+  );
+  assert.match(html, /12/);
+  assert.match(html, /source-checked/i);
+});
