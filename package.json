@@ -17,6 +17,7 @@
     "check:active-graph-scope": "tsx scripts/check-active-graph-scope.ts",
     "import:candidates": "tsx scripts/import-candidates.ts",
     "gate": "tsx scripts/run-gate.ts",
+    "audit:evidence": "tsx scripts/audit-evidence.ts",
     "agent:detect": "node scripts/agent-harness.mjs detect",
     "agent:doctor": "node scripts/agent-harness.mjs doctor",
     "agent:briefing": "node scripts/agent-harness.mjs briefing",
