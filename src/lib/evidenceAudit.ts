@@ -53,3 +53,20 @@ export function auditRecord(ev: Evidence, supportedNumbers: string[]): RecordAud
   }
   return { id: ev.id, bucket: "structural_ok", reasons: [], hasExcerpt: true, numberSupported };
 }
+
+export type WorklistInput = {
+  evidence: Evidence[];
+  supportedNumbersByEvidenceId: Record<string, string[]>;
+  highStakesEvidenceIds: Set<string>;
+};
+
+/** Run per-record triage, then promote clean high-stakes records to needs_fetch. */
+export function buildWorklist(input: WorklistInput): RecordAudit[] {
+  return input.evidence.map((ev) => {
+    const audit = auditRecord(ev, input.supportedNumbersByEvidenceId[ev.id] ?? []);
+    if (audit.bucket === "structural_ok" && input.highStakesEvidenceIds.has(ev.id)) {
+      return { ...audit, bucket: "needs_fetch" };
+    }
+    return audit;
+  });
+}
