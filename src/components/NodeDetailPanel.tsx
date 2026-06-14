@@ -315,6 +315,14 @@ export function NodeDetailContent({
   const isDeprecated = node.reviewStatus === "deprecated";
   const isDisputed = node.reviewStatus === "disputed";
   const evidenceCount = evidence.length;
+  const hasSecondaryResearch =
+    ((node.kind === "product" || node.kind === "module") && rankedInspectCandidatesForNode(graph, node).length > 0) ||
+    opportunityCandidates.length > 0 ||
+    knowHowDeps.length > 0 ||
+    manufacturerLinksAll.length > 0 ||
+    implementerLinksAll.length > 0 ||
+    supplierExposure.length > 0 ||
+    implementationExposure.length > 0;
 
   return (
     /*
@@ -401,227 +409,232 @@ export function NodeDetailContent({
           <p>{readerFacingNote(node.notes) || t("expansionFrontierHint")}</p>
         </div>
       ) : null}
-      <details className="panel-section panel-section-collapsible" data-testid="detail-full-evidence-list">
-        <summary>
-          <strong>{t("fullEvidenceList")}</strong>
-        </summary>
-        <EvidenceList evidence={evidence} />
-      </details>
-      <details className="panel-section panel-section-collapsible" data-testid="detail-technical-metadata">
-        <summary>
-          <strong>{t("technicalDetails")}</strong>
-        </summary>
-        <div className="detail-technical-metadata">
-          <div className="pill-row">
-            <span className="pill">{kindName(node.kind)}</span>
-            {node.domain.map((item) => (
-              <span className="pill" key={item}>
-                {item}
-              </span>
-            ))}
-            {node.kind === "organization" ? <ListingChip org={node} /> : null}
-          </div>
-          <p>{node.description ?? t("noDescription")}</p>
-          {constraintFactors.length > 0 ? (
-            <div>
-              <strong>{t("constraintFactors")}</strong>
-              <div className="pill-row">
-                {constraintFactors.map((factor) => (
-                  <span className="pill" key={factor.tag}>
-                    {factor.label}
-                  </span>
-                ))}
-              </div>
-            </div>
+      {hasSecondaryResearch ? (
+        <section className="panel-section detail-secondary-research" data-testid="detail-secondary-research">
+          <strong>{t("detailSecondaryResearch")}</strong>
+          {(node.kind === "product" || node.kind === "module") ? (
+            <TopBlockers graph={graph} parent={node} />
           ) : null}
-          <div>
-            <strong>{t("maturity")}</strong>
-            <div className="maturity-pill-row">
-              {(() => {
-                const visual = maturityVisualFor(node);
-                const asOf = maturityAsOfVisualFor(node);
-                const asOfTooltip = asOf.hasValue
-                  ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
-                  : t("maturityAsOfMissing");
-                return (
-                  <>
-                    <span
-                      className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
-                      style={{
-                        background: visual.bg,
-                        color: visual.fg,
-                        opacity: visual.hasLabel ? 1 : 0.65,
-                      }}
-                      title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
-                    >
-                      {visual.label}
-                      {typeof node.maturityScore === "number" ? (
-                        <span className="maturity-pill-score">· {node.maturityScore}</span>
-                      ) : null}
-                    </span>
-                    <span
-                      className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
-                      title={asOfTooltip}
-                      aria-label={asOfTooltip}
-                    >
-                      <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
-                      {t("maturityAsOf")}: {asOf.label}
-                    </span>
-                    {isHardToDevelop ? (
-                      <span
-                        className="key-technology-pill"
-                        title={t("hardToDevelopGlyphTooltip")}
-                        aria-label={t("hardToDevelopGlyphTooltip")}
-                      >
-                        <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
-                        {t("keyTechnologyPill")}
-                      </span>
-                    ) : null}
-                    {isFrontierByJudgment ? (
-                      <span
-                        className="frontier-pill"
-                        title={t("frontierPillTooltip")}
-                        aria-label={t("frontierPillTooltip")}
-                      >
-                        {t("frontierPill")}
-                      </span>
-                    ) : null}
-                  </>
-                );
-              })()}
-              {node.confidence ? (
-                <span className="muted">
-                  {t("confidence")}: {node.confidence}
-                </span>
-              ) : null}
-            </div>
-            <MaturityHistoryTimeline node={node} />
-          </div>
-          {node.targetContext ? (
-            <details className="panel-section panel-section-collapsible">
-              <summary aria-label={`${t("targetContext")} (${Object.keys(node.targetContext).length})`}>
-                <strong>{t("targetContext")}</strong>{" "}
-                <span className="muted">({Object.keys(node.targetContext).length})</span>
-              </summary>
+          {opportunityCandidates.length > 0 ? (
+            <OpportunityCandidateList graph={graph} nodes={opportunityCandidates} />
+          ) : null}
+          {knowHowDeps.length > 0 ? (
+            <div data-testid="knowhow-section">
+              <strong>{t("knowHowSectionTitle")}</strong>
               <ul>
-                {Object.entries(node.targetContext).map(([key, value]) => (
-                  <li key={key}>
-                    {key}: {value}
+                {knowHowDeps.map((dep) => (
+                  <li key={dep.id}>
+                    <span>{nodeName(dep.id, dep.name)}</span>
+                    <TransactabilityChip value={dep.transactability} t={t} />
+                    {(dep.bottleneckOf?.length ?? 0) > 0 ? (
+                      <span style={{ color: "#dc2626", marginLeft: 6 }} title="bottleneck">●</span>
+                    ) : null}
                   </li>
                 ))}
               </ul>
-            </details>
+            </div>
           ) : null}
-          {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
-        </div>
-      </details>
-      <details className="panel-section panel-section-collapsible" data-testid="detail-relationship-lists">
+          {manufacturerLinksAll.length > 0 ? (
+            <OrganizationNodeList
+              title={t("manufacturerCandidates")}
+              links={manufacturerLinks}
+              subtitle={t("manufacturerCandidatesHint")}
+              deprecatedHiddenCount={manufacturerDeprecatedCount}
+            />
+          ) : null}
+          {implementerLinksAll.length > 0 ? (
+            <OrganizationNodeList
+              title={t("serviceCandidates")}
+              links={implementerLinks}
+              subtitle={t("serviceCandidatesHint")}
+              deprecatedHiddenCount={implementerDeprecatedCount}
+            />
+          ) : null}
+          {node.kind === "organization" ? (
+            <NodeList
+              title={t("supplierExposure")}
+              nodes={supplierExposure}
+              subtitle={t("supplierExposureHint")}
+              deprecatedHiddenCount={supplierExposureDeprecatedCount}
+            />
+          ) : null}
+          {node.kind === "organization" ? (
+            <NodeList
+              title={t("implementationExposure")}
+              nodes={implementationExposure}
+              subtitle={t("implementationExposureHint")}
+              deprecatedHiddenCount={implementationExposureDeprecatedCount}
+            />
+          ) : null}
+        </section>
+      ) : null}
+      <details
+        className="panel-section panel-section-collapsible detail-supplementary-appendix"
+        data-testid="detail-supplementary-appendix"
+      >
         <summary>
-          <strong>{t("relationshipLists")}</strong>
+          <strong>{t("detailSupplementaryAppendix")}</strong>
         </summary>
-        <p className="muted">{t("relationshipListsHint")}</p>
-        {(node.kind === "product" || node.kind === "module") ? (
-          <TopBlockers graph={graph} parent={node} />
-        ) : null}
-        {opportunityCandidates.length > 0 ? (
-          <OpportunityCandidateList graph={graph} nodes={opportunityCandidates} />
-        ) : null}
-        {knowHowDeps.length > 0 ? (
-          <div data-testid="knowhow-section">
-            <strong>{t("knowHowSectionTitle")}</strong>
-            <ul>
-              {knowHowDeps.map((dep) => (
-                <li key={dep.id}>
-                  <span>{nodeName(dep.id, dep.name)}</span>
-                  <TransactabilityChip value={dep.transactability} t={t} />
-                  {(dep.bottleneckOf?.length ?? 0) > 0 ? (
-                    <span style={{ color: "#dc2626", marginLeft: 6 }} title="bottleneck">●</span>
-                  ) : null}
-                </li>
+        <section className="detail-supplementary-section" data-testid="detail-full-evidence-list">
+          <strong>{t("fullEvidenceList")}</strong>
+          <EvidenceList evidence={evidence} />
+        </section>
+        <section className="detail-supplementary-section" data-testid="detail-technical-metadata">
+          <strong>{t("technicalDetails")}</strong>
+          <div className="detail-technical-metadata">
+            <div className="pill-row">
+              <span className="pill">{kindName(node.kind)}</span>
+              {node.domain.map((item) => (
+                <span className="pill" key={item}>
+                  {item}
+                </span>
               ))}
-            </ul>
-          </div>
-        ) : null}
-        {isKnowHowNode(node) ? (
-          <div data-testid="knowhow-meta">
-            <strong>{t("knowHowSectionTitle")}</strong>
-            <TransactabilityChip value={node.transactability} t={t} />
-            {holderSummary ? (
-              <p
-                data-testid="holders-summary"
-                data-holders-total={holderSummary.total}
-                data-holders-listed={holderSummary.listed}
-                style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
-              >
-                {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
-              </p>
+              {node.kind === "organization" ? <ListingChip org={node} /> : null}
+            </div>
+            <p>{node.description ?? t("noDescription")}</p>
+            {constraintFactors.length > 0 ? (
+              <div>
+                <strong>{t("constraintFactors")}</strong>
+                <div className="pill-row">
+                  {constraintFactors.map((factor) => (
+                    <span className="pill" key={factor.tag}>
+                      {factor.label}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ) : null}
-            {knowHowHosts.length > 0 ? (
-              <div data-testid="knowhow-hosted-by">
-                <strong>{t("knowHowHostedBy")}</strong>
+            <div>
+              <strong>{t("maturity")}</strong>
+              <div className="maturity-pill-row">
+                {(() => {
+                  const visual = maturityVisualFor(node);
+                  const asOf = maturityAsOfVisualFor(node);
+                  const asOfTooltip = asOf.hasValue
+                    ? t("maturityAsOfTooltip").replace("{date}", asOf.label)
+                    : t("maturityAsOfMissing");
+                  return (
+                    <>
+                      <span
+                        className={["maturity-pill", visual.hasLabel ? "" : "missing"].filter(Boolean).join(" ")}
+                        style={{
+                          background: visual.bg,
+                          color: visual.fg,
+                          opacity: visual.hasLabel ? 1 : 0.65,
+                        }}
+                        title={visual.hasLabel ? visual.label : t("maturityLabelMissing")}
+                      >
+                        {visual.label}
+                        {typeof node.maturityScore === "number" ? (
+                          <span className="maturity-pill-score">· {node.maturityScore}</span>
+                        ) : null}
+                      </span>
+                      <span
+                        className={["maturity-asof-pill", asOf.hasValue ? "" : "missing"].filter(Boolean).join(" ")}
+                        title={asOfTooltip}
+                        aria-label={asOfTooltip}
+                      >
+                        <span className="maturity-asof-icon" aria-hidden="true">🕒</span>
+                        {t("maturityAsOf")}: {asOf.label}
+                      </span>
+                      {isHardToDevelop ? (
+                        <span
+                          className="key-technology-pill"
+                          title={t("hardToDevelopGlyphTooltip")}
+                          aria-label={t("hardToDevelopGlyphTooltip")}
+                        >
+                          <span className="key-technology-pill-icon" aria-hidden="true">🔑</span>
+                          {t("keyTechnologyPill")}
+                        </span>
+                      ) : null}
+                      {isFrontierByJudgment ? (
+                        <span
+                          className="frontier-pill"
+                          title={t("frontierPillTooltip")}
+                          aria-label={t("frontierPillTooltip")}
+                        >
+                          {t("frontierPill")}
+                        </span>
+                      ) : null}
+                    </>
+                  );
+                })()}
+                {node.confidence ? (
+                  <span className="muted">
+                    {t("confidence")}: {node.confidence}
+                  </span>
+                ) : null}
+              </div>
+              <MaturityHistoryTimeline node={node} />
+            </div>
+            {node.targetContext ? (
+              <div className="detail-target-context">
+                <strong>{t("targetContext")}</strong>{" "}
+                <span className="muted">({Object.keys(node.targetContext).length})</span>
                 <ul>
-                  {knowHowHosts.map((host) => (
-                    <li key={host.id}>
-                      <span>{nodeName(host.id, host.name)}</span>
+                  {Object.entries(node.targetContext).map(([key, value]) => (
+                    <li key={key}>
+                      {key}: {value}
                     </li>
                   ))}
                 </ul>
               </div>
             ) : null}
+            {node.kind === "metric" ? <MetricValueDetailRow node={node} /> : null}
           </div>
-        ) : null}
-        <NodeList
-          title={t("downstreamBottlenecks")}
-          nodes={bottlenecks}
-          deprecatedHiddenCount={bottlenecksDeprecatedCount}
-        />
-        {manufacturerLinksAll.length > 0 ? (
-          <OrganizationNodeList
-            title={t("manufacturerCandidates")}
-            links={manufacturerLinks}
-            subtitle={t("manufacturerCandidatesHint")}
-            deprecatedHiddenCount={manufacturerDeprecatedCount}
-          />
-        ) : null}
-        {implementerLinksAll.length > 0 ? (
-          <OrganizationNodeList
-            title={t("serviceCandidates")}
-            links={implementerLinks}
-            subtitle={t("serviceCandidatesHint")}
-            deprecatedHiddenCount={implementerDeprecatedCount}
-          />
-        ) : null}
-        {node.kind === "organization" ? (
+        </section>
+        <section className="detail-supplementary-section" data-testid="detail-relationship-lists">
+          <strong>{t("relationshipLists")}</strong>
+          <p className="muted">{t("relationshipListsHint")}</p>
+          {isKnowHowNode(node) ? (
+            <div data-testid="knowhow-meta">
+              <strong>{t("knowHowSectionTitle")}</strong>
+              <TransactabilityChip value={node.transactability} t={t} />
+              {holderSummary ? (
+                <p
+                  data-testid="holders-summary"
+                  data-holders-total={holderSummary.total}
+                  data-holders-listed={holderSummary.listed}
+                  style={holderSummary.total === 0 ? { color: "#dc2626", fontWeight: "bold" } : undefined}
+                >
+                  {holderSummary.total} {t("knowHowHoldersLabel")} · {holderSummary.listed} {t("knowHowListedLabel")}
+                </p>
+              ) : null}
+              {knowHowHosts.length > 0 ? (
+                <div data-testid="knowhow-hosted-by">
+                  <strong>{t("knowHowHostedBy")}</strong>
+                  <ul>
+                    {knowHowHosts.map((host) => (
+                      <li key={host.id}>
+                        <span>{nodeName(host.id, host.name)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
           <NodeList
-            title={t("supplierExposure")}
-            nodes={supplierExposure}
-            subtitle={t("supplierExposureHint")}
-            deprecatedHiddenCount={supplierExposureDeprecatedCount}
+            title={t("downstreamBottlenecks")}
+            nodes={bottlenecks}
+            deprecatedHiddenCount={bottlenecksDeprecatedCount}
           />
-        ) : null}
-        {node.kind === "organization" ? (
+          <NodeList title={t("upstream")} nodes={up} />
           <NodeList
-            title={t("implementationExposure")}
-            nodes={implementationExposure}
-            subtitle={t("implementationExposureHint")}
-            deprecatedHiddenCount={implementationExposureDeprecatedCount}
+            title={t("downstream")}
+            nodes={down}
+            subtitle={t("nonMetricChildrenHint")}
+            deprecatedHiddenCount={downDeprecatedCount}
           />
-        ) : null}
-        <NodeList title={t("upstream")} nodes={up} />
-        <NodeList
-          title={t("downstream")}
-          nodes={down}
-          subtitle={t("nonMetricChildrenHint")}
-          deprecatedHiddenCount={downDeprecatedCount}
-        />
-        {node.kind === "product" ? (
-          <NodeList
-            title={t("siblingCandidates")}
-            nodes={siblingCandidates}
-            subtitle={t("siblingCandidatesHint")}
-            deprecatedHiddenCount={siblingDeprecatedCount}
-          />
-        ) : null}
+          {node.kind === "product" ? (
+            <NodeList
+              title={t("siblingCandidates")}
+              nodes={siblingCandidates}
+              subtitle={t("siblingCandidatesHint")}
+              deprecatedHiddenCount={siblingDeprecatedCount}
+            />
+          ) : null}
+        </section>
       </details>
     </div>
   );

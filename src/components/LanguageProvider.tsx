@@ -149,6 +149,8 @@ const uiText: Record<Language, Record<string, string>> = {
     relationshipListsHint:
       "Audit-only graph structure. The map already shows these upstream/downstream links, so this list is static and does not change focus.",
     fullEvidenceList: "Full evidence list",
+    detailSecondaryResearch: "Research follow-ups",
+    detailSupplementaryAppendix: "Supplementary appendix",
     organizationMetrics: "Organization metrics / investor exposure",
     metricsStrip: "Metric chips",
     bottlenecks: "Bottlenecks",
@@ -683,6 +685,8 @@ const uiText: Record<Language, Record<string, string>> = {
     relationshipLists: "图谱附录",
     relationshipListsHint: "仅用于审计图谱结构。上下游关系已经在图里展示，此列表为静态信息，不会切换焦点。",
     fullEvidenceList: "完整证据列表",
+    detailSecondaryResearch: "继续研究",
+    detailSupplementaryAppendix: "补充材料",
     organizationMetrics: "组织指标 / 投资暴露",
     metricsStrip: "指标卡片",
     bottlenecks: "瓶颈",

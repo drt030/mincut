@@ -3087,6 +3087,32 @@ li {
   border-radius: 2px;
 }
 
+.detail-secondary-research {
+  border-top: 1px solid #e2e8f0;
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.detail-supplementary-appendix {
+  border-top: 1px solid #e2e8f0;
+  margin-top: 12px;
+  padding-top: 8px;
+}
+
+.detail-supplementary-appendix > summary {
+  color: #475569;
+}
+
+.detail-supplementary-section {
+  border-top: 1px solid #eef2f7;
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
 .cost-rollup-breakdown {
   align-items: center;
   display: flex;

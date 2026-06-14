@@ -139,14 +139,17 @@ requireMatch(
   /layout\.sectors/.test(graphExplorer),
 );
 
-// B3 invariants introduced by slice B3 (greyscale focus).
+// B3 invariants introduced by slice B3, then updated for chromatic focus:
+// non-focused nodes/edges should recede via opacity while preserving hue.
 requireMatch(
   "GraphExplorer must derive node + edge dim flags via focusedSubset per slice B3.",
   /from "@\/lib\/focusedSubset"/.test(graphExplorer),
 );
 requireMatch(
-  "globals.css must declare the .radial-dim greyscale rule per slice B3.",
-  /\.radial-dim\s*\{[\s\S]{0,200}filter:\s*saturate\(0\)/.test(globals),
+  "globals.css must keep .radial-dim chromatic by dimming opacity instead of greyscale filtering.",
+  /\.radial-dot\.radial-dim\s*\{[\s\S]{0,200}opacity:\s*0\.[0-9]+/.test(globals) &&
+    /\.react-flow__edge\s+\.radial-dim\s*\{[\s\S]{0,200}opacity:\s*0\.[0-9]+/.test(globals) &&
+    !/\.radial-dim\s*\{[\s\S]{0,200}filter:\s*(?:saturate\(0\)|grayscale)/i.test(globals),
 );
 
 if (failures.length) {

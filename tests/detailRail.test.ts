@@ -132,10 +132,16 @@ function detailReaderPriority(html: string): string {
 }
 
 function detailDisclosure(html: string, testId: string): string {
-  const pattern = new RegExp(`<details[^>]*data-testid=["']${testId}["'][\\s\\S]*?</details>`);
-  const match = html.match(pattern);
-  assert.ok(match, `collapsed disclosure ${testId} should be addressable; got: ${html}`);
-  return match[0];
+  const marker = `data-testid="${testId}"`;
+  const markerIndex = html.indexOf(marker);
+  assert.ok(markerIndex >= 0, `detail block ${testId} should be addressable; got: ${html}`);
+  const openIndex = html.lastIndexOf("<", markerIndex);
+  const tag = html.slice(openIndex + 1).match(/^([a-z0-9-]+)/i)?.[1];
+  assert.ok(tag, `detail block ${testId} should have an opening tag; got: ${html.slice(openIndex, markerIndex + marker.length)}`);
+  const close = `</${tag}>`;
+  const closeIndex = html.indexOf(close, markerIndex);
+  assert.ok(closeIndex >= 0, `detail block ${testId} should have a closing ${close}; got: ${html}`);
+  return html.slice(openIndex, closeIndex + close.length);
 }
 
 const noop = () => {};
@@ -577,6 +583,8 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   const decisionBriefIndex = html.indexOf('data-testid="detail-decision-brief"');
   const evidenceSummaryIndex = html.indexOf('data-testid="detail-evidence-summary"');
   const inspectIndex = html.indexOf('data-testid="detail-inspect-next"');
+  const secondaryResearchIndex = html.indexOf('data-testid="detail-secondary-research"');
+  const supplementaryIndex = html.indexOf('data-testid="detail-supplementary-appendix"');
   const technicalMetadataIndex = html.indexOf('data-testid="detail-technical-metadata"');
   const rawDomainIndex = html.indexOf(focused.domain[0], technicalMetadataIndex);
   const rawKindIndex = html.indexOf(`>${focused.kind}<`, technicalMetadataIndex);
@@ -594,6 +602,13 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.ok(evidenceSummaryIndex > decisionBriefIndex, `key evidence summary should follow decision brief; got: ${html}`);
   assert.ok(exposureSummaryIndex > evidenceSummaryIndex, `supplier/evidence quick path should follow the evidence summary; got: ${html}`);
   assert.ok(inspectIndex > exposureSummaryIndex, `inspect next should follow the supplier/evidence quick path; got: ${html}`);
+  assert.ok(secondaryResearchIndex > inspectIndex, `secondary research follow-ups should sit below the first-screen workflow; got: ${html}`);
+  assert.ok(supplementaryIndex > secondaryResearchIndex, `supplementary appendix should be the final collapsed layer; got: ${html}`);
+  assert.doesNotMatch(
+    html,
+    /<details[^>]*data-testid="detail-(full-evidence-list|technical-metadata|relationship-lists)"/,
+    "full evidence, raw metadata, and duplicate relationship lists should be sections inside the single supplementary appendix, not separate accordions",
+  );
   assert.equal(evidenceStatusIndex, -1, `public detail must not expose internal evidence status language; got: ${html}`);
   assert.ok(technicalMetadataIndex >= 0, `technical metadata should still render after the reader block; got: ${html}`);
   assert.ok(rawDomainIndex >= 0, `raw domain tag should still render later; got: ${html}`);
@@ -613,15 +628,16 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.match(html, /Supply constraint/i, `decision brief should classify the bottleneck reason; got: ${html}`);
   assert.match(html, /Relief timing/i, `decision brief should say whether the constraint is quick or slow to relieve; got: ${html}`);
   assert.match(html, /Inspect next/i, `full detail should give the reader next inspection targets; got: ${html}`);
+  assert.match(html.slice(supplementaryIndex, supplementaryIndex + 260), /Supplementary appendix/i);
   assert.match(
     detailDisclosure(html, "detail-technical-metadata"),
-    /<summary[\s\S]*Technical details[\s\S]*<\/summary>/,
-    "raw kind/domain/targetContext should be behind a collapsed technical details disclosure",
+    /<strong>Technical details<\/strong>/,
+    "raw kind/domain/targetContext should be inside the supplementary technical metadata block",
   );
   assert.match(
     detailDisclosure(html, "detail-relationship-lists"),
-    /<summary[\s\S]*Graph appendix[\s\S]*<\/summary>/,
-    "upstream/downstream/sibling lists should be demoted into a collapsed graph appendix",
+    /<strong>Graph appendix<\/strong>/,
+    "upstream/downstream/sibling lists should be demoted into the supplementary graph appendix",
   );
   assert.doesNotMatch(
     relationshipLists,

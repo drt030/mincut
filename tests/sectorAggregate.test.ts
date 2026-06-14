@@ -31,6 +31,7 @@ import assert from "node:assert/strict";
 import { sectorAggregate } from "../src/lib/sectorAggregate";
 import {
   edgeStyleFor,
+  nodeCostSignalRmb,
   WIDTHS,
   type ColorMode,
 } from "../src/lib/edgeStyleFor";
@@ -77,69 +78,44 @@ function descendantsOf(subsystemId: string, graph: GraphData): Set<string> {
 }
 
 /**
- * Helper: read the typical RMB cost from a node's first cost-bearing
- * metric, walking through `measured_by` if needed. Lifted from the
- * existing `edgeTint.ts` / `nodeRisk.ts` implementations so the
- * tests don't depend on the GREEN code's internal cost helper.
+ * Helper: read the UI cost signal for sector aggregation. The signal
+ * uses authored modeled cost when available, then low-confidence
+ * estimates for unpriced live-route artifact nodes. This matches the
+ * product contract for cost-driver views: avoid blank cost sectors when
+ * a node lacks a reviewed quote, but keep the estimate visibly marked
+ * elsewhere in the UI.
  */
-function typicalCostRmb(nodeId: string, graph: GraphData): number {
+function costSignalRmb(nodeId: string, graph: GraphData): number {
   const node = graph.nodes.find((n) => n.id === nodeId);
   if (!node) return 0;
-  const directMetric = node.metrics?.[0];
-  if (directMetric && directMetric.unit && (directMetric.currency === "RMB" || directMetric.unit.toUpperCase() === "RMB")) {
-    const v = directMetric.currentValue;
-    if (typeof v === "number") return v;
-    if (v && typeof v === "object" && "typical" in v && typeof (v as { typical: unknown }).typical === "number") {
-      return (v as { typical: number }).typical;
-    }
-  }
-  for (const edge of graph.edges) {
-    if (edge.source !== nodeId || edge.relation !== "measured_by") continue;
-    const metricNode = graph.nodes.find((n) => n.id === edge.target);
-    if (!metricNode || metricNode.kind !== "metric") continue;
-    if (metricNode.reviewStatus === "deprecated") continue;
-    const m = metricNode.metrics?.[0];
-    if (!m || !m.unit) continue;
-    if (m.currency !== "RMB" && m.unit.toUpperCase() !== "RMB") continue;
-    const v = m.currentValue;
-    if (typeof v === "number") return v;
-    if (v && typeof v === "object" && "typical" in v && typeof (v as { typical: unknown }).typical === "number") {
-      return (v as { typical: number }).typical;
-    }
-  }
-  return 0;
+  return nodeCostSignalRmb(node, graph) ?? 0;
 }
 
 // -------------------- Test 1: Cost mode → sum --------------------
 
 /**
- * Assertion 1 (cost mode → sum): the cost aggregate is the SUM of
- * typical RMB costs across the subsystem subtree (the ADR pins
- * "p50 sum for cost" — p50 of a single trajectory IS the typical
- * value; the operation across the subtree is sum).
+ * Assertion 1 (cost mode → sum): the cost aggregate is the SUM of UI
+ * cost signals across the subsystem subtree (the ADR pins "p50 sum for
+ * cost"; estimate-backed nodes now provide low-confidence p50 signals
+ * when authored cost data is missing).
  *
- * Fixture choice: `vision_barcode_label_recognition` is a first-
- * layer subsystem whose subtree contains 4 priced descendants:
- *   - industrial_area_scan_camera: 17k
- *   - machine_vision_lens_and_optics: 3k
- *   - controlled_machine_vision_lighting: 3k
- *   - vision_processing_compute: 16k
- * Plus the subsystem itself has no own cost-bearing metric on the
- * live data probe (its cost is the SUM of children, ~39k). Total
- * subtree typical RMB ≈ 39k.
+ * Fixture choice: `vision_barcode_label_recognition` is a first-layer
+ * subsystem with a mix of authored parcel costs and estimate-backed
+ * child signals. The exact total is intentionally computed from the
+ * graph so adding or replacing cost evidence updates the oracle.
  *
  * The assertion compares the IMPLEMENTATION's value against the
- * test's own independent computation via `typicalCostRmb`, NOT
+ * test's own independent computation via `costSignalRmb`, NOT
  * against a hard-coded constant — so a data tweak that adjusts the
  * underlying metrics still satisfies both sides of the equation.
  */
-test("cost mode: sectorAggregate value = sum of subtree typical costs (RMB)", () => {
+test("cost mode: sectorAggregate value = sum of subtree cost signals (RMB)", () => {
   const graph = loadGraphData();
   const subsystem = "vision_barcode_label_recognition";
   const subtree = descendantsOf(subsystem, graph);
 
   let expected = 0;
-  for (const id of subtree) expected += typicalCostRmb(id, graph);
+  for (const id of subtree) expected += costSignalRmb(id, graph);
 
   const result = sectorAggregate(subsystem, "cost", graph);
   assert.ok(
