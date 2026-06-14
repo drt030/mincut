@@ -1235,7 +1235,7 @@ function DecisionBrief({
   });
   if (estimatedCost && !modeledCostText) {
     cost.secondary = t("readerCostEstimateBasisShort");
-    cost.full = estimatedCost.basis;
+    cost.full = t("readerCostEstimateCaveat");
   } else if (modeledCostText) {
     cost.secondary = t("readerCostModeledBasisShort");
   }

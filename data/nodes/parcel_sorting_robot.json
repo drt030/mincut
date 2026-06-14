@@ -3042,7 +3042,7 @@
   {
     "id": "modular_cell_manufacturing",
     "name": "Modular cell manufacturing",
-    "kind": "manufacturing_process",
+    "kind": "module",
     "domain": [
       "parcel_sorting_robot"
     ],
@@ -3056,8 +3056,7 @@
       "decomposition_frontier"
     ],
     "reviewStatus": "unreviewed",
-    "notes": "Frontier candidate: next layer should model station-by-station fab steps, jig/fixture standardization, line-side parts-supply, integration test protocols, and per-module cost roll-up. transactability=must_build (agent backfill 2026-06-10, needs review): the maker's own production system design",
-    "transactability": "must_build"
+    "notes": "Frontier candidate: next layer should model station-by-station fab steps, jig/fixture standardization, line-side parts-supply, integration test protocols, and per-module cost roll-up."
   },
   {
     "id": "warehouse_machine_safety_standard",

@@ -541,7 +541,8 @@ test("RouteDetailRail labels heuristic route cost signals as estimated", () => {
   const summary = selectedSummary(html);
 
   assert.match(summary, /Estimated cost: p50 RMB 250,000/i);
-  assert.match(summary, /Basis: domain\/tag heuristic; not supplier quote or BOM/i);
+  assert.match(summary, /Estimate; needs supplier quote or BOM validation/i);
+  assert.doesNotMatch(summary, /domain\/tag heuristic|Basis:/i);
 });
 
 test("RouteDetailRail relief timing explains the kind of unresolved constraint", () => {

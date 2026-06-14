@@ -1055,11 +1055,11 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   const layerVisibleNodeIds = useMemo(() => {
     const visible = new Set<string>();
     for (const node of canvasGraph.nodes) {
-      if (layerHidesNode(node, graphLayer) && !firstLayerSubsystemSet.has(node.id)) continue;
+      if (layerHidesNode(node, graphLayer)) continue;
       visible.add(node.id);
     }
     return visible;
-  }, [canvasGraph.nodes, firstLayerSubsystemSet, graphLayer]);
+  }, [canvasGraph.nodes, graphLayer]);
 
   const childrenByParent = useMemo(() => {
     const out = new Map<string, string[]>();

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isArtifactCanvasNode, isCanvasTreeEdge, isKnowHowNode } from "../src/lib/canvasGraph";
+import { filterCanvasGraph, isArtifactCanvasNode, isCanvasTreeEdge, isKnowHowNode } from "../src/lib/canvasGraph";
 import { auditGraphTopology } from "../src/lib/graphTopologyAudit";
 import { DOMAIN_ROUTES } from "../src/lib/domains";
 import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
@@ -71,6 +71,25 @@ test("auditGraphTopology does not treat duplicate visible edges from one parent 
     [],
     "multi-parent entries require at least two unique visible parent ids, not two raw incoming edges",
   );
+});
+
+test("commercial route product roots require artifact modules before attaching know-how", () => {
+  for (const route of DOMAIN_ROUTES) {
+    const canvas = filterCanvasGraph(loadActiveGraphData(route.rootId), route.rootId);
+    const nodeById = new Map(canvas.nodes.map((node) => [node.id, node]));
+    const firstLayerKnowHow = canvas.edges.flatMap((edge) => {
+      if (edge.relation !== "requires" || edge.source !== route.rootId) return [];
+      const target = nodeById.get(edge.target);
+      if (!target || !isKnowHowNode(target)) return [];
+      return [`${target.id}:${target.kind}`];
+    });
+
+    assert.deepEqual(
+      firstLayerKnowHow,
+      [],
+      `${route.slug} should build the product graph from artifact modules first, then attach know-how below those modules`,
+    );
+  }
 });
 
 test("commercial route topology audits have no unexplained non-material neutral canvas nodes", () => {

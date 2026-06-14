@@ -984,7 +984,8 @@ test("expanded: detail decision brief labels modeled cost before showing p50 val
   const decision = html.match(/<div[^>]*data-testid="detail-decision-brief"[\s\S]*?<\/div><\/div>/)?.[0] ?? html;
 
   assert.match(decision, /Modeled cost: p50/i);
-  assert.match(decision, /Basis: graph model or rollup; not supplier quote or audited BOM/i);
+  assert.match(decision, /Model\/rollup; needs supplier quote or audited BOM validation/i);
+  assert.doesNotMatch(decision, /Basis: graph model|Basis:/i);
   assert.doesNotMatch(
     decision,
     /<strong>p50 RMB/i,

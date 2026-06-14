@@ -710,6 +710,24 @@ test("route-led focus dimming preserves node and edge hue", () => {
   );
 });
 
+test("GraphExplorer.tsx regression guard: product layer never re-shows first-layer know-how", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+  assert.equal(
+    noLineComments.includes("&& !firstLayerSubsystemSet.has(node.id)"),
+    false,
+    "Product layer should hide all know-how nodes; first-layer know-how means the product graph needs another artifact module, not a UI exception",
+  );
+});
+
 test("route-led desktop layout keeps the graph dominant over the detail rail", () => {
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
   const layoutBlock = css.match(/\.graph-layout-radial\s*\{[\s\S]*?\n\}/)?.[0] ?? "";

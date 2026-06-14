@@ -465,6 +465,7 @@ export function RouteDetailRail({
     });
     if (costKind === "estimated") {
       costAnswer.secondary = t("readerCostEstimateBasisShort");
+      costAnswer.full = t("readerCostEstimateCaveat");
     } else if (cost) {
       costAnswer.secondary = t("readerCostModeledBasisShort");
     }
