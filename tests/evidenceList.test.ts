@@ -38,3 +38,18 @@ test("EvidenceList internal mode can still expose raw review bookkeeping", () =>
   assert.match(html, /unreviewed vendor claims/i);
   assert.match(html, /need human review/i);
 });
+
+test("EvidenceList shows a public source-checked chip only for verified machineCheck", () => {
+  const verified: Evidence[] = [
+    { id: "ev_v", type: "paper", title: "Verified note", machineCheck: { status: "verified", checkedAsOf: "2026-06-14" } },
+  ];
+  const structuralOnly: Evidence[] = [
+    { id: "ev_s", type: "paper", title: "Structural note", machineCheck: { status: "structural_ok", checkedAsOf: "2026-06-14" } },
+  ];
+
+  const verifiedHtml = renderToStaticMarkup(React.createElement(EvidenceList, { evidence: verified }));
+  assert.match(verifiedHtml, /source re-checked/i);
+
+  const structuralHtml = renderToStaticMarkup(React.createElement(EvidenceList, { evidence: structuralOnly }));
+  assert.doesNotMatch(structuralHtml, /source re-checked/i);
+});

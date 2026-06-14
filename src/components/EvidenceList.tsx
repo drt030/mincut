@@ -35,6 +35,11 @@ export function EvidenceList({ evidence, showInternalReviewState = false }: Evid
                   {item.confidence ? (
                     <span className="pill">{t("confidence")}: {item.confidence}</span>
                   ) : null}
+                  {item.machineCheck?.status === "verified" ? (
+                    <span className="pill pill-source-checked" title={t("evidenceSourceCheckedHint")}>
+                      ✓ {t("evidenceSourceChecked")}
+                    </span>
+                  ) : null}
                 </div>
                 {item.sourceName || item.date ? (
                   <div className="metric-detail-row-values">
