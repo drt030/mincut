@@ -44,6 +44,10 @@ type GateContext = {
 
 const DISPUTED_CAP = 2;
 const UNREVIEWED_CAP = 3;
+// Per the 2026-06-14 evidence-credibility-audit design: an unreviewed claim
+// whose evidence is machineCheck=verified lifts the cap one rung (3 → 4), but
+// only owner `reviewed` reaches 5. See ADR-0001 (amended) and the design spec.
+const MACHINE_VERIFIED_CAP = 4;
 
 const requiredParcelModules = [
   "vision_barcode_label_recognition",
@@ -517,11 +521,13 @@ function expectedFrontierKinds(frontier: Node): string {
   return "module, equipment, material, manufacturing_process, engineering_method, metric, bottleneck, evidence";
 }
 
-type EvidenceFindings = {
+export type EvidenceFindings = {
   trustedEvidence: Evidence[];
   weakEvidence: Evidence[];
   missingReviewedEvidence: Array<Node | Edge>;
   unreviewedClaims: Array<Node | Edge>;
+  /** Ids of unreviewed claims whose non-deprecated evidence includes a machineCheck=verified record. */
+  machineVerifiedClaimIds: Set<string>;
   /**
    * Per ADR-0001, `disputed` claims (and disputed-status evidence)
    * lower the relevant gate score to 2/5. They count toward coverage,
@@ -546,6 +552,16 @@ function evidenceFindingsForContext(context: GateContext): EvidenceFindings {
     unreviewedClaims: claims.filter((claim) => claim.reviewStatus === "unreviewed"),
     disputedClaims: claims.filter((claim) => claim.reviewStatus === "disputed"),
     disputedEvidence: context.scopedEvidenceActive.filter((item) => item.reviewStatus === "disputed"),
+    machineVerifiedClaimIds: new Set(
+      claims
+        .filter((claim) => claim.reviewStatus === "unreviewed")
+        .filter((claim) =>
+          evidenceForClaim(context.graph, claim)
+            .filter((item) => item.reviewStatus !== "deprecated")
+            .some((item) => item.machineCheck?.status === "verified"),
+        )
+        .map((claim) => claim.id),
+    ),
     vendorOrInternalOnlyClaims: claims.filter((claim) => {
       const evidence = evidenceForClaim(context.graph, claim).filter((item) => item.reviewStatus !== "deprecated");
       return evidence.length > 0 && evidence.every((item) => item.type === "vendor_claim" || item.type === "internal_note");
@@ -562,10 +578,14 @@ function evidenceFindingsForContext(context: GateContext): EvidenceFindings {
  * lower (disputed = 2/5) cap wins, since the asymmetry intentionally
  * pulls the score down — see CONTEXT.md "Review status ladder" L50.
  */
-function applyReviewStatusCap(findings: EvidenceFindings): number | undefined {
+export function applyReviewStatusCap(findings: EvidenceFindings): number | undefined {
   if (findings.disputedClaims.length > 0 || findings.disputedEvidence.length > 0) return DISPUTED_CAP;
-  if (findings.unreviewedClaims.length > 0) return UNREVIEWED_CAP;
-  return undefined;
+  const bareUnreviewed = findings.unreviewedClaims.filter(
+    (claim) => !findings.machineVerifiedClaimIds.has(claim.id),
+  );
+  if (bareUnreviewed.length > 0) return UNREVIEWED_CAP; // any bare unreviewed claim → 3
+  if (findings.machineVerifiedClaimIds.size > 0) return MACHINE_VERIFIED_CAP; // all remaining are machine-verified → 4
+  return undefined; // all reviewed → no cap (5 reachable)
 }
 
 /**
