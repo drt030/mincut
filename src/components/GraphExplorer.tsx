@@ -45,7 +45,6 @@ import {
   DEFAULT_GRAPH_LAYER,
   knowHowBottleneckCounts,
   knowHowLayerFill,
-  layerHidesEdge,
   layerHidesNode,
   type GraphLayer,
 } from "@/lib/knowHowLayer";
@@ -1007,7 +1006,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       if (edge.relation !== "requires") continue;
       if (edge.source !== currentRootId) continue;
       const target = canvasGraph.nodes.find((n) => n.id === edge.target);
-      if (!target || target.kind === "material" || isKnowHowNode(target)) continue;
+      if (!target || target.kind === "material") continue;
       out.push(edge.target);
     }
     return out;
@@ -1016,6 +1015,15 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     () => new Set(firstLayerSubsystems),
     [firstLayerSubsystems],
   );
+
+  const layerVisibleNodeIds = useMemo(() => {
+    const visible = new Set<string>();
+    for (const node of canvasGraph.nodes) {
+      if (layerHidesNode(node, graphLayer) && !firstLayerSubsystemSet.has(node.id)) continue;
+      visible.add(node.id);
+    }
+    return visible;
+  }, [canvasGraph.nodes, firstLayerSubsystemSet, graphLayer]);
 
   const childrenByParent = useMemo(() => {
     const out = new Map<string, string[]>();
@@ -1089,11 +1097,13 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     return selectTopN(workingGraph, colorMode, 5, visiblePriorityScope);
   }, [workingGraph, colorMode, visiblePriorityScope]);
 
+  const readerStartNodeId = topPriorityEntries[0]?.nodeId ?? null;
+
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of canvasGraph.nodes) {
       if (!focalSubtree.has(node.id)) continue;
-      if (layerHidesNode(node, graphLayer)) continue;
+      if (!layerVisibleNodeIds.has(node.id)) continue;
       const packed = activeNodePositions.get(node.id);
       if (!packed) continue;
       const { x, y } = packed;
@@ -1149,7 +1159,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       });
     }
     return nodes;
-  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes, graphLayer, khBottleneckCounts, khZeroHolderIds]);
+  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes, graphLayer, layerVisibleNodeIds, khBottleneckCounts, khZeroHolderIds]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     type RenderableEdge = {
@@ -1191,7 +1201,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     }
     for (const edge of canvasGraph.edges) {
       if (!isCanvasTreeEdge(edge, nodeById)) continue;
-      if (layerHidesEdge(edge, graphLayer, nodeById)) continue;
+      if (!layerVisibleNodeIds.has(edge.source) || !layerVisibleNodeIds.has(edge.target)) continue;
       if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) continue;
       // Only render edges whose target was actually laid out (defensive
       // — radialLayout assigns every reachable structural node a
@@ -1308,7 +1318,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       });
     }
     return edges;
-  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges, graphLayer]);
+  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges, layerVisibleNodeIds]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1403,14 +1413,24 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   const initialFitDoneRef = useRef(false);
   const readerFitNodes = useMemo(() => {
     const candidateIds = new Set<string>([currentRootId, ...firstLayerSubsystems]);
+    if (readerStartNodeId) {
+      candidateIds.add(readerStartNodeId);
+      for (const ancestor of focusPathForNode(readerStartNodeId, canvasGraph, currentRootId)) {
+        candidateIds.add(ancestor);
+      }
+      for (const child of childrenByParent.get(readerStartNodeId) ?? []) {
+        candidateIds.add(child);
+      }
+    }
     const nodes: Array<{ id: string }> = [];
     for (const id of candidateIds) {
       if (!focalSubtree.has(id)) continue;
       if (!activeNodePositions.has(id)) continue;
+      if (!layerVisibleNodeIds.has(id)) continue;
       nodes.push({ id });
     }
     return nodes.length > 1 ? nodes : [{ id: currentRootId }];
-  }, [currentRootId, firstLayerSubsystems, focalSubtree, activeNodePositions]);
+  }, [currentRootId, firstLayerSubsystems, readerStartNodeId, canvasGraph, childrenByParent, focalSubtree, activeNodePositions, layerVisibleNodeIds]);
   const fitFullSystemView = useCallback((
     inst: ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>>,
     duration: number,

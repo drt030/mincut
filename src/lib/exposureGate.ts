@@ -79,15 +79,15 @@ export function stripExposureLayer(
   const visibleNodeIds = new Set(nodes.map((node) => node.id));
   const visibleEdgeIds = new Set(edges.map((edge) => edge.id));
   const evidence = graph.evidence.flatMap((ev) => {
-    if (evidenceMentionsLockedOrganization(ev, lockedOrgNames)) return [];
     const pruned = pruneEvidenceSupports(ev, visibleNodeIds, visibleEdgeIds);
     if (!pruned) return [];
+    const redacted = redactEvidenceProse(pruned, lockedOrgNames);
     if (
       referencedEvidenceIds.size === 0 ||
-      referencedEvidenceIds.has(pruned.id) ||
-      evidenceHasSupports(pruned)
+      referencedEvidenceIds.has(redacted.id) ||
+      evidenceHasSupports(redacted)
     ) {
-      return [pruned];
+      return [redacted];
     }
     return [];
   });
@@ -99,9 +99,17 @@ export function stripExposureLayer(
     edgesWithEvidence,
     lockedOrgNames,
   );
-  const safeEvidence = evidence.map((ev) => remapEvidenceSupports(ev, nodeIdMap, edgeIdMap));
+  const evidenceIdMap = buildRedactedIdentifierMap(evidence.map((ev) => ev.id), lockedOrgNames);
+  const safeEvidence = evidence.map((ev) => {
+    let next = remapEvidenceSupports(ev, nodeIdMap, edgeIdMap);
+    const id = evidenceIdMap.get(next.id) ?? next.id;
+    if (id !== next.id) next = { ...next, id };
+    return next;
+  });
+  const safeNodesWithEvidence = remapEvidenceReferences(safeNodes, evidenceIdMap);
+  const safeEdgesWithEvidence = remapEvidenceReferences(safeEdges, evidenceIdMap);
 
-  return { graph: { ...graph, nodes: safeNodes, edges: safeEdges, evidence: safeEvidence }, locked };
+  return { graph: { ...graph, nodes: safeNodesWithEvidence, edges: safeEdgesWithEvidence, evidence: safeEvidence }, locked };
 }
 
 function lockedOrganizationNames(nodes: GraphNode[], hiddenNodeIds: Set<string>): string[] {
@@ -189,17 +197,6 @@ function redactEdgeProse(edge: GraphEdge, lockedOrgNames: string[]): GraphEdge {
   return next;
 }
 
-function evidenceMentionsLockedOrganization(evidence: GraphData["evidence"][number], lockedOrgNames: string[]): boolean {
-  return evidenceStringsForLeak(evidence).some((value) => containsLockedOrganizationName(value, lockedOrgNames));
-}
-
-function evidenceStringsForLeak(evidence: GraphData["evidence"][number]): string[] {
-  return Object.entries(evidence).flatMap(([key, value]) => {
-    if (key === "supportsNodeIds" || key === "supportsEdgeIds") return [];
-    return objectStrings(value);
-  });
-}
-
 function pruneEvidenceSupports(
   evidence: GraphData["evidence"][number],
   visibleNodeIds: Set<string>,
@@ -215,6 +212,49 @@ function pruneEvidenceSupports(
   if (supportsNodeIds !== evidence.supportsNodeIds) next = { ...next, supportsNodeIds };
   if (supportsEdgeIds !== evidence.supportsEdgeIds) next = { ...next, supportsEdgeIds };
   return next;
+}
+
+function redactEvidenceProse(
+  evidence: GraphData["evidence"][number],
+  lockedOrgNames: string[],
+): GraphData["evidence"][number] {
+  let changed = false;
+  const redacted = Object.fromEntries(
+    Object.entries(evidence).map(([key, value]) => {
+      if (key === "id" || key === "supportsNodeIds" || key === "supportsEdgeIds") return [key, value];
+      if (key === "url" && typeof value === "string" && containsLockedOrganizationName(value, lockedOrgNames)) {
+        changed = true;
+        return [key, undefined];
+      }
+      const next = redactEvidenceValue(value, lockedOrgNames);
+      if (next !== value) changed = true;
+      return [key, next];
+    }),
+  ) as GraphData["evidence"][number];
+  return changed ? redacted : evidence;
+}
+
+function redactEvidenceValue(value: unknown, lockedOrgNames: string[]): unknown {
+  if (typeof value === "string") return redactLockedOrganizationNames(value, lockedOrgNames);
+  if (Array.isArray(value)) {
+    let changed = false;
+    const next = value.map((entry) => {
+      const redacted = redactEvidenceValue(entry, lockedOrgNames);
+      if (redacted !== entry) changed = true;
+      return redacted;
+    });
+    return changed ? next : value;
+  }
+  if (!value || typeof value !== "object") return value;
+  let changed = false;
+  const next = Object.fromEntries(
+    Object.entries(value).map(([key, entry]) => {
+      const redacted = redactEvidenceValue(entry, lockedOrgNames);
+      if (redacted !== entry) changed = true;
+      return [key, redacted];
+    }),
+  );
+  return changed ? next : value;
 }
 
 function evidenceHasSupports(evidence: GraphData["evidence"][number]): boolean {
@@ -319,6 +359,21 @@ function remapIds(ids: string[] | undefined, idMap: Map<string, string>): string
   return changed ? mapped : ids;
 }
 
+function remapEvidenceReferences<T extends { evidenceIds?: string[]; rejectedEvidenceIds?: string[] }>(
+  items: T[],
+  evidenceIdMap: Map<string, string>,
+): T[] {
+  if (evidenceIdMap.size === 0) return items;
+  return items.map((item) => {
+    let next = item;
+    const evidenceIds = remapIds(item.evidenceIds, evidenceIdMap);
+    if (evidenceIds !== item.evidenceIds) next = { ...next, evidenceIds };
+    const rejectedEvidenceIds = remapIds(item.rejectedEvidenceIds, evidenceIdMap);
+    if (rejectedEvidenceIds !== item.rejectedEvidenceIds) next = { ...next, rejectedEvidenceIds };
+    return next;
+  });
+}
+
 function buildRedactedIdentifierMap(ids: string[], lockedOrgNames: string[]): Map<string, string> {
   const used = new Set<string>();
   const redacted = new Map<string, string>();
@@ -362,13 +417,6 @@ function redactIdentifierArray(values: string[] | undefined, lockedOrgNames: str
     return redacted;
   });
   return changed ? next : values;
-}
-
-function objectStrings(value: unknown): string[] {
-  if (typeof value === "string") return [value];
-  if (Array.isArray(value)) return value.flatMap((entry) => objectStrings(entry));
-  if (!value || typeof value !== "object") return [];
-  return Object.values(value).flatMap((entry) => objectStrings(entry));
 }
 
 function redactStringRecord<T extends Record<string, unknown>>(value: T, lockedOrgNames: string[]): T {

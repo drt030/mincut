@@ -211,6 +211,8 @@ const CONSTRAINT_FACTOR_TAG_KEYS: ReadonlyArray<{ tag: string; labelKey: string 
   { tag: "constraint_component_availability", labelKey: "constraintFactorComponentAvailability" },
   { tag: "constraint_material_supply_chain", labelKey: "constraintFactorMaterialSupplyChain" },
   { tag: "constraint_capacity_scale", labelKey: "constraintFactorCapacityScale" },
+  { tag: "constraint_regulatory_approval", labelKey: "constraintFactorRegulatoryApproval" },
+  { tag: "constraint_economic_validation", labelKey: "constraintFactorEconomicValidation" },
 ] as const;
 
 function constraintFactorsForNode(node: Node, t: (key: string) => string): string[] {

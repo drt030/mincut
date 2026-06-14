@@ -67,7 +67,7 @@
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
-    "tags": ["hand", "tactile", "bottleneck"],
+    "tags": ["hand", "tactile", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"],
     "bottleneckOf": ["humanoid_robot_key_component_stack"],
     "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"],
     "reviewStatus": "unreviewed"
@@ -82,7 +82,7 @@
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
-    "tags": ["battery", "power", "bottleneck"],
+    "tags": ["battery", "power", "bottleneck", "constraint_component_availability", "constraint_integration_commissioning"],
     "bottleneckOf": ["humanoid_robot_key_component_stack"],
     "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_ti_bms"],
     "reviewStatus": "unreviewed"
@@ -97,7 +97,7 @@
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
-    "tags": ["thermal", "bottleneck"],
+    "tags": ["thermal", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"],
     "bottleneckOf": ["humanoid_robot_key_component_stack"],
     "evidenceIds": ["ev_humanoid_nmb_thermal"],
     "reviewStatus": "unreviewed"
@@ -171,7 +171,7 @@
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "transactability": "must_build",
-    "tags": ["software", "ai", "manipulation", "bottleneck"],
+    "tags": ["software", "ai", "manipulation", "bottleneck", "constraint_technical_maturity", "constraint_capacity_scale", "constraint_integration_commissioning"],
     "bottleneckOf": ["humanoid_robot_key_component_stack"],
     "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"],
     "reviewStatus": "unreviewed"
@@ -187,7 +187,7 @@
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "transactability": "must_build",
-    "tags": ["manufacturing", "test", "safety", "service", "bottleneck"],
+    "tags": ["manufacturing", "test", "safety", "service", "bottleneck", "constraint_capacity_scale", "constraint_integration_commissioning", "constraint_maintenance_operations"],
     "bottleneckOf": ["humanoid_robot_key_component_stack"],
     "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery"],
     "reviewStatus": "unreviewed"

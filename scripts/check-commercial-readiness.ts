@@ -16,6 +16,10 @@ function hasConstraintReason(node: Node): boolean {
   return Boolean(node.tags?.some((tag) => tag.startsWith("constraint_")));
 }
 
+function isVendorSideEvidence(item: GraphData["evidence"][number]): boolean {
+  return item.type === "vendor_claim" || item.sourceStatus === "vendor_marketing";
+}
+
 function directReviewedNonVendorEvidence(graph: GraphData, node: Node): number {
   const directIds = new Set(node.evidenceIds ?? []);
   const rejectedIds = new Set(node.rejectedEvidenceIds ?? []);
@@ -23,7 +27,7 @@ function directReviewedNonVendorEvidence(graph: GraphData, node: Node): number {
     const linked = directIds.has(item.id) || item.supportsNodeIds?.includes(node.id);
     if (!linked || rejectedIds.has(item.id)) return false;
     if (item.reviewStatus !== "reviewed") return false;
-    return item.type !== "vendor_marketing";
+    return !isVendorSideEvidence(item);
   }).length;
 }
 
@@ -65,7 +69,7 @@ const failures: string[] = [];
 for (const domain of DOMAIN_ROUTES) {
   const graph = loadActiveGraphData(domain.rootId);
   const reviewedEvidenceCount = graph.evidence.filter((item) => item.reviewStatus === "reviewed").length;
-  const vendorEvidenceCount = graph.evidence.filter((item) => item.type === "vendor_marketing").length;
+  const vendorEvidenceCount = graph.evidence.filter(isVendorSideEvidence).length;
   const hasGateReport = gateReports.some((report) => report.targetNodeId === domain.rootId);
   const top = topReadiness(graph);
   const topGapCount = top.reduce((count, entry) => {

@@ -254,7 +254,7 @@ test("teaser org names survive redaction", () => {
   assert.match(graph.nodes.find((n) => n.id === "t_glass")!.description ?? "", /TSMC/);
 });
 
-test("component evidence naming a locked org moves to the exposure layer (stripped)", () => {
+test("component evidence naming a locked org is redacted but stays with visible component evidence", () => {
   const { graph } = stripExposureLayer(textLeakFixture, [], TEXT_GATE);
   for (const evidenceId of [
     "ev_named_title",
@@ -263,7 +263,10 @@ test("component evidence naming a locked org moves to the exposure layer (stripp
     "ev_named_excerpt",
     "ev_named_source_quote",
   ]) {
-    assert.ok(!graph.evidence.some((ev) => ev.id === evidenceId), `${evidenceId} is exposure-layer`);
+    const evidence = graph.evidence.find((ev) => ev.id === evidenceId) as Record<string, unknown> | undefined;
+    assert.ok(evidence, `${evidenceId} stays available as component evidence`);
+    assert.doesNotMatch(JSON.stringify(evidence), /Acme Specialty/i, `${evidenceId} must not leak a locked supplier`);
+    assert.match(JSON.stringify(evidence), /locked supplier/i, `${evidenceId} should show redacted source context`);
   }
   assert.ok(graph.evidence.some((ev) => ev.id === "ev_clean"), "clean component evidence stays free");
 });
