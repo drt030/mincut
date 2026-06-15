@@ -387,11 +387,12 @@
       "e_adv_pkg__requires__flip_chip_bonding"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -410,17 +411,18 @@
       "e_adv_pkg__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
     "id": "ev_acc_pkg_tsmc_capacity",
     "type": "paper",
-    "title": "AI Competition Turns into a Supply Chain Arms Race, Tightening Advanced Packaging and 3nm Capacity",
+    "title": "TSMC CoWoS monthly capacity 35-40k (2024) projected to 140-150k/month by 2026 (TrendForce/MoneyDJ, Oct 2024)",
     "url": "https://www.trendforce.com/news/2024/10/21/news-cowos-capacity-doubles-for-two-years-still-insufficient-positive-outlook-for-suppliers/",
     "sourceName": "TrendForce (Oct 2024, citing MoneyDJ)",
     "date": "2024-10-21",
@@ -433,7 +435,7 @@
       "e_adv_pkg__manufactured_by__tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "ok_exact",
     "machineCheck": {
       "status": "verified",
@@ -501,11 +503,12 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -532,7 +535,7 @@
   {
     "id": "ev_acc_pkg_test_capacity",
     "type": "historical_source",
-    "title": "Cohu Inc Q1 2026 Earnings Report",
+    "title": "Cohu blended semiconductor test-cell utilization 78% (Q1 2026), 76% (Dec 2025) - earnings call",
     "url": "https://www.fool.com/earnings/call-transcripts/2026/04/30/cohu-cohu-q1-2026-earnings-call-transcript/",
     "sourceName": "Cohu Q1-2026 earnings call (transcript)",
     "date": "2026-04-30",
@@ -545,7 +548,7 @@
       "e_adv_pkg__requires__test_inspection"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "ok_exact",
     "machineCheck": {
       "status": "verified",
@@ -3321,7 +3324,7 @@
   {
     "id": "ev_acc_optup_eml_shortage_2024",
     "type": "paper",
-    "title": "AI Data Center Optical Component Shortage: NVIDIA's $4B Laser Lockup Reshapes Supply",
+    "title": "Optical bottleneck: 800G transceiver demand 24M->63M (2025-26); McKinsey ~40-60% shortfall through 2027 (NVIDIA's $4B is equity in Lumentum/Coherent)",
     "url": "https://www.trendforce.com/presscenter/news/20251208-12823.html",
     "date": "2025-12-08",
     "excerpt": "Demand for 800G+ transceivers is forecast to surge from 24M units (2025) to 63M units (2026); McKinsey projects 800-gigabit-per-second transceiver production will fall 40 to 60 percent short of demand through 2027.",
@@ -3329,7 +3332,7 @@
       "eml_dfb_laser_diodes",
       "compound_foundry_specialty"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "verified",
@@ -4761,11 +4764,12 @@
     "supportsNodeIds": [
       "singulation_laser_dicing_systems"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -5815,11 +5819,12 @@
     "supportsEdgeIds": [
       "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -5905,7 +5910,7 @@
   {
     "id": "ev_acc_nc4_nittobo_monopoly_1",
     "type": "news",
-    "title": "Nittobo Expands Glass-Fiber Output with Nan Ya; Nan Ya to Handle 20% by 2027",
+    "title": "Nittobo ~90% T-glass share; glass-fiber price +20% (Aug 2025) and +20-30% planned (Apr 2026)",
     "url": "https://insights.trendforce.com/p/glass-fiber-cloth-shortage",
     "date": "2026-04-30",
     "excerpt": "Nittobo, the leading manufacturer holding approximately 90% market share in T-glass and 60-70% in NER-glass ... raised prices across its glass fiber product line by 20% in August 2025, and plans another increase of roughly 20%-30% in April 2026.",
@@ -5916,7 +5921,7 @@
       "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly",
       "e_acc_sub_t_glass__manufactured_by__nittobo"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "sourceStatus": "ok_exact",
     "machineCheck": {
       "status": "verified",
@@ -6812,10 +6817,11 @@
       "e_acc_hbm__manufactured_by__org_skhynix"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -6836,16 +6842,17 @@
       "e_acc_hbm__manufactured_by__org_samsung"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
     "id": "ev_acc_r6h_micron_hbm4_ramp_2026",
     "type": "news",
-    "title": "Micron HBM4 production ramp Q2 2026 with 15k wafers/month target",
+    "title": "Micron locks full CY2026 HBM supply (incl. HBM4); HBM4 ramps Q2 2026",
     "url": "https://www.trendforce.com/news/2025/12/18/news-micron-hikes-capex-to-20b-with-2026-hbm-supply-fully-booked-hbm4-ramps-2q26/",
     "sourceStatus": "ok_exact",
     "sourceName": "TrendForce",
@@ -6860,10 +6867,11 @@
       "e_acc_hbm__manufactured_by__org_micron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -6881,10 +6889,11 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -6923,10 +6932,11 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -6966,10 +6976,11 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -6987,10 +6998,11 @@
     ],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7007,10 +7019,11 @@
       "asml_lithography_systems"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7027,10 +7040,11 @@
       "asml_lithography_systems"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7047,10 +7061,11 @@
       "asml_lithography_systems"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7087,10 +7102,11 @@
       "euv_projection_optics"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7107,10 +7123,11 @@
       "foundry_capacity_tsmc"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7251,10 +7268,11 @@
     "supportsNodeIds": [
       "silicon_interposer_rdl"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
@@ -7593,10 +7611,11 @@
     "supportsNodeIds": [
       "euv_mask_blanks"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-14"
+      "checkedAsOf": "2026-06-14",
+      "quoteMatch": "exact"
     }
   },
   {
