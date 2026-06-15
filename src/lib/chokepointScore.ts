@@ -81,3 +81,22 @@ export function quantileNormalizer(values: number[]): (v: number) => number {
     return Math.max(0, Math.min(1, below / denom));
   };
 }
+
+/** Kinds for which holder-based concentration is meaningful (ADR-0005/0008). */
+const SUPPLY_CHAIN_KINDS = new Set<Node["kind"]>([
+  "product",
+  "module",
+  "equipment",
+  "material",
+  "engineering_method",
+  "manufacturing_process",
+]);
+
+/** Concentration = 1 / (1 + holderCount). 0 holders ⇒ 1.0 (strongest flag,
+ *  per supplyConcentration's "zero = scarcity-or-gap" convention). */
+export function concentrationValue(graph: GraphData, nodeId: string): AxisValue {
+  const node = graph.nodes.find((n) => n.id === nodeId);
+  if (!node || !SUPPLY_CHAIN_KINDS.has(node.kind)) return { value: 0, known: false };
+  const { total } = holdersForNode(graph, nodeId);
+  return { value: 1 / (1 + total), known: true };
+}

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 import {
+  concentrationValue,
   criticalityRaw,
   criticalityValue,
   dependentAncestors,
@@ -76,4 +77,23 @@ test("quantileNormalizer maps min->0, max->1 by empirical rank", () => {
 test("quantileNormalizer is robust to one or zero values", () => {
   assert.equal(quantileNormalizer([])(7), 0);
   assert.equal(quantileNormalizer([42])(42), 0.5);
+});
+
+test("concentrationValue is 1.0 at zero holders and decreases as holders grow", () => {
+  const g = graph(
+    [
+      node("part", { kind: "material" }),
+      node("o1", { kind: "organization" }),
+      node("o2", { kind: "organization" }),
+    ],
+    [edge("part", "o1", "manufactured_by"), edge("part", "o2", "manufactured_by")],
+  );
+  const lonely = graph([node("scarce", { kind: "material" })], []);
+  assert.equal(concentrationValue(lonely, "scarce").value, 1); // 0 holders
+  assert.equal(concentrationValue(g, "part").value, 1 / 3); // 2 holders -> 1/(1+2)
+});
+
+test("concentrationValue is unknown for non-supply-chain kinds", () => {
+  const g = graph([node("cap", { kind: "capability" })], []);
+  assert.equal(concentrationValue(g, "cap").known, false);
 });
