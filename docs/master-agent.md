@@ -57,18 +57,18 @@ Use this loop for substantial work:
    - Decide whether the result is ready for QA or needs another implementation pass.
 
 5. Delegate QA.
-   - Send the current repo state and objective to a QA agent using `docs/QA-agent.md`.
+   - Send the current repo state and objective to a QA agent using `docs/QA-agent.md`, judging against `docs/ACCEPTANCE.md` §3.
    - Ask for strict user-centered validation, not a friendly summary.
    - Require evidence: commands, browser interactions, findings, and unverified areas.
 
 6. Make the high-level decision.
    - Compare the user goal, implementation handoff, and QA report.
-   - Decide one of:
-     - accept the iteration;
-     - request targeted fixes from a coding agent;
-     - ask the user for product clarification;
-     - defer non-critical issues;
-     - stop because the direction conflicts with repo goals.
+   - Map the QA verdict to the decision per `docs/ACCEPTANCE.md` §5:
+     - QA `fail` → `fix_next` (the fix is clear) or `ask_user` (the product goal is genuinely ambiguous);
+     - QA `conditional_pass` → `defer` (gaps are visible + documented and don't block the v0 loop);
+     - QA `pass` → `accept`;
+     - any → `stop` if the direction conflicts with repo goals.
+   - A change that passes machine gates but fails `ACCEPTANCE.md` §3 is **not** `accept`.
 
 7. Report to the user.
    - Summarize what changed, what QA found, what remains, and the recommended next move.
@@ -98,6 +98,7 @@ Do not ask a coding agent to self-certify product quality. Do not ask a QA agent
 
 At the start of a major iteration, read or refresh:
 
+- `docs/ACCEPTANCE.md` — the acceptance standard; §5 is your QA-verdict → decision mapping.
 - `AGENTS.md`
 - `README.md`
 - `docs/ARCHITECTURE.md`

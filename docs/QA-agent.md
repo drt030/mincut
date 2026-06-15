@@ -28,6 +28,7 @@ The QA agent must not add new product domains, broaden the v0 boundary, or inven
 
 Before testing, read the current project surfaces:
 
+- `docs/ACCEPTANCE.md` — **the authoritative acceptance standard.** §3 is the rubric you judge against; §5 is how your verdict maps to the Master decision. This QA doc is the *how-to-run*; `ACCEPTANCE.md` is *what counts as pass*.
 - `AGENTS.md`
 - `README.md`
 - `docs/ARCHITECTURE.md`
@@ -140,9 +141,9 @@ Minimum user tasks:
    - Confirm there is no advanced-filter UI (domain / kind / relation / maturity dropdowns are deprecated).
    - Judge whether bottleneck, evidence gap, frontier, and top-priority signals are visually distinct rather than all appearing as generic red alerts.
 
-4. Inspect product maturity and routes.
-   - Look for route comparison, maturity scores, bottlenecks, and supporting metrics.
-   - Judge whether the app explains why the product is or is not mature.
+4. Inspect the chokepoint readout (ACCEPTANCE.md §3a).
+   - Open a node and check the **first-glance** answer: is it a chokepoint (the composite **Chokepoint** verdict), and which **elevated axis** makes it one — Cost / Dependency / Concentration / Barrier — stated as a concrete sentence, not a raw tag like `maturity: prototype`.
+   - Confirm the full four-axis breakdown is available on drill-in, and that the canvas exposes exactly the three lenses System decomposition / Chokepoint / Cost (no Maturity lens; §2 / §3b).
    - Check whether route alternatives stay inside the current product boundary.
 
 5. Inspect evidence and review status.
@@ -175,6 +176,8 @@ Minimum user tasks:
 
 ## Product Acceptance Criteria
 
+**The authoritative rubric is `docs/ACCEPTANCE.md` §3.** Judge against it. The bullets below are the hard floor that also fails a run.
+
 The repo is not acceptable if any of these are true:
 
 - The app cannot build or start.
@@ -184,12 +187,14 @@ The repo is not acceptable if any of these are true:
 - Node selection or detail inspection does not work.
 - Recursive decomposition is absent or only described in docs.
 - The validation gate invents answers not supported by local graph data.
-- Important claims appear established without evidence or review status.
+- **Disclosure (§3a):** the user cannot tell, at first glance, a node's **chokepoint** verdict and the **elevated axis** driving it (Cost / Dependency / Concentration / Barrier) — or the axis shows as raw internal jargon (e.g. `maturity: prototype`) instead of a concrete user-facing statement.
+- **Vocabulary consistency (§3b):** canvas lens labels do not match the model vocabulary (§2) — e.g. a `Maturity` or `Bottleneck risk` lens label after the move to `Chokepoint` / `Barrier`, or the canvas and detail panel disagree.
+- Important claims appear established without their evidence / review status **visible** (honesty of the source itself is the evidence-audit agent's job, not yours).
 - The app silently merges neighboring products into the current product boundary.
 - Chinese/English switching breaks core workflows.
-- The user cannot find bottlenecks, evidence, maturity, gate output, or next tasks.
+- **Compliance (§3d):** any stock-recommendation or unaudited-return language appears (this is an analytical tool, not advice).
 
-The repo may be acceptable with known gaps only if the gaps are visible, documented, and do not block the v0 closed loop.
+The repo may be acceptable with known gaps only if the gaps are visible, documented, and do not block the v0 closed loop (`conditional_pass`, per §5).
 
 ## Finding Categories
 
