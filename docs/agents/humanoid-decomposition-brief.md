@@ -1,101 +1,107 @@
-# Humanoid Actuator Chain — Decomposition Brief
+# Humanoid Robot (Whole-Robot) — Decomposition Brief
 
-**Version: v1 · 2026-06-11 · Owner of this file: the orchestrator.**
-Method inherits [the domain playbook](domain-decomposition-playbook.md) (read it first). This
-brief is independent of the GPU-chain brief by design — no content carries over, only method.
+**Version: v2 · 2026-06-15 · Owner of this file: the orchestrator.**
+**Supersedes v1 (actuator-only).** Owner decision 2026-06-15: this domain is the **whole robot**
+(actuators + hands + battery/power + thermal + perception + compute + structure + control/AI
+software + manufacturing/service), NOT the actuator chain alone. The registered domain
+(`src/lib/domains.ts`: slug `humanoid-robotics`, root `humanoid_robot_key_component_stack`,
+domainTag `humanoid_robotics`, entitlement `humanoid`, `audit-preview`) is already whole-robot
+framed, and `data/nodes/humanoid_robotics.json` already holds the whole-robot skeleton (94 nodes /
+13 orgs / 34 modules). This brief describes that structure and the method to bring it to
+**flagship parity** ([acceptance standard](domain-expansion-acceptance-standard.md)).
 
 ## 0. Hard rules (violating any voids the round)
 
 1. **Never read `.eval/**`** or any `docs/agents/handoff-*` file.
-2. **Forbidden research targets:** the X account @aleabitoreddit ("Serenity", 白毛股神), any
-   thread/article discussing that account's picks, and any "what is X buying" content about any
-   investor. Map the chain from industry facts, never from portfolios. Never put these terms in
-   a query; if a result page is primarily investor-pick content, do not open it.
+2. **Forbidden research targets** (playbook §0.2): the @aleabitoreddit / "Serenity" / 白毛股神
+   account, any thread about its picks, any "what is X buying / holding" portfolio content. Map
+   the chain from industry facts only; never put these terms in a query.
 3. **Log every web query verbatim** to the path given in your dispatch.
-4. Evidence: independent industry sources only (whitelist §4). reviewStatus always `unreviewed`.
+4. Evidence: independent industry sources only (whitelist §4); `reviewStatus` always `unreviewed`;
+   `ok_exact` is the verifier's grant, never self-assigned.
 
-## 1. Target structure
+## 1. Target structure (reconcile with the EXISTING data — extend, don't duplicate)
 
-- Capability: `humanoid_robot_actuator_joint` — actuated joints for commercial humanoid robots.
-- Products (three sibling architectures per ADR-0004):
-  `rotary_actuator_harmonic` (harmonic-reducer rotary joint) ·
-  `linear_actuator_roller_screw` (planetary-roller-screw linear joint) ·
-  `dexterous_hand_actuator` (hand/finger actuation incl. tendon drives).
-- **Reuse, don't duplicate** (ADR-0004/0005): the graph already contains
-  `precision_reducer_gearbox` and servo/encoder subtrees from the parcel domain — link into
-  them with `requires` edges; create new nodes only for what those subtrees genuinely lack.
-- Flagship-launch deltas to discover and decompose (launch plan Task 15): planetary roller
-  screws and their **thread-grinding capacity**, frameless torque motors, six-axis
-  force/torque sensors, joint encoders, tendon/cable drives, and the materials feeding them
-  (bearing steel classes, rare-earth magnets).
-- Tag every new node `domain: ["humanoid_actuator"]`. Sub-components hang off their parent
-  module, never off a product node.
+- Product (root, existing id): `humanoid_robot_key_component_stack`. Tag every node
+  `domain: ["humanoid_robotics"]`. **Grep `data/nodes/humanoid_robotics.json` first** — 94 nodes /
+  13 orgs / 34 modules already exist; extend below them, create new only for genuine gaps.
+- **Level-1 modules (already present):** `humanoid_actuation_system`, `humanoid_dexterous_hand_tactile_system`,
+  `humanoid_battery_power_charging_system`, `humanoid_thermal_management_system`,
+  `humanoid_perception_sensing_stack`, `humanoid_onboard_compute_control_electronics`,
+  `humanoid_structure_materials_harness`, `humanoid_locomotion_control_software`,
+  `humanoid_manipulation_ai_data_stack`, `humanoid_manufacturing_test_safety_service`.
+- **Captive-vs-merchant honesty is central** (the SpaceX lesson): integrators (Tesla Optimus,
+  Figure, Unitree, Agility, 1X) build some parts in-house (actuators, control SW, manipulation
+  models). Where a part is genuinely captive, say so in a node note — do NOT invent a merchant
+  supplier. Software stacks (locomotion policy, foundation/manipulation models) are mostly
+  captive/closed; map only the named merchant compute SoC + sensors they buy, and mark the rest
+  `decomposition_frontier`/captive.
+- **Reuse cross-domain orgs** — grep live ids first: CATL, NVIDIA, TDK, Schaeffler, SKF, NSK,
+  Inovance, Estun, FANUC and others likely already exist (from ai_compute / parcel). One company =
+  one node.
 
 ## 2. Method
 
-Playbook §recipe applies verbatim; the domain-specific notes:
+Playbook recipe verbatim; domain notes:
 
-1. **Day-0 dev set first**: documented 2021–2026 public episodes for THIS chain (e.g. harmonic
-   reducer capacity/lead-time cycles, roller-screw grinding-machine scarcity reporting,
-   rare-earth magnet export-control events, encoder allocation) — built by the day-0 agent
-   from trade press/analyst archives into `.eval/dev/humanoid_public_chokepoints.json`.
+1. **Day-0 dev set first** (`.eval/dev/humanoid_robotics_public_chokepoints.json`): documented
+   2021–2026 episodes for THIS chain with publicly-named constrained suppliers — e.g. **rare-earth
+   NdFeB magnet** export control (China 2023–2025, the headline humanoid chokepoint); **harmonic
+   reducer** capacity/lead-time (Harmonic Drive near-monopoly); **planetary roller screw**
+   scarcity + thread-grinding-machine bottleneck (widely reported for humanoid scale-up);
+   **Li-ion cell** allocation; **six-axis force/torque sensor** specialists; precision **bearing**
+   supply. Costs zero eval budget; predicts the weak axis before any holdout touch.
 2. Decompose toward commodified leaves (ADR-0005); honest `decomposition_frontier` tags.
-3. The three exposure passes are first-class round-1 duties here (playbook lesson): upstream
-   merchant tiers (who feeds the reducer/screw/motor makers — steel, magnets, grinding
-   machines?), in-tier breadth (every publicly-named constrained supplier), single-source
-   corners (grinding equipment, sensor specialists).
-4. Quantify every `bottleneckOf` (capacity, expansion lead time, share concentration) on the
-   flag-carrying node, citation attached to that node/edge (evidence altitude).
-5. Scope boundary: full-robot integration, locomotion software, batteries → out of scope
-   (note the boundary in data); this domain is the ACTUATOR chain.
+3. **Three exposure passes are first-class** (the data has 13 orgs — flagship parity needs more):
+   **upstream** merchant tiers (who feeds the reducer/screw/motor makers — bearing steel, NdFeB
+   magnets, grinding machines, separators/cathode for cells); **in-tier breadth** (every
+   publicly-named supplier — Harmonic Drive 6324.T, Leaderdrive, Shenzhen Han's; Rollvis,
+   Ewellix/SKF, THK, NSK roller/ball screws; frameless motors Allied Motion/Kollmorgen-Regal,
+   Nidec, Moog; magnets JL Mag, Shin-Etsu, TDK, Proterial, MP Materials; cells CATL, LG Energy,
+   Samsung SDI, Panasonic; F/T sensors ATI Industrial Automation, Bota; SoC NVIDIA Jetson Thor,
+   Qualcomm; bearings NSK/NTN/Schaeffler/RBC); **single/near-single-source corners** (NdFeB +
+   heavy-rare-earth, thread-grinding equipment, harmonic-reducer flexspline).
+4. Quantify every `bottleneckOf` (capacity / expansion lead time / share concentration) on the
+   flag node, citation attached to that node/edge.
 
 ## 3. Exposure layer
 
-org_fanuc template shape exactly (see `data/nodes/parcel_sorting_robot.json`); ≤5 orgs per
-component most-concentrated first; verified tickers (IR/exchange, never memory — expect
-Tokyo/Taiwan/Shanghai/Shenzhen listings); share metric with named source+basis; ≥1 independent
-URL per org; reuse existing orgs (grep first — FANUC, Inovance, Estun etc. already exist).
+`org_fanuc` template shape (see `data/nodes/parcel_sorting_robot.json`); ≤5 orgs per component,
+most-concentrated first; **tickers verified THIS round** from IR/exchange (expect Tokyo/Shenzhen/
+Shanghai/Korea/US listings — Harmonic Drive 6324.T, JL Mag 300748.SZ, Shin-Etsu 4063.T, TDK
+6762.T, CATL 300750.SZ, LG Energy 373220.KS, Samsung SDI 006400.KS, THK 6481.T, NSK 6471.T,
+Nidec 6594.T, NVIDIA NVDA, MP Materials MP; many integrators private — say so); share metric with
+named source + basis (or honest qualitative tag); ≥1 independent URL per org.
 
 ## 4. Sources
 
-Whitelist: company filings/IR/earnings transcripts; reducer/screw/motor/sensor maker capacity
-disclosures; TrendForce/Yole/Omdia/IFR/interact-analysis-class research; Nikkei/DigiTimes/
-Reuters/Bloomberg supply-chain reporting; standards bodies. Grey (pointer only, confirm
-elsewhere): Wikipedia, vendor marketing (tag `vendor_claim`). Forbidden: §0.2 content,
-untraceable social claims, pick-tracking content.
+Whitelist: company filings/IR/earnings; reducer/screw/motor/sensor/cell maker capacity
+disclosures; USGS / government (rare earths, export-control notices); IFR / interact-analysis /
+TrendForce / Yole-class research; Nikkei / Reuters / Bloomberg / DigiTimes supply-chain reporting;
+teardown reports. Grey (pointer only): Wikipedia, vendor marketing (tag `vendor_claim`). Banned
+for numbers: SEO market-report farms, investing substacks, aggregator reblogs.
 
 ## 5. Repo conventions
 
-Identical to the GPU brief §5 (schema `src/lib/schema.ts`; strict batch
-`{"nodes":[],"edges":[],"evidence":[],"tasks":[]}`; dry-run via
-`npm run import:candidates -- --file <batch> --domain humanoid_actuator --dry-run`;
-ids name components never suppliers/verdicts; evidence ids `ev_hum_<module>_<slug>`;
-edge ids `e_hum_*`; maturity triple dated `2026-06`; zh sidecar per batch).
+Schema `src/lib/schema.ts`; strict batch `{"nodes":[],"edges":[],"evidence":[],"tasks":[]}`;
+dry-run via `npm run import:candidates -- --file <batch> --domain humanoid_robotics --dry-run`;
+ids name components never suppliers/verdicts; evidence ids `ev_humanoid_<slug>`; edge ids
+`e_humanoid_<slug>`; supplier→component edge `manufactured_by` (makes it today) vs
+`reported_capable_supplier` (unverified capability) per ADR-0009; maturity triple dated `2026-06`;
+zh sidecar per batch (LanguageProvider node dictionary). Domain already registered GATED at
+`audit-preview` — do not rename.
+
+## §4.5 Evidence verification discipline (binding, per ADR-0009)
+
+CANDIDATE evidence; an orchestrator Opus verifier re-checks it (emit **clean structured JSON** so
+it applies cleanly). **No quote, no number** (verbatim `excerpt` + basis + scope + asOf, else
+qualitative). **One claim, one fact.** `sourceStatus` self-report `fetch_ok` / `paywalled_snippet`
+only; deep links, not homepages. Single-source / "only" / ">X%" claims need one primary or two
+independent quality sources. **Honest misses beat filled blanks** — fabricated precision voids the
+batch (observed rejection 24–85% on unverified batches).
 
 ## 6. Self-check rubric
 
-Playbook hygiene list + GPU brief §6 checklist apply verbatim (suppliers+share+source,
-lead times, single-source risk, quantified bottlenecks, working whitelist URLs, uniform
-depth, dry-run green, clean query log).
-
-## §4.5 Evidence verification discipline (binding, per ADR-0009 — added 2026-06-11)
-
-Your output is CANDIDATE evidence; an orchestrator verification layer re-checks it. Rules:
-
-1. **No quote, no number.** Any quantified claim (share, capacity, lead time, price, ratio)
-   must carry a verbatim `excerpt` from the page plus basis (revenue/unit/capacity/bit — they
-   are different numbers), scope, and asOf date in `summary`. If you cannot quote it, write
-   the claim as qualitative — that is a fully acceptable deliverable.
-2. **One claim, one fact.** Never bundle share + price + capex + lead time into one statement
-   or one metric.
-3. **sourceStatus**: self-report `fetch_ok` (you actually fetched a SPECIFIC page) or
-   `paywalled_snippet` (visible snippet quoted). `ok_exact` is reserved for the verifier —
-   never self-assign it. Deep links only; a homepage/section page is not a citation.
-4. **Banned for numbers**: SEO market-report farms, personal or investing substacks/newsletters,
-   aggregator reblogs. Vendor IR/product pages are fine for who-makes-what facts (type
-   `vendor_claim`/`product_page`), weak for market structure. Single-source/"only qualified"/
-   "100%" claims need one primary source or two independent quality sources — otherwise state
-   "reported, unverified".
-5. **Honest misses beat filled blanks.** "No claim-specific source found" is a valid, expected
-   answer; fabricated precision voids the batch. Expect your self-reports to be spot-checked —
-   observed rejection rates on unverified batches ran 24–85%.
+Acceptance-standard Gates A–E + playbook hygiene apply verbatim: suppliers + share + source, lead
+times, single-source risk, quantified bottlenecks, working whitelist URLs, captive-vs-merchant
+honesty, uniform depth, dry-run green, clean query log.
