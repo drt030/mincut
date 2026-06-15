@@ -321,10 +321,11 @@ test("maturity mode: low-maturity target → thicker width than high-maturity ta
  * four-axis chokepoint composite (Criticality × Concentration × Barrier,
  * own-quantile banded) instead of the old `(1 - maturity) × cost`
  * `nodeRisk`. The previous high-risk fixture `parcel_manipulation_or_
- * diverter` was top by cost-share but is an aggregator with fan-in 0
- * (nothing depends on IT — it depends on its children), so the composite
- * correctly bands it LOW (band 2). That property of the old formula no
- * longer holds by design, so this test now exercises the new lens:
+ * diverter` was top by cost-share but is an aggregator with fan-in 1
+ * (only the root product requires it — it otherwise depends on its
+ * children), so the composite correctly bands it LOW (band 2). That
+ * property of the old formula no longer holds by design, so this test
+ * now exercises the new lens:
  *
  *   - `industrial_robot_arm_body` — a shared, high-Criticality robot
  *     component the composite bands 5 (no `bottleneckOf`; exercises the

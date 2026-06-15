@@ -184,7 +184,10 @@ test("quantileAt linear-interpolates the requested quantile of a sorted ascendin
 test("chokepointBandFor bands the composite by its own quantiles into a full 1..5 spread", () => {
   // ADR-0010: chokepointBandFor bins the composite by its OWN empirical
   // quantiles (Q20/Q40/Q60/Q80), so every band fills as long as the score
-  // distribution is spread and tie-free.
+  // distribution is spread WIDELY ENOUGH that its distinct values straddle
+  // all four quantile cutoffs. Full tie-freeness is NOT required (and this
+  // fixture is not tie-free — see below); only that the distinct values land
+  // on both sides of each cutoff.
   //
   // NOTE on fixture shape: a root `product` always scores ~0 (Criticality is
   // structurally unknown — nothing depends on it — and its lone known axis
@@ -192,10 +195,16 @@ test("chokepointBandFor bands the composite by its own quantiles into a full 1..
   // a tie-cluster of products at the bottom; with the `>=`-quantile
   // convention that collapses Q20 onto the minimum and starves band 1. (The
   // real 929-node graph shows this too: its floor is band 2, never band 1.)
-  // To exercise the full 1..5 range we therefore use a tie-free distribution
+  // To exercise the full 1..5 range we therefore use a spread distribution
   // of supply-kind nodes whose Criticality fan-in (i parents) and Barrier
   // (decreasing maturity) vary in opposite directions, so the geometric-mean
-  // composite rises then falls across i — distinct scores, no bottom cluster.
+  // composite rises then falls across i — no bottom tie-cluster. NOTE the
+  // resulting scores are NOT tie-free: because fan-in rises while maturity
+  // falls symmetrically, the score sequence is palindromic (m_i and
+  // m_{N-1-i} score equally), so the 11 nodes collapse to only ~6-7 distinct
+  // values in tied pairs. Band coverage [1..5] still holds because those
+  // distinct values straddle every quantile cutoff — the point this test
+  // pins is the FULL-SPREAD coverage, not tie-freeness.
   const N = 11;
   const nodes: Node[] = [];
   const edges: Edge[] = [];
