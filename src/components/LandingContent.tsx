@@ -33,6 +33,11 @@ const landingCopy = {
     offerBody:
       "Join the waitlist for future paid access. No checkout is live yet; supplier identities, tickers, updates, and curated exposure stay locked until the commercial gate is verified.",
     offerCta: "Join the waitlist",
+    foundingEyebrow: "Founding access",
+    foundingTitle: "Unlock every paid map — founding access.",
+    foundingBody:
+      "One purchase opens supplier and ticker exposure across all paid domains (humanoid robotics, controlled fusion, SpaceX), plus updates as each map firms up. 7-day no-questions refund.",
+    foundingCta: "Get founding access →",
     betaEmailLabel: "Work email",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "Request beta access",
@@ -87,6 +92,11 @@ const landingCopy = {
     offerBody:
       "加入未来付费访问候补。当前不提供 checkout；供应商身份、股票代码、更新和 curated exposure 会保持锁定，直到商业 gate 验证完成。",
     offerCta: "加入候补名单",
+    foundingEyebrow: "创始访问",
+    foundingTitle: "一次解锁全部付费图谱——创始访问。",
+    foundingBody:
+      "一次购买即开放全部付费域（人形机器人、可控核聚变、SpaceX）的供应商与股票 exposure，并含后续更新。7 天无理由退款。",
+    foundingCta: "获取创始访问 →",
     betaEmailLabel: "工作邮箱",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "申请私测访问",
@@ -187,6 +197,13 @@ export function LandingContent() {
   const { language, nodeName } = useLanguage();
   const copy = landingCopy[language];
   const domainCopy = domainLandingCopy[language];
+  // Founding all-access checkout surfaces only when the owner has enabled paid
+  // checkout AND configured the Stripe payment link (env-driven; no code change
+  // at go-live). Until then the band stays a waitlist capture.
+  const foundingLink =
+    process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT === "1"
+      ? process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING
+      : undefined;
 
   return (
     <div className="landing-page">
@@ -264,9 +281,18 @@ export function LandingContent() {
 
       <section className="landing-offer-band" id="private-beta" aria-labelledby="offer-title">
         <div>
-          <p className="landing-eyebrow">{copy.offerEyebrow}</p>
-          <h2 id="offer-title">{copy.offerTitle}</h2>
-          <p>{copy.offerBody}</p>
+          <p className="landing-eyebrow">{foundingLink ? copy.foundingEyebrow : copy.offerEyebrow}</p>
+          <h2 id="offer-title">{foundingLink ? copy.foundingTitle : copy.offerTitle}</h2>
+          <p>{foundingLink ? copy.foundingBody : copy.offerBody}</p>
+          {foundingLink ? (
+            <a
+              className="link-button landing-founding-cta"
+              href={foundingLink}
+              data-testid="landing-founding-cta"
+            >
+              {copy.foundingCta}
+            </a>
+          ) : null}
         </div>
         <form action={buttondownEndpoint} method="post" target="_blank" className="buttondown-form landing-beta-form">
           <label htmlFor="beta-email">{copy.betaEmailLabel}</label>

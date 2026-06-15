@@ -66,3 +66,22 @@ test("landing honesty ladder includes the source-checked rung", async () => {
   const html = renderToStaticMarkup(React.createElement(LandingContent));
   assert.match(html, /Source-checked/i);
 });
+
+test("landing surfaces the founding checkout CTA only when paid checkout is enabled", async () => {
+  const { LandingContent } = await import("../src/components/LandingContent");
+  // disabled by default → waitlist copy, no founding link
+  delete process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT;
+  delete process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
+  const off = renderToStaticMarkup(React.createElement(LandingContent));
+  assert.doesNotMatch(off, /landing-founding-cta/);
+  assert.match(off, /No checkout is live yet/i);
+  // enabled + link configured → founding buy CTA appears, linking to the Stripe link
+  process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT = "1";
+  process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.stripe.com/test_founding";
+  const on = renderToStaticMarkup(React.createElement(LandingContent));
+  assert.match(on, /landing-founding-cta/);
+  assert.match(on, /buy\.stripe\.com\/test_founding/);
+  assert.match(on, /founding access/i);
+  delete process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT;
+  delete process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
+});
