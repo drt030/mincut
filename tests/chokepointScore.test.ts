@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 import {
   barrierValue,
+  chokepointScores,
   concentrationValue,
   criticalityRaw,
   criticalityValue,
@@ -128,4 +129,36 @@ test("barrierValue is low for a procurable, mature node", () => {
 test("barrierValue is unknown when no barrier signal is present", () => {
   const g = graph([node("bare", { kind: "module" })], []);
   assert.equal(barrierValue(g.nodes[0]).known, false);
+});
+
+test("a high-criticality, concentrated, high-barrier node outranks a false bottleneck", () => {
+  // `real`: shared (2 parents), 0 holders (concentrated), must_build+hard (high barrier).
+  // `fake`: shared (2 parents), 0 holders, but procurable+mature (low barrier) -> 伪瓶颈.
+  const g = graph(
+    [
+      node("p1", { kind: "product" }),
+      node("p2", { kind: "product" }),
+      node("real", { kind: "engineering_method", transactability: "must_build", tags: ["hard_to_develop"], maturityScore: 20 }),
+      node("fake", { kind: "engineering_method", transactability: "procurable", maturityScore: 95 }),
+    ],
+    [
+      edge("p1", "real", "requires"), edge("p2", "real", "requires"),
+      edge("p1", "fake", "requires"), edge("p2", "fake", "requires"),
+    ],
+  );
+  const scores = chokepointScores(g);
+  assert.ok(scores.get("real")!.score > scores.get("fake")!.score, "real chokepoint must outrank false one");
+  assert.equal(scores.get("real")!.incomplete, false);
+});
+
+test("a node missing an axis is scored over known axes and flagged incomplete", () => {
+  const g = graph(
+    [node("p", { kind: "product" }), node("cap", { kind: "capability" })],
+    [edge("p", "cap", "requires")],
+  );
+  // capability: criticality known (1 parent), concentration unknown (not supply kind),
+  // barrier unknown (no signal) -> incomplete, but still scored, never zeroed silently.
+  const r = chokepointScores(g).get("cap")!;
+  assert.equal(r.incomplete, true);
+  assert.ok(Number.isFinite(r.score));
 });

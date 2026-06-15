@@ -136,3 +136,54 @@ export function barrierValue(node: Node): AxisValue {
   if (signals.length === 0) return { value: 0, known: false };
   return { value: signals.reduce((a, b) => a + b, 0) / signals.length, known: true };
 }
+
+export type ChokepointResult = {
+  score: number; // [0,1] geometric mean of normalized known axes
+  incomplete: boolean; // at least one axis was unknown
+  axes: { criticality: number | null; concentration: number | null; barrier: number | null };
+};
+
+/** Compute the composite for every node: per-axis raw → quantile-normalize
+ *  over the known values → geometric mean over the node's known axes. An
+ *  unknown axis is omitted (never coerced to 0); a node with any unknown axis
+ *  is flagged `incomplete`. */
+export function chokepointScores(graph: GraphData): Map<string, ChokepointResult> {
+  const crit = new Map<string, AxisValue>();
+  const conc = new Map<string, AxisValue>();
+  const barr = new Map<string, AxisValue>();
+  for (const n of graph.nodes) {
+    crit.set(n.id, criticalityValue(graph, n.id));
+    conc.set(n.id, concentrationValue(graph, n.id));
+    barr.set(n.id, barrierValue(n));
+  }
+
+  const knownValues = (m: Map<string, AxisValue>) =>
+    [...m.values()].filter((a) => a.known).map((a) => a.value);
+  const critNorm = quantileNormalizer(knownValues(crit));
+  const concNorm = quantileNormalizer(knownValues(conc));
+  const barrNorm = quantileNormalizer(knownValues(barr));
+
+  const out = new Map<string, ChokepointResult>();
+  for (const n of graph.nodes) {
+    const c = crit.get(n.id)!;
+    const k = conc.get(n.id)!;
+    const b = barr.get(n.id)!;
+    const axes = {
+      criticality: c.known ? critNorm(c.value) : null,
+      concentration: k.known ? concNorm(k.value) : null,
+      barrier: b.known ? barrNorm(b.value) : null,
+    };
+    const present = [axes.criticality, axes.concentration, axes.barrier].filter(
+      (v): v is number => v !== null,
+    );
+    const score =
+      present.length === 0
+        ? 0
+        : Math.pow(
+            present.reduce((acc, v) => acc * Math.max(v, 1e-6), 1),
+            1 / present.length,
+          );
+    out.set(n.id, { score, incomplete: present.length < 3, axes });
+  }
+  return out;
+}
