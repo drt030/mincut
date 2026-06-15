@@ -68,9 +68,16 @@
       "e_product_measured_throughput",
       "e_product_measured_accuracy"
     ],
-    "limitations": "Vendor product page. Peak pick-rate and picking-accuracy claims are not the same as sustained parcel-sorting throughput, total sort accuracy, jam rate, or field acceptance for the 300,000 RMB v0 cell.",
+    "limitations": "Throughput (1,500 pph), >99.5% pick accuracy, and detection/grasping/motion + AI-vision all supported verbatim on ABB product page (fetched via browser UA; WebFetch timed out).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Achieves up to 1,500 picks per hour at peak rates with >99.5 percent picking accuracy to enable businesses to handle more orders without increasing headcount or time. Pre-engineered module ... solves the core challenges of item picking - detection, grasping and motion control.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_perf_wayzim_robotic_parcel_infeed_2026",
@@ -98,9 +105,16 @@
       "e_induction_spacing_requires_singulation_metering",
       "e_induction_spacing_requires_exception_recovery"
     ],
-    "limitations": "Vendor page and infeed-only benchmark. Grasp success and double-parcel rate are proxies for exception risk, not reviewed site-level jam or intervention rates.",
+    "limitations": "Throughput, grasp/sorting accuracy, double-feed (jam) rate, and parcel detection supported verbatim. Human-intervention, singulation-spacing and exception-recovery facets not stated on page.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Infeed efficiency ≥ 1,500 pph. Grasp success rate ≥ 99%. Double-parcel grasp efficiency ≤ 0.1%. ... the system can accurately identify various parcels such as small parcels, boxes, foam packages, and odd-shaped items.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_perf_mesh_xinduct_2026",
@@ -122,9 +136,16 @@
       "e_product_measured_accuracy",
       "e_product_measured_intervention"
     ],
-    "limitations": "Vendor product page. Barcode read rate and exception diversion are only partial proxies for end-to-end sort accuracy and manual intervention.",
+    "limitations": "Throughput, 99%+ barcode read rate (sorting accuracy / barcode-OCR), labor elimination (human intervention), and induction/singulation via 3D vision all supported verbatim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "up to 1,800 picks per hour per robot ... Barcode scanning is performed on both the top and bottom of each parcel, achieving 99%+ read rates. ... Eliminates manual bulk package loading ... Using adaptive 3D vision technology, XInduct can accurately identify and pick: Irregular parcels, Overlapping packages, Stacked items.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_perf_robominds_titan_2026",
@@ -201,9 +222,16 @@
       "e_product_measured_accuracy",
       "e_product_measured_payback"
     ],
-    "limitations": "Integrator guide for broader parcel sortation systems. ROI and throughput figures often assume larger, more expensive conveyor sorters rather than one 300,000 RMB robotic cell.",
+    "limitations": "Throughput, >99.9% sort accuracy, and 24-48 month payback supported verbatim; page also covers induction-station conveyor and WMS/WCS interface integration.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Both handle thousands of packages per hour with better than 99.9% accuracy. ... Parcel sortation automation typically achieves ROI within 24-48 months through labor cost reduction, increased throughput capacity, improved sort accuracy, and avoided facility expansion costs.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_cost_model_placeholder",
@@ -239,9 +267,16 @@
       "e_product_measured_maintenance",
       "e_product_requires_maintenance"
     ],
-    "limitations": "Secondary benchmark source, not parcel-cell field data. It covers robot maintenance more than conveyor, vision, suction cup wear, WCS support, and site labor.",
+    "limitations": "Maintenance cost figures and inspection/calibration workflow supported verbatim. Robot-arm-body facet only appears as cost-table line items (no structural description).",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Annual robot maintenance costs 5-15% of the original purchase price, averaging $3,000-$15,000 per robot per year. ... Visual inspection of cables, connectors, and hoses ... Calibrate tool center point and positioning ... Full axis calibration and accuracy verification.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_maintenance_robot_cost_range_rcc_2026",
@@ -259,9 +294,16 @@
     "supportsEdgeIds": [
       "e_product_measured_maintenance"
     ],
-    "limitations": "Secondary service-provider guide. It is robot-centric and does not directly price a 300,000 RMB parcel sorting cell in China.",
+    "limitations": "Cost breakdown (labor, spare gearbox/servo/cable, downtime) and inspection-interval workflow supported verbatim. Robot-arm-body components named in spares list, not described structurally.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Maintenance typically accounts for 5 % to 15 % of a robot's purchase price every year ... between €2,000 and €15,000 per robot per year. ... A replacement gearbox for a mid-range industrial robot runs €3,000–€8,000. A servo motor, €1,500–€4,000. ... Most manufacturers recommend inspections every 3–6 months.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_maintenance_abb_robotics_service_2026",
@@ -281,9 +323,16 @@
       "e_product_requires_maintenance",
       "e_impl_maintenance_workflow_abb_robotics"
     ],
-    "limitations": "Official service-page structure evidence, not a priced annual maintenance quote.",
+    "limitations": "Maintenance workflow (preventive maintenance, inspection/diagnostics) and ABB Robotics as supplier supported verbatim (browser-UA fetch). Page is a service overview; no cost figures and no robot-arm-body description.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Maintenance from ABB Robotics includes preventive maintenance, remote condition monitoring, life cycle assessment, inspection and diagnostics, refurbishment and reconditioning services. ... Scheduled preventive maintenance reduces the likelihood of a failure or component deterioration.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_maintenance_fanuc_pm_checklist_2023",
@@ -305,9 +354,15 @@
       "e_product_requires_maintenance",
       "e_impl_maintenance_workflow_fanuc"
     ],
-    "limitations": "Service-provider checklist for FANUC robots. It supports maintenance scope and cadence, not v0 parcel-cell maintenance cost.",
+    "limitations": "demote: Page returns a Cloudflare 'Just a moment...' / 'Enable JavaScript' interstitial to WebFetch (403) and to browser-UA curl (403 challenge body). No article content recoverable; not enriched.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: Page returns a Cloudflare 'Just a moment...' / 'Enable JavaScript' interstitial to WebFetch (403) and to browser-UA curl (403 challenge body). No article content recoverable; not enriched."
+    }
   },
   {
     "id": "ev_maintenance_conveyor_cost_factors_2026",
@@ -328,9 +383,16 @@
       "e_product_measured_maintenance",
       "e_product_requires_maintenance"
     ],
-    "limitations": "General conveyor cost guide without a parcel-cell annual quote. Used only to justify conveyor and sensor maintenance cost categories.",
+    "limitations": "Conveyor integration (mechanical/electrical/controls, PLC/HMI/VFD/sensors) and maintenance workflow supported verbatim. Cost is relative ($-$$$$), no dollar maintenance figure. Page says 'Photo-eye sensors' (supports photoelectric facet); 'encoder'/'speed encoder' facet NOT mentioned.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Conveyors need preventive maintenance, belt tracking, lubrication, roller inspection, motor cleaning, and sensor alignment. ... fully automated packaging lines with PLC controls, servo indexing ... Controls and automation typically account for 15-40% of total cost on automated conveyor systems. This includes the PLC, HMI, VFDs, servo drives, sensors, control panels, wiring, and programming.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_oriental_motor_servo_structure",
@@ -511,9 +573,15 @@
       "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
       "e_tracking_requires_camera"
     ],
-    "limitations": "Machine-vision vendor source; supports component structure but not parcel-specific no-read rates, glare/occlusion performance, or 300,000 RMB BOM fit.",
+    "limitations": "demote: Page returns a 'Vercel Security Checkpoint / We're verifying your browser' challenge to WebFetch (403) and browser-UA curl (429 challenge body); Google cache dead. No component text recoverable; not enriched.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "unreachable",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: Page returns a 'Vercel Security Checkpoint / We're verifying your browser' challenge to WebFetch (403) and browser-UA curl (429 challenge body); Google cache dead. No component text recoverable; not enriched."
+    }
   },
   {
     "id": "ev_compute_nvidia_jetson_orin_2026",
@@ -541,9 +609,16 @@
       "e_mfg_industrial_edge_ai_computer_nvidia",
       "e_impl_vision_inference_runtime_nvidia"
     ],
-    "limitations": "Vendor product-line evidence; does not establish target-cell supplier status, field reliability, or cost.",
+    "limitations": "NVIDIA Jetson Orin as edge-AI/robotics compute, real-time vision processing, and power envelope supported verbatim. TensorRT/runtime-stack and fanless-thermal facets not named on this overview page.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Embedded AI modules for next-gen robotics and edge apps ... Edge AI solutions for real-time processing and decisions at the edge ... Jetson AGX Orin modules deliver up to 275 TOPS of AI performance with power configurable between 15W and 60W.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_compute_intel_openvino_2026",
@@ -569,9 +644,16 @@
       "e_mfg_industrial_edge_ai_computer_intel",
       "e_impl_vision_inference_runtime_intel"
     ],
-    "limitations": "Vendor product/tooling evidence; does not establish target-cell runtime choice, benchmark, or cost.",
+    "limitations": "Page returned HTTP 403 to WebFetch; rendered in browser. Excerpt trimmed to first verbatim sentence for length. Page also states it 'streamlines AI development and integration of deep learning in domains like computer vision' and 'Deploy across a mix of Intel hardware and environments, on-premise and on-device', covering CV inference on Intel/edge hardware.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "OpenVINO™ toolkit is an open source toolkit that accelerates AI inference with lower latency and higher throughput while maintaining accuracy, reducing model footprint, and optimizing hardware use.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_compute_advantech_edge_ai_systems_2026",
@@ -637,9 +719,16 @@
       "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
       "e_low_cost_vision_compute_requires_latency_timestamping"
     ],
-    "limitations": "Camera-vendor software evidence; supports SDK role but not the selected camera vendor, latency benchmark, or parcel-cell reliability.",
+    "limitations": "Supports camera SDK + driver + frame-transfer pipeline; page also states 'Stable real-time image acquisition thanks to excellent performance in terms of latency and jitter.'",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "pylon offers reliable, certified drivers for many vision interfaces, as well as powerful and simple programming interfaces and convenient camera setup tools.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_compute_genicam_machine_vision_standards_2026",
@@ -659,9 +748,16 @@
       "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
       "e_low_cost_vision_compute_requires_latency_timestamping"
     ],
-    "limitations": "Interface-standard evidence; does not prove vendor SDK quality, latency, or target-cell implementation.",
+    "limitations": "Supports generic camera programming interface / standardized API for the frame-acquisition pipeline across interface technologies.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "The goal of GenICam® (Generic Interface for Cameras) is to provide a generic programming interface for all kinds of devices (mainly cameras), no matter what interface technology (GigE Vision, USB3 Vision, CoaXPress, Camera Link HS, Camera Link etc.) they are using or what features they are implementing.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_ir_nvidia_nvda_2026",
@@ -757,9 +853,16 @@
       "e_induction_spacing_requires_sensor_array",
       "e_mfg_induction_sensor_array_banner"
     ],
-    "limitations": "Vendor application page; good for sensor/control roles but not full system economics or field reliability benchmark.",
+    "limitations": "Supports conveyor photoelectric sensing, spacing, parcel tracking, destination verification; ABR barcode readers and Q30FF chute jam-detection also described, covering barcode + jam-detection cluster.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Our products regulate the cycling of motors on a conveyor, help maintain the required space between products, identify and track parcels as they travel through the system, and verify that a parcel has arrived at its intended destination.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_abb_robotic_parcel_inductor_gripper",
@@ -884,9 +987,16 @@
       "e_conveyor_requires_chutes_bins",
       "e_decision_requires_plc_wcs"
     ],
-    "limitations": "Vendor platform page for larger sortation systems; useful for conveyor/sortation integration roles but not proof that this exact 300,000 RMB robot cell is affordable.",
+    "limitations": "Supports sorter platform for parcels; 'bringing the goods gently to their desired destination' supports conveyor/chute delivery and induction integration.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Our Sorter Solution Platform offers a full range of proven solutions for reliable and cost-effective sorting of unit loads such as cartons, parcels, packaged food, etc.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_usgs_mcs_2026_minerals",
@@ -1497,9 +1607,15 @@
       "e_barcode_ocr_requires_training_dataset",
       "e_barcode_ocr_requires_benchmark_metrics"
     ],
-    "limitations": "Vendor educational content; it supports the existence of the no-read problem but not target-cell field rates or cost.",
+    "limitations": "demote: URL is dead. WebFetch returned 403; browser render shows the Cognex 404 page (title '未找到 | 康耐视' / Not Found), body: '您点击或键入的链接不会导致任何内容' (the link leads to no content). No supporting content exists at this URL.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: URL is dead. WebFetch returned 403; browser render shows the Cognex 404 page (title '未找到 | 康耐视' / Not Found), body: '您点击或键入的链接不会导致任何内容' (the link leads to no content). No supporting content exists at this URL."
+    }
   },
   {
     "id": "ev_barcode_ocr_cognex_ocrmax_2026",
@@ -1545,9 +1661,16 @@
       "e_barcode_ocr_requires_no_read_recovery",
       "e_barcode_ocr_requires_training_dataset"
     ],
-    "limitations": "Company investor/news material; product-line scope only, with no target-cell adoption, share, or pricing evidence.",
+    "limitations": "Supports Zebra fixed industrial scanning + machine vision + OCR; page also references the 'Aurora Velocity™ scan tunnel that ensures efficient, error-free package sorting and routing,' covering scan-tunnel + Aurora claims.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "These capabilities include dimensioning, AI-powered HAZMAT/Dangerous Goods label detection, optical character recognition (OCR), and package damage inspection",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_barcode_ocr_datalogic_logistics_2026",
@@ -1591,9 +1714,16 @@
       "e_barcode_ocr_requires_no_read_recovery",
       "e_barcode_ocr_requires_benchmark_metrics"
     ],
-    "limitations": "Vendor product-page evidence; not a parcel-cell benchmark or target-product supplier confirmation.",
+    "limitations": "Page returned only a header to WebFetch (JS-only); rendered in browser. Supports industrial barcode decoding runtime, damaged-code handling, and conveyor use ('ideally suited for use in storage and conveyor systems'). Caveat: CLV65x is a 1D scanner, so the '2D' part of the decoding-runtime claim is not supported by this source.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "It combines high-performance reading with the further enhanced SMART code reconstruction system, a reading algorithm that can accurately detect and decode barcodes even if they are damaged, poorly printed, or partially covered.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_hikrobot_logistic_code_reader_2026",
@@ -1769,9 +1899,16 @@
       "e_induction_spacing_requires_singulation_metering",
       "e_induction_spacing_requires_exception_recovery"
     ],
-    "limitations": "Vendor product page; does not prove delivered cost, installed base, or 300,000 RMB target feasibility.",
+    "limitations": "Supports Wayzim automated robotic parcel infeed with vision + robot. Page describes identify/grasp/infeed; does not use the words 'singulation' or 'metering' verbatim, but covers the robotic-infeed/induction core.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Equipped with smart cameras and high-speed six-axis robots, the system can efficiently and accurately identify parcels and calculate the spatial position information of the parcels based on the instance segmentation deep learning network and 3D space point cloud algorithm.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_wayzim_crossbelt_sorter_2026",
@@ -1814,9 +1951,16 @@
       "e_induction_spacing_requires_sensor_array",
       "e_induction_spacing_requires_variable_speed_drive"
     ],
-    "limitations": "Large-system vendor page; useful for integration roles but not proof of target cell cost or supplier share.",
+    "limitations": "Strongly supports induction/gapping/dynamic-gap and PLC/WCS controls cluster. Caveat: the KION ownership claim is not stated on this page.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Dematic sortation systems are managed as a single, integrated machine that coordinates induction, gapping, scanning, divert control, and delivery confirmation.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_vanderlande_parcel_sorting",
@@ -1852,9 +1996,16 @@
       "e_mfg_conveyor_integration_daifuku",
       "e_mfg_parcel_induction_spacing_daifuku"
     ],
-    "limitations": "Large-system vendor page; not evidence for target low-cost robot-cell supplier share.",
+    "limitations": "Supports Daifuku as material-handling/intralogistics supplier with sorting systems (case sorter, put-to-light, sorting transfer robot listed under Conveyors & Sorters). Page does not give verbatim parcel-spacing/induction detail.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "High capacity case sorter designed for mass sortation at distribution centers.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_honeywell_sortation_momentum_2026",
@@ -1873,9 +2024,16 @@
       "e_mfg_sorting_decision_honeywell",
       "e_mfg_parcel_induction_spacing_honeywell"
     ],
-    "limitations": "Vendor page; throughput claims are system dependent and not evidence for target cell affordability.",
+    "limitations": "Page supports Honeywell Intelligrated sortation/conveyor + WES integration identity. No verbatim text on this page for parcel singulation/spacing-control specifics.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Honeywell Intelligrated provides the industry's most robust and diverse sortation and conveyor systems for addressing today's escalating commerce and manufacturing challenges. ... Integrate with warehouse execution systems to drive greater levels of automation",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_manhattan_wms_gartner_2024",
@@ -1948,9 +2106,16 @@
       "e_mfg_conveyor_speed_tracking_sick",
       "e_impl_jam_detection_recovery_sick"
     ],
-    "limitations": "Product-line evidence for sensor availability; it does not prove parcel-cell field reliability, supplier share, or installed BOM selection.",
+    "limitations": "JS-only catalog page; recovered via browser. Backs SICK photoelectric-sensor supplier identity. No verbatim support on this page for encoder tracking or jam recovery sub-claims.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "SICK's sensor portfolio includes numerous photoelectric sensors for industry automation. The opto-electronic sensors are used both in simple and complex applications.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_omron_conveyor_sensing_2026",
@@ -1967,9 +2132,16 @@
     "supportsEdgeIds": [
       "e_mfg_conveyor_speed_tracking_omron"
     ],
-    "limitations": "Product-line evidence; no target-cell supplier share, cost, or field uptime evidence.",
+    "limitations": "JS-rendered; recovered via browser. Backs OMRON photoelectric/sensing + material-handling identity. Page also lists rotary encoder portfolio, loosely relating to encoder sub-claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Omron offers a variety of proximity, photoelectric, and fiber-optic sensors for the automotive, food and beverage, and material handling industries.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_leuze_safety_sensors",
@@ -2004,9 +2176,16 @@
     "supportsEdgeIds": [
       "e_mfg_conveyor_speed_tracking_leuze"
     ],
-    "limitations": "Product-line evidence; no target parcel-cell supplier share, sensor placement benchmark, or cost evidence.",
+    "limitations": "403 to WebFetch; recovered via browser. Backs Leuze optical conveyor-belt object-detection identity. Page is object/edge detection, not encoder position tracking, so the encoder sub-claim is not verbatim-supported.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "The DRT 25C works with the conveyor belt surface as a dynamic reference for the detection of objects. ... the DRT 25C reliably detects the front edges of the objects and ensures that the process goes smoothly without any machine downtime.",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_siemens_motion_control_encoders_2026",
@@ -2025,9 +2204,15 @@
       "e_mfg_conveyor_speed_tracking_siemens",
       "e_impl_vision_latency_budget_siemens"
     ],
-    "limitations": "Catalog evidence for capability coverage; no target parcel-cell BOM selection, installed share, or delivered cost evidence.",
+    "limitations": "demote: Siemens catalog PDF URL returns HTTP 404 Not Found; document no longer hosted at this path.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "404",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: Siemens catalog PDF URL returns HTTP 404 Not Found; document no longer hosted at this path."
+    }
   },
   {
     "id": "ev_mfg_iea_rare_earth_2026",
@@ -2283,9 +2468,15 @@
       "e_induction_spacing_requires_variable_speed_drive",
       "e_induction_spacing_requires_exception_recovery"
     ],
-    "limitations": "Vendor/integrator page. It supports the function of gapping and induction but not delivered cost, sustained field uptime, or supplier share for the 300,000 RMB robot-cell target.",
+    "limitations": "demote: Original Bastian gapping-belt-induction URL 301-redirects (bastiansolutions -> bastianautomation -> toyota-automated-logistics.com/technology/sortation-systems), a generic sortation overview. The specific gapping-belt-induction page no longer exists; landing page does not cover induction/singulation/gap-control/exception-recovery.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "wrong_topic",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: Original Bastian gapping-belt-induction URL 301-redirects (bastiansolutions -> bastianautomation -> toyota-automated-logistics.com/technology/sortation-systems), a generic sortation overview. The specific gapping-belt-induction page no longer exists; landing page does not cover induction/singulation/gap-control/exception-recovery."
+    }
   },
   {
     "id": "ev_mfg_interroll_mcp_play_2026",
@@ -2308,9 +2499,16 @@
       "e_induction_spacing_requires_dynamic_gap_control",
       "e_induction_spacing_requires_variable_speed_drive"
     ],
-    "limitations": "Vendor product page and platform-level evidence; does not prove installed share, low-cost cell fit, or exact drive/BOM pricing.",
+    "limitations": "Recovered via browser. Backs Interroll modular-conveyor / material-handling supplier identity (Drum Motors, Rollers, Sorters, MCP listed). Induction spacing/dynamic-gap/variable-speed-drive specifics are NOT verbatim-supported; closest is the 'Flowing Merge' continuous-flow feature.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "WITH MCP PLAY, INTERROLL IS PIONEERING THE FUTURE OF MATERIAL HANDLING. The de facto standard of the industry, the Modular Conveyor Platform (MCP) has evolved with advanced intelligence...",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_honeywell_irregulars_sorter_2026",
@@ -2330,9 +2528,16 @@
       "e_mfg_induction_exception_recovery_honeywell",
       "e_induction_spacing_requires_exception_recovery"
     ],
-    "limitations": "Company announcement and adjacent high-throughput sorter claim. It supports exception-handling relevance but not this target robot-cell throughput, cost, or customer acceptance.",
+    "limitations": "Timed out / socket-closed on WebFetch (3x); recovered via browser. Strongly backs Intelligrated + Momentum WES/WCS/machine control, and IntelliSort Irregulars Sorter handling oversized/unstable parcels (induction exception recovery).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Honeywell Intelligrated Momentum Core software combines software and machine control capabilities into a single modular, easy-to-configure platform... The software foundation unifies warehouse execution software, warehouse control systems and machine control with operational visibility",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_mfg_daifuku_sorting_picking_systems_2026",
@@ -2350,9 +2555,16 @@
     "supportsEdgeIds": [
       "e_mfg_parcel_induction_spacing_daifuku"
     ],
-    "limitations": "Large-system vendor page; relevant to sortation/induction exposure but not proof of low-cost robot-cell BOM, supplier share, or 300,000 RMB feasibility.",
+    "limitations": "Backs Daifuku material-handling/sortation + conveyor supplier identity and induction (merge conveyor). No verbatim text for singulation/metering 'one-at-a-time predictable pitch' specifics.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Daifuku's sliding-shoe sorter, named the Jet Surfing Sorter, is a high-speed automated sortation system for channeling and sorting medium size items, totes, and cartons. ... Our Jet Surfing Sorter for input uses a high-speed merge conveyor, sorting shoes for diverting loads",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_power_infineon_servo_drives_2026",
