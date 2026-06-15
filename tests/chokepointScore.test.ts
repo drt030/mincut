@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 import {
+  barrierValue,
   concentrationValue,
   criticalityRaw,
   criticalityValue,
@@ -96,4 +97,35 @@ test("concentrationValue is 1.0 at zero holders and decreases as holders grow", 
 test("concentrationValue is unknown for non-supply-chain kinds", () => {
   const g = graph([node("cap", { kind: "capability" })], []);
   assert.equal(concentrationValue(g, "cap").known, false);
+});
+
+test("barrierValue is high for a must_build, hard, unproven node", () => {
+  const g = graph(
+    [
+      node("hard", {
+        kind: "engineering_method",
+        transactability: "must_build",
+        tags: ["hard_to_develop"],
+        maturityScore: 20,
+      }),
+    ],
+    [],
+  );
+  const r = barrierValue(g.nodes[0]);
+  assert.equal(r.known, true);
+  assert.ok(r.value > 0.8, `expected high barrier, got ${r.value}`);
+});
+
+test("barrierValue is low for a procurable, mature node", () => {
+  const g = graph(
+    [node("easy", { kind: "engineering_method", transactability: "procurable", maturityScore: 90 })],
+    [],
+  );
+  const r = barrierValue(g.nodes[0]);
+  assert.ok(r.value < 0.2, `expected low barrier, got ${r.value}`);
+});
+
+test("barrierValue is unknown when no barrier signal is present", () => {
+  const g = graph([node("bare", { kind: "module" })], []);
+  assert.equal(barrierValue(g.nodes[0]).known, false);
 });

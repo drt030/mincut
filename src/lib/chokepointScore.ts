@@ -100,3 +100,39 @@ export function concentrationValue(graph: GraphData, nodeId: string): AxisValue 
   const { total } = holdersForNode(graph, nodeId);
   return { value: 1 / (1 + total), known: true };
 }
+
+/** Fallback readiness 0..100 from maturityLabel when maturityScore is absent. */
+function readinessFromLabel(label: Node["maturityLabel"]): number | null {
+  switch (label) {
+    case "mature": return 90;
+    case "widely_adopted": return 85;
+    case "commercially_available": return 75;
+    case "early_deployment": return 60;
+    case "prototype": return 45;
+    case "lab_proven": return 35;
+    case "hypothesis": return 20;
+    case "blocked": return 10;
+    default: return null; // "unknown" / undefined → no readiness signal
+  }
+}
+
+const LEAD_TIME_SOFT_CAP_MONTHS = 36;
+
+/** Barrier = mean of the available signals, each in [0,1]:
+ *  must_build (1) / procurable (0); hard_to_develop tag (1);
+ *  1 - readiness; min(1, leadTime/36). Substitute count is deferred
+ *  (no `substitutes` data yet). Unknown when no signal is present. */
+export function barrierValue(node: Node): AxisValue {
+  const signals: number[] = [];
+  if (node.transactability === "must_build") signals.push(1);
+  else if (node.transactability === "procurable") signals.push(0);
+  if (node.tags?.includes("hard_to_develop")) signals.push(1);
+  const readiness =
+    typeof node.maturityScore === "number" ? node.maturityScore : readinessFromLabel(node.maturityLabel);
+  if (readiness !== null) signals.push(Math.max(0, Math.min(1, 1 - readiness / 100)));
+  if (typeof node.capacityLeadTimeMonths === "number") {
+    signals.push(Math.min(1, node.capacityLeadTimeMonths / LEAD_TIME_SOFT_CAP_MONTHS));
+  }
+  if (signals.length === 0) return { value: 0, known: false };
+  return { value: signals.reduce((a, b) => a + b, 0) / signals.length, known: true };
+}
