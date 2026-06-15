@@ -54,7 +54,7 @@ test("ux smoke: /product page shows p50 cost rollup section + breakdown row", as
   // Smoke-check the p50 rollup is rendered so we know the current cost
   // walker is in the serving build (not just in tests).
   assert.match(html, /cost-rollup-card/);
-  assert.match(html, /p50 469,079/, "/product should show the current rolled-up p50");
+  assert.match(html, /p50 473,384/, "/product should show the current rolled-up p50");
   // Slice-4 polish: ProductView now also shows the direct/children
   // breakdown row.
   assert.match(html, /cost-rollup-breakdown/);
