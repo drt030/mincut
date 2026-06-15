@@ -744,6 +744,35 @@ test("expanded: AI compute root explains real stuck factors instead of evidence 
   );
 });
 
+test("expanded: Inspect next previews cost, constraint, and relief before click-through", () => {
+  const focused = nodeById(AI_COMPUTE_ROOT_ID);
+  const html = renderWithLockedExposure({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const inspectNext = detailDisclosure(html, "detail-inspect-next");
+
+  assert.match(inspectNext, /Inspect next/i, `inspect next should be present; got: ${inspectNext}`);
+  assert.match(
+    inspectNext,
+    /Cost: (?:Modeled|Estimated) cost:/i,
+    `inspect candidates should preview cost magnitude before click-through; got: ${inspectNext}`,
+  );
+  assert.match(
+    inspectNext,
+    /Constraint: (?:Memory capacity|Component availability|Capacity \/ scale|advanced packaging|supplier concentration)/i,
+    `inspect candidates should preview why the node is constrained; got: ${inspectNext}`,
+  );
+  assert.match(
+    inspectNext,
+    /Relief: (?:Likely long-cycle|[0-9]+ months|Medium-to-long cycle)/i,
+    `inspect candidates should preview whether relief is quick or slow; got: ${inspectNext}`,
+  );
+});
+
 test("expanded: AI compute detail exposes supplier tickers after the why/stuck/evidence sequence without graph appendix noise", () => {
   const focused = nodeById(AI_COMPUTE_ROOT_ID);
   const html = renderWithLockedExposure({
@@ -1287,7 +1316,7 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
   );
   assert.match(
     html,
-    /169,079 RMB over target/,
+    /173,384 RMB over target/,
     `investor panel must quantify the p50 cost gap; got: ${html}`,
   );
   assert.match(

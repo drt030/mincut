@@ -710,6 +710,29 @@ test("route-led focus dimming preserves node and edge hue", () => {
   );
 });
 
+test("detail inspect-next rows wrap decision signals without stretching the rail", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const itemBlock = css.match(/\.detail-reader-inspect-item\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  const metaBlock = css.match(/\.detail-reader-inspect-item\s+small\s*\{[\s\S]*?\}/)?.[0] ?? "";
+
+  assert.ok(itemBlock.length > 0, "detail inspect-next items need an explicit layout block");
+  assert.ok(metaBlock.length > 0, "detail inspect-next meta text needs an explicit wrapping block");
+  assert.match(itemBlock, /display:\s*grid/, "long cost/constraint/relief summaries need a stacked grid layout");
+  assert.doesNotMatch(
+    itemBlock,
+    /justify-content:\s*space-between/,
+    "inspect-next rows must not push long meta text into a single unwrapped right rail",
+  );
+  assert.match(metaBlock, /min-width:\s*0/, "wrapped meta text must be allowed to shrink inside the rail");
+  assert.match(metaBlock, /white-space:\s*normal/, "inspect-next meta text should wrap to a second line");
+  assert.match(metaBlock, /overflow-wrap:\s*anywhere/, "long modeled-cost strings should not overflow the rail");
+  assert.doesNotMatch(
+    metaBlock,
+    /flex:\s*0\s+0\s+auto/,
+    "inspect-next meta text must not opt out of wrapping",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: product layer never re-shows first-layer know-how", () => {
   const filePath = path.join(
     process.cwd(),

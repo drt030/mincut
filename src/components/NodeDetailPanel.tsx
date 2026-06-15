@@ -1642,7 +1642,7 @@ function NodeDetailInspectNext({
         <div className="detail-reader-inspect-list">
           {ranked.map((entry) => {
             const displayName = nodeName(entry.id, entry.child.name);
-            const meta = readerFacingCandidateSignal(entry.child, entry.source, t);
+            const meta = readerFacingInspectSignal(graph, entry.child, entry.source, t);
             return onSelectNode ? (
               <button
                 className="detail-reader-inspect-item"
@@ -1782,6 +1782,32 @@ function readerFacingCandidateSignal(
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
   if (factors.length > 0) return factors.slice(0, 2).join(" · ");
   return t("readerThesisCandidateConstraint");
+}
+
+function readerFacingInspectSignal(
+  graph: GraphData,
+  node: Node,
+  source: RankedInspectCandidate["source"],
+  t: (key: string) => string,
+): string {
+  const role = readerFacingCandidateSignal(node, source, t);
+  const modeledCostText = detailCostSignalText(graph, node);
+  const estimatedCost = modeledCostText ? null : estimatedCostForNode(node);
+  const cost = modeledCostText
+    ? readerFacingCostSignalText({ valueText: modeledCostText, kind: "modeled", t })
+    : estimatedCost
+      ? readerFacingCostSignalText({
+          valueText: formatMetricValue(estimatedCost.range, "RMB", "RMB").compact,
+          kind: "estimated",
+          t,
+        })
+      : t("readerCostNotModeled");
+  return [
+    role,
+    `${t("readerInspectCost")}: ${cost}`,
+    `${t("readerInspectConstraint")}: ${constraintSummaryText(node, t)}`,
+    `${t("readerInspectRelief")}: ${reliefTimingText(node, t)}`,
+  ].join(" · ");
 }
 
 function opportunityCandidatesForNode(graph: GraphData, node: Node): Node[] {
