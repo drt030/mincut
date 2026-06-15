@@ -2,7 +2,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import type { Edge, GraphData, Node } from "../src/lib/schema";
-import { criticalityRaw, dependentAncestors, directDependents } from "../src/lib/chokepointScore";
+import {
+  criticalityRaw,
+  criticalityValue,
+  dependentAncestors,
+  directDependents,
+} from "../src/lib/chokepointScore";
 
 function node(id: string, extra: Partial<Node> = {}): Node {
   return { id, name: id, kind: "module", domain: ["test"], ...extra } as Node;
@@ -36,4 +41,26 @@ test("dependentAncestors walks transitively up the decomposition DAG", () => {
     [edge("root", "mid", "requires"), edge("mid", "leaf", "requires")],
   );
   assert.deepEqual([...dependentAncestors(g, "leaf")].sort(), ["mid", "root"]);
+});
+
+test("criticalityValue defaults demand weight to 1 when no demandScale, known when shared", () => {
+  const g = graph(
+    [node("root", { kind: "product" }), node("a"), node("shared")],
+    [edge("root", "a", "requires"), edge("a", "shared", "requires"), edge("root", "shared", "requires")],
+  );
+  // shared has 2 parents (root, a), no demandScale -> value 2, weight unknown
+  const r = criticalityValue(g, "shared");
+  assert.equal(r.value, 2);
+  assert.equal(r.known, true);
+  assert.equal(r.demandKnown, false);
+});
+
+test("criticalityValue multiplies fan-in by ancestor product demandScale", () => {
+  const g = graph(
+    [node("root", { kind: "product", demandScale: 10 }), node("shared")],
+    [edge("root", "shared", "requires")],
+  );
+  const r = criticalityValue(g, "shared");
+  assert.equal(r.value, 10); // fan-in 1 × demandScale 10
+  assert.equal(r.demandKnown, true);
 });

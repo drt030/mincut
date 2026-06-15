@@ -43,3 +43,26 @@ export function dependentAncestors(graph: GraphData, nodeId: string): Set<string
 export function criticalityRaw(graph: GraphData, nodeId: string): number {
   return directDependents(graph, nodeId).length;
 }
+
+export type AxisValue = { value: number; known: boolean };
+export type CriticalityValue = AxisValue & { demandKnown: boolean };
+
+/** Sum of `demandScale` over the dependent ancestor products. Defaults to
+ *  weight 1 (and demandKnown=false) when no ancestor product sets it. */
+function demandWeight(graph: GraphData, nodeId: string): { weight: number; demandKnown: boolean } {
+  const ancestors = dependentAncestors(graph, nodeId);
+  const scales: number[] = [];
+  for (const id of ancestors) {
+    const n = graph.nodes.find((node) => node.id === id);
+    if (n?.kind === "product" && typeof n.demandScale === "number") scales.push(n.demandScale);
+  }
+  if (scales.length === 0) return { weight: 1, demandKnown: false };
+  return { weight: scales.reduce((a, b) => a + b, 0), demandKnown: true };
+}
+
+/** Criticality = structural fan-in × ancestor-product demand weight. */
+export function criticalityValue(graph: GraphData, nodeId: string): CriticalityValue {
+  const raw = criticalityRaw(graph, nodeId);
+  const { weight, demandKnown } = demandWeight(graph, nodeId);
+  return { value: raw * weight, known: raw > 0, demandKnown };
+}
