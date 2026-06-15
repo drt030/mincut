@@ -11,34 +11,31 @@ export type GraphControlsProps = {
   onAnalysisModeChange: (next: ColorMode) => void;
 };
 
-const ROUTE_LABELS: Record<RouteMode, string> = {
-  "cost-drivers": "Cost drivers",
-};
-
-const ZH_ROUTE_LABELS: Record<RouteMode, string> = {
-  "cost-drivers": "成本驱动",
-};
-
-type VisibleAnalysisMode = "relation" | "cost" | "bottleneck-risk" | "maturity";
+// The three §2 canvas lenses (docs/ACCEPTANCE.md). Maturity was folded into
+// the Barrier axis per ADR-0010, so it is no longer a lens; the internal
+// `maturity` ColorMode survives for non-lens code (edgeStyleFor, the rail's
+// defensive maturity branch) but is not selectable here.
+type VisibleAnalysisMode = "relation" | "cost" | "bottleneck-risk";
 
 const ANALYSIS_MODE_OPTIONS: readonly VisibleAnalysisMode[] = [
   "relation",
   "cost",
   "bottleneck-risk",
-  "maturity",
 ];
 
+// `ColorMode` still carries `maturity`/`overall` for shared code, so the
+// Record stays exhaustive; only the three options above are rendered.
 const ANALYSIS_MODE_LABELS: Record<ColorMode, string> = {
-  cost: "Cost drivers",
-  "bottleneck-risk": "Bottleneck risk",
+  cost: "Cost",
+  "bottleneck-risk": "Chokepoint",
   maturity: "Maturity",
   overall: "Overall",
   relation: "System decomposition",
 };
 
 const ZH_ANALYSIS_MODE_LABELS: Record<ColorMode, string> = {
-  cost: "成本驱动",
-  "bottleneck-risk": "瓶颈风险",
+  cost: "成本",
+  "bottleneck-risk": "卡点",
   maturity: "成熟度",
   overall: "综合",
   relation: "系统分解",
@@ -72,19 +69,11 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   "bottleneck-risk": {
     title: "Legend",
-    summary: "Wider = bottleneck risk.",
-    low: "Low risk",
-    high: "Critical",
+    summary: "low (blue) → chokepoint (red)",
+    low: "Low",
+    high: "Chokepoint",
     edgeLabel: "Edge color + width",
     edgeValue: "target node can block scale, cost, or adoption",
-  },
-  maturity: {
-    title: "Legend",
-    summary: "Wider = maturity gap.",
-    low: "Mature",
-    high: "Least mature",
-    edgeLabel: "Edge color + width",
-    edgeValue: "target node maturity, reversed so warm means less proven",
   },
 };
 
@@ -107,24 +96,18 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   "bottleneck-risk": {
     title: "图例",
-    summary: "线越粗 = 瓶颈风险。",
-    low: "低风险",
-    high: "关键瓶颈",
+    summary: "低（蓝）→ 卡点（红）",
+    low: "低",
+    high: "卡点",
     edgeLabel: "线条颜色 + 粗细",
     edgeValue: "下游节点可能卡住扩产、成本或采用",
-  },
-  maturity: {
-    title: "图例",
-    summary: "线越粗 = 成熟度缺口。",
-    low: "成熟",
-    high: "最不成熟",
-    edgeLabel: "线条颜色 + 粗细",
-    edgeValue: "下游节点成熟度，已反向编码：暖色表示更不成熟",
   },
 };
 
 function visibleAnalysisMode(mode: ColorMode): VisibleAnalysisMode {
-  if (mode === "relation" || mode === "bottleneck-risk" || mode === "maturity") return mode;
+  if (mode === "relation" || mode === "bottleneck-risk") return mode;
+  // `cost`, plus the non-lens `maturity` / `overall` ColorModes, fall back to
+  // the cost legend (those modes are not selectable from this selector).
   return "cost";
 }
 
@@ -180,7 +163,6 @@ function LensLegend({
 }
 
 export function GraphControls({
-  routeMode,
   analysisMode,
   onAnalysisModeChange,
 }: GraphControlsProps) {
@@ -190,7 +172,6 @@ export function GraphControls({
       map: "地图",
       lens: "视角",
       fullSystem: "完整系统",
-      routeLabel: ZH_ROUTE_LABELS[routeMode],
       modeLabels: ZH_ANALYSIS_MODE_LABELS,
       legend: ZH_LENS_LEGEND_COPY,
     }
@@ -198,7 +179,6 @@ export function GraphControls({
       map: "Map",
       lens: "Lens",
       fullSystem: "Full system",
-      routeLabel: ROUTE_LABELS[routeMode],
       modeLabels: ANALYSIS_MODE_LABELS,
       legend: LENS_LEGEND_COPY,
     };
@@ -213,7 +193,6 @@ export function GraphControls({
         <div className="graph-controls-label">{copy.lens}</div>
         {ANALYSIS_MODE_OPTIONS.map((mode) => {
           const active = mode === analysisMode;
-          const isCostRoute = mode === "cost";
           return (
             <button
               key={mode}
@@ -224,7 +203,7 @@ export function GraphControls({
               onClick={() => onAnalysisModeChange(mode)}
             >
               <span className="graph-control-icon lens" aria-hidden="true" />
-              <span>{isCostRoute ? copy.routeLabel : copy.modeLabels[mode]}</span>
+              <span>{copy.modeLabels[mode]}</span>
             </button>
           );
         })}

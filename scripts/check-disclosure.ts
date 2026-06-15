@@ -72,20 +72,15 @@ const controls = readSource(GRAPH_CONTROLS_PATH);
 if (controls) {
   const options = extractStringArray(controls, "ANALYSIS_MODE_OPTIONS");
   const labels = extractRecord(controls, "ANALYSIS_MODE_LABELS");
-  // `cost` renders the route label, not the analysis-mode label (see the
-  // `isCostRoute ? copy.routeLabel : copy.modeLabels[mode]` branch); read it
-  // from the EN route map so the resolved set matches what the user sees.
-  const routeLabels = extractRecord(controls, "ROUTE_LABELS");
 
   if (!options) {
     failures.push(`${GRAPH_CONTROLS_PATH}: could not find the ANALYSIS_MODE_OPTIONS lens list.`);
   } else if (!labels) {
     failures.push(`${GRAPH_CONTROLS_PATH}: could not find the ANALYSIS_MODE_LABELS map.`);
   } else {
-    const rendered = options.map((option) => {
-      if (option === "cost") return routeLabels?.["cost-drivers"] ?? labels[option] ?? option;
-      return labels[option] ?? option;
-    });
+    // Each rendered button shows `copy.modeLabels[mode]` (EN map), so the
+    // resolved label set must match what the user sees on the canvas.
+    const rendered = options.map((option) => labels[option] ?? option);
 
     for (const required of REQUIRED_LENS_LABELS) {
       if (!rendered.includes(required)) {

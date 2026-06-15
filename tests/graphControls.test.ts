@@ -16,17 +16,22 @@ test("GraphControls exposes one compact lens control surface without static map 
   assert.match(html, /data-testid="graph-controls"/);
   assert.doesNotMatch(html, /Full system/i);
   assert.doesNotMatch(html, /完整系统/);
-  assert.match(html, /Cost drivers/i);
+  // §2 vocabulary: exactly three lenses — System decomposition / Cost /
+  // Chokepoint. The pre-ADR-0010 "Cost drivers", "Bottleneck risk", and
+  // "Maturity" lens labels must be gone.
+  assert.match(html, />Cost</);
   assert.match(html, /System decomposition/i);
-  assert.match(html, /Bottleneck risk/i);
-  assert.match(html, /Maturity/i);
+  assert.match(html, /Chokepoint/i);
+  assert.doesNotMatch(html, /Cost drivers/i);
+  assert.doesNotMatch(html, /Bottleneck risk/i);
+  assert.doesNotMatch(html, /Maturity/i);
   assert.doesNotMatch(html, /Overall/i);
   assert.doesNotMatch(html, />Relation</i);
-  assert.equal((html.match(/data-analysis-mode=/g) ?? []).length, 4);
+  assert.equal((html.match(/data-analysis-mode=/g) ?? []).length, 3);
   assert.doesNotMatch(html, /Display mode/i);
 });
 
-test("GraphControls explains the active risk lens without Top 1-5 rank copy", () => {
+test("GraphControls explains the active chokepoint lens without Top 1-5 rank copy", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
       routeMode: "cost-drivers",
@@ -37,7 +42,8 @@ test("GraphControls explains the active risk lens without Top 1-5 rank copy", ()
 
   assert.match(html, /data-testid="lens-legend"/);
   assert.match(html, /Edge color \+ width/i);
-  assert.match(html, /Wider = bottleneck risk/i);
+  // Chokepoint legend copy (ADR-0010 vocabulary): low (blue) → chokepoint (red).
+  assert.match(html, /low \(blue\) → chokepoint \(red\)/i);
   assert.match(html, /block scale, cost, or adoption/i);
   assert.doesNotMatch(html, /Sector tint/i);
   assert.doesNotMatch(html, /structural grouping/i);
@@ -80,12 +86,12 @@ test("GraphControls uses one shared lens icon across all analysis modes", () => 
     }),
   );
 
-  assert.equal((html.match(/class="graph-control-icon lens"/g) ?? []).length, 4);
+  assert.equal((html.match(/class="graph-control-icon lens"/g) ?? []).length, 3);
   assert.doesNotMatch(html, /graph-control-icon route/);
   assert.doesNotMatch(html, /graph-control-icon system/);
 });
 
-test("GraphControls reverses the maturity legend so warm means least mature", () => {
+test("GraphControls no longer offers a Maturity lens (folded into Barrier per ADR-0010)", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
       routeMode: "cost-drivers",
@@ -94,10 +100,16 @@ test("GraphControls reverses the maturity legend so warm means least mature", ()
     }),
   );
 
-  assert.match(html, /maturity gap/i);
-  assert.match(html, /less proven/i);
-  assert.match(html, /mature/i);
-  assert.doesNotMatch(html, /Top 1-5/i);
+  // Maturity is no longer a selectable lens: no Maturity button, and the old
+  // reversed-maturity legend copy is gone. The internal `maturity` ColorMode
+  // (still carried for non-lens code) falls back to the cost legend rather
+  // than crashing on a missing legend entry.
+  assert.doesNotMatch(html, /data-analysis-mode="maturity"/);
+  assert.doesNotMatch(html, /Maturity/i);
+  assert.doesNotMatch(html, /maturity gap/i);
+  assert.doesNotMatch(html, /less proven/i);
+  assert.match(html, /data-lens-mode="cost"/);
+  assert.match(html, /Wider = cost burden/i);
 });
 
 test("GraphControls adds a neutral system decomposition lens", () => {
