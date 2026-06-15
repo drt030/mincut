@@ -32,16 +32,24 @@ test. Partial passes do not ship to an owner review queue. See §8 for the decis
 - **Every** scope exclusion is written into the DATA as a capability-level `scope` note **and** a
   `decomposition_frontier` boundary note pointing at the sibling domain (playbook Day-0 rule:
   undocumented boundaries grade as misses, documented ones grade as decisions).
-- New paid domains register in `src/lib/domains.ts` (slug → domainTag) and
-  `src/lib/exposureGate.ts` **`GATED_DOMAINS`** — never `FREE_CHAIN_TAGS` (those are the free
-  flagship + parcel demo). Server-side stripping must be live before any deploy (Decision 4).
+- Both domains are **already registered** (`src/lib/domains.ts`, `exposureGate.ts` `GATED_DOMAINS`,
+  entitlement `space`) at `portfolioState: "audit-preview"`. This round does **not** re-register or
+  rename them — 7 test files pin `spacex_reusable_launch` / `spacex_reusable_launch_stack`, so a
+  rename is gratuitous breakage. The industry framing is a **content** directive (map the merchant
+  chain any reusable-launch program buys, not SpaceX-captive parts only; honest captive-vs-merchant
+  labelling), not an id change. Server-side exposure stripping stays live (Decision 4).
+  `orbital_data_center` stays at `audit-preview`, unexpanded and out of eval this round.
 
 ## 2. The bar — flagship parity
 
-Flagship parity = the four eval axes clear §3 thresholds **and** the deterministic + exposure +
-review gates (§1, §4, §5, §6) all pass. "Looks complete" is not parity; the eval and the
-verifier decide. The reference run (`ai_compute_chain`) is the calibration anchor, not a node-count
-target — a domain with fewer genuine segments is fine if its segments are fully covered.
+Flagship parity = the deterministic, evidence, exposure, eval, and review gates (§3 Gate A – §7
+Gate E) all pass for the domain. "Looks complete" is not parity; the eval and the verifier decide.
+The reference run (`ai_compute_chain`) is the calibration anchor, not a node-count target — a domain
+with fewer genuine segments is fine if its segments are fully covered.
+
+**Repo-native "done":** ACCEPTED (all gates pass) = the domain is eligible to flip its
+`portfolioState` from `audit-preview` → `paid-candidate` (`DOMAIN_PORTFOLIO_STATES` in
+`src/lib/domains.ts`). That flip — like the `reviewed` evidence flips (§7) — is **owner-only**.
 
 ## 3. Gate A — Deterministic hard gates (must be 100%; run first, fail fast before any eval spend)
 
@@ -56,6 +64,7 @@ These are cheap, mechanical, and block everything downstream. Run them every rou
 | A5 | Commercial-readiness invariants (gating, leaks) hold | `npm run check:commercial-readiness` | green |
 | A6 | Lint + build + tests | `npm run verify` (lint + graph-ux + test) then `npm run build` | green |
 | A7 | zh sidecar coverage complete for every new node/metric/evidence | languageCoverage check (part of verify) | 0 missing zh |
+| A8 | Per-domain **data-quality unit test** (e.g. `tests/spacexDataQuality.test.ts`) pins decision-grade fields on the headline bottleneck(s): `transactability`, `capacityLeadTimeMonths`, cost-disclosure metric, `constraint_*` tags, ≥1 direct independent non-vendor evidence | `npm test` | green |
 
 ## 4. Gate B — Evidence & claim discipline (ADR-0009, per-record)
 
@@ -177,6 +186,8 @@ Each domain, when ACCEPTED, has produced:
 - a top-15 owner review queue doc;
 - the domain's decomposition brief, versioned/dated (`reusable_launch`: **new**; `humanoid_robotics`:
   **rewritten** from actuator-only to whole-robot);
-- domain registered in `domains.ts` + `exposureGate.ts` (GATED), server-side stripping verified.
+- domain `portfolioState` eligible to flip `audit-preview` → `paid-candidate` (owner-only),
+  server-side exposure stripping verified, and a `*DataQuality.test.ts` pinning its headline
+  bottleneck(s).
 
 This standard + the two briefs are committed **before** round 1.
