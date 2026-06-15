@@ -7,6 +7,7 @@ import {
   criticalityValue,
   dependentAncestors,
   directDependents,
+  quantileNormalizer,
 } from "../src/lib/chokepointScore";
 
 function node(id: string, extra: Partial<Node> = {}): Node {
@@ -63,4 +64,16 @@ test("criticalityValue multiplies fan-in by ancestor product demandScale", () =>
   const r = criticalityValue(g, "shared");
   assert.equal(r.value, 10); // fan-in 1 × demandScale 10
   assert.equal(r.demandKnown, true);
+});
+
+test("quantileNormalizer maps min->0, max->1 by empirical rank", () => {
+  const norm = quantileNormalizer([1, 2, 3, 4, 5]);
+  assert.equal(norm(1), 0);
+  assert.equal(norm(5), 1);
+  assert.equal(norm(3), 0.5);
+});
+
+test("quantileNormalizer is robust to one or zero values", () => {
+  assert.equal(quantileNormalizer([])(7), 0);
+  assert.equal(quantileNormalizer([42])(42), 0.5);
 });

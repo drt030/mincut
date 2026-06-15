@@ -66,3 +66,18 @@ export function criticalityValue(graph: GraphData, nodeId: string): CriticalityV
   const { weight, demandKnown } = demandWeight(graph, nodeId);
   return { value: raw * weight, known: raw > 0, demandKnown };
 }
+
+/** Empirical-rank normalizer to [0,1] over a value distribution — the same
+ *  idea as `bandForCost`'s quantile binning, generalized. Returns a function
+ *  mapping a value to (count strictly below) / (n - 1). Ties share a rank. */
+export function quantileNormalizer(values: number[]): (v: number) => number {
+  const sorted = values.filter((v) => Number.isFinite(v)).sort((a, b) => a - b);
+  if (sorted.length === 0) return () => 0;
+  if (sorted.length === 1) return () => 0.5;
+  const denom = sorted.length - 1;
+  return (v: number) => {
+    let below = 0;
+    for (const s of sorted) if (s < v) below++;
+    return Math.max(0, Math.min(1, below / denom));
+  };
+}
