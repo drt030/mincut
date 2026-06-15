@@ -135,6 +135,7 @@ http://localhost:3000
 - `docs/GRAPH_UX.md`: graph visualization UX contract and interaction rules.
 - `docs/NODE_EXPANSION.md`: workflow for expanding incomplete graph nodes.
 - `docs/roadmap.md`: long-term roadmap.
+- `docs/competitive-landscape.md`: competitor / adjacent-project analysis with advantage/disadvantage comparison (tiered by verification confidence).
 - `docs/plans/parcel-sorting-robot-v0.md`: short-term closed-loop plan.
 - `data/nodes/parcel_sorting_robot.json`: parcel-sorting graph nodes.
 - `data/edges/parcel_sorting_robot_edges.json`: parcel-sorting graph edges.
