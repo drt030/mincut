@@ -17,7 +17,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const uiText: Record<Language, Record<string, string>> = {
   en: {
-    brand: "Capability Graph Explorer",
+    brand: "MinCut",
     navGraph: "Graph",
     navProduct: "Product",
     navGate: "Gate",
@@ -64,7 +64,7 @@ const uiText: Record<Language, Record<string, string>> = {
     filterRelationLabel: "Filter by relation",
     filterMaturityLabel: "Filter by maturity",
     homeIntro:
-      "Capability Graph Explorer is a research tool for tracing manufacturing bottlenecks — where they sit in dependency trees, why they're hard, and how they evolve over time.",
+      "Find the bottlenecks in how things get made. MinCut traces where manufacturing constraints sit in dependency trees, why they're hard, and how they evolve over time.",
     homeIntroLearnerNote:
       "Two modes: forward-looking (what gates an emerging product?) and retrospective (replay a mature product's bottleneck sequence).",
     homeV0Focus: "Currently exploring:",
@@ -583,7 +583,7 @@ const uiText: Record<Language, Record<string, string>> = {
     transactabilityUnset: "Unassessed",
   },
   zh: {
-    brand: "能力图谱探索器",
+    brand: "MinCut",
     navGraph: "图谱",
     navProduct: "产品",
     navGate: "验证",
@@ -627,7 +627,7 @@ const uiText: Record<Language, Record<string, string>> = {
     filterKindLabel: "按节点类型筛选",
     filterRelationLabel: "按关系筛选",
     filterMaturityLabel: "按成熟度筛选",
-    homeIntro: "能力图谱探索器是一个用于追踪制造瓶颈的研究工具 —— 瓶颈在依赖树中位于何处、为什么难、如何随时间演变。",
+    homeIntro: "MinCut 用来追踪东西如何被制造出来，以及瓶颈在依赖树中位于何处、为什么难、如何随时间演变。",
     homeIntroLearnerNote: "两种学习模式：前瞻模式（哪些瓶颈在阻碍新兴产品？）与回溯模式（重放成熟产品的瓶颈解锁顺序）。",
     homeV0Focus: "当前研究对象：",
     homeV0FocusContext: "面向 2025 年中国小型仓储物流的 30 万 RMB 包裹分拣机器人。",
@@ -1358,6 +1358,81 @@ const nodeTextZh: Record<string, string> = {
   reusable_launch_cost_per_kg_metric: "可回收发射每公斤成本",
   booster_reflight_count_metric: "助推器复飞次数",
   launch_cadence_metric: "发射节奏",
+  // spacex_reusable_launch — merchant supplier & material expansion (74 nodes)
+  launch_tvc_actuators_merchant: "推力矢量控制（TVC）作动器（商用层）",
+  launch_propellant_pneumatic_valves_merchant: "推进剂与气动控制阀（商用层）",
+  launch_engine_igniter_merchant: "发动机点火器 / 点火系统",
+  launch_engine_precision_bearings_merchant: "精密轴承（发动机涡轮泵 / 万向节 / 低温）",
+  launch_engine_metal_am_machines_merchant: "金属增材制造设备（发动机零件）",
+  launch_engine_metal_am_powder_merchant: "金属增材粉末与特种合金原料（发动机零件）",
+  org_moog: "穆格公司（Moog）",
+  org_woodward: "伍德沃德（Woodward）",
+  org_parker_hannifin: "派克汉尼汾（Parker Hannifin / Parker Aerospace）",
+  org_velo3d: "Velo3D",
+  org_eos_gmbh: "EOS（电光系统公司）",
+  org_nikon_slm_solutions: "尼康 SLM Solutions",
+  org_carpenter_additive: "Carpenter Additive（卡彭特科技）",
+  org_ati: "ATI 公司（阿勒格尼技术）",
+  org_rbc_bearings: "RBC Bearings",
+  aerospace_aluminum_lithium_plate_sheet: "航空级铝锂合金板材 / 薄板",
+  aerospace_titanium_mill_product: "航空级钛材轧制品（板 / 棒 / 坯）",
+  titanium_sponge_feedstock: "海绵钛原料",
+  large_aerospace_titanium_forging_casting: "大型航空钛锻件 / 铸件（栅格舵）",
+  aerospace_investment_casting_forging: "航空精密铸件与锻件（发动机 / 结构）",
+  org_constellium: "肯联铝业（Constellium）",
+  org_kaiser_aluminum: "凯撒铝业（Kaiser Aluminum）",
+  org_arconic: "奥科宁克（Arconic）",
+  org_vsmpo_avisma: "VSMPO-AVISMA（俄罗斯钛业）",
+  org_timet: "TIMET（钛金属公司）",
+  org_toho_titanium: "东邦钛（Toho Titanium）",
+  org_osaka_titanium: "大阪钛科技（Osaka Titanium）",
+  org_howmet_aerospace: "好米特航空（Howmet Aerospace）",
+  org_precision_castparts: "精密铸件公司（Precision Castparts）",
+  org_outokumpu: "奥托昆普（Outokumpu）",
+  falcon9_strategic_radhard_processor_fpga: "战略级抗辐射处理器 / FPGA / 存储器",
+  launch_cots_upscreened_avionics_silicon: "COTS 升级筛选航电芯片（Falcon 级）",
+  launch_vehicle_space_imu_gnss: "航天级 IMU / 惯性基准 / GNSS",
+  launch_vehicle_star_tracker: "星敏感器 / 恒星姿态敏感器",
+  space_grade_connector_harness_launch: "航天级连接器与飞行线束（运载火箭）",
+  flight_termination_ordnance_safe_arm: "飞行终止火工品与保险解保装置",
+  org_bae_systems: "BAE Systems",
+  org_frontgrade_technologies: "Frontgrade Technologies",
+  org_microchip_technology: "微芯科技（Microchip Technology）",
+  org_amd: "AMD（Xilinx）",
+  org_skywater_technology: "SkyWater Technology",
+  org_northrop_grumman: "诺斯罗普·格鲁曼（Northrop Grumman）",
+  org_sodern: "Sodern",
+  org_jena_optronik: "Jena-Optronik",
+  org_glenair: "Glenair",
+  org_pacsci_emc: "Pacific Scientific Energetic Materials（PacSci EMC）",
+  org_mercury_systems: "Mercury Systems",
+  aerospace_carbon_fiber_composite_material: "航空碳纤维复合材料（整流罩与结构）",
+  launch_vehicle_copv_pressurant_vessel: "复合材料缠绕压力容器（COPV，氦气增压）",
+  org_toray: "东丽（Toray Industries）",
+  org_hexcel: "赫氏（Hexcel）",
+  org_teijin: "帝人（Teijin）",
+  org_mitsubishi_chemical: "三菱化学集团（Mitsubishi Chemical）",
+  org_syensqo: "Syensqo",
+  org_infinite_composites: "Infinite Composites",
+  org_steelhead_composites: "Steelhead Composites",
+  org_hypercomp_engineering: "HyPerComp Engineering",
+  org_gd_ots: "通用动力军械与战术系统（GD-OTS）",
+  helium_pressurant_supply: "氦气增压气源供应",
+  liquid_oxygen_lox_supply: "液氧（LOX）供应",
+  liquid_methane_lch4_supply: "液态甲烷（LCH4）供应",
+  org_air_products: "空气化工产品（Air Products）",
+  org_nippon_sanso_holdings: "日本酸素控股（Nippon Sanso / Matheson）",
+  org_messer: "梅塞尔（Messer）",
+  starship_pica_class_ablator: "PICA 类烧蚀防热材料",
+  pica_rayon_lyocell_carbon_precursor: "PICA 人造丝 / 莱赛尔碳前驱体",
+  pica_carbon_fiberform_preform: "PICA 碳 FiberForm 预制体",
+  reusable_launch_ceramic_silica_tile: "可复用陶瓷 / 二氧化硅隔热瓦",
+  reusable_launch_tps_tile_adhesive_sip: "高温 TPS 隔热瓦胶粘剂与应变隔离垫",
+  org_lenzing: "兰精（Lenzing）",
+  org_fiber_materials_inc: "Fiber Materials Inc（FMI）",
+  org_lockheed_martin: "洛克希德·马丁（Lockheed Martin）",
+  org_momentive_performance_materials: "迈图高新材料（Momentive）",
+  org_sniace: "SNIACE S.A.",
   spacex_orbital_data_center_system: "SpaceX 轨道数据中心系统",
   orbital_ai_compute_capability: "轨道 AI 计算能力",
   orbital_compute_payload_stack: "轨道计算载荷栈",
@@ -1723,17 +1798,21 @@ function browserStorage(): Storage | null {
   }
 }
 
+const languageStorageKey = "mincut_language";
+const legacyLanguageStorageKey = "capability_graph_language";
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en");
 
   useEffect(() => {
-    const saved = browserStorage()?.getItem("capability_graph_language");
+    const storage = browserStorage();
+    const saved = storage?.getItem(languageStorageKey) ?? storage?.getItem(legacyLanguageStorageKey);
     if (saved === "zh" || saved === "en") setLanguageState(saved);
   }, []);
 
   const setLanguage = (next: Language) => {
     setLanguageState(next);
-    browserStorage()?.setItem("capability_graph_language", next);
+    browserStorage()?.setItem(languageStorageKey, next);
   };
 
   const value = useMemo<LanguageContextValue>(
