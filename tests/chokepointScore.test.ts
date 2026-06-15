@@ -4,12 +4,14 @@ import assert from "node:assert/strict";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 import {
   barrierValue,
+  chokepointBandFor,
   chokepointScores,
   concentrationValue,
   criticalityRaw,
   criticalityValue,
   dependentAncestors,
   directDependents,
+  quantileAt,
   quantileNormalizer,
 } from "../src/lib/chokepointScore";
 
@@ -161,4 +163,65 @@ test("a node missing an axis is scored over known axes and flagged incomplete", 
   const r = chokepointScores(g).get("cap")!;
   assert.equal(r.incomplete, true);
   assert.ok(Number.isFinite(r.score));
+});
+
+test("quantileAt linear-interpolates the requested quantile of a sorted ascending array", () => {
+  // [10,20,30,40,50]: Q0 -> 10, Q100 -> 50, Q50 -> 30 (exact index 2),
+  // Q25 -> idx 1.0 -> 20, Q60 -> idx 2.4 -> 30 + 0.4*(40-30) = 34.
+  const xs = [10, 20, 30, 40, 50];
+  assert.equal(quantileAt(xs, 0), 10);
+  assert.equal(quantileAt(xs, 1), 50);
+  assert.equal(quantileAt(xs, 0.5), 30);
+  assert.equal(quantileAt(xs, 0.25), 20);
+  assert.equal(quantileAt(xs, 0.6), 34);
+  // Robust to the empty distribution (no quantile to read).
+  assert.equal(quantileAt([], 0.4), 0);
+  // Single value: every quantile is that value.
+  assert.equal(quantileAt([7], 0.8), 7);
+});
+
+test("chokepointBandFor bands the composite by its own quantiles into a full 1..5 spread", () => {
+  // ADR-0010: chokepointBandFor bins the composite by its OWN empirical
+  // quantiles (Q20/Q40/Q60/Q80), so every band fills as long as the score
+  // distribution is spread and tie-free.
+  //
+  // NOTE on fixture shape: a root `product` always scores ~0 (Criticality is
+  // structurally unknown — nothing depends on it — and its lone known axis
+  // ties with every other root product), so a `product`+`part` fixture parks
+  // a tie-cluster of products at the bottom; with the `>=`-quantile
+  // convention that collapses Q20 onto the minimum and starves band 1. (The
+  // real 929-node graph shows this too: its floor is band 2, never band 1.)
+  // To exercise the full 1..5 range we therefore use a tie-free distribution
+  // of supply-kind nodes whose Criticality fan-in (i parents) and Barrier
+  // (decreasing maturity) vary in opposite directions, so the geometric-mean
+  // composite rises then falls across i — distinct scores, no bottom cluster.
+  const N = 11;
+  const nodes: Node[] = [];
+  const edges: Edge[] = [];
+  for (let i = 0; i < N; i++) {
+    nodes.push(node(`m${i}`, { kind: "material", maturityScore: i * 9 }));
+  }
+  for (let i = 0; i < N; i++) {
+    // m_i is required by m_0..m_{i-1} -> distinct Criticality fan-in = i.
+    for (let p = 0; p < i; p += 1) edges.push(edge(`m${p}`, `m${i}`, "requires"));
+  }
+  const g = graph(nodes, edges);
+  const band = chokepointBandFor(g);
+  const bands = nodes.map((n) => band(n.id));
+  const distinct = [...new Set(bands)].sort((a, b) => a - b);
+  assert.deepEqual(distinct, [1, 2, 3, 4, 5], `expected every band 1..5 to be populated, got ${bands}`);
+
+  // Boundary contract: the single highest-scoring node bands 5, the single
+  // lowest bands 1 — i.e. the warmest band always holds the top chokepoint.
+  const scores = chokepointScores(g);
+  const ranked = [...scores.entries()].sort((a, b) => b[1].score - a[1].score);
+  assert.equal(band(ranked[0][0]), 5, "top composite score must land in band 5");
+  assert.equal(band(ranked[ranked.length - 1][0]), 1, "bottom composite score must land in band 1");
+});
+
+test("chokepointBandFor is cached per graph identity (same function instance)", () => {
+  const g = graph([node("p", { kind: "product" }), node("m", { kind: "material" })], [
+    edge("p", "m", "requires"),
+  ]);
+  assert.equal(chokepointBandFor(g), chokepointBandFor(g));
 });

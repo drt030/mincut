@@ -139,7 +139,16 @@ export function barrierValue(node: Node): AxisValue {
 
 export type ChokepointResult = {
   score: number; // [0,1] geometric mean of normalized known axes
-  incomplete: boolean; // at least one axis was unknown
+  /**
+   * At least one axis was unknown for this node. NOTE (ADR-0010): this is a
+   * COVERAGE flag, not a data-quality warning. `product` nodes are
+   * STRUCTURALLY `incomplete` by design — a root product has 0 downstream
+   * dependents, so its Criticality axis is unknown (criticality measures
+   * "who depends on me", and nothing depends on a top-level product).
+   * Consumers MUST NOT surface `incomplete` as a "weak evidence / needs
+   * review" signal for products; for them it is the expected steady state.
+   */
+  incomplete: boolean;
   axes: { criticality: number | null; concentration: number | null; barrier: number | null };
 };
 
@@ -186,4 +195,48 @@ export function chokepointScores(graph: GraphData): Map<string, ChokepointResult
     out.set(n.id, { score, incomplete: present.length < 3, axes });
   }
   return out;
+}
+
+/**
+ * Linear-interpolated quantile `p` (0..1) of an ASCENDING-sorted array — the
+ * same interpolation `edgeStyleFor.ts`'s cost path uses for its Q20/40/60/80
+ * thresholds (`computeCostThresholds`). Shared here (ADR-0010) so the
+ * composite banding does not introduce a third copy of the formula; the
+ * caller is responsible for sorting. Empty array ⇒ 0.
+ */
+export function quantileAt(sortedAsc: number[], p: number): number {
+  if (sortedAsc.length === 0) return 0;
+  const idx = p * (sortedAsc.length - 1);
+  const lo = Math.floor(idx);
+  const hi = Math.ceil(idx);
+  if (lo === hi) return sortedAsc[lo];
+  return sortedAsc[lo] + (idx - lo) * (sortedAsc[hi] - sortedAsc[lo]);
+}
+
+const bandCache = new WeakMap<GraphData, (nodeId: string) => 1 | 2 | 3 | 4 | 5>();
+
+/** Band the composite by its OWN empirical quantiles (Q20/Q40/Q60/Q80), so
+ *  the warmest band always holds the top chokepoints regardless of the
+ *  geometric mean's compression. Cached per graph identity. */
+export function chokepointBandFor(graph: GraphData): (nodeId: string) => 1 | 2 | 3 | 4 | 5 {
+  const cached = bandCache.get(graph);
+  if (cached) return cached;
+  const scores = chokepointScores(graph);
+  const sorted = [...scores.values()].map((r) => r.score).sort((a, b) => a - b);
+  const t = [
+    quantileAt(sorted, 0.2),
+    quantileAt(sorted, 0.4),
+    quantileAt(sorted, 0.6),
+    quantileAt(sorted, 0.8),
+  ];
+  const fn = (nodeId: string): 1 | 2 | 3 | 4 | 5 => {
+    const s = scores.get(nodeId)?.score ?? 0;
+    if (s >= t[3]) return 5;
+    if (s >= t[2]) return 4;
+    if (s >= t[1]) return 3;
+    if (s >= t[0]) return 2;
+    return 1;
+  };
+  bandCache.set(graph, fn);
+  return fn;
 }
