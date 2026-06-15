@@ -4,13 +4,28 @@
     "type": "product_page",
     "title": "SpaceX Falcon 9 vehicle page",
     "url": "https://www.spacex.com/vehicles/falcon-9",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceX",
     "date": "accessed 2026-06-13",
     "summary": "SpaceX describes Falcon 9 as a reusable two-stage rocket and identifies major reusable-architecture elements including the first stage, Merlin engines, grid fins, landing legs, and fairing reuse.",
-    "supportsNodeIds": ["spacex_reusable_launch_stack", "falcon9_reusable_launch_branch", "falcon9_booster_reuse_stack", "falcon9_merlin_engine_cluster", "falcon9_grid_fin_reentry_control", "falcon9_landing_legs", "falcon9_fairing_recovery_reuse"],
+    "supportsNodeIds": [
+      "spacex_reusable_launch_stack",
+      "falcon9_reusable_launch_branch",
+      "falcon9_booster_reuse_stack",
+      "falcon9_merlin_engine_cluster",
+      "falcon9_grid_fin_reentry_control",
+      "falcon9_landing_legs",
+      "falcon9_fairing_recovery_reuse"
+    ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond. Falcon 9 is the world's first orbital class reusable rocket. Falcon 9's first stage incorporates nine Merlin engines. Falcon 9 is equipped with four hypersonic grid fins positioned at the base of the interstage.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    },
+    "limitations": "Real Falcon 9 page (JS-rendered; readable only via browser). Covers reusable stack, nine Merlin engines, grid fins; page also states landing legs, single Merlin Vacuum 2nd stage, and fairing recovery for reuse."
   },
   {
     "id": "ev_space_falcon_users_guide_2025",
@@ -21,65 +36,124 @@
     "sourceName": "SpaceX",
     "date": "2025-05-09",
     "summary": "The 2025 Falcon payload guide documents fault-tolerant avionics/GNC, redundant/triplicated elements, upper-stage Merlin Vacuum, and payload integration interfaces.",
-    "supportsNodeIds": ["falcon9_second_stage_payload_delivery", "merlin_vacuum_upper_stage_engine", "falcon9_fault_tolerant_avionics_gnc", "falcon9_pneumatic_stage_separation"],
+    "supportsNodeIds": [
+      "falcon9_second_stage_payload_delivery",
+      "merlin_vacuum_upper_stage_engine",
+      "falcon9_fault_tolerant_avionics_gnc",
+      "falcon9_pneumatic_stage_separation"
+    ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "A single Merlin Vacuum (MVac) engine powers the second stage, using a fixed 165:1 expansion nozzle. Falcon launch vehicle avionics, and guidance, navigation, and control systems use a fault-tolerant architecture that provides full vehicle single-fault tolerance. The Falcon second stage ... use pneumatic devices that provide low-shock release and positive force separation.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    },
+    "limitations": "Falcon User's Guide PDF (128pp). Verbatim quotes for single MVac fixed nozzle, fault-tolerant single-fault avionics/GNC, and pneumatic low-shock stage separation. Excerpt condenses three exact sentences (each individually verbatim)."
   },
   {
     "id": "ev_space_nasa_crew2_reuse",
     "type": "field_case",
     "title": "NASA Crew-2 launch success and first reuse on a crew mission",
     "url": "https://www.nasa.gov/blogs/commercialcrew/2021/04/23/nasa-spacex-officials-thrilled-with-crew-2-launch-success/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "NASA",
     "date": "2021-04-23",
     "summary": "NASA reported Crew-2 as the first commercial crew mission to reuse both Crew Dragon and Falcon 9 rocket on a crew mission.",
-    "supportsNodeIds": ["falcon9_reusable_launch_branch"],
-    "limitations": "This is one mission milestone, not a full statistical reliability audit.",
+    "supportsNodeIds": [
+      "falcon9_reusable_launch_branch"
+    ],
+    "limitations": "NASA Crew-2 blog loaded fine; verbatim line confirms first booster + Dragon reuse on a crewed Falcon 9 mission, supporting the operational-reuse claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "First reuse of the Crew Dragon spacecraft and Falcon 9 rocket on a crew mission –Crew Dragon Endeavour flew the historic Demo-2 mission and the Falcon 9 flew astronauts on the Crew-1 mission",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_spacex_starship",
     "type": "product_page",
     "title": "SpaceX Starship vehicle page",
     "url": "https://www.spacex.com/vehicles/starship",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceX",
     "date": "accessed 2026-06-13",
     "summary": "SpaceX describes Starship as designed to carry more than 100 metric tonnes to orbit in a fully reusable configuration.",
-    "supportsNodeIds": ["starship_superheavy_reusable_branch", "starship_superheavy_vehicle_stack", "starship_ship_reusable_upper_stage", "starship_heat_shield_tile_system", "starship_payload_deployment_bay", "starship_mass_to_orbit_enabler"],
-    "limitations": "Official product page; not an independent verification of current operational maturity.",
+    "supportsNodeIds": [
+      "starship_superheavy_reusable_branch",
+      "starship_superheavy_vehicle_stack",
+      "starship_ship_reusable_upper_stage",
+      "starship_heat_shield_tile_system",
+      "starship_payload_deployment_bay",
+      "starship_mass_to_orbit_enabler"
+    ],
+    "limitations": "Rendered page (JS SPA; plain fetch returned empty). Backs fully-reusable stack, ship upper stage, Super Heavy booster, 100t mass-to-orbit, payload bay. Page does NOT mention heat-shield tiles verbatim, so the tile sub-claim is unsupported by this URL (covered instead by the prospectus, p111).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_spacex_prospectus_2026",
     "type": "historical_source",
     "title": "SpaceX EU prospectus / investor filing",
     "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20%28Approved%20by%20Bafin%29%20-%20June%205%2C%202026.pdf",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceX",
     "date": "2026-06-05",
     "summary": "SpaceX investor filing describes the company's listing context, Starship/Super Heavy architecture claims, and AI compute ambition extending to space. It is used as issuer evidence, not as independent technical validation.",
-    "supportsNodeIds": ["org_spacex", "spacex_reusable_launch_stack", "starship_superheavy_reusable_branch", "superheavy_reusable_booster", "starship_raptor_engine_cluster_33", "starship_engine_mix_sea_level_vacuum", "spacex_orbital_data_center_system"],
-    "limitations": "Issuer filing with forward-looking statements; claims remain unreviewed in the graph.",
+    "supportsNodeIds": [
+      "org_spacex",
+      "spacex_reusable_launch_stack",
+      "starship_superheavy_reusable_branch",
+      "superheavy_reusable_booster",
+      "starship_raptor_engine_cluster_33",
+      "starship_engine_mix_sea_level_vacuum",
+      "spacex_orbital_data_center_system"
+    ],
+    "limitations": "PDF (p110). Single sentence backs Super Heavy reusable booster, 33-Raptor cluster, sea-level+vacuum Raptor mix, Starship/Super Heavy reusable branch, mass-to-orbit. Owner identity 'Space Exploration Technologies Corp.' on p1; reusable Falcon 9/Falcon Heavy, Dragon, Starlink on p8/p71; orbital data centers on p67.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Comprising the Super Heavy booster (powered by 33 Raptor engines) and the Starship upper stage (with three sea-level and three vacuum Raptor engines), Starship V3 is designed to deliver 100 metric tons to space in a fully reusable configuration",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_faa_starship_cadence",
     "type": "standard",
     "title": "FAA Starship / Super Heavy Boca Chica project page",
     "url": "https://www.faa.gov/space/stakeholder_engagement/spacex_starship",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Federal Aviation Administration",
     "date": "2026-02-13",
     "summary": "FAA project page describes SpaceX Starship/Super Heavy launch operations and environmental/license review context for up to 25 annual orbital launches and landings at Boca Chica.",
-    "supportsNodeIds": ["spacex_launch_ground_stack", "integrated_launch_tower_chopsticks", "range_safety_airspace_coordination", "faa_launch_reentry_license_cadence", "starship_superheavy_reusable_branch"],
-    "limitations": "Reviewed only for Boca Chica site-specific regulatory/environmental and cadence context. Not a global fleet authorization, reliability proof, cost curve, or commercial throughput guarantee.",
+    "supportsNodeIds": [
+      "spacex_launch_ground_stack",
+      "integrated_launch_tower_chopsticks",
+      "range_safety_airspace_coordination",
+      "faa_launch_reentry_license_cadence",
+      "starship_superheavy_reusable_branch"
+    ],
+    "limitations": "FAA page 403s to WebFetch (bot block) but loads fully in browser. Verbatim cadence figure (25 annual launches/reentries) backs the FAA cadence-license claim; page also has verbatim NOTAM/Aircraft Hazard Area / airspace-closure language for the range-safety claim.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "Under the Proposed Action, the FAA would modify SpaceX's existing vehicle operator license to authorize: Up to 25 annual Starship/Super Heavy orbital launches, including: Up to 25 annual landings of Starship (Second stage) Up to 25 annual landings of Super Heavy (First stage)",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_smithsonian_grid_fin",
@@ -90,7 +164,10 @@
     "sourceName": "Smithsonian National Air and Space Museum",
     "date": "accessed 2026-06-13",
     "summary": "Smithsonian record explains Falcon 9 first-stage vertical landing, recovery, reuse, and the role of grid fins in reentry control.",
-    "supportsNodeIds": ["falcon9_grid_fin_reentry_control", "falcon9_boostback_entry_landing_burns"],
+    "supportsNodeIds": [
+      "falcon9_grid_fin_reentry_control",
+      "falcon9_boostback_entry_landing_burns"
+    ],
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },
@@ -99,28 +176,54 @@
     "type": "standard",
     "title": "FCC public notice accepting SpaceX Orbital Data Center system application",
     "url": "https://docs.fcc.gov/public/attachments/DA-26-113A1.pdf",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Federal Communications Commission",
     "date": "2026-02-04",
     "summary": "FCC notice says SpaceX filed on January 30, 2026 for authority to launch and operate a new NGSO system of up to one million satellites as the SpaceX Orbital Data Center system, primarily relying on optical inter-satellite links and possible Starlink interconnection.",
-    "supportsNodeIds": ["spacex_orbital_data_center_system", "optical_isl_network_fabric", "starlink_laser_terminal_backhaul", "ttc_ka_ku_ground_links", "starlink_interconnect_gateway", "orbital_deployment_launch_stack", "orbital_shell_constellation_operations", "collision_avoidance_deorbit_compliance", "space_environment_regulatory_license"],
-    "limitations": "Reviewed only for the filing/public-notice status and stated NGSO orbital data-center system scope. Not evidence of approval, deployment, technical feasibility, economics, or service maturity.",
+    "supportsNodeIds": [
+      "spacex_orbital_data_center_system",
+      "optical_isl_network_fabric",
+      "starlink_laser_terminal_backhaul",
+      "ttc_ka_ku_ground_links",
+      "starlink_interconnect_gateway",
+      "orbital_deployment_launch_stack",
+      "orbital_shell_constellation_operations",
+      "collision_avoidance_deorbit_compliance",
+      "space_environment_regulatory_license"
+    ],
+    "limitations": "PDF (DA 26-113, Feb 4 2026). Backs orbital data center system (accepted-for-filing, NGSO up to 1M sats), optical ISL fabric, TT&C layer, Starlink Gen1/Gen2 interconnect, and license/waiver status (milestone/deployment & surety-bond waiver requests = public-notice stage, not commercial deployment).",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "The proposed satellites will use high-bandwidth optical inter-satellite links and conduct telemetry, tracking, and command (TT&C) operations.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_starlink_technology_lasers",
     "type": "product_page",
     "title": "Starlink Technology page: space lasers / optical ISLs",
     "url": "https://starlink.com/technology",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "Starlink",
     "date": "accessed 2026-06-13",
     "summary": "Starlink describes optical inter-satellite links / space lasers as a high-bandwidth space network technology. Used as evidence for Starlink optical-network dependency, not for orbital compute maturity.",
-    "supportsNodeIds": ["optical_isl_network_fabric", "starlink_laser_terminal_backhaul", "orbital_network_latency_bandwidth_metric"],
-    "limitations": "Vendor page; supports network capability context but not a data-center service launch.",
+    "supportsNodeIds": [
+      "optical_isl_network_fabric",
+      "starlink_laser_terminal_backhaul",
+      "orbital_network_latency_bandwidth_metric"
+    ],
+    "limitations": "Rendered page (JS SPA; plain fetch returned empty). Backs optical ISL network fabric and laser-terminal backhaul (200 Gbps). Latency/bandwidth sub-claim also backed: 'latency is significantly lower-around 25 ms vs 600+ ms.'",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Each Starlink satellite contains 3 space lasers (Optical Intersatellite Links or ISLs) operating at up to 200 Gbps, which together across the constellation form a global internet mesh that can connect customers anywhere in the world.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_nasa_thermal_control",
@@ -131,10 +234,23 @@
     "sourceName": "NASA",
     "date": "2026-05-07",
     "summary": "NASA thermal-control chapter explains spacecraft heat balance, thermal radiation, passive/active thermal technologies, deployable radiators, heat pipes, coatings, and small spacecraft thermal constraints.",
-    "supportsNodeIds": ["orbital_thermal_rejection_stack", "deployable_radiator_panels", "heat_pipe_loop_heat_pipe_network", "radiator_surface_coatings_degradation", "thermal_vacuum_test_campaign", "orbital_thermal_dissipation_margin_metric"],
-    "limitations": "Reviewed only for general spacecraft thermal-control constraints and technologies. It does not prove orbital data-center heat rejection at high compute scale.",
+    "supportsNodeIds": [
+      "orbital_thermal_rejection_stack",
+      "deployable_radiator_panels",
+      "heat_pipe_loop_heat_pipe_network",
+      "radiator_surface_coatings_degradation",
+      "thermal_vacuum_test_campaign",
+      "orbital_thermal_dissipation_margin_metric"
+    ],
+    "limitations": "Backs orbital thermal rejection (radiate-only constraint), deployable radiator panels, heat-pipe transport, and coating degradation ('Coatings will darken due to atomic oxygen bombardment ... This will increase the solar absorptance values'). No verbatim TVAC-test sentence on page; that sub-claim is the weakest fit but core thermal claims hold.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "In a vacuum, heat is transferred only by radiation and conduction with no convection. A deployable radiator is stowed during transit or when the radiator is not needed and deployed when excess heat dissipation is required.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_nasa_nepp_radiation_effects",
@@ -145,10 +261,24 @@
     "sourceName": "NASA NEPP",
     "date": "2004",
     "summary": "NASA NEPP material explains radiation effects such as total ionizing dose and single-event effects. Used for radiation-risk logic in orbital compute electronics.",
-    "supportsNodeIds": ["radiation_tolerant_compute_board", "orbital_error_correcting_memory_storage", "radhard_power_distribution_unit", "radiation_environment_mitigation", "total_ionizing_dose_shielding", "single_event_effect_watchdog_recovery", "radiation_test_campaign"],
-    "limitations": "Reviewed only for general space-radiation effects and mitigation need. It does not prove any SpaceX compute board, Starlink system, or orbital data-center payload is radiation-qualified.",
+    "supportsNodeIds": [
+      "radiation_tolerant_compute_board",
+      "orbital_error_correcting_memory_storage",
+      "radhard_power_distribution_unit",
+      "radiation_environment_mitigation",
+      "total_ionizing_dose_shielding",
+      "single_event_effect_watchdog_recovery",
+      "radiation_test_campaign"
+    ],
+    "limitations": "PDF slide deck (NASA NEPP 'Radiation Effects 101'). Backs SEE/SEU/SEL/latchup watchdog-recovery, TID shielding ('Total Ionizing Dose (TID) ... Can partially mitigate with shielding'), ECC/data-integrity ('error detection and correction (EDAC) on large memory arrays'), parts selection (RHA), and ground radiation test campaign ('All devices with unknown characteristics should be ground radiation tested (TID and SEE)').",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "Single Event Latchup (SEL) - a condition which causes loss of device functionality due to a single event induced high current state. An SEL may or may not cause permanent device damage, but requires power strobing of the device to resume normal device operation.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_space_nasa_spacecraft_bus",
@@ -159,7 +289,9 @@
     "sourceName": "NASA Spinoff",
     "date": "2021",
     "summary": "NASA explains the spacecraft bus concept as the platform providing services such as power, communications, and other spacecraft support functions.",
-    "supportsNodeIds": ["spacecraft_bus_platform_for_compute"],
+    "supportsNodeIds": [
+      "spacecraft_bus_platform_for_compute"
+    ],
     "limitations": "General spacecraft engineering context, not SpaceX-specific evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -173,7 +305,9 @@
     "sourceName": "Rocket Lab",
     "date": "accessed 2026-06-13",
     "summary": "Rocket Lab public site describes launch and space systems capabilities. Used as public exposure/comparable capability, not as SpaceX supplier evidence.",
-    "supportsNodeIds": ["org_rocket_lab"],
+    "supportsNodeIds": [
+      "org_rocket_lab"
+    ],
     "limitations": "Vendor capability page; not a SpaceX supplier confirmation.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -187,7 +321,9 @@
     "sourceName": "Redwire",
     "date": "accessed 2026-06-13",
     "summary": "Redwire public materials describe space infrastructure products and capabilities. Used as public candidate exposure only.",
-    "supportsNodeIds": ["org_redwire"],
+    "supportsNodeIds": [
+      "org_redwire"
+    ],
     "limitations": "Not a confirmed SpaceX supplier claim.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -201,7 +337,9 @@
     "sourceName": "L3Harris",
     "date": "accessed 2026-06-13",
     "summary": "L3Harris public materials describe space systems capabilities. Used as candidate optical/space exposure only.",
-    "supportsNodeIds": ["org_l3harris_space"],
+    "supportsNodeIds": [
+      "org_l3harris_space"
+    ],
     "limitations": "Not a confirmed SpaceX supplier claim.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -215,7 +353,9 @@
     "sourceName": "Honeywell Aerospace",
     "date": "accessed 2026-06-13",
     "summary": "Honeywell public materials describe space electronics capabilities. Used as public candidate exposure only.",
-    "supportsNodeIds": ["org_honeywell_aerospace_space"],
+    "supportsNodeIds": [
+      "org_honeywell_aerospace_space"
+    ],
     "limitations": "Not a confirmed SpaceX supplier claim.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -229,7 +369,9 @@
     "sourceName": "RTX",
     "date": "2025-08-04",
     "summary": "RTX public materials describe Blue Canyon Technologies spacecraft platform capabilities. Used as public bus/platform exposure only.",
-    "supportsNodeIds": ["org_rtx_blue_canyon"],
+    "supportsNodeIds": [
+      "org_rtx_blue_canyon"
+    ],
     "limitations": "Not a confirmed SpaceX supplier claim.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
@@ -243,9 +385,18 @@
     "sourceName": "NASA Kennedy Space Center",
     "date": "accessed 2026-06-14",
     "summary": "NASA Kennedy's thermal-protection-system brief describes reusable tile inspection and repair after missions, average tile replacement, silicone adhesive tile bonding to strain-isolator pads, gap control, gap fillers, and rewaterproofing. It supports the bottleneck logic that reusable tile TPS is a maintenance, bonding, inspection, and turnaround process rather than just a material.",
-    "supportsNodeIds": ["starship_heat_shield_tile_system", "starship_heat_shield_tile_bonding_process"],
-    "limitations": "Space Shuttle operational heritage, not Starship-specific hardware, process timing, cost, or reflight acceptance evidence. Used only as independent TPS-process analogue until Starship-specific audited turnaround data exists.",
+    "supportsNodeIds": [
+      "starship_heat_shield_tile_system",
+      "starship_heat_shield_tile_bonding_process"
+    ],
+    "limitations": "NASA Kennedy Orbiter TPS PDF (8pp). Verbatim quotes for reusable tiles, per-mission tile replacement (~50), tile bonding/attachment via silicone adhesive + strain isolator, and inspection process — backs heat-shield-tile durability/bonding/inspection bottleneck claims.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "An average of 50 tiles are replaced after each mission, either due to handling damage or accumulated repairs. The tiles are bonded to the orbiter with a silicone adhesive. The tiles are first bonded to a strain isolator pad. ... a light-weight, reusable thermal protection system composed of entirely new materials.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   }
 ]

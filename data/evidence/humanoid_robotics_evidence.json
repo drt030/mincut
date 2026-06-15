@@ -4,15 +4,29 @@
     "type": "vendor_claim",
     "title": "Humanoid Robots | NVIDIA use case",
     "url": "https://www.nvidia.com/en-us/use-cases/humanoid-robots/",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "NVIDIA",
     "date": "2026-06-12",
     "summary": "NVIDIA describes accelerated systems, tools, and technologies for general-purpose humanoid robot development. Used only to support the compute/control and physical-AI branch as a vendor-positioned component category.",
-    "supportsNodeIds": ["humanoid_robot_key_component_stack", "humanoid_onboard_compute_control_electronics", "humanoid_manipulation_ai_data_stack", "humanoid_vla_policy_model", "org_humanoid_nvidia"],
-    "supportsEdgeIds": ["e_humanoid_ai__implemented_by__vla"],
-    "limitations": "Vendor use-case page; does not prove adoption, market share, robot performance, or a confirmed BOM for any specific humanoid product.",
+    "supportsNodeIds": [
+      "humanoid_robot_key_component_stack",
+      "humanoid_onboard_compute_control_electronics",
+      "humanoid_manipulation_ai_data_stack",
+      "humanoid_vla_policy_model",
+      "org_humanoid_nvidia"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_ai__implemented_by__vla"
+    ],
+    "limitations": "Supports edge AI compute (Jetson Thor) and NVIDIA as end-to-end physical-AI/humanoid platform supplier; also covers Isaac GR00T VLA models.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "NVIDIA Isaac technologies provide an end-to-end stack for training, simulating, and deploying humanoid robot \"brains.\" An on-robot runtime computer, such as NVIDIA Jetson Thor, can run low-latency, high-throughput inference.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_nvidia_jetson_thor",
@@ -23,8 +37,16 @@
     "sourceName": "NVIDIA",
     "date": "2026-06-12",
     "summary": "NVIDIA's Jetson Thor product page supports modeling edge AI compute modules as a humanoid robotics component category and vendor exposure candidate.",
-    "supportsNodeIds": ["humanoid_edge_ai_compute_module", "humanoid_onboard_compute_control_electronics", "org_humanoid_nvidia"],
-    "supportsEdgeIds": ["e_humanoid_stack__requires__compute", "e_humanoid_compute__requires__edge_ai", "e_humanoid_edge_ai__manufactured_by__nvidia"],
+    "supportsNodeIds": [
+      "humanoid_edge_ai_compute_module",
+      "humanoid_onboard_compute_control_electronics",
+      "org_humanoid_nvidia"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_stack__requires__compute",
+      "e_humanoid_compute__requires__edge_ai",
+      "e_humanoid_edge_ai__manufactured_by__nvidia"
+    ],
     "limitations": "Vendor product page; does not prove selected BOM, customer qualification, pricing, or volume allocation.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -38,8 +60,15 @@
     "sourceName": "Unitree Robotics",
     "date": "2026-06-12",
     "summary": "Unitree's G1 product page lists depth camera/3D LiDAR, IMU-like sensing, compute options, battery/runtime context, and joint motor references; used as a vendor source for component categories.",
-    "supportsNodeIds": ["humanoid_robot_key_component_stack", "humanoid_perception_sensing_stack", "humanoid_depth_camera_lidar", "humanoid_gait_balance_policy"],
-    "supportsEdgeIds": ["e_humanoid_sensing__requires__depth_lidar"],
+    "supportsNodeIds": [
+      "humanoid_robot_key_component_stack",
+      "humanoid_perception_sensing_stack",
+      "humanoid_depth_camera_lidar",
+      "humanoid_gait_balance_policy"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_sensing__requires__depth_lidar"
+    ],
     "limitations": "Vendor page; does not independently verify performance, durability, or supplier identities.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -49,45 +78,97 @@
     "type": "vendor_claim",
     "title": "F.03 Battery Development",
     "url": "https://www.figure.ai/news/f-03-battery-development",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "Figure AI",
     "date": "2026-06-12",
     "summary": "Figure describes humanoid robot battery safety, BMS, cell, interconnect, pack-level protection, and certification claims. Used to justify battery/BMS/safety as first-order humanoid product branches.",
-    "supportsNodeIds": ["humanoid_robot_key_component_stack", "humanoid_battery_power_charging_system", "humanoid_battery_pack_enclosure", "humanoid_pack_safety_certification"],
-    "supportsEdgeIds": ["e_humanoid_stack__requires__battery_power", "e_humanoid_battery__requires__pack", "e_humanoid_battery__regulated_by__certification"],
-    "limitations": "Company blog; certification and safety claims remain unreviewed and should not be presented as independently verified.",
+    "supportsNodeIds": [
+      "humanoid_robot_key_component_stack",
+      "humanoid_battery_power_charging_system",
+      "humanoid_battery_pack_enclosure",
+      "humanoid_pack_safety_certification"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_stack__requires__battery_power",
+      "e_humanoid_battery__requires__pack",
+      "e_humanoid_battery__regulated_by__certification"
+    ],
+    "limitations": "Backs battery pack architecture, BMS, abuse/safety certification (UN38.3, UL2271) for a humanoid robot battery system.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "The F.03 battery is also the first humanoid robot battery in process to be certified to both UN38.3 and UL2271. The custom BMS includes an array of sensors, switches and fuses to prevent fault conditions.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_figure_botq",
     "type": "vendor_claim",
     "title": "BotQ: A High-Volume Manufacturing Facility for Humanoid Robots",
     "url": "https://www.figure.ai/news/botq",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "Figure AI",
     "date": "2026-06-12",
     "summary": "Figure describes humanoid manufacturing, architecture redesign, supply-chain immaturity, in-house assembly of actuators/hands/batteries/final assembly, reliability testing, MES/PLM/ERP/WMS infrastructure, and line automation. Used to justify manufacturing/service and full-stack component coverage as first-order humanoid bottlenecks.",
-    "supportsNodeIds": ["humanoid_robot_key_component_stack", "humanoid_actuation_system", "humanoid_dexterous_hand_tactile_system", "humanoid_structure_materials_harness", "humanoid_manufacturing_test_safety_service", "humanoid_high_volume_joint_assembly", "humanoid_reliability_mtbf_tracking", "humanoid_field_service_spares_loop"],
-    "supportsEdgeIds": ["e_humanoid_stack__requires__actuation", "e_humanoid_stack__requires__hands", "e_humanoid_stack__requires__structure", "e_humanoid_stack__requires__manufacturing_service", "e_humanoid_mfg__requires__joint_assembly", "e_humanoid_mfg__implemented_by__mtbf", "e_humanoid_mfg__requires__field_service"],
-    "limitations": "Company blog; capacity, supply-chain scale, process maturity, and reliability statements remain unreviewed vendor claims.",
+    "supportsNodeIds": [
+      "humanoid_robot_key_component_stack",
+      "humanoid_actuation_system",
+      "humanoid_dexterous_hand_tactile_system",
+      "humanoid_structure_materials_harness",
+      "humanoid_manufacturing_test_safety_service",
+      "humanoid_high_volume_joint_assembly",
+      "humanoid_reliability_mtbf_tracking",
+      "humanoid_field_service_spares_loop"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_stack__requires__actuation",
+      "e_humanoid_stack__requires__hands",
+      "e_humanoid_stack__requires__structure",
+      "e_humanoid_stack__requires__manufacturing_service",
+      "e_humanoid_mfg__requires__joint_assembly",
+      "e_humanoid_mfg__implemented_by__mtbf",
+      "e_humanoid_mfg__requires__field_service"
+    ],
+    "limitations": "Supports high-volume humanoid manufacturing, actuation supply scale, and reliability loop; no verbatim on dexterous hands/MTBF/field-service specifically but core actuation+manufacturing+reliability claims covered.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "BotQ's first generation manufacturing line will be capable of manufacturing up to 12,000 humanoids per year. In addition to manufacturing at high rates, we are also ramping up our focus on robot reliability.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_ti_bms",
     "type": "vendor_claim",
     "title": "Humanoid robot battery management system solution",
     "url": "https://www.ti.com/solution/humanoid-robot-bms",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "Texas Instruments",
     "date": "2026-06-12",
     "summary": "Texas Instruments positions battery management, monitoring, and protection ICs for humanoid robot BMS. Used as vendor evidence for BMS and power-electronics supplier exposure.",
-    "supportsNodeIds": ["humanoid_battery_management_system", "humanoid_battery_power_charging_system", "org_humanoid_texas_instruments"],
-    "supportsEdgeIds": ["e_humanoid_stack__requires__battery_power", "e_humanoid_battery__requires__bms", "e_humanoid_bms__manufactured_by__ti"],
-    "limitations": "Vendor solution page; does not verify any specific robot program design win.",
+    "supportsNodeIds": [
+      "humanoid_battery_management_system",
+      "humanoid_battery_power_charging_system",
+      "org_humanoid_texas_instruments"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_stack__requires__battery_power",
+      "e_humanoid_battery__requires__bms",
+      "e_humanoid_bms__manufactured_by__ti"
+    ],
+    "limitations": "Directly supports TI as humanoid-robot BMS / cell-monitoring / balancing / protection semiconductor supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Our integrated circuits and reference designs help you create humanoid battery management system (BMS) for monitoring, protecting, cell-balancing and gauging of battery packs.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_ti_robotics",
@@ -98,8 +179,15 @@
     "sourceName": "Texas Instruments",
     "date": "2026-06-12",
     "summary": "TI's humanoid robot overview supports modeling motor control, current sensing, gate drivers, BMS, and sensing as relevant component categories.",
-    "supportsNodeIds": ["humanoid_motor_drive_power_electronics", "humanoid_current_sense_gate_driver", "org_humanoid_texas_instruments"],
-    "supportsEdgeIds": ["e_humanoid_drive__requires__current_gate", "e_humanoid_current_gate__manufactured_by__ti"],
+    "supportsNodeIds": [
+      "humanoid_motor_drive_power_electronics",
+      "humanoid_current_sense_gate_driver",
+      "org_humanoid_texas_instruments"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_drive__requires__current_gate",
+      "e_humanoid_current_gate__manufactured_by__ti"
+    ],
     "limitations": "Vendor page; does not prove market share or confirmed program exposure.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -113,8 +201,15 @@
     "sourceName": "STMicroelectronics",
     "date": "2026-06-12",
     "summary": "ST's reference guide supports modeling MCUs, motor drivers, current sensing, safety, and sensing electronics as humanoid component categories.",
-    "supportsNodeIds": ["humanoid_realtime_mcu_safety_controller", "humanoid_onboard_compute_control_electronics", "org_humanoid_stmicroelectronics"],
-    "supportsEdgeIds": ["e_humanoid_compute__requires__mcu", "e_humanoid_mcu__manufactured_by__stm"],
+    "supportsNodeIds": [
+      "humanoid_realtime_mcu_safety_controller",
+      "humanoid_onboard_compute_control_electronics",
+      "org_humanoid_stmicroelectronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_compute__requires__mcu",
+      "e_humanoid_mcu__manufactured_by__stm"
+    ],
     "limitations": "Vendor reference guide; not a validated BOM or third-party supplier-share source.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -128,8 +223,15 @@
     "sourceName": "TDK",
     "date": "2026-06-12",
     "summary": "TDK describes humanoid robots as carrying AI, sensors, and actuators and discusses robotic sensing component categories. Used as vendor evidence for sensing and passive-component exposure.",
-    "supportsNodeIds": ["humanoid_perception_sensing_stack", "humanoid_imu_attitude_sensing", "org_humanoid_tdk"],
-    "supportsEdgeIds": ["e_humanoid_sensing__requires__imu", "e_humanoid_imu__manufactured_by__tdk"],
+    "supportsNodeIds": [
+      "humanoid_perception_sensing_stack",
+      "humanoid_imu_attitude_sensing",
+      "org_humanoid_tdk"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_sensing__requires__imu",
+      "e_humanoid_imu__manufactured_by__tdk"
+    ],
     "limitations": "Vendor educational page; not independent market-share evidence.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -139,15 +241,27 @@
     "type": "vendor_claim",
     "title": "Thermal Management for Humanoid Robots",
     "url": "https://nmbtc.com/blog/thermal-management-humanoid-robots/",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "NMB Technologies",
     "date": "2026-06-12",
     "summary": "NMB describes thermal challenges from CPUs, servo controllers, batteries, and motors inside tightly packed humanoid robot bodies. Used to support the thermal-management branch.",
-    "supportsNodeIds": ["humanoid_thermal_management_system", "humanoid_motor_joint_thermal_path"],
-    "supportsEdgeIds": ["e_humanoid_stack__requires__thermal", "e_humanoid_thermal__requires__joint_thermal"],
-    "limitations": "Vendor blog; useful for component framing but not an audited engineering requirement.",
+    "supportsNodeIds": [
+      "humanoid_thermal_management_system",
+      "humanoid_motor_joint_thermal_path"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_stack__requires__thermal",
+      "e_humanoid_thermal__requires__joint_thermal"
+    ],
+    "limitations": "Backs thermal management of motors/drives/battery/compute and duty-cycle impact; motor/joint thermal path also referenced (knee/hip spot cooling).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "CPUs, servo controllers, batteries, and motors generate localized heat—especially in the head, chest, and leg compartments. Without effective thermal management, this heat can reduce performance, shorten component life, or even lead to system failure.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_tactile_review",
@@ -158,26 +272,48 @@
     "sourceName": "Nature Machine Intelligence",
     "date": "2026-06-12",
     "summary": "Nature Machine Intelligence reports a high-resolution tactile robotic hand and 600 real-world trials where tactile-informed operation outperformed non-tactile alternatives. Used to support tactile sensing as a manipulation bottleneck.",
-    "supportsNodeIds": ["humanoid_dexterous_hand_tactile_system", "humanoid_fingertip_tactile_array"],
-    "supportsEdgeIds": ["e_humanoid_hands__requires__fingertip_tactile"],
-    "limitations": "Reviewed only for the technical value of tactile feedback in the cited experimental hand. It does not validate a mass-produced humanoid hand, field durability, BOM cost, or a specific vendor design.",
+    "supportsNodeIds": [
+      "humanoid_dexterous_hand_tactile_system",
+      "humanoid_fingertip_tactile_array"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_hands__requires__fingertip_tactile"
+    ],
+    "limitations": "Open-access article; supports dexterous hand + fingertip/dense tactile array (10,000 taxels cm-2, 15-DoF hand) and tactile-informed grasp/manipulation control.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "closed-loop tactile-informed control that processes high-dimensional contact data for precise, adaptive manipulation",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_iso_ts_15066_collaborative_safety",
     "type": "standard",
     "title": "ISO/TS 15066:2016 Robots and robotic devices - Collaborative robots",
     "url": "https://www.iso.org/standard/62996.html",
-    "sourceStatus": "ok_exact",
+    "sourceStatus": "paywalled_snippet",
     "sourceName": "International Organization for Standardization",
     "date": "2016-02",
     "summary": "ISO/TS 15066 specifies safety requirements for collaborative industrial robot systems and their work environment, and states that the principles can be useful to other robotics areas.",
-    "supportsNodeIds": ["humanoid_manufacturing_test_safety_service", "humanoid_functional_safety_estop", "humanoid_proximity_touch_safety"],
-    "supportsEdgeIds": ["e_humanoid_mfg__requires__functional_safety"],
-    "limitations": "Reviewed only as a standards-adjacent safety framework. ISO states it applies to industrial robot systems and does not apply to non-industrial robots; it does not prove any humanoid product certification.",
+    "supportsNodeIds": [
+      "humanoid_manufacturing_test_safety_service",
+      "humanoid_functional_safety_estop",
+      "humanoid_proximity_touch_safety"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_mfg__requires__functional_safety"
+    ],
+    "limitations": "paywalled: iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "paywalled: iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible."
+    }
   },
   {
     "id": "ev_humanoid_ul_consumer_commercial_robot_certification",
@@ -188,11 +324,23 @@
     "sourceName": "UL Solutions",
     "date": "2026-06-14",
     "summary": "UL Solutions identifies consumer and commercial robot testing and certification paths including UL 3300, ISO 13482, functional safety services, EMC testing, and humanoid robots as an included robot category.",
-    "supportsNodeIds": ["humanoid_manufacturing_test_safety_service", "humanoid_functional_safety_estop", "humanoid_runtime_safety_monitor"],
-    "supportsEdgeIds": ["e_humanoid_mfg__requires__functional_safety"],
-    "limitations": "Reviewed only for the existence of certification/testing pathways. It does not prove Tesla, Figure, Unitree, or any specific humanoid product has passed certification.",
+    "supportsNodeIds": [
+      "humanoid_manufacturing_test_safety_service",
+      "humanoid_functional_safety_estop",
+      "humanoid_runtime_safety_monitor"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_mfg__requires__functional_safety"
+    ],
+    "limitations": "Supports UL as consumer/commercial robot safety testing & certification body covering functional/human-interaction safety.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "We offer robot testing and certification to standards including UL 3300, now part of OSHA's NRTL Program's List of Appropriate Test Standards. In addition to mechanical and electrical safety, additional safety concerns must be addressed, such as those associated with robot-human interaction.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_battery_constraint_review",
@@ -203,11 +351,25 @@
     "sourceName": "Innovation Partner Journal: Energy Use",
     "date": "2026-03-25",
     "summary": "The open-access perspective identifies onboard energy storage as a primary system-level constraint for humanoid robots, citing energy density, power output, safety, mass/volume limits, endurance, and thermal management challenges.",
-    "supportsNodeIds": ["humanoid_battery_power_charging_system", "humanoid_lithium_ion_cell_selection", "humanoid_battery_thermal_safety", "humanoid_thermal_management_system"],
-    "supportsEdgeIds": ["e_humanoid_stack__requires__battery_power", "e_humanoid_thermal__requires__battery_thermal"],
-    "limitations": "Reviewed only for system-level battery constraint framing. It does not prove any specific humanoid battery pack, supplier, runtime, certification, or cost.",
+    "supportsNodeIds": [
+      "humanoid_battery_power_charging_system",
+      "humanoid_lithium_ion_cell_selection",
+      "humanoid_battery_thermal_safety",
+      "humanoid_thermal_management_system"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_stack__requires__battery_power",
+      "e_humanoid_thermal__requires__battery_thermal"
+    ],
+    "limitations": "Abstract is openly visible (full text paywalled); the visible abstract verbatim supports battery as central bottleneck, Li-ion cell-selection trade-offs, thermal safety, and runtime/energy-density constraints.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "Battery technology now represents a primary system-level constraint... combining high energy density, robust power output, and stringent safety within severe mass and volume constraints. Current lithium-ion batteries (LIBs) struggle to satisfy these competing demands.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_harmonic_ir",
@@ -218,8 +380,14 @@
     "sourceName": "Harmonic Drive Systems",
     "date": "2026-06-12",
     "summary": "Investor relations page identifies Harmonic Drive Systems as a public company with securities code 6324. Used only for public ticker/listing context and strain-wave reducer exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_strain_wave_reducer", "org_humanoid_harmonic_drive_systems"],
-    "supportsEdgeIds": ["e_humanoid_reducer__requires__strain_wave", "e_humanoid_strain_wave__manufactured_by__hds"],
+    "supportsNodeIds": [
+      "humanoid_strain_wave_reducer",
+      "org_humanoid_harmonic_drive_systems"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_reducer__requires__strain_wave",
+      "e_humanoid_strain_wave__manufactured_by__hds"
+    ],
     "limitations": "Does not prove a particular humanoid customer, market share, capacity, or product qualification.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -229,60 +397,101 @@
     "type": "product_page",
     "title": "Precision Reduction Gears | Nabtesco",
     "url": "https://www.nabtesco.com/en/products/robot/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Nabtesco Corporation",
     "date": "2026-06-12",
     "summary": "Nabtesco describes precision reduction gears as key robot components. Used for precision reducer exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_reducer_transmission_stack", "org_humanoid_nabtesco"],
-    "supportsEdgeIds": ["e_humanoid_reducer_stack__manufactured_by__nabtesco"],
-    "limitations": "Industrial robot supplier page; does not validate humanoid-specific BOM or design win.",
+    "supportsNodeIds": [
+      "humanoid_reducer_transmission_stack",
+      "org_humanoid_nabtesco"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_reducer_stack__manufactured_by__nabtesco"
+    ],
+    "limitations": "Supports Nabtesco as precision-reducer supplier with low-backlash/high-rigidity robot reducers (reducer exposure, not confirmed humanoid BOM, consistent with claim).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Nabtesco's precision reduction gears are lightweight and compact while maintaining high accuracy and rigidity. Precision reduction gears are key components of industrial robots used on automobile production lines.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_yaskawa_motion",
     "type": "product_page",
     "title": "Yaskawa integrated motion and robotics solutions",
     "url": "https://www.yaskawa.com/products/motion/integrated-solutions",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "generic_homepage",
     "sourceName": "Yaskawa Electric / Yaskawa America",
     "date": "2026-06-12",
     "summary": "Yaskawa describes servomotors, drives, motion controllers, mechanical actuators, robotics, gearboxes, and encoders as automation-system components. Used for motion-control supplier exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_motor_stack", "org_yaskawa_electric"],
-    "supportsEdgeIds": ["e_humanoid_motor_stack__manufactured_by__yaskawa"],
-    "limitations": "General motion/robotics supplier source; not a confirmed humanoid robot design win or BOM claim.",
+    "supportsNodeIds": [
+      "humanoid_motor_stack",
+      "org_yaskawa_electric"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__yaskawa"
+    ],
+    "limitations": "demote: Page is a navigation/template hub with only menu items (Sigma-X/Sigma-7, machine controllers); no substantive verbatim sentences about servo/motion-control to quote.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: Page is a navigation/template hub with only menu items (Sigma-X/Sigma-7, machine controllers); no substantive verbatim sentences about servo/motion-control to quote."
+    }
   },
   {
     "id": "ev_humanoid_nidec_ir",
     "type": "product_page",
     "title": "Nidec investor relations",
     "url": "https://www.nidec.com/en/ir/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "generic_homepage",
     "sourceName": "Nidec Corporation",
     "date": "2026-06-12",
     "summary": "Nidec investor relations identifies Nidec as a public company and supports treating it as a public motor supplier exposure candidate.",
-    "supportsNodeIds": ["humanoid_motor_stack", "org_nidec"],
-    "supportsEdgeIds": ["e_humanoid_motor_stack__manufactured_by__nidec"],
-    "limitations": "IR source for listing/company context; does not prove humanoid-specific motor supply or market share.",
+    "supportsNodeIds": [
+      "humanoid_motor_stack",
+      "org_nidec"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__nidec"
+    ],
+    "limitations": "demote: Generic investor-relations landing page (IR News, Financial Information nav); no quotable sentence identifying Nidec as a motor supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: Generic investor-relations landing page (IR News, Financial Information nav); no quotable sentence identifying Nidec as a motor supplier."
+    }
   },
   {
     "id": "ev_humanoid_te_robotics_connectors",
     "type": "product_page",
     "title": "Robotics for Factory Automation",
     "url": "https://www.te.com/en/industries/industrial-machinery/applications/robotics.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "unreachable",
     "sourceName": "TE Connectivity",
     "date": "2026-06-12",
     "summary": "TE Connectivity describes robotics connector solutions for power, signal, and data connectivity. Used for harness/connector supplier exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_wiring_harness_connectors", "org_humanoid_te_connectivity"],
-    "supportsEdgeIds": ["e_humanoid_harness__manufactured_by__te"],
-    "limitations": "Robotics connector source; not a humanoid-specific BOM confirmation.",
+    "supportsNodeIds": [
+      "humanoid_wiring_harness_connectors",
+      "org_humanoid_te_connectivity"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_harness__manufactured_by__te"
+    ],
+    "limitations": "demote: te.com robotics page failed to load on 3 attempts (socket closed twice, then 60s timeout); no content retrieved.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: te.com robotics page failed to load on 3 attempts (socket closed twice, then 60s timeout); no content retrieved."
+    }
   },
   {
     "id": "ev_humanoid_samsung_sdi_ir",
@@ -293,8 +502,13 @@
     "sourceName": "Samsung SDI",
     "date": "2026-06-12",
     "summary": "Samsung SDI's IR page lists stock information for SAMSUNG SDI (006400) and battery business context. Used for public battery-cell supplier exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_lithium_ion_cell_selection", "org_samsung_sdi"],
-    "supportsEdgeIds": ["e_humanoid_cells__manufactured_by__samsung_sdi"],
+    "supportsNodeIds": [
+      "humanoid_lithium_ion_cell_selection",
+      "org_samsung_sdi"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__manufactured_by__samsung_sdi"
+    ],
     "limitations": "Listing and company context only; does not prove humanoid-specific cell supply.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -308,8 +522,13 @@
     "sourceName": "LG Energy Solution",
     "date": "2026-06-12",
     "summary": "LG Energy Solution's investor page provides earnings releases and public investor context. Used for public battery-cell supplier exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_lithium_ion_cell_selection", "org_lg_energy_solution"],
-    "supportsEdgeIds": ["e_humanoid_cells__manufactured_by__lg_energy"],
+    "supportsNodeIds": [
+      "humanoid_lithium_ion_cell_selection",
+      "org_lg_energy_solution"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__manufactured_by__lg_energy"
+    ],
     "limitations": "Investor context only; does not prove humanoid-specific cell supply or purchaseability for every US broker.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -323,8 +542,13 @@
     "sourceName": "CATL",
     "date": "2026-06-12",
     "summary": "CATL's company profile states that CATL is listed on the Shenzhen Stock Exchange with stock code 300750 and describes its new-energy technology focus. Used for public battery-cell supplier exposure candidate modeling.",
-    "supportsNodeIds": ["humanoid_lithium_ion_cell_selection", "org_catl"],
-    "supportsEdgeIds": ["e_humanoid_cells__manufactured_by__catl"],
+    "supportsNodeIds": [
+      "humanoid_lithium_ion_cell_selection",
+      "org_catl"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__manufactured_by__catl"
+    ],
     "limitations": "Company profile and listing context only; does not prove humanoid-specific battery supply.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
@@ -334,58 +558,103 @@
     "type": "product_page",
     "title": "Unitree G1 humanoid robot",
     "url": "https://www.unitree.com/g1",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Unitree Robotics",
     "date": "2026-06-14",
     "summary": "Unitree's G1 page lists a public low-end humanoid price starting point and 23-43 joint motors. Used to anchor humanoid actuation and reducer cost-magnitude estimates, not to infer Unitree's supplier BOM.",
-    "supportsNodeIds": ["humanoid_robot_key_component_stack", "humanoid_actuation_system", "humanoid_reducer_transmission_stack"],
-    "limitations": "Public product page; price may vary by configuration and does not disclose component-level BOM cost, gross margin, or supplier selection.",
+    "supportsNodeIds": [
+      "humanoid_robot_key_component_stack",
+      "humanoid_actuation_system",
+      "humanoid_reducer_transmission_stack"
+    ],
+    "limitations": "Supports Unitree G1 price (from $13.5K), joint/DoF count (23-43 joint motors), and actuator/motor stack (PMSM joint motors, crossed-roller bearings, dual encoders).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Price from $13.5K. Total Degrees of Freedom（Joint Freedom）: 23 - 43. Low inertia high-speed internal rotor PMSM(permanent magnet synchronous motor,better response speed and heat dissipation).",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_figure03_production_ramp",
     "type": "product_page",
     "title": "Ramping Figure 03 Production",
     "url": "https://www.figure.ai/news/ramping-figure-03-production",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Figure AI",
     "date": "2026-06-14",
     "summary": "Figure says BotQ moved from prototype to production with dedicated critical-module lines and demonstrated one robot per hour cycle time. Used to classify actuation as a capacity-scale and integration bottleneck.",
-    "supportsNodeIds": ["humanoid_robot_key_component_stack", "humanoid_actuation_system", "humanoid_manufacturing_test_safety_service"],
-    "limitations": "Company-reported production update; not independently audited and does not break out actuator yield, supplier lead times, or component costs.",
+    "supportsNodeIds": [
+      "humanoid_robot_key_component_stack",
+      "humanoid_actuation_system",
+      "humanoid_manufacturing_test_safety_service"
+    ],
+    "limitations": "Supports Figure 03 production ramp, actuation system at volume (9,000+ actuators, 10+ SKUs), and manufacturing/assembly/test loop (inspection points, first-pass yield).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "increasing our production rate from 1 Figure 03 per day to 1 per hour - a 24x throughput improvement. we have produced over 9,000 actuators across more than 10 distinct SKUs.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_harmonic_drive_precision_products",
     "type": "product_page",
     "title": "Harmonic Drive high precision technology",
     "url": "https://www.harmonicdrive.net/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Harmonic Drive",
     "date": "2026-06-14",
     "summary": "Harmonic Drive describes high-precision zero-backlash strain-wave gears, rotary actuators, gear units, component sets, and compact high-torque-density products. Used for reducer-stack supplier exposure and technical-constraint modeling.",
-    "supportsNodeIds": ["humanoid_reducer_transmission_stack", "humanoid_strain_wave_reducer", "org_humanoid_harmonic_drive_systems"],
-    "supportsEdgeIds": ["e_humanoid_reducer_stack__manufactured_by__hds", "e_humanoid_strain_wave__manufactured_by__hds"],
-    "limitations": "General precision gearing supplier source; does not prove humanoid-specific design win, capacity reservation, or customer contract.",
+    "supportsNodeIds": [
+      "humanoid_reducer_transmission_stack",
+      "humanoid_strain_wave_reducer",
+      "org_humanoid_harmonic_drive_systems"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_reducer_stack__manufactured_by__hds",
+      "e_humanoid_strain_wave__manufactured_by__hds"
+    ],
+    "limitations": "Supports Harmonic Drive as strain-wave (zero-backlash) precision reducer/gearing supplier; consistent with reducer-exposure claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Harmonic Drive® rotary actuators are the easiest solution for your high precision motion control applications. Zero backlash Harmonic Drive® strain wave gears with a precision output bearing & flange.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_leaderdrive_humanoid",
     "type": "product_page",
     "title": "Leaderdrive mobile humanoid robots application",
     "url": "https://www.leaderdrive.com/app/8.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Leaderdrive",
     "date": "2026-06-14",
     "summary": "Leaderdrive describes humanoid robot joint mechanisms as requiring compact, high-output-torque, lightweight transmission components and lists strain-wave gears, rotary actuators, frameless motors, and related precision motion components.",
-    "supportsNodeIds": ["humanoid_reducer_transmission_stack", "humanoid_strain_wave_reducer", "org_humanoid_leaderdrive"],
-    "supportsEdgeIds": ["e_humanoid_reducer_stack__manufactured_by__leaderdrive"],
-    "limitations": "Vendor application page; supports supplier-candidate modeling but not a confirmed customer BOM, shipment share, or audited capacity.",
+    "supportsNodeIds": [
+      "humanoid_reducer_transmission_stack",
+      "humanoid_strain_wave_reducer",
+      "org_humanoid_leaderdrive"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_reducer_stack__manufactured_by__leaderdrive"
+    ],
+    "limitations": "Directly supports Leaderdrive as strain-wave/harmonic reducer + rotary actuator supplier for humanoid robot applications.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Humanoid robots must have at least 30 degrees of freedom in all limb joints, and each joint mechanism requires a strain wave gear harmonic reducer to reduce speed and increase torque. Leaderdrive provides precision gearing and rotational components for humanoid robot developers around the world.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_humanoid_leaderdrive_ticker",
@@ -396,8 +665,12 @@
     "sourceName": "Yahoo Finance",
     "date": "2026-06-14",
     "summary": "Yahoo Finance identifies Leader Harmonious Drive Systems Co., Ltd. with ticker 688017.SS and describes the company as making and selling strain-wave reducers.",
-    "supportsNodeIds": ["org_humanoid_leaderdrive"],
-    "supportsEdgeIds": ["e_humanoid_reducer_stack__manufactured_by__leaderdrive"],
+    "supportsNodeIds": [
+      "org_humanoid_leaderdrive"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_reducer_stack__manufactured_by__leaderdrive"
+    ],
     "limitations": "Finance profile source for listing and company context; users must verify broker availability, local exchange access, and current ticker status.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"

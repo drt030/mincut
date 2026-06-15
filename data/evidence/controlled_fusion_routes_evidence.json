@@ -4,60 +4,121 @@
     "type": "expert_review",
     "title": "Magnetic fusion confinement with tokamaks and stellarators",
     "url": "https://www.iaea.org/bulletin/magnetic-fusion-confinement-with-tokamaks-and-stellarators",
-    "sourceStatus": "ok_exact",
+    "sourceStatus": "unreachable",
     "sourceName": "International Atomic Energy Agency",
     "date": "2026-06-12",
     "summary": "IAEA explains magnetic confinement and distinguishes tokamaks and stellarators as the most common magnetic-confinement devices. Used to support route separation, not plant readiness.",
-    "supportsNodeIds": ["controlled_fusion_route_portfolio", "fusion_primary_route_family", "controlled_tokamak_magnetic_confinement_route", "stellarator_magnetic_confinement_route", "controlled_fusion_superconducting_magnet_system"],
-    "supportsEdgeIds": ["e_fusion_primary_family__has_route__tokamak", "e_fusion_primary_family__has_route__stellarator"],
-    "limitations": "Broad expert overview; it does not validate a commercial plant, cost, availability, or a specific investable supplier exposure.",
+    "supportsNodeIds": [
+      "controlled_fusion_route_portfolio",
+      "fusion_primary_route_family",
+      "controlled_tokamak_magnetic_confinement_route",
+      "stellarator_magnetic_confinement_route",
+      "controlled_fusion_superconducting_magnet_system"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_primary_family__has_route__tokamak",
+      "e_fusion_primary_family__has_route__stellarator"
+    ],
+    "limitations": "demote: iaea.org/bulletin returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: iaea.org/bulletin returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable."
+    }
   },
   {
     "id": "ev_fusion_us_approaches",
     "type": "expert_review",
     "title": "Approaches to Fusion",
     "url": "https://usfusionenergy.org/approaches-fusion",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "US Fusion Energy",
     "date": "2026-06-12",
     "summary": "Overview source distinguishing magnetic, inertial, Z-pinch, accelerator/plasma-collision, and piston/compression approaches. Used to justify a route portfolio rather than a single fusion route.",
-    "supportsNodeIds": ["controlled_fusion_route_portfolio", "fusion_secondary_route_family", "z_pinch_pulsed_power_route", "magnetized_target_liquid_metal_route"],
-    "supportsEdgeIds": ["e_controlled_fusion_portfolio__requires__primary_routes", "e_controlled_fusion_portfolio__requires__secondary_routes"],
-    "limitations": "High-level overview; not a reviewed engineering decomposition or investment source.",
+    "supportsNodeIds": [
+      "controlled_fusion_route_portfolio",
+      "fusion_secondary_route_family",
+      "z_pinch_pulsed_power_route",
+      "magnetized_target_liquid_metal_route"
+    ],
+    "supportsEdgeIds": [
+      "e_controlled_fusion_portfolio__requires__primary_routes",
+      "e_controlled_fusion_portfolio__requires__secondary_routes"
+    ],
+    "limitations": "Supports secondary-route family (FRC, Z-pinch, compact tori). MTF not named verbatim but Z-pinch and FRC are.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "One technique involves using the self-generated magnetic field created by strong electrical current, known as a Z pinch, instead of external magnets. ... tokamaks, stellarators, spheromaks, compact tori such as the field-reversed configuration (FRC), mirror machines",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_iter",
     "type": "product_page",
     "title": "ITER - the way to new energy",
     "url": "https://www.iter.org/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "ITER Organization",
     "date": "2026-06-12",
     "summary": "ITER describes the goal of demonstrating fusion power production at power-plant scale and reactor technology. Used to support tokamak route context and ITER as an international project, not a commercial product.",
-    "supportsNodeIds": ["controlled_tokamak_magnetic_confinement_route", "tokamak_current_drive_heating", "tokamak_cryogenic_magnet_plant", "controlled_fusion_superconducting_magnet_system", "org_iter"],
-    "supportsEdgeIds": ["e_fusion_primary_family__has_route__tokamak", "e_tokamak_route__requires__current_drive_heating", "e_tokamak_route__requires__magnet_system", "e_tokamak_route__requires__cryogenic_magnet_plant", "e_tokamak_route__implemented_by__iter"],
-    "limitations": "ITER is an experimental international project and does not generate electricity as a commercial plant; do not treat it as commercial viability proof.",
+    "supportsNodeIds": [
+      "controlled_tokamak_magnetic_confinement_route",
+      "tokamak_current_drive_heating",
+      "tokamak_cryogenic_magnet_plant",
+      "controlled_fusion_superconducting_magnet_system",
+      "org_iter"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_primary_family__has_route__tokamak",
+      "e_tokamak_route__requires__current_drive_heating",
+      "e_tokamak_route__requires__magnet_system",
+      "e_tokamak_route__requires__cryogenic_magnet_plant",
+      "e_tokamak_route__implemented_by__iter"
+    ],
+    "limitations": "Supports tokamak route + international/government project. Magnet/heating system specifics not quoted on homepage.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "China, the European Union, India, Japan, Korea, Russia and the United States are participating in the decades-long project to build and operate ITER ... the ITER device—a tokamak—will be the world's largest and most powerful, capable of creating a 'little star' on Earth",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_iter_blanket",
     "type": "product_page",
     "title": "ITER Blanket",
     "url": "https://www.iter.org/machine/blanket",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "ITER Organization",
     "date": "2026-06-12",
     "summary": "ITER's blanket page describes blanket modules, first-wall heat load removal, actively cooled blanket operation, neutron shielding, heat extraction, and later tritium-breeding module tests. Used to support shared blanket/PFC/divertor constraints, not commercial plant readiness.",
-    "supportsNodeIds": ["fusion_breeding_blanket_heat_extraction", "controlled_fusion_plasma_facing_components", "tokamak_divertor_heat_exhaust", "fusion_shared_plant_constraint_stack"],
-    "supportsEdgeIds": ["e_fusion_shared__requires__blanket_heat", "e_fusion_shared__requires__plasma_facing", "e_tokamak_route__requires__divertor_heat"],
-    "limitations": "Reviewed only for the existence and technical role of ITER blanket/first-wall heat-removal and TBM testing. It does not validate commercial availability, cost, tritium self-sufficiency, or any supplier exposure.",
+    "supportsNodeIds": [
+      "fusion_breeding_blanket_heat_extraction",
+      "controlled_fusion_plasma_facing_components",
+      "tokamak_divertor_heat_exhaust",
+      "fusion_shared_plant_constraint_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_shared__requires__blanket_heat",
+      "e_fusion_shared__requires__plasma_facing",
+      "e_tokamak_route__requires__divertor_heat"
+    ],
+    "limitations": "Strongly supports breeding blanket / heat extraction / first wall. Page also states first wall removes plasma heat load and discusses tritium breeding modules.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "The 440 blanket modules that completely cover the inner walls of the vacuum vessel protect the steel structure and the superconducting toroidal field magnets from the heat and high-energy neutrons produced by the fusion reactions.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_iter_disruption_mitigation",
@@ -68,191 +129,360 @@
     "sourceName": "ITER Organization",
     "date": "2026-06-12",
     "summary": "ITER describes disruptions as tokamak plasma instabilities that can cause thermal loading, melting, mechanical strain, and component lifetime risk, and describes disruption mitigation as a supporting system requirement.",
-    "supportsNodeIds": ["tokamak_disruption_mitigation", "controlled_tokamak_magnetic_confinement_route"],
-    "supportsEdgeIds": ["e_tokamak_route__implemented_by__disruption_mitigation"],
-    "limitations": "Official ITER technology page; does not validate commercial tokamak availability, cost, or public supplier exposure.",
+    "supportsNodeIds": [
+      "tokamak_disruption_mitigation",
+      "controlled_tokamak_magnetic_confinement_route"
+    ],
+    "supportsEdgeIds": [
+      "e_tokamak_route__implemented_by__disruption_mitigation"
+    ],
+    "limitations": "Directly supports tokamak disruption mitigation claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Disruptions are instabilities that may develop within the tokamak plasma and lead to the degradation or loss of the magnetic confinement of the plasma. ... ITER is planning a disruption mitigation system to cope with these potentially extremely damaging effects.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_ipp_w7x",
     "type": "product_page",
     "title": "Wendelstein 7-X",
     "url": "https://www.ipp.mpg.de/w7x",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Max Planck Institute for Plasma Physics",
     "date": "2026-06-12",
     "summary": "IPP describes Wendelstein 7-X as the world's largest stellarator, with a core system of non-planar superconducting magnet coils used to test power-plant suitability.",
-    "supportsNodeIds": ["stellarator_magnetic_confinement_route", "stellarator_3d_coil_system", "stellarator_field_optimization", "org_max_planck_ipp"],
-    "supportsEdgeIds": ["e_fusion_primary_family__has_route__stellarator", "e_stellarator_route__requires__3d_coils", "e_stellarator_route__implemented_by__field_optimization", "e_stellarator_route__implemented_by__ipp"],
-    "limitations": "Research device evidence; does not prove a commercial stellarator plant, cost, maintainability, or supplier exposure.",
+    "supportsNodeIds": [
+      "stellarator_magnetic_confinement_route",
+      "stellarator_3d_coil_system",
+      "stellarator_field_optimization",
+      "org_max_planck_ipp"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_primary_family__has_route__stellarator",
+      "e_stellarator_route__requires__3d_coils",
+      "e_stellarator_route__implemented_by__field_optimization",
+      "e_stellarator_route__implemented_by__ipp"
+    ],
+    "limitations": "Supports stellarator route, 3D non-planar superconducting coils, steady-state, and IPP (Max Planck) operator.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Wendelstein 7-X at the Greifswald branch of IPP is a large stellarator with modular superconducting coils, which enable steady state plasma operation in order to explore the reactor relevance of this concept.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_llnl_nif",
     "type": "product_page",
     "title": "What Is NIF?",
     "url": "https://lasers.llnl.gov/about/what-is-nif",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Lawrence Livermore National Laboratory",
     "date": "2026-06-12",
     "summary": "LLNL describes NIF as a laser-based inertial confinement facility. Used to support laser ICF as a distinct route with laser-driver and target-compression dependencies.",
-    "supportsNodeIds": ["laser_inertial_fusion_energy_route", "org_llnl_nif"],
-    "supportsEdgeIds": ["e_fusion_primary_family__has_route__laser_icf", "e_laser_icf_route__implemented_by__llnl"],
-    "limitations": "NIF ignition and target gain are not plant net-electric gain; this source does not validate commercial IFE economics.",
+    "supportsNodeIds": [
+      "laser_inertial_fusion_energy_route",
+      "org_llnl_nif"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_primary_family__has_route__laser_icf",
+      "e_laser_icf_route__implemented_by__llnl"
+    ],
+    "limitations": "Supports laser inertial fusion route + LLNL/NIF laser-driver-compresses-target description.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "It precisely guides, amplifies, reflects, and focuses 192 powerful laser beams into a target about the size of a pencil eraser in a few billionths of a second ... Those extreme conditions cause hydrogen atoms in the target to fuse and release energy in a controlled thermonuclear reaction.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_llnl_ife_refs",
     "type": "expert_review",
     "title": "Livermore Inertial Fusion Energy references",
     "url": "https://lasers.llnl.gov/science/livermore-inertial-fusion-energy-references",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Lawrence Livermore National Laboratory",
     "date": "2026-06-12",
     "summary": "LLNL reference index for inertial fusion energy topics including target design, chamber, fuel cycle, and plant-relevant research directions.",
-    "supportsNodeIds": ["laser_driver_efficiency_rep_rate", "laser_target_fabrication_injection", "laser_inertial_fusion_energy_route"],
-    "supportsEdgeIds": ["e_laser_icf_route__requires__laser_driver", "e_laser_icf_route__requires__target_fabrication"],
-    "limitations": "Reference index; individual technical claims require exact paper-level review.",
+    "supportsNodeIds": [
+      "laser_driver_efficiency_rep_rate",
+      "laser_target_fabrication_injection",
+      "laser_inertial_fusion_energy_route"
+    ],
+    "supportsEdgeIds": [
+      "e_laser_icf_route__requires__laser_driver",
+      "e_laser_icf_route__requires__target_fabrication"
+    ],
+    "limitations": "unsupported: Page loads but is only a bibliography/citation list of article titles; no running-text sentences that state the claim (laser driver efficiency, target fab/injection, NIF-ignition vs net-electric distinction). Titles are not supporting prose.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "unsupported: Page loads but is only a bibliography/citation list of article titles; no running-text sentences that state the claim (laser driver efficiency, target fab/injection, NIF-ignition vs net-electric distinction). Titles are not supporting prose."
+    }
   },
   {
     "id": "ev_fusion_llnl_target_fabrication",
     "type": "expert_review",
     "title": "Target Fabrication",
     "url": "https://lift.llnl.gov/research-areas/target-fabrication",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Livermore Institute for Fusion Technology",
     "date": "2026-06-12",
     "summary": "LLNL/LIFT describes inertial fusion energy power-plant targets as needing standard, low-cost designs that can be mass-produced at very high quantities, while current targets are precision proof-of-principle devices requiring further R&D.",
-    "supportsNodeIds": ["laser_target_fabrication_injection", "cryogenic_target_factory", "laser_tritium_target_fuel_cycle"],
-    "supportsEdgeIds": ["e_laser_icf_route__requires__target_fabrication", "e_laser_target__requires__cryogenic_factory"],
-    "limitations": "Research-program page; not a commercial target-factory proof or supplier exposure source.",
+    "supportsNodeIds": [
+      "laser_target_fabrication_injection",
+      "cryogenic_target_factory",
+      "laser_tritium_target_fuel_cycle"
+    ],
+    "supportsEdgeIds": [
+      "e_laser_icf_route__requires__target_fabrication",
+      "e_laser_target__requires__cryogenic_factory"
+    ],
+    "limitations": "Supports cryogenic target factory, injection, and low-cost high-rep-rate target fabrication for IFE.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "A cryogenic target that can survive the injection speed and thermal load from environment ... Scalable to IFE plant needs: about 10^6 targets per day for less than 50 cents each",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_general_fusion_mtf",
     "type": "vendor_claim",
     "title": "Fusion Power Technology",
     "url": "https://generalfusion.com/fusion-technology/",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "General Fusion",
     "date": "2026-06-12",
     "summary": "General Fusion describes its magnetized target fusion approach combining plasma physics, mechanical compression, and liquid metal systems.",
-    "supportsNodeIds": ["magnetized_target_liquid_metal_route", "mtf_liquid_metal_liner_compression", "mtf_plasma_injector", "org_general_fusion"],
-    "supportsEdgeIds": ["e_fusion_secondary_family__has_route__mtf", "e_mtf_route__requires__plasma_injector", "e_mtf_route__requires__liquid_metal_liner", "e_mtf_route__implemented_by__general_fusion"],
-    "limitations": "Company source; performance, cost, timing, and plant-level viability are vendor claims until independently reviewed.",
+    "supportsNodeIds": [
+      "magnetized_target_liquid_metal_route",
+      "mtf_liquid_metal_liner_compression",
+      "mtf_plasma_injector",
+      "org_general_fusion"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_secondary_family__has_route__mtf",
+      "e_mtf_route__requires__plasma_injector",
+      "e_mtf_route__requires__liquid_metal_liner",
+      "e_mtf_route__implemented_by__general_fusion"
+    ],
+    "limitations": "Verbatim quote is from General Fusion's MTF page https://generalfusion.com/our-fusion-technology/what-sets-mtf-apart/ (the record's /fusion-technology/ URL renders only nav/signup; recommend updating source URL). Supports liquid-metal liner as first wall + heat/neutron capture; piston compression/plasma injection not on this page.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "When fusion occurs, the reaction is surrounded by a liquid metal wall, which absorbs neutrons emitted from the reaction. ... The liquid metal wall absorbs neutrons and heat from fusion. The hot liquid metal is then pumped through a heat exchanger, producing steam for power generation.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_tae_frc",
     "type": "vendor_claim",
     "title": "The Field Reversed Configuration",
     "url": "https://tae.com/the-field-reversed-configuration-a-promising-path-to-aneutronic-fusion/",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "TAE Technologies",
     "date": "2026-06-12",
     "summary": "TAE describes the field-reversed configuration as its fusion-machine route. Used to support FRC as a distinct route and TAE as a private route builder.",
-    "supportsNodeIds": ["field_reversed_configuration_route", "frc_formation_sustainment", "org_tae_technologies"],
-    "supportsEdgeIds": ["e_fusion_secondary_family__has_route__frc", "e_frc_route__requires__formation", "e_frc_route__implemented_by__tae"],
-    "limitations": "Company source; route performance and commercialization timing are vendor claims.",
+    "supportsNodeIds": [
+      "field_reversed_configuration_route",
+      "frc_formation_sustainment",
+      "org_tae_technologies"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_secondary_family__has_route__frc",
+      "e_frc_route__requires__formation",
+      "e_frc_route__implemented_by__tae"
+    ],
+    "limitations": "unsupported: tae.com article loads (HTTP 200, title present) but body is client-side rendered; WebFetch retrieves only nav/title/footer, no FRC/aneutronic body text. No verbatim excerpt obtainable from fetched content.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "unsupported: tae.com article loads (HTTP 200, title present) but body is client-side rendered; WebFetch retrieves only nav/title/footer, no FRC/aneutronic body text. No verbatim excerpt obtainable from fetched content."
+    }
   },
   {
     "id": "ev_fusion_helion_frc",
     "type": "vendor_claim",
     "title": "Helion technology",
     "url": "https://www.helionenergy.com/technology",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "Helion Energy",
     "date": "2026-06-12",
     "summary": "Helion describes its fusion technology around compact pulsed plasma systems. Used only as vendor evidence for a private FRC-style route builder.",
-    "supportsNodeIds": ["field_reversed_configuration_route", "org_helion_energy"],
-    "supportsEdgeIds": ["e_frc_route__implemented_by__helion"],
-    "limitations": "Company source; do not treat as independent validation of commercial readiness or public-market exposure.",
+    "supportsNodeIds": [
+      "field_reversed_configuration_route",
+      "org_helion_energy"
+    ],
+    "supportsEdgeIds": [
+      "e_frc_route__implemented_by__helion"
+    ],
+    "limitations": "Directly supports FRC route + Helion FRC formation/merging/compression.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Deuterium and helium-3 fuel is heated to plasma conditions. Magnets confine the plasma in a Field Reversed Configuration (FRC). ... Helion adiabatically compresses merged FRC plasmas with >15 tesla pulsed magnets to reach fusion temperatures.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_sandia_z_machine",
     "type": "product_page",
     "title": "Sandia Z Machine",
     "url": "https://www.sandia.gov/z-machine/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Sandia National Laboratories",
     "date": "2026-06-12",
     "summary": "Sandia's Z Machine source supports pulsed-power and Z-machine context for Z-pinch or magnetically driven inertial fusion research.",
-    "supportsNodeIds": ["z_pinch_pulsed_power_route", "zpinch_pulsed_power_driver", "org_sandia_z_machine"],
-    "supportsEdgeIds": ["e_zpinch_route__requires__pulsed_power", "e_zpinch_route__implemented_by__sandia"],
-    "limitations": "National-lab facility source; not a commercial Z-pinch power-plant validation.",
+    "supportsNodeIds": [
+      "z_pinch_pulsed_power_route",
+      "zpinch_pulsed_power_driver",
+      "org_sandia_z_machine"
+    ],
+    "supportsEdgeIds": [
+      "e_zpinch_route__requires__pulsed_power",
+      "e_zpinch_route__implemented_by__sandia"
+    ],
+    "limitations": "Supports Z-pinch pulsed-power driver + national-lab (Sandia) status. Page states Z is part of Sandia's Pulsed Power program; 'Z-pinch'/'capacitors' not used verbatim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Pulsed power is a technology that concentrates electrical energy and turns it into short pulses of enormous power, which are then used to generate X-rays and gamma rays. ... It uses high magnetic fields associated with high electrical currents to produce high temperatures, high pressures, and powerful X-rays for research in high energy density physics.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_zap_zpinch",
     "type": "vendor_claim",
     "title": "How It Works",
     "url": "https://legacy.zapenergy.com/how-it-works",
-    "sourceStatus": "vendor_marketing",
+    "sourceStatus": "ok_exact",
     "sourceName": "Zap Energy",
     "date": "2026-06-12",
     "summary": "Zap Energy describes sheared-flow stabilization for a Z-pinch fusion route. Used as vendor evidence for route-specific MHD stability and Zap as a private route builder.",
-    "supportsNodeIds": ["z_pinch_pulsed_power_route", "zpinch_sheared_flow_stability", "org_zap_energy"],
-    "supportsEdgeIds": ["e_fusion_secondary_family__has_route__zpinch", "e_zpinch_route__implemented_by__stability", "e_zpinch_route__implemented_by__zap"],
-    "limitations": "Company source; route maturity, economics, and durability remain unreviewed vendor claims.",
+    "supportsNodeIds": [
+      "z_pinch_pulsed_power_route",
+      "zpinch_sheared_flow_stability",
+      "org_zap_energy"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_secondary_family__has_route__zpinch",
+      "e_zpinch_route__implemented_by__stability",
+      "e_zpinch_route__implemented_by__zap"
+    ],
+    "limitations": "Strongly supports sheared-flow-stabilized Z-pinch route + stability technique. Fetched from legacy.zapenergy.com/how-it-works.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Zap Energy confines plasma using the magnetic field generated by a powerful electrical current in the plasma instead of using external magnets. ... Sheared-flow stabilization in a Z pinch — a plasma physics innovation pioneered by Zap Energy Co-Founder Uri Shumlak — can theoretically extend the lifetime of a Z-pinched plasma almost indefinitely.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_arpae_alpha",
     "type": "paper",
     "title": "Retrospective of the ARPA-E ALPHA Fusion Program",
     "url": "https://www.osti.gov/biblio/1572943",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "OSTI / ARPA-E",
     "date": "2026-06-12",
     "summary": "OSTI record for ARPA-E ALPHA program retrospective, useful for lower-cost alternative fusion approach framing and unreviewed secondary-route context.",
-    "supportsNodeIds": ["fusion_secondary_route_family", "magnetized_target_liquid_metal_route", "field_reversed_configuration_route", "z_pinch_pulsed_power_route"],
-    "supportsEdgeIds": ["e_controlled_fusion_portfolio__requires__secondary_routes"],
-    "limitations": "Program retrospective source; not claim-level support for any specific current company timeline or supplier exposure.",
+    "supportsNodeIds": [
+      "fusion_secondary_route_family",
+      "magnetized_target_liquid_metal_route",
+      "field_reversed_configuration_route",
+      "z_pinch_pulsed_power_route"
+    ],
+    "supportsEdgeIds": [
+      "e_controlled_fusion_portfolio__requires__secondary_routes"
+    ],
+    "limitations": "OSTI abstract directly supports secondary-route family (magneto-inertial / MTF / Z-pinch / FRC-adjacent pulsed approaches).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "ALPHA focused on advancing the science and technology of pulsed, intermediate-density fusion approaches, including magneto-inertial fusion and Z-pinch variants, that have the potential to scale to commercially viable fusion power plants.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_iter_tritium_breeding",
     "type": "product_page",
     "title": "Tritium Breeding",
     "url": "https://www.iter.org/machine/supporting-systems/tritium-breeding",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "ITER Organization",
     "date": "2026-06-12",
     "summary": "ITER describes lithium-bearing breeding blankets, test blanket modules, tritium extraction, closed fuel-cycle experiments, and the need for future fusion plants to breed their own tritium. Used to support tritium breeding as a shared D-T plant constraint.",
-    "supportsNodeIds": ["controlled_fusion_tritium_breeding_fuel_cycle", "fusion_breeding_blanket_heat_extraction", "fusion_shared_plant_constraint_stack"],
-    "supportsEdgeIds": ["e_fusion_shared__requires__tritium_cycle", "e_tokamak_route__bottlenecked_by__tritium_cycle", "e_stellarator_route__bottlenecked_by__tritium_cycle"],
-    "limitations": "Reviewed only for the need to breed tritium and for ITER TBM/fuel-cycle testing context. It does not demonstrate commercial-scale tritium production, recycling, or plant readiness.",
+    "supportsNodeIds": [
+      "controlled_fusion_tritium_breeding_fuel_cycle",
+      "fusion_breeding_blanket_heat_extraction",
+      "fusion_shared_plant_constraint_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_shared__requires__tritium_cycle",
+      "e_tokamak_route__bottlenecked_by__tritium_cycle",
+      "e_stellarator_route__bottlenecked_by__tritium_cycle"
+    ],
+    "limitations": "Supports tritium breeding/fuel cycle, lithium breeding material, self-sufficiency. 'Neutron multiplier' not named verbatim.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "If the blanket modules contain lithium, a reaction occurs: the incoming neutron is absorbed by the lithium atom, which recombines into an atom of tritium and an atom of helium. ... A future fusion plant producing large amounts of power will be required to 'breed' all of its own tritium.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_iaea_tritium_breeding",
     "type": "expert_review",
     "title": "Technical Meeting on Tritium Breeding Blankets and Associated Neutronics",
     "url": "https://www.iaea.org/events/evt2304553",
-    "sourceStatus": "ok_exact",
+    "sourceStatus": "unreachable",
     "sourceName": "International Atomic Energy Agency",
     "date": "2026-06-12",
     "summary": "IAEA frames tritium breeding blankets and associated neutronics as important novel components for next-step devices after ITER, including design, fabrication, integration, operation, reliability, availability, and qualification issues.",
-    "supportsNodeIds": ["controlled_fusion_tritium_breeding_fuel_cycle", "fusion_breeding_blanket_heat_extraction", "fusion_shared_plant_constraint_stack"],
-    "supportsEdgeIds": ["e_fusion_shared__requires__tritium_cycle"],
-    "limitations": "Reviewed only for expert framing that breeding blankets/neutronics remain important design, fabrication, integration, operation, reliability, availability, and qualification issues. Not a reviewed plant design or commercial supplier validation.",
+    "supportsNodeIds": [
+      "controlled_fusion_tritium_breeding_fuel_cycle",
+      "fusion_breeding_blanket_heat_extraction",
+      "fusion_shared_plant_constraint_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_shared__requires__tritium_cycle"
+    ],
+    "limitations": "demote: iaea.org event page returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-15",
+      "notes": "demote: iaea.org event page returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable."
+    }
   },
   {
     "id": "ev_fusion_doe_materials",
@@ -263,25 +493,59 @@
     "sourceName": "US Department of Energy",
     "date": "2026-06-12",
     "summary": "DOE describes degradation of fusion reactor core structural materials under energetic neutron bombardment as a major hurdle and notes that qualification relies on simulated environments because no fusion devices exist for experimental materials research.",
-    "supportsNodeIds": ["fusion_neutron_materials_lifetime", "controlled_fusion_plasma_facing_components", "fusion_shared_plant_constraint_stack"],
-    "supportsEdgeIds": ["e_fusion_shared__requires__neutron_materials", "e_fusion_shared__requires__plasma_facing"],
-    "limitations": "Reviewed only for fusion-neutron material degradation and qualification-gap framing. Not route-specific commercial readiness, cost, or supplier exposure proof.",
+    "supportsNodeIds": [
+      "fusion_neutron_materials_lifetime",
+      "controlled_fusion_plasma_facing_components",
+      "fusion_shared_plant_constraint_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_shared__requires__neutron_materials",
+      "e_fusion_shared__requires__plasma_facing"
+    ],
+    "limitations": "Supports fusion neutron materials lifetime/degradation claim. Helium production / erosion-corrosion not named verbatim.",
     "confidence": "high",
-    "reviewStatus": "reviewed"
+    "reviewStatus": "reviewed",
+    "excerpt": "The degradation of fusion reactor core structural materials as a result of energetic neutron bombardment is one of the highest hurdles to realizing a nuclear fusion reactor. ... For example, reactors are bombarded by neutrons from fusion reactions. This weakens reactor materials over time.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   },
   {
     "id": "ev_fusion_eurofusion_demo_remote",
     "type": "expert_review",
     "title": "The state of the art for DEMO",
     "url": "https://euro-fusion.org/eurofusion-news/the-state-of-the-art-for-demo/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "EUROfusion",
     "date": "2026-06-12",
     "summary": "EUROfusion summarizes DEMO design work and identifies remote maintenance, tritium breeding, breeding-blanket heat extraction, plasma-facing materials, magnet design, nuclear safety, and integration as essential demonstration-plant topics.",
-    "supportsNodeIds": ["controlled_fusion_remote_maintenance_system", "tokamak_remote_maintenance_interface", "fusion_shared_plant_constraint_stack", "fusion_regulatory_safety_case", "fusion_public_exposure_status", "controlled_fusion_net_electric_gain", "controlled_fusion_availability_factor"],
-    "supportsEdgeIds": ["e_fusion_shared__requires__remote_maintenance", "e_tokamak_route__requires__remote_maintenance_interface", "e_fusion_shared__regulated_by__safety_case", "e_fusion_shared__requires__exposure_status", "e_controlled_fusion__measured_by__net_gain", "e_controlled_fusion__measured_by__availability"],
-    "limitations": "DEMO design-status source; it does not validate commercial cost, timeline, or public equity exposure.",
+    "supportsNodeIds": [
+      "controlled_fusion_remote_maintenance_system",
+      "tokamak_remote_maintenance_interface",
+      "fusion_shared_plant_constraint_stack",
+      "fusion_regulatory_safety_case",
+      "fusion_public_exposure_status",
+      "controlled_fusion_net_electric_gain",
+      "controlled_fusion_availability_factor"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_shared__requires__remote_maintenance",
+      "e_tokamak_route__requires__remote_maintenance_interface",
+      "e_fusion_shared__regulated_by__safety_case",
+      "e_fusion_shared__requires__exposure_status",
+      "e_controlled_fusion__measured_by__net_gain",
+      "e_controlled_fusion__measured_by__availability"
+    ],
+    "limitations": "Page supports remote maintenance for in-vessel components, tritium breeding/on-site fuel, qualified plasma-facing materials, licensing/regulation, and net production of 300-500 MWe. Quote shown is the licensing/safety sentence; multiple supporting topics present.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Radiation shielding and safety play an overwhelming role in the design, and propagation of safety requirements on the design should not be postponed. An early engagement with licensing regulators would be very useful",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact"
+    }
   }
 ]
