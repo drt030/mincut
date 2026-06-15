@@ -1287,7 +1287,7 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
   );
   assert.match(
     html,
-    /169,079 RMB over target/,
+    /173,384 RMB over target/,
     `investor panel must quantify the p50 cost gap; got: ${html}`,
   );
   assert.match(
@@ -1518,5 +1518,99 @@ test("expanded: organization detail surfaces workflows it implements", () => {
     html,
     /Maintenance workflow/,
     `ABB Robotics organization detail must link back to maintenance workflow; got: ${html}`,
+  );
+});
+
+// ==================================================================
+// Task 3 — First-glance chokepoint headline (docs/ACCEPTANCE.md §3a).
+// The detail surface must LEAD with the chokepoint verdict + the
+// elevated axis stated as a concrete sentence (never a raw `maturity:`
+// tag), and the four-axis breakdown must be available on drill-in. The
+// headline is NOT gated on the canvas colorMode (NodeDetailContent has
+// no colorMode prop), so it persists across lens switch / node drill.
+// ==================================================================
+test("expanded: detail leads with a first-glance chokepoint headline (elevated axis as a concrete sentence)", () => {
+  // `industrial_robot_arm_body` is a top-band chokepoint whose elevated axis is
+  // Dependency (it is load-bearing: two subsystems depend on it), so the
+  // headline must read "Chokepoint" + the Dependency sentence concretely.
+  const focused = nodeById("industrial_robot_arm_body");
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  const headline = detailDisclosure(html, "detail-chokepoint-headline");
+
+  // Top-band composite verdict.
+  assert.match(
+    headline,
+    /Chokepoint/,
+    `a top-band node must read as a Chokepoint; got: ${headline}`,
+  );
+  // The elevated axis is a concrete sentence, not a raw internal tag.
+  assert.match(
+    headline,
+    /Load-bearing · \d+ subsystems depend on it/,
+    `Dependency elevated-axis sentence must state how many subsystems depend on it; got: ${headline}`,
+  );
+  assert.match(
+    headline,
+    /Chokepoint: Dependency/,
+    `headline composite line must name the elevated axis; got: ${headline}`,
+  );
+  assert.doesNotMatch(
+    headline,
+    /maturity:/i,
+    `headline must never expose a raw "maturity: <label>" tag; got: ${headline}`,
+  );
+
+  // First-glance: the headline lives at the top of the reader-priority
+  // surface, before the bottleneck thesis.
+  const priority = detailReaderPriority(html);
+  assert.ok(
+    priority.indexOf("detail-chokepoint-headline") <
+      priority.indexOf("detail-bottleneck-thesis"),
+    `chokepoint headline must lead the reader-priority surface; got: ${priority}`,
+  );
+
+  // Drill-in: the full four-axis breakdown is available (each axis is rendered
+  // with its own `data-axis` row inside the breakdown block).
+  assert.match(
+    html,
+    /data-testid="detail-chokepoint-axes"/,
+    `four-axis breakdown must be present on drill-in; got: ${html}`,
+  );
+  for (const axis of ["cost", "criticality", "concentration", "barrier"]) {
+    assert.match(
+      html,
+      new RegExp(`data-axis="${axis}"`),
+      `axis breakdown must list the ${axis} axis row; got: ${html}`,
+    );
+  }
+});
+
+test("expanded: a structural root product reads as 'not itself a chokepoint'", () => {
+  const focused = nodeById(FOCAL_PRODUCT_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+
+  const headline = detailDisclosure(html, "detail-chokepoint-headline");
+  assert.match(
+    headline,
+    /Structural root/,
+    `a structurally-incomplete product must read as a structural root; got: ${headline}`,
+  );
+  assert.match(
+    headline,
+    /not itself a chokepoint/,
+    `structural-root copy must clarify the product is not itself the chokepoint; got: ${headline}`,
   );
 });

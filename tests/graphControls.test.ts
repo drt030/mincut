@@ -7,7 +7,6 @@ import { GraphControls } from "../src/components/GraphControls";
 test("GraphControls exposes one compact lens control surface without static map controls", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
-      routeMode: "cost-drivers",
       analysisMode: "cost",
       onAnalysisModeChange: () => {},
     }),
@@ -34,7 +33,6 @@ test("GraphControls exposes one compact lens control surface without static map 
 test("GraphControls explains the active chokepoint lens without Top 1-5 rank copy", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
-      routeMode: "cost-drivers",
       analysisMode: "bottleneck-risk",
       onAnalysisModeChange: () => {},
     }),
@@ -54,7 +52,6 @@ test("GraphControls explains the active chokepoint lens without Top 1-5 rank cop
 test("GraphControls legend shows five edge-width samples without a duplicate colour ramp", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
-      routeMode: "cost-drivers",
       analysisMode: "cost",
       onAnalysisModeChange: () => {},
     }),
@@ -80,7 +77,6 @@ test("GraphControls legend shows five edge-width samples without a duplicate col
 test("GraphControls uses one shared lens icon across all analysis modes", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
-      routeMode: "cost-drivers",
       analysisMode: "cost",
       onAnalysisModeChange: () => {},
     }),
@@ -94,7 +90,6 @@ test("GraphControls uses one shared lens icon across all analysis modes", () => 
 test("GraphControls no longer offers a Maturity lens (folded into Barrier per ADR-0010)", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
-      routeMode: "cost-drivers",
       analysisMode: "maturity",
       onAnalysisModeChange: () => {},
     }),
@@ -115,7 +110,6 @@ test("GraphControls no longer offers a Maturity lens (folded into Barrier per AD
 test("GraphControls adds a neutral system decomposition lens", () => {
   const html = renderToStaticMarkup(
     React.createElement(GraphControls, {
-      routeMode: "cost-drivers",
       analysisMode: "relation",
       onAnalysisModeChange: () => {},
     }),

@@ -31,6 +31,14 @@ import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
 import { nodeCostDriverRmb } from "@/lib/edgeStyleFor";
 import {
+  chokepointScores,
+  chokepointBandFor,
+  directDependents,
+  dependentAncestors,
+  quantileNormalizer,
+  type ChokepointResult,
+} from "@/lib/chokepointScore";
+import {
   readerFacingConstraintReason,
   readerFacingCostAnswer,
   readerFacingCostSignalText,
@@ -1210,6 +1218,233 @@ function detailCostSignalText(graph: GraphData, node: Node): string | null {
   }
 }
 
+/**
+ * First-glance chokepoint readout (docs/ACCEPTANCE.md §3a, ADR-0010).
+ *
+ * The four structural axes the §2 model scores on are Cost · Dependency
+ * (downstream criticality) · Concentration · Barrier. `chokepointScores`
+ * already returns quantile-normalized criticality / concentration / barrier
+ * (and a composite `score` + structural `incomplete` flag); Cost is
+ * deliberately NOT folded into that composite (it is an orthogonal $-overlay),
+ * so to pick the *elevated* axis among all four on the same [0,1] footing we
+ * normalize node cost the SAME way — an empirical quantile rank over every
+ * priced node — using the shared `quantileNormalizer`. The elevated axis is
+ * the highest-rank KNOWN axis; the headline then states it as a concrete
+ * sentence (a % / count / barrier phrase), never a raw `maturity:` tag.
+ *
+ * Both the rank (for the comparison) and the human number (for the sentence)
+ * are kept: the comparison uses the cross-graph cost rank; the Cost sentence
+ * shows the node's share of its product's rolled-up build cost.
+ */
+type ElevatedAxisKind = "cost" | "criticality" | "concentration" | "barrier";
+
+type ChokepointHeadline = {
+  band: 1 | 2 | 3 | 4 | 5;
+  verdictKey: "chokepointVerdictChokepoint" | "chokepointVerdictElevated" | "chokepointVerdictLower";
+  structuralRoot: boolean;
+  elevated: ElevatedAxisKind | null;
+  axisSentence: string | null;
+  axisLabelKey: string | null;
+  /** Four-axis breakdown for the drill-in: rank in [0,1] or null when unknown. */
+  axes: Record<ElevatedAxisKind, number | null>;
+};
+
+/** Node rolled-up typical cost (RMB), falling back to a direct/estimated
+ *  reading. Null when the node carries no cost signal at all. */
+function nodeRolledUpCostRmb(graph: GraphData, node: Node): number | null {
+  try {
+    const rollup = rollupCost(graph, node.id);
+    if (rollup.anyChildContributed || (rollup.directOnly?.typical ?? 0) > 0) {
+      return rollup.rolledUp.typical;
+    }
+  } catch {
+    // fall through to the direct/estimated reading
+  }
+  return nodeCostDriverRmb(node, graph)?.value ?? null;
+}
+
+const costRankCache = new WeakMap<GraphData, (nodeId: string) => number | null>();
+
+/** Per-graph memoized cost quantile-rank in [0,1] over every priced node, so
+ *  Cost is comparable to the composite's quantile-normalized axes. */
+function costRankFor(graph: GraphData): (nodeId: string) => number | null {
+  const cached = costRankCache.get(graph);
+  if (cached) return cached;
+  const costByNode = new Map<string, number>();
+  for (const n of graph.nodes) {
+    const cost = nodeRolledUpCostRmb(graph, n);
+    if (cost !== null && cost > 0) costByNode.set(n.id, cost);
+  }
+  const norm = quantileNormalizer([...costByNode.values()]);
+  const fn = (nodeId: string): number | null => {
+    const cost = costByNode.get(nodeId);
+    return cost === undefined ? null : norm(cost);
+  };
+  costRankCache.set(graph, fn);
+  return fn;
+}
+
+/** Nearest product the node rolls up into (a dependent-ancestor product, or
+ *  the node itself when it is a product). Used as the build-cost denominator
+ *  for the Cost sentence. */
+function buildCostDenominatorRmb(graph: GraphData, node: Node): number | null {
+  if (node.kind === "product") return nodeRolledUpCostRmb(graph, node);
+  let best: { cost: number } | null = null;
+  for (const ancestorId of dependentAncestors(graph, node.id)) {
+    const ancestor = nodeById(graph, ancestorId);
+    if (ancestor?.kind !== "product") continue;
+    const cost = nodeRolledUpCostRmb(graph, ancestor);
+    if (cost !== null && cost > 0 && (!best || cost > best.cost)) best = { cost };
+  }
+  return best?.cost ?? null;
+}
+
+const ELEVATED_AXIS_LABEL_KEY: Record<ElevatedAxisKind, string> = {
+  cost: "chokepointAxisLabelCost",
+  criticality: "chokepointAxisLabelCriticality",
+  concentration: "chokepointAxisLabelConcentration",
+  barrier: "chokepointAxisLabelBarrier",
+};
+
+function barrierDetailKey(node: Node): "chokepointBarrierMustBuild" | "chokepointBarrierHardToReplicate" {
+  if (node.transactability === "must_build") return "chokepointBarrierMustBuild";
+  return "chokepointBarrierHardToReplicate";
+}
+
+/** Build the concrete elevated-axis sentence for the headline. */
+function elevatedAxisSentence(
+  graph: GraphData,
+  node: Node,
+  axis: ElevatedAxisKind,
+  t: (key: string) => string,
+): string | null {
+  switch (axis) {
+    case "cost": {
+      const own = nodeRolledUpCostRmb(graph, node);
+      const denom = buildCostDenominatorRmb(graph, node);
+      if (own === null || denom === null || denom <= 0) return null;
+      const pct = Math.max(1, Math.round((own / denom) * 100));
+      return formatCopy(t("chokepointAxisCost"), { value: pct });
+    }
+    case "criticality": {
+      const count = directDependents(graph, node.id).length;
+      if (count <= 0) return null;
+      return formatCopy(t("chokepointAxisCriticality"), { count });
+    }
+    case "concentration": {
+      const { total } = holdersForNode(graph, node.id);
+      return formatCopy(t("chokepointAxisConcentration"), { count: total });
+    }
+    case "barrier":
+      return formatCopy(t("chokepointAxisBarrier"), { detail: t(barrierDetailKey(node)) });
+  }
+}
+
+function chokepointHeadlineFor(
+  graph: GraphData,
+  node: Node,
+  t: (key: string) => string,
+): ChokepointHeadline {
+  const result: ChokepointResult | undefined = chokepointScores(graph).get(node.id);
+  const band = chokepointBandFor(graph)(node.id);
+  const costRank = costRankFor(graph)(node.id);
+  const axes: Record<ElevatedAxisKind, number | null> = {
+    cost: costRank,
+    criticality: result?.axes.criticality ?? null,
+    concentration: result?.axes.concentration ?? null,
+    barrier: result?.axes.barrier ?? null,
+  };
+  // Verdict from the composite band: warmest band → Chokepoint, next → elevated.
+  const verdictKey =
+    band >= 5
+      ? "chokepointVerdictChokepoint"
+      : band >= 4
+        ? "chokepointVerdictElevated"
+        : "chokepointVerdictLower";
+  // Product / root nodes are structurally `incomplete` (criticality is unknown
+  // because nothing downstream depends on a top-level product) — they are not
+  // themselves chokepoints, so we say so rather than inventing an elevated axis.
+  const structuralRoot = node.kind === "product" && Boolean(result?.incomplete);
+  if (structuralRoot) {
+    return { band, verdictKey, structuralRoot: true, elevated: null, axisSentence: null, axisLabelKey: null, axes };
+  }
+  const known = (Object.entries(axes) as Array<[ElevatedAxisKind, number | null]>)
+    .filter((entry): entry is [ElevatedAxisKind, number] => entry[1] !== null)
+    .sort((a, b) => b[1] - a[1]);
+  // Walk highest-rank-first; skip an axis whose concrete sentence can't be
+  // built (e.g. criticality rank present but fan-in 0) so the headline always
+  // carries a real sentence when any axis can produce one.
+  for (const [axis] of known) {
+    const sentence = elevatedAxisSentence(graph, node, axis, t);
+    if (sentence) {
+      return {
+        band,
+        verdictKey,
+        structuralRoot: false,
+        elevated: axis,
+        axisSentence: sentence,
+        axisLabelKey: ELEVATED_AXIS_LABEL_KEY[axis],
+        axes,
+      };
+    }
+  }
+  return { band, verdictKey, structuralRoot: false, elevated: null, axisSentence: null, axisLabelKey: null, axes };
+}
+
+/**
+ * First-glance chokepoint headline. Rendered at the TOP of the reader-priority
+ * surface and NOT gated on the canvas `colorMode`, so it persists across lens
+ * switch and node drill (docs/ACCEPTANCE.md §1 "Sustained"). The `graph` is the
+ * same scope the canvas/lens colors with (the rail is mounted with
+ * `workingGraph`), so the verdict here matches the node's canvas coloring.
+ */
+function ChokepointHeadline({ graph, node }: { graph: GraphData; node: Node }) {
+  const { t } = useLanguage();
+  const headline = chokepointHeadlineFor(graph, node, t);
+  const verdict = t(headline.verdictKey);
+  const compositeLine = headline.axisLabelKey
+    ? formatCopy(t("chokepointHeadlineComposite"), { axis: t(headline.axisLabelKey) })
+    : null;
+  const detailLine = headline.structuralRoot ? t("chokepointStructuralRoot") : headline.axisSentence;
+  return (
+    <div
+      className="detail-chokepoint-headline"
+      data-testid="detail-chokepoint-headline"
+      data-chokepoint-band={headline.band}
+      data-elevated-axis={headline.elevated ?? (headline.structuralRoot ? "structural-root" : "none")}
+    >
+      <span className="detail-chokepoint-verdict">{verdict}</span>
+      {detailLine ? <strong className="detail-chokepoint-axis">{detailLine}</strong> : null}
+      {compositeLine ? <small className="detail-chokepoint-composite">{compositeLine}</small> : null}
+    </div>
+  );
+}
+
+/** Four-axis breakdown for the drill-in (each axis rank + known/unknown),
+ *  folded into the existing Investor brief so there is no competing panel. */
+function ChokepointAxisBreakdown({ graph, node }: { graph: GraphData; node: Node }) {
+  const { t } = useLanguage();
+  const headline = chokepointHeadlineFor(graph, node, t);
+  const order: ElevatedAxisKind[] = ["cost", "criticality", "concentration", "barrier"];
+  return (
+    <div className="detail-chokepoint-axes" data-testid="detail-chokepoint-axes">
+      <span className="detail-reader-mini-heading">{t("chokepointBreakdownTitle")}</span>
+      <dl className="detail-chokepoint-axes-grid">
+        {order.map((axis) => {
+          const rank = headline.axes[axis];
+          const known = rank !== null;
+          return (
+            <div key={axis} data-axis={axis} data-axis-known={known ? "true" : "false"}>
+              <dt>{t(ELEVATED_AXIS_LABEL_KEY[axis])}</dt>
+              <dd>{known ? `${Math.round(rank * 100)}/100` : t("chokepointAxisUnknown")}</dd>
+            </div>
+          );
+        })}
+      </dl>
+    </div>
+  );
+}
+
 function DecisionBrief({
   graph,
   node,
@@ -1270,6 +1505,7 @@ function DecisionBrief({
           <strong>{readerEvidenceStatusText(evidence, t)}</strong>
         </div>
       </div>
+      <ChokepointAxisBreakdown graph={graph} node={node} />
     </div>
   );
 }
@@ -1295,6 +1531,7 @@ function NodeReaderPriority({
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
+      <ChokepointHeadline graph={graph} node={node} />
       <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
         <span>{t("readerBottleneckThesis")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>

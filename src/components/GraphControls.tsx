@@ -2,11 +2,9 @@
 
 import React from "react";
 import { RAMP, WIDTHS, type ColorMode } from "@/lib/edgeStyleFor";
-import type { RouteMode } from "@/lib/routeHighlight";
 import { useLanguage } from "./LanguageProvider";
 
 export type GraphControlsProps = {
-  routeMode: RouteMode;
   analysisMode: ColorMode;
   onAnalysisModeChange: (next: ColorMode) => void;
 };
