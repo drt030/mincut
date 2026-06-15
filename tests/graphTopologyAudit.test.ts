@@ -149,3 +149,23 @@ test("product-layer artifacts are never tree-positioned under know-how nodes", (
     "product-first graph layout must not use know-how nodes as tree parents for artifact/product-layer nodes",
   );
 });
+
+test("source graph keeps artifact dependencies product-first before attaching know-how", () => {
+  const graph = loadGraphData();
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const structuralRelations = new Set(["requires", "has_route", "implemented_by", "enables"]);
+  const violations = graph.edges.flatMap((edge) => {
+    const source = nodeById.get(edge.source);
+    const target = nodeById.get(edge.target);
+    if (!source || !target) return [];
+    if (!structuralRelations.has(edge.relation)) return [];
+    if (!isKnowHowNode(source) || !isArtifactCanvasNode(target)) return [];
+    return [`${edge.id}:${edge.relation}:${source.id}->${target.id}`];
+  });
+
+  assert.deepEqual(
+    violations,
+    [],
+    "source data must model artifact dependencies under artifact hosts, then attach know-how to those artifacts",
+  );
+});

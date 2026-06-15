@@ -20,7 +20,7 @@
   },
   {
     "id": "e_acc_logic_euv__requires__euv_mask",
-    "source": "extreme_ultraviolet_lithography",
+    "source": "logic_die_fabrication",
     "target": "euv_photomask_production",
     "relation": "requires",
     "claim": "EUV masks are a critical consumable with duopolistic supply.",
@@ -30,7 +30,7 @@
   },
   {
     "id": "e_acc_logic_euv__requires__euv_resist",
-    "source": "extreme_ultraviolet_lithography",
+    "source": "logic_die_fabrication",
     "target": "euv_photoresist_materials",
     "relation": "requires",
     "confidence": "high",
@@ -583,7 +583,7 @@
   },
   {
     "id": "e_acc_hbm_testing__requires__equipment",
-    "source": "hbm_testing_validation_power_delivery",
+    "source": "high_bandwidth_memory",
     "target": "hbm_test_equipment_and_tooling",
     "relation": "requires",
     "confidence": "high",
@@ -1599,7 +1599,7 @@
   },
   {
     "id": "e_euv_lithography__requires__euv_optics",
-    "source": "extreme_ultraviolet_lithography",
+    "source": "logic_die_fabrication",
     "target": "euv_projection_optics",
     "relation": "requires",
     "claim": "Each ASML EUV system requires a set of precision-coated EUV projection optics, supplied exclusively by Carl Zeiss SMT. Optics production lead time (14+ months) is a subsidiary bottleneck within EUV systems.",
@@ -1831,7 +1831,7 @@
   },
   {
     "id": "e_acc_optup_epitaxy__requires__mocvd_equipment",
-    "source": "epitaxial_growth_inp_gaas",
+    "source": "eml_dfb_laser_diodes",
     "target": "mocvd_equipment_systems",
     "relation": "requires",
     "claim": "MOCVD epitaxial growth systems (Aixtron, Veeco) are the capital equipment that enables foundry capacity scaling. Tool lead times (15–21 months) indirectly constrain epitaxy expansion.",
@@ -2292,7 +2292,7 @@
   },
   {
     "id": "e_flip_chip_requires_underfill",
-    "source": "flip_chip_bonding",
+    "source": "advanced_packaging",
     "target": "underfill_dispensing_equipment",
     "relation": "requires",
     "claim": "Underfill dispensing (capillary or jet) follows flip-chip bonding to encapsulate bumps and reduce mechanical stress.",
@@ -2314,7 +2314,7 @@
   },
   {
     "id": "e_adv_pkg_requires_probe_testing",
-    "source": "test_and_inspection",
+    "source": "advanced_packaging",
     "target": "wafer_probe_testing_advanced_packaging",
     "relation": "requires",
     "claim": "Fine-pitch wafer probe testing qualifies known-good die prior to chiplet assembly and system integration.",
@@ -2362,7 +2362,7 @@
   },
   {
     "id": "e_test_insp_requires_env_chamber",
-    "source": "test_and_inspection",
+    "source": "advanced_packaging",
     "target": "environmental_test_chambers_qualification",
     "relation": "requires",
     "claim": "Environmental chambers (thermal cycling, burn-in) are essential for JEDEC reliability qualification of HBM modules.",
@@ -2682,7 +2682,7 @@
   },
   {
     "id": "e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment",
-    "source": "hbm_stack_assembly_die_bonding",
+    "source": "high_bandwidth_memory",
     "target": "hbm_tc_bonding_equipment",
     "relation": "requires",
     "confidence": "high",
