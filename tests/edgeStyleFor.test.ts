@@ -314,36 +314,55 @@ test("maturity mode: low-maturity target → thicker width than high-maturity ta
 
 /**
  * Assertion 4 (bottleneck-risk mode): an edge whose target has
- * `bottleneckOf` non-empty OR a high `nodeRisk` value ranks warmest.
- * Per the live data probe, `parcel_manipulation_or_diverter` is the
- * top-risk node (risk 0.480, mat 52, no `bottleneckOf` set —
- * exercise the high-risk-via-nodeRisk branch), and
- * `conveyor_integration` is the next-highest (risk 0.348, mat 62,
- * AND `bottleneckOf: ["low_cost_conveyor_integration"]` — exercise
- * the bottleneckOf branch).
+ * `bottleneckOf` non-empty OR a high COMPOSITE chokepoint score ranks
+ * warmest.
  *
- * Compared against a low-risk leaf — `machine_vision_lens_and_optics`
- * is a cheap material-like component whose nodeRisk is near 0 because
- * its cost share in the graph is small. The high-risk edges MUST be
- * strictly thicker than the low-risk edge.
+ * ADR-0010 rewrote this lens: `bottleneck-risk` now bands by the
+ * four-axis chokepoint composite (Criticality × Concentration × Barrier,
+ * own-quantile banded) instead of the old `(1 - maturity) × cost`
+ * `nodeRisk`. The previous high-risk fixture `parcel_manipulation_or_
+ * diverter` was top by cost-share but is an aggregator with fan-in 0
+ * (nothing depends on IT — it depends on its children), so the composite
+ * correctly bands it LOW (band 2). That property of the old formula no
+ * longer holds by design, so this test now exercises the new lens:
+ *
+ *   - `industrial_robot_arm_body` — a shared, high-Criticality robot
+ *     component the composite bands 5 (no `bottleneckOf`; exercises the
+ *     computed-composite-high branch, the ADR-0010 analogue of the old
+ *     "high-via-nodeRisk" branch).
+ *   - `conveyor_integration` — `bottleneckOf` set, so the authored
+ *     override still forces band 5 (exercises the override branch, the
+ *     one behavior ADR-0010 deliberately preserves).
+ *   - `machine_vision_lens_and_optics` — a low-Criticality leaf the
+ *     composite bands 2 (the low fixture, unchanged in spirit).
+ *
+ * Both high edges MUST be strictly thicker than the low edge. We also
+ * assert the underlying bands directly so the recomputed ADR-0010
+ * expectation is explicit and a future data/score drift fails loudly.
  */
-test("bottleneck-risk mode: edges to high-risk targets are thicker / warmer than to low-risk targets", () => {
+test("bottleneck-risk mode: edges to high-chokepoint targets are thicker / warmer than to low-chokepoint targets", () => {
   const graph = loadGraphData();
-  const highRiskEdge = edgeTargeting(graph, "parcel_manipulation_or_diverter");
+  const highCompositeEdge = edgeTargeting(graph, "industrial_robot_arm_body");
   const bottleneckOfEdge = edgeTargeting(graph, "conveyor_integration");
-  const lowRiskEdge = edgeTargeting(graph, "machine_vision_lens_and_optics");
+  const lowEdge = edgeTargeting(graph, "machine_vision_lens_and_optics");
 
-  const highRisk = edgeStyleFor(highRiskEdge, "bottleneck-risk", graph);
+  const high = edgeStyleFor(highCompositeEdge, "bottleneck-risk", graph);
   const bottleneckOf = edgeStyleFor(bottleneckOfEdge, "bottleneck-risk", graph);
-  const lowRisk = edgeStyleFor(lowRiskEdge, "bottleneck-risk", graph);
+  const low = edgeStyleFor(lowEdge, "bottleneck-risk", graph);
+
+  // Recomputed ADR-0010 oracle: the composite bands the shared arm body 5
+  // and the lens/optics leaf 2; the authored bottleneckOf override forces
+  // conveyor_integration to band 5 regardless of its computed score.
+  assert.equal(high.width, WIDTHS[4], `composite-high target should sit in band 5 (width ${WIDTHS[4]}); got ${high.width}`);
+  assert.equal(bottleneckOf.width, WIDTHS[4], `bottleneckOf override should force band 5 (width ${WIDTHS[4]}); got ${bottleneckOf.width}`);
 
   assert.ok(
-    highRisk.width > lowRisk.width,
-    `bottleneck-risk: high-risk target ${highRiskEdge.target} (width ${highRisk.width}) must be thicker than low-risk target ${lowRiskEdge.target} (width ${lowRisk.width})`,
+    high.width > low.width,
+    `bottleneck-risk: high-composite target ${highCompositeEdge.target} (width ${high.width}) must be thicker than low target ${lowEdge.target} (width ${low.width})`,
   );
   assert.ok(
-    bottleneckOf.width > lowRisk.width,
-    `bottleneck-risk: target with bottleneckOf set (${bottleneckOfEdge.target}, width ${bottleneckOf.width}) must be thicker than low-risk target ${lowRiskEdge.target} (width ${lowRisk.width})`,
+    bottleneckOf.width > low.width,
+    `bottleneck-risk: target with bottleneckOf set (${bottleneckOfEdge.target}, width ${bottleneckOf.width}) must be thicker than low target ${lowEdge.target} (width ${low.width})`,
   );
 });
 

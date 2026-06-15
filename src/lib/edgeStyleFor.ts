@@ -1,5 +1,6 @@
 import type { Edge, GraphData, Node } from "./schema";
 import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
+import { chokepointBandFor } from "./chokepointScore";
 import { nodeRisk } from "./nodeRisk";
 import { rollupCost } from "./costRollup";
 import { estimatedCostForNode } from "./costEstimate";
@@ -265,13 +266,14 @@ function bandForEdgeTarget(
       return bandForValue(target.maturityScore, "maturity");
     }
     case "bottleneck-risk": {
-      // Per the ADR: bottleneckOf non-empty bumps the node to band 5 —
-      // explicit bottleneck attribution outranks the computed risk.
+      // Authored bottleneck attribution still outranks the computed score:
+      // a non-empty bottleneckOf bumps the node to band 5.
       if (Array.isArray(target.bottleneckOf) && target.bottleneckOf.length > 0) {
         return 5;
       }
-      const risk = nodeRisk(target, graph);
-      return bandForValue(risk, "bottleneck-risk");
+      // ADR-0010: rank by the four-axis chokepoint composite, banded by its
+      // own quantiles, replacing the old (1 - maturity) × cost nodeRisk.
+      return chokepointBandFor(graph)(target.id);
     }
     case "overall": {
       // Composite per spec: use risk as a simple proxy (low maturity
