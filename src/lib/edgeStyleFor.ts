@@ -172,7 +172,12 @@ function computeCostThresholds(costScopeGraph: GraphData, costSignalGraph: Graph
  *     `graph` argument is required for cost mode; falls back to a
  *     fixed-cap normalisation if fewer than 5 priced nodes exist.
  *   - maturity: maturityScore on 0..100 — REVERSED (high mat = cool, band 1).
- *   - bottleneck-risk: nodeRisk in [0, 1] — direct mapping (high risk = band 5).
+ *   - bottleneck-risk: LEGACY direct [0,1] mapping. ADR-0010 moved the live
+ *     `bottleneck-risk` lens off this helper — the edge stroke/width, sector
+ *     tint, and top-N now band via `chokepointBandFor` (the four-axis
+ *     composite, own-quantile binned), not `nodeRisk`. This case survives
+ *     only for `costConsistency.test.ts`'s standalone nodeRisk band check; no
+ *     production code reaches it.
  *   - overall: composite (1 - maturity/100) on [0, 1] — same direction as risk.
  *
  * Callers MUST pass the raw mode-specific value; this helper applies
@@ -198,6 +203,8 @@ export function bandForValue(
       return quantizeToBand(normalised);
     }
     case "bottleneck-risk": {
+      // LEGACY (ADR-0010): no production caller — the live lens bands via
+      // chokepointBandFor. Kept only for costConsistency.test.ts.
       return quantizeToBand(value);
     }
     case "overall": {

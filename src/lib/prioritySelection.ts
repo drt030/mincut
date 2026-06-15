@@ -3,6 +3,7 @@ import {
   nodeCostDriverRmb,
   type ColorMode,
 } from "@/lib/edgeStyleFor";
+import { chokepointBandFor, chokepointRankSignal } from "@/lib/chokepointScore";
 import { focusedSubset } from "@/lib/focusedSubset";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { nodeRiskSignal } from "@/lib/nodeRisk";
@@ -73,9 +74,17 @@ function scoreFor(
       return { score, band: bandForValue(node.maturityScore, "maturity") };
     }
     case "bottleneck-risk": {
-      const risk = nodeRiskSignal(node, graph);
-      if (risk <= 0) return null;
-      return { score: risk, band: bandForValue(risk, "bottleneck-risk") };
+      // ADR-0010: rank by the four-axis chokepoint composite (via
+      // chokepointRankSignal, which boosts authored `bottleneckOf` nodes
+      // above every computed score), and band by chokepointBandFor — the
+      // SAME band function the edge stroke/width and sector tint use — with
+      // the authored-override forcing band 5, exactly as edgeStyleFor does.
+      const signal = chokepointRankSignal(graph, node);
+      if (signal <= 0) return null;
+      const hasAuthoredBottleneck =
+        Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0;
+      const band = hasAuthoredBottleneck ? 5 : chokepointBandFor(graph)(node.id);
+      return { score: signal, band };
     }
     case "overall": {
       const risk = nodeRiskSignal(node, graph);

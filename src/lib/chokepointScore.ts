@@ -240,3 +240,37 @@ export function chokepointBandFor(graph: GraphData): (nodeId: string) => 1 | 2 |
   bandCache.set(graph, fn);
   return fn;
 }
+
+/**
+ * Ranking signal for the `bottleneck-risk` top-N selection (ADR-0010).
+ * Returns the node's composite chokepoint `score` (in [0,1]) so computed
+ * chokepoints sort in the same order the edge/band path uses — EXCEPT that a
+ * node with a non-empty `bottleneckOf` is boosted strictly above 1, so
+ * authored bottleneck claims always sort first.
+ *
+ * The authored boost MIRRORS `nodeRiskSignal`'s explicit-bottleneck tiering
+ * exactly, shifted above 1: `1 + (explicitBase + maturityPressure)` where
+ * `explicitBase` is 0.9 when the claim targets a `product` (the curated,
+ * decision-grade chokepoints a paying user must see first) and 0.78 when it
+ * targets a non-product (a route/leaf-level claim), and `maturityPressure ∈
+ * [0, 0.09]` rises as maturity falls. Preserving the product-vs-non-product
+ * tier is load-bearing: it keeps product-level authored bottlenecks ranked
+ * above route/leaf ones (commercialPromotionGate's audit-preview gate relies
+ * on the top-3 being the decision-grade product chokepoints). The boost
+ * stays in (1.78, 2) so every computed composite in [0,1] sorts strictly
+ * below every authored claim.
+ */
+export function chokepointRankSignal(graph: GraphData, node: Node): number {
+  const score = chokepointScores(graph).get(node.id)?.score ?? 0;
+  if ((node.bottleneckOf?.length ?? 0) === 0) return score;
+  const targetsProduct = node.bottleneckOf?.some((targetId) => {
+    const target = graph.nodes.find((candidate) => candidate.id === targetId);
+    return target?.kind === "product";
+  });
+  const explicitBase = targetsProduct ? 0.9 : 0.78;
+  const maturityPressure =
+    typeof node.maturityScore === "number"
+      ? Math.max(0, Math.min(0.09, (1 - node.maturityScore / 100) * 0.09))
+      : 0.05;
+  return 1 + explicitBase + maturityPressure;
+}

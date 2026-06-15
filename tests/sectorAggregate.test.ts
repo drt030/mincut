@@ -36,7 +36,7 @@ import {
   type ColorMode,
 } from "../src/lib/edgeStyleFor";
 import { loadGraphData } from "../src/lib/graphLoader";
-import { nodeRisk } from "../src/lib/nodeRisk";
+import { chokepointBandFor } from "../src/lib/chokepointScore";
 import type { GraphData } from "../src/lib/schema";
 
 /**
@@ -196,49 +196,54 @@ test("maturity mode: sectorAggregate value = mean of subtree maturityScores (nod
   );
 });
 
-// -------------------- Test 3: Bottleneck-risk mode → max --------------------
+// -------------------- Test 3: Bottleneck-risk mode → max composite band --------------------
 
 /**
- * Assertion 3 (bottleneck-risk → max): the risk aggregate is the
- * MAX of `nodeRisk(node, graph)` across the subsystem subtree.
+ * Assertion 3 (bottleneck-risk → max composite band): ADR-0010 rewired this
+ * lens. The sector aggregate is the WORST (highest) per-node composite band
+ * across the subsystem subtree, using the SAME band path the edges use —
+ * `chokepointBandFor(graph)(id)`, with an authored `bottleneckOf` forcing
+ * band 5 — so the sector tint reads off one band function with the edge
+ * stroke/width and the top-N selection. Both `value` and `band` carry that
+ * max band (1..5); the old `MAX of nodeRisk` [0,1] value is retired.
  *
- * Fixture choice: `parcel_manipulation_or_diverter` is the
- * highest-risk single node in the live graph (risk 0.480 per the
- * data probe), so any subtree that contains it should aggregate
- * to AT LEAST 0.480. We use `parcel_manipulation_or_diverter` as
- * BOTH the subsystem id and the highest-risk member of its own
- * subtree (the subsystem is always in its own subtree).
+ * Fixture choice: `parcel_manipulation_or_diverter` is a first-layer
+ * subsystem whose subtree contains an authored bottleneck (and top-band
+ * computed chokepoints), so its aggregate bands 5. We use it as BOTH the
+ * subsystem id and a member of its own subtree (a subsystem is always in
+ * its own subtree).
  *
- * The independent computation walks the subtree, applies
- * `nodeRisk` to each member, takes the max. The assertion compares
- * implementation's value to that max within a small tolerance.
+ * The independent computation walks the subtree, applies the same per-node
+ * band rule (authored ⇒ 5, else chokepointBandFor), and takes the max — so a
+ * data/score change updates the oracle rather than a hard-coded constant.
  */
-test("bottleneck-risk mode: sectorAggregate value = max of subtree nodeRisk", () => {
+test("bottleneck-risk mode: sectorAggregate value/band = max of subtree composite band (ADR-0010)", () => {
   const graph = loadGraphData();
   const subsystem = "parcel_manipulation_or_diverter";
   const subtree = descendantsOf(subsystem, graph);
 
+  const bandFor = chokepointBandFor(graph);
   let expected = 0;
   for (const id of subtree) {
     const node = graph.nodes.find((n) => n.id === id);
     if (!node) continue;
-    const r = nodeRisk(node, graph);
-    if (r > expected) expected = r;
+    const hasAuthored = Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0;
+    const b = hasAuthored ? 5 : bandFor(id);
+    if (b > expected) expected = b;
   }
-  assert.ok(expected > 0, `fixture pre-check: subtree of ${subsystem} must contain ≥ 1 node with positive risk`);
+  assert.ok(expected >= 1, `fixture pre-check: subtree of ${subsystem} must yield a 1..5 band; got ${expected}`);
 
   const result = sectorAggregate(subsystem, "bottleneck-risk", graph);
-  assert.ok(
-    Number.isFinite(result.value),
-    `risk aggregate value must be a finite number; got ${result.value}`,
+  assert.equal(
+    result.band,
+    expected,
+    `bottleneck-risk band for ${subsystem}: expected max composite band ${expected}, got ${result.band}`,
   );
-  assert.ok(
-    Math.abs(result.value - expected) <= 0.01,
-    `bottleneck-risk aggregate for ${subsystem}: expected max ≈ ${expected.toFixed(3)}, got ${result.value}`,
-  );
-  assert.ok(
-    result.value >= 0 && result.value <= 1,
-    `risk aggregate must lie in [0, 1]; got ${result.value}`,
+  // value mirrors the max band under the composite (no longer a [0,1] risk).
+  assert.equal(
+    result.value,
+    expected,
+    `bottleneck-risk value should carry the max composite band ${expected}; got ${result.value}`,
   );
   assert.ok(
     [1, 2, 3, 4, 5].includes(result.band),

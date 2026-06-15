@@ -5,6 +5,7 @@ import type { Edge, GraphData, Node } from "../src/lib/schema";
 import {
   barrierValue,
   chokepointBandFor,
+  chokepointRankSignal,
   chokepointScores,
   concentrationValue,
   criticalityRaw,
@@ -224,4 +225,108 @@ test("chokepointBandFor is cached per graph identity (same function instance)", 
     edge("p", "m", "requires"),
   ]);
   assert.equal(chokepointBandFor(g), chokepointBandFor(g));
+});
+
+test("chokepointRankSignal returns the composite score for nodes without an authored bottleneck", () => {
+  // ADR-0010: the ranking signal for selectTopN. With no `bottleneckOf`,
+  // it is exactly the node's composite chokepoint score (in [0,1]), so the
+  // top-N ordering matches the edge/band ordering for computed chokepoints.
+  const g = graph(
+    [
+      node("p1", { kind: "product" }),
+      node("p2", { kind: "product" }),
+      node("real", { kind: "engineering_method", transactability: "must_build", tags: ["hard_to_develop"], maturityScore: 20 }),
+      node("fake", { kind: "engineering_method", transactability: "procurable", maturityScore: 95 }),
+    ],
+    [
+      edge("p1", "real", "requires"), edge("p2", "real", "requires"),
+      edge("p1", "fake", "requires"), edge("p2", "fake", "requires"),
+    ],
+  );
+  const scores = chokepointScores(g);
+  const realNode = g.nodes.find((n) => n.id === "real")!;
+  const fakeNode = g.nodes.find((n) => n.id === "fake")!;
+  assert.equal(chokepointRankSignal(g, realNode), scores.get("real")!.score);
+  assert.equal(chokepointRankSignal(g, fakeNode), scores.get("fake")!.score);
+  // A real chokepoint still outranks a 伪瓶颈 under the ranking signal.
+  assert.ok(chokepointRankSignal(g, realNode) > chokepointRankSignal(g, fakeNode));
+});
+
+test("chokepointRankSignal boosts authored bottlenecks above every computed composite", () => {
+  // Mirrors nodeRiskSignal's explicit-bottleneck boost: a non-empty
+  // `bottleneckOf` sorts first regardless of computed score, while the
+  // boosted value stays within (1, 1.09] so the ordering among multiple
+  // authored bottlenecks reflects their maturity pressure (less mature =
+  // higher), and every computed score in [0,1] sorts strictly below.
+  const g = graph(
+    [
+      node("p", { kind: "product" }),
+      node("authored_low_mat", { kind: "module", bottleneckOf: ["p"], maturityScore: 10 }),
+      node("authored_high_mat", { kind: "module", bottleneckOf: ["p"], maturityScore: 90 }),
+      node("authored_no_mat", { kind: "module", bottleneckOf: ["p"] }),
+      node("computed_max", { kind: "material", maturityScore: 0 }),
+    ],
+    [
+      edge("p", "authored_low_mat", "requires"),
+      edge("p", "authored_high_mat", "requires"),
+      edge("p", "authored_no_mat", "requires"),
+      edge("p", "computed_max", "requires"),
+    ],
+  );
+  const authoredLow = g.nodes.find((n) => n.id === "authored_low_mat")!;
+  const authoredHigh = g.nodes.find((n) => n.id === "authored_high_mat")!;
+  const authoredNoMat = g.nodes.find((n) => n.id === "authored_no_mat")!;
+  const computedMax = g.nodes.find((n) => n.id === "computed_max")!;
+
+  // Every authored bottleneck is boosted strictly above 1 (the [0,1] ceiling
+  // of any computed composite), so authored claims always sort first.
+  for (const authored of [authoredLow, authoredHigh, authoredNoMat]) {
+    assert.ok(
+      chokepointRankSignal(g, authored) > 1,
+      `${authored.id} should be boosted above 1; got ${chokepointRankSignal(g, authored)}`,
+    );
+  }
+  // The computed node's signal equals its composite score and is <= 1.
+  assert.ok(chokepointRankSignal(g, computedMax) <= 1);
+  assert.ok(chokepointRankSignal(g, authoredLow) > chokepointRankSignal(g, computedMax));
+  // Less-mature authored bottleneck carries more maturity pressure, so it
+  // sorts above a more-mature authored bottleneck (within the same target
+  // tier — all three above target the product `p`).
+  assert.ok(
+    chokepointRankSignal(g, authoredLow) > chokepointRankSignal(g, authoredHigh),
+    "less mature authored bottleneck should rank above a more mature one",
+  );
+  // Boost stays bounded (never reaches 2) so it reads as "authored tier",
+  // not an unbounded score.
+  assert.ok(chokepointRankSignal(g, authoredLow) < 2);
+});
+
+test("chokepointRankSignal ranks product-targeting authored bottlenecks above non-product-targeting ones", () => {
+  // Load-bearing tier (mirrors nodeRiskSignal): a `bottleneckOf` that targets
+  // a PRODUCT outranks one that targets a non-product (route/module/leaf),
+  // EVEN when the product-targeting node is MORE mature (lower maturity
+  // pressure). commercialPromotionGate's audit-preview gate depends on this —
+  // the top-N must surface the curated, decision-grade PRODUCT chokepoints,
+  // not under-sourced route/leaf claims that merely happen to be less mature.
+  const g = graph(
+    [
+      node("prod", { kind: "product" }),
+      node("route", { kind: "technical_route" }),
+      // Targets the product, but MORE mature (less maturity pressure).
+      node("targets_product", { kind: "module", bottleneckOf: ["prod"], maturityScore: 30 }),
+      // Targets a non-product route, and LESS mature (more maturity pressure).
+      node("targets_route", { kind: "module", bottleneckOf: ["route"], maturityScore: 5 }),
+    ],
+    [
+      edge("prod", "route", "requires"),
+      edge("prod", "targets_product", "requires"),
+      edge("route", "targets_route", "requires"),
+    ],
+  );
+  const targetsProduct = g.nodes.find((n) => n.id === "targets_product")!;
+  const targetsRoute = g.nodes.find((n) => n.id === "targets_route")!;
+  assert.ok(
+    chokepointRankSignal(g, targetsProduct) > chokepointRankSignal(g, targetsRoute),
+    "a product-targeting authored bottleneck must outrank a non-product one even when more mature",
+  );
 });
