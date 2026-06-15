@@ -171,11 +171,24 @@ test("low-cost real-time vision compute integration exposes deployment subproble
     "vision_inference_runtime_stack",
     "camera_sdk_frame_acquisition_pipeline",
     "vision_latency_budget_and_timestamping",
-    "fanless_compute_thermal_management",
   ]) {
     assert.ok(children.includes(id), `low_cost_realtime_vision_compute_integration must require ${id}`);
     assert.ok(nodeById(graph, id), `${id} node must exist`);
   }
+
+  // Per ADR-0008 product-first layering: the hardware thermal MODULE hangs off the artifact
+  // module (vision_processing_compute), not off this engineering-method know-how node.
+  assert.ok(
+    !children.includes("fanless_compute_thermal_management"),
+    "fanless_compute_thermal_management (module) must not hang off the engineering-method node",
+  );
+  const computeArtifactChildren = graph.edges
+    .filter((edge) => edge.source === "vision_processing_compute" && edge.relation === "requires")
+    .map((edge) => edge.target);
+  assert.ok(
+    computeArtifactChildren.includes("fanless_compute_thermal_management"),
+    "vision_processing_compute (artifact) must require fanless_compute_thermal_management",
+  );
 
   const costEdge = graph.edges.find(
     (edge) => edge.source === "low_cost_realtime_vision_compute_integration" && edge.relation === "measured_by",
@@ -200,12 +213,26 @@ test("parcel induction and spacing control exposes throughput-limiting subproble
   for (const id of [
     "parcel_singulation_and_metering",
     "dynamic_gap_control_logic",
-    "induction_sensor_array",
-    "variable_speed_induction_drive",
     "induction_exception_recovery",
   ]) {
     assert.ok(children.includes(id), `parcel_induction_spacing_control must require ${id}`);
     assert.ok(nodeById(graph, id), `${id} node must exist`);
+  }
+
+  // Per ADR-0008 product-first layering: the sensor and drive MODULES hang off the artifact
+  // module (conveyor_integration), not off this engineering-method know-how node.
+  const conveyorArtifactChildren = graph.edges
+    .filter((edge) => edge.source === "conveyor_integration" && edge.relation === "requires")
+    .map((edge) => edge.target);
+  for (const id of ["induction_sensor_array", "variable_speed_induction_drive"]) {
+    assert.ok(
+      conveyorArtifactChildren.includes(id),
+      `conveyor_integration (artifact) must require ${id} under product-first layering`,
+    );
+    assert.ok(
+      !children.includes(id),
+      `${id} (module) must not hang off the engineering-method node`,
+    );
   }
 
   const costEdge = graph.edges.find(

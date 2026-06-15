@@ -1548,7 +1548,7 @@
   },
   {
     "id": "e_low_cost_vision_compute_requires_thermal_management",
-    "source": "low_cost_realtime_vision_compute_integration",
+    "source": "vision_processing_compute",
     "target": "fanless_compute_thermal_management",
     "relation": "requires",
     "claim": "Low-cost real-time vision compute integration requires thermal management so the edge-AI computer does not throttle or fail in a sorting-cell environment.",
@@ -4285,7 +4285,7 @@
   },
   {
     "id": "e_induction_spacing_requires_sensor_array",
-    "source": "parcel_induction_spacing_control",
+    "source": "conveyor_integration",
     "target": "induction_sensor_array",
     "relation": "requires",
     "confidence": "medium",
@@ -4299,7 +4299,7 @@
   },
   {
     "id": "e_induction_spacing_requires_variable_speed_drive",
-    "source": "parcel_induction_spacing_control",
+    "source": "conveyor_integration",
     "target": "variable_speed_induction_drive",
     "relation": "requires",
     "confidence": "medium",

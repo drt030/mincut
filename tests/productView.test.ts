@@ -85,7 +85,7 @@ test("ProductView surfaces a reader-facing chokepoint readout for the active pro
     `ProductView reader-facing readout should not need an internal Heat tooltip; got: ${html}`,
   );
   assert.match(html, /Cost gap/);
-  assert.match(html, /169,079 RMB/);
+  assert.match(html, /173,384 RMB/);
   assert.match(html, /Throughput constraints/);
   assert.match(html, /p50 is at or above target/);
   assert.match(html, /not a quantified shortfall attribution/);

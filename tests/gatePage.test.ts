@@ -16,7 +16,7 @@ test("/gate latest report is computed from the current graph, not a stale saved 
   const latestSection = html.slice(latestStart, historicalStart);
   assert.match(
     latestSection,
-    /Rolled-up cost \(RMB\): p50=469\.1k/,
+    /Rolled-up cost \(RMB\): p50=473\.4k/,
     "latest gate report should use the same current p50 cost rollup as the product page",
   );
   assert.match(latestSection, /Coverage gap: 0 node\(s\)/);
