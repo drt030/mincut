@@ -578,7 +578,18 @@ function isUsefulAlias(value: string): boolean {
 
 function isDistinctiveRootTerm(value: string): boolean {
   if (value.length < 3) return false;
-  if (/^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo)$/i.test(value)) return false;
+  // Common English words that are also company prefixes (e.g. "General" in
+  // "General Fusion") must NOT become standalone redaction terms, or they
+  // corrupt unrelated free-domain prose (e.g. "general servo market share" ->
+  // "locked supplier servo market share"). The full multi-word name still
+  // redacts via lockedOrganizationNamePattern; only the bare common root is excluded.
+  if (
+    /^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo|General|Global|National|Standard|United|American|Universal|Pacific|Central|Modern|Future|Open|Core|Prime)$/i.test(
+      value,
+    )
+  ) {
+    return false;
+  }
   return true;
 }
 
