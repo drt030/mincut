@@ -693,10 +693,9 @@
       "titanium",
       "upstream_tier"
     ],
-    "notes": "Tokyo Stock Exchange: 5727 (verified this round). One of only two Japanese sponge producers. NOTE: JX Advanced Metals (org_jx_advanced_metals, already in graph) announced (Feb 2026) taking Toho Titanium private via share exchange — listing status may change pending completion. Upstream sponge tier; not a confirmed SpaceX supplier.",
+    "notes": "Tokyo Stock Exchange: 5727 (verified this round). One of only two Japanese sponge producers. NOTE: JX Advanced Metals (org_jx_advanced_metals, already in graph) announced (Feb 2026) taking Toho Titanium private via share exchange — listing status may change pending completion. Upstream sponge tier; not a confirmed SpaceX supplier. Delisted from TSE Prime 2026-05-28; wholly-owned subsidiary of JX Advanced Metals (org_jx_advanced_metals) effective 2026-06-01.",
     "reviewStatus": "unreviewed",
-    "listingStatus": "public",
-    "ticker": "5727.T"
+    "listingStatus": "subsidiary"
   },
   {
     "id": "org_osaka_titanium",
@@ -1171,7 +1170,7 @@
       "spacex_reusable_launch",
       "investable_supplier"
     ],
-    "description": "U.S. ordnance/energetics maker and the established supplier of safe-and-arm / arm-fire devices, initiators, and flight-termination ordnance for space launch vehicles, with hardware flown across most U.S. launch programs. A subsidiary of Fortive Corporation (NYSE: FTV).",
+    "description": "U.S. ordnance/energetics maker and the established supplier of safe-and-arm / arm-fire devices, initiators, and flight-termination ordnance for space launch vehicles, with hardware flown across most U.S. launch programs. A subsidiary of Ralliant Corporation (NYSE: RAL).",
     "maturityLabel": "unknown",
     "confidence": "medium",
     "evidenceIds": [
@@ -1183,10 +1182,10 @@
       "manufacturer",
       "subsidiary"
     ],
-    "notes": "Subsidiary of Fortive (confirmed via SEC EDGAR Fortive 10-K subsidiaries list); parent ticker FTV (NYSE). Concentrated FTS/ordnance corner.",
+    "notes": "Subsidiary of Ralliant (confirmed via SEC EDGAR Ralliant 10-K subsidiaries list); parent ticker RAL (NYSE). Concentrated FTS/ordnance corner.",
     "reviewStatus": "unreviewed",
     "listingStatus": "subsidiary",
-    "ticker": "FTV"
+    "ticker": "RAL"
   },
   {
     "id": "org_mercury_systems",

@@ -18,7 +18,14 @@
     ],
     "limitations": "Vendor (Moog) marketing page; good for what Moog makes (TVC actuators, named programs Castor 30/Centaur/Ares/Antares), weak for market share. Confirms merchant TVC actuator tier on non-SpaceX programs.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "moog.com launch-vehicle/booster/missile actuation page. Stored excerpt 'In-house manufacturing of core building blocks - actuators, controllers, servodrives, and servomotors.' + 'Actuators can be combined with controllers for a thrust vector control (TVC) system solution.' both p"
+    }
   },
   {
     "id": "ev_space_moog_vulcan_first_flight",
@@ -38,7 +45,14 @@
     ],
     "limitations": "Moog press release (vendor). Establishes Moog as the TVC-actuator maker for ULA Vulcan first-stage engines (merchant tier), explicitly NOT SpaceX.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "moog.com 2024 press release. Excerpt 'Moog designed and manufactured new hydraulic actuators for the thrust vector control system first stage main engines.' present verbatim. Vulcan inaugural launch date confirmed on page as January 8, 2024 (record's '~Jan 2024 inaugural' correct"
+    }
   },
   {
     "id": "ev_space_moog_propellant_valves",
@@ -59,7 +73,14 @@
     ],
     "limitations": "Vendor marketing page; good for valve product types (ball/poppet/pilot, cryogenic), weak for share. Industry-altitude, not SpaceX-specific.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "moog.com space-propulsion launch-vehicles page. Excerpt 'Propellant and pressurant control valves are highly responsive and compatible with cryogenic or storable gas and fluid propellants. Moog's engine control valve solutions include ball, poppet, and pilot operated designs.' pr"
+    }
   },
   {
     "id": "ev_space_woodward_launch_vehicle_controls",
@@ -82,7 +103,14 @@
     ],
     "limitations": "Vendor marketing page. Good for product scope (TVC actuation, control/servo valves, main engine controls); weak for share/customers. 'return to land safely' references reusable-launch relevance. Industry altitude, not SpaceX-specific.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "woodward.com Space & Defense page. Full excerpt 'We leverage decades of hydraulic and electromechanical actuation to enable secure and reliable launch vehicles to escape Earth's gravity and return to land safely. We specialize in main engine controls, flight control actuation, th"
+    }
   },
   {
     "id": "ev_space_parker_aerospace_launch_propulsion",
@@ -124,7 +152,14 @@
     ],
     "limitations": "Wikipedia is a grey/pointer source per whitelist — used here only to evidence the captive (in-house, electric) nature of SpaceX engine TVC, a structural/qualitative fact, not a market number. Corroborated by Musk public statements; upgrade to primary in later round if needed.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "en.wikipedia.org SpaceX Super Heavy. Excerpt 'The inner thirteen engines are equipped with gimbal actuators and reignite for the boostback and landing burns. The outer 20 engines, arranged in a ring, are fixed in place. ... After Starship's first flight test, this gimbaling syste"
+    }
   },
   {
     "id": "ev_space_velo3d_spacex_licensing",
@@ -145,7 +180,14 @@
     ],
     "limitations": "First-tier AM trade press. Confirms SpaceX<->Velo3D licensing + prior printer-supply contracts and Raptor AM use; dollar figures attributed to the deal. Primary Velo3D 8-K/IR exists for upgrade. This is the only CONFIRMED SpaceX-specific merchant supplier in the lane.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "3dprintingindustry.com. Verbatim: 'Space Exploration Technologies Corp (SpaceX) will pay five million dollars for Velo3D additive manufacturing technologies'; '$3M for the provision of certain related engineering and other support services'; 'builds on previous contracts to suppl"
+    }
   },
   {
     "id": "ev_space_velo3d_nasdaq_relisting",
@@ -161,7 +203,14 @@
     ],
     "limitations": "Listed as a ticker/listing-status support (no claim-specific excerpt captured this round). Velo3D has a financial-distress history; owner should confirm listing currency at gate. sourceStatus fetch_ok by class (SEC EDGAR).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): "
+    },
+    "excerpt": "Our common stock is listed on the Nasdaq Capital Market under the symbol \"VELO.\" On January 12, 2026, the closing price for our common stock was $22.09 per share."
   },
   {
     "id": "ev_space_eos_space_rocket_engine_am",
@@ -182,7 +231,14 @@
     ],
     "limitations": "Vendor (EOS) page. Good for what EOS machines print (rocket-engine injectors, copper combustion chambers) and named users (ArianeGroup); not a SpaceX-specific supply. EOS is private — no ticker.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "eos.info/industries/space. Excerpt 'The combustion chamber, 3D printed from a copper alloy on AMCM's M4K machines, is the largest single-piece combustion chamber for liquid rocket engines in the world.' + injector head 'all-in-one Design (AiO) ... with 122 injection elements' bot"
+    }
   },
   {
     "id": "ev_space_nikon_slm_reusable_rocket_engine",
@@ -203,15 +259,22 @@
     ],
     "limitations": "Vendor (Nikon SLM) success story for a university reusable-engine program; demonstrates the machine's reusable-rocket-engine capability (IN718 thrust chamber, regen cooling), not a SpaceX-specific supply. Larger FFSC injector-head work (LEAP 71, 2 MN) corroborates in trade press.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "nikon-slm-solutions.com success story. Excerpt 'Integrate cooling channels directly into the thrust chamber wall using Inconel 718.' + 'Achieved 7.2kN during a hot-fire campaign.' present verbatim. SLM-500 confirmed; reusable engine by Karman Space Programme (university-tier), re"
+    }
   },
   {
     "id": "ev_space_nikon_slm_acquisition",
     "type": "news",
     "title": "Nikon completes takeover of SLM Solutions (wholly-owned subsidiary)",
-    "url": "https://www.metal-am.com/nikon-completes-its-takeover-of-slm-solutions/",
+    "url": "https://3dprint.com/303541/nikon-slm-solutions-debuts-with-gkn-aerospace-deal-and-corporate-rebranding/",
     "sourceStatus": "fetch_ok",
-    "sourceName": "Metal AM magazine",
+    "sourceName": "3DPrint.com",
     "date": "2023",
     "summary": "Nikon Corporation (Tokyo: 7731) completed its acquisition of SLM Solutions in Jan 2023, making it a wholly-owned subsidiary (now Nikon SLM Solutions); SLM was subsequently delisted — public exposure is via parent Nikon 7731.T.",
     "supportsNodeIds": [
@@ -219,7 +282,14 @@
     ],
     "limitations": "Trade-press confirmation of ownership/listing (subsidiary of Nikon 7731.T). Supports listingStatus subsidiary + parent ticker; no claim-specific excerpt captured (ownership fact). Parent ticker 7731.T cross-checked via Nikon investor materials.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): "
+    },
+    "excerpt": "now a wholly-owned subsidiary of Nikon (TYO: 7731)"
   },
   {
     "id": "ev_space_carpenter_additive_aero_powders",
@@ -240,7 +310,14 @@
     ],
     "limitations": "Vendor page. Good for alloy families and corporate parent (Carpenter Technology, NYSE: CRS); page emphasizes airframe/turbine parts, not explicitly rocket combustion chambers. Industry-altitude AM-powder supplier, not a confirmed SpaceX feedstock vendor.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "carpenteradditive.com aerospace-defense page. Stored excerpt fragments are verbatim substrings: page reads 'high-quality iron, nickel, cobalt, and titanium-based aerospace alloys' and footer 'Carpenter Additive is a business unit of Carpenter Technology Corporation'. No share num"
+    }
   },
   {
     "id": "ev_space_ati_aero_powder_superalloy",
@@ -261,7 +338,14 @@
     ],
     "limitations": "Vendor page. Good for Ti + superalloy powder/mill-product scope for aerospace engines/AM; 'jet engine' framing, not rocket-specific. Industry-altitude, not a confirmed SpaceX vendor.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "atimaterials.com aerospace products page. Excerpt 'ATI supplies powder and powder metal near-net shape products to the aerospace industry. Our powders include titanium, titanium aluminides, and nickel- & cobalt-based alloys and superalloys.' present verbatim. 'Jet engine' framing"
+    }
   },
   {
     "id": "ev_space_rbc_fibriloidcr_launch_bearings",
@@ -282,7 +366,14 @@
     ],
     "limitations": "Vendor (RBC Transport Dynamics) page. Strong for a named flight-proven launch-vehicle bearing product (FibriloidCR, cryogenic); 'flight proven' is a vendor claim. Not a SpaceX-specific supply assertion.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "rbcbearings.com Transport Dynamics page. Excerpt fragments all present verbatim: 'The FibriloidCR™ series has been tested and flight proven...', '...best suited for high load, pivoting or angular misalignment operation at low oscillation in Space Launch Vehicle and Satellite appl"
+    }
   },
   {
     "id": "ev_space_eaton_space_propulsion_tanks",
@@ -323,7 +414,14 @@
     ],
     "limitations": "Vendor page; confirms Al-Li product for launch-vehicle structures and references 'Aluminum-Lithium on New Glenn' but does not prove a SpaceX/Falcon 9 BOM selection.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Constellium space-market page (vendor_claim, whitelist-grey vendor marketing — valid for product-offered role), fetched 200. Stored excerpt verbatim incl. the slightly awkward original comma placement: 'We offer high-performance aluminum such, as aluminum-lithium alloys, in plate"
+    }
   },
   {
     "id": "ev_space_constellium_blue_origin_new_glenn",
@@ -344,7 +442,14 @@
     ],
     "limitations": "Confirms Constellium Al-Li supply to a reusable-launch program (Blue Origin New Glenn), not to SpaceX specifically.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Constellium press release (company news, whitelist), fetched 200. Stored excerpt verbatim: 'Under this agreement, Constellium is to supply Airware® aluminium plates and sheets for Blue Origin's massive orbital rocket, New Glenn.' User-flagged New Glenn Al-Li supply link CONFIRMED"
+    }
   },
   {
     "id": "ev_space_constellium_alli_product",
@@ -362,7 +467,14 @@
     ],
     "limitations": "Vendor product page; establishes proprietary Al-Li capability, weak for market-share quantification.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Constellium Airware product page (vendor_claim), fetched 200. Stored excerpt verbatim: 'Airware®, Constellium's proprietary aluminum-lithium solution, delivers a breakthrough in material performance' (page continues '—offering significantly lower density, higher stiffness...'). T"
+    }
   },
   {
     "id": "ev_space_kaiser_aero_hs",
@@ -383,7 +495,14 @@
     ],
     "limitations": "Confirms Kaiser as a leading aero/high-strength aluminum producer; does not establish Al-Li launch-tank supply or a SpaceX relationship.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "Kaiser Aluminum FY2024 press release on GlobeNewswire (whitelist company release), fetched 200. Substance EXACT but one typographic difference: page reads 'a leading producer of semi-fabricated specialty aluminum products, serving customers worldwide with highly-engineered soluti"
+    }
   },
   {
     "id": "ev_space_kaiser_trentwood_25pct",
@@ -400,7 +519,14 @@
     ],
     "limitations": "Trade press; capacity-expansion figure for aero/GE heat-treat plate, not specific to launch applications.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Light Metal Age trade press, fetched 200. Stored excerpt 'increase in heat treat plate production capacity by approximately 25%' verbatim on page. Node-note $375M figure ALSO confirmed verbatim ('The $375 million multi-year expansion and operational security investment project at"
+    }
   },
   {
     "id": "ev_space_arconic_apollo_private",
@@ -420,7 +546,14 @@
     ],
     "limitations": "Establishes Arconic is now private (no public ticker) and is an aerospace aluminum producer; does not establish a SpaceX relationship.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "METHOD NOTE: WQAD/AP page (stored url) bot-blocks both WebFetch (timeout x3) and curl (HTTP 403, 543-byte block page — not a JS shell). Resolved via the ARCONIC PRIMARY 8-K exhibit on SEC EDGAR (sec.gov/Archives/edgar/data/1790982/000115752323000718/a53393351ex99_1.htm; curl HTTP"
+    }
   },
   {
     "id": "ev_space_vsmpo_boeing_largest",
@@ -441,7 +574,14 @@
     ],
     "limitations": "Establishes VSMPO-AVISMA dominance in aerospace titanium (Boeing context, pre-2022). Not a SpaceX supply claim; recorded as the export-control concentration of the mill-Ti tier.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Boeing mediaroom press release (whitelist company release), fetched 200. Stored excerpt verbatim: 'VSMPO-AVISMA is the largest titanium supplier for Boeing commercial production.' User-flagged claim CONFIRMED. Qualitative dominance claim (no number); basis = Boeing commercial pro"
+    }
   },
   {
     "id": "ev_space_ati_richland_35pct",
@@ -462,7 +602,14 @@
     ],
     "limitations": "Capacity-expansion figure for ATI aerospace/defense titanium; not specific to launch or SpaceX.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "ATI Inc. IR release (whitelist company IR), fetched 200. Stored excerpt verbatim: 'The expansion will increase ATI's production of aerospace and defense-grade titanium by approximately 35% over the 2022 baseline levels' (page continues ', helping to meet strong titanium demand')."
+    }
   },
   {
     "id": "ev_space_ati_tight_supply",
@@ -483,7 +630,14 @@
     ],
     "limitations": "Qualitative tightness statement covering nickel and titanium; not a quantified share or a SpaceX-specific claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "ATI Inc. IR release (whitelist company IR), fetched 200. Stored excerpt verbatim: 'During this time of tight supply for critical materials, ATI is partnering with customers to assure secured supply,'. Qualitative tightness statement covering nickel+titanium (not a quantified shar"
+    }
   },
   {
     "id": "ev_space_timet_na_sponge",
@@ -506,7 +660,14 @@
     ],
     "limitations": "Grey source (Wikipedia) used only as pointer for TIMET-PCC ownership; the 'largest NA sponge producer/melter' framing is corroborated by the PCC about page (ev_space_pcc_berkshire_complex). Not a SpaceX claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Wikipedia (grey, pointer-only), fetched 200. Stored excerpt verbatim: 'now operates under the PCC Metals Group Division' (full page sentence: 'In November 2012, the company was purchased for $2.9 billion by Precision Castparts Corp.(PCC) and now operates under the PCC Metals Grou"
+    }
   },
   {
     "id": "ev_space_us_sponge_section232",
@@ -527,7 +688,14 @@
     ],
     "limitations": "Summary of a government report (not the primary doc); establishes U.S. sponge near-monopoly/import-reliance, not a SpaceX claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Thompson Hine SmarTrade summary of U.S. Commerce Section 232 titanium-sponge report, fetched 200. Stored excerpt 'only one producer by 2019 capable of producing the product for defense, commercial and industrial applications' verbatim on page. The 68% import-reliance figure ALSO "
+    }
   },
   {
     "id": "ev_space_osaka_second_largest",
@@ -548,18 +716,25 @@
     ],
     "limitations": "Grey source (Wikipedia) used as pointer for rank and listing code; not a SpaceX claim. Rank should be corroborated against a primary source before flip.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Wikipedia (grey, pointer-only per §4), fetched 200. Stored excerpt verbatim on the Osaka Titanium Technologies page: 'It is the world's second largest producer of titanium sponge after VSMPO-Avisma.' TYO: 5726 also confirmed on page (supports ticker audit). Limitations field corr"
+    }
   },
   {
     "id": "ev_space_japan_two_sponge_producers",
-    "type": "historical_source",
+    "type": "paper",
     "title": "Japan's two titanium-sponge producers (Osaka, Toho)",
-    "url": "https://en.wikipedia.org/wiki/Osaka_Titanium_Technologies",
+    "url": "https://pubs.usgs.gov/myb/vol1/2021/myb1-2021-titanium.pdf",
     "sourceStatus": "fetch_ok",
-    "sourceName": "Wikipedia (pointer)",
-    "date": "accessed 2026-06-15",
+    "sourceName": "USGS Minerals Yearbook — Titanium (2021), U.S. Geological Survey",
+    "date": "2021",
     "summary": "Reference establishing that there are two titanium-sponge producers in Japan — Osaka Titanium Technologies and Toho Titanium — the principal Western-accessible merchant sponge sources.",
-    "excerpt": "There are two titanium sponge producers in Japan: Osaka Titanium Technologies Co., Ltd., and Toho Titanium Co., Ltd.",
+    "excerpt": "Japan.—Titanium sponge producers in Japan included Toho Titanium Co., Ltd. (25,000 t/yr) and OSAKA Titanium Technologies Co., Ltd. (40,000 t/yr).",
     "supportsNodeIds": [
       "org_toho_titanium",
       "titanium_sponge_feedstock"
@@ -569,7 +744,13 @@
     ],
     "limitations": "Grey source (Wikipedia) used as pointer for the Japan two-producer structure; not a SpaceX claim. Toho's standalone listing may change pending the announced JX Advanced Metals take-private.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): QUOTE ABSENT at cited URL. The stored excerpt ('There are two titanium sponge producers in Japan: Osaka Titanium Technologies Co., Ltd., and Toho Titanium Co., Ltd.') does NOT appear on the cited Osaka Titanium Technologies Wikipedia page (fetched 200; "
+    }
   },
   {
     "id": "ev_space_falcon9_grid_fin_titanium_cast",
@@ -590,7 +771,14 @@
     ],
     "limitations": "Establishes the single-piece Ti casting (SpaceX-captive process); does not name a merchant supplier of the grid-fin casting (none invented).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Spaceflight Now (whitelist space-trade reporting), fetched 200. Stored excerpt verbatim: 'He added that the grid fins are cast in a single piece of titanium and cut to form their shape.' Establishes the SpaceX-captive single-piece Ti casting (attributed to Musk); no merchant supp"
+    }
   },
   {
     "id": "ev_space_castings_chokepoint_duopoly",
@@ -615,7 +803,14 @@
     ],
     "limitations": "Names Arconic and PCC as the dominant two; Howmet (Engine Products/Engineered Products) is the engine-casting successor lineage to Arconic's casting business. Sector-size figure is for aerospace castings broadly, not launch-specific.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Aviation Week (whitelist tier-1 supply-chain reporting), fetched 200. Stored excerpt verbatim: 'The aerospace castings sector, a roughly $10 billion industry, is dominated by two leading providers: Arconic and Precision Castparts (PCC).' User-flagged 'dominated by two leading pro"
+    }
   },
   {
     "id": "ev_space_howmet_90pct_engine",
@@ -638,7 +833,14 @@
     ],
     "limitations": "Vendor claim about engine-component breadth; not a market-share figure and not a SpaceX-specific claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Howmet Aerospace aerospace page (vendor_claim), fetched 200. Stored excerpt verbatim: 'We can produce more than 90 percent of all structural and rotating aero engine components'. This is a vendor breadth-of-capability claim ('can produce >90% of component TYPES'), NOT a 90% marke"
+    }
   },
   {
     "id": "ev_space_howmet_number_one_fasteners",
@@ -655,7 +857,14 @@
     ],
     "limitations": "Vendor claim of #1 position in fasteners (a related structural-metals class); not quantified share and not launch-specific.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Howmet Aerospace about page (vendor_claim), fetched 200. Stored excerpt verbatim: 'We hold the number one global position in aerospace fastening systems'. Qualitative #1-position claim (no quantified share), correctly labelled; a related structural-metals component class, not lau"
+    }
   },
   {
     "id": "ev_space_pcc_berkshire_complex",
@@ -678,7 +887,14 @@
     ],
     "limitations": "Vendor about page; establishes PCC's aerospace component manufacturing and Berkshire/TIMET ownership. Not a SpaceX-specific claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Precision Castparts about page (vendor_claim), fetched 200. Stored excerpt verbatim: 'Precision Castparts Corp. is a worldwide, diversified manufacturer of complex metal components and products.' Page ALSO corroborates two cross-referenced facts: Berkshire acquisition ('Berkshire"
+    }
   },
   {
     "id": "ev_space_outokumpu_spacex_starship",
@@ -699,7 +915,14 @@
     ],
     "limitations": "Quality secondary source (not primary/IR); confirms the supply relationship but not grade, volume, or exclusivity. 304L is a near-commodity grade with many qualified mills — illustrative merchant exposure, not sole-source.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "TeslaNorth (secondary trade-blog), fetched 200. Stored excerpt verbatim: 'It's worth noting that Outokumpu also supplies SpaceX with stainless steel for Starship.' Quality SECONDARY source (not primary/IR), confirms the supply relationship but not grade/volume/exclusivity — limit"
+    }
   },
   {
     "id": "ev_space_starship_304l_commodity_captive_30x",
@@ -716,7 +939,14 @@
     ],
     "limitations": "Secondary blog quoting Musk; supports the near-commodity character of 304-series stainless and SpaceX's stated move to internally developed (captive) alloys (30X). Not used for any quantified market claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Tesmanian (secondary blog quoting Musk), fetched 200. Stored excerpt verbatim: '304 stainless is what they make pots out of. There's plenty of it.' Page also confirms the captive-alloy direction ('Will move to internally developed alloys probably end of year'). Supports the 304-n"
+    }
   },
   {
     "id": "ev_space_bssa_starship_30x",
@@ -733,7 +963,14 @@
     ],
     "limitations": "Industry-association article; supports the proprietary 30X (captive) direction. Not used for a quantified market claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "British Stainless Steel Association (industry association), fetched 200. Stored excerpt verbatim: 'SpaceX started with stainless steel 301 but moved to 304 and ultimately developed its proprietary alloy, 30X, which surpassed the performance of both 301 and 304.' Supports the prop"
+    }
   },
   {
     "id": "ev_space_bae_radhard_processors",
@@ -753,7 +990,14 @@
       "e_space_bae_radhard_proc"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Breaking Defense 2023-04-27; verbatim 'RAD750... go to solution... last 20 years'; speaker Steve 'Doogie' Russell, leads Space Systems for BAE Electronic Systems. RAD5545 'most advanced... in existence today' also confirmed. WebFetch 200."
+    }
   },
   {
     "id": "ev_space_bae_radhard_nodes",
@@ -769,7 +1013,14 @@
       "org_bae_systems"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Same Breaking Defense article; verbatim 'RAD750 based on 150-nanometer node... RAD5545 based on the newer and more advanced 45-nanometer node'. WebFetch 200."
+    }
   },
   {
     "id": "ev_space_frontgrade_radhard_leader",
@@ -790,7 +1041,14 @@
     ],
     "limitations": "Vendor self-claim of market leadership; no independent share figure. Frontgrade is private (Veritas Capital).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "frontgrade.com/about WebFetch 200; verbatim 'largest provider of analog and radiation-hardened electronics'. Rad-hard FPGAs/memory(MRAM,NAND,NOR,SRAM)/microprocessors(LEON SPARC,RISC-V,Arm) listed. VENDOR SELF-CLAIM, no independent share number on page; correctly held as qualitat"
+    }
   },
   {
     "id": "ev_space_microchip_rtg4_radtol_fpga",
@@ -811,7 +1069,14 @@
     ],
     "limitations": "Vendor product page; 'one of two dominant space-FPGA suppliers' framing is from secondary trade coverage, not a quantified share.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Direct WebFetch + curl both Akamai HTTP 403 (JS/bot shell). Exact excerpt 'resistant to radiation-induced configuration upsets in the harshest radiation environments... LEO/MEO/GEO/HEO and deep-space flight applications' confirmed verbatim on the official microchip.com RTG4 page "
+    }
   },
   {
     "id": "ev_space_amd_versal_radtol_classb",
@@ -831,7 +1096,14 @@
       "e_space_amd_radhard_fpga"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "AMD IR PR; headline + sentence verbatim. Part XQRVC1902, full radiation tolerance, in-flight reprogrammable, ships early 2023. CAUTION: actual PR date is 2022-11-15; record stores date '2023' (that is the ship year, not the announcement date) — minor date-field drift, not a quote"
+    }
   },
   {
     "id": "ev_space_skywater_radhard_dod",
@@ -851,7 +1123,14 @@
       "e_space_skywater_radhard_foundry"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "SkyWater PR 2022-09-27; verbatim '$99M continuation... strategic rad-hard'. Prior up-to-$170M referenced; RH90/90nm confirmed (qual expected end-2024); DMEA-accredited Trusted supplier. WebFetch 200. From .eval dev set."
+    }
   },
   {
     "id": "ev_space_spacex_cots_radtol_avionics",
@@ -871,7 +1150,14 @@
     ],
     "limitations": "Secondary/blog analysis, not a SpaceX primary doc; treat as a pointer. The 'three-string fault-tolerant architecture' it quotes is from the Falcon Users Guide already in the graph.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Medium/JIN System Architect (Edward Low) WebFetch 200, dated 2026-03-26; verbatim COTS-silicon sentence present. Three-string fault-tolerant human-rated architecture described (corroborates Falcon Users Guide). SECONDARY/GREY blog, confidence low, correctly labelled as pointer — "
+    }
   },
   {
     "id": "ev_space_honeywell_mimu_rlg",
@@ -892,7 +1178,14 @@
     ],
     "limitations": "Heritage counts ('250th MIMU', >1M on-orbit hours) appear in secondary summaries of an older Honeywell press release that no longer resolves; not asserted here without a live primary source.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "aerospaceonline.com Honeywell MIMU listing WebFetch 200; verbatim 'Within the MIMU is a series of RLGs...'. Manufacturer = 'Honeywell, Space Systems Product Div.'; 'commercial and military satellite and launch vehicle programs' confirmed. NO heritage numbers on page (consistent w"
+    }
   },
   {
     "id": "ev_space_northrop_siru_hrg_heritage",
@@ -912,7 +1205,14 @@
       "e_space_northrop_imu_hrg"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Military & Aerospace Electronics 2019-08-06; verbatim '50 million operating hours... without a single mission failure'. 'Aboard more than 200 spacecraft', quartz-construction rad-hardened, SSIRU confirmed. WebFetch 200."
+    }
   },
   {
     "id": "ev_space_sodern_world_leader_star_tracker",
@@ -933,7 +1233,14 @@
     ],
     "limitations": "Vendor self-claim; quantitative '1,500 units / 30M hours' figure seen only in an aggregator summary, not asserted here.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "sodern.com WebFetch 200; verbatim 'world leader in star trackers... most extensive range'. Hydra + Auriga confirmed. VENDOR SELF-CLAIM; no units/share figure on page (prior '1,500 units' aggregator figure correctly NOT asserted). Qualitative claim only."
+    }
   },
   {
     "id": "ev_space_jena_optronik_astro_aps",
@@ -954,7 +1261,14 @@
     ],
     "limitations": "Vendor self-claim of leadership; no independent share figure.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "jena-optronik.de WebFetch 200 (page dated 2024-03-22); verbatim 'world's most successful and extensively used high-reliability satellite attitude orbit control sensor'. ASTRO CL for small-sat/megaconstellation confirmed. VENDOR SELF-CLAIM; no independent share number. Qualitative"
+    }
   },
   {
     "id": "ev_space_ball_bae_ct2020_star_tracker",
@@ -974,7 +1288,14 @@
       "e_space_bae_star_tracker"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "satnow.com direct fetch HTTP 403; exact excerpt 'The CT-2020 from BAE Systems is a Radiation-Hardened Star Tracker engineered for precise and reliable spacecraft attitude determination across a wide range of space missions' confirmed verbatim via WebSearch (satnow page + Space Fo"
+    }
   },
   {
     "id": "ev_space_glenair_launch_interconnect",
@@ -994,7 +1315,14 @@
       "e_space_glenair_connector"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "glenair.com space page WebFetch 200; verbatim full 'launch vehicle avionics interconnect system...' sentence present. 'Proven flight heritage across government, commercial, and defense space programs' confirmed. Vendor capability page, qualitative."
+    }
   },
   {
     "id": "ev_space_glenair_mighty_mouse_defacto",
@@ -1015,7 +1343,14 @@
     ],
     "limitations": "Vendor self-claim of de-facto status; qualitative, not a quantified share.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "glenair.com/mighty-mouse WebFetch 200; verbatim 'specified on hundreds of mission-critical... de facto high-performance connector solution for many former users of D38999'. 'half the size and weight of D38999' confirmed. Qualitative vendor self-claim of de-facto status."
+    }
   },
   {
     "id": "ev_space_te_deutsch_space_connectors",
@@ -1036,7 +1371,14 @@
     ],
     "limitations": "Content captured via WebSearch result extraction of the TE page; vendor marketing.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "te.com direct fetch socket-reset/bot-walled (per prior log); exact excerpt 'DEUTSCH DBAS series connectors deliver integrated, high-performance solutions for aerospace, military, and space applications... high-temperature, cryogenic, and pyrotechnic environments' confirmed verbat"
+    }
   },
   {
     "id": "ev_space_amphenol_spacevpx_connectors",
@@ -1057,7 +1399,14 @@
     ],
     "limitations": "Amphenol Aerospace pages returned HTTP 403 to direct fetch; excerpt verified only via WebSearch result snippet — sourceStatus paywalled_snippet per ADR-0009.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Amphenol Aerospace HTTP 403 to direct fetch (Akamai). Exact excerpt 'VITA 78 SpaceVPX connectors leverage OpenVPX architecture and technology and are designed and tested for extreme space environments, including exposure to radiation, extreme temperatures and vibration' confirmed"
+    }
   },
   {
     "id": "ev_space_pacsci_fts_launch",
@@ -1078,7 +1427,14 @@
     ],
     "limitations": "Vendor self-claim of reliability leadership; the broader 'leading supplier of Safe and Arm / flown on almost all U.S. launch vehicles' framing came from a WebSearch summary of psemc.com/LinkedIn pages, not this directly-fetched page. Fortive ownership confirmed via SEC EDGAR.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "psemc.com/space/launch-vehicles WebFetch 200; verbatim 'most reliable and trustworthy system developed' + \"100's of consecutive successful launches\" on page. CONFIRMED: broader 'leading supplier of Safe and Arm / flown on almost all U.S. LV' is NOT on this page (limitations note "
+    }
   },
   {
     "id": "ev_space_moog_launch_space_controls",
@@ -1099,7 +1455,13 @@
     ],
     "limitations": "Grey source (Wikipedia) per whitelist — pointer only; confirm against Moog IR for any quantitative or BOM claim.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): quoteMatch ABSENT on the cited Wikipedia URL. The stored excerpt is Moog 10-K boilerplate, NOT current Wikipedia text (Wikipedia opens 'an American-based designer and manufacturer of electric, electro-hydraulic and hydraulic motion, controls and systems"
+    }
   },
   {
     "id": "ev_space_mercury_versal_space_board",
@@ -1120,16 +1482,23 @@
     ],
     "limitations": "Mercury IR page timed out on direct fetch; title/claim verified only via WebSearch result — sourceStatus paywalled_snippet. Body details not independently fetched.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Mercury IR page (ir.mrcy.com) timed out on direct fetch. Exact headline 'Mercury Introduces the First Space-qualified FPGA Processing Board Powered by AMD Xilinx Versal Technology' confirmed verbatim via WebSearch (GlobeNewswire PR 2023-09-18 + EEJournal + IR title). Product SCFE"
+    }
   },
   {
     "id": "ev_space_falcon9_fairing_carbon_honeycomb",
     "type": "news",
     "title": "Innovation in Textiles — Advanced composites used in Falcon 9 rocket (fairing carbon fiber-aluminum honeycomb, SpaceX-cured)",
-    "url": "https://www.innovationintextiles.com/advanced-composites-used-in-falcon-9-rocket/",
+    "url": "https://www.teslarati.com/spacex-photos-falcon-9-fairings-parasailing-splashdown/",
     "sourceStatus": "fetch_ok",
-    "sourceName": "Innovation in Textiles",
-    "excerpt": "the fairing halves have a carbon fiber-aluminum honeycomb construction and require massive and expensive curing autoclaves, of which only a handful can fit inside SpaceX's Hawthorne factory",
+    "sourceName": "Teslarati",
+    "excerpt": "As a result of their carbon fiber-aluminum honeycomb construction, each half inherently takes a disproportionate amount of time to manufacture ... exaggerated by the need for massive and expensive curing autoclaves (a mix of an oven and a pressure chamber), of which only a handful can fit inside SpaceX's Hawthorne factory",
     "supportsNodeIds": [
       "aerospace_carbon_fiber_composite_material"
     ],
@@ -1138,7 +1507,13 @@
     ],
     "limitations": "Trade/industry outlet (not primary SpaceX doc). Establishes captive fairing fabrication + carbon-fiber-honeycomb construction; not a market-share claim. Quote surfaced via search summary of this page; owner should confirm exact on-page wording.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): "
+    }
   },
   {
     "id": "ev_space_carbon_fiber_export_control_wassenaar",
@@ -1153,7 +1528,13 @@
     ],
     "limitations": "Standing export-control regime (Wassenaar dual-use list; mirrored in U.S. EAR/ITAR), not a dated supply episode. Control thresholds paraphrased from search summary of the Wassenaar list; owner should confirm exact list-entry text (e.g. 1C010) on the PDF.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): "
+    }
   },
   {
     "id": "ev_space_spacex_builds_own_copv",
@@ -1171,7 +1552,14 @@
     ],
     "limitations": "First-tier trade press. Establishes captive COPV fabrication at SpaceX; not a market-structure claim.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld article. Exact: 'the company builds its own COPVs.' No numeric claim; captive-fab claim fully supported. ok_exact."
+    }
   },
   {
     "id": "ev_space_copv_carbon_over_aluminum_liner",
@@ -1190,7 +1578,14 @@
     ],
     "limitations": "First-tier trade press. Describes COPV construction + helium-pressurant function; ties COPV overwrap to the carbon-fiber material tier.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld article. Exact: 'These COPVs use the industry standard of carbon fiber composite wrapped over an aluminum liner'. Helium-pressurant function present ('designed to hold super-cold helium (He) under high pressure'). ok_exact."
+    }
   },
   {
     "id": "ev_space_toray_world_largest_capacity",
@@ -1208,7 +1603,14 @@
     ],
     "limitations": "First-tier trade press ('reportedly'). Total-company tow capacity, not aerospace-qualified-only. asOf is the article's stated capacity snapshot.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld. Exact verbatim incl. 'almost 58,000 tons of regular tow and large tow carbon fiber via plants in Japan, France, Korea, Hungary, Mexico and the U.S.' Total-company tow-capacity basis as labelled. ok_exact."
+    }
   },
   {
     "id": "ev_space_toray_pan_precursor_share",
@@ -1241,7 +1643,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what, weak for market structure. The 29,100 t figure is the Toray CMA (U.S.) entity, NOT total-company; do not conflate with the ~58,000 t total-company capacity. IM-aerospace-fiber 'used in primary structure of commercial aircraft' also on this page.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch toraycma.com. Exact: 'As the largest carbon fiber producer in the world, Toray manufactures 29,100 metric tons annually'. 29,100 t is the CMA US-entity figure as labelled (distinct from 58k total-company). IM aerospace primary-structure use also on page (T800S/T800H 'use"
+    }
   },
   {
     "id": "ev_space_hexcel_hextow_aerospace",
@@ -1259,7 +1668,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what. Same page: 'Hexcel is a technology leader in Intermediate Modulus fiber with an in-house Polyacrylonitrile (PAN) domestic supply'.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch hexcel.com HexTow page. Exact: 'HexTow carbon fiber is the preferred carbon fiber for the world's most advanced aerospace and industrial composite applications including: Airbus A350 XWB, JSF, F18 E/F, A380, Eurofighter Typhoon, Airbus A400M, V22 Osprey, Boeing 787, and "
+    }
   },
   {
     "id": "ev_space_hexcel_customer_concentration_10k",
@@ -1274,7 +1690,13 @@
     ],
     "limitations": "Primary 10-K PDF returned binary (unreadable) and the SEC EDGAR HTML returned HTTP 403 to this agent; figure is corroborated across multiple secondary reports of the 10-K text but NOT confirmed against rendered primary text here. Marked paywalled_snippet; owner must re-fetch the 10-K and confirm the exact sentence (incl. 37%/3% and 13%/2% Commercial-Aerospace vs Space-&-Defense split) before any flip.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (undefined): "
+    }
   },
   {
     "id": "ev_space_teijin_tenax_leading_maker",
@@ -1292,7 +1714,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what, not market structure. Tenax brand; aerospace use corroborated by the separate NCAMP-qualification record.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch teijincarbon.com. Exact: 'Teijin is one of the world's leading manufacturers of high-performance carbon fiber products.' Tenax brand named immediately after. vendor_claim, who-makes-what. ok_exact."
+    }
   },
   {
     "id": "ev_space_syensqo_teijin_aero_qualification",
@@ -1312,7 +1741,14 @@
     ],
     "limitations": "First-tier trade press. Establishes aerospace qualification of Syensqo resin + Teijin Tenax fiber (FAA/EASA, NMS 241 / NPS 82401); not a launch-program-specific claim or share.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld. Exact: 'Syensqo has achieved FAA-sponsored NCAMP qualification for its Prism EP2400 epoxy resin system in combination with Teijin Carbon's Tenax IMS65 E23 24K noncrimp fabrics (NCF) and unidirectional (UD) woven reinforcements.' NMS 241 / NPS 82401, FAA+"
+    }
   },
   {
     "id": "ev_space_mitsubishi_pyrofil_aero_structures",
@@ -1330,7 +1766,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what. Pyrofil PAN carbon fiber; rocket/satellite structural use stated by vendor.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch us.mitsubishi-chemical.com/industry/aero. Exact: 'Our unique range of materials are used within interior parts as well as systems and structural parts for all types of aircrafts as well as missiles, rockets and satellites.' vendor_claim, who-makes-what. ok_exact."
+    }
   },
   {
     "id": "ev_space_mitsubishi_capacity_doubling",
@@ -1345,7 +1788,14 @@
     ],
     "limitations": "First-tier trade press. Capacity doubling 2025-2027 at Tokai (Aichi) + Sacramento for high-end incl. aerospace; article gives no absolute tonnage. Lead-time/capacity context, not a share claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld. Substance fully supported: capacity doubling 2025-2027, Tokai (Aichi) + Sacramento, aerospace named among high-end apps. Stored excerpt ('...by effectively leveraging its existing facilities in Japan and the U.S.') is a near-verbatim paraphrase; page wor"
+    }
   },
   {
     "id": "ev_space_infinite_composites_launch_copv",
@@ -1363,7 +1813,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): establishes capability/application, not an awarded SpaceX contract. Customers shown are gov/research (NASA, USAF, USA, LANL, NSF); no named commercial-launch customer.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch infinitecomposites.com. Exact: 'Composite overwrap pressure (COPVs) are state-of-the-art for most launch vehicle or spacecraft applications today'. Linerless/Type V iCPV for launch+spacecraft pressurant/propellant tanks; gov customers (NASA, USAF, US Army, LANL, NSF) con"
+    }
   },
   {
     "id": "ev_space_steelhead_launch_copv",
@@ -1381,7 +1838,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): establishes capability/application, not an awarded SpaceX contract.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch steelheadcomposites.com. Exact: 'Steelhead's high-performance composite overwrapped pressure vessels (COPVs) are integrated into launch vehicle propulsion systems where weight, reliability, and pressure containment are mission-critical.' Spacecraft propulsion tanks also "
+    }
   },
   {
     "id": "ev_space_hypercomp_launch_copv",
@@ -1399,7 +1863,14 @@
     ],
     "limitations": "Vendor About page (fetch_ok). Confirms COPV design/manufacture + 'heritage on the cutting edge of the space composites industry'; the fetched page did NOT verbatim state 'space launch vehicles' — the launch-application link rests on the companion Hexcel/HyPerComp Type IV COPV record (ev_space_hexcel_hypercomp_type4_copv), which states 'space launch'. Private company; capability claim, not a SpaceX contract.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch /About returned HTTP 404 (JS-rendered SPA: raw HTTP yields the SPA's 404 route; root '/' returns only 155 chars of pre-render text). Quote confirmed via WebSearch index of the SAME URL (hypercompeng.com/About) which returns verbatim: 'specializes in the design, analysis,"
+    }
   },
   {
     "id": "ev_space_hexcel_hypercomp_type4_copv",
@@ -1418,7 +1889,14 @@
     ],
     "limitations": "Company news release (vendor-origin but specific, dated CAMX 2025). Links carbon-fiber tier (Hexcel HexTow IM11-R) into COPV overwrap; 'space launch and other applications' stated. Certification described as in-progress, not flight-qualified on a named program.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch hexcel.com CAMX 2025 release. Exact: 'the debut of a Type IV carbon overwrap pressure vessel (COPV), engineered in collaboration with HyPerComp Engineering Inc. (HEI) and built using Hexcel's high-performance HexTow IM11-R/12K carbon fiber'. 'space launch and other appli"
+    }
   },
   {
     "id": "ev_space_gdots_sls_satellite_copv",
@@ -1436,7 +1914,14 @@
     ],
     "limitations": "Vendor marketing page (vendor_claim): establishes COPV capability on SLS + satellites (NOT SpaceX). Listed via parent General Dynamics (NYSE: GD).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch gdots.com. Exact: 'Lincoln Operations is the design authority for both the Core Stage Composite Overwrapped Pressure Vessel and the Upper Stage Composite Overwrapped Pressure Vessel.' Satellite-propulsion COPVs (compressed gas for propulsion subsystems) also confirmed on"
+    }
   },
   {
     "id": "ev_space_nasa_helium_contract",
@@ -1454,7 +1939,14 @@
     ],
     "limitations": "NASA agency press release (fetched via WebFetch, 200). Quote condenses four individually-verbatim sentences. This is a NASA (SLS/agency-wide) sole-source helium contract, not a SpaceX-specific contract; used as evidence for the concentrated launch-helium supply structure and Air Products' role, per the 2022 helium dev-set episode.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "NASA.gov press release, fetched 200. All five constituent sentences verbatim on page: 'Air Products and Chemicals, Inc of Allentown, Pennsylvania'; '33 million liters of liquid helium' to Kennedy; 'sole source contract includes the lease of six proprietary liquid helium pumps'; '"
+    }
   },
   {
     "id": "ev_space_usgs_helium_2024",
@@ -1471,7 +1963,14 @@
     ],
     "limitations": "USGS MCS 2024 helium fact sheet (government primary). PDF rendered binary in WebFetch; text extracted locally from the saved PDF (FlateDecode streams), so excerpt is reconstructed from the decompressed text and should be re-confirmed against the published PDF by the verifier. End-use percentages are US apparent-consumption shares (demand side), not launch-specific or supplier-share figures.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "USGS MCS 2024 helium PDF. WebFetch rendered binary as flagged; re-fetched fresh via curl (HTTP 200, 777722 bytes, intact — not a JS shell) and extracted text with pypdf from the OFFICIAL PDF (not a reconstruction). Source text verbatim: 'aerospace, pressuring, and purging (9%)' w"
+    }
   },
   {
     "id": "ev_space_linde_brownsville_spacex",
@@ -1488,7 +1987,14 @@
     ],
     "limitations": "Trade-press (ConstructConnect) report, fetched 200. Names SpaceX/Starbase as the customer for the Brownsville LOX/LN2 plant; the Linde corporate release (ev_space_linde_mims_2022 and the 2025 commercial-space release) confirms the ASU and long-term gas agreements but refers only to 'its customer's space operations' without naming SpaceX. Excerpt is two individually-verbatim sentences.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "ConstructConnect trade-press, fetched 200. Sentence 1 verbatim: 'Linde announced it broke ground on a $100 million air separation plant.' Sentence 2 near-verbatim with one comma difference: page reads 'liquid oxygen and nitrogen, essential for rocket launches, directly to SpaceX’"
+    }
   },
   {
     "id": "ev_space_brownsville_linde_spacex",
@@ -1505,7 +2011,14 @@
     ],
     "limitations": "Municipal government announcement (fetched 200), corroborates the SpaceX/Starbase customer identity for the Linde Brownsville LOX/LN2 plant. Local-government press item, not a Linde or SpaceX primary filing; two individually-verbatim sentences.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "City of Brownsville (municipal gov) announcement, fetched 200. Both sentences verbatim: 'The new facility will produce liquid oxygen and nitrogen—two essential gases used in SpaceX’s Starship development and launch operations at Starbase.' and the 'proximity to SpaceX ... rapid l"
+    }
   },
   {
     "id": "ev_space_linde_mims_2022",
@@ -1522,7 +2035,14 @@
     ],
     "limitations": "Linde IR press release (fetched 200). Confirms a long-term LOX/N2 launch supply agreement and the Mims, FL plant, but the customer is named only as 'a major space launch company' / 'the customer' — SpaceX is NOT named in this Linde primary source (SpaceX naming comes from the secondary Brownsville/ConstructConnect items). Excerpt is two individually-verbatim sentences.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Linde plc IR release, fetched 200. Both sentences verbatim: 'Linde today announced it has signed another long-term agreement with a major space launch company in Florida' and 'Linde will supply the customer with liquid oxygen and nitrogen from its air separation plant at Mims, Fl"
+    }
   },
   {
     "id": "ev_space_airliquide_space_gases",
@@ -1541,7 +2061,14 @@
     ],
     "limitations": "Air Liquide vendor/marketing page (sourceStatus vendor_marketing per ADR-0009: fine for who-supplies-what role, weak for share/structure). Verbatim sentence supports the launch-gas roles (LOX/LN2/helium) and Air Liquide capability; the page describes Ariane/Kourou heritage, not a SpaceX-specific contract. Supports the methane node only for the general 'launch propulsion fuels' framing, not a methane supplier claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Air Liquide USA space page (vendor_marketing per ADR-0009 — valid for who-supplies-what role, weak for share/structure). Sentence verbatim in the Ground-systems section: 'supply liquid hydrogen and oxygen for the launch vehicles’ propulsion, liquid nitrogen for inerting, and the "
+    }
   },
   {
     "id": "ev_space_nipponsanso_helium",
@@ -1559,7 +2086,14 @@
     ],
     "limitations": "Vendor/marketing page (vendor_marketing per ADR-0009). The 'one of only a handful of global producers' claim is a vendor self-description corroborated by USGS/market structure (helium is a concentrated, few-source commodity); page lists welding/medical/MRI/leak-detection uses, not space-launch specifically. Two individually-verbatim sentences.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Nippon Sanso Matheson helium page (vendor_marketing). Both sentences verbatim: 'Nippon Sanso Matheson is one of only a handful of global producers and suppliers of helium.' and 'Nippon Sanso Matheson’s helium position is extremely strong and includes long term supply contracts wi"
+    }
   },
   {
     "id": "ev_space_messer_federal_helium",
@@ -1577,7 +2111,14 @@
     ],
     "limitations": "Messer corporate press release (fetched 200). Confirms Messer's private status, the Federal Helium System assets acquired, and Cliffside operation; does NOT state a global/US helium market-share percentage (the ~15-17% figure seen in secondary market reports is not used here). Excerpt is three individually-verbatim sentences.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Messer (messer-us.com) corporate press release, fetched 200. All three constituent sentences verbatim: 'Messer, the largest privately held industrial gas company in the world...'; 'The Federal Helium System includes the Federal Helium Reserve, the Cliffside Field with its wells a"
+    }
   },
   {
     "id": "ev_space_pica_rayon_precursor_chokepoint",
@@ -1597,7 +2138,14 @@
       "e_space_precursor_requires_preform"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch https://ntrs.nasa.gov/citations/20180001911 — stored excerpt present verbatim on the NTRS citation page. 'at least twice in the past 25 years' supported on page; qualitative supply-chain-risk claim, no precise market number. Title 'Sustaining PICA for Future NASA Robotic"
+    }
   },
   {
     "id": "ev_space_sniace_rayon_ceased",
@@ -1617,7 +2165,14 @@
     ],
     "limitations": "Quote surfaced via the NTRS citation page summary; underlying full PDF is image-based and not text-extractable. Corroborated by NTRS 20180001911 and Lenzing/PICA-D coverage. Verifier should re-confirm verbatim against the PDF.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "RE-CONFIRMED per brief instruction. Stored excerpt 'Current PICA uses a NASA-qualified non-domestic rayon supplier (Sniace), however the qualified supplier is no longer manufacturing the rayon materials.' is genuinely present in the NTRS 20180006865 abstract — surfaced VERBATIM v"
+    }
   },
   {
     "id": "ev_space_lenzing_lyocell_pica",
@@ -1637,7 +2192,14 @@
     ],
     "limitations": "Trade/industry news echoing a Lenzing claim about LENZING Lyocell in PICA-D; vendor-origin claim for the application, treat as who-uses-what not market structure. Corroborates the Lyocell-precursor identity.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch renewable-carbon.eu — stored excerpt present verbatim; the '...' in the stored excerpt elides 'and part of the rigid casings that help protect spacecraft from extreme heat (above 3,800C)'. PICA-D / LENZING Lyocell / low-alkaline-metal-content precursor claim fully on pag"
+    }
   },
   {
     "id": "ev_space_lenzing_ticker",
@@ -1653,7 +2215,14 @@
     ],
     "limitations": "Exchange listing page used to verify ticker LNZ and ISIN AT0000644505. Excerpt paraphrases the page's structured listing fields.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "WebFetch wienerborse.at — ticker 'LNZ' and ISIN 'AT0000644505' both confirmed on the live Vienna Stock Exchange Prime Market page (active listing, last price 24.10 EUR dated 06/15/2026, 269 trades, trading today). Stored excerpt 'Lenzing AG ... ISIN AT0000644505 ... ticker LNZ' i"
+    }
   },
   {
     "id": "ev_space_fmi_fiberform_preform",
@@ -1673,7 +2242,14 @@
     ],
     "limitations": "FMI's FiberForm role is established by author affiliation on NASA PICA-sustainment papers plus FMI/Spirit/Tex-Tech product descriptions (carbon/carbon, TPS, nose tips, nozzles). Direct 'FMI makes FiberForm' verbatim is in the image-based full PDFs; verifier to confirm.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch https://ntrs.nasa.gov/citations/20180001911 — author-affiliation excerpt 'Violette, Steve (Fiber Materials, Inc. Biddeford, ME, United States)' present verbatim. No number claimed; establishes FMI affiliation on the PICA-sustainment paper. FMI's explicit 'makes FiberForm"
+    }
   },
   {
     "id": "ev_space_fmi_tex_tech_sale",
@@ -1691,17 +2267,24 @@
     ],
     "limitations": "Establishes FMI ownership (Tex Tech, private, since 2025-01-13) and FMI product scope (TPS, carbon/carbon, re-entry nose tips, rocket-motor throats/nozzles).",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch spiritaero.com press release — stored excerpt present verbatim; '...' elides 'business based in Biddeford, Maine, and Woonsocket, Rhode Island,'. '$165 million in cash' supported exactly; date 2025-01-13; buyer Tex Tech Industries Inc; FMI product scope (carbon/carbon, c"
+    }
   },
   {
     "id": "ev_space_starship_tiles_inhouse",
     "type": "news",
     "title": "SpaceX Starship hexagonal ceramic heat-shield tiles produced in-house ('bakery', Roberts Road)",
-    "url": "https://starship-spacex.fandom.com/wiki/Starship_Thermal_Protection_System_(TPS)",
+    "url": "https://www.nasaspaceflight.com/2021/04/new-permits-spacex-cidco-roberts/",
     "sourceStatus": "fetch_ok",
     "sourceName": "Starship SpaceX Wiki (Fandom) — grey source, pointer only",
     "date": "2024",
-    "excerpt": "SpaceX produces the tiles at their 'bakery' in Roberts Road, manufacturing them in-house.",
+    "excerpt": "SpaceX manufactures Starship's black hexagonal ceramic heat-shield tiles in-house at its Florida 'Bakery' (Cocoa Beach / Cape Canaveral), turning raw materials into the tiles.",
     "supportsNodeIds": [
       "reusable_launch_ceramic_silica_tile"
     ],
@@ -1710,7 +2293,13 @@
     ],
     "limitations": "Grey source (fan wiki) used only to support the CAPTIVE/in-house qualitative call, not any number. No primary SpaceX source prices or quantifies tile production; verifier to upgrade with a primary source if available.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (re-source + correct location (recommended)): Current cited URL (starship-spacex.fandom.com) is a grey fan-wiki returning HTTP 403 — cannot be fetched. The in-house/CAPTIVE claim is sound and corroborated by NASASpaceFlight + Teslarati, but the stored excerpt's loca"
+    }
   },
   {
     "id": "ev_space_li900_lockheed_tile",
@@ -1730,7 +2319,14 @@
     ],
     "limitations": "Grey source establishing the heritage Shuttle tile maker only; reported_capable framing, not a Starship-supplier claim. Verifier to corroborate with a NASA/Lockheed primary source.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch en.wikipedia.org/wiki/LI-900 — stored excerpt present verbatim; the '...' joins two consecutive sentences ('...Lockheed Missiles and Space Company' / 'It is made from 99.9% pure silica glass fibres'). Grey source (Wikipedia), reported_capable heritage-maker framing only,"
+    }
   },
   {
     "id": "ev_space_momentive_rtv_tps",
@@ -1750,7 +2346,14 @@
     ],
     "limitations": "Vendor marketing page (tag vendor_claim): establishes Momentive supplies RTV silicones for aerospace TPS (cast-in-place heat shielding), not that it supplies Starship. Who-makes-what only.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch momentive.com TPS page — stored excerpt present verbatim. Page additionally lists RTV560 explicitly among aerospace RTV products (RTV31/60/88/511/560/566/567/577/583/655) and 'Cast-in-place heat shielding', strengthening the RTV-560-class bonding-adhesive identity. Vendo"
+    }
   },
   {
     "id": "ev_space_momentive_kcc_acquisition",
@@ -1766,17 +2369,24 @@
     ],
     "limitations": "Establishes Momentive ownership (KCC, since 2024-05-14). KCC's own exchange ticker not verified this round, so no ticker recorded on the node.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch prnewswire.com — stored excerpt present verbatim ('Momentive Performance Materials group (Momentive), a global high-performance silicones and specialty solutions company, today announced that it has been fully acquired by KCC Corporation (KCC)'). Date 2024-05-14. Note: t"
+    }
   },
   {
     "id": "ev_space_shuttle_rtv_sip_stack",
     "type": "historical_source",
     "title": "Space Shuttle TPS tile-bonding stack — RTV-560 silicone + Nomex felt strain-isolator pad (NASA TPS overview)",
-    "url": "https://nasa.fandom.com/wiki/Space_Shuttle_thermal_protection_system",
+    "url": "https://science.ksc.nasa.gov/shuttle/technology/sts-newsref/sts-tps.html",
     "sourceStatus": "fetch_ok",
     "sourceName": "NASA Wiki (Fandom) — grey source, pointer only",
     "date": "2024",
-    "excerpt": "The underside is glued to Nomex Felt Strain Isolation Pads (SIP) with Room Temperature Vulcanization (RTV) silicone adhesive.",
+    "excerpt": "A thin pad of heat resistant Nomex felt fabric, called a strain isolation pad, cushions each tile against the aluminum body of the Space Shuttle orbiter ... SIPs are bonded to the tiles, and the SIP and tile assembly is bonded to the orbiter structure by an RTV process ... RTV 560, a methylphenol silicone adhesive manufactured by the General Electric Company being most satisfactory.",
     "supportsNodeIds": [
       "reusable_launch_tps_tile_adhesive_sip"
     ],
@@ -1785,6 +2395,12 @@
     ],
     "limitations": "Grey source describing the heritage Shuttle bonding stack (RTV silicone + Nomex felt SIP); establishes the industry material identities only, not Starship suppliers. Verifier to corroborate Nomex=DuPont and RTV-560=GE/Momentive with primary sources.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "Gate-B repair (re-source (recommended)): Current cited URL (nasa.fandom.com) is a grey fan-wiki returning HTTP 403 (Cloudflare) — cannot be fetched/verified. Replace with the authoritative NASA KSC STS news-ref TPS page, which states the Nomex-felt-SIP + RTV-560/GE bonding stack "
+    }
   }
 ]
