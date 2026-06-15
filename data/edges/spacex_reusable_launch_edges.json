@@ -1,0 +1,1210 @@
+[
+  {
+    "id": "e_space_tvc_actuators_part_of_grid_fin",
+    "source": "launch_tvc_actuators_merchant",
+    "target": "falcon9_grid_fin_reentry_control",
+    "relation": "part_of",
+    "claim": "TVC and aero-control actuation is the actuation class spanning engine gimbaling and grid-fin/reentry control on reusable boosters; mapped under the recovery/reentry control parent as the actuation merchant tier.",
+    "context": "Falcon 9 grid-fin actuation is hydraulic and SpaceX-built; this sub-node carries the merchant actuator tier that the broader launch industry buys. Component-to-parent structural link.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_tvc_actuators_part_of_merlin",
+    "source": "launch_tvc_actuators_merchant",
+    "target": "falcon9_merlin_engine_cluster",
+    "relation": "part_of",
+    "claim": "Engine thrust-vector-control actuators gimbal the Merlin engines for steering; on Merlin this is a captive hydraulic system driven by RP-1 turbopump pressure.",
+    "context": "Captive on SpaceX; sub-node exists to map the merchant TVC-actuator tier serving the wider reusable-launch industry.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_tvc_actuators_part_of_superheavy",
+    "source": "launch_tvc_actuators_merchant",
+    "target": "starship_raptor_engine_cluster_33",
+    "relation": "part_of",
+    "claim": "The inner 13 Raptor engines on Super Heavy gimbal via thrust-vector-control actuators (switched from hydraulic to in-house electric after Starship flight 1); the outer 20 are fixed.",
+    "context": "Captive electric actuation on SpaceX; merchant tier mapped for the industry.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_superheavy_electric_tvc_captive"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_valves_part_of_raptor",
+    "source": "launch_propellant_pneumatic_valves_merchant",
+    "target": "raptor_methalox_full_flow_engine",
+    "relation": "part_of",
+    "claim": "Cryogenic propellant/pressurant and pneumatic control valves regulate methane/LOX flow and engine sequencing on the Raptor full-flow staged-combustion engine.",
+    "context": "SpaceX builds much of its own valve set; this sub-node carries the merchant valve tier (Moog/Woodward/Parker/Eaton) the broader industry uses.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_igniter_part_of_raptor",
+    "source": "launch_engine_igniter_merchant",
+    "target": "raptor_methalox_full_flow_engine",
+    "relation": "part_of",
+    "claim": "Igniters light the Raptor main chamber and preburners; SpaceX uses an in-house spark/torch ignition system.",
+    "context": "Documented as genuinely captive — no public merchant igniter supplier to SpaceX found in round 1.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_bearings_part_of_turbopump_inspection",
+    "source": "launch_engine_precision_bearings_merchant",
+    "target": "falcon9_engine_turbopump_reuse_inspection",
+    "relation": "part_of",
+    "claim": "Precision turbopump/gimbal/cryogenic bearings are inspected and life-limited as part of engine reuse; the merchant bearing tier (RBC/Schaeffler/SKF) serves launch-vehicle bearing needs.",
+    "context": "Turbopump-internal bearings on SpaceX engines are not publicly sourced; merchant tier mapped at industry altitude.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_am_machines_part_of_turbopump_inspection",
+    "source": "launch_engine_metal_am_machines_merchant",
+    "target": "falcon9_engine_turbopump_reuse_inspection",
+    "relation": "part_of",
+    "claim": "Metal additive-manufacturing machines produce engine hot-section and turbopump parts whose reuse is inspected; SpaceX prints engine parts on Velo3D Sapphire systems.",
+    "context": "Structural link of the AM-machine merchant component to the engine-reuse/turbopump parent.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_am_machines_part_of_raptor",
+    "source": "launch_engine_metal_am_machines_merchant",
+    "target": "raptor_methalox_full_flow_engine",
+    "relation": "part_of",
+    "claim": "Raptor engine components (injectors, manifolds) are additively manufactured on metal LPBF/DMLS machines.",
+    "context": "Raptor is the highest-AM-content SpaceX engine; merchant AM-machine tier mapped here.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_am_powder_part_of_turbopump_inspection",
+    "source": "launch_engine_metal_am_powder_merchant",
+    "target": "falcon9_engine_turbopump_reuse_inspection",
+    "relation": "part_of",
+    "claim": "Metal AM powders and specialty-alloy feedstock are the input material for additively manufactured engine parts subject to reuse inspection.",
+    "context": "GRCop copper-liner alloy is NASA-developed and largely captive at SpaceX; merchant powder tier mapped for the broader industry.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_moog_tvc_actuators",
+    "source": "launch_tvc_actuators_merchant",
+    "target": "org_moog",
+    "relation": "manufactured_by",
+    "claim": "Moog designs and manufactures launch-vehicle thrust-vector-control actuators (electromechanical/electrohydraulic/electrohydrostatic); flight-proven on ULA Vulcan first stage (Jan 2024 inaugural launch), Antares, Centaur and Ares.",
+    "context": "manufactured_by is asserted for Moog's actual TVC actuators on non-SpaceX programs (Vulcan/Antares/Centaur/Ares). NOT a claim that Moog supplies SpaceX engine actuators (SpaceX TVC is captive). Merchant-tier-to-industry link.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_moog_launch_tvc_actuators",
+      "ev_space_moog_vulcan_first_flight"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_moog_valves",
+    "source": "launch_propellant_pneumatic_valves_merchant",
+    "target": "org_moog",
+    "relation": "manufactured_by",
+    "claim": "Moog manufactures cryogenic-compatible propellant and pressurant control valves (ball, poppet, pilot-operated) for launch-vehicle engines.",
+    "context": "manufactured_by for Moog's launch-vehicle engine control valves as a product line; industry altitude, not a SpaceX-specific supply claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_moog_propellant_valves"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_woodward_tvc_valves",
+    "source": "launch_tvc_actuators_merchant",
+    "target": "org_woodward",
+    "relation": "manufactured_by",
+    "claim": "Woodward manufactures launch-vehicle main-engine controls, thrust-vector-control actuation, flight-control actuation, control valves and servo valves.",
+    "context": "manufactured_by for Woodward's launch-vehicle actuation product line; industry altitude (Woodward Space & Defense). Not a confirmed SpaceX engine-core supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_woodward_launch_vehicle_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_woodward_valves",
+    "source": "launch_propellant_pneumatic_valves_merchant",
+    "target": "org_woodward",
+    "relation": "manufactured_by",
+    "claim": "Woodward manufactures control valves and servo valves for launch vehicles.",
+    "context": "manufactured_by for Woodward's launch-vehicle valve product line.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_woodward_launch_vehicle_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_parker_valves",
+    "source": "launch_propellant_pneumatic_valves_merchant",
+    "target": "org_parker_hannifin",
+    "relation": "manufactured_by",
+    "claim": "Parker Aerospace manufactures engine fuel/fluid systems and aerospace valves for missiles, rockets and launch vehicles (e.g. NASA SLS and Orion; historical Space Shuttle / Apollo propellant-feed valves).",
+    "context": "manufactured_by for Parker's launch-vehicle fluid-systems/valve product line; SLS/Orion named. Industry altitude, not a SpaceX-specific supply claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_parker_aerospace_launch_propulsion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_eaton_valves_tanks",
+    "source": "launch_propellant_pneumatic_valves_merchant",
+    "target": "org_eaton",
+    "relation": "reported_capable_supplier",
+    "claim": "Eaton supplies space propulsion fluid hardware — propellant storage tanks, valves, regulators and feed systems — for spacecraft propulsion (e.g. MDA AURORA satellite propellant tanks, 2024); also aerospace fuel-conveyance and hydraulic pumps.",
+    "context": "reported_capable_supplier (not manufactured_by): the fetched verbatim is a satellite propulsion-tank selection, not a confirmed launch-vehicle valve supply to a reusable booster. Eaton's launch-vehicle hydraulics history is real but the round-1 fetched quote is satellite-leaning. Honest altitude.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_eaton_space_propulsion_tanks"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_velo3d_am_machines",
+    "source": "launch_engine_metal_am_machines_merchant",
+    "target": "org_velo3d",
+    "relation": "manufactured_by",
+    "claim": "Velo3D manufactures the Sapphire metal laser-powder-bed-fusion machines that SpaceX uses to produce rocket-engine parts including Raptor components; SpaceX signed a Sept-2024 licensing agreement (USD 5M technology + USD 3M engineering).",
+    "context": "manufactured_by for Velo3D's metal-AM machines; this is the one component where a SpaceX-specific merchant relationship is publicly confirmed (machine supplier, not engine-part maker).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_velo3d_spacex_licensing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_eos_am_machines",
+    "source": "launch_engine_metal_am_machines_merchant",
+    "target": "org_eos_gmbh",
+    "relation": "reported_capable_supplier",
+    "claim": "EOS supplies industrial DMLS (laser powder-bed-fusion) machines used to additively manufacture rocket-engine parts (injector heads, copper-alloy combustion chambers) across the launch industry (ArianeGroup, Launcher, RUAG, Airbus D&S).",
+    "context": "reported_capable_supplier: EOS machines are widely used for rocket-engine AM, but EOS's direct use at SpaceX is not publicly confirmed — industry-capability altitude, not manufactured_by for SpaceX engines.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_eos_space_rocket_engine_am"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_nikon_slm_am_machines",
+    "source": "launch_engine_metal_am_machines_merchant",
+    "target": "org_nikon_slm_solutions",
+    "relation": "reported_capable_supplier",
+    "claim": "Nikon SLM Solutions supplies metal LPBF (Selective Laser Melting) machines used to additively manufacture reusable-rocket-engine parts, including full-flow-staged-combustion injector heads and Inconel-718 thrust chambers with integrated cooling channels (Rocket Lab MoU; LEAP 71; university reusable engines).",
+    "context": "reported_capable_supplier: confirmed for the reusable-rocket-engine industry (Raptor-class FFSC cycle) but not for SpaceX specifically — industry-capability altitude.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_nikon_slm_reusable_rocket_engine"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_carpenter_am_powder",
+    "source": "launch_engine_metal_am_powder_merchant",
+    "target": "org_carpenter_additive",
+    "relation": "reported_capable_supplier",
+    "claim": "Carpenter Additive (Carpenter Technology) supplies iron-, nickel-, cobalt- and titanium-based aerospace alloy metal powders for additive manufacturing of engine and propulsion parts.",
+    "context": "reported_capable_supplier: merchant aerospace AM-powder maker; SpaceX-specific feedstock supply not confirmed and SpaceX's GRCop copper liner is largely captive. Industry-capability altitude.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_carpenter_additive_aero_powders"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_ati_am_powder",
+    "source": "launch_engine_metal_am_powder_merchant",
+    "target": "org_ati",
+    "relation": "reported_capable_supplier",
+    "claim": "ATI supplies titanium and nickel-/cobalt-based superalloy mill products and metal powders (Ti, Ti-aluminides, Ni/Co superalloys) for aerospace engines and additive manufacturing.",
+    "context": "reported_capable_supplier: merchant Ti + superalloy powder/mill-product maker for aerospace engines; SpaceX-specific supply not confirmed. Industry-capability altitude.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_ati_aero_powder_superalloy"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_rbc_bearings",
+    "source": "launch_engine_precision_bearings_merchant",
+    "target": "org_rbc_bearings",
+    "relation": "manufactured_by",
+    "claim": "RBC Bearings manufactures FibriloidCR cryogenic self-lubricating spherical bearings/rod ends that are tested and flight-proven for Space Launch Vehicle and satellite applications (-320 degF to +450 degF), plus gimbal assemblies for rocket thrust-vector functions.",
+    "context": "manufactured_by for RBC's flight-proven launch-vehicle bearing product line (FibriloidCR); a named, launch-specific merchant product. Not asserted as a SpaceX-specific supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_rbc_fibriloidcr_launch_bearings"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_schaeffler_bearings",
+    "source": "launch_engine_precision_bearings_merchant",
+    "target": "org_schaeffler",
+    "relation": "reported_capable_supplier",
+    "claim": "Schaeffler is a major precision rolling-element bearing manufacturer whose product range covers high-speed and special-environment bearings applicable to turbomachinery/gimbal mechanisms.",
+    "context": "reported_capable_supplier: reused cross-domain bearing major; specific launch-engine turbopump bearing role is qualitative, not a confirmed SpaceX supply. Industry-capability altitude.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_skf_bearings",
+    "source": "launch_engine_precision_bearings_merchant",
+    "target": "org_skf",
+    "relation": "reported_capable_supplier",
+    "claim": "SKF is a major precision bearing manufacturer with aerospace and special-environment bearing lines applicable to launch-vehicle turbomachinery and mechanisms.",
+    "context": "reported_capable_supplier: reused cross-domain bearing major; specific launch-engine role is qualitative, not a confirmed SpaceX supply. Industry-capability altitude.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_falcon9_alli_struct__requires__alli_plate",
+    "source": "falcon9_aluminum_lithium_tank_structure",
+    "target": "aerospace_aluminum_lithium_plate_sheet",
+    "relation": "requires",
+    "claim": "The Falcon 9 aluminum-lithium tank structure requires aerospace aluminum-lithium plate/sheet as its base material input.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_alli_plate__manufactured_by__constellium",
+    "source": "aerospace_aluminum_lithium_plate_sheet",
+    "target": "org_constellium",
+    "relation": "manufactured_by",
+    "claim": "Constellium manufactures aerospace aluminum-lithium (Airware) plate/sheet for launch-vehicle structures and publicly supplies it to Blue Origin's New Glenn; merchant Al-Li exposure, not a confirmed Falcon 9 BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_constellium_space_alli",
+      "ev_space_constellium_blue_origin_new_glenn"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_alli_plate__reported_capable_supplier__kaiser",
+    "source": "aerospace_aluminum_lithium_plate_sheet",
+    "target": "org_kaiser_aluminum",
+    "relation": "reported_capable_supplier",
+    "claim": "Kaiser Aluminum is a leading aerospace/high-strength aluminum plate producer and a capable second-source for aerospace aluminum plate; not confirmed as an Al-Li launch-tank supplier.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_kaiser_aero_hs"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_alli_plate__reported_capable_supplier__arconic",
+    "source": "aerospace_aluminum_lithium_plate_sheet",
+    "target": "org_arconic",
+    "relation": "reported_capable_supplier",
+    "claim": "Arconic is a major aerospace rolled-aluminum plate/sheet producer and capable supplier in the aero-aluminum tier; not confirmed as an Al-Li launch-tank supplier.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_arconic_apollo_private"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_grid_fin__requires__mill_titanium",
+    "source": "falcon9_grid_fin_reentry_control",
+    "target": "aerospace_titanium_mill_product",
+    "relation": "requires",
+    "claim": "Falcon 9 titanium grid fins require aerospace mill titanium stock as their base material.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_grid_fin__requires__ti_forging_casting",
+    "source": "falcon9_grid_fin_reentry_control",
+    "target": "large_aerospace_titanium_forging_casting",
+    "relation": "requires",
+    "claim": "Falcon 9 grid fins require a large single-piece titanium casting/forging process.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_falcon9_grid_fin_titanium_cast"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_mill_titanium__requires__sponge",
+    "source": "aerospace_titanium_mill_product",
+    "target": "titanium_sponge_feedstock",
+    "relation": "requires",
+    "claim": "Aerospace mill titanium is melted from titanium sponge feedstock (upstream tier).",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_mill_titanium__manufactured_by__ati",
+    "source": "aerospace_titanium_mill_product",
+    "target": "org_ati",
+    "relation": "manufactured_by",
+    "claim": "ATI Inc. melts and mills aerospace/defense-grade titanium products; principal Western merchant melter. Merchant tier exposure, not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_ati_richland_35pct",
+      "ev_space_ati_tight_supply"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_mill_titanium__manufactured_by__timet",
+    "source": "aerospace_titanium_mill_product",
+    "target": "org_timet",
+    "relation": "manufactured_by",
+    "claim": "TIMET (a PCC company) produces titanium ingot and mill products and is the largest titanium melter in North America. Merchant tier exposure, not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_timet_na_sponge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_mill_titanium__strategic_supplier_to__vsmpo",
+    "source": "aerospace_titanium_mill_product",
+    "target": "org_vsmpo_avisma",
+    "relation": "reported_capable_supplier",
+    "claim": "VSMPO-AVISMA is the world's largest aerospace mill-titanium producer (historically dominant to Boeing/Airbus) and the export-control corner of this tier; recorded as the concentration risk, not a confirmed SpaceX supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_vsmpo_boeing_largest"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_sponge__manufactured_by__osaka",
+    "source": "titanium_sponge_feedstock",
+    "target": "org_osaka_titanium",
+    "relation": "manufactured_by",
+    "claim": "Osaka Titanium Technologies produces titanium sponge and is the world's second-largest sponge producer; core merchant upstream source. Not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_osaka_second_largest"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_sponge__manufactured_by__toho",
+    "source": "titanium_sponge_feedstock",
+    "target": "org_toho_titanium",
+    "relation": "manufactured_by",
+    "claim": "Toho Titanium produces titanium sponge as one of Japan's two sponge producers; core merchant upstream source. Not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_japan_two_sponge_producers"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_sponge__manufactured_by__timet",
+    "source": "titanium_sponge_feedstock",
+    "target": "org_timet",
+    "relation": "manufactured_by",
+    "claim": "TIMET (a PCC company) is the largest titanium sponge producer in North America and operated the last large U.S. sponge plant (idled 2020). Upstream merchant source; not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_timet_na_sponge",
+      "ev_space_us_sponge_section232"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_ti_forging_casting__reported_capable_supplier__howmet",
+    "source": "large_aerospace_titanium_forging_casting",
+    "target": "org_howmet_aerospace",
+    "relation": "reported_capable_supplier",
+    "claim": "Howmet Aerospace produces large titanium forgings, extrusions and investment castings and is a capable supplier of large aerospace titanium parts; capability exposure, not a confirmed grid-fin supplier (the grid-fin casting is SpaceX-captive).",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_howmet_90pct_engine"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_ti_forging_casting__reported_capable_supplier__pcc",
+    "source": "large_aerospace_titanium_forging_casting",
+    "target": "org_precision_castparts",
+    "relation": "reported_capable_supplier",
+    "claim": "Precision Castparts produces large aerospace titanium forgings and investment castings and is a capable supplier of large aerospace titanium parts; capability exposure, not a confirmed grid-fin supplier (the grid-fin casting is SpaceX-captive).",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_pcc_berkshire_complex"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_invest_casting__manufactured_by__howmet",
+    "source": "aerospace_investment_casting_forging",
+    "target": "org_howmet_aerospace",
+    "relation": "manufactured_by",
+    "claim": "Howmet Aerospace is one of the two dominant aerospace investment-casting/forging producers, making >90% of structural and rotating aero-engine component types. Merchant tier exposure, not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_castings_chokepoint_duopoly",
+      "ev_space_howmet_90pct_engine"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_invest_casting__manufactured_by__pcc",
+    "source": "aerospace_investment_casting_forging",
+    "target": "org_precision_castparts",
+    "relation": "manufactured_by",
+    "claim": "Precision Castparts is one of the two dominant aerospace investment-casting/forging producers in a near-duopoly with Howmet. Merchant tier exposure, not a confirmed SpaceX BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_castings_chokepoint_duopoly",
+      "ev_space_pcc_berkshire_complex"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_invest_casting__reported_capable_supplier__arconic",
+    "source": "aerospace_investment_casting_forging",
+    "target": "org_arconic",
+    "relation": "reported_capable_supplier",
+    "claim": "Arconic is part of the historic aerospace castings/structures duopoly lineage and a capable supplier of aero structural parts; capability exposure, not a confirmed SpaceX BOM claim.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_castings_chokepoint_duopoly"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_starship_stainless__manufactured_by__outokumpu",
+    "source": "starship_stainless_steel_primary_structure",
+    "target": "org_outokumpu",
+    "relation": "manufactured_by",
+    "claim": "Outokumpu is reported to supply stainless steel to SpaceX for Starship; merchant 300-series stainless exposure. 304L is a near-commodity grade with many qualified mills, so this is illustrative not sole-source.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_outokumpu_spacex_starship"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_radhard_proc_part_of_avionics",
+    "source": "falcon9_strategic_radhard_processor_fpga",
+    "target": "falcon9_fault_tolerant_avionics_gnc",
+    "relation": "part_of",
+    "claim": "Strategic rad-hard processors/FPGAs/memory are the concentrated-supply component within fault-tolerant launch/space avionics.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_cots_upscreen_part_of_avionics",
+    "source": "launch_cots_upscreened_avionics_silicon",
+    "target": "falcon9_fault_tolerant_avionics_gnc",
+    "relation": "part_of",
+    "claim": "COTS-upscreened, triple-redundant silicon is the commodity path Falcon-class ascent avionics uses for radiation tolerance, distinct from strategic rad-hard.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_spacex_cots_radtol_avionics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_imu_part_of_avionics",
+    "source": "launch_vehicle_space_imu_gnss",
+    "target": "falcon9_fault_tolerant_avionics_gnc",
+    "relation": "part_of",
+    "claim": "Space-grade IMU / inertial reference / GNSS feeds the fault-tolerant GNC loop.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_star_tracker_part_of_avionics",
+    "source": "launch_vehicle_star_tracker",
+    "target": "falcon9_fault_tolerant_avionics_gnc",
+    "relation": "part_of",
+    "claim": "Star trackers provide stellar attitude reference within the GNC sensor suite.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_connector_harness_part_of_avionics",
+    "source": "space_grade_connector_harness_launch",
+    "target": "falcon9_fault_tolerant_avionics_gnc",
+    "relation": "part_of",
+    "claim": "Space-grade connectors and flight harness interconnect the avionics on the reusable launch stack.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_fts_ordnance_part_of_afss",
+    "source": "flight_termination_ordnance_safe_arm",
+    "target": "autonomous_flight_safety_system",
+    "relation": "part_of",
+    "claim": "Safe-and-arm / ordnance hardware is the energetic component the autonomous flight-safety system commands.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_bae_radhard_proc",
+    "source": "org_bae_systems",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "reported_capable_supplier",
+    "claim": "BAE Systems is the heritage leader in strategic rad-hard space processors (RAD750 150nm, RAD5545 45nm); long-standing go-to in high-reliability radiation-hardened space computing.",
+    "context": "Capability/heritage supplier to the broad reusable-launch + space industry; not asserted as a confirmed SpaceX Falcon BOM item.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_bae_radhard_processors",
+      "ev_space_bae_radhard_nodes"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_frontgrade_radhard_proc",
+    "source": "org_frontgrade_technologies",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "reported_capable_supplier",
+    "claim": "Frontgrade Technologies is the self-described largest provider of analog and radiation-hardened electronics (rad-hard FPGAs, memory, microprocessors, processing subsystems).",
+    "context": "Capability supplier; private (Veritas Capital).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_frontgrade_radhard_leader"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_microchip_radhard_fpga",
+    "source": "org_microchip_technology",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "reported_capable_supplier",
+    "claim": "Microchip RTG4 / RT PolarFire are space-qualified rad-tolerant FPGAs; one of the two dominant space-FPGA suppliers.",
+    "context": "Capability supplier of merchant space-grade FPGAs.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_microchip_rtg4_radtol_fpga"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_amd_radhard_fpga",
+    "source": "org_amd",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "reported_capable_supplier",
+    "claim": "AMD (Xilinx) space-grade XQR Kintex UltraScale and XQR Versal adaptive SoCs are the other dominant merchant space-FPGA line.",
+    "context": "Capability supplier of merchant space-grade FPGAs/adaptive SoCs.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_amd_versal_radtol_classb"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_skywater_radhard_foundry",
+    "source": "org_skywater_technology",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "capacity_provider",
+    "claim": "SkyWater is a DMEA Trusted Foundry funded by DoD ($170M + $99M) to broaden onshore strategic rad-hard (RH90) production capacity.",
+    "context": "Foundry-capacity provider for the strategic rad-hard corner, not a merchant chip-line seller; from .eval dev set.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_skywater_radhard_dod"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_honeywell_imu",
+    "source": "org_honeywell_aerospace_space",
+    "target": "launch_vehicle_space_imu_gnss",
+    "relation": "reported_capable_supplier",
+    "claim": "Honeywell MIMU (ring-laser-gyro inertial reference) serves commercial and military satellite and launch-vehicle programs; one of two dominant space-IMU houses.",
+    "context": "Capability supplier; dominant space-grade IMU house.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_honeywell_mimu_rlg"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_northrop_imu_hrg",
+    "source": "org_northrop_grumman",
+    "target": "launch_vehicle_space_imu_gnss",
+    "relation": "reported_capable_supplier",
+    "claim": "Northrop Grumman SIRU/HRG inertial reference has 50M on-orbit hours with zero mission failures aboard 200+ spacecraft; the other dominant space-IMU/gyro house.",
+    "context": "Capability supplier; dominant space-grade inertial house.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_northrop_siru_hrg_heritage"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_sodern_star_tracker",
+    "source": "org_sodern",
+    "target": "launch_vehicle_star_tracker",
+    "relation": "reported_capable_supplier",
+    "claim": "Sodern is the self-described world leader in star trackers (Hydra, Auriga) with extensive flight heritage.",
+    "context": "Market-leading merchant star-tracker supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_sodern_world_leader_star_tracker"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_jena_star_tracker",
+    "source": "org_jena_optronik",
+    "target": "launch_vehicle_star_tracker",
+    "relation": "reported_capable_supplier",
+    "claim": "Jena-Optronik ASTRO APS is the world's most successful and extensively used high-reliability satellite attitude-orbit-control sensor; second established European star-tracker house.",
+    "context": "Capability supplier; second established star-tracker house.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_jena_optronik_astro_aps"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_bae_star_tracker",
+    "source": "org_bae_systems",
+    "target": "launch_vehicle_star_tracker",
+    "relation": "reported_capable_supplier",
+    "claim": "BAE Systems (former Ball Aerospace) CT-2020 is a radiation-hardened star tracker for spacecraft attitude determination across orbital regimes.",
+    "context": "Third established star-tracker supplier; Ball Aerospace acquired by BAE in 2024.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_ball_bae_ct2020_star_tracker"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_glenair_connector",
+    "source": "org_glenair",
+    "target": "space_grade_connector_harness_launch",
+    "relation": "reported_capable_supplier",
+    "claim": "Glenair delivers launch-vehicle avionics interconnect systems; its Mighty Mouse is the de facto high-performance connector solution on hundreds of mission-critical applications.",
+    "context": "Concentrated launch-harness interconnect supplier; private.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_glenair_launch_interconnect",
+      "ev_space_glenair_mighty_mouse_defacto"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_te_connector",
+    "source": "org_te_connectivity",
+    "target": "space_grade_connector_harness_launch",
+    "relation": "reported_capable_supplier",
+    "claim": "TE Connectivity DEUTSCH DBAS connectors are space-qualified for high-temperature, cryogenic, pyrotechnic, and radiation-exposed launch/space environments.",
+    "context": "Second-source launch-harness interconnect supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_te_deutsch_space_connectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_amphenol_connector",
+    "source": "org_amphenol",
+    "target": "space_grade_connector_harness_launch",
+    "relation": "reported_capable_supplier",
+    "claim": "Amphenol space-qualified connectors (VITA 78 SpaceVPX) are tested for radiation, extreme temperature, and vibration and meet NASA/ESA outgassing requirements.",
+    "context": "Third-source launch/space interconnect supplier.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_amphenol_spacevpx_connectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_pacsci_fts_ordnance",
+    "source": "org_pacsci_emc",
+    "target": "flight_termination_ordnance_safe_arm",
+    "relation": "reported_capable_supplier",
+    "claim": "PacSci EMC is the established supplier of safe-and-arm / flight-termination ordnance for U.S. launch vehicles.",
+    "context": "Concentrated FTS/ordnance corner; subsidiary of Fortive (FTV).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_pacsci_fts_launch"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_moog_actuation_electronics",
+    "source": "org_moog",
+    "target": "starship_flap_reentry_control",
+    "relation": "reported_capable_supplier",
+    "claim": "Moog precision motion-control systems control launch vehicles, satellites, and space vehicles (control-surface / actuation electronics and space-grade processing boards).",
+    "context": "Capability supplier of actuation electronics / control systems; not asserted as a confirmed SpaceX item.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_moog_launch_space_controls"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_mercury_radhard_board",
+    "source": "org_mercury_systems",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "reported_capable_supplier",
+    "claim": "Mercury Systems builds space-qualified FPGA processing boards (incl. first board powered by AMD Xilinx Versal), integrating merchant rad-tolerant silicon into flight subsystems.",
+    "context": "Board-level integrator of merchant rad-tolerant FPGAs, not a chip maker.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_mercury_versal_space_board"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_fairing__requires__carbon_fiber_material",
+    "source": "falcon9_fairing_recovery_reuse",
+    "target": "aerospace_carbon_fiber_composite_material",
+    "relation": "requires",
+    "claim": "Falcon 9 payload fairings (and other launch-vehicle composite structures) are built from aerospace carbon-fiber composite; the fiber+resin material is the merchant tier while fairing lay-up/cure is captive at SpaceX.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_falcon9_fairing_carbon_honeycomb"
+    ],
+    "weight": 0.7,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_tank__requires__copv_pressurant",
+    "source": "falcon9_aluminum_lithium_tank_structure",
+    "target": "launch_vehicle_copv_pressurant_vessel",
+    "relation": "requires",
+    "claim": "COPVs storing high-pressure helium sit inside the propellant tankage and pressurize the tanks as propellant is consumed; the pressurant-vessel sub-component hangs off the tank/airframe structure module.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_copv_carbon_over_aluminum_liner"
+    ],
+    "weight": 0.7,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_copv__requires__carbon_fiber_material",
+    "source": "launch_vehicle_copv_pressurant_vessel",
+    "target": "aerospace_carbon_fiber_composite_material",
+    "relation": "requires",
+    "claim": "COPV overwrap is aerospace carbon-fiber composite over a metal/polymer liner, tying the pressurant vessel back to the same merchant carbon-fiber material tier.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_copv_carbon_over_aluminum_liner"
+    ],
+    "weight": 0.5,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_carbon_fiber__manufactured_by__toray",
+    "source": "aerospace_carbon_fiber_composite_material",
+    "target": "org_toray",
+    "relation": "manufactured_by",
+    "claim": "Toray is the world's largest carbon fiber producer and supplies aerospace-grade intermediate-/high-modulus fiber used in aircraft primary structure and the launch-vehicle composite material tier.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_toray_world_largest_capacity",
+      "ev_space_toray_im_aerospace_fiber"
+    ],
+    "weight": 0.9,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_carbon_fiber__manufactured_by__hexcel",
+    "source": "aerospace_carbon_fiber_composite_material",
+    "target": "org_hexcel",
+    "relation": "manufactured_by",
+    "claim": "Hexcel HexTow carbon fiber and HexPly prepreg are preferred aerospace primary-structure materials (787, A350 XWB, JSF); a merchant carbon-fiber + prepreg supplier in this tier.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_hexcel_hextow_aerospace"
+    ],
+    "weight": 0.85,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_carbon_fiber__manufactured_by__teijin",
+    "source": "aerospace_carbon_fiber_composite_material",
+    "target": "org_teijin",
+    "relation": "manufactured_by",
+    "claim": "Teijin Carbon's Tenax intermediate-modulus carbon fiber is aerospace-qualified (NCAMP with Syensqo resin; Collins Aerospace) — a merchant supplier in the aerospace carbon-fiber tier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_teijin_tenax_leading_maker",
+      "ev_space_syensqo_teijin_aero_qualification"
+    ],
+    "weight": 0.7,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_carbon_fiber__manufactured_by__mitsubishi_chemical",
+    "source": "aerospace_carbon_fiber_composite_material",
+    "target": "org_mitsubishi_chemical",
+    "relation": "manufactured_by",
+    "claim": "Mitsubishi Chemical Pyrofil PAN carbon fiber and Newport composites are used in aircraft, missile, rocket and satellite structural parts — a merchant supplier in the aerospace carbon-fiber tier, expanding capacity 2025-2027.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_mitsubishi_pyrofil_aero_structures",
+      "ev_space_mitsubishi_capacity_doubling"
+    ],
+    "weight": 0.7,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_carbon_fiber__manufactured_by__syensqo",
+    "source": "aerospace_carbon_fiber_composite_material",
+    "target": "org_syensqo",
+    "relation": "manufactured_by",
+    "claim": "Syensqo (legacy Solvay/Cytec composites) supplies aerospace-qualified epoxy resin systems and prepregs (Prism EP2400, NCAMP-qualified) plus carbon fiber — the resin/matrix half of the merchant carbon-composite material tier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_syensqo_teijin_aero_qualification"
+    ],
+    "weight": 0.7,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_copv__manufactured_by__spacex_captive",
+    "source": "launch_vehicle_copv_pressurant_vessel",
+    "target": "org_spacex",
+    "relation": "manufactured_by",
+    "claim": "SpaceX builds its own COPVs in-house (captive) for Falcon 9 helium pressurant storage.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_spacex_builds_own_copv"
+    ],
+    "weight": 0.9,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_copv__reported_capable__infinite_composites",
+    "source": "launch_vehicle_copv_pressurant_vessel",
+    "target": "org_infinite_composites",
+    "relation": "reported_capable_supplier",
+    "claim": "Infinite Composites makes COPVs / linerless CPVs for pressurant and propellant tanks in launch vehicles and spacecraft — merchant supplier to the wider industry (SpaceX COPV is captive).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_infinite_composites_launch_copv"
+    ],
+    "weight": 0.5,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_copv__reported_capable__steelhead",
+    "source": "launch_vehicle_copv_pressurant_vessel",
+    "target": "org_steelhead_composites",
+    "relation": "reported_capable_supplier",
+    "claim": "Steelhead Composites makes COPVs integrated into launch-vehicle propulsion systems and spacecraft propulsion tanks — merchant supplier to the wider industry.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_steelhead_launch_copv"
+    ],
+    "weight": 0.5,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_copv__reported_capable__hypercomp",
+    "source": "launch_vehicle_copv_pressurant_vessel",
+    "target": "org_hypercomp_engineering",
+    "relation": "reported_capable_supplier",
+    "claim": "HyPerComp Engineering develops/qualifies/produces COPVs used in space launch vehicles; Type IV COPV co-developed with Hexcel HexTow IM11-R fiber — merchant supplier to the wider industry.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_hypercomp_launch_copv",
+      "ev_space_hexcel_hypercomp_type4_copv"
+    ],
+    "weight": 0.5,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_copv__reported_capable__gd_ots",
+    "source": "launch_vehicle_copv_pressurant_vessel",
+    "target": "org_gd_ots",
+    "relation": "reported_capable_supplier",
+    "claim": "GD-OTS Lincoln Operations is design authority for NASA SLS Core/Upper Stage COPVs and satellite propulsion COPVs — merchant supplier to the wider launch/space industry (not SpaceX, which is captive).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_gdots_sls_satellite_copv"
+    ],
+    "weight": 0.5,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_propellant_system__requires__helium",
+    "source": "methane_oxygen_ground_propellant_system",
+    "target": "helium_pressurant_supply",
+    "relation": "requires",
+    "claim": "Methalox ground propellant operations require merchant helium for pressurizing ground/flight fluid systems and purging propellant lines.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_nasa_helium_contract",
+      "ev_space_airliquide_space_gases"
+    ],
+    "weight": 0.6,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_propellant_system__requires__lox",
+    "source": "methane_oxygen_ground_propellant_system",
+    "target": "liquid_oxygen_lox_supply",
+    "relation": "requires",
+    "claim": "The methane/oxygen ground propellant system requires merchant liquid oxygen as oxidizer feedstock for tank-farm loading.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_linde_brownsville_spacex"
+    ],
+    "weight": 0.8,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_propellant_system__requires__methane",
+    "source": "methane_oxygen_ground_propellant_system",
+    "target": "liquid_methane_lch4_supply",
+    "relation": "requires",
+    "claim": "The methane/oxygen ground propellant system requires rocket-grade liquid methane as the methalox fuel.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_airliquide_space_gases"
+    ],
+    "weight": 0.8,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_helium__strategic_supply__air_products",
+    "source": "helium_pressurant_supply",
+    "target": "org_air_products",
+    "relation": "reported_capable_supplier",
+    "claim": "Air Products holds NASA's sole-source liquid-helium supply contract (33M liters, ~$1.07B) for Kennedy Space Center / Cape Canaveral launch operations, and is a leading helium supplier to the space-launch industry. NASA-named contract, not a SpaceX-specific contract.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_nasa_helium_contract"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_helium__reported_supply__nippon_sanso",
+    "source": "helium_pressurant_supply",
+    "target": "org_nippon_sanso_holdings",
+    "relation": "reported_capable_supplier",
+    "claim": "Nippon Sanso/Matheson is one of only a handful of global helium producers/suppliers with owned source rights and long-term supply contracts; modeled as capable merchant helium supply, not a confirmed launch-operator contract.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_nipponsanso_helium"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_helium__strategic_supply__messer",
+    "source": "helium_pressurant_supply",
+    "target": "org_messer",
+    "relation": "reported_capable_supplier",
+    "claim": "Messer owns and operates the US Federal Helium System (Cliffside crude-helium source and pipeline) acquired from the BLM in June 2024, a major domestic crude-helium source feeding the merchant helium network. Strategic upstream helium position, not a confirmed launch-operator contract.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_messer_federal_helium"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_helium__reported_supply__air_liquide",
+    "source": "helium_pressurant_supply",
+    "target": "org_air_liquide",
+    "relation": "reported_capable_supplier",
+    "claim": "Air Liquide supplies helium that is indispensable for pressurization, cool-down and cleaning of launch vehicles; modeled as capable merchant helium supply within the industrial-gas oligopoly.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_airliquide_space_gases"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_lox__manufactured_by__linde",
+    "source": "liquid_oxygen_lox_supply",
+    "target": "org_linde",
+    "relation": "manufactured_by",
+    "claim": "Linde is SpaceX's main industrial-gas supplier of liquid oxygen and nitrogen, building/owning/operating a dedicated air-separation unit at Brownsville, Texas for SpaceX Starbase and supplying a 'major space launch company' in Florida from its Mims air-separation plant.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_linde_brownsville_spacex",
+      "ev_space_linde_mims_2022",
+      "ev_space_brownsville_linde_spacex"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_lox__reported_supply__air_liquide",
+    "source": "liquid_oxygen_lox_supply",
+    "target": "org_air_liquide",
+    "relation": "reported_capable_supplier",
+    "claim": "Air Liquide supplies liquid oxygen (and nitrogen/helium) for launch vehicles and has a long history supporting Kennedy Space Center launches; modeled as a supplemental/capable LOX supplier alongside Linde.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_airliquide_space_gases"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_lox__reported_supply__air_products",
+    "source": "liquid_oxygen_lox_supply",
+    "target": "org_air_products",
+    "relation": "reported_capable_supplier",
+    "claim": "Air Products is a big-five industrial-gas producer of liquid oxygen via air separation; modeled as a capable merchant LOX supplier, not a confirmed launch-operator LOX contract.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_space_nasa_helium_contract"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_pica_ablator_part_of_tile_system",
+    "source": "starship_pica_class_ablator",
+    "target": "starship_heat_shield_tile_system",
+    "relation": "part_of",
+    "claim": "PICA-class ablative material is the heritage ablative branch of reusable/entry thermal protection, parent to the heat-shield tile system module.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_precursor_part_of_ablator",
+    "source": "pica_rayon_lyocell_carbon_precursor",
+    "target": "starship_pica_class_ablator",
+    "relation": "part_of",
+    "claim": "The rayon/Lyocell carbon precursor is carbonized into the FiberForm preform that forms the PICA-class ablator.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_preform_part_of_ablator",
+    "source": "pica_carbon_fiberform_preform",
+    "target": "starship_pica_class_ablator",
+    "relation": "part_of",
+    "claim": "The carbon FiberForm preform is the rigid matrix impregnated with phenolic to make a PICA-class ablator.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_precursor_requires_preform",
+    "source": "pica_carbon_fiberform_preform",
+    "target": "pica_rayon_lyocell_carbon_precursor",
+    "relation": "requires",
+    "claim": "FiberForm preform is manufactured by carbonizing the rayon/Lyocell cellulosic precursor.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_pica_rayon_precursor_chokepoint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_ceramic_tile_part_of_tile_system",
+    "source": "reusable_launch_ceramic_silica_tile",
+    "target": "starship_heat_shield_tile_system",
+    "relation": "part_of",
+    "claim": "Rigid silica/ceramic reusable surface-insulation tile is the reusable-tile material of the heat-shield tile system.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_adhesive_sip_part_of_bonding",
+    "source": "reusable_launch_tps_tile_adhesive_sip",
+    "target": "starship_heat_shield_tile_bonding_process",
+    "relation": "part_of",
+    "claim": "RTV silicone adhesive + Nomex-felt strain-isolator pad are the bonding-material inputs to the tile bonding/inspection process.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_lenzing_precursor",
+    "source": "pica_rayon_lyocell_carbon_precursor",
+    "target": "org_lenzing",
+    "relation": "manufactured_by",
+    "claim": "Lenzing AG (LENZING Lyocell) supplies the domestic Lyocell carbon precursor used in NASA's PICA-D heatshields.",
+    "context": "Lyocell low alkaline-metal content makes it suitable as the carbon-fiber precursor; PICA-D is the NASA domestic replacement for the discontinued rayon precursor.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_lenzing_lyocell_pica"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_sniace_precursor",
+    "source": "pica_rayon_lyocell_carbon_precursor",
+    "target": "org_sniace",
+    "relation": "qualified_supplier",
+    "claim": "SNIACE was NASA's qualified (non-domestic) rayon precursor supplier for PICA before it ceased production.",
+    "context": "Heritage sole-qualified rayon precursor; cessation is the documented chokepoint that forced the Lyocell substitution.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_sniace_rayon_ceased"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_fmi_preform",
+    "source": "pica_carbon_fiberform_preform",
+    "target": "org_fiber_materials_inc",
+    "relation": "manufactured_by",
+    "claim": "Fiber Materials Inc (FMI) manufactures the low-density carbon FiberForm preform used in PICA-class ablators.",
+    "context": "NASA Ames upgraded FMI facilities to make aerospace-grade FiberForm from the Lyocell precursor (PICA-D).",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_space_fmi_fiberform_preform"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_lockheed_ceramic_tile",
+    "source": "reusable_launch_ceramic_silica_tile",
+    "target": "org_lockheed_martin",
+    "relation": "reported_capable_supplier",
+    "claim": "Lockheed Missiles & Space (Lockheed Martin) developed/manufactured the Shuttle LI-900/LI-2200 reusable silica tiles — heritage maker of reusable ceramic TPS tiles.",
+    "context": "Heritage/industry reference for the reusable-tile tier; NOT a verified Starship supplier (Starship tiles are captive).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_li900_lockheed_tile"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_spacex_captive_tile",
+    "source": "reusable_launch_ceramic_silica_tile",
+    "target": "org_spacex",
+    "relation": "manufactured_by",
+    "claim": "SpaceX manufactures Starship's hexagonal silica ceramic heat-shield tiles in-house (captive) at its tile 'bakery' on Roberts Road.",
+    "context": "Captive production; no public merchant silica tile supplier is named for Starship.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_starship_tiles_inhouse"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_momentive_rtv_adhesive",
+    "source": "reusable_launch_tps_tile_adhesive_sip",
+    "target": "org_momentive_performance_materials",
+    "relation": "reported_capable_supplier",
+    "claim": "Momentive Performance Materials supplies RTV silicones for aerospace thermal-protection systems (heritage RTV-560-class tile-bonding adhesive).",
+    "context": "Industry RTV-adhesive tier; NOT a verified Starship bonding supplier (Starship tile attach is captive).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_momentive_rtv_tps"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_dupont_nomex_sip",
+    "source": "reusable_launch_tps_tile_adhesive_sip",
+    "target": "org_dupont",
+    "relation": "reported_capable_supplier",
+    "claim": "DuPont's Nomex aramid felt is the heritage strain-isolator-pad (SIP) material between rigid TPS tiles and the airframe.",
+    "context": "Industry SIP material; NOT a verified Starship supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_shuttle_rtv_sip_stack"
+    ],
+    "reviewStatus": "unreviewed"
+  }
+]

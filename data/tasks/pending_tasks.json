@@ -356,5 +356,45 @@
     "priority": "medium",
     "status": "pending",
     "createdAt": "2026-06-13T15:30:00.000Z"
+  },
+  {
+    "title": "Quantify space-grade FPGA / rad-hard processor concentration with an independent source",
+    "reason": "Multiple vendor self-claims (Frontgrade 'largest', Microchip/AMD 'two dominant', Sodern/Jena 'world leader') but no independent market-share or unit-volume figure. Need an analyst/agency source to promote any quantitative concentration claim for the strategic rad-hard corner.",
+    "targetNodeId": "falcon9_strategic_radhard_processor_fpga",
+    "suggestedNodeKind": "organization",
+    "priority": "medium",
+    "id": "task_space_radhard_share_quantification",
+    "status": "pending",
+    "createdAt": "2026-06-15T06:34:23.818Z"
+  },
+  {
+    "title": "Re-source Honeywell MIMU flight-heritage numbers from a live primary page",
+    "reason": "The '250th MIMU / >1M on-orbit hours / >300 launched' heritage figures only survive in secondary summaries of an older Honeywell press release that no longer resolves. Find a live Honeywell/NASA primary to support the quantitative heritage claim.",
+    "targetNodeId": "launch_vehicle_space_imu_gnss",
+    "suggestedNodeKind": "evidence",
+    "priority": "low",
+    "id": "task_space_honeywell_mimu_heritage",
+    "status": "pending",
+    "createdAt": "2026-06-15T06:34:23.818Z"
+  },
+  {
+    "title": "Find a SpaceX/NASA primary for Falcon COTS-upscreened avionics radiation approach",
+    "reason": "The COTS-vs-rad-hard honesty split currently leans on a secondary engineering blog plus the Falcon Users Guide redundancy language. A SpaceX or NASA primary describing the COTS radiation-characterization approach would harden the central honesty claim.",
+    "targetNodeId": "launch_cots_upscreened_avionics_silicon",
+    "suggestedNodeKind": "evidence",
+    "priority": "medium",
+    "id": "task_space_falcon_avionics_primary_cots",
+    "status": "pending",
+    "createdAt": "2026-06-15T06:34:23.818Z"
+  },
+  {
+    "title": "Decompose Starship flap/control-surface actuation electronics suppliers",
+    "reason": "The lane's control-surface actuation-electronics target (parent starship_flap_reentry_control) is only lightly covered (Moog capability pointer). SpaceX is believed to build Starship flap actuators in-house (captive); confirm captive-vs-merchant and identify any merchant power-electronics / motor-drive suppliers.",
+    "targetNodeId": "starship_flap_reentry_control",
+    "suggestedNodeKind": "organization",
+    "priority": "medium",
+    "id": "task_space_starship_actuation_electronics",
+    "status": "pending",
+    "createdAt": "2026-06-15T06:34:23.818Z"
   }
 ]

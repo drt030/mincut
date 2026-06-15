@@ -4,7 +4,7 @@
     "type": "product_page",
     "title": "SpaceX Falcon 9 vehicle page",
     "url": "https://www.spacex.com/vehicles/falcon-9",
-    "sourceStatus": "ok_exact",
+    "sourceStatus": "generic_homepage",
     "sourceName": "SpaceX",
     "date": "accessed 2026-06-13",
     "summary": "SpaceX describes Falcon 9 as a reusable two-stage rocket and identifies major reusable-architecture elements including the first stage, Merlin engines, grid fins, landing legs, and fairing reuse.",
@@ -21,9 +21,10 @@
     "reviewStatus": "unreviewed",
     "excerpt": "Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond. Falcon 9 is the world's first orbital class reusable rocket. Falcon 9's first stage incorporates nine Merlin engines. Falcon 9 is equipped with four hypersonic grid fins positioned at the base of the interstage.",
     "machineCheck": {
-      "status": "verified",
+      "status": "needs_fetch",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: spacex.com SPA, stored excerpt not machine-verifiable. Re-anchor to verified source or confirm via browser. spacex.com/vehicles/falcon-9 is a client-rendered SPA: WebFetch and curl (browser UA) both return only a ~3.1KB JS shell (readable text = 'SpaceX'), and the latest Wayback snapsh"
     },
     "limitations": "Real Falcon 9 page (JS-rendered; readable only via browser). Covers reusable stack, nine Merlin engines, grid fins; page also states landing legs, single Merlin Vacuum 2nd stage, and fairing recovery for reuse."
   },
@@ -48,7 +49,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Falcon Payload User's Guide 2025-05-09 PDF fetched (WebFetch returned binary; extracted locally with pypdf, 128pp). All three condensed fragments are verbatim on the page: (a) 'A single Merlin Vacuum (MVac) engine powers the second stage, using a fixed 165:1 expansion nozzle.' (165:1 number supporte"
     },
     "limitations": "Falcon User's Guide PDF (128pp). Verbatim quotes for single MVac fixed nozzle, fault-tolerant single-fault avionics/GNC, and pneumatic low-shock stage separation. Excerpt condenses three exact sentences (each individually verbatim)."
   },
@@ -71,7 +74,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "NASA Commercial Crew blog (2021-04-23) fetched via WebFetch. Stored excerpt 'First reuse of the Crew Dragon spacecraft and Falcon 9 rocket on a crew mission - Crew Dragon Endeavour flew the historic Demo-2 mission and the Falcon 9 flew astronauts on the Crew-1 mission' returned verbatim. No standalo"
     }
   },
   {
@@ -79,7 +84,7 @@
     "type": "product_page",
     "title": "SpaceX Starship vehicle page",
     "url": "https://www.spacex.com/vehicles/starship",
-    "sourceStatus": "ok_exact",
+    "sourceStatus": "generic_homepage",
     "sourceName": "SpaceX",
     "date": "accessed 2026-06-13",
     "summary": "SpaceX describes Starship as designed to carry more than 100 metric tonnes to orbit in a fully reusable configuration.",
@@ -96,9 +101,10 @@
     "reviewStatus": "unreviewed",
     "excerpt": "SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond.",
     "machineCheck": {
-      "status": "verified",
+      "status": "needs_fetch",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: spacex.com SPA, stored excerpt not machine-verifiable. Re-anchor to verified source or confirm via browser. spacex.com/vehicles/starship is the same client-rendered SPA: WebFetch and curl (browser UA) return only the ~3.1KB JS shell ('SpaceX'); Wayback CDX has no usable snapshot (empty"
     }
   },
   {
@@ -126,7 +132,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "SpaceX EU Prospectus (BaFin-approved, 2026-06-05) PDF fetched (WebFetch returned binary; extracted locally with pypdf, 400pp). Stored excerpt 'Comprising the Super Heavy booster (powered by 33 Raptor engines) and the Starship upper stage (with three sea-level and three vacuum Raptor engines), Starsh"
     }
   },
   {
@@ -152,7 +160,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "FAA Starship/Super Heavy stakeholder page. WebFetch 403s (bot block, as record notes); fetched via curl with browser UA (HTTP 200, 113KB). Stored excerpt 'Under the Proposed Action, the FAA would modify SpaceX's existing vehicle operator license to authorize: Up to 25 annual Starship/Super Heavy orb"
     }
   },
   {
@@ -160,16 +170,22 @@
     "type": "historical_source",
     "title": "Smithsonian Falcon 9 grid fin collection record",
     "url": "https://airandspace.si.edu/collection-objects/grid-fin-rocket-launch-vehicle-falcon-9/nasm_A20220607000",
-    "sourceStatus": "ok_exact",
+    "sourceStatus": "fetch_ok",
     "sourceName": "Smithsonian National Air and Space Museum",
     "date": "accessed 2026-06-13",
     "summary": "Smithsonian record explains Falcon 9 first-stage vertical landing, recovery, reuse, and the role of grid fins in reentry control.",
     "supportsNodeIds": [
-      "falcon9_grid_fin_reentry_control",
-      "falcon9_boostback_entry_landing_burns"
+      "falcon9_grid_fin_reentry_control"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "The first stage of the SpaceX Falcon 9 launch vehicle can land vertically, making it recoverable and therefore reusable. Many components contribute to the control system used for reentry and landing. One of these components is the grid fins. Located near the top of the rocket's first stage, grid fins are deployed during reentry. They help control lift during reentry, thereby guiding the booster to a soft landing on a landing pad or on a spaceport drone ship.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round-0 repair (excerpt_found): Missing excerpt repaired with verbatim Smithsonian object text. FULLY supports falcon9_grid_fin_reentry_control (grid fins deployed during reentry, control lift during reentry, guide booster to soft landing). CAVEAT for the orchestrator: the record also lists falcon9_"
+    }
   },
   {
     "id": "ev_space_fcc_orbital_data_center_2026",
@@ -300,8 +316,8 @@
     "id": "ev_space_rocket_lab_capabilities",
     "type": "product_page",
     "title": "Rocket Lab launch and space systems capabilities",
-    "url": "https://www.rocketlabusa.com/",
-    "sourceStatus": "vendor_marketing",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001819994/000162828025008658/rklb-ex99_1.htm",
+    "sourceStatus": "fetch_ok",
     "sourceName": "Rocket Lab",
     "date": "accessed 2026-06-13",
     "summary": "Rocket Lab public site describes launch and space systems capabilities. Used as public exposure/comparable capability, not as SpaceX supplier evidence.",
@@ -310,7 +326,14 @@
     ],
     "limitations": "Vendor capability page; not a SpaceX supplier confirmation.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Founded in 2006, Rocket Lab is an end-to-end space company with an established track record of mission success. We deliver reliable launch services, satellite manufacture, spacecraft components, and on-orbit management solutions that make it faster, easier, and more affordable to access space. Headquartered in Long Beach, California, Rocket Lab designs and manufactures the Electron small orbital launch vehicle, a family of flight-proven spacecraft, and the Company is developing the large Neutron launch vehicle for constellation deployment.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round-0 repair (resourced): Original url https://www.rocketlabusa.com/ 301-redirects to https://rocketlabcorp.com/, which (and its press/investor pages) 403/timeouts to automated fetch and is a JS app with no server-accessible verbatim text - so a verbatim vendor-homepage excerpt could not be captur"
+    }
   },
   {
     "id": "ev_space_redwire_space_infrastructure",
@@ -396,7 +419,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "NASA Kennedy Orbiter TPS PDF (8pp) fetched (WebFetch returned binary; extracted locally with pypdf). All fragments verbatim: 'An average of 50 tiles are replaced after each mission, either due to handling damage or accumulated repairs.' (50-tile figure supported at per-mission basis); 'The tiles are"
     }
   }
 ]
