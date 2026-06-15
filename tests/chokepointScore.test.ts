@@ -166,6 +166,20 @@ test("a node missing an axis is scored over known axes and flagged incomplete", 
   assert.ok(Number.isFinite(r.score));
 });
 
+test("chokepointScores is memoized per graph identity (same Map instance)", () => {
+  // Perf contract (C1): the O(N×(N+E)) pass must run at most once per graph,
+  // so repeated calls with the SAME graph object return the SAME cached Map,
+  // while a DIFFERENT graph object gets its own freshly-computed Map.
+  const g1 = graph([node("p", { kind: "product" }), node("m", { kind: "material" })], [
+    edge("p", "m", "requires"),
+  ]);
+  const g2 = graph([node("p", { kind: "product" }), node("m", { kind: "material" })], [
+    edge("p", "m", "requires"),
+  ]);
+  assert.strictEqual(chokepointScores(g1), chokepointScores(g1));
+  assert.notStrictEqual(chokepointScores(g1), chokepointScores(g2));
+});
+
 test("quantileAt linear-interpolates the requested quantile of a sorted ascending array", () => {
   // [10,20,30,40,50]: Q0 -> 10, Q100 -> 50, Q50 -> 30 (exact index 2),
   // Q25 -> idx 1.0 -> 20, Q60 -> idx 2.4 -> 30 + 0.4*(40-30) = 34.

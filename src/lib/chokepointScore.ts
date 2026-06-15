@@ -152,11 +152,34 @@ export type ChokepointResult = {
   axes: { criticality: number | null; concentration: number | null; barrier: number | null };
 };
 
+const chokepointScoresCache = new WeakMap<GraphData, Map<string, ChokepointResult>>();
+
+/**
+ * Composite chokepoint score for every node, memoized per graph identity.
+ *
+ * The underlying `computeChokepointScores` pass is O(N×(N+E)) and is called
+ * once per scoped node by `chokepointRankSignal`/`selectTopN` (and again by
+ * `chokepointBandFor`), so on the default `bottleneck-risk` lens an
+ * un-memoized version recomputes the full pass thousands of times per
+ * mount/focus/expand — an O(n²) main-thread freeze (C1). Graphs are
+ * immutable-by-convention (a mutated graph is a different object), the same
+ * assumption `bandCache` and `edgeStyleFor`'s `costSignalCache` already rely
+ * on, so caching on graph identity is safe and free of any staleness trap.
+ * The exported signature and return value are identical to the compute pass.
+ */
+export function chokepointScores(graph: GraphData): Map<string, ChokepointResult> {
+  const cached = chokepointScoresCache.get(graph);
+  if (cached) return cached;
+  const computed = computeChokepointScores(graph);
+  chokepointScoresCache.set(graph, computed);
+  return computed;
+}
+
 /** Compute the composite for every node: per-axis raw → quantile-normalize
  *  over the known values → geometric mean over the node's known axes. An
  *  unknown axis is omitted (never coerced to 0); a node with any unknown axis
  *  is flagged `incomplete`. */
-export function chokepointScores(graph: GraphData): Map<string, ChokepointResult> {
+function computeChokepointScores(graph: GraphData): Map<string, ChokepointResult> {
   const crit = new Map<string, AxisValue>();
   const conc = new Map<string, AxisValue>();
   const barr = new Map<string, AxisValue>();
