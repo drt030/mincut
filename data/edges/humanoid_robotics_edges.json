@@ -1755,5 +1755,311 @@
       "ev_humanoid_henkel_bergquist_tim"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__requires__flexspline",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "humanoid_reducer_flexspline",
+    "relation": "requires",
+    "claim": "A strain-wave reducer requires a flexspline (one of its three canonical members); the flexspline is the fatigue-life-limiting, hardest-to-manufacture part.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__requires__circular_spline",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "humanoid_reducer_circular_spline",
+    "relation": "requires",
+    "claim": "A strain-wave reducer requires a circular spline (rigid internal ring gear), the second of its three canonical members.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__requires__wave_generator",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "humanoid_reducer_wave_generator",
+    "relation": "requires",
+    "claim": "A strain-wave reducer requires a wave generator (elliptical cam plus deformable flex bearing), the third of its three canonical members.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__requires__cross_roller_bearing",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "humanoid_cross_roller_bearing",
+    "relation": "requires",
+    "claim": "The strain-wave reducer's joint output is carried by a thin-section cross-roller bearing (often integrated into the reducer/joint housing).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__requires__bearing_steel",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "humanoid_bearing_steel_feedstock",
+    "relation": "requires",
+    "claim": "The reducer's bearings and flex bearing are made from high-cleanliness bearing steel; parented here (not under the flexspline) to keep the feedstock within the depth-4 render budget.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__requires__threaded_shaft",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "humanoid_roller_screw_threaded_shaft",
+    "relation": "requires",
+    "claim": "A planetary roller screw requires a precision multi-start threaded central shaft.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__requires__rollers",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "humanoid_roller_screw_rollers",
+    "relation": "requires",
+    "claim": "A planetary roller screw requires a set of profile-ground planetary rollers; roller grinding is the throughput-limiting step.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__requires__nut",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "humanoid_roller_screw_nut",
+    "relation": "requires",
+    "claim": "A planetary roller screw requires a coaxial internal-thread nut with integrated ring gears that time the rollers.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw_rollers__requires__bearing_steel",
+    "source": "humanoid_roller_screw_rollers",
+    "target": "humanoid_bearing_steel_feedstock",
+    "relation": "requires",
+    "claim": "Planetary rollers are made from 52100-class high-cleanliness bearing steel (shared feedstock with the reducer bearings).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_micro_hand__requires__hollow_cup_motor",
+    "source": "humanoid_micro_hand_actuator",
+    "target": "humanoid_hand_hollow_cup_motor",
+    "relation": "requires",
+    "claim": "The micro hand actuator is driven by a coreless / hollow-cup micro motor (per the Optimus Gen-3 hollow-cup + lead-screw + tendon architecture).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_micro_hand__requires__micro_leadscrew",
+    "source": "humanoid_micro_hand_actuator",
+    "target": "humanoid_hand_micro_leadscrew",
+    "relation": "requires",
+    "claim": "The micro hand actuator uses a miniature lead/ball screw to convert motor rotation into the linear tendon pull.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_fingertip_array__requires__tactile_element",
+    "source": "humanoid_fingertip_tactile_array",
+    "target": "humanoid_fingertip_tactile_element",
+    "relation": "requires",
+    "claim": "The fingertip tactile array requires a tactile sensing element (MEMS, magnetic, or visuotactile transducer).",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hollow_cup_motor__requires__rare_earth_magnet",
+    "source": "humanoid_hand_hollow_cup_motor",
+    "target": "humanoid_rare_earth_magnet_supply",
+    "relation": "requires",
+    "claim": "Coreless/slotless hand motors use NdFeB-class permanent magnets (shared rare-earth magnet dependency).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cell__requires__cathode",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "humanoid_cell_cathode_active_material",
+    "relation": "requires",
+    "claim": "A Li-ion cell requires a cathode active material; high-nickel NMC dominates cell cost and energy.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cell__requires__anode",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "humanoid_cell_anode_active_material",
+    "relation": "requires",
+    "claim": "A Li-ion cell requires an anode active material (graphite, increasingly Si-blended).",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cell__requires__separator",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "humanoid_cell_separator",
+    "relation": "requires",
+    "claim": "A Li-ion cell requires a microporous separator film; high-power separator is a recognized few-supplier chokepoint.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms__requires__afe",
+    "source": "humanoid_battery_management_system",
+    "target": "humanoid_bms_analog_frontend",
+    "relation": "requires",
+    "claim": "The battery management system requires an analog front-end / fuel-gauge IC to monitor and balance cells.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_frameless_bldc__requires__lamination_steel",
+    "source": "humanoid_frameless_bldc_motor",
+    "target": "humanoid_motor_stator_lamination_steel",
+    "relation": "requires",
+    "claim": "The frameless BLDC motor core is built from thin electrical (silicon) steel laminations.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_frameless_bldc__requires__copper_wire",
+    "source": "humanoid_frameless_bldc_motor",
+    "target": "humanoid_motor_copper_magnet_wire",
+    "relation": "requires",
+    "claim": "The frameless BLDC motor stator is wound with insulated copper magnet wire.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rare_earth_magnet__requires__ndfeb_feedstock",
+    "source": "humanoid_rare_earth_magnet_supply",
+    "target": "humanoid_ndfeb_magnet_feedstock",
+    "relation": "requires",
+    "claim": "The rare-earth magnet supply is produced from sintered NdFeB feedstock (with Dy/Tb for high-temperature coercivity); a China-concentrated upstream chokepoint.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_force_torque__requires__elastic_element",
+    "source": "humanoid_force_torque_sensing",
+    "target": "humanoid_ft_elastic_element",
+    "relation": "requires",
+    "claim": "A six-axis force/torque sensor requires a precision-machined elastic element whose strain encodes the load.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ft_elastic_element__requires__strain_transducer",
+    "source": "humanoid_ft_elastic_element",
+    "target": "humanoid_ft_strain_transducer",
+    "relation": "requires",
+    "claim": "The elastic element requires strain transducers (foil gauges or silicon piezoresistors) wired into Wheatstone bridges.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_encoder__requires__magnetic_asic",
+    "source": "humanoid_joint_encoder_position",
+    "target": "humanoid_encoder_magnetic_asic",
+    "relation": "requires",
+    "claim": "The joint encoder commonly uses a magnetic encoder ASIC (Hall array) over a diametrically polarized magnet for compact absolute angle sensing.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_encoder__requires__optical_codedisk",
+    "source": "humanoid_joint_encoder_position",
+    "target": "humanoid_encoder_optical_codedisk",
+    "relation": "requires",
+    "claim": "Where higher resolution is needed (output-side / dual-encoder designs), the joint encoder uses an optical code disk and photodetector.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_skeleton__requires__aluminum_alloy",
+    "source": "humanoid_lightweight_skeleton_frame",
+    "target": "humanoid_struct_aluminum_alloy",
+    "relation": "requires",
+    "claim": "The lightweight skeleton frame uses structural aluminum alloy for primary members and brackets.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_skeleton__requires__magnesium_alloy",
+    "source": "humanoid_lightweight_skeleton_frame",
+    "target": "humanoid_struct_magnesium_alloy",
+    "relation": "requires",
+    "claim": "The lightweight skeleton frame uses die-cast magnesium alloy for the lightest structural housings.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_torso_enclosure__requires__peek_cf",
+    "source": "humanoid_torso_enclosure_skin",
+    "target": "humanoid_struct_peek_cf",
+    "relation": "requires",
+    "claim": "The torso enclosure and joint mechanisms use PEEK / carbon-fiber-reinforced polymer for low-mass, high-specific-strength parts.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_inverter__requires__power_switch",
+    "source": "humanoid_inverter_power_stage",
+    "target": "humanoid_inverter_power_switch",
+    "relation": "requires",
+    "claim": "The joint inverter power stage requires a low-voltage power switching device (Si MOSFET or GaN FET).",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_camera__requires__image_sensor",
+    "source": "humanoid_depth_camera_lidar",
+    "target": "humanoid_depth_image_sensor",
+    "relation": "requires",
+    "claim": "The depth camera requires a CMOS image sensor plus a structured-light/ToF emitter (VCSEL/IR) as its front end.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu__requires__mems_die",
+    "source": "humanoid_imu_attitude_sensing",
+    "target": "humanoid_imu_mems_die",
+    "relation": "requires",
+    "claim": "IMU attitude sensing requires a six-axis MEMS inertial die (gyro + accelerometer).",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_compute__requires__inference_soc",
+    "source": "humanoid_edge_ai_compute_module",
+    "target": "humanoid_edge_inference_soc",
+    "relation": "requires",
+    "claim": "The edge AI compute module requires an onboard inference SoC (the named compute chokepoint).",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_compute__requires__lpddr_memory",
+    "source": "humanoid_edge_ai_compute_module",
+    "target": "humanoid_compute_lpddr_memory",
+    "relation": "requires",
+    "claim": "The edge AI compute module requires on-module LPDDR memory; the upstream DRAM/HBM chain is a documented boundary owned by the ai_compute_chain domain.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_thermal__requires__heat_pipe",
+    "source": "humanoid_motor_joint_thermal_path",
+    "target": "humanoid_heat_pipe_vapor_chamber",
+    "relation": "requires",
+    "claim": "High-duty-cycle motor/joint thermal paths use a heat pipe or vapor chamber as a two-phase spreader (the high-duty-cycle option, not universal).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_compute_spreader__requires__tim",
+    "source": "humanoid_compute_heat_spreader",
+    "target": "humanoid_thermal_interface_material",
+    "relation": "requires",
+    "claim": "The compute heat spreader requires a thermal interface material between the die/source and the spreader.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
   }
 ]
