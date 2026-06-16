@@ -1,7 +1,10 @@
 # Domain Expansion — Agent Acceptance Standard (Flagship Parity)
 
-**Version: v1 · 2026-06-15 · Owner of this file: the orchestrator.**
-**Inherits (read first):** [domain-decomposition-playbook.md](domain-decomposition-playbook.md),
+**Version: v2 · 2026-06-15 · Owner of this file: the orchestrator.**
+**v2 change:** folds the [QA-agent.md](../QA-agent.md) browser user-flow back in as **Gate F**
+(mandatory) — data gates A–E alone no longer grant ACCEPTED. See §0 + §7.5 + §8.
+**Inherits (read first):** [QA-agent.md](../QA-agent.md) (the product user-flow contract — Gate F),
+[domain-decomposition-playbook.md](domain-decomposition-playbook.md),
 [evidence-audit-brief.md](evidence-audit-brief.md), ADR-0001 (review ladder), ADR-0004
 (sibling-product boundary), ADR-0005 (decomposition stop + concentration override), ADR-0008
 (know-how layers), ADR-0009 (claim discipline + edge semantics + remediation ladder), and the
@@ -15,12 +18,17 @@ domain to **flagship parity** (the quality the `ai_compute_chain` flagship reach
 the autonomous expansion run is graded against. It is domain-agnostic; per-domain specifics live
 in each domain's decomposition brief and in §7 below.
 
-**It is not** the product/UI QA contract — that is [QA-agent.md](../QA-agent.md), a separate,
-browser-side concern. This document grades **decomposition + exposure + evidence quality**, not
-the rendered app.
+This document grades **decomposition + exposure + evidence quality** (Gates A–E). **Data
+correctness is necessary but NOT sufficient** for ACCEPTED: the rendered product must also pass the
+[QA-agent.md](../QA-agent.md) browser user-flow as **Gate F (§7.5)**. A domain that is data-correct
+but renders a thin/unreadable graph, hides the exposure the data claims, or shows
+gray/unclassified nodes is **NOT ACCEPTED** — it is "data-accepted, user-flow pending".
+(Correction 2026-06-15: an earlier version scoped UI-QA out as a "separate concern"; that gap let a
+data-only loop pass two domains whose product surfaced only ~12 of 53 supplier orgs and carried
+unresolved gray nodes. UI acceptance is folded back in here.)
 
-A round/batch is **ACCEPTED if and only if** every gate in §1–§6 passes for the domain under
-test. Partial passes do not ship to an owner review queue. See §8 for the decision rule.
+A round/batch is **ACCEPTED if and only if** every gate A–F passes for the domain under test
+(§8). Partial passes do not ship to an owner review queue.
 
 ## 1. Scope locked this round (2026-06-15)
 
@@ -42,8 +50,9 @@ test. Partial passes do not ship to an owner review queue. See §8 for the decis
 
 ## 2. The bar — flagship parity
 
-Flagship parity = the deterministic, evidence, exposure, eval, and review gates (§3 Gate A – §7
-Gate E) all pass for the domain. "Looks complete" is not parity; the eval and the verifier decide.
+Flagship parity = the deterministic, evidence, exposure, eval, review, **and user-flow** gates
+(§3 Gate A – §7.5 Gate F) all pass for the domain. "Looks complete" is not parity — the eval, the
+verifier, **and a real user testing the running product** decide.
 The reference run (`ai_compute_chain`) is the calibration anchor, not a node-count target — a domain
 with fewer genuine segments is fine if its segments are fully covered.
 
@@ -140,22 +149,59 @@ episodes with publicly-named constrained suppliers) **and** a sealed holdout. Fr
   [review-queue-ai-compute.md](review-queue-ai-compute.md): per-claim, per-fact, with the evidence
   and the exact flip decision the owner is being asked to make.
 
+## 7.5 Gate F — User-flow product acceptance (QA-agent.md; MANDATORY, browser-tested)
+
+Gates A–E grade the **files**; Gate F grades the **running product**, exactly per
+[QA-agent.md](../QA-agent.md) (the adversarial product reviewer). A verdict agent may **not** pass
+a domain on A–E alone — per QA-agent.md strictness: *"do not mark pass if browser testing was
+skipped for UI changes"* and *"if a core user journey was not actually tested."*
+
+- **F1 Real browser.** Open the live route `/d/<slug>` in a real browser (preview/automation) and
+  run the QA-agent.md minimum user tasks (first screen; graph inspection per ADR-0007; graph
+  usability; maturity/routes; evidence/review status; gate; tasks; EN/zh; responsive;
+  trust/recovery). Report what was actually clicked, not what the docs promise.
+- **F2 The exposure the data claims is actually VISIBLE.** The supplier orgs counted by Gate C/D
+  must be reachable in the product — as graph nodes and/or the suppliers-&-tickers rail on the
+  relevant component — **not merely present in the JSON.** Spot-check 5 Gate-D answer-key suppliers;
+  confirm a user can find each. **`reported_capable_supplier`-only orgs that render nowhere are a
+  blocker:** the radial tree is built from decomposition relations (`requires`/`part_of`/
+  `has_route`/`implemented_by`) and holder counts use `manufactured_by`/`implemented_by`, so an org
+  reachable by neither is invisible — the exposure work must surface, or the relations/rail must.
+- **F3 Graph reads as a map.** The radial decomposition renders, is non-trivial, and communicates
+  which subsystem is most complex/important without a side list; no blank canvas, no orphan
+  cluster. Report the rendered-tree node count vs the flagship.
+- **F4 No gray/unclassified nodes.** Every rendered node has a resolved maturity **and** subsystem
+  classification — no `unknown` maturity, no uncoloured/uncategorised nodes. Day-0 classification
+  debt (e.g. the 16 `unknown`-maturity SpaceX nodes flagged at kickoff) is resolved, not carried.
+- **F5 EN + zh both usable**; no truncation/overlap of core controls (e.g. the lens toggle), no
+  console errors, graceful recovery from missing data.
+- Findings categorised per QA-agent.md (blocker / major / minor / ux / data_model / performance /
+  accessibility / opportunity). **Any blocker or major rendered-product finding fails Gate F.**
+
 ## 8. The acceptance decision rule
 
 A domain reaches **flagship parity (ACCEPTED for owner review)** when, in a single coherent state:
 
 ```
-A1..A7 all green
+A1..A8 all green
   AND B1..B6 hold (verifier-confirmed, not self-attested)
   AND C1..C5 done and provable
   AND D: segment_recall ≥0.85 AND chokepoint_flag_rate ≥0.95
          AND exposure_recall ≥0.65 AND evidence_integrity ≥0.95
   AND E1 satisfied (top-15 flip-eligible queue delivered)
+  AND F1..F5 pass (QA-agent.md browser user-flow; 0 blocker/major rendered-product findings)
 ```
 
-E2 (owner flips) happens **after** ACCEPTED — it is the human gate, not an agent deliverable.
-Anything short of the conjunction above is `in_progress`, reported honestly with the failing gate
-named — never rounded up to "done".
+**Data-accepted ≠ ACCEPTED.** A domain that clears A–E but has not passed Gate F is
+"data-accepted, user-flow pending" and does NOT earn `audit-preview`→`paid-candidate` eligibility.
+E2 (owner flips) happens after the full A–F conjunction. Anything short is `in_progress`, reported
+honestly with the failing gate named — never rounded up to "done".
+
+**Status correction (2026-06-15):** the prior `reusable_launch` and `humanoid_robotics`
+"ACCEPTED" verdicts were **data-only (A–E)** — Gate F was never run. Both are downgraded to
+**data-accepted, user-flow PENDING** until QA-agent.md passes. (Already surfaced by inspection: the
+rendered SpaceX tree shows ~59 structural nodes with only ~12 of 53 supplier orgs reachable, plus
+gray `unknown`-maturity nodes — exactly the class of defect Gate F exists to catch.)
 
 ## 9. Process integrity & cost discipline (binding)
 
