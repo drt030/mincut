@@ -1803,9 +1803,14 @@
       "tps",
       "ablative",
       "material",
-      "decomposition_frontier"
+      "decomposition_frontier",
+      "bottleneck"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "starship_ship_reusable_upper_stage"
+    ],
+    "notes": "[structural-deepening 2026-06-16] re-homed for render via `requires` from starship_ship_reusable_upper_stage (depth-4 lift); tagged key as the Starship-reuse TPS frontier. part_of to the tile system preserved."
   },
   {
     "id": "pica_rayon_lyocell_carbon_precursor",
@@ -1885,10 +1890,14 @@
       "ceramic",
       "material",
       "captive",
-      "reusable"
+      "reusable",
+      "bottleneck"
     ],
-    "notes": "CAPTIVE call: Starship tiles are made in-house by SpaceX; no public merchant silica supplier is named for Starship. Merchant tier shown here is the heritage Shuttle-class tile maker (Lockheed Martin, LI-900) for industry framing, not a verified Starship supplier.",
-    "reviewStatus": "unreviewed"
+    "notes": "CAPTIVE call: Starship tiles are made in-house by SpaceX; no public merchant silica supplier is named for Starship. Merchant tier shown here is the heritage Shuttle-class tile maker (Lockheed Martin, LI-900) for industry framing, not a verified Starship supplier. [structural-deepening 2026-06-16] re-homed for render via `requires` from starship_ship_reusable_upper_stage (depth-4 lift); tagged key as the Starship-reuse TPS frontier. part_of to the tile system preserved.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "starship_ship_reusable_upper_stage"
+    ]
   },
   {
     "id": "reusable_launch_tps_tile_adhesive_sip",
@@ -2071,5 +2080,425 @@
     "notes": "Historic sole-qualified PICA rayon precursor supplier that ceased production — the root of the documented chokepoint. Formerly Madrid-listed; liquidated ~2020 -> treated as private/defunct, no current ticker (no guess).",
     "reviewStatus": "unreviewed",
     "listingStatus": "private"
+  },
+  {
+    "id": "launch_flight_computer_avionics_merchant",
+    "name": "Flight computer / integrated avionics box (merchant tier)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The integrated flight-control computer / avionics unit that runs guidance, navigation and control and sequences the vehicle. SpaceX builds its Falcon and Starship flight computers in-house around triple-redundant, radiation-tolerant-by-architecture compute, but a genuine merchant tier serves the broader (non-vertically-integrated) reusable-launch industry: Beyond Gravity (RUAG Space), Innoflight, Moog and Airbus Defence/BAE supply launch- and spacecraft-class avionics boxes. Mapped as the industry chain a program that does not build its own avionics would procure, not a confirmed SpaceX purchase.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "avionics",
+      "gnc",
+      "flight_computer",
+      "merchant_tier"
+    ],
+    "notes": "Captive-vs-merchant honesty (scope §1): SpaceX flight computers are in-house (triple-redundant COTS-upscreened compute). The named merchant suppliers fly avionics boxes on other launch/space programs and represent the buyable tier for a non-captive reusable-launch program. Qualitative industry-capability mapping, not a verified SpaceX supply relationship.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "launch_power_distribution_battery_merchant",
+    "name": "Flight power distribution unit & battery (merchant tier)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "Power conditioning / distribution electronics and flight batteries (typically lithium-ion) that supply the avionics, actuators and pyrotechnics through ascent and recovery. The merchant tier is well established: EaglePicher and Saft (TotalEnergies) are the dominant Western space-battery houses, with Vicor and Crane Aerospace supplying high-density power-conversion modules. SpaceX integrates its own power electronics, so this is the industry-chain tier a non-captive program buys.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "avionics",
+      "power",
+      "battery",
+      "merchant_tier"
+    ],
+    "notes": "Industry-chain mapping (scope §1): named space-battery / power-module suppliers serve launch and satellite programs broadly; their specific role on SpaceX vehicles is not publicly confirmed and is treated as qualitative industry capability.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "launch_rf_telemetry_transponder_merchant",
+    "name": "RF telemetry / command transponder (merchant tier)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "S-band / X-band telemetry, tracking and command transponders and transmitters that carry vehicle telemetry to the range and receive command / flight-termination uplinks. A constrained, qualification-heavy merchant tier: L3Harris, Safran Data Systems (formerly Zodiac/Cobham), and Quasonix supply launch-range telemetry hardware. Relevant both to range communications and to the command link feeding the flight-safety system.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "avionics",
+      "rf",
+      "telemetry",
+      "merchant_tier"
+    ],
+    "notes": "Industry-chain mapping (scope §1): qualified telemetry/transponder suppliers serve the launch-range community broadly; specific SpaceX usage is not publicly confirmed and is treated as qualitative industry capability.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "fairing_composite_sandwich_panel",
+    "name": "Fairing composite sandwich panel (CFRP / aluminum-honeycomb)",
+    "kind": "material",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The large carbon-fiber-reinforced-polymer face-sheet over aluminum-honeycomb sandwich half-shell that forms the payload fairing. Reusing a fairing requires the panel to survive ascent loads, reentry heating and saltwater immersion, then be refurbished — a real fabrication frontier for large, thin, autoclave- or out-of-autoclave-cured composite shells. Merchant aerostructure fabricators (Beyond Gravity / RUAG, which makes Atlas and Ariane fairings; Spirit AeroSystems composites) define the industry tier; SpaceX fabricates Falcon fairings in-house.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "aerostructure",
+      "composite",
+      "carbon_fiber",
+      "material",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "notes": "Tagged key as a genuine large-CFRP-shell fabrication frontier (reuse adds reentry + saltwater survival). Upstream carbon-fiber/prepreg supply (Toray, Hexcel, Teijin) is already in the graph and should be reused rather than re-added; merchant fairing fabricators (Beyond Gravity, Spirit) are the structural tier.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "falcon9_fairing_recovery_reuse"
+    ]
+  },
+  {
+    "id": "fairing_recovery_rcs_cold_gas",
+    "name": "Fairing recovery cold-gas RCS / guided-parafoil system",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The cold-gas attitude-control thrusters plus steerable parafoil that orient each fairing half after separation and guide it to a controlled water or ship-borne recovery — the hardware that turned the fairing from an expendable into a reused component. Guided-parafoil systems are a named merchant tier (Airborne Systems); cold-gas thruster modules come from suppliers such as Moog and Bradford. SpaceX integrates the recovery system on Falcon fairings.",
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "aerostructure",
+      "recovery",
+      "reaction_control",
+      "merchant_tier"
+    ],
+    "notes": "Recovery hardware is qualitatively grounded in public Falcon fairing-recovery coverage (cold-gas reorientation + parafoil descent). Merchant parafoil/thruster suppliers serve the broader industry; specific SpaceX supply is not publicly confirmed.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "fairing_separation_pneumatic_system",
+    "name": "Fairing separation pneumatic pusher system",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The low-shock pneumatic pusher / separation mechanism that splits and pushes apart the two fairing halves at jettison. Falcon 9 uses a pneumatic (rather than purely pyrotechnic) fairing-separation system to reduce shock and avoid debris — a deliberately reuse- and payload-friendly design choice. A distinct mechanism from the recovery cold-gas/parafoil hardware that acts after separation.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "aerostructure",
+      "separation",
+      "pneumatic"
+    ],
+    "notes": "Grounded in public description of Falcon 9's pneumatic (low-shock, all-pneumatic) fairing-separation system. Distinct hardware from fairing_recovery_rcs_cold_gas (separation event vs post-separation descent control); kept as separate genuine subsystems, not a split of one thing.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "launch_rcs_cold_gas_thruster_merchant",
+    "name": "Reaction-control cold-gas / monopropellant thruster set (merchant tier)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "Small attitude-control thrusters used by the upper stage for coast-phase reorientation, settling burns and pointing. SpaceX's Falcon upper stage uses an in-house cold-gas (nitrogen) RCS and Draco-class monopropellant thrusters; the genuine merchant tier — Moog, Aerojet Rocketdyne (L3Harris) MR-series, Bradford ECAPS, ArianeGroup — supplies equivalent thruster sets to the broader launch and spacecraft industry.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "upper_stage",
+      "reaction_control",
+      "thruster",
+      "merchant_tier"
+    ],
+    "notes": "Captive-vs-merchant honesty (scope §1): SpaceX upper-stage RCS is in-house (cold-gas N2 + Draco). Merchant thruster suppliers fly on other programs and represent the buyable tier for a non-captive reusable program; qualitative industry mapping.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "falcon9_interstage_stage_separation_structure",
+    "name": "Interstage & stage-separation structure",
+    "kind": "module",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The composite interstage that connects the booster and second stage and houses the stage-separation system. On Falcon 9 the interstage carries the pneumatic stage-separation pushers and the booster-side mounting for grid fins, and must release cleanly at separation while surviving booster reentry for reuse. A distinct structural/mechanism subsystem from the engines it sits between.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "structure",
+      "stage_separation",
+      "composite"
+    ],
+    "notes": "Grounded in public Falcon 9 architecture (composite interstage, pneumatic pusher separation, grid-fin mounting). Reuse-relevant because the booster-side interstage region must survive entry. Carbon-fiber supply already modeled upstream; not re-added here.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "grid_fin_hydraulic_actuation_merchant",
+    "name": "Grid-fin hydraulic actuation system (merchant tier)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The hydraulic actuators and power pack that deploy and articulate the titanium grid fins to steer the booster during reentry and descent. Falcon 9's grid fins are hydraulically actuated; the actuation hardware is genuinely distinct from engine-gimbal thrust-vector-control actuators (different loads, duty cycle and mounting). Merchant hydraulic-actuation suppliers (Moog, Woodward, Parker Hannifin) define the industry tier.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "recovery",
+      "actuation",
+      "hydraulic",
+      "merchant_tier"
+    ],
+    "notes": "Kept distinct from launch_tvc_actuators_merchant on purpose: grid-fin reentry-control hydraulics and engine-gimbal TVC are genuinely separate hardware (different parts, specs, environment) — not one real thing split in two. Grounded in public Falcon 9 grid-fin hydraulic actuation.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "landing_leg_crushable_honeycomb_merchant",
+    "name": "Landing-leg crushable aluminum-honeycomb core",
+    "kind": "material",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The one-shot crushable aluminum-honeycomb energy absorber inside the landing legs that dissipates touchdown energy by plastically deforming. As a single-use consumable it is the leg's reuse-limiting element (replaced between flights), distinct from the carbon-fiber/aluminum telescoping leg structure itself. Crushable aluminum-honeycomb absorbers are a real merchant material tier (Hexcel, Plascore, Argosy).",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "recovery",
+      "energy_absorber",
+      "aluminum_honeycomb",
+      "material",
+      "bottleneck"
+    ],
+    "notes": "ADR-0005 override basis: Falcon legs are mature/widely-adopted, so this passes as a reuse-CONSUMABLE story (the crushable core is spent per landing), not as a supply chokepoint. Kept to ONE node — a mature leg is not over-decomposed. Tagged key to render as the reuse-limiting consumable.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "falcon9_landing_legs"
+    ]
+  },
+  {
+    "id": "copv_metallic_liner_merchant",
+    "name": "COPV metallic liner (thin Inconel / titanium)",
+    "kind": "material",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The thin gas-tight metallic liner inside the carbon-overwrapped pressure vessels (COPVs) that store high-pressure helium for tank pressurization. Liner integrity and the liner/overwrap/propellant interface were central to the Falcon 9 AMOS-6 (2016) on-pad failure investigation, making the liner a documented failure-mode chokepoint. Merchant COPV / liner makers (Infinite Composites, Steelhead Composites, HyPerComp Engineering) define the industry tier.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "structure",
+      "pressure_vessel",
+      "copv",
+      "material",
+      "bottleneck"
+    ],
+    "notes": "Depth note: the COPV vessel node itself sits at canvas depth 4 (a child of it would be clipped), so the liner is wired as a sibling under the tank structure (depth 3 -> liner renders at depth 4). Tagged key as a documented AMOS-6 failure-mode chokepoint. Merchant COPV/liner orgs already in the exposure file.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "falcon9_aluminum_lithium_tank_structure"
+    ]
+  },
+  {
+    "id": "starship_stainless_coil_plate_merchant",
+    "name": "Aerospace stainless-steel coil/plate (304L / 30X-class)",
+    "kind": "material",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The stainless-steel mill product (coil and plate) that SpaceX rolls, forms and welds into Starship and Super Heavy tank barrels and domes. SpaceX moved from 301/304L stainless to a proprietary in-house alloy it calls 30X to improve cryogenic strength and reusability. The merchant mill tier — Outokumpu, North American Stainless / Acerinox, ArcelorMittal stainless — supplies the base coil/plate; the 30X composition is SpaceX-proprietary.",
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "structure",
+      "stainless_steel",
+      "material",
+      "bottleneck",
+      "decomposition_frontier"
+    ],
+    "notes": "Fills the explicit frontier flagged in the parent starship_stainless_steel_primary_structure description ('exact alloy/process details remain outside this first pass'). 30X is SpaceX-proprietary; the buyable base is mill stainless from Outokumpu (already in the exposure file) and peers. Tagged key as the structural material frontier.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "starship_stainless_steel_primary_structure"
+    ]
+  },
+  {
+    "id": "starship_header_tank_landing_propellant",
+    "name": "Starship header tanks (landing-propellant storage)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The smaller header tanks that store the dedicated methane and oxygen used for Starship's landing burn, isolated from the main tanks so settled, conditioned propellant is available for the flip-and-land maneuver. The methane header sits in the nosecone with a downcomer through the main tank; this propellant-management architecture is a distinctive reuse-enabling subsystem of the Starship upper stage.",
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "structure",
+      "propellant_management",
+      "reusable"
+    ],
+    "notes": "Grounded in publicly documented Starship header-tank architecture (nose methane header + downcomer; separate landing-propellant tanks). Distinctive reuse subsystem of the ship stage, not a generic tank.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "engine_niobium_nozzle_extension_merchant",
+    "name": "Radiatively-cooled niobium-alloy nozzle extension",
+    "kind": "material",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The large radiation-cooled columbium (niobium alloy, typically C-103) nozzle skirt fitted to vacuum-optimized upper-stage engines, where the thin refractory-metal extension runs red-hot and radiates heat rather than being regeneratively cooled. C-103 nozzle extensions are standard on vacuum engines across the industry (e.g. RL10-class). The niobium feedstock itself is a textbook supply chokepoint — a single producer (CBMM, Brazil) accounts for the large majority of world niobium.",
+    "maturityLabel": "widely_adopted",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "upper_stage",
+      "propulsion",
+      "refractory_metal",
+      "niobium",
+      "material",
+      "bottleneck",
+      "constraint_supply_concentration"
+    ],
+    "notes": "Mapped as the INDUSTRY vacuum-engine nozzle tier (scope §1): radiation-cooled C-103 extensions are standard on vac engines; whether Merlin Vacuum specifically uses a niobium extension is not asserted here. Tagged key on the genuine niobium feedstock-concentration chokepoint (CBMM dominant); refractory-metal fabricators (e.g. ATI) are the merchant tier.",
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "merlin_vacuum_upper_stage_engine"
+    ]
+  },
+  {
+    "id": "launch_site_flame_deluge_water_system",
+    "name": "Flame deflector & water-deluge sound-suppression system",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The steel flame deflector and high-volume water-deluge system that protects the pad surface and suppresses the acoustic and overpressure energy at ignition and liftoff. After Starship's first integrated flight (April 2023) cratered the Starbase pad, SpaceX built a water-cooled steel deluge plate and large water system beneath the orbital launch mount — a genuine, documented ground subsystem that gates launch cadence and pad survivability.",
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "ground_systems",
+      "pad_infrastructure",
+      "sound_suppression",
+      "thin_merchant_tier"
+    ],
+    "notes": "Grounded in public post-mishap documentation of the Starbase water-deluge / steel-plate system. Exposure is thin: this is mostly bespoke civil/steel and water-system work rather than a named merchant component tier — noted honestly, no invented suppliers.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "launch_site_cryo_storage_tank_farm",
+    "name": "Cryogenic propellant storage & transfer tank farm",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The ground tank farm of large liquid-oxygen and (for Starship) liquid-methane storage tanks, plus transfer lines and pumps that feed the pad. Tank-farm sizing, replenishment and chilldown drive turnaround time and launch cadence for a high-flight-rate reusable program. Cryogenic storage tanks and equipment are a named merchant tier (Chart Industries, Linde Engineering, Air Products).",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "ground_systems",
+      "cryogenics",
+      "propellant_storage",
+      "merchant_tier"
+    ],
+    "notes": "Cryo storage/transfer equipment has a real merchant tier (Chart, Linde, Air Products); org_linde already exists cross-domain and should be reused rather than re-added in the later exposure pass.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "launch_site_propellant_subcooler_skid",
+    "name": "Propellant subcooler / densification skid",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The ground subcooling / densification skid that chills liquid oxygen (and on Falcon 9, RP-1) below its normal boiling point to increase propellant density, letting the vehicle load more mass into a fixed tank volume. Densified-propellant loading is a defining feature of Falcon 9 Full Thrust and feeds directly into the late-load cryogenic sequence. A distinct ground subsystem below the storage tank farm.",
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "ground_systems",
+      "cryogenics",
+      "densification",
+      "thin_merchant_tier"
+    ],
+    "notes": "Grounded in publicly documented SpaceX subcooled/densified propellant loading (Falcon 9 Full Thrust). Sits below the cryo tank farm as the densification stage feeding the late-load sequence. Cryogenic refrigeration/subcooler equipment overlaps the Linde/Chart industrial-gas tier.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "launch_site_gse_umbilical_quick_disconnect",
+    "name": "GSE umbilical & quick-disconnect plate",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The ground-support umbilical lines and quick-disconnect (QD) plates that carry propellant, pressurant, purge gas, power and data to the vehicle on the pad and release cleanly at launch. On Starbase the booster and ship QD plates on the tower (and the tower's stage-0 umbilicals) are reuse-critical interfaces that must mate and demate reliably every flight. A distinct ground/interface subsystem from the storage and deluge systems.",
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "ground_systems",
+      "umbilical",
+      "interface",
+      "thin_merchant_tier"
+    ],
+    "notes": "Grounded in publicly documented Starbase tower quick-disconnect / umbilical interfaces (booster + ship QD arms, stage-0 umbilicals). Largely bespoke ground hardware; merchant exposure is thin and noted honestly.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "starship_flap_electric_actuator",
+    "name": "Starship flap electric actuator (high-power EMA)",
+    "kind": "equipment",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The battery-powered electromechanical actuators that drive Starship's forward and aft reentry flaps during the bellyflop descent and flip. SpaceX has publicly stated Starship uses Tesla-derived electric motors and battery packs for flap (and engine) actuation, replacing the hydraulics used on earlier vehicles — a distinctive all-electric control-surface actuation approach. Largely captive (Tesla/SpaceX in-house); the high-power EMA merchant tier (Moog, Collins) is only a substitution reference.",
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "recovery",
+      "control_surface",
+      "actuation",
+      "electric",
+      "captive"
+    ],
+    "notes": "Captive call (scope §1): Starship flap/engine actuation is in-house Tesla-derived electric (publicly stated by SpaceX/Musk), so merchant exposure is thin. Kept as a structural decomposition node labeled captive; no merchant supplier invented.",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "starship_hot_stage_separation_ring",
+    "name": "Starship hot-stage separation ring",
+    "kind": "module",
+    "domain": [
+      "spacex_reusable_launch"
+    ],
+    "description": "The vented interstage ring atop Super Heavy that enables hot-staging — igniting the ship's engines while still attached so their exhaust vents through the ring as the stages separate. Added to the Starship architecture after Flight 1 and revised for reuse (initially expendable, later retained on the booster), it is a distinctive, publicly documented structural subsystem of the Super Heavy / Starship separation event.",
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "structure",
+      "stage_separation",
+      "hot_staging"
+    ],
+    "notes": "Grounded in publicly documented Starship hot-staging ring (introduced for Flight 2; later iterations retained on the booster for reuse). Distinctive separation-system structure, not a generic interstage.",
+    "reviewStatus": "unreviewed"
   }
 ]

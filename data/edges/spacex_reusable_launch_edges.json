@@ -11,11 +11,11 @@
   },
   {
     "id": "e_space_tvc_actuators_part_of_merlin",
-    "source": "launch_tvc_actuators_merchant",
-    "target": "falcon9_merlin_engine_cluster",
-    "relation": "part_of",
+    "source": "falcon9_merlin_engine_cluster",
+    "target": "launch_tvc_actuators_merchant",
+    "relation": "requires",
     "claim": "Engine thrust-vector-control actuators gimbal the Merlin engines for steering; on Merlin this is a captive hydraulic system driven by RP-1 turbopump pressure.",
-    "context": "Captive on SpaceX; sub-node exists to map the merchant TVC-actuator tier serving the wider reusable-launch industry.",
+    "context": "Captive on SpaceX; sub-node exists to map the merchant TVC-actuator tier serving the wider reusable-launch industry. [structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction.",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
   },
@@ -495,60 +495,66 @@
   },
   {
     "id": "e_space_radhard_proc_part_of_avionics",
-    "source": "falcon9_strategic_radhard_processor_fpga",
-    "target": "falcon9_fault_tolerant_avionics_gnc",
-    "relation": "part_of",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "falcon9_strategic_radhard_processor_fpga",
+    "relation": "requires",
     "claim": "Strategic rad-hard processors/FPGAs/memory are the concentrated-supply component within fault-tolerant launch/space avionics.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "[structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction."
   },
   {
     "id": "e_space_cots_upscreen_part_of_avionics",
-    "source": "launch_cots_upscreened_avionics_silicon",
-    "target": "falcon9_fault_tolerant_avionics_gnc",
-    "relation": "part_of",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "launch_cots_upscreened_avionics_silicon",
+    "relation": "requires",
     "claim": "COTS-upscreened, triple-redundant silicon is the commodity path Falcon-class ascent avionics uses for radiation tolerance, distinct from strategic rad-hard.",
     "confidence": "high",
     "evidenceIds": [
       "ev_space_spacex_cots_radtol_avionics"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "[structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction."
   },
   {
     "id": "e_space_imu_part_of_avionics",
-    "source": "launch_vehicle_space_imu_gnss",
-    "target": "falcon9_fault_tolerant_avionics_gnc",
-    "relation": "part_of",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "launch_vehicle_space_imu_gnss",
+    "relation": "requires",
     "claim": "Space-grade IMU / inertial reference / GNSS feeds the fault-tolerant GNC loop.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "[structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction."
   },
   {
     "id": "e_space_star_tracker_part_of_avionics",
-    "source": "launch_vehicle_star_tracker",
-    "target": "falcon9_fault_tolerant_avionics_gnc",
-    "relation": "part_of",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "launch_vehicle_star_tracker",
+    "relation": "requires",
     "claim": "Star trackers provide stellar attitude reference within the GNC sensor suite.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "[structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction."
   },
   {
     "id": "e_space_connector_harness_part_of_avionics",
-    "source": "space_grade_connector_harness_launch",
-    "target": "falcon9_fault_tolerant_avionics_gnc",
-    "relation": "part_of",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "space_grade_connector_harness_launch",
+    "relation": "requires",
     "claim": "Space-grade connectors and flight harness interconnect the avionics on the reusable launch stack.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "[structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction."
   },
   {
     "id": "e_space_fts_ordnance_part_of_afss",
-    "source": "flight_termination_ordnance_safe_arm",
-    "target": "autonomous_flight_safety_system",
-    "relation": "part_of",
+    "source": "autonomous_flight_safety_system",
+    "target": "flight_termination_ordnance_safe_arm",
+    "relation": "requires",
     "claim": "Safe-and-arm / ordnance hardware is the energetic component the autonomous flight-safety system commands.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "context": "[structural-deepening 2026-06-16] converted part_of->requires (canonical ADR-0009 decomposition relation) so the already-evidenced component renders on the focal tree; same parent/child fact, render-correct direction."
   },
   {
     "id": "e_space_bae_radhard_proc",
@@ -1205,6 +1211,236 @@
     "evidenceIds": [
       "ev_space_shuttle_rtv_sip_stack"
     ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_merlin_cluster_req_bearings",
+    "source": "falcon9_merlin_engine_cluster",
+    "target": "launch_engine_precision_bearings_merchant",
+    "relation": "requires",
+    "claim": "The Merlin engine cluster requires precision turbopump / gimbal / cryogenic bearings.",
+    "context": "Re-home for render: the merchant bearing tier was attached only via part_of to a deeper turbopump-inspection node (depth 5+, clipped). Wired here from the engine cluster (depth 3) so it renders at depth 4; the deeper part_of fact is preserved.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_ship_stage_req_ceramic_tile",
+    "source": "starship_ship_reusable_upper_stage",
+    "target": "reusable_launch_ceramic_silica_tile",
+    "relation": "requires",
+    "claim": "The Starship upper stage requires its reusable ceramic/silica heat-shield tiles.",
+    "context": "Re-home for render: tile materials were attached only via part_of to the heat-shield tile-system node (depth 4), burying them at depth 5. Wired from the ship stage (depth 3) so the tile material tier renders at depth 4; part_of to the tile system preserved.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_ship_stage_req_pica",
+    "source": "starship_ship_reusable_upper_stage",
+    "target": "starship_pica_class_ablator",
+    "relation": "requires",
+    "claim": "The Starship upper stage requires PICA-class ablative thermal protection on its hardest-heated zones.",
+    "context": "Re-home for render (see ceramic tile): wired from the ship stage (depth 3) so the ablator renders at depth 4; the deeper rayon/FiberForm precursor chain stays rail-only (depth-blocked). part_of to the tile system preserved.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_avionics_req_flightcomputer",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "launch_flight_computer_avionics_merchant",
+    "relation": "requires",
+    "claim": "Fault-tolerant avionics requires an integrated flight computer / avionics box.",
+    "context": "Industry-chain decomposition: SpaceX builds this in-house; the node carries the merchant flight-computer tier a non-captive program buys.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_avionics_req_power",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "launch_power_distribution_battery_merchant",
+    "relation": "requires",
+    "claim": "Fault-tolerant avionics requires flight power distribution and batteries.",
+    "context": "Industry-chain decomposition of the GNC/avionics module; named space-battery/power-module merchant tier.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_avionics_req_rf",
+    "source": "falcon9_fault_tolerant_avionics_gnc",
+    "target": "launch_rf_telemetry_transponder_merchant",
+    "relation": "requires",
+    "claim": "Fault-tolerant avionics requires RF telemetry / command transponders.",
+    "context": "Industry-chain decomposition; qualified telemetry/transponder merchant tier feeding range comms and the FTS command link.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_fairing_req_panel",
+    "source": "falcon9_fairing_recovery_reuse",
+    "target": "fairing_composite_sandwich_panel",
+    "relation": "requires",
+    "claim": "Fairing recovery/reuse requires the CFRP/honeycomb composite half-shell.",
+    "context": "The large composite sandwich panel is the reusable fairing structure; reuse adds reentry + saltwater survival (key fabrication frontier).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_fairing_req_recoveryrcs",
+    "source": "falcon9_fairing_recovery_reuse",
+    "target": "fairing_recovery_rcs_cold_gas",
+    "relation": "requires",
+    "claim": "Fairing recovery requires the cold-gas RCS / guided-parafoil system.",
+    "context": "Post-separation attitude control + guided descent hardware that enables controlled fairing recovery.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_fairing_req_separation",
+    "source": "falcon9_fairing_recovery_reuse",
+    "target": "fairing_separation_pneumatic_system",
+    "relation": "requires",
+    "claim": "Fairing reuse requires a low-shock pneumatic separation system.",
+    "context": "Distinct from the recovery hardware: the all-pneumatic pusher that splits the halves at jettison (low shock, reuse/payload-friendly).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_secondstage_req_rcs",
+    "source": "falcon9_second_stage_payload_delivery",
+    "target": "launch_rcs_cold_gas_thruster_merchant",
+    "relation": "requires",
+    "claim": "The second stage requires reaction-control thrusters for coast-phase attitude control.",
+    "context": "Industry-chain decomposition: SpaceX uses in-house cold-gas + Draco; the node carries the merchant RCS-thruster tier.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_secondstage_req_interstage",
+    "source": "falcon9_second_stage_payload_delivery",
+    "target": "falcon9_interstage_stage_separation_structure",
+    "relation": "requires",
+    "claim": "Stage delivery requires the interstage and stage-separation structure.",
+    "context": "The composite interstage houses the pneumatic separation pushers and grid-fin mounting; reuse-relevant on the booster side.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_gridfin_req_hydraulics",
+    "source": "falcon9_grid_fin_reentry_control",
+    "target": "grid_fin_hydraulic_actuation_merchant",
+    "relation": "requires",
+    "claim": "Grid-fin reentry control requires its hydraulic actuation system.",
+    "context": "Genuinely distinct hardware from engine-gimbal TVC (different loads/duty cycle); merchant hydraulic-actuation tier.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_legs_req_honeycomb",
+    "source": "falcon9_landing_legs",
+    "target": "landing_leg_crushable_honeycomb_merchant",
+    "relation": "requires",
+    "claim": "The landing legs require a crushable aluminum-honeycomb energy-absorbing core.",
+    "context": "Single-use reuse consumable (ADR-0005 consumable override); the spent core is the leg's reuse-limiting element.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_tank_req_copvliner",
+    "source": "falcon9_aluminum_lithium_tank_structure",
+    "target": "copv_metallic_liner_merchant",
+    "relation": "requires",
+    "claim": "The tank structure requires its helium COPV pressure vessels, whose thin metallic liner is the critical sub-part.",
+    "context": "Re-home: the COPV vessel node sits at depth 4, so the liner is wired as a sibling under the tank (depth 3) to render at depth 4. AMOS-6 failure-mode chokepoint.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_stainless_req_coilplate",
+    "source": "starship_stainless_steel_primary_structure",
+    "target": "starship_stainless_coil_plate_merchant",
+    "relation": "requires",
+    "claim": "The Starship stainless primary structure requires aerospace stainless coil/plate mill product.",
+    "context": "Fills the parent's explicitly-unfinished alloy/process frontier; 30X is SpaceX-proprietary, base mill stainless is merchant (Outokumpu et al.).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_shipstage_req_header",
+    "source": "starship_ship_reusable_upper_stage",
+    "target": "starship_header_tank_landing_propellant",
+    "relation": "requires",
+    "claim": "The Starship upper stage requires dedicated header tanks for landing propellant.",
+    "context": "Distinctive reuse subsystem: nose methane header + downcomer isolating settled landing propellant for the flip-and-land burn.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_shipstage_req_flapema",
+    "source": "starship_ship_reusable_upper_stage",
+    "target": "starship_flap_electric_actuator",
+    "relation": "requires",
+    "claim": "The Starship upper stage requires electric actuators to drive its reentry flaps.",
+    "context": "All-electric (Tesla-derived) control-surface actuation; largely captive — labeled as such, no merchant supplier invented.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_superheavy_req_hotstage",
+    "source": "superheavy_reusable_booster",
+    "target": "starship_hot_stage_separation_ring",
+    "relation": "requires",
+    "claim": "The Super Heavy booster requires the hot-stage separation ring for hot-staging.",
+    "context": "Vented interstage ring enabling ignition-before-separation; introduced post-Flight-1 and revised for reuse.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_mvac_req_niobium",
+    "source": "merlin_vacuum_upper_stage_engine",
+    "target": "engine_niobium_nozzle_extension_merchant",
+    "relation": "requires",
+    "claim": "The vacuum upper-stage engine requires a radiation-cooled niobium-alloy nozzle extension.",
+    "context": "Industry vacuum-engine nozzle tier (C-103 standard on vac engines); tagged key on the niobium feedstock concentration chokepoint (CBMM).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_ground_req_deluge",
+    "source": "spacex_launch_ground_stack",
+    "target": "launch_site_flame_deluge_water_system",
+    "relation": "requires",
+    "claim": "The launch ground stack requires a flame deflector and water-deluge sound-suppression system.",
+    "context": "Documented Starbase deluge/steel-plate system (post-2023 pad rebuild); pad-survivability and cadence subsystem; merchant exposure thin.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_ground_req_tankfarm",
+    "source": "spacex_launch_ground_stack",
+    "target": "launch_site_cryo_storage_tank_farm",
+    "relation": "requires",
+    "claim": "The launch ground stack requires a cryogenic propellant storage & transfer tank farm.",
+    "context": "LOX/LCH4 storage, transfer and chilldown; sizing drives turnaround. Merchant cryo-equipment tier (Chart, Linde, Air Products).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_ground_req_gse",
+    "source": "spacex_launch_ground_stack",
+    "target": "launch_site_gse_umbilical_quick_disconnect",
+    "relation": "requires",
+    "claim": "The launch ground stack requires GSE umbilicals and quick-disconnect plates.",
+    "context": "Reuse-critical mate/demate interfaces (booster + ship QD arms, stage-0 umbilicals); largely bespoke, merchant exposure thin.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_deepen_tankfarm_req_subcooler",
+    "source": "launch_site_cryo_storage_tank_farm",
+    "target": "launch_site_propellant_subcooler_skid",
+    "relation": "requires",
+    "claim": "The cryo tank farm requires a subcooler / densification skid to densify propellant.",
+    "context": "Subcooled/densified loading (Falcon 9 Full Thrust) feeding the late-load sequence; sits below the tank farm (depth 3 -> renders at depth 4).",
+    "confidence": "medium",
     "reviewStatus": "unreviewed"
   }
 ]
