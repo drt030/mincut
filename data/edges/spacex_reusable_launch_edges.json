@@ -1442,5 +1442,411 @@
     "context": "Subcooled/densified loading (Falcon 9 Full Thrust) feeding the late-load sequence; sits below the tank farm (depth 3 -> renders at depth 4).",
     "confidence": "medium",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_moog_flightcomputer",
+    "source": "org_moog",
+    "target": "launch_flight_computer_avionics_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Moog supplies launch- and spacecraft-class avionics / actuation-electronics units; a merchant flight-computer/avionics-box tier supplier for non-captive programs.",
+    "context": "Industry-chain capability link (scope §1): SpaceX flight computers are in-house; Moog flies avionics on other programs. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_bae_flightcomputer",
+    "source": "org_bae_systems",
+    "target": "launch_flight_computer_avionics_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "BAE Systems supplies launch/space avionics and single-board computers; a merchant flight-computer/avionics tier supplier for non-captive programs.",
+    "context": "Industry-chain capability link; BAE's heritage space-computing line. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_innoflight_flightcomputer",
+    "source": "org_innoflight",
+    "target": "launch_flight_computer_avionics_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Innoflight makes the CFC-400X compact flight computer (selected by L3Harris for the SDA Tracking Layer); a merchant flight-computer tier supplier.",
+    "context": "Industry-chain capability link; private merchant compact flight computer with named primes. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_innoflight_cfc400x"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_beyondgravity_flightcomputer",
+    "source": "org_beyond_gravity",
+    "target": "launch_flight_computer_avionics_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Beyond Gravity (ex-RUAG Space) supplies launch-vehicle avionics boxes across European and U.S. launchers; a merchant flight-computer/avionics tier supplier.",
+    "context": "Industry-chain capability link; state-owned merchant supplier of launch avionics. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_beyond_gravity_ruag_fairings"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_vicor_power",
+    "source": "org_vicor",
+    "target": "launch_power_distribution_battery_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Vicor supplies high-density rad-tolerant DC-DC power-conversion modules (FPA) used in space power systems; merchant power-module tier.",
+    "context": "Industry-chain capability link (cross-domain org reused from ai_compute_chain); power-conversion tier. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_eaglepicher_battery",
+    "source": "org_eaglepicher",
+    "target": "launch_power_distribution_battery_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "EaglePicher is the dominant U.S. space-battery maker (Mars rovers, Hubble, ISS, launch vehicles); merchant flight-battery tier.",
+    "context": "Industry-chain capability link; private, strongest US space-battery name. SpaceX batteries largely in-house -> reported_capable_supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_eaglepicher_space_batteries"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_totalenergies_battery",
+    "source": "org_totalenergies",
+    "target": "launch_power_distribution_battery_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "TotalEnergies (parent of Saft) supplies space/aviation lithium-ion batteries via Saft; the public-equity route to space-battery exposure (TTE).",
+    "context": "Industry-chain capability link; diluted exposure (battery << TTE revenue). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_totalenergies_tte_nyse"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_l3harris_rf",
+    "source": "org_l3harris_space",
+    "target": "launch_rf_telemetry_transponder_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "L3Harris supplies space communications and TT&C / telemetry hardware for the launch-range and command-link chain; merchant RF-transponder tier.",
+    "context": "Industry-chain capability link (cross-domain org reused from space_spacex). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_quasonix_rf",
+    "source": "org_quasonix",
+    "target": "launch_rf_telemetry_transponder_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Quasonix is a market leader in aeronautical telemetry transmitters for flight-test and range telemetry; merchant RF-telemetry tier.",
+    "context": "Industry-chain capability link; private telemetry-transmitter leader. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_quasonix_telemetry_transmitter"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_safran_rf",
+    "source": "org_safran",
+    "target": "launch_rf_telemetry_transponder_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Safran Data Systems (ex-Zodiac) makes telemetry / TT&C hardware for the launch-range community; merchant RF-transponder tier.",
+    "context": "Industry-chain capability link; diluted (data-systems minor segment of Safran). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_safran_saf_euronext"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_thales_imu",
+    "source": "org_thales",
+    "target": "launch_vehicle_space_imu_gnss",
+    "relation": "reported_capable_supplier",
+    "claim": "Thales makes the TopAxyz IMU/INS (ring-laser-gyro and MEMS) for aerospace navigation; merchant high-grade IMU tier.",
+    "context": "Industry-chain capability link; diluted (INS small slice of Thales). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_thales_topaxyz_imu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_safran_imu",
+    "source": "org_safran",
+    "target": "launch_vehicle_space_imu_gnss",
+    "relation": "reported_capable_supplier",
+    "claim": "Safran supplies inertial navigation systems (Sigma / space INS) for aerospace; a merchant IMU-tier supplier (same org as the RF-telemetry tier, one node).",
+    "context": "Industry-chain capability link; second component link for org_safran (RF + IMU). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_gdots_fts",
+    "source": "org_gd_ots",
+    "target": "flight_termination_ordnance_safe_arm",
+    "relation": "reported_capable_supplier",
+    "claim": "General Dynamics Ordnance and Tactical Systems is an energetics/ordnance house capable of flight-termination safe-and-arm hardware; merchant FTS-ordnance tier.",
+    "context": "Industry-chain capability link; GD-OTS energetics. reported_capable_supplier, not a SpaceX supply. (EBAD omitted: low-confidence, not independently verified this round.)",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_toray_fairingpanel",
+    "source": "org_toray",
+    "target": "fairing_composite_sandwich_panel",
+    "relation": "reported_capable_supplier",
+    "claim": "Toray supplies aerospace carbon fiber used in launch-vehicle composite fairing panels; the upstream merchant material tier for the CFRP sandwich panel.",
+    "context": "Industry-chain material link (reuse of the carbon-fiber org; the fiber feeds the fairing panel). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_hexcel_fairingpanel",
+    "source": "org_hexcel",
+    "target": "fairing_composite_sandwich_panel",
+    "relation": "reported_capable_supplier",
+    "claim": "Hexcel supplies HexTow carbon fiber and HexPly prepreg for aerospace composite structures; merchant material tier for the fairing CFRP sandwich panel.",
+    "context": "Industry-chain material link (reuse of the carbon-fiber org). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_teijin_fairingpanel",
+    "source": "org_teijin",
+    "target": "fairing_composite_sandwich_panel",
+    "relation": "reported_capable_supplier",
+    "claim": "Teijin supplies Tenax aerospace carbon fiber for composite structures; merchant material tier for the fairing CFRP sandwich panel.",
+    "context": "Industry-chain material link (reuse of the carbon-fiber org). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_beyondgravity_fairingpanel",
+    "source": "org_beyond_gravity",
+    "target": "fairing_composite_sandwich_panel",
+    "relation": "reported_capable_supplier",
+    "claim": "Beyond Gravity (ex-RUAG Space) fabricates payload fairings for Ariane/Vega and many U.S. ULA rockets; the marquee merchant fairing-fabricator tier.",
+    "context": "Industry-chain capability link; same org as the flight-computer tier (one node, second component link). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_moog_fairingrecovery",
+    "source": "org_moog",
+    "target": "fairing_recovery_rcs_cold_gas",
+    "relation": "reported_capable_supplier",
+    "claim": "Moog supplies cold-gas / reaction-control thruster modules used for post-separation attitude control; merchant recovery-RCS tier.",
+    "context": "Industry-chain capability link; cold-gas thruster tier. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_transdigm_fairingrecovery",
+    "source": "org_transdigm",
+    "target": "fairing_recovery_rcs_cold_gas",
+    "relation": "reported_capable_supplier",
+    "claim": "TransDigm (via Airborne Systems) is the worldwide leader in guided parafoils used for precision aerial recovery; merchant fairing-recovery descent tier.",
+    "context": "Industry-chain capability link; Airborne Systems guided parafoils. SpaceX-Airborne supply unverified -> reported_capable_supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_transdigm_airborne_parafoil"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_moog_rcsthruster",
+    "source": "org_moog",
+    "target": "launch_rcs_cold_gas_thruster_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Moog supplies monopropellant and cold-gas reaction-control thruster sets for the launch/spacecraft industry; merchant RCS-thruster tier.",
+    "context": "Industry-chain capability link (scope §1): SpaceX upper-stage RCS is in-house. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_l3harris_rcsthruster",
+    "source": "org_l3harris_space",
+    "target": "launch_rcs_cold_gas_thruster_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "L3Harris (Aerojet Rocketdyne MR-series) is the classic US monopropellant-thruster line; merchant RCS-thruster tier.",
+    "context": "Industry-chain capability link (cross-domain org). M&A flag: Aerojet propulsion 60% being sold to AE Industrial. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_parker_tvc",
+    "source": "org_parker_hannifin",
+    "target": "launch_tvc_actuators_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Parker Hannifin (Parker Aerospace) supplies launch-vehicle hydraulic / fluid-power actuation hardware; merchant TVC-actuation tier.",
+    "context": "Industry-chain capability link; Parker actuation/fluid-power. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_moog_gridfin",
+    "source": "org_moog",
+    "target": "grid_fin_hydraulic_actuation_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Moog supplies hydraulic actuation hardware for launch-vehicle control surfaces; merchant grid-fin hydraulic-actuation tier (distinct hardware from engine-gimbal TVC).",
+    "context": "Industry-chain capability link; fin hydraulics != engine gimbal (separate component). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_parker_gridfin",
+    "source": "org_parker_hannifin",
+    "target": "grid_fin_hydraulic_actuation_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Parker Hannifin supplies hydraulic actuation / fluid-power hardware for launch-vehicle control surfaces; merchant grid-fin hydraulic-actuation tier.",
+    "context": "Industry-chain capability link; second component link for Parker (TVC + grid-fin). reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_hexcel_honeycomb",
+    "source": "org_hexcel",
+    "target": "landing_leg_crushable_honeycomb_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Hexcel supplies aerospace aluminum honeycomb used as crushable energy-absorbing core; merchant landing-leg honeycomb tier.",
+    "context": "Industry-chain material link; aluminum honeycomb energy absorber. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_plascore_honeycomb",
+    "source": "org_plascore",
+    "target": "landing_leg_crushable_honeycomb_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Plascore supplies aerospace/defense aluminum honeycomb core; a second source to Hexcel for crushable landing-leg core.",
+    "context": "Industry-chain material link; private second-source honeycomb maker. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_plascore_aluminum_honeycomb"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_infinitecomposites_liner",
+    "source": "org_infinite_composites",
+    "target": "copv_metallic_liner_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Infinite Composites makes COPVs / linerless pressure vessels for launch vehicles and spacecraft; merchant COPV-liner tier.",
+    "context": "Industry-chain capability link; merchant COPV maker (SpaceX COPVs are captive post-AMOS-6). reported_capable_supplier.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_steelhead_liner",
+    "source": "org_steelhead_composites",
+    "target": "copv_metallic_liner_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Steelhead Composites makes COPVs integrated into launch-vehicle propulsion systems; merchant COPV-liner tier with liner compatibility selection.",
+    "context": "Industry-chain capability link; merchant COPV maker. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_hypercomp_liner",
+    "source": "org_hypercomp_engineering",
+    "target": "copv_metallic_liner_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "HyPerComp Engineering develops/qualifies/produces COPVs used in space launch vehicles; merchant COPV-liner tier.",
+    "context": "Industry-chain capability link; merchant COPV maker. reported_capable_supplier, not a SpaceX supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_outokumpu_stainless",
+    "source": "org_outokumpu",
+    "target": "starship_stainless_coil_plate_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Outokumpu is Europe's largest stainless producer (reported as a SpaceX Starship stainless supplier); the merchant base coil/plate stainless tier.",
+    "context": "Industry-chain material link; 304L is near-commodity with many qualified mills -> illustrative breadth, not sole-source. reported_capable_supplier (the captive 30X is the chokepoint).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_arcelormittal_stainless",
+    "source": "org_arcelormittal",
+    "target": "starship_stainless_coil_plate_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "ArcelorMittal (stainless) is a global merchant stainless mill; the merchant base coil/plate stainless tier feeding launch primary structure.",
+    "context": "Industry-chain material link (cross-domain org reused from parcel). Commodity-grade -> breadth, not a chokepoint. reported_capable_supplier.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_acerinox_stainless",
+    "source": "org_acerinox",
+    "target": "starship_stainless_coil_plate_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "Acerinox (via North American Stainless) is the US stainless mill route; the merchant base coil/plate stainless tier.",
+    "context": "Industry-chain material link; SpaceX-NAS supply unverified. Commodity-grade -> low chokepoint purity. reported_capable_supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_acerinox_acx_bme"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_ati_niobium",
+    "source": "org_ati",
+    "target": "engine_niobium_nozzle_extension_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "ATI is a U.S. specialty-materials producer capable of refractory-metal (incl. niobium-alloy) fabrication for vacuum-engine nozzle extensions; merchant refractory-fab tier.",
+    "context": "Industry-chain material link; refractory-metal fabrication tier (the real corner is the niobium feedstock, CBMM). reported_capable_supplier.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_cbmm_niobium",
+    "source": "org_cbmm",
+    "target": "engine_niobium_nozzle_extension_merchant",
+    "relation": "reported_capable_supplier",
+    "claim": "CBMM is the dominant world niobium (columbium) producer — the feedstock corner for C-103 vacuum-engine nozzle extensions (Brazil ~90% of global niobium production, USGS).",
+    "context": "Industry-chain feedstock link; the single strongest verified chokepoint in the plan (private -> non-investable directly). reported_capable_supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_cbmm_niobium_share"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_linde_cryotank",
+    "source": "org_linde",
+    "target": "launch_site_cryo_storage_tank_farm",
+    "relation": "reported_capable_supplier",
+    "claim": "Linde (Linde Engineering) supplies cryogenic storage / air-separation and tank equipment for launch ground systems; merchant cryo-storage tier.",
+    "context": "Industry-chain capability link (cross-domain org reused from ai_compute_chain). reported_capable_supplier, not a SpaceX-specific tank-farm contract.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_airproducts_cryotank",
+    "source": "org_air_products",
+    "target": "launch_site_cryo_storage_tank_farm",
+    "relation": "reported_capable_supplier",
+    "claim": "Air Products is a big-five industrial-gas major supplying cryogenic storage/transfer equipment and gases for launch ground systems; merchant cryo-storage tier.",
+    "context": "Industry-chain capability link; cryo storage/transfer tier. reported_capable_supplier, not a SpaceX-specific tank-farm contract.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_space_exposure_chart_cryotank",
+    "source": "org_chart_industries",
+    "target": "launch_site_cryo_storage_tank_farm",
+    "relation": "reported_capable_supplier",
+    "claim": "Chart Industries is a dominant merchant cryogenic-tank maker (cryo gear in ~90% of LNG projects); merchant cryo-storage tank-farm tier.",
+    "context": "Industry-chain capability link; SpaceX-Starbase supply unverified. M&A: GTLS rolling into Baker Hughes ~mid-2026. reported_capable_supplier.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_space_chart_industries_gtls_cryo"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

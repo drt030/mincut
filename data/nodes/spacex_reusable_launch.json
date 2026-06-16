@@ -2500,5 +2500,355 @@
     ],
     "notes": "Grounded in publicly documented Starship hot-staging ring (introduced for Flight 2; later iterations retained on the booster for reuse). Distinctive separation-system structure, not a generic interstage.",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_innoflight",
+    "name": "Innoflight, Inc.",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "U.S. (San Diego, California) space-avionics firm (founded 2004) making compact flight computers and integrated avionics for launch and spacecraft — its CFC-400X compact flight computer was selected by L3Harris for the Space Development Agency Tracking Layer program. Privately held (no public ticker). A merchant flight-computer tier supplier for non-captive reusable-launch / space programs.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_space_innoflight_cfc400x"
+    ],
+    "tags": [
+      "manufacturer",
+      "avionics",
+      "flight_computer",
+      "private_company",
+      "merchant_tier"
+    ],
+    "notes": "PRIVATE (no ticker; confirmed not listed via PitchBook/Crunchbase/ZoomInfo profiles). Real merchant compact flight computer (CFC-400X) with named customers (L3Harris SDA Tracking Layer, Northrop). Not a SpaceX-confirmed supplier -> reported_capable_supplier. Country: USA.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_beyond_gravity",
+    "name": "Beyond Gravity (formerly RUAG Space)",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "Swiss/Sweden-headquartered space supplier (formerly RUAG Space; part of RUAG International Holding AG), 100% owned by the Swiss Confederation (privatization targeted mid-term, not listed). A marquee merchant supplier of launch-vehicle avionics AND payload fairings — it supplies fairings on European Ariane and Vega rockets and many U.S. ULA rockets. Industry-chain capability exposure for non-captive reusable-launch programs.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_space_beyond_gravity_ruag_fairings"
+    ],
+    "tags": [
+      "manufacturer",
+      "avionics",
+      "aerostructure",
+      "state_owned",
+      "merchant_tier"
+    ],
+    "notes": "STATE-OWNED (100% Swiss Confederation), not listed -> no ticker. Strong merchant position in launch avionics AND payload fairings (links both the flight-computer and fairing-panel components). Capability/industry-chain exposure, not a SpaceX supplier. Country: Switzerland/Sweden.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_eaglepicher",
+    "name": "EaglePicher Technologies, LLC",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "U.S. (Joplin, Missouri) space-and-defense battery maker; the strongest U.S. space-battery name, having supplied batteries for a very large share of U.S. space missions (Mars rovers, Hubble, ISS, launch vehicles). Privately held — owned by Tuthill Corporation since October 2023 (prior GTCR private equity), so no public ticker. Merchant flight-battery tier for non-captive launch programs.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_space_eaglepicher_space_batteries"
+    ],
+    "tags": [
+      "manufacturer",
+      "battery",
+      "power",
+      "private_company",
+      "merchant_tier"
+    ],
+    "notes": "PRIVATE (Tuthill-owned since Oct-2023; prior GTCR PE) -> no ticker. Strongest US space-battery name; vendor claim 'more space missions than any other company' is qualitative. SpaceX flight batteries are largely in-house -> reported_capable_supplier. Country: USA.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_totalenergies",
+    "name": "TotalEnergies SE (parent of Saft Groupe)",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "French multi-energy major (Paris-headquartered) and parent of Saft Groupe, which makes space- and aviation-grade lithium-ion batteries. Saft is no longer separately listed (delisted August 2016 after TotalEnergies acquired it), so the public equity route to space-battery exposure is the parent TotalEnergies, listed on the NYSE and Euronext Paris under TTE. Exposure is heavily diluted (batteries are a tiny slice of TotalEnergies energy revenue).",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "TTE"
+      }
+    ],
+    "evidenceIds": [
+      "ev_space_totalenergies_tte_nyse"
+    ],
+    "tags": [
+      "manufacturer",
+      "battery",
+      "power",
+      "public_company",
+      "merchant_tier"
+    ],
+    "notes": "TICKER CORRECTION: Saft is NOT separately listed (delisted Aug-2016). Exposure routes to parent TotalEnergies TTE (NYSE + Euronext Paris, verified on official press release). Saft makes space/aviation Li-ion. DILUTED exposure (battery << TTE total revenue) -> low purity; owner-queue flag. Country: France. SpaceX link unconfirmed -> reported_capable_supplier.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "TTE"
+  },
+  {
+    "id": "org_quasonix",
+    "name": "Quasonix, Inc.",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "U.S. (West Chester, Ohio) telemetry-electronics maker (Subchapter-S corporation, founded 2002); described as the market leader in aeronautical telemetry transmitters used in flight-test and range telemetry. Privately held — no public ticker. A merchant RF-telemetry transmitter tier supplier relevant to the launch-range / command-link chain.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_space_quasonix_telemetry_transmitter"
+    ],
+    "tags": [
+      "manufacturer",
+      "rf",
+      "telemetry",
+      "private_company",
+      "merchant_tier"
+    ],
+    "notes": "PRIVATE (Subchapter-S, founded 2002; confirmed not public via PitchBook/Crunchbase) -> no ticker. Real telemetry-transmitter leader (flight-test/range). SpaceX link unverified -> reported_capable_supplier. 'Market leader' is vendor/trade-qualitative. Country: USA.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_safran",
+    "name": "Safran S.A. (Safran Data Systems)",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "French aerospace-and-defense group (Paris-headquartered), listed on Euronext Paris (CAC 40) under SAF (ADR SAFRY). Its Safran Data Systems unit (formerly Zodiac Data Systems) makes telemetry / TT&C hardware, and Safran also supplies inertial navigation systems (Sigma / space INS). Exposure to either the RF-telemetry or IMU tier is diluted (data-systems / INS are minor segments of a propulsion-heavy group).",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "SAF"
+      }
+    ],
+    "evidenceIds": [
+      "ev_space_safran_saf_euronext"
+    ],
+    "tags": [
+      "manufacturer",
+      "rf",
+      "telemetry",
+      "imu",
+      "public_company",
+      "merchant_tier"
+    ],
+    "notes": "Euronext Paris SAF (CAC 40; ADR SAFRY), verified on official exchange product page. Safran Data Systems (ex-Zodiac) makes telemetry/TT&C; Safran also makes IMU/INS (Sigma) -> ONE node links BOTH the RF-transponder and the IMU components. DILUTED exposure (data-systems/INS minor segment) -> low purity. Country: France. SpaceX link unverified -> reported_capable_supplier.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "SAF"
+  },
+  {
+    "id": "org_thales",
+    "name": "Thales S.A.",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "French aerospace/defense/digital group (Paris-headquartered), listed on Euronext Paris (CAC 40) under HO. Makes inertial measurement / navigation systems (TopAxyz IMU/INS, ring-laser-gyro and MEMS grades) used in aerospace and land/space navigation. A merchant high-grade IMU tier supplier; exposure is diluted (inertial navigation is a small slice of Thales).",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "HO"
+      }
+    ],
+    "evidenceIds": [
+      "ev_space_thales_topaxyz_imu"
+    ],
+    "tags": [
+      "manufacturer",
+      "imu",
+      "gnc",
+      "public_company",
+      "merchant_tier"
+    ],
+    "notes": "Euronext Paris HO (CAC 40), verified via thalesgroup IMU press + market sources. Real IMU/INS maker (TopAxyz, RLG/MEMS). SpaceX link unverified -> reported_capable_supplier. DILUTED exposure (INS small slice of Thales) -> low purity. Country: France.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "HO"
+  },
+  {
+    "id": "org_transdigm",
+    "name": "TransDigm Group Incorporated (owner of Airborne Systems)",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "U.S. aerospace components group (Cleveland, Ohio), NYSE-listed under TDG; owner since 2013 of Airborne Systems, the worldwide market and technology leader in guided aerial cargo and payload-delivery parafoils. Airborne's precision-guided parafoils are the relevant merchant tier for fairing-recovery descent control. Exposure is heavily diluted (Airborne is one of dozens of TransDigm units).",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "TDG"
+      }
+    ],
+    "evidenceIds": [
+      "ev_space_transdigm_airborne_parafoil"
+    ],
+    "tags": [
+      "manufacturer",
+      "recovery",
+      "parafoil",
+      "public_company",
+      "merchant_tier"
+    ],
+    "notes": "NYSE TDG. Airborne Systems (TransDigm subsidiary since 2013) makes guided parafoils. SpaceX fairing-parafoil supply NOT confirmed by independent source -> reported_capable_supplier (capability). DILUTED exposure (Airborne is one of dozens of TDG units) -> low purity. Country: USA. Ticker via Wikipedia (IR 403'd); corroborated across SEC 8-K / Crain's / PRNewswire.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "TDG"
+  },
+  {
+    "id": "org_plascore",
+    "name": "Plascore Incorporated",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "U.S. (Zeeland, Michigan) honeycomb-core maker (founded 1977, ~225 employees) producing aluminum honeycomb for aerospace and defense energy-absorbing and structural applications. A second source to Hexcel for crushable aluminum-honeycomb core. Privately held — no public ticker.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_space_plascore_aluminum_honeycomb"
+    ],
+    "tags": [
+      "manufacturer",
+      "aluminum_honeycomb",
+      "energy_absorber",
+      "private_company",
+      "merchant_tier"
+    ],
+    "notes": "PRIVATE (Zeeland MI, founded 1977; confirmed not public via Wikipedia/BBB) -> no ticker. Real aluminum-honeycomb maker; second source to Hexcel for crushable core. Mature/widely-adopted material -> keep ONE node (gap T08). Country: USA.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_acerinox",
+    "name": "Acerinox, S.A. (parent of North American Stainless)",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "Spanish stainless-steel producer (Madrid-headquartered), listed on BME Madrid under ACX (ISIN ES0132105018). Owns North American Stainless (NAS), the U.S. stainless mill route. The merchant base coil/plate stainless tier feeding launch primary structure; SpaceX's Starship 30X alloy is captive/proprietary, so this is commodity-grade breadth exposure rather than a chokepoint.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "ACX"
+      }
+    ],
+    "evidenceIds": [
+      "ev_space_acerinox_acx_bme"
+    ],
+    "tags": [
+      "manufacturer",
+      "stainless_steel",
+      "structural_metals",
+      "public_company",
+      "merchant_tier"
+    ],
+    "notes": "BME Madrid ACX (ISIN ES0132105018; corroborated Yahoo ACX.MC / Investing BME:ACX). Owns North American Stainless (NAS) -> the US stainless mill route. SpaceX-NAS supply UNVERIFIED -> reported_capable_supplier. COMMODITY-grade stainless -> low chokepoint purity (the chokepoint is SpaceX's captive 30X process, not the coil). Country: Spain.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "ACX"
+  },
+  {
+    "id": "org_cbmm",
+    "name": "Companhia Brasileira de Metalurgia e Mineração (CBMM)",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "Brazilian niobium producer (Araxá, Minas Gerais) — the dominant world supplier of niobium (columbium), the refractory-metal feedstock for C-103 vacuum-engine nozzle extensions. Reported at roughly 75–82% of the world niobium market, with Brazil supplying about 90% of global niobium production (USGS). Privately held (Moreira Salles family ~70%, Japanese/Korean consortium ~15%, Chinese consortium ~15%) — no public ticker. The single strongest verified chokepoint in this exposure plan, though non-investable directly.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [],
+    "evidenceIds": [
+      "ev_space_cbmm_niobium_share"
+    ],
+    "tags": [
+      "manufacturer",
+      "niobium",
+      "refractory_metal",
+      "raw_material",
+      "single_source_corner",
+      "private_company"
+    ],
+    "notes": "PRIVATE (Moreira Salles family ~70%; Japanese/Korean 15%; Chinese 15%) -> no ticker, but the single strongest CHOKEPOINT found. The niobium feedstock corner (not the nozzle fab) is the real bottleneck. The company-specific ~75-82% share is the ADR-0009 highest-review tier: USGS confirms Brazil ~90% PRODUCTION (primary); CBMM's own share needs a second primary cross-check before shipping as a hard number -> presented as 'reported ~75-82%, unverified range'. The excerpt below carries the USGS-anchored Brazil ~90% production figure (the better-sourced number). Country: Brazil.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_chart_industries",
+    "name": "Chart Industries, Inc.",
+    "kind": "organization",
+    "domain": [
+      "spacex_reusable_launch",
+      "investable_supplier"
+    ],
+    "description": "U.S. cryogenic-equipment maker (Ball Ground, Georgia), NYSE-listed under GTLS; a dominant merchant supplier of cryogenic storage tanks and equipment, with cryo gear reported to be used in roughly 90% of LNG projects worldwide (an LNG-project-penetration claim, not a launch-cryo share). Relevant to the ground cryogenic-propellant storage tank-farm tier. M&A flag: being acquired by Baker Hughes (BKR), expected to close ~mid-2026.",
+    "maturityLabel": "unknown",
+    "confidence": "high",
+    "metrics": [
+      {
+        "name": "Public listing",
+        "currentValue": "GTLS"
+      }
+    ],
+    "evidenceIds": [
+      "ev_space_chart_industries_gtls_cryo"
+    ],
+    "tags": [
+      "manufacturer",
+      "cryogenics",
+      "propellant_storage",
+      "public_company",
+      "merchant_tier"
+    ],
+    "notes": "NYSE GTLS - VERIFIED. M&A FLAG: Baker Hughes (NASDAQ BKR) acquiring Chart for $13.6B all-cash ($210/share, approved Oct-2025, expected close MID-2026) -> post-close GTLS rolls into BKR. Real merchant cryo-tank leader; SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier. The '90% of LNG projects' is LNG-basis, NOT a launch-cryo market share. Country: USA.",
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "GTLS"
   }
 ]

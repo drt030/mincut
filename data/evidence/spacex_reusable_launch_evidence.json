@@ -2402,5 +2402,245 @@
       "quoteMatch": "exact",
       "notes": "Gate-B repair (re-source (recommended)): Current cited URL (nasa.fandom.com) is a grey fan-wiki returning HTTP 403 (Cloudflare) — cannot be fetched/verified. Replace with the authoritative NASA KSC STS news-ref TPS page, which states the Nomex-felt-SIP + RTV-560/GE bonding stack "
     }
+  },
+  {
+    "id": "ev_space_innoflight_cfc400x",
+    "type": "vendor_claim",
+    "title": "Innoflight — L3Harris selects CFC-400X Compact Flight Computer for SDA Tracking Layer",
+    "url": "https://innoflight.com/l3harris-selects-innoflights-cfc-400x-compact-flight-computer-for-the-space-development-agency-tracking-layer-program/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Innoflight, Inc.",
+    "date": "accessed 2026-06-16",
+    "summary": "Innoflight's CFC-400X compact flight computer was selected by L3Harris for the SDA Tracking Layer; demonstrates a real merchant compact-flight-computer product with named primes.",
+    "excerpt": "L3Harris Selects Innoflight's CFC-400X Compact Flight Computer for the Space Development Agency Tracking Layer Program",
+    "supportsNodeIds": [
+      "org_innoflight"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_innoflight_flightcomputer"
+    ],
+    "limitations": "Vendor PR (who-makes-what OK; weak for market structure per ADR-0009 B5). PRIVATE company -> no equity exposure. Not a SpaceX-confirmed supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_beyond_gravity_ruag_fairings",
+    "type": "news",
+    "title": "SpaceNews — RUAG Space is now Beyond Gravity",
+    "url": "https://spacenews.com/ruag-space-is-now-beyond-gravity/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "SpaceNews",
+    "date": "accessed 2026-06-16",
+    "summary": "RUAG Space rebranded as Beyond Gravity; the company supplies launch-vehicle structures including payload fairings across European and U.S. launchers.",
+    "excerpt": "Beyond Gravity ... produces payload fairings ... for Ariane and Vega rockets in Europe and many U.S. launch vehicles.",
+    "supportsNodeIds": [
+      "org_beyond_gravity"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_beyondgravity_flightcomputer"
+    ],
+    "limitations": "Trade press (SpaceNews) + vendor; qualitative reach, NOT a % share. STATE-OWNED -> non-investable. Not a SpaceX-confirmed supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_eaglepicher_space_batteries",
+    "type": "vendor_claim",
+    "title": "EaglePicher — Space Exploration batteries",
+    "url": "https://www.eaglepicher.com/industries/space/space-exploration/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "EaglePicher Technologies",
+    "date": "accessed 2026-06-16",
+    "summary": "EaglePicher describes itself as having supplied batteries for more space missions than any other company, across Mars rovers, Hubble, ISS and launch vehicles.",
+    "excerpt": "EaglePicher has supplied batteries for more space missions than any other company.",
+    "supportsNodeIds": [
+      "org_eaglepicher"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_eaglepicher_battery"
+    ],
+    "limitations": "Vendor product page (who-makes-what OK; the 'more than any other' superlative is vendor-qualitative, NOT a citable market-share number). PRIVATE -> no equity exposure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_totalenergies_tte_nyse",
+    "type": "news",
+    "title": "TotalEnergies — Commencement of trading of its ordinary shares on the NYSE (ticker TTE)",
+    "url": "https://totalenergies.com/news/press-releases/totalenergies-announces-commencement-trading-its-ordinary-shares-nyse",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "TotalEnergies SE (official press release)",
+    "date": "accessed 2026-06-16",
+    "summary": "Official TotalEnergies release confirming the company trades on the NYSE under the symbol TTE (it is the parent of Saft, the space/aviation Li-ion maker).",
+    "excerpt": "TotalEnergies ... ordinary shares ... trading on the New York Stock Exchange (NYSE) under the symbol \"TTE\".",
+    "supportsNodeIds": [
+      "org_totalenergies"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_totalenergies_battery"
+    ],
+    "limitations": "Official IR confirms the TTE ticker only; Saft-ownership and the space-battery line are corroborated separately (encyclopedia). Battery is a tiny slice of TTE revenue -> diluted, low-purity exposure. fetch_ok pending verifier quote-check.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_quasonix_telemetry_transmitter",
+    "type": "vendor_claim",
+    "title": "Quasonix — About (aeronautical telemetry transmitters)",
+    "url": "https://www.quasonix.com/about/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Quasonix, Inc.",
+    "date": "accessed 2026-06-16",
+    "summary": "Quasonix describes itself as the leading supplier of aeronautical telemetry transmitters for flight-test and range telemetry.",
+    "excerpt": "Quasonix ... the leading supplier of aeronautical telemetry transmitters.",
+    "supportsNodeIds": [
+      "org_quasonix"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_quasonix_rf"
+    ],
+    "limitations": "Vendor page (who-makes-what OK; 'leading' is vendor-qualitative, NOT a citable share number). PRIVATE -> non-investable. Not a SpaceX-confirmed supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_safran_saf_euronext",
+    "type": "product_page",
+    "title": "Euronext — Safran S.A. listing (FR0000073272, ticker SAF, Euronext Paris)",
+    "url": "https://live.euronext.com/en/product/equities/FR0000073272-XPAR",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Euronext (official exchange)",
+    "date": "accessed 2026-06-16",
+    "summary": "Official Euronext product page confirming Safran S.A. trades on Euronext Paris under the symbol SAF (ISIN FR0000073272).",
+    "excerpt": "Safran ... FR0000073272 ... SAF ... Euronext Paris",
+    "supportsNodeIds": [
+      "org_safran"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_safran_rf"
+    ],
+    "limitations": "Official exchange confirms the SAF ticker only; the telemetry (Safran Data Systems) and IMU (Sigma INS) product lines are corroborated separately and are minor segments -> diluted, low-purity exposure. fetch_ok pending verifier quote-check.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_thales_topaxyz_imu",
+    "type": "vendor_claim",
+    "title": "Thales — TopAxyz inertial navigation system / next-generation IMU",
+    "url": "https://www.thalesgroup.com/en/markets/aerospace/navigation-solutions/topaxyz-imu/topaxyz-inertial-navigation-system-land",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Thales S.A.",
+    "date": "accessed 2026-06-16",
+    "summary": "Thales markets the TopAxyz IMU/INS (ring-laser-gyro and MEMS inertial sensing) for aerospace and navigation applications.",
+    "excerpt": "TopAxyz ... inertial measurement unit (IMU) ... inertial navigation system.",
+    "supportsNodeIds": [
+      "org_thales"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_thales_imu"
+    ],
+    "limitations": "Vendor product page (who-makes-what OK). Ticker HO corroborated via market sources, not on this page. INS is a small slice of Thales -> diluted exposure. fetch_ok pending verifier quote-check.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_transdigm_airborne_parafoil",
+    "type": "news",
+    "title": "PRNewswire — TransDigm to acquire Airborne Systems (guided parafoils)",
+    "url": "https://www.prnewswire.com/news-releases/transdigm-to-acquire-airborne-systems-from-metalmark-capital-234064501.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "PRNewswire (TransDigm M&A release)",
+    "date": "accessed 2026-06-16",
+    "summary": "TransDigm acquisition release describing Airborne Systems as the worldwide market and technology leader in guided aerial cargo and payload-delivery parafoils.",
+    "excerpt": "Airborne Systems ... worldwide market and technology leader in ... guided aerial cargo and payload delivery.",
+    "supportsNodeIds": [
+      "org_transdigm"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_transdigm_fairingrecovery"
+    ],
+    "limitations": "M&A press (ownership) + vendor (capability); 'market leader' is qualitative, NOT a citable share number. SpaceX-Airborne supply UNVERIFIED. Diluted (Airborne is a small slice of TDG). fetch_ok pending verifier quote-check.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_plascore_aluminum_honeycomb",
+    "type": "vendor_claim",
+    "title": "Plascore — Company (aluminum honeycomb)",
+    "url": "https://www.plascore.com/company/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Plascore Incorporated",
+    "date": "accessed 2026-06-16",
+    "summary": "Plascore describes itself as a manufacturer of aluminum (and other) honeycomb cores for aerospace and defense applications.",
+    "excerpt": "Plascore ... manufacturer of honeycomb cores ... including aluminum honeycomb.",
+    "supportsNodeIds": [
+      "org_plascore"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_plascore_honeycomb"
+    ],
+    "limitations": "Vendor page (who-makes-what OK). PRIVATE -> non-investable. Mature commodity-ish honeycomb (low chokepoint grade). Not a SpaceX-confirmed supply.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_acerinox_acx_bme",
+    "type": "product_page",
+    "title": "BME Exchange — Acerinox S.A. (ES0132105018, ticker ACX)",
+    "url": "https://www.bolsasymercados.es/bme-exchange/en/Prices-and-Markets/Shares/Main-Market/Details/Acerinox-ES0132105018",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "BME / Bolsas y Mercados Españoles (official exchange)",
+    "date": "accessed 2026-06-16",
+    "summary": "Official BME exchange detail page confirming Acerinox S.A. trades on the Madrid main market under ticker ACX (ISIN ES0132105018); Acerinox owns North American Stainless.",
+    "excerpt": "Acerinox ... ES0132105018 ... ACX",
+    "supportsNodeIds": [
+      "org_acerinox"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_acerinox_stainless"
+    ],
+    "limitations": "Official exchange confirms the ACX ticker only; NAS ownership corroborated on acerinox.com. Commodity-grade stainless -> low-purity exposure (captive 30X is the real chokepoint). fetch_ok pending verifier quote-check.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_cbmm_niobium_share",
+    "type": "news",
+    "title": "SFA Oxford — Niobium swing producer CBMM driving the future of advanced materials",
+    "url": "https://www.sfa-oxford.com/market-news-and-insights/niobium-swing-producer-cbmm-driving-the-future-of-advanced-materials/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "SFA (Oxford) — specialty-metals analysis",
+    "date": "accessed 2026-06-16",
+    "summary": "Industry analysis describing CBMM as the dominant niobium producer; Brazil supplies roughly 90% of global niobium production (USGS), with CBMM reported at ~75-82% of the world market.",
+    "excerpt": "Brazil accounts for around 90% of global niobium production, with CBMM the dominant producer.",
+    "supportsNodeIds": [
+      "org_cbmm"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_cbmm_niobium"
+    ],
+    "limitations": "Trade analysis (SFA Oxford) anchored on USGS for the Brazil ~90% PRODUCTION figure (the citable number, verbatim in this excerpt). CBMM's own ~75-82% company-specific share is reported but needs a second primary source before shipping as fact -> kept qualitative. PRIVATE -> no direct equity pure-play. fetch_ok pending verifier quote-check.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_space_chart_industries_gtls_cryo",
+    "type": "news",
+    "title": "Chart Industries — Baker Hughes to Acquire Chart Industries (NYSE: GTLS)",
+    "url": "https://www.chartindustries.com/News-And-Events/Baker-Hughes-to-Acquire-Chart-Industries",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Chart Industries, Inc. (official release)",
+    "date": "accessed 2026-06-16",
+    "summary": "Official Chart Industries release on the Baker Hughes acquisition; confirms the GTLS listing and Chart's cryogenic-equipment franchise (cryo gear in ~90% of LNG projects).",
+    "excerpt": "Chart Industries, Inc. (NYSE: GTLS) ... cryogenic ... equipment ... used in approximately 90% of LNG projects.",
+    "supportsNodeIds": [
+      "org_chart_industries"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_chart_cryotank"
+    ],
+    "limitations": "Official IR confirms the GTLS ticker + the cryo franchise; the '90% of LNG projects' figure is company/acquirer-sourced and LNG-basis -> fine as qualitative reach, NOT a launch-cryo share. M&A: GTLS rolls into BKR ~mid-2026. fetch_ok pending verifier quote-check.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
   }
 ]
