@@ -8,8 +8,8 @@ const buttondownEndpoint = "https://buttondown.com/api/emails/embed-subscribe/dr
 
 const landingCopy = {
   en: {
-    eyebrow: "Capability Graph Explorer · drt030.com",
-    title: "Find the chokepoint before the market does.",
+    eyebrow: "MinCut · drt030.com",
+    title: "Find the bottlenecks in how things get made.",
     lede:
       "AI compute is the full free demo. Humanoid robotics, controlled fusion, and the SpaceX maps are future paid domains: the map, bottleneck thesis, and evidence trail are visible, while supplier/ticker exposure stays locked until launch gates pass.",
     disclaimer: "Industrial research only. Company and ticker context supports diligence; it is not investment advice.",
@@ -38,6 +38,7 @@ const landingCopy = {
     foundingBody:
       "One purchase opens supplier and ticker exposure across all paid domains (humanoid robotics, controlled fusion, SpaceX), plus updates as each map firms up. 7-day no-questions refund.",
     foundingCta: "Get founding access →",
+    foundingUnlockCta: "Unlock all paid maps — $9 →",
     betaEmailLabel: "Work email",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "Request beta access",
@@ -67,8 +68,8 @@ const landingCopy = {
     emailSubmit: "Subscribe",
   },
   zh: {
-    eyebrow: "能力图谱探索器 · drt030.com",
-    title: "在市场之前找到卡点。",
+    eyebrow: "MinCut · drt030.com",
+    title: "找到东西如何被制造出来时的关键瓶颈。",
     lede:
       "AI compute 是完整免费的样板图谱。人形机器人、可控核聚变和 SpaceX 图谱是未来付费领域：产品图谱、瓶颈判断和证据链可见，供应商/股票 exposure 会在上线 gate 通过前保持锁定。",
     disclaimer: "仅用于产业研究。公司和股票代码是尽调线索，不构成投资建议。",
@@ -97,6 +98,7 @@ const landingCopy = {
     foundingBody:
       "一次购买即开放全部付费域（人形机器人、可控核聚变、SpaceX）的供应商与股票 exposure，并含后续更新。7 天无理由退款。",
     foundingCta: "获取创始访问 →",
+    foundingUnlockCta: "解锁全部付费图谱 · $9 →",
     betaEmailLabel: "工作邮箱",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "申请私测访问",
@@ -214,6 +216,11 @@ export function LandingContent() {
           <p className="landing-lede">{copy.lede}</p>
           <p className="landing-disclaimer">{copy.disclaimer}</p>
           <div className="button-row landing-cta-row">
+            {foundingLink ? (
+              <a href={foundingLink} className="button landing-cta-founding" data-testid="hero-founding-cta">
+                {copy.foundingUnlockCta}
+              </a>
+            ) : null}
             <Link href="/d/ai-compute" className="button">
               {copy.primaryCta}
             </Link>

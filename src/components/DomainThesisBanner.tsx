@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { DomainPortfolioState } from "@/lib/domains";
 import { useLanguage } from "./LanguageProvider";
+import { foundingCheckoutHref } from "./ExposureLockCta";
 
 type DomainThesisBannerDomain = {
   slug: string;
@@ -60,6 +61,12 @@ export function DomainThesisBanner({
   const domainName = nodeName(domain.rootId, domain.title);
   const explainsAccess = shouldExplainAccess(domain.portfolioState);
   const showWaitlistCta = domain.portfolioState === "paid-candidate";
+  // When founding checkout is live, every gated (non-free) domain page shows a
+  // prominent unlock CTA — the audience hits the lock here, so the buy path must
+  // be obvious, not buried on the landing page.
+  const foundingLink = foundingCheckoutHref();
+  const isGated =
+    domain.portfolioState !== "full-free-flagship" && domain.portfolioState !== "full-free-depth-demo";
   const showAccessDetailsCta = false;
   const evidenceText = domain.portfolioState === "paid-candidate"
     ? t("domainThesisEvidenceCandidate")
@@ -88,12 +95,21 @@ export function DomainThesisBanner({
         <h1>{domainName}</h1>
         <p>{domain.description}</p>
       </div>
+      {foundingLink && isGated ? (
+        <a
+          className="domain-thesis-cta domain-thesis-cta-unlock"
+          href={foundingLink}
+          data-testid="domain-thesis-unlock"
+        >
+          {t("foundingUnlockCta")}
+        </a>
+      ) : null}
       {explainsAccess ? (
         <div className="domain-thesis-actions" aria-label={t("domainThesisNextSteps")}>
           <span className="domain-thesis-status">{t(statusKey(domain.portfolioState))}</span>
           <p>{t(accessKey(domain.portfolioState))}</p>
           <p className="domain-thesis-evidence">{evidenceText}</p>
-          {showWaitlistCta ? (
+          {showWaitlistCta && !foundingLink ? (
             <Link className="domain-thesis-cta" href="/#private-beta">
               {t("domainThesisJoinWaitlist")}
             </Link>

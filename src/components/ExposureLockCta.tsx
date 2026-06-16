@@ -52,7 +52,9 @@ function unlockHrefForEntitlement(entitlement: string): string | undefined {
   }
 }
 
-function foundingHref(): string | undefined {
+// Shared so every locked surface (landing hero, domain banners, node-detail
+// lock) points at the same founding all-access checkout when it is enabled.
+export function foundingCheckoutHref(): string | undefined {
   if (process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT !== "1") {
     return undefined;
   }
@@ -70,7 +72,7 @@ export function ExposureCheckoutLinks({
 }) {
   const { t } = useLanguage();
   const unlockHref = unlockHrefForEntitlement(entry.entitlement);
-  const foundingLink = foundingHref();
+  const foundingLink = foundingCheckoutHref();
 
   if (!unlockHref && !foundingLink) {
     return (
