@@ -2623,8 +2623,7 @@
     "maturityLabel": "unknown",
     "confidence": "medium",
     "metrics": [],
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_quasonix_telemetry_transmitter"
     ],
     "tags": [
@@ -2634,7 +2633,7 @@
       "private_company",
       "merchant_tier"
     ],
-    "notes": "PRIVATE (Subchapter-S, founded 2002; confirmed not public via PitchBook/Crunchbase) -> no ticker. Real telemetry-transmitter maker (flight-test/range; TIMTER/nanoTX). SpaceX link unverified -> reported_capable_supplier. Evidence ev_space_quasonix_telemetry_transmitter DEMOTED by Gate-B verifier 2026-06-16: a browser render of quasonix.com/about does NOT contain the stored 'leading supplier of aeronautical telemetry transmitters' excerpt, so the market-position claim is downgraded to qualitative pending a re-anchored source. Country: USA.",
+    "notes": "PRIVATE (Subchapter-S, founded 2002; confirmed not public via PitchBook/Crunchbase) -> no ticker. Real telemetry-transmitter maker (flight-test/range; TIMTER/nanoTX). SpaceX link unverified -> reported_capable_supplier. Evidence ev_space_quasonix_telemetry_transmitter RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original quasonix.com/about excerpt was unverifiable, so it was re-anchored to the live quasonix.com/product/transmitters/ page, which verbatim claims Quasonix is 'the only company in the industry that delivers equipment from end to end on telemetry links, including transmitters' (TIMTER/nanoTX). Evidence re-promoted; market-position claim is now an end-to-end-telemetry-link positioning rather than a share number. Country: USA.",
     "reviewStatus": "unreviewed",
     "listingStatus": "private"
   },
@@ -2679,7 +2678,7 @@
       "spacex_reusable_launch",
       "investable_supplier"
     ],
-    "description": "French aerospace/defense/digital group (Paris-headquartered), listed on Euronext Paris (CAC 40) under HO. Makes inertial measurement / navigation systems (TopAxyz IMU/INS, ring-laser-gyro and MEMS grades) used in aerospace and land/space navigation. A merchant high-grade IMU tier supplier; exposure is diluted (inertial navigation is a small slice of Thales).",
+    "description": "French aerospace/defense/digital group (Paris-headquartered), listed on Euronext Paris (CAC 40) under HO. Makes high-end inertial navigation systems (the TopAxyz INS family, built on Ring Laser Gyro / RLG technology) used across aerospace, land and naval navigation. A merchant high-grade IMU/INS tier supplier; exposure is diluted (inertial navigation is a small slice of Thales).",
     "maturityLabel": "unknown",
     "confidence": "medium",
     "metrics": [
@@ -2688,8 +2687,7 @@
         "currentValue": "HO"
       }
     ],
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_thales_topaxyz_imu"
     ],
     "tags": [
@@ -2699,7 +2697,7 @@
       "public_company",
       "merchant_tier"
     ],
-    "notes": "Euronext Paris HO (CAC 40), ticker corroborated via market sources. Real IMU/INS maker (TopAxyz, RLG/MEMS) per web search. SpaceX link unverified -> reported_capable_supplier. DILUTED exposure (INS small slice of Thales) -> low purity. Country: France. Evidence ev_space_thales_topaxyz_imu DEMOTED by Gate-B verifier 2026-06-16: cited TopAxyz URL is HTTP 404 (dead) and alternate Thales URLs 404/bot-blocked, so the excerpt could not be verbatim-confirmed; org kept qualitatively, re-anchor before re-promoting.",
+    "notes": "Euronext Paris HO (CAC 40), ticker corroborated via market sources. Real INS maker (TopAxyz, RLG / Ring Laser Gyro) confirmed on the live Thales product page. SpaceX link unverified -> reported_capable_supplier. DILUTED exposure (INS small slice of Thales) -> low purity. Country: France. Evidence ev_space_thales_topaxyz_imu RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the cited 'land' TopAxyz URL was HTTP 404 (dead); re-anchored to the live thalesgroup.com TopAxyz page (naval variant, title 'IMU-based Navigation System for Marine Vessels | Thales'), which verbatim confirms 'a high-end Inertial Navigation System (INS) ... based on RLG (Ring Laser Gyro) technology'. Evidence re-promoted; claim worded generically as Thales's RLG-based high-end INS family (the launcher-specific land page remains dead).",
     "reviewStatus": "unreviewed",
     "listingStatus": "public",
     "ticker": "HO"
@@ -2748,8 +2746,7 @@
     "maturityLabel": "unknown",
     "confidence": "medium",
     "metrics": [],
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_plascore_aluminum_honeycomb"
     ],
     "tags": [
@@ -2759,7 +2756,7 @@
       "private_company",
       "merchant_tier"
     ],
-    "notes": "PRIVATE (Zeeland MI, founded 1977; confirmed not public via Wikipedia/BBB) -> no ticker. Real aluminum-honeycomb maker; second source to Hexcel for crushable core. Mature/widely-adopted material -> keep ONE node (gap T08). Country: USA. Evidence ev_space_plascore_aluminum_honeycomb DEMOTED by Gate-B verifier 2026-06-16: live plascore.com/company confirms 'honeycomb core' leadership but the word 'aluminum' is absent from the page, so the excerpt's aluminum-specific claim was not verbatim-confirmed; org kept qualitatively on honeycomb-core, re-anchor the aluminum claim before re-promoting.",
+    "notes": "PRIVATE (Zeeland MI, founded 1977; confirmed not public via Wikipedia/BBB) -> no ticker. Real aluminum-honeycomb maker; second source to Hexcel for crushable core. Mature/widely-adopted material -> keep ONE node (gap T08). Country: USA. Evidence ev_space_plascore_aluminum_honeycomb RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original plascore.com/company page never contains the word 'aluminum'; re-anchored to the live Plascore PAMG-XR1 5052 product page, which verbatim describes 'PAMG-XR1 5052 aerospace grade aluminum honeycomb ... made from 5052 aluminum alloy foil and meets all the requirements of AMS C7438 Rev A'. Evidence re-promoted on the aluminum-honeycomb claim.",
     "reviewStatus": "unreviewed",
     "listingStatus": "private"
   },
@@ -2830,7 +2827,7 @@
       "spacex_reusable_launch",
       "investable_supplier"
     ],
-    "description": "U.S. cryogenic-equipment maker (Ball Ground, Georgia), NYSE-listed under GTLS; a dominant merchant supplier of cryogenic storage tanks and equipment, with cryo gear reported to be used in roughly 90% of LNG projects worldwide (an LNG-project-penetration claim, not a launch-cryo share). Relevant to the ground cryogenic-propellant storage tank-farm tier. M&A flag: being acquired by Baker Hughes (BKR), expected to close ~mid-2026.",
+    "description": "U.S. cryogenic-equipment maker (Ball Ground, Georgia), NYSE-listed under GTLS; a merchant supplier of a complete range of cryogenic storage tanks and equipment for liquefied gases (oxygen, nitrogen, LNG, hydrogen, argon, CO2, helium), per its Cryo-Tank-Solutions product page. Relevant to the ground cryogenic-propellant storage tank-farm tier. M&A flag: being acquired by Baker Hughes (BKR), expected to close ~mid-2026.",
     "maturityLabel": "unknown",
     "confidence": "high",
     "metrics": [
@@ -2839,8 +2836,7 @@
         "currentValue": "GTLS"
       }
     ],
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_chart_industries_gtls_cryo"
     ],
     "tags": [
@@ -2850,7 +2846,7 @@
       "public_company",
       "merchant_tier"
     ],
-    "notes": "NYSE GTLS ticker verbatim-confirmed on the Chart release. M&A FLAG: Baker Hughes (NASDAQ BKR) acquiring Chart for $13.6B all-cash ($210/share, approved Oct-2025, expected close MID-2026) -> post-close GTLS rolls into BKR. Real merchant cryo-tank leader; SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier. Evidence ev_space_chart_industries_gtls_cryo DEMOTED by Gate-B verifier 2026-06-16: the '(NYSE: GTLS)' ticker IS on the cited page but the excerpt's 'approximately 90% of LNG projects' figure is NOT on that page (number not in quote), so the bundled excerpt was not verbatim-confirmed. The '90% of LNG projects' is an LNG basis anyway, NOT a launch-cryo market share. Org kept qualitatively; re-anchor the reach figure before re-promoting. Country: USA.",
+    "notes": "NYSE GTLS. M&A FLAG: Baker Hughes (NASDAQ BKR) acquiring Chart for $13.6B all-cash ($210/share, approved Oct-2025, expected close MID-2026) -> post-close GTLS rolls into BKR. Real merchant cryo-tank maker; SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier. Evidence ev_space_chart_industries_gtls_cryo RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original Baker-Hughes-acquisition release did NOT carry the bundled 'approximately 90% of LNG projects' figure, which is DROPPED PERMANENTLY (it was an LNG basis, not a launch-cryo share). Per option B, Chart is kept QUALITATIVE on its cryo-tank franchise and re-anchored to the live Chart Cryo-Tank-Solutions product page, which verbatim describes a 'complete range of cryogenic storage tanks and solutions'. Evidence re-promoted with no share number. Country: USA.",
     "reviewStatus": "unreviewed",
     "listingStatus": "public",
     "ticker": "GTLS"

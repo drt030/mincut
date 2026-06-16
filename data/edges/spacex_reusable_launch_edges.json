@@ -1540,11 +1540,10 @@
     "source": "org_quasonix",
     "target": "launch_rf_telemetry_transponder_merchant",
     "relation": "reported_capable_supplier",
-    "claim": "Quasonix is a merchant supplier of aeronautical telemetry transmitters for flight-test and range telemetry; merchant RF-telemetry tier.",
-    "context": "Industry-chain capability link; private telemetry-transmitter maker. reported_capable_supplier, not a SpaceX supply. Evidence ev_space_quasonix_telemetry_transmitter DEMOTED by Gate-B verifier 2026-06-16: a browser render of quasonix.com/about does not contain the stored 'leading supplier of aeronautical telemetry transmitters' excerpt (quote absent at source), so the 'market leader' claim is downgraded to a qualitative merchant-supplier link pending a re-anchored source.",
+    "claim": "Quasonix is a merchant supplier of telemetry-link transmitters (TIMTER/nanoTX) for flight-test and range telemetry; merchant RF-telemetry tier.",
+    "context": "Industry-chain capability link; private telemetry-transmitter maker. reported_capable_supplier, not a SpaceX supply. Evidence ev_space_quasonix_telemetry_transmitter RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original quasonix.com/about excerpt was unverifiable; re-anchored to the live quasonix.com/product/transmitters/ page, which verbatim states Quasonix is 'the only company in the industry that delivers equipment from end to end on telemetry links, including transmitters'. Evidence re-promoted; claim is a vendor end-to-end-telemetry positioning, not a third-party share number.",
     "confidence": "medium",
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_quasonix_telemetry_transmitter"
     ],
     "reviewStatus": "unreviewed"
@@ -1567,11 +1566,10 @@
     "source": "org_thales",
     "target": "launch_vehicle_space_imu_gnss",
     "relation": "reported_capable_supplier",
-    "claim": "Thales makes the TopAxyz IMU/INS (ring-laser-gyro and MEMS) for aerospace navigation; merchant high-grade IMU tier.",
-    "context": "Industry-chain capability link; diluted (INS small slice of Thales). reported_capable_supplier, not a SpaceX supply. Evidence ev_space_thales_topaxyz_imu DEMOTED by Gate-B verifier 2026-06-16: the cited thalesgroup.com TopAxyz URL returns HTTP 404 (dead link) and all alternate Thales TopAxyz URLs tried were 404/bot-blocked, so the excerpt could not be verbatim-confirmed at source. The TopAxyz IMU/INS product is real (web-search confirmed) so org_thales is kept qualitatively; re-anchor to a live Thales URL before re-promoting.",
+    "claim": "Thales makes the TopAxyz high-end INS built on Ring Laser Gyro (RLG) technology for aerospace/land/naval navigation; merchant high-grade IMU/INS tier.",
+    "context": "Industry-chain capability link; diluted (INS small slice of Thales). reported_capable_supplier, not a SpaceX supply. Evidence ev_space_thales_topaxyz_imu RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the cited 'land' TopAxyz URL was HTTP 404 (dead); re-anchored to the live thalesgroup.com TopAxyz page (naval variant, title 'IMU-based Navigation System for Marine Vessels | Thales'), which verbatim confirms 'a high-end Inertial Navigation System (INS) ... based on RLG (Ring Laser Gyro) technology'. Evidence re-promoted; claim worded generically as Thales's RLG-based high-end INS family.",
     "confidence": "medium",
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_thales_topaxyz_imu"
     ],
     "reviewStatus": "unreviewed"
@@ -1724,11 +1722,10 @@
     "source": "org_plascore",
     "target": "landing_leg_crushable_honeycomb_merchant",
     "relation": "reported_capable_supplier",
-    "claim": "Plascore supplies aerospace/defense aluminum honeycomb core; a second source to Hexcel for crushable landing-leg core.",
-    "context": "Industry-chain material link; private second-source honeycomb maker. reported_capable_supplier, not a SpaceX supply. Evidence ev_space_plascore_aluminum_honeycomb DEMOTED by Gate-B verifier 2026-06-16: the live plascore.com/company page confirms 'global leader in manufactured honeycomb core' but the word 'aluminum' appears NOWHERE on the page, so the stored excerpt's specific 'including aluminum honeycomb' claim is not verbatim at source. Plascore does make aluminum honeycomb (other pages) so org_plascore is kept qualitatively on honeycomb-core; re-anchor the aluminum-specific claim before re-promoting.",
+    "claim": "Plascore supplies aerospace-grade aluminum honeycomb core (PAMG-XR1 5052/5056); a second source to Hexcel for crushable landing-leg core.",
+    "context": "Industry-chain material link; private second-source honeycomb maker. reported_capable_supplier, not a SpaceX supply. Evidence ev_space_plascore_aluminum_honeycomb RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original plascore.com/company page never contains the word 'aluminum'; re-anchored to the live Plascore PAMG-XR1 5052 product page, which verbatim describes 'PAMG-XR1 5052 aerospace grade aluminum honeycomb ... made from 5052 aluminum alloy foil and meets all the requirements of AMS C7438 Rev A'. Evidence re-promoted on the aluminum-honeycomb claim.",
     "confidence": "medium",
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_plascore_aluminum_honeycomb"
     ],
     "reviewStatus": "unreviewed"
@@ -1844,11 +1841,10 @@
     "source": "org_chart_industries",
     "target": "launch_site_cryo_storage_tank_farm",
     "relation": "reported_capable_supplier",
-    "claim": "Chart Industries is a dominant merchant cryogenic-tank maker; merchant cryo-storage tank-farm tier.",
-    "context": "Industry-chain capability link; SpaceX-Starbase supply unverified. M&A: GTLS rolling into Baker Hughes ~mid-2026. reported_capable_supplier. Evidence ev_space_chart_industries_gtls_cryo DEMOTED by Gate-B verifier 2026-06-16: the '(NYSE: GTLS)' ticker IS verbatim on the cited Chart release, BUT the stored excerpt's number 'approximately 90% of LNG projects' appears NOWHERE on that page (numberInQuote=false), so the excerpt as written is not verbatim at source. GTLS ticker + cryogenic franchise are real, so org_chart_industries is kept qualitatively; re-anchor the cryo-reach figure to a source that actually carries it before re-promoting (and note it is an LNG basis, not a launch-cryo share).",
+    "claim": "Chart Industries makes a complete range of merchant cryogenic storage tanks and equipment; merchant cryo-storage tank-farm tier.",
+    "context": "Industry-chain capability link; SpaceX-Starbase supply unverified. M&A: GTLS rolling into Baker Hughes ~mid-2026. reported_capable_supplier. Evidence ev_space_chart_industries_gtls_cryo RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original Baker-Hughes-acquisition release did NOT carry the bundled 'approximately 90% of LNG projects' figure, which is DROPPED PERMANENTLY (an LNG basis, not a launch-cryo share). Per option B, the claim is kept QUALITATIVE and re-anchored to the live Chart Cryo-Tank-Solutions product page, which verbatim describes a 'complete range of cryogenic storage tanks and solutions'. Evidence re-promoted with no share number.",
     "confidence": "medium",
-    "evidenceIds": [],
-    "rejectedEvidenceIds": [
+    "evidenceIds": [
       "ev_space_chart_industries_gtls_cryo"
     ],
     "reviewStatus": "unreviewed"

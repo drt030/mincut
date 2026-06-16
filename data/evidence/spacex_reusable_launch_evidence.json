@@ -2535,28 +2535,28 @@
   {
     "id": "ev_space_quasonix_telemetry_transmitter",
     "type": "vendor_claim",
-    "title": "Quasonix — About (aeronautical telemetry transmitters)",
-    "url": "https://www.quasonix.com/about/",
-    "sourceStatus": "wrong_topic",
+    "title": "Quasonix — TIMTER / nanoTX Transmitters (end-to-end telemetry links)",
+    "url": "https://www.quasonix.com/product/transmitters/",
+    "sourceStatus": "ok_exact",
     "sourceName": "Quasonix, Inc.",
     "date": "accessed 2026-06-16",
-    "summary": "Quasonix describes itself as the leading supplier of aeronautical telemetry transmitters for flight-test and range telemetry.",
-    "excerpt": "Quasonix ... the leading supplier of aeronautical telemetry transmitters.",
+    "summary": "Quasonix's transmitters page states it is the only company in the industry delivering end-to-end telemetry-link equipment (transmitters, antennas, receivers, best source selectors); the TIMTER/nanoTX product lines are its telemetry transmitters.",
+    "excerpt": "Quasonix is the only company in the industry that delivers equipment from end to end on telemetry links, including transmitters, antennas, receivers (with integrated combiner, demodulators, and decoders), and best source selectors.",
     "supportsNodeIds": [
       "org_quasonix"
     ],
     "supportsEdgeIds": [
       "e_space_exposure_quasonix_rf"
     ],
-    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): WebFetch is hard HTTP 403 on quasonix.com, but a real-browser render of quasonix.com/about (7.8KB, not blocked) shows the page does NOT contain the stored excerpt 'the leading supplier of aeronautical telemetry transmitters' — nor any 'leading supplier/provider ... telemetry' sentence. The page says Quasonix was 'founded in 2002 ... filling a void in the flight-test telemetry market'. The stored excerpt is unverifiable at source (quote absent) -> rejected. Quasonix IS a real telemetry-transmitter maker (TIMTER/nanoTX product line), so org_quasonix is kept qualitatively; re-anchor the market-position claim to the company's actual wording before re-promoting. PRIVATE -> non-investable.",
+    "limitations": "RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original quasonix.com/about excerpt ('leading supplier of aeronautical telemetry transmitters') was unverifiable and demoted. Re-anchored to the live quasonix.com/product/transmitters/ page, whose verbatim wording is a market-position claim ('the only company in the industry that delivers equipment from end to end on telemetry links, including transmitters'). The page header is 'Transmitters' and the page/product names are TIMTER/nanoTX transmitters. Claim is now an end-to-end-telemetry-link positioning (vendor self-claim), not a third-party share number. SpaceX link unverified -> reported_capable_supplier. PRIVATE -> non-investable.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "verified",
       "checkedAsOf": "2026-06-16",
-      "quoteMatch": "absent",
+      "quoteMatch": "exact",
       "numberInQuote": false,
-      "notes": "Browser-rendered quasonix.com/about (Chrome MCP, page loaded fine, body 7853 chars): the stored excerpt 'the leading supplier of aeronautical telemetry transmitters' is ABSENT (case-insensitive substring + loose 'leading (supplier|provider).*telemetry' both negative). Quote confirmed not present at source -> FAILED, demoted to rejectedEvidenceIds on org_quasonix + e_space_exposure_quasonix_rf. (WebFetch separately returned 403 site-wide.)"
+      "notes": "Browser-rendered quasonix.com/product/transmitters/ (Chrome MCP; WebFetch is hard HTTP 403 site-wide on quasonix.com). The page (title 'TIMTER™, nanoTX™, and nanoPuck™ Transmitters | Quasonix', URL canonicalised from /products/transmitters/ to /product/transmitters/) contains the stored excerpt verbatim: 'Quasonix is the only company in the industry that delivers equipment from end to end on telemetry links, including transmitters, antennas, receivers (with integrated combiner, demodulators, and decoders), and best source selectors.' Quote confirmed present at the live source -> VERIFIED, re-promoted to evidenceIds on org_quasonix + e_space_exposure_quasonix_rf. No number in the quote (numberInQuote=false)."
     }
   },
   {
@@ -2670,82 +2670,82 @@
   {
     "id": "ev_space_thales_topaxyz_imu",
     "type": "vendor_claim",
-    "title": "Thales — TopAxyz inertial navigation system / next-generation IMU",
-    "url": "https://www.thalesgroup.com/en/markets/aerospace/navigation-solutions/topaxyz-imu/topaxyz-inertial-navigation-system-land",
-    "sourceStatus": "404",
+    "title": "Thales — TopAxyz high-end Inertial Navigation System (RLG / Ring Laser Gyro)",
+    "url": "https://www.thalesgroup.com/en/solutions-catalogue/defence/naval/topaxyz-inertial-navigation-system-naval-applications",
+    "sourceStatus": "ok_exact",
     "sourceName": "Thales S.A.",
     "date": "accessed 2026-06-16",
-    "summary": "Thales markets the TopAxyz IMU/INS (ring-laser-gyro and MEMS inertial sensing) for aerospace and navigation applications.",
-    "excerpt": "TopAxyz ... inertial measurement unit (IMU) ... inertial navigation system.",
+    "summary": "Thales markets the TopAxyz as a high-end Inertial Navigation System (INS) built on Ring Laser Gyro (RLG) technology, providing high-precision pointing, gyrocompass, localization and navigation.",
+    "excerpt": "The TopAxyz inertial naval system is a high-end Inertial Navigation System (INS) designed to provide high-precision pointing, gyrocompass, localization and navigation functions ... based on RLG (Ring Laser Gyro) technology.",
     "supportsNodeIds": [
       "org_thales"
     ],
     "supportsEdgeIds": [
       "e_space_exposure_thales_imu"
     ],
-    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): the cited thalesgroup.com TopAxyz URL returns HTTP 404 (dead link) and all alternate Thales TopAxyz URLs tried (general IMU page, solutions-catalogue) were 404 or bot-blocked, so the excerpt could not be verbatim-confirmed at source. The TopAxyz IMU/INS product is real (web-search confirmed) and org_thales is kept qualitatively, but this evidence record is rejected pending re-anchor to a live Thales URL. Originally: vendor product page; HO ticker corroborated via market sources, not on this page; INS a small slice of Thales -> diluted.",
+    "limitations": "RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the originally cited TopAxyz 'land' URL is HTTP 404 (dead). Re-anchored to the live thalesgroup.com TopAxyz product page (canonical /solutions-catalogue/defence/naval/topaxyz-inertial-navigation-system-naval-applications; page title 'IMU-based Navigation System for Marine Vessels | Thales'), which verbatim confirms TopAxyz is a high-end INS on RLG technology. NOTE: the live page surfaced is the NAVAL variant (the land variant page is dead), so the claim is worded generically as Thales's RLG-based high-end INS family rather than a launcher-specific product. HO ticker corroborated via market sources, not on this page; INS is a small slice of Thales -> diluted. SpaceX link unverified -> reported_capable_supplier.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "verified",
       "checkedAsOf": "2026-06-16",
-      "quoteMatch": "not_checked",
+      "quoteMatch": "exact",
       "numberInQuote": false,
-      "notes": "Independent WebFetch of the cited URL returned HTTP 404 Not Found; alternate Thales TopAxyz URLs also 404/bot-blocked. Excerpt unverifiable at source -> FAILED, demoted to rejectedEvidenceIds on org_thales + e_space_exposure_thales_imu."
+      "notes": "Browser-rendered thalesgroup.com TopAxyz page (Chrome MCP; WebFetch was bot-blocked/404 on the Thales URLs tried). The live page (title 'IMU-based Navigation System for Marine Vessels | Thales') contains verbatim: 'The TopAxyz inertial naval system is a high-end Inertial Navigation System (INS) designed to provide high-precision pointing, gyrocompass, localization and navigation functions for all marine platforms ...' and 'Thanks to its recognized experience in designing high-end INS based on RLG (Ring Laser Gyro) technology, TopAxyz is the latest generation INS ...'. Strings 'TopAxyz', 'Inertial Navigation System (INS)' and 'RLG (Ring Laser Gyro)' confirmed present -> VERIFIED, re-promoted to evidenceIds on org_thales + e_space_exposure_thales_imu. No number in the quote (numberInQuote=false)."
     }
   },
   {
     "id": "ev_space_plascore_aluminum_honeycomb",
     "type": "vendor_claim",
-    "title": "Plascore — Company (aluminum honeycomb)",
-    "url": "https://www.plascore.com/company/",
-    "sourceStatus": "fetch_ok",
+    "title": "Plascore — PAMG-XR1 5052 Aluminum Honeycomb (aerospace grade)",
+    "url": "https://plascore.com/honeycomb-core/metallic/pamg-xr1-5052/",
+    "sourceStatus": "ok_exact",
     "sourceName": "Plascore Incorporated",
     "date": "accessed 2026-06-16",
-    "summary": "Plascore describes itself as a manufacturer of aluminum (and other) honeycomb cores for aerospace and defense applications.",
-    "excerpt": "Plascore ... manufacturer of honeycomb cores ... including aluminum honeycomb.",
+    "summary": "Plascore's PAMG-XR1 5052 product page describes an aerospace-grade aluminum honeycomb core made from 5052 aluminum alloy foil meeting AMS C7438 Rev A.",
+    "excerpt": "PAMG-XR1 5052 aerospace grade aluminum honeycomb is a lightweight core material which offers superior strength and corrosion resistance over commercial grade aluminum honeycomb. PAMG-XR1 5052 honeycomb is made from 5052 aluminum alloy foil and meets all the requirements of AMS C7438 Rev A.",
     "supportsNodeIds": [
       "org_plascore"
     ],
     "supportsEdgeIds": [
       "e_space_exposure_plascore_honeycomb"
     ],
-    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): the live plascore.com/company page confirms 'global leader in manufactured honeycomb core' but the word 'aluminum' appears NOWHERE on the page (checked twice), so the stored excerpt's specific 'including aluminum honeycomb' claim is not verbatim at source. Plascore does make aluminum honeycomb (other pages) so org_plascore is kept qualitatively on honeycomb-core, but this evidence record is rejected pending re-anchor of the aluminum-specific claim. Originally: vendor page; PRIVATE -> non-investable.",
+    "limitations": "RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original plascore.com/company page never contains the word 'aluminum', so the aluminum-specific claim was demoted. Re-anchored to the live Plascore PAMG-XR1 5052 product page (title 'PAMG-XR1 5052 Aluminum Honeycomb - Plascore'), which verbatim carries the aerospace-grade aluminum-honeycomb claim. Vendor product page; PRIVATE -> non-investable. SpaceX link unverified -> reported_capable_supplier.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "verified",
       "checkedAsOf": "2026-06-16",
-      "quoteMatch": "absent",
+      "quoteMatch": "exact",
       "numberInQuote": false,
-      "notes": "Independent WebFetch of plascore.com/company (twice): 'global leader in manufactured honeycomb core' present, but the token 'aluminum' is absent from the page. The excerpt's 'including aluminum honeycomb' clause is not verbatim at source -> FAILED, demoted to rejectedEvidenceIds on org_plascore + e_space_exposure_plascore_honeycomb."
+      "notes": "Independent WebFetch AND browser render (Chrome MCP) of plascore.com/honeycomb-core/metallic/pamg-xr1-5052/ (page title 'PAMG-XR1 5052 Aluminum Honeycomb - Plascore') both confirm the stored excerpt verbatim: 'PAMG-XR1 5052 aerospace grade aluminum honeycomb is a lightweight core material which offers superior strength and corrosion resistance over commercial grade aluminum honeycomb. PAMG-XR1 5052 honeycomb is made from 5052 aluminum alloy foil and meets all the requirements of AMS C7438 Rev A.' The phrase 'aluminum honeycomb' is present (multiple times) -> VERIFIED, re-promoted to evidenceIds on org_plascore + e_space_exposure_plascore_honeycomb. No number in the quote (numberInQuote=false)."
     }
   },
   {
     "id": "ev_space_chart_industries_gtls_cryo",
-    "type": "news",
-    "title": "Chart Industries — Baker Hughes to Acquire Chart Industries (NYSE: GTLS)",
-    "url": "https://www.chartindustries.com/News-And-Events/Baker-Hughes-to-Acquire-Chart-Industries",
-    "sourceStatus": "fetch_ok",
-    "sourceName": "Chart Industries, Inc. (official release)",
+    "type": "product_page",
+    "title": "Chart Industries — Cryogenic Tank Solutions (complete range of cryogenic storage tanks)",
+    "url": "https://www.chartindustries.com/Cryo-Tank-Solutions",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Chart Industries, Inc. (official product page)",
     "date": "accessed 2026-06-16",
-    "summary": "Official Chart Industries release on the Baker Hughes acquisition; confirms the GTLS listing and Chart's cryogenic-equipment franchise.",
-    "excerpt": "Chart Industries, Inc. (NYSE: GTLS) ... cryogenic ... equipment ... used in approximately 90% of LNG projects.",
+    "summary": "Official Chart Industries Cryo-Tank-Solutions page describing a complete range of cryogenic storage tanks and solutions for liquefied gases (oxygen, nitrogen, LNG, hydrogen, argon, CO2, helium); a qualitative cryo-tank franchise claim (no share number).",
+    "excerpt": "Complete range of cryogenic storage tanks and solutions delivering proven reliability, reduced maintenance, and lowest cost of ownership for liquefied gases including oxygen, nitrogen, LNG, hydrogen, argon, CO2 and helium.",
     "supportsNodeIds": [
       "org_chart_industries"
     ],
     "supportsEdgeIds": [
       "e_space_exposure_chart_cryotank"
     ],
-    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): the '(NYSE: GTLS)' ticker IS verbatim on the cited Chart release, BUT the stored excerpt's number 'approximately 90% of LNG projects' appears NOWHERE on that page (checked twice; numberInQuote=false), so the bundled excerpt is not verbatim at source. GTLS ticker + cryogenic franchise are real (ticker verbatim-confirmed) so org_chart_industries is kept qualitatively, but this evidence record is rejected pending re-anchor of the cryo-reach figure to a source that carries it (and note it is an LNG basis, not a launch-cryo share). M&A: GTLS rolls into BKR ~mid-2026.",
-    "confidence": "high",
+    "limitations": "RE-ANCHORED 2026-06-16 (Gate-B re-anchor pass): the original Baker-Hughes-acquisition release carried the '(NYSE: GTLS)' ticker but NOT the bundled 'approximately 90% of LNG projects' figure (that figure was demoted and is dropped PERMANENTLY — it was an LNG basis anyway, not a launch-cryo share). Per the re-anchor brief's option B, Chart is kept QUALITATIVE on its real cryo-tank franchise and re-anchored to the live Chart Cryo-Tank-Solutions product page, which verbatim describes a 'complete range of cryogenic storage tanks'. No share/penetration number is claimed. SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier. M&A: GTLS rolling into Baker Hughes (BKR) ~mid-2026.",
+    "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "verified",
       "checkedAsOf": "2026-06-16",
-      "quoteMatch": "partial",
+      "quoteMatch": "exact",
       "numberInQuote": false,
-      "notes": "Independent WebFetch of chartindustries.com Baker-Hughes release (twice): '(NYSE: GTLS)' present verbatim, but the figure '90%' / 'approximately 90% of LNG projects' is absent from the page. The excerpt bundles a number that is not on the page -> FAILED (number not in quote), demoted to rejectedEvidenceIds on org_chart_industries + e_space_exposure_chart_cryotank. The GTLS ticker itself is verbatim-confirmed and retained at org level."
+      "notes": "Independent WebFetch AND browser render (Chrome MCP) of chartindustries.com/Cryo-Tank-Solutions (page title 'Cryogenic Tank Solutions | Chart Industries') both confirm the stored excerpt verbatim: 'Complete range of cryogenic storage tanks and solutions delivering proven reliability, reduced maintenance, and lowest cost of ownership for liquefied gases including oxygen, nitrogen, LNG, hydrogen, argon, CO2 and helium.' Strings 'cryogenic storage tanks' present. The unsupported '90% of LNG projects' number was dropped (not on any anchored page) -> qualitative claim, VERIFIED, re-promoted to evidenceIds on org_chart_industries + e_space_exposure_chart_cryotank. No number in the quote (numberInQuote=false)."
     }
   }
 ]
