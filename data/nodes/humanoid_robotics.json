@@ -3,7 +3,9 @@
     "id": "humanoid_robot_key_component_stack",
     "name": "Humanoid robot key component stack",
     "kind": "product",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "A commercial humanoid robot platform component stack for early fleet deployment: actuators, hands, battery and power, thermal management, sensing, onboard compute, control software, structure, safety, manufacturing, and service. This is a paid-domain candidate map, not a reviewed investment product.",
     "maturityScore": 42,
     "maturityLabel": "prototype",
@@ -16,26 +18,44 @@
       "targetDate": "2026",
       "region": "US users researching global suppliers and listed exposure"
     },
-    "tags": ["humanoid", "paid_candidate", "component_stack"],
-    "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_unitree_g1", "ev_humanoid_figure_botq", "ev_humanoid_figure_battery", "ev_humanoid_battery_constraint_review", "ev_humanoid_ul_consumer_commercial_robot_certification"],
+    "tags": [
+      "humanoid",
+      "paid_candidate",
+      "component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_battery_constraint_review",
+      "ev_humanoid_ul_consumer_commercial_robot_certification"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_workforce_automation_capability",
     "name": "Human-form-factor workforce automation capability",
     "kind": "capability",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "The demand-side capability: robots that can use human-centric spaces, tools, and task flows without redesigning every workplace.",
     "maturityLabel": "unknown",
     "confidence": "medium",
-    "tags": ["humanoid", "capability_root"],
+    "tags": [
+      "humanoid",
+      "capability_root"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_actuation_system",
     "name": "Actuation system",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Joint modules, reducers, motors, bearings, encoders, and drive electronics. It bottlenecks payload, walking stability, duty cycle, noise, and service life.",
     "maturityScore": 48,
     "maturityLabel": "early_deployment",
@@ -47,246 +67,2991 @@
         "name": "Humanoid actuation subsystem cost magnitude",
         "unit": "USD",
         "currency": "USD",
-        "currentValue": { "min": 5000, "typical": 8000, "max": 15000 },
+        "currentValue": {
+          "min": 5000,
+          "typical": 8000,
+          "max": 15000
+        },
         "costAsOf": "2026",
         "description": "V0 order-of-magnitude estimate for the full actuation subsystem, anchored to public low-end humanoid robot price and 23-43 joint motor disclosure. Not a confirmed BOM."
       }
     ],
-    "tags": ["actuation", "bottleneck", "constraint_component_availability", "constraint_capacity_scale", "constraint_integration_commissioning"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure03_production_ramp", "ev_humanoid_unitree_g1_price_joint_count", "ev_humanoid_ti_robotics"],
+    "tags": [
+      "actuation",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_capacity_scale",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure03_production_ramp",
+      "ev_humanoid_unitree_g1_price_joint_count",
+      "ev_humanoid_ti_robotics"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_dexterous_hand_tactile_system",
     "name": "Dexterous hand and tactile system",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Hand mechanisms, finger actuation, tactile arrays, slip detection, and local hand control. It determines whether the robot can do useful manipulation rather than only locomotion demos.",
     "maturityScore": 36,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 18,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Public humanoid sources do not break out hand mechanics, tactile sensors, local control, reliability qualification, and integration as a reviewed component price." }],
-    "tags": ["hand", "tactile", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Public humanoid sources do not break out hand mechanics, tactile sensors, local control, reliability qualification, and integration as a reviewed component price."
+      }
+    ],
+    "tags": [
+      "hand",
+      "tactile",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_battery_power_charging_system",
     "name": "Battery, power, and charging system",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Cell selection, pack architecture, BMS, power distribution, docking, and certification. It gates runtime, fleet uptime, abuse tolerance, and deployability.",
     "maturityScore": 45,
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 12,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Reviewed public humanoid sources identify battery/runtime and charging constraints, but do not break out pack, BMS, docking, certification, and fleet-spares cost as a standalone audited subsystem price." }],
-    "tags": ["battery", "power", "bottleneck", "constraint_component_availability", "constraint_integration_commissioning"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_ti_bms", "ev_humanoid_battery_constraint_review"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Reviewed public humanoid sources identify battery/runtime and charging constraints, but do not break out pack, BMS, docking, certification, and fleet-spares cost as a standalone audited subsystem price."
+      }
+    ],
+    "tags": [
+      "battery",
+      "power",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_ti_bms",
+      "ev_humanoid_battery_constraint_review"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_thermal_management_system",
     "name": "Thermal management system",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Thermal paths for motors, drives, battery, and edge compute. Poor thermal design shortens useful duty cycle and turns demos into short bursts.",
     "maturityScore": 40,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 18,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Reviewed public sources support thermal constraints around motors, batteries, and compute, but not a standalone humanoid thermal BOM, qualification, and service cost." }],
-    "tags": ["thermal", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_nmb_thermal", "ev_humanoid_battery_constraint_review"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Reviewed public sources support thermal constraints around motors, batteries, and compute, but not a standalone humanoid thermal BOM, qualification, and service cost."
+      }
+    ],
+    "tags": [
+      "thermal",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal",
+      "ev_humanoid_battery_constraint_review"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_perception_sensing_stack",
     "name": "Perception and sensing stack",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Cameras, depth, LiDAR, IMU, encoders, force/torque, tactile, proximity, and audio sensing. Sensor alignment and drift become control errors at the body level.",
     "maturityScore": 54,
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 12,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Public sources list sensing and perception ingredients, but not the audited cost of sensor fusion, calibration, drift control, and replacement for a commercial humanoid fleet." }],
-    "tags": ["sensing", "perception", "constraint_component_availability", "constraint_integration_commissioning"],
-    "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tdk_robotics", "ev_humanoid_figure_botq"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Public sources list sensing and perception ingredients, but not the audited cost of sensor fusion, calibration, drift control, and replacement for a commercial humanoid fleet."
+      }
+    ],
+    "tags": [
+      "sensing",
+      "perception",
+      "constraint_component_availability",
+      "constraint_integration_commissioning"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tdk_robotics",
+      "ev_humanoid_figure_botq"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_onboard_compute_control_electronics",
     "name": "Onboard compute and control electronics",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Edge AI compute, real-time controllers, motor-control networking, power isolation, and safety electronics. It must fit autonomy into a tight power and heat envelope.",
     "maturityScore": 52,
     "maturityLabel": "early_deployment",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 12,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Reviewed public sources support onboard compute and controller roles, but not a separated controller, safety electronics, networking, and power-isolation cost for humanoid production." }],
-    "tags": ["compute", "control", "electronics", "constraint_component_availability", "constraint_integration_commissioning"],
-    "evidenceIds": ["ev_humanoid_nvidia_jetson_thor", "ev_humanoid_st_reference"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Reviewed public sources support onboard compute and controller roles, but not a separated controller, safety electronics, networking, and power-isolation cost for humanoid production."
+      }
+    ],
+    "tags": [
+      "compute",
+      "control",
+      "electronics",
+      "constraint_component_availability",
+      "constraint_integration_commissioning"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nvidia_jetson_thor",
+      "ev_humanoid_st_reference"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_structure_materials_harness",
     "name": "Structure, materials, and harness",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Skeleton, enclosures, skin, cable routing, connectors, feet, and serviceable modules. Weight, stiffness, wire fatigue, and assembly tolerance decide real fleet reliability.",
     "maturityScore": 48,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 18,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Reviewed sources support structure, battery, safety, and certification roles, but not an audited structure, harness, connector, enclosure, and serviceability cost as a separate subsystem." }],
-    "tags": ["structure", "materials", "harness", "constraint_component_availability", "constraint_integration_commissioning", "constraint_maintenance_operations"],
-    "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery", "ev_humanoid_iso_ts_15066_collaborative_safety", "ev_humanoid_ul_consumer_commercial_robot_certification"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Reviewed sources support structure, battery, safety, and certification roles, but not an audited structure, harness, connector, enclosure, and serviceability cost as a separate subsystem."
+      }
+    ],
+    "tags": [
+      "structure",
+      "materials",
+      "harness",
+      "constraint_component_availability",
+      "constraint_integration_commissioning",
+      "constraint_maintenance_operations"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_iso_ts_15066_collaborative_safety",
+      "ev_humanoid_ul_consumer_commercial_robot_certification"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_locomotion_control_software",
     "name": "Locomotion and whole-body control software",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Whole-body control, balance, gait, state estimation, contact control, fall recovery, and runtime safety monitoring.",
     "maturityScore": 42,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 24,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source prices whole-body control, balance, fall recovery, field validation, and runtime safety monitoring separately from the full humanoid program." }],
-    "tags": ["software", "control", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_nvidia_use_case"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source prices whole-body control, balance, fall recovery, field validation, and runtime safety monitoring separately from the full humanoid program."
+      }
+    ],
+    "tags": [
+      "software",
+      "control",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_nvidia_use_case"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_manipulation_ai_data_stack",
     "name": "Manipulation AI and data stack",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Vision-language-action policies, grasp planning, teleoperation data, imitation/RL training, task planning, and fleet learning.",
     "maturityScore": 34,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 24,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source breaks out manipulation policy, teleoperation data, simulation, fleet learning, and validation cost from the complete humanoid robot program." }],
-    "tags": ["software", "ai", "manipulation", "bottleneck", "constraint_technical_maturity", "constraint_capacity_scale", "constraint_integration_commissioning"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source breaks out manipulation policy, teleoperation data, simulation, fleet learning, and validation cost from the complete humanoid robot program."
+      }
+    ],
+    "tags": [
+      "software",
+      "ai",
+      "manipulation",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_capacity_scale",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
     "id": "humanoid_manufacturing_test_safety_service",
     "name": "Manufacturing, test, safety, and service",
     "kind": "module",
-    "domain": ["humanoid_robotics"],
+    "domain": [
+      "humanoid_robotics"
+    ],
     "description": "Assembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops.",
     "maturityScore": 32,
     "maturityLabel": "prototype",
     "maturityAsOf": "2026-06",
     "confidence": "medium",
     "capacityLeadTimeMonths": 18,
-    "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source prices the combined assembly, calibration, burn-in, traceability, functional-safety, field-service, and spares loop per humanoid robot." }],
-    "tags": ["manufacturing", "test", "safety", "service", "bottleneck", "constraint_capacity_scale", "constraint_integration_commissioning", "constraint_maintenance_operations"],
-    "bottleneckOf": ["humanoid_robot_key_component_stack"],
-    "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery", "ev_humanoid_iso_ts_15066_collaborative_safety", "ev_humanoid_ul_consumer_commercial_robot_certification"],
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source prices the combined assembly, calibration, burn-in, traceability, functional-safety, field-service, and spares loop per humanoid robot."
+      }
+    ],
+    "tags": [
+      "manufacturing",
+      "test",
+      "safety",
+      "service",
+      "bottleneck",
+      "constraint_capacity_scale",
+      "constraint_integration_commissioning",
+      "constraint_maintenance_operations"
+    ],
+    "bottleneckOf": [
+      "humanoid_robot_key_component_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_iso_ts_15066_collaborative_safety",
+      "ev_humanoid_ul_consumer_commercial_robot_certification"
+    ],
     "reviewStatus": "unreviewed"
   },
-  { "id": "humanoid_rotary_joint_module", "name": "Rotary joint module", "kind": "module", "domain": ["humanoid_robotics"], "description": "Torque-dense rotary joint for shoulders, hips, wrists, and ankles. It gates useful payload because motor, reducer, bearing, encoder, drive, heat path, and harness must fit inside one serviceable joint.", "maturityScore": 52, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 12, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Public humanoid sources do not break out rotary joint BOM, yield, burn-in, service spares, and actuator-level qualification as an audited module price." }], "tags": ["actuation", "bottleneck", "constraint_component_availability", "constraint_integration_commissioning"], "bottleneckOf": ["humanoid_actuation_system"], "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_ti_robotics", "ev_humanoid_unitree_g1_price_joint_count"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_linear_joint_module", "name": "Linear joint module", "kind": "module", "domain": ["humanoid_robotics"], "description": "High-force linear actuator path for legs, knees, torso, or high-load axes. It is hard to clear because screw life, shock loads, lubrication, sealing, and compact packaging all affect field reliability.", "maturityScore": 44, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 18, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source prices humanoid linear actuator assemblies, fatigue validation, sealing, lubrication, and field-replacement cost separately." }], "tags": ["actuation", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"], "bottleneckOf": ["humanoid_actuation_system"], "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_reducer_transmission_stack", "name": "Reducer and transmission stack", "kind": "module", "domain": ["humanoid_robotics"], "description": "Strain-wave, planetary, cycloidal, or screw transmission choices that set backlash, stiffness, torque density, and lifetime. The bottleneck is not only precision; it is repeatable joint-grade quality, lifecycle validation, and enough qualified suppliers for humanoid-scale actuator volumes.", "maturityScore": 50, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 18, "metrics": [{ "name": "Humanoid reducer and transmission stack cost magnitude", "unit": "USD", "currency": "USD", "currentValue": { "min": 1000, "typical": 2500, "max": 6000 }, "costAsOf": "2026", "description": "V0 order-of-magnitude estimate for multiple precision reducer/transmission elements across a humanoid actuation stack. Not a confirmed BOM or supplier quote." }], "tags": ["reducer", "bottleneck", "constraint_component_availability", "constraint_capacity_scale", "constraint_technical_maturity"], "bottleneckOf": ["humanoid_actuation_system"], "evidenceIds": ["ev_humanoid_harmonic_ir", "ev_humanoid_harmonic_drive_precision_products", "ev_humanoid_nabtesco_precision", "ev_humanoid_leaderdrive_humanoid", "ev_humanoid_leaderdrive_ticker", "ev_humanoid_unitree_g1_price_joint_count"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_motor_stack", "name": "Motor stack", "kind": "module", "domain": ["humanoid_robotics"], "description": "Frameless BLDC, direct-drive, or quasi-direct-drive motors sized for compact torque and heat rejection. Motor choice gates noise, duty cycle, efficiency, magnet exposure, and actuator thermal headroom.", "maturityScore": 56, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 12, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Public sources support humanoid motor and joint counts, but do not disclose audited motor-stack BOM, magnet sourcing, winding yield, thermal margin, or service-spares cost." }], "tags": ["motor", "bottleneck", "constraint_component_availability", "constraint_capacity_scale"], "bottleneckOf": ["humanoid_actuation_system"], "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_ti_robotics", "ev_humanoid_unitree_g1_price_joint_count"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_motor_drive_power_electronics", "name": "Motor drive power electronics", "kind": "module", "domain": ["humanoid_robotics"], "description": "Gate drivers, current sensing, inverter power stage, protection, EMI filtering, and control loops for many distributed joints.", "maturityScore": 58, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["drive", "electronics"], "evidenceIds": ["ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_joint_sensing_feedback", "name": "Joint sensing and feedback", "kind": "module", "domain": ["humanoid_robotics"], "description": "Absolute encoders, torque sensing, current sensing, temperature sensing, and calibration model for closed-loop force and position control.", "maturityScore": 54, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["sensing", "actuation"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_joint_bearing_sealing", "name": "Joint bearings and sealing", "kind": "module", "domain": ["humanoid_robotics"], "description": "Thin-section bearings, cross-roller bearings, seals, lubrication, and shock handling inside compact joints. It gates fleet reliability because impact, dust, wire motion, and maintenance access turn commodity bearings into joint-specific qualification work.", "maturityScore": 60, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 12, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source breaks out humanoid joint bearing, sealing, lubrication, shock qualification, and replacement-rate cost as a standalone subsystem." }], "tags": ["bearing", "bottleneck", "constraint_component_availability", "constraint_maintenance_operations"], "bottleneckOf": ["humanoid_actuation_system"], "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_strain_wave_reducer", "name": "Strain-wave reducer", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Compact high-ratio reducer option with low backlash but lifetime and cost pressure at humanoid volumes.", "maturityScore": 62, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["reducer", "bottleneck"], "evidenceIds": ["ev_humanoid_harmonic_ir"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_planetary_roller_screw", "name": "Planetary roller screw", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "High-force linear conversion component whose precision thread grinding and fatigue life can become high-load actuator bottlenecks.", "maturityScore": 46, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["screw", "bottleneck"], "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_frameless_bldc_motor", "name": "Frameless BLDC torque motor", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Compact permanent-magnet motor integrated into joint housings.", "maturityScore": 60, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["motor"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_rare_earth_magnet_supply", "name": "Rare-earth magnet supply", "kind": "material", "domain": ["humanoid_robotics"], "description": "NdFeB-class magnet supply that affects compact motors and geopolitical supply risk.", "maturityScore": 58, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["material", "bottleneck"], "bottleneckOf": ["humanoid_motor_stack"], "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_inverter_power_stage", "name": "Joint inverter power stage", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "MOSFET/GaN power stage sized for compact multi-axis joint current control.", "maturityScore": 62, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["power_electronics"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_current_sense_gate_driver", "name": "Current sensing and gate driver", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "High-bandwidth current sensing and gate drive electronics required for stable torque control and protection.", "maturityScore": 66, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["power_electronics", "sensing"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_emi_filtering_grounding", "name": "EMI filtering and grounding", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Distributed motor-drive EMI control across dense wiring and sensors.", "maturityScore": 50, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["electronics"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_five_finger_hand_mechanism", "name": "Five-finger hand mechanism", "kind": "module", "domain": ["humanoid_robotics"], "description": "Multi-DoF hand mechanism for object handling, tool use, and human-like workspace compatibility. It gates usefulness because finger packaging, actuation, tactile routing, breakage, and replacement cost decide whether manipulation survives outside demos.", "maturityScore": 36, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 18, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Public humanoid sources do not disclose an audited five-finger hand BOM, actuator count, tactile integration, field breakage, or spare-hand cost." }], "tags": ["hand", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning", "constraint_maintenance_operations"], "bottleneckOf": ["humanoid_dexterous_hand_tactile_system"], "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_tendon_cable_transmission", "name": "Tendon or cable hand transmission", "kind": "module", "domain": ["humanoid_robotics"], "description": "Remote-drive hand transmission that saves finger volume but adds routing, stretch, friction, and calibration issues.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["hand", "bottleneck"], "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_micro_hand_actuator", "name": "Micro hand actuator", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Small motor, gearbox, leadscrew, or tendon drive packaged in the hand and wrist volume.", "maturityScore": 38, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["hand", "actuation"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_fingertip_tactile_array", "name": "Fingertip tactile array", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Dense pressure/shear sensing at the fingertip for slip detection and grasp control.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["tactile", "bottleneck"], "evidenceIds": ["ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_palm_force_tactile_array", "name": "Palm force and tactile array", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Palm contact sensing for stable large-object manipulation and safe human interaction.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["tactile"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_slip_detection_policy", "name": "Slip detection policy", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Control method converting tactile streams into grip adjustments before objects fall.", "maturityScore": 32, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["hand", "software"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_lithium_ion_cell_selection", "name": "Lithium-ion cell selection", "kind": "module", "domain": ["humanoid_robotics"], "description": "Cell chemistry and format trade-off across energy density, discharge power, safety, and cycle life.", "maturityScore": 58, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["battery"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_battery_pack_enclosure", "name": "Battery pack enclosure and interconnect", "kind": "module", "domain": ["humanoid_robotics"], "description": "Mechanical pack, interconnect, fuse, contactor, sealing, and abuse protection for a moving robot body. It gates runtime and safety because pack packaging must absorb falls, thermal events, high-current transients, and fast service swaps.", "maturityScore": 48, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 12, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Reviewed sources support battery/runtime constraints, but not an audited humanoid pack enclosure, interconnect, protection, certification, and replacement cost." }], "tags": ["battery", "safety", "bottleneck", "constraint_component_availability", "constraint_integration_commissioning"], "bottleneckOf": ["humanoid_battery_power_charging_system"], "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_battery_constraint_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_battery_management_system", "name": "Battery management system", "kind": "module", "domain": ["humanoid_robotics"], "description": "Cell monitoring, balancing, state estimation, protection, diagnostics, and certification interface.", "maturityScore": 58, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["battery", "electronics"], "evidenceIds": ["ev_humanoid_ti_bms"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_power_distribution_bus", "name": "High-current power distribution bus", "kind": "module", "domain": ["humanoid_robotics"], "description": "Distributed high-current power routing, conversion, protection, and isolation between pack, compute, and joints.", "maturityScore": 52, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["power"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_charging_docking_interface", "name": "Charging and docking interface", "kind": "module", "domain": ["humanoid_robotics"], "description": "Fleet charging dock, contact alignment, battery swap or charging control, and service ergonomics. It gates uptime because robots that cannot self-dock, charge safely, and return to service create hidden operator labor.", "maturityScore": 42, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 18, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source prices humanoid charging docks, automatic alignment, connector life, battery-swap workflow, or fleet charger deployment cost." }], "tags": ["charging", "bottleneck", "constraint_integration_commissioning", "constraint_maintenance_operations"], "bottleneckOf": ["humanoid_battery_power_charging_system"], "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_ti_bms"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_pack_safety_certification", "name": "Battery pack safety certification", "kind": "standard_or_regulation", "domain": ["humanoid_robotics"], "description": "UN38.3, UL-class, transport, abuse, and functional safety requirements for mobile robot batteries.", "maturityScore": 46, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["battery", "safety", "certification"], "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_battery_constraint_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_motor_joint_thermal_path", "name": "Motor and joint thermal path", "kind": "module", "domain": ["humanoid_robotics"], "description": "Heat conduction from winding, drive, gearbox, and bearing stack to housing without creating touch-temperature or reliability issues.", "maturityScore": 42, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["thermal", "actuation"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_battery_thermal_safety", "name": "Battery thermal safety", "kind": "module", "domain": ["humanoid_robotics"], "description": "Cell temperature monitoring, heat spreading, runaway containment, and pack-level shutoff.", "maturityScore": 52, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["thermal", "battery", "safety"], "evidenceIds": ["ev_humanoid_battery_constraint_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_compute_heat_spreader", "name": "Compute heat spreader", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Thermal interface, heat spreader, and sink path for edge AI modules inside torso/head volume.", "maturityScore": 56, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["thermal", "compute"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_airflow_liquid_cooling_loop", "name": "Airflow or liquid cooling loop", "kind": "module", "domain": ["humanoid_robotics"], "description": "Fan, duct, heat-pipe, cold plate, or liquid loop design constrained by noise, dust, impact, and service. It gates sustained work because motors, drives, battery, and edge compute create heat in a sealed moving body.", "maturityScore": 44, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "capacityLeadTimeMonths": 18, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "Reviewed sources support humanoid thermal constraints, but not an audited airflow, heat-pipe, cold-plate, liquid-loop, acoustic, and service cost." }], "tags": ["thermal", "bottleneck", "constraint_technical_maturity", "constraint_integration_commissioning"], "bottleneckOf": ["humanoid_thermal_management_system"], "evidenceIds": ["ev_humanoid_nmb_thermal", "ev_humanoid_battery_constraint_review"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_thermal_sensor_map", "name": "Thermal sensor map", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Thermistors and IC temperature sensors across pack, motors, drivers, compute, and enclosure hot spots.", "maturityScore": 62, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["thermal", "sensing"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_sustained_duty_cycle_validation", "name": "Sustained duty-cycle validation", "kind": "manufacturing_process", "domain": ["humanoid_robotics"], "description": "Thermal and reliability test process proving a robot can work useful shifts, not only short demos.", "maturityScore": 30, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["thermal", "test", "bottleneck"], "evidenceIds": ["ev_humanoid_nmb_thermal", "ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_stereo_rgb_camera", "name": "Stereo RGB camera module", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Head or torso cameras for perception, teleoperation, and scene understanding.", "maturityScore": 68, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["vision"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_depth_camera_lidar", "name": "Depth camera and 3D LiDAR", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Depth sensing for navigation, obstacle avoidance, and manipulation workspace estimation.", "maturityScore": 58, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["depth", "lidar"], "evidenceIds": ["ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_imu_attitude_sensing", "name": "IMU attitude sensing", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Inertial sensing for balance, state estimation, impact detection, and fall recovery.", "maturityScore": 70, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["imu"], "evidenceIds": ["ev_humanoid_tdk_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_joint_encoder_position", "name": "Joint encoder and position sensing", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Absolute or incremental joint feedback needed for stable body control and calibration.", "maturityScore": 66, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["encoder"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_force_torque_sensing", "name": "Force and torque sensing", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Foot, wrist, and joint force sensing for contact-aware locomotion and manipulation.", "maturityScore": 54, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["force_torque"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_proximity_touch_safety", "name": "Proximity and touch safety sensing", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Close-range detection and contact sensing for human-robot interaction and collision mitigation.", "maturityScore": 52, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["safety", "sensing"], "evidenceIds": ["ev_humanoid_iso_ts_15066_collaborative_safety"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_audio_microphone_array", "name": "Audio and microphone array", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Speech, command, and situational awareness sensing for human-centric deployment.", "maturityScore": 62, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["audio"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_edge_ai_compute_module", "name": "Edge AI compute module", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "On-robot AI accelerator or SoC that runs perception, policy inference, and local planning within power and heat limits.", "maturityScore": 58, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["compute", "bottleneck"], "evidenceIds": ["ev_humanoid_nvidia_jetson_thor"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_realtime_mcu_safety_controller", "name": "Real-time MCU and safety controller", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Deterministic controller path for motor loops, E-stop, safe torque off, and health monitoring.", "maturityScore": 62, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["mcu", "safety"], "evidenceIds": ["ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_motor_control_network", "name": "Motor-control network", "kind": "module", "domain": ["humanoid_robotics"], "description": "Deterministic communication from central controller to many distributed motor drivers and sensor boards.", "maturityScore": 54, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["network", "control"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_time_sync_sensor_fusion", "name": "Time sync and sensor fusion", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Timestamping, synchronization, calibration, and fusion of camera, IMU, encoder, force, and tactile streams.", "maturityScore": 46, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["software", "sensing"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_safety_power_isolation", "name": "Safety power isolation", "kind": "module", "domain": ["humanoid_robotics"], "description": "Power isolation and protection architecture separating battery, high-current joints, compute, and safety logic.", "maturityScore": 50, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["power", "safety"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_lightweight_skeleton_frame", "name": "Lightweight skeleton frame", "kind": "module", "domain": ["humanoid_robotics"], "description": "Aluminum, magnesium, steel, polymer, or composite structure balancing weight, stiffness, impact, and manufacturability.", "maturityScore": 54, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["structure"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_torso_enclosure_skin", "name": "Torso enclosure and protective skin", "kind": "module", "domain": ["humanoid_robotics"], "description": "Protective external surfaces that package compute, power, sensors, fans, and safe human contact.", "maturityScore": 50, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["enclosure"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_wiring_harness_connectors", "name": "Wiring harness and connectors", "kind": "module", "domain": ["humanoid_robotics"], "description": "High-flex harness, connectors, strain relief, and service routing through moving limbs. It gates reliability because every joint adds bend cycles, EMI, connector retention, and service-routing failure modes.", "maturityScore": 46, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "capacityLeadTimeMonths": 12, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source prices high-flex humanoid harnessing, connector qualification, strain relief, EMI control, and service routing as a separate subsystem." }], "tags": ["harness", "bottleneck", "constraint_component_availability", "constraint_maintenance_operations"], "bottleneckOf": ["humanoid_structure_materials_harness"], "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_te_robotics_connectors"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_high_stiffness_low_mass_materials", "name": "High-stiffness low-mass materials", "kind": "material", "domain": ["humanoid_robotics"], "description": "Material set for limbs and torso where weight, stiffness, fatigue, cost, and manufacturability collide.", "maturityScore": 56, "maturityLabel": "commercially_available", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["material", "bottleneck"], "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_foot_contact_structure", "name": "Foot contact structure", "kind": "module", "domain": ["humanoid_robotics"], "description": "Foot sole, compliance, force sensing, tread, and replacement design for walking and balance.", "maturityScore": 42, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["locomotion"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_serviceable_modular_design", "name": "Serviceable modular design", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Architecture that lets fleet operators replace joints, hands, packs, sensors, and limbs without rebuilding the robot.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["service", "manufacturing"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_whole_body_control_stack", "name": "Whole-body control stack", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Coordinated control of limbs, torso, hands, contacts, and center of mass.", "maturityScore": 42, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["control"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_gait_balance_policy", "name": "Gait and balance policy", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Walking, standing, stepping, push recovery, and uneven-floor policies.", "maturityScore": 44, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["locomotion"], "evidenceIds": ["ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_sim_to_real_training_pipeline", "name": "Simulation-to-real training pipeline", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Physics simulation, domain randomization, policy transfer, and hardware validation loop.", "maturityScore": 38, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["software", "training"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_contact_force_control", "name": "Contact force control", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Force-position control for safe grasping, pushing, leaning, and foot-ground interaction.", "maturityScore": 40, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["control", "safety"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_fall_recovery_safe_stop", "name": "Fall recovery and safe stop", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Detection, controlled stopping, recovery, and service handoff for falls or unstable states.", "maturityScore": 32, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["safety", "control"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_runtime_safety_monitor", "name": "Runtime safety monitor", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Independent health and safety monitor for torque, temperature, battery, perception, and human proximity constraints.", "maturityScore": 38, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["safety"], "evidenceIds": ["ev_humanoid_ul_consumer_commercial_robot_certification"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_vla_policy_model", "name": "Vision-language-action policy model", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Embodied AI model that maps instructions and perception to action sequences.", "maturityScore": 30, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["ai", "software", "bottleneck"], "evidenceIds": ["ev_humanoid_nvidia_use_case"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_grasp_planning_policy", "name": "Grasp planning policy", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Planning and control for hand approach, grasp choice, grip adjustment, and release.", "maturityScore": 32, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["manipulation"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_teleoperation_data_collection", "name": "Teleoperation data collection", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Human demonstration capture used to train manipulation and task policies.", "maturityScore": 40, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["data", "training"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_imitation_rl_training_loop", "name": "Imitation and reinforcement-learning loop", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Training loop for converting demonstrations, rewards, simulation, and fleet failures into policies.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["ai", "training"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_task_planning_execution", "name": "Task planning and execution", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Breaking user goals into perception, motion, grasp, tool, and verification steps.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["planning"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_manipulation_benchmark_eval", "name": "Manipulation benchmark and evaluation", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Task suite, metrics, data replay, and failure taxonomy for judging useful manipulation.", "maturityScore": 30, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["evaluation"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_high_volume_joint_assembly", "name": "High-volume joint assembly", "kind": "manufacturing_process", "domain": ["humanoid_robotics"], "description": "Assembly of motors, reducers, bearings, sensors, drives, harness, and housings at repeatable quality.", "maturityScore": 34, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["manufacturing", "bottleneck"], "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_end_of_line_calibration_rig", "name": "End-of-line calibration rig", "kind": "equipment", "domain": ["humanoid_robotics"], "description": "Factory system for joint zeroing, torque calibration, sensor alignment, battery checks, and whole-body validation.", "maturityScore": 36, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "tags": ["test", "calibration"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_battery_pack_eol_test", "name": "Battery pack end-of-line test", "kind": "manufacturing_process", "domain": ["humanoid_robotics"], "description": "Pack electrical, thermal, balancing, safety, leakage, and charge/discharge validation before robot integration.", "maturityScore": 48, "maturityLabel": "early_deployment", "maturityAsOf": "2026-06", "confidence": "medium", "transactability": "must_build", "tags": ["battery", "test"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_whole_robot_burn_in", "name": "Whole-robot burn-in", "kind": "manufacturing_process", "domain": ["humanoid_robotics"], "description": "Factory burn-in process for thermal soak, motion cycles, sensor drift, and early-life failures.", "maturityScore": 30, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["test", "reliability"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_reliability_mtbf_tracking", "name": "Reliability and MTBF tracking", "kind": "engineering_method", "domain": ["humanoid_robotics"], "description": "Fleet telemetry and root-cause loop for joint, hand, battery, thermal, and sensor failures.", "maturityScore": 30, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "tags": ["reliability"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_functional_safety_estop", "name": "Functional safety and E-stop", "kind": "module", "domain": ["humanoid_robotics"], "description": "Safety architecture for stop states, safe torque off, power isolation, human proximity, and incident logging.", "maturityScore": 38, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "medium", "tags": ["safety"], "evidenceIds": ["ev_humanoid_iso_ts_15066_collaborative_safety", "ev_humanoid_ul_consumer_commercial_robot_certification"], "reviewStatus": "unreviewed" },
-  { "id": "humanoid_field_service_spares_loop", "name": "Field service and spares loop", "kind": "manufacturing_process", "domain": ["humanoid_robotics"], "description": "Service workflow for replacement joints, hands, batteries, sensors, calibration, and refurbishment. It gates TCO because a pilot fleet becomes expensive if failures require factory return or manual recalibration.", "maturityScore": 28, "maturityLabel": "prototype", "maturityAsOf": "2026-06", "confidence": "low", "transactability": "must_build", "capacityLeadTimeMonths": 24, "metrics": [{ "name": "Cost disclosure", "unit": "audit status", "currentValue": "not priceable from reviewed data", "description": "No reviewed public source prices humanoid field-service labor, spares pool, calibration workflow, refurbishment, and replacement-cycle cost." }], "tags": ["service", "bottleneck", "constraint_maintenance_operations", "constraint_capacity_scale"], "bottleneckOf": ["humanoid_manufacturing_test_safety_service"], "evidenceIds": ["ev_humanoid_figure03_production_ramp", "ev_humanoid_ul_consumer_commercial_robot_certification"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_harmonic_drive_systems", "name": "Harmonic Drive Systems", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Japan-listed supplier candidate for precision strain-wave gearing exposure; ticker 6324.T is Tokyo-listed exposure, not a US primary listing. Graph link is component exposure, not confirmed humanoid BOM.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "6324.T", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_harmonic_ir", "ev_humanoid_harmonic_drive_precision_products"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_nabtesco", "name": "Nabtesco", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Japan-listed precision reducer supplier candidate; graph link is reducer exposure, not confirmed humanoid BOM.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "6268.T", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_nabtesco_precision"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_leaderdrive", "name": "Leaderdrive / Leader Harmonious Drive Systems", "kind": "organization", "domain": ["humanoid_robotics"], "description": "China-listed strain-wave reducer and rotary actuator supplier candidate for humanoid reducer exposure; ticker 688017.SS is Shanghai-listed exposure, not a US primary listing.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "688017.SS", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_leaderdrive_humanoid", "ev_humanoid_leaderdrive_ticker"], "reviewStatus": "unreviewed" },
-  { "id": "org_yaskawa_electric", "name": "Yaskawa Electric", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Tokyo-listed servo and motion-control supplier candidate; ticker 6506.T is Japan-listed exposure, not a US primary listing.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "6506.T", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_yaskawa_motion"], "reviewStatus": "unreviewed" },
-  { "id": "org_nidec", "name": "Nidec", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Tokyo-listed motor supplier candidate; ticker 6594.T is Japan-listed exposure, not a US primary listing.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "6594.T", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_nidec_ir"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_nvidia", "name": "NVIDIA", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public US-listed robotics compute and physical-AI platform supplier candidate.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "NVDA", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_nvidia_jetson_thor"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_texas_instruments", "name": "Texas Instruments", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public US-listed analog, BMS, current-sensing, and motor-control semiconductor supplier candidate.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "TXN", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_ti_bms", "ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_stmicroelectronics", "name": "STMicroelectronics", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public NYSE-listed MCU, motor-control, sensing, and safety electronics supplier candidate.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "STM", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_tdk", "name": "TDK", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Japan-listed sensor, passive component, magnetic, and thermal component supplier candidate.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "6762.T", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_tdk_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "org_humanoid_te_connectivity", "name": "TE Connectivity", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public NYSE-listed connector and sensor supplier candidate.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "TEL", "confidence": "medium", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_te_robotics_connectors"], "reviewStatus": "unreviewed" },
-  { "id": "org_samsung_sdi", "name": "Samsung SDI", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Korea Exchange-listed battery cell supplier candidate; ticker 006400.KS is Korea-listed exposure, not a US primary listing.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "006400.KS", "confidence": "low", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_samsung_sdi_ir"], "reviewStatus": "unreviewed" },
-  { "id": "org_lg_energy_solution", "name": "LG Energy Solution", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Korea Exchange-listed battery cell supplier candidate; ticker 373220.KS is Korea-listed exposure, not a US primary listing.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "373220.KS", "confidence": "low", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_lg_energy_ir"], "reviewStatus": "unreviewed" },
-  { "id": "org_catl", "name": "CATL", "kind": "organization", "domain": ["humanoid_robotics"], "description": "Public Shenzhen-listed battery cell and pack supplier candidate; ticker 300750.SZ is mainland China A-share exposure, not a US primary listing.", "maturityLabel": "unknown", "listingStatus": "public", "ticker": "300750.SZ", "confidence": "low", "tags": ["public_company", "supplier_candidate"], "evidenceIds": ["ev_humanoid_catl_profile"], "reviewStatus": "unreviewed" }
+  {
+    "id": "humanoid_rotary_joint_module",
+    "name": "Rotary joint module",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Torque-dense rotary joint for shoulders, hips, wrists, and ankles. It gates useful payload because motor, reducer, bearing, encoder, drive, heat path, and harness must fit inside one serviceable joint.",
+    "maturityScore": 52,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Public humanoid sources do not break out rotary joint BOM, yield, burn-in, service spares, and actuator-level qualification as an audited module price."
+      }
+    ],
+    "tags": [
+      "actuation",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_actuation_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_ti_robotics",
+      "ev_humanoid_unitree_g1_price_joint_count"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_linear_joint_module",
+    "name": "Linear joint module",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "High-force linear actuator path for legs, knees, torso, or high-load axes. It is hard to clear because screw life, shock loads, lubrication, sealing, and compact packaging all affect field reliability.",
+    "maturityScore": 44,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source prices humanoid linear actuator assemblies, fatigue validation, sealing, lubrication, and field-replacement cost separately."
+      }
+    ],
+    "tags": [
+      "actuation",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_actuation_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_reducer_transmission_stack",
+    "name": "Reducer and transmission stack",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Strain-wave, planetary, cycloidal, or screw transmission choices that set backlash, stiffness, torque density, and lifetime. The bottleneck is not only precision; it is repeatable joint-grade quality, lifecycle validation, and enough qualified suppliers for humanoid-scale actuator volumes.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Humanoid reducer and transmission stack cost magnitude",
+        "unit": "USD",
+        "currency": "USD",
+        "currentValue": {
+          "min": 1000,
+          "typical": 2500,
+          "max": 6000
+        },
+        "costAsOf": "2026",
+        "description": "V0 order-of-magnitude estimate for multiple precision reducer/transmission elements across a humanoid actuation stack. Not a confirmed BOM or supplier quote."
+      }
+    ],
+    "tags": [
+      "reducer",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_capacity_scale",
+      "constraint_technical_maturity"
+    ],
+    "bottleneckOf": [
+      "humanoid_actuation_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir",
+      "ev_humanoid_harmonic_drive_precision_products",
+      "ev_humanoid_nabtesco_precision",
+      "ev_humanoid_leaderdrive_humanoid",
+      "ev_humanoid_leaderdrive_ticker",
+      "ev_humanoid_unitree_g1_price_joint_count"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_motor_stack",
+    "name": "Motor stack",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Frameless BLDC, direct-drive, or quasi-direct-drive motors sized for compact torque and heat rejection. Motor choice gates noise, duty cycle, efficiency, magnet exposure, and actuator thermal headroom.",
+    "maturityScore": 56,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Public sources support humanoid motor and joint counts, but do not disclose audited motor-stack BOM, magnet sourcing, winding yield, thermal margin, or service-spares cost."
+      }
+    ],
+    "tags": [
+      "motor",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_capacity_scale"
+    ],
+    "bottleneckOf": [
+      "humanoid_actuation_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_ti_robotics",
+      "ev_humanoid_unitree_g1_price_joint_count"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_motor_drive_power_electronics",
+    "name": "Motor drive power electronics",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Gate drivers, current sensing, inverter power stage, protection, EMI filtering, and control loops for many distributed joints.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "drive",
+      "electronics"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_joint_sensing_feedback",
+    "name": "Joint sensing and feedback",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Absolute encoders, torque sensing, current sensing, temperature sensing, and calibration model for closed-loop force and position control.",
+    "maturityScore": 54,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "sensing",
+      "actuation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_joint_bearing_sealing",
+    "name": "Joint bearings and sealing",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Thin-section bearings, cross-roller bearings, seals, lubrication, and shock handling inside compact joints. It gates fleet reliability because impact, dust, wire motion, and maintenance access turn commodity bearings into joint-specific qualification work.",
+    "maturityScore": 60,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source breaks out humanoid joint bearing, sealing, lubrication, shock qualification, and replacement-rate cost as a standalone subsystem."
+      }
+    ],
+    "tags": [
+      "bearing",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_maintenance_operations"
+    ],
+    "bottleneckOf": [
+      "humanoid_actuation_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_strain_wave_reducer",
+    "name": "Strain-wave reducer",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Compact high-ratio reducer option with low backlash but lifetime and cost pressure at humanoid volumes.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "reducer",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_planetary_roller_screw",
+    "name": "Planetary roller screw",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "High-force linear conversion component whose precision thread grinding and fatigue life can become high-load actuator bottlenecks.",
+    "maturityScore": 46,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "screw",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_frameless_bldc_motor",
+    "name": "Frameless BLDC torque motor",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Compact permanent-magnet motor integrated into joint housings.",
+    "maturityScore": 60,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "motor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_rare_earth_magnet_supply",
+    "name": "Rare-earth magnet supply",
+    "kind": "material",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "NdFeB-class magnet supply that affects compact motors and geopolitical supply risk.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "material",
+      "bottleneck"
+    ],
+    "bottleneckOf": [
+      "humanoid_motor_stack"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_inverter_power_stage",
+    "name": "Joint inverter power stage",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "MOSFET/GaN power stage sized for compact multi-axis joint current control.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "power_electronics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_current_sense_gate_driver",
+    "name": "Current sensing and gate driver",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "High-bandwidth current sensing and gate drive electronics required for stable torque control and protection.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "power_electronics",
+      "sensing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_emi_filtering_grounding",
+    "name": "EMI filtering and grounding",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Distributed motor-drive EMI control across dense wiring and sensors.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "electronics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_five_finger_hand_mechanism",
+    "name": "Five-finger hand mechanism",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Multi-DoF hand mechanism for object handling, tool use, and human-like workspace compatibility. It gates usefulness because finger packaging, actuation, tactile routing, breakage, and replacement cost decide whether manipulation survives outside demos.",
+    "maturityScore": 36,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Public humanoid sources do not disclose an audited five-finger hand BOM, actuator count, tactile integration, field breakage, or spare-hand cost."
+      }
+    ],
+    "tags": [
+      "hand",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning",
+      "constraint_maintenance_operations"
+    ],
+    "bottleneckOf": [
+      "humanoid_dexterous_hand_tactile_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_tendon_cable_transmission",
+    "name": "Tendon or cable hand transmission",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Remote-drive hand transmission that saves finger volume but adds routing, stretch, friction, and calibration issues.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "hand",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_micro_hand_actuator",
+    "name": "Micro hand actuator",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Small motor, gearbox, leadscrew, or tendon drive packaged in the hand and wrist volume.",
+    "maturityScore": 38,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "hand",
+      "actuation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_fingertip_tactile_array",
+    "name": "Fingertip tactile array",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Dense pressure/shear sensing at the fingertip for slip detection and grasp control.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "tactile",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_palm_force_tactile_array",
+    "name": "Palm force and tactile array",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Palm contact sensing for stable large-object manipulation and safe human interaction.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "tactile"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_slip_detection_policy",
+    "name": "Slip detection policy",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Control method converting tactile streams into grip adjustments before objects fall.",
+    "maturityScore": 32,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "hand",
+      "software"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_lithium_ion_cell_selection",
+    "name": "Lithium-ion cell selection",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Cell chemistry and format trade-off across energy density, discharge power, safety, and cycle life.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_battery_pack_enclosure",
+    "name": "Battery pack enclosure and interconnect",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Mechanical pack, interconnect, fuse, contactor, sealing, and abuse protection for a moving robot body. It gates runtime and safety because pack packaging must absorb falls, thermal events, high-current transients, and fast service swaps.",
+    "maturityScore": 48,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Reviewed sources support battery/runtime constraints, but not an audited humanoid pack enclosure, interconnect, protection, certification, and replacement cost."
+      }
+    ],
+    "tags": [
+      "battery",
+      "safety",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_battery_power_charging_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_battery_constraint_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_battery_management_system",
+    "name": "Battery management system",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Cell monitoring, balancing, state estimation, protection, diagnostics, and certification interface.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "battery",
+      "electronics"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_power_distribution_bus",
+    "name": "High-current power distribution bus",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Distributed high-current power routing, conversion, protection, and isolation between pack, compute, and joints.",
+    "maturityScore": 52,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "power"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_charging_docking_interface",
+    "name": "Charging and docking interface",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Fleet charging dock, contact alignment, battery swap or charging control, and service ergonomics. It gates uptime because robots that cannot self-dock, charge safely, and return to service create hidden operator labor.",
+    "maturityScore": 42,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source prices humanoid charging docks, automatic alignment, connector life, battery-swap workflow, or fleet charger deployment cost."
+      }
+    ],
+    "tags": [
+      "charging",
+      "bottleneck",
+      "constraint_integration_commissioning",
+      "constraint_maintenance_operations"
+    ],
+    "bottleneckOf": [
+      "humanoid_battery_power_charging_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_pack_safety_certification",
+    "name": "Battery pack safety certification",
+    "kind": "standard_or_regulation",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "UN38.3, UL-class, transport, abuse, and functional safety requirements for mobile robot batteries.",
+    "maturityScore": 46,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "battery",
+      "safety",
+      "certification"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_battery_constraint_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_motor_joint_thermal_path",
+    "name": "Motor and joint thermal path",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Heat conduction from winding, drive, gearbox, and bearing stack to housing without creating touch-temperature or reliability issues.",
+    "maturityScore": 42,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "thermal",
+      "actuation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_battery_thermal_safety",
+    "name": "Battery thermal safety",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Cell temperature monitoring, heat spreading, runaway containment, and pack-level shutoff.",
+    "maturityScore": 52,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "thermal",
+      "battery",
+      "safety"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_battery_constraint_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_compute_heat_spreader",
+    "name": "Compute heat spreader",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Thermal interface, heat spreader, and sink path for edge AI modules inside torso/head volume.",
+    "maturityScore": 56,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "thermal",
+      "compute"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_airflow_liquid_cooling_loop",
+    "name": "Airflow or liquid cooling loop",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Fan, duct, heat-pipe, cold plate, or liquid loop design constrained by noise, dust, impact, and service. It gates sustained work because motors, drives, battery, and edge compute create heat in a sealed moving body.",
+    "maturityScore": 44,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "capacityLeadTimeMonths": 18,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "Reviewed sources support humanoid thermal constraints, but not an audited airflow, heat-pipe, cold-plate, liquid-loop, acoustic, and service cost."
+      }
+    ],
+    "tags": [
+      "thermal",
+      "bottleneck",
+      "constraint_technical_maturity",
+      "constraint_integration_commissioning"
+    ],
+    "bottleneckOf": [
+      "humanoid_thermal_management_system"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal",
+      "ev_humanoid_battery_constraint_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_thermal_sensor_map",
+    "name": "Thermal sensor map",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Thermistors and IC temperature sensors across pack, motors, drivers, compute, and enclosure hot spots.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "thermal",
+      "sensing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_sustained_duty_cycle_validation",
+    "name": "Sustained duty-cycle validation",
+    "kind": "manufacturing_process",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Thermal and reliability test process proving a robot can work useful shifts, not only short demos.",
+    "maturityScore": 30,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "thermal",
+      "test",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal",
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_stereo_rgb_camera",
+    "name": "Stereo RGB camera module",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Head or torso cameras for perception, teleoperation, and scene understanding.",
+    "maturityScore": 68,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "vision"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_depth_camera_lidar",
+    "name": "Depth camera and 3D LiDAR",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Depth sensing for navigation, obstacle avoidance, and manipulation workspace estimation.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "depth",
+      "lidar"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_imu_attitude_sensing",
+    "name": "IMU attitude sensing",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Inertial sensing for balance, state estimation, impact detection, and fall recovery.",
+    "maturityScore": 70,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "imu"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_joint_encoder_position",
+    "name": "Joint encoder and position sensing",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Absolute or incremental joint feedback needed for stable body control and calibration.",
+    "maturityScore": 66,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "encoder"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_force_torque_sensing",
+    "name": "Force and torque sensing",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Foot, wrist, and joint force sensing for contact-aware locomotion and manipulation.",
+    "maturityScore": 54,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "force_torque"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_proximity_touch_safety",
+    "name": "Proximity and touch safety sensing",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Close-range detection and contact sensing for human-robot interaction and collision mitigation.",
+    "maturityScore": 52,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "safety",
+      "sensing"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_iso_ts_15066_collaborative_safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_audio_microphone_array",
+    "name": "Audio and microphone array",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Speech, command, and situational awareness sensing for human-centric deployment.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "audio"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_edge_ai_compute_module",
+    "name": "Edge AI compute module",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "On-robot AI accelerator or SoC that runs perception, policy inference, and local planning within power and heat limits.",
+    "maturityScore": 58,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "compute",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nvidia_jetson_thor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_realtime_mcu_safety_controller",
+    "name": "Real-time MCU and safety controller",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Deterministic controller path for motor loops, E-stop, safe torque off, and health monitoring.",
+    "maturityScore": 62,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "mcu",
+      "safety"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_motor_control_network",
+    "name": "Motor-control network",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Deterministic communication from central controller to many distributed motor drivers and sensor boards.",
+    "maturityScore": 54,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "network",
+      "control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_time_sync_sensor_fusion",
+    "name": "Time sync and sensor fusion",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Timestamping, synchronization, calibration, and fusion of camera, IMU, encoder, force, and tactile streams.",
+    "maturityScore": 46,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "software",
+      "sensing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_safety_power_isolation",
+    "name": "Safety power isolation",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Power isolation and protection architecture separating battery, high-current joints, compute, and safety logic.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "power",
+      "safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_lightweight_skeleton_frame",
+    "name": "Lightweight skeleton frame",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Aluminum, magnesium, steel, polymer, or composite structure balancing weight, stiffness, impact, and manufacturability.",
+    "maturityScore": 54,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "structure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_torso_enclosure_skin",
+    "name": "Torso enclosure and protective skin",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Protective external surfaces that package compute, power, sensors, fans, and safe human contact.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "enclosure"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_wiring_harness_connectors",
+    "name": "Wiring harness and connectors",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "High-flex harness, connectors, strain relief, and service routing through moving limbs. It gates reliability because every joint adds bend cycles, EMI, connector retention, and service-routing failure modes.",
+    "maturityScore": 46,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "capacityLeadTimeMonths": 12,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source prices high-flex humanoid harnessing, connector qualification, strain relief, EMI control, and service routing as a separate subsystem."
+      }
+    ],
+    "tags": [
+      "harness",
+      "bottleneck",
+      "constraint_component_availability",
+      "constraint_maintenance_operations"
+    ],
+    "bottleneckOf": [
+      "humanoid_structure_materials_harness"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_te_robotics_connectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_high_stiffness_low_mass_materials",
+    "name": "High-stiffness low-mass materials",
+    "kind": "material",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Material set for limbs and torso where weight, stiffness, fatigue, cost, and manufacturability collide.",
+    "maturityScore": 56,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "material",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_foot_contact_structure",
+    "name": "Foot contact structure",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Foot sole, compliance, force sensing, tread, and replacement design for walking and balance.",
+    "maturityScore": 42,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "locomotion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_serviceable_modular_design",
+    "name": "Serviceable modular design",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Architecture that lets fleet operators replace joints, hands, packs, sensors, and limbs without rebuilding the robot.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "service",
+      "manufacturing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_whole_body_control_stack",
+    "name": "Whole-body control stack",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Coordinated control of limbs, torso, hands, contacts, and center of mass.",
+    "maturityScore": 42,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_gait_balance_policy",
+    "name": "Gait and balance policy",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Walking, standing, stepping, push recovery, and uneven-floor policies.",
+    "maturityScore": 44,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "locomotion"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_sim_to_real_training_pipeline",
+    "name": "Simulation-to-real training pipeline",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Physics simulation, domain randomization, policy transfer, and hardware validation loop.",
+    "maturityScore": 38,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "software",
+      "training"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_contact_force_control",
+    "name": "Contact force control",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Force-position control for safe grasping, pushing, leaning, and foot-ground interaction.",
+    "maturityScore": 40,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "control",
+      "safety"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_fall_recovery_safe_stop",
+    "name": "Fall recovery and safe stop",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Detection, controlled stopping, recovery, and service handoff for falls or unstable states.",
+    "maturityScore": 32,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "safety",
+      "control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_runtime_safety_monitor",
+    "name": "Runtime safety monitor",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Independent health and safety monitor for torque, temperature, battery, perception, and human proximity constraints.",
+    "maturityScore": 38,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "safety"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_ul_consumer_commercial_robot_certification"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_vla_policy_model",
+    "name": "Vision-language-action policy model",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Embodied AI model that maps instructions and perception to action sequences.",
+    "maturityScore": 30,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "ai",
+      "software",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_grasp_planning_policy",
+    "name": "Grasp planning policy",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Planning and control for hand approach, grasp choice, grip adjustment, and release.",
+    "maturityScore": 32,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "manipulation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_teleoperation_data_collection",
+    "name": "Teleoperation data collection",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Human demonstration capture used to train manipulation and task policies.",
+    "maturityScore": 40,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "data",
+      "training"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_imitation_rl_training_loop",
+    "name": "Imitation and reinforcement-learning loop",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Training loop for converting demonstrations, rewards, simulation, and fleet failures into policies.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "ai",
+      "training"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_task_planning_execution",
+    "name": "Task planning and execution",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Breaking user goals into perception, motion, grasp, tool, and verification steps.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "planning"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_manipulation_benchmark_eval",
+    "name": "Manipulation benchmark and evaluation",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Task suite, metrics, data replay, and failure taxonomy for judging useful manipulation.",
+    "maturityScore": 30,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "evaluation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_high_volume_joint_assembly",
+    "name": "High-volume joint assembly",
+    "kind": "manufacturing_process",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Assembly of motors, reducers, bearings, sensors, drives, harness, and housings at repeatable quality.",
+    "maturityScore": 34,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "manufacturing",
+      "bottleneck"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_end_of_line_calibration_rig",
+    "name": "End-of-line calibration rig",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Factory system for joint zeroing, torque calibration, sensor alignment, battery checks, and whole-body validation.",
+    "maturityScore": 36,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "tags": [
+      "test",
+      "calibration"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_battery_pack_eol_test",
+    "name": "Battery pack end-of-line test",
+    "kind": "manufacturing_process",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Pack electrical, thermal, balancing, safety, leakage, and charge/discharge validation before robot integration.",
+    "maturityScore": 48,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "transactability": "must_build",
+    "tags": [
+      "battery",
+      "test"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_whole_robot_burn_in",
+    "name": "Whole-robot burn-in",
+    "kind": "manufacturing_process",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Factory burn-in process for thermal soak, motion cycles, sensor drift, and early-life failures.",
+    "maturityScore": 30,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "test",
+      "reliability"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_reliability_mtbf_tracking",
+    "name": "Reliability and MTBF tracking",
+    "kind": "engineering_method",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Fleet telemetry and root-cause loop for joint, hand, battery, thermal, and sensor failures.",
+    "maturityScore": 30,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "tags": [
+      "reliability"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_functional_safety_estop",
+    "name": "Functional safety and E-stop",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Safety architecture for stop states, safe torque off, power isolation, human proximity, and incident logging.",
+    "maturityScore": 38,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "tags": [
+      "safety"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_iso_ts_15066_collaborative_safety",
+      "ev_humanoid_ul_consumer_commercial_robot_certification"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_field_service_spares_loop",
+    "name": "Field service and spares loop",
+    "kind": "manufacturing_process",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Service workflow for replacement joints, hands, batteries, sensors, calibration, and refurbishment. It gates TCO because a pilot fleet becomes expensive if failures require factory return or manual recalibration.",
+    "maturityScore": 28,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2026-06",
+    "confidence": "low",
+    "transactability": "must_build",
+    "capacityLeadTimeMonths": 24,
+    "metrics": [
+      {
+        "name": "Cost disclosure",
+        "unit": "audit status",
+        "currentValue": "not priceable from reviewed data",
+        "description": "No reviewed public source prices humanoid field-service labor, spares pool, calibration workflow, refurbishment, and replacement-cycle cost."
+      }
+    ],
+    "tags": [
+      "service",
+      "bottleneck",
+      "constraint_maintenance_operations",
+      "constraint_capacity_scale"
+    ],
+    "bottleneckOf": [
+      "humanoid_manufacturing_test_safety_service"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure03_production_ramp",
+      "ev_humanoid_ul_consumer_commercial_robot_certification"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_harmonic_drive_systems",
+    "name": "Harmonic Drive Systems",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Japan-listed supplier candidate for precision strain-wave gearing exposure; ticker 6324.T is Tokyo-listed exposure, not a US primary listing. Graph link is component exposure, not confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6324.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir",
+      "ev_humanoid_harmonic_drive_precision_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_nabtesco",
+    "name": "Nabtesco",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Japan-listed precision reducer supplier candidate; graph link is reducer exposure, not confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6268.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nabtesco_precision"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_leaderdrive",
+    "name": "Leaderdrive / Leader Harmonious Drive Systems",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "China-listed strain-wave reducer and rotary actuator supplier candidate for humanoid reducer exposure; ticker 688017.SS is Shanghai-listed exposure, not a US primary listing.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "688017.SS",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_leaderdrive_humanoid",
+      "ev_humanoid_leaderdrive_ticker"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_yaskawa_electric",
+    "name": "Yaskawa Electric",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed servo and motion-control supplier candidate; ticker 6506.T is Japan-listed exposure, not a US primary listing.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6506.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_yaskawa_motion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_nidec",
+    "name": "Nidec",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed motor supplier candidate; ticker 6594.T is Japan-listed exposure, not a US primary listing.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6594.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nidec_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_nvidia",
+    "name": "NVIDIA",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public US-listed robotics compute and physical-AI platform supplier candidate.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "NVDA",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_nvidia_jetson_thor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_texas_instruments",
+    "name": "Texas Instruments",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public US-listed analog, BMS, current-sensing, and motor-control semiconductor supplier candidate.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "TXN",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_ti_bms",
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_stmicroelectronics",
+    "name": "STMicroelectronics",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public NYSE-listed MCU, motor-control, sensing, and safety electronics supplier candidate.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "STM",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_tdk",
+    "name": "TDK",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Japan-listed sensor, passive component, magnetic, and thermal component supplier candidate.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6762.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_te_connectivity",
+    "name": "TE Connectivity",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public NYSE-listed connector and sensor supplier candidate.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "TEL",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_te_robotics_connectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_samsung_sdi",
+    "name": "Samsung SDI",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Korea Exchange-listed battery cell supplier candidate; ticker 006400.KS is Korea-listed exposure, not a US primary listing.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "006400.KS",
+    "confidence": "low",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_samsung_sdi_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_lg_energy_solution",
+    "name": "LG Energy Solution",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Korea Exchange-listed battery cell supplier candidate; ticker 373220.KS is Korea-listed exposure, not a US primary listing.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "373220.KS",
+    "confidence": "low",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_lg_energy_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_catl",
+    "name": "CATL",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Shenzhen-listed battery cell and pack supplier candidate; ticker 300750.SZ is mainland China A-share exposure, not a US primary listing.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "300750.SZ",
+    "confidence": "low",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_catl_profile"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_humanoid_gsa",
+    "name": "GSA AG / Gewinde Ziegler AG",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Swiss planetary/satellite roller-screw specialist (Gewinde Satelliten Antriebe AG / Gewinde Ziegler AG, est. 1982). Makes the RGTI inverted planetary roller screw widely reported as the type Tesla sources for Optimus linear actuators; modeled as a near-single-source roller-screw supplier candidate for the humanoid linear-joint stack. Privately held.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_gsa_rgti",
+      "ev_humanoid_gsa_inhouse"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "single_source_risk"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private",
+    "ticker": "private"
+  },
+  {
+    "id": "org_humanoid_rollvis",
+    "name": "Rollvis SA",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Swiss (Geneva, est. 1970) satellite/planetary roller-screw specialist trading as 'Rollvis Swiss'; self-described world leader in satellite roller screws. Together with GSA, frequently cited as holding the majority of the high-precision planetary roller-screw world market — the Swiss near-single-source corner feeding humanoid linear actuators. Privately held.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_rollvis_identity"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "single_source_risk"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private",
+    "ticker": "private"
+  },
+  {
+    "id": "humanoid_thread_grinding_equipment",
+    "name": "Thread-grinding / ultra-precision CNC grinding equipment",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Ultra-precision CNC thread-grinding machines that cut the sub-3-micron-tolerance internal and external threads of planetary roller screws (and ball screws). This is the upstream capital-equipment bottleneck behind the Swiss roller-screw corner: the specialized internal-thread grinding expertise and the thin population of qualified grinder builders gate how fast roller-screw capacity can be added for humanoid linear actuators.",
+    "maturityScore": 55,
+    "maturityLabel": "commercially_available",
+    "maturityAsOf": "2026-06",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_drake_thread_grinder",
+      "ev_humanoid_holroyd_thread_grinder"
+    ],
+    "tags": [
+      "equipment",
+      "bottleneck",
+      "constraint_capacity_scale",
+      "constraint_technical_maturity",
+      "decomposition_frontier"
+    ],
+    "reviewStatus": "unreviewed",
+    "bottleneckOf": [
+      "humanoid_planetary_roller_screw"
+    ],
+    "capacityLeadTimeMonths": 18
+  },
+  {
+    "id": "org_humanoid_drake_manufacturing",
+    "name": "Drake Manufacturing Services",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "US (Warren, Ohio) builder of precision CNC thread- and gear-grinding machines, including internal thread grinders and ball-nut/ballscrew grinders for the ball-screw and linear-motion industries — the upstream grinding-equipment tier behind roller/ball-screw production. Privately held.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_drake_thread_grinder"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "upstream_equipment"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private",
+    "ticker": "private"
+  },
+  {
+    "id": "org_humanoid_ptg_holroyd",
+    "name": "PTG Holroyd",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "UK builder of high-precision gear, rotor, screw and thread milling and grinding machines, marketed as producing the world's most accurate helical components — part of the thin population of ultra-precision thread/screw grinder builders upstream of roller-screw production. Part of the Precision Technologies Group; privately held.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_holroyd_thread_grinder"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "upstream_equipment"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private",
+    "ticker": "private"
+  },
+  {
+    "id": "org_humanoid_picea_motion",
+    "name": "Shenzhen PICEA Motion (formerly Han's Motion)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Shenzhen-based precision harmonic-drive / strain-wave reducer maker, formerly Shenzhen Han's Motion Technology Co., Ltd., rebranded to PICEA Motion. Cited among the global key manufacturers of humanoid-robot harmonic reducers and a Chinese domestic-substitution alternative to Harmonic Drive/Nabtesco. Privately held (some trade sources describe it as a former Han's Laser subsidiary; the company's own site presents it independently).",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_picea_profile",
+      "ev_humanoid_picea_humanoid"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private",
+    "ticker": "private"
+  },
+  {
+    "id": "org_jl_mag_rare_earth",
+    "name": "JL MAG Rare-Earth",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Dual-listed (Shenzhen 300748.SZ / Hong Kong 06680.HK) Chinese sintered-NdFeB permanent-magnet maker; in 2025 upgraded its humanoid-robot magnetic-component R&D department to a dedicated business unit. Magnet output sits inside China's rare-earth export-licensing regime. Component-exposure candidate; not a confirmed humanoid BOM placement.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_jlmag_humanoid_unit",
+      "ev_humanoid_jlmag_blank_output"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "single_source_region_corner"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "300748.SZ"
+  },
+  {
+    "id": "org_shin_etsu_chemical",
+    "name": "Shin-Etsu Chemical",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed (4063.T) maker of NdFeB (Nd-Fe-B) sintered rare-earth magnets (N Series) used in industrial servomotors and linear motors; operates Japan's large-scale rare-earth separation/refining and is building a heavy-rare-earth refinery to diversify supply off China. Component-exposure candidate; not a confirmed humanoid BOM placement.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_shinetsu_nd_magnet"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "ex_china_capacity"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "4063.T"
+  },
+  {
+    "id": "org_proterial",
+    "name": "Proterial",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Private Japanese magnet/materials maker (ex-Hitachi Metals; renamed 2023 after a Bain Capital-led buyout) that pioneered and mass-produces NEOMAX Nd-Fe-B sintered magnets for motors, and mass-produces a heavy-rare-earth-saving grade that minimizes dysprosium/terbium. PRIVATE — no public ticker. Component-exposure candidate; not a confirmed humanoid BOM placement.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_proterial_neomax"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "ex_china_capacity"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_regal_rexnord",
+    "name": "Regal Rexnord",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public NYSE-listed (RRX) motion-control group whose brands include Kollmorgen (and Portescap, acquired via the 2023 Altra deal). Kollmorgen frameless / direct-drive torque motors (TBM/KBM/TBM2G) target robot, cobot and humanoid joints. Component-exposure candidate; not a confirmed humanoid BOM placement.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_kollmorgen_frameless_joints",
+      "ev_humanoid_regal_altra_kollmorgen"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "RRX"
+  },
+  {
+    "id": "org_maxon",
+    "name": "maxon",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Private Swiss precision-drive maker; its EC frameless DT torque motors and integrated High Efficiency Joint (HEJ) actuators explicitly target humanoids, quadrupeds and exoskeletons. (Also a hollow-cup/coreless micromotor specialist for dexterous hands.) PRIVATE — no public ticker. Component-exposure candidate; not a confirmed humanoid BOM placement.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_maxon_ec_frameless"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_netzer",
+    "name": "Netzer Precision",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Private Israeli maker of contactless capacitive (Electric Encoder) absolute hollow-shaft encoders; immune to magnetic interference near frameless-motor magnets, used in humanoid/space robot arm joints (e.g. NASA Robonaut 2). Supplier candidate.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_netzer_robotics"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "encoder"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_novanta_ati",
+    "name": "Novanta (ATI Industrial Automation)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "US NASDAQ-listed precision-technology group; its ATI Industrial Automation division is a long-incumbent maker of multi-axis (six-axis) force/torque sensors for robotic force control, a supplier candidate for humanoid wrist/hand force-torque sensing.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ati_novanta_ft"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "force_torque_sensor"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "NOVT"
+  },
+  {
+    "id": "org_humanoid_bota_systems",
+    "name": "Bota Systems",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Private Swiss (Zurich) maker of compact 6-axis force/torque sensors, torque sensors and tactile sensors for humanoid, medical and collaborative robots (MiniONE, PixONE). Supplier candidate for humanoid force-torque / fingertip sensing.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_bota_ft"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "force_torque_sensor"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_sri_sunrise",
+    "name": "Sunrise Instruments (SRI)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Privately-held six-axis force/torque sensor and multi-axis load-cell maker (HQ Canton, Michigan, US; manufacturing in China) with a dedicated humanoid-robot 6-axis force/torque sensor line (C025XX-C060XX). Supplier candidate.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_sri_ft"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "force_torque_sensor"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_xela_robotics",
+    "name": "XELA Robotics",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Private (Waseda University spin-out, Tokyo) maker of uSkin high-density three-axis tactile skin sensors covering fingertips, phalanges and palm for humanoid and industrial robot hands/grippers. Supplier candidate for humanoid tactile sensing.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_xela_uskin",
+      "ev_humanoid_xela_tesollo"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "tactile_sensor"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_paxini",
+    "name": "PaXini Technology",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Private Chinese maker of multidimensional tactile sensors (PX-6AX series, Hall-effect 6D force/torque) and tactile dexterous hands (DexH13) for humanoid / embodied-AI robots; full-stack tactile + hand + robot supplier candidate.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_paxini_tactile"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "tactile_sensor"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_bosch_sensortec",
+    "name": "Bosch Sensortec",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "MEMS sensor subsidiary of Robert Bosch GmbH (private); high-performance IMUs (BMI088, BMI323, BMI563) explicitly targeted at robotics incl. agile humanoid and social robots. Supplier candidate for humanoid IMU/attitude sensing.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_bosch_sensortec_imu"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "imu_mems"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_hesai",
+    "name": "Hesai Group",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Chinese LiDAR maker, dual-listed Nasdaq (HSAI) / HKEX (2525); JT-series mini 360° 3D robotics LiDAR for mobile/humanoid robots; named only LiDAR firm on Morgan Stanley's Humanoid Tech 25. Supplier candidate for humanoid depth/LiDAR perception.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_hesai_humanoid_tech25"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "lidar_depth"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "HSAI"
+  },
+  {
+    "id": "org_humanoid_robosense",
+    "name": "RoboSense Technology",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Chinese LiDAR / robotic-vision maker, HKEX-listed (2498.HK); Active Camera (AC1/AC2) fused LiDAR+RGB+IMU vision and dexterous hands for humanoid robots; partnerships with multiple humanoid firms. Supplier candidate for humanoid perception.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_robosense_humanoid_order"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "lidar_depth"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "2498.HK"
+  },
+  {
+    "id": "org_humanoid_orbbec",
+    "name": "Orbbec",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Chinese 3D-vision camera maker, Shanghai STAR-listed (688322.SS); Gemini-series stereo-vision depth cameras for robotics/embodied AI (HONOR humanoid, Reachy 2; Jetson Thor integration); reported >70% 3D-vision share in China service robots / Korea mobile robots. Supplier candidate.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_orbbec_honor"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "depth_camera"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "688322.SS"
+  },
+  {
+    "id": "org_humanoid_realsense",
+    "name": "RealSense Inc.",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Stereo depth-camera maker spun out of Intel into a standalone private company (2025; ~$50M Series A, NVIDIA collaboration). D4xx depth cameras (e.g. D455 in Agility Digit's neck); reports working with ~60% of AMR and humanoid developers. Supplier candidate for humanoid depth/RGB perception.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_realsense_independent"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "depth_camera"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_eve_energy",
+    "name": "EVE Energy",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Shenzhen-listed (ChiNext) lithium-ion and all-solid-state battery cell maker; ticker 300014.SZ is mainland China A-share exposure, not a US primary listing. Cell-merchant supplier candidate; humanoid packs remain integrator-captive.",
+    "maturityLabel": "unknown",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_eve_energy_solid_state"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "battery"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "300014.SZ"
+  },
+  {
+    "id": "org_molicel",
+    "name": "Molicel (E-One Moli Energy)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Ultra-high-power cylindrical lithium-ion cell maker; merchant cell supplier candidate listing 'humanoid robotics applications' on its product site. Not directly listed; ticker 1101.TW is its parent Taiwan Cement Corporation (TCC) Group on the Taiwan Stock Exchange, i.e. indirect parent-level exposure, not a US primary listing. Humanoid packs remain integrator-captive; Molicel supplies cells.",
+    "maturityLabel": "unknown",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_molicel_applications"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "battery"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "subsidiary",
+    "ticker": "1101.TW"
+  },
+  {
+    "id": "org_panasonic",
+    "name": "Panasonic (Panasonic Energy / Panasonic Holdings)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Major high-power/high-energy cylindrical lithium-ion cell maker (2170 format). Merchant cell supplier candidate; ticker 6752.T is the parent Panasonic Holdings on the Tokyo Stock Exchange (Panasonic Energy is its battery segment), i.e. Japan-listed exposure, not a US primary listing. Humanoids repurpose this high-power cylindrical cell class; packs remain integrator-captive.",
+    "maturityLabel": "unknown",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_panasonic_2170_cylindrical"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "battery"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "6752.T"
+  },
+  {
+    "id": "org_infineon",
+    "name": "Infineon Technologies",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public power-semiconductor and microcontroller maker (power switches/MOSFETs, gate drivers, battery-monitoring & balancing ICs, MCUs). Merchant-silicon supplier for humanoid power electronics / BMS front-ends; ticker IFX.DE is Frankfurt/Xetra exposure (US OTC: IFNNY), not a US primary listing. Supplies the merchant ICs; the BMS control firmware/algorithm is the robot maker's (captive).",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_infineon_humanoid_blocks"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "IFX.DE"
+  },
+  {
+    "id": "org_nxp",
+    "name": "NXP Semiconductors",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public NASDAQ-listed (NXPI) semiconductor maker; supplies battery-management ICs and standalone BMS reference designs aimed at mobile robotics (drones/rovers), plus MCUs for BMS/inverter use. Merchant-silicon supplier candidate; the pack BMS firmware/integration remains the robot maker's.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nxp_mobile_robotics_bms"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "NXPI"
+  },
+  {
+    "id": "org_humanoid_qualcomm",
+    "name": "Qualcomm",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public US-listed (Nasdaq) robotics SoC supplier; markets the Dragonwing IQ10 series premium-tier onboard 'brain of the robot' processor for full-size humanoids and AMRs, and is collaborating with Figure on humanoid compute architecture. Merchant alternative to NVIDIA Jetson Thor for onboard AI compute.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_qualcomm_dragonwing_iq10"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "compute"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "QCOM"
+  },
+  {
+    "id": "org_humanoid_nxp",
+    "name": "NXP Semiconductors",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public US-listed (Nasdaq) semiconductor supplier; provides i.MX 95 applications processor (machine-vision edge node) and i.MX RT1180 crossover MCUs aggregated by an S32J TSN switch for humanoid motor control, developed with NVIDIA as distributed edge-perception/motor-control complements to the central robot brain. Spans onboard compute SoC and real-time motor-control MCU components.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nxp_humanoid_edge"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "compute",
+      "mcu"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "NXPI"
+  },
+  {
+    "id": "org_humanoid_rockchip",
+    "name": "Fuzhou Rockchip Electronics",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public China-listed (Shanghai) application-processor SoC designer; its RK3588/RK3588S edge SoC (octa-core, ~6 TOPS NPU) is the adopted main compute/'brain' platform in multiple Chinese humanoid robots (e.g. AgiBot/ZhiYuan Lingxi X2, LimX Oli). Low-cost merchant onboard-compute alternative to NVIDIA Jetson Thor for domestic humanoids.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_rockchip_rk3588"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "compute"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "603893.SS"
+  },
+  {
+    "id": "org_humanoid_d_robotics",
+    "name": "D-Robotics",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Privately held robot-chip spinoff of Horizon Robotics (HKEX: 9660; D-Robotics shares a technological lineage and coordinated roadmaps with it but is a separate, Series-A-funded company). Makes the RDK S100 — the industry's first single-SoC platform integrating robot 'brain' (compute) and 'cerebellum' (control), 80-128 TOPS — for developers of humanoid robots. Merchant onboard compute-control SoC.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_d_robotics_rdk_s100"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "compute"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_infineon",
+    "name": "Infineon Technologies",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Germany-listed (Frankfurt) power-semiconductor and MCU supplier; for humanoid motor control provides gate drivers, current sensors, a GaN-based motor-control chip set, and PSOC Control C3 MCUs (FOC, EtherCAT) that pair with NVIDIA Jetson Thor via Holoscan Sensor Bridge (Aug 2025 NVIDIA collaboration). Merchant motor-drive power-electronics and real-time MCU supplier.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_infineon_motor_control"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "power_electronics",
+      "mcu"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "IFX.DE"
+  },
+  {
+    "id": "org_humanoid_epc",
+    "name": "Efficient Power Conversion (EPC)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Privately held (El Segundo, CA) gallium-nitride (GaN) power-semiconductor maker; offers the EPC91122 3-phase BLDC motor-drive inverter evaluation board engineered specifically for humanoid robot joint applications, plus GaN parts for compact wrist/finger/toe motors. Merchant GaN motor-drive/gate-driver-inverter supplier for humanoid actuators.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_epc_humanoid_joint"
+    ],
+    "tags": [
+      "private_company",
+      "supplier_candidate",
+      "power_electronics"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "private"
+  },
+  {
+    "id": "org_humanoid_microchip",
+    "name": "Microchip Technology",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public US-listed (Nasdaq) microcontroller and analog supplier; its dsPIC33 DSC-based integrated motor drivers combine a digital signal controller, a three-phase MOSFET gate driver, and LIN/CAN FD into one device for FOC BLDC/PMSM motor control. Merchant motor-drive MCU + gate-driver supplier applicable to humanoid joint/actuator drive (robotics/industrial motor-control class, humanoid design win not yet confirmed).",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_microchip_integrated_motor_driver"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "power_electronics",
+      "mcu"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "MCHP"
+  },
+  {
+    "id": "org_humanoid_victrex",
+    "name": "Victrex",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public London-listed PEEK polymer maker (VICTREX PEEK / PAEK, HPG gears); one of ~4 thousand-ton-scale PEEK producers worldwide. Markets PEEK for robotics gears, bushings/bearings, and lightweight components replacing metal. PEEK is the headline lightweighting polymer in humanoid skeletons/limbs.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_victrex_robotics",
+      "ev_humanoid_victrex_ticker"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "materials",
+      "peek"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "VCT.L"
+  },
+  {
+    "id": "org_humanoid_evonik",
+    "name": "Evonik",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Frankfurt-listed specialty-chemicals maker; VESTAKEEP PEEK line (incl. tribological Easy Slide 2 slide bearings) explicitly marketed to the robotics industry. One of ~4 thousand-ton-scale PEEK producers worldwide.",
+    "maturityLabel": "unknown",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_evonik_vestakeep_robotics"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "materials",
+      "peek"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "EVK.DE"
+  },
+  {
+    "id": "org_humanoid_sanhua",
+    "name": "Zhejiang Sanhua Intelligent Controls",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Shenzhen-listed automotive/HVAC thermal-management maker (microchannel liquid cooling, electronic expansion valves) widely reported as a Tesla Optimus thermal / liquid-cooling and actuator supplier. CAUTION: a quality source states Sanhua's current humanoid focus is electromechanical actuators, not thermal systems — the 'exclusive Optimus liquid-cooling supplier' claims trace to SEO/substack and are NOT confirmed here. Modeled reported-capable; flag for verifier.",
+    "maturityLabel": "unknown",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_sanhua_thermal_capability",
+      "ev_humanoid_sanhua_humanoid_actuator_focus"
+    ],
+    "tags": [
+      "public_company",
+      "supplier_candidate",
+      "thermal",
+      "constraint_component_availability",
+      "needs_verification"
+    ],
+    "reviewStatus": "unreviewed",
+    "listingStatus": "public",
+    "ticker": "002050.SZ"
+  }
 ]

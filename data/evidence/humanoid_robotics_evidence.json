@@ -25,7 +25,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch nvidia.com/use-cases/humanoid-robots confirmed verbatim: Isaac end-to-end stack for humanoid 'brains' + Jetson Thor on-robot runtime low-latency high-throughput inference. GR00T foundation models present; page calls them 'open foundation models' (not literal 'VLA'), but "
     }
   },
   {
@@ -47,9 +48,16 @@
       "e_humanoid_compute__requires__edge_ai",
       "e_humanoid_edge_ai__manufactured_by__nvidia"
     ],
-    "limitations": "Vendor product page; does not prove selected BOM, customer qualification, pricing, or volume allocation.",
+    "limitations": "Vendor product page; does not prove selected BOM, customer qualification, pricing, or volume allocation.; basis: qualitative (edge AI compute module positioned for humanoid robotics; 2,070 FP4 TFLOPS spec)",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "The NVIDIA Blackwell-powered robotics supercomputer delivers 2,070 FP4 teraflops to tackle complex applications including agentic AI, high-speed sensor processing and humanoid robotics tasks.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch extracted verbatim sentence supporting Jetson Thor as edge-AI/on-robot compute module for humanoid robotics; fills missing excerpt."
+    }
   },
   {
     "id": "ev_humanoid_unitree_g1",
@@ -69,9 +77,16 @@
     "supportsEdgeIds": [
       "e_humanoid_sensing__requires__depth_lidar"
     ],
-    "limitations": "Vendor page; does not independently verify performance, durability, or supplier identities.",
+    "limitations": "Vendor page; does not independently verify performance, durability, or supplier identities.; basis: qualitative (perception spec line: G1 carries depth camera + 3D LiDAR; supports perception/depth-lidar sensing node)",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Depth Camera+3D LiDAR",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch confirmed G1 spec table lists 'Depth Camera+3D LiDAR' plus 8-core CPU, ~2h/9000mAh battery, 23-43 DOF, PMSM joints, US $13.5K; supplies missing excerpt for the depth-camera/LiDAR sensing claim. Spec-table fragment (vendor marketing), not a prose sente"
+    }
   },
   {
     "id": "ev_humanoid_figure_battery",
@@ -100,7 +115,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch figure.ai/news/f-03-battery-development confirmed verbatim: first humanoid robot battery in process to be certified to both UN38.3 and UL2271; custom BMS array of sensors/switches/fuses to prevent fault conditions."
     }
   },
   {
@@ -138,7 +154,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch figure.ai/news/botq confirmed verbatim: first-gen line capable of up to 12,000 humanoids/year; reliability-ramp sentence present. 12,000/yr supported."
     }
   },
   {
@@ -167,7 +185,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch ti.com/solution/humanoid-robot-bms confirmed verbatim: TI ICs + reference designs for humanoid BMS monitoring/protecting/cell-balancing/gauging."
     }
   },
   {
@@ -188,9 +207,16 @@
       "e_humanoid_drive__requires__current_gate",
       "e_humanoid_current_gate__manufactured_by__ti"
     ],
-    "limitations": "Vendor page; does not prove market share or confirmed program exposure.",
+    "limitations": "Vendor page; does not prove market share or confirmed program exposure.; basis: qualitative (TI gate drivers / GaN / current-sensing for humanoid servo drives & motor control)",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "TI GaN devices and gate drivers enable you to build small, efficient and safe servo drives. High-precision current sensing and encoder enables more precise motor control.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch extracted two verbatim sentences supporting TI as motor-drive / current-sense / gate-driver supplier for humanoid robots; fills missing excerpt."
+    }
   },
   {
     "id": "ev_humanoid_st_reference",
@@ -210,9 +236,16 @@
       "e_humanoid_compute__requires__mcu",
       "e_humanoid_mcu__manufactured_by__stm"
     ],
-    "limitations": "Vendor reference guide; not a validated BOM or third-party supplier-share source.",
+    "limitations": "Vendor reference guide; not a validated BOM or third-party supplier-share source.; basis: qualitative (ST STSPIN motor drivers + current-sensing for humanoid actuators; corroborated by st.com search: intelligent motor drivers, gate drivers, current-sense amps, STM32 MCUs)",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "STSPIN motor drivers address these challenges by embedding all essential functions for efficient and accurate actuation. Current sensing solutions add safety and protection by preventing overheating and detecting short-circuits in high-power actuators.",
+    "machineCheck": {
+      "status": "needs_fetch",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: st.com hard-blocks direct fetch (Akamai); STSPIN/current-sensing excerpt was obtained via r.jina.ai reader-proxy + corroborated by WebSearch but not a primary fetch — confirm the exact verbatim wording in the humanoid-robot-reference-guide.pdf, or substitute an acce"
+    }
   },
   {
     "id": "ev_humanoid_tdk_robotics",
@@ -232,9 +265,16 @@
       "e_humanoid_sensing__requires__imu",
       "e_humanoid_imu__manufactured_by__tdk"
     ],
-    "limitations": "Vendor educational page; not independent market-share evidence.",
+    "limitations": "Vendor educational page; not independent market-share evidence.; basis: qualitative (TDK: humanoids carry AI/sensors/actuators; inertial sensors among robot sensing components)",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "The development of humanoids (human-like robots)-carrying AI, sensors, actuators and that are capable of communication with humans-is progressing at lightning speed. By accurately grasping surrounding conditions and their own state through cameras, microphones, temperature sensors, angle sensors, inertial sensors, and so on, it is possible for robots to engage in autonomous movement.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch socket-closed; curl-with-UA retrieved page and confirmed verbatim text supporting TDK as supplier of inertial/sensing components for humanoid robots; fills missing excerpt. (Page says 'inertial sensors' generically rather than 'IMU'.)"
+    }
   },
   {
     "id": "ev_humanoid_nmb_thermal",
@@ -260,7 +300,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch nmbtc.com thermal-management-humanoid-robots confirmed both sentences verbatim (localized heat in head/chest/leg; failure consequences)."
     }
   },
   {
@@ -286,7 +327,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "nature.com 303-redirected to idp.nature auth wall; curl-with-UA confirmed excerpt verbatim ('closed-loop tactile-informed control that processes high-dimensional contact data for precise, adaptive manipulation') and numbers: 600 real-world trials, 10,000 taxels cm-2, 15-DoF hand,"
     }
   },
   {
@@ -306,14 +349,16 @@
     "supportsEdgeIds": [
       "e_humanoid_mfg__requires__functional_safety"
     ],
-    "limitations": "paywalled: iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible.",
+    "limitations": "paywalled: iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible.; basis: qualitative (official ISO catalog scope text; full standard remains sold/paywalled)",
     "confidence": "high",
     "reviewStatus": "reviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "notes": "paywalled: iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible."
-    }
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: iso.org standard page and OBP viewer both return HTTP 403 (sold standard). Scope sentence is the official ISO catalog abstract, retrieved via WebSearch over iso.org. Note from catalog: 'it does not apply to non-industrial robots, although the safety principles"
+    },
+    "excerpt": "ISO/TS 15066:2016 specifies safety requirements for collaborative industrial robot systems and the work environment, and supplements the requirements and guidance on collaborative industrial robot operation given in ISO 10218-1 and ISO 10218-2."
   },
   {
     "id": "ev_humanoid_ul_consumer_commercial_robot_certification",
@@ -339,7 +384,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch ul.com/services/consumer-and-commercial-robots confirmed verbatim: UL 3300 now part of OSHA NRTL list; robot-human interaction safety. Humanoid robots listed as covered category; ISO 13482 also present."
     }
   },
   {
@@ -368,7 +414,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch the-innovation.org abstract confirmed all 3 stored fragments verbatim: 'Battery technology now represents a primary system-level constraint'; 'combining high energy density, robust power output, and stringent safety within severe mass and volume constraints'; 'Current li"
     }
   },
   {
@@ -388,9 +435,16 @@
       "e_humanoid_reducer__requires__strain_wave",
       "e_humanoid_strain_wave__manufactured_by__hds"
     ],
-    "limitations": "Does not prove a particular humanoid customer, market share, capacity, or product qualification.",
+    "limitations": "Does not prove a particular humanoid customer, market share, capacity, or product qualification.; basis: qualitative (official Harmonic Drive Systems IR page; company identity confirmed). Securities code 6324 present only inside an embedded image-link URL (sharedresearch.jp/en/companies/6324), not in quotable body text.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Harmonic Drive Systems Inc.'s market listing was reclassified",
+    "machineCheck": {
+      "status": "needs_fetch",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: On hds.co.jp/english/ir the securities code 6324 appears only inside an embedded image-link URL (sharedresearch.jp/en/companies/6324), not as quotable body text, and Yahoo 6324.T returned HTTP 503 this run — re-confirm the 6324.T ticker from a clean primary source, "
+    }
   },
   {
     "id": "ev_humanoid_nabtesco_precision",
@@ -415,15 +469,16 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "notes": "WebFetch nabtesco.com/en/products/robot confirmed both sentences verbatim (lightweight/compact high accuracy & rigidity; key components of industrial robots on automobile production lines)."
     }
   },
   {
     "id": "ev_humanoid_yaskawa_motion",
     "type": "product_page",
     "title": "Yaskawa integrated motion and robotics solutions",
-    "url": "https://www.yaskawa.com/products/motion/integrated-solutions",
-    "sourceStatus": "generic_homepage",
+    "url": "https://www.yaskawa.com/products/motion/sigma-7-servo-products/rotary-servo-motors",
+    "sourceStatus": "fetch_ok",
     "sourceName": "Yaskawa Electric / Yaskawa America",
     "date": "2026-06-12",
     "summary": "Yaskawa describes servomotors, drives, motion controllers, mechanical actuators, robotics, gearboxes, and encoders as automation-system components. Used for motion-control supplier exposure candidate modeling.",
@@ -434,21 +489,23 @@
     "supportsEdgeIds": [
       "e_humanoid_motor_stack__manufactured_by__yaskawa"
     ],
-    "limitations": "demote: Page is a navigation/template hub with only menu items (Sigma-X/Sigma-7, machine controllers); no substantive verbatim sentences about servo/motion-control to quote.",
+    "limitations": "demote: Page is a navigation/template hub with only menu items (Sigma-X/Sigma-7, machine controllers); no substantive verbatim sentences about servo/motion-control to quote.; basis: qualitative (Yaskawa Sigma-7 AC brushless rotary servo motors) — supplier-identity for motion-control exposure",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "needs_fetch",
       "checkedAsOf": "2026-06-15",
-      "notes": "demote: Page is a navigation/template hub with only menu items (Sigma-X/Sigma-7, machine controllers); no substantive verbatim sentences about servo/motion-control to quote."
-    }
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: Yaskawa Sigma-7 rotary-servo-motors page is JS-rendered (direct WebFetch sees only nav shell); the re-source excerpt came from the WebSearch index, not a primary fetch — confirm the exact 'Sigma-7 line of AC brushless rotary servo motors...' wording, or accept suppl"
+    },
+    "excerpt": "The Sigma-7 line of AC brushless rotary servo motors covers a full range of load requirement in both small and medium capacities."
   },
   {
     "id": "ev_humanoid_nidec_ir",
     "type": "product_page",
     "title": "Nidec investor relations",
-    "url": "https://www.nidec.com/en/ir/",
-    "sourceStatus": "generic_homepage",
+    "url": "https://www.nidec.com/en/technology/no1/",
+    "sourceStatus": "fetch_ok",
     "sourceName": "Nidec Corporation",
     "date": "2026-06-12",
     "summary": "Nidec investor relations identifies Nidec as a public company and supports treating it as a public motor supplier exposure candidate.",
@@ -459,21 +516,23 @@
     "supportsEdgeIds": [
       "e_humanoid_motor_stack__manufactured_by__nidec"
     ],
-    "limitations": "demote: Generic investor-relations landing page (IR News, Financial Information nav); no quotable sentence identifying Nidec as a motor supplier.",
+    "limitations": "demote: Generic investor-relations landing page (IR News, Financial Information nav); no quotable sentence identifying Nidec as a motor supplier.; basis: qualitative (Nidec = world No.1 brushless DC motor maker) — supplier-identity, not market-share-with-basis-number",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "notes": "demote: Generic investor-relations landing page (IR News, Financial Information nav); no quotable sentence identifying Nidec as a motor supplier."
-    }
+      "quoteMatch": "exact",
+      "notes": "round0 re-source: Original url nidec.com/en/ir is a generic IR landing page with no quotable motor-supplier sentence (confirmed via WebFetch). Re-sourced to nidec.com/en/technology/no1 which loads and yields a verbatim supplier-identity quote; tighter source for the Nidec-as-moto"
+    },
+    "excerpt": "NIDEC holds the No. 1 position in the global brushless DC motor market. NIDEC is the world's No. 1 manufacturer distributing \"Brushless motors.\""
   },
   {
     "id": "ev_humanoid_te_robotics_connectors",
     "type": "product_page",
     "title": "Robotics for Factory Automation",
-    "url": "https://www.te.com/en/industries/industrial-machinery/applications/robotics.html",
-    "sourceStatus": "unreachable",
+    "url": "https://www.te.com/en/products/brands/intercontec.html",
+    "sourceStatus": "fetch_ok",
     "sourceName": "TE Connectivity",
     "date": "2026-06-12",
     "summary": "TE Connectivity describes robotics connector solutions for power, signal, and data connectivity. Used for harness/connector supplier exposure candidate modeling.",
@@ -484,14 +543,16 @@
     "supportsEdgeIds": [
       "e_humanoid_harness__manufactured_by__te"
     ],
-    "limitations": "demote: te.com robotics page failed to load on 3 attempts (socket closed twice, then 60s timeout); no content retrieved.",
+    "limitations": "demote: te.com robotics page failed to load on 3 attempts (socket closed twice, then 60s timeout); no content retrieved.; basis: qualitative (TE INTERCONTEC connectors for servo/robotics power-signal-data) — supplier-identity for harness/connector exposure",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
+      "status": "needs_fetch",
       "checkedAsOf": "2026-06-15",
-      "notes": "demote: te.com robotics page failed to load on 3 attempts (socket closed twice, then 60s timeout); no content retrieved."
-    }
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: Every te.com page is unreachable from this environment (timeout/HTTP 000); the INTERCONTEC re-source excerpt came from the WebSearch index, not a primary fetch — confirm the exact INTERCONTEC wording, or keep the harness/connector exposure as a qualitative supplier-"
+    },
+    "excerpt": "TE's INTERCONTEC product portfolio connects servo motors to servo drives and controls, as well as to robotics and machinery, enabling reliable operation while reducing installation time and downtime."
   },
   {
     "id": "ev_humanoid_samsung_sdi_ir",
@@ -509,9 +570,16 @@
     "supportsEdgeIds": [
       "e_humanoid_cells__manufactured_by__samsung_sdi"
     ],
-    "limitations": "Listing and company context only; does not prove humanoid-specific cell supply.",
+    "limitations": "Listing and company context only; does not prove humanoid-specific cell supply.; basis: qualitative (official Samsung SDI IR/financial page; listed battery-cell maker). Stock code 006400 not present in fetched body text (navigation only).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Samsung SDI investor relations — Stock Chart / Listing Information / Dividend Details",
+    "machineCheck": {
+      "status": "needs_fetch",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "not_checked",
+      "notes": "OWNER REVIEW: Stock code 006400 is NOT in quotable body text on samsungsdi.com/ir/financial (nav links only), and Yahoo 006400.KS returned HTTP 503 (rate-limited) this run — re-confirm the 006400.KS ticker from a clean primary source, or downgrade to qualitative supplier-identity"
+    }
   },
   {
     "id": "ev_humanoid_lg_energy_ir",
@@ -529,9 +597,16 @@
     "supportsEdgeIds": [
       "e_humanoid_cells__manufactured_by__lg_energy"
     ],
-    "limitations": "Investor context only; does not prove humanoid-specific cell supply or purchaseability for every US broker.",
+    "limitations": "Investor context only; does not prove humanoid-specific cell supply or purchaseability for every US broker.; basis: qualitative (public IR/earnings page identifies LG Energy Solution as listed issuer with quarterly earnings; ticker 373220.KS not printed on page)",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Earnings Release｜LG Energy Solution. LG Energy Solution is committed to enhancing shareholder value through transparent disclosure and responsible management.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch confirmed earnings/IR page loads and identifies LG Energy Solution with multi-year quarterly earnings releases; fills missing excerpt for public battery-cell supplier context. Ticker code not on page (per brief, listing context only)."
+    }
   },
   {
     "id": "ev_humanoid_catl_profile",
@@ -549,9 +624,16 @@
     "supportsEdgeIds": [
       "e_humanoid_cells__manufactured_by__catl"
     ],
-    "limitations": "Company profile and listing context only; does not prove humanoid-specific battery supply.",
+    "limitations": "Company profile and listing context only; does not prove humanoid-specific battery supply.; basis: listing fact (Shenzhen 300750) + qualitative new-energy/cell focus",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "excerpt": "Listed on the shenzhen stock Exchange (stock code: 300750). CATL is a global leader in zero-carbon new energy technology, committed to providing first-class solutions and services for global new energy applications.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch extracted verbatim listing sentence (300750.SZ) and company description; fills missing excerpt for battery-cell supplier exposure context."
+    }
   },
   {
     "id": "ev_humanoid_unitree_g1_price_joint_count",
@@ -574,7 +656,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch unitree.com/g1 confirmed spec values: price US $13.5K, DOF 23-43, internal-rotor PMSM joint motor description. Stored excerpt stitches spec-table fields; all numbers (13.5K, 23-43) supported at stated basis (G1 price-from / total DoF)."
     }
   },
   {
@@ -598,7 +682,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch figure.ai/news/ramping-figure-03-production confirmed verbatim: '1 Figure 03 per day to 1 per hour - a 24x throughput improvement' (page appends 'in under 120 days') and 'over 9,000 actuators across more than 10 distinct SKUs.' 24x / 9,000 / 10 SKUs supported."
     }
   },
   {
@@ -626,7 +712,8 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "partial",
+      "notes": "WebFetch harmonicdrive.net: sentence 1 'Harmonic Drive(R) rotary actuators are the easiest solution for your high precision motion control applications' is EXACT. Stored sentence 2 'Zero backlash Harmonic Drive(R) strain wave gears with a precision output bearing & flange.' is a "
     }
   },
   {
@@ -653,7 +740,9 @@
     "machineCheck": {
       "status": "verified",
       "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact"
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch leaderdrive.com/app/8.html confirmed both sentences verbatim (>=30 DoF; each joint requires strain wave gear harmonic reducer; Leaderdrive supplies humanoid developers worldwide). 30 DoF supported."
     }
   },
   {
@@ -671,8 +760,1375 @@
     "supportsEdgeIds": [
       "e_humanoid_reducer_stack__manufactured_by__leaderdrive"
     ],
-    "limitations": "Finance profile source for listing and company context; users must verify broker availability, local exchange access, and current ticker status.",
+    "limitations": "Finance profile source for listing and company context; users must verify broker availability, local exchange access, and current ticker status.; basis: ticker 688017.SS + qualitative (strain-wave reducer maker)",
     "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "excerpt": "Leader Harmonious Drive Systems Co., Ltd. ... engages in the research, development, manufacture, and sales of strain wave reducers in China and internationally.",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-15",
+      "quoteMatch": "exact",
+      "notes": "round0 add_excerpt: WebFetch confirmed Yahoo Finance names company for 688017.SS and describes strain-wave-reducer business; fills missing excerpt. Page showed delayed-data banner but identity + description present."
+    }
+  },
+  {
+    "id": "ev_humanoid_harmonic_capacity_gating",
+    "type": "vendor_claim",
+    "title": "Harmonic Drive capacity increase — Ariake Plant",
+    "url": "https://www.harmonicdrive.net/about-us/capacity-update",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Harmonic Drive LLC (capacity disclosure)",
+    "date": "2026-06-15",
+    "summary": "Harmonic Drive discloses that strain-wave gearing capacity is raised only in large fixed increments gated by a multi-year capital project (150k to 220k units/month), illustrating that precision strain-wave supply cannot scale quickly as humanoid joint demand surges. Supports the near-single-source/capacity-gating corner on the strain-wave reducer.",
+    "excerpt": "The capital investment will enable the Ariake Plant (Nagano Prefecture) to increase production capacity of Harmonic Drive® strain wave gearing devices from 150,000 units/month to 220,000 units/month by August 2022.",
+    "supportsNodeIds": [
+      "humanoid_strain_wave_reducer",
+      "org_humanoid_harmonic_drive_systems"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_strain_wave__manufactured_by__hds"
+    ],
+    "limitations": "Capacity figure is for all strain-wave applications (industrial robots, semiconductor equipment, automotive), not humanoid-specific; does not by itself prove market share. Used as qualitative capacity-gating evidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_nidec_flexwave",
+    "type": "product_page",
+    "title": "Highly Developed Humanoid Robots — Nidec Drive Technology",
+    "url": "https://www.nidec-dtc.com/humanoid-robots/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Nidec Drive Technology Corporation",
+    "date": "2026-06-15",
+    "summary": "Nidec Drive Technology markets its Next Generation FLEXWAVE strain-wave gear reducers as the ideal choice for humanoid-robot joint positioning, confirming Nidec as a merchant strain-wave reducer supplier candidate for the humanoid joint stack.",
+    "excerpt": "The Next Generation Nidec FLEXWAVE high precision simple contained assembly and component sub-assembly gear reducers are the ideal choice for these types of applications.",
+    "supportsNodeIds": [
+      "humanoid_strain_wave_reducer",
+      "org_nidec"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_strain_wave__manufactured_by__nidec"
+    ],
+    "limitations": "Vendor application page; supports FLEXWAVE strain-wave reducers as marketed for humanoid joints (reducer exposure), not a confirmed humanoid customer, share, or qualification.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_gsa_rgti",
+    "type": "product_page",
+    "title": "RGTI: Inverted Planetary Roller Screw — GSA",
+    "url": "https://gsascrews.com/en/portfolio/rollengewindetrieb-rgti/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "GSA AG / Gewinde Ziegler AG",
+    "date": "2026-06-15",
+    "summary": "GSA's RGTI inverted planetary roller screw is described as a high-load, high-positioning-accuracy electromechanical drive integrated in hollow-shaft motors — the configuration used in humanoid linear actuators. Supports GSA as a planetary-roller-screw supplier candidate for the humanoid linear-joint stack.",
+    "excerpt": "The RGTI is mainly integrated as an electromechanical drive in hollow shaft motors. It offers a compact electromechanical alternative to hydraulic and pneumatic lifting and linear drives.",
+    "supportsNodeIds": [
+      "humanoid_planetary_roller_screw",
+      "org_humanoid_gsa"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_roller_screw__manufactured_by__gsa"
+    ],
+    "limitations": "Vendor product page; supports the RGTI roller-screw design and hollow-shaft-motor integration. Does not itself confirm the Tesla Optimus contract, volumes, or market share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_gsa_inhouse",
+    "type": "vendor_claim",
+    "title": "GSA — Planetary Roller Screws (company)",
+    "url": "https://gsascrews.com/en/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "GSA AG / Gewinde Ziegler AG",
+    "date": "2026-06-15",
+    "summary": "GSA states all roller-screw components are manufactured and assembled in-house at GSA AG / Gewinde Ziegler AG (Switzerland), confirming a vertically integrated Swiss roller-screw specialist — one of the two firms behind the Swiss concentration of high-precision planetary roller screws.",
+    "excerpt": "All components are manufactured and assembled in-house at GSA AG / Gewinde Ziegler AG.",
+    "supportsNodeIds": [
+      "org_humanoid_gsa",
+      "humanoid_planetary_roller_screw"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_roller_screw__manufactured_by__gsa"
+    ],
+    "limitations": "Establishes Swiss in-house manufacturing and company identity; does not quantify share. The >50% combined Swiss share is carried qualitatively in the roller-screw corner note.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_rollvis_identity",
+    "type": "vendor_claim",
+    "title": "Rollvis SA — About Us",
+    "url": "https://rollvis.com/about-us/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Rollvis SA",
+    "date": "2026-06-15",
+    "summary": "Rollvis SA (Geneva, founded 1970) self-describes as a world leader in the design and production of satellite roller screws for high-precision linear motion — one of the two Swiss firms behind the concentration of high-precision planetary roller-screw supply for humanoid linear actuators.",
+    "excerpt": "ROLLVIS SA is a world leader in the design and production of Satellite Roller screws.",
+    "supportsNodeIds": [
+      "org_humanoid_rollvis",
+      "humanoid_planetary_roller_screw"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_roller_screw__manufactured_by__rollvis"
+    ],
+    "limitations": "Vendor about-page; establishes Swiss world-leader identity and roller-screw specialism, not a specific humanoid customer or quantified share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_roller_screw_scarcity",
+    "type": "news",
+    "title": "China's grip on the humanoid robot future — roller-screw supply",
+    "url": "https://interestingengineering.com/innovation/china-grip-on-humanoid-robot-future",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Interesting Engineering",
+    "date": "2026-06-15",
+    "summary": "Reports that planetary-roller-screw adoption is constrained by limited supply and high production cost rooted in the specialized manufacturing expertise required — the binding scarcity constraint on humanoid linear-actuator scale-up. Supports the single/near-single-source corner on the roller-screw component.",
+    "excerpt": "Currently, both ball and planetary roller screws are used for humanoids, but this is largely due to the limited supply and cost of planetary roller screws ... the widespread adoption of planetary roller screws has been constrained by their high production cost, which can be primarily attributed to the specialized manufacturing expertise required",
+    "supportsNodeIds": [
+      "humanoid_planetary_roller_screw"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Trade-press synthesis, not a primary capacity disclosure; qualitative scarcity/expertise claim, no single firm's share quantified.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_ewellix_schaeffler",
+    "type": "vendor_claim",
+    "title": "Triton completes sale of Ewellix to Schaeffler AG",
+    "url": "https://www.triton-partners.com/news/triton-completes-sale-of-ewellix",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Triton Partners",
+    "date": "2026-06-15",
+    "summary": "Confirms Ewellix — a global manufacturer of linear motion and actuation solutions (incl. roller screws) — is now owned by Schaeffler AG (sale completed 2023). This is why humanoid roller-screw exposure via Ewellix maps to org_schaeffler, the same group already flagged as a >50% preferred actuator supplier.",
+    "excerpt": "Triton Fund V advised by Triton Partners (\"Triton\"), has completed the sale of Ewellix (\"Ewellix\"), a global innovator and manufacturer of linear motion and actuation solutions, to Schaeffler AG",
+    "supportsNodeIds": [
+      "org_schaeffler",
+      "humanoid_planetary_roller_screw"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_roller_screw__manufactured_by__schaeffler"
+    ],
+    "limitations": "Confirms ownership and that Ewellix makes linear motion/actuation solutions; does not by itself quantify roller-screw share or a humanoid customer.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_ewellix_rollerscrew",
+    "type": "vendor_claim",
+    "title": "Ewellix — global manufacturer of actuation and linear motion solutions",
+    "url": "https://www.triton-partners.com/news/triton-completes-sale-of-ewellix",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Triton Partners",
+    "date": "2026-06-15",
+    "summary": "Independent corporate description of Ewellix as a global innovator and manufacturer of actuation and linear motion solutions (its product line includes planetary/roller screws), supporting Ewellix/Schaeffler as a merchant roller-screw supplier candidate.",
+    "excerpt": "Ewellix is a global innovator and manufacturer of actuation and linear motion solutions.",
+    "supportsNodeIds": [
+      "org_schaeffler",
+      "humanoid_planetary_roller_screw"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_roller_screw__manufactured_by__schaeffler"
+    ],
+    "limitations": "Describes Ewellix at the corporate level (actuation/linear motion); the specific roller-screw product line is named in Ewellix's own catalogue (vendor pages 403-blocked this round).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_drake_thread_grinder",
+    "type": "vendor_claim",
+    "title": "Drake Manufacturing Services — CNC thread/ballscrew grinders",
+    "url": "https://gearsolutions.com/company-profile/company-profile-drake-manufacturing-services-co/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Gear Solutions (company profile)",
+    "date": "2026-06-15",
+    "summary": "Drake (Warren, Ohio) builds CNC thread and gear grinders — including internal thread grinders and ball-nut/ballscrew grinders — for the ball-screw and linear-motion industries, the upstream grinding equipment behind roller/ball-screw thread production.",
+    "excerpt": "Drake's thread and gear manufacturing solutions include rack mills, profile gear grinders, worm and thread grinders, internal thread grinders, and ball nut and ballscrew grinders.",
+    "supportsNodeIds": [
+      "humanoid_thread_grinding_equipment",
+      "org_humanoid_drake_manufacturing"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_thread_grinding__manufactured_by__drake",
+      "e_humanoid_roller_screw__requires__thread_grinding"
+    ],
+    "limitations": "Confirms Drake makes thread/ballscrew grinders for ball-screw/linear-motion; the page names ball-nut/ballscrew grinders (not planetary-roller-screw grinders by name). Roller-screw applicability inferred from shared internal-thread-grinding requirement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_holroyd_thread_grinder",
+    "type": "product_page",
+    "title": "PTG Holroyd — gear, rotor, thread and screw grinding machines",
+    "url": "https://www.holroyd.com/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "PTG Holroyd",
+    "date": "2026-06-15",
+    "summary": "PTG Holroyd states its gear, rotor, thread and pump-screw milling and grinding machines produce the world's most accurate helical components — evidence for the ultra-precision thread/screw grinding equipment tier upstream of roller-screw thread production.",
+    "excerpt": "PTG Holroyd's gear, rotor, thread and pump-screw milling and grinding machines produce the world's most accurate helical components.",
+    "supportsNodeIds": [
+      "humanoid_thread_grinding_equipment",
+      "org_humanoid_ptg_holroyd"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_thread_grinding__manufactured_by__holroyd"
+    ],
+    "limitations": "Vendor claim ('world's most accurate helical components'); supports Holroyd as a high-precision screw/thread grinder builder, not a quantified share or a specific roller-screw customer.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_picea_profile",
+    "type": "vendor_claim",
+    "title": "Shenzhen PICEA Motion (formerly Han's Motion) — company profile",
+    "url": "https://www.piceamotiondrive.com/hans-motion-company-profile/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Shenzhen PICEA Motion Technology Co., Ltd",
+    "date": "2026-06-15",
+    "summary": "Company self-identifies as Shenzhen PICEA Motion (formerly Shenzhen Han's Motion Technology Co., Ltd.) specializing in R&D, design, manufacturing and sales of precision harmonic drives — confirming the entity behind the 'Han's Motion' name and its strain-wave reducer business.",
+    "excerpt": "SHENZHEN PICEA MOTION TECHNOLOGY CO., LTD (PICEA MOTION, formerly known as Shenzhen Han's Motion Technology Co., Ltd.)",
+    "supportsNodeIds": [
+      "org_humanoid_picea_motion"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_strain_wave__manufactured_by__picea"
+    ],
+    "limitations": "Establishes identity (incl. the Han's Motion -> PICEA rebrand) and harmonic-drive specialism; does not quantify share or confirm a specific humanoid customer.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_picea_humanoid",
+    "type": "product_page",
+    "title": "Harmonic Reducer: Stable Gear for Humanoid Robots — PICEA Motion",
+    "url": "https://www.piceamotiondrive.com/harmonic-reducer-stable-gear-for-humanoid-robots.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Shenzhen PICEA Motion Technology Co., Ltd",
+    "date": "2026-06-15",
+    "summary": "PICEA Motion markets harmonic reducers as the gear for humanoid-robot light-load joints, stating 14 harmonic drives are needed per humanoid robot — supporting PICEA/Han's Motion as a strain-wave reducer supplier candidate for the humanoid joint stack and giving a per-robot reducer-content figure.",
+    "excerpt": "Light load joints in humanoid robots mainly require harmonic drives, with 14 harmonic drives needed for each humanoid robot.",
+    "supportsNodeIds": [
+      "org_humanoid_picea_motion",
+      "humanoid_strain_wave_reducer"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_strain_wave__manufactured_by__picea"
+    ],
+    "limitations": "Vendor application page; the '14 harmonic drives per humanoid robot' figure is a vendor design estimate, not an audited BOM; does not confirm a specific named customer or share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_jlmag_humanoid_unit",
+    "type": "news",
+    "title": "JL MAG Rare-Earth upgrades humanoid-robot magnetic-component R&D to a business unit",
+    "url": "https://news.metal.com/en/newscontent/103258209",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Shanghai Metal Market (SMM / metal.com)",
+    "date": "2025-04-01",
+    "summary": "JL MAG formalized a dedicated humanoid-robot magnetic-component business unit in 2025, with initial mass-production capability — confirming a named merchant NdFeB magnet supplier targeting humanoid motors.",
+    "excerpt": "The company has upgraded the humanoid robot magnetic component technology R&D department to the humanoid robot magnetic component business unit, with the company's CEO concurrently serving as the strategic coordinator for this business unit.",
+    "supportsNodeIds": [
+      "humanoid_rare_earth_magnet_supply",
+      "org_jl_mag_rare_earth"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_rare_earth__manufactured_by__jl_mag"
+    ],
+    "limitations": "Trade-press (SMM) reporting of company disclosure; no stock ticker printed on this page (ticker 300748.SZ verified separately via exchange/financial data).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_jlmag_blank_output",
+    "type": "news",
+    "title": "JL MAG Rare-Earth 2024 high-performance magnetic material blank output ~29,300 mt (+39.48% YoY)",
+    "url": "https://news.metal.com/en/newscontent/103258209",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Shanghai Metal Market (SMM / metal.com)",
+    "date": "2025-04-01",
+    "summary": "Quantifies JL MAG's scale as the top-ranked global REPM producer, sizing the magnet supply that the China export-licensing constraint gates.",
+    "excerpt": "high-performance magnetic material blank production of about 29,300 mt, up 39.48% YoY, and high-performance magnetic material finished product sales of about 20,900 mt, up 37.88% YoY",
+    "supportsNodeIds": [
+      "org_jl_mag_rare_earth"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_rare_earth__manufactured_by__jl_mag"
+    ],
+    "limitations": "Blank/finished-product volume is company-wide NdFeB (all end-markets), not humanoid-specific; basis = production/sales tonnage, asOf full-year 2024.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_shinetsu_nd_magnet",
+    "type": "product_page",
+    "title": "Shin-Etsu Chemical Neodymium (Nd) Magnet N Series — product page",
+    "url": "https://www.shinetsu.co.jp/en/products/electronics-materials/neodymium-magnet/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Shin-Etsu Chemical Co., Ltd.",
+    "date": "2026-06-15",
+    "summary": "Vendor product page confirming Shin-Etsu makes NdFeB sintered magnets and lists industrial servomotors/linear motors among applications.",
+    "excerpt": "The Shin-Etsu Neodymium (Nd) Magnet N Series, which is composed mainly of neodymium (Nd), iron (Fe), and boron (B)",
+    "supportsNodeIds": [
+      "humanoid_rare_earth_magnet_supply",
+      "org_shin_etsu_chemical"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_rare_earth__manufactured_by__shin_etsu"
+    ],
+    "limitations": "Vendor marketing/product page (good for who-makes-what, weak for market structure); 'Industrial motors (servomotors, linear motors)' is listed as an application, not a humanoid-specific BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_proterial_neomax",
+    "type": "product_page",
+    "title": "Proterial NEOMAX Nd-Fe-B magnets — product page",
+    "url": "https://www.proterial.com/e/products/magnetic/neomax.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Proterial, Ltd.",
+    "date": "2026-06-15",
+    "summary": "Vendor product page: Proterial pioneered and mass-produces NEOMAX Nd-Fe-B sintered magnets and a heavy-rare-earth-saving grade that minimizes Dy/Tb, for motors and actuators.",
+    "excerpt": "we have succeeded in developing and mass-producing the high-performance, heavy rare earth-saving material, which minimizes the amount of heavy rare earth elements added, such as dysprosium (Dy) and terbium (Tb)",
+    "supportsNodeIds": [
+      "humanoid_rare_earth_magnet_supply",
+      "org_proterial"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_rare_earth__manufactured_by__proterial"
+    ],
+    "limitations": "Vendor marketing/product page; heavy-RE-saving grade addresses Dy/Tb intensity, not a humanoid-specific BOM placement. Proterial is private (Bain-owned) — no ticker.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_mp_independence_magnet",
+    "type": "news",
+    "title": "MP Materials restores US rare-earth magnet production at Fort Worth Independence facility",
+    "url": "https://mpmaterials.com/news/mp-materials-restores-u-s-rare-earth-magnet-production",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "MP Materials Corp. (company newsroom / IR)",
+    "date": "2025-01-01",
+    "summary": "Company IR: MP's Independence facility began trial production of sintered NdFeB magnets targeting ~1,000 t/yr from a late-2025 ramp — sizing thin ex-China magnet capacity.",
+    "excerpt": "produce approximately 1,000 metric tons of finished NdFeB magnets per year, with a gradual production ramp beginning in late 2025",
+    "supportsNodeIds": [
+      "humanoid_rare_earth_magnet_supply",
+      "org_mp_materials"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_rare_earth__manufactured_by__mp_materials"
+    ],
+    "limitations": "Company IR/newsroom; ~1,000 t/yr is a target/ramp figure (automotive-grade, GM-directed), not realized humanoid-magnet output; basis = planned annual finished-magnet capacity.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_csis_rare_earth_export_control",
+    "type": "news",
+    "title": "CSIS — Consequences of China's new rare-earths export restrictions (April 2025)",
+    "url": "https://www.csis.org/analysis/consequences-chinas-new-rare-earths-export-restrictions",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "CSIS (Center for Strategic and International Studies)",
+    "date": "2025-04-14",
+    "summary": "Independent analysis sizing the single-source-region corner: China held ~99% of global heavy-REE processing through 2023, and in April 2025 imposed export-licensing on seven medium/heavy rare earths and magnets — the binding constraint on humanoid motor magnet supply.",
+    "excerpt": "Until 2023, China accounted for 99 percent of global heavy REEs processing",
+    "supportsNodeIds": [
+      "humanoid_rare_earth_magnet_supply"
+    ],
+    "supportsEdgeIds": [],
+    "limitations": "Think-tank analysis (independent, citable for structure); the 99% figure is heavy-REE PROCESSING share through 2023 (basis = processing share, asOf 2023), distinct from finished-magnet output share.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_kollmorgen_frameless_joints",
+    "type": "vendor_claim",
+    "title": "Kollmorgen (a Regal Rexnord brand) frameless torque motors — robot/cobot joints",
+    "url": "https://www.kollmorgen.com/en-us/products/motors/frameless-motors",
+    "sourceStatus": "paywalled_snippet",
+    "sourceName": "Kollmorgen (Regal Rexnord)",
+    "date": "2026-06-15",
+    "summary": "Vendor page identifies Kollmorgen as a Regal Rexnord brand and states its frameless torque motors power nearly 1 million robotic joints/arms globally — a named merchant frameless-motor supplier for robot joints.",
+    "excerpt": "Kollmorgen's frameless torque motors mobilize nearly 1 million joints and robotic arms across the globe.",
+    "supportsNodeIds": [
+      "humanoid_motor_stack",
+      "org_regal_rexnord"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__regal_rexnord"
+    ],
+    "limitations": "Direct fetch returned HTTP 403; excerpt captured via search index, not an independent page fetch (sourceStatus paywalled_snippet). Vendor marketing claim ('nearly 1 million joints') is a vendor_claim, not independently audited; robot/cobot joints broadly, not a humanoid-specific BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_regal_altra_kollmorgen",
+    "type": "news",
+    "title": "Regal Rexnord (NYSE: RRX) completes Altra acquisition; Kollmorgen among its brands",
+    "url": "https://www.prnewswire.com/news-releases/regal-rexnord-to-acquire-altra-industrial-motion-301660746.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "PR Newswire / Regal Rexnord Corporation",
+    "date": "2022-10-27",
+    "summary": "Confirms Regal Rexnord is NYSE-listed under RRX and that Kollmorgen is one of its brands (acquired via Altra Industrial Motion), supporting the org identity and ticker.",
+    "excerpt": "Regal Rexnord Corporation (NYSE: RRX)",
+    "supportsNodeIds": [
+      "org_regal_rexnord"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__regal_rexnord"
+    ],
+    "limitations": "Press release establishes the public listing/ticker and the Kollmorgen brand relationship; not a humanoid-specific supply claim.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_parker_frameless_tk",
+    "type": "vendor_claim",
+    "title": "Parker Hannifin frameless direct-drive torque motors (TK / K series)",
+    "url": "https://ph.parker.com/us/en/product/frameless-direct-drive-torque-motors-tk-series/tkw134hfbdb2r1000",
+    "sourceStatus": "paywalled_snippet",
+    "sourceName": "Parker Hannifin (Parker NA)",
+    "date": "2026-06-15",
+    "summary": "Parker's product catalog lists frameless direct-drive torque motors (TK series, K-Series kit motors) for robotics, supplied as separate rotor/stator for direct integration — a named merchant frameless-motor supplier.",
+    "excerpt": "Frameless Direct-Drive Torque Motors - TK Series",
+    "supportsNodeIds": [
+      "humanoid_motor_stack",
+      "org_parker_hannifin"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__parker_hannifin"
+    ],
+    "limitations": "Direct fetch returned HTTP 403; product-line title/description captured via search index (sourceStatus paywalled_snippet). Vendor catalog (good for who-makes-what); K-Series marketed for robotics broadly, not a humanoid-specific BOM placement. Parker Hannifin NYSE: PH (widely listed).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_moog_frameless",
+    "type": "vendor_claim",
+    "title": "Moog direct-drive brushless DC frameless (pancake) torque motors",
+    "url": "https://www.moog.com/products/motors-servomotors/brushless-motors/high-performance-direct-drive-brushless-dc-motors.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Moog Inc.",
+    "date": "2026-06-15",
+    "summary": "Vendor page confirms Moog makes direct-drive brushless frameless (pancake) torque motors supplied as a frameless rotor/stator part set — a named merchant frameless-motor supplier.",
+    "excerpt": "Moog has a variety of custom design options for frameless (pancake) motors.",
+    "supportsNodeIds": [
+      "humanoid_motor_stack",
+      "org_moog"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__moog"
+    ],
+    "limitations": "Vendor marketing/product page; this page emphasizes military/aerospace/industrial applications and does not name humanoid robotics specifically — frameless-motor capability only, not a humanoid BOM placement. Moog NYSE: MOG.A.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_maxon_ec_frameless",
+    "type": "news",
+    "title": "maxon launches robotics drive portfolio — EC frameless DT motors + HEJ joints for humanoids",
+    "url": "https://www.therobotreport.com/maxon-launches-drive-systems-portfolio-designed-for-robotics/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "The Robot Report",
+    "date": "2026-01-05",
+    "summary": "Trade press: maxon's High Efficiency Joint actuators integrate motors from its EC frameless DT lineup and target humanoids/quadrupeds/exoskeletons — a named merchant frameless-motor + integrated-joint supplier for humanoids.",
+    "excerpt": "The High Efficiency Joints integrate torque-dense electric motors from maxon's EC frameless DT motor lineup",
+    "supportsNodeIds": [
+      "humanoid_motor_stack",
+      "org_maxon"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__maxon"
+    ],
+    "limitations": "Trade-press product announcement; HEJ is an integrated actuator (motor + gear + electronics), with the EC frameless DT motor as the merchant motor element. maxon is private — no ticker.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_renishaw_pal",
+    "type": "vendor_claim",
+    "title": "PAL Robotics integrates magnetic encoder technology into robots to achieve balance — Renishaw",
+    "url": "https://www.renishaw.com/en/pal-robotics-integrates-magnetic-encoder-technology-into-robots-to-achieve-balance--43036",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Renishaw",
+    "date": "2026-06-15",
+    "summary": "Renishaw/RLS magnetic absolute encoders (AksIM, Orbis) integrated into the knee, wrist and elbow joints of PAL Robotics' REEM-C humanoid for joint servo control. Vendor case study; supports Renishaw joint-encoder exposure.",
+    "excerpt": "rotary encoders such as AksIM™ and Orbis™ which are integrated into knee, wrist and elbow joints ... High-quality encoder feedback is required for the servo-control of each joint in terms of applied torque, velocity and position.",
+    "supportsNodeIds": [
+      "humanoid_joint_encoder_position",
+      "org_renishaw"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_encoder__manufactured_by__renishaw"
+    ],
+    "limitations": "Vendor case study on PAL REEM-C (a research humanoid), not independent market-share evidence and not a commercial-OEM BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_heidenhain_robot_encoders",
+    "type": "vendor_claim",
+    "title": "Industrial robots: Encoders for tool center point accuracy — HEIDENHAIN",
+    "url": "https://www.heidenhain.us/resources-and-news/industrial-robots-encoders-tool-accuracy/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "HEIDENHAIN",
+    "date": "2026-06-15",
+    "summary": "HEIDENHAIN (and group brand AMO) secondary angle/rotary encoders (ECA 4000, ECI 4000, AMO WMR) mounted after each gear train capture true joint position, improving TCP accuracy 70-80%. Vendor technical article; supports Heidenhain joint-encoder exposure.",
+    "excerpt": "high-accuracy angle encoders or rotary encoders at every robot axis. These so-called secondary encoders, which are mounted after each gear train, capture the actual position of every robot joint. ... All of this results in a 70 to 80 percent improvement of the absolute position accuracy at the tool center point.",
+    "supportsNodeIds": [
+      "humanoid_joint_encoder_position",
+      "org_heidenhain"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_encoder__manufactured_by__heidenhain"
+    ],
+    "limitations": "Vendor article framed for industrial robots/cobots (transferable to humanoid joints); not independent market-share data.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_broadcom_encoders",
+    "type": "vendor_claim",
+    "title": "Broadcom Encoders — EBV Elektronik / Avnet (Broadcom product highlight)",
+    "url": "https://my.avnet.com/ebv/products/product-highlights/broadcom-encoders/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "EBV Elektronik (Avnet) / Broadcom",
+    "date": "2026-06-15",
+    "summary": "Broadcom absolute magnetic encoders (AS20-M42M, AR49-M49M, AEAT-9988M) for motor feedback, with stated mobile-robotics/robotic-hand positioning use case. Distributor/vendor page; supports Broadcom joint/hand encoder exposure.",
+    "excerpt": "AS20-M42M ... an absolute magnetic encoder comprising a default 18-bit single-turn (ST) and 24-bit multi-turn (MT) counts ... In the mobile robotics world, robotic hands are capable of performing amazing functions mimicking human hands ... Low-profile encoders and small-sized encoders are required to provide accurate positioning feedback.",
+    "supportsNodeIds": [
+      "humanoid_joint_encoder_position",
+      "org_broadcom"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_encoder__manufactured_by__broadcom"
+    ],
+    "limitations": "Distributor product-highlight page (vendor-class); names products + robotics use but no humanoid-OEM design win or market share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_netzer_robotics",
+    "type": "vendor_claim",
+    "title": "Netzer Precision — Electric Encoders for Robotics (markets/robotics)",
+    "url": "https://netzerprecision.com/markets/robotics/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Netzer Precision",
+    "date": "2026-06-15",
+    "summary": "Netzer contactless capacitive (Electric Encoder) absolute hollow-shaft encoders (DS, VLX) positioned for robotics; immunity to magnetic interference suits placement near frameless-motor magnets in robot arm joints. Vendor page; supports Netzer joint-encoder exposure.",
+    "excerpt": "From sophisticated automation to cutting-edge robotics, our products are meticulously designed to meet the highest demands of diverse industries. ... DS | Encapsulated | Hollow Shaft ... VLX | Robotics & Industry | Hollow Shaft",
+    "supportsNodeIds": [
+      "humanoid_joint_encoder_position",
+      "org_humanoid_netzer"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_encoder__manufactured_by__netzer"
+    ],
+    "limitations": "Vendor marketing page; the NASA Robonaut 2 humanoid case study (separate Netzer page) could not be fetched (body empty) this round. No market-share data.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_ati_novanta_ft",
+    "type": "vendor_claim",
+    "title": "Robotic Force Control Solutions Made Easier — ATI Industrial Automation (a Novanta company)",
+    "url": "https://ati.novanta.com/robotic-force-control-solutions-made-easier/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "ATI Industrial Automation / Novanta",
+    "date": "2026-06-15",
+    "summary": "ATI Industrial Automation, identified as 'a Novanta company', makes six-axis force/torque sensors for robotic force control. Vendor page; supports Novanta/ATI force-torque exposure and the ATI->NOVT parent link.",
+    "excerpt": "a Novanta company ... ATI Industrial Automation's Six-Axis Force/Torque Sensors and ArtiMinds RPS robot programming software make robotic force control easy to program",
+    "supportsNodeIds": [
+      "humanoid_force_torque_sensing",
+      "org_humanoid_novanta_ati"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_force_torque__manufactured_by__novanta_ati"
+    ],
+    "limitations": "Vendor page; confirms product class + Novanta ownership but not humanoid market share or a specific humanoid-OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_bota_ft",
+    "type": "vendor_claim",
+    "title": "6-Axis Force Torque Sensors for Robotics — Bota Systems",
+    "url": "https://botasys.com/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Bota Systems",
+    "date": "2026-06-15",
+    "summary": "Bota Systems (Zurich, Switzerland) designs/manufactures compact 6-axis force/torque + torque + tactile sensors for robots incl. humanoid/medical/collaborative robots (MiniONE, PixONE). Vendor page; supports Bota force-torque exposure.",
+    "excerpt": "Bota Systems designs and manufactures force torque sensors in Switzerland, delivering reliable, high-precision force data for real robotic applications. ... High-precision, compact 6-axis force torque sensors, torque sensors, tactile sensors and software that enable robots to feel, learn, and interact with the physical world.",
+    "supportsNodeIds": [
+      "humanoid_force_torque_sensing",
+      "org_humanoid_bota_systems"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_force_torque__manufactured_by__bota"
+    ],
+    "limitations": "Vendor page; humanoid named among target robot types but no specific OEM design win or market share.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_sri_ft",
+    "type": "vendor_claim",
+    "title": "6 Axis Force Torque Sensor For Robot — SRI / Sunrise Instruments",
+    "url": "https://www.srisensor.com/6-axis-force-torque-sensor-for-robot/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Sunrise Instruments (SRI)",
+    "date": "2026-06-15",
+    "summary": "SRI / Sunrise Instruments lists a dedicated 'Humanoid Robot 6 Axis Force/Torque Sensor' product line (C025XX-C060XX); HQ Canton, Michigan, US. Vendor page; supports SRI humanoid force-torque exposure.",
+    "excerpt": "C025XX - C060XX Humanoid Robot 6 Axis ForceTorque Sensor ... Address:8534 N Canton Center Rd, Canton, MI, USA 48187",
+    "supportsNodeIds": [
+      "humanoid_force_torque_sensing",
+      "org_humanoid_sri_sunrise"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_force_torque__manufactured_by__sri"
+    ],
+    "limitations": "Vendor catalog page; product line named for humanoids but no independent share/volume data.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_xela_uskin",
+    "type": "vendor_claim",
+    "title": "XELA Robotics Unlocks Enhanced Automation for Humanoid and Industrial Robots — XELA Robotics",
+    "url": "https://xelarobotics.com/press-release/xela-robotics-unlocks-enhanced-automation-for-humanoid-and-industrial-robots/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "XELA Robotics",
+    "date": "2026-06-15",
+    "summary": "XELA Robotics uSkin tactile sensors cover fingertips, phalanges and palm for humanoid/industrial robot hands. Vendor press release; supports XELA tactile-skin exposure.",
+    "excerpt": "Unlike most robotic hands on the market, which only have sensors in the fingertips, XELA Robotics can integrate its sensors in a significantly larger surface area, fingertips, phalanges and the palm, making it much closer to the real thing. ... the fast-growing market for humanoid and industrial robot hands and grippers",
+    "supportsNodeIds": [
+      "humanoid_fingertip_tactile_array",
+      "org_humanoid_xela_robotics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_fingertip_tactile__manufactured_by__xela"
+    ],
+    "limitations": "Vendor press release; humanoid market targeted, integration partners named, but no specific commercial-humanoid-OEM design win or share figure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_xela_tesollo",
+    "type": "news",
+    "title": "XELA Robotics adds uSkin tactile sensors to Tesollo DG-5F robot hand — Robotics & Automation News",
+    "url": "https://roboticsandautomationnews.com/2025/12/04/xela-robotics-adds-high-precision-tactile-sensing-to-tesollo-robot-hand/97352/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Robotics & Automation News",
+    "date": "2026-06-15",
+    "summary": "Trade-press report: XELA uSkin three-axis tactile sensors integrated into the Tesollo DG-5F five-finger anthropomorphic hand; commercial orders from late Q1 2026. Independent source; supports XELA tactile-skin exposure.",
+    "excerpt": "successfully integrated its uSkin sensors into a Tesollo DG-5F five-fingered anthropomorphic robot hand ... The company's proprietary high-density three-axis tactile sensors address the fast-growing market for humanoid and industrial robot hands and grippers ... Commercial orders will be accepted beginning in the late first quarter of 2026.",
+    "supportsNodeIds": [
+      "humanoid_fingertip_tactile_array",
+      "org_humanoid_xela_robotics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_fingertip_tactile__manufactured_by__xela"
+    ],
+    "limitations": "Trade press relaying a vendor announcement; design win is with a hand maker (Tesollo), not a named end-humanoid OEM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_paxini_tactile",
+    "type": "vendor_claim",
+    "title": "PaXini Unveils the 'Tactile Infrastructure' for Embodied AI ... at CES 2026 — PR Newswire",
+    "url": "https://www.prnewswire.com/news-releases/paxini-unveils-the-tactile-infrastructure-for-embodied-ai-redefining-full-stack-product-matrix-at-ces-2026-302655238.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "PaXini Technology (PR Newswire)",
+    "date": "2026-06-15",
+    "summary": "PaXini (Chinese robotics company) makes multidimensional tactile sensors (PX-6AX) and tactile dexterous hands (DexH13) for humanoid/embodied-AI robots. Vendor press release; supports PaXini tactile-skin exposure.",
+    "excerpt": "The PX-6AX-GEN3 multidimensional tactile sensor is pivotal for hand perception. It spans three product series and 12 models ... and simultaneously measures 15 sensing dimensions, including six-axis force. ... The DexH13 multidimensional tactile dexterous hand ... 1,140 ITPU multidimensional tactile processing units",
+    "supportsNodeIds": [
+      "humanoid_fingertip_tactile_array",
+      "org_humanoid_paxini"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_fingertip_tactile__manufactured_by__paxini"
+    ],
+    "limitations": "Vendor PR; PaXini is partly captive (builds its own hands + robots) so merchant-supply scope to third-party OEMs is unquantified; no share data.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_bosch_sensortec_imu",
+    "type": "vendor_claim",
+    "title": "Inertial Measurement Unit BMI088 — Bosch Sensortec",
+    "url": "https://www.bosch-sensortec.com/en/products/motion-sensors/imus/bmi088",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Bosch Sensortec",
+    "date": "2026-06-15",
+    "summary": "Bosch Sensortec BMI088 IMU is positioned for drone/robotics, and Bosch Sensortec MEMS sensors are marketed for agile humanoids and social robots. Vendor page; supports Bosch Sensortec IMU exposure.",
+    "excerpt": "The BMI088 is the ideal IMU solution for drone and robotics applications. ... From agile humanoids and social robots to autonomous mobile platforms and robust industrial arms – our MEMS sensors are at the heart of every intelligent movement and interaction.",
+    "supportsNodeIds": [
+      "humanoid_imu_attitude_sensing",
+      "org_humanoid_bosch_sensortec"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_imu__manufactured_by__bosch_sensortec"
+    ],
+    "limitations": "Vendor product page; humanoid named as target application but no specific humanoid-OEM design win or share figure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_hesai_humanoid_tech25",
+    "type": "vendor_claim",
+    "title": "Hesai Recognized as the Only Lidar Company on Morgan Stanley's 'Humanoid Tech 25' — Hesai (PR Newswire)",
+    "url": "https://www.prnewswire.com/news-releases/hesai-recognized-as-the-only-lidar-company-on-morgan-stanleys-humanoid-tech-25-of-global-robotics-leaders-302642179.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Hesai Group (PR Newswire)",
+    "date": "2026-06-15",
+    "summary": "Hesai named only LiDAR company on Morgan Stanley's Humanoid Tech 25; JT-series 3D robotics LiDAR has 200k+ cumulative deliveries. Vendor PR citing third-party (Morgan Stanley) recognition; supports Hesai humanoid depth/LiDAR exposure.",
+    "excerpt": "Hesai is the only lidar company included on the shortlist ... The JT series is trusted by leading players across robotics, industrial, logistics, and autonomous driving systems ... surpassing 200,000 cumulative deliveries since launch.",
+    "supportsNodeIds": [
+      "humanoid_depth_camera_lidar",
+      "org_humanoid_hesai"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_depth_lidar__manufactured_by__hesai"
+    ],
+    "limitations": "Vendor PR; Morgan Stanley list is influence not market share; JT deliveries span all robotics not humanoid-only. Dev set already covers Hesai robotics-LiDAR concentration (SCMP).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_robosense_humanoid_order",
+    "type": "news",
+    "title": "RoboSense's Active Camera Series Secures Order from Leading Humanoid Robotics Firm — Gasgoo",
+    "url": "https://autonews.gasgoo.com/articles/icv/robosenses-active-camera-series-secures-order-from-leading-humanoid-robotics-firm-2043940954359115776",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Gasgoo Auto News",
+    "date": "2026-06-15",
+    "summary": "Trade press: RoboSense Active Camera (AC) series secured an order from a leading European humanoid robotics firm. Independent source; supports RoboSense humanoid perception exposure.",
+    "excerpt": "RoboSense secured an order from a leading European humanoid robotics firm for its Active Camera (AC) series.",
+    "supportsNodeIds": [
+      "humanoid_depth_camera_lidar",
+      "org_humanoid_robosense"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_depth_lidar__manufactured_by__robosense"
+    ],
+    "limitations": "Customer unnamed ('leading European humanoid robotics firm'); single order, not a share figure. Dev set covers RoboSense robotics-LiDAR position.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_orbbec_honor",
+    "type": "vendor_claim",
+    "title": "HONOR Debuts Its First Humanoid Robot Featuring Orbbec's Stereo Vision 3D Camera — Orbbec",
+    "url": "https://www.orbbec.com/news/honor-debuts-its-first-humanoid-robot-featuring-orbbecs-stereo-vision-3d-camera/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Orbbec",
+    "date": "2026-06-15",
+    "summary": "Orbbec Gemini 330 stereo-vision 3D camera featured in HONOR's first humanoid robot; Orbbec claims >70% 3D-vision share in China service robots and Korea mobile robots. Vendor page; supports Orbbec humanoid depth/stereo exposure.",
+    "excerpt": "Equipped with an Orbbec Gemini 330 Series stereo vision 3D camera, the robot made its debut with a live dance performance ... The company holds over 70% market share in 3D vision for service robots in China and mobile robots in South Korea",
+    "supportsNodeIds": [
+      "humanoid_depth_camera_lidar",
+      "humanoid_stereo_rgb_camera",
+      "org_humanoid_orbbec"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_depth_lidar__manufactured_by__orbbec",
+      "e_humanoid_stereo_camera__manufactured_by__orbbec"
+    ],
+    "limitations": "Vendor self-reported share; scope is service/mobile robots (not humanoid-specific) and excludes ex-China markets. Verify the >70% against an independent house in corners pass before any flip.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_realsense_independent",
+    "type": "news",
+    "title": "After Intel exit, RealSense maps its own future in 3D vision — The Robot Report",
+    "url": "https://www.therobotreport.com/after-intel-exit-realsense-maps-its-own-future-in-3d-vision/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "The Robot Report",
+    "date": "2026-06-15",
+    "summary": "RealSense (spun out of Intel) now an independent company; claims it works with 60% of AMR and humanoid developers (Geek+, Agility Robotics). Independent trade press; supports RealSense humanoid depth-camera exposure.",
+    "excerpt": "RealSense, known for its 3D depth cameras for robotics, is officially operating as an independent company. ... The company claimed that it's already working with 60% of AMR and humanoid developers, including companies such as Geek+ and Agility Robotics.",
+    "supportsNodeIds": [
+      "humanoid_depth_camera_lidar",
+      "org_humanoid_realsense"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_depth_lidar__manufactured_by__realsense"
+    ],
+    "limitations": "'60% of AMR and humanoid developers' is a vendor claim relayed by trade press and is developer-relationship breadth, NOT unit share; the separate '80% of humanoid robots' figure seen in search snippets could not be fetched this round and is NOT asserted.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_eve_energy_solid_state",
+    "type": "news",
+    "title": "Eve Energy rolls solid-state batteries off new assembly line to power humanoids, flying cars",
+    "url": "https://electrek.co/2025/09/03/eve-energy-solid-state-batteries-new-assembly-line-humanoids-flying-cars/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Electrek",
+    "date": "2026-06-15",
+    "summary": "Trade-press report that EVE Energy's Longquan II all-solid-state cell (10 Ah, up to 300 Wh/kg) is intended to power humanoid robots, UAVs and AI equipment.",
+    "excerpt": "The Longquan II is a 10-Ah all-solid-state cell with an energy density of up to 300 Wh/kg. Per EVE Energy, mass production of these ultra-dense cells will eventually power humanoid robots, uncrewed aerial vehicles, and AI equipment.",
+    "supportsNodeIds": [
+      "humanoid_lithium_ion_cell_selection",
+      "org_eve_energy"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__reported_capable_supplier__eve_energy"
+    ],
+    "limitations": "Intended/future application stated by company and reported by trade press; no confirmed supply to a named humanoid OEM. 'Will eventually power' is forward-looking, not current shipment.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_molicel_applications",
+    "type": "vendor_claim",
+    "title": "Molicel — About (applications and ownership)",
+    "url": "https://www.molicel.com/about/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Molicel (E-One Moli Energy)",
+    "date": "2026-06-15",
+    "summary": "Molicel's own About page positions it as an ultra-high-power cylindrical cell maker and lists humanoid robotics among its applications; states it is part of the Taiwan Cement Corporation (TCC) Group.",
+    "excerpt": "E-One Moli has been focusing on ultra-high power cylindrical cells in the niche segment ... humanoid robotics applications ... MOLICEL® is part of Taiwan Cement Corporation (TCC) Group",
+    "supportsNodeIds": [
+      "humanoid_lithium_ion_cell_selection",
+      "org_molicel"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__reported_capable_supplier__molicel"
+    ],
+    "limitations": "Vendor self-description (application list and ownership). 'humanoid robotics applications' is a marketing application category, not evidence of a confirmed cell supply to a specific humanoid OEM. Ticker 1101.TW is the parent TCC listing, not Molicel directly.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_lg_energy_six_robotics_customers",
+    "type": "news",
+    "title": "Humanoid Robots Are Changing Everyday Life: Why Do Batteries Matter? (LG Energy Solution BATTERY INSIDE)",
+    "url": "https://inside.lgensol.com/en/2026/06/humanoid-robots-are-changing-everyday-life-why-do-batteries-matter/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "LG Energy Solution (BATTERY INSIDE)",
+    "date": "2026-06-15",
+    "summary": "LG Energy Solution's own publication states it built a 2170 cylindrical lineup for humanoid robot applications and is supplying cylindrical cells to six leading robotics companies. Strengthens LG as a humanoid cell-merchant supplier beyond the prior bare IR-listing evidence.",
+    "excerpt": "LG Energy Solution established a cylindrical battery lineup based on the 2170 form factor early on, designed for humanoid robot applications ... its cylindrical batteries have already been recognized by global customers and are currently being supplied to six leading robotics companies",
+    "supportsNodeIds": [
+      "humanoid_lithium_ion_cell_selection",
+      "org_lg_energy_solution"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__manufactured_by__lg_energy"
+    ],
+    "limitations": "Company-owned publication (vendor-side); 'six leading robotics companies' are unnamed and 'robotics' is broader than humanoid specifically. The cell is merchant; the pack/integration remains the robot maker's.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_panasonic_2170_cylindrical",
+    "type": "news",
+    "title": "Panasonic Energy to Supply Lithium-ion Batteries for Zoox (2170 cylindrical cells)",
+    "url": "https://news.panasonic.com/global/press/en251125-2",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Panasonic Newsroom Global",
+    "date": "2026-06-15",
+    "summary": "Panasonic's own press release stating its 2170 cylindrical cells offer high energy density/safety for a high-performance robotic-vehicle (robotaxi) application. Used as capability evidence that Panasonic is a high-power cylindrical cell merchant of the format humanoids repurpose — NOT a humanoid design-win.",
+    "excerpt": "Panasonic Energy's 2170 cells, offering superior energy density, safety and reliability, are crucial for Zoox's high-performance robotaxis.",
+    "supportsNodeIds": [
+      "org_panasonic"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cells__reported_capable_supplier__panasonic"
+    ],
+    "limitations": "VERBATIM application is a robotaxi (Zoox), not a humanoid robot. Humanoid relevance is by 2170 cylindrical-cell form-factor analogy only; no confirmed Panasonic supply to a humanoid OEM was found. Ticker 6752.T is the parent Panasonic Holdings, not Panasonic Energy directly.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_infineon_humanoid_blocks",
+    "type": "news",
+    "title": "Infineon to Enable Humanoid Robots With Precise Motion and Efficiency Powered by NVIDIA Technology (Business Wire)",
+    "url": "https://finance.yahoo.com/news/infineon-enable-humanoid-robots-precise-153400535.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Business Wire (via Yahoo Finance)",
+    "date": "2026-06-15",
+    "summary": "Infineon's Business Wire release states it provides a dedicated humanoid-robot portfolio spanning power switches, microcontrollers, sensors and connectivity — i.e. merchant power-electronics/BMS-front-end silicon for humanoids.",
+    "excerpt": "Infineon enables the key functional blocks in humanoid robots with a broad portfolio of dedicated products and technologies – from power switches to microcontrollers, sensors and connectivity.",
+    "supportsNodeIds": [
+      "humanoid_battery_power_charging_system",
+      "org_infineon"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_power_charging__manufactured_by__infineon"
+    ],
+    "limitations": "Vendor announcement (distributed via Business Wire; fetched from Yahoo Finance mirror). Describes a 'dedicated' product portfolio and an NVIDIA partnership, not a confirmed shipment to a specific humanoid OEM. infineon.com pages were JS-nav-only / not fetchable, so this mirror carries the body text.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_nxp_mobile_robotics_bms",
+    "type": "product_page",
+    "title": "NXP RDDRONE-BMS772 — Smart Battery Management for Mobile Robotics (3-6 cells)",
+    "url": "https://nxp.gitbook.io/rddrone-bms772",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "NXP Semiconductors (RDDRONE-BMS772 docs)",
+    "date": "2026-06-15",
+    "summary": "NXP-hosted documentation states the RDDRONE-BMS772 is a standalone BMS reference design for mobile robotics (drones/rovers), 3-6 cells — evidence NXP is a merchant BMS-IC / reference-design supplier to the robotics power chain.",
+    "excerpt": "The RDDRONE-BMS772 is a standalone BMS Reference Design suitable for mobile robotics such as drones and rovers, supporting 3-6 cell batteries.",
+    "supportsNodeIds": [
+      "humanoid_battery_management_system",
+      "org_nxp"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_bms__reported_capable_supplier__nxp"
+    ],
+    "limitations": "Application named is 'mobile robotics such as drones and rovers', not humanoid robots specifically; humanoid relevance is by category adjacency. Reference design / merchant silicon, not a confirmed humanoid pack supply. NXP's main product URLs (MR-BMS771, BATTERY-MANAGEMENT-SYSTEM) 404'd to the fetcher; this gitbook carries the body text.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_qualcomm_dragonwing_iq10",
+    "type": "news",
+    "title": "Qualcomm Introduces a Full Suite of Robotics Technologies, Powering Physical AI from Household Robots up to Full-Size Humanoids",
+    "url": "https://www.qualcomm.com/news/releases/2026/01/qualcomm-introduces-a-full-suite-of-robotics-technologies-power",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Qualcomm",
+    "date": "2026-01",
+    "summary": "Qualcomm press release positioning the Dragonwing IQ10 series as a premium-tier onboard 'brain of the robot' processor for humanoids/AMRs and citing a Figure collaboration on humanoid compute architecture. Supports Qualcomm as a merchant onboard-AI-compute supplier candidate (alternative to NVIDIA Jetson Thor).",
+    "excerpt": "The Qualcomm Dragonwing™ IQ10 Series is its leading and latest addition to premium-tier robotics processors for humanoids and advanced autonomous mobile robots (AMRs). ... delivering high performance, energy-efficient 'Brain of the Robot' capabilities. ... Figure and Qualcomm Technologies are collaborating to define the next generation of compute architecture as Figure scales their humanoid platforms.",
+    "supportsNodeIds": [
+      "org_humanoid_qualcomm",
+      "humanoid_edge_ai_compute_module",
+      "humanoid_onboard_compute_control_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_edge_ai__manufactured_by__qualcomm"
+    ],
+    "limitations": "Vendor press release; names a Figure collaboration but does not prove selected BOM, design-win volume, qualification, or pricing. Quote assembled from non-contiguous sentences on the same release.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_nxp_humanoid_edge",
+    "type": "news",
+    "title": "NXP and NVIDIA collaborate on edge computing platform for humanoid robots",
+    "url": "https://roboticsandautomationnews.com/2026/03/17/nxp-and-nvidia-collaborate-on-edge-computing-platform-for-humanoid-robots/99781/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Robotics & Automation News",
+    "date": "2026-03-17",
+    "summary": "Trade-press coverage of NXP's humanoid-robot edge portfolio: an i.MX 95 machine-vision compute node and an i.MX RT1180 crossover-MCU motor-control chain aggregated by an S32J TSN switch, feeding the central robot brain. Supports NXP as a merchant supplier for both onboard compute SoC and real-time motor-control MCU.",
+    "excerpt": "The first Holoscan Sensor Bridge-ready solutions in NXP's robotic portfolio include a machine vision solution based on the i.MX 95 applications processor delivering high-bandwidth data to the robot brain. It also includes a motor control solution based on a kinematic chain of i.MX RT1180 crossover MCUs, aggregated by NXP's S32J TSN switch directly connecting to the brain.",
+    "supportsNodeIds": [
+      "org_humanoid_nxp",
+      "humanoid_edge_ai_compute_module",
+      "humanoid_realtime_mcu_safety_controller"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_edge_ai__manufactured_by__nxp",
+      "e_humanoid_mcu__manufactured_by__nxp"
+    ],
+    "limitations": "Trade-press secondary source (not primary IR); describes a reference architecture/portfolio, not a proven design win on a specific shipping humanoid. NXP i.MX here is a distributed edge/motor-control complement to NVIDIA's central compute, not the top-end policy SoC.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_rockchip_rk3588",
+    "type": "news",
+    "title": "What Processor Is Used in Domestic Humanoid Robots?",
+    "url": "https://eu.36kr.com/en/p/3473485924538759",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "36Kr (English)",
+    "date": "2026",
+    "summary": "36Kr survey of which compute SoCs Chinese humanoid robots use; names Rockchip RK3588/RK3588S adoption in specific humanoid models. Supports Rockchip as a merchant onboard-compute supplier to humanoids.",
+    "excerpt": "RK3588 and RK3588S chips have been adopted by humanoid robots such as ZHIYUAN Lingxi X2, Zhujidongli LimX Oli, and Gaoqing Pi/Pi +.",
+    "supportsNodeIds": [
+      "org_humanoid_rockchip",
+      "humanoid_edge_ai_compute_module",
+      "humanoid_onboard_compute_control_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_edge_ai__manufactured_by__rockchip"
+    ],
+    "limitations": "Trade-press secondary source naming robot models; not the robot makers' own BOM disclosure. RK3588 (~6 TOPS) is a high-level-control/low-cost SoC, below NVIDIA Jetson Thor / D-Robotics S100 in raw AI throughput.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_d_robotics_rdk_s100",
+    "type": "news",
+    "title": "Chip Designer Spun Off From China's Horizon Robotics Raises USD100 Million in Series A Round",
+    "url": "https://www.yicaiglobal.com/news/horizons-robot-chip-spinoff-d-robotics-wraps-up-usd100-million-series-a-funding",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Yicai Global",
+    "date": "2025",
+    "summary": "Yicai report that D-Robotics — a private robot-chip spinoff of Horizon Robotics — is launching the RDK S100, the first single-SoC platform integrating compute and control, for humanoid-robot developers. Supports D-Robotics as a private merchant onboard compute-control SoC supplier and clarifies its (separate) relationship to Horizon Robotics (9660.HK).",
+    "excerpt": "D-Robotics, a one-year-old robot chip spinoff from Chinese autonomous driving firm Horizon Robotics ... has completed a USD100 million Series A funding round ... The company plans to launch the RDK S100 robot development kit next month. It will be the industry's first system-on-chip platform to integrate computing and control functions into a single unit ... designing foundational computing chips for developers of humanoid robots, quadruped robot dogs, logistics robots, and robotic vacuum cleaners.",
+    "supportsNodeIds": [
+      "org_humanoid_d_robotics",
+      "humanoid_edge_ai_compute_module",
+      "humanoid_onboard_compute_control_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_edge_ai__manufactured_by__d_robotics"
+    ],
+    "limitations": "D-Robotics is private (no ticker); 9660.HK belongs to parent-lineage Horizon Robotics, a separate listed entity. RDK S100 was pre-launch at the time of this report; design-win volumes on shipping humanoids not proven here.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_infineon_motor_control",
+    "type": "news",
+    "title": "Infineon to enable humanoid robots with precise motion and efficiency with NVIDIA technology",
+    "url": "https://roboticsandautomationnews.com/2025/08/25/infineon-to-enable-humanoid-robots-with-precise-motion-and-efficiency-with-nvidia-technology/93897/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Robotics & Automation News",
+    "date": "2025-08-25",
+    "summary": "Trade-press coverage of Infineon's Aug 2025 humanoid-robotics announcement (with NVIDIA): PSOC Control C3 MCUs for FOC motor control, gate drivers, current sensors, and a GaN-based motor-control chip set. Supports Infineon as a merchant supplier of humanoid motor-drive power electronics (gate drivers/current sensors) and real-time motor-control MCUs.",
+    "excerpt": "Infineon provides its PSOC Control C3 family of microcontrollers, which integrate seamlessly with the Nvidia Holoscan Sensor Bridge to the Nvidia Jetson Thor series modules ... The integration of Infineon's gate drivers and current sensors helps control communication and design challenges in humanoid robotics ... Additionally, Infineon provides a full motor control chip set including the company's latest transistor technology based on gallium nitride (GaN) for high-density and best-efficiency motor control solutions.",
+    "supportsNodeIds": [
+      "org_humanoid_infineon",
+      "humanoid_current_sense_gate_driver",
+      "humanoid_realtime_mcu_safety_controller",
+      "humanoid_motor_drive_power_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_gate_driver__manufactured_by__infineon",
+      "e_humanoid_mcu__manufactured_by__infineon"
+    ],
+    "limitations": "Trade-press secondary source carrying Infineon's press-release claims; describes Infineon's product portfolio/reference path with NVIDIA, not a proven design win or BOM on a specific shipping humanoid. Excerpt assembled from non-contiguous sentences in the same article.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_epc_humanoid_joint",
+    "type": "news",
+    "title": "EPC adds 3-phase BLDC motor drive inverter evaluation board for humanoid robot joint applications",
+    "url": "https://www.semiconductor-today.com/news_items/2026/feb/epc-250226.shtml",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Semiconductor Today",
+    "date": "2026-02",
+    "summary": "Trade-press coverage of EPC's EPC91122 GaN 3-phase BLDC motor-drive inverter evaluation board engineered for humanoid robot joint applications. Supports EPC as a merchant GaN motor-drive/inverter (gate-driver-class power stage) supplier for humanoid actuators.",
+    "excerpt": "EPC91122, a high-performance 3-phase brushless DC (BLDC) motor drive inverter evaluation board specifically engineered for humanoid robot joint applications. ... The EPC91122 is suitable for humanoid robot joints, compact servo drives, robotics, drones, and eMobility platforms.",
+    "supportsNodeIds": [
+      "org_humanoid_epc",
+      "humanoid_current_sense_gate_driver",
+      "humanoid_motor_drive_power_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_gate_driver__manufactured_by__epc"
+    ],
+    "limitations": "Trade-press secondary source describing an evaluation board (reference design), not a confirmed production design win on a shipping humanoid. EPC is private (no ticker). Excerpt assembled from non-contiguous sentences in the same article.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_microchip_integrated_motor_driver",
+    "type": "news",
+    "title": "Microchip's dsPIC DSC-based integrated motor drivers",
+    "url": "https://www.electronicspecifier.com/products/e-mech/microchip-s-dspic-dsc-based-integrated-motor-drivers",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Electronic Specifier",
+    "date": "2024-02",
+    "summary": "Trade-press coverage of Microchip's dsPIC33 DSC-based integrated motor drivers that combine a digital signal controller, a three-phase MOSFET gate driver, and LIN/CAN FD into one device for BLDC/PMSM FOC motor control. Supports Microchip as a merchant motor-drive MCU + gate-driver supplier of the IC class used in robot joint/actuator drive.",
+    "excerpt": "These devices incorporate a dsPIC33 digital signal controller (DSC), a three-phase MOSFET gate driver and optional LIN or CAN FD transceiver into one package. A significant benefit of this integration is reduction in component count of the motor control system design, smaller printed circuit board (PCB) dimensions and reduced complexity.",
+    "supportsNodeIds": [
+      "org_humanoid_microchip",
+      "humanoid_current_sense_gate_driver",
+      "humanoid_motor_drive_power_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_gate_driver__reported_capable_supplier__microchip"
+    ],
+    "limitations": "Source describes the integrated-motor-driver IC class for general BLDC/PMSM (robotics/industrial/automotive) motor control; it does not name a humanoid-robot design win — hence edge is reported_capable_supplier, not manufactured_by. Excerpt assembled from non-contiguous sentences in the same article.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_nsk_irex_humanoid_bearing",
+    "type": "product_page",
+    "title": "NSK to Exhibit at iREX 2025",
+    "url": "https://www.nsk.com/company/news/2025/nsk-to-exhibit-at-irex-2025/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "NSK",
+    "date": "2026-06-15",
+    "summary": "NSK exhibit announcement ties its thin-section ball bearings and newly developed rotary/linear actuators to humanoid robots; supports NSK as a humanoid joint-bearing supplier candidate and the bearing->actuator vertical-integration angle.",
+    "excerpt": "NSK will exhibit various cutting-edge components, including newly developed rotary/linear actuators applicable to humanoid robots, the NSK line-up of thin-section ball bearings contributing to higher performance and smaller/lighter designs of robots",
+    "supportsNodeIds": [
+      "humanoid_joint_bearing_sealing",
+      "org_nsk"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__manufactured_by__nsk"
+    ],
+    "limitations": "Vendor exhibit announcement; shows applicability/intent for humanoid robots, not a confirmed humanoid OEM win, share, or capacity. Ticker not on this page (NSK = 6471.T, established cross-domain org_nsk).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_nsk_delta_actuator",
+    "type": "news",
+    "title": "NSK Signs MOU with Delta Electronics for Collaboration in Robotics",
+    "url": "https://www.nsk.com/company/news/2026/nsk-delta-mou-robotics-20260508-en/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "NSK",
+    "date": "2026-06-15",
+    "summary": "NSK-Delta MOU describes NSK contributing bearings, ball screws, and linear-motion expertise into rotary and linear actuators (robot joints), evidencing NSK moving from bearing supplier toward integrated humanoid/collaborative-robot actuators.",
+    "excerpt": "NSK has built a strong track record in industrial robotics, focusing on bearings and linear motion products",
+    "supportsNodeIds": [
+      "org_nsk"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__manufactured_by__nsk"
+    ],
+    "limitations": "MOU/partnership announcement; the fetched text frames bearings/linear-motion in industrial robotics broadly and rotary/linear actuators (joints) for robots, not a humanoid-specific BOM or share. Supports the bearing->actuator vertical-integration angle qualitatively.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_schaeffler_humanoid_actuator_bearing",
+    "type": "news",
+    "title": "Schaeffler wins Hermes Award for innovative actuator platform (humanoid robotics)",
+    "url": "https://www.webdisclosure.com/press-release/schaeffler-ag-etr-de000sha-humanoid-robotics-schaeffler-wins-hermes-award-for-innovative-actuator-platform-gMHxFHQl7O9",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "webdisclosure (Schaeffler AG release, ETR: DE000SHA)",
+    "date": "2026-04-20",
+    "summary": "Schaeffler's humanoid actuator platform integrates the bearing into the rotor; release confirms Schaeffler bearing/precision-drive content designed for humanoid robot joints and the SHA ticker context.",
+    "excerpt": "Thanks to an innovative architecture where the bearing is integrated into the rotor, the installation footprint is reduced by around 20 percent and the weight by up to 500 grams.",
+    "supportsNodeIds": [
+      "humanoid_joint_bearing_sealing",
+      "org_schaeffler"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__manufactured_by__schaeffler"
+    ],
+    "limitations": "Secondary host (webdisclosure) carrying the Schaeffler release; schaeffler.com primary returned 403 this round. The 20% / 500 g figures describe the actuator platform design, not a market share. Confirms Schaeffler bearing-in-rotor content for humanoid joints. Schaeffler = SHA.DE (cross-domain org_schaeffler).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_schaeffler_preferred_supplier",
+    "type": "news",
+    "title": "Humanoid Secures Landmark Deal with Schaeffler to Deploy Thousands of Humanoid Robots",
+    "url": "https://www.roboticstomorrow.com/news/2026/05/13/humanoid-secures-landmark-deal-with-schaeffler-to-deploy-thousands-of-humanoid-robots/26562/",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "RoboticsTomorrow",
+    "date": "2026-05-13",
+    "summary": "Schaeffler named preferred actuator supplier covering >50% of UK maker Humanoid's joint-actuator demand through 2031; quantifies a strategic-supply concentration in the actuator/bearing tier. (Same episode as dev-set humanoid_schaeffler_actuator_strategic_supply_2026.)",
+    "excerpt": "Schaeffler will become Humanoid's preferred supplier, covering more than 50% of the company's demand for joint actuators for its wheeled-based platforms through 2031.",
+    "supportsNodeIds": [
+      "org_schaeffler"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__manufactured_by__schaeffler"
+    ],
+    "limitations": "Strategic-supply share for ONE OEM (Humanoid), not Schaeffler's bearing market share. Trade-press source carrying the companies' announcement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_rbc_thin_section_robotics",
+    "type": "product_page",
+    "title": "Thin Section Ball Bearings | RBC Bearings Incorporated",
+    "url": "https://www.rbcbearings.com/Engineering/Thin-Section-Ball-Bearings",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "RBC Bearings Incorporated",
+    "date": "2026-06-15",
+    "summary": "RBC thin-section ball-bearing page lists Robotics, Rotary Joints, Harmonic Drives, and Speed Reducers among typical applications; supports RBC as a humanoid joint thin-section bearing supplier candidate.",
+    "excerpt": "Thin section ball bearings are generally used in applications with space, weight, and load constraints. ... Rotary Joints ... Robotics ... Harmonic Drives ... Speed Reducers",
+    "supportsNodeIds": [
+      "humanoid_joint_bearing_sealing",
+      "org_rbc_bearings"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__manufactured_by__rbc"
+    ],
+    "limitations": "Vendor product page; names robotics/rotary-joints/harmonic-drive/speed-reducer applications generally, not a humanoid-specific OEM win or share. Application list reproduced verbatim from the page's Typical Applications section. RBC = RBC (NYSE, cross-domain org_rbc_bearings).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_thk_ticker",
+    "type": "vendor_claim",
+    "title": "THK Co., Ltd. (6481.T) listing / securities code",
+    "url": "https://www.cnbc.com/quotes/6481.T-JP",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "CNBC (market data)",
+    "date": "2026-06-15",
+    "summary": "Confirms THK Co., Ltd. trades as 6481 on the Tokyo Stock Exchange (6481.T). THK is an established cross-roller-ring maker for robot joints; primary THK product pages could not be fetched this round (403), so the robot-bearing capability is modeled reported-capable.",
+    "excerpt": "THK Co Ltd 6481.T-JP",
+    "supportsNodeIds": [
+      "org_thk"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__reported_capable_supplier__thk"
+    ],
+    "limitations": "Ticker/listing confirmation only. No fetched THK primary page asserts the humanoid/robot bearing application this round (thk.com 403). Capability modeled as reported_capable_supplier pending a primary quote. THK = cross-domain org_thk.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_ntn_ticker",
+    "type": "vendor_claim",
+    "title": "NTN Corporation (6472.T) listing / securities code",
+    "url": "https://www.cnbc.com/quotes/6472.T-JP",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "CNBC (market data)",
+    "date": "2026-06-15",
+    "summary": "Confirms NTN Corporation trades as 6472 on the Tokyo Stock Exchange (6472.T). NTN runs a dedicated robotics bearing line (crossed-roller bearings for robot reduction gears); its robot pages were unreachable this round, so the capability is modeled reported-capable.",
+    "excerpt": "NTN CORPORATION ... 6472 on the Tokyo Stock Exchange",
+    "supportsNodeIds": [
+      "org_ntn"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_joint_bearing__reported_capable_supplier__ntn"
+    ],
+    "limitations": "Ticker/listing confirmation only. NTN robot product pages (ntnglobal.com, ntn-snr.com) were 403/unreachable this round; humanoid/robot bearing capability modeled as reported_capable_supplier pending a primary quote. NTN = cross-domain org_ntn.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_victrex_robotics",
+    "type": "product_page",
+    "title": "Robotics and Automation | Electroactive Polymers for Robotic Applications - Victrex",
+    "url": "https://www.victrex.com/en/industries/industrial/robotics-and-automation",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Victrex",
+    "date": "2026-06-15",
+    "summary": "Victrex robotics page markets VICTREX PEEK as a lighter-than-metal alternative for collaborative-robot gearboxes and components; supports Victrex as a humanoid structural/lightweighting PEEK supplier candidate.",
+    "excerpt": "Quieter and up to 25% lighter than metal, VICTREX PEEK solutions enable efficiencies for collaborative applications.",
+    "supportsNodeIds": [
+      "humanoid_structure_materials_harness",
+      "org_humanoid_victrex"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_structure_materials__manufactured_by__victrex"
+    ],
+    "limitations": "Vendor industry page; the 25%-lighter figure is a material property vs metal, not a market share. Frames robotics/cobot use, not a confirmed humanoid OEM win or PEEK market share. Companion quote on same page: 'VICTREX PEEK & thermoplastic hybrid gears offer an alternative to metal planetary system gearboxes.'",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_victrex_ticker",
+    "type": "vendor_claim",
+    "title": "Victrex plc (VCT.L) listing",
+    "url": "https://www.londonstockexchange.com/stock/VCT/victrex-plc/company-page",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "London Stock Exchange (market data)",
+    "date": "2026-06-15",
+    "summary": "Confirms Victrex plc is listed on the London Stock Exchange under ticker VCT (VCT.L).",
+    "excerpt": "VICTREX PLC VCT",
+    "supportsNodeIds": [
+      "org_humanoid_victrex"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_structure_materials__manufactured_by__victrex"
+    ],
+    "limitations": "Ticker/listing confirmation only; no humanoid-specific claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_evonik_vestakeep_robotics",
+    "type": "news",
+    "title": "Evonik launches new tribological PEEK material for use in high temperature and pressure slide bearing applications",
+    "url": "https://www.evonik.com/en/news/press-releases/2026/04/evonik-launches-new-tribological-peek-material-for-use-in-high-t.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Evonik",
+    "date": "2026-04-08",
+    "summary": "Evonik press release names the robotics industry among customers for its VESTAKEEP PEEK (incl. new tribological Easy Slide 2 slide-bearing grade); supports Evonik as a humanoid structural/tribological PEEK supplier candidate.",
+    "excerpt": "This includes working with customers in the industrial, medical and robotics industry to solve their especially challenging needs,",
+    "supportsNodeIds": [
+      "humanoid_structure_materials_harness",
+      "org_humanoid_evonik"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_structure_materials__manufactured_by__evonik"
+    ],
+    "limitations": "Vendor press release; names robotics as a customer industry for VESTAKEEP PEEK generally, not a confirmed humanoid OEM win or PEEK market share. No number claimed. Evonik = EVK.DE.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_syensqo_listing",
+    "type": "news",
+    "title": "Syensqo successfully launched on Euronext (SYENS)",
+    "url": "https://www.syensqo.com/en/press-release/syensqo-successfully-launched-euronext",
+    "sourceStatus": "paywalled_snippet",
+    "sourceName": "Syensqo / Euronext",
+    "date": "2023-12-11",
+    "summary": "Confirms Syensqo (2023 spin-off of Solvay specialty polymers) is publicly listed on Euronext Brussels/Paris under ticker SYENS. Syensqo's KetaSpire PEEK is one of ~4 thousand-ton-scale PEEK lines; modeled reported-capable for humanoid lightweighting because syensqo.com PEEK pages returned 406 this round.",
+    "excerpt": "Syensqo successfully launched on Euronext",
+    "supportsNodeIds": [
+      "org_syensqo"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_structure_materials__reported_capable_supplier__syensqo"
+    ],
+    "limitations": "Listing/ticker context via search snippet (syensqo.com product pages 406 this round). No fetched robotics-application quote; humanoid PEEK capability modeled as reported_capable_supplier pending a primary quote. Syensqo = SYENS (cross-domain org_syensqo).",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_sanhua_thermal_capability",
+    "type": "product_page",
+    "title": "Zhejiang Sanhua Intelligent Controls — business / products",
+    "url": "https://www.sanhuagroup.com/en/cy.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Sanhua Group",
+    "date": "2026-06-15",
+    "summary": "Sanhua corporate page confirms its core thermal-management product base (microchannel heat exchangers, electronic expansion valves, control components for HVAC&R/appliances/vehicles) — the automotive thermal technology that industry coverage says it is transferring into robotics liquid cooling.",
+    "excerpt": "engaged in the research and production of control components, sub-system and technological solutions applied in HVAC&R and home appliance",
+    "supportsNodeIds": [
+      "org_humanoid_sanhua"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_thermal__reported_capable_supplier__sanhua"
+    ],
+    "limitations": "This primary page lists HVAC/appliance/vehicle thermal products and does NOT mention robots or humanoid robots. The Optimus/robot liquid-cooling application is reported by industry/SEO/substack coverage only. Numbers (liquid-cooling share, RMB order size, ±0.01mm) from SEO/substack are deliberately omitted as unverified.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_sanhua_humanoid_actuator_focus",
+    "type": "expert_review",
+    "title": "Sanhua: In the AI robotics era, do cross-industry incumbents laugh last? (analyst note)",
+    "url": "https://longbridge.com/en/topics/37658760",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Longbridge (analyst commentary)",
+    "date": "2026-06-15",
+    "summary": "Analyst note states Sanhua's current humanoid product focus is the electromechanical actuator (motor+reducer/ballscrew+sensors), NOT thermal systems — an explicit caution against treating Sanhua as a confirmed humanoid liquid-cooling supplier.",
+    "excerpt": "Sanhua's humanoid focus today is electromechanical actuators rather than thermal systems, so we do not dive deeper here.",
+    "supportsNodeIds": [
+      "org_humanoid_sanhua"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_thermal__reported_capable_supplier__sanhua"
+    ],
+    "limitations": "Analyst/commentary source (not primary IR). Used specifically to bound/caveat the Sanhua-as-humanoid-thermal-supplier claim, not to assert a number. Indicates Sanhua's humanoid entry is actuator-led; thermal is reported/exploratory.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_humanoid_henkel_bergquist_tim",
+    "type": "product_page",
+    "title": "Thermal management materials | Henkel Adhesives (Bergquist)",
+    "url": "https://next.henkel-adhesives.com/us/en/applications/thermal-management-materials.html",
+    "sourceStatus": "fetch_ok",
+    "sourceName": "Henkel Adhesives",
+    "date": "2026-06-15",
+    "summary": "Henkel's Bergquist thermal-management page lists the markets its TIMs serve (incl. power and industrial automation); supports Henkel as a merchant TIM supplier candidate for the humanoid thermal stack.",
+    "excerpt": "These include automotive, consumer, telecom/datacom, power and industrial automation, computing, and communication, among others.",
+    "supportsNodeIds": [
+      "humanoid_thermal_management_system",
+      "org_henkel"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_thermal__reported_capable_supplier__henkel"
+    ],
+    "limitations": "Vendor application page. Robotics is NOT named in the fetched body (industrial automation is the closest market); humanoid use is inferred, so modeled reported_capable_supplier. No number claimed. Henkel = HEN3.DE (cross-domain org_henkel).",
+    "confidence": "low",
     "reviewStatus": "unreviewed"
   }
 ]

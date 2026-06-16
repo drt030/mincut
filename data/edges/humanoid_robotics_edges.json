@@ -1,109 +1,1759 @@
 [
-  { "id": "e_humanoid_stack__enables__workforce_capability", "source": "humanoid_robot_key_component_stack", "target": "humanoid_workforce_automation_capability", "relation": "enables", "claim": "A full humanoid component stack is one product architecture for human-form-factor workforce automation.", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__actuation", "source": "humanoid_robot_key_component_stack", "target": "humanoid_actuation_system", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__hands", "source": "humanoid_robot_key_component_stack", "target": "humanoid_dexterous_hand_tactile_system", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__battery_power", "source": "humanoid_robot_key_component_stack", "target": "humanoid_battery_power_charging_system", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_ti_bms"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__thermal", "source": "humanoid_robot_key_component_stack", "target": "humanoid_thermal_management_system", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_nmb_thermal"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__sensing", "source": "humanoid_robot_key_component_stack", "target": "humanoid_perception_sensing_stack", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tdk_robotics", "ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__compute", "source": "humanoid_robot_key_component_stack", "target": "humanoid_onboard_compute_control_electronics", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_nvidia_jetson_thor"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__structure", "source": "humanoid_robot_key_component_stack", "target": "humanoid_structure_materials_harness", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__locomotion", "source": "humanoid_robot_key_component_stack", "target": "humanoid_locomotion_control_software", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_nvidia_use_case"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__manipulation_ai", "source": "humanoid_robot_key_component_stack", "target": "humanoid_manipulation_ai_data_stack", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_stack__requires__manufacturing_service", "source": "humanoid_robot_key_component_stack", "target": "humanoid_manufacturing_test_safety_service", "relation": "requires", "confidence": "high", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_actuation__requires__rotary_joint", "source": "humanoid_actuation_system", "target": "humanoid_rotary_joint_module", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_actuation__requires__linear_joint", "source": "humanoid_actuation_system", "target": "humanoid_linear_joint_module", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_actuation__requires__reducer_stack", "source": "humanoid_actuation_system", "target": "humanoid_reducer_transmission_stack", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_harmonic_ir", "ev_humanoid_nabtesco_precision"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_actuation__requires__motor_stack", "source": "humanoid_actuation_system", "target": "humanoid_motor_stack", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_actuation__requires__drives", "source": "humanoid_actuation_system", "target": "humanoid_motor_drive_power_electronics", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_robotics", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_actuation__requires__joint_sensing", "source": "humanoid_actuation_system", "target": "humanoid_joint_sensing_feedback", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_robotics", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_actuation__requires__bearing", "source": "humanoid_actuation_system", "target": "humanoid_joint_bearing_sealing", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_reducer__requires__strain_wave", "source": "humanoid_reducer_transmission_stack", "target": "humanoid_strain_wave_reducer", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_harmonic_ir"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_linear__requires__roller_screw", "source": "humanoid_linear_joint_module", "target": "humanoid_planetary_roller_screw", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_motor__requires__frameless_bldc", "source": "humanoid_motor_stack", "target": "humanoid_frameless_bldc_motor", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_motor__requires__rare_earth", "source": "humanoid_motor_stack", "target": "humanoid_rare_earth_magnet_supply", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_drive__requires__inverter", "source": "humanoid_motor_drive_power_electronics", "target": "humanoid_inverter_power_stage", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_robotics", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_drive__requires__current_gate", "source": "humanoid_motor_drive_power_electronics", "target": "humanoid_current_sense_gate_driver", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_drive__requires__emi", "source": "humanoid_motor_drive_power_electronics", "target": "humanoid_emi_filtering_grounding", "relation": "implemented_by", "confidence": "low", "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_hands__requires__five_finger", "source": "humanoid_dexterous_hand_tactile_system", "target": "humanoid_five_finger_hand_mechanism", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_hands__requires__tendon", "source": "humanoid_dexterous_hand_tactile_system", "target": "humanoid_tendon_cable_transmission", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_hands__requires__micro_actuator", "source": "humanoid_dexterous_hand_tactile_system", "target": "humanoid_micro_hand_actuator", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_hands__requires__fingertip_tactile", "source": "humanoid_dexterous_hand_tactile_system", "target": "humanoid_fingertip_tactile_array", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_hands__requires__palm_tactile", "source": "humanoid_dexterous_hand_tactile_system", "target": "humanoid_palm_force_tactile_array", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_hands__implemented_by__slip_policy", "source": "humanoid_dexterous_hand_tactile_system", "target": "humanoid_slip_detection_policy", "relation": "implemented_by", "confidence": "low", "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_battery__requires__cells", "source": "humanoid_battery_power_charging_system", "target": "humanoid_lithium_ion_cell_selection", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_battery__requires__pack", "source": "humanoid_battery_power_charging_system", "target": "humanoid_battery_pack_enclosure", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_battery__requires__bms", "source": "humanoid_battery_power_charging_system", "target": "humanoid_battery_management_system", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_bms"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_battery__requires__power_bus", "source": "humanoid_battery_power_charging_system", "target": "humanoid_power_distribution_bus", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_battery__requires__charging", "source": "humanoid_battery_power_charging_system", "target": "humanoid_charging_docking_interface", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_ti_bms"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_battery__regulated_by__certification", "source": "humanoid_battery_power_charging_system", "target": "humanoid_pack_safety_certification", "relation": "regulated_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_thermal__requires__joint_thermal", "source": "humanoid_thermal_management_system", "target": "humanoid_motor_joint_thermal_path", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_nmb_thermal"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_thermal__requires__battery_thermal", "source": "humanoid_thermal_management_system", "target": "humanoid_battery_thermal_safety", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_nmb_thermal"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_thermal__requires__compute_spreader", "source": "humanoid_thermal_management_system", "target": "humanoid_compute_heat_spreader", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_nmb_thermal", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_thermal__requires__air_liquid_loop", "source": "humanoid_thermal_management_system", "target": "humanoid_airflow_liquid_cooling_loop", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_thermal__requires__sensor_map", "source": "humanoid_thermal_management_system", "target": "humanoid_thermal_sensor_map", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_nmb_thermal", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_thermal__validated_by__duty_cycle", "source": "humanoid_thermal_management_system", "target": "humanoid_sustained_duty_cycle_validation", "relation": "validated_by", "confidence": "low", "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_sensing__requires__rgb", "source": "humanoid_perception_sensing_stack", "target": "humanoid_stereo_rgb_camera", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_sensing__requires__depth_lidar", "source": "humanoid_perception_sensing_stack", "target": "humanoid_depth_camera_lidar", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_sensing__requires__imu", "source": "humanoid_perception_sensing_stack", "target": "humanoid_imu_attitude_sensing", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_tdk_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_sensing__requires__joint_encoder", "source": "humanoid_perception_sensing_stack", "target": "humanoid_joint_encoder_position", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_robotics", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_sensing__requires__force_torque", "source": "humanoid_perception_sensing_stack", "target": "humanoid_force_torque_sensing", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_sensing__requires__proximity", "source": "humanoid_perception_sensing_stack", "target": "humanoid_proximity_touch_safety", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_sensing__requires__audio", "source": "humanoid_perception_sensing_stack", "target": "humanoid_audio_microphone_array", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_compute__requires__edge_ai", "source": "humanoid_onboard_compute_control_electronics", "target": "humanoid_edge_ai_compute_module", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_jetson_thor"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_compute__requires__mcu", "source": "humanoid_onboard_compute_control_electronics", "target": "humanoid_realtime_mcu_safety_controller", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_compute__requires__motor_network", "source": "humanoid_onboard_compute_control_electronics", "target": "humanoid_motor_control_network", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference", "ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_compute__implemented_by__time_sync", "source": "humanoid_onboard_compute_control_electronics", "target": "humanoid_time_sync_sensor_fusion", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference", "ev_humanoid_nvidia_use_case"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_compute__requires__safety_isolation", "source": "humanoid_onboard_compute_control_electronics", "target": "humanoid_safety_power_isolation", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference", "ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_structure__requires__skeleton", "source": "humanoid_structure_materials_harness", "target": "humanoid_lightweight_skeleton_frame", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_structure__requires__enclosure", "source": "humanoid_structure_materials_harness", "target": "humanoid_torso_enclosure_skin", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_structure__requires__harness", "source": "humanoid_structure_materials_harness", "target": "humanoid_wiring_harness_connectors", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_structure__requires__materials", "source": "humanoid_structure_materials_harness", "target": "humanoid_high_stiffness_low_mass_materials", "relation": "requires", "confidence": "low", "evidenceIds": ["ev_humanoid_figure_botq", "ev_humanoid_figure_battery"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_structure__requires__foot", "source": "humanoid_structure_materials_harness", "target": "humanoid_foot_contact_structure", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_structure__implemented_by__serviceable_design", "source": "humanoid_structure_materials_harness", "target": "humanoid_serviceable_modular_design", "relation": "implemented_by", "confidence": "low", "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_locomotion__implemented_by__wbc", "source": "humanoid_locomotion_control_software", "target": "humanoid_whole_body_control_stack", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_nvidia_use_case"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_locomotion__implemented_by__gait", "source": "humanoid_locomotion_control_software", "target": "humanoid_gait_balance_policy", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_locomotion__implemented_by__sim2real", "source": "humanoid_locomotion_control_software", "target": "humanoid_sim_to_real_training_pipeline", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_use_case"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_locomotion__implemented_by__contact_force", "source": "humanoid_locomotion_control_software", "target": "humanoid_contact_force_control", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_locomotion__implemented_by__fall_stop", "source": "humanoid_locomotion_control_software", "target": "humanoid_fall_recovery_safe_stop", "relation": "implemented_by", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_locomotion__implemented_by__runtime_safety", "source": "humanoid_locomotion_control_software", "target": "humanoid_runtime_safety_monitor", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_locomotion__implemented_by__state_fusion", "source": "humanoid_locomotion_control_software", "target": "humanoid_time_sync_sensor_fusion", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference", "ev_humanoid_nvidia_use_case"], "weight": 0.4, "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_ai__implemented_by__vla", "source": "humanoid_manipulation_ai_data_stack", "target": "humanoid_vla_policy_model", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_use_case"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_ai__implemented_by__grasp", "source": "humanoid_manipulation_ai_data_stack", "target": "humanoid_grasp_planning_policy", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_unitree_g1", "ev_humanoid_tactile_review"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_ai__implemented_by__teleop", "source": "humanoid_manipulation_ai_data_stack", "target": "humanoid_teleoperation_data_collection", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_ai__implemented_by__training", "source": "humanoid_manipulation_ai_data_stack", "target": "humanoid_imitation_rl_training_loop", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_ai__implemented_by__task_planning", "source": "humanoid_manipulation_ai_data_stack", "target": "humanoid_task_planning_execution", "relation": "implemented_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_use_case", "ev_humanoid_unitree_g1"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_ai__validated_by__benchmarks", "source": "humanoid_manipulation_ai_data_stack", "target": "humanoid_manipulation_benchmark_eval", "relation": "validated_by", "confidence": "low", "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_mfg__requires__joint_assembly", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_high_volume_joint_assembly", "relation": "requires", "confidence": "low", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mfg__requires__eol_rig", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_end_of_line_calibration_rig", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mfg__requires__battery_eol", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_battery_pack_eol_test", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mfg__requires__burn_in", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_whole_robot_burn_in", "relation": "requires", "confidence": "low", "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mfg__implemented_by__mtbf", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_reliability_mtbf_tracking", "relation": "implemented_by", "confidence": "low", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mfg__requires__functional_safety", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_functional_safety_estop", "relation": "requires", "confidence": "medium", "evidenceIds": ["ev_humanoid_figure_battery", "ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mfg__requires__field_service", "source": "humanoid_manufacturing_test_safety_service", "target": "humanoid_field_service_spares_loop", "relation": "requires", "confidence": "low", "evidenceIds": ["ev_humanoid_figure_botq"], "reviewStatus": "unreviewed" },
-
-  { "id": "e_humanoid_strain_wave__manufactured_by__hds", "source": "humanoid_strain_wave_reducer", "target": "org_humanoid_harmonic_drive_systems", "relation": "manufactured_by", "claim": "Harmonic Drive Systems is a public supplier candidate for strain-wave reducer exposure; not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_harmonic_ir", "ev_humanoid_harmonic_drive_precision_products"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_reducer_stack__manufactured_by__hds", "source": "humanoid_reducer_transmission_stack", "target": "org_humanoid_harmonic_drive_systems", "relation": "manufactured_by", "claim": "Harmonic Drive Systems is modeled as a public strain-wave and precision gear supplier candidate for reducer-stack exposure; not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_harmonic_ir", "ev_humanoid_harmonic_drive_precision_products"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_reducer_stack__manufactured_by__nabtesco", "source": "humanoid_reducer_transmission_stack", "target": "org_humanoid_nabtesco", "relation": "manufactured_by", "claim": "Nabtesco is a public precision reducer supplier candidate; not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_nabtesco_precision"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_reducer_stack__manufactured_by__leaderdrive", "source": "humanoid_reducer_transmission_stack", "target": "org_humanoid_leaderdrive", "relation": "manufactured_by", "claim": "Leaderdrive is modeled as a China-listed strain-wave reducer and rotary actuator supplier candidate for humanoid reducer exposure; not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_leaderdrive_humanoid", "ev_humanoid_leaderdrive_ticker"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_motor_stack__manufactured_by__yaskawa", "source": "humanoid_motor_stack", "target": "org_yaskawa_electric", "relation": "manufactured_by", "claim": "Yaskawa is modeled as a public motion-control and servo supplier candidate; this is not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_yaskawa_motion"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_motor_stack__manufactured_by__nidec", "source": "humanoid_motor_stack", "target": "org_nidec", "relation": "manufactured_by", "claim": "Nidec is modeled as a public motor supplier candidate; this is not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_nidec_ir"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_edge_ai__manufactured_by__nvidia", "source": "humanoid_edge_ai_compute_module", "target": "org_humanoid_nvidia", "relation": "manufactured_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_nvidia_jetson_thor"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_bms__manufactured_by__ti", "source": "humanoid_battery_management_system", "target": "org_humanoid_texas_instruments", "relation": "manufactured_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_bms"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_current_gate__manufactured_by__ti", "source": "humanoid_current_sense_gate_driver", "target": "org_humanoid_texas_instruments", "relation": "manufactured_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_ti_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_mcu__manufactured_by__stm", "source": "humanoid_realtime_mcu_safety_controller", "target": "org_humanoid_stmicroelectronics", "relation": "manufactured_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_st_reference"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_imu__manufactured_by__tdk", "source": "humanoid_imu_attitude_sensing", "target": "org_humanoid_tdk", "relation": "manufactured_by", "confidence": "medium", "evidenceIds": ["ev_humanoid_tdk_robotics"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_harness__manufactured_by__te", "source": "humanoid_wiring_harness_connectors", "target": "org_humanoid_te_connectivity", "relation": "manufactured_by", "claim": "TE Connectivity is modeled as a public connector/sensor supplier candidate; this is not a confirmed humanoid BOM claim.", "confidence": "medium", "evidenceIds": ["ev_humanoid_te_robotics_connectors"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_cells__manufactured_by__samsung_sdi", "source": "humanoid_lithium_ion_cell_selection", "target": "org_samsung_sdi", "relation": "manufactured_by", "claim": "Samsung SDI is modeled as a public battery-cell supplier candidate; this is not a confirmed humanoid BOM claim.", "confidence": "low", "evidenceIds": ["ev_humanoid_samsung_sdi_ir"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_cells__manufactured_by__lg_energy", "source": "humanoid_lithium_ion_cell_selection", "target": "org_lg_energy_solution", "relation": "manufactured_by", "claim": "LG Energy Solution is modeled as a public battery-cell supplier candidate; this is not a confirmed humanoid BOM claim.", "confidence": "low", "evidenceIds": ["ev_humanoid_lg_energy_ir"], "reviewStatus": "unreviewed" },
-  { "id": "e_humanoid_cells__manufactured_by__catl", "source": "humanoid_lithium_ion_cell_selection", "target": "org_catl", "relation": "manufactured_by", "claim": "CATL is modeled as a public battery-cell supplier candidate; this is not a confirmed humanoid BOM claim.", "confidence": "low", "evidenceIds": ["ev_humanoid_catl_profile"], "reviewStatus": "unreviewed" }
+  {
+    "id": "e_humanoid_stack__enables__workforce_capability",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_workforce_automation_capability",
+    "relation": "enables",
+    "claim": "A full humanoid component stack is one product architecture for human-form-factor workforce automation.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__actuation",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_actuation_system",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__hands",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_dexterous_hand_tactile_system",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__battery_power",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_battery_power_charging_system",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__thermal",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_thermal_management_system",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__sensing",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_perception_sensing_stack",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tdk_robotics",
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__compute",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_onboard_compute_control_electronics",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_jetson_thor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__structure",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_structure_materials_harness",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__locomotion",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_locomotion_control_software",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__manipulation_ai",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_manipulation_ai_data_stack",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stack__requires__manufacturing_service",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_manufacturing_test_safety_service",
+    "relation": "requires",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__rotary_joint",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_rotary_joint_module",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__linear_joint",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_linear_joint_module",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__reducer_stack",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_reducer_transmission_stack",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir",
+      "ev_humanoid_nabtesco_precision"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__motor_stack",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_motor_stack",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__drives",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_motor_drive_power_electronics",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__joint_sensing",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_joint_sensing_feedback",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_actuation__requires__bearing",
+    "source": "humanoid_actuation_system",
+    "target": "humanoid_joint_bearing_sealing",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_reducer__requires__strain_wave",
+    "source": "humanoid_reducer_transmission_stack",
+    "target": "humanoid_strain_wave_reducer",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_linear__requires__roller_screw",
+    "source": "humanoid_linear_joint_module",
+    "target": "humanoid_planetary_roller_screw",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor__requires__frameless_bldc",
+    "source": "humanoid_motor_stack",
+    "target": "humanoid_frameless_bldc_motor",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor__requires__rare_earth",
+    "source": "humanoid_motor_stack",
+    "target": "humanoid_rare_earth_magnet_supply",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_drive__requires__inverter",
+    "source": "humanoid_motor_drive_power_electronics",
+    "target": "humanoid_inverter_power_stage",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_drive__requires__current_gate",
+    "source": "humanoid_motor_drive_power_electronics",
+    "target": "humanoid_current_sense_gate_driver",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_drive__requires__emi",
+    "source": "humanoid_motor_drive_power_electronics",
+    "target": "humanoid_emi_filtering_grounding",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hands__requires__five_finger",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_five_finger_hand_mechanism",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hands__requires__tendon",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_tendon_cable_transmission",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hands__requires__micro_actuator",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_micro_hand_actuator",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hands__requires__fingertip_tactile",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_fingertip_tactile_array",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hands__requires__palm_tactile",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_palm_force_tactile_array",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hands__implemented_by__slip_policy",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_slip_detection_policy",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_battery__requires__cells",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "humanoid_lithium_ion_cell_selection",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_battery__requires__pack",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "humanoid_battery_pack_enclosure",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_battery__requires__bms",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "humanoid_battery_management_system",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_battery__requires__power_bus",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "humanoid_power_distribution_bus",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_battery__requires__charging",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "humanoid_charging_docking_interface",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_battery__regulated_by__certification",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "humanoid_pack_safety_certification",
+    "relation": "regulated_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__requires__joint_thermal",
+    "source": "humanoid_thermal_management_system",
+    "target": "humanoid_motor_joint_thermal_path",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__requires__battery_thermal",
+    "source": "humanoid_thermal_management_system",
+    "target": "humanoid_battery_thermal_safety",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_nmb_thermal"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__requires__compute_spreader",
+    "source": "humanoid_thermal_management_system",
+    "target": "humanoid_compute_heat_spreader",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__requires__air_liquid_loop",
+    "source": "humanoid_thermal_management_system",
+    "target": "humanoid_airflow_liquid_cooling_loop",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__requires__sensor_map",
+    "source": "humanoid_thermal_management_system",
+    "target": "humanoid_thermal_sensor_map",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nmb_thermal",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__validated_by__duty_cycle",
+    "source": "humanoid_thermal_management_system",
+    "target": "humanoid_sustained_duty_cycle_validation",
+    "relation": "validated_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__rgb",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_stereo_rgb_camera",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__depth_lidar",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_depth_camera_lidar",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__imu",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_imu_attitude_sensing",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__joint_encoder",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_joint_encoder_position",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__force_torque",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_force_torque_sensing",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__proximity",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_proximity_touch_safety",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_sensing__requires__audio",
+    "source": "humanoid_perception_sensing_stack",
+    "target": "humanoid_audio_microphone_array",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_compute__requires__edge_ai",
+    "source": "humanoid_onboard_compute_control_electronics",
+    "target": "humanoid_edge_ai_compute_module",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_jetson_thor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_compute__requires__mcu",
+    "source": "humanoid_onboard_compute_control_electronics",
+    "target": "humanoid_realtime_mcu_safety_controller",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_compute__requires__motor_network",
+    "source": "humanoid_onboard_compute_control_electronics",
+    "target": "humanoid_motor_control_network",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference",
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_compute__implemented_by__time_sync",
+    "source": "humanoid_onboard_compute_control_electronics",
+    "target": "humanoid_time_sync_sensor_fusion",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference",
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_compute__requires__safety_isolation",
+    "source": "humanoid_onboard_compute_control_electronics",
+    "target": "humanoid_safety_power_isolation",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference",
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure__requires__skeleton",
+    "source": "humanoid_structure_materials_harness",
+    "target": "humanoid_lightweight_skeleton_frame",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure__requires__enclosure",
+    "source": "humanoid_structure_materials_harness",
+    "target": "humanoid_torso_enclosure_skin",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure__requires__harness",
+    "source": "humanoid_structure_materials_harness",
+    "target": "humanoid_wiring_harness_connectors",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure__requires__materials",
+    "source": "humanoid_structure_materials_harness",
+    "target": "humanoid_high_stiffness_low_mass_materials",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure__requires__foot",
+    "source": "humanoid_structure_materials_harness",
+    "target": "humanoid_foot_contact_structure",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure__implemented_by__serviceable_design",
+    "source": "humanoid_structure_materials_harness",
+    "target": "humanoid_serviceable_modular_design",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__wbc",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_whole_body_control_stack",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__gait",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_gait_balance_policy",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__sim2real",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_sim_to_real_training_pipeline",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__contact_force",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_contact_force_control",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__fall_stop",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_fall_recovery_safe_stop",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__runtime_safety",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_runtime_safety_monitor",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_locomotion__implemented_by__state_fusion",
+    "source": "humanoid_locomotion_control_software",
+    "target": "humanoid_time_sync_sensor_fusion",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference",
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "weight": 0.4,
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ai__implemented_by__vla",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_vla_policy_model",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ai__implemented_by__grasp",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_grasp_planning_policy",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_unitree_g1",
+      "ev_humanoid_tactile_review"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ai__implemented_by__teleop",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_teleoperation_data_collection",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ai__implemented_by__training",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_imitation_rl_training_loop",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ai__implemented_by__task_planning",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_task_planning_execution",
+    "relation": "implemented_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_use_case",
+      "ev_humanoid_unitree_g1"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ai__validated_by__benchmarks",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_manipulation_benchmark_eval",
+    "relation": "validated_by",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__requires__joint_assembly",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_high_volume_joint_assembly",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__requires__eol_rig",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_end_of_line_calibration_rig",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__requires__battery_eol",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_battery_pack_eol_test",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__requires__burn_in",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_whole_robot_burn_in",
+    "relation": "requires",
+    "confidence": "low",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__implemented_by__mtbf",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_reliability_mtbf_tracking",
+    "relation": "implemented_by",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__requires__functional_safety",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_functional_safety_estop",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mfg__requires__field_service",
+    "source": "humanoid_manufacturing_test_safety_service",
+    "target": "humanoid_field_service_spares_loop",
+    "relation": "requires",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_figure_botq"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__manufactured_by__hds",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "org_humanoid_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is a public supplier candidate for strain-wave reducer exposure; not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir",
+      "ev_humanoid_harmonic_drive_precision_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_reducer_stack__manufactured_by__hds",
+    "source": "humanoid_reducer_transmission_stack",
+    "target": "org_humanoid_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is modeled as a public strain-wave and precision gear supplier candidate for reducer-stack exposure; not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_ir",
+      "ev_humanoid_harmonic_drive_precision_products"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_reducer_stack__manufactured_by__nabtesco",
+    "source": "humanoid_reducer_transmission_stack",
+    "target": "org_humanoid_nabtesco",
+    "relation": "manufactured_by",
+    "claim": "Nabtesco is a public precision reducer supplier candidate; not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nabtesco_precision"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_reducer_stack__manufactured_by__leaderdrive",
+    "source": "humanoid_reducer_transmission_stack",
+    "target": "org_humanoid_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is modeled as a China-listed strain-wave reducer and rotary actuator supplier candidate for humanoid reducer exposure; not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_leaderdrive_humanoid",
+      "ev_humanoid_leaderdrive_ticker"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_stack__manufactured_by__yaskawa",
+    "source": "humanoid_motor_stack",
+    "target": "org_yaskawa_electric",
+    "relation": "manufactured_by",
+    "claim": "Yaskawa is modeled as a public motion-control and servo supplier candidate; this is not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_yaskawa_motion"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_stack__manufactured_by__nidec",
+    "source": "humanoid_motor_stack",
+    "target": "org_nidec",
+    "relation": "manufactured_by",
+    "claim": "Nidec is modeled as a public motor supplier candidate; this is not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nidec_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_ai__manufactured_by__nvidia",
+    "source": "humanoid_edge_ai_compute_module",
+    "target": "org_humanoid_nvidia",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_jetson_thor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms__manufactured_by__ti",
+    "source": "humanoid_battery_management_system",
+    "target": "org_humanoid_texas_instruments",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_current_gate__manufactured_by__ti",
+    "source": "humanoid_current_sense_gate_driver",
+    "target": "org_humanoid_texas_instruments",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mcu__manufactured_by__stm",
+    "source": "humanoid_realtime_mcu_safety_controller",
+    "target": "org_humanoid_stmicroelectronics",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu__manufactured_by__tdk",
+    "source": "humanoid_imu_attitude_sensing",
+    "target": "org_humanoid_tdk",
+    "relation": "manufactured_by",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_harness__manufactured_by__te",
+    "source": "humanoid_wiring_harness_connectors",
+    "target": "org_humanoid_te_connectivity",
+    "relation": "manufactured_by",
+    "claim": "TE Connectivity is modeled as a public connector/sensor supplier candidate; this is not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_te_robotics_connectors"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cells__manufactured_by__samsung_sdi",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "org_samsung_sdi",
+    "relation": "manufactured_by",
+    "claim": "Samsung SDI is modeled as a public battery-cell supplier candidate; this is not a confirmed humanoid BOM claim.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_samsung_sdi_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cells__manufactured_by__lg_energy",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "org_lg_energy_solution",
+    "relation": "manufactured_by",
+    "claim": "LG Energy Solution is modeled as a public battery-cell supplier candidate; this is not a confirmed humanoid BOM claim.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_lg_energy_ir"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cells__manufactured_by__catl",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "org_catl",
+    "relation": "manufactured_by",
+    "claim": "CATL is modeled as a public battery-cell supplier candidate; this is not a confirmed humanoid BOM claim.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_catl_profile"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__manufactured_by__nidec",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "org_nidec",
+    "relation": "manufactured_by",
+    "claim": "Nidec (Nidec Drive Technology) markets its FLEXWAVE strain-wave gear reducers as suited to humanoid-robot joints; modeled as a strain-wave reducer supplier candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nidec_flexwave"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__manufactured_by__gsa",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "org_humanoid_gsa",
+    "relation": "manufactured_by",
+    "claim": "GSA AG / Gewinde Ziegler AG makes the RGTI inverted planetary roller screw reported as the type Tesla sources for Optimus; modeled as a near-single-source roller-screw supplier candidate, not a confirmed/contracted humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_gsa_rgti",
+      "ev_humanoid_gsa_inhouse"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__manufactured_by__rollvis",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "org_humanoid_rollvis",
+    "relation": "manufactured_by",
+    "claim": "Rollvis SA is a Swiss world-leading satellite/planetary roller-screw maker; modeled as a roller-screw supplier candidate for humanoid linear actuators, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_rollvis_identity"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__manufactured_by__schaeffler",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler AG makes roller screws via its Ewellix linear-motion business (acquired from Triton in 2023); modeled as a planetary-roller-screw supplier candidate for the humanoid linear-joint stack, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ewellix_schaeffler",
+      "ev_humanoid_ewellix_rollerscrew"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_roller_screw__requires__thread_grinding",
+    "source": "humanoid_planetary_roller_screw",
+    "target": "humanoid_thread_grinding_equipment",
+    "relation": "requires",
+    "claim": "Planetary roller-screw production depends on ultra-precision CNC thread-grinding equipment (sub-3-micron internal/external thread grinding); the grinder supply and grinding expertise are the upstream bottleneck.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_drake_thread_grinder"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thread_grinding__manufactured_by__drake",
+    "source": "humanoid_thread_grinding_equipment",
+    "target": "org_humanoid_drake_manufacturing",
+    "relation": "manufactured_by",
+    "claim": "Drake Manufacturing builds CNC internal thread grinders and ball-nut/ballscrew grinders for the ball-screw and linear-motion industries; modeled as an upstream thread-grinding equipment supplier candidate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_drake_thread_grinder"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thread_grinding__manufactured_by__holroyd",
+    "source": "humanoid_thread_grinding_equipment",
+    "target": "org_humanoid_ptg_holroyd",
+    "relation": "manufactured_by",
+    "claim": "PTG Holroyd builds high-precision screw and thread grinding machines (world's most accurate helical components); modeled as an upstream thread-grinding equipment supplier candidate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_holroyd_thread_grinder"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_strain_wave__manufactured_by__picea",
+    "source": "humanoid_strain_wave_reducer",
+    "target": "org_humanoid_picea_motion",
+    "relation": "manufactured_by",
+    "claim": "Shenzhen PICEA Motion (formerly Han's Motion) makes precision harmonic-drive / strain-wave reducers marketed for humanoid-robot joints; modeled as a strain-wave reducer supplier candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_picea_profile",
+      "ev_humanoid_picea_humanoid"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rare_earth__manufactured_by__jl_mag",
+    "source": "humanoid_rare_earth_magnet_supply",
+    "target": "org_jl_mag_rare_earth",
+    "relation": "manufactured_by",
+    "claim": "JL MAG Rare-Earth is the top-ranked global sintered-NdFeB permanent-magnet maker and in 2025 stood up a dedicated humanoid-robot magnetic-component business unit; modeled as a magnet-supply exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_jlmag_humanoid_unit",
+      "ev_humanoid_jlmag_blank_output"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rare_earth__manufactured_by__shin_etsu",
+    "source": "humanoid_rare_earth_magnet_supply",
+    "target": "org_shin_etsu_chemical",
+    "relation": "manufactured_by",
+    "claim": "Shin-Etsu Chemical makes NdFeB (Nd-Fe-B) sintered magnets used in industrial servomotors/linear motors; modeled as a magnet-supply exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_shinetsu_nd_magnet"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rare_earth__manufactured_by__proterial",
+    "source": "humanoid_rare_earth_magnet_supply",
+    "target": "org_proterial",
+    "relation": "manufactured_by",
+    "claim": "Proterial (ex-Hitachi Metals) pioneered and mass-produces NEOMAX Nd-Fe-B sintered magnets for motors and a heavy-rare-earth-saving grade; modeled as a magnet-supply exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_proterial_neomax"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rare_earth__manufactured_by__mp_materials",
+    "source": "humanoid_rare_earth_magnet_supply",
+    "target": "org_mp_materials",
+    "relation": "manufactured_by",
+    "claim": "MP Materials began trial production of sintered NdFeB magnets at its Fort Worth Independence facility (~1,000 t/yr target, late-2025 ramp); modeled as a nascent ex-China magnet-supply exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_mp_independence_magnet"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rare_earth__reported_capable_supplier__tdk",
+    "source": "humanoid_rare_earth_magnet_supply",
+    "target": "org_humanoid_tdk",
+    "relation": "reported_capable_supplier",
+    "claim": "TDK is a public Japan-listed magnetic-component maker carried as a candidate NdFeB-class magnet supplier; this batch verifies no TDK-specific NdFeB-for-humanoid quote, so the link is reported-capable, not confirmed manufacture.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_stack__manufactured_by__regal_rexnord",
+    "source": "humanoid_motor_stack",
+    "target": "org_regal_rexnord",
+    "relation": "manufactured_by",
+    "claim": "Regal Rexnord's Kollmorgen brand makes frameless / direct-drive torque motors widely used in robot and cobot joints; modeled as a frameless-motor exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_kollmorgen_frameless_joints",
+      "ev_humanoid_regal_altra_kollmorgen"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_stack__manufactured_by__parker_hannifin",
+    "source": "humanoid_motor_stack",
+    "target": "org_parker_hannifin",
+    "relation": "manufactured_by",
+    "claim": "Parker Hannifin makes frameless direct-drive torque motors (K-Series / TK-Series) for robotics joints; modeled as a frameless-motor exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_parker_frameless_tk"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_stack__manufactured_by__moog",
+    "source": "humanoid_motor_stack",
+    "target": "org_moog",
+    "relation": "manufactured_by",
+    "claim": "Moog makes direct-drive brushless DC frameless (pancake) torque motors supplied as a rotor/stator part set; modeled as a frameless-motor exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_moog_frameless"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_motor_stack__manufactured_by__maxon",
+    "source": "humanoid_motor_stack",
+    "target": "org_maxon",
+    "relation": "manufactured_by",
+    "claim": "maxon makes EC frameless DT torque motors and integrated HEJ joint actuators explicitly targeting humanoids/quadrupeds/exoskeletons; modeled as a frameless-motor exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_maxon_ec_frameless"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_encoder__manufactured_by__renishaw",
+    "source": "humanoid_joint_encoder_position",
+    "target": "org_renishaw",
+    "relation": "manufactured_by",
+    "claim": "Renishaw non-contact magnetic absolute encoders (AksIM, Orbis) are a supplier candidate for humanoid joint position feedback; documented in PAL Robotics REEM-C knee/wrist/elbow joints. Exposure candidate, not a confirmed BOM claim for any specific commercial humanoid OEM.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_renishaw_pal"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_encoder__manufactured_by__heidenhain",
+    "source": "humanoid_joint_encoder_position",
+    "target": "org_heidenhain",
+    "relation": "manufactured_by",
+    "claim": "HEIDENHAIN (with AMO) secondary angle/rotary encoders are a supplier candidate for robot-joint position feedback mounted after the gear train. Exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_heidenhain_robot_encoders"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_encoder__manufactured_by__broadcom",
+    "source": "humanoid_joint_encoder_position",
+    "target": "org_broadcom",
+    "relation": "manufactured_by",
+    "claim": "Broadcom absolute magnetic motor-feedback encoders are a supplier candidate for robot joint / hand-actuator position feedback. Exposure candidate, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_broadcom_encoders"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_encoder__manufactured_by__netzer",
+    "source": "humanoid_joint_encoder_position",
+    "target": "org_humanoid_netzer",
+    "relation": "manufactured_by",
+    "claim": "Netzer contactless capacitive absolute hollow-shaft encoders are a supplier candidate for humanoid robot-arm joint feedback (documented in NASA Robonaut 2 humanoid). Exposure candidate, not a confirmed commercial-humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_netzer_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_force_torque__manufactured_by__novanta_ati",
+    "source": "humanoid_force_torque_sensing",
+    "target": "org_humanoid_novanta_ati",
+    "relation": "manufactured_by",
+    "claim": "ATI Industrial Automation (a Novanta division) six-axis force/torque sensors are a supplier candidate for humanoid wrist/hand force-torque sensing. Exposure candidate; incumbent in industrial robotic F/T but no confirmed humanoid-OEM BOM claim found this round.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ati_novanta_ft"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_force_torque__manufactured_by__bota",
+    "source": "humanoid_force_torque_sensing",
+    "target": "org_humanoid_bota_systems",
+    "relation": "manufactured_by",
+    "claim": "Bota Systems compact 6-axis force/torque sensors are a supplier candidate for humanoid force-torque and fingertip sensing; vendor explicitly markets to humanoid robots. Exposure candidate, not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_bota_ft"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_force_torque__manufactured_by__sri",
+    "source": "humanoid_force_torque_sensing",
+    "target": "org_humanoid_sri_sunrise",
+    "relation": "manufactured_by",
+    "claim": "Sunrise Instruments (SRI) sells a dedicated humanoid-robot six-axis force/torque sensor line and is a supplier candidate for humanoid force-torque sensing. Exposure candidate, not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_sri_ft"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_fingertip_tactile__manufactured_by__xela",
+    "source": "humanoid_fingertip_tactile_array",
+    "target": "org_humanoid_xela_robotics",
+    "relation": "manufactured_by",
+    "claim": "XELA Robotics uSkin three-axis tactile skin sensors are a supplier candidate for humanoid fingertip/phalange/palm tactile arrays; integrated into the Tesollo DG-5F anthropomorphic hand. Exposure candidate, not a confirmed named-humanoid-OEM BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_xela_uskin",
+      "ev_humanoid_xela_tesollo"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_fingertip_tactile__manufactured_by__paxini",
+    "source": "humanoid_fingertip_tactile_array",
+    "target": "org_humanoid_paxini",
+    "relation": "manufactured_by",
+    "claim": "PaXini multidimensional tactile sensors (PX-6AX) and tactile dexterous hands are a supplier candidate for humanoid fingertip/hand tactile sensing. Exposure candidate, not a confirmed third-party-OEM BOM claim (PaXini also builds its own hands/robots).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_paxini_tactile"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu__manufactured_by__bosch_sensortec",
+    "source": "humanoid_imu_attitude_sensing",
+    "target": "org_humanoid_bosch_sensortec",
+    "relation": "manufactured_by",
+    "claim": "Bosch Sensortec MEMS IMUs (BMI088 class) are a supplier candidate for humanoid IMU/attitude sensing; vendor names agile humanoids among robotics targets. Exposure candidate, not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_bosch_sensortec_imu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_lidar__manufactured_by__hesai",
+    "source": "humanoid_depth_camera_lidar",
+    "target": "org_humanoid_hesai",
+    "relation": "manufactured_by",
+    "claim": "Hesai JT-series 3D robotics LiDAR is a supplier candidate for the humanoid depth/LiDAR perception layer; named only LiDAR firm on Morgan Stanley Humanoid Tech 25. Exposure candidate, not a confirmed named-humanoid-OEM BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_hesai_humanoid_tech25"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_lidar__manufactured_by__robosense",
+    "source": "humanoid_depth_camera_lidar",
+    "target": "org_humanoid_robosense",
+    "relation": "manufactured_by",
+    "claim": "RoboSense Active Camera (AC1/AC2) fused LiDAR+RGB+IMU vision is a supplier candidate for the humanoid depth/LiDAR perception layer; secured an order from a European humanoid robotics firm. Exposure candidate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_robosense_humanoid_order"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_lidar__manufactured_by__orbbec",
+    "source": "humanoid_depth_camera_lidar",
+    "target": "org_humanoid_orbbec",
+    "relation": "manufactured_by",
+    "claim": "Orbbec Gemini-series stereo-vision depth cameras are a supplier candidate for the humanoid depth-camera perception layer (featured in HONOR's humanoid). Exposure candidate; reported >70% China service-robot 3D-vision share.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_orbbec_honor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_stereo_camera__manufactured_by__orbbec",
+    "source": "humanoid_stereo_rgb_camera",
+    "target": "org_humanoid_orbbec",
+    "relation": "manufactured_by",
+    "claim": "Orbbec Gemini stereo-vision 3D cameras are a supplier candidate for the humanoid stereo RGB camera module (HONOR humanoid; Reachy 2). Exposure candidate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_orbbec_honor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_lidar__manufactured_by__realsense",
+    "source": "humanoid_depth_camera_lidar",
+    "target": "org_humanoid_realsense",
+    "relation": "manufactured_by",
+    "claim": "RealSense stereo depth cameras (D4xx; D455 in Agility Digit) are a supplier candidate for the humanoid depth-camera perception layer; RealSense reports working with ~60% of AMR and humanoid developers. Exposure candidate.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_realsense_independent"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cells__reported_capable_supplier__eve_energy",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "org_eve_energy",
+    "relation": "reported_capable_supplier",
+    "claim": "EVE Energy mass-produces all-solid-state cells (Longquan II, 10 Ah, up to 300 Wh/kg) intended to power humanoid robots; supply to a specific humanoid OEM not yet verified.",
+    "context": "Cell-level merchant supply candidate (cell, not pack). Trade-press reported, no OEM purchase order confirmed.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_eve_energy_solid_state"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cells__reported_capable_supplier__molicel",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "org_molicel",
+    "relation": "reported_capable_supplier",
+    "claim": "Molicel lists 'humanoid robotics applications' among the end-markets for its ultra-high-power cylindrical cells; specific humanoid OEM design-win not independently verified.",
+    "context": "Cell-level merchant supply candidate (high-power cylindrical cell, not pack). Source is Molicel's own product site (vendor claim) — humanoid relevance stated, OEM purchase not proven.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_molicel_applications"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cells__reported_capable_supplier__panasonic",
+    "source": "humanoid_lithium_ion_cell_selection",
+    "target": "org_panasonic",
+    "relation": "reported_capable_supplier",
+    "claim": "Panasonic Energy makes high-power-density 2170 cylindrical lithium-ion cells (the form factor the industry reports humanoids repurpose); a confirmed Panasonic supply to a named humanoid OEM was not found.",
+    "context": "Cell-level merchant candidate by form-factor analogy. Verbatim primary quote covers a robotaxi (Zoox) design-win, not a humanoid; included as capability evidence, not a humanoid purchase order.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_panasonic_2170_cylindrical"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_power_charging__manufactured_by__infineon",
+    "source": "humanoid_battery_power_charging_system",
+    "target": "org_infineon",
+    "relation": "manufactured_by",
+    "claim": "Infineon supplies dedicated merchant semiconductors for humanoid robots spanning power switches, microcontrollers, sensors and connectivity (the power-electronics / BMS-front-end silicon).",
+    "context": "Merchant ICs/power switches (Infineon-made today, humanoid-dedicated product line). The BMS state-of-charge/balancing firmware that runs on top is the integrator's own (captive), not Infineon's.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_infineon_humanoid_blocks"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms__reported_capable_supplier__nxp",
+    "source": "humanoid_battery_management_system",
+    "target": "org_nxp",
+    "relation": "reported_capable_supplier",
+    "claim": "NXP offers standalone battery-management-system reference designs/ICs for mobile robotics (e.g. RDDRONE-BMS772, 3-6 cells; MR-BMS771, 7-14 cells); not yet tied to a named humanoid OEM.",
+    "context": "Merchant BMS silicon + reference design (NXP-made). 'Mobile robotics (drones, rovers)' is the stated target — adjacent to, not specifically, humanoid; the final pack firmware is the integrator's (captive).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nxp_mobile_robotics_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_ai__manufactured_by__qualcomm",
+    "source": "org_humanoid_qualcomm",
+    "target": "humanoid_edge_ai_compute_module",
+    "relation": "manufactured_by",
+    "claim": "Qualcomm markets the Dragonwing IQ10 series as a premium-tier onboard AI compute ('brain of the robot') processor for full-size humanoid robots; merchant alternative to NVIDIA Jetson Thor.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_qualcomm_dragonwing_iq10"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_ai__manufactured_by__nxp",
+    "source": "org_humanoid_nxp",
+    "target": "humanoid_edge_ai_compute_module",
+    "relation": "manufactured_by",
+    "claim": "NXP's i.MX 95 applications processor serves as a machine-vision edge-perception compute node delivering high-bandwidth data to the humanoid robot brain (developed with NVIDIA).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nxp_humanoid_edge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mcu__manufactured_by__nxp",
+    "source": "org_humanoid_nxp",
+    "target": "humanoid_realtime_mcu_safety_controller",
+    "relation": "manufactured_by",
+    "claim": "NXP supplies a humanoid motor-control solution built on a kinematic chain of i.MX RT1180 crossover MCUs aggregated by an S32J TSN switch connecting to the robot brain.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nxp_humanoid_edge"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_ai__manufactured_by__rockchip",
+    "source": "org_humanoid_rockchip",
+    "target": "humanoid_edge_ai_compute_module",
+    "relation": "manufactured_by",
+    "claim": "Rockchip's RK3588/RK3588S SoC is the adopted onboard compute/'brain' platform in multiple named Chinese humanoid robots (e.g. AgiBot/ZhiYuan Lingxi X2, LimX Oli).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_rockchip_rk3588"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_ai__manufactured_by__d_robotics",
+    "source": "org_humanoid_d_robotics",
+    "target": "humanoid_edge_ai_compute_module",
+    "relation": "manufactured_by",
+    "claim": "D-Robotics' RDK S100 is the first single-SoC platform integrating robot 'brain' (compute) and 'cerebellum' (control) for humanoid-robot developers (80-128 TOPS).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_d_robotics_rdk_s100"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_gate_driver__manufactured_by__infineon",
+    "source": "org_humanoid_infineon",
+    "target": "humanoid_current_sense_gate_driver",
+    "relation": "manufactured_by",
+    "claim": "Infineon supplies gate drivers, current sensors, and a GaN-based motor-control chip set for humanoid-robot motor control (Aug 2025 NVIDIA collaboration).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_infineon_motor_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_mcu__manufactured_by__infineon",
+    "source": "org_humanoid_infineon",
+    "target": "humanoid_realtime_mcu_safety_controller",
+    "relation": "manufactured_by",
+    "claim": "Infineon's PSOC Control C3 MCU family implements field-oriented motor control for humanoid robots and bridges to NVIDIA Jetson Thor via the Holoscan Sensor Bridge.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_infineon_motor_control"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_gate_driver__manufactured_by__epc",
+    "source": "org_humanoid_epc",
+    "target": "humanoid_current_sense_gate_driver",
+    "relation": "manufactured_by",
+    "claim": "EPC's EPC91122 3-phase BLDC motor-drive inverter evaluation board is engineered specifically for humanoid robot joint applications (GaN power stage for joint actuator drive).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_epc_humanoid_joint"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_gate_driver__reported_capable_supplier__microchip",
+    "source": "org_humanoid_microchip",
+    "target": "humanoid_current_sense_gate_driver",
+    "relation": "reported_capable_supplier",
+    "claim": "Microchip's dsPIC33 DSC-based integrated motor drivers fuse a DSC, a three-phase MOSFET gate driver, and LIN/CAN FD into one device for FOC BLDC/PMSM motor control (robotics/industrial-class; humanoid design win not yet demonstrated on source).",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_microchip_integrated_motor_driver"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_bearing__manufactured_by__nsk",
+    "source": "humanoid_joint_bearing_sealing",
+    "target": "org_nsk",
+    "relation": "manufactured_by",
+    "claim": "NSK is a public supplier candidate for humanoid joint thin-section/precision bearings, and is vertically integrating bearings into its own humanoid rotary/linear actuators; not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nsk_irex_humanoid_bearing",
+      "ev_humanoid_nsk_delta_actuator"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_bearing__manufactured_by__schaeffler",
+    "source": "humanoid_joint_bearing_sealing",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler is a public supplier candidate for humanoid joint bearings (XZU four-point bearing variant for the humanoid market; bearing integrated into the actuator rotor); not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_schaeffler_humanoid_actuator_bearing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_bearing__manufactured_by__rbc",
+    "source": "humanoid_joint_bearing_sealing",
+    "target": "org_rbc_bearings",
+    "relation": "manufactured_by",
+    "claim": "RBC Bearings is a public supplier candidate for humanoid joint thin-section bearings; its thin-section line names Robotics, Rotary Joints, Harmonic Drives, and Speed Reducers as typical applications. Not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_rbc_thin_section_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_bearing__reported_capable_supplier__thk",
+    "source": "humanoid_joint_bearing_sealing",
+    "target": "org_thk",
+    "relation": "reported_capable_supplier",
+    "claim": "THK is a reported-capable supplier of cross-roller rings used as rotary bearings for robot joints; modeled reported-capable because no THK primary page could be fetched this round (thk.com 403).",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_thk_ticker"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_joint_bearing__reported_capable_supplier__ntn",
+    "source": "humanoid_joint_bearing_sealing",
+    "target": "org_ntn",
+    "relation": "reported_capable_supplier",
+    "claim": "NTN is a reported-capable supplier of crossed-roller bearings for robot reduction gears; modeled reported-capable because the NTN robot pages were unreachable/403 this round.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_ntn_ticker"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure_materials__manufactured_by__victrex",
+    "source": "humanoid_structure_materials_harness",
+    "target": "org_humanoid_victrex",
+    "relation": "manufactured_by",
+    "claim": "Victrex is a public PEEK supplier candidate for humanoid structural/lightweighting material (PEEK gears, bushings, limb/skeleton components replacing metal); not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_victrex_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure_materials__manufactured_by__evonik",
+    "source": "humanoid_structure_materials_harness",
+    "target": "org_humanoid_evonik",
+    "relation": "manufactured_by",
+    "claim": "Evonik is a public PEEK supplier candidate for humanoid structural/lightweighting material (VESTAKEEP PEEK, incl. slide bearings, marketed to the robotics industry); not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_evonik_vestakeep_robotics"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_structure_materials__reported_capable_supplier__syensqo",
+    "source": "humanoid_structure_materials_harness",
+    "target": "org_syensqo",
+    "relation": "reported_capable_supplier",
+    "claim": "Syensqo (KetaSpire PEEK) is a reported-capable PEEK supplier for humanoid structural/lightweighting material; modeled reported-capable because syensqo.com PEEK pages returned 406 this round (no fetched robotics quote). One of ~4 thousand-ton-scale PEEK makers.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_syensqo_listing"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__reported_capable_supplier__sanhua",
+    "source": "humanoid_thermal_management_system",
+    "target": "org_humanoid_sanhua",
+    "relation": "reported_capable_supplier",
+    "claim": "Sanhua is reported in industry coverage as a Tesla Optimus thermal / liquid-cooling supplier, leveraging its automotive microchannel-liquid-cooling thermal technology. Modeled reported-capable (NOT manufactured_by): a quality source says its current humanoid focus is actuators, not thermal; the liquid-cooling-share claims are unverified SEO/substack. Flag for verifier.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_sanhua_thermal_capability",
+      "ev_humanoid_sanhua_humanoid_actuator_focus"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_thermal__reported_capable_supplier__henkel",
+    "source": "humanoid_thermal_management_system",
+    "target": "org_henkel",
+    "relation": "reported_capable_supplier",
+    "claim": "Henkel (Bergquist TIMs) is a reported-capable supplier of thermal interface materials for the humanoid thermal stack; its TIM markets include power/industrial automation. Robotics is not named in the fetched primary body, so modeled reported-capable rather than manufactured_by.",
+    "confidence": "low",
+    "evidenceIds": [
+      "ev_humanoid_henkel_bergquist_tim"
+    ],
+    "reviewStatus": "unreviewed"
+  }
 ]

@@ -396,5 +396,217 @@
     "id": "task_space_starship_actuation_electronics",
     "status": "pending",
     "createdAt": "2026-06-15T06:34:23.818Z"
+  },
+  {
+    "title": "Quantify the Swiss planetary-roller-screw >50% corner with a primary/quality source",
+    "reason": "Multiple trade/vendor sources state GSA + Rollvis (both Swiss, private) together hold >50% of the high-precision planetary roller-screw world market, and that Tesla Optimus sources GSA's RGTI 12.8 inverted roller screw. This round captured GSA and Rollvis company/product identity from their own sites (fetch_ok) but the specific >50% share and the Tesla->GSA sourcing came only from SEO/vendor blogs (screw-tech, kggfa). NEAR-SINGLE-SOURCE CORNER (relates org_humanoid_gsa + org_humanoid_rollvis): needs one primary or two independent quality sources before any >50% / 'Tesla sources GSA' number is asserted. Until then the corner is carried qualitatively on the component node.",
+    "targetNodeId": "humanoid_planetary_roller_screw",
+    "priority": "high",
+    "id": "task_humanoid_roller_screw_swiss_corner",
+    "status": "pending",
+    "createdAt": "2026-06-15"
+  },
+  {
+    "title": "Tie thread-grinding equipment bottleneck to roller-screw scale-up with quantified evidence",
+    "reason": "Roller-screw threads need sub-3-micron tolerance ultra-precision CNC grinding; reported five-axis grinders >$1.2M and ~18-month custom planetary-thread-grinder backlogs (interestingengineering/roboticstomorrow secondary). Drake (US, org_humanoid_drake_manufacturing) and PTG Holroyd (UK, org_humanoid_ptg_holroyd) confirmed as thread/ballscrew grinder builders from primary/quality pages, but neither page names planetary-roller-screw grinders specifically or quantifies lead time. Also check Kapp Niles (DE), Matrix/Holroyd, and Reishauer for internal-thread roller-screw grinding capability + lead-time disclosure.",
+    "targetNodeId": "humanoid_thread_grinding_equipment",
+    "priority": "medium",
+    "id": "task_humanoid_thread_grinding_corner",
+    "status": "pending",
+    "createdAt": "2026-06-15"
+  },
+  {
+    "title": "Source THK and NSK roller/ball-screw humanoid exposure with clean verbatim",
+    "reason": "TARGETS NOT SOURCED THIS ROUND: THK (6481.T, reuse org_thk) and NSK (6471.T, reuse org_nsk) were named in the dispatch but thk.com / nsk product pages returned HTTP 403 to WebFetch and no clean fetchable page confirmed a *planetary roller screw* product (both are primarily ball-screw / linear-guide makers; planetary roller screws are GSA/Rollvis/Ewellix territory). Honest miss rather than a guessed edge. Re-attempt with an authenticated/browser fetch; if confirmed, wire via reuse of existing org_thk / org_nsk. Roller-screw component is already covered by GSA + Rollvis + Ewellix(Schaeffler) (3 suppliers) plus the scarcity corner.",
+    "targetNodeId": "humanoid_planetary_roller_screw",
+    "priority": "medium",
+    "id": "task_humanoid_roller_screw_thk_nsk",
+    "status": "pending",
+    "createdAt": "2026-06-15"
+  },
+  {
+    "title": "Quantify Harmonic Drive + Nabtesco strain-wave concentration share",
+    "reason": "Harmonic Drive capacity-gating captured from primary (150k->220k units/month, fixed multi-year increments). The Harmonic Drive (org_humanoid_harmonic_drive_systems) + Nabtesco (org_humanoid_nabtesco) duopoly concentration in high-end strain-wave reducers is widely reported but not yet attached with a sourced share %. Find an IFR / interact-analysis / TrendForce-class share figure for strain-wave reducer concentration. Chinese challengers now modeled: Leaderdrive (688017.SS), PICEA/Han's Motion (private). Note Nidec FLEXWAVE (org_nidec) as the third merchant Japanese alternative.",
+    "targetNodeId": "humanoid_strain_wave_reducer",
+    "priority": "medium",
+    "id": "task_humanoid_reducer_concentration_quantify",
+    "status": "pending",
+    "createdAt": "2026-06-15"
+  },
+  {
+    "title": "Joint-encoder corner",
+    "reason": "Joint-encoder corner: high-end absolute encoder supply for robot joints is concentrated among a few precision specialists (Renishaw, HEIDENHAIN/AMO, Broadcom, Netzer) plus Sankyo/Nidec-Tamagawa, Sick, Posital — no quantified single-source claim found this round; flag as concentrated-not-monopoly. Verify in upstream/corners pass.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_5",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "Cross-domain org folds for orchestrator",
+    "reason": "Cross-domain org folds for orchestrator: org_humanoid_renishaw=org_renishaw(RSW.L); org_humanoid_heidenhain=org_heidenhain(private); org_humanoid_broadcom=org_broadcom(AVGO). RLS = Renishaw/RLS JV (Orbis/AksIM brands) -> keep under Renishaw, do not create separate node.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_6",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "Heidenhain humanoid robotics page (heidenhain.com/industries/robotics)",
+    "reason": "Heidenhain humanoid robotics page (heidenhain.com/industries/robotics) returned HTTP 403 this round; retry from a different network or use heidenhain.us article (used here). KCI 120 dual-feedback claim seen in search snippet but NOT in fetched body -> not asserted.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_7",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "F/T sensor breadth overflow (>5 cap)",
+    "reason": "F/T sensor breadth overflow (>5 cap): Hypersen (海伯森, Shenzhen) explicitly markets six-axis F/T 'for humanoid robots' (en.hypersen.com/application/six-axis-force-torque-sensors...); also Kunwei/Coined/宇立(SRI cn), Nordbo, OnRobot/HEX, Robotous (Korea). Add in breadth pass if room. SRI corrected: US HQ (Canton MI), not China-only.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_8",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "F/T sensor structure",
+    "reason": "F/T sensor structure: incumbent ATI (Novanta NOVT) historically dominant in industrial six-axis F/T; humanoid wave is drawing in Bota (CH) + many Chinese entrants. No quantified share found this round -> qualitative 'incumbent + fragmenting'. Quantify in corners/upstream pass.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_9",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "Tactile-skin breadth overflow (>5 cap)",
+    "reason": "Tactile-skin breadth overflow (>5 cap): Contactile (PapillArray/Force Button, AU), Wonik Robotics (KR), Tashan/塔尚, Tacterion (DE), Tekscan, Pressure Profile Systems, SingleTact, plus Chinese e-skin (Huaweike ~200 humanoids 2024->~1000 Q1'25 per Mordor). Add in breadth pass.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_10",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "CAPTIVE HONESTY",
+    "reason": "CAPTIVE HONESTY: tactile is often vertically integrated by hand/robot makers (PaXini builds hands+robots; Tesla, Sanctuary, etc. develop in-house tactile). Merchant tactile-skin supply to third-party humanoid OEMs is an emerging, not yet share-quantified, market.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_11",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "IMU component coverage",
+    "reason": "IMU component coverage: TDK/InvenSense edge (humanoid_imu_attitude_sensing->org_humanoid_tdk, TDK 6762.T) ALREADY exists in repo data/edges/humanoid_robotics_edges.json (e_humanoid_imu__manufactured_by__tdk) -> NOT duplicated here. This round adds Bosch Sensortec. With STMicro task below, IMU tier = TDK + Bosch + STMicro.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_12",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "STMicro IMU DEFERRED",
+    "reason": "STMicro IMU DEFERRED: org_humanoid_stmicroelectronics (STM) already exists. Verified search snippet shows ISM330DLC iNEMO 6-axis industrial IMU listing 'robots, drones' as applications, but st.com/ism330dlc + embedded.com + eejournal + electronicsmaker mirrors ALL blocked (socket-closed/timeout/403/ECONNREFUSED) this round -> no fetchable verbatim. Breadth pass: add edge humanoid_imu_attitude_sensing->org_humanoid_stmicroelectronics with a fetched ST IMU quote (try mouser.com/digikey ISM330DLC product page, which usually renders).",
+    "priority": "medium",
+    "id": "task_import_20260616002018_13",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "IMU/MEMS upstream/corners note",
+    "reason": "IMU/MEMS upstream/corners note: high-end MEMS IMU merchant market concentrated in Bosch Sensortec, TDK/InvenSense, STMicro (plus Analog Devices/ADI for tactical-grade, Murata). For dynamic humanoid balance, higher-grade (lower-bias) IMUs matter -> consider ADI ADIS line in breadth pass.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_14",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "CAPTIVE HONESTY (Tesla camera-only)",
+    "reason": "CAPTIVE HONESTY (Tesla camera-only): Tesla Optimus uses Tesla's in-house camera-only vision (the AI4/FSD vision stack), no LiDAR and no merchant depth-camera/LiDAR for primary perception -> the depth/LiDAR exposure above does NOT apply to Tesla. Add a captive note on humanoid_perception_sensing_stack or humanoid_depth_camera_lidar. (Dev-set Register quote: Optimus shares the AI4 with the car.)",
+    "priority": "medium",
+    "id": "task_import_20260616002018_15",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "Camera/depth/LiDAR CORNER candidate",
+    "reason": "Camera/depth/LiDAR CORNER candidate: Orbbec self-claims >70% 3D-vision share (China service / Korea mobile robots); RealSense claims ~60% of AMR+humanoid developers; Hesai+RoboSense duopolize robotics LiDAR (dev set). Corners pass: get an independent (Yole/analyst) figure for image-sensor + depth-camera + robotics-LiDAR share before any 'only/>X%' flip. Upstream pass: the CMOS image sensors inside all these cameras -> Sony Semiconductor (IMX), onsemi, OmniVision/Will Semi 603501.SS, Samsung LSI -> likely a deeper merchant chokepoint than the module assemblers.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_16",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "Camera/depth breadth overflow (>5 cap at depth leaf)",
+    "reason": "Camera/depth breadth overflow (>5 cap at depth leaf): Luxonis (OAK), Stereolabs (ZED), Framos, e-con Systems, Leopard Imaging for stereo/depth modules; Livox (DJI), Ouster for additional robotics LiDAR. Add in breadth pass.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_17",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "Ticker provenance (verified this round)",
+    "reason": "Ticker provenance (verified this round): Hesai HSAI (Nasdaq) + 2525.HK; RoboSense 2498.HK; Orbbec 688322.SS (Shanghai STAR, self-stated 'SHA: 688322'); RealSense private (ex-Intel spinout). Hesai/RoboSense tickers also match the dev-set LiDAR episode.",
+    "priority": "medium",
+    "id": "task_import_20260616002018_18",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_renishaw",
+    "reason": "Cross-domain org: also org_renishaw (parcel_sorting_robot). Orchestrator: fold to single node.",
+    "priority": "low",
+    "id": "task_import_20260616002018_19",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_heidenhain",
+    "reason": "Cross-domain org: also org_heidenhain (parcel_sorting_robot). Orchestrator: fold.",
+    "priority": "low",
+    "id": "task_import_20260616002018_20",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_broadcom",
+    "reason": "Cross-domain org: also org_broadcom (ai_compute_chain). Orchestrator: fold.",
+    "priority": "low",
+    "id": "task_import_20260616002018_21",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_novanta_ati",
+    "reason": "ATI Industrial Automation is a division of Novanta Inc (NOVT). One node for the public parent.",
+    "priority": "low",
+    "id": "task_import_20260616002018_22",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_bosch_sensortec",
+    "reason": "Bosch Sensortec is a subsidiary of privately-held Robert Bosch GmbH; if a parent org_bosch node exists elsewhere, orchestrator may fold.",
+    "priority": "low",
+    "id": "task_import_20260616002018_23",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_hesai",
+    "reason": "Dual-listed: HSAI (Nasdaq, primary used) + 2525.HK. One node.",
+    "priority": "low",
+    "id": "task_import_20260616002018_24",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "org-fold note: org_humanoid_realsense",
+    "reason": "Formerly Intel RealSense; now standalone RealSense Inc (Intel Capital portfolio). If org_intel exists cross-domain, do NOT fold — this is a separate spun-out company.",
+    "priority": "low",
+    "id": "task_import_20260616002018_25",
+    "status": "pending",
+    "createdAt": "2026-06-16T00:20:18.893Z"
+  },
+  {
+    "title": "append_domain humanoid_robotics to reused cross-domain orgs",
+    "reason": "These orgs already exist in other domain files and are referenced (not re-declared) by this batch's edges/evidence to keep one-company-one-node. Orchestrator normalize step should add 'humanoid_robotics' to their domain[] (append_domain), not create new nodes: org_nsk (6471.T, parcel), org_schaeffler (SHA.DE, parcel), org_thk (6481.T, parcel), org_ntn (6472.T, parcel), org_rbc_bearings (RBC, spacex), org_syensqo (SYENS, spacex), org_henkel (HEN3.DE, ai_compute).",
+    "priority": "medium",
+    "id": "task_humanoid_append_domain_cross_orgs",
+    "status": "pending",
+    "createdAt": "2026-06-15"
   }
 ]
