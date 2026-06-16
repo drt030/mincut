@@ -41,8 +41,11 @@
  * (5) AND (6 has a position) AND (7 is layer-visible). The rendered focal-tree
  * count is the size of that intersection.
  *
- * Self-check baseline (Gate F browser review, 2026-06-16):
- *   ai_compute 69, spacex_reusable_launch 36, humanoid_robotics 58.
+ * Self-check baseline = post-deepening committed depth (2026-06-16):
+ *   ai_compute 69, spacex_reusable_launch 65, humanoid_robotics 86.
+ *   (Pre-deepening Gate-F baseline was 69/36/58; both paid domains were
+ *   deepened to flagship parity per the owner depth directive, so the floor
+ *   is now their committed rendered depth — a regression guard going forward.)
  *
  * Standalone by design: imports only library modules, edits no shared file,
  * and prints a plain table. Exits 0.
@@ -67,8 +70,8 @@ const DOMAIN_SLUGS = ["ai-compute", "spacex-reusable-launch", "humanoid-robotics
 /** Expected rendered focal-tree counts (Gate F, 2026-06-16); ±1 tolerance. */
 const BASELINE: Record<string, number> = {
   "ai-compute": 69,
-  "spacex-reusable-launch": 36,
-  "humanoid-robotics": 58,
+  "spacex-reusable-launch": 65,
+  "humanoid-robotics": 86,
 };
 const BASELINE_TOLERANCE = 1;
 
@@ -253,11 +256,11 @@ function main(): void {
   console.log("");
   if (mismatches.length === 0) {
     console.log(
-      `Self-check: all ${checked.length} domains within +/-${BASELINE_TOLERANCE} of the Gate F baseline (69/36/58).`,
+      `Self-check: all ${checked.length} domains within +/-${BASELINE_TOLERANCE} of the post-deepening baseline (69/65/86).`,
     );
   } else {
     console.log(
-      `Self-check: ${mismatches.length}/${checked.length} domain(s) differ from the Gate F baseline (69/36/58):`,
+      `Self-check: ${mismatches.length}/${checked.length} domain(s) differ from the post-deepening baseline (69/65/86):`,
     );
     for (const r of mismatches) {
       const delta = r.renderedNodes - (r.baseline ?? 0);
