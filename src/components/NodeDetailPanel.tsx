@@ -1057,7 +1057,12 @@ function heatScoreLabel(t: (key: string) => string, score: number): string {
 function firstSentenceDescription(text: string | undefined): string | null {
   const trimmed = text?.trim();
   if (!trimmed) return null;
-  const match = trimmed.match(/^.*?[.!?。！？](?:\s|$)/);
+  // CJK terminators (。！？) carry no trailing whitespace, so the old
+  // `(?:\s|$)` guard matched only at the final terminator and returned the
+  // whole zh body — leaking later-sentence supplier names (FF-1) that EN keeps
+  // out of its first sentence. Match CJK terminators directly; keep ASCII
+  // terminators gated on whitespace/end so abbreviations don't over-split.
+  const match = trimmed.match(/^[\s\S]*?(?:[。！？]|[.!?](?=\s|$))/);
   return (match ? match[0] : trimmed).trim();
 }
 
@@ -1123,11 +1128,16 @@ function detailBottleneckThesisText(
   nodeName: (id: string, fallback: string) => string,
   t: (key: string) => string,
   evidence: Evidence[],
+  // FF-3 (Gate F): when the active language is zh the caller passes the
+  // localized description body so the 核心判断 sentence reads Chinese instead
+  // of splicing the English `description` in. Defaults to the English field
+  // for the /graph and /product callers that have not (yet) localized.
+  localizedDescription: string | undefined = node.description,
 ): string {
   const where = sentenceClause(compactReaderClause(
     isAiComputeNode(node) && node.kind === "product"
       ? t("readerAiComputeImportance")
-      : firstSentenceDescription(node.description) ?? t("noDescription"),
+      : firstSentenceDescription(localizedDescription) ?? t("noDescription"),
   ));
   const parents = (node.bottleneckOf ?? [])
     .map((parentId) => nodeById(graph, parentId))
@@ -1157,9 +1167,17 @@ function detailWhereStuckFactors(node: Node, t: (key: string) => string): string
   return factors.slice(0, 4);
 }
 
-function detailWhereStuckReason(node: Node, t: (key: string) => string): string {
+function detailWhereStuckReason(
+  node: Node,
+  t: (key: string) => string,
+  // FF-3 (Gate F): zh-aware body. readerFacingConstraintReason's keyword
+  // heuristic + sentence splitter are English-only, so in zh mode the caller
+  // passes the already-first-sentence zh body and we skip the English cleaner.
+  localized?: { language: "en" | "zh"; description: string | undefined },
+): string {
   if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeStuckReason");
-  return readerFacingConstraintReason(node.description);
+  if (localized?.language === "zh") return firstSentenceDescription(localized.description) ?? "";
+  return readerFacingConstraintReason(localized?.description ?? node.description);
 }
 
 function constraintSummaryText(node: Node, t: (key: string) => string): string {
@@ -1291,13 +1309,19 @@ function NodeReaderPriority({
   showExposureSummary: boolean;
   defaultOpenExposureSummary: boolean;
 }) {
-  const { nodeName, t } = useLanguage();
+  const { language, nodeDescription, nodeName, t } = useLanguage();
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
+  // FF-3 (Gate F): resolve the zh description body (falling back to English)
+  // so the Detail-tab 核心判断 / 具体卡点 render Chinese in zh mode.
+  const localizedDescription = language === "zh"
+    ? nodeDescription(node.id, node.description ?? "") || node.description
+    : node.description;
+  const whereStuckReason = detailWhereStuckReason(node, t, { language, description: localizedDescription });
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
       <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
         <span>{t("readerBottleneckThesis")}</span>
-        <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence)}</p>
+        <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence, localizedDescription)}</p>
       </div>
       <div className="detail-reader-role" data-testid="detail-where-stuck">
         <span>{t("readerWhereStuck")}</span>
@@ -1306,8 +1330,8 @@ function NodeReaderPriority({
             <span className="pill" key={factor}>{factor}</span>
           ))}
         </div>
-        {detailWhereStuckReason(node, t) ? (
-          <p className="detail-reader-stuck-note">{detailWhereStuckReason(node, t)}</p>
+        {whereStuckReason ? (
+          <p className="detail-reader-stuck-note">{whereStuckReason}</p>
         ) : null}
       </div>
       <DecisionBrief graph={graph} node={node} evidence={evidence} />

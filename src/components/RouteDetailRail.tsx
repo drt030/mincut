@@ -17,6 +17,7 @@ import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { RouteHighlight } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
+import { useHolderTeaser } from "./HolderTeaserProvider";
 import { NodeDetailContent } from "./NodeDetailPanel";
 
 type RailAnalysisMode = "relation" | "cost" | "bottleneck-risk" | "maturity";
@@ -57,7 +58,14 @@ function compactDescription(text: string | undefined): string | null {
 function firstSentenceDescription(text: string | undefined): string | null {
   const compact = compactDescription(text);
   if (!compact) return null;
-  const match = compact.match(/^.*?[.!?。！？](?:\s|$)/);
+  // CJK terminators (。！？) end a sentence with no trailing whitespace, so the
+  // earlier `(?:\s|$)` guard never matched mid-string and the whole zh body was
+  // treated as one sentence — which surfaced later clauses (e.g. hidden
+  // supplier names that EN keeps in sentence 2) in the rail body and broke
+  // FF-1. Match CJK terminators without a space requirement; keep ASCII
+  // terminators gated on whitespace/end so "U.S."-style abbreviations don't
+  // over-split.
+  const match = compact.match(/^[\s\S]*?(?:[。！？]|[.!?](?=\s|$))/);
   return match ? match[0].trim() : compact;
 }
 
@@ -216,6 +224,33 @@ function constraintFactorsForNode(node: Node, t: (key: string) => string): strin
     .map((entry) => t(entry.labelKey));
 }
 
+/**
+ * FF-2 (Gate F): per-node locked-supplier teaser. On gated audit-preview
+ * `/d/<slug>` routes the holder organizations are stripped before this rail
+ * renders, so post-strip holder counts are 0. The PRE-STRIP count is threaded
+ * via `HolderTeaserProvider`/`computeHolderTeasers` (Decision-10) and surfaced
+ * here as "N suppliers · M listed" for any component/material node with hidden
+ * holders — quantifying the paywall where the researcher actually is. COUNT
+ * ONLY: never a supplier name or ticker (those stay stripped per FF-1).
+ */
+function LockedSupplierTeaser({ nodeId }: { nodeId: string }) {
+  const { t } = useLanguage();
+  const teaser = useHolderTeaser(nodeId);
+  if (!teaser || teaser.total <= 0) return null;
+  return (
+    <div
+      className="route-reader-locked-suppliers"
+      data-testid="route-locked-supplier-teaser"
+      data-suppliers-total={teaser.total}
+      data-suppliers-listed={teaser.listed}
+    >
+      <span>{t("readerLockedSuppliersHeading")}</span>
+      <strong>{formatCopy(t("readerLockedSupplierTeaser"), { total: teaser.total, listed: teaser.listed })}</strong>
+      <small>{t("readerLockedSupplierTeaserHint")}</small>
+    </div>
+  );
+}
+
 export function RouteDetailRail({
   graph,
   route,
@@ -242,7 +277,16 @@ export function RouteDetailRail({
     }
     onPanelChange?.(next);
   };
-  const { kindName, language, nodeName, t } = useLanguage();
+  const { kindName, language, nodeDescription, nodeName, t } = useLanguage();
+  // FF-3 (Gate F): surface the zh DESCRIPTION body (核心判断 / 具体卡点) when the
+  // active language is zh and a translation exists, falling back to the English
+  // `description`. Every place the rail reads `node.description` for reader prose
+  // must route through this so the body matches the language of the chrome.
+  const descriptionOf = (node: Node): string | undefined => {
+    const english = node.description;
+    const localized = nodeDescription(node.id, english ?? "");
+    return localized || english;
+  };
   const costSignalText = (value: number, kind: "modeled" | "estimated" | "missing") =>
     readerFacingCostSignalText({
       valueText: formatRmb(value),
@@ -357,7 +401,7 @@ export function RouteDetailRail({
       total: summary.total,
     });
   };
-  const nodeRoleText = (node: Node): string => firstSentenceDescription(node.description) ?? t("noDescription");
+  const nodeRoleText = (node: Node): string => firstSentenceDescription(descriptionOf(node)) ?? t("noDescription");
   const bottleneckTargetNames = (node: Node): string[] =>
     (node.bottleneckOf ?? [])
       .map((nodeId) => {
@@ -391,7 +435,14 @@ export function RouteDetailRail({
     }
     return factors.slice(0, 2);
   };
-  const keyStuckReasonForNode = (node: Node): string => readerFacingConstraintReason(node.description);
+  const keyStuckReasonForNode = (node: Node): string => {
+    const description = descriptionOf(node);
+    // readerFacingConstraintReason's sentence-splitter and keyword heuristic
+    // are English-only, so on a zh body it returns the whole block. Use the
+    // zh-aware first-sentence extractor (handles 。！？) when in zh mode.
+    if (language === "zh") return firstSentenceDescription(description) ?? "";
+    return readerFacingConstraintReason(description);
+  };
   const keyEvidenceSummaryText = (node: Node): string => {
     const summary = directEvidenceSummary(graph, node);
     if (summary.total === 0) return t("readerEvidenceThin");
@@ -812,6 +863,7 @@ export function RouteDetailRail({
             className="route-rail-card route-rail-node-detail"
             data-testid="route-rail-node-detail"
           >
+            {isAuditPreviewAccess ? <LockedSupplierTeaser nodeId={selectedNode.id} /> : null}
             {detailIntent === "exposure" && exposurePointOfNeed ? (
               <div
                 ref={exposureIntentRef}
@@ -878,6 +930,7 @@ export function RouteDetailRail({
                     ) : null}
                   </div>
                   {routeDecisionBrief(featuredStartNode)}
+                  {isAuditPreviewAccess ? <LockedSupplierTeaser nodeId={featuredStartNode.id} /> : null}
                   <div className="route-rail-chip-row" aria-label={t("readerStartNextTitle")}>
                     {startNextItems.map((item) => (
                       <button
@@ -1047,6 +1100,7 @@ export function RouteDetailRail({
                     ) : null}
                   </div>
                   {routeDecisionBrief(selectedSummaryNode)}
+                  {isAuditPreviewAccess ? <LockedSupplierTeaser nodeId={selectedSummaryNode.id} /> : null}
                   <div className="route-reader-evidence-summary">
                     <span>{t("readerKeyEvidenceSummary")}</span>
                     <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
