@@ -31,6 +31,12 @@ NOT trust any prior "ACCEPTED" verdict or orchestrator summary.
 - A3 `npm run check:active-graph-scope` · A4 `npm run check:graph-ux` · A5 `npm run check:commercial-readiness` → green.
 - A6 `npm run verify` then `npm run build` → green. A7 zh coverage (part of verify) → 0 missing zh
   (names AND descriptions for the paid domains). A8 the per-domain data-quality test → green.
+- **A9 reviewStatus integrity (owner-only, ADR-0001).** `git log` the run's commits and grep their
+  diffs for `reviewStatus` — **ANY agent-authored `reviewStatus` change is a FAIL.** The verification
+  verdict belongs in `machineCheck.status`, NEVER `reviewStatus` (a verifier that wrote
+  `reviewStatus:"verified"` made a double error: invalid enum — valid set is
+  `unreviewed|reviewed|disputed|deprecated` — and an owner-only-field violation). Only the owner sets
+  a non-`unreviewed` reviewStatus.
 FAIL Gate A if any command is non-green. Name the exact failing line.
 
 ### Gate B/C — evidence & exposure (semantic; spot-check, do not self-attest)
