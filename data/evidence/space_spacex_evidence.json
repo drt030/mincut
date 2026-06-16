@@ -4,7 +4,7 @@
     "type": "product_page",
     "title": "SpaceX Falcon 9 vehicle page",
     "url": "https://www.spacex.com/vehicles/falcon-9",
-    "sourceStatus": "generic_homepage",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceX",
     "date": "accessed 2026-06-13",
     "summary": "SpaceX describes Falcon 9 as a reusable two-stage rocket and identifies major reusable-architecture elements including the first stage, Merlin engines, grid fins, landing legs, and fairing reuse.",
@@ -21,12 +21,13 @@
     "reviewStatus": "unreviewed",
     "excerpt": "Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond. Falcon 9 is the world's first orbital class reusable rocket. Falcon 9's first stage incorporates nine Merlin engines. Falcon 9 is equipped with four hypersonic grid fins positioned at the base of the interstage.",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-15",
-      "quoteMatch": "not_checked",
-      "notes": "OWNER REVIEW: spacex.com SPA, stored excerpt not machine-verifiable. Re-anchor to verified source or confirm via browser. spacex.com/vehicles/falcon-9 is a client-rendered SPA: WebFetch and curl (browser UA) both return only a ~3.1KB JS shell (readable text = 'SpaceX'), and the latest Wayback snapsh"
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "partial",
+      "numberInQuote": false,
+      "notes": "browser-rendered spacex.com confirms excerpt. Opened https://www.spacex.com/vehicles/falcon-9 in a real browser (chrome-devtools; JS SPA renders fully). Verbatim on page: 'Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond.' (overview); 'Falcon 9 is the world's first orbital class reusable rocket.' (overview); 'Falcon 9 is equipped with four hypersonic grid fins positioned at the base of the interstage.' (interstage/grid-fins). The clause 'Falcon 9's first stage incorporates nine Merlin engines' is verbatim but the page sentence continues '...and aluminum-lithium alloy tanks...', so the stored excerpt truncates it with a period — hence quoteMatch=partial (condensed across sections, no altered wording). No digit-numbers in excerpt (counts spelled 'nine'/'four', both present verbatim)."
     },
-    "limitations": "Real Falcon 9 page (JS-rendered; readable only via browser). Covers reusable stack, nine Merlin engines, grid fins; page also states landing legs, single Merlin Vacuum 2nd stage, and fairing recovery for reuse."
+    "limitations": "Real Falcon 9 page (JS-rendered; readable only via browser, confirmed 2026-06-16). Covers reusable stack, nine Merlin engines, grid fins; page also states landing legs, single Merlin Vacuum 2nd stage, and fairing recovery for reuse. Excerpt condenses verbatim sentences from the overview + first-stage + interstage sections (the nine-Merlin sentence is truncated with a period)."
   },
   {
     "id": "ev_space_falcon_users_guide_2025",
@@ -84,7 +85,7 @@
     "type": "product_page",
     "title": "SpaceX Starship vehicle page",
     "url": "https://www.spacex.com/vehicles/starship",
-    "sourceStatus": "generic_homepage",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceX",
     "date": "accessed 2026-06-13",
     "summary": "SpaceX describes Starship as designed to carry more than 100 metric tonnes to orbit in a fully reusable configuration.",
@@ -101,10 +102,11 @@
     "reviewStatus": "unreviewed",
     "excerpt": "SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond.",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-15",
-      "quoteMatch": "not_checked",
-      "notes": "OWNER REVIEW: spacex.com SPA, stored excerpt not machine-verifiable. Re-anchor to verified source or confirm via browser. spacex.com/vehicles/starship is the same client-rendered SPA: WebFetch and curl (browser UA) return only the ~3.1KB JS shell ('SpaceX'); Wayback CDX has no usable snapshot (empty"
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "browser-rendered spacex.com confirms excerpt. Opened https://www.spacex.com/vehicles/starship in a real browser (chrome-devtools; JS SPA renders fully). Stored excerpt 'SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond.' is present verbatim as the opening sentence of the STARSHIP OVERVIEW block (the page's following sentence adds the '...more than 100 metric tonnes to orbit in a fully reusable configuration' claim, also present verbatim). No digit-number inside the stored excerpt itself."
     }
   },
   {
