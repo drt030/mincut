@@ -398,6 +398,70 @@ test("explicit AI compute gate still omits hidden organization names and keeps t
   assert.ok(graph.nodes.some((node) => node.id === domain.rootId), "free technical graph root stays visible");
 });
 
+// 2026-06-16 Gate-F FF-1: cross-domain supplier orgs (defined in another domain's
+// node file, carrying no gated tag of their own) leaked their name + ticker on a
+// gated route because they reach the graph only via a supplier edge from a gated
+// host. They must be stripped on the gated render; free_teaser route context stays.
+const crossDomainLeakFixture: GraphData = {
+  graphVersion: "test",
+  nodes: [
+    { id: "lox_supply", name: "LOX supply", kind: "material", domain: ["spacex_reusable_launch"] },
+    {
+      id: "org_linde",
+      name: "Linde plc",
+      kind: "organization",
+      ticker: "LIN",
+      domain: ["parcel_sorting_robot", "industrial_gas"],
+      tags: ["manufacturer", "public_company"],
+    },
+    { id: "org_spacex", name: "SpaceX", kind: "organization", domain: ["spacex_reusable_launch"], tags: ["free_teaser"] },
+  ] as GraphData["nodes"],
+  edges: [
+    {
+      id: "e_lox_linde",
+      source: "lox_supply",
+      target: "org_linde",
+      relation: "manufactured_by",
+      claim: "Linde plc supplies SpaceX liquid oxygen",
+    },
+    { id: "e_lox_spacex", source: "lox_supply", target: "org_spacex", relation: "manufactured_by" },
+  ] as GraphData["edges"],
+  evidence: [] as GraphData["evidence"],
+};
+
+test("cross-domain supplier of a gated host is stripped (Gate-F FF-1 leak regression)", () => {
+  const { graph, locked } = stripExposureLayer(crossDomainLeakFixture, []);
+  assert.ok(!graph.nodes.some((n) => n.id === "org_linde"), "cross-domain supplier org must be stripped on a gated route");
+  assert.ok(!graph.edges.some((e) => e.id === "e_lox_linde"), "its supplier edge must be stripped too");
+  assert.doesNotMatch(JSON.stringify(graph), /Linde/, "cross-domain supplier name must not survive anywhere in the gated graph");
+  assert.ok(graph.nodes.some((n) => n.id === "org_spacex"), "free_teaser route-context org stays");
+  assert.ok(
+    locked.some((entry) => entry.domainTag === "spacex_reusable_launch" && entry.hiddenOrgCount >= 1),
+    "the cross-domain supplier counts toward the gated teaser",
+  );
+});
+
+test("entitlement reveals the cross-domain supplier (Gate-F FF-1)", () => {
+  const { graph } = stripExposureLayer(crossDomainLeakFixture, ["space"]);
+  assert.ok(graph.nodes.some((n) => n.id === "org_linde"), "space entitlement reveals the gated supplier");
+});
+
+test("gated routes do not leak the known cross-domain supplier names (Gate-F FF-1, real data)", () => {
+  const cases: Array<{ slug: string; orgIds: string[]; name: string }> = [
+    { slug: "spacex-reusable-launch", orgIds: ["org_linde", "org_air_liquide", "org_eaton", "org_dupont"], name: "Linde" },
+    { slug: "humanoid-robotics", orgIds: ["org_mp_materials", "org_nsk", "org_thk", "org_renishaw"], name: "MP Materials" },
+  ];
+  for (const { slug, orgIds, name } of cases) {
+    const domain = domainBySlug(slug);
+    assert.ok(domain, `${slug} route registered`);
+    const { graph } = stripExposureLayer(loadActiveGraphData(domain.rootId), []);
+    for (const orgId of orgIds) {
+      assert.ok(!graph.nodes.some((n) => n.id === orgId), `${slug}: cross-domain supplier ${orgId} must be stripped on the gated route`);
+    }
+    assert.equal(findIdentityLeak(graph, name), undefined, `${slug}: ${name} must not survive in the gated graph`);
+  }
+});
+
 function hiddenOrganizationSearchTerms(graph: GraphData, domainTag: string): string[] {
   const hiddenOrganizations = graph.nodes.filter(
     (node) =>

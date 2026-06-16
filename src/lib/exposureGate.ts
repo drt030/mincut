@@ -45,21 +45,60 @@ export function stripExposureLayer(
     ...gatedDomains.filter((d) => !lockedChainTags.has(d.domainTag)).map((d) => d.domainTag),
   ]);
 
+  // A node "hosts" paid exposure for a locked domain when its own `domain`
+  // carries that domain's chain tag. Cross-domain supplier orgs (defined in
+  // another domain's node file — e.g. org_linde lives in parcel, org_mp_materials
+  // in another chain) reach a gated graph ONLY via a supplier edge FROM such a
+  // host. They carry no gated tag of their own, so the per-org tag check below
+  // would miss them and leak their name + ticker on the paid route (Gate-F FF-1).
+  // We therefore also hide any org reached by a supplier relation from a locked
+  // host — its paid role here is the value being gated, regardless of whether the
+  // org is also public in a free chain. free_teaser orgs stay exempt (below).
+  const supplierRelations = new Set([
+    "manufactured_by",
+    "implemented_by",
+    "qualified_supplier",
+    "reported_capable_supplier",
+    "second_source_candidate",
+    "capacity_provider",
+    "strategic_supplier_to",
+  ]);
+  const nodeById = new Map(graph.nodes.map((n) => [n.id, n]));
+  const supplierLockedDomains = new Map<string, Set<string>>();
+  for (const e of graph.edges) {
+    if (!supplierRelations.has(e.relation)) continue;
+    const target = nodeById.get(e.target);
+    if (target?.kind !== "organization") continue;
+    const hostLocked = (nodeById.get(e.source)?.domain ?? []).filter((t) => lockedChainTags.has(t));
+    if (hostLocked.length === 0) continue;
+    const set = supplierLockedDomains.get(e.target) ?? new Set<string>();
+    hostLocked.forEach((t) => set.add(t));
+    supplierLockedDomains.set(e.target, set);
+  }
+
   const hiddenNodeIds = new Set<string>();
   for (const n of graph.nodes) {
     if (n.kind !== "organization") continue;
     if ((n.tags ?? []).includes("free_teaser")) continue;
     const domainTags = n.domain ?? [];
-    if (!domainTags.some((t) => lockedChainTags.has(t))) continue;
-    if (domainTags.some((t) => openChainTags.has(t))) continue;
-    hiddenNodeIds.add(n.id);
+    const ownLocked = domainTags.some((t) => lockedChainTags.has(t));
+    const ownOpen = domainTags.some((t) => openChainTags.has(t));
+    if (ownLocked && !ownOpen) {
+      hiddenNodeIds.add(n.id);
+      continue;
+    }
+    if (supplierLockedDomains.has(n.id)) {
+      hiddenNodeIds.add(n.id);
+    }
   }
 
   const locked = lockedDomains.map((d) => ({
     domainTag: d.domainTag,
     entitlement: d.entitlement,
     hiddenOrgCount: graph.nodes.filter(
-      (n) => hiddenNodeIds.has(n.id) && (n.domain ?? []).includes(d.domainTag),
+      (n) =>
+        hiddenNodeIds.has(n.id) &&
+        ((n.domain ?? []).includes(d.domainTag) || (supplierLockedDomains.get(n.id)?.has(d.domainTag) ?? false)),
     ).length,
   }));
 
@@ -222,6 +261,16 @@ function redactEvidenceProse(
   const redacted = Object.fromEntries(
     Object.entries(evidence).map(([key, value]) => {
       if (key === "id" || key === "supportsNodeIds" || key === "supportsEdgeIds") return [key, value];
+      if (key === "machineCheck" && value && typeof value === "object" && "notes" in (value as object)) {
+        // machineCheck.notes is internal verifier prose (fetch URLs, facility +
+        // supplier names) that can name a locked supplier and is not user-facing.
+        // Drop it on the gated render rather than rely on redacting freeform prose
+        // (short/compact identities like "MP Materials" / "mpmaterials.com" evade
+        // name redaction). The verified status itself is kept.
+        const rest = Object.fromEntries(Object.entries(value as Record<string, unknown>).filter(([k]) => k !== "notes"));
+        changed = true;
+        return [key, rest];
+      }
       if (key === "url" && typeof value === "string" && containsLockedOrganizationName(value, lockedOrgNames)) {
         changed = true;
         return [key, undefined];
