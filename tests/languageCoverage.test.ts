@@ -5,16 +5,42 @@ import path from "node:path";
 import { loadActiveGraphData } from "../src/lib/graphLoader";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
 
-function chineseNodeKeys(): Set<string> {
-  const raw = fs.readFileSync(
+function languageProviderSource(): string {
+  return fs.readFileSync(
     path.join(process.cwd(), "src", "components", "LanguageProvider.tsx"),
     "utf8",
   );
-  const block = raw.match(/const nodeTextZh: Record<string, string> = \{([\s\S]*?)\n\};/)?.[1] ?? "";
+}
+
+function dictionaryKeys(dictName: string): Set<string> {
+  const raw = languageProviderSource();
+  const block = raw.match(
+    new RegExp(`const ${dictName}: Record<string, string> = \\{([\\s\\S]*?)\\n\\};`),
+  )?.[1] ?? "";
   // Keys whose ids start with a digit (e.g. 48v_converter_module) are
   // necessarily quoted in the dictionary literal — accept both forms.
   return new Set([...block.matchAll(/^\s*"?([a-zA-Z0-9_]+)"?:/gm)].map((match) => match[1]));
 }
+
+function chineseNodeKeys(): Set<string> {
+  return dictionaryKeys("nodeTextZh");
+}
+
+function chineseDescriptionKeys(): Set<string> {
+  return dictionaryKeys("nodeDescriptionZh");
+}
+
+// Per FF-3 (Gate F): zh mode previously showed zh node NAMES but English
+// `description`/核心判断 bodies. These domains are the expansion targets whose
+// rail core-judgment must read Chinese; every node that carries an English
+// `description` must have a parallel `nodeDescriptionZh` entry. We load the
+// rendered domain graph the same way `/d/<slug>` does so cross-domain nodes
+// pulled into the tree are covered too. Organization nodes are excluded —
+// their identities stay behind the exposure paywall and are never rendered.
+const ZH_DESCRIPTION_DOMAINS = [
+  { label: "spacex_reusable_launch", root: "spacex_reusable_launch_stack" },
+  { label: "humanoid_robotics", root: "humanoid_robot_key_component_stack" },
+] as const;
 
 // Domains whose roots live OUTSIDE the active (parcel-sorting) graph and are
 // therefore never reached by loadActiveGraphData()/filterCanvasGraph above.
@@ -88,5 +114,40 @@ test("Chinese node-name dictionary covers every node in non-active-graph domains
     missing,
     [],
     `every node in a non-active-graph domain should have a Simplified Chinese label; missing:\n${missing.join("\n")}`,
+  );
+});
+
+test("Chinese node-DESCRIPTION dictionary covers every described node in spacex_reusable_launch + humanoid_robotics", () => {
+  const zhDescriptionKeys = chineseDescriptionKeys();
+  const missing: string[] = [];
+
+  for (const domain of ZH_DESCRIPTION_DOMAINS) {
+    const graph = loadActiveGraphData(domain.root);
+    assert.ok(
+      graph.nodes.some((node) => node.id === domain.root),
+      `expected domain root ${domain.root} to be present in the rendered graph`,
+    );
+    const described = graph.nodes.filter(
+      (node) =>
+        node.kind !== "organization" &&
+        node.reviewStatus !== "deprecated" &&
+        typeof node.description === "string" &&
+        node.description.trim().length > 0,
+    );
+    assert.ok(
+      described.length > 0,
+      `expected ${domain.label} to have at least one described non-org node`,
+    );
+    for (const node of described) {
+      if (!zhDescriptionKeys.has(node.id)) {
+        missing.push(`${domain.label}: ${node.id} | ${node.name}`);
+      }
+    }
+  }
+
+  assert.deepEqual(
+    missing,
+    [],
+    `every node with an English description in these domains should have a Simplified Chinese description (nodeDescriptionZh); missing:\n${missing.join("\n")}`,
   );
 });
