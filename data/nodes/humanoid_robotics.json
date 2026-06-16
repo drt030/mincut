@@ -2850,29 +2850,6 @@
     "ticker": "QCOM"
   },
   {
-    "id": "org_humanoid_nxp",
-    "name": "NXP Semiconductors",
-    "kind": "organization",
-    "domain": [
-      "humanoid_robotics"
-    ],
-    "description": "Public US-listed (Nasdaq) semiconductor supplier; provides i.MX 95 applications processor (machine-vision edge node) and i.MX RT1180 crossover MCUs aggregated by an S32J TSN switch for humanoid motor control, developed with NVIDIA as distributed edge-perception/motor-control complements to the central robot brain. Spans onboard compute SoC and real-time motor-control MCU components.",
-    "maturityLabel": "unknown",
-    "confidence": "medium",
-    "evidenceIds": [
-      "ev_humanoid_nxp_humanoid_edge"
-    ],
-    "tags": [
-      "public_company",
-      "supplier_candidate",
-      "compute",
-      "mcu"
-    ],
-    "reviewStatus": "unreviewed",
-    "listingStatus": "public",
-    "ticker": "NXPI"
-  },
-  {
     "id": "org_humanoid_rockchip",
     "name": "Fuzhou Rockchip Electronics",
     "kind": "organization",
@@ -2914,29 +2891,6 @@
     ],
     "reviewStatus": "unreviewed",
     "listingStatus": "private"
-  },
-  {
-    "id": "org_humanoid_infineon",
-    "name": "Infineon Technologies",
-    "kind": "organization",
-    "domain": [
-      "humanoid_robotics"
-    ],
-    "description": "Public Germany-listed (Frankfurt) power-semiconductor and MCU supplier; for humanoid motor control provides gate drivers, current sensors, a GaN-based motor-control chip set, and PSOC Control C3 MCUs (FOC, EtherCAT) that pair with NVIDIA Jetson Thor via Holoscan Sensor Bridge (Aug 2025 NVIDIA collaboration). Merchant motor-drive power-electronics and real-time MCU supplier.",
-    "maturityLabel": "unknown",
-    "confidence": "medium",
-    "evidenceIds": [
-      "ev_humanoid_infineon_motor_control"
-    ],
-    "tags": [
-      "public_company",
-      "supplier_candidate",
-      "power_electronics",
-      "mcu"
-    ],
-    "reviewStatus": "unreviewed",
-    "listingStatus": "public",
-    "ticker": "IFX.DE"
   },
   {
     "id": "org_humanoid_epc",

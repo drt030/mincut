@@ -1540,7 +1540,7 @@
   },
   {
     "id": "e_humanoid_edge_ai__manufactured_by__nxp",
-    "source": "org_humanoid_nxp",
+    "source": "org_nxp",
     "target": "humanoid_edge_ai_compute_module",
     "relation": "manufactured_by",
     "claim": "NXP's i.MX 95 applications processor serves as a machine-vision edge-perception compute node delivering high-bandwidth data to the humanoid robot brain (developed with NVIDIA).",
@@ -1552,7 +1552,7 @@
   },
   {
     "id": "e_humanoid_mcu__manufactured_by__nxp",
-    "source": "org_humanoid_nxp",
+    "source": "org_nxp",
     "target": "humanoid_realtime_mcu_safety_controller",
     "relation": "manufactured_by",
     "claim": "NXP supplies a humanoid motor-control solution built on a kinematic chain of i.MX RT1180 crossover MCUs aggregated by an S32J TSN switch connecting to the robot brain.",
@@ -1588,7 +1588,7 @@
   },
   {
     "id": "e_humanoid_gate_driver__manufactured_by__infineon",
-    "source": "org_humanoid_infineon",
+    "source": "org_infineon",
     "target": "humanoid_current_sense_gate_driver",
     "relation": "manufactured_by",
     "claim": "Infineon supplies gate drivers, current sensors, and a GaN-based motor-control chip set for humanoid-robot motor control (Aug 2025 NVIDIA collaboration).",
@@ -1600,7 +1600,7 @@
   },
   {
     "id": "e_humanoid_mcu__manufactured_by__infineon",
-    "source": "org_humanoid_infineon",
+    "source": "org_infineon",
     "target": "humanoid_realtime_mcu_safety_controller",
     "relation": "manufactured_by",
     "claim": "Infineon's PSOC Control C3 MCU family implements field-oriented motor control for humanoid robots and bridges to NVIDIA Jetson Thor via the Holoscan Sensor Bridge.",
