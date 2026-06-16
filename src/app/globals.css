@@ -4064,8 +4064,17 @@ code {
 
   .graph-toolbar-row > .graph-controls .graph-controls-section {
     align-items: center;
+    flex: 1 1 auto;
     flex-direction: row;
     gap: 6px;
+    min-width: 0;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .graph-toolbar-row > .graph-controls .graph-controls-section .graph-control-button {
+    scroll-snap-align: start;
   }
 
   .graph-toolbar-row > .graph-controls .graph-controls-label,
