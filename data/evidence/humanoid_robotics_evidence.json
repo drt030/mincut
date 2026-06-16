@@ -2579,7 +2579,7 @@
     "type": "product_page",
     "title": "IKO (Nippon Thompson) — investor / stock information",
     "url": "https://www.ikont.co.jp/eg/ir/equity/eq01.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Nippon Thompson Co., Ltd. (IKO)",
     "date": "2026-06-16",
     "summary": "Confirms Nippon Thompson (IKO) is listed on the Tokyo Stock Exchange (ticker 6480.T) and is a precision-bearing specialist whose ranges include crossed-roller bearings (CRB/CRBC/CRBH) of the class used in robot joints and a candidate for the harmonic-reducer flex bearing. Who-makes-what (product-line presence); no market-share number asserted.",
@@ -2595,14 +2595,21 @@
     ],
     "limitations": "Vendor IR page used only for listing/ticker verification and product-line presence (who-makes-what). The robot-joint crossed-roller maker-share split is SEO-only and is NOT cited; concentration is carried qualitatively. No manufactured_by quote to a named humanoid part — relation is reported_capable_supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "partial",
+      "numberInQuote": false,
+      "notes": "Gate-B verifier re-fetch of ikont.co.jp IR equity page (HTTP 200, primary IR source). 'Listed exchange' (<th>) and 'Tokyo Stock Exchange' (<td>) are both present verbatim in the same table row; the stored excerpt joins them with a colon that reflects the th/td label:value rendering (raw HTML splits them across cells, so quoteMatch=partial). Listing fact is directly stated on the page. Ticker 6480.T not in the excerpt; no share number asserted (numberInQuote=false)."
+    }
   },
   {
     "id": "ev_humanoid_smm_ir_cathode",
     "type": "product_page",
     "title": "Sumitomo Metal Mining — IR / stock description",
     "url": "https://www.smm.co.jp/en/ir/stock/description/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Sumitomo Metal Mining Co., Ltd.",
     "date": "2026-06-16",
     "summary": "Confirms Sumitomo Metal Mining is listed on the Tokyo Stock Exchange (code 5713) and is a battery-materials maker carried as a candidate nickel-rich cathode active material (NCA/NMC) supplier. SMM is the historical nickel-rich cathode (NCA) pioneer co-developed with Panasonic; leadership stated qualitatively, no precise market-share % asserted.",
@@ -2616,14 +2623,21 @@
     ],
     "limitations": "IR page used for listing/ticker verification. Cathode-CAM market-share % is SEO-only and is NOT cited; SMM's nickel-rich-cathode leadership and its company-reported capacity expansion are carried qualitatively, not as a share number. No manufactured_by quote to a named humanoid cell — relation is reported_capable_supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Gate-B verifier re-fetch of smm.co.jp/en/ir/stock/description (HTTP 200, primary IR source). Stored excerpt 'Tokyo (Code : 5713)' found verbatim in the raw HTML (exact spacing around the colon confirmed). The listing code 5713 is inside the quoted string (numberInQuote=true)."
+    }
   },
   {
     "id": "ev_humanoid_asahi_kasei_ir_separator",
     "type": "product_page",
     "title": "Asahi Kasei — IR / basic stock information",
     "url": "https://www.asahi-kasei.com/ir/stock_information/basic_information/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Asahi Kasei Corporation",
     "date": "2026-06-16",
     "summary": "Confirms Asahi Kasei is Tokyo-listed (stock code 3407) and is the maker of the Hipore wet-process Li-ion separator, carried as a candidate microporous battery-separator supplier. Reference ex-China wet-process separator leader stated qualitatively (C&EN/ACS anchors the concentration claim); no precise share % asserted.",
@@ -2637,14 +2651,21 @@
     ],
     "limitations": "IR page used for listing/ticker verification and product-line presence. Separator market-share % is SEO-only and is NOT cited; the ex-China wet-process-leader position is qualitative. No manufactured_by quote to a named humanoid cell — relation is reported_capable_supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Gate-B verifier re-fetch of asahi-kasei.com IR basic_information (HTTP 200, primary IR source). Stored excerpt 'Stock code : 3407' found verbatim in the raw HTML (exact spacing around the colon confirmed); page also states 'Tokyo Stock Exchange (Prime Market)'. The listing code 3407 is inside the quoted string (numberInQuote=true)."
+    }
   },
   {
     "id": "ev_humanoid_shenzhen_senior_separator",
     "type": "product_page",
     "title": "Shenzhen Senior Technology Material — exchange profile (SHE 300568)",
     "url": "https://stockanalysis.com/quote/she/300568/",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "market_report_seo",
     "sourceName": "Shenzhen Senior Technology Material Co., Ltd.",
     "date": "2026-06-16",
     "summary": "Exchange mirror confirming the legal entity Shenzhen Senior Technology Material (Shenzhen-listed, 300568.SZ — not 'SEMCORP') is a Li-ion battery-separator maker (dry/wet/coated film), carried as a candidate microporous battery-separator supplier. Who-makes-what (product-line presence); no share % asserted.",
@@ -2656,16 +2677,23 @@
     "supportsEdgeIds": [
       "e_humanoid_cell_separator__reported_capable_supplier__shenzhen_senior"
     ],
-    "limitations": "Exchange mirror used for legal-name + ticker confirmation and business line. Separator share figures are SEO-only and NOT cited; product-line presence only. No manufactured_by quote to a named humanoid cell — relation is reported_capable_supplier.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "limitations": "DEMOTED by Gate-B verifier (2026-06-16): the stored excerpt 'Shenzhen Senior Technology Material Co., Ltd. (SHE: 300568)' is NOT verbatim on the live page — raw HTML (and JSON-LD) render the contiguous header as '(SHE:300568)' with NO space after the colon; the stored excerpt's space is fabricated. Source is a third-party SEO/exchange-aggregator (stockanalysis.com), not a primary listing source. Quote-not-found + aggregator → rejected; moved to org_shenzhen_senior.rejectedEvidenceIds. The org's Shenzhen listing (300568.SZ) and separator business are independently true, so org_shenzhen_senior stays in the graph qualitatively; it now needs a primary-source listing/product citation. Original limitation: exchange mirror used for legal-name + ticker confirmation and business line; separator share figures SEO-only and NOT cited.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "absent",
+      "numberInQuote": false,
+      "notes": "Re-fetched stockanalysis.com/quote/she/300568 (HTTP 200). Stored excerpt with a space after the colon does NOT appear; the page's verbatim header is 'Shenzhen Senior Technology Material Co., Ltd. (SHE:300568)' (no space, confirmed in raw HTML <h1> and tickerSymbol JSON-LD). Excerpt is non-verbatim and the source is an SEO aggregator → DEMOTE."
+    }
   },
   {
     "id": "ev_humanoid_sony_image_sensor",
     "type": "product_page",
     "title": "Sony Group — exchange profile (TYO 6758) / Semiconductor Solutions",
     "url": "https://stockanalysis.com/quote/tyo/6758/",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "market_report_seo",
     "sourceName": "Sony Group Corporation",
     "date": "2026-06-16",
     "summary": "Exchange mirror confirming Sony Group is Tokyo-listed (6758.T); Sony Semiconductor Solutions is a leading merchant CMOS image-sensor maker, carried as a candidate supplier for the depth-camera CMOS image sensor. Leadership stated qualitatively; no precise image-sensor share % asserted.",
@@ -2677,16 +2705,23 @@
     "supportsEdgeIds": [
       "e_humanoid_depth_image_sensor__reported_capable_supplier__sony"
     ],
-    "limitations": "Exchange mirror used for listing/ticker verification. Image-sensor market-share % is SEO/analyst-only and is NOT cited; merchant-CMOS-leadership is qualitative. Added as the verified merchant image-sensor corner instead of relying on Orbbec/RealSense vendor self-claims (prior-round flag). No humanoid-named supply quote — relation is reported_capable_supplier.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "limitations": "DEMOTED by Gate-B verifier (2026-06-16): the stored excerpt 'Sony Group Corporation (TYO: 6758)' is NOT verbatim on the live page — raw HTML (<h1>, <title>, JSON-LD tickerSymbol) all render '(TYO:6758)' with NO space after the colon; the stored excerpt's space is fabricated. Source is a third-party SEO/exchange-aggregator (stockanalysis.com), not a primary listing source. Quote-not-found + aggregator → rejected; moved to org_sony.rejectedEvidenceIds. Sony's Tokyo listing (6758.T) and Sony Semiconductor Solutions' merchant CMOS image-sensor leadership are independently true, so org_sony stays in the graph qualitatively; it now needs a primary-source listing/product citation. Original limitation: exchange mirror used for listing/ticker verification; image-sensor share SEO/analyst-only and NOT cited; added as the merchant image-sensor corner instead of Orbbec/RealSense self-claims.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "absent",
+      "numberInQuote": false,
+      "notes": "Re-fetched stockanalysis.com/quote/tyo/6758 (HTTP 200). Stored excerpt with a space after the colon does NOT appear; the page's verbatim header is 'Sony Group Corporation (TYO:6758)' (no space, confirmed in raw HTML <h1>, <title>, og:title and tickerSymbol JSON-LD). Excerpt is non-verbatim and the source is an SEO aggregator → DEMOTE."
+    }
   },
   {
     "id": "ev_humanoid_adi_battery_imu",
     "type": "product_page",
     "title": "Analog Devices — battery management & MEMS IMU product categories",
     "url": "https://www.analog.com/en/product-category/battery-management.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "paywalled_snippet",
     "sourceName": "Analog Devices, Inc.",
     "date": "2026-06-16",
     "summary": "Vendor product pages confirm Analog Devices (Nasdaq: ADI) supplies battery-monitoring analog front-end / fuel-gauge ICs and high-performance MEMS inertial measurement units, carried as a candidate supplier for the BMS AFE and the MEMS IMU die. Who-makes-what (product-line presence); no share number asserted.",
@@ -2702,14 +2737,21 @@
     ],
     "limitations": "Vendor product pages used for product-line presence (who-makes-what). The consumer MEMS-IMU share belongs to ST/TDK-InvenSense/Bosch (Yole, basis=smartphone shipments, not robot) — NOT imported as a fact here; ADI is the high-performance/industrial tail. No quantified AFE/IMU share cited. No humanoid-named supply quote — relation is reported_capable_supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "needs_fetch",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Gate-B verifier could NOT fetch analog.com/en/product-category/battery-management.html: hard bot-block (direct GET socket-closed; r.jina.ai reader-proxy returned HTTP 403). Page existence + 'Battery Management' title independently corroborated via web search (canonical 'Battery Management | Analog Devices' result), but the excerpt could not be confirmed on the live page itself. Not promoted — sourceStatus=paywalled_snippet; quoteMatch=not_checked. No share number in scope (numberInQuote=false)."
+    }
   },
   {
     "id": "ev_humanoid_ams_osram_encoder_asic",
     "type": "product_page",
     "title": "ams-OSRAM — SIX Swiss Exchange share details / position sensors",
     "url": "https://www.six-group.com/en/market-data/shares/share-explorer/share-details.AT0000A3EPA4CHF4.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "paywalled_snippet",
     "sourceName": "ams-OSRAM AG",
     "date": "2026-06-16",
     "summary": "SIX exchange page confirms ams-OSRAM AG is Swiss-listed (AMS.SW, ISIN AT0000A3EPA4) and is the reference supplier of rotary magnetic position-encoder ASICs (AS5xxx Hall-array family), carried as a candidate supplier for the magnetic encoder ASIC. Product-line leadership stated qualitatively; no share number asserted.",
@@ -2723,14 +2765,21 @@
     ],
     "limitations": "Exchange page used for listing/ticker/ISIN verification. Magnetic-encoder-ASIC market share is SEO-only and is NOT cited; the AS5xxx product-line leadership is qualitative. No humanoid-named supply quote — relation is reported_capable_supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "needs_fetch",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Gate-B verifier re-fetched the SIX share-details page (HTTP 200) but the contiguous excerpt 'ISIN AT0000A3EPA4' is NOT a static substring: the ISIN renders client-side (JavaScript) and in the raw HTML the code appears only inside the URL slug 'share-details.AT0000A3EPA4CHF4.html' and a JS valorId variable, not as a visible 'ISIN AT0000A3EPA4' label. Listing fact independently corroborated (Wiener Börse / Euronext / Bloomberg all carry ISIN AT0000A3EPA4, SIX ticker AMS), but the quote is unverifiable on the static page. Not promoted — sourceStatus=paywalled_snippet (JS-gated); quoteMatch=not_checked."
+    }
   },
   {
     "id": "ev_humanoid_mpwr_position_sensor",
     "type": "product_page",
     "title": "Monolithic Power Systems — position sensors (MagAlpha) product page",
     "url": "https://www.monolithicpower.com/en/products/position-sensors.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "paywalled_snippet",
     "sourceName": "Monolithic Power Systems, Inc.",
     "date": "2026-06-16",
     "summary": "Vendor product page confirms Monolithic Power Systems (Nasdaq: MPWR) supplies angular/position-sensor ICs (MagAlpha) and motor-drive products used in robotics, carried as a candidate supplier for the magnetic encoder ASIC. Who-makes-what (product-line presence); no share number asserted.",
@@ -2744,6 +2793,13 @@
     ],
     "limitations": "Vendor product page used for product-line presence (who-makes-what). No quantified position-sensor share cited. No humanoid-named supply quote — relation is reported_capable_supplier.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "needs_fetch",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Gate-B verifier could NOT verify the excerpt on the stored URL: direct GET returns an Akamai/Cloudflare 'Client Challenge' bot-wall shell (HTTP 200 but no real content), and r.jina.ai reader-proxy returned HTTP 404 for this exact leaf path. The canonical MPS Position Sensors page (web search) is at /en/products/motor-drivers-position-sensors/position-sensors.html — the stored /en/products/position-sensors.html path is suspect. MPS MagAlpha position-sensor product line is real and on-topic, but 'Position Sensors' could not be confirmed on the stored URL. Not promoted — sourceStatus=paywalled_snippet (bot-blocked); URL flagged for owner review."
+    }
   }
 ]
