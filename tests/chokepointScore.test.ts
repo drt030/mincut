@@ -7,6 +7,7 @@ import {
   chokepointBandFor,
   chokepointRankSignal,
   chokepointScores,
+  chokepointVerdictBandFor,
   concentrationValue,
   criticalityRaw,
   criticalityValue,
@@ -248,6 +249,58 @@ test("chokepointBandFor is cached per graph identity (same function instance)", 
     edge("p", "m", "requires"),
   ]);
   assert.equal(chokepointBandFor(g), chokepointBandFor(g));
+});
+
+test("chokepointVerdictBandFor applies the authored override on top of the raw composite band (ADR-0010 §3b)", () => {
+  // The SINGLE source of truth every chokepoint surface reads. Build a spread
+  // of supply nodes so the raw composite bands cover a range, then mark the
+  // LOWEST-scoring node as an authored bottleneck: its raw band is < 5 but its
+  // verdict band must be forced to 5 (the canvas override), while every
+  // non-authored node's verdict band stays equal to its raw band.
+  const N = 11;
+  const nodes: Node[] = [];
+  const edges: Edge[] = [];
+  for (let i = 0; i < N; i++) nodes.push(node(`m${i}`, { kind: "material", maturityScore: i * 9 }));
+  for (let i = 0; i < N; i++) {
+    for (let p = 0; p < i; p += 1) edges.push(edge(`m${p}`, `m${i}`, "requires"));
+  }
+  const g = graph(nodes, edges);
+  const rawBand = chokepointBandFor(g);
+
+  // Pick the lowest-raw-band node and author a bottleneck claim on it.
+  const ranked = [...chokepointScores(g).entries()].sort((a, b) => a[1].score - b[1].score);
+  const lowestId = ranked[0][0];
+  const lowest = nodes.find((n) => n.id === lowestId)!;
+  assert.ok(rawBand(lowestId) < 5, `precondition: ${lowestId} raw band must be < 5; got ${rawBand(lowestId)}`);
+  lowest.bottleneckOf = ["m10"]; // mutate the fixture node → new authored claim
+
+  // Fresh graph identity so the verdict cache isn't shared with the raw-band
+  // computation above (the score/raw-band caches keyed off the OLD object are
+  // fine — bottleneckOf does not affect the composite).
+  const g2 = graph(nodes, edges);
+  const verdictBand = chokepointVerdictBandFor(g2);
+  assert.equal(
+    verdictBand(lowestId),
+    5,
+    `an authored bottleneck must be forced to verdict band 5 regardless of its raw band; got ${verdictBand(lowestId)}`,
+  );
+  // Non-authored nodes: verdict band === raw band.
+  const raw2 = chokepointBandFor(g2);
+  for (const n of nodes) {
+    if (n.id === lowestId) continue;
+    assert.equal(
+      verdictBand(n.id),
+      raw2(n.id),
+      `non-authored node ${n.id} verdict band must equal its raw composite band`,
+    );
+  }
+});
+
+test("chokepointVerdictBandFor is cached per graph identity (same function instance)", () => {
+  const g = graph([node("p", { kind: "product" }), node("m", { kind: "material" })], [
+    edge("p", "m", "requires"),
+  ]);
+  assert.equal(chokepointVerdictBandFor(g), chokepointVerdictBandFor(g));
 });
 
 test("chokepointRankSignal returns the composite score for nodes without an authored bottleneck", () => {

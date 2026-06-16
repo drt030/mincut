@@ -1077,7 +1077,10 @@ test("RouteDetailRail can render the full selected-node detail view", () => {
   assert.match(html, /data-testid="route-rail-node-detail"/);
   assert.match(html, /Node detail/i);
   assert.match(html, /Robot arm description/);
-  assert.match(html, /Maturity/i);
+  // ADR-0010 / §2: the readiness signal is surfaced as "Barrier" (which
+  // absorbs the old "maturity"), e.g. the "Barrier gap N%" drill-in driver.
+  assert.match(html, /Barrier/i);
+  assert.doesNotMatch(html, /Maturity gap/i, `detail view must use "Barrier gap", not the deprecated "Maturity gap"; got: ${html}`);
   assert.doesNotMatch(
     html,
     /data-testid="set-root-node-button"|Map tools|Set as research root/i,

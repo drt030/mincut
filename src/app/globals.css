@@ -3255,7 +3255,9 @@ input {
   line-height: 1.35;
 }
 
-.detail-chokepoint-composite {
+/* Separate Cost statement — the orthogonal $-overlay, shown on its own line
+   below the chokepoint verdict/why (ADR-0010 §3a). */
+.detail-chokepoint-cost {
   color: var(--muted);
   font-size: 11px;
 }

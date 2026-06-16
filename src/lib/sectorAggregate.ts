@@ -4,7 +4,7 @@ import {
   nodeCostSignalRmb,
   type ColorMode,
 } from "./edgeStyleFor";
-import { chokepointBandFor } from "./chokepointScore";
+import { chokepointVerdictBandFor } from "./chokepointScore";
 import { nodeRisk } from "./nodeRisk";
 
 /**
@@ -33,10 +33,11 @@ import { nodeRisk } from "./nodeRisk";
  *   - maturity: MEAN of subtree maturityScores. Nodes without a score
  *     are SKIPPED (not counted as zero) so an unmeasured leaf does not
  *     spuriously pull the mean down.
- *   - bottleneck-risk: MAX over the subtree of the per-node composite band
- *     (chokepointBandFor, authored `bottleneckOf` ⇒ band 5) — the worst
- *     chokepoint band in the sector, read off the SAME band function the
- *     edges use (ADR-0010). `value` carries that max band (1..5).
+ *   - bottleneck-risk: MAX over the subtree of the per-node verdict band
+ *     (chokepointVerdictBandFor: composite band, authored `bottleneckOf` ⇒
+ *     band 5) — the worst chokepoint band in the sector, read off the SAME
+ *     verdict function the edges/top-N/detail headline use (ADR-0010).
+ *     `value` carries that max band (1..5).
  *   - overall: MAX of subtree nodeRisk (the ADR leaves "overall" unchanged).
  *   - relation: not aggregated; returns the value at band 3 (neutral
  *     middle) so callers always get a defined output.
@@ -108,18 +109,15 @@ export function sectorAggregate(
     }
     case "bottleneck-risk": {
       // ADR-0010: the sector band is the WORST (highest) composite band
-      // among the subtree's nodes, using the SAME per-node band path the
-      // edges use — chokepointBandFor, with an authored `bottleneckOf`
-      // forcing band 5 — so the sector tint, edge stroke/width, and top-N
-      // all read off one band function. (This subsumes the old band-4 floor
-      // for authored attribution: it now surfaces as band 5, exactly as on
-      // the edge.) `value` carries the same max band (1..5) as the aggregate.
-      const bandFor = chokepointBandFor(graph);
+      // among the subtree's nodes, using the SAME per-node verdict path the
+      // edges, top-N, and detail headline use — `chokepointVerdictBandFor`
+      // (the composite band with the authored `bottleneckOf` override ⇒ band
+      // 5) — so every chokepoint surface reads off one band function.
+      // `value` carries the same max band (1..5) as the aggregate.
+      const bandFor = chokepointVerdictBandFor(graph);
       let band: 1 | 2 | 3 | 4 | 5 = 1;
       for (const node of nodes) {
-        const hasAuthored =
-          Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0;
-        const nodeBand = hasAuthored ? 5 : bandFor(node.id);
+        const nodeBand = bandFor(node.id);
         if (nodeBand > band) band = nodeBand;
       }
       return { value: band, band };

@@ -309,10 +309,15 @@ const uiText: Record<Language, Record<string, string>> = {
     // Verdict comes from the composite band; the elevated axis is stated as a
     // concrete sentence (never a raw `maturity: <label>` tag).
     chokepointVerdictChokepoint: "Chokepoint",
-    chokepointVerdictElevated: "Elevated chokepoint risk",
     chokepointVerdictLower: "Not a top chokepoint",
-    chokepointHeadlineComposite: "Chokepoint: {axis}",
+    // The chokepoint "why" line when a node is authored as a bottleneck but
+    // its computed composite is below the top band: state the authored claim
+    // rather than inventing (or borrowing Cost as) a structural reason.
+    chokepointVerdictFlagged: "Flagged bottleneck",
     chokepointStructuralRoot: "Structural root · not itself a chokepoint",
+    // Cost is the orthogonal $-overlay (ADR-0010 / §2), never a chokepoint
+    // axis. It renders as its OWN line, independent of the chokepoint verdict.
+    chokepointCostDriver: "Cost driver · {value}% of build cost",
     chokepointAxisCost: "Cost driver · {value}% of build cost",
     chokepointAxisCriticality: "Load-bearing · {count} subsystems depend on it",
     chokepointAxisConcentration: "Concentrated supply · {count} makers",
@@ -548,7 +553,7 @@ const uiText: Record<Language, Record<string, string>> = {
       "Relative pressure signal: cost/maturity where available, boosted by explicit bottleneck claims. Not a probability.",
     topBlockersRiskTooltip:
       "Relative pressure signal: cost/maturity where available, boosted by explicit bottleneck claims. Not a probability.",
-    topBlockersMaturityGap: "Maturity gap",
+    topBlockersBarrierGap: "Barrier gap",
     topBlockersP50Cost: "p50 cost",
     explicitBottleneck: "Explicit bottleneck",
     bottleneckBadge: "Blocker",
@@ -877,10 +882,10 @@ const uiText: Record<Language, Record<string, string>> = {
     readerCostMagnitude: "成本/缺口",
     // 卡点首屏判读（ADR-0010 / docs/ACCEPTANCE.md §3a）
     chokepointVerdictChokepoint: "卡点",
-    chokepointVerdictElevated: "卡点风险偏高",
-    chokepointVerdictLower: "不是主要卡点",
-    chokepointHeadlineComposite: "卡点：{axis}",
+    chokepointVerdictLower: "非顶级卡点",
+    chokepointVerdictFlagged: "已标记瓶颈",
     chokepointStructuralRoot: "结构根 · 本身不是卡点",
+    chokepointCostDriver: "成本大头 · 占 {value}%",
     chokepointAxisCost: "成本大头 · 占 {value}%",
     chokepointAxisCriticality: "关键件 · {count} 处依赖",
     chokepointAxisConcentration: "供应集中 · 仅 {count} 家",
@@ -1104,7 +1109,7 @@ const uiText: Record<Language, Record<string, string>> = {
     topBlockersStaticTitle: "优先关注",
     heatScoreTooltip: "相对压力信号：优先用成本/成熟度，显式瓶颈声明会提高排序；不是概率。",
     topBlockersRiskTooltip: "相对压力信号：优先用成本/成熟度，显式瓶颈声明会提高排序；不是概率。",
-    topBlockersMaturityGap: "成熟度缺口",
+    topBlockersBarrierGap: "壁垒缺口",
     topBlockersP50Cost: "p50 成本",
     explicitBottleneck: "明确瓶颈",
     bottleneckBadge: "瓶颈",

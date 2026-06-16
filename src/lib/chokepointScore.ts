@@ -264,6 +264,44 @@ export function chokepointBandFor(graph: GraphData): (nodeId: string) => 1 | 2 |
   return fn;
 }
 
+const verdictBandCache = new WeakMap<GraphData, (nodeId: string) => 1 | 2 | 3 | 4 | 5>();
+
+/**
+ * THE single chokepoint-verdict band a user ever sees — the authored-override
+ * applied on top of the raw composite band: `node.bottleneckOf?.length ? 5 :
+ * chokepointBandFor(graph)(id)`.
+ *
+ * `chokepointBandFor` is the raw-composite PRIMITIVE (geometric-mean of the
+ * structural axes, own-quantile binned); it deliberately does NOT know about
+ * authored `bottleneckOf` claims. Every SURFACE that shows a chokepoint
+ * verdict — the canvas edge stroke/width (`edgeStyleFor`'s `bottleneck-risk`
+ * case), the sector tint (`sectorAggregate`), the top-N glyph
+ * (`prioritySelection`), and the detail-panel headline — MUST read off THIS
+ * function so they can never disagree. (Before ADR-0010's follow-up, the
+ * canvas applied the override inline while the detail headline called the raw
+ * primitive, so an authored bottleneck whose composite fell below the active
+ * graph's Q80 read "top chokepoint" on the canvas but "not a top chokepoint"
+ * in the detail — the §3b contradiction this helper removes at the root.)
+ *
+ * Cached per graph identity (graphs are immutable-by-convention, the same
+ * assumption `bandCache`/`chokepointScores` rely on).
+ */
+export function chokepointVerdictBandFor(
+  graph: GraphData,
+): (nodeId: string) => 1 | 2 | 3 | 4 | 5 {
+  const cached = verdictBandCache.get(graph);
+  if (cached) return cached;
+  const rawBand = chokepointBandFor(graph);
+  const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
+  const fn = (nodeId: string): 1 | 2 | 3 | 4 | 5 => {
+    const node = nodeById.get(nodeId);
+    if ((node?.bottleneckOf?.length ?? 0) > 0) return 5;
+    return rawBand(nodeId);
+  };
+  verdictBandCache.set(graph, fn);
+  return fn;
+}
+
 /**
  * Ranking signal for the `bottleneck-risk` top-N selection (ADR-0010).
  * Returns the node's composite chokepoint `score` (in [0,1]) so computed

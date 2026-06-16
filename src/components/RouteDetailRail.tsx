@@ -17,7 +17,7 @@ import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { RouteHighlight } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 import { useLanguage } from "./LanguageProvider";
-import { NodeDetailContent } from "./NodeDetailPanel";
+import { ChokepointHeadline, NodeDetailContent } from "./NodeDetailPanel";
 
 type RailAnalysisMode = "relation" | "cost" | "bottleneck-risk" | "maturity";
 type DetailIntent = "default" | "exposure";
@@ -844,6 +844,16 @@ export function RouteDetailRail({
           </section>
         ) : (
           <>
+            {/*
+              First-glance chokepoint verdict for the focused node — including
+              the product ROOT, which lands on this route panel after a
+              pane-click (docs/ACCEPTANCE.md §3a, GAP #3). It reads the SAME
+              shared verdict band as the canvas (chokepointVerdictBandFor), so
+              the route-panel verdict, the detail-panel verdict, and the canvas
+              band all agree. For a structural-root product it renders
+              "Structural root · not itself a chokepoint".
+            */}
+            {selectedNode ? <ChokepointHeadline graph={graph} node={selectedNode} /> : null}
             <section className="route-rail-card route-rail-start">
               <div className="route-rail-section-title">{primaryTabLabel}</div>
               {isKnowHowLayer ? <p className="route-rail-hint">{t("knowHowLayerHint")}</p> : null}

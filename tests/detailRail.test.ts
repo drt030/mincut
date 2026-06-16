@@ -43,6 +43,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 // signal we can give the GREEN sub-agent.
 import { NodeDetailRail, handleRailKeydown } from "../src/components/NodeDetailRail";
 import { NodeDetailContent } from "../src/components/NodeDetailPanel";
+import { chokepointVerdictBandFor } from "../src/lib/chokepointScore";
 import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
 import type { GraphData, Node } from "../src/lib/schema";
@@ -1213,10 +1214,18 @@ test("expanded: product top blockers surface limiting-factor categories", () => 
     /Capacity \/ scale/,
     `top blockers must expose whether a blocker is capacity/scale constrained; got: ${html}`,
   );
+  // ADR-0010 / §2: "Barrier" absorbs the old "maturity"; the readiness gap
+  // (100 − maturityScore) is labelled "Barrier gap", never the deprecated
+  // "Maturity" wording (QA finding #4 — vocabulary residue).
   assert.match(
     html,
+    /Barrier gap/,
+    `top blockers must explain that risk is partly driven by the barrier (readiness) gap; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html,
     /Maturity gap/,
-    `top blockers must explain that risk is partly driven by maturity gap; got: ${html}`,
+    `top blockers must not use the deprecated "Maturity gap" wording; got: ${html}`,
   );
   assert.match(
     html,
@@ -1550,16 +1559,20 @@ test("expanded: detail leads with a first-glance chokepoint headline (elevated a
     /Chokepoint/,
     `a top-band node must read as a Chokepoint; got: ${headline}`,
   );
-  // The elevated axis is a concrete sentence, not a raw internal tag.
+  // The elevated chokepoint axis is a concrete sentence drawn ONLY from the
+  // chokepoint axes {Dependency, Concentration, Barrier} — never Cost (§3a).
+  // Here Dependency is the top structural axis (two subsystems depend on it).
   assert.match(
     headline,
     /Load-bearing · \d+ subsystems depend on it/,
     `Dependency elevated-axis sentence must state how many subsystems depend on it; got: ${headline}`,
   );
-  assert.match(
+  // §3a: the "Chokepoint: <axis>" composite line is removed — the verdict and
+  // the why-line carry the framing, and Cost is never labelled a chokepoint.
+  assert.doesNotMatch(
     headline,
-    /Chokepoint: Dependency/,
-    `headline composite line must name the elevated axis; got: ${headline}`,
+    /Chokepoint:/,
+    `headline must not render a "Chokepoint: <axis>" line that frames an axis (esp. Cost) as the chokepoint; got: ${headline}`,
   );
   assert.doesNotMatch(
     headline,
@@ -1613,4 +1626,120 @@ test("expanded: a structural root product reads as 'not itself a chokepoint'", (
     /not itself a chokepoint/,
     `structural-root copy must clarify the product is not itself the chokepoint; got: ${headline}`,
   );
+});
+
+// ==================================================================
+// REGRESSION (docs/ACCEPTANCE.md §3a + §3b) — the live app colours and
+// reads off the SCOPED ACTIVE graph (loadActiveGraphData), NOT the full
+// loadGraphData. The §3b contradiction (canvas says top chokepoint, detail
+// says not) only reproduces there: an authored bottleneck whose RAW composite
+// falls below the active graph's Q80 is forced to band 5 on the canvas via the
+// authored override, but the detail headline used to call the RAW band. Both
+// surfaces now read `chokepointVerdictBandFor`, so they can never disagree.
+// ==================================================================
+test("regression: an authored-bottleneck node reads 'Chokepoint' in the detail headline, matching the canvas band-5 override (active graph)", () => {
+  const activeGraph = loadActiveGraphData();
+  const verdictBandFor = chokepointVerdictBandFor(activeGraph);
+  const authoredNode = nodeByIdIn(activeGraph, "conveyor_integration");
+
+  // Precondition: this node is genuinely the §3b scenario — authored as a
+  // bottleneck AND its computed composite is BELOW the top band, so the
+  // authored override (⇒ band 5) is load-bearing. If the dataset ever changes
+  // so the override no longer matters, this guard fails loudly rather than the
+  // test silently going vacuous.
+  assert.ok(
+    (authoredNode.bottleneckOf?.length ?? 0) > 0,
+    `fixture ${authoredNode.id} must be an authored bottleneck (bottleneckOf non-empty)`,
+  );
+  assert.equal(
+    verdictBandFor(authoredNode.id),
+    5,
+    `an authored bottleneck must resolve to verdict band 5 (the canvas override); got ${verdictBandFor(authoredNode.id)}`,
+  );
+
+  const html = renderToStaticMarkup(
+    React.createElement(NodeDetailContent, { graph: activeGraph, node: authoredNode }),
+  );
+  const headline = detailDisclosure(html, "detail-chokepoint-headline");
+
+  // Canvas == detail: the headline's band attribute equals the shared verdict
+  // band, and the verdict label reads "Chokepoint" (not "Not a top chokepoint").
+  assert.match(
+    headline,
+    /data-chokepoint-band="5"/,
+    `headline band must equal the shared verdict band (5); got: ${headline}`,
+  );
+  assert.match(
+    headline,
+    /<span class="detail-chokepoint-verdict">Chokepoint<\/span>/,
+    `an authored-bottleneck node must read "Chokepoint", consistent with the canvas band-5 override; got: ${headline}`,
+  );
+  assert.doesNotMatch(
+    headline,
+    /Not a top chokepoint/,
+    `the §3b contradiction must be gone — an authored bottleneck must not read "Not a top chokepoint"; got: ${headline}`,
+  );
+});
+
+test("regression: no node frames Cost as a chokepoint — the literal 'Chokepoint: Cost' never renders, and Cost shows only as its own 'Cost driver' line (active graph)", () => {
+  const activeGraph = loadActiveGraphData();
+  // A cost-heavy NON-chokepoint: top-quintile cost rank but a low composite
+  // band. Before the fix, Cost won the "elevated axis" sort and the headline
+  // read "... · Chokepoint: Cost". Now Cost is a separate "Cost driver" line
+  // and the verdict comes only from the chokepoint band.
+  const costHeavyNode = nodeByIdIn(activeGraph, "industrial_robot_arm_body");
+  const verdictBandFor = chokepointVerdictBandFor(activeGraph);
+  assert.ok(
+    verdictBandFor(costHeavyNode.id) < 5,
+    `fixture ${costHeavyNode.id} must be a non-chokepoint (verdict band < 5) to exercise the cost-heavy case; got ${verdictBandFor(costHeavyNode.id)}`,
+  );
+
+  const costHeavyHtml = renderToStaticMarkup(
+    React.createElement(NodeDetailContent, { graph: activeGraph, node: costHeavyNode }),
+  );
+  const costHeavyHeadline = detailDisclosure(costHeavyHtml, "detail-chokepoint-headline");
+  // Cost is its OWN line, not the chokepoint reason.
+  assert.match(
+    costHeavyHeadline,
+    /Cost driver · \d+% of build cost/,
+    `a cost-heavy node must surface a separate "Cost driver" line; got: ${costHeavyHeadline}`,
+  );
+  assert.match(
+    costHeavyHeadline,
+    /Not a top chokepoint/,
+    `a cost-heavy non-chokepoint must still read "Not a top chokepoint"; got: ${costHeavyHeadline}`,
+  );
+
+  // The invariant across a representative sample of the active graph: the
+  // literal "Chokepoint: Cost" (and any "Chokepoint: <axis>" framing) must
+  // never appear in a rendered detail headline. Sample the highest-cost-rank
+  // nodes — the ones that previously triggered the "Chokepoint: Cost" bug —
+  // plus the product root, so the assertion targets the exact failure mode
+  // without rendering all ~300 panels.
+  const sampleIds = [
+    "industrial_robot_arm_body",
+    "conveyor_integration",
+    "precision_reducer_gearbox",
+    "end_effector_gripper_or_suction",
+    "parcel_manipulation_or_diverter",
+    FOCAL_PRODUCT_ID,
+  ];
+  for (const id of sampleIds) {
+    const node = activeGraph.nodes.find((n) => n.id === id);
+    if (!node) continue;
+    const html = renderToStaticMarkup(
+      React.createElement(NodeDetailContent, { graph: activeGraph, node }),
+    );
+    const headline = detailDisclosure(html, "detail-chokepoint-headline");
+    assert.doesNotMatch(
+      headline,
+      /Chokepoint:\s*Cost/i,
+      `[${id}] the literal "Chokepoint: Cost" must never render — Cost is not a chokepoint axis (§2/§3a); got: ${headline}`,
+    );
+    assert.doesNotMatch(
+      headline,
+      /Chokepoint:/,
+      `[${id}] no "Chokepoint: <axis>" framing may render; got: ${headline}`,
+    );
+  }
 });
