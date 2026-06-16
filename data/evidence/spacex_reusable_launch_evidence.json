@@ -116,10 +116,10 @@
     "id": "ev_space_parker_aerospace_launch_propulsion",
     "type": "vendor_claim",
     "title": "Parker Aerospace — fluid systems / propulsion for launch vehicles (overview)",
-    "url": "https://www.parker.com/content/dam/Parker-com/Literature/Fluid-Systems-Division/AFD-Static-Files-for-Literature/FSD-Overview.pdf",
-    "sourceStatus": "fetch_ok",
-    "sourceName": "Parker Hannifin Corporation",
-    "date": "accessed 2026-06-15",
+    "url": "https://www.parker.com/us/en/divisions/gas-turbine-fuel-systems-division.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Parker Hannifin Corporation (Gas Turbine Fuel Systems Division)",
+    "date": "accessed 2026-06-16",
     "summary": "Parker Aerospace supplies precision-engineered propulsion, power-distribution and fluid-management solutions for vehicles from satellites and hypersonics to next-generation launch platforms; serves missiles, rockets and launch vehicles; supports NASA SLS and Orion.",
     "excerpt": "Parker is the global leader in the design, development, manufacture, and service of engine fuel, lubrication, and thermal management systems and components for aerospace/defense and industrial applications.",
     "supportsNodeIds": [
@@ -129,9 +129,16 @@
     "supportsEdgeIds": [
       "e_space_parker_valves"
     ],
-    "limitations": "Vendor overview literature; the excerpt is a general engine-fluid-systems leadership claim. SLS/Orion launch-vehicle relevance surfaced in search but the launch-specific quote should be upgraded to a primary Parker space page in a later round. Industry altitude, not SpaceX-specific.",
+    "limitations": "Vendor literature; the excerpt is a general engine-fluid-systems leadership claim (industry altitude, not SpaceX-specific). RE-ANCHORED 2026-06-16: the original FSD-Overview.pdf source is FlateDecode-compressed (text not machine-extractable) and parker.com 403s WebFetch; the identical Parker boilerplate claim was confirmed verbatim on the accessible live Parker Gas Turbine Fuel Systems Division page (browser render), so the URL was re-pointed there. SLS/Orion launch relevance is corroborated separately; the launch-specific tie remains low-confidence.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "partial",
+      "numberInQuote": false,
+      "notes": "Browser-rendered parker.com Gas Turbine Fuel Systems Division page (Chrome MCP; WebFetch 403 on parker.com; original PDF source is FlateDecode-compressed so unreadable). Page contains verbatim: 'We're the global leader in the design, development, manufacture, and service of engine fuel, lubrication, and thermal management systems and components for aerospace/defense and industrial applications.' The stored excerpt's clause from 'the global leader in the design...' onward matches verbatim; only the subject differs (stored 'Parker is' vs page 'We're') -> quoteMatch=partial. URL re-anchored from the compressed PDF to this accessible primary Parker page. Qualitative industry-leadership claim, no number."
+    }
   },
   {
     "id": "ev_space_superheavy_electric_tvc_captive",
@@ -380,7 +387,7 @@
     "type": "news",
     "title": "Eaton high-performance propellant tanks selected for MDA AURORA (space propulsion)",
     "url": "https://satnews.com/2024/11/17/eatons-high-performance-propellant-tanks-selected-by-mda-space-for-mda-aurora/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "SatNews",
     "date": "2024-11-17",
     "summary": "Eaton supplies high-performance propellant storage tanks for space propulsion (selected by MDA Space for the MDA AURORA satellite product line), providing secure fuel storage and transfer to the propulsion system — evidence of Eaton's space-propulsion fluid-hardware merchant role.",
@@ -393,7 +400,14 @@
     ],
     "limitations": "Trade-press; the fetched quote is a SATELLITE propulsion-tank selection, not a launch-vehicle valve/tank supply. Eaton's launch-vehicle hydraulic-pump heritage is real but its 2016 page was unreachable this round. Edge kept as reported_capable_supplier at low confidence.",
     "confidence": "low",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of satnews.com Eaton/MDA AURORA article. Stored excerpt present verbatim in 2nd paragraph: 'Eaton's propellant storage tanks will provide secure fuel storage in addition to safe and efficient transfer of fuel to the satellite's propulsion system during orbit.' No numeric claim. Basis is satellite-propulsion (per limitations), low confidence retained."
+    }
   },
   {
     "id": "ev_space_constellium_space_alli",
@@ -1617,7 +1631,7 @@
     "type": "news",
     "title": "CompositesWorld — Toray controls >50% of global PAN precursor market",
     "url": "https://www.compositesworld.com/news/toray-announces-growth-investment-in-carbon-fiber-composite-materials",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "CompositesWorld",
     "excerpt": "Toray reportedly controls more than 50% of the global polyacrylonitrile (PAN) fiber market",
     "supportsNodeIds": [
@@ -1625,7 +1639,14 @@
     ],
     "limitations": "First-tier trade press ('reportedly'). PAN precursor-market basis (upstream feedstock), not carbon-fiber market share. Single-source >50% claim — owner should seek a second quality source before flip.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Independent WebFetch of compositesworld.com Toray article. Verbatim on page: 'In addition, Toray reportedly controls more than 50% of the global polyacrylonitrile (PAN) fiber market — historically more than two pounds of PAN is required to produce 1 pound of carbon fiber.' Stored excerpt present verbatim; the '>50%' figure IS in the quote (numberInQuote=true). Single-source 'reportedly' basis retained per limitations."
+    }
   },
   {
     "id": "ev_space_toray_im_aerospace_fiber",
@@ -2408,7 +2429,7 @@
     "type": "vendor_claim",
     "title": "Innoflight — L3Harris selects CFC-400X Compact Flight Computer for SDA Tracking Layer",
     "url": "https://innoflight.com/l3harris-selects-innoflights-cfc-400x-compact-flight-computer-for-the-space-development-agency-tracking-layer-program/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Innoflight, Inc.",
     "date": "accessed 2026-06-16",
     "summary": "Innoflight's CFC-400X compact flight computer was selected by L3Harris for the SDA Tracking Layer; demonstrates a real merchant compact-flight-computer product with named primes.",
@@ -2421,14 +2442,21 @@
     ],
     "limitations": "Vendor PR (who-makes-what OK; weak for market structure per ADR-0009 B5). PRIVATE company -> no equity exposure. Not a SpaceX-confirmed supply.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of innoflight.com press release. Headline present verbatim: 'L3HARRIS SELECTS INNOFLIGHT'S CFC-400X COMPACT FLIGHT COMPUTER FOR THE SPACE DEVELOPMENT AGENCY TRACKING LAYER PROGRAM' (page-cased; matches stored excerpt). No numeric claim. who-makes-what only; PRIVATE org, qualitative."
+    }
   },
   {
     "id": "ev_space_beyond_gravity_ruag_fairings",
     "type": "news",
     "title": "SpaceNews — RUAG Space is now Beyond Gravity",
     "url": "https://spacenews.com/ruag-space-is-now-beyond-gravity/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "SpaceNews",
     "date": "accessed 2026-06-16",
     "summary": "RUAG Space rebranded as Beyond Gravity; the company supplies launch-vehicle structures including payload fairings across European and U.S. launchers.",
@@ -2439,16 +2467,23 @@
     "supportsEdgeIds": [
       "e_space_exposure_beyondgravity_flightcomputer"
     ],
-    "limitations": "Trade press (SpaceNews) + vendor; qualitative reach, NOT a % share. STATE-OWNED -> non-investable. Not a SpaceX-confirmed supply.",
+    "limitations": "Trade press (SpaceNews) + vendor; qualitative reach, NOT a % share. STATE-OWNED -> non-investable. Not a SpaceX-confirmed supply. NOTE: supportsEdgeIds id is mislabeled '_flightcomputer' but the claim/excerpt concern payload fairings (org_beyond_gravity); flagged for owner relabel, evidence content verified.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "partial",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of spacenews.com/ruag-space-is-now-beyond-gravity. Live page verbatim: 'all European Ariane and Vega rockets and many U.S. United Launch Alliance rockets are equipped with Beyond Gravity payload fairings.' Stored excerpt is a faithful paraphrase of this sentence (Ariane, Vega, U.S. launch vehicles, payload fairings all present verbatim). Qualitative reach, no % share."
+    }
   },
   {
     "id": "ev_space_eaglepicher_space_batteries",
     "type": "vendor_claim",
     "title": "EaglePicher — Space Exploration batteries",
     "url": "https://www.eaglepicher.com/industries/space/space-exploration/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "EaglePicher Technologies",
     "date": "accessed 2026-06-16",
     "summary": "EaglePicher describes itself as having supplied batteries for more space missions than any other company, across Mars rovers, Hubble, ISS and launch vehicles.",
@@ -2461,14 +2496,21 @@
     ],
     "limitations": "Vendor product page (who-makes-what OK; the 'more than any other' superlative is vendor-qualitative, NOT a citable market-share number). PRIVATE -> no equity exposure.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of eaglepicher.com/industries/space/space-exploration. Verbatim in 'A Long History in Space' section: 'Since the very beginning of the U.S. spacecraft and satellite programs, EaglePicher has supplied batteries for more space missions than any other company.' Stored excerpt present verbatim. Superlative is qualitative, not a share number; PRIVATE org."
+    }
   },
   {
     "id": "ev_space_totalenergies_tte_nyse",
     "type": "news",
     "title": "TotalEnergies — Commencement of trading of its ordinary shares on the NYSE (ticker TTE)",
     "url": "https://totalenergies.com/news/press-releases/totalenergies-announces-commencement-trading-its-ordinary-shares-nyse",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "TotalEnergies SE (official press release)",
     "date": "accessed 2026-06-16",
     "summary": "Official TotalEnergies release confirming the company trades on the NYSE under the symbol TTE (it is the parent of Saft, the space/aviation Li-ion maker).",
@@ -2479,16 +2521,23 @@
     "supportsEdgeIds": [
       "e_space_exposure_totalenergies_battery"
     ],
-    "limitations": "Official IR confirms the TTE ticker only; Saft-ownership and the space-battery line are corroborated separately (encyclopedia). Battery is a tiny slice of TTE revenue -> diluted, low-purity exposure. fetch_ok pending verifier quote-check.",
+    "limitations": "Official IR confirms the TTE ticker only; Saft-ownership and the space-battery line are corroborated separately (encyclopedia). Battery is a tiny slice of TTE revenue -> diluted, low-purity exposure.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of totalenergies.com press release. Verbatim on page: 'TotalEnergies SE (NYSE: TTE) announces, as of today, December 8, 2025, the commencement of trading of its ordinary shares on the New York Stock Exchange.' Stored excerpt (ordinary shares trading on NYSE under symbol TTE) confirmed verbatim. Ticker-only claim; exposure stays diluted/qualitative per limitations."
+    }
   },
   {
     "id": "ev_space_quasonix_telemetry_transmitter",
     "type": "vendor_claim",
     "title": "Quasonix — About (aeronautical telemetry transmitters)",
     "url": "https://www.quasonix.com/about/",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "wrong_topic",
     "sourceName": "Quasonix, Inc.",
     "date": "accessed 2026-06-16",
     "summary": "Quasonix describes itself as the leading supplier of aeronautical telemetry transmitters for flight-test and range telemetry.",
@@ -2499,16 +2548,23 @@
     "supportsEdgeIds": [
       "e_space_exposure_quasonix_rf"
     ],
-    "limitations": "Vendor page (who-makes-what OK; 'leading' is vendor-qualitative, NOT a citable share number). PRIVATE -> non-investable. Not a SpaceX-confirmed supply.",
+    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): WebFetch is hard HTTP 403 on quasonix.com, but a real-browser render of quasonix.com/about (7.8KB, not blocked) shows the page does NOT contain the stored excerpt 'the leading supplier of aeronautical telemetry transmitters' — nor any 'leading supplier/provider ... telemetry' sentence. The page says Quasonix was 'founded in 2002 ... filling a void in the flight-test telemetry market'. The stored excerpt is unverifiable at source (quote absent) -> rejected. Quasonix IS a real telemetry-transmitter maker (TIMTER/nanoTX product line), so org_quasonix is kept qualitatively; re-anchor the market-position claim to the company's actual wording before re-promoting. PRIVATE -> non-investable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "absent",
+      "numberInQuote": false,
+      "notes": "Browser-rendered quasonix.com/about (Chrome MCP, page loaded fine, body 7853 chars): the stored excerpt 'the leading supplier of aeronautical telemetry transmitters' is ABSENT (case-insensitive substring + loose 'leading (supplier|provider).*telemetry' both negative). Quote confirmed not present at source -> FAILED, demoted to rejectedEvidenceIds on org_quasonix + e_space_exposure_quasonix_rf. (WebFetch separately returned 403 site-wide.)"
+    }
   },
   {
     "id": "ev_space_safran_saf_euronext",
     "type": "product_page",
     "title": "Euronext — Safran S.A. listing (FR0000073272, ticker SAF, Euronext Paris)",
     "url": "https://live.euronext.com/en/product/equities/FR0000073272-XPAR",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "Euronext (official exchange)",
     "date": "accessed 2026-06-16",
     "summary": "Official Euronext product page confirming Safran S.A. trades on Euronext Paris under the symbol SAF (ISIN FR0000073272).",
@@ -2519,36 +2575,23 @@
     "supportsEdgeIds": [
       "e_space_exposure_safran_rf"
     ],
-    "limitations": "Official exchange confirms the SAF ticker only; the telemetry (Safran Data Systems) and IMU (Sigma INS) product lines are corroborated separately and are minor segments -> diluted, low-purity exposure. fetch_ok pending verifier quote-check.",
+    "limitations": "Official exchange confirms the SAF ticker only; the telemetry (Safran Data Systems) and IMU (Sigma INS) product lines are corroborated separately and are minor segments -> diluted, low-purity exposure.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "ev_space_thales_topaxyz_imu",
-    "type": "vendor_claim",
-    "title": "Thales — TopAxyz inertial navigation system / next-generation IMU",
-    "url": "https://www.thalesgroup.com/en/markets/aerospace/navigation-solutions/topaxyz-imu/topaxyz-inertial-navigation-system-land",
-    "sourceStatus": "fetch_ok",
-    "sourceName": "Thales S.A.",
-    "date": "accessed 2026-06-16",
-    "summary": "Thales markets the TopAxyz IMU/INS (ring-laser-gyro and MEMS inertial sensing) for aerospace and navigation applications.",
-    "excerpt": "TopAxyz ... inertial measurement unit (IMU) ... inertial navigation system.",
-    "supportsNodeIds": [
-      "org_thales"
-    ],
-    "supportsEdgeIds": [
-      "e_space_exposure_thales_imu"
-    ],
-    "limitations": "Vendor product page (who-makes-what OK). Ticker HO corroborated via market sources, not on this page. INS is a small slice of Thales -> diluted exposure. fetch_ok pending verifier quote-check.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Browser-rendered live.euronext.com FR0000073272-XPAR (Chrome MCP; WebFetch could not see the JS-rendered symbol). Rendered DOM contains the symbol/name/type row 'SAF\\tSAFRAN\\tStock' (word-boundary 'SAF' present), page title 'SAFRAN | FR0000073272 | Euronext exchange Live quotes', live EUR quote, and Euronext Paris market. All four excerpt tokens (Safran, FR0000073272, SAF, Euronext Paris) confirmed verbatim on the live page -> ok_exact. Ticker-only confirmation; exposure stays diluted per limitations."
+    }
   },
   {
     "id": "ev_space_transdigm_airborne_parafoil",
     "type": "news",
     "title": "PRNewswire — TransDigm to acquire Airborne Systems (guided parafoils)",
     "url": "https://www.prnewswire.com/news-releases/transdigm-to-acquire-airborne-systems-from-metalmark-capital-234064501.html",
-    "sourceStatus": "fetch_ok",
+    "sourceStatus": "ok_exact",
     "sourceName": "PRNewswire (TransDigm M&A release)",
     "date": "accessed 2026-06-16",
     "summary": "TransDigm acquisition release describing Airborne Systems as the worldwide market and technology leader in guided aerial cargo and payload-delivery parafoils.",
@@ -2559,9 +2602,97 @@
     "supportsEdgeIds": [
       "e_space_exposure_transdigm_fairingrecovery"
     ],
-    "limitations": "M&A press (ownership) + vendor (capability); 'market leader' is qualitative, NOT a citable share number. SpaceX-Airborne supply UNVERIFIED. Diluted (Airborne is a small slice of TDG). fetch_ok pending verifier quote-check.",
+    "limitations": "M&A press (ownership) + vendor (capability); 'market leader' is qualitative, NOT a citable share number. SpaceX-Airborne supply UNVERIFIED. Diluted (Airborne is a small slice of TDG).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of prnewswire.com TransDigm/Airborne Systems release. Verbatim in CEO quote: 'It is the worldwide market and technology leader in military personnel parachutes, guided aerial cargo and payload delivery systems and related products.' Stored excerpt tokens (worldwide market and technology leader / guided aerial cargo and payload delivery) present verbatim. 'Market leader' is qualitative, not a share number; SpaceX-Airborne supply remains unverified per limitations."
+    }
+  },
+  {
+    "id": "ev_space_acerinox_acx_bme",
+    "type": "product_page",
+    "title": "BME Exchange — Acerinox S.A. (ES0132105018, ticker ACX)",
+    "url": "https://www.bolsasymercados.es/bme-exchange/en/Prices-and-Markets/Shares/Main-Market/Details/Acerinox-ES0132105018",
+    "sourceStatus": "ok_exact",
+    "sourceName": "BME / Bolsas y Mercados Españoles (official exchange)",
+    "date": "accessed 2026-06-16",
+    "summary": "Official BME exchange detail page confirming Acerinox S.A. trades on the Madrid main market under ticker ACX (ISIN ES0132105018); Acerinox owns North American Stainless.",
+    "excerpt": "Acerinox ... ES0132105018 ... ACX",
+    "supportsNodeIds": [
+      "org_acerinox"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_acerinox_stainless"
+    ],
+    "limitations": "Official exchange confirms the ACX ticker only; NAS ownership corroborated on acerinox.com. Commodity-grade stainless -> low-purity exposure (captive 30X is the real chokepoint).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Browser-rendered BME Acerinox detail page (Chrome MCP; WebFetch could not see the JS-rendered symbol). Rendered DOM contains word-boundary token 'ACX' plus 'ACERINOX' and ISIN 'ES0132105018'; page title 'Shares ACERINOX, S.A. Today | Stock Market Prices | BME Exchange'. (Page redirected to the canonical BME instrument URL detail.acerinox-es0132105018.html for the same ISIN.) All three excerpt tokens (Acerinox, ES0132105018, ACX) confirmed verbatim on the live page -> ok_exact. Ticker-only confirmation; exposure stays low-purity per limitations."
+    }
+  },
+  {
+    "id": "ev_space_cbmm_niobium_share",
+    "type": "news",
+    "title": "SFA Oxford — Niobium swing producer CBMM driving the future of advanced materials",
+    "url": "https://www.sfa-oxford.com/market-news-and-insights/niobium-swing-producer-cbmm-driving-the-future-of-advanced-materials/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "SFA (Oxford) — specialty-metals analysis",
+    "date": "accessed 2026-06-16",
+    "summary": "Industry analysis describing CBMM as the dominant niobium producer; Brazil supplies roughly 90% of global niobium production (USGS), with CBMM reported at ~75-82% of the world market.",
+    "excerpt": "Brazil accounts for around 90% of global niobium production, with CBMM the dominant producer.",
+    "supportsNodeIds": [
+      "org_cbmm"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_cbmm_niobium"
+    ],
+    "limitations": "Trade analysis (SFA Oxford) anchored on USGS for the Brazil ~90% PRODUCTION figure (the citable number, verbatim in this excerpt). CBMM's own ~75-82% company-specific share is reported but needs a second primary source before shipping as fact -> kept qualitative. PRIVATE -> no direct equity pure-play.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "Independent WebFetch of sfa-oxford.com niobium/CBMM article. Live page verbatim: 'Approximately 90% of global niobium production comes from Brazil, with Canada as the only other significant source.' + 'CBMM, the world's leading niobium producer, primarily shaped the supply landscape.' Stored excerpt is a faithful restatement; the 90% Brazil-PRODUCTION figure IS present on the page (numberInQuote=true). The company-specific ~75-82% CBMM share is NOT quantified on this page -> correctly kept qualitative per limitations."
+    }
+  },
+  {
+    "id": "ev_space_thales_topaxyz_imu",
+    "type": "vendor_claim",
+    "title": "Thales — TopAxyz inertial navigation system / next-generation IMU",
+    "url": "https://www.thalesgroup.com/en/markets/aerospace/navigation-solutions/topaxyz-imu/topaxyz-inertial-navigation-system-land",
+    "sourceStatus": "404",
+    "sourceName": "Thales S.A.",
+    "date": "accessed 2026-06-16",
+    "summary": "Thales markets the TopAxyz IMU/INS (ring-laser-gyro and MEMS inertial sensing) for aerospace and navigation applications.",
+    "excerpt": "TopAxyz ... inertial measurement unit (IMU) ... inertial navigation system.",
+    "supportsNodeIds": [
+      "org_thales"
+    ],
+    "supportsEdgeIds": [
+      "e_space_exposure_thales_imu"
+    ],
+    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): the cited thalesgroup.com TopAxyz URL returns HTTP 404 (dead link) and all alternate Thales TopAxyz URLs tried (general IMU page, solutions-catalogue) were 404 or bot-blocked, so the excerpt could not be verbatim-confirmed at source. The TopAxyz IMU/INS product is real (web-search confirmed) and org_thales is kept qualitatively, but this evidence record is rejected pending re-anchor to a live Thales URL. Originally: vendor product page; HO ticker corroborated via market sources, not on this page; INS a small slice of Thales -> diluted.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of the cited URL returned HTTP 404 Not Found; alternate Thales TopAxyz URLs also 404/bot-blocked. Excerpt unverifiable at source -> FAILED, demoted to rejectedEvidenceIds on org_thales + e_space_exposure_thales_imu."
+    }
   },
   {
     "id": "ev_space_plascore_aluminum_honeycomb",
@@ -2579,49 +2710,16 @@
     "supportsEdgeIds": [
       "e_space_exposure_plascore_honeycomb"
     ],
-    "limitations": "Vendor page (who-makes-what OK). PRIVATE -> non-investable. Mature commodity-ish honeycomb (low chokepoint grade). Not a SpaceX-confirmed supply.",
+    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): the live plascore.com/company page confirms 'global leader in manufactured honeycomb core' but the word 'aluminum' appears NOWHERE on the page (checked twice), so the stored excerpt's specific 'including aluminum honeycomb' claim is not verbatim at source. Plascore does make aluminum honeycomb (other pages) so org_plascore is kept qualitatively on honeycomb-core, but this evidence record is rejected pending re-anchor of the aluminum-specific claim. Originally: vendor page; PRIVATE -> non-investable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "ev_space_acerinox_acx_bme",
-    "type": "product_page",
-    "title": "BME Exchange — Acerinox S.A. (ES0132105018, ticker ACX)",
-    "url": "https://www.bolsasymercados.es/bme-exchange/en/Prices-and-Markets/Shares/Main-Market/Details/Acerinox-ES0132105018",
-    "sourceStatus": "fetch_ok",
-    "sourceName": "BME / Bolsas y Mercados Españoles (official exchange)",
-    "date": "accessed 2026-06-16",
-    "summary": "Official BME exchange detail page confirming Acerinox S.A. trades on the Madrid main market under ticker ACX (ISIN ES0132105018); Acerinox owns North American Stainless.",
-    "excerpt": "Acerinox ... ES0132105018 ... ACX",
-    "supportsNodeIds": [
-      "org_acerinox"
-    ],
-    "supportsEdgeIds": [
-      "e_space_exposure_acerinox_stainless"
-    ],
-    "limitations": "Official exchange confirms the ACX ticker only; NAS ownership corroborated on acerinox.com. Commodity-grade stainless -> low-purity exposure (captive 30X is the real chokepoint). fetch_ok pending verifier quote-check.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "ev_space_cbmm_niobium_share",
-    "type": "news",
-    "title": "SFA Oxford — Niobium swing producer CBMM driving the future of advanced materials",
-    "url": "https://www.sfa-oxford.com/market-news-and-insights/niobium-swing-producer-cbmm-driving-the-future-of-advanced-materials/",
-    "sourceStatus": "fetch_ok",
-    "sourceName": "SFA (Oxford) — specialty-metals analysis",
-    "date": "accessed 2026-06-16",
-    "summary": "Industry analysis describing CBMM as the dominant niobium producer; Brazil supplies roughly 90% of global niobium production (USGS), with CBMM reported at ~75-82% of the world market.",
-    "excerpt": "Brazil accounts for around 90% of global niobium production, with CBMM the dominant producer.",
-    "supportsNodeIds": [
-      "org_cbmm"
-    ],
-    "supportsEdgeIds": [
-      "e_space_exposure_cbmm_niobium"
-    ],
-    "limitations": "Trade analysis (SFA Oxford) anchored on USGS for the Brazil ~90% PRODUCTION figure (the citable number, verbatim in this excerpt). CBMM's own ~75-82% company-specific share is reported but needs a second primary source before shipping as fact -> kept qualitative. PRIVATE -> no direct equity pure-play. fetch_ok pending verifier quote-check.",
-    "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "absent",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of plascore.com/company (twice): 'global leader in manufactured honeycomb core' present, but the token 'aluminum' is absent from the page. The excerpt's 'including aluminum honeycomb' clause is not verbatim at source -> FAILED, demoted to rejectedEvidenceIds on org_plascore + e_space_exposure_plascore_honeycomb."
+    }
   },
   {
     "id": "ev_space_chart_industries_gtls_cryo",
@@ -2631,7 +2729,7 @@
     "sourceStatus": "fetch_ok",
     "sourceName": "Chart Industries, Inc. (official release)",
     "date": "accessed 2026-06-16",
-    "summary": "Official Chart Industries release on the Baker Hughes acquisition; confirms the GTLS listing and Chart's cryogenic-equipment franchise (cryo gear in ~90% of LNG projects).",
+    "summary": "Official Chart Industries release on the Baker Hughes acquisition; confirms the GTLS listing and Chart's cryogenic-equipment franchise.",
     "excerpt": "Chart Industries, Inc. (NYSE: GTLS) ... cryogenic ... equipment ... used in approximately 90% of LNG projects.",
     "supportsNodeIds": [
       "org_chart_industries"
@@ -2639,8 +2737,15 @@
     "supportsEdgeIds": [
       "e_space_exposure_chart_cryotank"
     ],
-    "limitations": "Official IR confirms the GTLS ticker + the cryo franchise; the '90% of LNG projects' figure is company/acquirer-sourced and LNG-basis -> fine as qualitative reach, NOT a launch-cryo share. M&A: GTLS rolls into BKR ~mid-2026. fetch_ok pending verifier quote-check.",
+    "limitations": "DEMOTED by Gate-B verifier 2026-06-16 (rejected): the '(NYSE: GTLS)' ticker IS verbatim on the cited Chart release, BUT the stored excerpt's number 'approximately 90% of LNG projects' appears NOWHERE on that page (checked twice; numberInQuote=false), so the bundled excerpt is not verbatim at source. GTLS ticker + cryogenic franchise are real (ticker verbatim-confirmed) so org_chart_industries is kept qualitatively, but this evidence record is rejected pending re-anchor of the cryo-reach figure to a source that carries it (and note it is an LNG basis, not a launch-cryo share). M&A: GTLS rolls into BKR ~mid-2026.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "failed",
+      "checkedAsOf": "2026-06-16",
+      "quoteMatch": "partial",
+      "numberInQuote": false,
+      "notes": "Independent WebFetch of chartindustries.com Baker-Hughes release (twice): '(NYSE: GTLS)' present verbatim, but the figure '90%' / 'approximately 90% of LNG projects' is absent from the page. The excerpt bundles a number that is not on the page -> FAILED (number not in quote), demoted to rejectedEvidenceIds on org_chart_industries + e_space_exposure_chart_cryotank. The GTLS ticker itself is verbatim-confirmed and retained at org level."
+    }
   }
 ]

@@ -2619,11 +2619,12 @@
       "spacex_reusable_launch",
       "investable_supplier"
     ],
-    "description": "U.S. (West Chester, Ohio) telemetry-electronics maker (Subchapter-S corporation, founded 2002); described as the market leader in aeronautical telemetry transmitters used in flight-test and range telemetry. Privately held — no public ticker. A merchant RF-telemetry transmitter tier supplier relevant to the launch-range / command-link chain.",
+    "description": "U.S. (West Chester, Ohio) telemetry-electronics maker (Subchapter-S corporation, founded 2002); a merchant supplier of aeronautical telemetry transmitters (TIMTER/nanoTX product lines) used in flight-test and range telemetry. Privately held — no public ticker. A merchant RF-telemetry transmitter tier supplier relevant to the launch-range / command-link chain.",
     "maturityLabel": "unknown",
     "confidence": "medium",
     "metrics": [],
-    "evidenceIds": [
+    "evidenceIds": [],
+    "rejectedEvidenceIds": [
       "ev_space_quasonix_telemetry_transmitter"
     ],
     "tags": [
@@ -2633,7 +2634,7 @@
       "private_company",
       "merchant_tier"
     ],
-    "notes": "PRIVATE (Subchapter-S, founded 2002; confirmed not public via PitchBook/Crunchbase) -> no ticker. Real telemetry-transmitter leader (flight-test/range). SpaceX link unverified -> reported_capable_supplier. 'Market leader' is vendor/trade-qualitative. Country: USA.",
+    "notes": "PRIVATE (Subchapter-S, founded 2002; confirmed not public via PitchBook/Crunchbase) -> no ticker. Real telemetry-transmitter maker (flight-test/range; TIMTER/nanoTX). SpaceX link unverified -> reported_capable_supplier. Evidence ev_space_quasonix_telemetry_transmitter DEMOTED by Gate-B verifier 2026-06-16: a browser render of quasonix.com/about does NOT contain the stored 'leading supplier of aeronautical telemetry transmitters' excerpt, so the market-position claim is downgraded to qualitative pending a re-anchored source. Country: USA.",
     "reviewStatus": "unreviewed",
     "listingStatus": "private"
   },
@@ -2687,7 +2688,8 @@
         "currentValue": "HO"
       }
     ],
-    "evidenceIds": [
+    "evidenceIds": [],
+    "rejectedEvidenceIds": [
       "ev_space_thales_topaxyz_imu"
     ],
     "tags": [
@@ -2697,7 +2699,7 @@
       "public_company",
       "merchant_tier"
     ],
-    "notes": "Euronext Paris HO (CAC 40), verified via thalesgroup IMU press + market sources. Real IMU/INS maker (TopAxyz, RLG/MEMS). SpaceX link unverified -> reported_capable_supplier. DILUTED exposure (INS small slice of Thales) -> low purity. Country: France.",
+    "notes": "Euronext Paris HO (CAC 40), ticker corroborated via market sources. Real IMU/INS maker (TopAxyz, RLG/MEMS) per web search. SpaceX link unverified -> reported_capable_supplier. DILUTED exposure (INS small slice of Thales) -> low purity. Country: France. Evidence ev_space_thales_topaxyz_imu DEMOTED by Gate-B verifier 2026-06-16: cited TopAxyz URL is HTTP 404 (dead) and alternate Thales URLs 404/bot-blocked, so the excerpt could not be verbatim-confirmed; org kept qualitatively, re-anchor before re-promoting.",
     "reviewStatus": "unreviewed",
     "listingStatus": "public",
     "ticker": "HO"
@@ -2746,7 +2748,8 @@
     "maturityLabel": "unknown",
     "confidence": "medium",
     "metrics": [],
-    "evidenceIds": [
+    "evidenceIds": [],
+    "rejectedEvidenceIds": [
       "ev_space_plascore_aluminum_honeycomb"
     ],
     "tags": [
@@ -2756,7 +2759,7 @@
       "private_company",
       "merchant_tier"
     ],
-    "notes": "PRIVATE (Zeeland MI, founded 1977; confirmed not public via Wikipedia/BBB) -> no ticker. Real aluminum-honeycomb maker; second source to Hexcel for crushable core. Mature/widely-adopted material -> keep ONE node (gap T08). Country: USA.",
+    "notes": "PRIVATE (Zeeland MI, founded 1977; confirmed not public via Wikipedia/BBB) -> no ticker. Real aluminum-honeycomb maker; second source to Hexcel for crushable core. Mature/widely-adopted material -> keep ONE node (gap T08). Country: USA. Evidence ev_space_plascore_aluminum_honeycomb DEMOTED by Gate-B verifier 2026-06-16: live plascore.com/company confirms 'honeycomb core' leadership but the word 'aluminum' is absent from the page, so the excerpt's aluminum-specific claim was not verbatim-confirmed; org kept qualitatively on honeycomb-core, re-anchor the aluminum claim before re-promoting.",
     "reviewStatus": "unreviewed",
     "listingStatus": "private"
   },
@@ -2836,7 +2839,8 @@
         "currentValue": "GTLS"
       }
     ],
-    "evidenceIds": [
+    "evidenceIds": [],
+    "rejectedEvidenceIds": [
       "ev_space_chart_industries_gtls_cryo"
     ],
     "tags": [
@@ -2846,7 +2850,7 @@
       "public_company",
       "merchant_tier"
     ],
-    "notes": "NYSE GTLS - VERIFIED. M&A FLAG: Baker Hughes (NASDAQ BKR) acquiring Chart for $13.6B all-cash ($210/share, approved Oct-2025, expected close MID-2026) -> post-close GTLS rolls into BKR. Real merchant cryo-tank leader; SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier. The '90% of LNG projects' is LNG-basis, NOT a launch-cryo market share. Country: USA.",
+    "notes": "NYSE GTLS ticker verbatim-confirmed on the Chart release. M&A FLAG: Baker Hughes (NASDAQ BKR) acquiring Chart for $13.6B all-cash ($210/share, approved Oct-2025, expected close MID-2026) -> post-close GTLS rolls into BKR. Real merchant cryo-tank leader; SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier. Evidence ev_space_chart_industries_gtls_cryo DEMOTED by Gate-B verifier 2026-06-16: the '(NYSE: GTLS)' ticker IS on the cited page but the excerpt's 'approximately 90% of LNG projects' figure is NOT on that page (number not in quote), so the bundled excerpt was not verbatim-confirmed. The '90% of LNG projects' is an LNG basis anyway, NOT a launch-cryo market share. Org kept qualitatively; re-anchor the reach figure before re-promoting. Country: USA.",
     "reviewStatus": "unreviewed",
     "listingStatus": "public",
     "ticker": "GTLS"
