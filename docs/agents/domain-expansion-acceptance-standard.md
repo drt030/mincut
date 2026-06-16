@@ -53,8 +53,25 @@ A round/batch is **ACCEPTED if and only if** every gate A–F passes for the dom
 Flagship parity = the deterministic, evidence, exposure, eval, review, **and user-flow** gates
 (§3 Gate A – §7.5 Gate F) all pass for the domain. "Looks complete" is not parity — the eval, the
 verifier, **and a real user testing the running product** decide.
-The reference run (`ai_compute_chain`) is the calibration anchor, not a node-count target — a domain
-with fewer genuine segments is fine if its segments are fully covered.
+The reference run (`ai_compute_chain`) is the calibration anchor. Depth parity is GENUINE
+decomposition depth — never a count hit reached by padding.
+
+**Owner depth directive (2026-06-16, supersedes the earlier "fewer segments is fine" carve-out):**
+both `spacex_reusable_launch` and `humanoid_robotics` are **flagship-tier domains** and must reach
+**genuine flagship decomposition depth** — "don't skimp" (owner). The prior round's "SpaceX is
+justifiably thin / thinness is an owner content call" disposition (Gate F FF-4) is **overruled**:
+thinness now **fails Gate F F3**. Concretely, for each domain:
+- Every first-layer subsystem is decomposed to the flagship's typical depth — subsystem → modules →
+  components → materials/know-how — not stopped one or two layers early. A subsystem that renders as
+  a bare leaf or a single child where the flagship would show a sub-tree is a **miss**.
+- **Rendered focal-tree floor ≥ 60 nodes** (flagship renders 69) **and total ≥ 160** (flagship 205),
+  reached *only* by genuine, evidenced, verified decomposition + exposure. This is a floor to force
+  real depth, **not** a target to game: **padding, pseudo-nodes, splitting one real thing into two,
+  or decomposition not grounded in a cited industry fact AUTO-FAILS** (acceptance judge + Gate D
+  sealed holdout catch count-gaming; an inflated tree that overfits the holdout fails Gate D).
+- New depth obeys every other gate: ADR-0005 stop conditions, B-gate quote-or-qualitative evidence,
+  C-gate exposure (≤5 verified orgs/component, three passes), A7 zh coverage, F4 no gray non-material
+  / no `unknown`-maturity nodes. Depth that can't be evidenced ships qualitative or not at all.
 
 **Repo-native "done":** ACCEPTED (all gates pass) = the domain is eligible to flip its
 `portfolioState` from `audit-preview` → `paid-candidate` (`DOMAIN_PORTFOLIO_STATES` in
@@ -167,9 +184,13 @@ skipped for UI changes"* and *"if a core user journey was not actually tested."*
   blocker:** the radial tree is built from decomposition relations (`requires`/`part_of`/
   `has_route`/`implemented_by`) and holder counts use `manufactured_by`/`implemented_by`, so an org
   reachable by neither is invisible — the exposure work must surface, or the relations/rail must.
-- **F3 Graph reads as a map.** The radial decomposition renders, is non-trivial, and communicates
-  which subsystem is most complex/important without a side list; no blank canvas, no orphan
-  cluster. Report the rendered-tree node count vs the flagship.
+- **F3 Graph reads as a map AND meets flagship depth.** The radial decomposition renders, is
+  non-trivial, and communicates which subsystem is most complex/important without a side list; no
+  blank canvas, no orphan cluster. Report the rendered-tree node count vs the flagship. **Per the §2
+  owner depth directive (2026-06-16): rendered focal tree ≥ 60 and total ≥ 160 via genuine
+  decomposition — a thin tree (e.g. the prior SpaceX 36) FAILS F3.** Spot-check that no first-layer
+  subsystem dead-ends one layer shallower than its flagship analogue; padding to hit the count also
+  fails (call it out).
 - **F4 No gray/unclassified nodes.** Every rendered node has a resolved maturity **and** subsystem
   classification — no `unknown` maturity, no uncoloured/uncategorised nodes. Day-0 classification
   debt (e.g. the 16 `unknown`-maturity SpaceX nodes flagged at kickoff) is resolved, not carried.
