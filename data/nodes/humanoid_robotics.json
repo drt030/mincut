@@ -2033,7 +2033,7 @@
       "actuation",
       "hard_to_develop"
     ],
-    "notes": "Hard to develop: a thin-section crossed-roller bearing must hold high moment stiffness and low cross-axis play in a slim ring; qualification is concentrated among a few specialty bearing makers. Likely citable source: 2026 robotic-joint bearing guides citing RA5008/RA10008 for humanoid shoulder/hip joints; THK/IKO crossed-roller catalogs. Verify the specific RA-size humanoid claim and maker concentration in the later evidence pass. Qualitative only this pass.",
+    "notes": "Hard to develop: a thin-section crossed-roller bearing must hold high moment stiffness and low cross-axis play in a slim ring; qualification is concentrated among a few specialty bearing makers. Likely citable source: 2026 robotic-joint bearing guides citing RA5008/RA10008 for humanoid shoulder/hip joints; THK/IKO crossed-roller catalogs. Verify the specific RA-size humanoid claim and maker concentration in the later evidence pass. Qualitative only this pass. Exposure overflow (>5 makers, soft cap): Harmonic Drive Systems also integrates an output cross-roller bearing inside its strain-wave reducers, but as the captive/integrated option it is the breadth tail behind the merchant pair THK + IKO and the second-source set Schaeffler/NSK/NTN; not wired as a separate supplier edge to keep the node at the 5 most-concentrated makers.",
     "reviewStatus": "unreviewed"
   },
   {
@@ -3627,5 +3627,173 @@
     "reviewStatus": "unreviewed",
     "listingStatus": "public",
     "ticker": "002050.SZ"
+  },
+  {
+    "id": "org_ikont_nipponthompson",
+    "name": "Nippon Thompson Co., Ltd. (IKO)",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed precision-bearing specialist (IKO brand) carried as a supplier candidate for thin-section crossed-roller and flexible/harmonic-reducer bearings; ticker 6480.T is Tokyo-listed exposure, not a US primary listing. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6480.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_iko_ir_bearings"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_sumitomo_metal_mining",
+    "name": "Sumitomo Metal Mining Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed non-ferrous and battery-materials maker carried as a supplier candidate for nickel-rich cathode active material (NCA/NMC); ticker 5713.T is Tokyo-listed exposure, not a US primary listing. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "5713.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_smm_ir_cathode"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_asahi_kasei",
+    "name": "Asahi Kasei Corporation",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed diversified chemicals maker (Hipore Li-ion separator) carried as a supplier candidate for microporous battery-separator film; ticker 3407.T is Tokyo-listed exposure, not a US primary listing. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "3407.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_asahi_kasei_ir_separator"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_shenzhen_senior",
+    "name": "Shenzhen Senior Technology Material Co., Ltd.",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Shenzhen-listed Li-ion battery-separator maker (dry/wet/coated film) carried as a supplier candidate for microporous battery-separator film; ticker 300568.SZ is Shenzhen-listed exposure, not a US primary listing. Legal entity name (not 'SEMCORP'). Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "300568.SZ",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_shenzhen_senior_separator"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_sony",
+    "name": "Sony Group Corporation",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Tokyo-listed group whose Sony Semiconductor Solutions is a leading merchant CMOS image-sensor maker; carried as a supplier candidate for the depth-camera image sensor. Ticker 6758.T is Tokyo-listed exposure (ADR SONY also trades), not modeled as a US primary listing here. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "6758.T",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_sony_image_sensor"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_analog_devices",
+    "name": "Analog Devices, Inc.",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Nasdaq-listed analog/mixed-signal semiconductor maker (incl. Maxim portfolio) carried as a supplier candidate for battery-monitoring AFE / fuel-gauge ICs and high-performance MEMS IMU dies. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "ADI",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_adi_battery_imu"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_ams_osram",
+    "name": "ams-OSRAM AG",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public SIX Swiss Exchange-listed optical/sensor semiconductor maker carried as a supplier candidate for rotary magnetic position-encoder ASICs (AS5xxx Hall-array family); ticker AMS.SW is Swiss-listed exposure, not a US primary listing. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "AMS.SW",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_ams_osram_encoder_asic"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "org_monolithic_power",
+    "name": "Monolithic Power Systems, Inc.",
+    "kind": "organization",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Public Nasdaq-listed semiconductor maker carried as a supplier candidate for angular/position-sensor (MagAlpha) and motor-drive ICs used in robotics. Graph link is component exposure, not a confirmed humanoid BOM.",
+    "maturityLabel": "unknown",
+    "listingStatus": "public",
+    "ticker": "MPWR",
+    "confidence": "medium",
+    "tags": [
+      "public_company",
+      "supplier_candidate"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_mpwr_position_sensor"
+    ],
+    "reviewStatus": "unreviewed"
   }
 ]

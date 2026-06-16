@@ -2061,5 +2061,806 @@
     "claim": "The compute heat spreader requires a thermal interface material between the die/source and the spreader.",
     "confidence": "high",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_flexspline__manufactured_by__hds",
+    "source": "humanoid_reducer_flexspline",
+    "target": "org_humanoid_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is the originator and reference maker of the strain-wave gear; the flexspline is captive inside its strain-wave reducers. Supplier-candidate (vendor-grounded who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_flexspline__manufactured_by__leaderdrive",
+    "source": "humanoid_reducer_flexspline",
+    "target": "org_humanoid_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is the principal China second-source strain-wave reducer maker; the flexspline is captive inside its reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_flexspline__reported_capable_supplier__nabtesco",
+    "source": "humanoid_reducer_flexspline",
+    "target": "org_humanoid_nabtesco",
+    "relation": "reported_capable_supplier",
+    "claim": "Nabtesco makes precision reducers and is carried as capable of the captive flexspline member; no flexspline-specific supply quote, so reported-capable, not confirmed manufacture.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_circular_spline__manufactured_by__hds",
+    "source": "humanoid_reducer_circular_spline",
+    "target": "org_humanoid_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems is the reference strain-wave gear maker; the circular spline is the captive mating member inside its reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_circular_spline__manufactured_by__leaderdrive",
+    "source": "humanoid_reducer_circular_spline",
+    "target": "org_humanoid_leaderdrive",
+    "relation": "manufactured_by",
+    "claim": "Leaderdrive is the principal China second-source strain-wave reducer maker; the circular spline is captive inside its reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_circular_spline__reported_capable_supplier__nabtesco",
+    "source": "humanoid_reducer_circular_spline",
+    "target": "org_humanoid_nabtesco",
+    "relation": "reported_capable_supplier",
+    "claim": "Nabtesco makes precision reducers and is carried as capable of the captive circular-spline member; no part-specific supply quote, so reported-capable, not confirmed manufacture.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_wave_generator__manufactured_by__hds",
+    "source": "humanoid_reducer_wave_generator",
+    "target": "org_humanoid_harmonic_drive_systems",
+    "relation": "manufactured_by",
+    "claim": "Harmonic Drive Systems makes the wave generator (elliptical cam plus integrated flex bearing) captive inside its strain-wave reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_wave_generator__reported_capable_supplier__thk",
+    "source": "humanoid_reducer_wave_generator",
+    "target": "org_thk",
+    "relation": "reported_capable_supplier",
+    "claim": "THK makes thin-section and flexible/harmonic-reducer-class bearings and is carried as capable of the wave generator's specialty deformable flex bearing; no humanoid-named supply quote, so reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_wave_generator__reported_capable_supplier__schaeffler",
+    "source": "humanoid_reducer_wave_generator",
+    "target": "org_schaeffler",
+    "relation": "reported_capable_supplier",
+    "claim": "Schaeffler (INA) makes thin-section / flexible bearings and is carried as capable of the wave generator's specialty deformable flex bearing; no humanoid-named supply quote, so reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_wave_generator__reported_capable_supplier__iko",
+    "source": "humanoid_reducer_wave_generator",
+    "target": "org_ikont_nipponthompson",
+    "relation": "reported_capable_supplier",
+    "claim": "Nippon Thompson (IKO) makes thin-section / flexible bearings and is carried as capable of the wave generator's specialty deformable flex bearing; no humanoid-named supply quote, so reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cross_roller_bearing__manufactured_by__thk",
+    "source": "humanoid_cross_roller_bearing",
+    "target": "org_thk",
+    "relation": "manufactured_by",
+    "claim": "THK is a reference crossed-roller-bearing maker (RA/RAU/RB/RE/RU) for precision/robot joints; supplier-candidate for the joint output cross-roller bearing, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cross_roller_bearing__reported_capable_supplier__iko",
+    "source": "humanoid_cross_roller_bearing",
+    "target": "org_ikont_nipponthompson",
+    "relation": "reported_capable_supplier",
+    "claim": "Nippon Thompson (IKO) is a reference crossed-roller-bearing maker (CRB/CRBC/CRBH) for precision/robot joints; carried as capable of the joint output cross-roller bearing, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cross_roller_bearing__reported_capable_supplier__schaeffler",
+    "source": "humanoid_cross_roller_bearing",
+    "target": "org_schaeffler",
+    "relation": "reported_capable_supplier",
+    "claim": "Schaeffler (INA) makes crossed-roller / rotary-table bearings (YRT/XSU) and is carried as capable of the joint output cross-roller bearing; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cross_roller_bearing__reported_capable_supplier__nsk",
+    "source": "humanoid_cross_roller_bearing",
+    "target": "org_nsk",
+    "relation": "reported_capable_supplier",
+    "claim": "NSK is a precision-bearing maker carried as capable of the joint output cross-roller bearing; reported-capable, no humanoid-named supply quote.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cross_roller_bearing__reported_capable_supplier__ntn",
+    "source": "humanoid_cross_roller_bearing",
+    "target": "org_ntn",
+    "relation": "reported_capable_supplier",
+    "claim": "NTN is a precision-bearing maker carried as capable of the joint output cross-roller bearing; reported-capable, no humanoid-named supply quote.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bearing_steel__manufactured_by__nippon_steel",
+    "source": "humanoid_bearing_steel_feedstock",
+    "target": "org_nippon_steel",
+    "relation": "manufactured_by",
+    "claim": "Nippon Steel (which owns Ovako, a high-cleanliness bearing-steel technology leader) is the verified bearing-steel corner feeding cross-roller bearings and roller-screw rollers; supplier-candidate (who-makes-what / ownership-grounded), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bearing_steel__reported_capable_supplier__proterial",
+    "source": "humanoid_bearing_steel_feedstock",
+    "target": "org_proterial",
+    "relation": "reported_capable_supplier",
+    "claim": "Proterial (ex-Hitachi Metals) makes specialty/bearing steel and is carried as a capable high-cleanliness bearing-steel supplier; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_shaft__manufactured_by__rollvis",
+    "source": "humanoid_roller_screw_threaded_shaft",
+    "target": "org_humanoid_rollvis",
+    "relation": "manufactured_by",
+    "claim": "Rollvis makes planetary/satellite roller screws; the central threaded shaft is captive inside its roller-screw assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_shaft__manufactured_by__gsa",
+    "source": "humanoid_roller_screw_threaded_shaft",
+    "target": "org_humanoid_gsa",
+    "relation": "manufactured_by",
+    "claim": "GSA (Gewinde Ziegler) makes planetary roller screws in-house; the central threaded shaft is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_shaft__manufactured_by__schaeffler",
+    "source": "humanoid_roller_screw_threaded_shaft",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler makes planetary roller screws via Ewellix; the central threaded shaft is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_shaft__reported_capable_supplier__drake",
+    "source": "humanoid_roller_screw_threaded_shaft",
+    "target": "org_humanoid_drake_manufacturing",
+    "relation": "reported_capable_supplier",
+    "claim": "Drake Manufacturing builds the thread/screw grinders that produce roller-screw shafts; carried as capable on the shaft, reported-capable (upstream grinding capability).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_shaft__reported_capable_supplier__picea",
+    "source": "humanoid_roller_screw_threaded_shaft",
+    "target": "org_humanoid_picea_motion",
+    "relation": "reported_capable_supplier",
+    "claim": "Shenzhen PICEA Motion is carried as a capable roller-screw maker for the central threaded shaft; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_rollers__manufactured_by__rollvis",
+    "source": "humanoid_roller_screw_rollers",
+    "target": "org_humanoid_rollvis",
+    "relation": "manufactured_by",
+    "claim": "Rollvis makes planetary/satellite roller screws; the grooved rollers are captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_rollers__manufactured_by__gsa",
+    "source": "humanoid_roller_screw_rollers",
+    "target": "org_humanoid_gsa",
+    "relation": "manufactured_by",
+    "claim": "GSA (Gewinde Ziegler) makes planetary roller screws in-house; the grooved rollers are captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_rollers__manufactured_by__schaeffler",
+    "source": "humanoid_roller_screw_rollers",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler makes planetary roller screws via Ewellix; the grooved rollers are captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_rollers__reported_capable_supplier__picea",
+    "source": "humanoid_roller_screw_rollers",
+    "target": "org_humanoid_picea_motion",
+    "relation": "reported_capable_supplier",
+    "claim": "Shenzhen PICEA Motion is carried as a capable roller-screw maker for the grooved planetary rollers; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_nut__manufactured_by__rollvis",
+    "source": "humanoid_roller_screw_nut",
+    "target": "org_humanoid_rollvis",
+    "relation": "manufactured_by",
+    "claim": "Rollvis makes planetary/satellite roller screws; the internally-threaded nut is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_nut__manufactured_by__gsa",
+    "source": "humanoid_roller_screw_nut",
+    "target": "org_humanoid_gsa",
+    "relation": "manufactured_by",
+    "claim": "GSA (Gewinde Ziegler) makes planetary roller screws in-house; the internally-threaded nut is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_rs_nut__manufactured_by__schaeffler",
+    "source": "humanoid_roller_screw_nut",
+    "target": "org_schaeffler",
+    "relation": "manufactured_by",
+    "claim": "Schaeffler makes planetary roller screws via Ewellix; the internally-threaded nut is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hollow_cup_motor__manufactured_by__maxon",
+    "source": "humanoid_hand_hollow_cup_motor",
+    "target": "org_maxon",
+    "relation": "manufactured_by",
+    "claim": "maxon is the Western reference coreless / slotless micro-motor maker for dexterous hands; supplier-candidate (who-makes-what) for the hollow-cup hand motor, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hollow_cup_motor__manufactured_by__picea",
+    "source": "humanoid_hand_hollow_cup_motor",
+    "target": "org_humanoid_picea_motion",
+    "relation": "manufactured_by",
+    "claim": "Shenzhen PICEA Motion is the China challenger coreless micro-motor maker for dexterous hands; supplier-candidate (who-makes-what) for the hollow-cup hand motor, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hand_leadscrew__reported_capable_supplier__rollvis",
+    "source": "humanoid_hand_micro_leadscrew",
+    "target": "org_humanoid_rollvis",
+    "relation": "reported_capable_supplier",
+    "claim": "Rollvis (roller/precision-screw specialist) is carried as capable of a miniature finger-drive lead/ball screw; an emerging hand frontier, so reported-capable, qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_hand_leadscrew__reported_capable_supplier__gsa",
+    "source": "humanoid_hand_micro_leadscrew",
+    "target": "org_humanoid_gsa",
+    "relation": "reported_capable_supplier",
+    "claim": "GSA (precision-screw specialist) is carried as capable of a miniature finger-drive lead/ball screw; an emerging hand frontier, so reported-capable, qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_fingertip_element__manufactured_by__paxini",
+    "source": "humanoid_fingertip_tactile_element",
+    "target": "org_humanoid_paxini",
+    "relation": "manufactured_by",
+    "claim": "PaXini makes multidimensional tactile sensors and is a named maker of the fingertip tactile element; supplier-candidate (who-makes-what), not a confirmed third-party-OEM BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_fingertip_element__manufactured_by__xela",
+    "source": "humanoid_fingertip_tactile_element",
+    "target": "org_humanoid_xela_robotics",
+    "relation": "manufactured_by",
+    "claim": "XELA Robotics makes uSkin tactile sensors and is a named maker of the fingertip tactile element; supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_fingertip_element__reported_capable_supplier__te",
+    "source": "humanoid_fingertip_tactile_element",
+    "target": "org_humanoid_te_connectivity",
+    "relation": "reported_capable_supplier",
+    "claim": "TE Connectivity carries force-sensing capability and is carried as capable of the fingertip tactile element; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cathode_active_material__reported_capable_supplier__smm",
+    "source": "humanoid_cell_cathode_active_material",
+    "target": "org_sumitomo_metal_mining",
+    "relation": "reported_capable_supplier",
+    "claim": "Sumitomo Metal Mining is the leading nickel-rich cathode active material (NCA) maker (co-developed with Panasonic); carried as a capable cathode-CAM supplier. No manufactured_by quote to a named humanoid cell, so reported-capable; concentration qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cell_separator__reported_capable_supplier__asahi_kasei",
+    "source": "humanoid_cell_separator",
+    "target": "org_asahi_kasei",
+    "relation": "reported_capable_supplier",
+    "claim": "Asahi Kasei (Hipore) is the reference ex-China wet-process Li-ion separator maker; carried as a capable separator supplier. No humanoid-named supply quote, so reported-capable; concentration qualitative (C&EN anchor).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_cell_separator__reported_capable_supplier__shenzhen_senior",
+    "source": "humanoid_cell_separator",
+    "target": "org_shenzhen_senior",
+    "relation": "reported_capable_supplier",
+    "claim": "Shenzhen Senior Technology Material is a leading Chinese Li-ion separator maker (dry/wet/coated); carried as a capable separator supplier. No humanoid-named supply quote, so reported-capable; concentration qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms_analog_frontend__manufactured_by__ti",
+    "source": "humanoid_bms_analog_frontend",
+    "target": "org_humanoid_texas_instruments",
+    "relation": "manufactured_by",
+    "claim": "Texas Instruments is a leading multi-cell BMS analog-front-end / fuel-gauge IC maker; supplier-candidate (who-makes-what) for the BMS AFE, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms_analog_frontend__reported_capable_supplier__nxp",
+    "source": "humanoid_bms_analog_frontend",
+    "target": "org_nxp",
+    "relation": "reported_capable_supplier",
+    "claim": "NXP makes battery-management AFE ICs and is carried as a capable BMS-AFE supplier; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms_analog_frontend__reported_capable_supplier__stm",
+    "source": "humanoid_bms_analog_frontend",
+    "target": "org_humanoid_stmicroelectronics",
+    "relation": "reported_capable_supplier",
+    "claim": "STMicroelectronics makes battery-monitoring ICs and is carried as a capable BMS-AFE supplier; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_bms_analog_frontend__reported_capable_supplier__adi",
+    "source": "humanoid_bms_analog_frontend",
+    "target": "org_analog_devices",
+    "relation": "reported_capable_supplier",
+    "claim": "Analog Devices (incl. Maxim) is a top-tier battery-monitoring AFE / fuel-gauge maker; carried as a capable BMS-AFE supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_lamination_steel__reported_capable_supplier__nippon_steel",
+    "source": "humanoid_motor_stator_lamination_steel",
+    "target": "org_nippon_steel",
+    "relation": "reported_capable_supplier",
+    "claim": "Nippon Steel makes thin high-grade non-oriented electrical steel and is carried as a capable lamination-steel supplier; reported-capable, qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_lamination_steel__reported_capable_supplier__posco",
+    "source": "humanoid_motor_stator_lamination_steel",
+    "target": "org_posco",
+    "relation": "reported_capable_supplier",
+    "claim": "POSCO makes electrical steel and is carried as a capable lamination-steel supplier; reported-capable, qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_lamination_steel__reported_capable_supplier__baosteel",
+    "source": "humanoid_motor_stator_lamination_steel",
+    "target": "org_baosteel",
+    "relation": "reported_capable_supplier",
+    "claim": "Baowu/Baosteel makes electrical steel and is carried as a capable lamination-steel supplier; reported-capable, qualitative.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ndfeb_feedstock__manufactured_by__jl_mag",
+    "source": "humanoid_ndfeb_magnet_feedstock",
+    "target": "org_jl_mag_rare_earth",
+    "relation": "manufactured_by",
+    "claim": "JL MAG Rare-Earth is the China reference sintered-NdFeB maker; supplier-candidate (who-makes-what) for the NdFeB magnet feedstock, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ndfeb_feedstock__manufactured_by__proterial",
+    "source": "humanoid_ndfeb_magnet_feedstock",
+    "target": "org_proterial",
+    "relation": "manufactured_by",
+    "claim": "Proterial (ex-Hitachi Metals) mass-produces NEOMAX sintered NdFeB; supplier-candidate (who-makes-what) for the NdFeB magnet feedstock, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ndfeb_feedstock__reported_capable_supplier__mp_materials",
+    "source": "humanoid_ndfeb_magnet_feedstock",
+    "target": "org_mp_materials",
+    "relation": "reported_capable_supplier",
+    "claim": "MP Materials is the principal ex-China sintered-NdFeB alternative (Fort Worth ramp); carried as a capable NdFeB-feedstock supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ndfeb_feedstock__reported_capable_supplier__shin_etsu",
+    "source": "humanoid_ndfeb_magnet_feedstock",
+    "target": "org_shin_etsu_chemical",
+    "relation": "reported_capable_supplier",
+    "claim": "Shin-Etsu Chemical makes NdFeB sintered magnets and is carried as a capable NdFeB-feedstock supplier; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ft_elastic_element__manufactured_by__novanta_ati",
+    "source": "humanoid_ft_elastic_element",
+    "target": "org_humanoid_novanta_ati",
+    "relation": "manufactured_by",
+    "claim": "ATI (Novanta) is the Western reference six-axis F/T sensor maker; the elastic element is captive in its sensors. Supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ft_elastic_element__manufactured_by__bota",
+    "source": "humanoid_ft_elastic_element",
+    "target": "org_humanoid_bota_systems",
+    "relation": "manufactured_by",
+    "claim": "Bota Systems makes compact six-axis F/T sensors; the elastic element is captive in its sensors. Supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ft_elastic_element__manufactured_by__sri",
+    "source": "humanoid_ft_elastic_element",
+    "target": "org_humanoid_sri_sunrise",
+    "relation": "manufactured_by",
+    "claim": "Sunrise Instruments (SRI) makes a humanoid six-axis F/T sensor line; the elastic element is captive in its sensors. Supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__ams_osram",
+    "source": "humanoid_encoder_magnetic_asic",
+    "target": "org_ams_osram",
+    "relation": "reported_capable_supplier",
+    "claim": "ams-OSRAM is the reference rotary magnetic position-encoder ASIC maker (AS5xxx); carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__mpwr",
+    "source": "humanoid_encoder_magnetic_asic",
+    "target": "org_monolithic_power",
+    "relation": "reported_capable_supplier",
+    "claim": "Monolithic Power Systems makes angular/position-sensor ICs (MagAlpha); carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__renishaw",
+    "source": "humanoid_encoder_magnetic_asic",
+    "target": "org_renishaw",
+    "relation": "reported_capable_supplier",
+    "claim": "Renishaw makes magnetic position encoders; carried as a capable magnetic-encoder-ASIC supplier for this node, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__broadcom",
+    "source": "humanoid_encoder_magnetic_asic",
+    "target": "org_broadcom",
+    "relation": "reported_capable_supplier",
+    "claim": "Broadcom makes magnetic motor-feedback encoders; carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__tdk",
+    "source": "humanoid_encoder_magnetic_asic",
+    "target": "org_humanoid_tdk",
+    "relation": "reported_capable_supplier",
+    "claim": "TDK makes Hall/magnetic-sensing ICs; carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_optical__manufactured_by__heidenhain",
+    "source": "humanoid_encoder_optical_codedisk",
+    "target": "org_heidenhain",
+    "relation": "manufactured_by",
+    "claim": "HEIDENHAIN is the reference high-resolution optical-encoder maker; supplier-candidate (who-makes-what) for the optical code disk, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_optical__reported_capable_supplier__renishaw",
+    "source": "humanoid_encoder_optical_codedisk",
+    "target": "org_renishaw",
+    "relation": "reported_capable_supplier",
+    "claim": "Renishaw makes optical position encoders; carried as a capable optical-code-disk supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_encoder_optical__reported_capable_supplier__broadcom",
+    "source": "humanoid_encoder_optical_codedisk",
+    "target": "org_broadcom",
+    "relation": "reported_capable_supplier",
+    "claim": "Broadcom makes optical encoders; carried as a capable optical-code-disk supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_struct_peek__manufactured_by__victrex",
+    "source": "humanoid_struct_peek_cf",
+    "target": "org_humanoid_victrex",
+    "relation": "manufactured_by",
+    "claim": "Victrex is the reference high-performance PEEK maker; supplier-candidate (who-makes-what) for PEEK / CF-PEEK structure, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_struct_peek__reported_capable_supplier__evonik",
+    "source": "humanoid_struct_peek_cf",
+    "target": "org_humanoid_evonik",
+    "relation": "reported_capable_supplier",
+    "claim": "Evonik (VESTAKEEP) makes high-performance PEEK; carried as a capable PEEK / CF-PEEK supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_inverter_power_switch__manufactured_by__infineon",
+    "source": "humanoid_inverter_power_switch",
+    "target": "org_infineon",
+    "relation": "manufactured_by",
+    "claim": "Infineon is the low-voltage power-MOSFET leader; supplier-candidate (who-makes-what) for the joint inverter power switch, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_inverter_power_switch__manufactured_by__epc",
+    "source": "humanoid_inverter_power_switch",
+    "target": "org_humanoid_epc",
+    "relation": "manufactured_by",
+    "claim": "EPC is a GaN-FET pure-play; supplier-candidate (who-makes-what) for the joint inverter power switch, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__stm",
+    "source": "humanoid_inverter_power_switch",
+    "target": "org_humanoid_stmicroelectronics",
+    "relation": "reported_capable_supplier",
+    "claim": "STMicroelectronics makes Si MOSFET / GaN power devices; carried as a capable inverter-power-switch supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__nxp",
+    "source": "humanoid_inverter_power_switch",
+    "target": "org_nxp",
+    "relation": "reported_capable_supplier",
+    "claim": "NXP makes power-switching devices and is carried as a capable inverter-power-switch supplier; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__ti",
+    "source": "humanoid_inverter_power_switch",
+    "target": "org_humanoid_texas_instruments",
+    "relation": "reported_capable_supplier",
+    "claim": "Texas Instruments makes power-switching / GaN devices and is carried as a capable inverter-power-switch supplier; reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_image_sensor__manufactured_by__stm",
+    "source": "humanoid_depth_image_sensor",
+    "target": "org_humanoid_stmicroelectronics",
+    "relation": "manufactured_by",
+    "claim": "STMicroelectronics makes the integrated depth/ToF reference parts (RGBIR sensor + ToF); supplier-candidate (who-makes-what) for the depth image sensor, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_image_sensor__reported_capable_supplier__orbbec",
+    "source": "humanoid_depth_image_sensor",
+    "target": "org_humanoid_orbbec",
+    "relation": "reported_capable_supplier",
+    "claim": "Orbbec is a depth-module integrator carried as a capable depth-image-sensor supplier; reported-capable (vendor self-claim kept qualitative, prior-round flag).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_image_sensor__reported_capable_supplier__realsense",
+    "source": "humanoid_depth_image_sensor",
+    "target": "org_humanoid_realsense",
+    "relation": "reported_capable_supplier",
+    "claim": "RealSense is a depth-module integrator carried as a capable depth-image-sensor supplier; reported-capable (vendor self-claim kept qualitative, prior-round flag).",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_depth_image_sensor__reported_capable_supplier__sony",
+    "source": "humanoid_depth_image_sensor",
+    "target": "org_sony",
+    "relation": "reported_capable_supplier",
+    "claim": "Sony (Sony Semiconductor Solutions) is the leading merchant CMOS image-sensor maker; carried as a capable depth-image-sensor supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu_mems_die__manufactured_by__bosch",
+    "source": "humanoid_imu_mems_die",
+    "target": "org_humanoid_bosch_sensortec",
+    "relation": "manufactured_by",
+    "claim": "Bosch Sensortec is a top-3 consumer MEMS-IMU maker; supplier-candidate (who-makes-what) for the MEMS IMU die, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu_mems_die__manufactured_by__stm",
+    "source": "humanoid_imu_mems_die",
+    "target": "org_humanoid_stmicroelectronics",
+    "relation": "manufactured_by",
+    "claim": "STMicroelectronics is a top-3 consumer MEMS-IMU maker; supplier-candidate (who-makes-what) for the MEMS IMU die, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu_mems_die__manufactured_by__tdk",
+    "source": "humanoid_imu_mems_die",
+    "target": "org_humanoid_tdk",
+    "relation": "manufactured_by",
+    "claim": "TDK (InvenSense) is a top-3 consumer MEMS-IMU maker; supplier-candidate (who-makes-what) for the MEMS IMU die, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_imu_mems_die__reported_capable_supplier__adi",
+    "source": "humanoid_imu_mems_die",
+    "target": "org_analog_devices",
+    "relation": "reported_capable_supplier",
+    "claim": "Analog Devices makes high-performance / tactical-grade MEMS IMUs (industrial/robotics tail); carried as a capable MEMS-IMU-die supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_inference_soc__manufactured_by__nvidia",
+    "source": "humanoid_edge_inference_soc",
+    "target": "org_humanoid_nvidia",
+    "relation": "manufactured_by",
+    "claim": "NVIDIA (Jetson/Thor) is the de-facto high-end humanoid inference SoC reference; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_inference_soc__manufactured_by__qualcomm",
+    "source": "humanoid_edge_inference_soc",
+    "target": "org_humanoid_qualcomm",
+    "relation": "manufactured_by",
+    "claim": "Qualcomm makes robotics inference SoCs; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_inference_soc__manufactured_by__rockchip",
+    "source": "humanoid_edge_inference_soc",
+    "target": "org_humanoid_rockchip",
+    "relation": "manufactured_by",
+    "claim": "Rockchip makes edge AI SoCs; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_edge_inference_soc__manufactured_by__d_robotics",
+    "source": "humanoid_edge_inference_soc",
+    "target": "org_humanoid_d_robotics",
+    "relation": "manufactured_by",
+    "claim": "D-Robotics makes robot inference SoCs; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_lpddr_memory__reported_capable_supplier__skhynix",
+    "source": "humanoid_compute_lpddr_memory",
+    "target": "org_skhynix",
+    "relation": "reported_capable_supplier",
+    "claim": "SK hynix is one of the three DRAM/LPDDR makers; carried as a capable on-module LPDDR supplier. The deep DRAM/HBM chain lives in ai_compute_chain (documented boundary); reported-capable here.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_lpddr_memory__reported_capable_supplier__micron",
+    "source": "humanoid_compute_lpddr_memory",
+    "target": "org_micron",
+    "relation": "reported_capable_supplier",
+    "claim": "Micron is one of the three DRAM/LPDDR makers; carried as a capable on-module LPDDR supplier. The deep DRAM/HBM chain lives in ai_compute_chain (documented boundary); reported-capable here.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_heat_pipe__reported_capable_supplier__auras",
+    "source": "humanoid_heat_pipe_vapor_chamber",
+    "target": "org_auras",
+    "relation": "reported_capable_supplier",
+    "claim": "Auras Technology makes two-phase heat-spreaders (heat pipes / vapor chambers); carried as a capable supplier for the high-duty-cycle thermal path, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_heat_pipe__reported_capable_supplier__avc",
+    "source": "humanoid_heat_pipe_vapor_chamber",
+    "target": "org_avc",
+    "relation": "reported_capable_supplier",
+    "claim": "Asia Vital Components (AVC) makes two-phase heat-spreaders; carried as a capable supplier for the high-duty-cycle thermal path, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_heat_pipe__reported_capable_supplier__boyd",
+    "source": "humanoid_heat_pipe_vapor_chamber",
+    "target": "org_boyd",
+    "relation": "reported_capable_supplier",
+    "claim": "Boyd (Aavid) makes two-phase heat-spreaders; carried as a capable supplier for the high-duty-cycle thermal path, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_tim__reported_capable_supplier__shin_etsu",
+    "source": "humanoid_thermal_interface_material",
+    "target": "org_shin_etsu_chemical",
+    "relation": "reported_capable_supplier",
+    "claim": "Shin-Etsu Chemical makes high-performance thermal interface materials; carried as a capable TIM supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_tim__reported_capable_supplier__henkel",
+    "source": "humanoid_thermal_interface_material",
+    "target": "org_henkel",
+    "relation": "reported_capable_supplier",
+    "claim": "Henkel makes high-performance thermal interface materials; carried as a capable TIM supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_tim__reported_capable_supplier__dow",
+    "source": "humanoid_thermal_interface_material",
+    "target": "org_dow",
+    "relation": "reported_capable_supplier",
+    "claim": "Dow makes high-performance thermal interface materials; carried as a capable TIM supplier, reported-capable.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_ft_strain_transducer__reported_capable_supplier__te",
+    "source": "humanoid_ft_strain_transducer",
+    "target": "org_humanoid_te_connectivity",
+    "relation": "reported_capable_supplier",
+    "claim": "TE Connectivity carries force/strain-sensing capability and is carried as capable of the foil/silicon strain transducer bonded to the F/T elastic element; reported-capable, no humanoid-named supply quote. Strain-gauge specialists HBK/Hottinger and Kyowa are private and not added as listed orgs.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed"
   }
 ]
