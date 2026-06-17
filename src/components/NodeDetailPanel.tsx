@@ -1373,6 +1373,7 @@ function elevatedAxisSentence(
     }
     case "concentration": {
       const { total } = holdersForNode(graph, node.id);
+      if (total <= 0) return t("chokepointAxisConcentrationGap");
       return formatCopy(t("chokepointAxisConcentration"), { count: total });
     }
     case "barrier":

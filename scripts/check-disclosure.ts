@@ -13,6 +13,9 @@ import fs from "node:fs";
  *   (b) First-glance headline (§3a). `NodeDetailPanel.tsx` renders an
  *       element carrying `data-testid="detail-chokepoint-headline"` so the
  *       chokepoint verdict + elevated axis lead the detail surface.
+ *   (c) Zero-holder Concentration wording (§3a). A `0` holder state is a
+ *       supply-source gap / unverified-holder state, not a confirmed
+ *       "0 suppliers" count.
  *
  * It is mirror-style to `scripts/check-graph-topology.ts` /
  * `scripts/check-graph-ux.mjs`: static analysis over the source of truth,
@@ -25,6 +28,7 @@ import fs from "node:fs";
 
 const GRAPH_CONTROLS_PATH = "src/components/GraphControls.tsx";
 const NODE_DETAIL_PANEL_PATH = "src/components/NodeDetailPanel.tsx";
+const LANGUAGE_PROVIDER_PATH = "src/components/LanguageProvider.tsx";
 
 // The §2 vocabulary: exactly these three lens labels, no more, no less.
 const REQUIRED_LENS_LABELS = ["System decomposition", "Chokepoint", "Cost"];
@@ -109,6 +113,19 @@ const detailPanel = readSource(NODE_DETAIL_PANEL_PATH);
 if (detailPanel && !/data-testid=["']detail-chokepoint-headline["']/.test(detailPanel)) {
   failures.push(
     `${NODE_DETAIL_PANEL_PATH}: missing the first-glance element data-testid="detail-chokepoint-headline" (§3a chokepoint verdict + elevated axis).`,
+  );
+}
+
+// ── (c) Zero-holder Concentration wording ────────────────────────────────
+if (detailPanel && !/chokepointAxisConcentrationGap/.test(detailPanel)) {
+  failures.push(
+    `${NODE_DETAIL_PANEL_PATH}: Concentration headline needs a zero-holder gap branch; zero modeled holders must not render as a confirmed "0 suppliers" count (§3a).`,
+  );
+}
+const languageProvider = readSource(LANGUAGE_PROVIDER_PATH);
+if (languageProvider && !/chokepointAxisConcentrationGap/.test(languageProvider)) {
+  failures.push(
+    `${LANGUAGE_PROVIDER_PATH}: missing chokepointAxisConcentrationGap copy for zero-holder Concentration disclosure (§3a).`,
   );
 }
 

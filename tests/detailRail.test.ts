@@ -42,7 +42,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 // time with a "cannot find module" error, which is the cleanest RED
 // signal we can give the GREEN sub-agent.
 import { NodeDetailRail, handleRailKeydown } from "../src/components/NodeDetailRail";
-import { NodeDetailContent } from "../src/components/NodeDetailPanel";
+import { ChokepointHeadline, NodeDetailContent } from "../src/components/NodeDetailPanel";
 import { chokepointVerdictBandFor } from "../src/lib/chokepointScore";
 import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
@@ -1632,6 +1632,39 @@ test("expanded: detail leads with a first-glance chokepoint headline (elevated a
       `axis breakdown must list the ${axis} axis row; got: ${html}`,
     );
   }
+});
+
+test("chokepoint headline does not present zero holders as a confirmed supplier count", () => {
+  const zeroHolderNode: Node = {
+    id: "zero_holder_module",
+    name: "Zero holder module",
+    kind: "module",
+    domain: ["test"],
+  };
+  const zeroHolderGraph: GraphData = {
+    graphVersion: "test-zero-holder",
+    nodes: [zeroHolderNode],
+    edges: [],
+    evidence: [],
+  };
+
+  const html = renderToStaticMarkup(
+    React.createElement(ChokepointHeadline, {
+      graph: zeroHolderGraph,
+      node: zeroHolderNode,
+    }),
+  );
+
+  assert.doesNotMatch(
+    html,
+    /(?:0 makers|0 suppliers)/i,
+    `zero holder concentration is a scarcity/data-gap signal, not a confirmed supplier count; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Supply sources unverified/,
+    `zero holder concentration should read as an unverified-source gap; got: ${html}`,
+  );
 });
 
 test("expanded: a structural root product reads as 'not itself a chokepoint'", () => {

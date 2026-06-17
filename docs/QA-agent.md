@@ -263,6 +263,7 @@ Acceptance checks for bottleneck nodes:
 - Detailed evidence appears after the summary and may be collapsed by default, but the user must be able to inspect source, quote/excerpt when available, review status, limitations, and evidence type.
 - Internal graph implementation details, raw relation dumps, schema-like field names, and operator controls are not the primary reader path.
 - If the evidence is weak, the UI says so plainly and downgrades the claim rather than hiding the problem.
+- When a Concentration readout is driven by zero modeled `manufactured_by` / `implemented_by` holders, the UI must frame it as a supply-source gap or unverified holder state. It must not say or imply a confirmed count such as `0 makers`, `0 suppliers`, `仅 0 家`, or `零家`.
 
 Hard fails:
 
@@ -270,6 +271,7 @@ Hard fails:
 - The first screen leads with internal metadata rather than an investor/research summary.
 - The detail panel calls Cost the reason something is a chokepoint instead of keeping Cost as a separate magnitude overlay.
 - Company/ticker leads appear before the bottleneck logic or without confidence/relationship context.
+- A zero-holder Concentration gap is rendered as a confirmed supplier count, especially in Chinese copy such as `仅 0 家` / `零家`.
 - Evidence limitations are hidden for a weak claim.
 - Chinese mode leaves the primary summary unusable for a Simplified Chinese reader.
 

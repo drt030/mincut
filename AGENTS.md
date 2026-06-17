@@ -102,6 +102,7 @@ The first goal is to make one product domain work end to end before expanding. D
 - Run `npm run build` for UI or app-router changes.
 - Run `npm run agent:audit` if harness files changed.
 - For UI/interaction/display changes, test the changed surface in a clean browser session or fresh dev server port. If browser verification is not reliable, explicitly report what was not verified and why.
+- After fixing any product-facing error, close the loop by updating one of: `docs/QA-agent.md`, `docs/ACCEPTANCE.md`, or the relevant machine/test gate. If the existing QA/acceptance contract already covers it, state which item covers it in the final handoff instead of silently shipping only the code fix.
 - Keep dev server running on the tested URL if the user is testing in browser.
 - Summarize changed files, automated validation results, browser interactions tested, and remaining risks.
 

@@ -58,9 +58,10 @@ For any node a user inspects, at **first glance** they can answer — in plain l
 
 - **Is it a chokepoint, and how much of one?** (the composite verdict)
 - **Which axis makes it one?** — the *elevated* axis among Cost / Dependency / Concentration / Barrier, stated concretely (e.g. "可外购，但供应高度集中（2–3 家）" / "瓶颈：成本 + 集中"), **not** a raw tag like `maturity: prototype`.
+- **If Concentration is elevated, is the supplier state worded honestly?** A known small holder set may say "2–3 家" / "{N} makers"; a zero-holder model state means supply-source gap or unverified holder coverage, not a confirmed "0 suppliers" / "仅 0 家" count.
 - The full four-axis breakdown is available on drill-in.
 
-**Fails** if: the answer is buried (needs digging), shown as internal jargon, or the elevated axis isn't surfaced. (Whether each number is *correct* is the audit agent's job, not this checklist's.)
+**Fails** if: the answer is buried (needs digging), shown as internal jargon, the elevated axis isn't surfaced, or a zero-holder Concentration gap is presented as a confirmed supplier count. (Whether each nonzero number is *correct* is the audit agent's job, not this checklist's.)
 
 ### 3b. Vocabulary consistency
 
@@ -81,6 +82,7 @@ MinCut is an **analytical tool, not stock advice**. No "buy ticker X", no unaudi
 A new automated check (to be built) enforces the cheapest slice without an agent:
 
 - the first-glance elevated-axis headline is present in the rendered detail surface;
+- the detail headline has a dedicated zero-holder Concentration gap path, so a missing modeled holder set cannot render as "0 suppliers" / "仅 0 家";
 - canvas lens labels match the §2 vocabulary (3b) by static assertion.
 
 It is **necessary, not sufficient** — it cannot judge whether disclosure is *clear*; that stays with the QA agent.
