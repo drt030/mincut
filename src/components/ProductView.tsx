@@ -41,6 +41,10 @@ type Props = {
 
 export function ProductView({ graph, product }: Props) {
   const { language, nodeName, t } = useLanguage();
+  // kind="product" nodes get the lock CTA inside their investor-answer card.
+  // Gated non-product nodes (e.g. a humanoid module reached via /product) have
+  // no investor card, so surface the unlock prompt here at the point of need.
+  const lockedEntry = useLockedDomainForNode(product);
   const modules = requiredModules(graph, product.id);
   const metrics = metricsForNode(graph, product.id);
   const bottlenecks = uniqueNodes([...bottlenecksForNode(graph, product.id), ...modules.flatMap((module) => bottlenecksForNode(graph, module.id))]);
@@ -86,6 +90,11 @@ export function ProductView({ graph, product }: Props) {
           highest-risk requires children for the product. */}
       <ProductViewTopBlockers graph={graph} product={product} />
       {product.kind === "product" ? <ProductInvestorAnswerCard graph={graph} product={product} /> : null}
+      {product.kind !== "product" && lockedEntry ? (
+        <section className="card investor-answer-card" data-testid="product-locked-exposure">
+          <ExposureLockCta entry={lockedEntry} />
+        </section>
+      ) : null}
       <section className="card-grid">
         <ProductCostRollupSummary graph={graph} product={product} />
         {manufacturerCandidates.length ? (

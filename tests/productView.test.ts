@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ProductView } from "../src/components/ProductView";
+import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { nodeById } from "../src/lib/graphTraversal";
 import type { GraphData } from "../src/lib/schema";
@@ -134,4 +135,21 @@ test("ProductView evidence card exposes provenance without raw review state", ()
   assert.match(evidenceHtml, /Limitations.*Internal planning evidence only/);
   assert.doesNotMatch(evidenceHtml, /Status.*(?:reviewed|unreviewed)/i);
   assert.doesNotMatch(evidenceHtml, /reviewStatus/i);
+});
+
+test("ProductView shows the exposure lock prompt on a gated module /product page", () => {
+  const graph = loadGraphData();
+  const node = nodeById(graph, "humanoid_reducer_transmission_stack");
+  assert.ok(node && node.kind !== "product", "fixture should be a gated non-product node");
+  const locked = [{ domainTag: "humanoid_robotics", entitlement: "humanoid", hiddenOrgCount: 13 }];
+  const html = renderToStaticMarkup(
+    React.createElement(
+      ExposureLockProvider,
+      { locked },
+      React.createElement(ProductView, { graph, product: node! }),
+    ),
+  );
+  assert.match(html, /Who makes this/i, `gated module /product page must show the exposure lock prompt; got: ${html.slice(0, 200)}`);
+  const open = renderToStaticMarkup(React.createElement(ProductView, { graph, product: node! }));
+  assert.doesNotMatch(open, /Who makes this/i, "unlocked render must not show the lock prompt");
 });
