@@ -228,6 +228,15 @@ const nodeBaseSchema = z.object({
    * graph counterpart. Not populated in v0.
    */
   capacityLeadTimeMonths: z.number().positive().optional(),
+  /**
+   * Reserved (population deferred, `unreviewed` by default), per ADR-0010 and
+   * the maturityHistory/​capacityLeadTimeMonths reserved-field pattern: a
+   * `product` node's capex / demand scale, used to weight downstream
+   * Criticality. Within a single product it is a constant multiplier; it
+   * only re-orders nodes across multiple products (the deferred cross-product
+   * view). Unset ⇒ Criticality weight defaults to 1.
+   */
+  demandScale: z.number().positive().optional(),
 });
 
 const NODE_KNOW_HOW_KINDS = new Set(["engineering_method", "manufacturing_process"]);

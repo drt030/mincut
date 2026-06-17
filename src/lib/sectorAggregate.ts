@@ -4,6 +4,7 @@ import {
   nodeCostSignalRmb,
   type ColorMode,
 } from "./edgeStyleFor";
+import { chokepointVerdictBandFor } from "./chokepointScore";
 import { nodeRisk } from "./nodeRisk";
 
 /**
@@ -32,8 +33,12 @@ import { nodeRisk } from "./nodeRisk";
  *   - maturity: MEAN of subtree maturityScores. Nodes without a score
  *     are SKIPPED (not counted as zero) so an unmeasured leaf does not
  *     spuriously pull the mean down.
- *   - bottleneck-risk: MAX of subtree nodeRisk.
- *   - overall: same as bottleneck-risk for now (composite TBD).
+ *   - bottleneck-risk: MAX over the subtree of the per-node verdict band
+ *     (chokepointVerdictBandFor: composite band, authored `bottleneckOf` ⇒
+ *     band 5) — the worst chokepoint band in the sector, read off the SAME
+ *     verdict function the edges/top-N/detail headline use (ADR-0010).
+ *     `value` carries that max band (1..5).
+ *   - overall: MAX of subtree nodeRisk (the ADR leaves "overall" unchanged).
  *   - relation: not aggregated; returns the value at band 3 (neutral
  *     middle) so callers always get a defined output.
  *
@@ -103,22 +108,19 @@ export function sectorAggregate(
       return { value: mean, band: bandForValue(mean, "maturity") };
     }
     case "bottleneck-risk": {
-      let max = 0;
-      let hasBottleneckAttr = false;
+      // ADR-0010: the sector band is the WORST (highest) composite band
+      // among the subtree's nodes, using the SAME per-node verdict path the
+      // edges, top-N, and detail headline use — `chokepointVerdictBandFor`
+      // (the composite band with the authored `bottleneckOf` override ⇒ band
+      // 5) — so every chokepoint surface reads off one band function.
+      // `value` carries the same max band (1..5) as the aggregate.
+      const bandFor = chokepointVerdictBandFor(graph);
+      let band: 1 | 2 | 3 | 4 | 5 = 1;
       for (const node of nodes) {
-        if (Array.isArray(node.bottleneckOf) && node.bottleneckOf.length > 0) {
-          hasBottleneckAttr = true;
-        }
-        const risk = nodeRisk(node, graph);
-        if (risk > max) max = risk;
+        const nodeBand = bandFor(node.id);
+        if (nodeBand > band) band = nodeBand;
       }
-      // If any descendant has a bottleneckOf attribute, the sector
-      // band cannot be cooler than band 4 — explicit bottleneck
-      // attribution surfaces in the sector tint just like it does
-      // on the edge.
-      let band = bandForValue(max, "bottleneck-risk");
-      if (hasBottleneckAttr && band < 4) band = 4;
-      return { value: max, band };
+      return { value: band, band };
     }
     case "overall": {
       // Composite proxy: same as risk for now. The ADR leaves "overall"

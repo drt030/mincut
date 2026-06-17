@@ -1,5 +1,6 @@
 import type { Edge, GraphData, Node } from "./schema";
 import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
+import { chokepointVerdictBandFor } from "./chokepointScore";
 import { nodeRisk } from "./nodeRisk";
 import { rollupCost } from "./costRollup";
 import { estimatedCostForNode } from "./costEstimate";
@@ -171,7 +172,13 @@ function computeCostThresholds(costScopeGraph: GraphData, costSignalGraph: Graph
  *     `graph` argument is required for cost mode; falls back to a
  *     fixed-cap normalisation if fewer than 5 priced nodes exist.
  *   - maturity: maturityScore on 0..100 — REVERSED (high mat = cool, band 1).
- *   - bottleneck-risk: nodeRisk in [0, 1] — direct mapping (high risk = band 5).
+ *   - bottleneck-risk: LEGACY direct [0,1] mapping. ADR-0010 moved the live
+ *     `bottleneck-risk` lens off this helper — the edge stroke/width, sector
+ *     tint, top-N, and detail headline now all band via
+ *     `chokepointVerdictBandFor` (the four-axis composite, own-quantile
+ *     binned, with the authored `bottleneckOf` override), not `nodeRisk`.
+ *     This case survives only for `costConsistency.test.ts`'s standalone
+ *     nodeRisk band check; no production code reaches it.
  *   - overall: composite (1 - maturity/100) on [0, 1] — same direction as risk.
  *
  * Callers MUST pass the raw mode-specific value; this helper applies
@@ -197,6 +204,8 @@ export function bandForValue(
       return quantizeToBand(normalised);
     }
     case "bottleneck-risk": {
+      // LEGACY (ADR-0010): no production caller — the live lens bands via
+      // chokepointBandFor. Kept only for costConsistency.test.ts.
       return quantizeToBand(value);
     }
     case "overall": {
@@ -265,13 +274,12 @@ function bandForEdgeTarget(
       return bandForValue(target.maturityScore, "maturity");
     }
     case "bottleneck-risk": {
-      // Per the ADR: bottleneckOf non-empty bumps the node to band 5 —
-      // explicit bottleneck attribution outranks the computed risk.
-      if (Array.isArray(target.bottleneckOf) && target.bottleneckOf.length > 0) {
-        return 5;
-      }
-      const risk = nodeRisk(target, graph);
-      return bandForValue(risk, "bottleneck-risk");
+      // ADR-0010: the SINGLE source of truth for a chokepoint verdict band —
+      // the four-axis composite (own-quantile banded) with the authored
+      // `bottleneckOf` override (⇒ band 5) folded in. The detail-panel
+      // headline reads off this SAME function, so the canvas band and the
+      // headline verdict can never disagree (docs/ACCEPTANCE.md §3b).
+      return chokepointVerdictBandFor(graph)(target.id);
     }
     case "overall": {
       // Composite per spec: use risk as a simple proxy (low maturity

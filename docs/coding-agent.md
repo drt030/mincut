@@ -89,18 +89,21 @@ Run the narrowest relevant checks. For broad implementation work, prefer:
 npm run validate:data
 npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run
 npm run check:graph-ux
+npm run check:disclosure
 npm run lint
 npm run build
 ```
 
-Use these rules:
+Use these rules (the full change-type → gate routing is `docs/ACCEPTANCE.md` §6):
 
 - Data changes require `npm run validate:data`.
 - Parcel data or gate changes require the parcel gate dry-run command.
-- Graph UI changes require `npm run check:graph-ux`.
+- Graph UI changes require `npm run check:graph-ux` and `npm run check:disclosure` (ACCEPTANCE.md §4 machine floor).
 - TypeScript or React changes require `npm run lint`.
 - UI or app-router changes require `npm run build`.
 - Meaningful UI interaction changes require real browser verification when available.
+
+Verification is your job; **acceptance is the QA agent's** (`docs/ACCEPTANCE.md` §3). Do not self-certify product quality — passing these checks is necessary, not sufficient, for a UI / product change.
 
 If a check cannot be run, report the reason exactly. Do not claim completion based on unrun checks.
 

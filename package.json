@@ -1,5 +1,5 @@
 {
-  "name": "capability-graph-explorer",
+  "name": "mincut",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "check:graph-topology": "tsx scripts/check-graph-topology.ts",
+    "check:disclosure": "tsx scripts/check-disclosure.ts",
     "check:commercial-readiness": "tsx scripts/check-commercial-readiness.ts",
     "check:graph-ux": "node scripts/check-graph-ux.mjs && npm run check:graph-topology",
     "test": "tsx --test tests/**/*.test.ts",

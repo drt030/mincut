@@ -3252,6 +3252,91 @@ input {
   margin: 0;
 }
 
+/* First-glance chokepoint headline (docs/ACCEPTANCE.md §3a). Leads the
+   reader-priority surface; the left accent warms with the composite band so
+   the verdict is salient before any reading. */
+.detail-chokepoint-headline {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-left: 4px solid #94a3b8;
+  border-radius: 7px;
+  display: grid;
+  gap: 3px;
+  padding: 9px 10px;
+}
+
+.detail-chokepoint-headline[data-chokepoint-band="5"] {
+  border-left-color: #dc2626;
+}
+
+.detail-chokepoint-headline[data-chokepoint-band="4"] {
+  border-left-color: #ea580c;
+}
+
+.detail-chokepoint-verdict {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.detail-chokepoint-axis {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* Separate Cost statement — the orthogonal $-overlay, shown on its own line
+   below the chokepoint verdict/why (ADR-0010 §3a). */
+.detail-chokepoint-cost {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* Four-axis breakdown folded into the Investor brief (drill-in). */
+.detail-chokepoint-axes {
+  display: grid;
+  gap: 5px;
+}
+
+.detail-chokepoint-axes-grid {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  margin: 0;
+}
+
+.detail-chokepoint-axes-grid > div {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 6px;
+  display: grid;
+  gap: 2px;
+  padding: 6px 7px;
+}
+
+.detail-chokepoint-axes-grid dt {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.detail-chokepoint-axes-grid dd {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 650;
+  margin: 0;
+}
+
+.detail-chokepoint-axes-grid > div[data-axis-known="false"] dd {
+  color: var(--muted);
+  font-weight: 500;
+}
+
 .detail-decision-brief {
   background: #f8fafc;
   border: 1px solid rgba(15, 23, 42, 0.08);

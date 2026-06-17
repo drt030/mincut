@@ -34,7 +34,7 @@ async function fetchHtml(path: string): Promise<string> {
 test("ux smoke: home page renders north-star hero", async (t) => {
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/");
-  assert.match(html, /Capability Graph Explorer/);
+  assert.match(html, /MinCut/);
   assert.match(html, /parcel-sorting robot/i);
 });
 
@@ -64,7 +64,9 @@ test("ux smoke: /graph default selection surfaces route detail rail", async (t) 
   if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
   const html = await fetchHtml("/graph");
   assert.match(html, /data-testid="route-detail-rail"/);
-  assert.match(html, /Cost drivers/);
+  // The cost lens is present on /graph (renamed "Cost drivers" → "Cost" per
+  // ADR-0010); assert it by its stable selector hook, not the display label.
+  assert.match(html, /data-analysis-mode="cost"/);
   assert.match(html, /300,000 RMB parcel-sorting robot/);
 });
 

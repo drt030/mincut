@@ -11,8 +11,8 @@ import path from "node:path";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { focusedSubset } from "../src/lib/focusedSubset";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
-import { bandForValue, nodeCostDriverRmb } from "../src/lib/edgeStyleFor";
-import { nodeRiskSignal } from "../src/lib/nodeRisk";
+import { nodeCostDriverRmb } from "../src/lib/edgeStyleFor";
+import { chokepointBandFor, chokepointRankSignal } from "../src/lib/chokepointScore";
 import { selectTopN } from "../src/lib/prioritySelection";
 import type { Edge, GraphData, Node } from "../src/lib/schema";
 
@@ -37,13 +37,16 @@ const focalIds: Set<string> = focusedSubset(FOCAL_PRODUCT_ID, graph).nodes;
 // Test 4 — selectTopN(mode='bottleneck-risk', n=3) sorted desc, band typed
 // ==================================================================
 //
-// In bottleneck-risk mode, the top-N MUST be sorted by reader risk signal
-// descending. The band field MUST match the 5-band scheme returned
-// by `bandForValue(risk, 'bottleneck-risk')`. Oracle: we compute the
-// expected rank-1 node by scanning the focal subtree with the same
-// signal function and confirm `selectTopN` agrees.
+// ADR-0010: the bottleneck-risk lens now ranks by the four-axis chokepoint
+// composite, not the old `(1 - maturity) × cost` nodeRiskSignal. The top-N
+// MUST be sorted by `chokepointRankSignal` descending (which boosts authored
+// `bottleneckOf` nodes above every computed composite), and each band field
+// MUST agree with the SAME band path the edge stroke/width and sector tint
+// use: `chokepointBandFor(graph)(id)`, overridden to band 5 for authored
+// bottlenecks. Oracle: re-derive both the ordering signal and the band from
+// the composite helpers and confirm `selectTopN` agrees.
 // ==================================================================
-test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by risk desc, band matches scheme", () => {
+test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by composite desc, band matches composite scheme", () => {
   const top = selectTopN(graph, "bottleneck-risk", 3, null);
 
   assert.equal(
@@ -52,29 +55,33 @@ test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by risk desc, band mat
     `selectTopN(..., n=3) must return exactly 3 entries; got ${top.length}`,
   );
 
-  // Sorted by underlying risk signal descending. We re-compute per
-  // node via nodeRiskSignal to avoid depending on whether `selectTopN`
-  // returns the risk value itself.
+  // Sorted by the composite ranking signal descending. We re-compute per
+  // node via chokepointRankSignal to avoid depending on whether `selectTopN`
+  // returns the signal value itself.
   const ranked = top.map((t) => {
     const node = graph.nodes.find((n) => n.id === t.nodeId);
     assert.ok(node, `selectTopN returned unknown nodeId ${t.nodeId}`);
-    return { nodeId: t.nodeId, risk: nodeRiskSignal(node!, graph), band: t.band };
+    return { node: node!, nodeId: t.nodeId, signal: chokepointRankSignal(graph, node!), band: t.band };
   });
   for (let i = 1; i < ranked.length; i += 1) {
     assert.ok(
-      ranked[i].risk <= ranked[i - 1].risk,
-      `top-N must be sorted by risk desc; entry ${i} risk=${ranked[i].risk} > entry ${i - 1} risk=${ranked[i - 1].risk}`,
+      ranked[i].signal <= ranked[i - 1].signal,
+      `top-N must be sorted by composite signal desc; entry ${i} signal=${ranked[i].signal} > entry ${i - 1} signal=${ranked[i - 1].signal}`,
     );
   }
 
-  // Each entry's band field MUST agree with the 5-band scheme used
-  // elsewhere (edgeStyleFor / sectorAggregate / bandForValue).
+  // Each entry's band field MUST agree with the composite band path used by
+  // edgeStyleFor and sectorAggregate: chokepointBandFor, with an authored
+  // `bottleneckOf` forcing band 5.
+  const bandFor = chokepointBandFor(graph);
   for (const entry of ranked) {
-    const expectedBand = bandForValue(entry.risk, "bottleneck-risk");
+    const hasAuthored =
+      Array.isArray(entry.node.bottleneckOf) && entry.node.bottleneckOf.length > 0;
+    const expectedBand = hasAuthored ? 5 : bandFor(entry.nodeId);
     assert.equal(
       entry.band,
       expectedBand,
-      `top-N entry ${entry.nodeId} band must follow the 5-band scheme; got ${entry.band}, expected ${expectedBand} (risk=${entry.risk})`,
+      `top-N entry ${entry.nodeId} band must follow the composite band scheme; got ${entry.band}, expected ${expectedBand} (signal=${entry.signal})`,
     );
   }
 
@@ -90,7 +97,16 @@ test("selectTopN(bottleneck-risk, n=3): returns 3, sorted by risk desc, band mat
   }
 });
 
-test("selectTopN(bottleneck-risk): explicit bottleneck claims rank even before cost data exists", () => {
+test("selectTopN(bottleneck-risk): an authored bottleneck still ranks first under the composite (ADR-0010)", () => {
+  // ADR-0010 rewrote this lens to rank by the chokepoint composite (cost is
+  // no longer an axis, so "missing cost" is irrelevant). The ONE behavior the
+  // ADR deliberately preserves is the authored override: a non-empty
+  // `bottleneckOf` is boosted above every computed composite (via
+  // chokepointRankSignal) and forced to band 5 — exactly as the edge and
+  // sector channels do. Here `explicit_constraint` (the authored bottleneck)
+  // must rank #1 at band 5 EVEN THOUGH it is MORE mature (maturity 45, so a
+  // lower raw Barrier) than the non-authored `unpriced_component` (maturity
+  // 20) — i.e. the authored claim, not the higher Barrier, decides the top.
   const nodes: Node[] = [
     {
       id: "candidate_product",
@@ -134,12 +150,17 @@ test("selectTopN(bottleneck-risk): explicit bottleneck claims rank even before c
     new Set(nodes.map((node) => node.id)),
   );
 
+  // Authored override: ranks first, band 5, despite the higher-Barrier
+  // non-authored peer.
   assert.equal(top[0]?.nodeId, "explicit_constraint");
   assert.equal(top[0]?.band, 5);
-  assert.equal(
-    top.some((entry) => entry.nodeId === "unpriced_component"),
-    false,
-    "unpriced low-maturity nodes without explicit bottleneck claims should not appear just because cost data is missing",
+  // The authored bottleneck's ranking signal beats the more-extreme-Barrier
+  // (but non-authored) component's — the override is what puts it on top.
+  const explicit = nodes.find((n) => n.id === "explicit_constraint")!;
+  const unpriced = nodes.find((n) => n.id === "unpriced_component")!;
+  assert.ok(
+    chokepointRankSignal(fixture, explicit) > chokepointRankSignal(fixture, unpriced),
+    "authored bottleneck must outrank a higher-Barrier non-authored node via the override boost",
   );
 });
 

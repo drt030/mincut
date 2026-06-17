@@ -1738,7 +1738,6 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
               labels={{ toggle: t("layerToggleLabel"), product: t("layerProduct"), knowHow: t("layerKnowHow") }}
             />
             <GraphControls
-              routeMode={activeRoute.mode}
               analysisMode={colorMode}
               onAnalysisModeChange={setColorMode}
             />

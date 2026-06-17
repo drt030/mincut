@@ -8,12 +8,21 @@ After changing any feature, run the narrowest relevant automated checks first. I
 
 If a browser check cannot be completed reliably, report exactly what was not verified and why. Do not present build, lint, or static checks as proof that an interaction feels good.
 
+**Acceptance is defined by `docs/ACCEPTANCE.md`.** §6 routes each change type to its gates; any change a user can see also runs the QA agent against §3 (machine-green is never sufficient for a UI / product change).
+
+For paid-launch or commercial-readiness QA, use `docs/QA-agent.md` as the
+source-of-truth acceptance contract. That QA is organized around commercial
+promise, paid insight trust, graph map readability, node-detail investor
+summary, and release guardrails. Automated commands are supporting evidence;
+they are not a substitute for the commercial QA gates.
+
 ## Automated Checks
 
 Use these commands by change type:
 
 ```bash
 npm run check:graph-ux
+npm run check:disclosure   # ACCEPTANCE.md §4 machine floor: first-glance elevated-axis headline + lens-vocabulary match
 npm run lint
 npm run build
 ```
@@ -69,8 +78,9 @@ Minimum graph browser checklist:
 - Confirm the page renders without Next overlay, runtime error, or console error from the changed code.
 - Hover several nodes and confirm there is no flicker, jump, repeated label flashing, or hitbox instability.
 - Click several nodes and confirm the detail panel updates without moving graph coordinates.
+- Open a node and confirm the **first-glance chokepoint readout**: the elevated axis (Cost / Dependency / Concentration / Barrier) reads as a concrete statement, not a raw tag like `maturity: prototype` (ACCEPTANCE.md §3a).
+- Switch lenses (System decomposition / Chokepoint / Cost) and confirm node positions stay stable (ADR-0007) while the encoding follows; confirm lens labels match the detail-panel vocabulary (§3b, `check:disclosure`).
 - Double-click an expandable node and confirm the visible node count changes in the expected direction. Also compare the React Flow viewport transform before and after double-click to ensure the canvas did not zoom.
-- Change domain/kind/relation/maturity filters and confirm the graph stays readable.
 - Switch language and confirm labels still fit.
 - Test one narrow/mobile-ish viewport and one desktop-ish viewport when layout or text changed.
 
