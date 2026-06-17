@@ -1,6 +1,6 @@
-import type { Edge, GraphData, NodeKind } from "./schema";
+import type { Edge, GraphData } from "./schema";
 import { defaultFocalProduct } from "./graphTraversal";
-import { isCanvasTreeEdge } from "./canvasGraph";
+import { isArtifactCanvasNode, isCanvasTreeEdge, isKnowHowNode } from "./canvasGraph";
 
 /**
  * Per ADR-0006 §Color and spec
@@ -18,8 +18,6 @@ import { isCanvasTreeEdge } from "./canvasGraph";
  *   2. First-layer subsystems = focal root's canvas-tree children. The
  *      canvas tree relation set is shared with `filterCanvasGraph`:
  *      `requires` plus `implemented_by` edges whose target is know-how.
- *      Materials directly wired from the focal product are NOT first-layer
- *      subsystems (materials always grey).
  *      Sorted alphabetically by id for deterministic sector-index
  *      assignment. N = count.
  *   3. Each first-layer subsystem i ∈ [0, N) gets
@@ -38,7 +36,8 @@ import { isCanvasTreeEdge } from "./canvasGraph";
  *      edges land on it), first-layer-ness wins → its first-layer hue,
  *      not grey. We implement this naturally because the algorithm
  *      checks `sectorIndex.has(id)` BEFORE the shared-parent check.
- *   7. Materials (`kind === "material"`) are always neutral grey.
+ *   7. Reachable materials inherit their canonical first-layer ancestor
+ *      like other visible artifact nodes.
  *   8. The focal product itself is a near-white neutral root colour.
  *   9. Structural nodes not reachable from the focal product (sibling
  *      product subtrees, orphan modules) are neutral grey.
@@ -87,6 +86,8 @@ type IncomingCanvasTreeEdge = {
 type SharedParentCandidate = {
   source: string;
   weight: number | undefined;
+  sourceIsKnowHow: boolean;
+  sourceIsMaterial: boolean;
 };
 
 function edgeWeight(edge: Edge): number | undefined {
@@ -110,14 +111,8 @@ function buildSubsystemIndex(graph: GraphData, rootId?: string | null): Subsyste
   }
 
   const nodeById = new Map(graph.nodes.map((node) => [node.id, node]));
-  const nodeKindById = new Map<string, NodeKind>();
-  for (const node of graph.nodes) {
-    nodeKindById.set(node.id, node.kind);
-  }
-
   // Canvas-tree children index. The first-layer ring takes EVERY
-  // canvas-tree child of the focal product (excluding materials, which
-  // always belong on the outer grey ring). This deliberately mirrors
+  // canvas-tree child of the focal product. This deliberately mirrors
   // filterCanvasGraph/radialLayout so visible implemented_by know-how
   // nodes inherit the same family ancestry that placed them on-canvas.
   const childrenByParent = new Map<string, string[]>();
@@ -127,15 +122,12 @@ function buildSubsystemIndex(graph: GraphData, rootId?: string | null): Subsyste
     childrenByParent.get(edge.source)!.push(edge.target);
   }
 
-  // First-layer subsystems = focal product's canvas-tree children
-  // EXCLUDING materials (materials are always grey per Rule 7). We do
+  // First-layer subsystems = focal product's canvas-tree children. We do
   // NOT filter by structural kind here — the historical test contract
   // counted every `requires`-child of the focal product as a first-layer
   // subsystem, and the canvas-tree relation set now extends that same
-  // rule to visible know-how children.
-  const firstLayerCandidates = (childrenByParent.get(focal.id) ?? []).filter(
-    (id) => nodeKindById.get(id) !== "material",
-  );
+  // rule to visible know-how children and direct key materials.
+  const firstLayerCandidates = childrenByParent.get(focal.id) ?? [];
   const firstLayer = [...new Set(firstLayerCandidates)].sort((a, b) => a.localeCompare(b));
   const N = firstLayer.length;
   const sectorIndexById = new Map<string, number>();
@@ -194,11 +186,24 @@ function buildSubsystemIndex(graph: GraphData, rootId?: string | null): Subsyste
     );
     if (subtreeEdges.length < 2) continue;
 
-    const candidates: SharedParentCandidate[] = subtreeEdges.map(({ source, edge }) => ({
-      source,
-      weight: edgeWeight(edge),
-    }));
+    const target = nodeById.get(targetId);
+    const targetIsArtifact = target !== undefined && isArtifactCanvasNode(target);
+    const candidates: SharedParentCandidate[] = subtreeEdges.map(({ source, edge }) => {
+      const sourceNode = nodeById.get(source);
+      return {
+        source,
+        weight: edgeWeight(edge),
+        sourceIsKnowHow: sourceNode !== undefined && isKnowHowNode(sourceNode),
+        sourceIsMaterial: sourceNode?.kind === "material",
+      };
+    });
     candidates.sort((a, b) => {
+      if (targetIsArtifact && a.sourceIsKnowHow !== b.sourceIsKnowHow) {
+        return a.sourceIsKnowHow ? 1 : -1;
+      }
+      if (targetIsArtifact && a.sourceIsMaterial !== b.sourceIsMaterial) {
+        return a.sourceIsMaterial ? 1 : -1;
+      }
       const aw = a.weight ?? Number.NEGATIVE_INFINITY;
       const bw = b.weight ?? Number.NEGATIVE_INFINITY;
       if (aw !== bw) return bw - aw;
@@ -317,10 +322,8 @@ export function subsystemHue(
     return colouredHueForSector(sectorIdx, index.N);
   }
 
-  // Rule 7: materials are always grey, regardless of subtree membership.
   const node = graph.nodes.find((n) => n.id === nodeId);
   if (!node) return { ...NEUTRAL_GREY };
-  if (node.kind === "material") return { ...NEUTRAL_GREY };
 
   // Rule 9: orphan structural nodes (not reachable from focal product)
   // are grey.

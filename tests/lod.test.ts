@@ -665,6 +665,29 @@ test("RadialEdge detail mode can use explicit card-edge ports", () => {
   );
 });
 
+test("RadialEdge label mode can use explicit ports to split dense sibling edge bundles", () => {
+  const html = renderEdge({
+    ...SAMPLE_EDGE_PROPS_BASE,
+    zoom: 1.0,
+    isFocusEndpoint: false,
+    sourceX: 0,
+    sourceY: 0,
+    targetX: 200,
+    targetY: 0,
+    sourceRadius: 12,
+    targetRadius: 12,
+    sourceAnchorX: 68,
+    sourceAnchorY: 10,
+    targetAnchorX: 132,
+    targetAnchorY: 10,
+  });
+  assert.match(
+    html,
+    /d=["']M 75 10 C [^"']+ 117 10["']/,
+    `label-mode edge should use explicit source/target ports so high-fanout nodes do not collapse into one line bundle; got: ${html}`,
+  );
+});
+
 test("RadialEdge band 2 (zoom 1.0): line with arrowhead, no label", () => {
   const html = renderEdge({ ...SAMPLE_EDGE_PROPS_BASE, zoom: 1.0, isFocusEndpoint: false });
   assert.match(

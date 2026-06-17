@@ -52,13 +52,10 @@ function unlockHrefForEntitlement(entitlement: string): string | undefined {
   }
 }
 
-// Shared so every locked surface (landing hero, domain banners, node-detail
-// lock) points at the same founding all-access checkout when it is enabled.
+// Shared so every locked surface stays waitlist-only while paid domains are
+// still audit-preview/private-beta surfaces.
 export function foundingCheckoutHref(): string | undefined {
-  if (process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT !== "1") {
-    return undefined;
-  }
-  return process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
+  return undefined;
 }
 
 export function ExposureCheckoutLinks({

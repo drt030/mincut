@@ -34,11 +34,11 @@ const landingCopy = {
       "Join the waitlist for future paid access. No checkout is live yet; supplier identities, tickers, updates, and curated exposure stay locked until the commercial gate is verified.",
     offerCta: "Join the waitlist",
     foundingEyebrow: "Founding access",
-    foundingTitle: "Unlock every paid map — founding access.",
+    foundingTitle: "Join the paid-domain waitlist.",
     foundingBody:
-      "One purchase opens supplier and ticker exposure across all paid domains (humanoid robotics, controlled fusion, SpaceX), plus updates as each map firms up. 7-day no-questions refund.",
-    foundingCta: "Get founding access →",
-    foundingUnlockCta: "Unlock all paid maps — $9 →",
+      "No checkout is live yet. Supplier and ticker exposure opens only after each paid domain passes the commercial launch gate.",
+    foundingCta: "Join the waitlist",
+    foundingUnlockCta: "Join the waitlist",
     betaEmailLabel: "Work email",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "Request beta access",
@@ -94,11 +94,11 @@ const landingCopy = {
       "加入未来付费访问候补。当前不提供 checkout；供应商身份、股票代码、更新和 curated exposure 会保持锁定，直到商业 gate 验证完成。",
     offerCta: "加入候补名单",
     foundingEyebrow: "创始访问",
-    foundingTitle: "一次解锁全部付费图谱——创始访问。",
+    foundingTitle: "加入付费领域候补名单。",
     foundingBody:
-      "一次购买即开放全部付费域（人形机器人、可控核聚变、SpaceX）的供应商与股票 exposure，并含后续更新。7 天无理由退款。",
-    foundingCta: "获取创始访问 →",
-    foundingUnlockCta: "解锁全部付费图谱 · $9 →",
+      "当前不提供 checkout。每个付费领域必须通过商业上线 gate 后，才会开放供应商与股票 exposure。",
+    foundingCta: "加入候补名单",
+    foundingUnlockCta: "加入候补名单",
     betaEmailLabel: "工作邮箱",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "申请私测访问",
@@ -199,13 +199,10 @@ export function LandingContent() {
   const { language, nodeName } = useLanguage();
   const copy = landingCopy[language];
   const domainCopy = domainLandingCopy[language];
-  // Founding all-access checkout surfaces only when the owner has enabled paid
-  // checkout AND configured the Stripe payment link (env-driven; no code change
-  // at go-live). Until then the band stays a waitlist capture.
-  const foundingLink =
-    process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT === "1"
-      ? process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING
-      : undefined;
+  // Paid checkout is intentionally off while commercial domains are audit
+  // previews. Env-configured Stripe test links must not surface as live buy
+  // CTAs; this band stays a waitlist capture until the launch gate changes.
+  const foundingLink = undefined;
 
   return (
     <div className="landing-page">

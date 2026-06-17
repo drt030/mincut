@@ -2,11 +2,11 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { isKnowHowNode } from "@/lib/canvasGraph";
+import { chokepointRankSignal, chokepointScores, type ChokepointResult } from "@/lib/chokepointScore";
 import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { nodeCostSignalKind, nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import type { GraphLayer } from "@/lib/knowHowLayer";
-import { nodeRiskSignal } from "@/lib/nodeRisk";
 import { selectTopN } from "@/lib/prioritySelection";
 import {
   readerFacingConstraintReason,
@@ -20,8 +20,15 @@ import { useLanguage } from "./LanguageProvider";
 import { useHolderTeaser } from "./HolderTeaserProvider";
 import { ChokepointHeadline, NodeDetailContent } from "./NodeDetailPanel";
 
-type RailAnalysisMode = "relation" | "cost" | "bottleneck-risk" | "maturity";
+type RailAnalysisMode = "relation" | "cost" | "bottleneck-risk";
 type DetailIntent = "default" | "exposure";
+type ChokepointAxis = keyof ChokepointResult["axes"];
+
+const CHOKEPOINT_AXIS_LABEL_KEYS: Record<ChokepointAxis, string> = {
+  criticality: "chokepointAxisLabelCriticality",
+  concentration: "chokepointAxisLabelConcentration",
+  barrier: "chokepointAxisLabelBarrier",
+};
 
 export type LensPriorityEntry = {
   nodeId: string;
@@ -83,13 +90,18 @@ function formatCopy(template: string, replacements: Record<string, string | numb
 }
 
 function railAnalysisMode(mode: ColorMode | undefined): RailAnalysisMode {
-  if (mode === "relation" || mode === "bottleneck-risk" || mode === "maturity") return mode;
+  if (mode === "relation" || mode === "bottleneck-risk") return mode;
+  if (mode === "maturity" || mode === "overall") return "bottleneck-risk";
   return "cost";
 }
 
-function formatMaturityScore(node: Node): string | null {
-  if (typeof node.maturityScore !== "number") return null;
-  return `${Math.round(node.maturityScore)}/100`;
+function strongestChokepointAxis(result: ChokepointResult | undefined): { axis: ChokepointAxis; value: number } | null {
+  const candidates = (Object.entries(result?.axes ?? {}) as Array<[ChokepointAxis, number | null]>)
+    .filter((entry): entry is [ChokepointAxis, number] => entry[1] !== null)
+    .sort((left, right) => right[1] - left[1]);
+  if (candidates.length === 0) return null;
+  const [axis, value] = candidates[0];
+  return { axis, value };
 }
 
 function routeStepAriaLabel(parts: Array<string | null | undefined>): string {
@@ -333,32 +345,26 @@ export function RouteDetailRail({
     if (activeAnalysisMode === "cost") return [];
     return selectTopN(graph, activeAnalysisMode, 5, null);
   }, [activeAnalysisMode, graph, priorityEntries]);
+  const chokepointScoreByNodeId = useMemo(() => chokepointScores(graph), [graph]);
   const copy = language === "zh"
     ? {
       fullSystem: "完整系统",
       costDrivers: "成本驱动",
       systemDecomposition: "系统分解",
-      bottleneckRisks: "瓶颈风险",
-      maturityWeakPoints: "成熟度薄弱项",
+      chokepointSignals: "关键瓶颈",
       route: "路线",
       structure: "结构",
-      risk: "热度",
-      weakPoints: "薄弱项",
       detail: "详情",
       nodeDetail: "节点详情",
       primaryCostChain: "主要成本链",
       majorSubsystems: "一级子系统",
-      keyRiskNodes: "关键风险节点",
-      leastMatureDependencies: "最不成熟的依赖",
-      structureHint: "中性视角只展示系统拆解，不表达成本、风险或成熟度。",
-      riskHint: "优先看最可能影响规模、成本或采用的约束。",
-      maturityHint: "优先看分数低、标签不成熟或不确定的依赖。",
+      structureHint: "中性视角只展示系统拆解，不表达成本或瓶颈信号。",
+      chokepointHint: "按依赖强度、供应集中度和壁垒排序；成本负担请切到成本视角。",
+      costLensHint: "线条颜色/粗细使用下游节点成本分位，不是父子成本差额；此列表展示当前路线中成本最高的可达节点。",
+      chokepointBand: "瓶颈 {band}/5",
       selected: "选中节点",
       links: "条链路",
       children: "个子节点",
-      riskScore: "热度",
-      maturityScore: "成熟度",
-      maturityUnknown: "成熟度未设置",
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
       routeEntry: "路线入口",
@@ -367,27 +373,20 @@ export function RouteDetailRail({
       fullSystem: "Full system",
       costDrivers: "Cost drivers",
       systemDecomposition: "System decomposition",
-      bottleneckRisks: "Bottleneck risks",
-      maturityWeakPoints: "Maturity weak points",
+      chokepointSignals: "Key chokepoints",
       route: "Route",
       structure: "Structure",
-      risk: "Heat",
-      weakPoints: "Weak points",
       detail: "Detail",
       nodeDetail: "Node detail",
       primaryCostChain: "Primary cost chain",
       majorSubsystems: "Major subsystems",
-      keyRiskNodes: "Key risk nodes",
-      leastMatureDependencies: "Least mature dependencies",
-      structureHint: "Neutral view: system breakdown only, with no cost, risk, or maturity signal.",
-      riskHint: "Start with constraints most likely to affect scale, cost, or adoption.",
-      maturityHint: "Start with the lowest scores and least mature labels.",
+      structureHint: "Neutral view: system breakdown only, with no cost or chokepoint signal.",
+      chokepointHint: "Ranks dependency, concentration, and barrier signals. Use Cost for cost burden.",
+      costLensHint: "Edge color/width uses target-node cost percentile, not parent-child cost delta; this list shows the highest-cost reachable nodes.",
+      chokepointBand: "Chokepoint {band}/5",
       selected: "Selected",
       links: "links",
       children: "children",
-      riskScore: "Heat",
-      maturityScore: "Maturity",
-      maturityUnknown: "maturity not set",
       noPriorityNodes: "No sortable nodes in this lens yet.",
       noNodeSelected: "No node selected.",
       routeEntry: "Route entry",
@@ -447,6 +446,11 @@ export function RouteDetailRail({
     const summary = directEvidenceSummary(graph, node);
     if (summary.total === 0) return t("readerEvidenceThin");
     return evidenceStatusText(node);
+  };
+  const chokepointSignalText = (node: Node, band: LensPriorityEntry["band"]): string => {
+    const strongest = strongestChokepointAxis(chokepointScoreByNodeId.get(node.id));
+    if (!strongest) return formatCopy(copy.chokepointBand, { band });
+    return `${t(CHOKEPOINT_AXIS_LABEL_KEYS[strongest.axis])} ${Math.round(strongest.value * 100)}/100`;
   };
   const constraintSummaryText = (node: Node): string => {
     const factors = constraintFactorsForNode(node, t);
@@ -564,7 +568,7 @@ export function RouteDetailRail({
     return [...scopedIds]
       .map((nodeId) => nodeById.get(nodeId))
       .filter((node): node is Node => Boolean(node && isKnowHowNode(node) && node.reviewStatus !== "deprecated"))
-      .sort((left, right) => nodeRiskSignal(right, graph) - nodeRiskSignal(left, graph) || left.name.localeCompare(right.name))[0] ?? null;
+      .sort((left, right) => chokepointRankSignal(graph, right) - chokepointRankSignal(graph, left) || left.name.localeCompare(right.name))[0] ?? null;
   }, [activePriorityEntries, firstLayerNodes, graph, isKnowHowLayer, nodeById, route.rootId, route.steps]);
   const featuredStartNode = isKnowHowLayer
     ? selectedKnowHowNode ?? knowHowStartNode ?? startNode
@@ -753,10 +757,8 @@ export function RouteDetailRail({
   const railTitle = activeAnalysisMode === "relation"
     ? copy.systemDecomposition
     : activeAnalysisMode === "bottleneck-risk"
-    ? copy.bottleneckRisks
-    : activeAnalysisMode === "maturity"
-      ? copy.maturityWeakPoints
-      : copy.costDrivers;
+    ? copy.chokepointSignals
+    : copy.costDrivers;
   const displayRailTitle = isKnowHowLayer ? t("knowHowLayerTitle") : railTitle;
   const primaryTabLabel = isKnowHowLayer ? t("knowHowStartHere") : t("readerStartHere");
   const railCount = activeAnalysisMode === "relation"
@@ -827,35 +829,35 @@ export function RouteDetailRail({
         ) : null}
       </header>
 
-      <div className="route-rail-tabs" role="tablist" aria-label="Route rail panel">
-        <button
-          type="button"
-          className={activePanel === "route" ? "active" : ""}
-          data-testid="route-rail-route-tab"
-          role="tab"
-          aria-selected={activePanel === "route"}
-          onClick={() => {
-            setDetailIntent("default");
-            setPanel("route");
-          }}
-        >
-          {primaryTabLabel}
-        </button>
-        <button
-          type="button"
-          className={activePanel === "detail" ? "active" : ""}
-          data-testid="route-rail-detail-tab"
-          role="tab"
-          aria-selected={activePanel === "detail"}
-          disabled={!selectedNode}
-          onClick={() => {
-            setDetailIntent("default");
-            setPanel("detail");
-          }}
-        >
-          {copy.detail}
-        </button>
-      </div>
+      {selectedNode ? (
+        <div className="route-rail-panel-actions" aria-label="Route rail panel actions">
+          {activePanel === "detail" ? (
+            <button
+              type="button"
+              className="route-rail-panel-action"
+              data-testid="route-rail-start-action"
+              onClick={() => {
+                setDetailIntent("default");
+                setPanel("route");
+              }}
+            >
+              {primaryTabLabel}
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="route-rail-panel-action"
+              data-testid="route-rail-detail-action"
+              onClick={() => {
+                setDetailIntent("default");
+                setPanel("detail");
+              }}
+            >
+              {copy.detail}
+            </button>
+          )}
+        </div>
+      ) : null}
 
       <div className="route-rail-body">
         {activePanel === "detail" && selectedNode ? (
@@ -995,7 +997,8 @@ export function RouteDetailRail({
               </section>
             ) : activeAnalysisMode === "cost" ? (
               <section className="route-rail-card route-rail-route">
-                <div className="route-rail-section-title">{t("readerKeyChokepoints")}</div>
+                <div className="route-rail-section-title">{copy.primaryCostChain}</div>
+                <p className="route-rail-hint">{copy.costLensHint}</p>
                 <ol className="route-step-list">
                   {route.steps.map((step) => {
                     const node = nodeById.get(step.nodeId);
@@ -1035,7 +1038,7 @@ export function RouteDetailRail({
               <section className="route-rail-card route-rail-route">
                 <div className="route-rail-section-title">{t("readerKeyChokepoints")}</div>
                 <p className="route-rail-hint">
-                  {activeAnalysisMode === "bottleneck-risk" ? copy.riskHint : copy.maturityHint}
+                  {copy.chokepointHint}
                 </p>
                 {activePriorityEntries.length > 0 ? (
                   <ol className="route-step-list route-priority-list">
@@ -1043,15 +1046,12 @@ export function RouteDetailRail({
                       const node = nodeById.get(entry.nodeId);
                       const label = node ? nodeName(node.id, node.name) : entry.nodeId;
                       const kindLabel = node ? kindName(node.kind) : "node";
-                      const scoreLabel = node ? formatMaturityScore(node) ?? "—" : "—";
                       const metaLabel = node
                         ? `${nodeRoleText(node)} · ${evidenceStatusText(node)}`
                         : kindLabel;
                       const valueLabel = node
-                        ? activeAnalysisMode === "maturity"
-                          ? `${copy.maturityScore} ${scoreLabel}`
-                          : evidenceStatusText(node)
-                        : scoreLabel;
+                        ? chokepointSignalText(node, entry.band)
+                        : formatCopy(copy.chokepointBand, { band: entry.band });
                       const factors = node ? keyFactorsForNode(node) : [];
                       return (
                         <li key={entry.nodeId} className="route-step">

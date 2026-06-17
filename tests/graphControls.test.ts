@@ -72,6 +72,16 @@ test("GraphControls legend shows five edge-width samples without a duplicate col
     0,
     "the flat colour ramp duplicates the width samples and should stay removed",
   );
+  assert.match(
+    html,
+    /target-node cost percentile/i,
+    `cost legend should say edge encoding is based on target-node cost percentile; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /not parent-child cost delta/i,
+    `cost legend should disambiguate edge width from a parent-child cost delta; got: ${html}`,
+  );
 });
 
 test("GraphControls uses one shared lens icon across all analysis modes", () => {
@@ -104,7 +114,7 @@ test("GraphControls no longer offers a Maturity lens (folded into Barrier per AD
   assert.doesNotMatch(html, /maturity gap/i);
   assert.doesNotMatch(html, /less proven/i);
   assert.match(html, /data-lens-mode="cost"/);
-  assert.match(html, /Wider = cost burden/i);
+  assert.match(html, /higher target-node cost/i);
 });
 
 test("GraphControls adds a neutral system decomposition lens", () => {

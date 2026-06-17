@@ -66,16 +66,17 @@ export function bottlenecksForNode(graph: GraphData, nodeId: string): Node[] {
 }
 
 /**
- * Per ADR-0005, "no expanded children" means: the node has no outgoing
- * decomposition-relation edges to a substantive child node. Decomposition
- * relations are `requires`, `part_of`, `has_route`, and `implemented_by`.
+ * Per ADR-0005, "no expanded children" means: the node has no decomposition
+ * edges to a substantive child node. `requires`, `has_route`, and
+ * `implemented_by` point parent -> child. `part_of` is the inverse
+ * child -> parent relation, so it counts only when incoming to the node.
  * A child is "substantive" if it is itself a decomposable subsystem rather
  * than only a measurement / annotation node. We exclude `metric`, `bottleneck`,
  * `placeholder_breakthrough`, `standard_or_regulation`, `organization`, and
  * `evidence` from "expanded children" because their presence does not
  * constitute decomposition further into the technology tree.
  */
-const decompositionRelations: Edge["relation"][] = ["requires", "part_of", "has_route", "implemented_by"];
+const outgoingDecompositionRelations: Edge["relation"][] = ["requires", "has_route", "implemented_by"];
 const nonExpandableChildKinds = new Set([
   "metric",
   "bottleneck",
@@ -88,10 +89,17 @@ const nonExpandableChildKinds = new Set([
 export function hasExpandedChildren(graph: GraphData, nodeId: string): boolean {
   for (const edge of graph.edges) {
     if (edge.source !== nodeId) continue;
-    if (!decompositionRelations.includes(edge.relation)) continue;
+    if (!outgoingDecompositionRelations.includes(edge.relation)) continue;
     const target = nodeById(graph, edge.target);
     if (!target) continue;
     if (nonExpandableChildKinds.has(target.kind)) continue;
+    return true;
+  }
+  for (const edge of graph.edges) {
+    if (edge.target !== nodeId || edge.relation !== "part_of") continue;
+    const child = nodeById(graph, edge.source);
+    if (!child) continue;
+    if (nonExpandableChildKinds.has(child.kind)) continue;
     return true;
   }
   return false;

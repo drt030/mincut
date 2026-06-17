@@ -398,6 +398,27 @@ test("LanguageProvider.tsx regression guard: Chinese manufacturer label stays au
   );
 });
 
+test("LanguageProvider.tsx regression guard: Chinese canvas labels keep supplier identities out of artifact titles", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "LanguageProvider.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+
+  assert.doesNotMatch(
+    raw,
+    /foundry_capacity_tsmc:\s*"[^"]*(?:台积电|TSMC)/,
+    "Chinese canvas label for foundry capacity should name the artifact, not the supplier identity",
+  );
+  assert.doesNotMatch(
+    raw,
+    /euv_projection_optics:\s*"[^"]*(?:蔡司|Zeiss|SMT)/i,
+    "Chinese canvas label for EUV projection optics should name the artifact, not the supplier identity",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: sector background radius follows layout envelope", () => {
   const filePath = path.join(
     process.cwd(),
@@ -533,8 +554,34 @@ test("GraphExplorer.tsx regression guard: node selection does not refresh reader
   );
   assert.match(
     fitNodesBlock,
-    /firstLayerSubsystems\.length <= 6 \|\| !readerStartNodeId/,
-    "dense commercial maps should not shrink every node by forcing all first-layer modules into the first reader fit",
+    /for \(const id of activeNodePositions\.keys\(\)\)/,
+    "reader-fit inputs should include every currently visible packed canvas node so the default view does not crop outer-ring materials or equipment",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: full-system fit can zoom out enough for dense commercial maps", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const fullFitBlock =
+    noLineComments.match(/const fitFullSystemView = useCallback\([\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ??
+    "";
+
+  assert.match(
+    fullFitBlock,
+    /minZoom:\s*0\.12/,
+    "full-system reader fit should not be clamped above the zoom needed for dense SpaceX/humanoid maps",
+  );
+  assert.match(
+    noLineComments,
+    /minZoom=\{0\.12\}/,
+    "ReactFlow minZoom must allow the full-system fit to show dense maps instead of clipping at 0.2",
   );
 });
 
@@ -1155,6 +1202,40 @@ test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration
   );
 });
 
+test("GraphExplorer.tsx regression guard: card packing preserves radial sector membership", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const packedPositionsBlock = noLineComments.match(/const packedNodePositions = useMemo\(\(\) => \{[\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ?? "";
+
+  assert.match(
+    noLineComments,
+    /function sectorForTheta\(/,
+    "GraphExplorer should keep an explicit sector lookup helper for final canvas packing",
+  );
+  assert.match(
+    packedPositionsBlock,
+    /const sectorBoundsById = new Map/,
+    "GraphExplorer should build per-node sector bounds before packing detail-sized nodes",
+  );
+  assert.match(
+    packedPositionsBlock,
+    /sectorBoundsById,/,
+    "GraphExplorer must pass sector bounds into packRectangularNodes so overlap resolution cannot move nodes into the wrong subsystem wedge",
+  );
+  assert.match(
+    packedPositionsBlock,
+    /sectorPaddingRadians:\s*0\.1/,
+    "GraphExplorer should keep a visible angular margin inside each sector so packed nodes do not read as belonging to a neighboring branch",
+  );
+});
+
 test("GraphExplorer.tsx regression guard: full-system canvas labels every node", () => {
   const filePath = path.join(
     process.cwd(),
@@ -1313,5 +1394,37 @@ test("GraphExplorer.tsx regression guard: default label mode uses packed node ce
     noLineComments,
     /const activeNodePositions = packedNodePositions;/,
     "GraphExplorer should use packed centers for the default clickable node boxes",
+  );
+});
+
+test("GraphExplorer.tsx regression guard: label mode passes edge ports for dense sibling bundles", () => {
+  const filePath = path.join(
+    process.cwd(),
+    "src",
+    "components",
+    "GraphExplorer.tsx",
+  );
+  const raw = fs.readFileSync(filePath, "utf8");
+  const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
+  const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
+  const flowEdgesBlock =
+    noLineComments.match(/const flowEdges: FlowEdge<RadialEdgeData>\[\] = useMemo\(\(\) => \{[\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ??
+    "";
+
+  assert.ok(flowEdgesBlock.length > 0, "GraphExplorer should keep an explicit flowEdges memo block");
+  assert.doesNotMatch(
+    flowEdgesBlock,
+    /sourceAnchor:\s*displayMode === "detail"/,
+    "label mode must pass source ports too; otherwise high-fanout nodes collapse into a single outgoing line bundle",
+  );
+  assert.match(
+    flowEdgesBlock,
+    /sourceAnchor:\s*sourceAnchorByEdge\.get\(edge\.id\)/,
+    "GraphExplorer should pass computed source ports to RadialEdge in the default label mode",
+  );
+  assert.match(
+    flowEdgesBlock,
+    /targetAnchor:\s*targetAnchorByEdge\.get\(edge\.id\)/,
+    "GraphExplorer should pass computed target ports to RadialEdge in the default label mode",
   );
 });

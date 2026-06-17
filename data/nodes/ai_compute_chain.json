@@ -458,7 +458,7 @@
   },
   {
     "id": "foundry_capacity_tsmc",
-    "name": "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm)",
+    "name": "Leading-edge foundry capacity (3nm, 5nm, 7nm)",
     "kind": "equipment",
     "domain": [
       "ai_compute_chain"
@@ -1230,7 +1230,7 @@
   {
     "id": "organic_substrate_buildup",
     "name": "Organic substrate (high-layer-count build-up)",
-    "kind": "material",
+    "kind": "module",
     "domain": [
       "ai_compute_chain",
       "semiconductor_packaging"
@@ -1271,7 +1271,7 @@
       "ev_acc_pkg_ibiden_expansion"
     ],
     "tags": [
-      "material",
+      "module",
       "substrate",
       "high_layer_count",
       "supply_constrained"
@@ -3387,7 +3387,7 @@
   {
     "id": "laser_array_and_photodiodes",
     "name": "Laser array and photodiode array for optical transceiver",
-    "kind": "material",
+    "kind": "module",
     "domain": [
       "ai_compute_chain"
     ],
@@ -5016,7 +5016,7 @@
   },
   {
     "id": "euv_projection_optics",
-    "name": "EUV projection optics (Carl Zeiss SMT)",
+    "name": "EUV projection optics",
     "kind": "equipment",
     "domain": [
       "ai_compute_chain"
@@ -5087,7 +5087,7 @@
   {
     "id": "eml_dfb_laser_diodes",
     "name": "Long-reach EML/DFB laser diodes (1310nm for coherent modules)",
-    "kind": "material",
+    "kind": "module",
     "domain": [
       "ai_compute_chain"
     ],
@@ -6068,7 +6068,7 @@
   },
   {
     "id": "mocvd_equipment_systems",
-    "name": "MOCVD equipment (Aixtron, Veeco, others) – limiting tool",
+    "name": "MOCVD epitaxy reactor systems",
     "kind": "equipment",
     "domain": [
       "ai_compute_chain"

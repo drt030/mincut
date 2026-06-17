@@ -59,11 +59,11 @@ const LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   cost: {
     title: "Legend",
-    summary: "Wider = cost burden.",
+    summary: "Wider/redder = higher target-node cost.",
     low: "Lower",
     high: "Higher",
     edgeLabel: "Edge color + width",
-    edgeValue: "target node cost burden",
+    edgeValue: "target-node cost percentile; not parent-child cost delta",
   },
   "bottleneck-risk": {
     title: "Legend",
@@ -86,19 +86,19 @@ const ZH_LENS_LEGEND_COPY: Record<VisibleAnalysisMode, LensLegendCopy> = {
   },
   cost: {
     title: "图例",
-    summary: "线越粗 = 成本负担。",
+    summary: "线越粗/越红 = 下游节点成本分位越高。",
     low: "较低",
     high: "较高",
     edgeLabel: "线条颜色 + 粗细",
-    edgeValue: "下游节点的成本负担",
+    edgeValue: "下游节点成本分位；不是父子成本差额",
   },
   "bottleneck-risk": {
     title: "图例",
-    summary: "低（蓝）→ 卡点（红）",
+    summary: "较低（蓝）→ 关键瓶颈（红）",
     low: "低",
-    high: "卡点",
+    high: "关键瓶颈",
     edgeLabel: "线条颜色 + 粗细",
-    edgeValue: "下游节点可能卡住扩产、成本或采用",
+    edgeValue: "下游节点的依赖、集中度或壁垒信号",
   },
 };
 

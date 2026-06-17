@@ -406,6 +406,33 @@ test("radialLayout P4: materials sit on R_outer outside R1 + max-descendant-radi
   assert.ok(m0!.r > r1, `material M0.r (${m0!.r}) must exceed R1 (${r1})`);
 });
 
+test("radialLayout places routed AI-compute artifact nodes in their parent branch sector", () => {
+  const graph = filterCanvasGraph(loadGraphData(), "ai_accelerator_module_hbm_cowos");
+  const result = radialLayout(graph, "ai_accelerator_module_hbm_cowos");
+
+  for (const [nodeId, sectorId] of [
+    ["t_glass_fabric", "substrate_and_interposer"],
+    ["abf_build_up_film", "substrate_and_interposer"],
+    ["organic_substrate_buildup", "substrate_and_interposer"],
+    ["hdi_drilling_via_plating", "substrate_and_interposer"],
+    ["laser_array_and_photodiodes", "interconnect_and_optics"],
+    ["epitaxial_growth_inp_gaas", "interconnect_and_optics"],
+    ["mocvd_equipment_systems", "interconnect_and_optics"],
+  ] as const) {
+    const pos = result.positions.get(nodeId);
+    const sector = result.sectors.get(sectorId);
+    assert.ok(pos, `${nodeId} must be positioned`);
+    assert.ok(sector, `${sectorId} sector must exist`);
+    const theta = ((pos!.theta % TWO_PI) + TWO_PI) % TWO_PI;
+    const start = sector!.center - sector!.width / 2;
+    const end = sector!.center + sector!.width / 2;
+    assert.ok(
+      theta >= start - 1e-9 && theta <= end + 1e-9,
+      `${nodeId}.theta (${theta}) must be in ${sectorId} sector [${start}, ${end}]`,
+    );
+  }
+});
+
 /**
  * Property 5: a shared structural node (≥ 2 incoming `requires` parents)
  * has exactly ONE position. The parallel edges Map records exactly one

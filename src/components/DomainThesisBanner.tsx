@@ -45,8 +45,7 @@ function accessKey(portfolioState: DomainPortfolioState): string {
 
 function shouldExplainAccess(portfolioState: DomainPortfolioState): boolean {
   return portfolioState !== "full-free-flagship" &&
-    portfolioState !== "full-free-depth-demo" &&
-    portfolioState !== "audit-preview";
+    portfolioState !== "full-free-depth-demo";
 }
 
 export function DomainThesisBanner({
@@ -59,7 +58,8 @@ export function DomainThesisBanner({
   const { nodeName, t } = useLanguage();
   const domainName = nodeName(domain.rootId, domain.title);
   const explainsAccess = shouldExplainAccess(domain.portfolioState);
-  const showWaitlistCta = domain.portfolioState === "paid-candidate";
+  const showWaitlistCta =
+    domain.portfolioState === "paid-candidate" || domain.portfolioState === "audit-preview";
   const showAccessDetailsCta = false;
   const evidenceText = domain.portfolioState === "paid-candidate"
     ? t("domainThesisEvidenceCandidate")

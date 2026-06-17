@@ -5,6 +5,7 @@ import type { GraphData } from "../src/lib/schema";
 import { loadGraphData } from "../src/lib/graphLoader";
 import { filterCanvasGraph } from "../src/lib/canvasGraph";
 import { defaultFocalProduct } from "../src/lib/graphTraversal";
+import { radialLayout } from "../src/lib/radialLayout";
 
 /**
  * RED tests for Slice A3 (spec:
@@ -26,7 +27,9 @@ import { defaultFocalProduct } from "../src/lib/graphTraversal";
  *      not hard-code 12).
  *   2. A `requires`-descendant of a first-layer subsystem inherits that
  *      subsystem's hue family.
- *   3. Materials (`kind === "material"`) are neutral grey (saturation 0).
+ *   3. Materials reachable from the focal subtree inherit their canonical
+ *      first-layer ancestor's hue family; unreachable/orphan materials
+ *      remain neutral.
  *   4. Shared structural nodes — those with ≥ 2 incoming `requires` parents
  *      inside the focal subtree, excluding the first-layer subsystems
  *      themselves — inherit exactly one primary parent's family. Edge
@@ -125,8 +128,20 @@ function sharedHueFixture(weighted: boolean): GraphData {
         relation: "requires",
         ...(weighted ? { weight: 0.9 } : {}),
       },
-      { id: "eS0M0", source: "S0", target: "M0", relation: "requires", weight: 0.2 },
-      { id: "eS2M0", source: "S2", target: "M0", relation: "requires", weight: 0.9 },
+      {
+        id: "eS0M0",
+        source: "S0",
+        target: "M0",
+        relation: "requires",
+        ...(weighted ? { weight: 0.2 } : {}),
+      },
+      {
+        id: "eS2M0",
+        source: "S2",
+        target: "M0",
+        relation: "requires",
+        ...(weighted ? { weight: 0.9 } : {}),
+      },
     ],
     evidence: [],
   };
@@ -230,29 +245,97 @@ test("subsystemHue P3: all N first-layer subsystems have N pairwise-distinct hue
 });
 
 /**
- * Property 4: a material node (`kind === "material"`) is neutral grey
- * regardless of which subsystems consume it.
+ * Property 4: a reachable material node (`kind === "material"`) inherits
+ * its canonical first-layer ancestor's hue family instead of rendering
+ * neutral grey.
  */
-test("subsystemHue P4: materials are neutral grey", () => {
-  const graph = loadGraphData();
-  const material = graph.nodes.find((n) => n.kind === "material");
-  assert.ok(material, "fixture must contain at least one material node");
-  const result = subsystemHue(material!.id, graph);
-  assert.equal(
-    result.saturation,
-    0,
-    `material ${material!.id} must be neutral grey (saturation=0); got ${JSON.stringify(result)}`,
+test("subsystemHue P4: reachable materials inherit their canonical first-layer hue family", () => {
+  const graph = sharedHueFixture(false);
+  const materialHue = subsystemHue("M0", graph);
+  const canonicalParentHue = subsystemHue("S0", graph);
+
+  assert.deepEqual(
+    materialHue,
+    canonicalParentHue,
+    `reachable material M0 must inherit canonical parent S0 hue; got ${JSON.stringify(materialHue)} vs ${JSON.stringify(canonicalParentHue)}`,
+  );
+  assert.ok(
+    materialHue.saturation > 0,
+    `reachable material M0 must be coloured (saturation > 0); got ${JSON.stringify(materialHue)}`,
   );
 });
 
-test("subsystemHue keeps materials neutral even when their requires parents are weighted", () => {
+test("subsystemHue uses the highest-weight requires parent as a shared material's hue family", () => {
   const graph = sharedHueFixture(true);
 
-  assert.equal(
-    subsystemHue("M0", graph).saturation,
-    0,
-    "material nodes should stay neutral grey instead of inheriting a weighted primary parent's hue",
+  const materialHue = subsystemHue("M0", graph);
+  const primaryParentHue = subsystemHue("S2", graph);
+  const secondaryParentHue = subsystemHue("S0", graph);
+
+  assert.deepEqual(
+    materialHue,
+    primaryParentHue,
+    "weighted shared material M0 should inherit the highest-weight parent S2 hue family",
   );
+  assert.notDeepEqual(
+    materialHue,
+    secondaryParentHue,
+    "weighted shared material M0 should not inherit the lower-weight secondary parent S0 hue family",
+  );
+  assert.ok(
+    materialHue.saturation > 0,
+    `weighted shared material M0 must be coloured; got ${JSON.stringify(materialHue)}`,
+  );
+});
+
+test("subsystemHue colors routed AI-compute T-glass with its primary substrate branch", () => {
+  const rootId = "ai_accelerator_module_hbm_cowos";
+  const graph = filterCanvasGraph(loadGraphData(), rootId);
+
+  const tGlassHue = subsystemHue("t_glass_fabric", graph, rootId);
+  const substrateHue = subsystemHue("substrate_and_interposer", graph, rootId);
+  const advancedPackagingHue = subsystemHue("advanced_packaging", graph, rootId);
+
+  assert.deepEqual(
+    tGlassHue,
+    substrateHue,
+    "T-glass is positioned under the package-substrate branch and should inherit that branch hue",
+  );
+  assert.notDeepEqual(
+    tGlassHue,
+    advancedPackagingHue,
+    "T-glass should not keep the advanced-packaging hue from a secondary material parent",
+  );
+});
+
+test("subsystemHue matches rendered AI-compute layout sectors for product and barrier-source nodes", () => {
+  const rootId = "ai_accelerator_module_hbm_cowos";
+  const graph = filterCanvasGraph(loadGraphData(), rootId);
+  const layout = radialLayout(graph, rootId);
+  const sectorHueById = new Map(
+    [...layout.sectors.keys()].map((sectorId) => [sectorId, subsystemHue(sectorId, graph, rootId).hue]),
+  );
+  const mismatches: string[] = [];
+
+  for (const node of graph.nodes) {
+    if (node.id === rootId) continue;
+    const polar = layout.positions.get(node.id);
+    if (!polar) continue;
+    const theta = ((polar.theta % TWO_PI) + TWO_PI) % TWO_PI;
+    const sectorId = [...layout.sectors.entries()].find(([, sector]) => {
+      const start = sector.center - sector.width / 2;
+      const end = sector.center + sector.width / 2;
+      return theta >= start - 1e-9 && theta <= end + 1e-9;
+    })?.[0];
+    if (!sectorId) continue;
+    const sectorHue = sectorHueById.get(sectorId);
+    const nodeHue = subsystemHue(node.id, graph, rootId);
+    if (sectorHue !== undefined && Math.abs(nodeHue.hue - sectorHue) > 1e-6) {
+      mismatches.push(`${node.id}: layout=${sectorId} hue=${nodeHue.hue} sectorHue=${sectorHue}`);
+    }
+  }
+
+  assert.deepEqual(mismatches, []);
 });
 
 /**

@@ -6,7 +6,7 @@ The QA agent is an intelligent, adversarial product reviewer for this repo. Its 
 
 The commercial audience is public-market retail investors who want to learn a hot industrial chain, understand bottlenecks, and discover company/ticker diligence leads. The product promise is not "stock picks." It is:
 
-- Free: learn the industrial chain, product decomposition, bottlenecks, evidence trail, and maturity/cost context.
+- Free: learn the industrial chain, product decomposition, chokepoints, evidence trail, Barrier, and Cost context.
 - Paid or future paid: inspect company, supplier, ticker, and exposure leads tied to the bottlenecks.
 - Trust demo: AI compute may expose the full company/ticker layer for free so users can judge the method before paying elsewhere.
 
@@ -18,7 +18,7 @@ The agent should behave like a strict first-time retail investor, industry resea
 - It reports user experience, commercial promise, investment-insight credibility, data/modeling gaps, paywall risks, bugs, and improvement opportunities.
 - It is allowed to be critical. A vague "looks good" report is a failed QA run.
 
-This document is the source-of-truth prompt/contract for any Codex, Claude, or browser-capable agent asked to perform QA on MinCut.
+This document is the source-of-truth prompt/runbook for any Codex, Claude, or browser-capable agent asked to perform QA on MinCut. The acceptance contract itself lives in `docs/ACCEPTANCE.md`.
 
 ## Non-Goals
 
@@ -62,6 +62,10 @@ Then inspect any files needed to understand the current behavior:
 
 Do not assume these files are unchanged from memory. Read them from the workspace.
 
+## Feedback Coverage Preflight
+
+Whenever a user reports a product, graph, commercial, or QA defect, first check whether `docs/QA-agent.md` and `docs/ACCEPTANCE.md` already cover that failure mode. If they do not, add or propose the missing QA/acceptance rule before or alongside the concrete product fix, so the same class of issue is not left to ad hoc reviewer memory.
+
 ## Current QA Target
 
 The graph model still has a v0 internal/development target:
@@ -91,7 +95,7 @@ The QA agent should ask:
 - Can a new user understand what this tool is for within the first minute?
 - Can a retail investor understand that the free layer teaches the chain, while company/ticker exposure may be paid outside the free AI-compute demo?
 - Does the UI avoid promising buy/sell advice, guaranteed returns, or "definitely undervalued" conclusions?
-- Can a researcher inspect the product graph, dependencies, evidence, maturity, gate output, and follow-up tasks?
+- Can a researcher inspect the product graph, dependencies, evidence, Chokepoint, Barrier, Cost, gate output, and follow-up tasks?
 - Does the UI make the graph useful as a reasoning substrate, or is it only a visualization?
 - Does the data model preserve product boundaries, evidence status, and recursive decomposition?
 - Are company/ticker leads tied to actual bottleneck, component, process, material, organization, or know-how graph records?
@@ -142,7 +146,7 @@ The QA agent must use a real browser or browser automation when available. It sh
 
 Test as a user trying to answer real questions, not as a script trying to satisfy selectors.
 
-Run the following four gates for paid-launch QA. For smaller changes, run only the affected gates and state what was not tested.
+Run the following paid-launch gates for broad commercial QA. For smaller changes, run only the affected gates and state what was not tested.
 
 ### Gate 1: Commercial Promise And Paid Boundary
 
@@ -159,7 +163,7 @@ Required paths:
 Acceptance checks:
 
 - The first screen communicates industrial-chain bottleneck research and company/ticker diligence leads without requiring docs.
-- The free layer is valuable on its own: chain decomposition, bottlenecks, evidence summary, cost/maturity context, and navigation are usable.
+- The free layer is valuable on its own: chain decomposition, chokepoints, evidence summary, Cost/Barrier context, and navigation are usable.
 - The paid layer is visible as a product boundary, but not presented as a hard-sell trap. Users should understand before clicking that company/ticker exposure may be paid outside the free AI-compute demo.
 - AI compute is clearly marked as a full-free trust demo when applicable.
 - The copy avoids buy/sell/hold language, guaranteed returns, "definitely undervalued" claims, or implied insider knowledge.
@@ -217,11 +221,28 @@ Internal regression path:
 Acceptance checks:
 
 - The root and main branches are visible in the first desktop viewport.
+- The default map is an artifact map: visible nodes should be products, routes, modules, equipment, and key materials. Organization, metric, evidence, and context records must not appear as ordinary graph nodes.
+- Know-how nodes (`engineering_method`, `manufacturing_process`) are hidden from the default map unless the tested surface is explicitly a Barrier Sources / know-how layer.
+- If a Barrier Sources / know-how layer exists, it must explain why know-how is visible: diamonds should represent methods or manufacturing processes that contribute to Barrier, holder scarcity, evidence gaps, or authored Chokepoint status.
+- Artifact nodes with attached know-how should expose a summary signal in the default layer when the data exists: count, strongest must-build barrier, holder scarcity, or evidence gap. The user should not need to open a technical layer just to know that an artifact has a material Barrier source.
 - Node distribution is balanced enough to understand the chain; nodes are not piled into unreadable clusters.
+- Nodes must sit in the sector implied by their visible decomposition parent or documented primary parent. A material/component cannot be visually assigned to an unrelated branch just because it is shared or appears earlier in sort order; sector placement must preserve the user's mental model of the product chain.
+- When product feedback reports specific misplaced nodes, carry those node ids as a required reproduction set until the fix is verified. Current AI compute regression set: `t_glass_fabric`, `abf_build_up_film`, `organic_substrate_buildup`, `laser_array_and_photodiodes`, `epitaxial_growth_inp_gaas`, and `mocvd_equipment_systems`.
+- Primary-edge geometry must be coherent, not just individual node sectors. For every visible `primary` `requires` edge in a reported problem area, the target should stay inside the same first-layer sector/envelope as the source's canonical branch. If a visible edge crosses first-layer sectors, it must be intentionally classified and visually treated as a cross-edge. Do not validate only hand-picked node ids; inspect the primary edges around the reported node and at least one level of parents/children.
+- Validate the final rendered canvas coordinates, not only the raw radial layout. If label/card packing or overlap avoidance moves a node outside its original first-layer sector, or leaves it pinned directly on a neighboring sector border so the ownership reads wrong, the graph fails even if `radialLayout` alone reports the right sector.
+- Validate default canvas bounding boxes in the browser. Reported regression nodes and key default-visible artifact/material/equipment nodes must not be clipped outside the React Flow wrapper on first load; a route-led overview may emphasize a path, but it cannot make visible default nodes look lost, off-canvas, or assigned to a different region.
+- When a dense map is clipped on first load, check whether fit-view is being clamped by the canvas minimum zoom. A graph can fail even when the fit target set is correct if `minZoom` prevents the viewport from zooming out far enough on mobile or large commercial maps.
+- For a reported misplaced or semantically odd node, inspect the source graph edges, not just the rendered canvas. Duplicate `source` / `target` / `relation` edges, stale edge ids, or claims whose wording contradicts the edge's actual source/target are failures because canvas de-duplication can hide the bad model while the UI still feels wrong.
+- Material canvas nodes are leaf inputs. If a visible material has non-material canvas children such as modules, equipment, or processes, check whether the host should be modeled as a module/equipment/process with materials attached beneath it; material-as-parent modeling is a likely cause of wrong sector placement and must be treated as a topology defect unless explicitly justified.
+- `part_of` is child -> parent. Do not count a material's outgoing `part_of` edge to a host module as proof that the material has expanded children; inspect directionality before judging frontier status or structural parentage.
+- Artifact node titles must name the artifact referent, not smuggle in exposure leads or verdicts. Default canvas titles for `product`, `technical_route`, `module`, `equipment`, and `material` nodes should not include supplier/org lists, tickers, public-company hints, or judgment suffixes such as "limiting tool", "current bottleneck", or "winner". Check both source node names and localized display labels. Put supplier names, tickers, market share, and thesis/verdict language in detail, evidence, exposure, metrics, notes, or explicit route copy. Proper nouns are allowed only when they are the literal product/architecture/standard being modeled, not merely example vendors.
 - Edges are ordered and visually calm enough to follow the main dependencies. Crossings should be minimal; the main route must not be obscured by cross-edge noise.
+- For any visible node with six or more same-layer outgoing or incoming edges, inspect the default label-mode canvas and a focused-node state. Sibling edges must use readable port/anchor separation, grouping, or another explicit visual treatment; they must not collapse into one indistinguishable line bundle from a single point.
 - No visible user-facing graph node may appear grey. If a node appears on the map, it must be assigned a meaningful color family. If it cannot be colored, hide it from the primary user map or move it to a secondary detail/evidence surface. Grey nodes are a fail because they make edge routing and hierarchy read as chaotic.
-- Coloring is semantically stable. Users can tell whether color is subsystem family, risk, maturity, cost, or relation context.
+- Coloring is semantically stable. Users can tell whether color is subsystem family, Chokepoint, Cost, relation context, or another declared lens.
+- In System decomposition/product-layer coloring, node fill hue must match the same canonical first-layer branch used for layout placement and primary-edge classification. A node positioned in one subsystem sector but colored as another subsystem is a fail unless the UI explicitly marks it as an intentional shared dependency/cross-edge case. For reported color defects, compare the node's fill color against its primary parent, first-layer sector tint, and visible branch label.
 - Edge thickness reflects the active lens's intended signal, such as bottleneck risk or cost driver, and does not contradict the legend.
+- In the Cost lens, the legend and edge styling must make the encoded quantity clear at first glance. If edge width reflects incremental/route contribution rather than the target node's absolute modeled cost, the UI must say so and the detail rail must explain apparent mismatches such as a thin edge pointing to a high-cost node.
 - The canvas exposes the intended lens vocabulary: System decomposition, Chokepoint, and Cost. Maturity is an internal Barrier input, not a selectable user-facing lens.
 - Switching lenses changes overlays without scrambling node identity or spatial memory.
 - Clicking a node highlights the relevant branch while preserving enough context to stay oriented.
@@ -232,7 +253,20 @@ Hard fails:
 
 - The graph is blank, mostly offscreen, or unreadable in a normal desktop viewport.
 - Any visible user-facing graph node appears grey.
+- Organization, metric, evidence, or raw context records appear as default canvas nodes.
+- Know-how appears on the default map without an explicit Barrier Sources/layer interaction.
+- A Barrier Sources layer reads as a dump of technical methods rather than a map of why artifacts are hard to replicate.
 - Edges or labels overlap so heavily that the primary route cannot be read.
+- Nodes render in the wrong sector or under the wrong visible branch, causing the map to imply an incorrect product decomposition.
+- A `primary` edge visually connects across unrelated first-layer sectors without being classified as a cross-edge or explained as an intentional shared dependency.
+- Final packed/rendered node positions cross their radial sector or hug a neighboring sector border tightly enough that the user can reasonably read the node as belonging to the wrong subsystem.
+- Reported or key default-visible artifact/material/equipment nodes are clipped outside the canvas wrapper on initial load.
+- The source graph around a reported node contains duplicate visible structural edges, stale edge ids, or edge claims that describe a different parent/child relationship than the actual source/target.
+- Source graph traversal treats outgoing `part_of` from a child/material as if it were an outgoing decomposition child.
+- A visible material node acts as the structural parent of a non-material canvas node without an explicit modeled host artifact.
+- A default artifact node title or localized canvas label contains supplier/ticker/exposure identities or verdict words that should live in detail or exposure surfaces instead of the map label.
+- A node with six or more visible same-layer edges renders those edges as an indistinguishable bundle from one point in default label mode or after selecting/focusing the node.
+- A node's fill color implies a different subsystem family than its primary visible branch or layout sector.
 - Lens changes make the meaning of node color or edge width inconsistent with the legend.
 - The canvas, legend, and detail panel disagree on the same node's Chokepoint verdict or elevated axis.
 - Node click/selection loses the user or breaks spatial memory.
@@ -243,35 +277,57 @@ Target question: Does the first node-detail screen answer what a retail investor
 
 Required paths:
 
-- Open at least three bottleneck nodes and one product/root node.
+- Open at least three top Chokepoint or authored bottleneck nodes and one product/root node.
 - Include at least one node with company/ticker leads and one node with weak or unreviewed evidence.
+- Include at least one node where Cost is high but Cost is not the structural chokepoint reason.
+- Include at least one know-how or know-how-adjacent node when the route contains `engineering_method` or `manufacturing_process` records.
 - Test desktop rail and mobile reading layout.
 - Test English and Simplified Chinese for the primary summary layer.
 
-Acceptance checks for bottleneck nodes:
+First-screen order:
 
-- The first visible summary starts with one sentence explaining why this node is a bottleneck. It should explain what it limits: cost, capacity, manufacturability, reliability, adoption, deployment, or supplier availability.
-- The first-glance chokepoint readout states the verdict and the elevated axis as a concrete sentence: Cost, Criticality/Dependency, Concentration, or Barrier. It must not surface a raw tag such as `maturity: prototype` as the primary explanation.
-- The first screen shows core metrics before raw metadata:
-  - cost or cost impact;
-  - supplier concentration or holder count when modeled;
-  - supply-chain fragility or scarcity;
-  - barrier, replication difficulty, or relief timing;
-  - evidence strength.
-- The most relevant companies or ticker leads appear near the first summary when available, after the bottleneck logic and key metrics.
-- Company leads show relationship type and confidence, not only a name and ticker.
-- Detailed evidence appears after the summary and may be collapsed by default, but the user must be able to inspect source, quote/excerpt when available, review status, limitations, and evidence type.
+- Identity: node name, route/domain context, and enough type context to know whether this is a product, subsystem, material, equipment, know-how, or organization-adjacent exposure.
+- Chokepoint headline: verdict plus the elevated structural reason, in plain language. The allowed structural reasons are Dependency, Concentration, and Barrier. Cost is separate.
+- Cost magnitude: shown only as price, cost share, cost gap, or Cost lens context. It must never be the explanation for why the node is a Chokepoint.
+- Investor brief: a compact set of reader-facing signals before raw metadata:
+  - Dependency: what depends on this node, or why the selected route cannot scale without it;
+  - Concentration: holder/supplier count, public/private holder availability, or "no modeled / verified holders yet";
+  - Barrier: must-build/procurable status, hard-to-replicate reason, lead time, readiness gap, or relief timing;
+  - Cost: modeled/estimated/missing cost with caveat and coverage when available;
+  - Evidence: reviewed/unreviewed/machine-checked/direct/nearest-source status, plus visible limitation when weak.
+- Company or ticker leads: appear after the bottleneck logic and key signals, not before. They should be close enough to the first summary that users can connect "why this matters" to "who might be exposed."
+- Evidence and inspection: detailed evidence may be collapsed below the summary, but source, quote/excerpt when available, review status, limitations, and evidence type must be inspectable without hunting through raw JSON-style data.
 - Internal graph implementation details, raw relation dumps, schema-like field names, and operator controls are not the primary reader path.
+- Route-level "Start here" guidance is not treated as a peer of node-specific detail. It may appear as onboarding/navigation, but selecting a graph node must not make an unrelated route-start panel look like the node's own detail state.
 - If the evidence is weak, the UI says so plainly and downgrades the claim rather than hiding the problem.
+
+Node-type checks:
+
+- Product/root nodes should explain the route and top downstream Chokepoints. They should not label the root product itself as the main Chokepoint merely because it is expensive or structurally central.
+- Product/module/equipment/material nodes should answer: what role does this play, what depends on it, why is it hard to route around, and which Cost/Concentration/Barrier signals are known or missing.
 - When a Concentration readout is driven by zero modeled `manufactured_by` / `implemented_by` holders, the UI must frame it as a supply-source gap or unverified holder state. It must not say or imply a confirmed count such as `0 makers`, `0 suppliers`, `仅 0 家`, or `零家`.
+- Know-how nodes should answer: is the know-how procurable or must-build, who holds it when modeled, which product or subsystem it attaches to, and whether the barrier is evidence-backed or still a hypothesis.
+- Organization nodes, when reachable from detail surfaces, should read as exposure evidence. They must show relationship type and confidence, not just a name and ticker.
+- Nodes with no direct evidence should still be useful: they should state the gap, show nearest/related evidence when available, and make the missing claim obvious.
+
+Company/ticker checks:
+
+- Company leads show relationship type and confidence: direct supplier, equipment vendor, material supplier, capacity holder, know-how holder, customer exposure, indirect exposure, alternative route, or candidate needing verification.
+- If the route is locked, the user may see counts and access-state copy, but not locked company names, tickers, org-level evidence, or enough detail to reconstruct them.
+- If AI compute is the full-free demo, company/ticker exposure should be inspectable enough to judge the method, including relationship type and evidence limitations.
+- Company/ticker leads must be framed as diligence leads or exposure candidates, never buy/sell/hold advice.
 
 Hard fails:
 
-- A user cannot answer, without scrolling far, "why is this a bottleneck?", "what metrics matter?", and "which companies are connected?" when those data exist.
+- A user cannot answer, without scrolling far, "is this a Chokepoint?", "what structural reason drives it?", "how big is the Cost signal?", and "which companies are connected?" when those data exist.
 - The first screen leads with internal metadata rather than an investor/research summary.
+- "Start here" and node-specific detail are presented as equivalent modes even though one is route onboarding and the other depends on the selected node.
 - The detail panel calls Cost the reason something is a chokepoint instead of keeping Cost as a separate magnitude overlay.
-- Company/ticker leads appear before the bottleneck logic or without confidence/relationship context.
 - A zero-holder Concentration gap is rendered as a confirmed supplier count, especially in Chinese copy such as `仅 0 家` / `零家`.
+- The root/product page presents itself as the bottleneck instead of directing the user to the route's top Chokepoints.
+- A know-how node appears as an unexplained extra graph object instead of communicating a product barrier.
+- Company/ticker leads appear before the bottleneck logic or without confidence/relationship context.
+- Locked company/ticker identities leak in a paid route.
 - Evidence limitations are hidden for a weak claim.
 - Chinese mode leaves the primary summary unusable for a Simplified Chinese reader.
 
@@ -325,7 +381,7 @@ The repo is not acceptable if any of these are true:
 - Node selection or detail inspection does not work.
 - Recursive decomposition is absent or only described in docs.
 - The validation gate invents answers not supported by local graph data.
-- **Disclosure (§3a):** the user cannot tell, at first glance, a node's **chokepoint** verdict and the **elevated axis** driving it (Cost / Dependency / Concentration / Barrier) — or the axis shows as raw internal jargon (e.g. `maturity: prototype`) instead of a concrete user-facing statement.
+- **Disclosure (§3a):** the user cannot tell, at first glance, a node's **chokepoint** verdict and the **elevated structural axis** driving it (Dependency / Concentration / Barrier) — or the axis shows as raw internal jargon (e.g. `maturity: prototype`) instead of a concrete user-facing statement. Cost may appear as a separate magnitude readout, never as the structural reason.
 - **Vocabulary consistency (§3b):** canvas lens labels do not match the model vocabulary (§2) — e.g. a `Maturity` or `Bottleneck risk` lens label after the move to `Chokepoint` / `Barrier`, or the canvas and detail panel disagree.
 - Important claims appear established without their evidence / review status **visible** (honesty of the source itself is the evidence-audit agent's job, not yours).
 - The app silently merges neighboring products into the current product boundary.
@@ -345,7 +401,7 @@ Classify every issue into one category:
 - `major`: breaks an important workflow or creates misleading research output.
 - `minor`: local defect, awkward behavior, or incomplete polish that does not block the core loop.
 - `ux`: user confusion, poor information architecture, unclear controls, weak affordance, or cognitive overload.
-- `data_model`: graph schema, relation semantics, product boundary, evidence, maturity, gate, or task quality problem.
+- `data_model`: graph schema, relation semantics, product boundary, evidence, Barrier/readiness, gate, or task quality problem.
 - `commercial`: paid/free boundary, pricing, CTA, route state, launch promise, or conversion problem.
 - `investment_trust`: company/ticker lead quality, relationship type, diligence logic, risk disclosure, or investment-advice risk.
 - `paywall`: entitlement, locked exposure, checkout, leakage, or access-control problem.
@@ -374,9 +430,10 @@ Return a report with this structure:
 
 ## Verdict
 
-Status: ship_paid | ship_waitlist_only | do_not_ship
+Acceptance status: pass | conditional_pass | fail
+Commercial recommendation: ship_paid | ship_waitlist_only | do_not_ship
 
-One-paragraph explanation of whether the repo currently meets the commercial goal.
+One-paragraph explanation of whether the repo currently meets `docs/ACCEPTANCE.md` §3 and what commercial launch posture follows from that evidence.
 
 ## Evidence Collected
 
@@ -415,7 +472,7 @@ Assess coverage of:
 - recursive decomposition;
 - graph inspection;
 - evidence and review status;
-- maturity and route comparison;
+- Chokepoint, Barrier, Cost, and route comparison;
 - validation gate;
 - research task generation;
 - English/Simplified Chinese usability.
@@ -439,8 +496,9 @@ Give a prioritized list of concrete next steps.
 
 ## Strictness Rules
 
-- Do not return `ship_paid` if a core commercial user journey was not actually tested.
-- Do not return `ship_paid` if browser testing was skipped for user-facing UI changes.
+- Do not return `pass` if a core acceptance path was not actually tested.
+- Do not recommend `ship_paid` if a core commercial user journey was not actually tested.
+- Do not recommend `ship_paid` if browser testing was skipped for user-facing UI changes.
 - Do not claim something works because a document says it should.
 - Do not infer missing graph facts from general knowledge.
 - Do not use online search to fill gate answers during QA.

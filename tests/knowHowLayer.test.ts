@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   KNOW_HOW_FILLS,
-  ARTIFACT_DIM_FILL,
   knowHowFill,
   knowHowLayerFill,
   layerHidesNode,
@@ -55,7 +54,6 @@ test("knowHowFill maps transactability to the three fills", () => {
   assert.equal(knowHowFill(khP), KNOW_HOW_FILLS.procurable);
   assert.equal(knowHowFill(khU), KNOW_HOW_FILLS.unset);
   assert.notEqual(KNOW_HOW_FILLS.must_build, KNOW_HOW_FILLS.procurable);
-  assert.equal(typeof ARTIFACT_DIM_FILL, "string");
 });
 
 test("knowHowLayerFill preserves know-how subsystem color and dims artifact context", () => {
@@ -63,7 +61,7 @@ test("knowHowLayerFill preserves know-how subsystem color and dims artifact cont
   const subsystemFill = "hsl(212, 68%, 52%)";
 
   assert.equal(knowHowLayerFill(khB, subsystemFill), subsystemFill);
-  assert.equal(knowHowLayerFill(mod, subsystemFill), ARTIFACT_DIM_FILL);
+  assert.equal(knowHowLayerFill(mod, subsystemFill), "hsl(212, 37.400000000000006%, 70%)");
 });
 
 test("knowHowBottleneckCounts counts hidden bottleneck know-how per host", () => {

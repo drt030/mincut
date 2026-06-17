@@ -1,4 +1,4 @@
-import { filterCanvasGraph, resolveCanvasRootId } from "./canvasGraph";
+import { filterCanvasGraph, isArtifactCanvasNode, resolveCanvasRootId } from "./canvasGraph";
 import { radialLayout } from "./radialLayout";
 import { subsystemHue } from "./subsystemHue";
 import type { GraphData, NodeKind } from "./schema";
@@ -23,17 +23,48 @@ export type GraphTopologyAudit = {
   rootId: string;
   structuralNodeCount: number;
   neutralMaterialCount: number;
+  neutralMaterialIds: string[];
   neutralNonMaterialCount: number;
   neutralNonMaterialIds: string[];
   primaryEdgeCount: number;
   crossEdgeCount: number;
   multiParentVisibleNodes: MultiParentVisibleNodeAudit[];
+  materialParentNonMaterialChildEdges: string[];
+  artifactTitlePollutionNodeIds: string[];
 };
+
+const ARTIFACT_TITLE_POLLUTION_PATTERN =
+  /\b(?:limiting tool|current bottleneck|winner|locked supplier|ticker|tickers|NYSE|NASDAQ|public-company|exposure thesis)\b/i;
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function organizationTitleAlias(name: string): string | null {
+  const alias = name
+    .replace(/\b(?:GmbH|Inc\.?|Corporation|Corp\.?|Co\.?|Company|Ltd\.?|Limited|LLC|plc|AG|S\.A\.)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return alias.length >= 4 ? alias : null;
+}
+
+function containsOrganizationName(title: string, organizationNames: readonly string[]): boolean {
+  for (const name of organizationNames) {
+    const pattern = new RegExp(`(^|[^A-Za-z0-9])${escapeRegExp(name)}([^A-Za-z0-9]|$)`, "i");
+    if (pattern.test(title)) return true;
+  }
+  return false;
+}
 
 export function auditGraphTopology(graph: GraphData, rootId: string): GraphTopologyAudit {
   const resolvedRootId = resolveCanvasRootId(graph, rootId) ?? rootId;
   const canvas = filterCanvasGraph(graph, resolvedRootId);
   const layout = radialLayout(canvas, resolvedRootId);
+  const organizationNames = graph.nodes.flatMap((node) => {
+    if (node.kind !== "organization") return [];
+    const alias = organizationTitleAlias(node.name);
+    return alias ? [alias] : [];
+  });
 
   const structuralNodes = canvas.nodes.filter((node) => STRUCTURAL_TOPOLOGY_KINDS.has(node.kind));
   const neutralMaterialIds: string[] = [];
@@ -83,6 +114,31 @@ export function auditGraphTopology(graph: GraphData, rootId: string): GraphTopol
     .filter((entry) => entry.parentIds.length >= 2)
     .sort((a, b) => a.nodeId.localeCompare(b.nodeId));
 
+  const canvasNodeById = new Map(canvas.nodes.map((node) => [node.id, node]));
+  const materialParentNonMaterialChildEdges = canvas.edges
+    .flatMap((edge) => {
+      const source = canvasNodeById.get(edge.source);
+      const target = canvasNodeById.get(edge.target);
+      if (!source || !target) return [];
+      if (source.kind !== "material" || target.kind === "material") return [];
+      return [`${edge.id}:${edge.source}->${edge.target}(${target.kind})`];
+    })
+    .sort((a, b) => a.localeCompare(b));
+
+  const artifactTitlePollutionNodeIds = canvas.nodes
+    .flatMap((node) => {
+      if (!isArtifactCanvasNode(node)) return [];
+      if (
+        node.kind === "product" ||
+        (!ARTIFACT_TITLE_POLLUTION_PATTERN.test(node.name) &&
+          !containsOrganizationName(node.name, organizationNames))
+      ) {
+        return [];
+      }
+      return [`${node.id}:${node.name}`];
+    })
+    .sort((a, b) => a.localeCompare(b));
+
   neutralMaterialIds.sort((a, b) => a.localeCompare(b));
   neutralNonMaterialIds.sort((a, b) => a.localeCompare(b));
 
@@ -90,10 +146,13 @@ export function auditGraphTopology(graph: GraphData, rootId: string): GraphTopol
     rootId: resolvedRootId,
     structuralNodeCount: structuralNodes.length,
     neutralMaterialCount: neutralMaterialIds.length,
+    neutralMaterialIds,
     neutralNonMaterialCount: neutralNonMaterialIds.length,
     neutralNonMaterialIds,
     primaryEdgeCount,
     crossEdgeCount,
     multiParentVisibleNodes,
+    materialParentNonMaterialChildEdges,
+    artifactTitlePollutionNodeIds,
   };
 }

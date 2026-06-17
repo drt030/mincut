@@ -37,8 +37,10 @@ import { isArtifactCanvasNode, isCanvasTreeEdge, isKnowHowNode } from "./canvasG
  *      tagged `'primary'`. Edges to the canonical position from any
  *      ancestor inside the canonical sector are also `'primary'`.
  *   5. Materials (`kind === "material"`) sit on an outer ring at
- *      `r = R_OUTER`, with theta determined by an FNV-1a hash of the
- *      node id so the placement is deterministic and well-spread.
+ *      `r = R_OUTER`, but their theta is anchored to the canonical
+ *      visible parent sector. This keeps key materials readable as
+ *      part of the branch that consumes them instead of scattering
+ *      them by global id hash.
  *   6. Structural nodes not reachable from the focal product (other
  *      products, their subtrees, orphan equipment /
  *      engineering_methods / manufacturing_processes) get a deterministic fallback position
@@ -96,6 +98,7 @@ type SharedParentCandidate = {
   source: string;
   weight: number | undefined;
   sourceIsKnowHow: boolean;
+  sourceIsMaterial: boolean;
 };
 
 /**
@@ -263,12 +266,16 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
           source,
           weight: edgeWeight(edge),
           sourceIsKnowHow: sourceNode !== undefined && isKnowHowNode(sourceNode),
+          sourceIsMaterial: sourceNode?.kind === "material",
         };
       });
     if (candidates.length === 0) continue;
     candidates.sort((a, b) => {
       if (targetIsArtifact && a.sourceIsKnowHow !== b.sourceIsKnowHow) {
         return a.sourceIsKnowHow ? 1 : -1;
+      }
+      if (targetIsArtifact && a.sourceIsMaterial !== b.sourceIsMaterial) {
+        return a.sourceIsMaterial ? 1 : -1;
       }
       const aw = a.weight ?? Number.NEGATIVE_INFINITY;
       const bw = b.weight ?? Number.NEGATIVE_INFINITY;
@@ -416,12 +423,50 @@ export function radialLayout(graph: GraphData, rootId?: string | null): RadialLa
   // product; well outside the material ring so they never collide.
   const R_FALLBACK = R_OUTER + 4 * R_STEP;
 
-  // Place materials on R_OUTER. Theta = id-hash → [0, 2π). Materials
-  // appear regardless of whether they were reached during DFS.
+  const canonicalParentFor = (id: string): string | undefined => {
+    const sharedParent = canonicalParentByShared.get(id);
+    if (sharedParent !== undefined) return sharedParent;
+    const candidateParents = (incomingByTarget.get(id) ?? [])
+      .map(({ source }) => source)
+      .filter((source) => firstLayerAncestor.has(source));
+    return candidateParents.length === 1 ? candidateParents[0] : undefined;
+  };
+
+  const materialGroups = new Map<string, Array<{
+    id: string;
+    sectorId: string | undefined;
+    parentTheta: number | undefined;
+  }>>();
+
   for (const node of graph.nodes) {
     if (node.kind !== "material") continue;
     if (positions.has(node.id)) continue;
-    positions.set(node.id, { r: R_OUTER, theta: hashToTheta(node.id) });
+    const sectorId = canonicalSectorOf(node.id);
+    const parentId = canonicalParentFor(node.id);
+    const parentTheta = parentId ? positions.get(parentId)?.theta : undefined;
+    const groupKey = `${sectorId ?? "orphan"}:${parentId ?? "root"}`;
+    if (!materialGroups.has(groupKey)) materialGroups.set(groupKey, []);
+    materialGroups.get(groupKey)!.push({ id: node.id, sectorId, parentTheta });
+  }
+
+  for (const group of materialGroups.values()) {
+    group.sort((a, b) => a.id.localeCompare(b.id));
+    const count = group.length;
+    for (let index = 0; index < group.length; index += 1) {
+      const entry = group[index];
+      const sector = entry.sectorId ? sectors.get(entry.sectorId) : undefined;
+      if (!sector) {
+        positions.set(entry.id, { r: R_OUTER, theta: hashToTheta(entry.id) });
+        continue;
+      }
+      const center = entry.parentTheta ?? sector.center;
+      const spread = count > 1 ? Math.min(sector.width * 0.55, Math.PI / 5) : 0;
+      const offset = count > 1 ? ((index + 0.5) / count - 0.5) * spread : 0;
+      const start = sector.center - sector.width / 2 + 1e-6;
+      const end = sector.center + sector.width / 2 - 1e-6;
+      const theta = Math.max(start, Math.min(end, center + offset));
+      positions.set(entry.id, { r: R_OUTER, theta });
+    }
   }
 
   // Place any remaining structural nodes (e.g. sibling products not

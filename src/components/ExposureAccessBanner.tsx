@@ -52,8 +52,7 @@ export function ExposureAccessBanner({
 
   if (
     domain.portfolioState === "full-free-flagship" ||
-    domain.portfolioState === "full-free-depth-demo" ||
-    domain.portfolioState === "audit-preview"
+    domain.portfolioState === "full-free-depth-demo"
   ) {
     return null;
   }

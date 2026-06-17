@@ -5,8 +5,8 @@ import assert from "node:assert/strict";
  * HTTP smoke tour — substitute for the chrome-devtools-driven UX tour
  * spec'd in slice 4 acceptance. Each test fetches a golden-path route
  * and asserts that the HTML contains markers indicating the slice's UI
- * landed. If the dev server isn't running, each test skips with a
- * note rather than failing.
+ * landed. If UX_SMOKE_BASE_URL is not set, or the configured dev server
+ * is not running, each test skips with a note rather than failing.
  *
  * These are shallow — they verify markup is present in the SSR'd HTML.
  * Client-side state machine behaviour (ESC handler, click-to-focus,
@@ -14,9 +14,10 @@ import assert from "node:assert/strict";
  * manual tour from the morning hand-off for that.
  */
 
-const BASE = "http://localhost:3000";
+const BASE = process.env.UX_SMOKE_BASE_URL?.replace(/\/$/, "");
 
 async function serverIsUp(): Promise<boolean> {
+  if (!BASE) return false;
   try {
     const res = await fetch(BASE, { signal: AbortSignal.timeout(2000) });
     return res.ok;
@@ -26,20 +27,21 @@ async function serverIsUp(): Promise<boolean> {
 }
 
 async function fetchHtml(path: string): Promise<string> {
+  assert.ok(BASE, "UX_SMOKE_BASE_URL is required for ux smoke tests");
   const res = await fetch(`${BASE}${path}`);
   assert.ok(res.ok, `${path} returned ${res.status}`);
   return await res.text();
 }
 
 test("ux smoke: home page renders north-star hero", async (t) => {
-  if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
+  if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/");
   assert.match(html, /MinCut/);
   assert.match(html, /parcel-sorting robot/i);
 });
 
 test("ux smoke: /graph ships radial canvas chrome", async (t) => {
-  if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
+  if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/graph");
   assert.match(html, /data-testid="graph-controls"/);
   assert.match(html, /data-testid="graph-product-strip"/);
@@ -49,7 +51,7 @@ test("ux smoke: /graph ships radial canvas chrome", async (t) => {
 });
 
 test("ux smoke: /product page shows p50 cost rollup section + breakdown row", async (t) => {
-  if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
+  if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/product/low_cost_parcel_sorting_robot_300k_rmb");
   // Smoke-check the p50 rollup is rendered so we know the current cost
   // walker is in the serving build (not just in tests).
@@ -61,7 +63,7 @@ test("ux smoke: /product page shows p50 cost rollup section + breakdown row", as
 });
 
 test("ux smoke: /graph default selection surfaces route detail rail", async (t) => {
-  if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
+  if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/graph");
   assert.match(html, /data-testid="route-detail-rail"/);
   // The cost lens is present on /graph (renamed "Cost drivers" → "Cost" per
@@ -71,7 +73,7 @@ test("ux smoke: /graph default selection surfaces route detail rail", async (t) 
 });
 
 test("ux smoke: /gate page renders gate report", async (t) => {
-  if (!(await serverIsUp())) return t.skip("dev server not running on localhost:3000");
+  if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/gate");
   assert.ok(html.length > 1000, `/gate body is suspiciously small: ${html.length} bytes`);
 });

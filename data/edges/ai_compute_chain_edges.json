@@ -691,6 +691,19 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_acc_sub_organic_base__requires__organic_substrate_buildup",
+    "source": "organic_substrate_base_structure",
+    "target": "organic_substrate_buildup",
+    "relation": "requires",
+    "claim": "Organic substrate base structure depends on a high-layer-count build-up stack with sequential lamination and HDI drilling/plating.",
+    "confidence": "high",
+    "weight": 1,
+    "evidenceIds": [
+      "ev_acc_pkg_substrate_bottleneck"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_acc_sub_substrate_interposer__requires__silicon_interposer",
     "source": "substrate_and_interposer",
     "target": "silicon_interposer_rdl",
@@ -731,6 +744,7 @@
     "relation": "requires",
     "claim": "Substrate requires T-glass (boron-free glass fiber) for low CTE and thermal stability in high-power packages.",
     "confidence": "high",
+    "weight": 1,
     "evidenceIds": [
       "ev_acc_sub_nittobo_tglass_shortage"
     ],
@@ -1827,16 +1841,6 @@
     "evidenceIds": [
       "ev_acc_optup_vcsel_supplier_count"
     ],
-    "reviewStatus": "unreviewed"
-  },
-  {
-    "id": "e_acc_optup_epitaxy__requires__mocvd_equipment",
-    "source": "eml_dfb_laser_diodes",
-    "target": "mocvd_equipment_systems",
-    "relation": "requires",
-    "claim": "MOCVD epitaxial growth systems (Aixtron, Veeco) are the capital equipment that enables foundry capacity scaling. Tool lead times (15–21 months) indirectly constrain epitaxy expansion.",
-    "confidence": "high",
-    "evidenceIds": [],
     "reviewStatus": "unreviewed"
   },
   {

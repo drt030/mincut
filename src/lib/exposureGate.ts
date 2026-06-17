@@ -27,6 +27,13 @@ export const GATED_DOMAINS: GatedDomain[] = [
 export const FREE_CHAIN_TAGS = ["ai_compute_chain", "parcel_sorting_robot"];
 
 const LOCKED_SUPPLIER_REDACTION = "locked supplier";
+const ADDITIONAL_LOCKED_EXPOSURE_TERMS_BY_DOMAIN: Record<string, string[]> = {
+  spacex_reusable_launch: ["Aerojet Rocketdyne"],
+};
+const LOCKED_ORGANIZATION_ALIAS_TERMS: Record<string, string[]> = {
+  "air products and chemicals": ["Air Products"],
+  "ptg holroyd": ["Holroyd"],
+};
 const lockedOrganizationNamePatternCache = new Map<string, RegExp>();
 const lockedOrganizationIdentifierPatternCache = new Map<string, RegExp>();
 const compactIdentityCache = new Map<string, string>();
@@ -104,7 +111,11 @@ export function stripExposureLayer(
 
   if (hiddenNodeIds.size === 0) return { graph, locked };
 
-  const lockedOrgNames = lockedOrganizationNames(graph.nodes, hiddenNodeIds);
+  const lockedOrgNames = lockedOrganizationNames(
+    graph.nodes,
+    hiddenNodeIds,
+    lockedDomains.flatMap((domain) => ADDITIONAL_LOCKED_EXPOSURE_TERMS_BY_DOMAIN[domain.domainTag] ?? []),
+  );
   const nodes = graph.nodes
     .filter((n) => !hiddenNodeIds.has(n.id))
     .map((n) => redactNodeProse(n, lockedOrgNames));
@@ -151,7 +162,11 @@ export function stripExposureLayer(
   return { graph: { ...graph, nodes: safeNodesWithEvidence, edges: safeEdgesWithEvidence, evidence: safeEvidence }, locked };
 }
 
-function lockedOrganizationNames(nodes: GraphNode[], hiddenNodeIds: Set<string>): string[] {
+function lockedOrganizationNames(
+  nodes: GraphNode[],
+  hiddenNodeIds: Set<string>,
+  additionalTerms: string[] = [],
+): string[] {
   const visibleOrgNames = new Set(
     nodes
       .filter((n) => n.kind === "organization" && !hiddenNodeIds.has(n.id))
@@ -160,10 +175,10 @@ function lockedOrganizationNames(nodes: GraphNode[], hiddenNodeIds: Set<string>)
   );
   const names = nodes
     .filter((n) => n.kind === "organization" && hiddenNodeIds.has(n.id))
-    .flatMap((n) => organizationIdentityTerms(n.name))
+    .flatMap(hiddenOrganizationIdentityTerms)
     .filter((name) => name.length > 0 && !visibleOrgNames.has(name.toLocaleLowerCase()));
 
-  return uniqueTerms(names);
+  return uniqueTerms([...names, ...additionalTerms]);
 }
 
 function visibleOrganizationIdentityTerms(node: GraphNode): string[] {
@@ -175,6 +190,45 @@ function visibleOrganizationIdentityTerms(node: GraphNode): string[] {
       typeof metric.targetValue === "string" ? metric.targetValue : "",
     ]),
   ]);
+}
+
+function hiddenOrganizationIdentityTerms(node: GraphNode): string[] {
+  return uniqueTerms([
+    ...organizationIdentityTerms(node.name),
+    ...organizationAliasTerms(node.name),
+    typeof node.ticker === "string" ? node.ticker : "",
+    ...(node.metrics ?? []).flatMap(metricIdentityTerms),
+  ]);
+}
+
+function organizationAliasTerms(name: string): string[] {
+  const normalized = normalizeOrganizationName(name).toLocaleLowerCase();
+  return LOCKED_ORGANIZATION_ALIAS_TERMS[normalized] ?? [];
+}
+
+function metricIdentityTerms(metric: NonNullable<GraphNode["metrics"]>[number]): string[] {
+  const values = [metric.currentValue, metric.targetValue].filter((value): value is string => typeof value === "string");
+  if (/listing|ticker|symbol|exchange/i.test(metric.name)) {
+    return values.flatMap(listingIdentityTerms);
+  }
+  return values.filter(isStandaloneTickerLike);
+}
+
+function listingIdentityTerms(value: string): string[] {
+  const trimmed = value.trim();
+  const exchangeSymbol = trimmed.match(/\b(?:NYSE|NASDAQ|Nasdaq|HKEX|SSE|SZSE|TSE|LSE|EPA|ETR|TYO|KRX|OTCMKTS)\s*[:：]\s*([A-Z][A-Z0-9.-]{1,9})\b/);
+  return uniqueTerms([trimmed, exchangeSymbol?.[1]].filter((term): term is string => Boolean(term && isUsefulListingIdentityTerm(term))));
+}
+
+function isUsefulListingIdentityTerm(value: string): boolean {
+  const trimmed = value.trim();
+  if (trimmed.length < 2) return false;
+  if (/^(private|unknown|n\/a|not listed|unlisted)$/i.test(trimmed)) return false;
+  return true;
+}
+
+function isStandaloneTickerLike(value: string): boolean {
+  return /^[A-Z][A-Z0-9.-]{1,9}$/.test(value.trim());
 }
 
 function redactNodeProse(node: GraphNode, lockedOrgNames: string[]): GraphNode {
@@ -633,7 +687,7 @@ function isDistinctiveRootTerm(value: string): boolean {
   // "locked supplier servo market share"). The full multi-word name still
   // redacts via lockedOrganizationNamePattern; only the bare common root is excluded.
   if (
-    /^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo|General|Global|National|Standard|United|American|Universal|Pacific|Central|Modern|Future|Open|Core|Prime)$/i.test(
+    /^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo|General|Global|National|Standard|United|American|Universal|Pacific|Central|Modern|Future|Open|Core|Prime|Analog|Precision)$/i.test(
       value,
     )
   ) {

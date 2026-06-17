@@ -28,6 +28,7 @@ import fs from "node:fs";
  */
 
 const graphExplorer = fs.readFileSync("src/components/GraphExplorer.tsx", "utf8");
+const radialEdge = fs.readFileSync("src/components/RadialEdge.tsx", "utf8");
 const globals = fs.readFileSync("src/app/globals.css", "utf8");
 
 const failures = [];
@@ -137,6 +138,40 @@ requireMatch(
 requireMatch(
   "GraphExplorer must read balanced first-layer sector metadata from layout.sectors.",
   /layout\.sectors/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must constrain packed node positions to their radial sectors.",
+  /sectorBoundsById/.test(graphExplorer) &&
+    /sectorForTheta/.test(graphExplorer) &&
+    /sectorBoundsById,/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must keep an angular margin inside sector bounds when packing labels/cards.",
+  /sectorPaddingRadians:\s*0\.1/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must fit the default reader view to all visible packed canvas nodes so outer-ring materials/equipment are not clipped on first load.",
+  /const readerFitNodes = useMemo\(\(\) => \{[\s\S]*?for \(const id of activeNodePositions\.keys\(\)\)/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer full-system fit must allow enough zoom-out for dense commercial maps instead of clipping at the old 0.2 floor.",
+  /const fitFullSystemView = useCallback\([\s\S]*?minZoom:\s*0\.12/.test(graphExplorer) &&
+    /minZoom=\{0\.12\}/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must pass computed edge source ports in label mode so high-fanout nodes do not collapse into one outgoing line bundle.",
+  /sourceAnchor:\s*sourceAnchorByEdge\.get\(edge\.id\)/.test(graphExplorer) &&
+    !/sourceAnchor:\s*displayMode === "detail"/.test(graphExplorer),
+);
+requireMatch(
+  "GraphExplorer must pass computed edge target ports in label mode so high-fanout inbound bundles remain readable.",
+  /targetAnchor:\s*targetAnchorByEdge\.get\(edge\.id\)/.test(graphExplorer) &&
+    !/targetAnchor:\s*displayMode === "detail"/.test(graphExplorer),
+);
+requireMatch(
+  "RadialEdge must honor explicit card-edge ports in band 2 label mode, not only in band 3 detail mode.",
+  /const hasExplicitAnchors = band >= 2/.test(radialEdge) &&
+    !/const hasDetailAnchors = band === 3/.test(radialEdge),
 );
 
 // B3 invariants introduced by slice B3, then updated for chromatic focus:

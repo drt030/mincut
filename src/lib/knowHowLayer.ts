@@ -10,7 +10,7 @@ import { isCanvasTreeEdge, isKnowHowNode } from "./canvasGraph";
  *  - "product": artifact kinds only — answers "what do you buy/build".
  *  - "knowhow": know-how nodes keep their subsystem-family colour so
  *    the user can still read where each method/process belongs; artifact
- *    nodes stay as dimmed grey context.
+ *    nodes stay as muted subsystem-colour context (not grey).
  */
 export type GraphLayer = "product" | "knowhow";
 
@@ -23,9 +23,6 @@ export const KNOW_HOW_FILLS = Object.freeze({
   unset: "hsl(215, 12%, 64%)",
 });
 
-/** Grey context fill for artifact nodes inside the know-how layer. */
-export const ARTIFACT_DIM_FILL = "hsl(215, 14%, 84%)";
-
 export function knowHowFill(node: Node): string {
   if (node.transactability === "procurable") return KNOW_HOW_FILLS.procurable;
   if (node.transactability === "must_build") return KNOW_HOW_FILLS.must_build;
@@ -33,7 +30,21 @@ export function knowHowFill(node: Node): string {
 }
 
 export function knowHowLayerFill(node: Node, subsystemFamilyFill: string): string {
-  return isKnowHowNode(node) ? subsystemFamilyFill : ARTIFACT_DIM_FILL;
+  return isKnowHowNode(node) ? subsystemFamilyFill : mutedSubsystemFill(subsystemFamilyFill);
+}
+
+function mutedSubsystemFill(fill: string): string {
+  const match = /^hsl\(([-\d.]+),\s*([-\d.]+)%,\s*([-\d.]+)%\)$/.exec(fill.trim());
+  if (!match) return fill;
+  const hue = Number(match[1]);
+  const saturation = Number(match[2]);
+  const lightness = Number(match[3]);
+  if (!Number.isFinite(hue) || !Number.isFinite(saturation) || !Number.isFinite(lightness)) {
+    return fill;
+  }
+  const mutedSaturation = Math.max(24, Math.min(38, saturation * 0.55));
+  const mutedLightness = Math.max(70, Math.min(84, lightness + 10));
+  return `hsl(${hue}, ${mutedSaturation}%, ${mutedLightness}%)`;
 }
 
 export function layerHidesNode(node: Node, layer: GraphLayer): boolean {

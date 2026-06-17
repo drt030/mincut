@@ -4,7 +4,7 @@
 >
 > This is the single front door for "is this change done, and does it meet the bar?" It exists so that **"an agent says pass" and "the owner spots a problem on sight" converge**. Per the project rule: for ANY new requirement or change, this standard is updated and approved BEFORE implementation starts.
 
-Status: draft pending owner approval (2026-06-15). Supersedes the scattered acceptance criteria in `docs/QA-agent.md` (rubric moves here; that doc becomes the *how-to-run* for the QA agent and points back here).
+Status: active working standard, updated 2026-06-17. Owner decisions from 2026-06-17 supersede older docs where conflicts exist. This document defines *what counts as pass*; `docs/QA-agent.md` defines *how to run* the QA agent and points back here.
 
 ---
 
@@ -37,8 +37,8 @@ Three disclosure principles (every UI/product change is judged against them):
 
 MinCut scores every node on four structural axes and one composite. The **acceptance rubric and the UI must use exactly this vocabulary** — canvas, detail panel, and QA report all agree (see ADR-0010, and the spec `2026-06-14-chokepoint-factor-model-design.md`).
 
-- **Four axes**: **Cost** · **Dependency** (downstream criticality) · **Concentration** (supply fragility + geography) · **Barrier** (replication / substitution difficulty; absorbs the old "maturity").
-- **Composite — Chokepoint**: `(dependency × concentration × barrier)` geometric mean; Cost is an orthogonal $-overlay, not folded in.
+- **Four readouts**: **Cost** · **Dependency** (downstream criticality) · **Concentration** (supply fragility + geography) · **Barrier** (replication / substitution difficulty; absorbs the old "maturity").
+- **Composite — Chokepoint**: `(dependency × concentration × barrier)` geometric mean. Cost is an orthogonal $-overlay that sizes the opportunity; it is not a reason a node is a chokepoint.
 
 **Canvas lenses — exactly three:**
 
@@ -46,7 +46,16 @@ MinCut scores every node on four structural axes and one composite. The **accept
 2. **Chokepoint** — the composite (default lens).
 3. **Cost** — where the money is (orthogonal to chokepoint-ness).
 
-There is **no Maturity lens** and **no separate Dependency / Concentration / Barrier lens**. The four-axis breakdown lives in the **node detail panel** (drill-in), with the elevated axis surfaced first.
+There is **no Maturity lens** and **no separate Dependency / Concentration / Barrier lens**. The Cost + Dependency + Concentration + Barrier breakdown lives in the **node detail panel** (drill-in), with the elevated structural axis surfaced first and Cost shown separately when available.
+
+**Display node layers:**
+
+- **Artifact** nodes (`product`, `technical_route`, `module`, `equipment`, key `material`) are the default canvas nodes.
+- **Know-how** nodes (`engineering_method`, `manufacturing_process`) are Barrier Sources: hidden from the default canvas, summarized on their host artifacts, and explorable in a secondary Barrier Sources layer or detail panel.
+- **Organization** nodes are market-actor/exposure evidence. They must not appear as default canvas nodes.
+- **Metric, evidence, context, principle, and regulation** records stay in detail, gate, or evidence surfaces, not as default canvas nodes.
+
+Know-how becomes a standalone user-facing node only when it contributes to Barrier, Concentration, holder/exposure, evidence, `bottleneckOf`, `frontierFor`, or shared-dependency reasoning. Low-signal process notes belong in the host artifact detail.
 
 ---
 
@@ -57,15 +66,69 @@ There is **no Maturity lens** and **no separate Dependency / Concentration / Bar
 For any node a user inspects, at **first glance** they can answer — in plain language, not raw internal labels:
 
 - **Is it a chokepoint, and how much of one?** (the composite verdict)
-- **Which axis makes it one?** — the *elevated* axis among Cost / Dependency / Concentration / Barrier, stated concretely (e.g. "可外购，但供应高度集中（2–3 家）" / "瓶颈：成本 + 集中"), **not** a raw tag like `maturity: prototype`.
+- **Which structural axis makes it one?** — the *elevated* chokepoint axis among Dependency / Concentration / Barrier, stated concretely (e.g. "可外购，但供应高度集中（2–3 家）" / "多个关键模块依赖它"), **not** a raw tag like `maturity: prototype`.
 - **If Concentration is elevated, is the supplier state worded honestly?** A known small holder set may say "2–3 家" / "{N} makers"; a zero-holder model state means supply-source gap or unverified holder coverage, not a confirmed "0 suppliers" / "仅 0 家" count.
-- The full four-axis breakdown is available on drill-in.
+- **How much money is attached?** — Cost may appear as a separate magnitude line or Cost lens, but must not be phrased as the reason the node is a chokepoint.
+- The Cost + Dependency + Concentration + Barrier breakdown is available on drill-in, with Cost visually and verbally separated from the structural Chokepoint reason.
 
 **Fails** if: the answer is buried (needs digging), shown as internal jargon, the elevated axis isn't surfaced, or a zero-holder Concentration gap is presented as a confirmed supplier count. (Whether each nonzero number is *correct* is the audit agent's job, not this checklist's.)
 
 ### 3b. Vocabulary consistency
 
 Canvas lens labels == detail-panel vocabulary == §2 model. **A mismatch is a fail** (e.g. a "Maturity" or "Bottleneck risk" lens label after the model moved to Barrier/Chokepoint). *(This is the check that would have caught the lens-label drift on 2026-06-15.)*
+
+### 3b.1. Graph node-layer contract
+
+Default graph views pass only when the rendered map behaves like an artifact
+map: product/route/module/equipment/key-material nodes carry the structure,
+while know-how, organization, metric, evidence, and context records stay out of
+the default canvas.
+
+Know-how must read as **Barrier Sources**, not as generic technical clutter:
+attached know-how should either be summarized on the host artifact or rendered
+as purposeful diamond nodes in the secondary layer. The layer must preserve the
+artifact map's spatial memory and cannot introduce grey user-facing nodes.
+
+Fails if: organization/ticker nodes appear as default graph nodes; metric or
+evidence records appear as graph nodes; know-how appears without explaining a
+Barrier/holder/evidence/chokepoint signal; any rendered user-facing node is
+grey/unclassified; nodes appear in a sector or visible branch that contradicts
+their decomposition or documented primary parent; a visible `primary` edge
+crosses unrelated first-layer sectors without being classified as a cross-edge
+or intentional shared dependency; a node's fill color implies a different
+subsystem family than its primary visible branch or layout sector; final
+packed/rendered node coordinates cross out of their radial sector or sit so
+close to a neighboring sector border that the ownership reads wrong; the source
+graph around a reported node contains duplicate visible structural edges, stale
+edge ids, or edge claims that describe a different source/target relationship
+than the actual edge data; a visible material node acts as the structural
+parent of a non-material canvas node without an explicit modeled host artifact;
+source graph traversal treats outgoing `part_of` from a child/material as an
+outgoing decomposition child;
+six or more visible same-layer edges from one node collapse into an
+indistinguishable line bundle instead of using readable port/anchor separation
+or another explicit grouping treatment;
+reported or key default-visible artifact/material/equipment nodes are clipped
+outside the canvas wrapper on initial load, including cases where fit-view is
+correctly targeting visible nodes but the canvas minimum zoom clamps the actual
+viewport too tightly.
+
+Default artifact node titles must name the artifact, not the exposure thesis.
+Supplier names, tickers, public-company hints, and verdict suffixes such as
+"limiting tool" belong in detail, evidence, exposure, metrics, notes, or route
+copy. The same rule applies to localized canvas labels. Proper nouns are
+acceptable when they are the literal product, architecture, or standard being
+modeled, but not when they are merely example vendors in a component/equipment
+title.
+
+Route onboarding and node detail are separate information layers. "Start here"
+/ "从这里开始" may guide the route, but it is not a peer state of
+selected-node detail; the UI must not present it alongside "Detail" / "详情" as
+equivalent selected-node modes.
+
+The Cost lens must declare what edge color and width encode. If width is route
+contribution, confidence, or another derived signal rather than target-node
+absolute cost, the legend/detail rail must explain that distinction.
 
 ### 3c. Website-level chokepoint scenarios
 
@@ -81,7 +144,7 @@ MinCut is an **analytical tool, not stock advice**. No "buy ticker X", no unaudi
 
 A new automated check (to be built) enforces the cheapest slice without an agent:
 
-- the first-glance elevated-axis headline is present in the rendered detail surface;
+- the first-glance chokepoint headline is present in the rendered detail surface, with Cost kept separate from the structural reason;
 - the detail headline has a dedicated zero-holder Concentration gap path, so a missing modeled holder set cannot render as "0 suppliers" / "仅 0 家";
 - canvas lens labels match the §2 vocabulary (3b) by static assertion.
 

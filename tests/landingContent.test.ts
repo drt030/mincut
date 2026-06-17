@@ -67,7 +67,7 @@ test("landing honesty ladder includes the source-checked rung", async () => {
   assert.match(html, /Source-checked/i);
 });
 
-test("landing surfaces the founding checkout CTA only when paid checkout is enabled", async () => {
+test("landing never surfaces checkout while paid domains are private beta only", async () => {
   const { LandingContent } = await import("../src/components/LandingContent");
   // disabled by default → waitlist copy, no founding link
   delete process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT;
@@ -75,13 +75,16 @@ test("landing surfaces the founding checkout CTA only when paid checkout is enab
   const off = renderToStaticMarkup(React.createElement(LandingContent));
   assert.doesNotMatch(off, /landing-founding-cta/);
   assert.match(off, /No checkout is live yet/i);
-  // enabled + link configured → founding buy CTA appears, linking to the Stripe link
+  // Even if local/test env vars are present, private-beta routes must not
+  // look like live paid checkout.
   process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT = "1";
   process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.stripe.com/test_founding";
   const on = renderToStaticMarkup(React.createElement(LandingContent));
-  assert.match(on, /landing-founding-cta/);
-  assert.match(on, /buy\.stripe\.com\/test_founding/);
-  assert.match(on, /founding access/i);
+  assert.doesNotMatch(on, /landing-founding-cta/);
+  assert.doesNotMatch(on, /buy\.stripe\.com\/test_founding/);
+  assert.doesNotMatch(on, /Unlock all paid maps/i);
+  assert.doesNotMatch(on, /\$9/);
+  assert.match(on, /No checkout is live yet/i);
   delete process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT;
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
 });

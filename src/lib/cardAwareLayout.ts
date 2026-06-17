@@ -1,4 +1,5 @@
 export type PackedPoint = { x: number; y: number };
+export type SectorBounds = { start: number; end: number };
 
 export type PackRectangularNodesOptions = {
   width: number;
@@ -6,7 +7,11 @@ export type PackRectangularNodesOptions = {
   padding?: number;
   iterations?: number;
   fixedIds?: ReadonlySet<string>;
+  sectorBoundsById?: ReadonlyMap<string, SectorBounds>;
+  sectorPaddingRadians?: number;
 };
+
+const TWO_PI = Math.PI * 2;
 
 function fallbackDirection(idA: string, idB: string): number {
   let hash = 0;
@@ -15,6 +20,31 @@ function fallbackDirection(idA: string, idB: string): number {
     hash = Math.imul(hash ^ input.charCodeAt(i), 16777619);
   }
   return (hash >>> 0) % 2 === 0 ? -1 : 1;
+}
+
+function normalizedTheta(point: PackedPoint): number {
+  return ((Math.atan2(point.y, point.x) % TWO_PI) + TWO_PI) % TWO_PI;
+}
+
+function angularDistance(a: number, b: number): number {
+  const delta = Math.abs(a - b);
+  return Math.min(delta, TWO_PI - delta);
+}
+
+function clampPointToSector(point: PackedPoint, bounds: SectorBounds, padding: number): PackedPoint {
+  const width = Math.max(0, bounds.end - bounds.start);
+  const inset = width > 1e-6 ? Math.min(padding, Math.max(0, width / 2 - 1e-6)) : 0;
+  const start = bounds.start + inset;
+  const end = bounds.end - inset;
+  const theta = normalizedTheta(point);
+  if (theta >= start && theta <= end) return point;
+
+  const clampedTheta = angularDistance(theta, start) <= angularDistance(theta, end) ? start : end;
+  const radius = Math.hypot(point.x, point.y);
+  return {
+    x: radius * Math.cos(clampedTheta),
+    y: radius * Math.sin(clampedTheta),
+  };
 }
 
 export function packRectangularNodes(
@@ -26,6 +56,8 @@ export function packRectangularNodes(
   const minDx = options.width + padding;
   const minDy = options.height + padding;
   const fixedIds = options.fixedIds ?? new Set<string>();
+  const sectorBoundsById = options.sectorBoundsById;
+  const sectorPaddingRadians = options.sectorPaddingRadians ?? 0.01;
   const ids = [...rawPositions.keys()].sort((a, b) => a.localeCompare(b));
   const original = new Map<string, PackedPoint>();
   const current = new Map<string, PackedPoint>();
@@ -80,10 +112,15 @@ export function packRectangularNodes(
       const point = current.get(id)!;
       const delta = deltas.get(id)!;
       const anchor = original.get(id)!;
-      current.set(id, {
+      const next = {
         x: point.x + delta.x + (anchor.x - point.x) * 0.015,
         y: point.y + delta.y + (anchor.y - point.y) * 0.015,
-      });
+      };
+      const sectorBounds = sectorBoundsById?.get(id);
+      current.set(
+        id,
+        sectorBounds ? clampPointToSector(next, sectorBounds, sectorPaddingRadians) : next,
+      );
     }
 
     if (!moved) break;

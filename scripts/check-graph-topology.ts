@@ -14,6 +14,8 @@ for (const route of DOMAIN_ROUTES) {
     `primaryEdges=${audit.primaryEdgeCount}`,
     `crossEdges=${audit.crossEdgeCount}`,
     `multiParent=${audit.multiParentVisibleNodes.length}`,
+    `materialParentChildren=${audit.materialParentNonMaterialChildEdges.length}`,
+    `artifactTitlePollution=${audit.artifactTitlePollutionNodeIds.length}`,
   ].join(" ");
 
   console.log(summary);
@@ -25,6 +27,24 @@ for (const route of DOMAIN_ROUTES) {
   if (audit.neutralNonMaterialCount > 0) {
     failures.push(
       `${route.slug} has non-material neutral nodes: ${audit.neutralNonMaterialIds.join(", ")}`,
+    );
+  }
+
+  if (audit.neutralMaterialCount > 0) {
+    failures.push(
+      `${route.slug} has material neutral nodes: ${audit.neutralMaterialIds.join(", ")}`,
+    );
+  }
+
+  if (audit.materialParentNonMaterialChildEdges.length > 0) {
+    failures.push(
+      `${route.slug} has material nodes acting as non-material structural parents: ${audit.materialParentNonMaterialChildEdges.join(", ")}`,
+    );
+  }
+
+  if (audit.artifactTitlePollutionNodeIds.length > 0) {
+    failures.push(
+      `${route.slug} has default artifact titles containing supplier/ticker/verdict language: ${audit.artifactTitlePollutionNodeIds.join(", ")}`,
     );
   }
 

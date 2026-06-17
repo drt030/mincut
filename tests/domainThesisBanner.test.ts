@@ -37,7 +37,7 @@ test("domain thesis leads with the product thesis before the access banner", () 
   assert.doesNotMatch(html, /href="\/#weekly-map"/);
 });
 
-test("domain thesis keeps audit-preview maps focused on the thesis instead of access state", () => {
+test("domain thesis explains audit-preview access boundaries in the first screen", () => {
   const html = renderToStaticMarkup(
     React.createElement(DomainThesisBanner, {
       domain: {
@@ -53,11 +53,14 @@ test("domain thesis keeps audit-preview maps focused on the thesis instead of ac
 
   assert.match(html, /SpaceX reusable launch stack/);
   assert.match(html, /SpaceX-centered reusable launch map/);
-  assert.doesNotMatch(html, /domain-thesis-actions/);
-  assert.doesNotMatch(html, /Review access state/);
-  assert.doesNotMatch(html, /exposure is not sold/i);
-  assert.doesNotMatch(html, /locked/i);
+  assert.match(html, /domain-thesis-actions/);
+  assert.match(html, /Future paid domain/);
+  assert.match(html, /supplier\/ticker exposure locked/i);
+  assert.match(html, /not live/i);
+  assert.match(html, /Join private beta waitlist/);
+  assert.match(html, /href="\/#private-beta"/);
   assert.doesNotMatch(html, /Paid-candidate preview/);
+  assert.doesNotMatch(html, /\$9/);
 });
 
 test("domain thesis does not spend first-screen attention explaining free access", () => {

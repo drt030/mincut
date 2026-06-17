@@ -462,6 +462,42 @@ test("gated routes do not leak the known cross-domain supplier names (Gate-F FF-
   }
 });
 
+test("gated route stripped JSON does not leak locked supplier names, tickers, or named exposure prose (real data)", () => {
+  const cases: Array<{ slug: string; deniedTerms: string[] }> = [
+    { slug: "humanoid-robotics", deniedTerms: ["Holroyd", "ADI"] },
+    { slug: "spacex-reusable-launch", deniedTerms: ["Air Products", "Aerojet Rocketdyne"] },
+  ];
+
+  for (const { slug, deniedTerms } of cases) {
+    const domain = domainBySlug(slug);
+    assert.ok(domain, `${slug} route registered`);
+    const { graph } = stripExposureLayer(loadActiveGraphData(domain.rootId), []);
+
+    for (const term of deniedTerms) {
+      const leak = findIdentityLeak(graph, term);
+      assert.equal(leak, undefined, `${slug}: ${term} must not appear in stripped graph string fields${leak ? ` (${leak})` : ""}`);
+    }
+  }
+});
+
+test("gated humanoid redaction keeps generic artifact roots intact (real data)", () => {
+  const domain = domainBySlug("humanoid-robotics");
+  assert.ok(domain, "humanoid-robotics route registered");
+  const { graph } = stripExposureLayer(loadActiveGraphData(domain.rootId), []);
+  const json = JSON.stringify(graph);
+
+  assert.equal(json.includes("BMS locked supplier front-end"), false);
+  assert.equal(json.includes("ultra-locked supplier CNC grinding equipment"), false);
+  assert.ok(
+    graph.nodes.some((node) => node.name === "BMS analog front-end / fuel-gauge IC"),
+    "BMS analog front-end / fuel-gauge IC should remain a readable artifact name",
+  );
+  assert.ok(
+    graph.nodes.some((node) => node.name.includes("ultra-precision CNC grinding equipment")),
+    "ultra-precision CNC grinding equipment should remain a readable artifact name",
+  );
+});
+
 function hiddenOrganizationSearchTerms(graph: GraphData, domainTag: string): string[] {
   const hiddenOrganizations = graph.nodes.filter(
     (node) =>
@@ -556,7 +592,7 @@ function isUsefulAlias(value: string): boolean {
 
 function isDistinctiveRootTerm(value: string): boolean {
   if (value.length < 3) return false;
-  if (/^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo)$/i.test(value)) return false;
+  if (/^(Applied|Air|Power|Delta|Advanced|Visual|Intelligent|Onto|Illinois|Tokyo|Analog|Precision)$/i.test(value)) return false;
   return true;
 }
 

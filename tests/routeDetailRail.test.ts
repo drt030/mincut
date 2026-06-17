@@ -210,13 +210,11 @@ function startHereCard(html: string): string {
 }
 
 function keyChokepointsCard(html: string): string {
-  const titleIndex = html.indexOf("Key chokepoints");
-  assert.notEqual(titleIndex, -1, `key chokepoints should render; got: ${html}`);
-  const sectionStart = html.lastIndexOf("<section", titleIndex);
-  const sectionEnd = html.indexOf("</section>", titleIndex);
-  assert.notEqual(sectionStart, -1, `key chokepoints section should have a section wrapper; got: ${html}`);
-  assert.notEqual(sectionEnd, -1, `key chokepoints section should close; got: ${html}`);
-  return html.slice(sectionStart, sectionEnd + "</section>".length);
+  const match = html.match(
+    /<section[^>]*class="[^"]*route-rail-route[^"]*"[\s\S]*?<div class="route-rail-section-title">Key chokepoints<\/div>[\s\S]*?<\/section>/,
+  );
+  assert.ok(match, `key chokepoints section should have a section wrapper; got: ${html}`);
+  return match[0];
 }
 
 function directRequiresChildren(graph: GraphData, source: string): string[] {
@@ -225,7 +223,7 @@ function directRequiresChildren(graph: GraphData, source: string): string[] {
     .map((entry) => entry.target);
 }
 
-test("RouteDetailRail prioritizes route explanation before selected node detail", () => {
+test("RouteDetailRail keeps route guide separate from selected-node detail navigation", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
@@ -251,7 +249,9 @@ test("RouteDetailRail prioritizes route explanation before selected node detail"
   );
   assert.match(html, /Selected/i);
   assert.match(html, /Robot arm/);
-  assert.match(html, /data-testid="route-rail-detail-tab"/);
+  assert.match(html, /data-testid="route-rail-detail-action"/);
+  assert.doesNotMatch(html, /role="tablist"/);
+  assert.doesNotMatch(html, /data-testid="route-rail-detail-tab"/);
 });
 
 test("RouteDetailRail selected summary uses rolled-up cost for aggregate nodes", () => {
@@ -275,7 +275,26 @@ test("RouteDetailRail selected summary uses rolled-up cost for aggregate nodes",
   );
 });
 
-test("RouteDetailRail renders a bottleneck-risk lens summary instead of a cost route", () => {
+test("RouteDetailRail cost lens labels the route as cost, not chokepoint ranking", () => {
+  const graph = graphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode: null,
+      analysisMode: "cost",
+      onSelectNode: () => {},
+    }),
+  );
+
+  assert.match(html, /Primary cost chain/i);
+  assert.match(html, /target-node cost percentile/i);
+  assert.doesNotMatch(html, /Key chokepoints/i);
+});
+
+test("RouteDetailRail renders a chokepoint lens summary instead of a cost route", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
 
@@ -293,10 +312,12 @@ test("RouteDetailRail renders a bottleneck-risk lens summary instead of a cost r
     }),
   );
 
-  assert.match(html, /Bottleneck risks/i);
+  assert.match(html, /Key chokepoints/i);
   assert.match(html, /Start here/i);
   assert.match(html, /Key chokepoints/i);
   assert.match(html, /Precision gearbox/);
+  assert.match(html, /Barrier 100\/100/i);
+  assert.doesNotMatch(html, /Bottleneck risks/i);
   assert.doesNotMatch(html, /Heat \d+\/100/i);
   assert.doesNotMatch(html, /Secondary signals/i);
   assert.doesNotMatch(html, /Risk \d+%/i);
@@ -656,7 +677,7 @@ test("RouteDetailRail start-here and chokepoints explain why without exposing He
   assert.doesNotMatch(chokepoints, /Maturity 42\/100/);
   assert.doesNotMatch(chokepoints, /p50 RMB 80,000/);
   assert.match(chokepoints, /Evidence coverage is still thin\./);
-  assert.match(chokepoints, /class="route-step-signal"[\s\S]*(?:source|evidence|No direct evidence)/i);
+  assert.match(chokepoints, /class="route-step-signal"[\s\S]*(?:Barrier|Dependency|Concentration) \d+\/100/i);
   assert.doesNotMatch(chokepoints, /Heat \d+\/100/i);
 });
 
@@ -681,9 +702,9 @@ test("RouteDetailRail know-how layer names the technical view and starts from se
   );
   const start = startHereCard(html);
 
-  assert.match(html, /Technical know-how view/);
-  assert.match(html, /Methods and process constraints/);
-  assert.match(html, /Know-how focus/);
+  assert.match(html, /Barrier Sources view/);
+  assert.match(html, /Methods and process barriers/);
+  assert.match(html, /Barrier-source focus/);
   assert.match(start, /Diamonds are methods or manufacturing processes/);
   assert.match(start, /Force control method/);
   assert.ok(
@@ -1013,7 +1034,7 @@ test("RouteDetailRail selected summary says when there is no direct evidence", (
   assert.match(summary, /No direct evidence/i);
 });
 
-test("RouteDetailRail renders a maturity weak-points summary with maturity scores", () => {
+test("RouteDetailRail maps stale maturity mode to the chokepoint summary", () => {
   const graph = graphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
 
@@ -1031,9 +1052,10 @@ test("RouteDetailRail renders a maturity weak-points summary with maturity score
     }),
   );
 
-  assert.match(html, /Maturity weak points/i);
-  assert.match(html, /least mature/i);
-  assert.match(html, /42\/100/);
+  assert.match(html, /Key chokepoints/i);
+  assert.match(html, /Barrier 100\/100/i);
+  assert.doesNotMatch(html, /Maturity weak points/i);
+  assert.doesNotMatch(html, /least mature/i);
   assert.match(html, /Selected/i);
   assert.doesNotMatch(html, /Primary cost chain/i);
 });
@@ -1076,6 +1098,8 @@ test("RouteDetailRail can render the full selected-node detail view", () => {
 
   assert.match(html, /data-testid="route-rail-node-detail"/);
   assert.match(html, /Node detail/i);
+  assert.match(html, /data-testid="route-rail-start-action"/);
+  assert.doesNotMatch(html, /role="tablist"/);
   assert.match(html, /Robot arm description/);
   // ADR-0010 / §2: the readiness signal is surfaced as "Barrier" (which
   // absorbs the old "maturity"), e.g. the "Barrier gap N%" drill-in driver.

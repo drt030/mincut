@@ -29,6 +29,7 @@ import { selectTopN } from "@/lib/prioritySelection";
 import { effectiveLodZoom, type LodDisplayMode } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
 import { packRectangularNodes } from "@/lib/cardAwareLayout";
+import { computeRectEdgePorts } from "@/lib/edgePorts";
 import { subsystemHue } from "@/lib/subsystemHue";
 import {
   edgeStyleFor,
@@ -608,45 +609,6 @@ function svgNumber(value: number): string {
   return Number(value.toFixed(6)).toString();
 }
 
-type RectPortSide = "left" | "right" | "top" | "bottom";
-
-function rectPortSideForVector(dx: number, dy: number): RectPortSide {
-  if (dx === 0 && dy === 0) return "right";
-  const horizontalReach = Math.abs(dx) / (BAND3_BOX.width / 2);
-  const verticalReach = Math.abs(dy) / (BAND3_BOX.height / 2);
-  if (horizontalReach >= verticalReach) return dx >= 0 ? "right" : "left";
-  return dy >= 0 ? "bottom" : "top";
-}
-
-function rectPortOffset(index: number, count: number, side: RectPortSide): number {
-  if (count <= 1) return 0;
-  const usable = side === "left" || side === "right"
-    ? BAND3_BOX.height - 16
-    : BAND3_BOX.width - 20;
-  const preferredSpacing = side === "left" || side === "right" ? 18 : 20;
-  const span = Math.min(usable, (count - 1) * preferredSpacing);
-  return -span / 2 + (span * index) / (count - 1);
-}
-
-function rectPortPoint(
-  center: { x: number; y: number },
-  side: RectPortSide,
-  offset: number,
-): { x: number; y: number } {
-  const halfW = BAND3_BOX.width / 2;
-  const halfH = BAND3_BOX.height / 2;
-  switch (side) {
-    case "left":
-      return { x: center.x - halfW, y: center.y + offset };
-    case "right":
-      return { x: center.x + halfW, y: center.y + offset };
-    case "top":
-      return { x: center.x + offset, y: center.y - halfH };
-    case "bottom":
-      return { x: center.x + offset, y: center.y + halfH };
-  }
-}
-
 /**
  * Compute the focal-subtree set: BFS from the first product node via
  * canvas tree edges. Only nodes in this set are rendered on the canvas
@@ -678,6 +640,19 @@ function polarToCartesian(polar: PolarPosition): { x: number; y: number } {
     x: polar.r * PX_SCALE * Math.cos(polar.theta),
     y: polar.r * PX_SCALE * Math.sin(polar.theta),
   };
+}
+
+function sectorForTheta(
+  theta: number,
+  sectors: ReadonlyMap<string, { center: number; width: number }>,
+): { start: number; end: number } | null {
+  const normalized = ((theta % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+  for (const sector of sectors.values()) {
+    const start = sector.center - sector.width / 2;
+    const end = sector.center + sector.width / 2;
+    if (normalized >= start - 1e-9 && normalized <= end + 1e-9) return { start, end };
+  }
+  return null;
 }
 
 /**
@@ -972,13 +947,20 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   }, [focalSubtree, layout.positions]);
 
   const packedNodePositions = useMemo(() => {
+    const sectorBoundsById = new Map<string, { start: number; end: number }>();
+    for (const [nodeId, polar] of layout.positions) {
+      const sectorBounds = sectorForTheta(polar.theta, layout.sectors);
+      if (sectorBounds) sectorBoundsById.set(nodeId, sectorBounds);
+    }
     return packRectangularNodes(radialNodePositions, {
       width: BAND3_BOX.width,
       height: BAND3_BOX.height,
       padding: 36,
       fixedIds: new Set([currentRootId]),
+      sectorBoundsById,
+      sectorPaddingRadians: 0.1,
     });
-  }, [radialNodePositions, currentRootId]);
+  }, [radialNodePositions, currentRootId, layout.positions, layout.sectors]);
 
   // Every LOD band is mounted inside the same 136x72 React Flow node box.
   // Therefore even label mode needs packed centers; otherwise adjacent node
@@ -1130,8 +1112,6 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     return selectTopN(workingGraph, colorMode, 5, visiblePriorityScope);
   }, [workingGraph, colorMode, visiblePriorityScope]);
 
-  const readerStartNodeId = topPriorityEntries[0]?.nodeId ?? null;
-
   const flowNodes: FlowNode<RadialNodeData>[] = useMemo(() => {
     const nodes: FlowNode<RadialNodeData>[] = [];
     for (const node of canvasGraph.nodes) {
@@ -1269,62 +1249,11 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       });
     }
 
-    const sourceGroups = new Map<string, Array<RenderableEdge & { side: RectPortSide }>>();
-    const targetGroups = new Map<string, Array<RenderableEdge & { side: RectPortSide }>>();
-    for (const edge of renderableEdges) {
-      const sourceCenter = activeNodePositions.get(edge.source);
-      const targetCenter = activeNodePositions.get(edge.target);
-      if (!sourceCenter || !targetCenter) continue;
-      const sourceSide = rectPortSideForVector(
-        targetCenter.x - sourceCenter.x,
-        targetCenter.y - sourceCenter.y,
-      );
-      const targetSide = rectPortSideForVector(
-        sourceCenter.x - targetCenter.x,
-        sourceCenter.y - targetCenter.y,
-      );
-      const sourceKey = `${edge.source}:${sourceSide}`;
-      const targetKey = `${edge.target}:${targetSide}`;
-      if (!sourceGroups.has(sourceKey)) sourceGroups.set(sourceKey, []);
-      if (!targetGroups.has(targetKey)) targetGroups.set(targetKey, []);
-      sourceGroups.get(sourceKey)!.push({ ...edge, side: sourceSide });
-      targetGroups.get(targetKey)!.push({ ...edge, side: targetSide });
-    }
-
-    const sourceAnchorByEdge = new Map<string, { x: number; y: number }>();
-    const targetAnchorByEdge = new Map<string, { x: number; y: number }>();
-    const sortByCounterpart = (
-      items: Array<RenderableEdge & { side: RectPortSide }>,
-      role: "source" | "target",
-    ) => items.sort((a, b) => {
-      const aCounterpart = activeNodePositions.get(role === "source" ? a.target : a.source);
-      const bCounterpart = activeNodePositions.get(role === "source" ? b.target : b.source);
-      const axis = a.side === "left" || a.side === "right" ? "y" : "x";
-      const delta = (aCounterpart?.[axis] ?? 0) - (bCounterpart?.[axis] ?? 0);
-      return delta === 0 ? a.id.localeCompare(b.id) : delta;
-    });
-    for (const group of sourceGroups.values()) {
-      const sorted = sortByCounterpart(group, "source");
-      sorted.forEach((edge, index) => {
-        const center = activeNodePositions.get(edge.source);
-        if (!center) return;
-        sourceAnchorByEdge.set(
-          edge.id,
-          rectPortPoint(center, edge.side, rectPortOffset(index, sorted.length, edge.side)),
-        );
-      });
-    }
-    for (const group of targetGroups.values()) {
-      const sorted = sortByCounterpart(group, "target");
-      sorted.forEach((edge, index) => {
-        const center = activeNodePositions.get(edge.target);
-        if (!center) return;
-        targetAnchorByEdge.set(
-          edge.id,
-          rectPortPoint(center, edge.side, rectPortOffset(index, sorted.length, edge.side)),
-        );
-      });
-    }
+    const { sourceAnchorByEdge, targetAnchorByEdge } = computeRectEdgePorts(
+      renderableEdges,
+      activeNodePositions,
+      BAND3_BOX,
+    );
 
     const edges: FlowEdge<RadialEdgeData>[] = [];
     for (const edge of renderableEdges) {
@@ -1341,8 +1270,8 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
           emphasis: edge.emphasis,
           sourceRadius: edge.sourceRadius,
           targetRadius: edge.targetRadius,
-          sourceAnchor: displayMode === "detail" ? sourceAnchorByEdge.get(edge.id) : undefined,
-          targetAnchor: displayMode === "detail" ? targetAnchorByEdge.get(edge.id) : undefined,
+          sourceAnchor: sourceAnchorByEdge.get(edge.id),
+          targetAnchor: targetAnchorByEdge.get(edge.id),
           stroke: edge.stroke,
           strokeWidth: edge.strokeWidth,
           rootNodeId: currentRootId,
@@ -1351,7 +1280,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       });
     }
     return edges;
-  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, displayMode, routeHighlight, subset.edges, layerVisibleNodeIds]);
+  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, routeHighlight, subset.edges, layerVisibleNodeIds]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1445,30 +1374,14 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   const flowInstanceRef = useRef<ReactFlowInstance<FlowNode<RadialNodeData>, FlowEdge<RadialEdgeData>> | null>(null);
   const initialFitDoneRef = useRef(false);
   const readerFitNodes = useMemo(() => {
-    const candidateIds = new Set<string>([currentRootId]);
-    if (firstLayerSubsystems.length <= 6 || !readerStartNodeId) {
-      for (const id of firstLayerSubsystems) candidateIds.add(id);
-    }
-    if (readerStartNodeId) {
-      candidateIds.add(readerStartNodeId);
-      for (const ancestor of focusPathForNode(readerStartNodeId, canvasGraph, currentRootId)) {
-        candidateIds.add(ancestor);
-      }
-      if (firstLayerSubsystems.length <= 6) {
-        for (const child of childrenByParent.get(readerStartNodeId) ?? []) {
-          candidateIds.add(child);
-        }
-      }
-    }
     const nodes: Array<{ id: string }> = [];
-    for (const id of candidateIds) {
+    for (const id of activeNodePositions.keys()) {
       if (!focalSubtree.has(id)) continue;
-      if (!activeNodePositions.has(id)) continue;
       if (!layerVisibleNodeIds.has(id)) continue;
       nodes.push({ id });
     }
     return nodes.length > 1 ? nodes : [{ id: currentRootId }];
-  }, [currentRootId, firstLayerSubsystems, readerStartNodeId, canvasGraph, childrenByParent, focalSubtree, activeNodePositions, layerVisibleNodeIds]);
+  }, [currentRootId, focalSubtree, activeNodePositions, layerVisibleNodeIds]);
   const focusFitNodes = useMemo(() => {
     const focusId = selectedId !== currentRootId ? selectedId : focusPath.at(-1);
     if (!focusId) return readerFitNodes;
@@ -1496,7 +1409,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       padding: 0.32,
       duration: 0,
       maxZoom: 0.72,
-      minZoom: 0.18,
+      minZoom: 0.12,
     });
     const viewport = inst.getViewport();
     inst.setViewport(
@@ -1777,8 +1690,8 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
                       });
                     }
                   }}
-                  fitViewOptions={{ maxZoom: 1.5, minZoom: 0.25, padding: 0.18 }}
-                  minZoom={0.2}
+                  fitViewOptions={{ maxZoom: 1.5, minZoom: 0.12, padding: 0.18 }}
+                  minZoom={0.12}
                   maxZoom={2.5}
                   panOnScroll
                   panOnScrollMode={PanOnScrollMode.Free}

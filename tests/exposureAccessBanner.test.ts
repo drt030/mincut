@@ -12,7 +12,7 @@ const aiComputeDomain = {
   description: "test",
   domainTag: "ai_compute_chain",
   portfolioState: "full-free-flagship",
-};
+} as const;
 
 const futureGatedDomain = {
   slug: "humanoid-actuator",
@@ -22,7 +22,7 @@ const futureGatedDomain = {
   domainTag: "humanoid_actuator",
   entitlement: "humanoid",
   portfolioState: "paid-candidate",
-};
+} as const;
 
 const parcelDomain = {
   slug: "parcel-robot",
@@ -31,7 +31,7 @@ const parcelDomain = {
   description: "test",
   domainTag: "parcel_sorting_robot",
   portfolioState: "full-free-depth-demo",
-};
+} as const;
 
 const previewDomain = {
   slug: "humanoid-robotics",
@@ -39,7 +39,7 @@ const previewDomain = {
   description: "test",
   domainTag: "humanoid_robotics",
   portfolioState: "preview",
-};
+} as const;
 
 const waitlistDomain = {
   slug: "controlled-fusion",
@@ -47,7 +47,7 @@ const waitlistDomain = {
   description: "test",
   domainTag: "controlled_fusion",
   portfolioState: "waitlist",
-};
+} as const;
 
 const auditPreviewDomain = {
   slug: "spacex-reusable-launch",
@@ -57,7 +57,7 @@ const auditPreviewDomain = {
   domainTag: "spacex_reusable_launch",
   entitlement: "space",
   portfolioState: "audit-preview",
-};
+} as const;
 
 function withoutCheckoutLinks() {
   delete process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT;
@@ -121,7 +121,7 @@ test("locked banner hides paid links unless paid checkout is explicitly enabled"
   assert.doesNotMatch(html, /href="\/#weekly-map"/);
 });
 
-test("locked banner only renders founding checkout when paid checkout flag is enabled", async () => {
+test("locked banner stays waitlist-only even when checkout env vars are present", async () => {
   process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT = "1";
   process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID = "https://buy.example/humanoid";
   process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.example/founding";
@@ -134,9 +134,11 @@ test("locked banner only renders founding checkout when paid checkout flag is en
   );
 
   assert.doesNotMatch(html, /href="https:\/\/buy\.example\/humanoid"/);
-  assert.match(html, /href="https:\/\/buy\.example\/founding"/);
-  assert.doesNotMatch(html, /Checkout is not live/);
-  assert.doesNotMatch(html, /href="\/#private-beta"/);
+  assert.doesNotMatch(html, /href="https:\/\/buy\.example\/founding"/);
+  assert.match(html, /Checkout is not live/);
+  assert.match(html, /href="\/#private-beta"/);
+  assert.doesNotMatch(html, /Unlock all paid maps/);
+  assert.doesNotMatch(html, /\$9/);
   withoutCheckoutLinks();
 });
 
@@ -173,7 +175,7 @@ test("preview portfolio banner does not present a future domain as full-free or 
   assert.doesNotMatch(html, /Exposure layer unlocked/);
 });
 
-test("audit-preview does not render an access banner before the user asks for supplier exposure", async () => {
+test("audit-preview renders a first-screen access boundary without checkout", async () => {
   withoutCheckoutLinks();
   const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
   const html = renderToStaticMarkup(
@@ -183,12 +185,17 @@ test("audit-preview does not render an access banner before the user asks for su
     }),
   );
 
-  assert.equal(html, "");
-  assert.doesNotMatch(html, /Research preview/);
-  assert.doesNotMatch(html, /paid access/i);
-  assert.doesNotMatch(html, /Gated exposure/);
-  assert.doesNotMatch(html, /3/);
-  assert.doesNotMatch(html, /Request private beta access/);
+  assert.match(html, /data-testid="exposure-access-banner"/);
+  assert.match(html, /Supplier exposure policy: 3 records gated/);
+  assert.match(html, /Visible now/);
+  assert.match(html, /Gated exposure/);
+  assert.match(html, /supplier identities/);
+  assert.match(html, /ticker/i);
+  assert.match(html, /Checkout is not live/);
+  assert.match(html, /href="\/#private-beta"/);
+  assert.match(html, /Request private beta access/);
+  assert.doesNotMatch(html, /href="https?:\/\/buy/);
+  assert.doesNotMatch(html, /\$9/);
 });
 
 test("waitlist portfolio banner does not imply paid or live graph access exists", async () => {

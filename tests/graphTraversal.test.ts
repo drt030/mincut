@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { loadGraphData } from "../src/lib/graphLoader";
+import type { GraphData } from "../src/lib/schema";
 import { downstream, isDecompositionFrontier, nodeById, scopeGraphToReachableNodes, upstream } from "../src/lib/graphTraversal";
 
 test("isDecompositionFrontier treats frontierFor as an authored frontier marker", () => {
@@ -61,6 +62,30 @@ test("upstream and downstream traversal deduplicate nodes reached by multiple re
     downstreamIds.filter((id) => id === "parcel_induction_spacing_control").length,
     1,
     "conveyor_integration should show parcel_induction_spacing_control once even when both requires and implemented_by edges exist",
+  );
+});
+
+test("part_of does not make a material leaf look like it has expanded children", () => {
+  const graph: GraphData = {
+    graphVersion: "part-of-frontier-fixture",
+    nodes: [
+      { id: "P", name: "Product", kind: "product", domain: ["test"] },
+      { id: "A", name: "Ablator material", kind: "material", domain: ["test"], maturityLabel: "prototype" },
+      { id: "T", name: "Tile system", kind: "module", domain: ["test"] },
+    ],
+    edges: [
+      { id: "ePA", source: "P", target: "A", relation: "requires" },
+      { id: "eAT", source: "A", target: "T", relation: "part_of" },
+    ],
+    evidence: [],
+  };
+  const material = nodeById(graph, "A");
+
+  assert.ok(material, "fixture material should exist");
+  assert.equal(
+    isDecompositionFrontier(graph, material!),
+    true,
+    "child -> parent part_of edges should not be counted as outgoing expanded children for a material leaf",
   );
 });
 

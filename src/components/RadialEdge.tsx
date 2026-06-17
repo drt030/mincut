@@ -36,10 +36,10 @@ export type RadialEdgeProps = {
   sourceY?: number;
   targetX?: number;
   targetY?: number;
-  /** Optional detail-mode card-edge source port in canvas coordinates. */
+  /** Optional card-edge source port in canvas coordinates. */
   sourceAnchorX?: number;
   sourceAnchorY?: number;
-  /** Optional detail-mode card-edge target port in canvas coordinates. */
+  /** Optional card-edge target port in canvas coordinates. */
   targetAnchorX?: number;
   targetAnchorY?: number;
   /** Radius used to trim the path away from the source node centre. */
@@ -430,12 +430,12 @@ export function RadialEdge({
   );
   const forceLine = edgeKind === "primary" &&
     radialSpan <= sourceRadius + targetRadius + arrowLength;
-  const hasDetailAnchors = band === 3 &&
+  const hasExplicitAnchors = band >= 2 &&
     sourceAnchorX !== undefined &&
     sourceAnchorY !== undefined &&
     targetAnchorX !== undefined &&
     targetAnchorY !== undefined;
-  const anchored = hasDetailAnchors
+  const anchored = hasExplicitAnchors
     ? (() => {
       const sourceNormal = outwardUnit(sourceAnchorX, sourceAnchorY, sourceX, sourceY);
       const targetNormal = outwardUnit(targetAnchorX, targetAnchorY, targetX, targetY);
