@@ -1718,8 +1718,12 @@
     "source": "eml_dfb_laser_diodes",
     "target": "org_ii_vi_coherent",
     "relation": "manufactured_by",
+    "claim": "Coherent supplies DFB laser diode chips used in high-speed O-band optical transceivers.",
+    "context": "Supplier exposure for EML/DFB laser diode inputs in datacenter optical modules; evidence supports product capability, not a confirmed hyperscaler module BOM.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_coherent_100g_dfb_laser_diodes"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1727,8 +1731,12 @@
     "source": "eml_dfb_laser_diodes",
     "target": "org_mitsubishi_electric",
     "relation": "manufactured_by",
+    "claim": "Mitsubishi Electric supplies optical devices including DFB-LD, EML and APD devices for optical communication systems and data-center applications.",
+    "context": "Supplier exposure for EML/DFB laser diode capability; evidence supports optical-device product coverage, not a specific AI cluster design win.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_mitsubishi_optical_devices_dfb_eml"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1736,8 +1744,12 @@
     "source": "eml_dfb_laser_diodes",
     "target": "org_sumitomo_electric",
     "relation": "manufactured_by",
+    "claim": "Sumitomo Electric develops modulator-integrated DFB lasers and high-power DFB lasers for access and data-center networks.",
+    "context": "Supplier exposure for DFB laser components; evidence supports technology/product capability, not a named transceiver module BOM.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_sumitomo_dfb_lasers_datacenter_networks"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2764,7 +2776,12 @@
     "source": "optical_transceiver_module",
     "target": "org_ii_vi_coherent",
     "relation": "manufactured_by",
+    "claim": "Coherent supplies datacom optical transceivers for AI, ML, Ethernet, InfiniBand and data-center networks, including speeds above 1.6 Tb/s.",
+    "context": "Supplier exposure for optical transceiver modules in AI data-center fabrics; evidence supports product portfolio capability, not a named customer deployment.",
     "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_coherent_datacom_optical_transceivers"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2772,7 +2789,12 @@
     "source": "optical_transceiver_module",
     "target": "org_applied_optoelectronics",
     "relation": "manufactured_by",
+    "claim": "Applied Optoelectronics designs and manufactures high-speed optical transceivers for intra- and inter-data-center connectivity, including AI/hyperscale modules.",
+    "context": "Supplier exposure for optical transceiver modules; evidence supports AOI product capability, not a confirmed deployment in a specific AI cluster.",
     "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_aoi_optical_transceivers_ai_datacenter"
+    ],
     "reviewStatus": "unreviewed"
   },
   {

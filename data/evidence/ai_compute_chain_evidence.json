@@ -7871,5 +7871,145 @@
       "numberInQuote": false,
       "notes": "web.open fetched HOYA's Information Technology page. Lines 66-L69 describe mask blanks/photomasks for semiconductor manufacturing and HOYA's EUV lithography product-development role."
     }
+  },
+  {
+    "id": "ev_acc_coherent_100g_dfb_laser_diodes",
+    "type": "product_page",
+    "title": "Coherent high-power 100 mW DFB laser diode chips",
+    "url": "https://www.coherent.com/networking/optoelectronic-devices/inp-optoelectronics/100gbps-high-power",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Coherent",
+    "date": "accessed 2026-06-19",
+    "summary": "Coherent describes high-power 100 mW DFB laser diode chips for 100 Gbps and 200 Gbps per lane O-band transceivers, available in CWDM wavelength bands for DR4 and DR8 transceivers.",
+    "excerpt": "enable 100 Gbps and 200 Gbps per lane",
+    "supportsNodeIds": [
+      "eml_dfb_laser_diodes",
+      "org_ii_vi_coherent"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_eml_dfb__manufactured_by__coherent"
+    ],
+    "limitations": "Official Coherent product page; supports DFB laser diode capability for datacenter transceivers. It does not prove a specific optical module BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Coherent's DFB laser product page. Lines 106-L113 contain the stored per-lane speed text plus DR4/DR8 transceiver context."
+    }
+  },
+  {
+    "id": "ev_acc_mitsubishi_optical_devices_dfb_eml",
+    "type": "product_page",
+    "title": "Mitsubishi Electric optical devices catalog",
+    "url": "https://www.mitsubishielectric.com/semiconductors/opt/design_support/catalog/optdevices_e_202403.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Mitsubishi Electric",
+    "date": "accessed 2026-06-19",
+    "summary": "Mitsubishi Electric's optical devices catalog says the company provides FP-LD, DFB-LD, EML and APD optical devices and offers high-speed, low-power optical devices for the data-center market.",
+    "excerpt": "providing optical devices such as FP-LD, DFB-LD, EML and APD",
+    "supportsNodeIds": [
+      "eml_dfb_laser_diodes",
+      "org_mitsubishi_electric"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_eml_dfb__manufactured_by__mitsubishi_electric"
+    ],
+    "limitations": "Official Mitsubishi Electric catalog; supports optical-device capability. It does not prove Mitsubishi supplies a specific AI optical transceiver.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Mitsubishi Electric's optical devices PDF. Page 2 lines 98-L123 contain the stored DFB-LD/EML/APD text and data-center optical-device context."
+    }
+  },
+  {
+    "id": "ev_acc_sumitomo_dfb_lasers_datacenter_networks",
+    "type": "product_page",
+    "title": "Sumitomo Electric optical communication devices",
+    "url": "https://sumitomoelectric.com/rd/info-communications",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Sumitomo Electric Industries",
+    "date": "accessed 2026-06-19",
+    "summary": "Sumitomo Electric says it develops optical communication devices that convert between electrical and optical signals and focuses on modulator-integrated DFB lasers and high-power DFB lasers for access and data-center networks.",
+    "excerpt": "we focus on modulator-integrated distributed feedback (DFB) lasers and high-power DFB lasers",
+    "supportsNodeIds": [
+      "eml_dfb_laser_diodes",
+      "org_sumitomo_electric"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_eml_dfb__manufactured_by__sumitomo_electric"
+    ],
+    "limitations": "Official Sumitomo Electric R&D page; supports DFB laser capability for data-center networks. It does not prove a named transceiver customer or BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Sumitomo Electric's info-communications page. Lines 488-L490 contain the stored DFB laser and data-center network text."
+    }
+  },
+  {
+    "id": "ev_acc_coherent_datacom_optical_transceivers",
+    "type": "product_page",
+    "title": "Coherent datacom optical transceivers",
+    "url": "https://www.coherent.com/networking/transceivers/datacom",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Coherent",
+    "date": "accessed 2026-06-19",
+    "summary": "Coherent describes its datacom transceiver portfolio as serving AI, ML, Ethernet, InfiniBand, data centers and related networks, with protocols and speeds up to state-of-the-art coherent devices above 1.6 Tb/s.",
+    "excerpt": "for artificial intelligence (AI), machine learning (ML), Ethernet, Infiniband",
+    "supportsNodeIds": [
+      "optical_transceiver_module",
+      "org_ii_vi_coherent"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optical_transceiver_module__manufactured_by__org_coherent"
+    ],
+    "limitations": "Official Coherent product page; supports datacom transceiver portfolio capability. It does not prove a specific AI cluster deployment.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search fetched Coherent's datacom transceiver page. Search snippet contains the stored AI/ML/Ethernet/InfiniBand text and states the portfolio spans up to >1.6 Tb/s devices."
+    }
+  },
+  {
+    "id": "ev_acc_aoi_optical_transceivers_ai_datacenter",
+    "type": "product_page",
+    "title": "Applied Optoelectronics optical transceivers",
+    "url": "https://ao-inc.com/products/optical-transceivers/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Applied Optoelectronics",
+    "date": "accessed 2026-06-19",
+    "summary": "Applied Optoelectronics says it designs and manufactures high-speed optical transceivers using internally developed laser technology for intra- and inter-data-center connectivity, including 1.6T and 800G modules for AI clusters and cloud data-center networks.",
+    "excerpt": "designs and manufactures high speed optical transceivers",
+    "supportsNodeIds": [
+      "optical_transceiver_module",
+      "org_applied_optoelectronics"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optical_transceiver_module__manufactured_by__org_applied_optoelectronics"
+    ],
+    "limitations": "Official AOI product page; supports optical transceiver product capability for data-center connectivity. It does not prove deployment in a specific AI cluster.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched AOI's optical transceiver page. Lines 18-L37 describe high-speed optical transceivers for intra/inter data-center connectivity, 1.6T modules for AI clusters, and 800G transceivers for AI/cloud networks."
+    }
   }
 ]
