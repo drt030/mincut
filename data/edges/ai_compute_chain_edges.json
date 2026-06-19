@@ -246,7 +246,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_r7e_019_entegris_cmp"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Entegris Inc. is carried as a manufacturer or supplier lead for Chemical-mechanical polishing (CMP) equipment and slurries, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -397,7 +397,9 @@
     "target": "org_tsmc",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6l_tsmc_foundry_wiki"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "TSMC is carried as a manufacturer or supplier lead for Leading-edge foundry capacity (3nm, 5nm, 7nm), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -840,7 +842,6 @@
     "claim": "Ajinomoto Fine-Techno is the dominant producer of ABF (Ajinomoto Build-up Film) globally.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_sub_ajinomoto_abf_2025",
       "ev_acc_sub_ajinomoto_expansion_2030"
     ],
     "reviewStatus": "unreviewed"
@@ -1066,7 +1067,10 @@
     "target": "org_ii_vi_coherent",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_coherent_100g_dfb_laser_diodes",
+      "ev_acc_coherent_datacom_optical_transceivers"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "II-VI Incorporated / Coherent Corp. is carried as a manufacturer or supplier lead for Laser array and photodiode array for optical transceiver, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -1558,7 +1562,9 @@
     "target": "org_henkel",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_humanoid_henkel_bergquist_tim"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Henkel is carried as a manufacturer or supplier lead for Thermal interface material (TIM), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -1701,7 +1707,10 @@
     "target": "org_carl_zeiss_smt",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6l_zeiss_sole_source",
+      "ev_acc_r6l_zeiss_asml_partnership"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Carl Zeiss SMT GmbH is carried as a manufacturer or supplier lead for EUV projection optics, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -2147,7 +2156,9 @@
     "relation": "manufactured_by",
     "claim": "Wolfspeed is the leading merchant supplier of 8-inch (200mm) SiC crystal wafers for power semiconductor fabrication; transitioning from 6-inch commodity phase to 8-inch ramp 2026+.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_009_wolfspeed_wafers"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2157,7 +2168,9 @@
     "relation": "manufactured_by",
     "claim": "Sumitomo Electric Industries is the global leader in InP optical wafer supply and among three major GaAs substrate suppliers (duopoly/triopoly with AXT, Freiberger). Critical supplier for optical RF device feedstock.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_010_sumitomo_wafers"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2179,7 +2192,10 @@
     "relation": "manufactured_by",
     "claim": "WIN Semiconductors is the world's leading pure-play GaAs wafer foundry, serving ~75% of merchant GaAs foundry market. Critical for optical communications and RF device manufacturing.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_cmpd_gaa_market",
+      "ev_acc_cmpd_win_capacity_growth"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2616,7 +2632,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_pkgeq_optical_onto"
+      "ev_acc_pkgeq_onto_qualification"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Onto Innovation (formerly Rudolph Technologies + Nanometrics) is carried as a manufacturer or supplier lead for Optical metrology and bump inspection (2D/3D surface topology, height, coplanarity), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2654,7 +2670,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_pkgeq_w2w_besi"
+      "ev_acc_pkgeq_besi_orders"
     ],
     "reviewStatus": "unreviewed",
     "claim": "BE Semiconductor Industries N.V. (BESI, Netherlands/Asia) is carried as a manufacturer or supplier lead for Wafer-to-wafer (W2W) bonding and alignment systems (hybrid bonding, permanent bonding), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2679,7 +2695,8 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_pkgeq_tcb_besi"
+      "ev_acc_pkgeq_tcb_market",
+      "ev_acc_pkgeq_besi_orders"
     ],
     "reviewStatus": "unreviewed",
     "claim": "BE Semiconductor Industries N.V. (BESI, Netherlands/Asia) is carried as a manufacturer or supplier lead for Thermocompression bonding (TCB) systems for chip-to-substrate and die-to-wafer, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2690,7 +2707,9 @@
     "target": "org_kulicke_soffa",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_pkgeq_tcb_market"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Kulicke & Soffa Industries is carried as a manufacturer or supplier lead for Thermocompression bonding (TCB) systems for chip-to-substrate and die-to-wafer, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -2763,7 +2782,9 @@
     "target": "org_cohu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_pkgeq_ate_market"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Cohu Inc. is carried as a manufacturer or supplier lead for Wafer probe testing and contactors (fine-pitch bumped die, known-good-die qualification), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -2863,7 +2884,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "claim": "Acer Thermal Innovation Company (AVC) is carried as a manufacturer or supplier lead for Thermal management (heatsink, liquid coupling, vapor chamber), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Acer Thermal Innovation Company (AVC) is carried as a manufacturer or supplier lead for Thermal management (heatsink, liquid coupling, vapor chamber), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so.",
+    "evidenceIds": [
+      "ev_acc_sb4_avc_thermal_tracker"
+    ]
   },
   {
     "id": "e_acc_thermal_management_module__manufactured_by__org_auras",
@@ -2872,7 +2896,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "claim": "Auras Technology Co., Ltd. is carried as a manufacturer or supplier lead for Thermal management (heatsink, liquid coupling, vapor chamber), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Auras Technology Co., Ltd. is carried as a manufacturer or supplier lead for Thermal management (heatsink, liquid coupling, vapor chamber), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so.",
+    "evidenceIds": [
+      "ev_acc_sb4_avc_thermal_tracker"
+    ]
   },
   {
     "id": "e_acc_specialty_analog_power_foundry__manufactured_by__org_innoscience",
@@ -2881,7 +2908,10 @@
     "relation": "manufactured_by",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "claim": "Innoscience Technology Co., Ltd. is carried as a manufacturer or supplier lead for Specialty/analog/compound power semiconductor foundry (GaN, SiC, GaAs, InP - non-silicon logic), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Innoscience Technology Co., Ltd. is carried as a manufacturer or supplier lead for Specialty/analog/compound power semiconductor foundry (GaN, SiC, GaAs, InP - non-silicon logic), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so.",
+    "evidenceIds": [
+      "ev_acc_sb4_innoscience_gan"
+    ]
   },
   {
     "id": "e_acc_euv_photomask_production__requires__high_na_euv_mask_blank_hoya_exclusive",
@@ -2980,7 +3010,9 @@
     "target": "org_hoya",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_hoya_information_technology_euv_mask_blanks"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Hoya Corporation is carried as a manufacturer or supplier lead for EUV mask blanks, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -3183,7 +3215,9 @@
     "target": "org_merck",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_017_merck_rdl"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Merck KGaA is carried as a manufacturer or supplier lead for RDL packaging photoresist (i-line/KrF, advanced geometries), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -3267,7 +3301,9 @@
     "target": "org_entegris",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_019_entegris_cmp"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Entegris Inc. is carried as a manufacturer or supplier lead for CMP slurry and polishing pads (advanced packaging), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -3290,7 +3326,9 @@
     "target": "org_hanmi_semiconductor",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6h_hanmi_tc_bonder_lead_time"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "Hanmi Semiconductor Co., Ltd. is carried as a manufacturer or supplier lead for Thermocompression bonding consumables (bond heads, heaters, electrodes), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
@@ -3300,7 +3338,10 @@
     "target": "org_asmpt",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_021_asmpt_tcb",
+      "ev_acc_pkgeq_asmpt_ir"
+    ],
     "reviewStatus": "unreviewed",
     "claim": "ASM Pacific Technology Ltd. (ASMPT, Hong Kong, die attach/flip-chip/TCB) is carried as a manufacturer or supplier lead for Thermocompression bonding consumables (bond heads, heaters, electrodes), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
   },
