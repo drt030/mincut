@@ -8993,5 +8993,397 @@
       "numberInQuote": false,
       "notes": "web.open on Shin-Etsu thermal-interface silicone rubber page found the stored heat-generating-unit / heat-sink quote."
     }
+  },
+  {
+    "id": "ev_acc_hbm_test_cohu_neon_2026",
+    "type": "product_page",
+    "title": "Cohu Neon HBM inspection and metrology platform",
+    "url": "https://www.cohu.com/neon/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Cohu",
+    "date": "accessed 2026-06-19",
+    "summary": "Cohu describes Neon as an inspection and metrology platform aligned to HBM market requirements, compatible with HBM3E, HBM4, and HBM4E, and designed for high-end production process flow and unit traceability.",
+    "excerpt": "Fully compatible between HBM3E, HBM4 and HBM4E",
+    "supportsNodeIds": [
+      "hbm_test_equipment_and_tooling",
+      "org_cohu"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_hbm_test_equip__manufactured_by__org_cohu"
+    ],
+    "limitations": "Supports HBM inspection/metrology and sorting equipment exposure; it is not a full ATE tester-platform claim.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Cohu Neon found HBM Market Alignment, HBM3E/HBM4/HBM4E compatibility, high-end process flow, unit traceability, and throughput statements."
+    }
+  },
+  {
+    "id": "ev_acc_boyd_eaton_heat_exchanger_radiator_2026",
+    "type": "product_page",
+    "title": "Eaton/Boyd liquid heat exchanger and radiator systems",
+    "url": "https://www.boydcorp.com/thermal/liquid-cooling-systems/heat-exchangers.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Eaton / Boyd Thermal",
+    "date": "accessed 2026-06-19",
+    "summary": "Eaton/Boyd describes liquid heat exchangers, flat-tube heat exchangers, fan kits, and heat exchanger/radiator systems used in industrial, power, aerospace, defense, and transportation applications.",
+    "excerpt": "Heat exchanger and radiator systems installed in various industrial applications",
+    "supportsNodeIds": [
+      "heat_exchanger_radiator",
+      "org_boyd"
+    ],
+    "supportsEdgeIds": [
+      "e_radiator__manufactured_by__boyd"
+    ],
+    "limitations": "Directly supports heat exchanger/radiator manufacturing exposure; it does not prove a named AI-rack radiator BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Boyd redirect to Eaton heat-exchangers page found liquid heat exchangers, flat-tube heat exchangers, fan-kit options, and the stored heat exchanger/radiator systems quote."
+    }
+  },
+  {
+    "id": "ev_acc_broadcom_vcsel_photodetector_components_2026",
+    "type": "product_page",
+    "title": "Broadcom optical components include VCSEL and photodetector",
+    "url": "https://www.broadcom.com/info/optics/optical-components-solutions",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Broadcom",
+    "date": "accessed 2026-06-19",
+    "summary": "Broadcom official optical-components material lists multimode PAM4 optical components including VCSEL, photodetector, driver, and TIA ICs.",
+    "excerpt": "including VCSEL, photodetector, driver & TIA ICs",
+    "supportsNodeIds": [
+      "laser_array_and_photodiodes",
+      "org_broadcom"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_laser_photodiode__manufactured_by__broadcom"
+    ],
+    "limitations": "Supports optical component exposure; it is not a customer-specific AI transceiver BOM claim.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search returned Broadcom official optical components page with the stored VCSEL/photodetector quote; direct page body extraction returned no lines in the browser tool."
+    }
+  },
+  {
+    "id": "ev_acc_hlj_vcsel_array_2026",
+    "type": "product_page",
+    "title": "HLJ VCSEL manufacturing and array aperture capability",
+    "url": "https://www.hlj.com.tw/en/about/6",
+    "sourceStatus": "ok_exact",
+    "sourceName": "HLJ Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "HLJ says it designs and mass-produces 850nm and 940nm VCSELs with product sizes from single to array apertures, supported by in-house epitaxy and wafer-process capability.",
+    "excerpt": "from single to array apertures",
+    "supportsNodeIds": [
+      "laser_array_and_photodiodes",
+      "org_hlj_technology"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_optup_laser_array__manufactured_by__hlj"
+    ],
+    "limitations": "Supports VCSEL and VCSEL-array exposure; it does not prove photodiode arrays or a named AI transceiver design win.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on HLJ capabilities page found VCSEL epitaxy/chip manufacturing, 850nm/940nm mass production, and the stored single-to-array apertures quote."
+    }
+  },
+  {
+    "id": "ev_acc_samsung_foundry_logic_node_2026",
+    "type": "product_page",
+    "title": "Samsung Foundry logic node process technology",
+    "url": "https://semiconductor.samsung.com/foundry/process-technology/logic-node/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Samsung Semiconductor / Samsung Foundry",
+    "date": "accessed 2026-06-19",
+    "summary": "Samsung Foundry lists logic nodes including SF2, SF3, SF4, and SF5, with SF2 mass production in 2025 for mobile, HPC, AI, and automotive applications.",
+    "excerpt": "Started mass production in 2025",
+    "supportsNodeIds": [
+      "logic_die_fabrication",
+      "org_samsung"
+    ],
+    "supportsEdgeIds": [
+      "e_logic_foundry__manufactured_by__samsung"
+    ],
+    "limitations": "Supports Samsung Foundry logic-fabrication exposure; it does not prove a specific accelerator tape-out or wafer allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on Samsung Foundry logic-node page found SF2 started mass production in 2025 and next-generation mobile, HPC, AI, and automotive application context."
+    }
+  },
+  {
+    "id": "ev_acc_amphenol_fiber_optic_connectors_2026",
+    "type": "product_page",
+    "title": "Amphenol fiber optic connector and optical-port products",
+    "url": "https://www.amphenol.com/products/connectors-fiber-optic",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Amphenol",
+    "date": "accessed 2026-06-19",
+    "summary": "Amphenol product listings include fiber optic connectors and optical modules using LC or MPO optical ports for data-center internal network and 800G Ethernet applications.",
+    "excerpt": "adopt LC or MPO optical ports",
+    "supportsNodeIds": [
+      "optical_connector_interface",
+      "org_amphenol"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_optical_connector__manufactured_by__amphenol"
+    ],
+    "limitations": "Supports optical connector/interface exposure; it does not prove a named AI cluster BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Amphenol Fiber Optic Connectors page found LC/MPO optical-port product text and 800Gb/s optical module listings."
+    }
+  },
+  {
+    "id": "ev_acc_commscope_qwik_fuse_mpo_connector_2026",
+    "type": "product_page",
+    "title": "CommScope Qwik-Fuse MPO fiber connector",
+    "url": "https://www.commscope.com/product-type/connectors/fiber-adapters-connectors/connectors/qwik-fuse-mpo/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "CommScope",
+    "date": "accessed 2026-06-19",
+    "summary": "CommScope describes Qwik-Fuse MPO as a field-installable, splice-on MPO connector for customized and on-site termination.",
+    "excerpt": "field installable, splice-on MPO connectors",
+    "supportsNodeIds": [
+      "optical_connector_interface",
+      "org_commscope"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_optical_connector__manufactured_by__commscope"
+    ],
+    "limitations": "Supports MPO connector exposure; it does not prove a named AI rack or optics BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on CommScope Qwik-Fuse MPO page found the stored field-installable splice-on MPO connector quote and product classification as fiber connector."
+    }
+  },
+  {
+    "id": "ev_acc_broadcom_bcm85821_800g_phy_2026",
+    "type": "product_page",
+    "title": "Broadcom BCM85821 800GbE PAM-4 PHY transceiver",
+    "url": "https://www.broadcom.com/products/ethernet-connectivity/phy-and-poe/optical/bcm85821",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Broadcom",
+    "date": "accessed 2026-06-19",
+    "summary": "Broadcom product material describes BCM85821 as a 5nm CMOS 800GbE PAM-4 PHY transceiver capable of driving four lanes of 226Gb/s PAM4 at 113 Gbaud.",
+    "excerpt": "800GbE PAM-4 PHY transceiver",
+    "supportsNodeIds": [
+      "optical_transceiver_host_silicon",
+      "org_broadcom"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_transceiver_host_silicon__manufactured_by__broadcom"
+    ],
+    "limitations": "Supports Broadcom optical transceiver PHY/host-side silicon exposure; it does not prove a named optical module BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned Broadcom official BCM85821 product page with the stored 800GbE PAM-4 PHY transceiver quote; direct page body extraction returned no lines in the browser tool."
+    }
+  },
+  {
+    "id": "ev_acc_intel_silicon_photonics_oci_2026",
+    "type": "product_page",
+    "title": "Intel Silicon Photonics OCI and pluggable transceiver components",
+    "url": "https://www.intel.com/content/www/us/en/products/details/network-io/silicon-photonics.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Intel",
+    "date": "accessed 2026-06-19",
+    "summary": "Intel describes OCI chiplets, silicon photonics PIC/EIC stacks, high-speed photonics components, and 400G/800G/1.6T pluggable data-center connectivity solutions.",
+    "excerpt": "volume-proven solutions for pluggable data center connectivity",
+    "supportsNodeIds": [
+      "optical_transceiver_host_silicon",
+      "org_intel"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_transceiver_host_silicon__manufactured_by__intel"
+    ],
+    "limitations": "Supports Intel silicon photonics / host-side photonic and electrical IC exposure; it is not a traditional merchant transceiver DSP ASIC claim.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on Intel Silicon Photonics page found OCI chiplet, PIC/EIC stack, 400G/800G/1.6T components, and the stored volume-proven pluggable data-center connectivity quote."
+    }
+  },
+  {
+    "id": "ev_acc_marvell_pam4_optical_dsp_2026",
+    "type": "product_page",
+    "title": "Marvell PAM4 optical DSPs for AI infrastructure",
+    "url": "https://www.marvell.com/products/pam-dsp.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Marvell Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "Marvell describes its PAM4 optical DSP portfolio as powering optical interconnects inside cloud and AI data centers and supporting Ethernet and InfiniBand at 1.6T, 800G, 400G, 200G, and 100G.",
+    "excerpt": "power the optical interconnects inside the world’s cloud and AI data centers",
+    "supportsNodeIds": [
+      "optical_transceiver_host_silicon",
+      "org_marvell"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_opt_transceiver_host_silicon__manufactured_by__marvell"
+    ],
+    "limitations": "Supports optical DSP / host-side transceiver silicon exposure; it does not prove a named optical module BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Marvell PAM4 Optical DSP page found the stored cloud/AI data-center quote and 1.6T/800G/400G/200G/100G support."
+    }
+  },
+  {
+    "id": "ev_acc_astera_scorpio_fabric_switch_2026",
+    "type": "product_page",
+    "title": "Astera Labs Scorpio Smart Fabric Switch",
+    "url": "https://www.asteralabs.com/products/scorpio-smart-fabric-switch/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Astera Labs",
+    "date": "accessed 2026-06-19",
+    "summary": "Astera Labs describes Scorpio as fabric switches built for AI clusters and servers, with PCIe 6 P-series and X-series options up to 320 lanes for rack-scale accelerator clusters.",
+    "excerpt": "Fabric Switches built from the ground up for AI clusters and servers",
+    "supportsNodeIds": [
+      "pcie_cxl_fabric_switch_asic",
+      "org_astera_labs"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_fabric_switch__manufactured_by__org_astera_labs"
+    ],
+    "limitations": "Supports fabric-switch supplier exposure; it does not prove a named accelerator platform BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open/find on Astera Scorpio page found the stored AI clusters/servers quote, 32-to-320 lane PCIe 6 fabric switches, and example AI server topologies."
+    }
+  },
+  {
+    "id": "ev_acc_asetek_liquid_cooling_loop_2026",
+    "type": "product_page",
+    "title": "Asetek warm-water liquid cooling for AI/HPC data centers",
+    "url": "https://www.asetek.com/company/about-asetek/asetek-heritage-technology/data-center/technology-for-data-centers/liquid-cooled-sites/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Asetek",
+    "date": "accessed 2026-06-19",
+    "summary": "Asetek describes warm-water liquid cooling for HPC and AI racks with D2C ingredient coolers and InRackCDU rack-level direct-to-chip solutions.",
+    "excerpt": "Asetek’s warm water liquid cooling solution",
+    "supportsNodeIds": [
+      "sealed_liquid_cooling_loop",
+      "org_asetek"
+    ],
+    "supportsEdgeIds": [
+      "e_liquid_loop__manufactured_by__asetek"
+    ],
+    "limitations": "Supports Asetek D2C liquid-cooling-loop exposure; it does not prove a named AI server SKU.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open/find on Asetek liquid-cooled data centers page found HPC/AI workload context, warm water liquid cooling solution, D2C ingredient coolers, and InRackCDU."
+    }
+  },
+  {
+    "id": "ev_acc_asetek_ai_cold_plate_2024",
+    "type": "news",
+    "title": "Asetek AI Optimized Cold Plate collaboration with Fabric8Labs",
+    "url": "https://view.news.eu.nasdaq.com/view?id=b2ab501be042bc746f3cb1afecdaa165a&lang=en&src=listed",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Asetek / Nasdaq GlobeNewswire",
+    "date": "2024-06-03",
+    "summary": "Asetek announced an AI Optimized Cold Plate with Fabric8Labs, stating that Asetek developed a cold plate design using ECAM technology to improve thermal performance and support high-volume production.",
+    "excerpt": "Asetek has developed a cold plate design",
+    "supportsNodeIds": [
+      "cold_plate_water_block",
+      "org_asetek"
+    ],
+    "supportsEdgeIds": [
+      "e_coldplate__manufactured_by__custom_oem"
+    ],
+    "limitations": "Supports Asetek cold-plate design exposure; it is a company announcement and not a named accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Asetek/Nasdaq news release found the stored cold plate design quote, AI Optimized Cold Plate context, and high-volume production language."
+    }
+  },
+  {
+    "id": "ev_acc_marvell_acc_linear_equalizer_2025",
+    "type": "news",
+    "title": "Marvell ACC linear equalizers for AI scale-up interconnects",
+    "url": "https://investor.marvell.com/news-events/press-releases/detail/996/marvell-adds-active-copper-cable-linear-equalizers-to-its-connectivity-portfolio",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Marvell Technology",
+    "date": "2025-10-14",
+    "summary": "Marvell announced active copper cable linear equalizers for high-speed scale-up interconnects, supporting 800G and 1.6T copper interconnects for advanced AI workloads.",
+    "excerpt": "Marvell ACC Linear Equalizers Enable Longer Reach and Power-efficient Copper in High-speed, Scale-up Interconnects",
+    "supportsNodeIds": [
+      "active_copper_cable_linear_equalizer",
+      "org_marvell"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_acc_equalizer__manufactured_by__org_marvell"
+    ],
+    "limitations": "Supports Marvell ACC linear-equalizer silicon exposure; the release says sampling and does not prove a specific cable OEM design win.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search/open returned Marvell IR press release with the stored headline, active copper cable linear equalizer claim, 800G/1.6T support, and AI workload context."
+    }
   }
 ]

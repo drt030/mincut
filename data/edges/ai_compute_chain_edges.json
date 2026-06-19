@@ -716,9 +716,11 @@
     "target": "org_cohu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_hbm_test_cohu_neon_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Cohu Inc. is carried as a manufacturer or supplier lead for HBM test and assembly equipment, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Cohu supplies Neon inspection and metrology equipment aligned to HBM3E/HBM4/HBM4E test, sorting, and traceability requirements."
   },
   {
     "id": "e_acc_hbm_substrate__manufactured_by__org_isola",
@@ -1030,9 +1032,11 @@
     "target": "org_broadcom",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_broadcom_bcm85821_800g_phy_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Broadcom Inc. is carried as a manufacturer or supplier lead for Optical transceiver host silicon / ASIC, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Broadcom supplies 800GbE PAM-4 PHY transceiver silicon used in optical transceiver host-side connectivity."
   },
   {
     "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__marvell",
@@ -1041,10 +1045,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_opt_marvell_transceiver_asic"
+      "ev_acc_marvell_pam4_optical_dsp_2026"
     ],
     "reviewStatus": "unreviewed",
-    "claim": "Marvell Technology Inc. is carried as a manufacturer or supplier lead for Optical transceiver host silicon / ASIC, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Marvell supplies PAM4 optical DSP silicon for cloud and AI data-center optical interconnects across 1.6T, 800G, 400G, 200G, and 100G modules."
   },
   {
     "id": "e_acc_opt_transceiver_host_silicon__manufactured_by__intel",
@@ -1053,10 +1057,10 @@
     "relation": "manufactured_by",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_acc_opt_intel_transceiver_asic"
+      "ev_acc_intel_silicon_photonics_oci_2026"
     ],
     "reviewStatus": "unreviewed",
-    "claim": "Intel is carried as a manufacturer or supplier lead for Optical transceiver host silicon / ASIC, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Intel supplies silicon-photonics PIC/EIC and high-speed photonics component platforms for pluggable data-center connectivity and optical compute interconnects."
   },
   {
     "id": "e_acc_opt_laser_photodiode__manufactured_by__broadcom",
@@ -1064,9 +1068,11 @@
     "target": "org_broadcom",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_broadcom_vcsel_photodetector_components_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Broadcom Inc. is carried as a manufacturer or supplier lead for Laser array and photodiode array for optical transceiver, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Broadcom supplies multimode PAM4 optical components including VCSELs and photodetectors for high-speed optical links."
   },
   {
     "id": "e_acc_opt_laser_photodiode__manufactured_by__ii_vi",
@@ -1153,8 +1159,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [],
-    "claim": "Amphenol is carried as a manufacturer or supplier lead for Optical connector interface (MPO / LC / micro-lens), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "evidenceIds": [
+      "ev_acc_amphenol_fiber_optic_connectors_2026"
+    ],
+    "claim": "Amphenol supplies optical modules and fiber-optic connector interfaces using LC and MPO optical ports for data-center and high-speed Ethernet applications."
   },
   {
     "id": "e_acc_opt_optical_connector__manufactured_by__commscope",
@@ -1163,8 +1171,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "evidenceIds": [],
-    "claim": "CommScope Holding Company, Inc. is carried as a manufacturer or supplier lead for Optical connector interface (MPO / LC / micro-lens), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "evidenceIds": [
+      "ev_acc_commscope_qwik_fuse_mpo_connector_2026"
+    ],
+    "claim": "CommScope supplies MPO fiber connectors, including Qwik-Fuse field-installable splice-on MPO connectors for fiber termination."
   },
   {
     "id": "e_acc_opt_fiber_cables__manufactured_by__corning",
@@ -1570,10 +1580,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_thm_asetek_market_dominance"
+      "ev_acc_asetek_liquid_cooling_loop_2026"
     ],
     "reviewStatus": "unreviewed",
-    "claim": "Asetek is carried as a manufacturer or supplier lead for Sealed liquid cooling loop, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Asetek supplies D2C ingredient coolers and InRackCDU warm-water liquid-cooling technology for HPC and AI data-center racks."
   },
   {
     "id": "e_tim__manufactured_by__shin_etsu",
@@ -1606,10 +1616,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_thm_asetek_custom_blocks"
+      "ev_acc_asetek_ai_cold_plate_2024"
     ],
     "reviewStatus": "unreviewed",
-    "claim": "Asetek is carried as a manufacturer or supplier lead for Cold plate / water block, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Asetek developed an AI-optimized cold plate design with Fabric8Labs for liquid-cooling thermal performance."
   },
   {
     "id": "e_radiator__manufactured_by__boyd",
@@ -1617,9 +1627,11 @@
     "target": "org_boyd",
     "relation": "manufactured_by",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_boyd_eaton_heat_exchanger_radiator_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Boyd (Aavid Thermacore) is carried as a manufacturer or supplier lead for Heat exchanger / radiator, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Boyd Thermal, now under Eaton, manufactures custom and semi-custom liquid heat exchangers and radiator systems for thermal-management loops."
   },
   {
     "id": "e_radiator__manufactured_by__lytron",
@@ -1639,12 +1651,11 @@
     "source": "micropump_circulation",
     "target": "org_ebara",
     "relation": "manufactured_by",
-    "confidence": "medium",
-    "evidenceIds": [
-      "ev_acc_thm_ebara_pumps"
-    ],
-    "reviewStatus": "unreviewed",
-    "claim": "Ebara is carried as a manufacturer or supplier lead for Micropump (circulation), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "confidence": "low",
+    "evidenceIds": [],
+    "reviewStatus": "deprecated",
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: EBARA has broad pump-manufacturer evidence, but no direct AI liquid-cooling micropump/circulation source was found. Keep off active supplier cards until direct micropump evidence exists.",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: only generic pump-manufacturer evidence found, not a direct AI liquid-cooling micropump claim."
   },
   {
     "id": "e_cdu__manufactured_by__vertiv",
@@ -1760,9 +1771,11 @@
     "source": "logic_die_fabrication",
     "target": "org_samsung",
     "relation": "manufactured_by",
-    "claim": "Samsung Foundry is the second source for leading-edge (3nm/5nm-equivalent) logic die manufacturing, serving as a capacity alternative to TSMC with lower volume share and longer lead times (8-12% foundry market share vs TSMC 70%+).",
+    "claim": "Samsung Foundry manufactures leading-edge logic nodes including SF2/SF3/SF4/SF5 options for HPC, AI, mobile, and automotive applications.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_samsung_foundry_logic_node_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2106,9 +2119,11 @@
     "source": "laser_array_and_photodiodes",
     "target": "org_hlj_technology",
     "relation": "manufactured_by",
-    "claim": "HLJ Technology (Taiwan) is a vertically integrated VCSEL manufacturer (epitaxy + chip). Expanding to 6-inch capacity with multiple Aixtron tools for high-volume 850nm VCSEL production.",
-    "confidence": "medium",
-    "evidenceIds": [],
+    "claim": "HLJ designs and mass-produces VCSELs from single to array apertures, making it a laser-array supplier lead for optical transceiver components.",
+    "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_hlj_vcsel_array_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2383,10 +2398,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_icsi_marvell_taurus_acc_2025"
+      "ev_acc_marvell_acc_linear_equalizer_2025"
     ],
     "reviewStatus": "unreviewed",
-    "claim": "Marvell Technology Inc. is carried as a manufacturer or supplier lead for Active Copper Cable (ACC) Linear Equalizer IC, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Marvell supplies active copper cable linear equalizer silicon for 800G and 1.6T in-rack AI scale-up interconnects."
   },
   {
     "id": "e_acc_aec_retimer__manufactured_by__org_credo",
@@ -2420,9 +2435,11 @@
     "target": "org_astera_labs",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_astera_scorpio_fabric_switch_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Astera Labs, Inc. is carried as a manufacturer or supplier lead for PCIe / CXL Fabric Switch ASIC (cluster interconnect), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Astera Labs supplies Scorpio smart fabric switch ASICs purpose-built for AI clusters and servers, including PCIe 6 fabric switch options up to 320 lanes."
   },
   {
     "id": "e_acc_fabric_switch__manufactured_by__org_broadcom",
