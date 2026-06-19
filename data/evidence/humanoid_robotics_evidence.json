@@ -2801,5 +2801,285 @@
       "numberInQuote": false,
       "notes": "Gate-B verifier could NOT verify the excerpt on the stored URL: direct GET returns an Akamai/Cloudflare 'Client Challenge' bot-wall shell (HTTP 200 but no real content), and r.jina.ai reader-proxy returned HTTP 404 for this exact leaf path. The canonical MPS Position Sensors page (web search) is at /en/products/motor-drivers-position-sensors/position-sensors.html — the stored /en/products/position-sensors.html path is suspect. MPS MagAlpha position-sensor product line is real and on-topic, but 'Position Sensors' could not be confirmed on the stored URL. Not promoted — sourceStatus=paywalled_snippet (bot-blocked); URL flagged for owner review."
     }
+  },
+  {
+    "id": "ev_humanoid_nxp_mc33774_battery_cell_controller",
+    "type": "product_page",
+    "title": "NXP MC33774 18-channel Li-ion battery cell controller IC",
+    "url": "https://www.nxp.com/products/MC33774",
+    "sourceStatus": "ok_exact",
+    "sourceName": "NXP Semiconductors",
+    "date": "accessed 2026-06-19",
+    "summary": "NXP describes the MC33774 as an 18-channel Li-ion battery cell controller IC with cell-voltage and temperature measurement, diagnostics, cell balancing and daisy-chain communication.",
+    "excerpt": "The MC33774 is an 18-Channel battery cell controller IC designed for the most demanding applications.",
+    "supportsNodeIds": [
+      "org_nxp",
+      "humanoid_bms_analog_frontend"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_bms_analog_frontend__reported_capable_supplier__nxp"
+    ],
+    "limitations": "Official product page; supports NXP BMS cell-controller capability. It does not prove a humanoid-specific design win or battery-pack BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search fetched the official NXP MC33774 product page and returned exact overview/features text, including the stored excerpt and 4-to-18-cell feature range."
+    }
+  },
+  {
+    "id": "ev_humanoid_st_l9963e_bms_monitor",
+    "type": "product_page",
+    "title": "STMicroelectronics L9963E Li-ion battery monitoring and protecting chip",
+    "url": "https://www.st.com/en/power-management/l9963e.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "STMicroelectronics",
+    "date": "accessed 2026-06-19",
+    "summary": "ST describes L9963E as a Li-ion battery monitoring and protecting chip for high-reliability automotive applications and energy storage systems, monitoring up to 14 stacked cells.",
+    "excerpt": "The L9963E is a Li-ion battery monitoring and protecting chip",
+    "supportsNodeIds": [
+      "org_humanoid_stmicroelectronics",
+      "humanoid_bms_analog_frontend"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_bms_analog_frontend__reported_capable_supplier__stm"
+    ],
+    "limitations": "Official product page; supports ST BMS monitoring/protection IC capability. It does not prove a humanoid-specific design win or battery-pack BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search fetched the official ST L9963E product page and returned exact overview/features text, including the stored excerpt and up-to-14-cell monitoring context."
+    }
+  },
+  {
+    "id": "ev_humanoid_adi_max17854_battery_monitor",
+    "type": "product_page",
+    "title": "Analog Devices MAX17854 14-channel high-voltage battery data-acquisition system",
+    "url": "https://www.analog.com/media/en/technical-documentation/data-sheets/max17854.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Analog Devices",
+    "date": "accessed 2026-06-19",
+    "summary": "Analog Devices' MAX17854 datasheet describes a flexible data-acquisition system for high-voltage and low-voltage battery modules that measures 14 cell voltages and supports cell balancing and diagnostics.",
+    "excerpt": "The MAX17854 is a flexible data-acquisition system for the management of high-voltage and low-voltage battery modules.",
+    "supportsNodeIds": [
+      "org_analog_devices",
+      "humanoid_bms_analog_frontend"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_bms_analog_frontend__reported_capable_supplier__adi"
+    ],
+    "limitations": "Official datasheet; supports ADI/Maxim battery-monitoring AFE capability. It does not prove a humanoid-specific design win or battery-pack BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search fetched the official Analog Devices MAX17854 datasheet text and returned exact general-description text, including the stored excerpt and 14-cell measurement context."
+    }
+  },
+  {
+    "id": "ev_humanoid_thk_cross_roller_robot_joints",
+    "type": "product_page",
+    "title": "THK Cross-Roller Ring for industrial robot joints",
+    "url": "https://www.thk.com/us/en/products/cross_roller_ring/cross_roller_ring/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "THK",
+    "date": "accessed 2026-06-19",
+    "summary": "THK describes its Cross-Roller Ring as a compact high-rigidity bearing that can receive radial, axial and moment loads, with applications including joints and swiveling units of industrial robots.",
+    "excerpt": "optimal for applications such as joints and swiveling units of industrial robots",
+    "supportsNodeIds": [
+      "org_thk",
+      "humanoid_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cross_roller_bearing__manufactured_by__thk"
+    ],
+    "limitations": "Official product page; supports THK crossed-roller bearing applicability to industrial robot joints. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched THK Cross-Roller Ring page. Lines 5-L6 and 157-L159 contain the stored robot-joint applicability text plus radial/axial/moment-load structure."
+    }
+  },
+  {
+    "id": "ev_humanoid_iko_crossed_roller_industrial_robots",
+    "type": "product_page",
+    "title": "IKO Standard Type Crossed Roller Bearings for industrial robots",
+    "url": "https://www.ikont.co.jp/eg/product/needle/ndl0803.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Nippon Thompson / IKO",
+    "date": "accessed 2026-06-19",
+    "summary": "IKO describes standard crossed roller bearings as widely used in rotating parts of industrial robots and other compact, high-rigidity, high-accuracy applications.",
+    "excerpt": "widely used in the rotating parts of industrial robots",
+    "supportsNodeIds": [
+      "org_ikont_nipponthompson",
+      "humanoid_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cross_roller_bearing__reported_capable_supplier__iko"
+    ],
+    "limitations": "Official product page; supports IKO crossed-roller bearing applicability to industrial robots. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched IKO product page. Lines 64-L65 contain the stored industrial-robot crossed-roller-bearing text."
+    }
+  },
+  {
+    "id": "ev_humanoid_nsk_crossed_roller_robot_joints",
+    "type": "product_page",
+    "title": "NSK N Series Crossed Roller Bearings",
+    "url": "https://www.nsk.com/content/dam/nsk/common/catalogs/ctrgPdf/bearings/e1226.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "NSK",
+    "date": "accessed 2026-06-19",
+    "summary": "NSK's N Series Crossed Roller Bearings catalog says the bearings support axial, radial and moment loads in a compact envelope and are widely used in rotating joints of robots.",
+    "excerpt": "widely used in the rotating joints of robots",
+    "supportsNodeIds": [
+      "org_nsk",
+      "humanoid_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cross_roller_bearing__reported_capable_supplier__nsk"
+    ],
+    "limitations": "Official catalog PDF; supports NSK crossed-roller bearing applicability to robot rotating joints. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched NSK N Series Crossed Roller Bearings PDF. Page 1 lines 5-L8 contain the stored robot-joint applicability text and load/rigidity context."
+    }
+  },
+  {
+    "id": "ev_humanoid_schaeffler_xzu_robotics_humanoids",
+    "type": "news",
+    "title": "Schaeffler XZU bearing for robotics and humanoids",
+    "url": "https://www.schaeffler.com/en/media/press-releases/press-releases-detail.jsp?id=88086337",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Schaeffler",
+    "date": "2025-03-31",
+    "summary": "Schaeffler's official release says its XZU angular-contact needle roller bearing is designed for robotics, industrial automation and future areas such as humanoids, and exceeds conventional crossed-roller bearing tilting rigidity.",
+    "excerpt": "designed specifically for robotics, industrial automation, and areas for the future such as humanoids",
+    "supportsNodeIds": [
+      "org_schaeffler",
+      "humanoid_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cross_roller_bearing__reported_capable_supplier__schaeffler"
+    ],
+    "limitations": "Official Schaeffler release; supports Schaeffler humanoid/robot joint bearing capability and comparison against crossed-roller bearings. It is an adjacent replacement/alternative bearing, not proof of a humanoid OEM cross-roller BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Schaeffler release. Lines 283-L295 describe XZU for robotics/humanoids, 30% higher tilting rigidity versus crossed roller bearings, same mounting dimensions, and precision gearbox/humanoid applicability."
+    }
+  },
+  {
+    "id": "ev_humanoid_senior_europe_separator_film",
+    "type": "news",
+    "title": "Senior Europe separator film manufacturing",
+    "url": "https://www.eba250.com/senior-technology-material-invests-e250-million-in-sweden/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "European Battery Alliance",
+    "date": "accessed 2026-06-19",
+    "summary": "The European Battery Alliance describes Shenzhen Senior Technology Material as a global supplier of lithium-ion battery separators and says its Swedish facility supplies separator film into Northvolt's gigafactory supply chain.",
+    "excerpt": "leading global supplier of separators used in the manufacturing of lithium-ion batteries",
+    "supportsNodeIds": [
+      "org_shenzhen_senior",
+      "humanoid_cell_separator"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cell_separator__reported_capable_supplier__shenzhen_senior"
+    ],
+    "limitations": "EBA article supports Senior as a separator supplier for lithium-ion battery manufacturing and European cell supply chains. It does not prove a humanoid battery-pack design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched the EBA article. Lines 52-L53 contain the stored separator-supplier excerpt and line 61 states the Eskilstuna facility supplies Northvolt with separators."
+    }
+  },
+  {
+    "id": "ev_humanoid_sony_tof_depth_sensor",
+    "type": "product_page",
+    "title": "Sony DepthSense ToF image sensors",
+    "url": "https://www.sony-semicon.com/en/products/is/industry/tof.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Sony Semiconductor Solutions",
+    "date": "accessed 2026-06-19",
+    "summary": "Sony Semiconductor Solutions describes DepthSense back-illuminated ToF image sensors for depth sensing and 3D space capture, with industrial-equipment applicability.",
+    "excerpt": "Depth sensing from near to far with high accuracy at high speed",
+    "supportsNodeIds": [
+      "org_sony",
+      "humanoid_depth_image_sensor"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_depth_image_sensor__reported_capable_supplier__sony"
+    ],
+    "limitations": "Official product page supports Sony ToF depth-sensor capability for industrial sensing. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Sony's ToF image-sensor page. Lines 458-L461 contain the stored depth-sensing excerpt, and lines 488-L490 describe acquiring Z-direction 3D-space information."
+    }
+  },
+  {
+    "id": "ev_humanoid_adi_mems_imu_brochure",
+    "type": "product_page",
+    "title": "Analog Devices MEMS IMU brochure",
+    "url": "https://www.analog.com/media/en/news-marketing-collateral/solutions-bulletins-brochures/mems-imu-brochure.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Analog Devices",
+    "date": "accessed 2026-06-19",
+    "summary": "Analog Devices' MEMS IMU brochure describes ADI as a supplier of high-performance MEMS inertial sensing technology and system-ready motion sensors for industrial applications.",
+    "excerpt": "ADI is the industry leader in high performance MEMS inertial sensing technology",
+    "supportsNodeIds": [
+      "org_analog_devices",
+      "humanoid_imu_mems_die"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_imu_mems_die__reported_capable_supplier__adi"
+    ],
+    "limitations": "Official ADI brochure supports MEMS IMU capability and industrial motion-sensor relevance. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched ADI's MEMS IMU brochure PDF. Page 1 lines 14-L15 contain the stored inertial-sensing excerpt and industrial motion-sensor context."
+    }
   }
 ]

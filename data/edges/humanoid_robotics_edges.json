@@ -973,6 +973,8 @@
     "source": "humanoid_edge_ai_compute_module",
     "target": "org_humanoid_nvidia",
     "relation": "manufactured_by",
+    "claim": "NVIDIA Jetson Thor is modeled as the central onboard edge-AI compute module candidate for humanoid robots.",
+    "context": "Vendor product/use-case evidence; supports edge-AI compute supplier capability, not a confirmed humanoid OEM BOM.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_humanoid_nvidia_jetson_thor"
@@ -984,6 +986,8 @@
     "source": "humanoid_battery_management_system",
     "target": "org_humanoid_texas_instruments",
     "relation": "manufactured_by",
+    "claim": "Texas Instruments provides humanoid-robot BMS IC/reference-design material for monitoring, protection, cell balancing and gauging.",
+    "context": "Vendor solution evidence; supports BMS semiconductor capability, not a confirmed humanoid OEM BOM.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_humanoid_ti_bms"
@@ -995,6 +999,8 @@
     "source": "humanoid_current_sense_gate_driver",
     "target": "org_humanoid_texas_instruments",
     "relation": "manufactured_by",
+    "claim": "Texas Instruments humanoid-robot materials cover GaN/gate drivers and high-precision current sensing for compact servo drives.",
+    "context": "Vendor robotics evidence; supports current-sense/gate-driver supplier capability, not a confirmed humanoid OEM BOM.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_humanoid_ti_robotics"
@@ -1006,6 +1012,8 @@
     "source": "humanoid_realtime_mcu_safety_controller",
     "target": "org_humanoid_stmicroelectronics",
     "relation": "manufactured_by",
+    "claim": "STMicroelectronics' humanoid robot guide positions STM32 MCUs and safety/control electronics for robot control and motor-actuation chains.",
+    "context": "Vendor reference-guide evidence; supports MCU/safety-controller capability, not a confirmed humanoid OEM BOM.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_humanoid_st_reference"
@@ -1017,6 +1025,8 @@
     "source": "humanoid_imu_attitude_sensing",
     "target": "org_humanoid_tdk",
     "relation": "manufactured_by",
+    "claim": "TDK/InvenSense is modeled as an IMU and motion-sensing supplier candidate for humanoid attitude sensing.",
+    "context": "Vendor robotics evidence; supports IMU/motion-sensing capability, not a confirmed humanoid OEM BOM.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_humanoid_tdk_robotics"
@@ -2159,6 +2169,9 @@
     "relation": "manufactured_by",
     "claim": "THK is a reference crossed-roller-bearing maker (RA/RAU/RB/RE/RU) for precision/robot joints; supplier-candidate for the joint output cross-roller bearing, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_thk_cross_roller_robot_joints"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2168,6 +2181,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Nippon Thompson (IKO) is a reference crossed-roller-bearing maker (CRB/CRBC/CRBH) for precision/robot joints; carried as capable of the joint output cross-roller bearing, reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_iko_crossed_roller_industrial_robots"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2177,6 +2193,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Schaeffler (INA) makes crossed-roller / rotary-table bearings (YRT/XSU) and is carried as capable of the joint output cross-roller bearing; reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_schaeffler_xzu_robotics_humanoids"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2186,6 +2205,9 @@
     "relation": "reported_capable_supplier",
     "claim": "NSK is a precision-bearing maker carried as capable of the joint output cross-roller bearing; reported-capable, no humanoid-named supply quote.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nsk_crossed_roller_robot_joints"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2393,6 +2415,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Sumitomo Metal Mining is the leading nickel-rich cathode active material (NCA) maker (co-developed with Panasonic); carried as a capable cathode-CAM supplier. No manufactured_by quote to a named humanoid cell, so reported-capable; concentration qualitative.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_smm_ir_cathode"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2402,6 +2427,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Asahi Kasei (Hipore) is the reference ex-China wet-process Li-ion separator maker; carried as a capable separator supplier. No humanoid-named supply quote, so reported-capable; concentration qualitative (C&EN anchor).",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_asahi_kasei_ir_separator"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2411,6 +2439,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Shenzhen Senior Technology Material is a leading Chinese Li-ion separator maker (dry/wet/coated); carried as a capable separator supplier. No humanoid-named supply quote, so reported-capable; concentration qualitative.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_senior_europe_separator_film"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2420,6 +2451,9 @@
     "relation": "manufactured_by",
     "claim": "Texas Instruments is a leading multi-cell BMS analog-front-end / fuel-gauge IC maker; supplier-candidate (who-makes-what) for the BMS AFE, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_ti_bms"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2429,6 +2463,9 @@
     "relation": "reported_capable_supplier",
     "claim": "NXP makes battery-management AFE ICs and is carried as a capable BMS-AFE supplier; reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nxp_mc33774_battery_cell_controller"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2438,6 +2475,9 @@
     "relation": "reported_capable_supplier",
     "claim": "STMicroelectronics makes battery-monitoring ICs and is carried as a capable BMS-AFE supplier; reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_l9963e_bms_monitor"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2447,6 +2487,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Analog Devices (incl. Maxim) is a top-tier battery-monitoring AFE / fuel-gauge maker; carried as a capable BMS-AFE supplier, reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_adi_max17854_battery_monitor"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2681,6 +2724,9 @@
     "relation": "manufactured_by",
     "claim": "STMicroelectronics makes the integrated depth/ToF reference parts (RGBIR sensor + ToF); supplier-candidate (who-makes-what) for the depth image sensor, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2690,6 +2736,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Orbbec is a depth-module integrator carried as a capable depth-image-sensor supplier; reported-capable (vendor self-claim kept qualitative, prior-round flag).",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_orbbec_honor"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2699,6 +2748,9 @@
     "relation": "reported_capable_supplier",
     "claim": "RealSense is a depth-module integrator carried as a capable depth-image-sensor supplier; reported-capable (vendor self-claim kept qualitative, prior-round flag).",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_realsense_independent"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2708,6 +2760,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Sony (Sony Semiconductor Solutions) is the leading merchant CMOS image-sensor maker; carried as a capable depth-image-sensor supplier, reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_sony_tof_depth_sensor"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2717,6 +2772,9 @@
     "relation": "manufactured_by",
     "claim": "Bosch Sensortec is a top-3 consumer MEMS-IMU maker; supplier-candidate (who-makes-what) for the MEMS IMU die, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_bosch_sensortec_imu"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2726,6 +2784,9 @@
     "relation": "manufactured_by",
     "claim": "STMicroelectronics is a top-3 consumer MEMS-IMU maker; supplier-candidate (who-makes-what) for the MEMS IMU die, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2735,6 +2796,9 @@
     "relation": "manufactured_by",
     "claim": "TDK (InvenSense) is a top-3 consumer MEMS-IMU maker; supplier-candidate (who-makes-what) for the MEMS IMU die, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2744,6 +2808,9 @@
     "relation": "reported_capable_supplier",
     "claim": "Analog Devices makes high-performance / tactical-grade MEMS IMUs (industrial/robotics tail); carried as a capable MEMS-IMU-die supplier, reported-capable.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_adi_mems_imu_brochure"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2753,6 +2820,9 @@
     "relation": "manufactured_by",
     "claim": "NVIDIA (Jetson/Thor) is the de-facto high-end humanoid inference SoC reference; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_nvidia_jetson_thor"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2762,6 +2832,9 @@
     "relation": "manufactured_by",
     "claim": "Qualcomm makes robotics inference SoCs; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_qualcomm_dragonwing_iq10"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2771,6 +2844,9 @@
     "relation": "manufactured_by",
     "claim": "Rockchip makes edge AI SoCs; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_rockchip_rk3588"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2780,6 +2856,9 @@
     "relation": "manufactured_by",
     "claim": "D-Robotics makes robot inference SoCs; supplier-candidate (who-makes-what) for the edge inference SoC, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_d_robotics_rdk_s100"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
