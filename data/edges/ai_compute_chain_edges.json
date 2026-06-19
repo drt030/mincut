@@ -1282,7 +1282,9 @@
     "relation": "manufactured_by",
     "claim": "Renesas designs and supplies integrated VRM power-stage ICs for AI accelerators.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_renesas_multiphase_power_ai_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1312,7 +1314,9 @@
     "relation": "manufactured_by",
     "claim": "Murata is a leading MLCC manufacturer serving AI datacenter power delivery applications.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_murata_ai_server_pdn_passives_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1322,7 +1326,9 @@
     "relation": "manufactured_by",
     "claim": "TDK produces high-frequency MLCC and film capacitors for VRM and converter applications.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_tdk_datacenter_psu_mlcc_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1332,7 +1338,9 @@
     "relation": "manufactured_by",
     "claim": "Samsung Electro-Mechanics manufactures MLCC for high-frequency power applications.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_samsung_em_ai_power_mlcc_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1342,7 +1350,9 @@
     "relation": "manufactured_by",
     "claim": "Murata supplies high-current inductors and integrated inductor designs for power-stage applications.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_murata_ai_server_pdn_passives_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1352,7 +1362,9 @@
     "relation": "manufactured_by",
     "claim": "TDK manufactures ferrite cores and integrated inductors for VRM and converter topologies.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_tdk_power_inductors_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1362,7 +1374,9 @@
     "relation": "manufactured_by",
     "claim": "Vicor designs and manufactures isolated 48V–12V converter modules for AI datacenter power distribution.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_vicor_48v_12v_datacenter_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1370,10 +1384,10 @@
     "source": "48v_converter_module",
     "target": "org_power_integrations",
     "relation": "manufactured_by",
-    "claim": "Power Integrations supplies isolated converter ICs and reference designs for 48V datacenter applications.",
-    "confidence": "medium",
-    "evidenceIds": [],
-    "reviewStatus": "unreviewed"
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: Power Integrations has official AI data-center PowiGaN / 800V-architecture material, but no direct 48V-to-12V converter-module source was found for this node. Keep off active supplier cards until direct 48V converter evidence exists.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: Power Integrations has official AI data-center PowiGaN / 800V-architecture material, but no direct 48V-to-12V converter-module source was found for this node. Keep off active supplier cards until direct 48V converter evidence exists."
   },
   {
     "id": "e_acc_pwr_psu__manufactured_by__delta",
@@ -1382,7 +1396,9 @@
     "relation": "manufactured_by",
     "claim": "Delta Electronics manufactures custom and semi-custom rack PSU modules for AI datacenters.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_delta_orv3_ai_server_psu_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1392,7 +1408,9 @@
     "relation": "manufactured_by",
     "claim": "Eaton Power Systems supplies industrial and datacenter-grade AC/DC and redundancy modules.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_eaton_orv3_power_shelf_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1402,7 +1420,9 @@
     "relation": "manufactured_by",
     "claim": "Molex designs and manufactures high-current connectors and blind-mate modules for AI accelerator interconnect.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_molex_datacenter_high_power_connectors_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1412,7 +1432,9 @@
     "relation": "manufactured_by",
     "claim": "TE Connectivity supplies power and signal connectors for datacenter and AI system integration.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_te_datacenter_ai_power_connectors_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {

@@ -8431,5 +8431,287 @@
       "numberInQuote": true,
       "notes": "web.find on Despatch PDF returned the stored quote at page 1 lines 10-14 and die-bond/semiconductor packaging process context at page 2 lines 34-40."
     }
+  },
+  {
+    "id": "ev_acc_vicor_48v_12v_datacenter_2026",
+    "type": "product_page",
+    "title": "Vicor 48V to 12V conversion for data centers",
+    "url": "https://www.vicorpower.com/industries-and-innovations/computing",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Vicor",
+    "date": "accessed 2026-06-19",
+    "summary": "Vicor describes NBM2317 conversion from 48V to 12V for data-center and GPU power migration.",
+    "excerpt": "efficient conversion from 48V to 12V and vice versa",
+    "supportsNodeIds": [
+      "48v_converter_module",
+      "org_vicor"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_converter__manufactured_by__vicor"
+    ],
+    "limitations": "Official application page supports 48V/12V converter-module capability; it does not prove a customer-specific AI accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search/open found Vicor computing page; search snippet contains the stored 48V-to-12V quote and data-center/GPU context. Vicor press page also states 750W and 98% peak efficiency for data-center 48V/12V systems."
+    }
+  },
+  {
+    "id": "ev_acc_renesas_multiphase_power_ai_2026",
+    "type": "product_page",
+    "title": "Renesas digital multiphase power solutions",
+    "url": "https://www.renesas.com/en/products/power-management/multi-phase-power",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Renesas",
+    "date": "accessed 2026-06-19",
+    "summary": "Renesas describes digital multiphase controllers and smart power stages for high-current power delivery, including AVSBus, Intel VR14.Cloud, AMD SVI3, and up to 2 MHz switching.",
+    "excerpt": "advanced digital controllers and high-performance smart power stages",
+    "supportsNodeIds": [
+      "module_level_vrm",
+      "org_renesas"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_module__manufactured_by__renesas"
+    ],
+    "limitations": "Official product-family page supports Renesas VRM controller / smart power stage capability; it does not prove a customer-specific accelerator design win.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned Renesas official multiphase power page with the stored quote plus AVSBus, Intel VR14.Cloud, AMD SVI3, current balancing, telemetry, and 2 MHz SPS context."
+    }
+  },
+  {
+    "id": "ev_acc_delta_orv3_ai_server_psu_2026",
+    "type": "product_page",
+    "title": "Delta ORV3 3kW AI server power supply",
+    "url": "https://www.deltaww.com/en-US/products/orv3-server-power/ORV3-3-kW-PSU",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Delta Electronics",
+    "date": "accessed 2026-06-19",
+    "summary": "Delta lists an ORV3 3kW PSU as an AI server power supply based on OCP Open Rack v3, and broader AI data-center power-shelf announcements.",
+    "excerpt": "AI Server Power Supply based on Open Compute Project (OCP) Open Rack version 3",
+    "supportsNodeIds": [
+      "rack_power_supply_unit",
+      "org_delta_electronics"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_psu__manufactured_by__delta"
+    ],
+    "limitations": "Official product page supports Delta AI server PSU/power-shelf exposure; it does not prove a customer-specific accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned Delta ORV3 3kW PSU page with the stored AI Server Power Supply/OCP ORV3 quote; related Delta official pages list 5.5kW, 33kW, 66kW, 72kW, and 90kW AI data-center power shelves."
+    }
+  },
+  {
+    "id": "ev_acc_eaton_orv3_power_shelf_2026",
+    "type": "product_page",
+    "title": "Eaton Open Rack v3 power shelf",
+    "url": "https://www.opencompute.org/ai-marketplace/products/389/eaton-open-rack-v3-orv3-power-shelf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Open Compute Project / Eaton",
+    "date": "accessed 2026-06-19",
+    "summary": "The OCP marketplace lists Eaton Open Rack v3 power shelf with up to 18kW DC power in 1U and N+1 operation.",
+    "excerpt": "provides up to 18 kW of DC power (15 kW N+1) in 1U space",
+    "supportsNodeIds": [
+      "rack_power_supply_unit",
+      "org_eaton"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_psu__manufactured_by__eaton"
+    ],
+    "limitations": "OCP marketplace listing supports Eaton ORV3 rack power-shelf exposure; it does not prove a customer-specific accelerator BOM.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned OCP marketplace Eaton ORV3 power-shelf listing with the stored 18kW/15kW N+1 quote; Eaton official pages also describe ORV3-compatible rack power solutions."
+    }
+  },
+  {
+    "id": "ev_acc_molex_datacenter_high_power_connectors_2026",
+    "type": "product_page",
+    "title": "Molex data center high-power connector solutions",
+    "url": "https://www.molex.com/en-us/industries-applications/power-for-data-center",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Molex",
+    "date": "accessed 2026-06-19",
+    "summary": "Molex describes high-power connector expertise for data-center applications and power-distribution performance.",
+    "excerpt": "expertise in the field of high-power connectors",
+    "supportsNodeIds": [
+      "connector_and_cabling",
+      "org_molex"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_connector__manufactured_by__molex"
+    ],
+    "limitations": "Official application page supports Molex high-power data-center connector exposure; it does not prove a customer-specific accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search returned Molex data-center power page with the stored high-power connector quote; Molex PowerWize page also lists high-current connectors up to 190A."
+    }
+  },
+  {
+    "id": "ev_acc_te_datacenter_ai_power_connectors_2026",
+    "type": "product_page",
+    "title": "TE Data Center & AI power connector portfolio",
+    "url": "https://www.te.com/en/industries/data-centers-ai/portfolio.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "TE Connectivity",
+    "date": "accessed 2026-06-19",
+    "summary": "TE describes a Data Center & AI portfolio with power connectors including busbar power distribution, power supply interconnects, wire-to-board, and backplane power.",
+    "excerpt": "broad power connector portfolio including busbar power distribution",
+    "supportsNodeIds": [
+      "connector_and_cabling",
+      "org_te_connectivity"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_connector__manufactured_by__te_connectivity"
+    ],
+    "limitations": "Official portfolio page supports TE data-center/AI power connector exposure; it does not prove a customer-specific accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search returned TE Data Center & AI portfolio page with the stored busbar/power-supply interconnect quote; related TE insight pages mention optics, copper, power, and liquid cooling."
+    }
+  },
+  {
+    "id": "ev_acc_murata_ai_server_pdn_passives_2026",
+    "type": "product_page",
+    "title": "Murata AI server power-delivery network guide",
+    "url": "https://www.murata.com/en-us/news/other/other/2026/0204",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Murata Manufacturing",
+    "date": "2026-02-04",
+    "summary": "Murata launched an AI-server PDN guide covering power-circuit design, advanced component selection, power stability, and loss reduction for AI data centers.",
+    "excerpt": "Optimizing Power Delivery Networks for AI Servers in Next-Generation Data Centers",
+    "supportsNodeIds": [
+      "vrm_capacitor_bulk",
+      "vrm_inductor",
+      "org_murata"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_capacitor__manufactured_by__murata",
+      "e_acc_pwr_inductor__manufactured_by__murata"
+    ],
+    "limitations": "Official guide supports Murata passive-component exposure for AI-server PDNs; it is a design guide, not a named accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search returned Murata official PDN guide release with the stored guide title, AI-server power stability/loss-reduction context, and data-center power-circuit design focus. Murata server lineup page lists MLCCs and inductors."
+    }
+  },
+  {
+    "id": "ev_acc_tdk_datacenter_psu_mlcc_2026",
+    "type": "product_page",
+    "title": "TDK MLCC solutions for data center PSU power systems",
+    "url": "https://product.tdk.com/en/techlibrary/applicationnote/mlcc-solution-for-data-center-psu.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "TDK",
+    "date": "accessed 2026-06-19",
+    "summary": "TDK describes MLCC requirements for data-center PSUs, including higher voltage ratings, lower ESR, higher reliability, and 48V output capacitors.",
+    "excerpt": "MLCCs demand higher voltage ratings, lower ESR, and higher reliability",
+    "supportsNodeIds": [
+      "vrm_capacitor_bulk",
+      "org_tdk"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_capacitor__manufactured_by__tdk"
+    ],
+    "limitations": "Official application note supports TDK MLCC exposure for data-center PSU / power systems; it does not prove a named accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned TDK official data-center PSU MLCC application note with the stored quote and 48V output capacitor context."
+    }
+  },
+  {
+    "id": "ev_acc_tdk_power_inductors_2026",
+    "type": "product_page",
+    "title": "TDK power inductors for DC-DC converters",
+    "url": "https://product.tdk.com/en/techlibrary/applicationnote/howto_power-inductors.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "TDK",
+    "date": "accessed 2026-06-19",
+    "summary": "TDK explains power inductors for DC-DC converters and switching regulators; TDK product pages also list high-current power inductors.",
+    "excerpt": "A power inductor is used in a step-up, step-down, or step-up/step-down circuit",
+    "supportsNodeIds": [
+      "vrm_inductor",
+      "org_tdk"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_inductor__manufactured_by__tdk"
+    ],
+    "limitations": "Official technical article supports TDK power-inductor exposure for DC-DC conversion; it is not a named accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search returned TDK official power-inductor application note with the stored DC-DC converter quote; product center lists high-current and low-inductance power inductors."
+    }
+  },
+  {
+    "id": "ev_acc_samsung_em_ai_power_mlcc_2026",
+    "type": "product_page",
+    "title": "Samsung Electro-Mechanics MLCCs for AI power architectures",
+    "url": "https://product.samsungsem.com/product-news/view.do?idx=3622&language=en",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Samsung Electro-Mechanics",
+    "date": "2025-10",
+    "summary": "Samsung Electro-Mechanics describes high-voltage and high-capacitance MLCCs for power, computing, network and AI infrastructure, including 48V AI-server power systems.",
+    "excerpt": "high-voltage, high-capacitance MLCC products designed to support these sophisticated power architectures",
+    "supportsNodeIds": [
+      "vrm_capacitor_bulk",
+      "org_samsung_electro_mechanics"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pwr_capacitor__manufactured_by__samsung_em"
+    ],
+    "limitations": "Official product-news page supports Samsung Electro-Mechanics MLCC exposure for AI/power architectures; it does not prove a named accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned Samsung Electro-Mechanics product-news page with the stored quote plus 48V power systems for AI servers and computing/network context."
+    }
   }
 ]
