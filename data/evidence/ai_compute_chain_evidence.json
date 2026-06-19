@@ -7843,5 +7843,33 @@
       "numberInQuote": true,
       "notes": "web.open fetched Schneider Electric's liquid-cooling page. Lines 202-L215 contain the stored MCDU-70, 2.5MW, high-density data-center and 10MW+ AI/HPC scalability text."
     }
+  },
+  {
+    "id": "ev_acc_hoya_information_technology_euv_mask_blanks",
+    "type": "product_page",
+    "title": "HOYA Information Technology: mask blanks and photomasks",
+    "url": "https://www.hoya.com/en/business/informationtechnology/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "HOYA Corporation",
+    "date": "accessed 2026-06-19",
+    "summary": "HOYA's official Information Technology business page says mask blanks and photomasks are essential for semiconductor manufacturing and that HOYA leads development of products for EUV lithography.",
+    "excerpt": "HOYA leads the development of products for EUV lithography",
+    "supportsNodeIds": [
+      "euv_photomask_production",
+      "org_hoya"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_euv_mask__manufactured_by__hoya"
+    ],
+    "limitations": "Official HOYA business page; supports HOYA EUV lithography mask-blank/photomask capability. It does not support market-share, High-NA exclusivity, or qualification-status claims.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched HOYA's Information Technology page. Lines 66-L69 describe mask blanks/photomasks for semiconductor manufacturing and HOYA's EUV lithography product-development role."
+    }
   }
 ]

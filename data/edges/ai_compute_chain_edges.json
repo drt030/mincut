@@ -326,8 +326,12 @@
     "source": "euv_photomask_production",
     "target": "org_agc",
     "relation": "manufactured_by",
+    "claim": "AGC is modeled as an EUV mask-blank supplier for EUV photomask production, with official evidence of EUVL mask blank capacity expansion.",
+    "context": "Supplier exposure for EUV photomask blank inputs; evidence supports AGC EUVL mask blank capability and capacity expansion, not High-NA exclusivity.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7_agc_euvl_capacity_official"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -335,8 +339,12 @@
     "source": "euv_photomask_production",
     "target": "org_hoya",
     "relation": "manufactured_by",
+    "claim": "HOYA is modeled as an EUV mask blank and photomask supplier candidate for semiconductor EUV lithography.",
+    "context": "Supplier exposure for EUV photomask blanks; evidence supports HOYA's EUV lithography product capability, not an exclusive or quantified market-share claim.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_hoya_information_technology_euv_mask_blanks"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -379,8 +387,13 @@
     "source": "asml_lithography_systems",
     "target": "org_asml",
     "relation": "manufactured_by",
+    "claim": "ASML is modeled as the sole EUV lithography system supplier for leading-edge AI logic-node manufacturing.",
+    "context": "Supplier exposure for EUV lithography capacity; evidence supports ASML EUV system shipments and EUV single-source position, not a specific foundry purchase order.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6l_asml_euv_2025",
+      "ev_acc_r6l_asml_sole_supplier"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1619,7 +1632,9 @@
     "relation": "manufactured_by",
     "claim": "Shinko Electric manufactures chiplet-interconnect substrates for advanced packaging with secondary player share.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_sub2_shinko_abf_supply"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1629,7 +1644,9 @@
     "relation": "manufactured_by",
     "claim": "AT&S manufactures high-density interconnect chiplet-substrate for advanced packaging, with strength in HDI and multilayer design.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_sub2_ats_hdi_capacity"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
