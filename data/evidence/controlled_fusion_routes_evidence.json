@@ -2,12 +2,12 @@
   {
     "id": "ev_fusion_iaea_tokamak_stellarator",
     "type": "expert_review",
-    "title": "Magnetic fusion confinement with tokamaks and stellarators",
-    "url": "https://www.iaea.org/bulletin/magnetic-fusion-confinement-with-tokamaks-and-stellarators",
-    "sourceStatus": "unreachable",
+    "title": "IAEA global perspective on tokamaks and stellarators",
+    "url": "https://www.iaea.org/newscenter/news/tokamaks-stellarators-laser-based-and-alternative-concepts-report-offers-global-perspective-on-nuclear-fusion-devices",
+    "sourceStatus": "ok_exact",
     "sourceName": "International Atomic Energy Agency",
-    "date": "2026-06-12",
-    "summary": "IAEA explains magnetic confinement and distinguishes tokamaks and stellarators as the most common magnetic-confinement devices. Used to support route separation, not plant readiness.",
+    "date": "2023-02-20",
+    "summary": "IAEA describes tokamaks and stellarators as common toroidal fusion devices with large magnets controlling plasma movement and notes over 50 tokamaks and over 10 stellarators in operation worldwide.",
     "supportsNodeIds": [
       "controlled_fusion_route_portfolio",
       "fusion_primary_route_family",
@@ -19,14 +19,17 @@
       "e_fusion_primary_family__has_route__tokamak",
       "e_fusion_primary_family__has_route__stellarator"
     ],
-    "limitations": "demote: iaea.org/bulletin returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable.",
-    "confidence": "medium",
+    "limitations": "Supports route-family separation and magnetic-confinement route framing; it does not prove commercial plant readiness.",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "demote: iaea.org/bulletin returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable."
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on IAEA 2023 fusion-devices news page found the stored tokamak/stellarator quote, magnet/plasma context, and counts of more than 50 tokamaks and over 10 stellarators."
+    },
+    "excerpt": "Tokamaks and stellarators, for example, are the most common devices and the focus of much of the current research."
   },
   {
     "id": "ev_fusion_us_approaches",
@@ -461,12 +464,12 @@
   {
     "id": "ev_fusion_iaea_tritium_breeding",
     "type": "expert_review",
-    "title": "Technical Meeting on Tritium Breeding Blankets and Associated Neutronics",
-    "url": "https://www.iaea.org/events/evt2304553",
-    "sourceStatus": "unreachable",
+    "title": "IAEA technical meeting on tritium breeding blankets and neutronics",
+    "url": "https://conferences.iaea.org/event/406/",
+    "sourceStatus": "ok_exact",
     "sourceName": "International Atomic Energy Agency",
-    "date": "2026-06-12",
-    "summary": "IAEA frames tritium breeding blankets and associated neutronics as important novel components for next-step devices after ITER, including design, fabrication, integration, operation, reliability, availability, and qualification issues.",
+    "date": "2025-09-02",
+    "summary": "IAEA frames tritium breeding blankets as important novel components for planned next-step devices after ITER and highlights qualification, feasibility, attractiveness, and ITER TBM return-of-experience objectives.",
     "supportsNodeIds": [
       "controlled_fusion_tritium_breeding_fuel_cycle",
       "fusion_breeding_blanket_heat_extraction",
@@ -475,14 +478,17 @@
     "supportsEdgeIds": [
       "e_fusion_shared__requires__tritium_cycle"
     ],
-    "limitations": "demote: iaea.org event page returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable.",
+    "limitations": "Supports tritium-cycle/breeding-blanket dependency framing; it does not prove a resolved tritium breeding design for a commercial plant.",
     "confidence": "high",
-    "reviewStatus": "reviewed",
+    "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "demote: iaea.org event page returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable."
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on IAEA Indico event page found the stored quote, D-T in-situ breeding requirement, and qualification / ITER TBM program objectives."
+    },
+    "excerpt": "tritium breeding blankets are one of the most important and novel technical components in any planned next step devices to follow ITER"
   },
   {
     "id": "ev_fusion_doe_materials",

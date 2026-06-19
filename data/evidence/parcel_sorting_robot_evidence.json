@@ -1595,33 +1595,40 @@
   },
   {
     "id": "ev_barcode_ocr_cognex_no_reads_2026",
-    "type": "expert_review",
-    "title": "Cognex no-read guidance for industrial barcode readers",
-    "url": "https://www.cognex.cn/zh-cn/blogs/industrial-barcode-reader/no-reads",
+    "type": "product_page",
+    "title": "Cognex retail distribution barcode reading and no-read tracking guide",
+    "url": "https://scg-lm.s3.amazonaws.com/pdfs/cognex-wp-retail-distribution-073119.pdf",
     "sourceName": "Cognex",
-    "date": "2026-06-07",
-    "summary": "Cognex guidance treats no-reads as an important distribution-center metric because failed reads can require manual handling or keying; it also discusses damaged or imperfect codes.",
+    "date": "2019",
+    "summary": "Cognex logistics material says barcode reading supports automated sorting, reduces manual rework, provides performance feedback including no-read tracking and code-quality metrics, and has parcel/postal applications.",
     "supportsNodeIds": [
       "barcode_ocr_reading_software",
       "barcode_ocr_no_read_recovery",
       "barcode_ocr_benchmark_metrics",
-      "parcel_label_training_dataset"
+      "parcel_label_training_dataset",
+      "org_cognex"
     ],
     "supportsEdgeIds": [
       "e_mfg_barcode_ocr_cognex",
       "e_barcode_ocr_requires_no_read_recovery",
       "e_barcode_ocr_requires_training_dataset",
-      "e_barcode_ocr_requires_benchmark_metrics"
+      "e_barcode_ocr_requires_benchmark_metrics",
+      "e_impl_barcode_ocr_no_read_recovery_cognex",
+      "e_impl_parcel_label_training_dataset_cognex",
+      "e_impl_barcode_ocr_benchmark_metrics_cognex"
     ],
-    "limitations": "demote: URL is dead. WebFetch returned 403; browser render shows the Cognex 404 page (title '未找到 | 康耐视' / Not Found), body: '您点击或键入的链接不会导致任何内容' (the link leads to no content). No supporting content exists at this URL.",
-    "confidence": "medium",
+    "limitations": "Supports logistics barcode-reading, no-read tracking, performance feedback, and damaged-code handling; it does not provide target-cell benchmark results for this robot product.",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "404",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "demote: URL is dead. WebFetch returned 403; browser render shows the Cognex 404 page (title '未找到 | 康耐视' / Not Found), body: '您点击或键入的链接不会导致任何内容' (the link leads to no content). No supporting content exists at this URL."
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on Cognex retail distribution logistics PDF found automated sorting read-rate/no-read/manual-intervention context, performance feedback including no-read tracking, and parcel/postal application language."
+    },
+    "excerpt": "Provides performance feedback for networked DataMan fixed-mount barcode readers, including no-read tracking, code quality metrics, heat mapping, and configuration audit trails."
   },
   {
     "id": "ev_barcode_ocr_cognex_ocrmax_2026",
@@ -2479,7 +2486,7 @@
     ],
     "limitations": "demote: Original Bastian gapping-belt-induction URL 301-redirects (bastiansolutions -> bastianautomation -> toyota-automated-logistics.com/technology/sortation-systems), a generic sortation overview. The specific gapping-belt-induction page no longer exists; landing page does not cover induction/singulation/gap-control/exception-recovery.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "wrong_topic",
     "machineCheck": {
       "status": "failed",
@@ -4170,5 +4177,43 @@
     "limitations": "Internal allocation only. Not a commodity-price quote, supplier bid, mass-based BOM, or reviewed teardown. Replace with material-mass estimates, commodity prices, scrap/recycling assumptions, and supplier quotes before review promotion.",
     "confidence": "low",
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "ev_induction_dematic_sortation_gapping_2026",
+    "type": "product_page",
+    "title": "Dematic sortation induction, gapping, scanning, and speed control",
+    "url": "https://www.dematic.com/content/dam/dematic/downloads/brochures/NA_BR-1070_Dematic-Sortation-Solutions.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Dematic",
+    "date": "accessed 2026-06-19",
+    "summary": "Dematic sortation material states that induction creates minimum gaps, the sorter controller performs carton gapping and scanning, and single-line induct modules use 4/6/8 gapping belts, VFDs, and horizontal array sensors.",
+    "excerpt": "Induction: Creates minimum gaps between loads and maximizes the flow onto the sorter",
+    "supportsNodeIds": [
+      "parcel_induction_spacing_control",
+      "parcel_singulation_and_metering",
+      "dynamic_gap_control_logic",
+      "induction_sensor_array",
+      "variable_speed_induction_drive",
+      "induction_exception_recovery"
+    ],
+    "supportsEdgeIds": [
+      "e_induction_spacing_requires_singulation_metering",
+      "e_induction_spacing_requires_dynamic_gap_control",
+      "e_induction_spacing_requires_sensor_array",
+      "e_induction_spacing_requires_variable_speed_drive",
+      "e_induction_spacing_requires_exception_recovery",
+      "e_product_conveyor_requires_induction_sensor_array",
+      "e_product_conveyor_requires_variable_speed_induction_drive"
+    ],
+    "limitations": "Supports induction/gapping/control architecture in automated sortation; it does not prove the specific low-cost parcel robot cell uses a Dematic subsystem.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Dematic Sortation Solutions PDF found induction/minimum-gap language, carton gapping/scanning, user-configurable gap/speed/sensor settings, and 4/6/8 gapping belts with VFD and horizontal array sensors."
+    }
   }
 ]
