@@ -2327,7 +2327,10 @@
     "relation": "manufactured_by",
     "claim": "Rollvis makes planetary/satellite roller screws; the grooved rollers are captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_rollvis_identity"
+    ]
   },
   {
     "id": "e_humanoid_rs_rollers__manufactured_by__gsa",
@@ -2336,7 +2339,11 @@
     "relation": "manufactured_by",
     "claim": "GSA (Gewinde Ziegler) makes planetary roller screws in-house; the grooved rollers are captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_gsa_rgti",
+      "ev_humanoid_gsa_inhouse"
+    ]
   },
   {
     "id": "e_humanoid_rs_rollers__manufactured_by__schaeffler",
@@ -2345,7 +2352,11 @@
     "relation": "manufactured_by",
     "claim": "Schaeffler makes planetary roller screws via Ewellix; the grooved rollers are captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ewellix_schaeffler",
+      "ev_humanoid_ewellix_rollerscrew"
+    ]
   },
   {
     "id": "e_humanoid_rs_rollers__reported_capable_supplier__picea",
@@ -2354,7 +2365,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Shenzhen PICEA Motion is carried as a capable roller-screw maker for the grooved planetary rollers; reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_picea_profile"
+    ]
   },
   {
     "id": "e_humanoid_rs_nut__manufactured_by__rollvis",
@@ -2363,7 +2377,10 @@
     "relation": "manufactured_by",
     "claim": "Rollvis makes planetary/satellite roller screws; the internally-threaded nut is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_rollvis_identity"
+    ]
   },
   {
     "id": "e_humanoid_rs_nut__manufactured_by__gsa",
@@ -2372,7 +2389,11 @@
     "relation": "manufactured_by",
     "claim": "GSA (Gewinde Ziegler) makes planetary roller screws in-house; the internally-threaded nut is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_gsa_rgti",
+      "ev_humanoid_gsa_inhouse"
+    ]
   },
   {
     "id": "e_humanoid_rs_nut__manufactured_by__schaeffler",
@@ -2381,7 +2402,11 @@
     "relation": "manufactured_by",
     "claim": "Schaeffler makes planetary roller screws via Ewellix; the internally-threaded nut is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ewellix_schaeffler",
+      "ev_humanoid_ewellix_rollerscrew"
+    ]
   },
   {
     "id": "e_humanoid_hollow_cup_motor__manufactured_by__maxon",
@@ -2426,7 +2451,10 @@
     "relation": "manufactured_by",
     "claim": "PaXini makes multidimensional tactile sensors and is a named maker of the fingertip tactile element; supplier-candidate (who-makes-what), not a confirmed third-party-OEM BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_paxini_tactile"
+    ]
   },
   {
     "id": "e_humanoid_fingertip_element__manufactured_by__xela",
@@ -2435,7 +2463,11 @@
     "relation": "manufactured_by",
     "claim": "XELA Robotics makes uSkin tactile sensors and is a named maker of the fingertip tactile element; supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_xela_uskin",
+      "ev_humanoid_xela_tesollo"
+    ]
   },
   {
     "id": "e_humanoid_fingertip_element__reported_capable_supplier__te",
@@ -2537,7 +2569,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Nippon Steel makes thin high-grade non-oriented electrical steel and is carried as a capable lamination-steel supplier; reported-capable, qualitative.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_mfg_nippon_steel_electrical_steel_2022"
+    ]
   },
   {
     "id": "e_humanoid_lamination_steel__reported_capable_supplier__posco",
@@ -2546,7 +2581,10 @@
     "relation": "reported_capable_supplier",
     "claim": "POSCO makes electrical steel and is carried as a capable lamination-steel supplier; reported-capable, qualitative.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_mfg_posco_electrical_steel_2026"
+    ]
   },
   {
     "id": "e_humanoid_lamination_steel__reported_capable_supplier__baosteel",
@@ -2555,7 +2593,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Baowu/Baosteel makes electrical steel and is carried as a capable lamination-steel supplier; reported-capable, qualitative.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_mfg_baosteel_electrical_steel_2026"
+    ]
   },
   {
     "id": "e_humanoid_ndfeb_feedstock__manufactured_by__jl_mag",
@@ -2613,7 +2654,10 @@
     "relation": "manufactured_by",
     "claim": "ATI (Novanta) is the Western reference six-axis F/T sensor maker; the elastic element is captive in its sensors. Supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ati_novanta_ft"
+    ]
   },
   {
     "id": "e_humanoid_ft_elastic_element__manufactured_by__bota",
@@ -2622,7 +2666,10 @@
     "relation": "manufactured_by",
     "claim": "Bota Systems makes compact six-axis F/T sensors; the elastic element is captive in its sensors. Supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_bota_ft"
+    ]
   },
   {
     "id": "e_humanoid_ft_elastic_element__manufactured_by__sri",
@@ -2631,7 +2678,10 @@
     "relation": "manufactured_by",
     "claim": "Sunrise Instruments (SRI) makes a humanoid six-axis F/T sensor line; the elastic element is captive in its sensors. Supplier-candidate (who-makes-what), not a confirmed named-OEM BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_sri_ft"
+    ]
   },
   {
     "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__ams_osram",
@@ -2694,7 +2744,10 @@
     "relation": "manufactured_by",
     "claim": "HEIDENHAIN is the reference high-resolution optical-encoder maker; supplier-candidate (who-makes-what) for the optical code disk, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_heidenhain_robot_encoders"
+    ]
   },
   {
     "id": "e_humanoid_encoder_optical__reported_capable_supplier__renishaw",
@@ -2703,7 +2756,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Renishaw makes optical position encoders; carried as a capable optical-code-disk supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_mfg_renishaw_position_encoders_2026"
+    ]
   },
   {
     "id": "e_humanoid_encoder_optical__reported_capable_supplier__broadcom",
@@ -2721,7 +2777,11 @@
     "relation": "manufactured_by",
     "claim": "Victrex is the reference high-performance PEEK maker; supplier-candidate (who-makes-what) for PEEK / CF-PEEK structure, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_victrex_robotics",
+      "ev_humanoid_victrex_ticker"
+    ]
   },
   {
     "id": "e_humanoid_struct_peek__reported_capable_supplier__evonik",
@@ -2730,7 +2790,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Evonik (VESTAKEEP) makes high-performance PEEK; carried as a capable PEEK / CF-PEEK supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_evonik_vestakeep_robotics"
+    ]
   },
   {
     "id": "e_humanoid_inverter_power_switch__manufactured_by__infineon",
@@ -2997,7 +3060,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Henkel makes high-performance thermal interface materials; carried as a capable TIM supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_henkel_bergquist_tim"
+    ]
   },
   {
     "id": "e_humanoid_tim__reported_capable_supplier__dow",
