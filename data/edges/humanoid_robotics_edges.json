@@ -2690,7 +2690,10 @@
     "relation": "reported_capable_supplier",
     "claim": "ams-OSRAM is the reference rotary magnetic position-encoder ASIC maker (AS5xxx); carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ams_osram_as5145"
+    ]
   },
   {
     "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__mpwr",
@@ -2699,7 +2702,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Monolithic Power Systems makes angular/position-sensor ICs (MagAlpha); carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_mps_magalpha"
+    ]
   },
   {
     "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__renishaw",
@@ -2768,7 +2774,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Broadcom makes optical encoders; carried as a capable optical-code-disk supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_broadcom_reflective_encoder"
+    ]
   },
   {
     "id": "e_humanoid_struct_peek__manufactured_by__victrex",
@@ -3006,7 +3015,10 @@
     "relation": "reported_capable_supplier",
     "claim": "SK hynix is one of the three DRAM/LPDDR makers; carried as a capable on-module LPDDR supplier. The deep DRAM/HBM chain lives in ai_compute_chain (documented boundary); reported-capable here.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_skhynix_socamm2_lpddr"
+    ]
   },
   {
     "id": "e_humanoid_lpddr_memory__reported_capable_supplier__micron",
@@ -3015,7 +3027,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Micron is one of the three DRAM/LPDDR makers; carried as a capable on-module LPDDR supplier. The deep DRAM/HBM chain lives in ai_compute_chain (documented boundary); reported-capable here.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_micron_socamm2"
+    ]
   },
   {
     "id": "e_humanoid_heat_pipe__reported_capable_supplier__auras",
@@ -3081,6 +3096,9 @@
     "relation": "reported_capable_supplier",
     "claim": "TE Connectivity carries force/strain-sensing capability and is carried as capable of the foil/silicon strain transducer bonded to the F/T elastic element; reported-capable, no humanoid-named supply quote. Strain-gauge specialists HBK/Hottinger and Kyowa are private and not added as listed orgs.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_te_force_strain"
+    ]
   }
 ]

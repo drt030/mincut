@@ -3081,5 +3081,173 @@
       "numberInQuote": false,
       "notes": "web.open fetched ADI's MEMS IMU brochure PDF. Page 1 lines 14-L15 contain the stored inertial-sensing excerpt and industrial motion-sensor context."
     }
+  },
+  {
+    "id": "ev_humanoid_micron_socamm2",
+    "type": "product_page",
+    "title": "Micron SOCAMM2 LPDDR5X module for AI data centers",
+    "url": "https://www.micron.com/products/memory/lpddr-modules/socamm",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Micron Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "Micron describes SOCAMM2 as a data-center modular form factor for LPDDR5X and positions it as a low-power AI data-center memory module.",
+    "excerpt": "data center class modular form factor for LPDDR5X",
+    "supportsNodeIds": [
+      "org_micron",
+      "humanoid_compute_lpddr_memory"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_lpddr_memory__reported_capable_supplier__micron"
+    ],
+    "limitations": "Official product page supports Micron LPDDR5X on-module memory capability. It does not prove a humanoid OEM memory BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Micron SOCAMM2 page; lines 303-306 contain the stored LPDDR5X modular-form-factor excerpt and lines 316-323 describe low-power AI memory use."
+    }
+  },
+  {
+    "id": "ev_humanoid_skhynix_socamm2_lpddr",
+    "type": "news",
+    "title": "SK hynix MWC 2026 AI memory lineup includes SOCAMM2 LPDDR5X module",
+    "url": "https://news.skhynix.com/mwc-2026/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "SK hynix Newsroom",
+    "date": "2026-03-05",
+    "summary": "SK hynix describes SOCAMM2 as a next-generation memory module combining LPDDR5X low-power characteristics with high-performance AI modules, and separately lists Auto/Robotics LPDDR5/5X.",
+    "excerpt": "SOCAMM2 ... combines the low-power characteristics of LPDDR5X",
+    "supportsNodeIds": [
+      "org_skhynix",
+      "humanoid_compute_lpddr_memory"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_lpddr_memory__reported_capable_supplier__skhynix"
+    ],
+    "limitations": "Company newsroom article supports SK hynix LPDDR5X module and auto/robotics LPDDR capability. It does not prove a humanoid OEM memory BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched SK hynix MWC 2026 article. Lines 83-91 contain SOCAMM2/LPDDR5X module context; lines 112-113 list Auto/Robotics LPDDR5/5X."
+    }
+  },
+  {
+    "id": "ev_humanoid_ams_osram_as5145",
+    "type": "product_page",
+    "title": "ams OSRAM AS5145 magnetic rotary encoder system-on-chip datasheet",
+    "url": "https://look.ams-osram.com/m/5835d15632039c2e/original/AS5145-DS000398.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "ams OSRAM",
+    "date": "2020-11-25",
+    "summary": "The AS5145 datasheet describes a contactless magnetic rotary encoder system-on-chip with Hall elements, analog front end, and DSP in a single device.",
+    "excerpt": "The AS5145 is a contactless magnetic rotary encoder",
+    "supportsNodeIds": [
+      "org_ams_osram",
+      "humanoid_encoder_magnetic_asic"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__ams_osram"
+    ],
+    "limitations": "Official datasheet supports ams OSRAM magnetic rotary encoder ASIC capability for industrial/robotics applications. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched the PDF; page 1 lines 7-12 contain the stored encoder and system-on-chip text, and page 2 lines 46-49 list industrial/robotics applications."
+    }
+  },
+  {
+    "id": "ev_humanoid_mps_magalpha",
+    "type": "product_page",
+    "title": "Monolithic Power Systems MagAlpha magnetic angle sensor family",
+    "url": "https://www.monolithicpower.com/en/learning/resources/introduction-to-the-magalpha-magnetic-angle-sensor-family",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Monolithic Power Systems",
+    "date": "accessed 2026-06-19",
+    "summary": "MPS describes its MagAlpha family as magnetic angle sensors with SPI/SSI/ABZ/PWM interfaces suited to actuators, encoders, and field-oriented motor control.",
+    "excerpt": "suited to any general angle-sensing or speed-sensing applications including actuators, encoders",
+    "supportsNodeIds": [
+      "org_monolithic_power",
+      "humanoid_encoder_magnetic_asic"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__mpwr"
+    ],
+    "limitations": "Official product-family article supports MPS/MagAlpha magnetic angle-sensor IC capability. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched MPS MagAlpha article; lines 573-576 contain the stored angle-sensing, actuator, encoder, and motor-control context."
+    }
+  },
+  {
+    "id": "ev_humanoid_broadcom_reflective_encoder",
+    "type": "news",
+    "title": "Broadcom/Avago reflective encoder integrates LED source and photodetector circuitry",
+    "url": "https://investors.broadcom.com/news-releases/news-release-details/avago-enables-unprecedented-miniaturization-motor-encoding",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Broadcom Inc. / Avago Technologies",
+    "date": "2011-03-15",
+    "summary": "Broadcom predecessor Avago announced reflective optical encoder modules integrating LED light source, photodetecting, and interpolator circuitry for motor encoding systems.",
+    "excerpt": "integrate an LED light source, photodetecting and interpolator circuitry",
+    "supportsNodeIds": [
+      "org_broadcom",
+      "humanoid_encoder_optical_codedisk"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_encoder_optical__reported_capable_supplier__broadcom"
+    ],
+    "limitations": "Official corporate release is old but directly supports Broadcom/Avago optical encoder capability. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Broadcom investor release; lines 65-72 contain motor-encoding, LED light source, photodetecting, interpolator, codewheel, and optical-based module context."
+    }
+  },
+  {
+    "id": "ev_humanoid_te_force_strain",
+    "type": "product_page",
+    "title": "TE Connectivity force sensors and strain gauge technology",
+    "url": "https://www.te.com/en/products/sensors/force-sensors.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "TE Connectivity",
+    "date": "accessed 2026-06-19",
+    "summary": "TE describes force sensors based on proprietary piezoresistive silicon strain gauge technology and lists robotics as an application category.",
+    "excerpt": "proprietary piezoresistive silicon strain gauge",
+    "supportsNodeIds": [
+      "org_humanoid_te_connectivity",
+      "humanoid_ft_strain_transducer"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_ft_strain_transducer__reported_capable_supplier__te"
+    ],
+    "limitations": "Official TE page supports force/strain sensor capability and robotics applications. It does not support TE as a fingertip tactile-sensor supplier, so it is not attached to the fingertip tactile edge.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched TE force sensors page; lines 520-528 contain the stored force-sensor and piezoresistive silicon strain gauge text, and lines 531-536 list robotics as an application category."
+    }
   }
 ]
