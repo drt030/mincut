@@ -7753,5 +7753,95 @@
       "numberInQuote": false,
       "notes": "web.open fetched Marvell's PCIe retimer page. Lines 208-L232 describe Alaska P PCIe Gen 6/CXL 3 retimers for AI server/node compute fabrics and on-board / PCIe cable module integration."
     }
+  },
+  {
+    "id": "ev_acc_vertiv_xdu450_cdu_official",
+    "type": "product_page",
+    "title": "Vertiv Liebert XDU450 Coolant Distribution Unit",
+    "url": "https://www.vertiv.com/en-us/products-catalog/thermal-management/high-density-solutions/liebert-xdu450-coolant-distribution-unit/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Vertiv",
+    "date": "accessed 2026-06-19",
+    "summary": "Vertiv describes the Liebert XDU450 coolant distribution unit as supporting liquid cooling in high-density environments, including chip and rear-door cooling applications, with liquid-to-liquid heat exchange for higher rack densities.",
+    "excerpt": "designed to support liquid cooling within high density environments",
+    "supportsNodeIds": [
+      "cooling_distribution_unit_cdu",
+      "org_vertiv"
+    ],
+    "supportsEdgeIds": [
+      "e_cdu__manufactured_by__vertiv"
+    ],
+    "limitations": "Official product page; supports Vertiv CDU product capability. It does not prove deployment in a named AI data center.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Vertiv's XDU450 page. Lines 130-L132 and 174-L180 contain the stored CDU/liquid-cooling text and high-density rack benefits."
+    }
+  },
+  {
+    "id": "ev_acc_coolit_chx2000_ai_cdu",
+    "type": "news",
+    "title": "CoolIT CHx2000 AI CDU",
+    "url": "https://www.coolitsystems.com/resources/news/chx2000-the-ai-cdu/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "CoolIT Systems",
+    "date": "2026-03-06",
+    "summary": "CoolIT says the CHx2000 is a liquid-to-liquid coolant distribution unit developed specifically for ultra-dense AI compute clusters, with CoolIT's broader data-center product line covering liquid cooling infrastructure.",
+    "excerpt": "a liquid-to-liquid CDU designed specifically for ultra-dense AI compute clusters",
+    "supportsNodeIds": [
+      "cooling_distribution_unit_cdu",
+      "cdu_rapid_deployment_kit",
+      "org_coolit_systems"
+    ],
+    "supportsEdgeIds": [
+      "e_cdu__manufactured_by__coolitsystems",
+      "e_modular_cdu__manufactured_by__coolitsystems"
+    ],
+    "limitations": "Official CoolIT article; supports AI-CDU product capability. It does not prove specific customer deployment or universal modular lead-time.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched CoolIT's CHx2000 article. Lines 141-L150 describe AI workload density, CHx2000 as an AI CDU, and liquid-to-liquid CDU design for ultra-dense AI compute clusters."
+    }
+  },
+  {
+    "id": "ev_acc_schneider_motivair_mcdu70_ai_cdu",
+    "type": "product_page",
+    "title": "Schneider Electric / Motivair MCDU-70 high-capacity CDU",
+    "url": "https://www.se.com/us/en/work/solutions/data-centers-and-networks/liquid-cooling/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Schneider Electric",
+    "date": "accessed 2026-06-19",
+    "summary": "Schneider Electric says Motivair by Schneider Electric introduced the MCDU-70, a 2.5MW coolant distribution unit for high-density data centers that can scale beyond 10MW for next-generation AI and HPC environments.",
+    "excerpt": "2.5MW Coolant Distribution Unit designed for high-density data centers",
+    "supportsNodeIds": [
+      "cooling_distribution_unit_cdu",
+      "cdu_rapid_deployment_kit",
+      "org_schneider_electric",
+      "org_motivair"
+    ],
+    "supportsEdgeIds": [
+      "e_cdu__manufactured_by__schneider_electric",
+      "e_modular_cdu__manufactured_by__schneider_electric",
+      "e_cdu__manufactured_by__motivair"
+    ],
+    "limitations": "Official Schneider Electric page; supports Schneider/Motivair CDU product capability and AI/HPC positioning. It does not prove a specific customer deployment.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Schneider Electric's liquid-cooling page. Lines 202-L215 contain the stored MCDU-70, 2.5MW, high-density data-center and 10MW+ AI/HPC scalability text."
+    }
   }
 ]

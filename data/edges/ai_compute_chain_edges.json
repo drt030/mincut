@@ -1567,8 +1567,12 @@
     "source": "cooling_distribution_unit_cdu",
     "target": "org_vertiv",
     "relation": "manufactured_by",
+    "claim": "Vertiv supplies Liebert XDU coolant distribution units for liquid cooling in high-density data-center environments.",
+    "context": "Supplier exposure for AI-rack CDU infrastructure; evidence supports Vertiv CDU product capability, not a specific hyperscaler deployment.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_vertiv_xdu450_cdu_official"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1759,8 +1763,12 @@
     "source": "cooling_distribution_unit_cdu",
     "target": "org_coolit_systems",
     "relation": "manufactured_by",
+    "claim": "CoolIT Systems supplies CDU and direct-liquid-cooling infrastructure for AI/HPC data centers, including the CHx2000 AI CDU.",
+    "context": "Supplier exposure for high-density AI cooling infrastructure; evidence supports product capability and data-center deployment focus, not a named customer BOM.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_coolit_chx2000_ai_cdu"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1768,9 +1776,11 @@
     "source": "cooling_distribution_unit_cdu",
     "target": "org_schneider_electric",
     "relation": "manufactured_by",
+    "claim": "Schneider Electric, through Motivair by Schneider Electric, offers high-capacity CDU liquid-cooling solutions for AI and HPC data centers.",
+    "context": "Supplier exposure for AI data-center CDU infrastructure; evidence supports Schneider/Motivair product capability, not a confirmed customer deployment.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_cp2_schneider_electric_cooling"
+      "ev_acc_schneider_motivair_mcdu70_ai_cdu"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -1779,8 +1789,13 @@
     "source": "cooling_distribution_unit_cdu",
     "target": "org_motivair",
     "relation": "manufactured_by",
+    "claim": "Motivair supplies coolant distribution units for AI-driven data centers, with product ranges spanning high-density rack cooling needs.",
+    "context": "Supplier exposure for CDU cooling infrastructure; evidence supports Motivair product capability, not a specific datacenter design win.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_007_motivair_cdu",
+      "ev_acc_schneider_motivair_mcdu70_ai_cdu"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1788,8 +1803,12 @@
     "source": "cdu_rapid_deployment_kit",
     "target": "org_coolit_systems",
     "relation": "manufactured_by",
+    "claim": "CoolIT Systems is modeled as a modular CDU kit supplier through its AI-focused CHx2000 and broader data-center liquid-cooling product suite.",
+    "context": "Supplier exposure for faster-deployable CDU infrastructure; evidence supports modular/data-center product capability, not a commodity lead-time guarantee.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_coolit_chx2000_ai_cdu"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -1797,9 +1816,11 @@
     "source": "cdu_rapid_deployment_kit",
     "target": "org_schneider_electric",
     "relation": "manufactured_by",
+    "claim": "Schneider Electric's Motivair MCDU-70 line is modeled as a modular high-capacity CDU option for next-generation AI factories.",
+    "context": "Supplier exposure for modular/high-capacity CDU deployment; evidence supports product capability and scalability, not actual lead time for a given project.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_cp2_schneider_electric_cooling"
+      "ev_acc_schneider_motivair_mcdu70_ai_cdu"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2742,7 +2763,12 @@
     "source": "cooling_distribution_unit_cdu",
     "target": "org_avc",
     "relation": "manufactured_by",
+    "claim": "Acer Thermal Innovation Company (AVC) is modeled as a Taiwan-listed CDU/liquid-cooling thermal-module supplier candidate for AI data-center buildouts.",
+    "context": "Supplier exposure for CDU and thermal modules; evidence supports market-tracker coverage of AI liquid-cooling demand, not a specific CDU SKU or customer BOM.",
     "confidence": "high",
+    "evidenceIds": [
+      "ev_acc_sb4_avc_thermal_tracker"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
