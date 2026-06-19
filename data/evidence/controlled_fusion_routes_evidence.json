@@ -547,5 +547,117 @@
       "checkedAsOf": "2026-06-15",
       "quoteMatch": "exact"
     }
+  },
+  {
+    "id": "ev_fusion_xcimer_laser_fusion",
+    "type": "vendor_claim",
+    "title": "Xcimer Energy laser fusion architecture and Phoenix system",
+    "url": "https://xcimer.energy/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Xcimer Energy Corporation",
+    "date": "accessed 2026-06-19",
+    "summary": "Xcimer describes itself as building high-energy lasers to commercialize laser fusion, with Phoenix as an operating high-energy excimer laser system and Athena as its planned laser fusion power plant.",
+    "supportsNodeIds": [
+      "org_xcimer_energy",
+      "laser_inertial_fusion_energy_route"
+    ],
+    "supportsEdgeIds": [
+      "e_laser_icf_route__implemented_by__xcimer"
+    ],
+    "limitations": "Vendor source; supports Xcimer as a private laser-fusion route builder and Phoenix/Athena roadmap claims. It does not prove commercial plant readiness or investable public-equity exposure.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "excerpt": "building the world's biggest, brightest and most powerful lasers to commercialize the only scientifically validated form of fusion energy",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched xcimer.energy. Lines 34-L50 describe Xcimer's laser-fusion positioning, Phoenix, and high-energy laser architecture; lines 56-L61 describe the Athena power-plant roadmap."
+    }
+  },
+  {
+    "id": "ev_fusion_bruker_superconductors",
+    "type": "vendor_claim",
+    "title": "Bruker superconductors for high-energy physics and fusion research",
+    "url": "https://www.bruker.com/en/products-and-solutions/superconductors/superconductors.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Bruker",
+    "date": "accessed 2026-06-19",
+    "summary": "Bruker describes LTS products used in high-energy physics and fusion research and HTS wire for high-field and ultra-high-field applications.",
+    "supportsNodeIds": [
+      "org_bruker",
+      "fusion_hts_tape_supply_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_hts__manufactured_by__bruker"
+    ],
+    "limitations": "Vendor source; supports Bruker's superconducting-material capability and fusion-research exposure. It does not prove Bruker supplies a named commercial fusion plant or a pure-play equity exposure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "excerpt": "used in a wide range of applications, including MRI and NMR as well as high energy physics research and fusion research",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Bruker superconductors page. Lines 42-L48 contain LTS fusion-research and HTS high-field application statements; lines 51-L53 list Nb3Sn, NbTi and Bi-2212 products."
+    }
+  },
+  {
+    "id": "ev_fusion_furukawa_tokamak_energy_hts",
+    "type": "news",
+    "title": "Furukawa Electric and Tokamak Energy advance UK HTS tape capability",
+    "url": "https://www.furukawaelectric.com/en/release/2026/metal_20260615.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Furukawa Electric Co., Ltd.",
+    "date": "2026-06-15",
+    "summary": "Furukawa Electric and Tokamak Energy announced collaboration on HTS tape capability to support future fusion-energy demand, noting SuperPower HTS tape commercialization and STEP's expected HTS-tape needs.",
+    "supportsNodeIds": [
+      "org_furukawa_electric",
+      "fusion_hts_tape_supply_chain"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_hts__manufactured_by__furukawa"
+    ],
+    "limitations": "Company news release; supports Furukawa/SuperPower HTS-tape capability and fusion collaboration. It does not prove a named commercial plant BOM or revenue exposure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "excerpt": "HTS tape capability could be developed in the United Kingdom to support future demand from fusion energy",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Furukawa Electric release. Lines 135-L145 describe HTS tape collaboration for future fusion demand, SuperPower HTS tape commercialization, STEP HTS-magnet context, and 30,000 km expected HTS tape usage."
+    }
+  },
+  {
+    "id": "ev_fusion_oxford_superconducting_magnets",
+    "type": "product_page",
+    "title": "Quantum Design Oxford OEM superconducting magnet technologies",
+    "url": "https://qd-oxford.com/products/superconducting_magnets.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Quantum Design Oxford / Oxford Instruments heritage",
+    "date": "accessed 2026-06-19",
+    "summary": "Quantum Design Oxford describes superconducting magnet technologies covering Cryofree and liquid-helium-cooled configurations, plus design, manufacture and support of magnet and cryogenic systems.",
+    "supportsNodeIds": [
+      "org_oxford_instruments",
+      "tokamak_cryogenic_magnet_plant"
+    ],
+    "supportsEdgeIds": [
+      "e_fusion_cryogenic__manufactured_by__oxford"
+    ],
+    "limitations": "Product-page source for magnet and cryogenic-system capability. It supports supplier-candidate relevance, not direct fusion-plant procurement or pure-play fusion exposure.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "excerpt": "design, manufacture and support of magnet and cryogenic systems",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched qd-oxford.com. Lines 42-L48 describe superconducting magnet technologies, Oxford Instruments superconducting-magnet heritage, and design/manufacture/support of magnet and cryogenic systems."
+    }
   }
 ]
