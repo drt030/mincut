@@ -2162,27 +2162,32 @@
     "source": "humanoid_reducer_wave_generator",
     "target": "org_thk",
     "relation": "reported_capable_supplier",
-    "claim": "THK makes thin-section and flexible/harmonic-reducer-class bearings and is carried as capable of the wave generator's specialty deformable flex bearing; no humanoid-named supply quote, so reported-capable.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: THK evidence supports cross-roller rings and robot-joint bearings, but no direct wave-generator/flexible-bearing source was found. Keep off active supplier cards until direct source exists.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: THK evidence supports cross-roller rings and robot-joint bearings, but no direct wave-generator/flexible-bearing source was found. Keep off active supplier cards until direct source exists."
   },
   {
     "id": "e_humanoid_wave_generator__reported_capable_supplier__schaeffler",
     "source": "humanoid_reducer_wave_generator",
     "target": "org_schaeffler",
     "relation": "reported_capable_supplier",
-    "claim": "Schaeffler (INA) makes thin-section / flexible bearings and is carried as capable of the wave generator's specialty deformable flex bearing; no humanoid-named supply quote, so reported-capable.",
+    "claim": "Schaeffler documents RT precision strain-wave gears with a wave generator and wave-generator bearing, so it is carried as capable of the wave-generator element; reported-capable, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_schaeffler_strain_wave_wave_generator"
+    ]
   },
   {
     "id": "e_humanoid_wave_generator__reported_capable_supplier__iko",
     "source": "humanoid_reducer_wave_generator",
     "target": "org_ikont_nipponthompson",
     "relation": "reported_capable_supplier",
-    "claim": "Nippon Thompson (IKO) makes thin-section / flexible bearings and is carried as capable of the wave generator's specialty deformable flex bearing; no humanoid-named supply quote, so reported-capable.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: IKO evidence supports crossed-roller robot bearings, but no direct wave-generator/flexible-bearing source was found. Keep off active supplier cards until direct source exists.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: IKO evidence supports crossed-roller robot bearings, but no direct wave-generator/flexible-bearing source was found. Keep off active supplier cards until direct source exists."
   },
   {
     "id": "e_humanoid_cross_roller_bearing__manufactured_by__thk",
@@ -2237,9 +2242,12 @@
     "source": "humanoid_cross_roller_bearing",
     "target": "org_ntn",
     "relation": "reported_capable_supplier",
-    "claim": "NTN is a precision-bearing maker carried as capable of the joint output cross-roller bearing; reported-capable, no humanoid-named supply quote.",
+    "claim": "NTN maintains robot-market precision bearing families and is carried as capable around the joint-output bearing stack; the direct fetched source supports robot-bearing capability, while crossed-roller specificity remains a reported-capable lead.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ntn_robot_bearing_page"
+    ]
   },
   {
     "id": "e_humanoid_bearing_steel__manufactured_by__nippon_steel",
@@ -2248,16 +2256,22 @@
     "relation": "manufactured_by",
     "claim": "Nippon Steel (which owns Ovako, a high-cleanliness bearing-steel technology leader) is the verified bearing-steel corner feeding cross-roller bearings and roller-screw rollers; supplier-candidate (who-makes-what / ownership-grounded), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_nippon_sanyo_ovako_bearing_steel"
+    ]
   },
   {
     "id": "e_humanoid_bearing_steel__reported_capable_supplier__proterial",
     "source": "humanoid_bearing_steel_feedstock",
     "target": "org_proterial",
     "relation": "reported_capable_supplier",
-    "claim": "Proterial (ex-Hitachi Metals) makes specialty/bearing steel and is carried as a capable high-cleanliness bearing-steel supplier; reported-capable.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "claim": "Proterial is carried as a reported-capable high-performance special-steel supplier for bearing-steel feedstock; no fetched source this pass directly named bearing steel, so this remains a low-confidence adjacent special-steel lead rather than a confirmed bearing-steel source.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_proterial_special_steel_profile"
+    ]
   },
   {
     "id": "e_humanoid_rs_shaft__manufactured_by__rollvis",
@@ -2416,34 +2430,44 @@
     "relation": "manufactured_by",
     "claim": "maxon is the Western reference coreless / slotless micro-motor maker for dexterous hands; supplier-candidate (who-makes-what) for the hollow-cup hand motor, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_maxon_robot_hand_dcx16"
+    ]
   },
   {
     "id": "e_humanoid_hollow_cup_motor__manufactured_by__picea",
     "source": "humanoid_hand_hollow_cup_motor",
     "target": "org_humanoid_picea_motion",
     "relation": "manufactured_by",
-    "claim": "Shenzhen PICEA Motion is the China challenger coreless micro-motor maker for dexterous hands; supplier-candidate (who-makes-what) for the hollow-cup hand motor, not a confirmed humanoid BOM claim.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: PICEA evidence supports harmonic/strain-wave reducers, not coreless or hollow-cup hand motors. Keep off active supplier cards until a direct coreless/hollow-cup motor source is found.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: PICEA evidence supports harmonic/strain-wave reducers, not coreless or hollow-cup hand motors. Keep off active supplier cards until a direct coreless/hollow-cup motor source is found."
   },
   {
     "id": "e_humanoid_hand_leadscrew__reported_capable_supplier__rollvis",
     "source": "humanoid_hand_micro_leadscrew",
     "target": "org_humanoid_rollvis",
     "relation": "reported_capable_supplier",
-    "claim": "Rollvis (roller/precision-screw specialist) is carried as capable of a miniature finger-drive lead/ball screw; an emerging hand frontier, so reported-capable, qualitative.",
+    "claim": "Rollvis is carried as capable for a precision small-lead finger-drive screw because its satellite roller screws support very small leads and robotics applications; reported-capable, not a confirmed humanoid hand BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_rollvis_small_lead_roller_screws"
+    ]
   },
   {
     "id": "e_humanoid_hand_leadscrew__reported_capable_supplier__gsa",
     "source": "humanoid_hand_micro_leadscrew",
     "target": "org_humanoid_gsa",
     "relation": "reported_capable_supplier",
-    "claim": "GSA (precision-screw specialist) is carried as capable of a miniature finger-drive lead/ball screw; an emerging hand frontier, so reported-capable, qualitative.",
+    "claim": "GSA is carried as capable for a precision small-lead finger-drive screw because its planetary roller screws support high precision, repeatability, high load capacity, and small-lead variants; reported-capable, not a confirmed humanoid hand BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_gsa_small_lead_roller_screws"
+    ]
   },
   {
     "id": "e_humanoid_fingertip_element__manufactured_by__paxini",
@@ -2475,9 +2499,10 @@
     "source": "humanoid_fingertip_tactile_element",
     "target": "org_humanoid_te_connectivity",
     "relation": "reported_capable_supplier",
-    "claim": "TE Connectivity carries force-sensing capability and is carried as capable of the fingertip tactile element; reported-capable.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: TE has verified force/strain sensor and robotics evidence on the separate force/torque strain-transducer node, but no direct fingertip tactile-element source was found. Keep off active supplier cards until a fingertip/tactile-specific TE source is found.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: TE has verified force/strain sensor and robotics evidence on the separate force/torque strain-transducer node, but no direct fingertip tactile-element source was found. Keep off active supplier cards until a fingertip/tactile-specific TE source is found."
   },
   {
     "id": "e_humanoid_cathode_active_material__reported_capable_supplier__smm",

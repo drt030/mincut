@@ -3500,5 +3500,201 @@
       "numberInQuote": false,
       "notes": "web.open fetched Syensqo dry-etching page. Lines 231-242 contain KetaSpire PEEK and the stored structural-components excerpt."
     }
+  },
+  {
+    "id": "ev_humanoid_nippon_sanyo_ovako_bearing_steel",
+    "type": "historical_source",
+    "title": "Nippon Steel / Sanyo Special Steel integration deck: bearing-steel capability",
+    "url": "https://www.nipponsteel.com/en/ir/library/pdf/20180802_400.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Nippon Steel & Sumitomo Metal / Sanyo Special Steel",
+    "date": "2018-08-02",
+    "summary": "The Nippon Steel / Sanyo deck describes Sanyo and Ovako as special-steel makers with global top-level high-cleanliness bearing-steel technology, and lists bearing steel in their product lineup.",
+    "excerpt": "global top level technology regarding high-cleanliness steel for bearing steel etc.",
+    "supportsNodeIds": [
+      "org_nippon_steel",
+      "humanoid_bearing_steel_feedstock"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_bearing_steel__manufactured_by__nippon_steel"
+    ],
+    "limitations": "Corporate integration deck supports Nippon Steel group exposure to high-cleanliness bearing steel through Sanyo/Ovako. It does not prove a humanoid OEM BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched the Nippon Steel / Sanyo PDF. Page 2 lines 37-41 contain the stored high-cleanliness bearing-steel quote; page 6 lines 208-235 list bearing steel and high-cleanliness steel used for bearings."
+    }
+  },
+  {
+    "id": "ev_humanoid_proterial_special_steel_profile",
+    "type": "historical_source",
+    "title": "Proterial company profile: Yasugi special steel and metal-structure control",
+    "url": "https://www.proterial.com/e/corp/pdf/cp2604en.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Proterial",
+    "date": "2026-04",
+    "summary": "Proterial traces its Yasugi special-steel lineage and says its structural and compositional control technologies for metals underpin high-performance materials and stable high-quality supply.",
+    "excerpt": "expanded our business from special steel to include magnetic materials, power electronics materials, and electric-wire materials",
+    "supportsNodeIds": [
+      "org_proterial",
+      "humanoid_bearing_steel_feedstock"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_bearing_steel__reported_capable_supplier__proterial"
+    ],
+    "limitations": "This source supports Proterial as a high-performance special-steel supplier. It does not name bearing steel in the fetched text; the bearing-steel mapping remains reported-capable and low-confidence pending a direct bearing-steel product quote.",
+    "confidence": "low",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Proterial company profile PDF. Page 2 lines 57-64 contain Yasugi/special-steel lineage and the stored quote; lines 83-89 describe structural/compositional control technologies and stable high-performance material supply. No fetched line directly named bearing steel."
+    }
+  },
+  {
+    "id": "ev_humanoid_ntn_robot_bearing_page",
+    "type": "product_page",
+    "title": "NTN products by market: Robot bearings",
+    "url": "https://www.ntnglobal.com/en/products/robot.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "NTN Global",
+    "date": "accessed 2026-06-19",
+    "summary": "NTN lists multiple robot-market bearing families, including four-point contact, needle, thin-section, ball-screw support, and high-speed servo-motor bearings.",
+    "excerpt": "Deep groove ball bearings Angular contact ball bearings Four-point contact ball bearings",
+    "supportsNodeIds": [
+      "org_ntn",
+      "humanoid_cross_roller_bearing"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_cross_roller_bearing__reported_capable_supplier__ntn"
+    ],
+    "limitations": "Official robot-market page supports NTN robot-bearing capability, but the fetched page did not itself name crossed-roller bearings. NTN-SNR search snippets did show crossed rollers for robotic transmission, but those pages did not open reliably in this pass.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched NTN Global robot page. Lines 2-10 list robot-market bearing families; lines 36-40 describe needle roller bearings as high-load/high-rigidity and suited to wobbling or pivoting motion; lines 111-113 describe a robot-joint magnetic ring."
+    }
+  },
+  {
+    "id": "ev_humanoid_schaeffler_strain_wave_wave_generator",
+    "type": "product_page",
+    "title": "Schaeffler precision strain wave gears mounting manual: wave generator bearing",
+    "url": "https://www.schaeffler.com/remotemedien/media/_shared_media/08_media_library/01_publications/schaeffler_2/manualmountingoperation/downloads_7/mon_106_de_en.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Schaeffler Technologies",
+    "date": "2022-07",
+    "summary": "Schaeffler mounting documentation for RT precision strain-wave gears lists the wave generator bearing and wave generator among the gear components, and says the gears are intended for industrial/commercial applications including robots and handling.",
+    "excerpt": "Wave generator bearing",
+    "supportsNodeIds": [
+      "org_schaeffler",
+      "humanoid_reducer_wave_generator"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_wave_generator__reported_capable_supplier__schaeffler"
+    ],
+    "limitations": "Official mounting manual supports Schaeffler strain-wave-gear component capability. It does not prove a humanoid OEM BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Schaeffler MON 106 PDF. Page 4 lines 70-76 list robots and handling among typical application areas; page 7 lines 179-190 list components including wave generator bearing and wave generator."
+    }
+  },
+  {
+    "id": "ev_humanoid_maxon_robot_hand_dcx16",
+    "type": "product_page",
+    "title": "maxon: DEX-EE robotic hand integrates DCX16 motors",
+    "url": "https://www.maxongroup.com/en-us/knowledge-and-support/blog/the-most-sensitive-and-durable-robot-hand-yet-created-255030",
+    "sourceStatus": "ok_exact",
+    "sourceName": "maxon group",
+    "date": "2025",
+    "summary": "maxon describes Shadow Robot / Google DeepMind DEX-EE as integrating 15 maxon DCX16 motors in a tendon-driven dexterous robotic hand, and describes the DCX line as ironless-rotor motors.",
+    "excerpt": "DEX-EE integrates 15 maxon DCX16",
+    "supportsNodeIds": [
+      "org_maxon",
+      "humanoid_hand_hollow_cup_motor"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_hollow_cup_motor__manufactured_by__maxon"
+    ],
+    "limitations": "Official maxon story supports coreless/ironless micro-motor use in a dexterous robotic hand. It does not prove a named commercial humanoid OEM BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched maxon story. Lines 113-123 describe DEX-EE drive-system needs and the stored 15 x DCX16 quote; lines 153-155 describe the DCX ironless maxon rotor."
+    }
+  },
+  {
+    "id": "ev_humanoid_gsa_small_lead_roller_screws",
+    "type": "product_page",
+    "title": "GSA planetary roller screws: high precision and small leads",
+    "url": "https://gsascrews.com/en/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "GSA AG / Gewinde Ziegler AG",
+    "date": "accessed 2026-06-19",
+    "summary": "GSA states it manufactures high-precision planetary roller screws, including recirculating designs with small lead and high repeatability/load capacity, with in-house manufacturing and assembly.",
+    "excerpt": "manufacturing high-precision planetary roller screws",
+    "supportsNodeIds": [
+      "org_humanoid_gsa",
+      "humanoid_hand_micro_leadscrew"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_hand_leadscrew__reported_capable_supplier__gsa"
+    ],
+    "limitations": "Official page supports precision roller-screw and small-lead capability. It does not prove GSA supplies a humanoid hand micro-leadscrew; this remains a reported-capable precision-screw lead.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.find on GSA homepage returned the stored quote at lines 13-18; lines 29-31 mention high precision, repeatability, high load capacity, and small lead; lines 43-54 describe 0.5 mm to 50 mm possible leads and in-house manufacturing."
+    }
+  },
+  {
+    "id": "ev_humanoid_rollvis_small_lead_roller_screws",
+    "type": "product_page",
+    "title": "Rollvis satellite roller screw catalogue: small leads and robotics applications",
+    "url": "https://rollvis.com/wp-content/uploads/2021/09/Catalogue-EN-2018-compressed.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Rollvis SA",
+    "date": "2018",
+    "summary": "Rollvis catalogue explains that satellite roller screws can be designed with much smaller leads than ball screws and lists robotics among application segments.",
+    "excerpt": "The lead of roller screws (axial travel per turn) can be very small",
+    "supportsNodeIds": [
+      "org_humanoid_rollvis",
+      "humanoid_hand_micro_leadscrew"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_hand_leadscrew__reported_capable_supplier__rollvis"
+    ],
+    "limitations": "Official catalogue supports Rollvis precision/small-lead roller-screw capability and robotics applications. It does not prove a humanoid hand micro-leadscrew design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.find on Rollvis catalogue returned the stored quote at page 3 lines 96-105; lines 116-134 list advantages and application segments including robotics."
+    }
   }
 ]
