@@ -8011,5 +8011,425 @@
       "numberInQuote": true,
       "notes": "web.open fetched AOI's optical transceiver page. Lines 18-L37 describe high-speed optical transceivers for intra/inter data-center connectivity, 1.6T modules for AI clusters, and 800G transceivers for AI/cloud networks."
     }
+  },
+  {
+    "id": "ev_acc_applied_metals_deposition_2026",
+    "type": "product_page",
+    "title": "Applied Materials metals deposition technologies",
+    "url": "https://www.appliedmaterials.com/us/en/semiconductor/products/create/metals-deposition.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Applied Materials",
+    "date": "accessed 2026-06-19",
+    "summary": "Applied Materials describes semiconductor metals deposition using ALD, CVD, and PVD, including interconnect and heterogeneous-integration applications.",
+    "excerpt": "deposited using a variety of technologies including atomic layer deposition (ALD), chemical vapor deposition (CVD) & physical vapor deposition (PVD)",
+    "supportsNodeIds": [
+      "process_equipment_deposition",
+      "org_applied_materials"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_deposition__manufactured_by__applied_materials"
+    ],
+    "limitations": "Official process/product page supports deposition-equipment exposure; it does not prove a customer-specific AI-accelerator BOM or tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Applied Materials metals deposition page. Lines 157-161 contain the stored ALD/CVD/PVD deposition quote and heterogeneous-integration context."
+    }
+  },
+  {
+    "id": "ev_acc_lam_deposition_products_2026",
+    "type": "product_page",
+    "title": "Lam Research deposition products",
+    "url": "https://www.lamresearch.com/products/our-processes/deposition/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Lam Research",
+    "date": "accessed 2026-06-19",
+    "summary": "Lam Research describes thin-film deposition products including CVD, ALD, PECVD, HDP-CVD, PLD, ECD, and advanced-packaging applications.",
+    "excerpt": "Lam’s thin film deposition products provide the precision, performance, and flexibility needed",
+    "supportsNodeIds": [
+      "process_equipment_deposition",
+      "org_lam_research"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_deposition__manufactured_by__lam_research"
+    ],
+    "limitations": "Official process/product page supports deposition-equipment exposure; it does not prove a customer-specific AI-accelerator BOM or tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Lam deposition page. Lines 130-151 describe deposition products and CVD/ALD product families; lines 191-273 list CVD/HDP-CVD/PECVD/ALD and HBM/advanced-packaging applications."
+    }
+  },
+  {
+    "id": "ev_acc_tel_deposition_products_2026",
+    "type": "product_page",
+    "title": "Tokyo Electron semiconductor deposition products",
+    "url": "https://www.tel.com/product/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Tokyo Electron",
+    "date": "accessed 2026-06-19",
+    "summary": "Tokyo Electron lists semiconductor deposition systems including thermal deposition, CVD, ASFD, ALD, and PVD, with multiple 300mm wafer tools.",
+    "excerpt": "TEL offers various types of deposition systems, including Oxide/Anneal, CVD, ASFD, ALD, and PVD",
+    "supportsNodeIds": [
+      "process_equipment_deposition",
+      "org_tokyo_electron"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_deposition__manufactured_by__tokyo_electron"
+    ],
+    "limitations": "Official product lineup supports TEL deposition-equipment exposure; it does not prove a customer-specific AI-accelerator BOM or tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched TEL product lineup. Lines 40-66 contain the stored deposition-system quote and list thermal deposition, CVD, ALD, PVD, and 300mm tools."
+    }
+  },
+  {
+    "id": "ev_acc_applied_etch_process_2026",
+    "type": "product_page",
+    "title": "Applied Materials etch process technologies",
+    "url": "https://www.appliedmaterials.com/us/en/semiconductor/products/processes/etch.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Applied Materials",
+    "date": "accessed 2026-06-19",
+    "summary": "Applied Materials describes semiconductor etch process technologies, including dry/plasma etch and dielectric/conductor etch for advanced inflections.",
+    "excerpt": "Applied Materials’ etch innovations consistently meet increasingly challenging requirements",
+    "supportsNodeIds": [
+      "plasma_etch_equipment",
+      "org_applied_materials"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_etch__manufactured_by__applied_materials"
+    ],
+    "limitations": "Official process page supports Applied Materials etch-equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Applied Materials etch page. Lines 150-154 describe dry/plasma, dielectric/conductor etch, and the stored Applied etch quote."
+    }
+  },
+  {
+    "id": "ev_acc_lam_etch_products_2026",
+    "type": "product_page",
+    "title": "Lam Research etch products",
+    "url": "https://www.lamresearch.com/products/our-processes/etch/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Lam Research",
+    "date": "accessed 2026-06-19",
+    "summary": "Lam Research describes plasma etch systems and product families for conductor, dielectric, DRIE, ALE, advanced packaging, interconnect, and transistor applications.",
+    "excerpt": "Our plasma etch systems deliver the high-performance, high-productivity capabilities needed",
+    "supportsNodeIds": [
+      "plasma_etch_equipment",
+      "org_lam_research"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_etch__manufactured_by__lam_research"
+    ],
+    "limitations": "Official process/product page supports Lam etch-equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Lam etch page. Lines 130-134 contain the stored plasma-etch quote; lines 145-205 list etch product families and applications."
+    }
+  },
+  {
+    "id": "ev_acc_tel_tactras_etch_2026",
+    "type": "product_page",
+    "title": "Tokyo Electron Tactras plasma etch system",
+    "url": "https://www.tel.com/product/tactras.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Tokyo Electron",
+    "date": "accessed 2026-06-19",
+    "summary": "Tokyo Electron describes Tactras as a 300mm plasma etch system for high-aspect-ratio holes, trench etch, mask and dielectric etch, and BEOL dielectric etch.",
+    "excerpt": "Tactras™ is a highly reliable 300mm plasma etch system",
+    "supportsNodeIds": [
+      "plasma_etch_equipment",
+      "org_tokyo_electron"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_etch__manufactured_by__tokyo_electron"
+    ],
+    "limitations": "Official product page supports TEL etch-equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.find on TEL Tactras page returned the stored 300mm plasma-etch quote at lines 23-29 and describes HARC, trench, mask, dielectric, and BEOL etch."
+    }
+  },
+  {
+    "id": "ev_acc_applied_reflexion_cmp_2026",
+    "type": "product_page",
+    "title": "Applied Materials Reflexion LK Prime CMP system",
+    "url": "https://www.appliedmaterials.com/us/en/product-library/reflexion-lk-prime-cmp.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Applied Materials",
+    "date": "accessed 2026-06-19",
+    "summary": "Applied Materials describes the Reflexion LK Prime CMP system for advanced CMP applications, polishing, cleaning, drying, and advanced process controls.",
+    "excerpt": "Reflexion LK Prime CMP system delivers precision processing and high productivity",
+    "supportsNodeIds": [
+      "cmp_process_equipment",
+      "org_applied_materials"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_cmp_equipment__manufactured_by__applied_materials"
+    ],
+    "limitations": "Official product page supports Applied CMP-equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Applied Reflexion LK Prime CMP page. Lines 141-170 contain the stored CMP-system quote and advanced CMP application context."
+    }
+  },
+  {
+    "id": "ev_acc_ebara_cmp_systems_2026",
+    "type": "product_page",
+    "title": "EBARA CMP systems for advanced semiconductor manufacturing",
+    "url": "https://www.ebaratech.com/products/brochure/chemical-mechanical-planarization-systems/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "EBARA Technologies",
+    "date": "accessed 2026-06-19",
+    "summary": "EBARA Technologies describes CMP systems for advanced semiconductor manufacturing, including copper, oxide, tungsten, and STI processes across technology nodes.",
+    "excerpt": "CMP systems deliver high-performance planarization for advanced semiconductor manufacturing",
+    "supportsNodeIds": [
+      "cmp_process_equipment",
+      "org_ebara"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_cmp_equipment__manufactured_by__ebara"
+    ],
+    "limitations": "Official product/brochure page supports EBARA CMP-equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.search returned EBARA Technologies official CMP page with the stored quote and product lineup including 300mm F-REX platforms."
+    }
+  },
+  {
+    "id": "ev_acc_applied_ion_implant_process_2026",
+    "type": "product_page",
+    "title": "Applied Materials ion implant systems",
+    "url": "https://www.appliedmaterials.com/us/en/semiconductor/products/processes/implant.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Applied Materials",
+    "date": "accessed 2026-06-19",
+    "summary": "Applied Materials describes a portfolio of four ion implant system types used in integrated-circuit manufacturing.",
+    "excerpt": "Applied’s portfolio comprises the four types of implant systems common in the industry",
+    "supportsNodeIds": [
+      "ion_implantation_equipment",
+      "org_applied_materials"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_ion_implant__manufactured_by__applied_materials"
+    ],
+    "limitations": "Official process page supports Applied ion-implant equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Applied Materials ion implant page. Lines 141-149 contain the stored quote and four implant system types."
+    }
+  },
+  {
+    "id": "ev_acc_kla_wafer_inspection_metrology_2026",
+    "type": "product_page",
+    "title": "KLA wafer inspection and metrology for advanced packaging",
+    "url": "https://www.kla.com/products/packaging-manufacturing/wafer-inspection-and-metrology-for-advanced-packaging",
+    "sourceStatus": "ok_exact",
+    "sourceName": "KLA",
+    "date": "accessed 2026-06-19",
+    "summary": "KLA describes wafer inspection and metrology systems for advanced wafer-level packaging, yield improvement, traceability, and process control.",
+    "excerpt": "KLA’s wafer inspection and metrology systems for advanced wafer-level packaging",
+    "supportsNodeIds": [
+      "process_control_metrology",
+      "org_kla"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_metrology__manufactured_by__kla"
+    ],
+    "limitations": "Official product page supports KLA process-control/metrology exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.find on KLA page returned the stored quote at lines 431-433 and packaging process-control context at lines 511."
+    }
+  },
+  {
+    "id": "ev_acc_tel_evaros_thermal_processing_2025",
+    "type": "news",
+    "title": "Tokyo Electron EVAROS batch thermal processing system for 300mm wafers",
+    "url": "https://www.tel.com/news/product/2025/20251215_001.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Tokyo Electron",
+    "date": "2025-12-15",
+    "summary": "Tokyo Electron announced EVAROS, a batch thermal processing system for 300mm wafers with improved thermal control and ALD/deposition process control.",
+    "excerpt": "EVAROS™, a batch thermal processing system for 300 mm wafers",
+    "supportsNodeIds": [
+      "thermal_processing_furnaces",
+      "org_tokyo_electron"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_thermal__manufactured_by__tokyo_electron"
+    ],
+    "limitations": "Official product release supports TEL thermal-processing equipment exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.find on TEL release returned the stored quote at lines 22-30 and 300mm wafer, thermal-control, ALD/deposition context."
+    }
+  },
+  {
+    "id": "ev_acc_nordson_underfill_dispensing_2026",
+    "type": "product_page",
+    "title": "Nordson ASYMTEK underfill dispensing systems",
+    "url": "https://www.nordson.com/en/divisions/electronics-solutions/your-process/fluid-types/underfill",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Nordson Electronics Solutions",
+    "date": "accessed 2026-06-19",
+    "summary": "Nordson describes ASYMTEK automated dispensing systems for underfill dispensing with non-contact jetting and precision fluid placement.",
+    "excerpt": "ASYMTEK automated dispensing systems lead the industry",
+    "supportsNodeIds": [
+      "underfill_dispensing_equipment",
+      "org_nordson"
+    ],
+    "supportsEdgeIds": [
+      "e_underfill_mfg_asymtek"
+    ],
+    "limitations": "Official application page supports Nordson/ASYMTEK underfill dispensing exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.find on Nordson underfill page returned the stored ASYMTEK quote at lines 314-316."
+    }
+  },
+  {
+    "id": "ev_acc_itw_camalot_underfill_2026",
+    "type": "product_page",
+    "title": "ITW EAE Camalot underfill dispensing",
+    "url": "https://www.itweae.com/applications/dispensing/underfill",
+    "sourceStatus": "ok_exact",
+    "sourceName": "ITW EAE",
+    "date": "accessed 2026-06-19",
+    "summary": "ITW EAE describes Camalot dispense machines performing underfill for flip chips, direct chip attach, stacked die packages, and BGAs.",
+    "excerpt": "Camalot® dispense machines ... perform fast, efficient, complete underfill",
+    "supportsNodeIds": [
+      "underfill_dispensing_equipment",
+      "org_itw"
+    ],
+    "supportsEdgeIds": [
+      "e_underfill_mfg_itw"
+    ],
+    "limitations": "Official application page supports ITW EAE underfill dispensing exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.find on ITW EAE underfill page returned the stored Camalot underfill quote at lines 137-139."
+    }
+  },
+  {
+    "id": "ev_acc_nordson_march_plasma_2026",
+    "type": "product_page",
+    "title": "Nordson MARCH plasma treatment for semiconductor assembly",
+    "url": "https://www.nordson.com/en/divisions/electronics-solutions/plasma-applications",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Nordson Electronics Solutions",
+    "date": "accessed 2026-06-19",
+    "summary": "Nordson describes MARCH plasma treatment systems for electronics manufacturing, semiconductor and PCB assembly, surface activation, underfill preparation, and wafer/panel-level packaging.",
+    "excerpt": "Nordson MARCH plasma systems remove organic contaminants and activate surfaces",
+    "supportsNodeIds": [
+      "plasma_surface_activation_systems",
+      "org_nordson"
+    ],
+    "supportsEdgeIds": [
+      "e_plasma_mfg_nordson"
+    ],
+    "limitations": "Official application page supports Nordson plasma surface-activation exposure; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.find on Nordson plasma page returned the stored MARCH quote at lines 312-325 and semiconductor/WLP/PLP application context at lines 326-340."
+    }
+  },
+  {
+    "id": "ev_acc_despatch_semiconductor_curing_2017",
+    "type": "product_page",
+    "title": "Despatch electronics market brochure: semiconductor packaging curing ovens",
+    "url": "https://www.despatch.com/pdfs/Electronics%20Market.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Despatch Industries",
+    "date": "2017",
+    "summary": "Despatch describes clean-process, low-oxygen, fast-cycle curing ovens for high-volume semiconductor packaging and assembly, including die-bond curing and other semiconductor packaging processes.",
+    "excerpt": "clean process, low oxygen, fast cycle curing of adhesives and polymers",
+    "supportsNodeIds": [
+      "bump_height_curing_furnace",
+      "org_despatch"
+    ],
+    "supportsEdgeIds": [
+      "e_furnace_mfg_despatch"
+    ],
+    "limitations": "Official brochure supports Despatch curing-oven exposure for semiconductor packaging; it does not prove a customer-specific AI-accelerator tool allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.find on Despatch PDF returned the stored quote at page 1 lines 10-14 and die-bond/semiconductor packaging process context at page 2 lines 34-40."
+    }
   }
 ]

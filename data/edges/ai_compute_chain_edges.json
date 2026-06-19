@@ -138,7 +138,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_deposition_equipment"
+      "ev_acc_applied_metals_deposition_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Applied Materials Inc. is carried as a manufacturer or supplier lead for Deposition equipment (CVD, PVD, ALD), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -150,7 +150,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_deposition_equipment"
+      "ev_acc_lam_deposition_products_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Lam Research Corporation is carried as a manufacturer or supplier lead for Deposition equipment (CVD, PVD, ALD), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -162,7 +162,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_deposition_equipment"
+      "ev_acc_tel_deposition_products_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Tokyo Electron Ltd. (TEL) is carried as a manufacturer or supplier lead for Deposition equipment (CVD, PVD, ALD), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -174,7 +174,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_plasma_etch"
+      "ev_acc_lam_etch_products_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Lam Research Corporation is carried as a manufacturer or supplier lead for Plasma etch (RIE) process equipment, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -186,7 +186,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_plasma_etch"
+      "ev_acc_applied_etch_process_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Applied Materials Inc. is carried as a manufacturer or supplier lead for Plasma etch (RIE) process equipment, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -198,7 +198,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_plasma_etch"
+      "ev_acc_tel_tactras_etch_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Tokyo Electron Ltd. (TEL) is carried as a manufacturer or supplier lead for Plasma etch (RIE) process equipment, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -210,7 +210,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_applied_reflexion_cmp_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Applied Materials Inc. is carried as a manufacturer or supplier lead for Chemical-mechanical polishing (CMP) equipment and slurries, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -222,7 +222,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_ebara_cmp_systems_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Ebara is carried as a manufacturer or supplier lead for Chemical-mechanical polishing (CMP) equipment and slurries, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -258,7 +258,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_ion_implant"
+      "ev_acc_applied_ion_implant_process_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Applied Materials Inc. is carried as a manufacturer or supplier lead for Ion implantation equipment, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -270,7 +270,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_metrology"
+      "ev_acc_kla_wafer_inspection_metrology_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "KLA Corporation is carried as a manufacturer or supplier lead for In-line wafer inspection and metrology, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -280,12 +280,10 @@
     "source": "process_control_metrology",
     "target": "org_tokyo_electron",
     "relation": "manufactured_by",
-    "confidence": "high",
-    "evidenceIds": [
-      "ev_acc_logic_metrology"
-    ],
-    "reviewStatus": "unreviewed",
-    "claim": "Tokyo Electron Ltd. (TEL) is carried as a manufacturer or supplier lead for In-line wafer inspection and metrology, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "confidence": "low",
+    "reviewStatus": "deprecated",
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: no direct Tokyo Electron inspection/metrology source was found; TEL product pages support deposition, etch, thermal processing, and wafer probing/testing, but not this process-control/metrology edge. Keep off active supplier cards until a direct source exists.",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: no direct Tokyo Electron inspection/metrology source was found; TEL product pages support deposition, etch, thermal processing, and wafer probing/testing, but not this process-control/metrology edge. Keep off active supplier cards until a direct source exists."
   },
   {
     "id": "e_acc_logic_wafer__manufactured_by__shin_etsu",
@@ -334,7 +332,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_thermal_processing"
+      "ev_acc_tel_evaros_thermal_processing_2025"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Tokyo Electron Ltd. (TEL) is carried as a manufacturer or supplier lead for Thermal processing (annealing, oxidation, diffusion), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2720,7 +2718,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_pkgeq_underfill_asymtek"
+      "ev_acc_nordson_underfill_dispensing_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Nordson Corporation (USA, dispensing and fluid application) is carried as a manufacturer or supplier lead for Underfill dispensing systems (capillary and jet-based), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2732,7 +2730,7 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_pkgeq_underfill_itw"
+      "ev_acc_itw_camalot_underfill_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Illinois Tool Works Inc. (ITW, USA, diversified industrial supplier) is carried as a manufacturer or supplier lead for Underfill dispensing systems (capillary and jet-based), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2821,7 +2819,7 @@
     "relation": "manufactured_by",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_acc_pkgeq_plasma_nordson"
+      "ev_acc_nordson_march_plasma_2026"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Nordson Corporation (USA, dispensing and fluid application) is carried as a manufacturer or supplier lead for Plasma surface activation and cleaning (wafer bonding prep), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
@@ -2833,7 +2831,7 @@
     "relation": "manufactured_by",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_acc_pkgeq_furnace_despatch"
+      "ev_acc_despatch_semiconductor_curing_2017"
     ],
     "reviewStatus": "unreviewed",
     "claim": "Despatch Industries (USA, thermal processing ovens) is carried as a manufacturer or supplier lead for Curing and reflow furnace systems (underfill, encapsulant, solder reflow), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
