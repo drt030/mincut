@@ -958,7 +958,8 @@
     "notes": "Expanded on 2026-06-07 into drive power stage, current sensing, motion-control loop, STO safety, and thermal/EMC design. Parent cost remains a low-confidence servo-drive bundle allocation; child costs split that bundle for graph readability and gate coverage.",
     "evidenceIds": [
       "ev_inovance_sv670_servo_sto_2026",
-      "ev_yaskawa_sigma_x_servo_sto_2026"
+      "ev_yaskawa_sigma_x_servo_sto_2026",
+      "ev_mitsubishi_servo_drive_safety"
     ]
   },
   {
@@ -976,7 +977,6 @@
     "maturityAsOf": "2026-04",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_mitsubishi_servo_drive_safety",
       "ev_power_infineon_servo_drives_2026",
       "ev_power_st_servo_motor_drives_2026",
       "ev_power_onsemi_ipm_motor_drive_2026",
@@ -1349,7 +1349,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_oriental_motor_servo_structure",
-      "ev_mitsubishi_ac_servo_structure"
+      "ev_mitsubishi_ac_servo_structure",
+      "ev_mitsubishi_linear_servo_motor_structure_2026"
     ],
     "tags": [
       "motor",
@@ -1475,7 +1476,8 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_stober_synchronous_servo_motors",
-      "ev_elmeq_servo_motor_options"
+      "ev_elmeq_servo_motor_options",
+      "ev_mitsubishi_linear_servo_motor_structure_2026"
     ],
     "tags": [
       "housing",
@@ -1731,7 +1733,6 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_robot_controller_io_inovance_ac703_2026",
-      "ev_mfg_mitsubishi_plc_servo",
       "ev_robot_controller_io_omron_nx_safety_2026"
     ],
     "tags": [
@@ -1845,7 +1846,6 @@
     "confidence": "low",
     "evidenceIds": [
       "ev_robot_controller_io_inovance_ac703_2026",
-      "ev_mfg_mitsubishi_plc_servo",
       "ev_mfg_rockwell_controllers_safety"
     ],
     "tags": [

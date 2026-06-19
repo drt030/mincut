@@ -923,26 +923,28 @@
     "type": "product_page",
     "title": "MELSERVO-J4 servo amplifier safety features",
     "url": "https://www.mitsubishielectric.com/fa/products/drv/servo/pmerit/mr_j4/amp/man.html",
+    "sourceStatus": "ok_exact",
     "sourceName": "Mitsubishi Electric Factory Automation",
-    "date": "2026-04-27",
-    "summary": "Describes servo amplifier safety sub-functions including Safe Torque Off and Safe Stop 1, and supports the role of servo amplifier electronics in safe robot motion.",
+    "date": "accessed 2026-06-19",
+    "summary": "Mitsubishi Electric states that MELSERVO-J4 servo amplifiers integrate STO and SS1 safety sub-functions and can be configured for higher safety levels with compatible safety equipment.",
+    "excerpt": "STO (Safe torque off) and SS1",
     "supportsNodeIds": [
       "servo_drive_controller",
-      "servo_drive_power_stage",
       "servo_drive_safety_sto"
     ],
     "supportsEdgeIds": [
-      "e_servo_drive_requires_power_stage",
       "e_servo_drive_requires_sto",
       "e_mfg_servo_drive_safety_sto_mitsubishi"
     ],
-    "limitations": "Vendor feature page; supports safety-function presence but not complete power-stage design, cost, thermal margin, or multi-axis robot cabinet integration.",
+    "limitations": "Vendor product page; supports STO/SS1 safety-function presence, not the power-stage design, cost, thermal margin, or full robot cabinet integration.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open found the stored STO/SS1 quote on the Mitsubishi Electric MELSERVO-J4 safety-features page, plus surrounding SIL/category safety context."
     }
   },
   {
@@ -1314,31 +1316,37 @@
   {
     "id": "ev_mfg_mitsubishi_plc_servo",
     "type": "product_page",
-    "title": "Mitsubishi Electric Factory Automation controllers and servo systems",
-    "url": "https://us.mitsubishielectric.com/fa/en/products/controllers/",
-    "sourceName": "Mitsubishi Electric",
-    "date": "2026-06-07",
-    "summary": "Mitsubishi Electric product materials describe factory automation controllers and servo products relevant to PLC and servo control.",
+    "title": "Mitsubishi Electric US industrial automation product families",
+    "url": "https://us.mitsubishielectric.com/fa/en/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Mitsubishi Electric US Industrial Automation",
+    "date": "accessed 2026-06-19",
+    "summary": "Mitsubishi Electric US Industrial Automation lists MELSEC programmable controllers, motion controllers, AC servos, servo motors, HMI products, and industrial robots, supporting Mitsubishi as a factory-automation supplier candidate for controller, PLC/WCS, servo, and robot-controller leads.",
+    "excerpt": "Programmable Controllers MELSEC",
     "supportsNodeIds": [
       "org_mitsubishi_electric",
-      "servo_drive_motion_control_loop",
-      "servo_drive_thermal_emc_design"
+      "robot_controller_io",
+      "robot_controller_cpu_module",
+      "servo_drive_controller"
     ],
     "supportsEdgeIds": [
       "e_mfg_servo_drive_controller_mitsubishi",
       "e_mfg_industrial_servo_motor_mitsubishi",
       "e_mfg_plc_wcs_mitsubishi",
       "e_mfg_robot_controller_io_mitsubishi",
+      "e_mfg_robot_controller_cpu_module_mitsubishi",
       "e_impl_servo_drive_motion_loop_mitsubishi",
-      "e_impl_servo_drive_thermal_emc_mitsubishi"
+      "e_impl_robot_realtime_control_runtime_mitsubishi"
     ],
-    "limitations": "Product-line evidence; does not quantify market share or target-cell adoption.",
+    "limitations": "Product-family evidence; supports Mitsubishi as a supplier candidate for automation/controller/servo categories, not target-cell adoption, share, detailed robot runtime internals, servo thermal design, or servo motor subcomponent manufacturing.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open found Mitsubishi Electric US Industrial Automation product categories including MELSEC programmable controllers, motion controllers, AC servos, servo motors, HMI, and industrial robots."
     }
   },
   {
@@ -1364,25 +1372,37 @@
   {
     "id": "ev_mfg_schneider_modicon_plc",
     "type": "product_page",
-    "title": "Modicon PLC and PAC documentation",
-    "url": "https://www.se.com/us/en/work/products/explore/modicon-plc-pac/modicon-documentation/",
-    "sourceName": "Schneider Electric",
-    "date": "2026-06-07",
-    "summary": "Schneider Electric product materials describe Modicon PLC/PAC control products relevant to industrial automation integration.",
+    "title": "Schneider Electric Modicon PLC, PAC and dedicated controllers",
+    "url": "https://www.se.com/us/en/work/products/explore/modicon-plc-pac/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Schneider Electric United States",
+    "date": "accessed 2026-06-19",
+    "summary": "Schneider Electric describes Modicon PLC, PAC and dedicated controller products, including machine controllers, distributed I/O, process and machine safety, and programming software.",
+    "excerpt": "Modicon M241 PLC",
     "supportsNodeIds": [
-      "org_schneider_electric"
+      "org_schneider_electric",
+      "robot_controller_io",
+      "robot_controller_cpu_module",
+      "robot_fieldbus_gateway"
     ],
     "supportsEdgeIds": [
       "e_mfg_plc_wcs_schneider",
-      "e_mfg_robot_controller_io_schneider"
+      "e_mfg_robot_controller_io_schneider",
+      "e_mfg_robot_controller_cpu_module_schneider",
+      "e_mfg_robot_fieldbus_gateway_schneider",
+      "e_mfg_robot_safety_io_schneider",
+      "e_mfg_robot_external_io_schneider",
+      "e_impl_plc_wcs_handshake_schneider"
     ],
-    "limitations": "Product-line evidence; does not quantify parcel-cell adoption or market share.",
+    "limitations": "Product-family evidence; supports Schneider as a PLC/PAC/controller/I-O supplier candidate, not parcel-cell adoption, exact protocol choice, system integrator implementation, or BOM share.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open found the stored Modicon M241 PLC quote, plus product-family entries for industrial machine controllers, process and machine safety, distributed I/O, and programming software."
     }
   },
   {
@@ -1420,19 +1440,23 @@
     "type": "historical_source",
     "title": "Mitsubishi Electric 2025 Integrated Report — Factory Automation Systems",
     "url": "https://www.mitsubishielectric.com/investors/library/integrated-report/pdf/2025/integrated-report2025-en.pdf",
+    "sourceStatus": "ok_exact",
     "sourceName": "Mitsubishi Electric",
     "date": "2025-05-28",
-    "summary": "Mitsubishi Electric's 2025 Integrated Report shows FY2025 Factory Automation Systems revenue of JPY 725.6 billion and identifies control and drive products, processing machines, distribution-control equipment, and FA digital products as principal products.",
+    "summary": "Mitsubishi Electric describes Factory Automation Systems principal products as control and drive products, processing machines, power distribution control equipment, and FA digital solutions.",
+    "excerpt": "Control and drive products",
     "supportsNodeIds": [
       "org_mitsubishi_electric"
     ],
-    "limitations": "Factory-automation business exposure evidence; exact PLC, servo, or robot-controller share in the target parcel-cell market remains unverified.",
+    "limitations": "Factory-automation business exposure evidence; it supports Mitsubishi Electric business-line exposure, not specific target parcel-cell PLC, servo, or robot-controller adoption.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on the 2025 Integrated Report PDF found Factory Automation Systems principal-products text including control and drive products, processing machines, power distribution control equipment, and FA digital solutions."
     }
   },
   {
@@ -1454,20 +1478,24 @@
     "id": "ev_schneider_fy2025_industrial_automation_results",
     "type": "historical_source",
     "title": "Schneider Electric 2025 full-year results — Industrial Automation",
-    "url": "https://www.se.com/ww/en/assets/564/document/528237/release-fy-results-2025.pdf?p_File_Name=2025+FY+Results&p_enDocType=Financial+release",
+    "url": "https://www.se.com/ww/en/assets/564/document/528237/release-fy-results-2025.pdf",
+    "sourceStatus": "ok_exact",
     "sourceName": "Schneider Electric",
     "date": "2026-02-26",
-    "summary": "Schneider Electric reports FY2025 Industrial Automation revenues of EUR 7.022 billion with 3.0% organic growth, alongside total group revenues of EUR 40.152 billion.",
+    "summary": "Schneider Electric reports FY2025 Industrial Automation revenue of EUR 7.022 billion with 3.0% organic growth, alongside total group revenue of EUR 40.152 billion.",
+    "excerpt": "Industrial Automation 7,022 +3.0%",
     "supportsNodeIds": [
       "org_schneider_electric"
     ],
-    "limitations": "Business-line exposure evidence; it covers broad industrial automation and software exposure, not target parcel-cell controller adoption or BOM share.",
+    "limitations": "Business-line exposure evidence; covers broad industrial automation exposure, not target parcel-cell controller adoption or BOM share.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on Schneider Electric FY2025 results PDF found the FY2025 business revenue table with Industrial Automation EUR 7,022 million and +3.0% organic growth."
     }
   },
   {
@@ -2746,11 +2774,13 @@
   {
     "id": "ev_mitsubishi_power_modules_motion_control_2026",
     "type": "product_page",
-    "title": "Power Devices Applications: Motion Control",
-    "url": "https://www.mitsubishielectric.com/semiconductors/powerdevices/application/motion-control/index.html?seriesid=01",
+    "title": "Mitsubishi Electric power devices for motion control",
+    "url": "https://www.mitsubishielectric.com/semiconductors/powerdevices/application/motion-control/",
+    "sourceStatus": "ok_exact",
     "sourceName": "Mitsubishi Electric",
-    "date": "2026-06-07",
-    "summary": "Mitsubishi Electric states that IGBT and IPM modules are indispensable for industrial inverter and servo-drive applications and describes low-loss, thermal-interface, and dv/dt control features for motion control.",
+    "date": "accessed 2026-06-19",
+    "summary": "Mitsubishi Electric states that IGBT and IPM modules are indispensable for industrial inverter and servo-drive applications and lists low-loss, thermal-impedance, dv/dt controllability, and thermal-interface features.",
+    "excerpt": "IGBT and IPM modules are indispensable devices",
     "supportsNodeIds": [
       "org_mitsubishi_electric",
       "servo_drive_power_stage",
@@ -2760,13 +2790,15 @@
       "e_mfg_servo_drive_power_stage_mitsubishi",
       "e_impl_servo_drive_thermal_emc_mitsubishi"
     ],
-    "limitations": "Power-device application evidence; does not show target-cell adoption or market share.",
+    "limitations": "Power-device application evidence; supports servo-drive power-stage and thermal/EMC relevance, not target-cell adoption, market share, or embedded motion-loop software implementation.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open found the stored IGBT/IPM motion-control quote plus low-loss, thermal-impedance, dv/dt, and thermal-interface feature text on the Mitsubishi Electric power-device page."
     }
   },
   {
@@ -4100,11 +4132,13 @@
   {
     "id": "ev_ibiden_integrated_report_2025_ic_package_substrates",
     "type": "historical_source",
-    "title": "IBIDEN Integrated Report 2025",
+    "title": "IBIDEN Integrated Report 2025 — IC package substrates",
     "url": "https://www.ibiden.com/ir/items/IntegratedReport2025_en.pdf",
+    "sourceStatus": "ok_exact",
     "sourceName": "IBIDEN",
     "date": "2025",
-    "summary": "Integrated Report 2025 describes IBIDEN's Electronics Operation and IC package substrate products, providing package-substrate supplier exposure for the semiconductor packaging chain.",
+    "summary": "IBIDEN Integrated Report 2025 describes Electronics Operation products including IC package substrates for servers and cutting-edge semiconductor IC package substrates.",
+    "excerpt": "Cutting-edge semiconductor IC package substrates",
     "supportsNodeIds": [
       "semiconductor_packaging_solder_substrate_chain",
       "org_ibiden"
@@ -4116,9 +4150,11 @@
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on IBIDEN Integrated Report 2025 found the stored IC-package-substrate quote and Electronics Operation context."
     }
   },
   {
@@ -4214,6 +4250,35 @@
       "quoteMatch": "exact",
       "numberInQuote": false,
       "notes": "web.open on Dematic Sortation Solutions PDF found induction/minimum-gap language, carton gapping/scanning, user-configurable gap/speed/sensor settings, and 4/6/8 gapping belts with VFD and horizontal array sensors."
+    }
+  },
+  {
+    "id": "ev_mitsubishi_linear_servo_motor_structure_2026",
+    "type": "product_page",
+    "title": "MELSERVO-J4 linear servo motor structure and thermal features",
+    "url": "https://www.mitsubishielectric.com/fa/products/drv/servo/pmerit/mr_j4/linear/feature.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Mitsubishi Electric Factory Automation",
+    "date": "accessed 2026-06-19",
+    "summary": "Mitsubishi Electric describes MELSERVO-J4 linear servo motor winding density, motor coil/core structure, magnet mounting, resin molding, and an LM-F liquid-cooling pipe used to suppress heat generation.",
+    "excerpt": "increased winding density and the optimized core and magnet geometries",
+    "supportsNodeIds": [
+      "servo_motor_windings",
+      "servo_motor_housing_and_thermal_design"
+    ],
+    "supportsEdgeIds": [
+      "e_mfg_servo_motor_windings_mitsubishi",
+      "e_mfg_servo_motor_housing_thermal_mitsubishi"
+    ],
+    "limitations": "Vendor product-page evidence for Mitsubishi servo-motor structure and thermal features; it supports supplier capability, not target parcel-cell servo selection, BOM share, or rotary motor winding process details.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open found the stored winding-density/core/magnet quote plus motor-coil, resin molding, stainless cover, and liquid-cooling-pipe thermal context on Mitsubishi Electric FA linear servo motor page."
     }
   }
 ]

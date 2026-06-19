@@ -540,8 +540,7 @@
     "confidence": "medium",
     "evidenceIds": [
       "ev_robot_controller_io_inovance_ac703_2026",
-      "ev_mfg_siemens_simatic_plc",
-      "ev_mfg_mitsubishi_plc_servo"
+      "ev_mfg_siemens_simatic_plc"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -553,8 +552,7 @@
     "claim": "The control stack requires a real-time runtime for motion, PLC logic, watchdogs, and deterministic task execution.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_robot_controller_io_inovance_ac703_2026",
-      "ev_mfg_mitsubishi_plc_servo"
+      "ev_robot_controller_io_inovance_ac703_2026"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -568,8 +566,7 @@
     "evidenceIds": [
       "ev_robot_controller_io_inovance_ac703_2026",
       "ev_robot_controller_io_siemens_et200_2026",
-      "ev_mfg_rockwell_controllers_safety",
-      "ev_mfg_schneider_modicon_plc"
+      "ev_mfg_rockwell_controllers_safety"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -610,7 +607,6 @@
     "confidence": "low",
     "evidenceIds": [
       "ev_robot_controller_io_inovance_ac703_2026",
-      "ev_mfg_mitsubishi_plc_servo",
       "ev_mfg_rockwell_controllers_safety"
     ],
     "reviewStatus": "unreviewed"
@@ -779,9 +775,6 @@
     "target": "servo_drive_power_stage",
     "relation": "requires",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_mitsubishi_servo_drive_safety"
-    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -4668,8 +4661,7 @@
     "claim": "Mitsubishi Electric is a candidate implementer for the servo-drive embedded motion-control loop and tuning layer.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_mfg_mitsubishi_plc_servo",
-      "ev_mitsubishi_power_modules_motion_control_2026"
+      "ev_mfg_mitsubishi_plc_servo"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -4681,7 +4673,6 @@
     "claim": "Mitsubishi Electric is a candidate implementer for the servo-drive thermal and EMC design layer.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_mfg_mitsubishi_plc_servo",
       "ev_mitsubishi_power_modules_motion_control_2026"
     ],
     "reviewStatus": "unreviewed"
@@ -6463,10 +6454,10 @@
     "claim": "Mitsubishi Electric is a servo supplier candidate for servo motor winding and motor assembly exposure.",
     "context": "Factory automation and servo product-line evidence; exact winding process, motor SKU, and target-cell supplier share are not verified.",
     "confidence": "medium",
+    "reviewStatus": "unreviewed",
     "evidenceIds": [
-      "ev_mfg_mitsubishi_plc_servo"
-    ],
-    "reviewStatus": "unreviewed"
+      "ev_mitsubishi_linear_servo_motor_structure_2026"
+    ]
   },
   {
     "id": "e_mfg_servo_motor_housing_thermal_inovance",
@@ -6503,10 +6494,10 @@
     "claim": "Mitsubishi Electric is a servo supplier candidate for servo motor housing and thermal-design exposure.",
     "context": "Factory automation and servo product-line evidence; exact housing casting/machining supplier and thermal design are not verified.",
     "confidence": "medium",
+    "reviewStatus": "unreviewed",
     "evidenceIds": [
-      "ev_mfg_mitsubishi_plc_servo"
-    ],
-    "reviewStatus": "unreviewed"
+      "ev_mitsubishi_linear_servo_motor_structure_2026"
+    ]
   },
   {
     "id": "e_bauxite_alumina_aluminum_chain_measured_by_cost",
@@ -7331,10 +7322,6 @@
     "claim": "Mitsubishi Electric is an implementation candidate for servo motor assembly, end-of-line test, and factory-automation quality workflows.",
     "context": "Factory-automation and servo evidence; not a factory process audit, motor BOM proof, or target-cell supplier selection.",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_mfg_mitsubishi_plc_servo",
-      "ev_mitsubishi_integrated_report_2025_factory_automation"
-    ],
     "reviewStatus": "unreviewed"
   },
   {
