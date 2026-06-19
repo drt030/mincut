@@ -337,11 +337,11 @@
   {
     "id": "ev_maintenance_fanuc_pm_checklist_2023",
     "type": "product_page",
-    "title": "Preventative Maintenance Checklist for your Fanuc Robot",
-    "url": "https://content.fanucworld.com/preventative-maintenance-checklist-for-your-fanuc-robot/",
-    "sourceName": "TIE Industrial / FanucWorld",
-    "date": "2023-04-05",
-    "summary": "Describes an industrial-robot preventive maintenance checklist and reports a FANUC preventive maintenance interval of every 11,520 operating hours or one year, with tasks including servo motor checks, backlash tests, cable inspection, reducer grease/oil replacement, encoder batteries, controller inspection, cooling fans, and daily/monthly/quarterly checks.",
+    "title": "FANUC America robot support and preventive maintenance services",
+    "url": "https://www.fanucamerica.com/support/robot",
+    "sourceName": "FANUC America",
+    "date": "accessed 2026-06-19",
+    "summary": "FANUC America's robot support page describes on-site robot field service agents and a complete range of predictive, preventive, and reactive maintenance solutions, plus parts, manuals, and training support.",
     "supportsNodeIds": [
       "maintenance_workflow",
       "maintenance_cost",
@@ -354,14 +354,17 @@
       "e_product_requires_maintenance",
       "e_impl_maintenance_workflow_fanuc"
     ],
-    "limitations": "demote: Page returns a Cloudflare 'Just a moment...' / 'Enable JavaScript' interstitial to WebFetch (403) and to browser-UA curl (403 challenge body). No article content recoverable; not enriched.",
+    "limitations": "RE-ANCHORED 2026-06-19: original FanucWorld/TIE checklist URL was Cloudflare-blocked. Re-anchored to FANUC America's official robot support page. Supports FANUC's maintenance/support ecosystem, not a quoted parcel-cell maintenance plan or the old 11,520-hour checklist details.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "unreachable",
+    "excerpt": "complete range of solutions for predictive, preventive and reactive maintenance",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "demote: Page returns a Cloudflare 'Just a moment...' / 'Enable JavaScript' interstitial to WebFetch (403) and to browser-UA curl (403 challenge body). No article content recoverable; not enriched."
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched FANUC America robot support. Lines 136-L139 describe robot support services and contain the stored preventive/reactive maintenance excerpt; lines 188-L193 describe robot manuals access."
     }
   },
   {
@@ -551,11 +554,11 @@
   {
     "id": "ev_vision_control_machine_vision_components",
     "type": "product_page",
-    "title": "Vision Sensor Components",
-    "url": "https://www.cognex.com/what-is/vision-sensors/components",
+    "title": "Cognex machine-vision product categories: cameras, lenses and lighting",
+    "url": "https://www.cognex.com/",
     "sourceName": "Cognex",
-    "date": "2026-04-27",
-    "summary": "Describes core machine-vision components such as lighting, lens, image sensor, processor, and communication elements, supporting the decomposition of parcel label recognition hardware.",
+    "date": "accessed 2026-06-19",
+    "summary": "Cognex's official site navigation lists machine-vision product families including industrial cameras, lenses and lighting, supporting the lens/optics and lighting decomposition of parcel label recognition hardware.",
     "supportsNodeIds": [
       "vision_barcode_label_recognition",
       "industrial_area_scan_camera",
@@ -573,14 +576,17 @@
       "e_low_cost_vision_compute_requires_camera_sdk_acquisition",
       "e_tracking_requires_camera"
     ],
-    "limitations": "demote: Page returns a 'Vercel Security Checkpoint / We're verifying your browser' challenge to WebFetch (403) and browser-UA curl (429 challenge body); Google cache dead. No component text recoverable; not enriched.",
+    "limitations": "RE-ANCHORED 2026-06-19: original Cognex vision-sensor-components URL returned a browser security checkpoint. Re-anchored to Cognex's official homepage/product navigation, which supports product-category availability only; it does not prove target-cell supplier status, SKU fit, or parcel OCR performance.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "unreachable",
+    "excerpt": "Industrial Cameras ... Lenses ... Lighting",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "demote: Page returns a 'Vercel Security Checkpoint / We're verifying your browser' challenge to WebFetch (403) and browser-UA curl (429 challenge body); Google cache dead. No component text recoverable; not enriched."
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched cognex.com. Product navigation lines 16-L70 list Machine Vision, Vision Sensors, Barcode Readers, Industrial Cameras, Lenses and Lighting."
     }
   },
   {
@@ -2190,11 +2196,11 @@
   {
     "id": "ev_mfg_siemens_motion_control_encoders_2026",
     "type": "product_page",
-    "title": "Siemens motion control drives and encoder measuring systems",
-    "url": "https://cache.industry.siemens.com/dl/files/273/109755273/att_1309195/v1/motion-control-D31-1-complete-english-FINAL-2024-12.pdf",
-    "sourceName": "Siemens",
-    "date": "2024-12",
-    "summary": "Siemens motion-control catalog materials describe SINAMICS drive systems, encoder measuring systems, and motion-control integration relevant to conveyor speed tracking and timestamp-aligned drive feedback.",
+    "title": "SINAMICS S120, SINAMICS S220 and SIMOTICS catalog mirror",
+    "url": "https://pdf.directindustry.com/pdf/innomotics/sinamics-s120-sinamics-s220-simotics/18183-1071042.html",
+    "sourceName": "DirectIndustry mirror of Siemens/Innomotics catalog",
+    "date": "accessed 2026-06-19",
+    "summary": "The catalog mirror describes a comprehensive SINAMICS S120/S220 drive-system catalog and lists the motion-control encoder measuring system section, supporting Siemens/Innomotics motion-control and encoder-system relevance for conveyor speed tracking.",
     "supportsNodeIds": [
       "org_siemens",
       "conveyor_speed_encoder_tracking",
@@ -2204,14 +2210,17 @@
       "e_mfg_conveyor_speed_tracking_siemens",
       "e_impl_vision_latency_budget_siemens"
     ],
-    "limitations": "demote: Siemens catalog PDF URL returns HTTP 404 Not Found; document no longer hosted at this path.",
+    "limitations": "RE-ANCHORED 2026-06-19: original Siemens PDF URL returned 404. Re-anchored to a DirectIndustry mirror of the Siemens/Innomotics catalog because the live Siemens/SiePortal page is harder to fetch automatically. Supports motion-control catalog structure and encoder measuring-system relevance, not a target-cell BOM or performance number.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "404",
+    "excerpt": "Motion Control Encoder measuring system",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "demote: Siemens catalog PDF URL returns HTTP 404 Not Found; document no longer hosted at this path."
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched the DirectIndustry catalog mirror. Lines 46-L52 list the SINAMICS S120/S220/SIMOTICS motion-control drives catalog and include the stored 'Motion Control Encoder measuring system' excerpt."
     }
   },
   {

@@ -195,6 +195,14 @@ test("node detail IA audit does not require obsolete tickers for delisted subsid
         listingStatus: "subsidiary",
         notes: "Delisted after a share exchange and now a wholly-owned subsidiary with no standalone ticker.",
       },
+      {
+        id: "org_private_subsidiary",
+        name: "Private subsidiary",
+        kind: "organization",
+        domain: ["fixture"],
+        listingStatus: "subsidiary",
+        tags: ["private_company"],
+      },
     ],
     edges: [
       {
@@ -209,6 +217,14 @@ test("node detail IA audit does not require obsolete tickers for delisted subsid
         target: "org_delisted",
         relation: "manufactured_by",
         claim: "Delisted subsidiary manufactures this module.",
+        evidenceIds: ["ev_supplier"],
+      },
+      {
+        id: "e_module_org_private_subsidiary",
+        source: "module",
+        target: "org_private_subsidiary",
+        relation: "manufactured_by",
+        claim: "Private subsidiary manufactures this module.",
         evidenceIds: ["ev_supplier"],
       },
     ],

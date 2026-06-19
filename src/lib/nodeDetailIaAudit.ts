@@ -187,7 +187,7 @@ function requiresCollapsedTicker(org: Node): boolean {
     .join(" ")
     .toLowerCase();
 
-  return !/\b(delisted|taken private|taking [^.;]* private|wholly[- ]owned|no standalone (listing|ticker)|private exposure)\b/.test(visibilityText);
+  return !/\b(delisted|taken private|taking [^.;]* private|wholly[- ]owned|no standalone (listing|ticker)|private[_ -]company|private benchmark|private exposure)\b/.test(visibilityText);
 }
 
 function supplierEdgesForNode(graph: GraphData, nodeId: string): Edge[] {
