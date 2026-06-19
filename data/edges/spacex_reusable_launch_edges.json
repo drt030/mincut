@@ -254,9 +254,12 @@
     "source": "launch_engine_precision_bearings_merchant",
     "target": "org_schaeffler",
     "relation": "reported_capable_supplier",
-    "claim": "Schaeffler is a major precision rolling-element bearing manufacturer whose product range covers high-speed and special-environment bearings applicable to turbomachinery/gimbal mechanisms.",
+    "claim": "Schaeffler/FAG Aerospace develops and manufactures specialty bearings, integrated bearing systems and high-precision components for aviation and aerospace industries, including customers in space launchers and satellites.",
     "context": "reported_capable_supplier: reused cross-domain bearing major; specific launch-engine turbopump bearing role is qualitative, not a confirmed SpaceX supply. Industry-capability altitude.",
     "confidence": "low",
+    "evidenceIds": [
+      "ev_space_schaeffler_fag_aerospace_bearings"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -264,9 +267,12 @@
     "source": "launch_engine_precision_bearings_merchant",
     "target": "org_skf",
     "relation": "reported_capable_supplier",
-    "claim": "SKF is a major precision bearing manufacturer with aerospace and special-environment bearing lines applicable to launch-vehicle turbomachinery and mechanisms.",
+    "claim": "SKF Aerospace supplies engineered aerospace bearing solutions, including custom-designed rolling bearings for engine main-shafts, gearboxes and helicopter drivetrains.",
     "context": "reported_capable_supplier: reused cross-domain bearing major; specific launch-engine role is qualitative, not a confirmed SpaceX supply. Industry-capability altitude.",
     "confidence": "low",
+    "evidenceIds": [
+      "ev_space_skf_aerospace_bearing_solutions"
+    ],
     "reviewStatus": "unreviewed"
   },
   {

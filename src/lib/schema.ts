@@ -215,8 +215,10 @@ const nodeBaseSchema = z.object({
   /**
    * Per ADR-0008 + investor-operator scenario Q3: public-market
    * visibility of an organization. `subsidiary` = belongs to a listed
-   * parent (the parent's ticker goes in `ticker`). Only meaningful on
-   * `organization` nodes (enforced by refinement below).
+   * parent, and the parent's ticker goes in `ticker` when that public
+   * exposure is relevant. Delisted or private subsidiaries can omit
+   * `ticker`. Only meaningful on `organization` nodes (enforced by
+   * refinement below).
    */
   listingStatus: z.enum(["public", "private", "subsidiary", "unknown"]).optional(),
   /** Exchange ticker (e.g. "6954.T", "NVDA"). Organization nodes only. */

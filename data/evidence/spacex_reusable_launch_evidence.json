@@ -2747,5 +2747,61 @@
       "numberInQuote": false,
       "notes": "Independent WebFetch AND browser render (Chrome MCP) of chartindustries.com/Cryo-Tank-Solutions (page title 'Cryogenic Tank Solutions | Chart Industries') both confirm the stored excerpt verbatim: 'Complete range of cryogenic storage tanks and solutions delivering proven reliability, reduced maintenance, and lowest cost of ownership for liquefied gases including oxygen, nitrogen, LNG, hydrogen, argon, CO2 and helium.' Strings 'cryogenic storage tanks' present. The unsupported '90% of LNG projects' number was dropped (not on any anchored page) -> qualitative claim, VERIFIED, re-promoted to evidenceIds on org_chart_industries + e_space_exposure_chart_cryotank. No number in the quote (numberInQuote=false)."
     }
+  },
+  {
+    "id": "ev_space_schaeffler_fag_aerospace_bearings",
+    "type": "vendor_claim",
+    "title": "Schaeffler/FAG Aerospace — specialty bearings for aviation and aerospace",
+    "url": "https://www.schaeffler.com/remotemedien/media/_shared_media/08_media_library/01_publications/schaeffler_2/brochure/downloads_1/FL_09110_de_en.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Schaeffler Group / FAG Aerospace brochure",
+    "date": "accessed 2026-06-19",
+    "summary": "Schaeffler's FAG Aerospace brochure describes specialty bearings, integrated bearing systems and high-precision components for aviation and aerospace, with customers including space launchers and satellites.",
+    "excerpt": "FAG Aerospace develops and manufactures specialty bearings, integrated bearing systems as well as high-precision components for the aviation and aerospace industries.",
+    "supportsNodeIds": [
+      "org_schaeffler",
+      "launch_engine_precision_bearings_merchant"
+    ],
+    "supportsEdgeIds": [
+      "e_space_schaeffler_bearings"
+    ],
+    "limitations": "Official vendor brochure; supports Schaeffler/FAG aerospace bearing capability only. It does not prove SpaceX-specific supply, so the edge remains reported_capable_supplier with low confidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Fetched PDF through web.open. Lines P2 L5-L7 contain the stored excerpt, and P2 L20-L22 state customers include space launchers and satellites."
+    }
+  },
+  {
+    "id": "ev_space_skf_aerospace_bearing_solutions",
+    "type": "vendor_claim",
+    "title": "SKF Aerospace solutions catalogue — aerospace bearing portfolio",
+    "url": "https://cdn.skfmediahub.skf.com/api/public/0901d19680b37925/pdf_preview_medium/18922_3_EN_-_Aerospace_catalogue_pdf_preview_medium.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "SKF Group aerospace catalogue",
+    "date": "accessed 2026-06-19",
+    "summary": "SKF's aerospace catalogue covers engineered bearing solutions and lists aeroengine custom-designed rolling bearings for engine main-shafts, gearboxes and helicopter drivetrains.",
+    "excerpt": "SKF Aerospace delivers highly engineered standard parts",
+    "supportsNodeIds": [
+      "org_skf",
+      "launch_engine_precision_bearings_merchant"
+    ],
+    "supportsEdgeIds": [
+      "e_space_skf_bearings"
+    ],
+    "limitations": "Official vendor catalogue; supports SKF aerospace bearing capability only. It does not prove SpaceX-specific supply, so the edge remains reported_capable_supplier with low confidence.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Fetched PDF through web.open. The catalogue title is 'Aerospace solutions'; page 11 lines 486-L488 describe high-quality performance for aerospace products, and the catalogue table lists rolling bearing product families for aeroengine and airframe applications."
+    }
   }
 ]

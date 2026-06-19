@@ -95,7 +95,7 @@ export function auditNodeDetailIa(graph: GraphData, options: NodeDetailIaAuditOp
         continue;
       }
       if (org.kind !== "organization") continue;
-      if ((org.listingStatus === "public" || org.listingStatus === "subsidiary") && !org.ticker?.trim()) {
+      if (requiresCollapsedTicker(org) && !org.ticker?.trim()) {
         issues.push(issue(options, {
           severity: "warn",
           kind: "supplier_org_missing_ticker",
@@ -172,6 +172,22 @@ function directDecompositionChildren(graph: GraphData, nodeId: string, nodeById:
     .filter((edge) => edge.relation === "requires" || edge.relation === "has_route" || edge.relation === "implemented_by")
     .map((edge) => nodeById.get(edge.target))
     .filter((node): node is Node => Boolean(node && node.reviewStatus !== "deprecated" && ARTIFACT_KINDS.has(node.kind)));
+}
+
+function requiresCollapsedTicker(org: Node): boolean {
+  if (org.listingStatus === "public") return true;
+  if (org.listingStatus !== "subsidiary") return false;
+
+  const visibilityText = [
+    org.description,
+    org.notes,
+    ...(org.tags ?? []),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return !/\b(delisted|taken private|taking [^.;]* private|wholly[- ]owned|no standalone (listing|ticker)|private exposure)\b/.test(visibilityText);
 }
 
 function supplierEdgesForNode(graph: GraphData, nodeId: string): Edge[] {
