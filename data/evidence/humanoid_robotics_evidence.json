@@ -3249,5 +3249,256 @@
       "numberInQuote": false,
       "notes": "web.open fetched TE force sensors page; lines 520-528 contain the stored force-sensor and piezoresistive silicon strain gauge text, and lines 531-536 list robotics as an application category."
     }
+  },
+  {
+    "id": "ev_humanoid_auras_heat_pipe_vapor_chamber",
+    "type": "historical_source",
+    "title": "Auras Technology 2022 sustainability report: self-made heat pipe and vapor chamber",
+    "url": "https://www.auras.com.tw/CMSFS/InformationCenters/English/d6f2798a-5f85-4fb3-8b29-9ae500af7164.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Auras Technology",
+    "date": "2022",
+    "summary": "Auras states that it self-makes heat pipe and vapor chamber elements for customized cooling modules and describes expansion into server and cloud data-center cooling.",
+    "excerpt": "Heat Pipe and Vapor Chamber are self-made",
+    "supportsNodeIds": [
+      "org_auras",
+      "humanoid_heat_pipe_vapor_chamber"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_heat_pipe__reported_capable_supplier__auras"
+    ],
+    "limitations": "Company sustainability report supports Auras heat-pipe/vapor-chamber manufacturing capability. It does not prove a humanoid OEM thermal BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Auras 2022 sustainability report PDF. Page 7 lines 120-135 contain company cooling-module context and the stored heat-pipe/vapor-chamber self-made excerpt."
+    }
+  },
+  {
+    "id": "ev_humanoid_avc_heat_pipe_vapor_chamber",
+    "type": "historical_source",
+    "title": "AVC 2013 CSR report product lines include heat pipe and vapor chamber",
+    "url": "https://sustaihubtokyo.s3-ap-northeast-1.amazonaws.com/CSRreport/Mops/86427715_%E5%A5%87%E9%8B%90_3017/86427715_3017_102_CSRreport.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Asia Vital Components / AVC",
+    "date": "2013",
+    "summary": "AVC lists product lines including heat pipe, heat plate, vapor chamber, thermal modules, and liquid cooling systems.",
+    "excerpt": "Product lines include ... heat pipe, heat plate, vapor chamber",
+    "supportsNodeIds": [
+      "org_avc",
+      "humanoid_heat_pipe_vapor_chamber"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_heat_pipe__reported_capable_supplier__avc"
+    ],
+    "limitations": "Older company CSR report supports heat-pipe/vapor-chamber product-line capability. It does not prove a current humanoid OEM thermal BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched AVC 2013 CSR report PDF. Page 4 lines 93-100 contain the stored product-line excerpt including heat pipe, heat plate, vapor chamber, thermal module, and liquid cooling system."
+    }
+  },
+  {
+    "id": "ev_humanoid_boyd_vapor_chamber",
+    "type": "product_page",
+    "title": "Boyd / Aavid Therma-Base vapor chamber datasheet",
+    "url": "https://info.boydcorp.com/hubfs/Thermal/Two-Phase-Cooling/Boyd-Vapor-Chamber-Datasheet.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Boyd Corporation / Aavid",
+    "date": "2020",
+    "summary": "Boyd/Aavid describes Therma-Base vapor chambers as two-phase heat-transfer devices and planar flat heat pipes used as heat-sink bases.",
+    "excerpt": "Therma-Base Vapor Chamber ... is a two-phase heat transfer device",
+    "supportsNodeIds": [
+      "org_boyd",
+      "humanoid_heat_pipe_vapor_chamber"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_heat_pipe__reported_capable_supplier__boyd"
+    ],
+    "limitations": "Official datasheet supports Boyd/Aavid vapor-chamber capability. It does not prove a humanoid OEM thermal BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Boyd vapor-chamber datasheet PDF. Page 1 lines 14-23 contain the two-phase heat-transfer and planar-flat-heat-pipe text; page 2 lines 84-88 list CPU/GPU/server and power-electronics applications."
+    }
+  },
+  {
+    "id": "ev_humanoid_dow_tc5550_tim",
+    "type": "product_page",
+    "title": "DOWSIL TC-5550 thermally conductive compound",
+    "url": "https://www.dow.com/en-us/pdp.dowsil-tc-5550-thermal-conductive-compound.509807z.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Dow",
+    "date": "accessed 2026-06-19",
+    "summary": "Dow describes DOWSIL TC-5550 as a thermally conductive silicone grease for next-generation electronics that can replace a phase-change material or thermal pad.",
+    "excerpt": "used in place of a PCM or thermal pad",
+    "supportsNodeIds": [
+      "org_dow",
+      "humanoid_thermal_interface_material"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_tim__reported_capable_supplier__dow"
+    ],
+    "limitations": "Official product page supports Dow TIM capability. It does not prove a humanoid OEM thermal BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Dow product page. Lines 364-380 contain the stored thermal-pad replacement excerpt plus thermally conductive compound properties."
+    }
+  },
+  {
+    "id": "ev_humanoid_shinetsu_tim_page",
+    "type": "product_page",
+    "title": "Shin-Etsu Silicone thermal interface materials",
+    "url": "https://www.shinetsusilicone-global.com/products/function/heat/index.shtml",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Shin-Etsu Silicone",
+    "date": "accessed 2026-06-19",
+    "summary": "Shin-Etsu describes silicone thermal interface materials for heat dissipation between heat-generating devices and heatsinks, including oil compounds, TC sheets, phase-change materials, tapes, and adhesives.",
+    "excerpt": "fit snugly in the gap between the heat-generating unit and the heatsink",
+    "supportsNodeIds": [
+      "org_shin_etsu_chemical",
+      "humanoid_thermal_interface_material"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_tim__reported_capable_supplier__shin_etsu"
+    ],
+    "limitations": "Official product-family page supports Shin-Etsu TIM capability. It does not prove a humanoid OEM thermal BOM placement.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Shin-Etsu TIM page. Lines 111-114 contain the stored heat-generating-unit/heatsink excerpt; lines 123-129 list TIM product families."
+    }
+  },
+  {
+    "id": "ev_humanoid_parker_kseries_frameless",
+    "type": "product_page",
+    "title": "Parker K-Series frameless kit motors brochure",
+    "url": "https://www.parker.com/content/dam/Parker-com/Literature/Electromechanical-North-America/CATALOGS-BROCHURES/Frameless-Motors/Parker-K-Series-Frameless-Kit-Motors-Brochure.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Parker Hannifin",
+    "date": "accessed 2026-06-19",
+    "summary": "Parker describes K-Series frameless kit motors as direct-drive servo-motor components for compact high-performance designs, with robotics and semiconductor applications listed.",
+    "excerpt": "Frameless kit motors are the ideal solution for machine designs",
+    "supportsNodeIds": [
+      "org_parker_hannifin",
+      "humanoid_motor_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__parker_hannifin"
+    ],
+    "limitations": "Official brochure supports Parker frameless motor capability for robotics. It does not prove a humanoid OEM design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Parker K-Series PDF. Page 3 lines 43-84 contain the stored frameless-kit-motor text and applications including Robotics; page 4 lines 100-129 describe direct-drive construction."
+    }
+  },
+  {
+    "id": "ev_humanoid_kollmorgen_tbm2g_robotics",
+    "type": "product_page",
+    "title": "Kollmorgen TBM2G frameless motors for robotic design",
+    "url": "https://www.kollmorgen.com/en-us/products/motors/direct-drive/tbm2g-series-frameless",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Kollmorgen",
+    "date": "accessed 2026-06-19",
+    "summary": "Kollmorgen describes TBM2G as a frameless motor family in its robotics-motor line, with frame sizes for collaborative robot designs and 48V operation.",
+    "excerpt": "TBM2G series of frameless motors is the latest addition to Kollmorgen’s full line of robotics motors",
+    "supportsNodeIds": [
+      "org_regal_rexnord",
+      "humanoid_motor_stack"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__regal_rexnord"
+    ],
+    "limitations": "Kollmorgen official product page supports frameless robotics-motor capability. Regal Rexnord parentage is supported separately; no humanoid OEM design win is claimed.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open fetched Kollmorgen TBM2G page. Lines 273-289 contain the stored robotics-motor, cobot-design, 48V, and torque/speed optimization context."
+    }
+  },
+  {
+    "id": "ev_humanoid_regal_kollmorgen_parent",
+    "type": "vendor_claim",
+    "title": "Regal Rexnord careers page identifies Kollmorgen as part of Regal Rexnord",
+    "url": "https://careers.regalrexnord.com/en/jobs/r26_02204/motor-assembler-ii/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Regal Rexnord",
+    "date": "2026-05-01",
+    "summary": "Regal Rexnord states that the listed motor-assembler role joins the Kollmorgen team and that Kollmorgen is part of Regal Rexnord.",
+    "excerpt": "Kollmorgen is part of Regal Rexnord",
+    "supportsNodeIds": [
+      "org_regal_rexnord"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_motor_stack__manufactured_by__regal_rexnord"
+    ],
+    "limitations": "Official careers page supports parent/brand mapping only. Product capability is supported by the Kollmorgen product page.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Regal Rexnord careers page. Lines 34-35 contain the stored Kollmorgen parentage quote; lines 97-102 describe Regal Rexnord automation and precision motors."
+    }
+  },
+  {
+    "id": "ev_humanoid_syensqo_ketaspire_structural",
+    "type": "product_page",
+    "title": "Syensqo KetaSpire PEEK for structural components",
+    "url": "https://www.syensqo.com/en/solutions-market/electronics/semiconductors/dry-etching-cleaning",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Syensqo",
+    "date": "accessed 2026-06-19",
+    "summary": "Syensqo lists KetaSpire PEEK among specialty polymers for semiconductor dry etching and says it is excellent for structural components where chemical, heat, mechanical and structural properties matter.",
+    "excerpt": "Ketaspire PEEK is excellent for structural components",
+    "supportsNodeIds": [
+      "org_syensqo",
+      "humanoid_structure_materials_harness"
+    ],
+    "supportsEdgeIds": [
+      "e_humanoid_structure_materials__reported_capable_supplier__syensqo"
+    ],
+    "limitations": "Official page supports Syensqo KetaSpire PEEK structural-material capability. The application is semiconductor tools, so humanoid structural use remains a reported-capable material lead, not a robotics design win.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Syensqo dry-etching page. Lines 231-242 contain KetaSpire PEEK and the stored structural-components excerpt."
+    }
   }
 ]

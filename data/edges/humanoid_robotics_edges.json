@@ -1249,8 +1249,9 @@
     "claim": "Regal Rexnord's Kollmorgen brand makes frameless / direct-drive torque motors widely used in robot and cobot joints; modeled as a frameless-motor exposure candidate, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_humanoid_kollmorgen_frameless_joints",
-      "ev_humanoid_regal_altra_kollmorgen"
+      "ev_humanoid_regal_altra_kollmorgen",
+      "ev_humanoid_kollmorgen_tbm2g_robotics",
+      "ev_humanoid_regal_kollmorgen_parent"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -1262,7 +1263,7 @@
     "claim": "Parker Hannifin makes frameless direct-drive torque motors (K-Series / TK-Series) for robotics joints; modeled as a frameless-motor exposure candidate, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_humanoid_parker_frameless_tk"
+      "ev_humanoid_parker_kseries_frameless"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -1737,7 +1738,7 @@
     "claim": "Syensqo (KetaSpire PEEK) is a reported-capable PEEK supplier for humanoid structural/lightweighting material; modeled reported-capable because syensqo.com PEEK pages returned 406 this round (no fetched robotics quote). One of ~4 thousand-ton-scale PEEK makers.",
     "confidence": "low",
     "evidenceIds": [
-      "ev_humanoid_syensqo_listing"
+      "ev_humanoid_syensqo_ketaspire_structural"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -3039,7 +3040,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Auras Technology makes two-phase heat-spreaders (heat pipes / vapor chambers); carried as a capable supplier for the high-duty-cycle thermal path, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_auras_heat_pipe_vapor_chamber"
+    ]
   },
   {
     "id": "e_humanoid_heat_pipe__reported_capable_supplier__avc",
@@ -3048,7 +3052,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Asia Vital Components (AVC) makes two-phase heat-spreaders; carried as a capable supplier for the high-duty-cycle thermal path, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_avc_heat_pipe_vapor_chamber"
+    ]
   },
   {
     "id": "e_humanoid_heat_pipe__reported_capable_supplier__boyd",
@@ -3057,7 +3064,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Boyd (Aavid) makes two-phase heat-spreaders; carried as a capable supplier for the high-duty-cycle thermal path, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_boyd_vapor_chamber"
+    ]
   },
   {
     "id": "e_humanoid_tim__reported_capable_supplier__shin_etsu",
@@ -3066,7 +3076,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Shin-Etsu Chemical makes high-performance thermal interface materials; carried as a capable TIM supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_shinetsu_tim_page"
+    ]
   },
   {
     "id": "e_humanoid_tim__reported_capable_supplier__henkel",
@@ -3087,7 +3100,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Dow makes high-performance thermal interface materials; carried as a capable TIM supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_dow_tc5550_tim"
+    ]
   },
   {
     "id": "e_humanoid_ft_strain_transducer__reported_capable_supplier__te",
