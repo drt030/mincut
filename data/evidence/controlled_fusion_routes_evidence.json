@@ -216,22 +216,17 @@
     "sourceName": "Lawrence Livermore National Laboratory",
     "date": "2026-06-12",
     "summary": "LLNL reference index for inertial fusion energy topics including target design, chamber, fuel cycle, and plant-relevant research directions.",
-    "supportsNodeIds": [
-      "laser_driver_efficiency_rep_rate",
-      "laser_target_fabrication_injection",
-      "laser_inertial_fusion_energy_route"
-    ],
-    "supportsEdgeIds": [
-      "e_laser_icf_route__requires__laser_driver",
-      "e_laser_icf_route__requires__target_fabrication"
-    ],
-    "limitations": "unsupported: Page loads but is only a bibliography/citation list of article titles; no running-text sentences that state the claim (laser driver efficiency, target fab/injection, NIF-ignition vs net-electric distinction). Titles are not supporting prose.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 evidence cleanup: superseded by focused LLNL LIFT driver, target-fabrication, and chamber-materials pages. The old bibliography page is not claim-specific.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "unsupported: Page loads but is only a bibliography/citation list of article titles; no running-text sentences that state the claim (laser driver efficiency, target fab/injection, NIF-ignition vs net-electric distinction). Titles are not supporting prose."
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Deprecated during 2026-06-19 evidence cleanup: superseded by focused LLNL LIFT driver, target-fabrication, and chamber-materials pages. The old bibliography page is not claim-specific."
     }
   },
   {
@@ -297,11 +292,11 @@
     "id": "ev_fusion_tae_frc",
     "type": "vendor_claim",
     "title": "The Field Reversed Configuration",
-    "url": "https://tae.com/the-field-reversed-configuration-a-promising-path-to-aneutronic-fusion/",
+    "url": "https://tae.com/tae-shortens-device-roadmap-prepares-for-commercial-era/",
     "sourceStatus": "ok_exact",
     "sourceName": "TAE Technologies",
-    "date": "2026-06-12",
-    "summary": "TAE describes the field-reversed configuration as its fusion-machine route. Used to support FRC as a distinct route and TAE as a private route builder.",
+    "date": "2025-11-17",
+    "summary": "TAE says its Norm machine demonstrated formation of a field-reversed-configuration plasma using only neutral beam injection, and describes TAE's fusion approach as using the FRC's high power density, linear geometry, unrestricted divertors and compatibility with hydrogen-boron fuel.",
     "supportsNodeIds": [
       "field_reversed_configuration_route",
       "frc_formation_sustainment",
@@ -312,14 +307,17 @@
       "e_frc_route__requires__formation",
       "e_frc_route__implemented_by__tae"
     ],
-    "limitations": "unsupported: tae.com article loads (HTTP 200, title present) but body is client-side rendered; WebFetch retrieves only nav/title/footer, no FRC/aneutronic body text. No verbatim excerpt obtainable from fetched content.",
+    "limitations": "Official TAE news page supports TAE as an FRC route builder and NBI-driven FRC formation claims. It is company-authored and does not prove commercial plant readiness or independent cost performance.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-15",
-      "notes": "unsupported: tae.com article loads (HTTP 200, title present) but body is client-side rendered; WebFetch retrieves only nav/title/footer, no FRC/aneutronic body text. No verbatim excerpt obtainable from fetched content."
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on TAE 2025 roadmap article found the stored FRC/NBI quote, TAE route-builder context, 10 millisecond formation statement, and company-authored commercial roadmap caveat."
+    },
+    "excerpt": "Field-Reversed Configuration (FRC) plasma using only neutral beam injection"
   },
   {
     "id": "ev_fusion_helion_frc",
@@ -664,6 +662,93 @@
       "quoteMatch": "exact",
       "numberInQuote": false,
       "notes": "web.open fetched qd-oxford.com. Lines 42-L48 describe superconducting magnet technologies, Oxford Instruments superconducting-magnet heritage, and design/manufacture/support of magnet and cryogenic systems."
+    }
+  },
+  {
+    "id": "ev_fusion_lift_driver_technology_2026",
+    "type": "expert_review",
+    "title": "LLNL LIFT driver technology goals for inertial fusion energy",
+    "url": "https://lift.llnl.gov/research-areas/driver-technology",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Lawrence Livermore National Laboratory / Livermore Institute for Fusion Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "LLNL LIFT states that IFE power plants need efficient multiple-megajoule ultraviolet laser light at roughly 10 Hz repetition rates, with driver goals including at least 10% wall-plug efficiency and up to 15 Hz rep rates.",
+    "excerpt": "At least 10 percent wall plug efficiency.",
+    "supportsNodeIds": [
+      "laser_driver_efficiency_rep_rate",
+      "laser_inertial_fusion_energy_route"
+    ],
+    "supportsEdgeIds": [
+      "e_laser_icf_route__requires__laser_driver",
+      "e_fusion_primary_family__has_route__laser_icf"
+    ],
+    "limitations": "Official LLNL LIFT page supports IFE driver-efficiency and repetition-rate requirements. It does not prove a specific commercial plant design is ready.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on LLNL LIFT Driver Technology page found the stored wall-plug-efficiency quote, 10 Hz overview, and up-to-15 Hz challenge text."
+    }
+  },
+  {
+    "id": "ev_fusion_lift_target_fabrication_2026",
+    "type": "expert_review",
+    "title": "LLNL LIFT target fabrication and injection goals for inertial fusion energy",
+    "url": "https://lift.llnl.gov/research-areas/target-fabrication",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Lawrence Livermore National Laboratory / Livermore Institute for Fusion Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "LLNL LIFT lists target-fabrication goals for inertial fusion energy: mass-producible high-gain targets at required repetition rates and affordable cost, target survivability during injection, accurate insertion/tracking, and about one million targets per day per plant.",
+    "excerpt": "Develop mass-producible high-gain targets at required repetition rates and affordable cost",
+    "supportsNodeIds": [
+      "laser_target_fabrication_injection",
+      "laser_inertial_fusion_energy_route"
+    ],
+    "supportsEdgeIds": [
+      "e_laser_icf_route__requires__target_fabrication",
+      "e_fusion_primary_family__has_route__laser_icf"
+    ],
+    "limitations": "Official LLNL LIFT page supports target manufacturing/injection as an IFE bottleneck. It does not prove a resolved mass-production cost or yield.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on LLNL LIFT Target Fabrication page found the stored mass-producible target quote, injection/tracking goal, and about 10^6 targets/day challenge."
+    }
+  },
+  {
+    "id": "ev_fusion_lift_chamber_materials_2026",
+    "type": "expert_review",
+    "title": "LLNL LIFT chamber materials challenges for inertial fusion energy",
+    "url": "https://lift.llnl.gov/research-areas/chamber-materials",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Lawrence Livermore National Laboratory / Livermore Institute for Fusion Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "LLNL LIFT states that fusion pilot plants need materials that withstand high radiation fluxes and damage, including intense neutron and x-ray exposure, rapid temperature changes, and repeated mechanical stresses.",
+    "excerpt": "withstand high radiation fluxes and damage",
+    "supportsNodeIds": [
+      "laser_chamber_first_wall_optics",
+      "laser_inertial_fusion_energy_route"
+    ],
+    "supportsEdgeIds": [
+      "e_laser_icf_route__requires__chamber_optics",
+      "e_fusion_primary_family__has_route__laser_icf"
+    ],
+    "limitations": "Official LLNL LIFT page supports chamber/first-wall material challenges. It does not prove a selected chamber design, lifetime, or final-optics maintenance interval.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on LLNL LIFT Chamber Materials page found the stored radiation-flux quote plus neutron/x-ray, thermal, and repeated mechanical stress context."
     }
   }
 ]
