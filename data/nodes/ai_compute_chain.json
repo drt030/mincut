@@ -185,7 +185,7 @@
     ],
     "evidenceIds": [
       "ev_acc_r7_agc_euvl_capacity_official",
-      "ev_acc_r6_euv_blanks_agc_hoya_duopoly"
+      "ev_acc_hoya_information_technology_euv_mask_blanks"
     ],
     "tags": [
       "supply_bottleneck",
@@ -202,7 +202,8 @@
     "rejectedEvidenceIds": [
       "ev_acc_logic_euv_mask_suppliers",
       "ev_acc_logic_euv_mask_bottleneck",
-      "ev_acc_logic2_euv_mask_duopoly"
+      "ev_acc_logic2_euv_mask_duopoly",
+      "ev_acc_r6_euv_blanks_agc_hoya_duopoly"
     ]
   },
   {
@@ -252,7 +253,9 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_deposition_equipment"
+      "ev_acc_applied_metals_deposition_2026",
+      "ev_acc_lam_deposition_products_2026",
+      "ev_acc_tel_evaros_thermal_processing_2025"
     ],
     "tags": [
       "equipment",
@@ -275,7 +278,8 @@
     "maturityAsOf": "2026-06",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_plasma_etch"
+      "ev_acc_applied_etch_process_2026",
+      "ev_acc_lam_etch_products_2026"
     ],
     "tags": [
       "equipment",
@@ -305,7 +309,10 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_applied_reflexion_cmp_2026",
+      "ev_acc_ebara_cmp_systems_2026",
+      "ev_acc_cmp_slurry_merck_planarization_2026",
+      "ev_acc_r7e_019_entegris_cmp"
     ],
     "tags": [
       "equipment",
@@ -336,7 +343,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_ion_implant"
+      "ev_acc_applied_ion_implant_process_2026"
     ],
     "tags": [
       "equipment",
@@ -367,7 +374,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_metrology"
+      "ev_acc_kla_wafer_inspection_metrology_2026"
     ],
     "tags": [
       "equipment",
@@ -447,7 +454,7 @@
     "maturityAsOf": "2026-06",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_thermal_processing"
+      "ev_acc_tel_evaros_thermal_processing_2025"
     ],
     "tags": [
       "equipment",
@@ -512,7 +519,9 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_deposition_equipment"
+      "ev_acc_applied_metals_deposition_2026",
+      "ev_acc_lam_deposition_products_2026",
+      "ev_acc_tel_evaros_thermal_processing_2025"
     ],
     "tags": [
       "manufacturer",
@@ -550,7 +559,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_plasma_etch"
+      "ev_acc_applied_etch_process_2026",
+      "ev_acc_lam_etch_products_2026"
     ],
     "tags": [
       "manufacturer",
@@ -588,7 +598,9 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_deposition_equipment"
+      "ev_acc_applied_metals_deposition_2026",
+      "ev_acc_lam_deposition_products_2026",
+      "ev_acc_tel_evaros_thermal_processing_2025"
     ],
     "tags": [
       "manufacturer",
@@ -632,8 +644,10 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_cmp_process",
-      "ev_acc_thm_ebara_pumps"
+      "ev_acc_applied_reflexion_cmp_2026",
+      "ev_acc_ebara_cmp_systems_2026",
+      "ev_acc_cmp_slurry_merck_planarization_2026",
+      "ev_acc_r7e_019_entegris_cmp"
     ],
     "tags": [
       "manufacturer",
@@ -674,7 +688,10 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_applied_reflexion_cmp_2026",
+      "ev_acc_ebara_cmp_systems_2026",
+      "ev_acc_cmp_slurry_merck_planarization_2026",
+      "ev_acc_r7e_019_entegris_cmp"
     ],
     "tags": [
       "manufacturer",
@@ -712,7 +729,10 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_applied_reflexion_cmp_2026",
+      "ev_acc_ebara_cmp_systems_2026",
+      "ev_acc_cmp_slurry_merck_planarization_2026",
+      "ev_acc_r7e_019_entegris_cmp"
     ],
     "tags": [
       "manufacturer",
@@ -750,7 +770,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_metrology"
+      "ev_acc_kla_wafer_inspection_metrology_2026"
     ],
     "tags": [
       "manufacturer",
@@ -978,7 +998,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_logic_asml_export_control"
+      "ev_acc_r6l_asml_euv_2025",
+      "ev_acc_r6_asml_high_na_timeline"
     ],
     "tags": [
       "manufacturer",
@@ -1007,7 +1028,8 @@
     "confidence": "high",
     "metrics": [],
     "evidenceIds": [
-      "ev_acc_logic_asml_export_control"
+      "ev_acc_r6l_asml_euv_2025",
+      "ev_acc_r6_asml_high_na_timeline"
     ],
     "tags": [
       "single_source",
@@ -1141,7 +1163,14 @@
       "equipment_dependent"
     ],
     "notes": "DRIE is not itself a bottleneck but is critical path in interposer turnaround time. Lam Research and Tokyo Electron are primary equipment suppliers; capacity utilization on both vendor fleets is rising. Lead time for new DRIE chamber orders: 6-8 months.",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_lam_syndion_tsv_drie_2026",
+      "ev_acc_applied_materials_tsv_process_2026"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_acc_pkg_tsv_equipment"
+    ]
   },
   {
     "id": "flip_chip_bonding",
@@ -1315,7 +1344,13 @@
       "high_precision"
     ],
     "notes": "HDI drilling is a critical path item in substrate manufacturing. Lead time for laser drill systems: 8-10 months. Plating utilization at leading foundries >90% (2025-2026). Supplier concentration: Posalux (laser), Mitsubishi (laser) are primary vendors, creating single-region (Europe, Japan) supply risk.",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_acc_mks_geode_hdi_microvia_2022"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_acc_pkg_hdi_laser_drill"
+    ]
   },
   {
     "id": "micro_bump_copper_pillar",
@@ -1803,7 +1838,8 @@
     "evidenceIds": [
       "ev_acc_r6h_hbm_hybrid_bonding_yield",
       "ev_acc_r6h_hanmi_tc_bonder_lead_time",
-      "ev_acc_r6h_asmpt_hbm4_bonder_orders"
+      "ev_acc_r7e_021_asmpt_tcb",
+      "ev_acc_nc4_asmpt_share_gain_1"
     ],
     "rejectedEvidenceIds": [
       "ev_acc_bn3_hbm_stack_assembly",
@@ -2460,8 +2496,7 @@
       "ev_acc_sub_nittobo_tglass_shortage",
       "ev_acc_sub_nittobo_capacity_expansion",
       "ev_acc_nc4_nittobo_monopoly_1",
-      "ev_acc_nc4_tglass_shortage_1",
-      "ev_acc_nc4_asahi_entry_1"
+      "ev_acc_nc4_tglass_shortage_1"
     ],
     "tags": [
       "material",
@@ -2699,8 +2734,7 @@
     ],
     "evidenceIds": [
       "ev_acc_sub_ajinomoto_abf_2025",
-      "ev_acc_sub_ajinomoto_expansion_2030",
-      "ev_acc_sub_ajinomoto_q4_2025_earnings"
+      "ev_acc_sub_ajinomoto_expansion_2030"
     ],
     "tags": [
       "manufacturer",
@@ -2930,7 +2964,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_opt_marvell_transceiver_asic"
+      "ev_acc_marvell_pam4_optical_dsp_2026"
     ],
     "tags": [
       "semiconductor",
@@ -3343,7 +3377,8 @@
       "ai_accelerator_module_hbm_cowos"
     ],
     "evidenceIds": [
-      "ev_acc_bn3_optical_transceiver"
+      "ev_acc_coherent_datacom_optical_transceivers",
+      "ev_acc_aoi_optical_transceivers_ai_datacenter"
     ]
   },
   {
@@ -3381,7 +3416,12 @@
     "notes": "Host ASIC design and manufacturing is concentrated in 4 vendors: Broadcom, Marvell, Intel (Altera), and Xilinx. Volume production in TSMC 28nm/40nm is mature but capacity was constrained in 2023–2024 during AI accelerator ramp.",
     "reviewStatus": "unreviewed",
     "rejectedEvidenceIds": [
-      "ev_acc_opt_broadcom_transceiver_asic"
+      "ev_acc_opt_broadcom_transceiver_asic",
+      "ev_acc_opt_intel_transceiver_asic"
+    ],
+    "evidenceIds": [
+      "ev_acc_marvell_pam4_optical_dsp_2026",
+      "ev_acc_intel_silicon_photonics_oci_2026"
     ]
   },
   {
@@ -4532,7 +4572,8 @@
       "ai_accelerator_module_hbm_cowos"
     ],
     "evidenceIds": [
-      "ev_acc_bn3_sealed_cooling"
+      "ev_acc_asetek_liquid_cooling_loop_2026",
+      "ev_acc_coolit_chx2000_ai_cdu"
     ]
   },
   {
@@ -4675,12 +4716,14 @@
     "reviewStatus": "unreviewed",
     "metrics": [],
     "evidenceIds": [
-      "ev_acc_cp2_cdu_capacity_constraint"
+      "ev_acc_cp2_cdu_capacity_constraint",
+      "ev_acc_schneider_motivair_mcdu70_ai_cdu"
     ],
     "rejectedEvidenceIds": [
       "ev_acc_cp2_cdu_lead_time",
       "ev_acc_thm_vertiv_cdu",
-      "ev_acc_cp2_coolitsystems_cdu"
+      "ev_acc_cp2_coolitsystems_cdu",
+      "ev_acc_cp2_schneider_electric_cooling"
     ]
   },
   {
@@ -4746,9 +4789,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_thm_asetek_market_dominance",
-      "ev_acc_thm_asetek_custom_blocks",
-      "ev_acc_cp2_asetek_liquid_cooling"
+      "ev_acc_asetek_liquid_cooling_loop_2026",
+      "ev_acc_asetek_ai_cold_plate_2024"
     ],
     "tags": [
       "manufacturer",
@@ -5386,7 +5428,11 @@
     "rejectedEvidenceIds": [
       "ev_acc_cp2_cdu_lead_time",
       "ev_acc_cp2_coolitsystems_cdu",
-      "ev_acc_cp2_motivair_modular_cooling"
+      "ev_acc_cp2_motivair_modular_cooling",
+      "ev_acc_cp2_schneider_electric_cooling"
+    ],
+    "evidenceIds": [
+      "ev_acc_schneider_motivair_mcdu70_ai_cdu"
     ]
   },
   {
@@ -6349,8 +6395,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_cmpd_wolfspeed_300mm",
-      "ev_acc_tkr4_wolfspeed_ch11"
+      "ev_acc_r7e_009_wolfspeed_wafers"
     ],
     "notes": "Sole major 8-inch SiC merchant supplier (2026); geopolitical importance for US SiC manufacturing via Section 48D support. 6-inch market oversupply 2024-2025 pressured pricing; 8-inch ramp alleviates capacity constraints but adoption timeline uncertain (power device design cycles 18-24 months). Private/China SiC players (Tiancheng 14-inch research, Infineon SiCrystal) pose medium-term competition. Critical supplier for power delivery specialty devices in AI datacenter platforms but not on critical path for HBM CoWoS-class accelerator modules.\nTicker remains WOLF (NYSE). Company emerged from Chapter 11 bankruptcy on September 29, 2025, after 70% debt reduction. Equity issuances to Renesas completed Jan 2026. Updated metric to reflect pure ticker symbol without exchange qualifier for consistency.",
     "reviewStatus": "unreviewed",
@@ -6519,8 +6564,8 @@
     ],
     "evidenceIds": [
       "ev_acc_icsi_retimer_market_2024",
-      "ev_acc_icsi_marvell_alaska_p_pcie6",
-      "ev_acc_icsi_marvell_taurus_acc_2025"
+      "ev_acc_marvell_alaska_p_pcie_retimer_official",
+      "ev_acc_marvell_acc_linear_equalizer_2025"
     ],
     "tags": [
       "signal_conditioning",
@@ -6587,7 +6632,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_icsi_marvell_alaska_p_pcie6"
+      "ev_acc_marvell_alaska_p_pcie_retimer_official"
     ],
     "tags": [
       "retimer",
@@ -6642,8 +6687,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_icsi_marvell_taurus_acc_2025",
-      "ev_acc_icsi_acc_vs_dac_2024"
+      "ev_acc_marvell_acc_linear_equalizer_2025"
     ],
     "tags": [
       "equalizer",
@@ -7027,7 +7071,8 @@
     "evidenceIds": [
       "ev_acc_pkgeq_optical_camtek",
       "ev_acc_pkgeq_optical_confovis",
-      "ev_acc_pkgeq_optical_resolution"
+      "ev_acc_hbm_test_cohu_neon_2026",
+      "ev_acc_kla_wafer_inspection_metrology_2026"
     ],
     "tags": [
       "metrology",
@@ -7134,7 +7179,8 @@
     ],
     "evidenceIds": [
       "ev_acc_pkgeq_tcb_asmpt",
-      "ev_acc_pkgeq_tcb_leadtime",
+      "ev_acc_pkg_flip_chip_equipment",
+      "ev_acc_r7e_021_asmpt_tcb",
       "ev_acc_pkgeq_tcb_market"
     ],
     "tags": [
@@ -7184,8 +7230,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkgeq_underfill_asymtek",
-      "ev_acc_pkgeq_underfill_itw",
+      "ev_acc_nordson_underfill_dispensing_2026",
+      "ev_acc_itw_camalot_underfill_2026",
       "ev_acc_pkgeq_underfill_throughput"
     ],
     "tags": [
@@ -7351,7 +7397,7 @@
     ],
     "evidenceIds": [
       "ev_acc_pkgeq_plasma_keylink",
-      "ev_acc_pkgeq_plasma_nordson"
+      "ev_acc_nordson_march_plasma_2026"
     ],
     "tags": [
       "surface_prep",
@@ -7390,7 +7436,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkgeq_furnace_despatch"
+      "ev_acc_despatch_semiconductor_curing_2017"
     ],
     "tags": [
       "curing",
@@ -7474,7 +7520,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkgeq_onto_ir",
+      "ev_acc_pkgeq_xray_onto",
       "ev_acc_pkgeq_onto_qualification"
     ],
     "tags": [
@@ -7662,8 +7708,8 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkgeq_besi_ir",
-      "ev_acc_pkgeq_besi_orders"
+      "ev_acc_pkgeq_besi_orders",
+      "ev_acc_pkgeq_tcb_market"
     ],
     "tags": [
       "bonding",
@@ -7764,8 +7810,7 @@
     ],
     "evidenceIds": [
       "ev_acc_pkgeq_suss_ir",
-      "ev_acc_pkgeq_suss_xbc300",
-      "ev_acc_tkr4_suss_xetra"
+      "ev_acc_pkgeq_suss_xbc300"
     ],
     "tags": [
       "bonding",
@@ -7859,9 +7904,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkgeq_nordson_ir",
-      "ev_acc_pkgeq_nordson_asymtek",
-      "ev_acc_tkr4_nordson_nasdaq"
+      "ev_acc_nordson_underfill_dispensing_2026"
     ],
     "tags": [
       "dispensing",
@@ -7898,7 +7941,7 @@
       }
     ],
     "evidenceIds": [
-      "ev_acc_pkgeq_itw_camalot"
+      "ev_acc_itw_camalot_underfill_2026"
     ],
     "tags": [
       "dispensing",
@@ -8075,7 +8118,7 @@
     "confidence": "low",
     "metrics": [],
     "evidenceIds": [
-      "ev_acc_pkgeq_despatch_product"
+      "ev_acc_despatch_semiconductor_curing_2017"
     ],
     "tags": [
       "thermal_processing",

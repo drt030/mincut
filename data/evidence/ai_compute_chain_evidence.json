@@ -120,22 +120,21 @@
     "sourceName": "SEMI",
     "date": "2025-12-01",
     "summary": "PVD, CVD, and ALD deposition is a core process step requiring cluster tools from Applied Materials, Lam Research, Tokyo Electron. Multi-source supply but lead times 12+ months.",
-    "supportsNodeIds": [
-      "process_equipment_deposition"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_logic_deposition__manufactured_by__applied_materials",
       "e_acc_logic_deposition__manufactured_by__lam_research",
       "e_acc_logic_deposition__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_applied_metals_deposition_2026, ev_acc_lam_deposition_products_2026, ev_acc_tel_evaros_thermal_processing_2025. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_applied_metals_deposition_2026, ev_acc_lam_deposition_products_2026, ev_acc_tel_evaros_thermal_processing_2025. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_logic_plasma_etch",
@@ -145,22 +144,21 @@
     "sourceName": "SEMI",
     "date": "2025-12-01",
     "summary": "Reactive ion etch tools transfer photomask patterns to substrate layers. Plasma chemistry and profile control are critical for sub-20nm features. Multi-source supply (Applied Materials, Lam Research, Tokyo Electron).",
-    "supportsNodeIds": [
-      "plasma_etch_equipment"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_logic_etch__manufactured_by__lam_research",
       "e_acc_logic_etch__manufactured_by__applied_materials",
       "e_acc_logic_etch__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_applied_etch_process_2026, ev_acc_lam_etch_products_2026. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_applied_etch_process_2026, ev_acc_lam_etch_products_2026. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_logic_cmp_process",
@@ -170,9 +168,7 @@
     "sourceName": "SEMI",
     "date": "2025-12-01",
     "summary": "CMP planarizes interconnect layers using rotating pad with chemical slurry (cerium dioxide abrasive). Equipment suppliers: Applied Materials, Ebara. Consumables (slurries, pads) from Merck, Entegris, Resonac, Fujifilm. Endpoint detection and defect control are ongoing challenges.",
-    "supportsNodeIds": [
-      "cmp_process_equipment"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_logic_cmp_equipment__manufactured_by__applied_materials",
       "e_acc_logic_cmp_equipment__manufactured_by__ebara",
@@ -180,13 +176,14 @@
       "e_acc_logic_cmp_slurry__manufactured_by__entegris"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_applied_reflexion_cmp_2026, ev_acc_ebara_cmp_systems_2026, ev_acc_cmp_slurry_merck_planarization_2026, ev_acc_r7e_019_entegris_cmp. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_applied_reflexion_cmp_2026, ev_acc_ebara_cmp_systems_2026, ev_acc_cmp_slurry_merck_planarization_2026, ev_acc_r7e_019_entegris_cmp. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_logic_ion_implant",
@@ -196,20 +193,19 @@
     "sourceName": "SEMI",
     "date": "2025-12-01",
     "summary": "Ion implantation dopes transistor channels with boron, phosphorus, arsenic. Equipment requires ion source, accelerator, target chamber. Applied Materials and Axcelis are primary suppliers. Process creates crystal damage requiring thermal annealing recovery.",
-    "supportsNodeIds": [
-      "ion_implantation_equipment"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_logic_ion_implant__manufactured_by__applied_materials"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_applied_ion_implant_process_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_applied_ion_implant_process_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_logic_metrology",
@@ -219,21 +215,20 @@
     "sourceName": "SEMI",
     "date": "2025-12-01",
     "summary": "KLA Corporation dominates semiconductor inspection/metrology with process control and yield management systems. Tokyo Electron also supplies metrology tools. Each fab requires 30-50 inspection tools; KLA's 2019 acquisition of Orbotech reinforced dominance in advanced metrology.",
-    "supportsNodeIds": [
-      "process_control_metrology"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_logic_metrology__manufactured_by__kla",
       "e_acc_logic_metrology__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_kla_wafer_inspection_metrology_2026. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_kla_wafer_inspection_metrology_2026. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_logic_wafer_supply",
@@ -289,20 +284,19 @@
     "sourceName": "SEMI",
     "date": "2025-12-01",
     "summary": "Rapid thermal annealing (RTA) and diffusion furnaces activate dopants and control material properties. Tokyo Electron and Novellus are primary suppliers. Temperature uniformity and ramp rates are critical for advanced-node yield.",
-    "supportsNodeIds": [
-      "thermal_processing_furnaces"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_logic_thermal__manufactured_by__tokyo_electron"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_tel_evaros_thermal_processing_2025. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_tel_evaros_thermal_processing_2025. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_logic_tsmc_capacity",
@@ -356,17 +350,16 @@
     "sourceName": "Reuters",
     "date": "2023-12-15",
     "summary": "Dutch and US export controls limit ASML shipments to China, affecting global capacity distribution. Controls favor Taiwan-based TSMC over China-based fabs, creating asymmetric geopolitical risk.",
-    "supportsNodeIds": [
-      "asml_lithography_systems"
-    ],
+    "supportsNodeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_r6l_asml_euv_2025, ev_acc_r6_asml_high_na_timeline. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_r6l_asml_euv_2025, ev_acc_r6_asml_high_na_timeline. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkg_cowos_architecture",
@@ -596,19 +589,19 @@
     "date": "2025-06-15",
     "summary": "Market report on TSV etch and processing equipment. Identifies Lam Research, Tokyo Electron, Applied Materials, and ACM Research as major suppliers of DRIE, deposition, electroplating, and CMP tools for TSV and advanced packaging. Notes strong demand from TSMC, Samsung, and Intel for TSV capacity expansion.",
     "excerpt": "Major semiconductor contract manufacturers and system-on-chip designers, including Taiwan Semiconductor Manufacturing Company, Samsung Electronics, and Intel Corporation, have substantially increased capital expenditures on TSV-capable equipment to maintain manufacturing competitiveness and meet customer demand for next-generation packaging technologies.",
-    "supportsNodeIds": [
-      "tsv_process_deep_reactive_ion_etch"
-    ],
-    "supportsEdgeIds": [
-      "e_silicon_interposer__requires__tsv_etch"
-    ],
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_lam_syndion_tsv_drie_2026, ev_acc_applied_materials_tsv_process_2026. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_lam_syndion_tsv_drie_2026, ev_acc_applied_materials_tsv_process_2026. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkg_hdi_laser_drill",
@@ -619,20 +612,19 @@
     "date": "2025-06-01",
     "summary": "SEMI presentation on 2.5D and 3D high-end packaging technologies. Discusses HDI drilling with laser or mechanical methods, copper electroplating for via fill, and sequential lamination constraints. Notes equipment bottlenecks from laser drill and plating tool suppliers.",
     "excerpt": "Advanced packaging techniques require precision drilling of microvias and controlled electroplating, with laser drill systems (Posalux, Mitsubishi, Trumpf) and plating chemistry as critical constraints.",
-    "supportsNodeIds": [
-      "hdi_drilling_via_plating",
-      "organic_substrate_buildup"
-    ],
-    "supportsEdgeIds": [
-      "e_organic_substrate__requires__hdi_drilling"
-    ],
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_mks_geode_hdi_microvia_2022, ev_acc_pkg_substrate_bottleneck. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_mks_geode_hdi_microvia_2022, ev_acc_pkg_substrate_bottleneck. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkg_underfill_material",
@@ -1065,17 +1057,16 @@
     "sourceName": "Ajinomoto Earnings Call",
     "date": "2025-12",
     "summary": "Ajinomoto reported record earnings in Q4 FY2025; ABF for high-performance AI boards grew strongly. Company reaffirmed commitment to support demand through 2030 and into early next decade.",
-    "supportsNodeIds": [
-      "org_ajinomoto_fine_techno"
-    ],
+    "supportsNodeIds": [],
     "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_sub_ajinomoto_abf_2025. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_sub_ajinomoto_abf_2025. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_sub_nittobo_tglass_shortage",
@@ -1335,19 +1326,19 @@
     "date": "2024-08-20",
     "summary": "Marvell manufactures optical transceiver host ASICs for 400G–1.6T modules; end-to-end optical solutions.",
     "excerpt": "Marvell's optical interconnect portfolio includes host ASICs and integrated solutions for 400G+ datacenter transceivers.",
-    "supportsNodeIds": [
-      "optical_transceiver_host_silicon"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_opt_transceiver_host_silicon__manufactured_by__marvell"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_pam4_optical_dsp_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_pam4_optical_dsp_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_opt_intel_transceiver_asic",
@@ -1358,19 +1349,19 @@
     "date": "2024-07-15",
     "summary": "Intel (Altera) provides optical transceiver host ASICs and integrated PHY solutions for datacenter applications.",
     "excerpt": "Intel Altera optical transceivers for 400G+ datacenter connectivity.",
-    "supportsNodeIds": [
-      "optical_transceiver_host_silicon"
-    ],
-    "supportsEdgeIds": [
-      "e_acc_opt_transceiver_host_silicon__manufactured_by__intel"
-    ],
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_intel_silicon_photonics_oci_2026, ev_acc_marvell_pam4_optical_dsp_2026. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_intel_silicon_photonics_oci_2026, ev_acc_marvell_pam4_optical_dsp_2026. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_opt_vcsel_supply_constraint",
@@ -2158,20 +2149,19 @@
     "sourceName": "Asetek investor relations and market reports",
     "date": "2025-12-01",
     "summary": "Asetek holds an estimated 60% market share in sealed datacenter liquid cooling systems deployed for AI accelerators, with annual production capacity of 500k units constrained by custom block design and pump sourcing.",
-    "supportsNodeIds": [
-      "sealed_liquid_cooling_loop"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_liquid_loop__manufactured_by__asetek"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_liquid_cooling_loop_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_liquid_cooling_loop_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_thm_shin_etsu_tim_share",
@@ -2225,20 +2215,19 @@
     "sourceName": "Asetek product and engineering specifications",
     "date": "2025-12-01",
     "summary": "Asetek manufactures custom water blocks and cold plates for leading AI accelerator modules, with design and tooling lead times of 12+ months per new die geometry.",
-    "supportsNodeIds": [
-      "cold_plate_water_block"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_coldplate__manufactured_by__custom_oem"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_ai_cold_plate_2024. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_ai_cold_plate_2024. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_thm_boyd_heat_exchangers",
@@ -2293,20 +2282,19 @@
     "sourceName": "Ebara corporation pump products",
     "date": "2025-06-01",
     "summary": "Ebara manufactures micropumps and precision circulation pumps used in sealed liquid cooling loops for AI datacenter applications. Primary supplier to Asetek and competitors.",
-    "supportsNodeIds": [
-      "micropump_circulation"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_pump__manufactured_by__ebara"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_ebara_cmp_systems_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_ebara_cmp_systems_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_thm_vertiv_cdu",
@@ -2956,23 +2944,19 @@
     "sourceName": "Schneider Electric official data center solutions",
     "date": "2026-03-01",
     "summary": "Schneider Electric offers integrated cooling and power infrastructure for datacenters, including CDUs, in-row units, and facility-level thermal solutions. Competes with Vertiv across cooling and power infrastructure domains.",
-    "supportsNodeIds": [
-      "cooling_distribution_unit_cdu",
-      "cdu_rapid_deployment_kit",
-      "org_schneider_electric"
-    ],
-    "supportsEdgeIds": [
-      "e_cdu__manufactured_by__schneider_electric",
-      "e_modular_cdu__manufactured_by__schneider_electric"
-    ],
-    "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_schneider_motivair_mcdu70_ai_cdu. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_schneider_motivair_mcdu70_ai_cdu. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_cp2_motivair_modular_cooling",
@@ -3066,18 +3050,17 @@
     "sourceName": "Asetek official data center solutions",
     "date": "2026-03-15",
     "summary": "Asetek (OSE: ASTK.OL) manufactures sealed liquid-cooling systems and coldplates for premium datacenters and AI infrastructure, with ~25–30% market share in specialized sealed-cooling segment. Annual capacity ~1–2 million units.",
-    "supportsNodeIds": [
-      "org_asetek"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_liquid_cooling_loop_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_liquid_cooling_loop_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_optup_inp_market_2024",
@@ -3947,17 +3930,16 @@
     "date": "2026-06-01",
     "summary": "Wolfspeed announced manufacture of 300mm (12-inch) SiC single-crystal wafer in January 2026, marking research milestone for next-generation AI computing platforms. Company ramping 200mm (8-inch) production in parallel.",
     "excerpt": "Wolfspeed manufactures 300mm silicon carbide single-crystal wafer; advancing technology roadmap for next-generation AI platforms.",
-    "supportsNodeIds": [
-      "compound_crystal_wafer_substrates",
-      "org_wolfspeed"
-    ],
+    "supportsNodeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_r7e_009_wolfspeed_wafers. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_r7e_009_wolfspeed_wafers. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_icsi_retimer_market_2024",
@@ -3999,15 +3981,15 @@
     "date": "2025-12",
     "summary": "Marvell Alaska P is second-tier retimer product with emphasis on low power; adopted by OEMs.",
     "excerpt": "Marvell Alaska P PCIe Gen 6 retimer: 16-lane, 64 GT/s, 10W total power. Adopted by server vendors for GPU and XPU platforms. Supports 40 dB of channel loss compensation.",
-    "supportsNodeIds": [
-      "pcie_retimer_ic"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_alaska_p_pcie_retimer_official. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_alaska_p_pcie_retimer_official. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_icsi_credo_toucan_pcie6",
@@ -4043,15 +4025,15 @@
     "date": "2025-10",
     "summary": "Marvell Taurus ACC is primary analog equalizer product for AI datacenters; lower power alternative to full retimers.",
     "excerpt": "Marvell Taurus ACC linear equalizers: CB11208 provides up to 20dB equalization for 1.6T copper interconnects. 2.5W power for 1.6T design. Sampling to customers at OCP Global Summit 2025.",
-    "supportsNodeIds": [
-      "active_copper_cable_linear_equalizer"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_acc_linear_equalizer_2025. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_acc_linear_equalizer_2025. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_icsi_acc_vs_dac_2024",
@@ -4061,15 +4043,15 @@
     "date": "2025-10",
     "summary": "ACC technology bridges passive DAC and digital AEC retimer; enables cost/power tradeoff for short-reach copper interconnect.",
     "excerpt": "Active Copper Cables (ACC) integrate analog equalizers to extend reach from 1m (passive DAC) to 2–2.5m while maintaining 800G–1.6T signaling rates.",
-    "supportsNodeIds": [
-      "active_copper_cable_linear_equalizer"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_acc_linear_equalizer_2025. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_marvell_acc_linear_equalizer_2025. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_icsi_3nm_aec_retimer_roadmap",
@@ -4409,15 +4391,15 @@
     "url": "https://www.mdpi.com/1424-8220/23/12/5470",
     "date": "2024-06-15",
     "excerpt": "Optical metrology of HBM 3D scans using AI-driven defect detection achieves sub-nanometer vertical resolution; critical for yield optimization in 2.5D/3D ICs.",
-    "supportsNodeIds": [
-      "optical_bump_metrology_inspection"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_hbm_test_cohu_neon_2026, ev_acc_kla_wafer_inspection_metrology_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_hbm_test_cohu_neon_2026, ev_acc_kla_wafer_inspection_metrology_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_optical_onto",
@@ -4426,18 +4408,18 @@
     "url": "https://investors.ontoinnovation.com/news/news-details/2025/Onto-Innovation-Advances-Process-Control-Suite-for-3D-Interconnect-Yields/default.aspx",
     "date": "2025-09-01",
     "excerpt": "Onto Innovation Dragonfly 2D optical inspection qualified for HBM and 2.5D logic; subsurface defect inspection integrated; high-volume orders expected 2026.",
-    "supportsNodeIds": [
-      "optical_bump_metrology_inspection"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_optical_metrology_mfg_onto"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_xray_onto, ev_acc_pkgeq_onto_qualification. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_xray_onto, ev_acc_pkgeq_onto_qualification. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_w2w_evg",
@@ -4503,18 +4485,18 @@
     "url": "https://www.3dincites.com/2026/03/besi-at-the-center-of-the-packaging-power-shift/",
     "date": "2026-03-15",
     "excerpt": "BESI is leader in hybrid bonding systems with 150+ cumulative orders, 18 customers, >€476M projected revenue by 2026; precision <10nm for hybrid bonding.",
-    "supportsNodeIds": [
-      "wafer_bonding_alignment_systems"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_w2w_bonding_mfg_besi"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "shared_url_suspect",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_besi_orders, ev_acc_pkgeq_tcb_market. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_besi_orders, ev_acc_pkgeq_tcb_market. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_tcb_asmpt",
@@ -4543,15 +4525,15 @@
     "url": "https://www.sec.gov/Archives/edgar/data/0001047127/000104712725000187/amkr9302025erex-991.htm",
     "date": "2025-06-10",
     "excerpt": "AMKOR capex disclosure: hybrid bonding tool lead time 12-18 months; constraint on 2026 capacity expansion for advanced packaging.",
-    "supportsNodeIds": [
-      "thermocompression_bonding_systems"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_pkg_flip_chip_equipment, ev_acc_r7e_021_asmpt_tcb, ev_acc_pkgeq_tcb_market. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_pkg_flip_chip_equipment, ev_acc_r7e_021_asmpt_tcb, ev_acc_pkgeq_tcb_market. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_pkgeq_tcb_market",
@@ -4600,18 +4582,18 @@
     "url": "https://www.itweae.com/applications/dispensing/underfill",
     "date": "2025-06-01",
     "excerpt": "Nordson ASYMTEK IntelliJet: ultra-fast non-contact jetting for underfill dispensing, 1000Hz frequency, 1.8M dots/hour throughput, fills <20µm gaps with <5% void rate.",
-    "supportsNodeIds": [
-      "underfill_dispensing_equipment"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_underfill_mfg_asymtek"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_underfill_itw",
@@ -4620,18 +4602,18 @@
     "url": "https://www.itweae.com/products/dispensers/prodigy",
     "date": "2025-06-01",
     "excerpt": "ITW EAE (Camalot) SmartStream pump technology for fast, efficient underfill dispensing; proven capillary and hybrid jetting capability for flip-chip assembly.",
-    "supportsNodeIds": [
-      "underfill_dispensing_equipment"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_underfill_mfg_itw"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_itw_camalot_underfill_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_itw_camalot_underfill_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_underfill_axxon",
@@ -4846,18 +4828,18 @@
     "url": "https://www.nordson.com/en/about-us/nordson-blog/electronics-solutions-blogs/plasma-applications-for-semiconductor-packaging",
     "date": "2025-06-01",
     "excerpt": "Nordson MARCH offers plasma treatment solutions for semiconductor packaging, wafer-level packaging, and MEMS assembly; enables low-temperature bonding.",
-    "supportsNodeIds": [
-      "plasma_surface_activation_systems"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_plasma_mfg_nordson"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_march_plasma_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_march_plasma_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_furnace_despatch",
@@ -4866,18 +4848,18 @@
     "url": "https://www.despatch.com/blog/semiconductor-fabrication-curing-ovens-for-advanced-chip-packaging/",
     "date": "2025-06-01",
     "excerpt": "Despatch precision curing ovens for underfill, encapsulation, and solder reflow; temperature ramp 3-10°C/min; critical for advanced packaging assembly.",
-    "supportsNodeIds": [
-      "bump_height_curing_furnace"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_furnace_mfg_despatch"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_despatch_semiconductor_curing_2017. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_despatch_semiconductor_curing_2017. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_chamber_thermal",
@@ -5127,15 +5109,15 @@
     "url": "https://investors.ontoinnovation.com/news/news-details/2025/Onto-Innovation-Advances-Process-Control-Suite-for-3D-Interconnect-Yields/default.aspx",
     "date": "2025-09-01",
     "excerpt": "Onto Innovation: publicly listed NASDAQ ONTO. Dragonfly G5 platform with 3Di X-ray bump metrology fully qualified by two HBM manufacturers; volume orders expected 2026+.",
-    "supportsNodeIds": [
-      "org_onto_innovation"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_xray_onto, ev_acc_pkgeq_onto_qualification. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_xray_onto, ev_acc_pkgeq_onto_qualification. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_onto_qualification",
@@ -5241,15 +5223,15 @@
     "url": "https://www.3dincites.com/2026/03/besi-at-the-center-of-the-packaging-power-shift/",
     "date": "2026-03-15",
     "excerpt": "BESI: publicly listed Euronext BESI. Leader in hybrid bonding systems; 150+ orders, 18 customers; targets 35-40% market share of $1B+ TAM by 2027.",
-    "supportsNodeIds": [
-      "org_besi"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "shared_url_suspect",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_besi_orders, ev_acc_pkgeq_tcb_market. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_besi_orders, ev_acc_pkgeq_tcb_market. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_besi_orders",
@@ -5389,15 +5371,15 @@
     "url": "https://www.itweae.com/applications/dispensing/underfill",
     "date": "2025-06-01",
     "excerpt": "Nordson: publicly listed NYSE NSA. ASYMTEK IntelliJet is industry-leading non-contact jet dispensing for underfill; 1000Hz frequency, 1.8M dots/hour throughput.",
-    "supportsNodeIds": [
-      "org_nordson"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_nordson_asymtek",
@@ -5406,15 +5388,15 @@
     "url": "https://www.nordson.com/en/divisions/electronics-solutions/your-process/fluid-types/underfill",
     "date": "2025-06-01",
     "excerpt": "Nordson ASYMTEK IntelliJet: ultra-fast jetting for underfill dispensing in flip-chip and chiplet assembly; fills <20µm gaps with minimal voids.",
-    "supportsNodeIds": [
-      "org_nordson"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_itw_camalot",
@@ -5423,15 +5405,15 @@
     "url": "https://www.itweae.com/products/dispensers/prodigy",
     "date": "2025-06-01",
     "excerpt": "ITW EAE Camalot: SmartStream pump technology for capillary and hybrid underfill dispensing; strong #2 position in underfill market behind Nordson ASYMTEK.",
-    "supportsNodeIds": [
-      "org_itw"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_itw_camalot_underfill_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_itw_camalot_underfill_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_kic_ir",
@@ -5525,15 +5507,15 @@
     "url": "https://www.despatch.com/blog/semiconductor-fabrication-curing-ovens-for-advanced-chip-packaging/",
     "date": "2025-06-01",
     "excerpt": "Despatch: precision curing ovens for underfill and solder reflow in advanced packaging assembly; commodity supplier with multi-vendor competition.",
-    "supportsNodeIds": [
-      "org_despatch"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_despatch_semiconductor_curing_2017. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_despatch_semiconductor_curing_2017. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_pkgeq_chamber_process",
@@ -5559,18 +5541,18 @@
     "url": "https://www.3dincites.com/2026/03/besi-at-the-center-of-the-packaging-power-shift/",
     "date": "2026-03-15",
     "excerpt": "BESI offers thermocompression bonding systems alongside hybrid bonding; competitive with ASMPT and K&S; emerging strong player.",
-    "supportsNodeIds": [
-      "thermocompression_bonding_systems"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_tcb_mfg_besi"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "shared_url_suspect",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_tcb_market, ev_acc_pkg_flip_chip_equipment. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_tcb_market, ev_acc_pkg_flip_chip_equipment. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_bn3_high_bandwidth_memory",
@@ -5645,17 +5627,17 @@
     "date": "2026-04-10",
     "summary": "400G/800G QSFP-DD and OSFP optical transceiver module production: ~50-60 million units/year industry-wide (2026 estimate), dominated by Broadcom (~35-40%), Cisco (~20-25%), Arista/Mellanox (~15-20%), others. Single-sourcing risk on long-reach optics (1310nm EML/DFB lasers); lead times 8-12 weeks for 400G transceiver modules.",
     "excerpt": "400G QSFP-DD production ~50-60M units/year; Broadcom ~35-40% share; lead times 8-12 weeks.",
-    "supportsNodeIds": [
-      "optical_transceiver_module"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_coherent_datacom_optical_transceivers, ev_acc_aoi_optical_transceivers_ai_datacenter. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_coherent_datacom_optical_transceivers, ev_acc_aoi_optical_transceivers_ai_datacenter. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_bn3_laser_optics",
@@ -5740,17 +5722,17 @@
     "date": "2026-04-08",
     "summary": "Sealed-loop liquid cooling systems (micropump, cold plate, manifold) for AI accelerators: Asetek dominates with ~60% share of datacenter sealed-loop market (~8-10M unit annual demand in 2026). CoolIT, Iceotope, LiquidCool Solutions provide remainder. Supply constraint: specialized manifold/connector fittings; lead time 10-14 weeks.",
     "excerpt": "Sealed-loop cooling market ~8-10M units/year; Asetek 60% share; lead time 10-14 weeks.",
-    "supportsNodeIds": [
-      "sealed_liquid_cooling_loop"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_liquid_cooling_loop_2026, ev_acc_coolit_chx2000_ai_cdu. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_asetek_liquid_cooling_loop_2026, ev_acc_coolit_chx2000_ai_cdu. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_sb4_optical_transceiver_coherent",
@@ -6021,23 +6003,21 @@
     "url": "https://www.digitimes.com/news/a20260402PD227/asahi-kasei-ai-chip-fiberglass-cloth-materials-expansion-nittobo.html",
     "date": "2026-04",
     "excerpt": "Asahi Kasei has entered the AI-chip fiberglass (T-glass) cloth market to challenge Nittobo, which holds ~90% of the high-end share. Long qualification cycles mean Nittobo's dominance persists near-term; supply relief is unlikely before mid-2027.",
-    "supportsNodeIds": [
-      "t_glass_fabric"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [
       "e_acc_organic_substrate_buildup__requires__nittobo_t_glass_fiber_monopoly"
     ],
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "verified",
-      "checkedAsOf": "2026-06-14",
-      "quoteMatch": "exact"
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_nc4_nittobo_monopoly_1, ev_acc_nc4_tglass_shortage_1. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
     },
     "summary": "Entry + near-term Nittobo dominance are accessibly sourced (DigiTimes lead; TrendForce 2026-02-04 'Asahi Kasei and Nittobo are regarded as the two leading players'; relief not before mid-2027). The previously-claimed '12-24 month qualification cycle' could not be sourced (the only 12-18mo figure found is for PCB fabricators, not glass cloth) and has been removed.",
     "sourceName": "DigiTimes (lead) + TrendForce",
     "confidence": "medium",
-    "limitations": "Body paywalled; the '12-24 month qualification cycle' was removed (unsourced at the glass-cloth basis). Qualitative claim only."
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_nc4_nittobo_monopoly_1, ev_acc_nc4_tglass_shortage_1. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_nc4_hoya_euv_1",
@@ -6105,16 +6085,15 @@
     "url": "https://www.sec.gov/Archives/edgar/data/0000072331/000007233126000024/ndsn-20260430.htm",
     "date": "2026-05-31",
     "summary": "Nordson Corporation SEC Form 10-Q filing confirms ticker NDSN on NASDAQ (not NSA).",
-    "supportsNodeIds": [
-      "org_nordson"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_nordson_underfill_dispensing_2026. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_tkr4_suss_xetra",
@@ -6123,16 +6102,15 @@
     "url": "https://www.bloomberg.com/quote/SMHN:GR",
     "date": "2026-06-04",
     "summary": "SUSS MicroTec SE confirmed trading on Frankfurt Stock Exchange (Xetra) under ticker SMHN (not SUU). As of June 4, 2026, company promoted to MDAX index.",
-    "supportsNodeIds": [
-      "org_suss_microtic"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_suss_ir. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_pkgeq_suss_ir. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_tkr4_iqe_aim",
@@ -6171,16 +6149,15 @@
     "url": "https://investor.wolfspeed.com/news/news-details/2025/Wolfspeeds-Plan-of-Reorganization-Confirmed-Clearing-Path-to-Emerge-from-Restructuring-Process-as-a-Financially-Stronger-Company/default.aspx",
     "date": "2025-09-29",
     "summary": "Wolfspeed Inc. emerged from Chapter 11 bankruptcy on September 29, 2025. Ticker WOLF (NYSE) remains valid. Company completed debt reduction of ~70% and equity issuances to Renesas.",
-    "supportsNodeIds": [
-      "org_wolfspeed"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_r7e_009_wolfspeed_wafers. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_r7e_009_wolfspeed_wafers. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_sub4_mgc_bt_independent",
@@ -7074,17 +7051,16 @@
     "date": "2026-06-11",
     "summary": "DigiTimes (2025-12-15): SK hynix placed new HBM4 TC bonder order with ASMPT. Unit counts ('fifty sets') sit behind the paywall and were removed at verification.",
     "excerpt": "SK Hynix has reportedly placed a new order for thermal compression (TC) bonders with Singapore-based ASMPT as it accelerates preparations for HBM4.",
-    "supportsNodeIds": [
-      "hbm_stack_assembly_die_bonding"
-    ],
+    "supportsNodeIds": [],
     "supportsEdgeIds": [],
     "confidence": "high",
-    "reviewStatus": "reviewed",
+    "reviewStatus": "deprecated",
     "machineCheck": {
-      "status": "verified",
-      "checkedAsOf": "2026-06-14",
-      "quoteMatch": "exact"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_r7e_021_asmpt_tcb, ev_acc_nc4_asmpt_share_gain_1. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded on active node cards by ev_acc_r7e_021_asmpt_tcb, ev_acc_nc4_asmpt_share_gain_1. The old record was a weak/shared market or snippet source and should not appear in reader-facing evidence lists."
   },
   {
     "id": "ev_acc_r6l_asml_euv_2025",
@@ -7238,15 +7214,14 @@
     "date": "2025-06-01",
     "summary": "Yole optical-transceiver report (paywalled): EML/DFB long-reach laser supply concentrated among a small set of suppliers (Coherent, Lumentum, Mitsubishi Electric class). The earlier '70-75% top-3 share' precision is NOT visible outside the paywall and was downgraded at verification.",
     "excerpt": "(paywalled report; landing page lists scope only)",
-    "supportsNodeIds": [
-      "eml_dfb_laser_diodes",
-      "compound_foundry_specialty"
-    ],
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "reviewStatus": "deprecated",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_coherent_100g_dfb_laser_diodes, ev_acc_mitsubishi_optical_devices_dfb_eml, ev_acc_sumitomo_dfb_lasers_datacenter_networks, ev_acc_optup_epitaxy_capacity_constraint. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
+    },
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_acc_coherent_100g_dfb_laser_diodes, ev_acc_mitsubishi_optical_devices_dfb_eml, ev_acc_sumitomo_dfb_lasers_datacenter_networks, ev_acc_optup_epitaxy_capacity_constraint. The old record used weak snippet/shared/source-status evidence and should not appear in reader-facing node evidence."
   },
   {
     "id": "ev_acc_r6_euv_blanks_agc_hoya_duopoly",
@@ -9454,5 +9429,88 @@
       "numberInQuote": true,
       "notes": "web.search/open returned Marvell IR press release with the stored headline, active copper cable linear equalizer claim, 800G/1.6T support, and AI workload context."
     }
+  },
+  {
+    "id": "ev_acc_lam_syndion_tsv_drie_2026",
+    "type": "product_page",
+    "title": "Lam Research Syndion deep silicon etch for TSV advanced packaging",
+    "url": "https://www.lamresearch.com/product/syndion-product-family/",
+    "sourceName": "Lam Research",
+    "date": "accessed 2026-06-19",
+    "summary": "Lam Research describes Syndion as a deep reactive ion etch product family for deep silicon etch, advanced packaging and high-bandwidth memory, with TSV applications requiring profile control, within-wafer uniformity and productivity.",
+    "excerpt": "TSV for high bandwidth memory and advanced packaging",
+    "supportsNodeIds": [
+      "tsv_process_deep_reactive_ion_etch"
+    ],
+    "supportsEdgeIds": [
+      "e_silicon_interposer__requires__tsv_etch"
+    ],
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Lam Syndion page found the stored TSV/HBM/advanced-packaging application text and the DRIE/deep silicon etch context."
+    },
+    "limitations": "Official Lam product page supports TSV DRIE equipment/process capability. It does not prove supplier share, tool lead time, or a specific AI-interposer customer deployment."
+  },
+  {
+    "id": "ev_acc_applied_materials_tsv_process_2026",
+    "type": "product_page",
+    "title": "Applied Materials through-silicon via process for heterogeneous integration",
+    "url": "https://www.appliedmaterials.com/us/en/semiconductor/markets-and-inflections/heterogeneous-integration/tsv.html",
+    "sourceName": "Applied Materials",
+    "date": "accessed 2026-06-19",
+    "summary": "Applied Materials describes TSVs as vertical wires used to connect stacked chips, formed by etching trenches into silicon and filling them with insulating liners and metal wires; its TSV process relies on deposition, electroplating, CMP and etch technologies.",
+    "excerpt": "TSVs are formed by etching trenches into silicon and then filling them with insulating liners and metal wires.",
+    "supportsNodeIds": [
+      "tsv_process_deep_reactive_ion_etch",
+      "silicon_interposer_fabrication"
+    ],
+    "supportsEdgeIds": [
+      "e_silicon_interposer__requires__tsv_etch"
+    ],
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Applied Materials TSV page found the stored TSV etch/fill quote plus the TSV process technology set."
+    },
+    "limitations": "Official Applied Materials page supports the TSV process stack and etch/fill concept. It does not prove exact AI-interposer process parameters or tool market share."
+  },
+  {
+    "id": "ev_acc_mks_geode_hdi_microvia_2022",
+    "type": "product_page",
+    "title": "MKS ESI Geode HDI microvia laser drilling system",
+    "url": "https://api.p1.mks.com/medias/sys_master/resources/h10/h1e/9954776252446/Geode%20Datasheet%202022v2/Geode-Datasheet-2022v2.pdf",
+    "sourceName": "MKS Instruments / ESI",
+    "date": "2022",
+    "summary": "MKS/ESI describes Geode as an HDI microvia drilling solution for HDI, SLP and ICP applications, using a CO2 laser for HDI PCB manufacturing and integrated-circuit packaging.",
+    "excerpt": "ESI’s most advanced HDI microvia drilling solution",
+    "supportsNodeIds": [
+      "hdi_drilling_via_plating",
+      "organic_substrate_buildup"
+    ],
+    "supportsEdgeIds": [
+      "e_organic_substrate__requires__hdi_drilling"
+    ],
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "sourceStatus": "ok_exact",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open on the MKS/ESI Geode datasheet found the stored HDI microvia drilling quote, HDI PCB / IC packaging context, target-via ranges, and ABF material support."
+    },
+    "limitations": "Official product datasheet supports HDI microvia laser drilling equipment capability. It does not prove AI-substrate lead time, supplier concentration, or customer allocation."
   }
 ]

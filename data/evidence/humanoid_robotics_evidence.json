@@ -337,28 +337,25 @@
     "type": "standard",
     "title": "ISO/TS 15066:2016 Robots and robotic devices - Collaborative robots",
     "url": "https://www.iso.org/standard/62996.html",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "sourceName": "International Organization for Standardization",
     "date": "2016-02",
-    "summary": "ISO/TS 15066 specifies safety requirements for collaborative industrial robot systems and their work environment, and states that the principles can be useful to other robotics areas.",
+    "summary": "ISO/TS 15066 specifies safety requirements for collaborative industrial robot systems and their work environment, and notes that its safety principles can be useful to other robotics areas although the standard does not apply to non-industrial robots.",
     "supportsNodeIds": [
-      "humanoid_manufacturing_test_safety_service",
-      "humanoid_functional_safety_estop",
       "humanoid_proximity_touch_safety"
     ],
-    "supportsEdgeIds": [
-      "e_humanoid_mfg__requires__functional_safety"
-    ],
-    "limitations": "paywalled: iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible.; basis: qualitative (official ISO catalog scope text; full standard remains sold/paywalled)",
+    "supportsEdgeIds": [],
+    "limitations": "Official ISO catalog abstract supports collaborative-industrial-robot shared-workspace safety principles only. The full standard is sold, and ISO says it does not apply to non-industrial robots; do not use this record as direct evidence for humanoid E-stop architecture, harness design, or manufacturing test services.",
     "confidence": "high",
     "reviewStatus": "reviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-15",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "exact",
-      "notes": "round0 add_excerpt: iso.org standard page and OBP viewer both return HTTP 403 (sold standard). Scope sentence is the official ISO catalog abstract, retrieved via WebSearch over iso.org. Note from catalog: 'it does not apply to non-industrial robots, although the safety principles"
+      "numberInQuote": false,
+      "notes": "web.open on ISO standard page found the stored collaborative safety quote and the non-industrial-robot limitation in the official abstract."
     },
-    "excerpt": "ISO/TS 15066:2016 specifies safety requirements for collaborative industrial robot systems and the work environment, and supplements the requirements and guidance on collaborative industrial robot operation given in ISO 10218-1 and ISO 10218-2."
+    "excerpt": "specifies safety requirements for collaborative industrial robot systems and the work environment"
   },
   {
     "id": "ev_humanoid_ul_consumer_commercial_robot_certification",
@@ -1270,12 +1267,12 @@
     "id": "ev_humanoid_kollmorgen_frameless_joints",
     "type": "vendor_claim",
     "title": "Kollmorgen (a Regal Rexnord brand) frameless torque motors — robot/cobot joints",
-    "url": "https://www.kollmorgen.com/en-us/products/motors/frameless-motors",
-    "sourceStatus": "paywalled_snippet",
+    "url": "https://www.kollmorgen.com/en-us/landing/frameless-servo-motors",
+    "sourceStatus": "ok_exact",
     "sourceName": "Kollmorgen (Regal Rexnord)",
     "date": "2026-06-15",
-    "summary": "Vendor page identifies Kollmorgen as a Regal Rexnord brand and states its frameless torque motors power nearly 1 million robotic joints/arms globally — a named merchant frameless-motor supplier for robot joints.",
-    "excerpt": "Kollmorgen's frameless torque motors mobilize nearly 1 million joints and robotic arms across the globe.",
+    "summary": "Kollmorgen says its frameless motors are compact, high-torque-density motors for rotary actuators, robot/cobot joints and humanoid robots; Kollmorgen is a Regal Rexnord brand modeled as a merchant motor-stack exposure candidate.",
+    "excerpt": "robot and cobot joints, or any application that requires ultimate precision",
     "supportsNodeIds": [
       "humanoid_motor_stack",
       "org_regal_rexnord"
@@ -1283,14 +1280,15 @@
     "supportsEdgeIds": [
       "e_humanoid_motor_stack__manufactured_by__regal_rexnord"
     ],
-    "limitations": "Direct fetch returned HTTP 403; excerpt captured via search index, not an independent page fetch (sourceStatus paywalled_snippet). Vendor marketing claim ('nearly 1 million joints') is a vendor_claim, not independently audited; robot/cobot joints broadly, not a humanoid-specific BOM placement.",
+    "limitations": "Official vendor page supports Kollmorgen frameless motor capability for robot/cobot/humanoid joints. It does not prove a specific humanoid OEM design win or volume allocation.",
     "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-15",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "exact",
-      "notes": "Gate-B repair (keep_paywalled_snippet): Direct WebFetch returned HTTP 403 (Cloudflare 'Attention Required' interstitial); single retry via curl with browser User-Agent also returned HTTP 403 (5492-byte block page, zero content leaked). Page is bot-blocked, not authenticatable, so"
+      "numberInQuote": false,
+      "notes": "web.open on Kollmorgen frameless-servo-motors page found compact-package, robot/cobot-joint and humanoid-robot text."
     }
   },
   {
@@ -1330,21 +1328,17 @@
     "date": "2026-06-15",
     "summary": "Parker's product catalog lists frameless direct-drive torque motors (TK series, K-Series kit motors) for robotics, supplied as separate rotor/stator for direct integration — a named merchant frameless-motor supplier.",
     "excerpt": "Frameless Direct-Drive Torque Motors - TK Series",
-    "supportsNodeIds": [
-      "humanoid_motor_stack",
-      "org_parker_hannifin"
-    ],
-    "supportsEdgeIds": [
-      "e_humanoid_motor_stack__manufactured_by__parker_hannifin"
-    ],
-    "limitations": "Direct fetch returned HTTP 403; product-line title/description captured via search index (sourceStatus paywalled_snippet). Vendor catalog (good for who-makes-what); K-Series marketed for robotics broadly, not a humanoid-specific BOM placement. Parker Hannifin NYSE: PH (widely listed).",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_parker_kseries_frameless. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "machineCheck": {
-      "status": "verified",
-      "checkedAsOf": "2026-06-15",
-      "quoteMatch": "exact",
-      "notes": "Gate-B repair (keep_paywalled_snippet): Direct WebFetch of the specific SKU URL returned HTTP 403; single retry via curl with browser User-Agent also returned HTTP 403 (Akamai 'Access Denied', 485-byte block page). Cannot grant ok_exact from a first-party fetch. Honestly retained"
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
+      "numberInQuote": false,
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_parker_kseries_frameless. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
     }
   },
   {
@@ -2670,22 +2664,17 @@
     "date": "2026-06-16",
     "summary": "Exchange mirror confirming the legal entity Shenzhen Senior Technology Material (Shenzhen-listed, 300568.SZ — not 'SEMCORP') is a Li-ion battery-separator maker (dry/wet/coated film), carried as a candidate microporous battery-separator supplier. Who-makes-what (product-line presence); no share % asserted.",
     "excerpt": "Shenzhen Senior Technology Material Co., Ltd. (SHE: 300568)",
-    "supportsNodeIds": [
-      "org_shenzhen_senior",
-      "humanoid_cell_separator"
-    ],
-    "supportsEdgeIds": [
-      "e_humanoid_cell_separator__reported_capable_supplier__shenzhen_senior"
-    ],
-    "limitations": "DEMOTED by Gate-B verifier (2026-06-16): the stored excerpt 'Shenzhen Senior Technology Material Co., Ltd. (SHE: 300568)' is NOT verbatim on the live page — raw HTML (and JSON-LD) render the contiguous header as '(SHE:300568)' with NO space after the colon; the stored excerpt's space is fabricated. Source is a third-party SEO/exchange-aggregator (stockanalysis.com), not a primary listing source. Quote-not-found + aggregator → rejected; moved to org_shenzhen_senior.rejectedEvidenceIds. The org's Shenzhen listing (300568.SZ) and separator business are independently true, so org_shenzhen_senior stays in the graph qualitatively; it now needs a primary-source listing/product citation. Original limitation: exchange mirror used for legal-name + ticker confirmation and business line; separator share figures SEO-only and NOT cited.",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_senior_europe_separator_film. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence.",
     "confidence": "low",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-16",
-      "quoteMatch": "absent",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
       "numberInQuote": false,
-      "notes": "Re-fetched stockanalysis.com/quote/she/300568 (HTTP 200). Stored excerpt with a space after the colon does NOT appear; the page's verbatim header is 'Shenzhen Senior Technology Material Co., Ltd. (SHE:300568)' (no space, confirmed in raw HTML <h1> and tickerSymbol JSON-LD). Excerpt is non-verbatim and the source is an SEO aggregator → DEMOTE."
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_senior_europe_separator_film. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
     }
   },
   {
@@ -2698,22 +2687,17 @@
     "date": "2026-06-16",
     "summary": "Exchange mirror confirming Sony Group is Tokyo-listed (6758.T); Sony Semiconductor Solutions is a leading merchant CMOS image-sensor maker, carried as a candidate supplier for the depth-camera CMOS image sensor. Leadership stated qualitatively; no precise image-sensor share % asserted.",
     "excerpt": "Sony Group Corporation (TYO: 6758)",
-    "supportsNodeIds": [
-      "org_sony",
-      "humanoid_depth_image_sensor"
-    ],
-    "supportsEdgeIds": [
-      "e_humanoid_depth_image_sensor__reported_capable_supplier__sony"
-    ],
-    "limitations": "DEMOTED by Gate-B verifier (2026-06-16): the stored excerpt 'Sony Group Corporation (TYO: 6758)' is NOT verbatim on the live page — raw HTML (<h1>, <title>, JSON-LD tickerSymbol) all render '(TYO:6758)' with NO space after the colon; the stored excerpt's space is fabricated. Source is a third-party SEO/exchange-aggregator (stockanalysis.com), not a primary listing source. Quote-not-found + aggregator → rejected; moved to org_sony.rejectedEvidenceIds. Sony's Tokyo listing (6758.T) and Sony Semiconductor Solutions' merchant CMOS image-sensor leadership are independently true, so org_sony stays in the graph qualitatively; it now needs a primary-source listing/product citation. Original limitation: exchange mirror used for listing/ticker verification; image-sensor share SEO/analyst-only and NOT cited; added as the merchant image-sensor corner instead of Orbbec/RealSense self-claims.",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_sony_tof_depth_sensor. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence.",
     "confidence": "low",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "machineCheck": {
       "status": "failed",
-      "checkedAsOf": "2026-06-16",
-      "quoteMatch": "absent",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "not_checked",
       "numberInQuote": false,
-      "notes": "Re-fetched stockanalysis.com/quote/tyo/6758 (HTTP 200). Stored excerpt with a space after the colon does NOT appear; the page's verbatim header is 'Sony Group Corporation (TYO:6758)' (no space, confirmed in raw HTML <h1>, <title>, og:title and tickerSymbol JSON-LD). Excerpt is non-verbatim and the source is an SEO aggregator → DEMOTE."
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_sony_tof_depth_sensor. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
     }
   },
   {
@@ -2726,24 +2710,17 @@
     "date": "2026-06-16",
     "summary": "Vendor product pages confirm Analog Devices (Nasdaq: ADI) supplies battery-monitoring analog front-end / fuel-gauge ICs and high-performance MEMS inertial measurement units, carried as a candidate supplier for the BMS AFE and the MEMS IMU die. Who-makes-what (product-line presence); no share number asserted.",
     "excerpt": "Battery Management",
-    "supportsNodeIds": [
-      "org_analog_devices",
-      "humanoid_bms_analog_frontend",
-      "humanoid_imu_mems_die"
-    ],
-    "supportsEdgeIds": [
-      "e_humanoid_bms_analog_frontend__reported_capable_supplier__adi",
-      "e_humanoid_imu_mems_die__reported_capable_supplier__adi"
-    ],
-    "limitations": "Vendor product pages used for product-line presence (who-makes-what). The consumer MEMS-IMU share belongs to ST/TDK-InvenSense/Bosch (Yole, basis=smartphone shipments, not robot) — NOT imported as a fact here; ADI is the high-performance/industrial tail. No quantified AFE/IMU share cited. No humanoid-named supply quote — relation is reported_capable_supplier.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_adi_max17854_battery_monitor, ev_humanoid_adi_mems_imu_brochure. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-16",
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "not_checked",
       "numberInQuote": false,
-      "notes": "Gate-B verifier could NOT fetch analog.com/en/product-category/battery-management.html: hard bot-block (direct GET socket-closed; r.jina.ai reader-proxy returned HTTP 403). Page existence + 'Battery Management' title independently corroborated via web search (canonical 'Battery Management | Analog Devices' result), but the excerpt could not be confirmed on the live page itself. Not promoted — sourceStatus=paywalled_snippet; quoteMatch=not_checked. No share number in scope (numberInQuote=false)."
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_adi_max17854_battery_monitor, ev_humanoid_adi_mems_imu_brochure. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
     }
   },
   {
@@ -2756,22 +2733,17 @@
     "date": "2026-06-16",
     "summary": "SIX exchange page confirms ams-OSRAM AG is Swiss-listed (AMS.SW, ISIN AT0000A3EPA4) and is the reference supplier of rotary magnetic position-encoder ASICs (AS5xxx Hall-array family), carried as a candidate supplier for the magnetic encoder ASIC. Product-line leadership stated qualitatively; no share number asserted.",
     "excerpt": "ISIN AT0000A3EPA4",
-    "supportsNodeIds": [
-      "org_ams_osram",
-      "humanoid_encoder_magnetic_asic"
-    ],
-    "supportsEdgeIds": [
-      "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__ams_osram"
-    ],
-    "limitations": "Exchange page used for listing/ticker/ISIN verification. Magnetic-encoder-ASIC market share is SEO-only and is NOT cited; the AS5xxx product-line leadership is qualitative. No humanoid-named supply quote — relation is reported_capable_supplier.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_ams_osram_as5145. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-16",
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "not_checked",
       "numberInQuote": false,
-      "notes": "Gate-B verifier re-fetched the SIX share-details page (HTTP 200) but the contiguous excerpt 'ISIN AT0000A3EPA4' is NOT a static substring: the ISIN renders client-side (JavaScript) and in the raw HTML the code appears only inside the URL slug 'share-details.AT0000A3EPA4CHF4.html' and a JS valorId variable, not as a visible 'ISIN AT0000A3EPA4' label. Listing fact independently corroborated (Wiener Börse / Euronext / Bloomberg all carry ISIN AT0000A3EPA4, SIX ticker AMS), but the quote is unverifiable on the static page. Not promoted — sourceStatus=paywalled_snippet (JS-gated); quoteMatch=not_checked."
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_ams_osram_as5145. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
     }
   },
   {
@@ -2784,22 +2756,17 @@
     "date": "2026-06-16",
     "summary": "Vendor product page confirms Monolithic Power Systems (Nasdaq: MPWR) supplies angular/position-sensor ICs (MagAlpha) and motor-drive products used in robotics, carried as a candidate supplier for the magnetic encoder ASIC. Who-makes-what (product-line presence); no share number asserted.",
     "excerpt": "Position Sensors",
-    "supportsNodeIds": [
-      "org_monolithic_power",
-      "humanoid_encoder_magnetic_asic"
-    ],
-    "supportsEdgeIds": [
-      "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__mpwr"
-    ],
-    "limitations": "Vendor product page used for product-line presence (who-makes-what). No quantified position-sensor share cited. No humanoid-named supply quote — relation is reported_capable_supplier.",
-    "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "supportsNodeIds": [],
+    "supportsEdgeIds": [],
+    "limitations": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_mps_magalpha. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence.",
+    "confidence": "low",
+    "reviewStatus": "deprecated",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-16",
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "not_checked",
       "numberInQuote": false,
-      "notes": "Gate-B verifier could NOT verify the excerpt on the stored URL: direct GET returns an Akamai/Cloudflare 'Client Challenge' bot-wall shell (HTTP 200 but no real content), and r.jina.ai reader-proxy returned HTTP 404 for this exact leaf path. The canonical MPS Position Sensors page (web search) is at /en/products/motor-drivers-position-sensors/position-sensors.html — the stored /en/products/position-sensors.html path is suspect. MPS MagAlpha position-sensor product line is real and on-topic, but 'Position Sensors' could not be confirmed on the stored URL. Not promoted — sourceStatus=paywalled_snippet (bot-blocked); URL flagged for owner review."
+      "notes": "Deprecated during 2026-06-19 node-detail evidence cleanup: superseded by ev_humanoid_mps_magalpha. The old record used weak snippet/SEO/source-status evidence and should not appear in reader-facing node evidence."
     }
   },
   {

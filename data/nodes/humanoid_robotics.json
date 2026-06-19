@@ -306,7 +306,6 @@
     "evidenceIds": [
       "ev_humanoid_figure_botq",
       "ev_humanoid_figure_battery",
-      "ev_humanoid_iso_ts_15066_collaborative_safety",
       "ev_humanoid_ul_consumer_commercial_robot_certification"
     ],
     "reviewStatus": "unreviewed"
@@ -425,7 +424,6 @@
     "evidenceIds": [
       "ev_humanoid_figure_botq",
       "ev_humanoid_figure_battery",
-      "ev_humanoid_iso_ts_15066_collaborative_safety",
       "ev_humanoid_ul_consumer_commercial_robot_certification"
     ],
     "reviewStatus": "unreviewed"
@@ -582,9 +580,14 @@
     "evidenceIds": [
       "ev_humanoid_figure_botq",
       "ev_humanoid_ti_robotics",
-      "ev_humanoid_unitree_g1_price_joint_count"
+      "ev_humanoid_unitree_g1_price_joint_count",
+      "ev_humanoid_kollmorgen_frameless_joints",
+      "ev_humanoid_parker_kseries_frameless"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_parker_frameless_tk"
+    ]
   },
   {
     "id": "humanoid_motor_drive_power_electronics",
@@ -1916,7 +1919,6 @@
       "safety"
     ],
     "evidenceIds": [
-      "ev_humanoid_iso_ts_15066_collaborative_safety",
       "ev_humanoid_ul_consumer_commercial_robot_certification"
     ],
     "reviewStatus": "unreviewed"
@@ -2233,7 +2235,13 @@
       "bottleneck"
     ],
     "notes": "Key-tagged 'bottleneck': qualified high-power separator film is a recognized few-supplier chokepoint and a safety-critical component. Likely citable source: humanoid battery-pack design notes; humanoid battery design-challenge writeups. Qualitative only this pass.",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_senior_europe_separator_film"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_humanoid_shenzhen_senior_separator"
+    ]
   },
   {
     "id": "humanoid_bms_analog_frontend",
@@ -2252,7 +2260,13 @@
       "electronics",
       "semiconductor"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_adi_max17854_battery_monitor"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_humanoid_adi_battery_imu"
+    ]
   },
   {
     "id": "humanoid_motor_stator_lamination_steel",
@@ -2367,7 +2381,15 @@
       "encoder",
       "sensing"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ams_osram_as5145",
+      "ev_humanoid_mps_magalpha"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_humanoid_ams_osram_encoder_asic",
+      "ev_humanoid_mpwr_position_sensor"
+    ]
   },
   {
     "id": "humanoid_encoder_optical_codedisk",
@@ -2481,7 +2503,13 @@
       "sensing",
       "semiconductor"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_sony_tof_depth_sensor"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_humanoid_sony_image_sensor"
+    ]
   },
   {
     "id": "humanoid_imu_mems_die",
@@ -2500,7 +2528,13 @@
       "sensing",
       "semiconductor"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_adi_mems_imu_brochure"
+    ],
+    "rejectedEvidenceIds": [
+      "ev_humanoid_adi_battery_imu"
+    ]
   },
   {
     "id": "humanoid_edge_inference_soc",
@@ -3707,7 +3741,9 @@
       "public_company",
       "supplier_candidate"
     ],
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_humanoid_senior_europe_separator_film"
+    ],
     "rejectedEvidenceIds": [
       "ev_humanoid_shenzhen_senior_separator"
     ],
@@ -3729,7 +3765,9 @@
       "public_company",
       "supplier_candidate"
     ],
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_humanoid_sony_tof_depth_sensor"
+    ],
     "rejectedEvidenceIds": [
       "ev_humanoid_sony_image_sensor"
     ],
@@ -3752,9 +3790,13 @@
       "supplier_candidate"
     ],
     "evidenceIds": [
-      "ev_humanoid_adi_battery_imu"
+      "ev_humanoid_adi_max17854_battery_monitor",
+      "ev_humanoid_adi_mems_imu_brochure"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_adi_battery_imu"
+    ]
   },
   {
     "id": "org_ams_osram",
@@ -3773,9 +3815,12 @@
       "supplier_candidate"
     ],
     "evidenceIds": [
-      "ev_humanoid_ams_osram_encoder_asic"
+      "ev_humanoid_ams_osram_as5145"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_ams_osram_encoder_asic"
+    ]
   },
   {
     "id": "org_monolithic_power",
@@ -3794,8 +3839,11 @@
       "supplier_candidate"
     ],
     "evidenceIds": [
-      "ev_humanoid_mpwr_position_sensor"
+      "ev_humanoid_mps_magalpha"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_mpwr_position_sensor"
+    ]
   }
 ]

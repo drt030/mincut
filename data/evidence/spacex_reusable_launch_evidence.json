@@ -1701,23 +1701,26 @@
   {
     "id": "ev_space_hexcel_customer_concentration_10k",
     "type": "news",
-    "title": "Hexcel 2024 Form 10-K — ~40% of net sales to Airbus, ~15% to Boeing (customer concentration)",
-    "url": "https://www.sec.gov/Archives/edgar/data/717605/000095017025014412/hxl-20241231.htm",
-    "sourceStatus": "paywalled_snippet",
-    "sourceName": "Hexcel Corporation 2024 Form 10-K (SEC)",
-    "excerpt": "Approximately 40% of Hexcel's 2024 net sales were to Airbus and its subcontractors ... approximately 15% of their 2024 net sales were to Boeing and its subcontractors",
+    "title": "Hexcel 2024 annual report customer concentration: Airbus and Boeing",
+    "url": "https://s21.q4cdn.com/180688177/files/doc_financials/2024/ar/2024-Hexcel-Annual-Report.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Hexcel Corporation 2024 Annual Report / Form 10-K",
+    "excerpt": "Approximately 40%, 39% and 38% of our 2024, 2023 and 2022 net sales",
     "supportsNodeIds": [
       "org_hexcel"
     ],
-    "limitations": "Primary 10-K PDF returned binary (unreadable) and the SEC EDGAR HTML returned HTTP 403 to this agent; figure is corroborated across multiple secondary reports of the 10-K text but NOT confirmed against rendered primary text here. Marked paywalled_snippet; owner must re-fetch the 10-K and confirm the exact sentence (incl. 37%/3% and 13%/2% Commercial-Aerospace vs Space-&-Defense split) before any flip.",
-    "confidence": "low",
+    "limitations": "Supports Hexcel customer concentration and public-company diligence context. It does not prove a direct SpaceX supplier relationship.",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-15",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "exact",
-      "notes": "Gate-B repair (undefined): "
-    }
+      "numberInQuote": true,
+      "notes": "web.open/find on Hexcel 2024 annual report PDF found Significant Customers lines for Airbus (~40% of 2024 net sales) and Boeing (~15% of 2024 net sales), plus market split details."
+    },
+    "date": "2024",
+    "summary": "Hexcel reports significant 2024 customer concentration: about 40% of net sales to Airbus and its subcontractors and about 15% to Boeing and its subcontractors."
   },
   {
     "id": "ev_space_teijin_tenax_leading_maker",
