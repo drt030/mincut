@@ -11,6 +11,7 @@
     "check:graph-geometry": "tsx scripts/check-graph-geometry.ts",
     "check:disclosure": "tsx scripts/check-disclosure.ts",
     "check:commercial-readiness": "tsx scripts/check-commercial-readiness.ts",
+    "check:node-detail-ia": "tsx scripts/check-node-detail-ia.ts",
     "check:locked-identity-leaks": "tsx scripts/check-locked-identity-leaks.ts",
     "check:graph-ux": "node scripts/check-graph-ux.mjs && npm run check:graph-geometry && npm run check:graph-topology && npm run check:locked-identity-leaks",
     "test": "tsx --test tests/**/*.test.ts",

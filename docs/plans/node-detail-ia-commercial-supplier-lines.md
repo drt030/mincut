@@ -6,6 +6,12 @@ truth for the next node-detail execution slice. Where it conflicts with the
 historical `docs/plans/launch-detail-rail-priority.md`, this document wins for
 selected-node detail IA and supplier/company card behavior.
 
+**Implementation status:** The node detail rail now follows this IA for the
+supplier/company card surface and the primary sequence: no standalone
+`Inspect next` block, `结构拆解` before evidence, evidence status outside the
+core readout, and supplier cards that expose ticker, `产业链定位`, and `关联依据`
+in collapsed state.
+
 ## Purpose
 
 The node detail rail must help a public-market retail investor understand a
@@ -120,6 +126,8 @@ Rules:
 - Barrier-source or know-how child items may appear when they explain Barrier,
   lifetime, manufacturability, holder scarcity, evidence gaps, or chokepoint
   logic.
+- This section appears before evidence and supplier/company cards. It replaces
+  the older standalone `Inspect next` prompt as the user's orientation layer.
 
 ## `供应商与上市公司线索`
 
@@ -198,6 +206,56 @@ Expanded cards may show:
 
 Avoid a single generic `商业信号` label. It is too vague. Split it into the
 specific kind of signal the product actually has.
+
+### Roll-up And Ranking Rules
+
+Supplier/company cards are not limited to edges directly attached to the
+selected node.
+
+Rules:
+
+- First collect direct organization edges from the selected node.
+- Then collect supplier/company edges from descendant artifact nodes up to four
+  decomposition levels below the selected node.
+- Deduplicate by organization after ranking, not before ranking, so a stronger
+  supplier relation can replace a weaker duplicate relation.
+- Rank supplier relations ahead of owner/operator/comparable relations:
+  `manufactured_by`, `qualified_supplier`, `reported_capable_supplier`,
+  `strategic_supplier_to`, and `capacity_provider` outrank
+  `second_source_candidate` and `implemented_by`.
+- Prefer public/listed-company cards when otherwise comparable, because this
+  section is the commercial diligence path.
+- Use `second_source_candidate` and `implemented_by` cards only when they do
+  not crowd out actual supplier/manufacturer leads.
+
+Rationale: many useful commercial clues live at component or material leaves.
+Upper product and route nodes should still feel commercially useful, but their
+collapsed cards should not be dominated by product owners, operators, or broad
+public comparables when actual supplier exposure exists deeper in the graph.
+
+## Repository Check
+
+The repository has a machine check for this IA:
+
+```bash
+npm run check:node-detail-ia
+```
+
+The check scans every `DOMAIN_ROUTES` product graph for:
+
+- missing role-source descriptions;
+- missing root decomposition;
+- supplier/company edges pointing at missing organization nodes;
+- public or subsidiary organization cards missing ticker data;
+- supplier/company edges missing `claim` or `context` for `关联依据`;
+- supplier/company edges missing active evidence links;
+- weak evidence statuses such as `404`, `unreachable`, `paywalled_snippet`, or
+  `generic_homepage`.
+
+By default the command reports warnings without failing, because current product
+graphs still contain evidence backlog. Use `-- --fail-on-error` for hard
+structure failures and `-- --fail-on-warn` when the backlog is intended to be
+zero.
 
 ## Free/Paid Boundary
 

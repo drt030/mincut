@@ -61,9 +61,10 @@ test("know-how node detail keeps build/buy and holder context below primary answ
     html.indexOf('data-testid="detail-reader-priority"') < html.indexOf('data-testid="detail-knowhow-context"'),
     `know-how build/buy and holder context should stay below the reader priority area; got: ${html}`,
   );
-  assert.ok(
-    html.indexOf('data-testid="detail-inspect-next"') < html.indexOf('data-testid="detail-knowhow-context"'),
-    `know-how build/buy and holder context should not compete with first-screen drill-down prompts; got: ${html}`,
+  assert.equal(
+    html.indexOf('data-testid="detail-inspect-next"'),
+    -1,
+    `know-how detail should not render a separate Inspect next section; got: ${html}`,
   );
   assert.equal(
     html.indexOf('data-testid="detail-relationship-lists"'),

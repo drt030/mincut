@@ -379,17 +379,13 @@ export function NodeDetailContent({
         lockedExposureMode={lockedExposureMode}
         showExposureSummary={showExposureSummary}
         defaultOpenExposureSummary={defaultOpenExposureSummary}
-      />
-      {/*
-        Keep the next drill target directly below the summary. The graph
-        surface is a research workflow, so after "what is this node?" the
-        next visible answer should be "what should I inspect next?"
-      */}
-      <NodeDetailInspectNext
-        graph={graph}
-        node={node}
-        evidenceCount={evidenceCount}
-        onSelectNode={onSelectNode}
+        beforeEvidence={
+          <DecompositionRationalePanel
+            graph={graph}
+            node={node}
+            onSelectNode={onSelectNode}
+          />
+        }
       />
       {node.kind === "product" ? (
         <InvestorAnswerPanel
@@ -839,10 +835,10 @@ function InvestorAnswerPanel({
               </div>
               <div className="metric-detail-row-values">
                 <span>
-                  <strong>{t("readerWhereStuck")}:</strong>{" "}
+                  <strong>{factors.length > 0 ? t("readerWhereStuck") : t("readerRouteRole")}:</strong>{" "}
                   {factors.length > 0
                     ? factors.map((factor) => factor.label).join(" · ")
-                    : t("readerThesisCandidateConstraint")}
+                    : t("readerConstraintUnclassified")}
                 </span>
                 {entry.costTypicalRmb !== null ? (
                   <span>
@@ -1103,6 +1099,19 @@ function sentenceClause(text: string): string {
   return `${trimmed}.`;
 }
 
+function normalizeReaderText(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/<[^>]*>/g, " ")
+    .replace(/[.!?。！？…]+$/u, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function readerClauseFragment(text: string): string {
+  return text.trim().replace(/[.!?。！？…]+$/u, "");
+}
+
 function isAiComputeNode(node: Pick<Node, "domain"> | null | undefined): boolean {
   return Boolean(node?.domain?.includes("ai_compute_chain"));
 }
@@ -1155,13 +1164,21 @@ function detailBottleneckThesisText(
   return formatCopy(t("readerDetailBottleneckThesisSentence"), {
     where,
     impact,
-    factors: constraintSummaryText(node, t),
-    relief: reliefTimingText(node, t),
-    evidence: readerEvidenceStatusText(evidence, t),
+    factors: constraintSummaryText(graph, node, t),
+    relief: readerClauseFragment(reliefTimingText(node, t)),
+    evidence: readerClauseFragment(readerEvidenceStatusText(evidence, t)),
   });
 }
 
-function detailWhereStuckFactors(node: Node, t: (key: string) => string): string[] {
+function structuralConstraintSignals(graph: GraphData, node: Node, t: (key: string) => string): string[] {
+  const headline = chokepointHeadlineFor(graph, node, t);
+  if (headline.elevated && headline.axisSentence && headline.axisSentence !== t("chokepointAxisConcentrationGap")) {
+    return [headline.axisSentence];
+  }
+  return [];
+}
+
+function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) => string): string[] {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
   if (factors.length === 0 && isAiComputeNode(node) && node.kind === "product") {
     return [
@@ -1171,7 +1188,9 @@ function detailWhereStuckFactors(node: Node, t: (key: string) => string): string
       t("readerAiComputeStuckSupplierConcentration"),
     ];
   }
-  if (factors.length === 0) factors.push(t("readerThesisCandidateConstraint"));
+  if (factors.length === 0) factors.push(...structuralConstraintSignals(graph, node, t));
+  if (factors.length === 0) factors.push(...decompositionConstraintSignals(graph, node, t));
+  if (factors.length === 0) factors.push(t("readerConstraintUnclassified"));
   return factors.slice(0, 4);
 }
 
@@ -1188,10 +1207,12 @@ function detailWhereStuckReason(
   return readerFacingConstraintReason(localized?.description ?? node.description);
 }
 
-function constraintSummaryText(node: Node, t: (key: string) => string): string {
+function constraintSummaryText(graph: GraphData, node: Node, t: (key: string) => string): string {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
   if (factors.length > 0) return factors.join(" · ");
   if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeConstraintSummary");
+  const signals = structuralConstraintSignals(graph, node, t);
+  if (signals.length > 0) return signals.join(" · ");
   return t("readerConstraintUnclassified");
 }
 
@@ -1556,7 +1577,7 @@ function DecisionBrief({
         </div>
         <div>
           <span>{t("readerSupplyConstraint")}</span>
-          <strong>{constraintSummaryText(node, t)}</strong>
+          <strong>{constraintSummaryText(graph, node, t)}</strong>
         </div>
         <div>
           <span>{t("readerReliefTiming")}</span>
@@ -1580,6 +1601,7 @@ function NodeReaderPriority({
   lockedExposureMode,
   showExposureSummary,
   defaultOpenExposureSummary,
+  beforeEvidence,
 }: {
   graph: GraphData;
   node: Node;
@@ -1588,6 +1610,7 @@ function NodeReaderPriority({
   lockedExposureMode: LockedExposureMode;
   showExposureSummary: boolean;
   defaultOpenExposureSummary: boolean;
+  beforeEvidence?: React.ReactNode;
 }) {
   const { language, nodeDescription, nodeName, t } = useLanguage();
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
@@ -1596,7 +1619,13 @@ function NodeReaderPriority({
   const localizedDescription = language === "zh"
     ? nodeDescription(node.id, node.description ?? "") || node.description
     : node.description;
-  const whereStuckReason = detailWhereStuckReason(node, t, { language, description: localizedDescription });
+  const rawWhereStuckReason = detailWhereStuckReason(node, t, { language, description: localizedDescription });
+  const roleSentence = firstSentenceDescription(localizedDescription) ?? "";
+  const whereStuckReason = normalizeReaderText(rawWhereStuckReason) === normalizeReaderText(roleSentence)
+    ? ""
+    : rawWhereStuckReason;
+  const whereStuckFactors = detailWhereStuckFactors(graph, node, t);
+  const hasConcreteWhereStuck = whereStuckFactors.some((factor) => factor !== t("readerConstraintUnclassified"));
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
       <ChokepointHeadline graph={graph} node={node} />
@@ -1605,9 +1634,9 @@ function NodeReaderPriority({
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence, localizedDescription)}</p>
       </div>
       <div className="detail-reader-role" data-testid="detail-where-stuck">
-        <span>{t("readerWhereStuck")}</span>
+        <span>{hasConcreteWhereStuck ? t("readerWhereStuck") : t("readerRouteRole")}</span>
         <div className="pill-row">
-          {detailWhereStuckFactors(node, t).map((factor) => (
+          {whereStuckFactors.map((factor) => (
             <span className="pill" key={factor}>{factor}</span>
           ))}
         </div>
@@ -1616,6 +1645,7 @@ function NodeReaderPriority({
         ) : null}
       </div>
       <DecisionBrief graph={graph} node={node} evidence={evidence} />
+      {beforeEvidence}
       <div className="detail-reader-role" data-testid="detail-evidence-summary">
         <span>{t("readerKeyEvidenceSummary")}</span>
         <p>{quickPath.text}</p>
@@ -1633,8 +1663,17 @@ function NodeReaderPriority({
   );
 }
 
-const EXPOSURE_ORG_RELATIONS = ["manufactured_by", "implemented_by"] as const;
-const EXPOSURE_ONE_HOP_RELATIONS = ["requires", "part_of", "has_route", "implemented_by"] as const;
+const EXPOSURE_ORG_RELATIONS = [
+  "manufactured_by",
+  "implemented_by",
+  "qualified_supplier",
+  "reported_capable_supplier",
+  "strategic_supplier_to",
+  "capacity_provider",
+  "second_source_candidate",
+] as const;
+const EXPOSURE_ROLLUP_RELATIONS = ["requires", "part_of", "has_route", "implemented_by"] as const;
+const EXPOSURE_ROLLUP_MAX_DEPTH = 4;
 
 type ExposureOrgRelation = (typeof EXPOSURE_ORG_RELATIONS)[number];
 
@@ -1643,7 +1682,7 @@ type ExposureCandidate = {
   edge: Edge | null;
   relation: ExposureOrgRelation | "organization";
   viaNode: Node | null;
-  depth: 0 | 1;
+  depth: number;
   sourceRank: number;
 };
 
@@ -1735,33 +1774,18 @@ function ExposureEvidenceSummary({
         <span className="detail-reader-mini-heading">{candidateHeading}</span>
         <p className="muted">{candidateHint}</p>
         {candidates.length > 0 ? (
-          <ul className="metric-detail-list">
-            {candidates.map((candidate) => {
-              const displayName = nodeName(candidate.organization.id, candidate.organization.name);
-              const candidateSummary = organizationMetricSummary(candidate.organization, {
-                includeDescriptions: false,
-                limit: 2,
-              });
-              const via = candidate.viaNode
-                ? formatCopy(t("exposureCandidateVia"), {
-                    node: nodeName(candidate.viaNode.id, candidate.viaNode.name),
-                  })
-                : relationName(candidate.relation);
-              return (
-                <li className="metric-detail-row" key={`${candidate.organization.id}-${candidate.edge?.id ?? "self"}`}>
-                  <div className="metric-detail-row-head">
-                    <span>{displayName}</span>
-                    <ListingChip org={candidate.organization} />
-                  </div>
-                  <p className="metric-detail-description">
-                    {via}
-                  </p>
-                  {candidateSummary ? (
-                    <p className="metric-detail-description muted">{candidateSummary}</p>
-                  ) : null}
-                </li>
-              );
-            })}
+          <ul className="metric-detail-list detail-supplier-card-list">
+            {candidates.map((candidate, index) => (
+              <SupplierLeadCard
+                key={`${candidate.organization.id}-${candidate.edge?.id ?? "self"}`}
+                graph={graph}
+                candidate={candidate}
+                defaultOpen={defaultOpen && index === 0}
+                nodeName={nodeName}
+                relationName={relationName}
+                t={t}
+              />
+            ))}
           </ul>
         ) : lockedEntry ? (
           <p className="muted">
@@ -1782,13 +1806,147 @@ function ExposureEvidenceSummary({
   );
 }
 
+function SupplierLeadCard({
+  graph,
+  candidate,
+  defaultOpen,
+  nodeName,
+  relationName,
+  t,
+}: {
+  graph: GraphData;
+  candidate: ExposureCandidate;
+  defaultOpen: boolean;
+  nodeName: (id: string, fallback: string) => string;
+  relationName: (relation: string) => string;
+  t: (key: string) => string;
+}) {
+  const displayName = nodeName(candidate.organization.id, candidate.organization.name);
+  const position = supplierChainPositionText(candidate, nodeName, t);
+  const associationBasis = supplierAssociationBasisText(candidate, nodeName, relationName, t);
+  const evidenceLinks = evidenceForEdge(graph, candidate.edge);
+  const metricSummary = organizationMetricSummary(candidate.organization, {
+    includeDescriptions: false,
+    limit: 2,
+  });
+  const bomStatus = candidate.edge ? t("supplierBomCandidate") : t("supplierBomSelf");
+  return (
+    <li className="metric-detail-row detail-supplier-card" data-testid="supplier-company-card">
+      <details open={defaultOpen}>
+        <summary>
+          <div className="detail-supplier-card-head">
+            <span>{displayName}</span>
+            <ListingChip org={candidate.organization} />
+          </div>
+          <dl className="detail-supplier-card-collapsed">
+            <div>
+              <dt>{t("supplierChainPosition")}</dt>
+              <dd>{position}</dd>
+            </div>
+            <div>
+              <dt>{t("supplierAssociationBasis")}</dt>
+              <dd>{associationBasis}</dd>
+            </div>
+          </dl>
+        </summary>
+        <div className="details-body detail-supplier-card-expanded">
+          <div>
+            <span className="detail-reader-mini-heading">{t("supplierEvidenceLinks")}</span>
+            {evidenceLinks.length > 0 ? (
+              <ul>
+                {evidenceLinks.map((item) => (
+                  <li key={item.id}>
+                    {item.url ? (
+                      <a href={item.url} target="_blank" rel="noreferrer">
+                        {item.title}
+                      </a>
+                    ) : (
+                      <span>{item.title}</span>
+                    )}
+                    {item.sourceName ? <span className="muted"> · {item.sourceName}</span> : null}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="muted">{t("supplierEvidenceMissing")}</p>
+            )}
+          </div>
+          {metricSummary ? (
+            <div>
+              <span className="detail-reader-mini-heading">{t("supplierFinancialCapacityClues")}</span>
+              <p className="muted">{metricSummary}</p>
+            </div>
+          ) : null}
+          <div>
+            <span className="detail-reader-mini-heading">{t("supplierBomStatus")}</span>
+            <p className="muted">{bomStatus}</p>
+          </div>
+        </div>
+      </details>
+    </li>
+  );
+}
+
+function evidenceForEdge(graph: GraphData, edge: Edge | null): Evidence[] {
+  if (!edge?.evidenceIds?.length) return [];
+  const byId = new Map(graph.evidence.map((item) => [item.id, item]));
+  return edge.evidenceIds
+    .map((id) => byId.get(id))
+    .filter((item): item is Evidence => Boolean(item && item.reviewStatus !== "deprecated"));
+}
+
+function supplierChainPositionText(
+  candidate: ExposureCandidate,
+  nodeName: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+): string {
+  const viaNode = candidate.viaNode ? nodeName(candidate.viaNode.id, candidate.viaNode.name) : null;
+  const key = (() => {
+    switch (candidate.relation) {
+      case "implemented_by":
+        return viaNode ? "supplierPositionServiceVia" : "supplierPositionService";
+      case "strategic_supplier_to":
+        return viaNode ? "supplierPositionStrategicVia" : "supplierPositionStrategic";
+      case "capacity_provider":
+        return viaNode ? "supplierPositionCapacityVia" : "supplierPositionCapacity";
+      case "organization":
+        return "supplierPositionSelf";
+      case "manufactured_by":
+      case "qualified_supplier":
+      case "reported_capable_supplier":
+      case "second_source_candidate":
+      default:
+        return viaNode ? "supplierPositionManufacturerVia" : "supplierPositionManufacturer";
+    }
+  })();
+  return viaNode ? formatCopy(t(key), { node: viaNode }) : t(key);
+}
+
+function supplierAssociationBasisText(
+  candidate: ExposureCandidate,
+  nodeName: (id: string, fallback: string) => string,
+  relationName: (relation: string) => string,
+  t: (key: string) => string,
+): string {
+  const claim = candidate.edge?.claim?.trim();
+  if (claim) return claim;
+  const context = candidate.edge?.context?.trim();
+  if (context) return context;
+  if (candidate.viaNode) {
+    return formatCopy(t("supplierAssociationVia"), {
+      node: nodeName(candidate.viaNode.id, candidate.viaNode.name),
+    });
+  }
+  if (candidate.relation === "organization") return t("supplierAssociationSelf");
+  return formatCopy(t("supplierAssociationRelation"), {
+    relation: relationName(candidate.relation),
+  });
+}
+
 function exposureCandidatesForNode(graph: GraphData, node: Node, limit: number): ExposureCandidate[] {
   const candidates: ExposureCandidate[] = [];
-  const seen = new Set<string>();
   const addCandidate = (candidate: ExposureCandidate) => {
     if (candidate.organization.reviewStatus === "deprecated") return;
-    if (seen.has(candidate.organization.id)) return;
-    seen.add(candidate.organization.id);
     candidates.push(candidate);
   };
 
@@ -1816,8 +1974,8 @@ function exposureCandidatesForNode(graph: GraphData, node: Node, limit: number):
     });
   }
 
-  const oneHopSources = oneHopExposureSources(graph, node);
-  for (const { child, rank } of oneHopSources) {
+  const rollupSources = exposureRollupSources(graph, node);
+  for (const { child, depth, rank } of rollupSources) {
     for (const edge of organizationEdgesFromSource(graph, child.id)) {
       const organization = nodeById(graph, edge.target);
       if (!organization || organization.kind !== "organization") continue;
@@ -1826,7 +1984,7 @@ function exposureCandidatesForNode(graph: GraphData, node: Node, limit: number):
         edge,
         relation: edge.relation as ExposureOrgRelation,
         viaNode: child,
-        depth: 1,
+        depth,
         sourceRank: rank,
       });
     }
@@ -1834,6 +1992,8 @@ function exposureCandidatesForNode(graph: GraphData, node: Node, limit: number):
 
   return candidates
     .sort((a, b) => exposureCandidateRank(graph, node, a) - exposureCandidateRank(graph, node, b))
+    .filter((candidate, index, sorted) =>
+      sorted.findIndex((entry) => entry.organization.id === candidate.organization.id) === index)
     .slice(0, limit);
 }
 
@@ -1846,17 +2006,42 @@ function organizationEdgesFromSource(graph: GraphData, sourceId: string): Edge[]
   });
 }
 
-function oneHopExposureSources(graph: GraphData, node: Node): Array<{ child: Node; rank: number }> {
-  return graph.edges
-    .map((edge, index) => ({ edge, index }))
-    .filter(({ edge }) => edge.source === node.id && edge.reviewStatus !== "deprecated")
-    .filter(({ edge }) => EXPOSURE_ONE_HOP_RELATIONS.includes(edge.relation as (typeof EXPOSURE_ONE_HOP_RELATIONS)[number]))
-    .map(({ edge, index }) => ({ child: nodeById(graph, edge.target), index }))
-    .filter((entry): entry is { child: Node; index: number } => Boolean(entry.child))
-    .filter(({ child }) => child.reviewStatus !== "deprecated")
-    .filter(({ child }) => child.kind !== "organization" && child.kind !== "metric" && child.kind !== "evidence")
-    .sort((a, b) => exposureSourceRank(node, a.child, a.index) - exposureSourceRank(node, b.child, b.index))
-    .map((entry, rank) => ({ child: entry.child, rank }));
+function exposureRollupSources(
+  graph: GraphData,
+  node: Node,
+  maxDepth = EXPOSURE_ROLLUP_MAX_DEPTH,
+): Array<{ child: Node; depth: number; rank: number }> {
+  const sources: Array<{ child: Node; depth: number; rank: number }> = [];
+  const visited = new Set<string>([node.id]);
+  const queue: Array<{ current: Node; depth: number; pathRank: number }> = [{ current: node, depth: 0, pathRank: 0 }];
+  let traversalRank = 0;
+
+  while (queue.length > 0) {
+    const entry = queue.shift();
+    if (!entry || entry.depth >= maxDepth) continue;
+
+    const next = graph.edges
+      .map((edge, index) => ({ edge, index }))
+      .filter(({ edge }) => edge.source === entry.current.id && edge.reviewStatus !== "deprecated")
+      .filter(({ edge }) => EXPOSURE_ROLLUP_RELATIONS.includes(edge.relation as (typeof EXPOSURE_ROLLUP_RELATIONS)[number]))
+      .map(({ edge, index }) => ({ child: nodeById(graph, edge.target), index }))
+      .filter((candidate): candidate is { child: Node; index: number } => Boolean(candidate.child))
+      .filter(({ child }) => child.reviewStatus !== "deprecated")
+      .filter(({ child }) => child.kind !== "organization" && child.kind !== "metric" && child.kind !== "evidence")
+      .sort((a, b) => exposureSourceRank(entry.current, a.child, a.index) - exposureSourceRank(entry.current, b.child, b.index));
+
+    for (const { child, index } of next) {
+      if (visited.has(child.id)) continue;
+      visited.add(child.id);
+      const depth = entry.depth + 1;
+      const rank = entry.pathRank + depth * 1_000 + traversalRank + index / 1_000;
+      traversalRank += 1;
+      sources.push({ child, depth, rank });
+      queue.push({ current: child, depth, pathRank: rank });
+    }
+  }
+
+  return sources.sort((a, b) => a.rank - b.rank);
 }
 
 function exposureSourceRank(parent: Node, child: Node, index: number): number {
@@ -1866,14 +2051,37 @@ function exposureSourceRank(parent: Node, child: Node, index: number): number {
 }
 
 function exposureCandidateRank(graph: GraphData, node: Node, candidate: ExposureCandidate): number {
-  const depth = candidate.depth * 1_000_000;
-  const source = candidate.sourceRank * 10_000;
+  const relation = exposureRelationRank(candidate.relation) * 10_000;
+  const depth = candidate.depth * 1_000;
+  const source = candidate.sourceRank * 10;
   const listing = listingInfoForOrg(candidate.organization);
-  const listingPenalty = listing.ticker || listing.status !== "unknown" ? 0 : 1_000;
+  const listingPenalty = listing.ticker || listing.status !== "unknown" ? 0 : 500;
   const edgeIndex = candidate.edge ? graph.edges.findIndex((edge) => edge.id === candidate.edge?.id) : 0;
   const stableEdge = edgeIndex >= 0 ? edgeIndex : graph.edges.length;
   const selfPenalty = candidate.organization.id === node.id ? -1_000 : 0;
-  return depth + source + listingPenalty + stableEdge + selfPenalty;
+  return relation + depth + source + listingPenalty + stableEdge + selfPenalty;
+}
+
+function exposureRelationRank(relation: ExposureCandidate["relation"]): number {
+  switch (relation) {
+    case "manufactured_by":
+      return 0;
+    case "qualified_supplier":
+      return 1;
+    case "reported_capable_supplier":
+      return 2;
+    case "strategic_supplier_to":
+      return 3;
+    case "capacity_provider":
+      return 4;
+    case "second_source_candidate":
+      return 20;
+    case "implemented_by":
+      return 25;
+    case "organization":
+    default:
+      return 30;
+  }
 }
 
 function evidenceQuickPathForNode(
@@ -1909,7 +2117,7 @@ function evidenceQuickPathForNode(
 
 function nearestEvidenceForNode(graph: GraphData, node: Node): { evidence: Evidence; viaNode: Node } | null {
   const candidates: Array<{ evidence: Evidence; viaNode: Node; sourceRank: number; evidenceRank: number }> = [];
-  for (const { child, rank } of oneHopExposureSources(graph, node)) {
+  for (const { child, rank } of exposureRollupSources(graph, node, 2)) {
     const records = evidenceForNode(graph, child.id).filter((item) => item.reviewStatus !== "deprecated");
     records.forEach((record, evidenceRank) => {
       candidates.push({ evidence: record, viaNode: child, sourceRank: rank, evidenceRank });
@@ -1926,55 +2134,145 @@ function nearestEvidenceForNode(graph: GraphData, node: Node): { evidence: Evide
   return { evidence: candidates[0].evidence, viaNode: candidates[0].viaNode };
 }
 
-function NodeDetailInspectNext({
+const DECOMPOSITION_RELATIONS = new Set<Edge["relation"]>(["requires", "has_route", "implemented_by"]);
+const NON_DECOMPOSITION_CHILD_KINDS = new Set<Node["kind"]>([
+  "organization",
+  "metric",
+  "evidence",
+  "bottleneck",
+  "placeholder_breakthrough",
+  "standard_or_regulation",
+]);
+
+type DecompositionEntry = {
+  edge: Edge;
+  child: Node;
+  reason: string;
+};
+
+function directDecompositionEntries(
+  graph: GraphData,
+  node: Node,
+  language: "en" | "zh",
+  nodeDescription: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+): DecompositionEntry[] {
+  return graph.edges
+    .filter((edge) => edge.source === node.id && edge.reviewStatus !== "deprecated" && DECOMPOSITION_RELATIONS.has(edge.relation))
+    .map((edge) => ({ edge, child: nodeById(graph, edge.target) }))
+    .filter((entry): entry is { edge: Edge; child: Node } => Boolean(entry.child))
+    .filter(({ child }) => child.reviewStatus !== "deprecated" && !NON_DECOMPOSITION_CHILD_KINDS.has(child.kind))
+    .map(({ edge, child }) => ({
+      edge,
+      child,
+      reason: decompositionChildReason(node, child, edge, language, nodeDescription, t),
+    }));
+}
+
+function decompositionChildReason(
+  parent: Node,
+  child: Node,
+  edge: Edge,
+  language: "en" | "zh",
+  nodeDescription: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+): string {
+  const aiComputeReason = aiComputeFirstLayerReason(parent.id, child.id, t);
+  if (aiComputeReason) return aiComputeReason;
+  if (language !== "zh" && edge.claim?.trim()) return sentenceClause(edge.claim.trim());
+  const localized = nodeDescription(child.id, child.description ?? "");
+  const first = firstSentenceDescription(localized);
+  if (first) return first;
+  if (edge.claim?.trim()) return sentenceClause(edge.claim.trim());
+  return t("decompositionRationaleGenericChildReason");
+}
+
+function aiComputeFirstLayerReason(parentId: string, childId: string, t: (key: string) => string): string | null {
+  if (parentId !== "ai_accelerator_module_hbm_cowos") return null;
+  const keyByChild: Record<string, string> = {
+    logic_die_fabrication: "decompositionAiComputeLogic",
+    advanced_packaging: "decompositionAiComputePackaging",
+    high_bandwidth_memory: "decompositionAiComputeHbm",
+    substrate_and_interposer: "decompositionAiComputeSubstrate",
+    interconnect_and_optics: "decompositionAiComputeInterconnect",
+    power_delivery: "decompositionAiComputePower",
+    thermal_cooling: "decompositionAiComputeThermal",
+  };
+  const key = keyByChild[childId];
+  return key ? t(key) : null;
+}
+
+function decompositionConstraintSignals(graph: GraphData, node: Node, t: (key: string) => string): string[] {
+  const special: Record<string, string[]> = {
+    ai_accelerator_module_hbm_cowos: [
+      t("readerAiComputeStuckHbmCapacity"),
+      t("readerAiComputeStuckPackagingCapacity"),
+      t("readerAiComputeStuckYieldLearning"),
+      t("readerAiComputeStuckSupplierConcentration"),
+    ],
+    logic_die_fabrication: [t("decompositionSignalFoundry"), t("decompositionSignalEuv"), t("decompositionSignalYield")],
+    advanced_packaging: [t("decompositionSignalCowos"), t("decompositionSignalBonding"), t("decompositionSignalInspection")],
+    high_bandwidth_memory: [t("decompositionSignalHbmSupply"), t("decompositionSignalHbmAssembly"), t("decompositionSignalHbmTest")],
+    substrate_and_interposer: [t("decompositionSignalOrganicSubstrate"), t("decompositionSignalInterposer"), t("decompositionSignalPdn")],
+    interconnect_and_optics: [t("decompositionSignalSerdes"), t("decompositionSignalOptics"), t("decompositionSignalCopper")],
+    power_delivery: [t("decompositionSignalVrm"), t("decompositionSignalPowerStage"), t("decompositionSignal48v")],
+    thermal_cooling: [t("decompositionSignalColdPlate"), t("decompositionSignalLiquidLoop"), t("decompositionSignalCdu")],
+  };
+  const signals = special[node.id];
+  if (signals) return signals;
+  const childNames = graph.edges
+    .filter((edge) => edge.source === node.id && edge.relation === "requires" && edge.reviewStatus !== "deprecated")
+    .map((edge) => nodeById(graph, edge.target))
+    .filter((child): child is Node => Boolean(child && child.reviewStatus !== "deprecated" && !NON_DECOMPOSITION_CHILD_KINDS.has(child.kind)))
+    .slice(0, 3)
+    .map((child) => child.name);
+  return childNames;
+}
+
+function DecompositionRationalePanel({
   graph,
   node,
-  evidenceCount,
   onSelectNode,
 }: {
   graph: GraphData;
   node: Node;
-  evidenceCount: number;
   onSelectNode?: (nodeId: string) => void;
 }) {
-  const { nodeName, t } = useLanguage();
-  const ranked = useMemo(() => rankedInspectCandidatesForNode(graph, node), [graph, node]);
-  if (ranked.length === 0 && evidenceCount > 0) return null;
+  const { language, nodeDescription, nodeName, relationName, t } = useLanguage();
+  const entries = useMemo(
+    () => directDecompositionEntries(graph, node, language, nodeDescription, t),
+    [graph, language, node, nodeDescription, t],
+  );
+  const isFrontier = isDecompositionFrontier(graph, node);
+  if (entries.length === 0 && !isFrontier) return null;
+  const summary = node.id === "ai_accelerator_module_hbm_cowos"
+    ? t("decompositionRationaleAiComputeSummary")
+    : entries.length > 0
+      ? t("decompositionRationaleSummary")
+      : t("decompositionRationaleFrontierSummary");
   return (
-    <section className="detail-reader-inspect" data-testid="detail-inspect-next">
-      <strong>{t("readerInspectNext")}</strong>
-      {ranked.length > 0 ? (
-        <div className="detail-reader-inspect-list">
-          {ranked.map((entry) => {
-            const displayName = nodeName(entry.id, entry.child.name);
-            const meta = readerFacingInspectSignal(graph, entry.child, entry.source, t);
-            return onSelectNode ? (
-              <button
-                className="detail-reader-inspect-item"
-                key={entry.id}
-                type="button"
-                onClick={() => onSelectNode(entry.id)}
-                aria-label={`${t("readerInspect")} ${displayName}`}
-              >
-                <span>{displayName}</span>
-                <small>{meta}</small>
-              </button>
-            ) : (
-              <div className="detail-reader-inspect-item" key={entry.id}>
-                <span>{displayName}</span>
-                <small>{meta}</small>
+    <div className="detail-decomposition-rationale" data-testid="detail-decomposition-rationale">
+      <div className="detail-decomposition-head">
+        <strong>{t("decompositionRationaleTitle")}</strong>
+        {entries.length > 0 ? (
+          <span>{formatCopy(t("decompositionRationaleChildCount"), { count: entries.length })}</span>
+        ) : null}
+      </div>
+      <p>{summary}</p>
+      {entries.length > 0 ? (
+        <ul className="detail-decomposition-list">
+          {entries.map(({ child, edge, reason }) => (
+            <li key={edge.id}>
+              <div className="detail-decomposition-item-head">
+                <NodeListLink node={child} displayName={nodeName(child.id, child.name)} onSelectNode={onSelectNode} />
+                <span>{relationName(edge.relation)}</span>
               </div>
-            );
-          })}
-        </div>
+              <p>{reason}</p>
+            </li>
+          ))}
+        </ul>
       ) : null}
-      {evidenceCount === 0 ? (
-        <div className="detail-reader-inspect-gap">
-          <span>{t("evidenceGapTitle")}</span>
-          <p>{t("evidenceGapHint")}</p>
-        </div>
-      ) : null}
-    </section>
+    </div>
   );
 }
 
@@ -2086,33 +2384,7 @@ function readerFacingCandidateSignal(
   if (source === "explicit") return t("bottleneckBadge");
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
   if (factors.length > 0) return factors.slice(0, 2).join(" · ");
-  return t("readerThesisCandidateConstraint");
-}
-
-function readerFacingInspectSignal(
-  graph: GraphData,
-  node: Node,
-  source: RankedInspectCandidate["source"],
-  t: (key: string) => string,
-): string {
-  const role = readerFacingCandidateSignal(node, source, t);
-  const modeledCostText = detailCostSignalText(graph, node);
-  const estimatedCost = modeledCostText ? null : estimatedCostForNode(node);
-  const cost = modeledCostText
-    ? readerFacingCostSignalText({ valueText: modeledCostText, kind: "modeled", t })
-    : estimatedCost
-      ? readerFacingCostSignalText({
-          valueText: formatMetricValue(estimatedCost.range, "RMB", "RMB").compact,
-          kind: "estimated",
-          t,
-        })
-      : t("readerCostNotModeled");
-  return [
-    role,
-    `${t("readerInspectCost")}: ${cost}`,
-    `${t("readerInspectConstraint")}: ${constraintSummaryText(node, t)}`,
-    `${t("readerInspectRelief")}: ${reliefTimingText(node, t)}`,
-  ].join(" · ");
+  return t("readerConstraintUnclassified");
 }
 
 function opportunityCandidatesForNode(graph: GraphData, node: Node): Node[] {

@@ -145,6 +145,13 @@ function detailDisclosure(html: string, testId: string): string {
   return html.slice(openIndex, closeIndex + close.length);
 }
 
+function textFromMarkup(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 const noop = () => {};
 
 // ==================================================================
@@ -248,7 +255,7 @@ test("expanded: 400px-wide rail shows description without surfacing raw metrics"
   // surface should not expose a first-class Metrics section.
   assert.match(
     html,
-    /Company and ticker leads/,
+    /Supplier and listed-company leads/,
     `expanded rail must keep the reader path focused on evidence and company/ticker leads; got: ${html}`,
   );
   assert.doesNotMatch(
@@ -476,13 +483,23 @@ test("expanded: component detail surfaces manufacturer candidates with share and
 
   assert.match(
     html,
-    /Company and ticker leads/,
-    `expanded component detail must surface a clearly caveated supplier/ticker quick path; got: ${html}`,
+    /Supplier and listed-company leads/,
+    `expanded component detail must surface the supplier/listed-company diligence path; got: ${html}`,
   );
   assert.match(
     html,
-    /Company \/ ticker candidates/,
-    `supplier candidates must be labeled as company/ticker leads, not direct proof; got: ${html}`,
+    /Supply-chain position/,
+    `supplier cards must expose the company's supply-chain position; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Association basis/,
+    `supplier cards must expose the evidence-backed association basis; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /Evidence links/,
+    `expanded supplier cards must expose evidence links after expansion; got: ${html}`,
   );
   assert.match(html, /Nabtesco/, `reducer detail must list Nabtesco as a manufacturer candidate; got: ${html}`);
   assert.match(html, /60%/, `manufacturer section must surface Nabtesco's share metric; got: ${html}`);
@@ -504,6 +521,87 @@ test("expanded: component detail surfaces manufacturer candidates with share and
   );
 });
 
+test("expanded: supplier cards use the final collapsed fields and keep evidence inside expansion", () => {
+  const focused = nodeById(REDUCER_ID);
+  const html = render({
+    graph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const exposureSummary = detailDisclosure(html, "detail-exposure-evidence-summary");
+
+  assert.match(exposureSummary, /Supplier and listed-company leads/);
+  assert.match(exposureSummary, /Nabtesco/);
+  assert.match(exposureSummary, /6268\.T · Tokyo/);
+  assert.match(exposureSummary, /Supply-chain position/);
+  assert.match(exposureSummary, /Association basis/);
+  assert.match(
+    exposureSummary,
+    /Nabtesco is a major robot-joint precision reducer supplier/,
+    `association basis should use the edge claim when available; got: ${exposureSummary}`,
+  );
+  assert.match(exposureSummary, /<summary[\s\S]*Nabtesco[\s\S]*6268\.T · Tokyo[\s\S]*Supply-chain position[\s\S]*Association basis/);
+  const nabtescoCollapsed = exposureSummary.match(/<summary[\s\S]*?<\/summary>/)?.[0] ?? "";
+  assert.doesNotMatch(nabtescoCollapsed, /Evidence links|reviewed|unreviewed|Commercial signal|Relation type|Role/i);
+  assert.match(exposureSummary, /Evidence links/);
+  assert.match(exposureSummary, /BOM status/);
+});
+
+test("expanded: product route rolls up supplier cards from deeper component layers", () => {
+  const scopedGraph = loadActiveGraphData("spacex_reusable_launch_stack");
+  const focused = nodeByIdIn(scopedGraph, "falcon9_reusable_launch_branch");
+  const html = render({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const exposureSummary = detailDisclosure(html, "detail-exposure-evidence-summary");
+
+  assert.match(exposureSummary, /Supplier and listed-company leads/);
+  assert.doesNotMatch(
+    exposureSummary,
+    /No company or ticker candidates are modeled here yet/i,
+    `upper route nodes should roll up supplier leads from descendant components; got: ${exposureSummary}`,
+  );
+  assert.match(
+    exposureSummary,
+    /Toray|Hexcel|Teijin|Moog|Woodward|Parker Hannifin|Velo3D|Carpenter Technology/i,
+    `Falcon 9 route should surface deeper launch-component supplier cards instead of only route-level ownership; got: ${exposureSummary}`,
+  );
+});
+
+test("expanded: product supplier cards prioritize supplier exposure over owner or comparable exposure", () => {
+  const scopedGraph = loadActiveGraphData("spacex_reusable_launch_stack");
+  const focused = nodeByIdIn(scopedGraph, "spacex_reusable_launch_stack");
+  const html = render({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const exposureSummary = detailDisclosure(html, "detail-exposure-evidence-summary");
+  const cardNames = [...exposureSummary.matchAll(/detail-supplier-card-head"><span>([^<]+)<\/span>/g)]
+    .map((match) => match[1]);
+
+  assert.ok(cardNames.length >= 3, `SpaceX root should have enough rolled-up supplier cards; got: ${exposureSummary}`);
+  const firstThree = cardNames.slice(0, 3).join(" ");
+  assert.match(
+    firstThree,
+    /Outokumpu|Linde|Toray|Hexcel|Teijin|Moog|Woodward|Parker Hannifin|Velo3D|Carpenter Technology/i,
+    `top supplier cards should favor actual supplier exposure over owner/comparable orgs; got: ${firstThree}`,
+  );
+  assert.doesNotMatch(
+    firstThree,
+    /Rocket Lab|SpaceX/,
+    `owner/comparable organizations should not crowd out supplier leads in the collapsed top cards; got: ${firstThree}`,
+  );
+});
+
 test("expanded: vacuum end-effector parent surfaces key suction EOAT supplier candidates", () => {
   const focused = nodeById(END_EFFECTOR_ID);
   const html = render({
@@ -516,7 +614,7 @@ test("expanded: vacuum end-effector parent surfaces key suction EOAT supplier ca
 
   assert.match(
     html,
-    /Company and ticker leads/,
+    /Supplier and listed-company leads/,
     `expanded EOAT parent detail must surface candidate supplier/ticker leads; got: ${html}`,
   );
 
@@ -552,8 +650,8 @@ test("expanded: bottleneck role is distinct from downstream bottleneck count", (
   );
   assert.match(
     html,
-    /300,000 RMB parcel-sorting robot depends on this constraint scaling/,
-    `bottleneck impact should be integrated into the bottom-line thesis; got: ${html}`,
+    /Constraint mechanism: Technical maturity · Integration \/ commissioning · Capacity \/ scale/,
+    `bottleneck mechanism should be integrated into the bottom-line thesis; got: ${html}`,
   );
   assert.doesNotMatch(
     html,
@@ -583,7 +681,6 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   const evidenceStatusIndex = html.indexOf("Evidence status");
   const decisionBriefIndex = html.indexOf('data-testid="detail-decision-brief"');
   const evidenceSummaryIndex = html.indexOf('data-testid="detail-evidence-summary"');
-  const inspectIndex = html.indexOf('data-testid="detail-inspect-next"');
   const secondaryResearchIndex = html.indexOf('data-testid="detail-secondary-research"');
   const supplementaryIndex = html.indexOf('data-testid="detail-supplementary-appendix"');
   const technicalMetadataIndex = html.indexOf('data-testid="detail-technical-metadata"');
@@ -599,8 +696,8 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.ok(decisionBriefIndex < evidenceSummaryIndex, `investor brief should come before key evidence; got: ${html}`);
   assert.ok(evidenceSummaryIndex > decisionBriefIndex, `key evidence summary should follow decision brief; got: ${html}`);
   assert.ok(exposureSummaryIndex > evidenceSummaryIndex, `supplier/evidence quick path should follow the evidence summary; got: ${html}`);
-  assert.ok(inspectIndex > exposureSummaryIndex, `inspect next should follow the supplier/evidence quick path; got: ${html}`);
-  assert.ok(secondaryResearchIndex > inspectIndex, `secondary research follow-ups should sit below the first-screen workflow; got: ${html}`);
+  assert.equal(html.indexOf('data-testid="detail-inspect-next"'), -1, `detail should not render a separate Inspect next section; got: ${html}`);
+  assert.ok(secondaryResearchIndex > exposureSummaryIndex, `secondary research follow-ups should sit below the first-screen workflow; got: ${html}`);
   assert.ok(supplementaryIndex > secondaryResearchIndex, `supplementary appendix should be the final collapsed layer; got: ${html}`);
   assert.doesNotMatch(
     html,
@@ -619,7 +716,6 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.match(html, /Investor brief/i, `full detail should include a concise investor research brief after the bottom line; got: ${html}`);
   assert.match(html, /Supply constraint/i, `decision brief should classify the bottleneck reason; got: ${html}`);
   assert.match(html, /Relief timing/i, `decision brief should say whether the constraint is quick or slow to relieve; got: ${html}`);
-  assert.match(html, /Inspect next/i, `full detail should give the reader next inspection targets; got: ${html}`);
   assert.match(html.slice(supplementaryIndex, supplementaryIndex + 260), /Supplementary appendix/i);
   assert.match(
     detailDisclosure(html, "detail-full-evidence-list"),
@@ -676,16 +772,24 @@ test("expanded: primary reader path has no nested disclosure controls", () => {
     onClose: noop,
   });
   const priority = detailReaderPriority(html);
+  const exposureIndex = priority.indexOf('data-testid="detail-exposure-evidence-summary"');
+  const beforeExposure = exposureIndex >= 0 ? priority.slice(0, exposureIndex) : priority;
+  const exposure = detailDisclosure(html, "detail-exposure-evidence-summary");
 
   assert.doesNotMatch(
-    priority,
+    beforeExposure,
     /<details\b/i,
-    `primary reader path should expose the decision sequence directly; nested disclosure belongs only in supplementary appendix, got: ${priority}`,
+    `bottom-line, decision, and evidence sequence should stay directly visible before supplier cards; got: ${beforeExposure}`,
   );
   assert.doesNotMatch(
-    priority,
+    beforeExposure,
     /<summary\b/i,
-    `primary reader path should not require opening a summary row to see supplier/evidence quick paths; got: ${priority}`,
+    `bottom-line, decision, and evidence sequence should not require opening a summary row; got: ${beforeExposure}`,
+  );
+  assert.match(
+    exposure,
+    /<details\b/i,
+    `supplier cards should use disclosure controls for evidence links and BOM state; got: ${exposure}`,
   );
 });
 
@@ -745,7 +849,7 @@ test("expanded: AI compute root explains real stuck factors instead of evidence 
   );
 });
 
-test("expanded: Inspect next previews cost, constraint, and relief before click-through", () => {
+test("expanded: AI compute root explains why the first-layer modules are the partition", () => {
   const focused = nodeById(AI_COMPUTE_ROOT_ID);
   const html = renderWithLockedExposure({
     graph,
@@ -754,24 +858,55 @@ test("expanded: Inspect next previews cost, constraint, and relief before click-
     onToggleExpand: noop,
     onClose: noop,
   });
-  const inspectNext = detailDisclosure(html, "detail-inspect-next");
+  const rationaleStart = html.indexOf('data-testid="detail-decomposition-rationale"');
+  const evidenceStart = html.indexOf('data-testid="detail-evidence-summary"');
+  assert.ok(rationaleStart >= 0, `decomposition rationale should be visible; got: ${html}`);
+  assert.ok(evidenceStart > rationaleStart, `decomposition rationale should precede evidence summary; got: ${html}`);
+  const rationale = html.slice(rationaleStart, evidenceStart);
+  const rationaleText = textFromMarkup(rationale).replace(/&amp;/g, "&");
 
-  assert.match(inspectNext, /Inspect next/i, `inspect next should be present; got: ${inspectNext}`);
+  assert.match(rationale, /Why it is split this way/i, `decomposition rationale should be visible; got: ${rationale}`);
   assert.match(
-    inspectNext,
-    /Cost: (?:Modeled|Estimated) cost:/i,
-    `inspect candidates should preview cost magnitude before click-through; got: ${inspectNext}`,
+    rationaleText,
+    /AI chip \/ GPU compute module/i,
+    `root detail should use the reader-friendly AI chip/GPU name; got: ${rationale}`,
   );
+  for (const label of [
+    "Leading-edge logic die fabrication",
+    "Advanced packaging",
+    "High-bandwidth memory",
+    "Package substrate & interposer",
+    "Interconnect & optics",
+    "Power delivery",
+    "Thermal management & cooling",
+  ]) {
+    assert.match(rationaleText, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), `missing ${label}; got: ${rationale}`);
+  }
   assert.match(
-    inspectNext,
-    /Constraint: (?:Memory capacity|Component availability|Capacity \/ scale|advanced packaging|supplier concentration)/i,
-    `inspect candidates should preview why the node is constrained; got: ${inspectNext}`,
+    rationale,
+    /Logic, HBM memory, package\/substrate, links, power, and cooling/i,
+    `rationale should explain why these are the first split; got: ${rationale}`,
   );
-  assert.match(
-    inspectNext,
-    /Relief: (?:Likely long-cycle|[0-9]+ months|Medium-to-long cycle)/i,
-    `inspect candidates should preview whether relief is quick or slow; got: ${inspectNext}`,
-  );
+});
+
+test("expanded: AI compute first-layer modules use decomposition mechanisms instead of holder coverage as the stuck reason", () => {
+  for (const [id, expected] of [
+    ["substrate_and_interposer", /Organic substrate build-up|Silicon interposer \/ RDL|Dense substrate PDN/i],
+    ["power_delivery", /Module-level VRM|Power-stage semiconductors|48V rack conversion/i],
+  ] as const) {
+    const focused = nodeById(id);
+    const html = renderWithLockedExposure({
+      graph,
+      focusedNode: focused,
+      expanded: true,
+      onToggleExpand: noop,
+      onClose: noop,
+    });
+    const whereStuck = detailDisclosure(html, "detail-where-stuck");
+
+    assert.doesNotMatch(whereStuck, /Holder coverage gap/i, `${id} should not use holder coverage as the concrete stuck reason; got: ${whereStuck}`);
+    assert.match(whereStuck, expected, `${id} should show concrete decomposition mechanisms; got: ${whereStuck}`);
+  }
 });
 
 test("expanded: AI compute detail exposes supplier tickers after the why/stuck/evidence sequence without graph appendix noise", () => {
@@ -829,7 +964,7 @@ test("expanded: supplier/ticker intent highlights the exposure summary at the po
   const exposureSummary = detailDisclosure(html, "detail-exposure-evidence-summary");
 
   assert.match(exposureSummary, /data-point-of-need="true"/, `supplier/ticker intent should mark the exposure block as the active point of need; got: ${html}`);
-  assert.doesNotMatch(exposureSummary, /<details\b|<summary\b/i, `supplier/ticker quick path should not be hidden in a nested disclosure; got: ${exposureSummary}`);
+  assert.match(exposureSummary, /<details\b|<summary\b/i, `supplier cards should use per-company disclosure for evidence links and BOM details; got: ${exposureSummary}`);
   assert.match(exposureSummary, /SK Hynix|Samsung Electronics|Micron Technology/i);
   assert.match(exposureSummary, /000660\.KS|005930\.KS|MU/i);
 });
@@ -921,7 +1056,16 @@ test("expanded: detail bottleneck thesis stays compact so the decision brief is 
   });
   const thesis = detailReaderPriority(html).match(/<div[^>]*data-testid="detail-bottleneck-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(thesis, /depends on this constraint scaling/i, `detail thesis should explain what the node affects; got: ${thesis}`);
+  assert.doesNotMatch(
+    thesis,
+    /depends on this constraint scaling/i,
+    `detail thesis should explain the concrete constraint mechanism, not generic scaling dependence; got: ${thesis}`,
+  );
+  assert.match(
+    thesis,
+    /Constraint mechanism|Component availability|Capacity \/ scale|Technical maturity/i,
+    `detail thesis should name concrete constraint factors; got: ${thesis}`,
+  );
   assert.doesNotMatch(thesis, /Constraint type:|Relief:|Evidence:/i, `detail thesis should not duplicate the investor brief; got: ${thesis}`);
   assert.doesNotMatch(
     thesis,
@@ -934,6 +1078,52 @@ test("expanded: detail bottleneck thesis stays compact so the decision brief is 
       html.indexOf('data-testid="detail-decision-brief"') < html.indexOf('data-testid="detail-evidence-summary"'),
     `detail should show bottom line, stuck-factor tags, investor brief, then evidence; got: ${html}`,
   );
+});
+
+test("expanded: AI compute HBM detail does not repeat the same role sentence in stuck copy", () => {
+  const scopedGraph = loadActiveGraphData(AI_COMPUTE_ROOT_ID);
+  const focused = nodeByIdIn(scopedGraph, "high_bandwidth_memory");
+  const html = renderWithLockedExposure({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const priorityText = textFromMarkup(detailReaderPriority(html));
+  const repeated = priorityText.match(/High-bandwidth memory stacks co-packaged with the logic die\./gi) ?? [];
+
+  assert.equal(
+    repeated.length,
+    1,
+    `HBM detail should not repeat the same sentence across Bottom line and Where it is stuck; got: ${priorityText}`,
+  );
+});
+
+test("expanded: AI compute substrate detail uses structural signal instead of unclassified stuck copy", () => {
+  const scopedGraph = loadActiveGraphData(AI_COMPUTE_ROOT_ID);
+  const focused = nodeByIdIn(scopedGraph, "substrate_and_interposer");
+  const html = renderWithLockedExposure({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const priorityText = textFromMarkup(detailReaderPriority(html));
+  const whereStuck = textFromMarkup(detailDisclosure(html, "detail-where-stuck"));
+
+  assert.match(
+    priorityText,
+    /Holder coverage gap|holder 覆盖缺口/,
+    `substrate detail should expose the concrete structural signal; got: ${priorityText}`,
+  );
+  assert.doesNotMatch(
+    whereStuck,
+    /Where it is stuck\s+Constraint type not yet clear|具体卡点\s+约束类型尚不清楚/i,
+    `detail should not present an unknown constraint type as the specific chokepoint; got: ${whereStuck}`,
+  );
+  assert.doesNotMatch(priorityText, /Supply sources unverified|供应来源未验证|证据还比较薄/i);
 });
 
 test("expanded: bottleneck detail surfaces structured constraint factors", () => {
@@ -1460,17 +1650,16 @@ test("expanded: product detail promotes the investor answer and suppresses raw m
 
   const investorIndex = html.indexOf("Product bottleneck readout");
   const exposureIndex = html.indexOf('data-testid="detail-exposure-evidence-summary"');
-  const inspectIndex = html.indexOf('data-testid="detail-inspect-next"');
   const metricsIndex = html.indexOf('data-testid="detail-metric-details"');
   const costRollupIndex = html.indexOf("cost-rollup-card");
 
   assert.ok(investorIndex >= 0, `product detail must render the product bottleneck readout; got: ${html}`);
   assert.ok(exposureIndex >= 0, `product detail must render the supplier/evidence quick path; got: ${html}`);
-  assert.ok(inspectIndex >= 0, `product detail must render inspect-next before secondary readouts; got: ${html}`);
   assert.ok(
-    exposureIndex < inspectIndex && inspectIndex < investorIndex,
-    `product detail should keep the primary workflow exposure -> Inspect next -> product readout; got: ${html}`,
+    exposureIndex < investorIndex,
+    `product detail should keep supplier/company leads before the product readout without a separate Inspect next section; got: ${html}`,
   );
+  assert.equal(html.indexOf('data-testid="detail-inspect-next"'), -1, `product detail should not render Inspect next; got: ${html}`);
   assert.equal(metricsIndex, -1, `product detail must not render a raw metrics section; got: ${html}`);
   assert.equal(costRollupIndex, -1, `product detail must not expose the internal cost-rollup card; got: ${html}`);
 });
@@ -1662,8 +1851,8 @@ test("chokepoint headline does not present zero holders as a confirmed supplier 
   );
   assert.match(
     html,
-    /Supply sources unverified/,
-    `zero holder concentration should read as an unverified-source gap; got: ${html}`,
+    /Holder coverage gap/,
+    `zero holder concentration should read as a modeled holder-coverage gap; got: ${html}`,
   );
 });
 
