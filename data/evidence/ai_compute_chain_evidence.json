@@ -8713,5 +8713,285 @@
       "numberInQuote": true,
       "notes": "web.search returned Samsung Electro-Mechanics product-news page with the stored quote plus 48V power systems for AI servers and computing/network context."
     }
+  },
+  {
+    "id": "ev_acc_cmp_slurry_merck_planarization_2026",
+    "type": "product_page",
+    "title": "Merck planarization and CMP slurry portfolio",
+    "url": "https://www.merckgroup.com/en/expertise/electronics/technologies/planarization.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Merck Group / EMD Electronics",
+    "date": "accessed 2026-06-19",
+    "summary": "Merck describes itself as a global leading player in CMP technology and slurries, with FEOL, BEOL, advanced packaging, silicon polishing, and wafer-polishing slurry offerings.",
+    "excerpt": "global leading player in chemical mechanical planarization (CMP) technology and slurries",
+    "supportsNodeIds": [
+      "cmp_slurry_and_polishing_pads",
+      "org_merck"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_cmp_slurry__manufactured_by__merck"
+    ],
+    "limitations": "Directly supports CMP slurry exposure; it does not prove polishing-pad manufacture or a customer-specific AI accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Merck/EMD planarization page found CMP, FEOL/BEOL/advanced packaging, silicon polishing slurry categories, and the stored global-leading-player quote."
+    }
+  },
+  {
+    "id": "ev_acc_logic_cmp_slurry_merck_oxide_2026",
+    "type": "product_page",
+    "title": "Merck advanced oxide CMP slurries",
+    "url": "https://www.merckgroup.com/en/expertise/semiconductors/offering/advanced-oxide-cmp-slurries.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Merck Group / EMD Electronics",
+    "date": "accessed 2026-06-19",
+    "summary": "Merck lists advanced oxide CMP slurries for FEOL dielectrics and advanced packaging, with stated logic, memory, sensor, and advanced-packaging industry scope.",
+    "excerpt": "Highly Selective Oxide Slurry family with Stop-on-Film capability",
+    "supportsNodeIds": [
+      "cmp_process_equipment",
+      "org_merck"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_cmp_slurry__manufactured_by__merck"
+    ],
+    "limitations": "Supports slurry material exposure in the CMP process; it does not mean Merck manufactures CMP equipment hardware.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Merck/EMD advanced oxide CMP slurries page found the stored quote plus FEOL dielectrics, advanced packaging, and Logic industry scope."
+    }
+  },
+  {
+    "id": "ev_acc_organic_substrate_buildup_kinsus_annual_2024",
+    "type": "historical_source",
+    "title": "Kinsus 2024 annual report lists all-layer build-up substrates",
+    "url": "https://www.kinsus.com.tw/en-global/Download/annual-general-meeting/FileDownload/2024/1",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Kinsus Interconnect Technology",
+    "date": "2024",
+    "summary": "Kinsus annual-report material lists manufacturing and sales of all-layer build-up substrates among company businesses.",
+    "excerpt": "Manufacturing & sales of All Layer Build Up substrates",
+    "supportsNodeIds": [
+      "organic_substrate_buildup",
+      "org_kinsus"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_organic_substrate_buildup__manufactured_by__org_kinsus"
+    ],
+    "limitations": "Official annual-report evidence supports build-up substrate exposure; it is not specific to HBM/Cowos or a named AI accelerator customer.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search returned Kinsus official 2024 Annual Report PDF with the stored All Layer Build Up substrates quote; direct PDF extraction was not stable in the browser tool."
+    }
+  },
+  {
+    "id": "ev_acc_organic_substrate_buildup_shinko_ithop_2026",
+    "type": "product_page",
+    "title": "Shinko i-THOP organic interposer and build-up substrate",
+    "url": "https://www.shinko.co.jp/english/product/package/substrate/i-thop.php",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Shinko Electric Industries",
+    "date": "accessed 2026-06-19",
+    "summary": "Shinko describes i-THOP as an ultra-high-density organic substrate integrating an organic interposer and a build-up substrate for chiplets, HBM, and advanced CPU/GPU packages.",
+    "excerpt": "Ultra-high-density substrate integrating an organic interposer and a build-up substrate",
+    "supportsNodeIds": [
+      "organic_substrate_buildup",
+      "org_shinko_electric"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_organic_substrate_buildup__manufactured_by__org_shinko_electric"
+    ],
+    "limitations": "Supports advanced organic substrate / build-up package exposure; it does not prove a specific AI accelerator BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Shinko i-THOP page found the stored organic interposer/build-up substrate quote and HBM/chiplet/CPU/GPU package context."
+    }
+  },
+  {
+    "id": "ev_acc_organic_substrate_buildup_unimicron_fcbga_roadmap_2026",
+    "type": "product_page",
+    "title": "Unimicron FCBGA build-up layer roadmap",
+    "url": "https://www.uniflex.com.tw/en/rd03_04.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Unimicron / UniFlex FCBGA Technology Roadmap",
+    "date": "accessed 2026-06-19",
+    "summary": "The Unimicron group FCBGA technology roadmap lists BU layer line/space, via/land, core layer, and build-up material parameters for advanced FCBGA substrates.",
+    "excerpt": "BU Layer Line / Space",
+    "supportsNodeIds": [
+      "organic_substrate_buildup",
+      "org_unimicron"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_organic_substrate_buildup__manufactured_by__org_unimicron"
+    ],
+    "limitations": "Technology-roadmap evidence supports build-up substrate capability; it does not prove specific AI accelerator customer allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.search found the Unimicron-group FCBGA roadmap page with the stored BU Layer Line / Space quote and build-up material/core layer table."
+    }
+  },
+  {
+    "id": "ev_acc_logic_gases_air_liquide_semiconductors_2026",
+    "type": "product_page",
+    "title": "Air Liquide Electronics semiconductor gases and precursors",
+    "url": "https://electronics.airliquide.com/who-we-are/our-markets/semiconductors-0",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Air Liquide Electronics",
+    "date": "accessed 2026-06-19",
+    "summary": "Air Liquide says semiconductor manufacturers rely on it for ultra-high-purity carrier gases, specialty and advanced electronics materials, precursor molecules, and gas/chemical handling equipment.",
+    "excerpt": "delivering the ultra-high purity carrier gases needed to keep their manufacturing processes clean and stable",
+    "supportsNodeIds": [
+      "process_gases_precursors",
+      "org_air_liquide"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_gases__manufactured_by__air_liquide"
+    ],
+    "limitations": "Supports broad semiconductor gases and precursor supply; it is not limited to a named logic-fab line or AI accelerator customer.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Air Liquide Electronics semiconductor page found the stored ultra-high-purity carrier-gas quote plus specialty/advanced electronics materials and precursor molecule context."
+    }
+  },
+  {
+    "id": "ev_acc_logic_gases_linde_electronics_2026",
+    "type": "historical_source",
+    "title": "Linde Electronics semiconductor specialty and bulk gases brochure",
+    "url": "https://assets.linde.com/-/media/celum-connect/2023/12/21/15/11/linde20electronics20brochure185963.pdf",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Linde Electronics",
+    "date": "2023",
+    "summary": "Linde describes a broad portfolio of electronic specialty gas and bulk solutions for semiconductor manufacturing processes, backed by a global supply chain.",
+    "excerpt": "electronic specialty gas and bulk solutions — backed by a global supply chain",
+    "supportsNodeIds": [
+      "process_gases_precursors",
+      "org_linde"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_gases__manufactured_by__linde"
+    ],
+    "limitations": "Supports broad semiconductor gas supply; it is not limited to a named logic-fab line or AI accelerator customer.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Linde Electronics brochure found the stored quote in the semiconductor-market section and product examples including specialty gases and bulk gases."
+    }
+  },
+  {
+    "id": "ev_acc_logic_wafer_shinetsu_300mm_2026",
+    "type": "product_page",
+    "title": "Shin-Etsu semiconductor silicon wafers",
+    "url": "https://www.shinetsu.co.jp/en/products/electronics-materials/silicon-wafers/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Shin-Etsu Chemical",
+    "date": "accessed 2026-06-19",
+    "summary": "Shin-Etsu says it fabricates semiconductor-grade single-crystal silicon wafers from high-purity polycrystalline silicon, with crystals up to 300mm and applications including memory, logic, analog, and IC substrate.",
+    "excerpt": "These crystals can be 300mm in diameter",
+    "supportsNodeIds": [
+      "silicon_wafer_300mm",
+      "org_shin_etsu"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_wafer__manufactured_by__shin_etsu"
+    ],
+    "limitations": "Supports 300mm semiconductor wafer capability and logic application exposure; it does not prove a named AI accelerator foundry allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open/find on Shin-Etsu silicon wafers page found the stored 300mm quote and applications including Memory, Logic, Analog, and IC substrate."
+    }
+  },
+  {
+    "id": "ev_acc_logic_wafer_sumco_300mm_2026",
+    "type": "product_page",
+    "title": "SUMCO silicon wafer product lineup",
+    "url": "https://www.sumcosi.com/english/products/lineup.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "SUMCO",
+    "date": "accessed 2026-06-19",
+    "summary": "SUMCO describes its product lineup as high-quality silicon wafers made from single-crystal ingots up to 300mm in diameter.",
+    "excerpt": "Ingots up to 300mm in diameter are manufactured",
+    "supportsNodeIds": [
+      "silicon_wafer_300mm",
+      "org_sumco"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_logic_wafer__manufactured_by__sumco"
+    ],
+    "limitations": "Supports 300mm semiconductor wafer capability; it does not prove a named AI accelerator foundry allocation.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "web.open/search found SUMCO product lineup and official snippet with the stored 300mm-ingot quote."
+    }
+  },
+  {
+    "id": "ev_acc_tim_shinetsu_thermal_interface_2026",
+    "type": "product_page",
+    "title": "Shin-Etsu thermal interface silicone rubber",
+    "url": "https://www.shinetsu.co.jp/en/products/functional-materials/thermal-interface-silicone-rubbber/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Shin-Etsu Chemical",
+    "date": "accessed 2026-06-19",
+    "summary": "Shin-Etsu lists thermal-interface silicone rubber for filling the gap between a heat-generating unit and a heat sink.",
+    "excerpt": "fill in the gap between the heat-generating unit and the heat sink",
+    "supportsNodeIds": [
+      "thermal_interface_material_tim",
+      "org_shin_etsu"
+    ],
+    "supportsEdgeIds": [
+      "e_tim__manufactured_by__shin_etsu"
+    ],
+    "limitations": "Supports TIM material exposure; it does not prove a named AI accelerator thermal stack BOM.",
+    "confidence": "high",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Shin-Etsu thermal-interface silicone rubber page found the stored heat-generating-unit / heat-sink quote."
+    }
   }
 ]

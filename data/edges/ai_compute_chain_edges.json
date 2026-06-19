@@ -234,10 +234,10 @@
     "relation": "manufactured_by",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_logic_cmp_process"
+      "ev_acc_logic_cmp_slurry_merck_oxide_2026"
     ],
     "reviewStatus": "unreviewed",
-    "claim": "Merck KGaA is carried as a manufacturer or supplier lead for Chemical-mechanical polishing (CMP) equipment and slurries, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Merck supplies CMP slurry materials for FEOL dielectrics and advanced packaging steps used in logic-process planarization; this is a slurry exposure lead, not CMP tool hardware."
   },
   {
     "id": "e_acc_logic_cmp_slurry__manufactured_by__entegris",
@@ -291,9 +291,11 @@
     "target": "org_shin_etsu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_logic_wafer_shinetsu_300mm_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Shin-Etsu Chemical is carried as a manufacturer or supplier lead for 300mm silicon wafers (ultra-pure, polished), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Shin-Etsu manufactures semiconductor-grade single-crystal silicon wafers up to 300mm, including logic-device applications."
   },
   {
     "id": "e_acc_logic_wafer__manufactured_by__sumco",
@@ -301,9 +303,11 @@
     "target": "org_sumco",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_logic_wafer_sumco_300mm_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "SUMCO Corporation is carried as a manufacturer or supplier lead for 300mm silicon wafers (ultra-pure, polished), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "SUMCO manufactures high-quality silicon wafers from single-crystal ingots up to 300mm in diameter."
   },
   {
     "id": "e_acc_logic_gases__manufactured_by__air_liquide",
@@ -311,9 +315,11 @@
     "target": "org_air_liquide",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_logic_gases_air_liquide_semiconductors_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Air Liquide S.A. is carried as a manufacturer or supplier lead for Specialty process gases and metal precursors, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Air Liquide supplies ultra-high-purity carrier gases, specialty gases, and precursor materials for semiconductor manufacturing."
   },
   {
     "id": "e_acc_logic_gases__manufactured_by__linde",
@@ -321,9 +327,11 @@
     "target": "org_linde",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_logic_gases_linde_electronics_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Linde plc is carried as a manufacturer or supplier lead for Specialty process gases and metal precursors, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Linde supplies electronic specialty gas and bulk gas solutions for semiconductor manufacturing processes."
   },
   {
     "id": "e_acc_logic_thermal__manufactured_by__tokyo_electron",
@@ -717,10 +725,11 @@
     "source": "hbm_organic_substrate_material",
     "target": "org_isola",
     "relation": "manufactured_by",
-    "confidence": "high",
+    "confidence": "low",
     "evidenceIds": [],
-    "reviewStatus": "unreviewed",
-    "claim": "Isola Group is carried as a manufacturer or supplier lead for HBM organic substrate laminate material, a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "reviewStatus": "deprecated",
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: Isola has chip-packaging laminate/interposer-adjacent material evidence, but no direct HBM organic substrate laminate source was found. Keep off active supplier cards until direct HBM substrate evidence exists.",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: only adjacent chip-packaging laminate evidence found, not a direct HBM organic substrate material claim."
   },
   {
     "id": "e_acc_hbm_stacking__requires__die_fab",
@@ -1572,9 +1581,11 @@
     "target": "org_shin_etsu",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_tim_shinetsu_thermal_interface_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Shin-Etsu Chemical is carried as a manufacturer or supplier lead for Thermal interface material (TIM), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Shin-Etsu supplies thermal-interface silicone rubber materials used between heat-generating units and heat sinks."
   },
   {
     "id": "e_tim__manufactured_by__henkel",
@@ -3084,9 +3095,11 @@
     "source": "organic_substrate_buildup",
     "target": "org_unimicron",
     "relation": "manufactured_by",
-    "claim": "Unimicron Technology is the largest supplier of high-layer-count organic substrates (ABF build-up film) for advanced packaging, serving AI accelerator OEMs.",
+    "claim": "Unimicron group FCBGA roadmap evidence shows build-up layer line/space and build-up material capability for advanced organic substrates.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_organic_substrate_buildup_unimicron_fcbga_roadmap_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3094,9 +3107,11 @@
     "source": "organic_substrate_buildup",
     "target": "org_shinko_electric",
     "relation": "manufactured_by",
-    "claim": "Shinko Electric Industries manufactures high-layer-count organic substrates (BT/ABF laminates) with advanced HDI for packaging modules.",
+    "claim": "Shinko Electric manufactures i-THOP ultra-high-density organic substrate integrating an organic interposer and build-up substrate for chiplet/HBM package architectures.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_organic_substrate_buildup_shinko_ithop_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3104,9 +3119,11 @@
     "source": "organic_substrate_buildup",
     "target": "org_kinsus",
     "relation": "manufactured_by",
-    "claim": "Kinsus Interconnect Technology manufactures high-layer-count organic substrates for advanced packaging and IC carrier applications.",
+    "claim": "Kinsus manufactures and sells all-layer build-up substrates, making it a supplier lead for organic substrate build-up in advanced packaging.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_organic_substrate_buildup_kinsus_annual_2024"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -3311,9 +3328,11 @@
     "target": "org_merck",
     "relation": "manufactured_by",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_cmp_slurry_merck_planarization_2026"
+    ],
     "reviewStatus": "unreviewed",
-    "claim": "Merck KGaA is carried as a manufacturer or supplier lead for CMP slurry and polishing pads (advanced packaging), a required part of the AI accelerator module supply chain. This is a company exposure lead, not a confirmed customer-specific BOM claim unless cited evidence says so."
+    "claim": "Merck is a CMP slurry supplier lead for advanced packaging and wafer planarization; the available direct evidence supports slurries, not polishing pads or a customer-specific AI accelerator BOM."
   },
   {
     "id": "e_acc_cmp_slurry__manufactured_by__entegris",
