@@ -2464,27 +2464,25 @@
   {
     "id": "ev_humanoid_syensqo_listing",
     "type": "news",
-    "title": "Syensqo successfully launched on Euronext (SYENS)",
+    "title": "Syensqo successfully launched on Euronext under ticker SYENS",
     "url": "https://www.syensqo.com/en/press-release/syensqo-successfully-launched-euronext",
-    "sourceStatus": "paywalled_snippet",
-    "sourceName": "Syensqo / Euronext",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Syensqo",
     "date": "2023-12-11",
-    "summary": "Confirms Syensqo (2023 spin-off of Solvay specialty polymers) is publicly listed on Euronext Brussels/Paris under ticker SYENS. Syensqo's KetaSpire PEEK is one of ~4 thousand-ton-scale PEEK lines; modeled reported-capable for humanoid lightweighting because syensqo.com PEEK pages returned 406 this round.",
-    "excerpt": "Syensqo successfully launched on Euronext",
+    "summary": "Syensqo says its shares were listed on Euronext Brussels and Euronext Paris under ticker SYENS after the spin-off from Solvay, providing listed-company context for the Syensqo supplier lead.",
+    "excerpt": "under ticker SYENS",
     "supportsNodeIds": [
       "org_syensqo"
     ],
-    "supportsEdgeIds": [
-      "e_humanoid_structure_materials__reported_capable_supplier__syensqo"
-    ],
-    "limitations": "Listing/ticker context via search snippet (syensqo.com product pages 406 this round). No fetched robotics-application quote; humanoid PEEK capability modeled as reported_capable_supplier pending a primary quote. Syensqo = SYENS (cross-domain org_syensqo).",
-    "confidence": "low",
+    "limitations": "Official listing press release; supports public listing and ticker context only. Syensqo material capability for the humanoid structural-lightweighting lead is supported separately by ev_humanoid_syensqo_ketaspire_structural.",
+    "confidence": "medium",
     "reviewStatus": "unreviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-15",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "exact",
-      "notes": "Gate-B repair (undefined): "
+      "numberInQuote": false,
+      "notes": "web.open found Syensqo official press release text stating Euronext Brussels/Paris listing under ticker SYENS and the spin-off from Solvay."
     }
   },
   {
