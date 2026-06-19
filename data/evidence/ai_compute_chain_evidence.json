@@ -7667,5 +7667,91 @@
       "status": "structural_ok",
       "checkedAsOf": "2026-06-14"
     }
+  },
+  {
+    "id": "ev_acc_ase_ai_hpc_advanced_packaging",
+    "type": "product_page",
+    "title": "ASE advanced packaging solutions for AI/HPC",
+    "url": "https://ase.aseglobal.com/blog/technology/advanced-packaging-design-for-heterogeneous-integration/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "ASE Technology Holding",
+    "date": "accessed 2026-06-19",
+    "summary": "ASE describes advanced packaging solutions for AI cloud/HPC processors, including FCBGA, fan-out chip-on-substrate, FOCoS-Bridge and 2.5D integration, and explains CoWoS-like 2.5D silicon-interposer packaging.",
+    "excerpt": "ASE provides high-density packaging solutions",
+    "supportsNodeIds": [
+      "advanced_packaging",
+      "org_ase"
+    ],
+    "supportsEdgeIds": [
+      "e_adv_pkg__manufactured_by__ase"
+    ],
+    "limitations": "Official ASE technical blog; supports ASE advanced-packaging capability for AI/HPC processors. It does not prove a specific AI accelerator package is outsourced to ASE.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched ASE's advanced-packaging blog. Lines 189-L196 describe AI/HPC advanced packaging, ASE high-density package options, CoWoS/2.5D silicon interposer, and FOCoS-Bridge alternatives."
+    }
+  },
+  {
+    "id": "ev_acc_amkor_2_5d_tsv_ai_hpc",
+    "type": "news",
+    "title": "Amkor 2.5D TSV technology for AI and HPC",
+    "url": "https://amkor.com/blog/the-power-of-2-5d-tsv-technology/",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Amkor Technology",
+    "date": "2024-05-25",
+    "summary": "Amkor says its 2.5D TSV packaging integrates logic chips and high-bandwidth memory in close proximity and is aimed at AI and high-performance computing workloads, with high-volume CoS/CoW manufacturing history and capacity expansion.",
+    "excerpt": "Amkor's 2.5D TSV technology accelerates AI workloads",
+    "supportsNodeIds": [
+      "advanced_packaging",
+      "org_amkor"
+    ],
+    "supportsEdgeIds": [
+      "e_adv_pkg__manufactured_by__amkor"
+    ],
+    "limitations": "Official Amkor blog; supports 2.5D TSV advanced-packaging capability for AI/HPC. It does not prove Amkor packages a specific AI accelerator module.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Amkor's 2.5D TSV post. Lines 131-L140 describe 2.5D TSV capacity, logic-plus-HBM integration, AI workload relevance, HVM history, and capacity expansion."
+    }
+  },
+  {
+    "id": "ev_acc_marvell_alaska_p_pcie_retimer_official",
+    "type": "product_page",
+    "title": "Marvell Alaska P PCIe Gen 6/CXL 3 retimers",
+    "url": "https://www.marvell.com/products/pcie-retimers.html",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Marvell Technology",
+    "date": "accessed 2026-06-19",
+    "summary": "Marvell describes the Alaska P PCIe Gen 6/CXL 3 retimer line as purpose-built to scale data-center compute fabrics inside accelerated servers, CXL systems and disaggregated infrastructure, with AEC/AOC integration options.",
+    "excerpt": "PCIe Gen 6 retimers for AI server/node compute fabrics",
+    "supportsNodeIds": [
+      "pcie_retimer_ic",
+      "active_electrical_cable_aec_retimer_dsp",
+      "org_marvell"
+    ],
+    "supportsEdgeIds": [
+      "e_acc_pcie_retimer_ic__manufactured_by__org_marvell",
+      "e_acc_aec_retimer__manufactured_by__org_marvell"
+    ],
+    "limitations": "Official Marvell product page; supports retimer product capability and AEC/AOC applicability. It does not prove use in a named accelerator server.",
+    "confidence": "medium",
+    "reviewStatus": "unreviewed",
+    "machineCheck": {
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open fetched Marvell's PCIe retimer page. Lines 208-L232 describe Alaska P PCIe Gen 6/CXL 3 retimers for AI server/node compute fabrics and on-board / PCIe cable module integration."
+    }
   }
 ]

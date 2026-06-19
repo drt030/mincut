@@ -476,6 +476,8 @@
     "source": "advanced_packaging",
     "target": "org_tsmc",
     "relation": "manufactured_by",
+    "claim": "TSMC is the primary CoWoS/SoIC advanced-packaging capacity provider for AI accelerator modules that integrate logic die and HBM.",
+    "context": "Advanced-packaging supplier exposure; supports the commercial company card, not an assertion that every AI accelerator package uses the same TSMC flow.",
     "confidence": "high",
     "evidenceIds": [
       "ev_acc_pkg_tsmc_cowos_share",
@@ -488,8 +490,12 @@
     "source": "advanced_packaging",
     "target": "org_ase",
     "relation": "manufactured_by",
+    "claim": "ASE provides high-density advanced packaging options for AI/HPC processors, including FCBGA, fan-out chip-on-substrate, bridge and 2.5D integration.",
+    "context": "Second-source/OSAT advanced-packaging exposure for AI compute packages; not equivalent to TSMC CoWoS dominance.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_ase_ai_hpc_advanced_packaging"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -497,8 +503,12 @@
     "source": "advanced_packaging",
     "target": "org_amkor",
     "relation": "manufactured_by",
+    "claim": "Amkor offers 2.5D TSV advanced packaging that places logic and HBM close together for AI and high-performance computing workloads.",
+    "context": "OSAT advanced-packaging exposure; supports Amkor as a capable AI/HPC package supplier, not a confirmed package supplier for a specific accelerator.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_amkor_2_5d_tsv_ai_hpc"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -613,8 +623,12 @@
     "source": "high_bandwidth_memory",
     "target": "org_skhynix",
     "relation": "manufactured_by",
+    "claim": "SK hynix is modeled as the leading HBM supplier in this AI accelerator stack, with TrendForce forecasting it to retain over 50% HBM bit-output share in 2026.",
+    "context": "Supplier exposure for the HBM memory stack; basis is market-output forecast evidence, not a specific accelerator BOM.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6h_skhynix_hbm_share_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -622,8 +636,12 @@
     "source": "high_bandwidth_memory",
     "target": "org_samsung",
     "relation": "manufactured_by",
+    "claim": "Samsung is modeled as a major HBM supplier and capacity-expansion candidate for AI accelerator memory supply.",
+    "context": "Supplier exposure for HBM capacity; evidence supports production-capacity expansion, not a specific accelerator design win.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6h_samsung_hbm_capacity_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -631,8 +649,12 @@
     "source": "high_bandwidth_memory",
     "target": "org_micron",
     "relation": "manufactured_by",
+    "claim": "Micron is modeled as the third major HBM supplier, with its 2026 HBM supply already committed according to TrendForce.",
+    "context": "Supplier exposure for HBM ramp and allocation; evidence supports supply commitment, not a specific accelerator BOM.",
     "confidence": "medium",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r6h_micron_hbm4_ramp_2026"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2151,8 +2173,12 @@
     "source": "pcie_retimer_ic",
     "target": "org_astera_labs",
     "relation": "manufactured_by",
+    "claim": "Astera Labs' Aries portfolio supplies PCIe/CXL smart DSP retimers for AI and cloud server connectivity.",
+    "context": "Supplier exposure for PCIe/CXL retimer ICs inside AI servers and accelerator clusters.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_012_astera_retimer"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2160,9 +2186,11 @@
     "source": "pcie_retimer_ic",
     "target": "org_marvell",
     "relation": "manufactured_by",
+    "claim": "Marvell's Alaska P line supplies PCIe Gen 6/CXL 3 retimers for AI server and node compute fabrics.",
+    "context": "Supplier exposure for retimer silicon that maintains signal integrity between accelerators, GPUs, XPUs, CPUs, SSDs and CXL devices.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_icsi_marvell_alaska_p_pcie6"
+      "ev_acc_marvell_alaska_p_pcie_retimer_official"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2171,6 +2199,8 @@
     "source": "pcie_retimer_ic",
     "target": "org_broadcom",
     "relation": "manufactured_by",
+    "claim": "Broadcom is carried as a retimer/PAM4 PHY supplier candidate for high-speed data-center interconnects adjacent to PCIe/CXL retimer needs.",
+    "context": "Supplier exposure for signal-integrity silicon; current evidence is datacenter retimer PHY capability rather than a PCIe Gen 6 retimer design win.",
     "confidence": "high",
     "evidenceIds": [
       "ev_acc_icsi_broadcom_retimer_2024"
@@ -2182,8 +2212,12 @@
     "source": "pcie_retimer_ic",
     "target": "org_credo",
     "relation": "manufactured_by",
+    "claim": "Credo's Toucan PCIe retimer line is modeled as a merchant PCIe/CXL retimer supplier for AI accelerator and GPU-to-GPU connectivity.",
+    "context": "Supplier exposure for high-speed retimer silicon; not a specific accelerator-platform BOM claim.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_013_credo_pcie"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2202,8 +2236,12 @@
     "source": "active_electrical_cable_aec_retimer_dsp",
     "target": "org_credo",
     "relation": "manufactured_by",
+    "claim": "Credo supplies DSP/retimer silicon inside active electrical cable products used to scale AI cluster connectivity.",
+    "context": "Supplier exposure for AEC retimer/DSP silicon; evidence supports product capability, not a specific hyperscaler deployment.",
     "confidence": "high",
-    "evidenceIds": [],
+    "evidenceIds": [
+      "ev_acc_r7e_014_credo_aec"
+    ],
     "reviewStatus": "unreviewed"
   },
   {
@@ -2211,9 +2249,11 @@
     "source": "active_electrical_cable_aec_retimer_dsp",
     "target": "org_marvell",
     "relation": "manufactured_by",
+    "claim": "Marvell Alaska P retimers are modeled as candidate retimer silicon for PCIe active electrical cable and active optical cable integrations.",
+    "context": "Supplier exposure for AEC/AOC retimer silicon in AI infrastructure; evidence is Marvell product/partner availability, not a single-customer BOM.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_icsi_3nm_aec_retimer_roadmap"
+      "ev_acc_marvell_alaska_p_pcie_retimer_official"
     ],
     "reviewStatus": "unreviewed"
   },
