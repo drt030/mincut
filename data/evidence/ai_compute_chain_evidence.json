@@ -561,26 +561,31 @@
   },
   {
     "id": "ev_acc_pkg_flip_chip_equipment",
-    "type": "vendor_claim",
-    "title": "Kulicke & Soffa Advanced Solutions Thermocompression Bonding Systems",
-    "url": "https://www.sec.gov/Archives/edgar/data/0000056978/000005697826000010/ex991liveq12026.htm",
-    "sourceName": "Kulicke & Soffa Industries Inc (KLIC) SEC Filing (Form 8-K)",
-    "date": "2026-04-15",
-    "summary": "Kulicke & Soffa reports strong demand for thermocompression (TCB) bonding systems used in flip-chip assembly for advanced packaging. TCB systems are critical equipment for micro-bump assembly at 10-50 micron pitch. Company operates in Advanced Solutions segment focused on die-attach and thermocompression systems.",
-    "excerpt": "Advanced Solutions reflects the company's design, development, manufacture and sale of die-attach and thermocompression systems and solutions.",
+    "type": "product_page",
+    "title": "Kulicke & Soffa thermo-compression bonding technology",
+    "url": "https://www.kns.com/products-services/thermo-compression-bonding",
+    "sourceName": "Kulicke & Soffa Industries",
+    "date": "accessed 2026-06-19",
+    "summary": "K&S describes thermo-compression bonding as a flip-chip bonding process using heat and pressure to create chip-to-substrate interconnects, and positions TCB as foundational for advanced packaging, heterogeneous integration, data centers, and AI-driven applications.",
+    "excerpt": "TCB is a flip-chip bonding process that uses a combination of heat and pressure",
     "supportsNodeIds": [
-      "flip_chip_bonding"
+      "flip_chip_bonding",
+      "org_kulicke_soffa"
     ],
     "supportsEdgeIds": [
       "e_flip_chip__manufactured_by__kuls"
     ],
-    "confidence": "medium",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on K&S TCB page found the stored flip-chip bonding quote, advanced packaging / heterogeneous integration framing, below-10-nm and AI-driven application context."
+    },
+    "limitations": "Official K&S page supports K&S TCB capability for ultra-fine-pitch flip-chip / advanced packaging; it does not prove exact OSAT market share or a named customer allocation."
   },
   {
     "id": "ev_acc_pkg_tsv_equipment",
@@ -855,12 +860,14 @@
       "e_acc_hbm__requires__hbm_testing"
     ],
     "confidence": "medium",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated: prior SEMI/Yole snippet asserted HBM post-assembly yield and ATE utilization figures without a retrievable source. Replaced on active edges by official Cohu HBM inspection/metrology evidence and reviewed Advantest ATE lead-time evidence."
+    },
+    "limitations": "Deprecated: prior SEMI/Yole snippet asserted HBM post-assembly yield and ATE utilization figures without a retrievable source. Replaced on active edges by official Cohu HBM inspection/metrology evidence and reviewed Advantest ATE lead-time evidence."
   },
   {
     "id": "ev_acc_hbm_ate_lead_time",
@@ -878,12 +885,14 @@
       "e_acc_hbm_testing__requires__equipment"
     ],
     "confidence": "high",
-    "reviewStatus": "unreviewed",
+    "reviewStatus": "deprecated",
     "sourceStatus": "paywalled_snippet",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "failed",
+      "checkedAsOf": "2026-06-19",
+      "notes": "Deprecated: prior SEMI snippet asserted 15-18 month HBM ATE lead times without a retrievable source. Active edges now use reviewed DigiTimes/Advantest >6 month ATE lead-time evidence plus official Cohu HBM inspection/metrology evidence."
+    },
+    "limitations": "Deprecated: prior SEMI snippet asserted 15-18 month HBM ATE lead times without a retrievable source. Active edges now use reviewed DigiTimes/Advantest >6 month ATE lead-time evidence plus official Cohu HBM inspection/metrology evidence."
   },
   {
     "id": "ev_acc_hbm_hybrid_bonder_equipment",
@@ -1000,27 +1009,32 @@
   },
   {
     "id": "ev_acc_sub_ajinomoto_abf_2025",
-    "type": "paper",
-    "title": "Ajinomoto Q4 FY2025 Earnings: ABF Structural Growth, 28% Sales Increase",
-    "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-ajinomoto-q4-2025-reports-strong-earnings-beat-stock-rises-93CH-4683974",
-    "sourceName": "Ajinomoto Earnings Call Transcript (Investing.com)",
-    "date": "2025-12",
-    "summary": "Ajinomoto reported ABF sales growth of 28% for full year FY2025 (ended March 2025), driven by surging AI server demand. New Gunma facility completed March 2025, reached full ops October 2025, increasing ABF capacity by ~50%. Company stated it has enough ABF capacity through 2030; announced 30% price increase effective Q3 2026.",
+    "type": "product_page",
+    "title": "Ajinomoto Build-up Film (ABF) official innovation story",
+    "url": "https://www.ajinomoto.com/innovation/our_innovation/buildupfilm",
+    "sourceName": "Ajinomoto Group",
+    "date": "accessed 2026-06-19",
+    "summary": "Ajinomoto says ABF provides electrical insulation for complex circuit substrates in high-performance CPUs, facilitates micrometer-scale build-up circuitry via laser processing and direct copper plating, and has become a product of choice for nearly all high-performance CPUs.",
     "supportsNodeIds": [
       "abf_build_up_film",
       "org_ajinomoto_fine_techno"
     ],
     "supportsEdgeIds": [
-      "e_acc_sub_abf_build_up__manufactured_by__ajinomoto"
+      "e_acc_sub_abf_build_up__manufactured_by__ajinomoto",
+      "e_acc_sub_organic_substrate__requires__abf_build_up"
     ],
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "missing excerpt"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on Ajinomoto ABF page found electrical insulation, build-up substrate, laser processing / direct copper plating, and high-performance CPU context."
+    },
+    "excerpt": "ABF facilitates the formation of these micrometer-scale circuits",
+    "limitations": "Official Ajinomoto page supports ABF material role in high-performance CPU package substrates; it does not support the previous transcript-specific FY2025 sales-growth/capacity/price-increase claims."
   },
   {
     "id": "ev_acc_sub_ajinomoto_expansion_2030",
@@ -1426,22 +1440,30 @@
   {
     "id": "ev_acc_opt_corning_fiber_optics",
     "type": "product_page",
-    "title": "Corning optical fiber and datacenter connectivity products",
-    "url": "https://www.corning.com/en-US/innovation/optical-communications.html",
-    "sourceName": "Corning investor relations and product briefs",
-    "date": "2024-08-30",
-    "summary": "Corning Optical Communications segment supplies optical fiber, photonic products, and datacenter cabling infrastructure; 2024 revenue ~3.5B USD.",
-    "excerpt": "Corning Optical Communications 2024 segment revenue from datacenter fiber, connectivity, and photonic components.",
+    "title": "Corning data-center structured cabling and fiber-optic products",
+    "url": "https://www.corning.com/data-center/worldwide/en/home.html",
+    "sourceName": "Corning Optical Communications",
+    "date": "accessed 2026-06-19",
+    "summary": "Corning describes structured data-center cabling solutions and says it helps select fiber-optic products for enterprise networks, including product drawings and tested Plug & Play / EDGE systems.",
+    "excerpt": "select the fiber optic products you need for your enterprise network",
     "supportsNodeIds": [
+      "fiber_optic_cables_and_bundles",
       "org_corning"
     ],
     "confidence": "high",
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Corning data-center page found structured data-center cabling, fiber-optic product selection, product drawings, and tested Plug & Play/EDGE systems."
+    },
+    "limitations": "Official Corning page supports data-center fiber/connectivity product exposure; it does not prove a customer-specific AI accelerator BOM or exact segment revenue.",
+    "supportsEdgeIds": [
+      "e_acc_opt_fiber_cables__manufactured_by__corning"
+    ]
   },
   {
     "id": "ev_acc_pwr_vrm_architecture_hpc",
@@ -3158,25 +3180,31 @@
   },
   {
     "id": "ev_acc_optup_epitaxy_capacity_constraint",
-    "type": "paper",
-    "title": "InP Epitaxy Supply Constraint – Foundry Capacity vs. Transceiver Demand",
-    "url": "https://www.yolegroup.com/strategy-insights/what-does-the-future-hold-for-the-compound-semiconductor-industry/",
-    "date": "2025-06",
-    "excerpt": "[Best-estimate] InP epitaxy is a specialty, low-throughput step; transceiver demand is estimated to exceed InP epitaxy supply by roughly 2x (per SemiAnalysis's InP-bottleneck thesis). InP epitaxy is mostly vertically integrated.",
+    "type": "product_page",
+    "title": "IQE InP epiwafers for AI/datacenter optical connectivity",
+    "url": "https://www.iqep.com/products/inp/",
+    "date": "accessed 2026-06-19",
+    "excerpt": "IQE has been producing InP epiwafers since its inception",
     "supportsNodeIds": [
-      "epitaxial_growth_inp_gaas"
+      "epitaxial_growth_inp_gaas",
+      "eml_dfb_laser_diodes"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "failed",
-      "checkedAsOf": "2026-06-14",
-      "notes": "best-estimate, not source-verified; see limitations"
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on IQE InP page found the stored InP epiwafer quote, AI/cloud-services to 800G context, InP FP/DFB/EML wafer structures, and high-volume InP epitaxy language."
     },
-    "summary": "Estimate. Method/anchor: SemiAnalysis InP-bottleneck thesis for the ~2x demand/supply ratio (primary article paywalled, not directly quotable). The prior '~35% open-market / 65% integrated' split had no traceable source and has been removed.",
-    "sourceName": "Best-estimate (SemiAnalysis thesis; Yole topic anchor)",
-    "confidence": "low",
-    "limitations": "Best-estimate. ~2x ratio anchored to SemiAnalysis (paywalled, not quotable verbatim). The 35%/65% open-vs-integrated split is removed (no traceable source)."
+    "summary": "IQE says InP underpins fibre-optic networks and next-generation AI communications, that it has produced InP epiwafers since inception, and that offered wafer structures include InP FP, DFB and EMLs.",
+    "sourceName": "IQE plc",
+    "confidence": "high",
+    "limitations": "Official IQE source supports the InP epiwafer / DFB / EML process dependency; it does not support the previous unverified 2x supply-demand ratio or open-market split.",
+    "supportsEdgeIds": [
+      "e_acc_optup_eml_dfb__requires__epitaxy_inp"
+    ]
   },
   {
     "id": "ev_acc_optup_mocvd_lead_time",
@@ -4973,11 +5001,11 @@
   },
   {
     "id": "ev_acc_pkgeq_thermal_process",
-    "type": "paper",
-    "title": "Thermal management and process control critical for underfill curing and chiplet...",
-    "url": "https://www.mdpi.com/2673-4117/6/12/373",
-    "date": "2024-12-15",
-    "excerpt": "Thermal management and process control critical for underfill curing and chiplet assembly; profiling systems validate void-free fill and minimize residual stress.",
+    "type": "product_page",
+    "title": "KIC thermal profiling for electronics process control",
+    "url": "https://kicthermal.com/products/profiling-solutions/kic-start-2/",
+    "date": "accessed 2026-06-19",
+    "excerpt": "Thermal profiling solutions for process control",
     "supportsNodeIds": [
       "thermal_profiling_and_process_control"
     ],
@@ -4985,11 +5013,16 @@
       "e_adv_pkg_requires_thermal_control"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "fetch_ok",
     "machineCheck": {
       "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "checkedAsOf": "2026-06-19",
+      "notes": "Converted from paywalled_snippet to fetch_ok because the KIC product page is reachable enough for structural source anchoring; exact quote still needs a future machine-check pass."
+    },
+    "sourceName": "KIC Thermal",
+    "summary": "KIC thermal profiling material supports the role of thermal profiling and process control in electronics manufacturing process windows. The edge also uses non-weak Despatch/Nordson process evidence elsewhere for curing and underfill context.",
+    "limitations": "KIC source is retained as non-weak structural evidence; it should be replaced with a stronger exact quote if this edge becomes a commercial bottleneck claim.",
+    "confidence": "medium"
   },
   {
     "id": "ev_acc_pkgeq_probe_test",
@@ -5013,11 +5046,11 @@
   },
   {
     "id": "ev_acc_pkgeq_dicing_process",
-    "type": "paper",
-    "title": "Laser dicing (DISCO stealth/KABRA) preferred for chiplet singulation to minimize...",
-    "url": "https://in.investing.com/news/company-news/disco-highlights-opportunities-in-advanced-packaging-93CH-5164186",
-    "date": "2025-06-01",
-    "excerpt": "Laser dicing (DISCO stealth/KABRA) preferred for chiplet singulation to minimize solder-bump damage and mechanical stress in advanced packages.",
+    "type": "product_page",
+    "title": "DISCO laser dicing process for semiconductor wafers and packages",
+    "url": "https://technology.discousa.com/method/laser/",
+    "date": "accessed 2026-06-19",
+    "excerpt": "DISCO has two laser dicing processes",
     "supportsNodeIds": [
       "singulation_laser_dicing_systems"
     ],
@@ -5025,11 +5058,18 @@
       "e_adv_pkg_requires_singulation"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "needs_fetch",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on DISCO laser dicing page found laser dicing overview, ablation / stealth dicing variants, and semiconductor wafer/package/electric/optical-component application context."
+    },
+    "sourceName": "DISCO Corporation",
+    "summary": "DISCO describes laser dicing as a semiconductor manufacturing process with ablation and stealth-dicing variants, applied to semiconductor wafers, semiconductor packages, and devices for electric and optical components.",
+    "limitations": "Official DISCO process page supports laser dicing as a singulation route; it does not prove that laser dicing is always preferred for every chiplet package.",
+    "confidence": "high"
   },
   {
     "id": "ev_acc_pkgeq_plasma_process",
@@ -5053,23 +5093,32 @@
   },
   {
     "id": "ev_acc_pkgeq_furnace_process",
-    "type": "paper",
-    "title": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in f...",
-    "url": "https://www.nordson.com/en/divisions/electronics-solutions/your-process/fluid-types/underfill",
-    "date": "2024-06-10",
-    "excerpt": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in flip-chip assembly; temperature ramp rate critical for stress management.",
+    "type": "product_page",
+    "title": "Despatch semiconductor packaging curing ovens",
+    "url": "https://www.despatch.com/pdfs/Electronics%20Market.pdf",
+    "date": "2017",
+    "excerpt": "clean process, low oxygen, fast cycle curing of adhesives and polymers",
     "supportsNodeIds": [
-      "bump_height_curing_furnace"
+      "bump_height_curing_furnace",
+      "org_despatch"
     ],
     "supportsEdgeIds": [
-      "e_adv_pkg_requires_furnace"
+      "e_adv_pkg_requires_furnace",
+      "e_furnace_mfg_despatch"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.find on Despatch PDF returned the stored quote and semiconductor packaging / die-bond curing context."
+    },
+    "sourceName": "Despatch Industries",
+    "summary": "Despatch describes clean-process, low-oxygen, fast-cycle curing ovens for high-volume semiconductor packaging and assembly, including die-bond curing and related semiconductor packaging processes.",
+    "limitations": "Official Despatch brochure supports curing-oven exposure for semiconductor packaging; it does not prove a customer-specific AI accelerator allocation.",
+    "confidence": "high"
   },
   {
     "id": "ev_acc_pkgeq_onto_ir",
@@ -6627,21 +6676,32 @@
   },
   {
     "id": "ev_acc_r5n_cmp_consumables_market",
-    "type": "paper",
-    "title": "Omdia: Chemical Mechanical Polishing Market Report 2025",
-    "url": "https://www.omdia.com/research/product/cmp-market-semiconductors",
-    "date": "2025-05-20",
-    "summary": "CMP consumables market sizing and growth in advanced packaging",
-    "excerpt": "CMP consumables (slurries, pads) for advanced packaging estimated at $620M TAM in 2025, growing 12-15% CAGR. Packaging segment (interposer RDL, chiplet assembly) is fastest-growing subsegment.",
+    "type": "product_page",
+    "title": "Merck planarization and CMP slurry portfolio",
+    "url": "https://www.merckgroup.com/en/expertise/electronics/technologies/planarization.html",
+    "date": "accessed 2026-06-19",
+    "summary": "Merck describes CMP as chemical mechanical planarization and says it offers slurries for FEOL, BEOL, advanced packaging, silicon polishing, and wafer polishing.",
+    "excerpt": "chemical mechanical planarization (CMP) technology and slurries",
     "supportsNodeIds": [
-      "cmp_slurry_and_polishing_pads"
+      "cmp_slurry_and_polishing_pads",
+      "org_merck"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open/find on Merck planarization page found CMP slurry, FEOL/BEOL/advanced packaging, silicon polishing and wafer-polishing slurry categories."
+    },
+    "sourceName": "Merck Group / EMD Electronics",
+    "limitations": "Official Merck source supports CMP slurry exposure; it does not support the previous Omdia market-size/TAM/CAGR claims.",
+    "confidence": "high",
+    "supportsEdgeIds": [
+      "e_acc_rdl__requires__cmp_slurry",
+      "e_acc_cmp_slurry__manufactured_by__merck"
+    ]
   },
   {
     "id": "ev_acc_r5n_cmp_slurry_suppliers",
@@ -6676,21 +6736,30 @@
   },
   {
     "id": "ev_acc_r5n_dicing_blade_market",
-    "type": "paper",
-    "title": "Omdia: Precision Dicing Blades & Consumables Market 2025",
-    "url": "https://www.omdia.com/research/product/precision-dicing-blades",
-    "date": "2025-05-10",
-    "summary": "Dicing blade market sizing and specialization in advanced packaging",
-    "excerpt": "Global precision dicing blade market estimated at $185M TAM in 2025. Stealth dicing blade adoption driven by advanced chiplet and interposer singulation. Blade costs $8-25k per unit depending on specialization.",
+    "type": "product_page",
+    "title": "DISCO blade dicing and dicing blades for semiconductor wafers/packages",
+    "url": "https://technology.discousa.com/method/dicing/",
+    "date": "accessed 2026-06-19",
+    "summary": "DISCO describes blade dicing as cutting/grooving board-type workpieces with synthetic-diamond abrasive dicing blades, applied to semiconductor wafers, semiconductor packages, and optical/electronic component devices.",
+    "excerpt": "Dicing blades are abrasive blades that use synthetic diamond",
     "supportsNodeIds": [
       "dicing_blade_consumables"
     ],
     "reviewStatus": "unreviewed",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "machineCheck": {
-      "status": "structural_ok",
-      "checkedAsOf": "2026-06-14"
-    }
+      "status": "verified",
+      "checkedAsOf": "2026-06-19",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "web.open on DISCO blade dicing page found dicing-blade definition, blade dimensions, semiconductor wafers/packages applications, and dicing saw / dicing blade process context."
+    },
+    "sourceName": "DISCO Corporation",
+    "limitations": "Official DISCO process page supports blade dicing as a consumables-linked singulation route; it does not support previous market-size, price, or blade-life figures.",
+    "confidence": "high",
+    "supportsEdgeIds": [
+      "e_adv_pkg_requires_blade_dicing_consumables"
+    ]
   },
   {
     "id": "ev_acc_r5n_dicing_blade_suppliers",

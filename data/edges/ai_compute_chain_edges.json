@@ -560,7 +560,7 @@
     "source": "flip_chip_bonding",
     "target": "org_kulicke_soffa",
     "relation": "implemented_by",
-    "claim": "Kulicke & Soffa thermocompression bonding (TCB) systems are primary equipment used for flip-chip micro-bump assembly at OSATs.",
+    "claim": "Kulicke & Soffa supplies thermo-compression bonding technology for ultra-fine-pitch flip-chip interconnects used in advanced packaging and heterogeneous integration.",
     "confidence": "high",
     "evidenceIds": [
       "ev_acc_pkg_flip_chip_equipment"
@@ -623,9 +623,11 @@
     "relation": "requires",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_hbm_test_yield_constraints"
+      "ev_acc_hbm_test_cohu_neon_2026",
+      "ev_acc_r6h_advantest_ate_lead_time"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "claim": "HBM stack scaling requires production inspection, metrology, and ATE capacity: Cohu describes HBM3E/HBM4/HBM4E inspection/metrology support, and Advantest reported ATE lead times above six months for HBM/GPU demand."
   },
   {
     "id": "e_acc_hbm__requires__hbm_substrate",
@@ -642,9 +644,11 @@
     "relation": "requires",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_hbm_ate_lead_time"
+      "ev_acc_hbm_test_cohu_neon_2026",
+      "ev_acc_r6h_advantest_ate_lead_time"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "claim": "HBM testing and validation requires specialized inspection/metrology and ATE equipment; current evidence supports Cohu HBM inspection/metrology capability and Advantest ATE lead-time pressure above six months."
   },
   {
     "id": "e_acc_hbm_substrate__requires__laminate",
@@ -801,7 +805,7 @@
     "source": "organic_substrate_base_structure",
     "target": "abf_build_up_film",
     "relation": "requires",
-    "claim": "High-density substrate requires ABF dielectric layers for tight trace spacing and advanced designs.",
+    "claim": "High-density organic package substrates use ABF as a build-up insulating film that supports micrometer-scale circuitry, laser processing, and direct copper plating for high-performance CPU-class packages.",
     "confidence": "high",
     "evidenceIds": [
       "ev_acc_sub_ajinomoto_abf_2025"
@@ -1185,7 +1189,8 @@
     "reviewStatus": "unreviewed",
     "evidenceIds": [
       "ev_acc_opt_corning_fiber_optics"
-    ]
+    ],
+    "claim": "Corning supplies data-center fiber-optic and structured cabling products used for enterprise/data-center network builds."
   },
   {
     "id": "e_acc_opt_electrical_connector__manufactured_by__te",
@@ -1972,7 +1977,7 @@
     "source": "eml_dfb_laser_diodes",
     "target": "epitaxial_growth_inp_gaas",
     "relation": "requires",
-    "claim": "EML laser fabrication requires complex multi-layer epitaxial growth (4–6 epitaxial steps, EML structure with LD + modulator sections) on InP substrates. Epitaxy is the second bottleneck after raw substrate supply.",
+    "claim": "EML/DFB laser supply depends on InP epiwafer capability: IQE lists InP FP, DFB and EML wafer structures and describes high-volume InP epitaxy for telecom, datacom, hyperscale datacentres, and AI/cloud networks.",
     "confidence": "high",
     "evidenceIds": [
       "ev_acc_optup_epitaxy_capacity_constraint"
@@ -2528,10 +2533,11 @@
     "source": "advanced_packaging",
     "target": "thermal_profiling_and_process_control",
     "relation": "requires",
-    "claim": "Thermal profiling during bonding and underfill curing validates process window and yield optimization.",
+    "claim": "Advanced packaging process windows require thermal profiling and process control during bonding, underfill, and reflow-style thermal steps.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_acc_pkgeq_thermal_process"
+      "ev_acc_pkgeq_thermal_process",
+      "ev_acc_despatch_semiconductor_curing_2017"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2552,7 +2558,7 @@
     "source": "advanced_packaging",
     "target": "singulation_laser_dicing_systems",
     "relation": "requires",
-    "claim": "Laser dicing (DISCO stealth/KABRA) is preferred for chiplet singulation to minimize solder-bump damage.",
+    "claim": "Advanced packaging requires a singulation step; DISCO describes laser dicing variants used for semiconductor wafers, semiconductor packages, and electric/optical component devices.",
     "confidence": "high",
     "evidenceIds": [
       "ev_acc_pkgeq_dicing_process"
@@ -2576,10 +2582,11 @@
     "source": "advanced_packaging",
     "target": "bump_height_curing_furnace",
     "relation": "requires",
-    "claim": "Precision thermal furnaces cure underfill and manage solder-reflow profiles in flip-chip assembly.",
-    "confidence": "high",
+    "claim": "Advanced packaging uses curing/reflow-style thermal equipment for adhesives, polymers, and semiconductor packaging assembly steps.",
+    "confidence": "medium",
     "evidenceIds": [
-      "ev_acc_pkgeq_furnace_process"
+      "ev_acc_pkgeq_furnace_process",
+      "ev_acc_despatch_semiconductor_curing_2017"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -3280,10 +3287,11 @@
     "source": "redistribution_layer_rdl",
     "target": "cmp_slurry_and_polishing_pads",
     "relation": "requires",
-    "claim": "RDL planarization requires custom CMP slurries and pads for copper and low-k dielectric materials.",
+    "claim": "RDL and advanced-packaging planarization depends on CMP slurry/consumables; Merck lists CMP slurries across advanced packaging and related semiconductor planarization use cases.",
     "confidence": "high",
     "evidenceIds": [
-      "ev_acc_r5n_cmp_consumables_market"
+      "ev_acc_r5n_cmp_consumables_market",
+      "ev_acc_cmp_slurry_merck_planarization_2026"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -3292,12 +3300,13 @@
     "source": "singulation_laser_dicing_systems",
     "target": "dicing_blade_consumables",
     "relation": "requires",
-    "claim": "Laser dicing systems require precision dicing blades as consumables; blade life 100-200 wafers per blade.",
-    "confidence": "high",
+    "claim": "Deprecated during 2026-06-19 node-detail IA cleanup: laser dicing does not generally require dicing blades. Blade consumables are relevant to blade-dicing singulation, so the active structural edge is now e_adv_pkg_requires_blade_dicing_consumables.",
+    "confidence": "low",
     "evidenceIds": [
       "ev_acc_r5n_dicing_blade_market"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated",
+    "context": "Deprecated during 2026-06-19 node-detail IA cleanup: laser dicing does not generally require dicing blades. Blade consumables are relevant to blade-dicing singulation, so the active structural edge is now e_adv_pkg_requires_blade_dicing_consumables."
   },
   {
     "id": "e_acc_tcb_systems__requires__tcb_consumables",
@@ -3448,10 +3457,11 @@
     "source": "high_bandwidth_memory",
     "target": "hbm_test_equipment_and_tooling",
     "relation": "requires",
-    "claim": "Product-layer structural edge: HBM capacity depends on test and validation equipment. The testing process node remains know-how context.",
+    "claim": "Product-layer structural edge: HBM supply depends on test, inspection, metrology, and ATE tooling. The testing process node remains know-how context.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_acc_hbm_ate_lead_time"
+      "ev_acc_hbm_test_cohu_neon_2026",
+      "ev_acc_r6h_advantest_ate_lead_time"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -3508,5 +3518,17 @@
       "ev_acc_r7_ecolab_coolit"
     ],
     "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_adv_pkg_requires_blade_dicing_consumables",
+    "source": "advanced_packaging",
+    "target": "dicing_blade_consumables",
+    "relation": "requires",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_acc_r5n_dicing_blade_market"
+    ],
+    "reviewStatus": "unreviewed",
+    "claim": "Advanced packaging can require blade-dicing consumables when singulation is performed with dicing saw / blade-dicing processes rather than laser-only processes."
   }
 ]

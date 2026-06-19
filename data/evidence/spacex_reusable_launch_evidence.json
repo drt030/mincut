@@ -1396,14 +1396,14 @@
   },
   {
     "id": "ev_space_amphenol_spacevpx_connectors",
-    "type": "vendor_claim",
-    "title": "Amphenol Aerospace — VITA 78 SpaceVPX space connectors",
+    "type": "product_page",
+    "title": "Amphenol Aerospace SpaceVPX VITA 78 connectors",
     "url": "https://www.amphenol-aerospace.com/products/spacevpx-vita-78-connector",
-    "sourceStatus": "paywalled_snippet",
+    "sourceStatus": "ok_exact",
     "sourceName": "Amphenol Aerospace",
-    "date": "2026-06",
-    "summary": "Amphenol space-qualified VITA 78 SpaceVPX connectors are tested for radiation, extreme temperature, and vibration and meet NASA/ESA outgassing requirements. Third-source launch/space interconnect supplier.",
-    "excerpt": "Amphenol's VITA 78 SpaceVPX connectors leverage OpenVPX architecture and technology and are designed and tested for extreme space environments, including exposure to radiation, extreme temperatures and vibration.",
+    "date": "accessed 2026-06-19",
+    "summary": "Amphenol describes SpaceVPX VITA 78 connectors for demanding space-based electronics, optimized for vibration, radiation exposure, and extreme temperature fluctuations, with NASA/ESA outgassing and VITA vibration testing references.",
+    "excerpt": "optimized for the extreme environmental conditions encountered in orbit",
     "supportsNodeIds": [
       "org_amphenol",
       "space_grade_connector_harness_launch"
@@ -1411,15 +1411,15 @@
     "supportsEdgeIds": [
       "e_space_amphenol_connector"
     ],
-    "limitations": "Amphenol Aerospace pages returned HTTP 403 to direct fetch; excerpt verified only via WebSearch result snippet — sourceStatus paywalled_snippet per ADR-0009.",
-    "confidence": "low",
+    "limitations": "Official product page supports space-grade connector supplier capability; it does not prove SpaceX uses this connector family.",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-15",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "exact",
       "numberInQuote": false,
-      "notes": "Amphenol Aerospace HTTP 403 to direct fetch (Akamai). Exact excerpt 'VITA 78 SpaceVPX connectors leverage OpenVPX architecture and technology and are designed and tested for extreme space environments, including exposure to radiation, extreme temperatures and vibration' confirmed"
+      "notes": "web.open on Amphenol SpaceVPX VITA 78 page found board-level space electronics description, vibration/radiation/extreme-temperature text, NASA/ESA outgassing, VITA 72 vibration, and temperature-range features."
     }
   },
   {
@@ -1479,14 +1479,14 @@
   },
   {
     "id": "ev_space_mercury_versal_space_board",
-    "type": "vendor_claim",
-    "title": "Mercury Systems — first space-qualified FPGA board powered by AMD Xilinx Versal",
-    "url": "https://ir.mrcy.com/news-releases/news-release-details/mercury-introduces-first-space-qualified-fpga-processing-board",
-    "sourceStatus": "paywalled_snippet",
-    "sourceName": "Mercury Systems Investor Relations",
-    "date": "2026-06",
-    "summary": "Mercury Systems builds space-qualified FPGA processing boards integrating AMD/Xilinx Versal rad-tolerant silicon into flight processing subsystems; a board-level integrator, not a chip maker.",
-    "excerpt": "Mercury Introduces the First Space-qualified FPGA Processing Board Powered by AMD Xilinx Versal® Technology",
+    "type": "product_page",
+    "title": "Mercury SCFE6933 6U SpaceVPX processing board with AMD Versal",
+    "url": "https://www.mrcy.com/products/signal/digital-signal-processing-boards/fpga-boards/SCFE6933-6U-vpx-fpga-processing-board",
+    "sourceStatus": "ok_exact",
+    "sourceName": "Mercury Systems",
+    "date": "accessed 2026-06-19",
+    "summary": "Mercury describes SCFE6933 as a rad-tolerant 6U SpaceVPX processing board using AMD Versal AI Core adaptive SoC for on-orbit sensor data processing, with SpaceVPX compliance and radiation tolerance specifications.",
+    "excerpt": "rad-tolerant COTS processing board that employs an AMD Versal",
     "supportsNodeIds": [
       "org_mercury_systems",
       "falcon9_strategic_radhard_processor_fpga"
@@ -1494,15 +1494,15 @@
     "supportsEdgeIds": [
       "e_space_mercury_radhard_board"
     ],
-    "limitations": "Mercury IR page timed out on direct fetch; title/claim verified only via WebSearch result — sourceStatus paywalled_snippet. Body details not independently fetched.",
-    "confidence": "low",
+    "limitations": "Official Mercury product page supports board-level rad-tolerant / SpaceVPX / Versal capability; it does not prove SpaceX uses this board.",
+    "confidence": "high",
     "reviewStatus": "unreviewed",
     "machineCheck": {
       "status": "verified",
-      "checkedAsOf": "2026-06-15",
+      "checkedAsOf": "2026-06-19",
       "quoteMatch": "exact",
       "numberInQuote": false,
-      "notes": "Mercury IR page (ir.mrcy.com) timed out on direct fetch. Exact headline 'Mercury Introduces the First Space-qualified FPGA Processing Board Powered by AMD Xilinx Versal Technology' confirmed verbatim via WebSearch (GlobeNewswire PR 2023-09-18 + EEJournal + IR title). Product SCFE"
+      "notes": "web.open on Mercury SCFE6933 page found rad-tolerant COTS processing board, AMD Versal AI Core, SpaceVPX compliance, LEO/MEO/GEO/HEO/deep-space mission scope, and TID/SEL specifications."
     }
   },
   {
