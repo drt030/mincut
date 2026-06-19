@@ -2079,7 +2079,10 @@
     "relation": "manufactured_by",
     "claim": "Harmonic Drive Systems is the originator and reference maker of the strain-wave gear; the flexspline is captive inside its strain-wave reducers. Supplier-candidate (vendor-grounded who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_drive_precision_products"
+    ]
   },
   {
     "id": "e_humanoid_flexspline__manufactured_by__leaderdrive",
@@ -2088,7 +2091,10 @@
     "relation": "manufactured_by",
     "claim": "Leaderdrive is the principal China second-source strain-wave reducer maker; the flexspline is captive inside its reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_leaderdrive_humanoid"
+    ]
   },
   {
     "id": "e_humanoid_flexspline__reported_capable_supplier__nabtesco",
@@ -2097,7 +2103,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Nabtesco makes precision reducers and is carried as capable of the captive flexspline member; no flexspline-specific supply quote, so reported-capable, not confirmed manufacture.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_nabtesco_precision"
+    ]
   },
   {
     "id": "e_humanoid_circular_spline__manufactured_by__hds",
@@ -2106,7 +2115,10 @@
     "relation": "manufactured_by",
     "claim": "Harmonic Drive Systems is the reference strain-wave gear maker; the circular spline is the captive mating member inside its reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_drive_precision_products"
+    ]
   },
   {
     "id": "e_humanoid_circular_spline__manufactured_by__leaderdrive",
@@ -2115,7 +2127,10 @@
     "relation": "manufactured_by",
     "claim": "Leaderdrive is the principal China second-source strain-wave reducer maker; the circular spline is captive inside its reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_leaderdrive_humanoid"
+    ]
   },
   {
     "id": "e_humanoid_circular_spline__reported_capable_supplier__nabtesco",
@@ -2124,7 +2139,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Nabtesco makes precision reducers and is carried as capable of the captive circular-spline member; no part-specific supply quote, so reported-capable, not confirmed manufacture.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_nabtesco_precision"
+    ]
   },
   {
     "id": "e_humanoid_wave_generator__manufactured_by__hds",
@@ -2133,7 +2151,10 @@
     "relation": "manufactured_by",
     "claim": "Harmonic Drive Systems makes the wave generator (elliptical cam plus integrated flex bearing) captive inside its strain-wave reducers. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_harmonic_drive_precision_products"
+    ]
   },
   {
     "id": "e_humanoid_wave_generator__reported_capable_supplier__thk",
@@ -2244,7 +2265,10 @@
     "relation": "manufactured_by",
     "claim": "Rollvis makes planetary/satellite roller screws; the central threaded shaft is captive inside its roller-screw assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_rollvis_identity"
+    ]
   },
   {
     "id": "e_humanoid_rs_shaft__manufactured_by__gsa",
@@ -2253,7 +2277,10 @@
     "relation": "manufactured_by",
     "claim": "GSA (Gewinde Ziegler) makes planetary roller screws in-house; the central threaded shaft is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_gsa_rgti"
+    ]
   },
   {
     "id": "e_humanoid_rs_shaft__manufactured_by__schaeffler",
@@ -2262,7 +2289,11 @@
     "relation": "manufactured_by",
     "claim": "Schaeffler makes planetary roller screws via Ewellix; the central threaded shaft is captive inside its assemblies. Supplier-candidate (who-makes-what), not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ewellix_schaeffler",
+      "ev_humanoid_ewellix_rollerscrew"
+    ]
   },
   {
     "id": "e_humanoid_rs_shaft__reported_capable_supplier__drake",
@@ -2271,7 +2302,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Drake Manufacturing builds the thread/screw grinders that produce roller-screw shafts; carried as capable on the shaft, reported-capable (upstream grinding capability).",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_drake_thread_grinder"
+    ]
   },
   {
     "id": "e_humanoid_rs_shaft__reported_capable_supplier__picea",
@@ -2280,7 +2314,11 @@
     "relation": "reported_capable_supplier",
     "claim": "Shenzhen PICEA Motion is carried as a capable roller-screw maker for the central threaded shaft; reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_picea_humanoid",
+      "ev_humanoid_picea_profile"
+    ]
   },
   {
     "id": "e_humanoid_rs_rollers__manufactured_by__rollvis",
@@ -2526,7 +2564,11 @@
     "relation": "manufactured_by",
     "claim": "JL MAG Rare-Earth is the China reference sintered-NdFeB maker; supplier-candidate (who-makes-what) for the NdFeB magnet feedstock, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_jlmag_humanoid_unit",
+      "ev_humanoid_jlmag_blank_output"
+    ]
   },
   {
     "id": "e_humanoid_ndfeb_feedstock__manufactured_by__proterial",
@@ -2535,7 +2577,10 @@
     "relation": "manufactured_by",
     "claim": "Proterial (ex-Hitachi Metals) mass-produces NEOMAX sintered NdFeB; supplier-candidate (who-makes-what) for the NdFeB magnet feedstock, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_proterial_neomax"
+    ]
   },
   {
     "id": "e_humanoid_ndfeb_feedstock__reported_capable_supplier__mp_materials",
@@ -2544,7 +2589,10 @@
     "relation": "reported_capable_supplier",
     "claim": "MP Materials is the principal ex-China sintered-NdFeB alternative (Fort Worth ramp); carried as a capable NdFeB-feedstock supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_mp_independence_magnet"
+    ]
   },
   {
     "id": "e_humanoid_ndfeb_feedstock__reported_capable_supplier__shin_etsu",
@@ -2553,7 +2601,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Shin-Etsu Chemical makes NdFeB sintered magnets and is carried as a capable NdFeB-feedstock supplier; reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_shinetsu_nd_magnet"
+    ]
   },
   {
     "id": "e_humanoid_ft_elastic_element__manufactured_by__novanta_ati",
@@ -2607,7 +2658,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Renishaw makes magnetic position encoders; carried as a capable magnetic-encoder-ASIC supplier for this node, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_renishaw_pal"
+    ]
   },
   {
     "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__broadcom",
@@ -2616,7 +2670,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Broadcom makes magnetic motor-feedback encoders; carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_broadcom_encoders"
+    ]
   },
   {
     "id": "e_humanoid_encoder_magnetic_asic__reported_capable_supplier__tdk",
@@ -2625,7 +2682,10 @@
     "relation": "reported_capable_supplier",
     "claim": "TDK makes Hall/magnetic-sensing ICs; carried as a capable magnetic-encoder-ASIC supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_tdk_robotics"
+    ]
   },
   {
     "id": "e_humanoid_encoder_optical__manufactured_by__heidenhain",
@@ -2679,7 +2739,10 @@
     "relation": "manufactured_by",
     "claim": "Infineon is the low-voltage power-MOSFET leader; supplier-candidate (who-makes-what) for the joint inverter power switch, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_infineon_humanoid_blocks"
+    ]
   },
   {
     "id": "e_humanoid_inverter_power_switch__manufactured_by__epc",
@@ -2688,7 +2751,10 @@
     "relation": "manufactured_by",
     "claim": "EPC is a GaN-FET pure-play; supplier-candidate (who-makes-what) for the joint inverter power switch, not a confirmed humanoid BOM claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_epc_humanoid_joint"
+    ]
   },
   {
     "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__stm",
@@ -2697,7 +2763,10 @@
     "relation": "reported_capable_supplier",
     "claim": "STMicroelectronics makes Si MOSFET / GaN power devices; carried as a capable inverter-power-switch supplier, reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_st_reference"
+    ]
   },
   {
     "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__nxp",
@@ -2706,7 +2775,10 @@
     "relation": "reported_capable_supplier",
     "claim": "NXP makes power-switching devices and is carried as a capable inverter-power-switch supplier; reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_nxp_humanoid_edge"
+    ]
   },
   {
     "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__ti",
@@ -2715,7 +2787,10 @@
     "relation": "reported_capable_supplier",
     "claim": "Texas Instruments makes power-switching / GaN devices and is carried as a capable inverter-power-switch supplier; reported-capable.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "evidenceIds": [
+      "ev_humanoid_ti_robotics"
+    ]
   },
   {
     "id": "e_humanoid_depth_image_sensor__manufactured_by__stm",
