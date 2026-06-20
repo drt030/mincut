@@ -1,0 +1,458 @@
+[
+  {
+    "subsystem": "propulsion",
+    "supplier_name": "Blue Origin",
+    "ticker_or_null": null,
+    "role": "Prime engine supplier: BE-4 oxygen-rich staged-combustion LOX/LNG engines power the ULA Vulcan first stage (and Blue Origin's own New Glenn); merchant engine sale to an outside integrator (ULA)",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://en.wikipedia.org/wiki/BE-4",
+      "quote": "The BE-4 engines power the boosters of the Vulcan rocket... Each BE-4 can develop 550,000 pounds of thrust with liquid natural gas (LNG) and oxygen.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "propulsion",
+    "supplier_name": "L3Harris Technologies (Aerojet Rocketdyne)",
+    "ticker_or_null": "LHX",
+    "role": "Prime upper-stage engine supplier: RL10 (RL10C / RL10C-X) cryogenic LOX/LH2 engines power ULA Vulcan Centaur upper stage, Atlas V, Delta IV, and NASA SLS; ULA placed a 116-engine order",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.l3harris.com/all-capabilities/rl10-engine",
+      "quote": "Two RL10 engines power the upper stage of ULA's new Vulcan Centaur rocket.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "propulsion",
+    "supplier_name": "SpaceX (Merlin / Raptor engines)",
+    "ticker_or_null": null,
+    "role": "In-house engine design and manufacture: Merlin (Falcon 9, RP-1/LOX) and Raptor (Starship, methane/LOX) are produced internally; SpaceX developed its own Merlin 1D turbopump, displacing the early external unit",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://en.wikipedia.org/wiki/SpaceX_Raptor",
+      "quote": "The Raptor is a family of rocket engines developed and manufactured by SpaceX.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "propulsion (turbopumps)",
+    "supplier_name": "Barber-Nichols (a Graham Corp. company)",
+    "ticker_or_null": "GHM",
+    "role": "Turbopump supplier: built the RP-1/LOX turbopumps feeding early SpaceX Merlin engines on Falcon 9, and turbopumps for Virgin Orbit NewtonThree and Relativity Aeon-1; the dominant US merchant new-rocket-turbopump house",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://barber-nichols.com/turbopumps-supplied-by-barber-nichols-power-falcon-9-into-orbit/",
+      "quote": "BNI has been working with SpaceX since 2002 and produced the turbopumps that supply kerosene (RP-1) and liquid oxygen (LOX) propellants to the Merlin engines.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "propulsion (valves & fluid control)",
+    "supplier_name": "Marotta Controls",
+    "ticker_or_null": null,
+    "role": "Upstream valve/regulator supplier: solenoid valves, check valves, manifolds and pressure regulators on every Falcon 9 (tank pressurization, stage separation, landing-leg deployment, attitude control); supplied 50,000th CoRe valve to Rocket Lab in 2025",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://marotta.com/spacex-president-coo-visits-marotta-controls-discusses-importance-long-term-partnership/",
+      "quote": "Marotta's technologies used in applications including tank pressurization, stage separation, landing leg deployment and attitude control comprise a substantial number of components which are on every Falcon 9 launch.",
+      "asOf": "2017-02-20"
+    }
+  },
+  {
+    "subsystem": "propulsion (valves & fluid control)",
+    "supplier_name": "VACCO Industries (an ESCO Technologies company)",
+    "ticker_or_null": "ESE",
+    "role": "Upstream cryogenic/pneumatic valve supplier: latch valves, isolation valves, prevalves, regulators and filters for launch vehicle main propulsion systems; supplies the 12-inch cryogenic prevalve on the NASA SLS Core Stage",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.vacco.com/index.php/space/launch-vehicle-controls",
+      "quote": "VACCO Industries is the premiere supplier of critical cryogenic and pneumatic space flight components to the U.S. manned space and expendable launch vehicle programs.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (aluminum-lithium)",
+    "supplier_name": "Constellium",
+    "ticker_or_null": "CSTM",
+    "role": "Aluminum-lithium mill-product supplier: low-density Airware 2195-T8 plate used in the tank barrels and domes of the Falcon 9 booster (also Al-Li for NASA SLS / Orion)",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.lightmetalage.com/news/industry-news/aerospace/how-light-metals-help-spacex-land-falcon-9-rockets-with-astonishing-accuracy/",
+      "quote": "Low-density Airware 2195-T8 plate used in the tank barrels and domes of the booster is supplied by Constellium (formerly Alcan Global ATI).",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (stainless steel)",
+    "supplier_name": "SpaceX (30X / 304L stainless)",
+    "ticker_or_null": null,
+    "role": "In-house structural material: Starship/Super Heavy built from stainless steel; SpaceX moved from 301 to 304L to a proprietary in-house-developed 30X austenitic alloy. No external mill named in public sources",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.tesmanian.com/blogs/tesmanian-blog/starshipstainlesssteelalloy",
+      "quote": "Musk said the 30X alloy, produced through SpaceX's research, development, and testing, is a \"super material\".",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (titanium sponge)",
+    "supplier_name": "Titanium Metals Corp. (TIMET, a Precision Castparts / Berkshire Hathaway company)",
+    "ticker_or_null": null,
+    "role": "Sole-source upstream constraint: the only domestic US producer of titanium sponge, the raw feedstock for aerospace titanium mill product, forgings and grid-fin stock; US is ~68% import-dependent for sponge",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.hugheshubbard.com/news/trump-administration-announces-section-232-national-security-investigation-of-titanium-sponge-imports",
+      "quote": "The only U.S. producer, Titanium Metals Corp. (known as \"Timet\")",
+      "asOf": "2019-03-06"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (titanium mill products)",
+    "supplier_name": "VSMPO-Avisma",
+    "ticker_or_null": null,
+    "role": "Dominant upstream titanium mill-product / forgings supplier: vertically integrated Russian producer holding the largest share of the aerospace titanium market; a geopolitical chokepoint for titanium feedstock",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.futuremarketinsights.com/reports/aerospace-titanium-market",
+      "quote": "VSMPO AVISMA holds approximately 25% of the aerospace titanium market, anchored in vertically integrated supply to leading aircraft manufacturers.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (titanium mill products)",
+    "supplier_name": "ATI Inc. (Allegheny Technologies)",
+    "ticker_or_null": "ATI",
+    "role": "Upstream titanium mill-product and high-strength alloy supplier (ingot to finished mill product); one of the four producers comprising ~75-80% of aerospace titanium mill supply",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.futuremarketinsights.com/reports/aerospace-titanium-market",
+      "quote": "Four suppliers comprise 75-80% of aerospace mill product supply: VSMPO-Avisma, Allegheny Technologies Inc. (ATI), TIMET and Howmet.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (titanium forgings & castings)",
+    "supplier_name": "Howmet Aerospace",
+    "ticker_or_null": "HWM",
+    "role": "Upstream titanium/superalloy forgings and structural castings supplier; one of the four producers comprising ~75-80% of aerospace titanium mill supply",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.futuremarketinsights.com/reports/aerospace-titanium-market",
+      "quote": "Four suppliers comprise 75-80% of aerospace mill product supply: VSMPO-Avisma, Allegheny Technologies Inc. (ATI), TIMET and Howmet.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "thermal protection (ablators)",
+    "supplier_name": "Fiber Materials Inc. (FMI, a Spirit AeroSystems / now Boeing-affiliated company)",
+    "ticker_or_null": null,
+    "role": "Upstream TPS precursor supplier: produces the carbon FiberForm rigid carbon-fiber preform that is infused with phenolic resin to make PICA (Phenolic-Impregnated Carbon Ablator) heat shields",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://wiki.cusf.co.uk/PICA",
+      "quote": "Fiber Materials Inc. produces carbon FiberForm, a rigid, low density porous carbon foam-like material from chopped carbon fibers",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "thermal protection (heat shield integration)",
+    "supplier_name": "Lockheed Martin Space",
+    "ticker_or_null": "LMT",
+    "role": "TPS integrator: integrated the PICA heat shield for the Mars 2020 (Perseverance) entry vehicle in Denver, CO; representative carbon-phenolic ablator prime/integrator for entry systems",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/protecting-future-planetary-missions-from-extreme-heat/",
+      "quote": "The Mars 2020 PICA heat shield protected the Perseverance rover and its descent stage, and was integrated at Lockheed Martin Space in Denver, Colorado.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "thermal protection (tiles - Starship)",
+    "supplier_name": "SpaceX (Starship hexagonal TPS tiles)",
+    "ticker_or_null": null,
+    "role": "In-house thermal protection: Starship's windward heat-shield tiles (ceramic, hexagonal) are developed and produced in-house; PICA-X ablator likewise SpaceX-developed from the licensed NASA PICA",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.nasa.gov/image-article/phenolic-impregnated-carbon-ablator-pica-heat-shield-technology-used-by-spacex/",
+      "quote": "SpaceX later worked with PICA's inventors at Ames Research Center to outfit its Dragon capsule, which is now delivering cargo to and from the International Space Station.",
+      "asOf": "2015-07-02"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (processors)",
+    "supplier_name": "BAE Systems",
+    "ticker_or_null": "BA.L",
+    "role": "Rad-hard processor supplier: RAD750 (PowerPC) and RAD5500 radiation-hardened spaceborne microprocessors used in spacecraft/launch-vehicle avionics",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://en.wikipedia.org/wiki/RAD750",
+      "quote": "The RAD750 is a radiation-hardened single-board computer manufactured by BAE Systems Electronics, Intelligence & Support.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (FPGA)",
+    "supplier_name": "Microchip Technology (formerly Microsemi)",
+    "ticker_or_null": "MCHP",
+    "role": "Rad-tolerant FPGA supplier: RT PolarFire (28 nm) radiation-tolerant FPGA family for space/launch avionics",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.militaryaerospace.com/computers/article/16717354/radiation-hardened-electronics-designers-face-increasing-difficulty-with-shrinking-chip-geometries",
+      "quote": "The Microchip RT PolarFire is a 28 nm device with 481k logic cells and up to 10.3125 Gbps data transmission.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (FPGA)",
+    "supplier_name": "AMD (Xilinx)",
+    "ticker_or_null": "AMD",
+    "role": "Rad-tolerant FPGA supplier: RT Kintex UltraScale (20 nm) radiation-tolerant FPGA for high-throughput space/launch avionics",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.militaryaerospace.com/computers/article/16717354/radiation-hardened-electronics-designers-face-increasing-difficulty-with-shrinking-chip-geometries",
+      "quote": "The Xilinx RT Kintex UltraScale, a 20 nm device, has 726 k logic cells and supports 12.5 Gbps serial data transmission.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (IMU)",
+    "supplier_name": "Honeywell International",
+    "ticker_or_null": "HON",
+    "role": "Inertial measurement / navigation supplier: Miniature Inertial Measurement Unit (MIMU) and space-grade IMUs used to control and stabilize spacecraft and launch vehicles",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://en.wikipedia.org/wiki/Miniature_inertial_measurement_unit",
+      "quote": "Miniature inertial measurement unit (MIMU) is an inertial measurement unit (IMU) developed and built by Honeywell International to control and stabilize spacecraft during mission operations.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (IMU)",
+    "supplier_name": "Northrop Grumman",
+    "ticker_or_null": "NOC",
+    "role": "Inertial navigation supplier: space/launch and hypersonic-grade IMUs (e.g., LN-200 fiber-optic-gyro family and advanced hypersonic IMU flown on sounding rockets)",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.designdevelopmenttoday.com/industries/aerospace/news/22950938/northrop-grumman-advanced-hypersonic-technology-inertial-measurement-unit-in-rocket-test",
+      "quote": "Northrop Grumman's Advanced Hypersonic Technology (AHT) Inertial Measurement Unit (IMU) has successfully completed its third groundbreaking test, this time on a sounding rocket",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (star trackers)",
+    "supplier_name": "Sodern (an ArianeGroup company)",
+    "ticker_or_null": null,
+    "role": "Star-tracker supplier: Hydra multi-head APS star tracker providing spacecraft/launch-stage attitude determination",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://blog.satsearch.co/2019-11-26-satellite-star-trackers-the-cutting-edge-celestial-navigation-products-available-on-the-global-space-marketplace",
+      "quote": "HYDRA is a new multi-head APS star tracker developed by SODERN.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (star trackers)",
+    "supplier_name": "Terma",
+    "ticker_or_null": null,
+    "role": "Star-tracker supplier: T1 / T3 star trackers for attitude determination on satellites and space vehicles",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.terma.com/products/space/star-trackers/",
+      "quote": "Terma's T3 Star Tracker is a highly compact device offering precise tracking capabilities and outstanding thermal stability",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (connectors & harnessing)",
+    "supplier_name": "Glenair",
+    "ticker_or_null": null,
+    "role": "Upstream interconnect supplier: space-grade connectors (Micro-D, Nano-D, 38999), hold-down release mechanisms, shielded cable and full harness assemblies for launch vehicles and upper stages; meets NASA/ESA/JAXA outgassing standards",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.glenair.com/space-grade-connector-and-interconnect-cable-solutions/",
+      "quote": "From launch vehicles and upper stages to satellites, spacecraft, and mission payloads, Glenair delivers complete interconnect solutions engineered for the extreme demands of spaceflight.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (connectors)",
+    "supplier_name": "Amphenol Aerospace",
+    "ticker_or_null": "APH",
+    "role": "Connector supplier: MIL-DTL-38999 (D38999) circular connectors qualified for spacecraft, satellites and rocket launchers",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://connectorsupplier.com/space-grade-connectors-are-ready-for-liftoff/",
+      "quote": "A space-grade variation, D38999, serves spacecraft, satellites, and rocket launchers.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "avionics & rad-hard electronics (connectors)",
+    "supplier_name": "TE Connectivity",
+    "ticker_or_null": "TEL",
+    "role": "Connector supplier: MIL-DTL-38999 / space-grade D38999 interconnects used across launch and spacecraft applications",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://connectorsupplier.com/space-grade-connectors-are-ready-for-liftoff/",
+      "quote": "Key players such as TE Connectivity, Amphenol Aerospace, and Glenair are actively enhancing their product offerings to capture larger market shares in the space-grade connectors market.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "recovery hardware (actuators / TVC / fin & leg control)",
+    "supplier_name": "Moog Inc.",
+    "ticker_or_null": "MOG.A",
+    "role": "Upstream actuation supplier: electromechanical / electrohydraulic / electrohydrostatic actuators and thrust-vector-control systems for launch vehicles; flew the actuators steering ULA's Vulcan on its inaugural launch (also Antares, Centaur)",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.moog.com/products/actuators-servoactuators/space/actuation-solutions-for-launch-vehicle-booster-and-missile.html",
+      "quote": "Moog has substantial history flying three actuation technologies - electromechanical, electrohydraulic and electrohydrostatic - for all stages of a rocket.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "recovery hardware (grid fins)",
+    "supplier_name": "SpaceX (titanium / steel grid fins, legs)",
+    "ticker_or_null": null,
+    "role": "In-house recovery hardware: Falcon 9 Block 5 cast titanium grid fins and carbon-fiber/aluminum landing legs; Super Heavy uses welded stainless-steel grid fins mounted to the booster. Built in-house",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.teslarati.com/spacex-starship-super-heavy-grid-fins-titanium-to-steel/",
+      "quote": "With Falcon 9 Block 5, aluminum grid fins were phased out entirely in favor of larger titanium fins... for Starship's Super Heavy booster, SpaceX has moved to a different approach: SpaceX will build them out of welded steel.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "composites (carbon fiber)",
+    "supplier_name": "Hexcel",
+    "ticker_or_null": "HXL",
+    "role": "Carbon-fiber prepreg supplier: HexTow carbon fiber (incl. IM11) for launch-vehicle and space structures; supplies composites for 100+ space and defense programs",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.hexcel.com/products/carbon-fiber/",
+      "quote": "From helicopters to defense aircraft to launch vehicles, Hexcel provides composites for more than 100 space and defense programs.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "composites (carbon fiber)",
+    "supplier_name": "Toray Industries (incl. Toray Advanced Composites)",
+    "ticker_or_null": "3402.T",
+    "role": "Upstream carbon-fiber supplier: dominant aerospace carbon fiber (e.g. T1100/T800 grades) and prepreg with broad spaceflight heritage used across Western space programs and launch structures",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.toraytac.com/markets/space/space-and-satellite",
+      "quote": "With an extensive spaceflight heritage spanning 30 years, it's no wonder the largest space programs rely on Toray.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "composites (carbon fiber)",
+    "supplier_name": "Mitsubishi Chemical Group",
+    "ticker_or_null": "4188.T",
+    "role": "Carbon-fiber supplier: aerospace/space-grade carbon fiber and intermediate materials (one of the three Japanese/US majors with Toray and Hexcel)",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.marketsandmarkets.com/ResearchInsight/north-america-carbon-fiber-companies.asp",
+      "quote": "Syensqo (Belgium), Toray Industries, Inc. (Japan), Mitsubishi Chemical Group Corporation (Japan), and Hexcel Corporation (US) are leading players",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "composites (COPV)",
+    "supplier_name": "HyPerComp Engineering Inc. (HEI)",
+    "ticker_or_null": null,
+    "role": "Upstream COPV supplier: industry-leading designer/manufacturer of composite-overwrapped pressure vessels (helium/nitrogen pressurant tanks); partnered with Hexcel on a Type 4 COPV unveiled at CAMX 2025",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.hexcel.com/hexcel-and-hypercomp-unveil-advanced-composite-pressure-vessel-at-camx-2025/",
+      "quote": "Hexcel announced the debut of a Type 4 composite-overwrapped pressure vessel (COPV), engineered in collaboration with HyPerComp Engineering Inc. and built using Hexcel's high-performance HexTow IM11-R/12K carbon fiber.",
+      "asOf": "2025-09-09"
+    }
+  },
+  {
+    "subsystem": "composites (COPV)",
+    "supplier_name": "Advanced Structural Technologies Inc. (AST)",
+    "ticker_or_null": null,
+    "role": "Upstream COPV supplier: Type 3 composite-overwrapped pressure vessels with thin 6061 aluminum liners for high-pressure gas storage in space applications",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://astforgetech.com/composite-overwrapped-pressure-vessels-copv-ultimate-guide/",
+      "quote": "Advanced Structural Technologies, Inc (AST) offers Type 3 COPVs featuring a thin and lightweight 6061 aluminum liner.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "propellants & industrial gases (LOX & nitrogen)",
+    "supplier_name": "Linde plc",
+    "ticker_or_null": "LIN",
+    "role": "Dominant cryogenic-gas merchant supplier: liquid oxygen, liquid nitrogen and helium for launch operations; awarded the NASA LN2/LOX supply contract (~64,000 tons LOX) and supplies SpaceX cryogenics",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.nasa.gov/news-release/nasa-awards-liquid-nitrogen-and-liquid-oxygen-contract-to-linde-llc/",
+      "quote": "Linde LLC will supply approximately 361,176 tons of liquid nitrogen and approximately 64,000 tons of liquid oxygen to support operations at the aforementioned NASA centers and facilities.",
+      "asOf": "2014-06-16"
+    }
+  },
+  {
+    "subsystem": "propellants & industrial gases (helium)",
+    "supplier_name": "Air Liquide",
+    "ticker_or_null": "AI.PA",
+    "role": "Helium and cryogenic-gas merchant supplier; also operates NASA Kennedy Space Center's on-site liquid-oxygen plant (up to 265 t/day). Part of the merchant gas layer that allocates scarce helium to aerospace",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.exiger.com/perspectives/iran-war-disrupts-one-third-of-global-helium-supply/",
+      "quote": "The key allocation decisions sit with the merchant gas layer (Linde, Air Liquide, Air Products, Messer, Iwatani), which controls distribution of scarce supply across fabs, hospitals, labs, and aerospace customers.",
+      "asOf": "2026-03-16"
+    }
+  },
+  {
+    "subsystem": "propellants & industrial gases (helium & hydrogen)",
+    "supplier_name": "Air Products and Chemicals",
+    "ticker_or_null": "APD",
+    "role": "Cryogenic-gas merchant supplier: liquid hydrogen and helium for launch; won >$140M in NASA contracts to supply LH2 to Kennedy Space Center / Cape Canaveral; part of the helium merchant allocation layer",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.exiger.com/perspectives/iran-war-disrupts-one-third-of-global-helium-supply/",
+      "quote": "The key allocation decisions sit with the merchant gas layer (Linde, Air Liquide, Air Products, Messer, Iwatani), which controls distribution of scarce supply across fabs, hospitals, labs, and aerospace customers.",
+      "asOf": "2026-03-16"
+    }
+  },
+  {
+    "subsystem": "propellants & industrial gases (helium feedstock)",
+    "supplier_name": "Qatar (Ras Laffan / Qatargas helium complex)",
+    "ticker_or_null": null,
+    "role": "Upstream helium feedstock chokepoint: Qatar's Ras Laffan complex accounts for roughly one-third (~34%) of global helium production; its disruption drives launch-pressurant supply risk industry-wide",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.exiger.com/perspectives/iran-war-disrupts-one-third-of-global-helium-supply/",
+      "quote": "Qatar accounts for a third (34%) of global production.",
+      "asOf": "2026-03-16"
+    }
+  },
+  {
+    "subsystem": "propellants & industrial gases (methane logistics)",
+    "supplier_name": "GenOx Transportation",
+    "ticker_or_null": null,
+    "role": "Upstream propellant logistics: cryogenic-trailer transport of liquid methane (LNG) to SpaceX's Starbase launch site for Starship/Super Heavy Raptor fueling",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://primalnebula.com/where-does-spacex-get-their-rocket-fuel/",
+      "quote": "SpaceX uses the transportation company GenOx to transport most of their liquid methane.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "structures & tankage (composite primary structure - Neutron)",
+    "supplier_name": "Rocket Lab (Neutron carbon-composite structures)",
+    "ticker_or_null": "RKLB",
+    "role": "In-house composite structures: Neutron's tanks and major structures are the largest carbon-composite rocket structures, built in-house via Automated Fiber Placement at Rocket Lab's Space Structures Complex (Maryland)",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.compositesworld.com/news/rocket-lab-unveils-composite-neutron-launch-vehicle",
+      "quote": "Rocket Lab's AFP (Automated Fiber Placement) machine enables automated production of Neutron structures and tanks - the largest carbon composite rocket structures in history.",
+      "asOf": "2026-06-15"
+    }
+  }
+]

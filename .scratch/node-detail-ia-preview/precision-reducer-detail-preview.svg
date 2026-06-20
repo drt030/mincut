@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1180" viewBox="0 0 1280 1180">
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#101828" flood-opacity="0.14"/>
+    </filter>
+    <style>
+      .font { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+      .muted { fill: #667085; }
+      .ink { fill: #162033; }
+      .label { fill: #344054; font-size: 13px; font-weight: 650; }
+      .small { font-size: 12px; }
+      .body { font-size: 14px; line-height: 1.4; }
+      .h1 { font-size: 24px; font-weight: 760; }
+      .h2 { font-size: 14px; font-weight: 760; fill: #344054; }
+      .strong { font-size: 16px; font-weight: 760; fill: #162033; }
+      .nodeText { font-size: 13px; font-weight: 700; fill: #162033; }
+      .nodeSub { font-size: 12px; fill: #667085; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="1180" fill="#f6f7f4"/>
+
+  <!-- Map side -->
+  <rect x="28" y="28" width="770" height="1124" rx="8" fill="#f7f5ef" stroke="#dfe3de"/>
+  <path d="M28 28 H798 V1152 H28 Z" fill="#e8f4f2" opacity="0.42"/>
+  <path d="M28 28 H798 V1152 H28 Z" fill="#f6eee8" opacity="0.34"/>
+
+  <text x="54" y="58" class="font small muted">产品视图</text>
+  <text x="54" y="84" class="font ink" font-size="19" font-weight="760">30 万 RMB 包裹分拣机器人</text>
+
+  <rect x="584" y="50" width="72" height="30" rx="6" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="600" y="70" class="font small muted">系统分解</text>
+  <rect x="662" y="50" width="50" height="30" rx="6" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="675" y="70" class="font small muted">成本</text>
+  <rect x="718" y="50" width="50" height="30" rx="6" fill="#17243d" stroke="#17243d"/>
+  <text x="731" y="70" class="font small" fill="#ffffff">卡点</text>
+
+  <line x1="183" y1="298" x2="347" y2="224" stroke="#d97179" stroke-width="4" opacity="0.55"/>
+  <line x1="347" y1="224" x2="518" y2="365" stroke="#d97179" stroke-width="5" opacity="0.55"/>
+  <line x1="518" y1="365" x2="322" y2="505" stroke="#d97179" stroke-width="3" opacity="0.45"/>
+  <line x1="518" y1="365" x2="548" y2="645" stroke="#d97179" stroke-width="2" opacity="0.35"/>
+
+  <rect x="90" y="260" width="132" height="54" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="104" y="283" class="font nodeText">工业机械臂本体</text>
+  <text x="104" y="303" class="font nodeSub">成本驱动</text>
+
+  <rect x="280" y="180" width="132" height="54" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="294" y="203" class="font nodeText">伺服电机</text>
+  <text x="294" y="223" class="font nodeSub">成熟供应</text>
+
+  <rect x="452" y="330" width="138" height="58" rx="8" fill="#ffffff" stroke="#c7353f" stroke-width="2"/>
+  <rect x="447" y="325" width="148" height="68" rx="12" fill="none" stroke="#f0b6bb" stroke-width="6" opacity="0.55"/>
+  <text x="466" y="354" class="font nodeText">精密减速器</text>
+  <text x="466" y="375" class="font nodeSub">当前详情</text>
+
+  <rect x="262" y="470" width="132" height="54" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="276" y="493" class="font nodeText">伺服驱动</text>
+  <text x="276" y="513" class="font nodeSub">控制与安全</text>
+
+  <rect x="74" y="580" width="148" height="54" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="88" y="603" class="font nodeText">真空末端执行器</text>
+  <text x="88" y="623" class="font nodeSub">抓取可靠性</text>
+
+  <rect x="488" y="610" width="132" height="54" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="502" y="633" class="font nodeText">柔轮 / 刚轮</text>
+  <text x="502" y="653" class="font nodeSub">下层分解</text>
+
+  <!-- Detail rail -->
+  <rect x="820" y="28" width="430" height="1124" rx="8" fill="#fbfcf9" stroke="#d8ddd5" filter="url(#shadow)"/>
+
+  <text x="846" y="58" class="font small muted">30 万 RMB 包裹分拣机器人 / 工业机械臂本体</text>
+  <text x="846" y="92" class="font h1 ink">精密减速器 / 齿轮箱</text>
+
+  <rect x="846" y="110" width="44" height="24" rx="12" fill="#eef2ee"/>
+  <text x="858" y="126" class="font small muted">模块</text>
+  <rect x="898" y="110" width="82" height="24" rx="12" fill="#eef2ee"/>
+  <text x="910" y="126" class="font small muted">机械臂关节</text>
+  <rect x="988" y="110" width="88" height="24" rx="12" fill="#fff7e8" stroke="#f2c980"/>
+  <text x="1000" y="126" class="font small" fill="#a15c06">待继续分解</text>
+
+  <line x1="846" y1="154" x2="846" y2="208" stroke="#28364f" stroke-width="3"/>
+  <text x="858" y="170" class="font body" fill="#28364f">负责把电机输出转成机器人关节需要的扭矩、</text>
+  <text x="858" y="192" class="font body" fill="#28364f">精度和寿命，是机械臂成本与可靠性的重要部件。</text>
+
+  <line x1="846" y1="228" x2="1224" y2="228" stroke="#d8ddd5"/>
+  <text x="846" y="252" class="font h2">核心读数</text>
+
+  <rect x="846" y="266" width="184" height="84" rx="8" fill="#fff1f2" stroke="#f0b6bb"/>
+  <text x="860" y="287" class="font small muted">卡点判断</text>
+  <text x="860" y="313" class="font strong">非顶级卡点</text>
+  <text x="860" y="334" class="font small muted">但成本和制造壁垒值得跟踪</text>
+
+  <rect x="1040" y="266" width="184" height="84" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <text x="1054" y="287" class="font small muted">主导原因</text>
+  <text x="1054" y="313" class="font strong">高壁垒 / 难复制</text>
+  <text x="1054" y="334" class="font small muted">寿命、精度、批量一致性</text>
+
+  <rect x="846" y="360" width="184" height="88" rx="8" fill="#fffaf0" stroke="#d8c6a8"/>
+  <text x="860" y="381" class="font small muted">商业规模</text>
+  <text x="860" y="407" class="font strong">p50 55.4k RMB</text>
+  <text x="860" y="428" class="font small muted">约 12% build cost</text>
+
+  <rect x="1040" y="360" width="184" height="88" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="1054" y="381" class="font small muted">证据状态</text>
+  <text x="1054" y="407" class="font strong">2 条直接来源</text>
+  <text x="1054" y="428" class="font small muted">0 reviewed；需报价/BOM</text>
+
+  <line x1="846" y1="472" x2="1224" y2="472" stroke="#d8ddd5"/>
+  <text x="846" y="496" class="font h2">为什么这样判断</text>
+  <text x="846" y="520" class="font body ink">它不是当前最高 Chokepoint，因为依赖范围有限；</text>
+  <text x="846" y="542" class="font body ink">但它是机械臂里的高成本部件，且制造、寿命测试</text>
+  <text x="846" y="564" class="font body ink">和润滑验证会影响可靠性、替代供应商与维护成本。</text>
+
+  <line x1="846" y1="590" x2="1224" y2="590" stroke="#d8ddd5"/>
+  <text x="846" y="614" class="font h2">分解结构</text>
+  <rect x="846" y="628" width="378" height="144" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <line x1="846" y1="656" x2="1224" y2="656" stroke="#edf0ec"/>
+  <line x1="846" y1="684" x2="1224" y2="684" stroke="#edf0ec"/>
+  <line x1="846" y1="712" x2="1224" y2="712" stroke="#edf0ec"/>
+  <line x1="846" y1="740" x2="1224" y2="740" stroke="#edf0ec"/>
+  <text x="860" y="648" class="font label">波发生器</text>
+  <text x="970" y="648" class="font small muted">驱动柔轮变形，决定啮合动作</text>
+  <text x="860" y="676" class="font label">柔轮</text>
+  <text x="970" y="676" class="font small muted">薄壁弹性件，影响寿命和加工难度</text>
+  <text x="860" y="704" class="font label">刚轮</text>
+  <text x="970" y="704" class="font small muted">齿形精度和装配一致性敏感</text>
+  <text x="860" y="732" class="font label">输出轴承</text>
+  <text x="970" y="732" class="font small muted">承受关节载荷，影响刚性和回差</text>
+  <text x="860" y="760" class="font label">润滑与寿命测试</text>
+  <text x="970" y="760" class="font small muted">Barrier Source；决定量产可靠性</text>
+
+  <line x1="846" y1="796" x2="1224" y2="796" stroke="#d8ddd5"/>
+  <text x="846" y="820" class="font h2">证据摘要</text>
+  <rect x="846" y="834" width="378" height="70" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <circle cx="862" cy="854" r="5" fill="#a15c06"/>
+  <text x="876" y="859" class="font label">证据偏弱</text>
+  <text x="860" y="879" class="font small muted">有组件和供应商来源，但缺少已复审 BOM 报价、寿命测试</text>
+  <text x="860" y="895" class="font small muted">和替代供应商验证。</text>
+
+  <line x1="846" y1="922" x2="1224" y2="922" stroke="#d8ddd5"/>
+  <text x="846" y="946" class="font h2">公司 / 股票线索</text>
+  <rect x="846" y="960" width="378" height="126" rx="8" fill="#ffffff" stroke="#d8ddd5"/>
+  <rect x="846" y="960" width="378" height="34" rx="8" fill="#f8fafc"/>
+  <text x="860" y="982" class="font small muted">图谱连接线索，不等于确认 BOM，不等于投资建议。</text>
+  <line x1="846" y1="994" x2="1224" y2="994" stroke="#edf0ec"/>
+  <line x1="846" y1="1026" x2="1224" y2="1026" stroke="#edf0ec"/>
+  <line x1="846" y1="1058" x2="1224" y2="1058" stroke="#edf0ec"/>
+  <text x="860" y="1016" class="font label">Nabtesco</text>
+  <text x="965" y="1016" class="font small muted">manufactured_by · high</text>
+  <rect x="1166" y="1002" width="48" height="20" rx="10" fill="#eef5ff"/>
+  <text x="1174" y="1016" class="font small" fill="#315d9c">6268.T</text>
+  <text x="860" y="1048" class="font label">Harmonic Drive</text>
+  <text x="965" y="1048" class="font small muted">supplier candidate · medium</text>
+  <rect x="1166" y="1034" width="48" height="20" rx="10" fill="#eef5ff"/>
+  <text x="1174" y="1048" class="font small" fill="#315d9c">6324.T</text>
+  <text x="860" y="1080" class="font label">Leaderdrive</text>
+  <text x="965" y="1080" class="font small muted">domestic · low</text>
+  <rect x="1146" y="1066" width="68" height="20" rx="10" fill="#eef5ff"/>
+  <text x="1154" y="1080" class="font small" fill="#315d9c">688017.SS</text>
+
+  <line x1="846" y1="1106" x2="1224" y2="1106" stroke="#d8ddd5"/>
+  <text x="846" y="1130" class="font h2">折叠附录</text>
+  <rect x="922" y="1114" width="302" height="26" rx="6" fill="#fcfdfb" stroke="#cbd5c6" stroke-dasharray="4 3"/>
+  <text x="936" y="1132" class="font small muted">完整证据、maturity history、raw relations、审计细节</text>
+</svg>

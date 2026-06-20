@@ -1,0 +1,163 @@
+{
+  "verified": [
+    {
+      "id": "ev_humanoid_jlmag_humanoid_unit",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch metal.com/103258209 returned excerpt verbatim: 'The company has upgraded the humanoid robot magnetic component technology R&D department to the humanoid robot magnetic component business unit, with the company's CEO concurrently serving as the strategic coordinator for this business unit.' Confirms JL MAG dedicated humanoid business-unit. No numeric figure in excerpt; numberInQuote=true (nothing contradicted)."
+    },
+    {
+      "id": "ev_humanoid_jlmag_blank_output",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch metal.com/103258209 verbatim: 'high-performance magnetic material blank production of about 29,300 mt, up 39.48% YoY, and high-performance magnetic material finished product sales of about 20,900 mt, up 37.88% YoY'. Both tonnage figures + YoY% present at stated basis (company-wide FY2024 production/sales tonnage)."
+    },
+    {
+      "id": "ev_humanoid_csis_rare_earth_export_control",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch csis.org verbatim: 'Until 2023, China accounted for 99 percent of global heavy REEs processing, with only minimal output from a refinery in Vietnam.' 99% = heavy-REE PROCESSING share through 2023, matches record limitations basis. Page also confirms Apr-4-2025 MOFCOM export-licensing on 7 REEs+magnets (Sm,Gd,Tb,Dy,Lu,Sc,Y). Pub date Apr-14-2025 confirmed. NOTE: this evidence id sits in the batch evidence[] but is NOT referenced by any org/edge in this lane file (orphan record); verified per explicit prompt instruction to confirm the China rare-earth claims."
+    },
+    {
+      "id": "ev_humanoid_shinetsu_nd_magnet",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch shinetsu.co.jp returned excerpt verbatim: 'The Shin-Etsu Neodymium (Nd) Magnet N Series, which is composed mainly of neodymium (Nd), iron (Fe), and boron (B)'. Page lists 'Industrial motors (servomotors, linear motors)' as an application, supporting the servomotor/linear-motor claim. No number in excerpt (numberInQuote=true; nothing contradicted)."
+    },
+    {
+      "id": "ev_humanoid_proterial_neomax",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch proterial.com returned excerpt verbatim: 'we have succeeded in developing and mass-producing the high-performance, heavy rare earth-saving material, which minimizes the amount of heavy rare earth elements added, such as dysprosium (Dy) and terbium (Tb).' Page also states 'We were the pioneers to develop and mass-produce NEOMAX, a rare earth sintered magnet whose main components are neodymium (Nd), iron (Fe), and boron (B)'. No number in excerpt."
+    },
+    {
+      "id": "ev_humanoid_mp_independence_magnet",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch mpmaterials.com returned full sentence containing the excerpt verbatim: 'Independence is poised to produce approximately 1,000 metric tons of finished NdFeB magnets per year, with a gradual production ramp beginning in late 2025.' ~1,000 t/yr present as planned annual finished-magnet capacity (target/ramp), matching record basis. Actual pub date Jan-22-2025 (record stored date 2025-01-01; immaterial — quote exact)."
+    },
+    {
+      "id": "ev_humanoid_maxon_ec_frameless",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch therobotreport.com returned excerpt verbatim within full sentence: 'The High Efficiency Joints integrate torque-dense electric motors from maxon's EC frameless DT motor lineup, planetary gears, electronics, sensing, and support structures into a fully integrated IP67 ingress-protected actuator unit.' Article explicitly names target applications: 'humanoids, quadrupeds, exoskeletons, or mobile manipulators.' No number in excerpt. DATE FLAG (non-blocking): actual article pub date is 2024-04-15; record stored date '2026-01-05' is wrong — recommend owner correct the date field. Quote/number/scope all verify."
+    },
+    {
+      "id": "ev_humanoid_moog_frameless",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch moog.com returned excerpt verbatim: 'Moog has a variety of custom design options for frameless (pancake) motors.' Page title 'Direct Drive Brushless DC Frameless Torque Motors' confirms the frameless/pancake torque-motor capability. No number in excerpt. Matches record limitation that page emphasizes mil/aero/industrial and does not name humanoids."
+    },
+    {
+      "id": "ev_humanoid_regal_altra_kollmorgen",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch prnewswire.com returned excerpt verbatim: 'Regal Rexnord Corporation (NYSE: RRX)' (appears multiple times). Confirms public NYSE listing + ticker RRX. CITATION-SCOPE FLAG (non-blocking): this specific Oct-2022 acquisition release does NOT name Kollmorgen; the record's summary/title claim that the release confirms 'Kollmorgen is one of its brands (acquired via Altra)' is broader than this page supports. The underlying fact is independently true (Kollmorgen joined Altra in 2018 via the Fortive Automation & Specialty carve-out; Regal Rexnord acquired Altra in 2023 — corroborated via WebSearch: Kollmorgen is 'a member of the Regal Rexnord technology portfolio'), but recommend the record summary be narrowed to 'establishes RRX listing' or the Kollmorgen-brand claim be re-sourced to a Regal Rexnord brand page. The stored excerpt itself supports only the ticker and matches exactly."
+    }
+  ],
+  "repaired": [
+    {
+      "id": "ev_humanoid_kollmorgen_frameless_joints",
+      "action": "keep_paywalled_snippet",
+      "url": "https://www.kollmorgen.com/en-us/products/motors/frameless-motors",
+      "excerpt": "Kollmorgen's frameless torque motors mobilize nearly 1 million joints and robotic arms across the globe.",
+      "sourceStatus": "paywalled_snippet",
+      "basis": "vendor marketing claim (installed-base count, 'nearly 1 million' robotic joints/arms globally); not independently audited",
+      "asOf": "2026-06-15",
+      "reason": "Direct WebFetch returned HTTP 403 (Cloudflare 'Attention Required' interstitial); single retry via curl with browser User-Agent also returned HTTP 403 (5492-byte block page, zero content leaked). Page is bot-blocked, not authenticatable, so I cannot grant ok_exact from a real first-party fetch. Honestly retained as paywalled_snippet per ADR ladder. However the excerpt is CORROBORATED: WebSearch returned the same sentence verbatim from the search index ('Kollmorgen's frameless torque motors mobilize nearly 1 million joints and robotic arms across the globe') and confirmed Kollmorgen is 'a member of the Regal Rexnord technology portfolio' — so the quote is real and accurately transcribed; only the live page fetch is blocked."
+    },
+    {
+      "id": "ev_humanoid_parker_frameless_tk",
+      "action": "keep_paywalled_snippet",
+      "url": "https://ph.parker.com/us/en/product/frameless-direct-drive-torque-motors-tk-series/tkw134hfbdb2r1000",
+      "excerpt": "Frameless Direct-Drive Torque Motors - TK Series",
+      "sourceStatus": "paywalled_snippet",
+      "basis": "vendor product-catalog line title (TK-series frameless direct-drive torque motors); who-makes-what, not a humanoid BOM placement",
+      "asOf": "2026-06-15",
+      "reason": "Direct WebFetch of the specific SKU URL returned HTTP 403; single retry via curl with browser User-Agent also returned HTTP 403 (Akamai 'Access Denied', 485-byte block page). Cannot grant ok_exact from a first-party fetch. Honestly retained as paywalled_snippet. CORROBORATED via WebSearch: the exact product-line title 'Frameless Direct-Drive Torque Motors - TK Series' is the canonical Parker NA product-list heading, and the line is described as coming 'as a separate rotor and stator, permitting direct system integration', with K-Series 'used in robotics' — confirming the record's substance. Only the per-SKU page fetch is bot-blocked. (Parker Hannifin ticker PH separately confirmed below.)"
+    }
+  ],
+  "escalations": [],
+  "tickerAudit": [
+    {
+      "orgId": "org_jl_mag_rare_earth",
+      "storedTicker": "300748.SZ",
+      "verdict": "correct",
+      "correctTicker": "300748.SZ (also dual-listed 06680.HK / Bloomberg 6680:HK)",
+      "correctListingStatus": "public",
+      "source": "WebSearch + Bloomberg/Yahoo/MarketScreener: JL Mag Rare-Earth Co. listed Shenzhen 300748 on 2018-09-21 and Hong Kong 6680 on 2022-01-14. Stored primary ticker 300748.SZ correct; HK line 06680.HK (zero-padded) is the same security."
+    },
+    {
+      "orgId": "org_shin_etsu_chemical",
+      "storedTicker": "4063.T",
+      "verdict": "correct",
+      "correctTicker": "4063.T",
+      "correctListingStatus": "public",
+      "source": "WebSearch + Bloomberg (4063:JP) / Yahoo (4063.T) / CNBC: Shin-Etsu Chemical Co., Ltd. trades on Tokyo Stock Exchange under 4063. Stored 4063.T correct."
+    },
+    {
+      "orgId": "org_proterial",
+      "storedTicker": null,
+      "verdict": "correct",
+      "correctTicker": null,
+      "correctListingStatus": "private",
+      "source": "WebSearch + Bain Capital press / Nishimura&Asahi: Hitachi Metals renamed Proterial 2023-01-04; delisted from TSE in 2023 after Bain Capital-led consortium (incl. JIP/JIS) tender offer (commenced 2022-09-27, completed 2022-10-25); became wholly-owned subsidiary of K.K. BCJ-52. Correctly stored PRIVATE, no ticker."
+    },
+    {
+      "orgId": "org_regal_rexnord",
+      "storedTicker": "RRX",
+      "verdict": "correct",
+      "correctTicker": "RRX",
+      "correctListingStatus": "public",
+      "source": "WebFetch prnewswire.com verbatim 'Regal Rexnord Corporation (NYSE: RRX)' (multiple occurrences). NYSE listing + RRX ticker confirmed first-party."
+    },
+    {
+      "orgId": "org_maxon",
+      "storedTicker": null,
+      "verdict": "correct",
+      "correctTicker": null,
+      "correctListingStatus": "private",
+      "source": "WebSearch + Wikipedia/Moneyhouse: maxon Group AG (Sachseln, Obwalden, Switzerland), majority shareholder Karl-Walter Braun; privately held, not listed on any exchange. Correctly stored PRIVATE, no ticker."
+    },
+    {
+      "orgId": "org_parker_hannifin",
+      "storedTicker": "PH",
+      "verdict": "correct",
+      "correctTicker": "PH",
+      "correctListingStatus": "public",
+      "source": "WebSearch + Wikipedia/Investing/TradingView (NYSE:PH): Parker-Hannifin Corporation listed on NYSE under PH since 1964, S&P 500 component. Stored PH correct. (Canonical node lives in data/nodes/spacex_reusable_launch.json — reused cross-domain org.)"
+    },
+    {
+      "orgId": "org_moog",
+      "storedTicker": "MOG.A",
+      "verdict": "correct",
+      "correctTicker": "MOG.A (Class A; Class B is MOG.B)",
+      "correctListingStatus": "public",
+      "source": "WebSearch + Wikipedia/Nasdaq/Bloomberg: Moog Inc. trades NYSE MOG.A (Class A) and MOG.B (Class B). Stored MOG.A correct (Class A is the convention used in the evidence record). Canonical node in data/nodes/spacex_reusable_launch.json — reused cross-domain org."
+    },
+    {
+      "orgId": "org_mp_materials",
+      "storedTicker": "MP",
+      "verdict": "correct",
+      "correctTicker": "MP",
+      "correctListingStatus": "public",
+      "source": "MP Materials Corp trades NYSE: MP (first-party newsroom mpmaterials.com fetched OK; ticker MP is the well-established NYSE listing). Stored MP correct. Canonical node in data/nodes/parcel_sorting_robot.json — reused cross-domain org."
+    },
+    {
+      "orgId": "org_humanoid_tdk",
+      "storedTicker": "6762.T",
+      "verdict": "correct",
+      "correctTicker": "6762.T (OTC ADR: TTDKY)",
+      "correctListingStatus": "public",
+      "source": "WebSearch + Bloomberg (6762:JP)/TradingView (TSE:6762)/Nasdaq: TDK Corporation primary listing TSE 6762; OTC ADR TTDKY. Stored 6762.T correct. (org_humanoid_tdk node in data/nodes/humanoid_robotics.json; not part of this lane batch file but ticker audited per prompt.)"
+    },
+    {
+      "orgId": "org_nidec",
+      "storedTicker": "6594.T",
+      "verdict": "correct",
+      "correctTicker": "6594.T (OTC ADR: NJDCY)",
+      "correctListingStatus": "public",
+      "source": "WebSearch + Bloomberg (6594:JP)/MarketScreener: Nidec Corporation primary listing TSE 6594; OTC ADR NJDCY. Stored 6594.T correct. (Nidec is not referenced by any edge in this motors_magnets batch, but named in the prompt's reused-org list and audited from data/nodes/humanoid_robotics.json.)"
+    }
+  ]
+}

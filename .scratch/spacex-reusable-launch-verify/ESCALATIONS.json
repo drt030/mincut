@@ -1,0 +1,32 @@
+[
+  {
+    "id": "e_space_lox__manufactured_by__linde",
+    "question": "The Linde→SpaceX-customer identification for the Brownsville ASU rests ONLY on secondary sources (ConstructConnect trade press + City of Brownsville municipal release, both naming SpaceX/Starbase); Linde's own primary IR release (ev_space_linde_mims_2022) names the customer only as 'a major space launch company in Florida' and never says 'SpaceX'. The per-record quotes are all verified exact, and the brief's bar (§4.5) for a named-customer 'only/main-supplier' edge is 'one primary OR two independent quality sources'. Two independent secondaries (trade press + gov) do name SpaceX for Brownsville — does that satisfy the bar for the 'manufactured_by / SpaceX’s main industrial-gas supplier' edge framing, or should the edge be softened (e.g. relation downgraded / claim hedged to 'reported, per secondary sources') given no Linde-or-SpaceX primary confirms the SpaceX relationship? (Mims sub-claim is fine — it is correctly stated as 'major space launch company in Florida', matching the Linde primary.)",
+    "_lane": "propellants_gases"
+  },
+  {
+    "id": "ev_space_toray_pan_precursor_share",
+    "question": "Toray '>50% of the global PAN fiber market' is single-sourced to CompositesWorld ('reportedly'); a second-source search found NO same-basis corroboration and surfaced conflicting OTHER-basis figures (market-research reports put Toray at ~34-36% of FINISHED carbon-fiber capacity, and top-3 players at 35-45% combined). Is the >50% genuinely PAN-PRECURSOR-market basis (where Toray can be higher) vs finished-fiber basis? Quote-on-page is exact, but per the record's own limitation + audit-brief rule this single-source 'reportedly >50%' needs a second quality source at the same precursor basis before any flip; recommend remediation rung 1 (re-source same basis) or rung 2 (downgrade to estimate/qualitative '>50% reportedly').",
+    "_lane": "composites_copv"
+  },
+  {
+    "id": "ev_space_moog_launch_space_controls",
+    "question": "Cited Wikipedia URL does NOT contain the stored excerpt (quote ABSENT); the sentence is Moog 10-K boilerplate but the stored wording adds 'defense systems' + 'marine' and reorders vs the SEC text I found ('Moog's high-performance systems control military and commercial aircraft, satellites and space vehicles, launch vehicles, missiles, automated industrial machinery and medical equipment'). Re-source url+excerpt to a specific Moog 10-K FY (SEC EDGAR CIK 0000067887) with the exact SEC wording? Also: org_moog_space is still a candidate not in live data — confirm before merge.",
+    "_lane": "avionics_radhard"
+  },
+  {
+    "id": "ev_space_microchip_rtg4_radtol_fpga",
+    "question": "Excerpt verified verbatim ONLY via WebSearch of microchip.com (direct WebFetch + curl both Akamai HTTP 403). Record stores sourceStatus 'fetch_ok' but the page is not directly fetchable. Relabel sourceStatus to 'paywalled_snippet' (Akamai-walled, verified via search) per ADR-0009, consistent with how Amphenol/Mercury are tagged?",
+    "_lane": "avionics_radhard"
+  },
+  {
+    "id": "ev_space_eaton_space_propulsion_tanks",
+    "question": "Eaton record/edge e_space_eaton_valves_tanks asserts a LAUNCH-vehicle valve/tank merchant role, but the only fetched source (satnews.com, exact-quote-matched) is explicitly SATELLITE propulsion — 'transfer of fuel to the satellite's propulsion system during orbit', MDA AURORA LEO constellation, zero launch-vehicle mention. The launch role is unsupported by this source. Remediation ladder: rung 1 re-source to an Eaton launch-vehicle hydraulics/fuel-conveyance page (heritage is real — Eaton/Aeroquip launch-vehicle hydraulic pumps — but the cited 2016 page was unreachable both runs), OR rung 3 downgrade the edge to qualitative satellite-propulsion capability and drop the launch-vehicle framing. Edge is already reported_capable_supplier / confidence low; recommend NOT marking verified for launch until re-sourced.",
+    "_lane": "actuation_engine_merchant"
+  },
+  {
+    "id": "ev_space_parker_aerospace_launch_propulsion",
+    "question": "Parker record cannot be verified as cited: the source PDF (parker.com FSD-Overview.pdf) is bot-walled — 403 on WebFetch and on curl with both SEC-style and Safari UAs, both runs (533-byte error page). Additionally the stored excerpt is only a GENERAL engine-fuel-systems leadership claim with no launch-vehicle content, so even if reachable it would not support edge e_space_parker_valves (launch valves, SLS/Orion named). Remediation: rung 1 re-source — FOUND target: Parker blog states 'Parker Aerospace is making the voyage to the moon and beyond with NASA's Space Launch System (SLS) rocket and the Orion deep-space capsule' and parker.com/us/en/divisions/fluid-systems-division.html lists launch-vehicle valves (vent/heater/breakaway/pressure-regulating-shutoff etc.); replace url+excerpt with the SLS/Orion page to support the launch claim at the right altitude. Recommend NOT marking verified until re-sourced; confidence stays low.",
+    "_lane": "actuation_engine_merchant"
+  }
+]

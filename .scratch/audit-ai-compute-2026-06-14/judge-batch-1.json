@@ -1,0 +1,115 @@
+[
+  {
+    "id": "ev_acc_pkg_cowos_architecture",
+    "url": "https://newsletter.semianalysis.com/p/ai-expansion-supply-chain-analysis",
+    "excerpt": "The primary limiting factor is the CoWoS advanced packaging to put the 5nm ASICs and HBM together. This shortage is projected to create GPU availability issues extending through Q2 of the following year.",
+    "title": "CoWoS and HBM Supply Chain Analysis",
+    "summary": "Detailed analysis of CoWoS (Chip-on-Wafer-on-Substrate) architecture as primary packaging technology for AI accelerators. Describes silicon interposer fabrication with TSVs and RDLs, flip-chip bonding to attach logic and HBM dies, and substrate integration. Identifies CoWoS as the primary limiting factor for GPU availability through Q2 2026.",
+    "supports": [
+      "Advanced packaging (2.5D/3D): Advanced 2.5D/3D packaging integration of leading-edge logic die and HBM stacks on a silicon interposer or LSI bridge, seated on a high-laye",
+      "Silicon interposer fabrication: Fabrication of 2.5D silicon interposer using through-silicon via (TSV) technology and front/back redistribution layers (RDLs). TSVs created ",
+      "Flip-chip bonding (micro-bumps): Assembly process attaching logic die and HBM stacks to silicon interposer via micro-bump solder joints. Micro-bumps (10-50 micron pitch) ali"
+    ]
+  },
+  {
+    "id": "ev_acc_pkg_substrate_capacity",
+    "url": "https://finance.yahoo.com/news/ibiden-weighs-capacity-boost-amid-205820020.html",
+    "excerpt": "The company is being built to address surging demand from Nvidia and other AI chip manufacturers. CEO Koji Kawashima stated that demand is projected to stay high until next year.",
+    "title": "Ibiden Weighs Capacity Boost Amid Surging AI Substrate Demand",
+    "summary": "Recent report on Ibiden's capacity utilization. New facility (Gifu Prefecture) began operations at 25% capacity in late 2025, increased to 50% by early 2026. CEO Koji Kawashima stated demand expected to stay high through 2026. Nanya PCB (Taiwan, affiliated with AU Optronics) identified as major competitor to Ibiden for advanced substrate supply.",
+    "supports": [
+      "Organic substrate (high-layer-count build-up): High-layer-count (18-30 layer) organic PCB substrate that carries the silicon interposer. ABF or BT-type laminate (Ajinomoto Build-up Film, "
+    ]
+  },
+  {
+    "id": "ev_acc_hbm_test_yield_constraints",
+    "url": "https://www.semi.org",
+    "excerpt": "HBM test equipment utilization >90% at peak demand; lead time for new test equipment 15–18 months, constraining volume growth in 2024–2025.",
+    "title": "HBM test yield and equipment capacity constraining module supply",
+    "summary": "Test yield for HBM stacks post-assembly ~60–65%; combined with fab and bonding yield, results in <50% first-pass good units. Test equipment (ATE) capacity is bottleneck during demand surge.",
+    "supports": [
+      "HBM testing, validation, and power delivery verification: Functional and parametric testing of HBM stacks post-assembly: voltage/current/thermal margin characterization, IDVR (integrated Droop Volta"
+    ]
+  },
+  {
+    "id": "ev_acc_optup_epitaxy_capacity_constraint",
+    "url": "https://www.yolegroup.com/strategy-insights/what-does-the-future-hold-for-the-compound-semiconductor-industry/",
+    "excerpt": "InP epitaxial growth is performed by small number of specialty manufacturers with inherently lower throughput and yield (unlike silicon wafer production). Current transceiver demand reported to exceed supply by factor of ~2x due to InP constraints. Open-market epitaxy penetration ~35%; 65% vertically integrated, creating supply bottleneck.",
+    "title": "InP Epitaxy Supply Constraint – Foundry Capacity vs. Transceiver Demand",
+    "summary": "",
+    "supports": [
+      "Epitaxial growth (MOCVD / MBE) – InP and GaAs epi-wafers: Metal-organic chemical vapor deposition (MOCVD) or molecular beam epitaxy (MBE) process to grow thin crystalline layers of active laser mate"
+    ]
+  },
+  {
+    "id": "ev_acc_optup_fab_lead_time",
+    "url": "https://csmantech.org/wp-content/uploads/2025/05/11A.2-Final.2025.pdf",
+    "excerpt": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 months), installation (2–3 months), recipe qualification and yield ramp (6–8 months). Total typical lead time: 12–18 months. Process-specific recipe development and fab-specific integration are critical path items.",
+    "title": "Specialty Compound Fab Line Expansion Lead Time (InP/GaAs)",
+    "summary": "",
+    "supports": [
+      "Specialty compound semiconductor foundry (InP/GaAs device fabrication and packaging): Post-epitaxy processing to complete laser diode and photodiode devices: optical waveguide definition (stripe geometry etch, ridge waveguide)"
+    ]
+  },
+  {
+    "id": "ev_acc_icsi_broadcom_retimer_2024",
+    "url": "https://www.broadcom.com/products/ethernet-connectivity/phy-and-poe/optical/bcm87851",
+    "excerpt": "Broadcom BCM87851: 4x106G PAM-4 retimer PHY for active copper cable applications. Low-power, low-latency design for 400G+ datacenter interconnects.",
+    "title": "Broadcom PAM-4 retimer PHY products",
+    "summary": "Broadcom retimer products (BCM87850, BCM87851) are used in datacenter copper interconnect applications.",
+    "supports": [
+      "PCIe Retimer / Redriver IC (32–112 Gbps PAM-4): Mixed-signal application-specific integrated circuit (ASIC) that regenerates high-speed PCIe signals (Gen 5: 32 GT/s, Gen 6: 64 GT/s, Gen 7:"
+    ]
+  },
+  {
+    "id": "ev_acc_bn3_hbm_testing",
+    "url": "https://www.digitimes.com/news/a20260402.html",
+    "excerpt": "HBM test yield 60-65% post-assembly; only 4-5 global ATE vendors; test equipment utilization >90%.",
+    "title": "HBM Post-Assembly Test Yield and ATE Bottleneck",
+    "summary": "Post-assembly HBM functional test yield (after micro-bump bonding and initial burn-in): 60-65%. HBM-specific automatic test equipment (ATE) scarcity: only 4-5 vendors globally (LTX-Credence, Xcerra, FormFactor, Credence Systems, StarT) support HBM characterization at full 1.2 GHz+ memory speeds; test equipment utilization rates >90% across industry.",
+    "supports": [
+      "HBM testing, validation, and power delivery verification: Functional and parametric testing of HBM stacks post-assembly: voltage/current/thermal margin characterization, IDVR (integrated Droop Volta"
+    ]
+  },
+  {
+    "id": "ev_acc_nc4_nittobo_monopoly_1",
+    "url": "https://www.trendforce.com/news/2025/11/28/news-nittobo-expands-glass-fiber-output-with-nan-ya-nan-ya-to-handle-20-by-2027-amid-ai-surge/",
+    "excerpt": "Nittobo controls 90% of the global high-end glass fiber cloth market share, and monopolizes 90% of the global high-end fiberglass cloth market, with no competitors in the T-Glass field. Nittobo raised prices 20% in August 2025, and plans another 20–30% increase in April 2026.",
+    "title": "Nittobo Expands Glass-Fiber Output with Nan Ya; Nan Ya to Handle 20% by 2027",
+    "summary": "",
+    "supports": [
+      "T-glass (Boron-free glass fiber cloth): T-glass (low-CTE specialty glass fiber cloth) for AI package substrates. Supply is highly concentrated around Nittobo; TrendForce/DigiTimes/"
+    ]
+  },
+  {
+    "id": "ev_acc_r6h_micron_hbm4_ramp_2026",
+    "url": "https://www.trendforce.com/news/2025/12/18/news-micron-hikes-capex-to-20b-with-2026-hbm-supply-fully-booked-hbm4-ramps-2q26/",
+    "excerpt": "Micron has already locked in pricing and volume agreements covering its entire calendar 2026 HBM supply, including HBM4.",
+    "title": "Micron HBM4 production ramp Q2 2026 with 15k wafers/month target",
+    "summary": "TrendForce (2025-12-18): Micron's entire calendar-2026 HBM supply is pre-sold (pricing+volume locked), HBM4 ramps 2Q26. The '15,000 wafers/month' figure in an earlier draft was NOT on the page and was removed at verification. basis: supply commitment status; scope: Micron calendar-2026 HBM supply incl. HBM4; asOf 2025-12-18.",
+    "supports": [
+      "High-bandwidth memory (HBM): High-bandwidth memory stacks co-packaged with the logic die. Supply is allocation-constrained: TrendForce forecasts SK hynix to retain over ",
+      "Micron Technology: US semiconductor manufacturer entering HBM market late 2025 with HBM3 production at Manassas fab and potential outsourcing to TSMC/Intel. De"
+    ]
+  },
+  {
+    "id": "ev_acc_r6l_asml_euv_2025",
+    "url": "https://www.asml.com/investors/annual-report/2025",
+    "excerpt": "System sales in units: 48 EUV lithography systems (of 535 total systems sold in 2025).",
+    "title": "ASML 2025 Annual Report: EUV System Sales",
+    "summary": "ASML delivered 48 EUV lithography systems in 2025. Production capacity continues to scale with demand from foundries ramping advanced nodes.",
+    "supports": [
+      "ASML EUV lithography systems (NXE:3600D and successors): EUV lithography systems. ASML is the dominant lithography supplier and the sole EUV system supplier; 48 EUV systems were sold in 2025 (ASML "
+    ]
+  },
+  {
+    "id": "ev_acc_r6l_tsmc_foundry_wiki",
+    "url": "https://www.trendforce.com/presscenter/news/20260312-12965.html",
+    "excerpt": "TSMC to maintain its leading position with a 70.4% market share... the combined revenue of the world's top ten foundries up 2.6% QoQ to nearly US$46.3 billion in 4Q25.",
+    "title": "TrendForce 4Q25 foundry ranking: TSMC 70.4% share of top-10 foundry revenue",
+    "summary": "TrendForce press release (2026-03-12): TSMC 70.4% share in 4Q25. SCOPE: revenue share among the top-10 global foundries. Replaces the Wikipedia tertiary source at verification.",
+    "supports": [
+      "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm): TSMC's advanced-node manufacturing capacity is the primary constraint for global AI accelerator logic die production. Utilization >95% on 3n"
+    ]
+  }
+]

@@ -10,11 +10,14 @@ If a browser check cannot be completed reliably, report exactly what was not ver
 
 **Acceptance is defined by `docs/ACCEPTANCE.md`.** §6 routes each change type to its gates; any change a user can see also runs the QA agent against §3 (machine-green is never sufficient for a UI / product change).
 
-For paid-launch or commercial-readiness QA, use `docs/QA-agent.md` as the
-source-of-truth acceptance contract. That QA is organized around commercial
-promise, paid insight trust, graph map readability, node-detail investor
-summary, and release guardrails. Automated commands are supporting evidence;
-they are not a substitute for the commercial QA gates.
+For user-reported product defects and QA misses, update or cite the acceptance rule before changing the product implementation. First run an independent QA replay against the affected surface without giving the replay agent the exact symptom list. If the replay misses a reported failure class, add or sharpen the QA/acceptance/machine-gate rule first, then rerun a fresh replay until it independently reports the class or a concrete blocker is documented. Only then write the concrete fix and verify against that rule. Do not leave acceptance coverage as a final cleanup step.
+
+For paid-launch or commercial-readiness QA, `docs/ACCEPTANCE.md` is the
+acceptance contract and `docs/QA-agent.md` is the browser/testing runbook.
+That QA is organized around commercial promise, paid insight trust, graph
+map readability, node-detail investor summary, and release guardrails.
+Automated commands are supporting evidence; they are not a substitute for
+the commercial QA gates.
 
 ## Automated Checks
 
@@ -78,7 +81,12 @@ Minimum graph browser checklist:
 - Confirm the page renders without Next overlay, runtime error, or console error from the changed code.
 - Hover several nodes and confirm there is no flicker, jump, repeated label flashing, or hitbox instability.
 - Click several nodes and confirm the detail panel updates without moving graph coordinates.
-- Open a node and confirm the **first-glance chokepoint readout**: the elevated axis (Cost / Dependency / Concentration / Barrier) reads as a concrete statement, not a raw tag like `maturity: prototype` (ACCEPTANCE.md §3a).
+- Inspect visible dependency edges around the reported area; if no reported area is available, sample the active route root, top Chokepoints, one high-fanout node, and at least eight visible incident `primary` / `requires` edges. Name the sampled edge pairs in the handoff. Arrowheads and endpoints should attach to rendered node boundaries/ports, primary tree edges should read as dependency links rather than decorative curls, and dense siblings should not all emerge from one indistinguishable point.
+- Inspect any numeric graph badges. Their meaning must be available through a tooltip, legend, accessible label, or adjacent layer copy, and they must not be mistaken for rank, evidence count, or Chokepoint score.
+- Confirm the default canvas is an artifact map: organization, metric, evidence, and raw context records do not render as ordinary graph nodes; know-how nodes stay hidden unless a Barrier Sources / know-how layer is explicitly active.
+- If the Barrier Sources / know-how layer is touched, confirm know-how nodes render as purposeful Barrier-source nodes, artifact context keeps meaningful subsystem color, and no user-facing node is grey/unclassified.
+- Open top/authored Chokepoint nodes and at least one ordinary dependency node. Confirm the **first-glance chokepoint readout**: the elevated structural axis (Dependency / Concentration / Barrier) reads as a concrete mechanism, not a raw tag like `maturity: prototype` and not generic copy that merely says route scale depends on the constraint; Cost, when present, is a separate magnitude readout rather than the chokepoint reason (ACCEPTANCE.md §3a).
+- Confirm weak evidence and missing supplier/holder coverage are framed as evidence or holder-coverage gaps, not as the specific bottleneck reason or as a real-world supplier absence. Non-top nodes should not appear in a Key Chokepoints / 具体卡点 surface unless explicitly labeled as candidate/low-confidence.
 - Switch lenses (System decomposition / Chokepoint / Cost) and confirm node positions stay stable (ADR-0007) while the encoding follows; confirm lens labels match the detail-panel vocabulary (§3b, `check:disclosure`).
 - Double-click an expandable node and confirm the visible node count changes in the expected direction. Also compare the React Flow viewport transform before and after double-click to ensure the canvas did not zoom.
 - Switch language and confirm labels still fit.

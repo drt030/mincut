@@ -1,0 +1,110 @@
+{
+  "updates": [
+    {
+      "nodeId": "euv_mask_blanks",
+      "operations": [
+        {
+          "op": "replace_description",
+          "value": "Standard and advanced EUV photomask blanks supplied by a two-company duopoly: AGC and Hoya. Market share is contested across sources: one 2025 report places AGC at 59% and Hoya at 34% (by value, overall market); another claims Hoya dominance at 75%+ by volume with AGC 20-25%. The scope difference (value vs volume, commodity vs specialty grades) remains unresolved in accessible sources. Hoya's multilayer coating and defect-inspection capabilities are cited as structurally advantageous. High-NA EUV blanks are an emerging specialty variant with no quantified market share data available."
+        },
+        {
+          "op": "replace_confidence",
+          "value": "medium"
+        },
+        {
+          "op": "replace_metrics",
+          "value": [
+            {
+              "name": "Market share (overall EUV blanks, by value 2025)",
+              "currentValue": "AGC 59% / Hoya 34%",
+              "description": "Per intelmarketresearch.com 2025-06 report: 'AGC Inc (59% market share) and Hoya (34% market share), accounting for 93% of global market.' Scope: value-based, all EUV blank types combined. sourceStatus: market_report_seo (SEO-grade market report; conflicting with other claims)."
+            },
+            {
+              "name": "Market share (alternative source, by volume estimate)",
+              "currentValue": "Hoya 75%+ / AGC 20-25%",
+              "description": "Cited in prior graph evidence (SemiAnalysis, Yole, analyst consensus 2025). No direct access to these sources; basis (by-volume vs by-value vs by-customer) unclear. sourceStatus: unverified_secondary."
+            },
+            {
+              "name": "Supply concentration",
+              "currentValue": "Duopoly (AGC + Hoya ≈93% combined)",
+              "description": "Both sources agree AGC and Hoya are the two major suppliers, commanding 93% combined. Secondary suppliers (Photronics, Canon, Zeiss, Shin-Etsu, Toppan, DNP, others) operate at pilot/research scale. Per intelmarketresearch."
+            },
+            {
+              "name": "Capacity expansion lead time",
+              "currentValue": "12–18 months (estimated)",
+              "description": "Referenced in prior evidence; no current primary-source confirmation obtained in this rebuild."
+            }
+          ]
+        },
+        {
+          "op": "replace_evidence_ids",
+          "value": [
+            "ev_acc_r6_euv_blanks_agc_hoya_duopoly",
+            "ev_acc_r6_euv_blanks_market_conflict_note"
+          ]
+        },
+        {
+          "op": "patch_notes",
+          "value": "CONFLICT DOCUMENTED (2026-06-11 rebuild): Prior graph stated Hoya 75%+/AGC 20-25% based on SemiAnalysis/Yole/Morningstar. Verified fetched source (intelmarketresearch.com 2025-06) shows AGC 59%/Hoya 34% (by value, all grades). Likely sources of conflict: (1) measurement basis (by-value vs by-volume vs by-customer share), (2) scope (commodity-grade standard EUV vs all grades including specialty), (3) source aging or regional variation. Honest resolution without further access to primary sources: present both figures with scope caveat and acknowledge conflict as unresolved. High-NA segment is emerging with no separate quantified data."
+        }
+      ]
+    },
+    {
+      "nodeId": "high_na_euv_mask_blanks",
+      "operations": [
+        {
+          "op": "replace_description",
+          "value": "Advanced EUV photomask blanks specifically qualified for High-NA lithography systems (2024-2026 rollout). High-NA EUV (ASML EXE:5000/5200B with first delivery December 2023) raises mask blank specifications, but the extent of supply concentration remains unverified. Industry sources report Hoya as the furthest-advanced supplier for High-NA blanks, but no primary evidence (ASML qualification doc, Hoya investor statement, customer announcement) of single-source exclusivity was found. The claim of 'Hoya 100% exclusive' in prior graph version lacks basis; downgraded to 'Hoya reported lead position, qualification status unconfirmed.' High-NA is an emerging segment with no published market-share data."
+        },
+        {
+          "op": "replace_maturity_score",
+          "value": 72
+        },
+        {
+          "op": "replace_maturity_label",
+          "value": "early_deployment"
+        },
+        {
+          "op": "replace_confidence",
+          "value": "low"
+        },
+        {
+          "op": "replace_metrics",
+          "value": [
+            {
+              "name": "Supplier concentration claim",
+              "currentValue": "Hoya lead position (unverified single-source)",
+              "description": "Prior claim was 'Hoya 100% exclusive / only vendor with validated blanks.' Accessible sources (semiconductorinsight.com blog) reference Hoya advances but do not cite official qualification lists or ASML-issued blank-supplier matrices. ASML High-NA product pages do not name blank suppliers. No independent confirmation of 100% single-source found. sourceStatus: unverified."
+            },
+            {
+              "name": "Segment maturity",
+              "currentValue": "Emerging (first customer shipments 2025-2026)",
+              "description": "intelmarketresearch.com (2025-06) labels High-NA as emerging segment with growth potential, but notes no separate share data. ASML timeline: volume manufacturing 2025-2026. imec used High-NA with no mention of supply constraints (March 2026)."
+            }
+          ]
+        },
+        {
+          "op": "replace_evidence_ids",
+          "value": [
+            "ev_acc_r6_high_na_hoya_lead_position",
+            "ev_acc_r6_high_na_qualification_unverified"
+          ]
+        },
+        {
+          "op": "patch_notes",
+          "value": "QUALIFICATION CLAIM UNVERIFIED (2026-06-11 rebuild). Prior graph claimed Hoya 100% exclusive/only qualified supplier for High-NA blanks. Systematic search found: (1) ASML High-NA product pages (fetched) do not list qualified blank suppliers or materials specs; (2) Hoya investor relations page returned 404; (3) no ASML technical qualification matrix accessed; (4) no foundry (TSMC, Samsung, Intel) customer announcement naming exclusive Hoya sourcing found; (5) imec's March 2026 High-NA silicon quantum demonstration made no reference to supply constraints or exclusive supplier dependence. Accessible trade-press source (semiconductorinsight.com blog) states Hoya as 'only vendor with validated blanks' but cites no supporting qualification documentation. Honest downgrade: Hoya reported furthest along in High-NA development; exclusive single-source status cannot be verified with accessible sources. Future qualification by AGC or others cannot be ruled out."
+        }
+      ]
+    },
+    {
+      "nodeId": "euv_photomask_production",
+      "operations": [
+        {
+          "op": "add_evidence_id",
+          "field": "evidenceIds",
+          "value": "ev_acc_r6_euv_blanks_market_conflict_note"
+        }
+      ]
+    }
+  ]
+}

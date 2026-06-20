@@ -1,0 +1,239 @@
+{
+  "_meta": {
+    "domain": "spacex_reusable_launch",
+    "lane": "structural_metals",
+    "verifier": "Opus 4.8 evidence-verifier + ticker-auditor",
+    "date": "2026-06-15",
+    "brief": "docs/agents/evidence-audit-brief.md (binding) + docs/agents/reusable-launch-decomposition-brief.md (§4 whitelist, §0.2 forbidden)",
+    "method": "WebFetch each url; quoteMatch exact|partial|absent vs stored excerpt verbatim; numberInQuote at same basis/scope. Tickers audited against independent exchange/financial/IR sources, never memory. Written INCREMENTALLY (prior run hung without emitting).",
+    "queryLog": ".scratch/spacex-reusable-launch-verify/structural_metals-queries.log",
+    "ruleCompliance": "No reviewStatus/human-review emitted. ok_exact is this verifier's grant. No §0.2/forbidden targets queried. No fabrication.",
+    "status": "COMPLETE",
+    "counts": { "evidenceRecordsTotal": 21, "verified": 20, "repaired": 1, "escalations": 0, "orgsAudited": 11, "tickersMatch": 10, "tickersFlagged": 1, "tickersWrong": 0 },
+    "coverageCheck": "All 21 batch evidence ids covered (20 verified incl. 1 partial comma-drift + Arconic-via-primary; 1 repaired). All 11 orgs audited. No missing/extra ids."
+  },
+  "verified": [
+    {
+      "id": "ev_space_us_sponge_section232",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Thompson Hine SmarTrade summary of U.S. Commerce Section 232 titanium-sponge report, fetched 200. Stored excerpt 'only one producer by 2019 capable of producing the product for defense, commercial and industrial applications' verbatim on page. The 68% import-reliance figure ALSO confirmed verbatim ('The United States imports 68 percent of the titanium sponge needed to fulfill domestic demand') — basis is U.S. sponge import reliance (national, not launch-specific), matching the node note. Both user-flagged claims confirmed. Grey-ish (legal-trade summary of a gov report, not the primary Commerce doc); appropriate for the near-single-source upstream framing, not a SpaceX claim."
+    },
+    {
+      "id": "ev_space_castings_chokepoint_duopoly",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Aviation Week (whitelist tier-1 supply-chain reporting), fetched 200. Stored excerpt verbatim: 'The aerospace castings sector, a roughly $10 billion industry, is dominated by two leading providers: Arconic and Precision Castparts (PCC).' User-flagged 'dominated by two leading providers' phrase confirmed exact. $10B is aerospace-castings sector size (not launch-specific), correctly labelled. Names Arconic+PCC as the two; Howmet is the engine-casting successor lineage to Arconic's castings business, as the limitations field notes — the edge to Howmet rests on a separate Howmet vendor source, not on this duopoly naming."
+    },
+    {
+      "id": "ev_space_constellium_blue_origin_new_glenn",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Constellium press release (company news, whitelist), fetched 200. Stored excerpt verbatim: 'Under this agreement, Constellium is to supply Airware® aluminium plates and sheets for Blue Origin's massive orbital rocket, New Glenn.' User-flagged New Glenn Al-Li supply link CONFIRMED. CAVEAT: this release says 'Airware® aluminium' and does NOT use the string 'aluminium-lithium / Al-Li' on the page; the Al-Li identity of Airware is established by the separate product page (ev_space_constellium_alli_product). The stored excerpt's quote contains no 'Al-Li' string, so the verbatim quote is clean; the Al-Li framing is in node prose, sourced elsewhere — acceptable. Confirms a reusable-launch-program supply link (Blue Origin New Glenn), not SpaceX."
+    },
+    {
+      "id": "ev_space_constellium_space_alli",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Constellium space-market page (vendor_claim, whitelist-grey vendor marketing — valid for product-offered role), fetched 200. Stored excerpt verbatim incl. the slightly awkward original comma placement: 'We offer high-performance aluminum such, as aluminum-lithium alloys, in plate, sheet and extrusions for key structural components, including dome caps, barrel panels, stiffeners, intertanks, stage adapters / interstage structures, thrust structures, heat shields, and crew modules.' No numeric claim. Establishes Al-Li product for launch-vehicle structures; vendor page, does not prove a SpaceX/Falcon 9 BOM selection (limitations field correct)."
+    },
+    {
+      "id": "ev_space_constellium_alli_product",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Constellium Airware product page (vendor_claim), fetched 200. Stored excerpt verbatim: 'Airware®, Constellium's proprietary aluminum-lithium solution, delivers a breakthrough in material performance' (page continues '—offering significantly lower density, higher stiffness...'). This is the source that establishes Airware = aluminum-lithium, supporting the Al-Li framing used in the New Glenn record's node prose. No numeric claim; weak for share quantification, correctly not used for one."
+    },
+    {
+      "id": "ev_space_kaiser_aero_hs",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "Kaiser Aluminum FY2024 press release on GlobeNewswire (whitelist company release), fetched 200. Substance EXACT but one typographic difference: page reads 'a leading producer of semi-fabricated specialty aluminum products, serving customers worldwide with highly-engineered solutions for aerospace and high-strength, packaging...' whereas stored excerpt drops the comma after 'products' ('...specialty aluminum products serving customers...'). Meaning identical. Separately CONFIRMED the node-note $883M figure verbatim at correct basis: 'Net sales for aerospace/high strength applications were $883 million' (FY2024 aerospace/high-strength NET SALES, distinct from the $530M conversion revenue on the same line — basis correctly stated in node). Marked partial only on the comma drift; recommend trivially re-aligning excerpt comma to exact."
+    },
+    {
+      "id": "ev_space_kaiser_trentwood_25pct",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Light Metal Age trade press, fetched 200. Stored excerpt 'increase in heat treat plate production capacity by approximately 25%' verbatim on page. Node-note $375M figure ALSO confirmed verbatim ('The $375 million multi-year expansion and operational security investment project at its Trentwood facility'). 25% is a heat-treat-plate capacity-expansion figure (aero/GE plate, not launch-specific), correctly labelled. Trade press (whitelist-acceptable for capacity disclosure echo)."
+    },
+    {
+      "id": "ev_space_arconic_apollo_private",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "METHOD NOTE: WQAD/AP page (stored url) bot-blocks both WebFetch (timeout x3) and curl (HTTP 403, 543-byte block page — not a JS shell). Resolved via the ARCONIC PRIMARY 8-K exhibit on SEC EDGAR (sec.gov/Archives/edgar/data/1790982/000115752323000718/a53393351ex99_1.htm; curl HTTP 200, 21315B intact). Primary confirms the substantive claim VERBATIM: '...shares will no longer trade on the New York Stock Exchange, and Arconic will become a private company.' plus '$30.00 per share in cash' and 'approximately $5.2 billion'. Stored excerpt ('Shares of Arconic Corp., based in Pittsburgh, will no longer trade on the New York Stock Exchange once the transaction closes') is the AP/WQAD rewording of this same fact — the load-bearing claim (no longer trading on NYSE / now private) is confirmed at the primary source and cross-checked via WebSearch (Arconic portal, Paul Weiss, Glass Magazine all concur). Low-stakes record (only establishes Arconic=private/no-ticker, independently corroborated by the ticker audit). Marked verified on the primary-source confirmation; the AP-specific wording itself was not re-fetched (host blocks bots). Recommend optionally re-pointing url to the SEC primary or Arconic portal for a fully verbatim-fetchable source."
+    },
+    {
+      "id": "ev_space_vsmpo_boeing_largest",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Boeing mediaroom press release (whitelist company release), fetched 200. Stored excerpt verbatim: 'VSMPO-AVISMA is the largest titanium supplier for Boeing commercial production.' User-flagged claim CONFIRMED. Qualitative dominance claim (no number); basis = Boeing commercial production (pre-2022 context), correctly NOT presented as a SpaceX supply claim — recorded as the export-control concentration of the mill-Ti tier."
+    },
+    {
+      "id": "ev_space_ati_richland_35pct",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "ATI Inc. IR release (whitelist company IR), fetched 200. Stored excerpt verbatim: 'The expansion will increase ATI's production of aerospace and defense-grade titanium by approximately 35% over the 2022 baseline levels' (page continues ', helping to meet strong titanium demand'). 35% is an aero/defense-Ti capacity-expansion figure over a 2022 baseline — basis correct, not launch/SpaceX-specific (node note correct)."
+    },
+    {
+      "id": "ev_space_ati_tight_supply",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "ATI Inc. IR release (whitelist company IR), fetched 200. Stored excerpt verbatim: 'During this time of tight supply for critical materials, ATI is partnering with customers to assure secured supply,'. Qualitative tightness statement covering nickel+titanium (not a quantified share), correctly labelled. The page ALSO confirms the node's $1.2B figure verbatim ('secured an estimated $1.2 billion in new sales commitments from leading aerospace and defense companies') AND independently confirms the 'NYSE: ATI' ticker — see ticker audit."
+    },
+    {
+      "id": "ev_space_howmet_90pct_engine",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Howmet Aerospace aerospace page (vendor_claim), fetched 200. Stored excerpt verbatim: 'We can produce more than 90 percent of all structural and rotating aero engine components'. This is a vendor breadth-of-capability claim ('can produce >90% of component TYPES'), NOT a 90% market-share figure — basis correctly characterized in node note/limitations. Not a SpaceX-specific claim."
+    },
+    {
+      "id": "ev_space_howmet_number_one_fasteners",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Howmet Aerospace about page (vendor_claim), fetched 200. Stored excerpt verbatim: 'We hold the number one global position in aerospace fastening systems'. Qualitative #1-position claim (no quantified share), correctly labelled; a related structural-metals component class, not launch-specific."
+    },
+    {
+      "id": "ev_space_pcc_berkshire_complex",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Precision Castparts about page (vendor_claim), fetched 200. Stored excerpt verbatim: 'Precision Castparts Corp. is a worldwide, diversified manufacturer of complex metal components and products.' Page ALSO corroborates two cross-referenced facts: Berkshire acquisition ('Berkshire Hathaway completed its acquisition of Precision Castparts Corp. for $37.2 billion') and — importantly — the TIMET 'largest NA sponge producer/melter' framing relied on by ev_space_timet_na_sponge: 'TIMET has led the industry in titanium products since 1950... PCC becomes the largest titanium sponge producer and melter in North America.' So the TIMET-record's largest-NA-sponge claim IS corroborated by this whitelist-grade vendor source, as its limitations field asserts. No standalone numeric market claim used."
+    },
+    {
+      "id": "ev_space_falcon9_grid_fin_titanium_cast",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Spaceflight Now (whitelist space-trade reporting), fetched 200. Stored excerpt verbatim: 'He added that the grid fins are cast in a single piece of titanium and cut to form their shape.' Establishes the SpaceX-captive single-piece Ti casting (attributed to Musk); no merchant supplier named (none invented), consistent with the node's CAPTIVE CORNER framing. No numeric claim."
+    },
+    {
+      "id": "ev_space_osaka_second_largest",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Wikipedia (grey, pointer-only per §4), fetched 200. Stored excerpt verbatim on the Osaka Titanium Technologies page: 'It is the world's second largest producer of titanium sponge after VSMPO-Avisma.' TYO: 5726 also confirmed on page (supports ticker audit). Limitations field correctly flags this as a grey pointer whose rank should be corroborated before flip — and it IS independently corroborated by USGS capacity data (Osaka 40,000 t/yr vs Toho 25,000 t/yr; second only to VSMPO-AVISMA globally). Qualitative rank, no share number on the page itself."
+    },
+    {
+      "id": "ev_space_timet_na_sponge",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Wikipedia (grey, pointer-only), fetched 200. Stored excerpt verbatim: 'now operates under the PCC Metals Group Division' (full page sentence: 'In November 2012, the company was purchased for $2.9 billion by Precision Castparts Corp.(PCC) and now operates under the PCC Metals Group Division'). The 'largest NA sponge producer/melter' framing is NOT on the Wikipedia page (confirmed) but IS corroborated verbatim by the PCC about page (ev_space_pcc_berkshire_complex: 'PCC becomes the largest titanium sponge producer and melter in North America') — exactly as the record's limitations field states. Quote-for-the-stored-excerpt verified exact; cross-claim corroborated. No SpaceX claim."
+    },
+    {
+      "id": "ev_space_outokumpu_spacex_starship",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "TeslaNorth (secondary trade-blog), fetched 200. Stored excerpt verbatim: 'It's worth noting that Outokumpu also supplies SpaceX with stainless steel for Starship.' Quality SECONDARY source (not primary/IR), confirms the supply relationship but not grade/volume/exclusivity — limitations field correct, and the edge claim correctly frames it as illustrative merchant exposure (304L near-commodity), not sole-source. No numeric claim. Given the edge is explicitly hedged (not an 'only/sole-source' claim), the single-secondary basis is acceptable under §4.5 for an illustrative-exposure edge; not escalated."
+    },
+    {
+      "id": "ev_space_starship_304l_commodity_captive_30x",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Tesmanian (secondary blog quoting Musk), fetched 200. Stored excerpt verbatim: '304 stainless is what they make pots out of. There's plenty of it.' Page also confirms the captive-alloy direction ('Will move to internally developed alloys probably end of year'). Supports the 304-near-commodity character + SpaceX move to captive (30X) alloy framing; not used for any quantified market claim. Supports starship_stainless node referenced by this lane's Outokumpu edge."
+    },
+    {
+      "id": "ev_space_bssa_starship_30x",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "British Stainless Steel Association (industry association), fetched 200. Stored excerpt verbatim: 'SpaceX started with stainless steel 301 but moved to 304 and ultimately developed its proprietary alloy, 30X, which surpassed the performance of both 301 and 304.' Supports the proprietary-30X captive direction; no quantified market claim. Supports starship_stainless node referenced by this lane's Outokumpu edge."
+    }
+  ],
+  "repaired": [
+    {
+      "id": "ev_space_japan_two_sponge_producers",
+      "quoteMatch": "absent",
+      "numberInQuote": false,
+      "field": "url + excerpt + sourceName + type",
+      "before": {
+        "url": "https://en.wikipedia.org/wiki/Osaka_Titanium_Technologies",
+        "excerpt": "There are two titanium sponge producers in Japan: Osaka Titanium Technologies Co., Ltd., and Toho Titanium Co., Ltd.",
+        "sourceName": "Wikipedia (pointer)",
+        "type": "historical_source"
+      },
+      "after": {
+        "url": "https://pubs.usgs.gov/myb/vol1/2021/myb1-2021-titanium.pdf",
+        "excerpt": "Japan.—Titanium sponge producers in Japan included Toho Titanium Co., Ltd. (25,000 t/yr) and OSAKA Titanium Technologies Co., Ltd. (40,000 t/yr).",
+        "sourceName": "USGS Minerals Yearbook — Titanium (2021), U.S. Geological Survey",
+        "type": "official_report",
+        "date": "2021"
+      },
+      "reason": "QUOTE ABSENT at cited URL. The stored excerpt ('There are two titanium sponge producers in Japan: Osaka Titanium Technologies Co., Ltd., and Toho Titanium Co., Ltd.') does NOT appear on the cited Osaka Titanium Technologies Wikipedia page (fetched 200; page references only Osaka, not Toho — the sentence is likely from an older revision). This record is the SOLE evidence for org_toho_titanium and the edge e_space_sponge__manufactured_by__toho, so it cannot be left unverified. Re-sourced (ladder rung 1) to the USGS Minerals Yearbook 2021 Titanium chapter (§4 whitelist: USGS materials/government), fetched via curl HTTP 200, 414367B, intact 16-page PDF, text extracted with pypdf from the OFFICIAL PDF. Verbatim source text (PDF font-case artifacts normalized to the document's actual proper casing): 'Japan.—Titanium sponge producers in Japan included Toho Titanium Co., Ltd. (25,000 t/yr) and OSAKA Titanium Technologies Co., Ltd. (40,000 t/yr).' This authoritatively establishes the SAME two-producer Japan structure AND adds named capacities (Toho 25kt/yr, Osaka 40kt/yr) at a stronger basis than the grey original. Recommend the owner apply this url/excerpt swap; claim and edge stand."
+    }
+  ],
+  "escalations": [],
+  "tickerAudit": [
+    {
+      "orgId": "org_constellium",
+      "storedTicker": "CSTM",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "NYSE: CSTM confirmed across independent sources — TradingView (NYSE-CSTM), Bloomberg (CSTM:US), Yahoo Finance (CSTM), CNBC (quotes/CSTM). Constellium SE, public, ordinary shares (France-domiciled, NYSE-listed). Ticker and listingStatus correct."
+    },
+    {
+      "orgId": "org_kaiser_aluminum",
+      "storedTicker": "KALU",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "NASDAQ: KALU confirmed — Nasdaq.com (market-activity/stocks/kalu), Bloomberg (KALU:US, NASDAQ GS), TradingView (NASDAQ-KALU). Kaiser Aluminum Corporation, public, in Russell 2000 / S&P SmallCap 600. Ticker and listingStatus correct."
+    },
+    {
+      "orgId": "org_arconic",
+      "storedTicker": null,
+      "storedListingStatus": "private",
+      "verdict": "match",
+      "source": "Confirmed PRIVATE / no public ticker (correctly modeled with no ticker per ADR-0009). Apollo Global Management took Arconic private; verified at the ARCONIC PRIMARY 8-K exhibit on SEC EDGAR (curl HTTP 200): '$30.00 per share in cash', 'approximately $5.2 billion', and 'shares will no longer trade on the New York Stock Exchange, and Arconic will become a private company.' Cross-checked via Arconic portal, Paul Weiss, Glass Magazine. Deal closed H2-2023. listingStatus 'private' correct; no ticker correctly assigned. (Distinct from Howmet Aerospace, which spun from Arconic in 2020 and trades as HWM.)"
+    },
+    {
+      "orgId": "org_vsmpo_avisma",
+      "storedTicker": "VSMO.ME",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "Moscow Exchange (MOEX): VSMO confirmed — moex.com/en (issue board=TQBR code=VSMO), Yahoo Finance (VSMO.ME), MarketScreener (Moscow Micex-RTS VSMO), Bloomberg (VSMO*:RU). The '.ME' suffix is the Yahoo/data-vendor convention for a Moscow Exchange listing (moex.com local code is VSMO). Public on MOEX but not Western-investor-accessible / sanctions-exposed, as the node note states. Ticker and listingStatus correct. (Aside: one secondary called VSMPO 'third-largest sponge producer' — a sponge-only sub-metric; the node's 'world's largest titanium producer' is the broader integrated-Ti claim, supported by the Boeing 'largest titanium supplier' source. Not a ticker discrepancy.)"
+    },
+    {
+      "orgId": "org_ati",
+      "storedTicker": "ATI",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "NYSE: ATI confirmed AT PRIMARY — ATI's own IR release (ir.atimaterials.com, the $1.2B-commitments release, fetched 200) states verbatim 'ATI Inc. (NYSE: ATI)'. ATI Inc. (formerly Allegheny Technologies), public. Ticker and listingStatus correct."
+    },
+    {
+      "orgId": "org_timet",
+      "storedTicker": "BRK.B",
+      "storedListingStatus": "subsidiary",
+      "verdict": "match",
+      "source": "Confirmed SUBSIDIARY, no standalone listing — TIMET (Titanium Metals Corp.) was acquired by Precision Castparts for $2.9B (Nov 2012; corroborated on en.wikipedia/Titanium_Metals_Corporation and precast.com/about), and PCC in turn became a wholly-owned Berkshire Hathaway subsidiary in Jan 2016 (delisted from NYSE, Form 25). TIMET is therefore an indirect Berkshire subsidiary with NO standalone listing; public exposure only via the parent BRK.B. ticker 'BRK.B' (as the parent-exposure proxy) and listingStatus 'subsidiary' correct per the ADR-0009 honesty convention."
+    },
+    {
+      "orgId": "org_toho_titanium",
+      "storedTicker": "5727.T",
+      "storedListingStatus": "public",
+      "verdict": "flag_stale_status",
+      "source": "TICKER HISTORICALLY CORRECT (TSE Prime local code 5727 — CNBC 5727.T-JP, Yahoo, TipRanks jp:5727) BUT listingStatus 'public' is NOW STALE as of today's date 2026-06-15. The user-flagged JX Advanced Metals take-private is CONFIRMED COMPLETED, not merely 'announced/pending': per JX Advanced Metals' own primary newsrelease (jx-nmm.com/english/newsrelease/fy2025/6019045_03_20260225_05.html, dated 2026-02-25) and TipRanks 'Toho Titanium Shareholders Approve JX Advanced Metals Takeover and Delisting', the share-exchange was approved by Toho shareholders 2026-04-24, Toho DELISTED from the TSE Prime Market on 2026-05-28 (last trading day 2026-05-27), and the share exchange took effect 2026-06-01 making Toho a wholly-owned subsidiary of JX Advanced Metals. So as of 2026-06-15 Toho Titanium is ALREADY a private/delisted wholly-owned subsidiary. RECOMMEND owner update: listingStatus public -> subsidiary; ticker 5727.T -> null (or note 'delisted 2026-05-28'); parent is JX Advanced Metals (org_jx_advanced_metals already in graph). The node note already anticipates this ('listing status may change pending completion') but was written pre-completion; it is now actionable. Not a wrong ticker — a stale-status flag."
+    },
+    {
+      "orgId": "org_osaka_titanium",
+      "storedTicker": "5726.T",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "Tokyo Stock Exchange (TYO/TSE) local code 5726 confirmed — Bloomberg (5726:JP), Yahoo Finance (5726.T), CNBC (5726.T-JP), Morningstar (xtks/5726), and on the Osaka Titanium Wikipedia page ('TYO: 5726'). The '.T' suffix is the standard data-vendor convention for a TSE listing. OSAKA Titanium technologies Co., Ltd. (formerly Sumitomo Titanium), public. Ticker and listingStatus correct."
+    },
+    {
+      "orgId": "org_howmet_aerospace",
+      "storedTicker": "HWM",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "NYSE: HWM confirmed AT PRIMARY — Howmet's own shareholder-information page (howmet.com/shareholder-information) plus Google Finance (HWM:NYSE), Yahoo (HWM), Seeking Alpha. Howmet Aerospace Inc., public, Pittsburgh PA. Ticker and listingStatus correct."
+    },
+    {
+      "orgId": "org_precision_castparts",
+      "storedTicker": "BRK.B",
+      "storedListingStatus": "subsidiary",
+      "verdict": "match",
+      "source": "Confirmed SUBSIDIARY, no standalone listing — Berkshire Hathaway completed acquisition of PCC for $235/share (~$37.2B incl. debt) on 2016-01-29 (corroborated on precast.com/about: 'Berkshire Hathaway completed its acquisition of Precision Castparts Corp. for $37.2 billion'); NYSE Form 25 to delist filed 2016-02-01 (SEC EDGAR). PCC is a wholly-owned Berkshire subsidiary with NO standalone listing; public exposure only via parent BRK.B. ticker 'BRK.B' (parent-exposure proxy) and listingStatus 'subsidiary' correct per ADR-0009 honesty convention."
+    },
+    {
+      "orgId": "org_outokumpu",
+      "storedTicker": "OUT1V.HE",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "Nasdaq Helsinki: OUT1V confirmed AT PRIMARY — Outokumpu's own IR page (outokumpu.com/en/investors/outokumpu-share: 'listed on the Nasdaq Helsinki Large Cap list under the trading code OUT1V') plus Yahoo (OUT1V.HE), Nasdaq European market activity (out1v, HEX24321), MarketScreener. The '.HE' suffix is the Yahoo/data-vendor convention for a Helsinki listing. Outokumpu Oyj, public, largest stainless producer in Europe / 2nd in Americas (matches node). Ticker and listingStatus correct."
+    }
+  ]
+}

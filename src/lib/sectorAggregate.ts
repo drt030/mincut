@@ -15,7 +15,7 @@ import { nodeRisk } from "./nodeRisk";
  * colour and edge stroke width).
  *
  *   "Sector background tint at <15% opacity = aggregate-per-mode
- *    (max for risk; p50 sum for cost; mean for maturity; mean for
+ *    (max for risk; typical-value sum for cost; mean for maturity; mean for
  *    overall; n/a for relation)."
  *
  * For each first-layer subsystem, we walk the `requires`-descendant
@@ -26,10 +26,8 @@ import { nodeRisk } from "./nodeRisk";
  * wonders which is right.
  *
  * Aggregation per mode:
- *   - cost: SUM of subtree typical RMB costs (post-FX). The "p50 sum"
- *     phrasing in the ADR refers to using each node's typical (p50)
- *     value while summing across the subtree — i.e. one trajectory of
- *     plausible per-node typicals, summed.
+ *   - cost: SUM of subtree typical RMB costs (post-FX). The aggregate uses
+ *     each node's plausible typical value while summing across the subtree.
  *   - maturity: MEAN of subtree maturityScores. Nodes without a score
  *     are SKIPPED (not counted as zero) so an unmeasured leaf does not
  *     spuriously pull the mean down.

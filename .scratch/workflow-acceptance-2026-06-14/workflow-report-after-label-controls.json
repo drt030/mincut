@@ -1,0 +1,1487 @@
+{
+  "generatedAt": "2026-06-14T07:25:08.249Z",
+  "routes": [
+    {
+      "route": "humanoid-thermal",
+      "requestedTargetId": "humanoid_thermal_management_system",
+      "clickedId": "humanoid_thermal_management_system",
+      "screenshotPath": "/Users/wth/dev/civilization/.scratch/workflow-acceptance-2026-06-14/humanoid-thermal-after-label-controls.png",
+      "ready": {
+        "bodyMargin": "0px",
+        "nodeCount": 57,
+        "styleSheetCount": 2
+      },
+      "activeDetail": true,
+      "activeRoute": false,
+      "bodyStart": "Skip to content\nCapability Graph Explorer\nMAP PORTFOLIO\nMap portfolio\nMap portfolio\nAI compute chain\nParcel-sorting robot\nHumanoid robotics component stack\nControlled fusion route portfolio\nSpaceX reusable launch stack\nSpaceX orbital data center system\nExplore\nGate\n中文\nEnglish\n\nRESEARCH THESIS\n\nHumanoid robotics component stack\n\nHumanoid robot component chain across actuators, hands, battery, thermal, sensing, compute, control software, manufacturing, and service.\n\nRESEARCH ROOT\nHumanoid robot key component stack\nResearch preview only\n10 direct dependencies\n2 cost targets\nProducts\nKnow-how\nLENS\nSystem decomposition\nCost drivers\nBottleneck risk\nMaturity\nWider = bottleneck risk.\n3\nHumanoid component stack\nActuation system\nHand + tactile\nBattery + power\nThermal mgmt\nPerception stack\nCompute/co",
+      "canvas": {
+        "computed": {
+          "display": "block",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "948px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 948,
+          "x": 58,
+          "y": 88
+        }
+      },
+      "forbiddenHits": [],
+      "graphRailWidthRatio": 2.63,
+      "hasBottleneckThesis": true,
+      "hasCost": true,
+      "hasDecisionBrief": true,
+      "hasExposureSummary": false,
+      "hasKeySources": true,
+      "hasWhereStuck": true,
+      "layout": {
+        "computed": {
+          "display": "grid",
+          "gridTemplateColumns": "948px 360px",
+          "height": "866.016px",
+          "minHeight": "0px",
+          "width": "1324px"
+        },
+        "rect": {
+          "h": 866,
+          "w": 1324,
+          "x": 58,
+          "y": 2
+        }
+      },
+      "rail": {
+        "computed": {
+          "display": "flex",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "360px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 1022,
+          "y": 2
+        }
+      },
+      "railHeading": [
+        "Node detail",
+        "Thermal management system",
+        "Decision brief",
+        "Cost not verified",
+        "Technical maturity · Integration / commissioning",
+        "18 months; Execution timing depends on engineering, integration, and qualification.",
+        "2 source records linked",
+        "Secondary signals",
+        "Heat 95/100",
+        "Bottleneck for Humanoid robot key component stack",
+        "2 source records linked",
+        "Inspect next",
+        "Full evidence list",
+        "Full evidence list",
+        "Evidence",
+        "Source:",
+        "Date:",
+        "Limitations:"
+      ],
+      "railTextStart": "FULL SYSTEM\nNode detail\nStart here\nDetail\nThermal management system\nBOTTLENECK THESIS\n\nWhy it matters: This can gate cost, scale, or adoption. Constraint: Thermal paths for motors, drives, battery, and edge compute. Why hard to clear: it constrains Humanoid robot key component stack. Blocks: Humanoid robot key component stack.\n\nWHERE IT IS STUCK\nTechnical maturity\nIntegration / commissioning\n\nPoor thermal design shortens useful duty cycle and turns demos into short bursts.\n\nDecision brief\nCOST\nCost not verified\nNeeds reviewed price/BOM source.\nSUPPLY CONSTRAINT\nTechnical maturity · Integration / commissioning\nRELIEF TIMING\n18 months; Execution timing depends on engineering, integration, and qualification.\nSOURCE TRAIL\n2 source records linked\nKEY SOURCES\n\n2 source records linked. Strongest source: Powering Humanoid Robots: The Central Role of Battery Technology (expert review · reviewed · high confidence). Limitation: Reviewed only for system-level battery constraint framing. It does not prove any specific humanoid battery pack, supplier, runtime, certification, or cost.\n\nSecondary signals\nInspect next\nAirflow or liquid cooling loop\nBlocker\nFull evidence list\nTechnical details\nGraph appendix\nMap tools",
+      "selectedNodes": [
+        "humanoid_thermal_management_system"
+      ],
+      "suspiciousJoinedLabels": [
+        {
+          "aria": "Lithium-ion cell selection · module",
+          "id": "humanoid_lithium_ion_cell_selection",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 511,
+            "y": 773
+          },
+          "text": "Lithium-ion cell selection"
+        }
+      ],
+      "title": "Humanoid robotics component stack | Capability Graph Explorer",
+      "url": "http://127.0.0.1:3007/d/humanoid-robotics?root=humanoid_robot_key_component_stack&focus=humanoid_thermal_management_system&path=humanoid_thermal_management_system",
+      "visibleNodeSample": [
+        {
+          "aria": "Humanoid robot key component stack · product",
+          "id": "humanoid_robot_key_component_stack",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 497,
+            "y": 468
+          },
+          "text": "3 Humanoid component stack"
+        },
+        {
+          "aria": "Actuation system · module",
+          "id": "humanoid_actuation_system",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 585,
+            "y": 484
+          },
+          "text": "Actuation system"
+        },
+        {
+          "aria": "Dexterous hand and tactile system · module",
+          "id": "humanoid_dexterous_hand_tactile_system",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 485,
+            "y": 584
+          },
+          "text": "Hand + tactile"
+        },
+        {
+          "aria": "Battery, power, and charging system · module",
+          "id": "humanoid_battery_power_charging_system",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 523,
+            "y": 536
+          },
+          "text": "Battery + power"
+        },
+        {
+          "aria": "Thermal management system · module",
+          "id": "humanoid_thermal_management_system",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 586,
+            "y": 445
+          },
+          "text": "Thermal mgmt"
+        },
+        {
+          "aria": "Perception and sensing stack · module",
+          "id": "humanoid_perception_sensing_stack",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 528,
+            "y": 364
+          },
+          "text": "Perception stack"
+        },
+        {
+          "aria": "Onboard compute and control electronics · module",
+          "id": "humanoid_onboard_compute_control_electronics",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 448,
+            "y": 364
+          },
+          "text": "Compute/control elec."
+        },
+        {
+          "aria": "Structure, materials, and harness · module",
+          "id": "humanoid_structure_materials_harness",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 533,
+            "y": 407
+          },
+          "text": "Structure + harness"
+        },
+        {
+          "aria": "Locomotion and whole-body control software · engineering_method",
+          "id": "humanoid_locomotion_control_software",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 452,
+            "y": 526
+          },
+          "text": "Locomotion + whole-body control…"
+        },
+        {
+          "aria": "Manipulation AI and data stack · engineering_method",
+          "id": "humanoid_manipulation_ai_data_stack",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 396,
+            "y": 477
+          },
+          "text": "Manipulation AI + data stack"
+        },
+        {
+          "aria": "Manufacturing, test, safety, and service · manufacturing_process",
+          "id": "humanoid_manufacturing_test_safety_service",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 455,
+            "y": 414
+          },
+          "text": "1 Mfg/test/service"
+        },
+        {
+          "aria": "Rotary joint module · module",
+          "id": "humanoid_rotary_joint_module",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 570,
+            "y": 587
+          },
+          "text": "Rotary joint module"
+        },
+        {
+          "aria": "Linear joint module · module",
+          "id": "humanoid_linear_joint_module",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 679,
+            "y": 528
+          },
+          "text": "Linear joint module"
+        },
+        {
+          "aria": "Reducer and transmission stack · module",
+          "id": "humanoid_reducer_transmission_stack",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 581,
+            "y": 620
+          },
+          "text": "Reducer + transmission stack"
+        },
+        {
+          "aria": "Motor stack · module",
+          "id": "humanoid_motor_stack",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 601,
+            "y": 520
+          },
+          "text": "Motor stack"
+        },
+        {
+          "aria": "Motor drive power electronics · module",
+          "id": "humanoid_motor_drive_power_electronics",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 603,
+            "y": 553
+          },
+          "text": "Motor drive power electronics"
+        },
+        {
+          "aria": "Joint sensing and feedback · module",
+          "id": "humanoid_joint_sensing_feedback",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 679,
+            "y": 559
+          },
+          "text": "Joint sensing + feedback"
+        },
+        {
+          "aria": "Joint bearings and sealing · module",
+          "id": "humanoid_joint_bearing_sealing",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 678,
+            "y": 498
+          },
+          "text": "Joint bearings + sealing"
+        }
+      ]
+    },
+    {
+      "route": "fusion-tokamak",
+      "requestedTargetId": "controlled_tokamak_magnetic_confinement_route",
+      "clickedId": "controlled_tokamak_magnetic_confinement_route",
+      "screenshotPath": "/Users/wth/dev/civilization/.scratch/workflow-acceptance-2026-06-14/fusion-tokamak-after-label-controls.png",
+      "ready": {
+        "bodyMargin": "0px",
+        "nodeCount": 47,
+        "styleSheetCount": 2
+      },
+      "activeDetail": true,
+      "activeRoute": false,
+      "bodyStart": "Skip to content\nCapability Graph Explorer\nMAP PORTFOLIO\nMap portfolio\nMap portfolio\nAI compute chain\nParcel-sorting robot\nHumanoid robotics component stack\nControlled fusion route portfolio\nSpaceX reusable launch stack\nSpaceX orbital data center system\nExplore\nGate\n中文\nEnglish\n\nRESEARCH THESIS\n\nControlled fusion route portfolio\n\nFusion route portfolio comparing tokamak, stellarator, laser inertial, MTF/FRC/Z-pinch, and shared tritium, blanket, materials, and maintenance constraints.\n\nRESEARCH ROOT\nControlled fusion route portfolio\nResearch preview only\n3 direct dependencies\nProducts\nKnow-how\nLENS\nSystem decomposition\nCost drivers\nBottleneck risk\nMaturity\nWider = bottleneck risk.\nControlled fusion route portfolio\nPrimary route family\n1\nTokamak route\nSecondary route family\nShared plant constr",
+      "canvas": {
+        "computed": {
+          "display": "block",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "948px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 948,
+          "x": 58,
+          "y": 60
+        }
+      },
+      "forbiddenHits": [],
+      "graphRailWidthRatio": 2.63,
+      "hasBottleneckThesis": true,
+      "hasCost": true,
+      "hasDecisionBrief": true,
+      "hasExposureSummary": false,
+      "hasKeySources": true,
+      "hasWhereStuck": true,
+      "layout": {
+        "computed": {
+          "display": "grid",
+          "gridTemplateColumns": "948px 360px",
+          "height": "866.016px",
+          "minHeight": "0px",
+          "width": "1324px"
+        },
+        "rect": {
+          "h": 866,
+          "w": 1324,
+          "x": 58,
+          "y": -26
+        }
+      },
+      "rail": {
+        "computed": {
+          "display": "flex",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "360px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 1022,
+          "y": -26
+        }
+      },
+      "railHeading": [
+        "Node detail",
+        "Tokamak magnetic-confinement route",
+        "Decision brief",
+        "Cost not verified",
+        "Technical maturity · Integration / commissioning · Economics / demand validation",
+        "84 months; Unknown until demand, utilization, and unit economics are validated.",
+        "3 source records linked",
+        "Secondary signals",
+        "Heat 96/100",
+        "Bottleneck for Controlled fusion route portfolio",
+        "3 source records linked",
+        "Inspect next",
+        "Full evidence list",
+        "Full evidence list",
+        "Evidence",
+        "Source:",
+        "Date:",
+        "Limitations:"
+      ],
+      "railTextStart": "FULL SYSTEM\nNode detail\nStart here\nDetail\nTokamak magnetic-confinement route\nBOTTLENECK THESIS\n\nWhy it matters: This can gate cost, scale, or adoption. Constraint: Primary magnetic-confinement route using a toroidal plasma, large external magnets, plasma current, heating/current-drive systems, divertor heat exhaust... Why hard to clear: it constrains Controlled fusion route portfolio. Blocks: Controlled fusion route portfolio.\n\nWHERE IT IS STUCK\nTechnical maturity\nIntegration / commissioning\nEconomics / demand validation\n\nPrimary magnetic-confinement route using a toroidal plasma, large external magnets, plasma current, heating/current-drive systems, divertor heat exhaust, tritium/blanket interfaces, remote maintenance, and power conversion.\n\nDecision brief\nCOST\nCost not verified\nNeeds reviewed price/BOM source.\nSUPPLY CONSTRAINT\nTechnical maturity · Integration / commissioning · Economics / demand validation\nRELIEF TIMING\n84 months; Unknown until demand, utilization, and unit economics are validated.\nSOURCE TRAIL\n3 source records linked\nKEY SOURCES\n\n3 source records linked. Strongest source: Magnetic fusion confinement with tokamaks and stellarators (expert review · not reviewed · medium confidence). Limitation: Broad expert overview; it does not validate a commercial plant, cost, availability, or a specific investable supplier exposure.\n\nSecondary signals\nInspect next\nTokamak divertor heat exhaust\nBlocker\nTokamak disruption mitigation\nBlocker\nTokamak remote-maintenance interface\nBlocker\nFull evidence list\nTechnical details\nGraph appendix\nMap tools",
+      "selectedNodes": [
+        "controlled_tokamak_magnetic_confinement_route"
+      ],
+      "suspiciousJoinedLabels": [],
+      "title": "Controlled fusion route portfolio | Capability Graph Explorer",
+      "url": "http://127.0.0.1:3007/d/controlled-fusion?root=controlled_fusion_route_portfolio&focus=controlled_tokamak_magnetic_confinement_route",
+      "visibleNodeSample": [
+        {
+          "aria": "Controlled fusion route portfolio · product",
+          "id": "controlled_fusion_route_portfolio",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 590,
+            "y": 429
+          },
+          "text": "Controlled fusion route portfolio"
+        },
+        {
+          "aria": "Primary route family · module",
+          "id": "fusion_primary_route_family",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 621,
+            "y": 586
+          },
+          "text": "Primary route family"
+        },
+        {
+          "aria": "Tokamak magnetic-confinement route · technical_route",
+          "id": "controlled_tokamak_magnetic_confinement_route",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 780,
+            "y": 538
+          },
+          "text": "1 Tokamak route"
+        },
+        {
+          "aria": "Secondary route family · module",
+          "id": "fusion_secondary_route_family",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 492,
+            "y": 321
+          },
+          "text": "Secondary route family"
+        },
+        {
+          "aria": "Shared plant constraint stack · module",
+          "id": "fusion_shared_plant_constraint_stack",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 714,
+            "y": 366
+          },
+          "text": "Shared plant constraints"
+        },
+        {
+          "aria": "Stellarator magnetic-confinement route · technical_route",
+          "id": "stellarator_magnetic_confinement_route",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 434,
+            "y": 584
+          },
+          "text": "1 Stellarator route"
+        },
+        {
+          "aria": "Laser inertial fusion energy route · technical_route",
+          "id": "laser_inertial_fusion_energy_route",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 603,
+            "y": 663
+          },
+          "text": "1 Laser IFE route"
+        },
+        {
+          "aria": "Magnetized target / liquid-metal compression route · technical_route",
+          "id": "magnetized_target_liquid_metal_route",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 461,
+            "y": 245
+          },
+          "text": "Magnetized target/ liquid-metal…"
+        },
+        {
+          "aria": "Field-reversed configuration route · technical_route",
+          "id": "field_reversed_configuration_route",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 375,
+            "y": 426
+          },
+          "text": "1 Field-reversed config route"
+        },
+        {
+          "aria": "Z-pinch pulsed-power route · technical_route",
+          "id": "z_pinch_pulsed_power_route",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 648,
+            "y": 223
+          },
+          "text": "1 Z-pinch route"
+        },
+        {
+          "aria": "Tokamak current drive and heating · module",
+          "id": "tokamak_current_drive_heating",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 862,
+            "y": 602
+          },
+          "text": "Tokamak current drive + heating"
+        },
+        {
+          "aria": "Tokamak divertor heat exhaust · module",
+          "id": "tokamak_divertor_heat_exhaust",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 808,
+            "y": 705
+          },
+          "text": "Tokamak divertor heat exhaust"
+        },
+        {
+          "aria": "Tokamak cryogenic magnet plant · module",
+          "id": "tokamak_cryogenic_magnet_plant",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 903,
+            "y": 539
+          },
+          "text": "Tokamak cryogenic magnet plant"
+        },
+        {
+          "aria": "Tokamak remote-maintenance interface · module",
+          "id": "tokamak_remote_maintenance_interface",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 776,
+            "y": 760
+          },
+          "text": "Tokamak remote maint."
+        },
+        {
+          "aria": "Stellarator 3D coil system · module",
+          "id": "stellarator_3d_coil_system",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 408,
+            "y": 828
+          },
+          "text": "Stellarator 3D coil system"
+        },
+        {
+          "aria": "Stellarator steady-state heating · module",
+          "id": "stellarator_steady_state_heating",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 306,
+            "y": 594
+          },
+          "text": "Stellarator steady-state…"
+        },
+        {
+          "aria": "Stellarator blanket and maintenance access · module",
+          "id": "stellarator_blanket_maintenance_access",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 390,
+            "y": 764
+          },
+          "text": "Stellarator blanket access"
+        },
+        {
+          "aria": "Laser driver efficiency and repetition rate · module",
+          "id": "laser_driver_efficiency_rep_rate",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 699,
+            "y": 883
+          },
+          "text": "Laser driver rep-rate"
+        }
+      ]
+    },
+    {
+      "route": "spacex-reusable-starship",
+      "requestedTargetId": "starship_superheavy_reusable_branch",
+      "clickedId": "starship_superheavy_reusable_branch",
+      "screenshotPath": "/Users/wth/dev/civilization/.scratch/workflow-acceptance-2026-06-14/spacex-reusable-starship-after-label-controls.png",
+      "ready": {
+        "bodyMargin": "0px",
+        "nodeCount": 30,
+        "styleSheetCount": 2
+      },
+      "activeDetail": true,
+      "activeRoute": false,
+      "bodyStart": "Skip to content\nCapability Graph Explorer\nMAP PORTFOLIO\nMap portfolio\nMap portfolio\nAI compute chain\nParcel-sorting robot\nHumanoid robotics component stack\nControlled fusion route portfolio\nSpaceX reusable launch stack\nSpaceX orbital data center system\nExplore\nGate\n中文\nEnglish\n\nRESEARCH THESIS\n\nSpaceX reusable launch stack\n\nSpaceX-centered reusable launch map separating Falcon 9 operational reuse from Starship/Super Heavy rapid-reuse development constraints.\n\nRESEARCH ROOT\nSpaceX reusable launch stack\nResearch preview only\n2 direct dependencies\nProducts\nKnow-how\nLENS\nSystem decomposition\nCost drivers\nBottleneck risk\nMaturity\nWider = bottleneck risk.\nSpaceX reusable launch\nFalcon 9 reuse\nStarship/Super Heavy reuse\n1\nReuse enablers\n1\nLaunch/ground ops\n2\nFalcon 9 booster reuse\n3\nFalcon 9 Merli",
+      "canvas": {
+        "computed": {
+          "display": "block",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "948px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 948,
+          "x": 58,
+          "y": 144
+        }
+      },
+      "forbiddenHits": [],
+      "graphRailWidthRatio": 2.63,
+      "hasBottleneckThesis": true,
+      "hasCost": true,
+      "hasDecisionBrief": true,
+      "hasExposureSummary": false,
+      "hasKeySources": true,
+      "hasWhereStuck": true,
+      "layout": {
+        "computed": {
+          "display": "grid",
+          "gridTemplateColumns": "948px 360px",
+          "height": "866.016px",
+          "minHeight": "0px",
+          "width": "1324px"
+        },
+        "rect": {
+          "h": 866,
+          "w": 1324,
+          "x": 58,
+          "y": 58
+        }
+      },
+      "rail": {
+        "computed": {
+          "display": "flex",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "360px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 1022,
+          "y": 58
+        }
+      },
+      "railHeading": [
+        "Node detail",
+        "Starship / Super Heavy reusable branch",
+        "Decision brief",
+        "Cost not verified",
+        "Technical maturity · Integration / commissioning · Regulatory / licensing",
+        "24 months; External timing; license, safety, or airspace review can dominate.",
+        "3 source records linked",
+        "Secondary signals",
+        "Heat 95/100",
+        "Bottleneck for SpaceX reusable launch stack",
+        "3 source records linked",
+        "Inspect next",
+        "Full evidence list",
+        "Full evidence list",
+        "Evidence",
+        "Source:",
+        "Date:",
+        "Limitations:"
+      ],
+      "railTextStart": "FULL SYSTEM\nNode detail\nStart here\nDetail\nStarship / Super Heavy reusable branch\nBOTTLENECK THESIS\n\nWhy it matters: This can gate cost, scale, or adoption. Constraint: Development route for a fully reusable Starship upper stage and reusable Super Heavy booster, with much larger payload capacity but unresolved rapid-reuse... Why hard to clear: it constrains SpaceX reusable launch stack. Blocks: SpaceX reusable launch stack.\n\nWHERE IT IS STUCK\nTechnical maturity\nIntegration / commissioning\nRegulatory / licensing\n\nDevelopment route for a fully reusable Starship upper stage and reusable Super Heavy booster, with much larger payload capacity but unresolved rapid-reuse, heat-shield, tower-catch, and licensing constraints.\n\nDecision brief\nCOST\nCost not verified\nNeeds reviewed price/BOM source.\nSUPPLY CONSTRAINT\nTechnical maturity · Integration / commissioning · Regulatory / licensing\nRELIEF TIMING\n24 months; External timing; license, safety, or airspace review can dominate.\nSOURCE TRAIL\n3 source records linked\nKEY SOURCES\n\n3 source records linked. Strongest source: FAA Starship / Super Heavy Boca Chica project page (standard · reviewed · high confidence). Limitation: Reviewed only for Boca Chica site-specific regulatory/environmental and cadence context. Not a global fleet authorization, reliability proof, cost curve, or commercial throughput guarantee.\n\nSecondary signals\nInspect next\nStarship / Super Heavy vehicle stack\nBlocker\nSuper Heavy reusable booster\nBlocker\nSuper Heavy 33-Raptor engine cluster\nBlocker\nFull evidence list\nTechnical details\nGraph appendix\nMap tools",
+      "selectedNodes": [
+        "starship_superheavy_reusable_branch"
+      ],
+      "suspiciousJoinedLabels": [],
+      "title": "SpaceX reusable launch stack | Capability Graph Explorer",
+      "url": "http://127.0.0.1:3007/d/spacex-reusable-launch?root=spacex_reusable_launch_stack&focus=starship_superheavy_reusable_branch",
+      "visibleNodeSample": [
+        {
+          "aria": "SpaceX reusable launch stack · product",
+          "id": "spacex_reusable_launch_stack",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 556,
+            "y": 558
+          },
+          "text": "SpaceX reusable launch"
+        },
+        {
+          "aria": "Falcon 9 reusable branch · technical_route",
+          "id": "falcon9_reusable_launch_branch",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 557,
+            "y": 727
+          },
+          "text": "Falcon 9 reuse"
+        },
+        {
+          "aria": "Starship / Super Heavy reusable branch · technical_route",
+          "id": "starship_superheavy_reusable_branch",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 649,
+            "y": 423
+          },
+          "text": "Starship/Super Heavy reuse"
+        },
+        {
+          "aria": "Common reuse enablers · module",
+          "id": "reusable_launch_common_enablers",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 410,
+            "y": 562
+          },
+          "text": "1 Reuse enablers"
+        },
+        {
+          "aria": "Launch and ground operations stack · module",
+          "id": "spacex_launch_ground_stack",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 450,
+            "y": 451
+          },
+          "text": "1 Launch/ground ops"
+        },
+        {
+          "aria": "Falcon 9 booster reuse stack · module",
+          "id": "falcon9_booster_reuse_stack",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 680,
+            "y": 742
+          },
+          "text": "2 Falcon 9 booster reuse"
+        },
+        {
+          "aria": "Falcon 9 Merlin engine cluster · equipment",
+          "id": "falcon9_merlin_engine_cluster",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 586,
+            "y": 863
+          },
+          "text": "3 Falcon 9 Merlin cluster"
+        },
+        {
+          "aria": "Falcon 9 aluminum-lithium tank structure · module",
+          "id": "falcon9_aluminum_lithium_tank_structure",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 836,
+            "y": 601
+          },
+          "text": "1 Falcon 9 tank structure"
+        },
+        {
+          "aria": "Falcon 9 grid-fin reentry control · equipment",
+          "id": "falcon9_grid_fin_reentry_control",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 750,
+            "y": 819
+          },
+          "text": "Falcon 9 grid-fin reentry control"
+        },
+        {
+          "aria": "Falcon 9 landing legs · equipment",
+          "id": "falcon9_landing_legs",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 709,
+            "y": 891
+          },
+          "text": "Falcon 9 landing legs"
+        },
+        {
+          "aria": "Falcon 9 second-stage payload delivery · module",
+          "id": "falcon9_second_stage_payload_delivery",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 388,
+            "y": 745
+          },
+          "text": "Falcon 9 second-stage…"
+        },
+        {
+          "aria": "Merlin Vacuum upper-stage engine · equipment",
+          "id": "merlin_vacuum_upper_stage_engine",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 265,
+            "y": 757
+          },
+          "text": "Merlin Vacuum upper-stage engine"
+        },
+        {
+          "aria": "Falcon 9 fault-tolerant avionics and GNC · module",
+          "id": "falcon9_fault_tolerant_avionics_gnc",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 434,
+            "y": 808
+          },
+          "text": "Falcon 9 avionics/GNC"
+        },
+        {
+          "aria": "Falcon 9 pneumatic stage separation · equipment",
+          "id": "falcon9_pneumatic_stage_separation",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 311,
+            "y": 832
+          },
+          "text": "Falcon 9 stage sep."
+        },
+        {
+          "aria": "Falcon 9 fairing recovery and reuse · module",
+          "id": "falcon9_fairing_recovery_reuse",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 448,
+            "y": 874
+          },
+          "text": "Falcon 9 fairing reuse"
+        },
+        {
+          "aria": "Starship / Super Heavy vehicle stack · module",
+          "id": "starship_superheavy_vehicle_stack",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 687,
+            "y": 345
+          },
+          "text": "Starship/Super Heavy vehicle stack"
+        },
+        {
+          "aria": "Super Heavy reusable booster · module",
+          "id": "superheavy_reusable_booster",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 812,
+            "y": 458
+          },
+          "text": "1 Super Heavy booster"
+        },
+        {
+          "aria": "Super Heavy 33-Raptor engine cluster · equipment",
+          "id": "starship_raptor_engine_cluster_33",
+          "rect": {
+            "h": 55,
+            "w": 98,
+            "x": 792,
+            "y": 241
+          },
+          "text": "33-Raptor cluster"
+        }
+      ]
+    },
+    {
+      "route": "spacex-odc-thermal",
+      "requestedTargetId": "orbital_thermal_rejection_stack",
+      "clickedId": "orbital_thermal_rejection_stack",
+      "screenshotPath": "/Users/wth/dev/civilization/.scratch/workflow-acceptance-2026-06-14/spacex-odc-thermal-after-label-controls.png",
+      "ready": {
+        "bodyMargin": "0px",
+        "nodeCount": 29,
+        "styleSheetCount": 2
+      },
+      "activeDetail": true,
+      "activeRoute": false,
+      "bodyStart": "Skip to content\nCapability Graph Explorer\nMAP PORTFOLIO\nMap portfolio\nMap portfolio\nAI compute chain\nParcel-sorting robot\nHumanoid robotics component stack\nControlled fusion route portfolio\nSpaceX reusable launch stack\nSpaceX orbital data center system\nExplore\nGate\n中文\nEnglish\n\nRESEARCH THESIS\n\nSpaceX orbital data center system\n\nSpaceX-centered future-product map for orbital AI compute, grounded in FCC application evidence but not presented as a mature commercial service.\n\nRESEARCH ROOT\nSpaceX orbital data center system\nResearch preview only\n10 direct dependencies\nProducts\nKnow-how\nLENS\nSystem decomposition\nCost drivers\nBottleneck risk\nMaturity\nWider = bottleneck risk.\nSpaceX orbital DC\n2\nOrbital compute payload stack\nOrbital AI accelerator…\nRadiation-tolerant compute board\nOrbital ECC memo",
+      "canvas": {
+        "computed": {
+          "display": "block",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "948px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 948,
+          "x": 58,
+          "y": 186
+        }
+      },
+      "forbiddenHits": [],
+      "graphRailWidthRatio": 2.63,
+      "hasBottleneckThesis": true,
+      "hasCost": true,
+      "hasDecisionBrief": true,
+      "hasExposureSummary": false,
+      "hasKeySources": true,
+      "hasWhereStuck": true,
+      "layout": {
+        "computed": {
+          "display": "grid",
+          "gridTemplateColumns": "948px 360px",
+          "height": "866.016px",
+          "minHeight": "0px",
+          "width": "1324px"
+        },
+        "rect": {
+          "h": 866,
+          "w": 1324,
+          "x": 58,
+          "y": 100
+        }
+      },
+      "rail": {
+        "computed": {
+          "display": "flex",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "360px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 1022,
+          "y": 100
+        }
+      },
+      "railHeading": [
+        "Node detail",
+        "Orbital thermal rejection stack",
+        "Decision brief",
+        "Cost not verified",
+        "Technical maturity · Integration / commissioning",
+        "36 months; Execution timing depends on engineering, integration, and qualification.",
+        "1 source record linked",
+        "Secondary signals",
+        "Heat 98/100",
+        "Bottleneck for SpaceX orbital data center system",
+        "1 source record linked",
+        "Inspect next",
+        "Full evidence list",
+        "Full evidence list",
+        "Evidence",
+        "Source:",
+        "Date:",
+        "Limitations:"
+      ],
+      "railTextStart": "FULL SYSTEM\nNode detail\nStart here\nDetail\nOrbital thermal rejection stack\nBOTTLENECK THESIS\n\nWhy it matters: This can gate cost, scale, or adoption. Constraint: Thermal branch for removing high compute heat in vacuum. Why hard to clear: it constrains SpaceX orbital data center system. Blocks: SpaceX orbital data center system.\n\nWHERE IT IS STUCK\nTechnical maturity\nIntegration / commissioning\n\nThis is the clearest first-order bottleneck because waste heat can only be moved and radiated, not convected away.\n\nDecision brief\nCOST\nCost not verified\nNeeds reviewed price/BOM source.\nSUPPLY CONSTRAINT\nTechnical maturity · Integration / commissioning\nRELIEF TIMING\n36 months; Execution timing depends on engineering, integration, and qualification.\nSOURCE TRAIL\n1 source record linked\nKEY SOURCES\n\n1 source record linked. Strongest source: NASA Small Spacecraft Technology: thermal control (expert review · reviewed · high confidence). Limitation: Reviewed only for general spacecraft thermal-control constraints and technologies. It does not prove orbital data-center heat rejection at high compute scale.\n\nSecondary signals\nInspect next\nCompute cold plate and fluid loop\nHeat 98/100\nDeployable radiator panels\nHeat 97/100\nFull evidence list\nTechnical details\nGraph appendix\nMap tools",
+      "selectedNodes": [
+        "orbital_thermal_rejection_stack"
+      ],
+      "suspiciousJoinedLabels": [],
+      "title": "SpaceX orbital data center system | Capability Graph Explorer",
+      "url": "http://127.0.0.1:3007/d/spacex-orbital-data-center?root=spacex_orbital_data_center_system&focus=orbital_thermal_rejection_stack&path=orbital_thermal_rejection_stack",
+      "visibleNodeSample": [
+        {
+          "aria": "SpaceX orbital data center system · product",
+          "id": "spacex_orbital_data_center_system",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 509,
+            "y": 557
+          },
+          "text": "SpaceX orbital DC"
+        },
+        {
+          "aria": "Orbital compute payload stack · module",
+          "id": "orbital_compute_payload_stack",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 434,
+            "y": 614
+          },
+          "text": "2 Orbital compute payload stack"
+        },
+        {
+          "aria": "Orbital AI accelerator payload racks · equipment",
+          "id": "orbital_ai_accelerator_payload_racks",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 389,
+            "y": 719
+          },
+          "text": "Orbital AI accelerator…"
+        },
+        {
+          "aria": "Radiation-tolerant compute board · equipment",
+          "id": "radiation_tolerant_compute_board",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 340,
+            "y": 580
+          },
+          "text": "Radiation-tolerant compute board"
+        },
+        {
+          "aria": "Orbital ECC memory and storage · equipment",
+          "id": "orbital_error_correcting_memory_storage",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 351,
+            "y": 614
+          },
+          "text": "Orbital ECC memory + storage"
+        },
+        {
+          "aria": "Spacecraft bus platform for compute · module",
+          "id": "spacecraft_bus_platform_for_compute",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 600,
+            "y": 568
+          },
+          "text": "Spacecraft bus platform for…"
+        },
+        {
+          "aria": "Deployable solar power system · module",
+          "id": "deployable_solar_power_system",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 593,
+            "y": 615
+          },
+          "text": "1 Deployable solar power system"
+        },
+        {
+          "aria": "High-power solar array packaging · equipment",
+          "id": "orbital_high_power_solar_array_packaging",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 644,
+            "y": 665
+          },
+          "text": "High-power solar array packaging"
+        },
+        {
+          "aria": "Battery storage and power conditioning · module",
+          "id": "battery_energy_storage_power_conditioning",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 683,
+            "y": 552
+          },
+          "text": "Battery storage + power conditioning"
+        },
+        {
+          "aria": "Rad-hard power distribution unit · equipment",
+          "id": "radhard_power_distribution_unit",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 635,
+            "y": 701
+          },
+          "text": "Rad-hard power distribution unit"
+        },
+        {
+          "aria": "Orbital thermal rejection stack · module",
+          "id": "orbital_thermal_rejection_stack",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 570,
+            "y": 468
+          },
+          "text": "1 Orbital thermal rejection stack"
+        },
+        {
+          "aria": "Deployable radiator panels · equipment",
+          "id": "deployable_radiator_panels",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 597,
+            "y": 371
+          },
+          "text": "Deployable radiator panels"
+        },
+        {
+          "aria": "Heat-pipe / loop-heat-pipe network · equipment",
+          "id": "heat_pipe_loop_heat_pipe_network",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 620,
+            "y": 407
+          },
+          "text": "Heat-pipe/ loop-heat-pipe…"
+        },
+        {
+          "aria": "Compute cold plate and fluid loop · equipment",
+          "id": "compute_cold_plate_fluid_loop",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 578,
+            "y": 334
+          },
+          "text": "Compute cold plate + fluid loop"
+        },
+        {
+          "aria": "Radiator surface coatings and degradation · material",
+          "id": "radiator_surface_coatings_degradation",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 638,
+            "y": 870
+          },
+          "text": "Radiator surface coatings +…"
+        },
+        {
+          "aria": "Optical ISL network fabric · module",
+          "id": "optical_isl_network_fabric",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 553,
+            "y": 666
+          },
+          "text": "Optical ISL network fabric"
+        },
+        {
+          "aria": "Starlink laser-terminal backhaul · equipment",
+          "id": "starlink_laser_terminal_backhaul",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 524,
+            "y": 717
+          },
+          "text": "Starlink laser-terminal…"
+        },
+        {
+          "aria": "TT&C and ground-link layer · module",
+          "id": "ttc_ka_ku_ground_links",
+          "rect": {
+            "h": 37,
+            "w": 66,
+            "x": 507,
+            "y": 767
+          },
+          "text": "TT&C + ground-link layer"
+        }
+      ]
+    },
+    {
+      "route": "ai-compute-hbm-demo",
+      "requestedTargetId": "hbm_stack_assembly_die_bonding",
+      "clickedId": "high_bandwidth_memory",
+      "screenshotPath": "/Users/wth/dev/civilization/.scratch/workflow-acceptance-2026-06-14/ai-compute-hbm-demo-after-label-controls.png",
+      "ready": {
+        "bodyMargin": "0px",
+        "nodeCount": 68,
+        "styleSheetCount": 2
+      },
+      "activeDetail": true,
+      "activeRoute": false,
+      "bodyStart": "Skip to content\nCapability Graph Explorer\nMAP PORTFOLIO\nMap portfolio\nMap portfolio\nAI compute chain\nParcel-sorting robot\nHumanoid robotics component stack\nControlled fusion route portfolio\nSpaceX reusable launch stack\nSpaceX orbital data center system\nExplore\nGate\n中文\nEnglish\n\nRESEARCH THESIS\n\nAI compute chain\n\nAI accelerator supply chain from wafer fabrication through CoWoS, HBM, substrates, power delivery, and cooling.\n\nRESEARCH ROOT\nAI accelerator module (leading-edge logic + HBM on 2.5D advanced package)\n7 direct dependencies\n2 cost targets\nProducts\nKnow-how\nLENS\nSystem decomposition\nCost drivers\nBottleneck risk\nMaturity\nWider = bottleneck risk.\nAI accel module( leading-edge logic…\n1\nLogic die fab\nEUV mask mfg\nEUV resist\nCVD, PVD, ALD dep.\nRIE etch tools\nCMP tools + slurry\nIon implant ",
+      "canvas": {
+        "computed": {
+          "display": "block",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "948px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 948,
+          "x": 58,
+          "y": 60
+        }
+      },
+      "forbiddenHits": [],
+      "graphRailWidthRatio": 2.63,
+      "hasBottleneckThesis": true,
+      "hasCost": true,
+      "hasDecisionBrief": true,
+      "hasExposureSummary": true,
+      "hasKeySources": true,
+      "hasWhereStuck": true,
+      "layout": {
+        "computed": {
+          "display": "grid",
+          "gridTemplateColumns": "948px 360px",
+          "height": "866.016px",
+          "minHeight": "0px",
+          "width": "1324px"
+        },
+        "rect": {
+          "h": 866,
+          "w": 1324,
+          "x": 58,
+          "y": -26
+        }
+      },
+      "rail": {
+        "computed": {
+          "display": "flex",
+          "gridTemplateColumns": "none",
+          "height": "780px",
+          "minHeight": "560px",
+          "width": "360px"
+        },
+        "rect": {
+          "h": 780,
+          "w": 360,
+          "x": 1022,
+          "y": -26
+        }
+      },
+      "railHeading": [
+        "Node detail",
+        "High-bandwidth memory (HBM)",
+        "Decision brief",
+        "Cost not verified",
+        "Component availability · Capacity / scale",
+        "18 months; Medium-to-long cycle; qualified components or second sources must scale.",
+        "4 source records linked",
+        "Evidence, suppliers, tickers 3 candidates",
+        "Evidence, suppliers, tickers",
+        "Secondary signals",
+        "Heat 92/100",
+        "Bottleneck for AI accelerator module (leading-edge logic + HBM on 2.5D advanced package)",
+        "4 source records linked",
+        "Inspect next",
+        "Full evidence list",
+        "Full evidence list",
+        "Evidence",
+        "Source:"
+      ],
+      "railTextStart": "FULL SYSTEM\nNode detail\nStart here\nDetail\nHigh-bandwidth memory (HBM)\nBOTTLENECK THESIS\n\nWhy it matters: AI infrastructure growth turns this into a capacity, yield, and supplier-concentration gate. Constraint: High-bandwidth memory stacks co-packaged with the logic die. Why hard to clear: it constrains AI accelerator module (leading-edge logic + HBM on 2.5D advanced package). Blocks: AI accelerator module (leading-edge logic + HBM on 2.5D advanced package).\n\nWHERE IT IS STUCK\nComponent availability\nCapacity / scale\n\nHigh-bandwidth memory stacks co-packaged with the logic die.\n\nDecision brief\nCOST\nCost not verified\nNeeds reviewed price/BOM source.\nSUPPLY CONSTRAINT\nComponent availability · Capacity / scale\nRELIEF TIMING\n18 months; Medium-to-long cycle; qualified components or second sources must scale.\nSOURCE TRAIL\n4 source records linked\nKEY SOURCES\n\n4 source records linked. Strongest source: HBM total market capacity exceeds 30 billion Gb in 2026 (paper · not reviewed · high confidence).\n\nEvidence, suppliers, tickers 3 candidates\nSecondary signals\nInspect next\nHBM testing, validation, and power delivery verification\nHeat 93/100\nHBM stack assembly and die bonding\nHeat 93/100\nFull evidence list\nTechnical details\nGraph appendix\nMap tools",
+      "selectedNodes": [
+        "high_bandwidth_memory"
+      ],
+      "suspiciousJoinedLabels": [],
+      "title": "AI compute chain | Capability Graph Explorer",
+      "url": "http://127.0.0.1:3007/d/ai-compute?root=ai_accelerator_module_hbm_cowos&focus=high_bandwidth_memory&path=high_bandwidth_memory",
+      "visibleNodeSample": [
+        {
+          "aria": "AI accelerator module (leading-edge logic + HBM on 2.5D advanced package) · product",
+          "id": "ai_accelerator_module_hbm_cowos",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 473,
+            "y": 440
+          },
+          "text": "AI accel module( leading-edge logic…"
+        },
+        {
+          "aria": "Leading-edge logic die fabrication · module",
+          "id": "logic_die_fabrication",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 433,
+            "y": 376
+          },
+          "text": "1 Logic die fab"
+        },
+        {
+          "aria": "EUV photomask blank and patterned mask manufacturing · module",
+          "id": "euv_photomask_production",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 315,
+            "y": 268
+          },
+          "text": "EUV mask mfg"
+        },
+        {
+          "aria": "EUV photoresist materials and formulation · material",
+          "id": "euv_photoresist_materials",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 786,
+            "y": 379
+          },
+          "text": "EUV resist"
+        },
+        {
+          "aria": "Deposition equipment (CVD, PVD, ALD) · equipment",
+          "id": "process_equipment_deposition",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 418,
+            "y": 204
+          },
+          "text": "CVD, PVD, ALD dep."
+        },
+        {
+          "aria": "Plasma etch (RIE) process equipment · equipment",
+          "id": "plasma_etch_equipment",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 410,
+            "y": 293
+          },
+          "text": "RIE etch tools"
+        },
+        {
+          "aria": "Chemical-mechanical polishing (CMP) equipment and slurries · equipment",
+          "id": "cmp_process_equipment",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 350,
+            "y": 377
+          },
+          "text": "CMP tools + slurry"
+        },
+        {
+          "aria": "Ion implantation equipment · equipment",
+          "id": "ion_implantation_equipment",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 406,
+            "y": 236
+          },
+          "text": "Ion implant tools"
+        },
+        {
+          "aria": "In-line wafer inspection and metrology · equipment",
+          "id": "process_control_metrology",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 416,
+            "y": 265
+          },
+          "text": "In-line wafer inspection +…"
+        },
+        {
+          "aria": "Thermal processing (annealing, oxidation, diffusion) · equipment",
+          "id": "thermal_processing_furnaces",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 441,
+            "y": 168
+          },
+          "text": "Thermal process"
+        },
+        {
+          "aria": "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm) · equipment",
+          "id": "foundry_capacity_tsmc",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 388,
+            "y": 321
+          },
+          "text": "TSMC capacity (3nm, 5nm, 7nm)"
+        },
+        {
+          "aria": "ASML EUV lithography systems (NXE:3600D and successors) · equipment",
+          "id": "asml_lithography_systems",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 339,
+            "y": 179
+          },
+          "text": "ASML EUV tools(NXE: 3600D + successors)"
+        },
+        {
+          "aria": "Advanced packaging (2.5D/3D) · module",
+          "id": "advanced_packaging",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 541,
+            "y": 484
+          },
+          "text": "2 Advanced packaging (2.5D/3D)"
+        },
+        {
+          "aria": "Organic substrate (high-layer-count build-up) · material",
+          "id": "organic_substrate_buildup",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 247,
+            "y": 677
+          },
+          "text": "Org. substrate( high-layer-count…"
+        },
+        {
+          "aria": "High-bandwidth memory (HBM) · module",
+          "id": "high_bandwidth_memory",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 450,
+            "y": 518
+          },
+          "text": "2 HBM(HBM)"
+        },
+        {
+          "aria": "HBM test and assembly equipment · equipment",
+          "id": "hbm_test_equipment_and_tooling",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 392,
+            "y": 745
+          },
+          "text": "HBM test + assembly equipment"
+        },
+        {
+          "aria": "Package substrate & interposer · module",
+          "id": "substrate_and_interposer",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 517,
+            "y": 376
+          },
+          "text": "Package substrate &interposer"
+        },
+        {
+          "aria": "Organic substrate base structure · module",
+          "id": "organic_substrate_base_structure",
+          "rect": {
+            "h": 35,
+            "w": 63,
+            "x": 574,
+            "y": 214
+          },
+          "text": "Org. substrate base structure"
+        }
+      ]
+    }
+  ]
+}

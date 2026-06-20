@@ -1,0 +1,35 @@
+[
+  {
+    "name": "ai compute route",
+    "shot": "/Users/wth/dev/civilization/.scratch/graph-overlay-fix-2026-06-12/ai-compute-route-no-overlay.png",
+    "state": {
+      "canvasTextSample": "Research rootAI accelerator module (leading-edge logic + HBM on 2.5D advanced package)7 direct dependencies2 cost targetsOriginal productAgent expandAI accelerator…1Leading-edge l…EUV photomask …EUV photoresis…Deposition equ…Plasma etch (R…Chemical-mecha…Ion implantati…In-line wafer …Thermal proces…TSMC leading-e…ASML EUV litho…2Advanced packa…Organic substr…2High-bandwidth…HBM test and a…Package substr…Organic substr…Silicon interp…ABF (Ajinomoto…T-glass (Boron…Power delivery…Interconnect &…On-module HBM …Chiplet-to-chi…On-module SerD…Optical transc…Optical transc…2Laser array an…Optical module…High-speed bac…1Power delivery…Module-level V…48V–12V interm…Rack PSU (2–4k…Thermal manage…Direct",
+      "overlayCount": 0,
+      "realNodeCount": 68,
+      "url": "http://127.0.0.1:3000/d/ai-compute?root=ai_accelerator_module_hbm_cowos",
+      "viewportOpacity": "1"
+    }
+  },
+  {
+    "name": "humanoid route",
+    "shot": "/Users/wth/dev/civilization/.scratch/graph-overlay-fix-2026-06-12/humanoid-route-no-overlay.png",
+    "state": {
+      "canvasTextSample": "Research rootHumanoid robot key component stack7 direct dependencies0 cost targetsOriginal productAgent expand3Humanoid robot…Actuation syst…Dexterous hand…Battery, power…Thermal manage…Perception and…Onboard comput…Structure, mat…Rotary joint m…Linear joint m…Reducer and tr…Motor stackMotor drive po…Joint sensing …Joint bearings…Strain-wave re…Planetary roll…Frameless BLDC…Rare-earth mag…Joint inverter…Current sensin…Five-finger ha…Tendon or cabl…Micro hand act…Fingertip tact…Palm force and…Lithium-ion ce…Battery pack e…Battery manage…High-current p…Charging and d…Motor and join…Battery therma…Compute heat s…Airflow or liq…Thermal sensor…Stereo RGB cam…Depth camera a…IMU attitude s…Joint en",
+      "overlayCount": 0,
+      "realNodeCount": 54,
+      "url": "http://127.0.0.1:3000/d/humanoid-robotics?root=humanoid_robot_key_component_stack",
+      "viewportOpacity": "1"
+    }
+  },
+  {
+    "name": "fusion route",
+    "shot": "/Users/wth/dev/civilization/.scratch/graph-overlay-fix-2026-06-12/fusion-route-no-overlay.png",
+    "state": {
+      "canvasTextSample": "Research rootControlled fusion route portfolio3 direct dependencies0 cost targetsOriginal productAgent expandControlled fus…Primary route …1Tokamak magnet…Secondary rout…Shared plant c…1Stellarator ma…1Laser inertial…Magnetized tar…1Field-reversed…1Z-pinch pulsed…Tokamak curren…Tokamak divert…Tokamak cryoge…Tokamak remote…Stellarator 3D…Stellarator st…Stellarator bl…Laser driver e…Laser IFE cham…Laser IFE puls…Laser IFE targ…Diode-pumped l…MTF plasma inj…Liquid-metal l…MTF compressio…Liquid-metal c…MTF mechanical…MTF pulse heat…FRC formation …FRC neutral be…FRC diagnostic…FRC direct ene…FRC repetition…Z-pinch pulsed…Z-pinch electr…Z-pinch fuel i…Z-pinch high-r…Z-pinch energy…Breeding blank…T",
+      "overlayCount": 0,
+      "realNodeCount": 47,
+      "url": "http://127.0.0.1:3000/d/controlled-fusion?root=controlled_fusion_route_portfolio",
+      "viewportOpacity": "1"
+    }
+  }
+]

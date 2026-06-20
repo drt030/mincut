@@ -1,7 +1,10 @@
 # Launch Detail Rail Priority Spec
 
 **Date:** 2026-06-12
-**Status:** Draft for main-agent review. Do not implement until reviewed.
+**Status:** Historical draft, superseded for current acceptance by
+`docs/ACCEPTANCE.md`, `docs/QA-agent.md`, and `docs/GRAPH_UX.md`.
+Do not implement this document literally without first updating it to the
+2026-06-17 Chokepoint / Cost / Barrier Sources vocabulary.
 **Scope:** `/d/<slug>` detail rail, selected-node detail, product detail summary, exposure access messaging, and bilingual copy.
 **Non-scope for this worker:** production code, tests, data edits, paywall logic changes, checkout changes.
 
@@ -10,12 +13,12 @@
 The launch surface at `drt030.com` is a retail-focused chokepoint map for industry and investment research readers. The first screen after opening `/d/ai-compute` or selecting a node should answer:
 
 1. Why this node matters in the chain.
-2. What it blocks, and what its Heat signal means.
+2. Whether it is a Chokepoint, and which structural axis drives it.
 3. What the free layer already includes.
 4. What the paid exposure layer adds.
 5. What the reader should inspect next.
 
-The UI should stop leading with internal graph-database metadata. Raw kind pills, domain tags, raw maturity score, exhaustive upstream/downstream lists, and research-root controls are useful to operators but should not dominate the launch first viewport.
+The UI should stop leading with internal graph-database metadata. Raw kind pills, domain tags, raw maturity score, exhaustive upstream/downstream lists, and research-root controls are useful to operators but should not dominate the launch first viewport. Current copy should use Chokepoint, Cost, and Barrier Sources rather than the older Heat/Risk vocabulary.
 
 ## Local Context Read
 
@@ -40,9 +43,9 @@ Source docs and code inspected:
 Current state:
 
 - `/d/[slug]` loads a route-specific graph, computes holder teasers from the full graph, strips exposure server-side, renders `ExposureAccessBanner`, then renders `GraphExplorer`.
-- `/d/ai-compute` is gated by entitlement `ai_compute`; `/d/parcel-robot` is the full-free demo.
-- `GraphExplorer` defaults to `bottleneck-risk` and passes the selected node to `RouteDetailRail`.
-- `RouteDetailRail` already has route/detail tabs and a selected-node summary card, but its summary still emphasizes kind, maturity, cost, and short description.
+- `/d/ai-compute` is the full-free trust demo; current paid/future-paid boundaries are route-specific and must match `src/lib/domains.ts`.
+- `GraphExplorer` should expose the current reader-facing lenses: System decomposition, Chokepoint, and Cost.
+- `RouteDetailRail` should lead with Chokepoint verdict, elevated structural axis, Cost as separate magnitude, Barrier Sources, exposure state, and evidence state.
 - `NodeDetailContent` already contains most launch-relevant information, but the order is mixed: kind/domain pills appear first; then priority strip; then investor answer/product-specific sections; then many technical sections and lists.
 - `ExposureAccessBanner` explains free vs paid at the top of the route, but exposure status is not yet tightly integrated into selected-node first-screen reading.
 - `ExposureLockCta` renders locked exposure CTAs where candidate exposure would appear.

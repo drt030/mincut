@@ -1,0 +1,206 @@
+# Evidence audit — ai-compute (2026-06-14)
+
+Scoped in-domain evidence records: 343
+Buckets: demote=94 · failed=46 · needs_fetch=55 · structural_ok=148
+Would auto-apply: demote=94, structural_ok=148, failed=46
+
+## needs_fetch (hand to the judgment subagent)
+- ev_acc_pkg_cowos_architecture
+- ev_acc_pkg_tsmc_cowos_share
+- ev_acc_pkg_tsmc_capacity
+- ev_acc_pkg_ibiden_expansion
+- ev_acc_pkg_substrate_bottleneck
+- ev_acc_pkg_substrate_capacity
+- ev_acc_pkg_test_capacity
+- ev_acc_pkg_flip_chip_equipment
+- ev_acc_pkg_hdi_laser_drill
+- ev_acc_hbm_tsv_bonding_yield
+- ev_acc_hbm_test_yield_constraints
+- ev_acc_hbm_ate_lead_time
+- ev_acc_opt_broadcom_transceiver_capacity
+- ev_acc_opt_osat_substrate_capacity
+- ev_acc_optup_epitaxy_foundry_market
+- ev_acc_optup_epitaxy_capacity_constraint
+- ev_acc_optup_iqe_capacity_utilization
+- ev_acc_optup_vpec_mocvd_expansion
+- ev_acc_optup_eml_shortage_2024
+- ev_acc_optup_vcsel_supplier_count
+- ev_acc_optup_fab_lead_time
+- ev_acc_icsi_retimer_market_2024
+- ev_acc_icsi_marvell_alaska_p_pcie6
+- ev_acc_icsi_3nm_aec_retimer_roadmap
+- ev_acc_icsi_pcie_cxl_switch_market_2025
+- ev_acc_icsi_broadcom_retimer_2024
+- ev_acc_pkgeq_disco_market
+- ev_acc_pkgeq_disco_tech
+- ev_acc_pkgeq_dicing_growth
+- ev_acc_pkgeq_dicing_process
+- ev_acc_bn3_hbm_testing
+- ev_acc_bn3_optical_transceiver
+- ev_acc_bn3_sealed_cooling
+- ev_acc_nc4_hanmi_tcb_1
+- ev_acc_nc4_asmpt_share_gain_1
+- ev_acc_nc4_nittobo_monopoly_1
+- ev_acc_nc4_tglass_shortage_1
+- ev_acc_nc4_asahi_entry_1
+- ev_acc_r6h_skhynix_hbm_share_2026
+- ev_acc_r6h_samsung_hbm_capacity_2026
+- ev_acc_r6h_micron_hbm4_ramp_2026
+- ev_acc_r6h_hbm_total_capacity_bits_2026
+- ev_acc_r6h_hbm_hybrid_bonding_yield
+- ev_acc_r6h_advantest_ate_lead_time
+- ev_acc_r6h_asmpt_hbm4_bonder_orders
+- ev_acc_r6l_asml_euv_2025
+- ev_acc_r6l_asml_litho_share
+- ev_acc_r6l_asml_sole_supplier
+- ev_acc_r6l_zeiss_sole_source
+- ev_acc_r6l_zeiss_asml_partnership
+- ev_acc_r6l_tsmc_foundry_wiki
+- ev_acc_r6o_coherent_inp_capacity
+- ev_acc_r6o_eml_supplier_share
+- ev_acc_r7_cowos_fully_booked
+- ev_acc_r7_agc_euvl_capacity_official
+
+## demote (dead/wrong source → rejectedEvidenceIds)
+- ev_acc_logic_foundry_capacity: dead source: 404
+- ev_acc_logic_tsmc_3nm: dead source: 404
+- ev_acc_logic_euv_mask_bottleneck: dead source: 404
+- ev_acc_logic_euv_mask_suppliers: dead source: 404
+- ev_acc_logic_wafer_supply: dead source: 404
+- ev_acc_logic_process_gases: dead source: 404
+- ev_acc_logic_tsmc_capacity: dead source: 404
+- ev_acc_logic_asml_capacity: dead source: 404
+- ev_acc_pkg_osat_share: dead source: generic_homepage
+- ev_acc_hbm_trendforce_hbm_demand_2024: dead source: generic_homepage
+- ev_acc_hbm_skhynix_share_2024: dead source: generic_homepage
+- ev_acc_hbm_samsung_ramp_2024: dead source: generic_homepage
+- ev_acc_hbm_micron_timeline_2025: dead source: unreachable
+- ev_acc_hbm_sk_hynix_process_node: dead source: generic_homepage
+- ev_acc_hbm_hybrid_bonder_equipment: dead source: unreachable
+- ev_acc_hbm_ate_equipment: dead source: generic_homepage
+- ev_acc_hbm_substrate_laminate_suppliers: dead source: generic_homepage
+- ev_acc_sub_mitsubishi_bt_resin: dead source: unreachable
+- ev_acc_opt_broadcom_transceiver_asic: dead source: 404
+- ev_acc_opt_vcsel_supply_constraint: dead source: 404
+- ev_acc_pwr_vrm_architecture_hpc: dead source: 404
+- ev_acc_pwr_power_stage_shortage_2024: dead source: 404
+- ev_acc_pwr_mlcc_shortage_2023: dead source: 404
+- ev_acc_pwr_inductor_market_overview: dead source: 404
+- ev_acc_pwr_48v_standard_adoption: dead source: 404
+- ev_acc_pwr_rack_psu_redundancy: dead source: 404
+- ev_acc_pwr_connector_lead_time_2024: dead source: 404
+- ev_acc_pwr_vrm_thermal_design: dead source: 404
+- ev_acc_pwr_renesas_vrm_ic: dead source: 404
+- ev_acc_pwr_tsmc_capacity_share: dead source: 404
+- ev_acc_pwr_samsung_foundry_power_ics: dead source: 404
+- ev_acc_pwr_murata_mlcc_production: dead source: 404
+- ev_acc_pwr_tdk_mlcc_capacity: dead source: 404
+- ev_acc_pwr_samsung_em_mlcc: dead source: 404
+- ev_acc_pwr_murata_inductor_market: dead source: 404
+- ev_acc_pwr_tdk_inductor_ferrite: dead source: 404
+- ev_acc_pwr_vicor_isolated_converter: dead source: 404
+- ev_acc_pwr_pi_galvanically_isolated: dead source: 404
+- ev_acc_pwr_delta_datacenter_psu: dead source: 404
+- ev_acc_pwr_eaton_power_systems: dead source: 404
+- ev_acc_pwr_molex_high_current_connector: dead source: 404
+- ev_acc_pwr_te_connectivity_connectors: dead source: 404
+- ev_acc_pwr_renesas_power_ic_share: dead source: 404
+- ev_acc_pwr_samsung_foundry_capacity: dead source: 404
+- ev_acc_pwr_murata_market_share: dead source: 404
+- ev_acc_pwr_tdk_market_share: dead source: 404
+- ev_acc_pwr_samsung_em_market_share: dead source: 404
+- ev_acc_pwr_vicor_market_share: dead source: 404
+- ev_acc_pwr_pi_market_share: dead source: 404
+- ev_acc_pwr_delta_market_share: dead source: 404
+- ev_acc_pwr_eaton_market_share: dead source: 404
+- ev_acc_thm_shin_etsu_tim_share: dead source: generic_homepage
+- ev_acc_thm_henkel_bergquist_tim: dead source: 404
+- ev_acc_thm_boyd_heat_exchangers: dead source: 404
+- ev_acc_thm_vertiv_cdu: dead source: 404
+- ev_acc_sub2_shinko_market_share: dead source: 404
+- ev_acc_sub2_ats_market_share: dead source: 404
+- ev_acc_logic2_samsung_foundry_capacity: dead source: 404
+- ev_acc_logic2_asml_optics_zeiss: dead source: 404
+- ev_acc_logic2_euv_mask_duopoly: dead source: 404
+- ev_acc_logic2_tsmc_foundry_capacity_updated: dead source: 404
+- ev_acc_opt2_eml_dfb_shortage_2024: dead source: wrong_topic
+- ev_acc_cp2_coolitsystems_cdu: dead source: generic_homepage
+- ev_acc_cp2_motivair_modular_cooling: dead source: generic_homepage
+- ev_acc_cp2_henkel_tim_adhesive: dead source: 404
+- ev_acc_cmpd_coherent_nvidia_deal: dead source: unreachable
+- ev_acc_pkgeq_tcb_kulicke: dead source: unreachable
+- ev_acc_pkgeq_probe_cohu: dead source: generic_homepage
+- ev_acc_pkgeq_xray_process: dead source: generic_homepage
+- ev_acc_pkgeq_underfill_process: dead source: generic_homepage
+- ev_acc_nc4_hoya_highna_2: dead source: generic_homepage
+- ev_acc_nc4_hoya_euv_1: dead source: 404
+- ev_acc_nc4_euv_market_1: dead source: generic_homepage
+- ev_acc_edge4_amphenol_optical_connectors: dead source: 404
+- ev_acc_edge5_amphenol_electrical_connectors: dead source: 404
+- ev_acc_edge6_marvell_redriver_chiplet: dead source: 404
+- ev_acc_r5w_advantest_ate_memory: dead source: 404
+- ev_acc_r5w_amkor_flip_chip: dead source: generic_homepage
+- ev_acc_r5w_ase_flip_chip: dead source: generic_homepage
+- ev_acc_r5w_asmpt_flip_chip: dead source: generic_homepage
+- ev_acc_r5w_unimicron_substrate: dead source: generic_homepage
+- ev_acc_r5w_shinko_substrate: dead source: 404
+- ev_acc_r5w_kinsus_substrate: dead source: generic_homepage
+- ev_acc_r5w_teradyne_ate: dead source: generic_homepage
+- ev_acc_r5w_kla_inspection: dead source: generic_homepage
+- ev_acc_r5w_camtek_inspection: dead source: generic_homepage
+- ev_acc_r5w_onto_inspection: dead source: generic_homepage
+- ev_acc_r5w_teradyne_hbm_test: dead source: generic_homepage
+- ev_acc_r5w_lumentum_compound: dead source: generic_homepage
+- ev_acc_r5w_coherent_compound: dead source: generic_homepage
+- ev_acc_r5w_sumitomo_electric_compound: dead source: unreachable
+- ev_acc_r5w_broadcom_compound: dead source: generic_homepage
+- ev_acc_r5w_mitsubishi_electric_compound: dead source: 404
+- ev_acc_r5n_rdl_photoresist_market_tam: dead source: generic_homepage
+
+## failed (fix list)
+- ev_acc_logic_euv_resist_challenge: missing excerpt
+- ev_acc_logic_deposition_equipment: missing excerpt
+- ev_acc_logic_plasma_etch: missing excerpt
+- ev_acc_logic_cmp_process: missing excerpt
+- ev_acc_logic_ion_implant: missing excerpt
+- ev_acc_logic_metrology: missing excerpt
+- ev_acc_logic_thermal_processing: missing excerpt
+- ev_acc_logic_asml_export_control: missing excerpt
+- ev_acc_sub_tsmc_cowos_capacity_2026: missing excerpt
+- ev_acc_sub_samsung_iCube_2024: missing excerpt
+- ev_acc_sub_ajinomoto_abf_2025: missing excerpt
+- ev_acc_sub_ajinomoto_expansion_2030: missing excerpt
+- ev_acc_sub_ajinomoto_q4_2025_earnings: missing excerpt
+- ev_acc_sub_nittobo_tglass_shortage: missing excerpt
+- ev_acc_sub_nittobo_capacity_expansion: missing excerpt
+- ev_acc_sub_nittobo_price_increases: missing excerpt
+- ev_acc_sub_kinsus_revenue_2025: missing excerpt
+- ev_acc_sub_digitimes_substrate_leaders: missing excerpt
+- ev_acc_sub_unimicron_market_share: missing excerpt
+- ev_acc_sub_nan_ya_nittobo_partnership: missing excerpt
+- ev_acc_sub_thermal_via_equipment_lead_time: missing excerpt
+- ev_acc_thm_asetek_market_dominance: missing excerpt
+- ev_acc_thm_asetek_custom_blocks: missing excerpt
+- ev_acc_thm_lytron_radiators: missing excerpt
+- ev_acc_thm_ebara_pumps: missing excerpt
+- ev_acc_tkr_murata_6981: missing excerpt
+- ev_acc_tkr_nittobo_3110: missing excerpt
+- ev_acc_cp2_cdu_capacity_constraint: missing excerpt
+- ev_acc_cp2_schneider_electric_cooling: missing excerpt
+- ev_acc_cp2_vertiv_cooling_market: missing excerpt
+- ev_acc_cp2_asetek_liquid_cooling: missing excerpt
+- ev_acc_tkr4_jx_tse_listing: missing excerpt
+- ev_acc_tkr4_nordson_nasdaq: missing excerpt
+- ev_acc_tkr4_suss_xetra: missing excerpt
+- ev_acc_tkr4_landmark_tpe: missing excerpt
+- ev_acc_tkr4_wolfspeed_ch11: missing excerpt
+- ev_acc_sub4_mgc_bt_independent: missing excerpt
+- ev_acc_r6_euv_blanks_market_conflict_note: missing excerpt
+- ev_acc_r6_high_na_qualification_unverified: missing excerpt
+- ev_mitsubishi_servo_drive_safety: missing excerpt
+- ev_mfg_mitsubishi_plc_servo: missing excerpt
+- ev_mfg_schneider_modicon_plc: missing excerpt
+- ev_mitsubishi_integrated_report_2025_factory_automation: missing excerpt
+- ev_schneider_fy2025_industrial_automation_results: missing excerpt
+- ev_mitsubishi_power_modules_motion_control_2026: missing excerpt
+- ev_ibiden_integrated_report_2025_ic_package_substrates: missing excerpt

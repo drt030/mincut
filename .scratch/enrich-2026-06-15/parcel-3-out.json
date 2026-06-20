@@ -1,0 +1,65 @@
+[
+  {
+    "id": "ev_mfg_honeywell_sortation_momentum_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Honeywell Intelligrated provides the industry's most robust and diverse sortation and conveyor systems for addressing today's escalating commerce and manufacturing challenges. ... Integrate with warehouse execution systems to drive greater levels of automation",
+    "note": "Page supports Honeywell Intelligrated sortation/conveyor + WES integration identity. No verbatim text on this page for parcel singulation/spacing-control specifics."
+  },
+  {
+    "id": "ev_mfg_sick_photoelectric_sensors_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "SICK's sensor portfolio includes numerous photoelectric sensors for industry automation. The opto-electronic sensors are used both in simple and complex applications.",
+    "note": "JS-only catalog page; recovered via browser. Backs SICK photoelectric-sensor supplier identity. No verbatim support on this page for encoder tracking or jam recovery sub-claims."
+  },
+  {
+    "id": "ev_mfg_omron_conveyor_sensing_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Omron offers a variety of proximity, photoelectric, and fiber-optic sensors for the automotive, food and beverage, and material handling industries.",
+    "note": "JS-rendered; recovered via browser. Backs OMRON photoelectric/sensing + material-handling identity. Page also lists rotary encoder portfolio, loosely relating to encoder sub-claim."
+  },
+  {
+    "id": "ev_mfg_leuze_conveyor_object_detection_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "The DRT 25C works with the conveyor belt surface as a dynamic reference for the detection of objects. ... the DRT 25C reliably detects the front edges of the objects and ensures that the process goes smoothly without any machine downtime.",
+    "note": "403 to WebFetch; recovered via browser. Backs Leuze optical conveyor-belt object-detection identity. Page is object/edge detection, not encoder position tracking, so the encoder sub-claim is not verbatim-supported."
+  },
+  {
+    "id": "ev_mfg_siemens_motion_control_encoders_2026",
+    "verdict": "demote",
+    "sourceStatus": "404",
+    "excerpt": "",
+    "note": "Siemens catalog PDF URL returns HTTP 404 Not Found; document no longer hosted at this path."
+  },
+  {
+    "id": "ev_induction_bastian_gapping_conveyor_2026",
+    "verdict": "demote",
+    "sourceStatus": "wrong_topic",
+    "excerpt": "",
+    "note": "Original Bastian gapping-belt-induction URL 301-redirects (bastiansolutions -> bastianautomation -> toyota-automated-logistics.com/technology/sortation-systems), a generic sortation overview. The specific gapping-belt-induction page no longer exists; landing page does not cover induction/singulation/gap-control/exception-recovery."
+  },
+  {
+    "id": "ev_mfg_interroll_mcp_play_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "WITH MCP PLAY, INTERROLL IS PIONEERING THE FUTURE OF MATERIAL HANDLING. The de facto standard of the industry, the Modular Conveyor Platform (MCP) has evolved with advanced intelligence...",
+    "note": "Recovered via browser. Backs Interroll modular-conveyor / material-handling supplier identity (Drum Motors, Rollers, Sorters, MCP listed). Induction spacing/dynamic-gap/variable-speed-drive specifics are NOT verbatim-supported; closest is the 'Flowing Merge' continuous-flow feature."
+  },
+  {
+    "id": "ev_mfg_honeywell_irregulars_sorter_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Honeywell Intelligrated Momentum Core software combines software and machine control capabilities into a single modular, easy-to-configure platform... The software foundation unifies warehouse execution software, warehouse control systems and machine control with operational visibility",
+    "note": "Timed out / socket-closed on WebFetch (3x); recovered via browser. Strongly backs Intelligrated + Momentum WES/WCS/machine control, and IntelliSort Irregulars Sorter handling oversized/unstable parcels (induction exception recovery)."
+  },
+  {
+    "id": "ev_mfg_daifuku_sorting_picking_systems_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Daifuku's sliding-shoe sorter, named the Jet Surfing Sorter, is a high-speed automated sortation system for channeling and sorting medium size items, totes, and cartons. ... Our Jet Surfing Sorter for input uses a high-speed merge conveyor, sorting shoes for diverting loads",
+    "note": "Backs Daifuku material-handling/sortation + conveyor supplier identity and induction (merge conveyor). No verbatim text for singulation/metering 'one-at-a-time predictable pitch' specifics."
+  }
+]

@@ -1,0 +1,145 @@
+{
+  "verified": [
+    {
+      "id": "ev_humanoid_gsa_rgti",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched gsascrews.com RGTI page. Excerpt verbatim on page. Page identifies product as 'Inverted Planetary Roller Screw' and company as GSA (Gewinde Satelliten Antriebe AG / Gewinde Ziegler AG). No number in this excerpt; no Tesla/Optimus or market-share claim on the page (correctly carried qualitatively elsewhere). ok_exact."
+    },
+    {
+      "id": "ev_humanoid_gsa_inhouse",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched gsascrews.com home. Excerpt 'All components are manufactured and assembled in-house at GSA AG / Gewinde Ziegler AG.' verbatim on page. Confirms Swiss vertically-integrated roller-screw maker (4 product lines RGT/RGTR/RGTI/RGTRI). No >50% share or Tesla claim on page (matches stored limitation). ok_exact."
+    },
+    {
+      "id": "ev_humanoid_rollvis_identity",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched rollvis.com/about-us. Excerpt 'ROLLVIS SA is a world leader in the design and production of Satellite Roller screws.' verbatim on page. Geneva (Plan-les-Ouates), founded 1970 confirmed. Self-describes 'a world leader' but states NO quantified market-share %; the >50% claim is NOT on this primary site (escalated separately). ok_exact for identity."
+    },
+    {
+      "id": "ev_humanoid_nidec_flexwave",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched nidec-dtc.com/humanoid-robots. Excerpt verbatim on page. Page explicitly markets Next Generation FLEXWAVE strain-wave gear reducers for humanoid-robot joint positioning; company is Nidec Drive Technology Corporation. Supplier-candidate (merchant exposure), not a confirmed humanoid BOM. ok_exact."
+    },
+    {
+      "id": "ev_humanoid_drake_thread_grinder",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched gearsolutions.com Drake company profile. Excerpt verbatim on page. Confirms Warren, Ohio; internal thread grinders + ball-nut/ballscrew grinders for ball-screw/linear-motion industries. Page does NOT name planetary-roller-screw grinders by name (matches stored limitation; roller-screw applicability inferred from shared internal-thread-grinding requirement). ok_exact."
+    },
+    {
+      "id": "ev_humanoid_holroyd_thread_grinder",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched holroyd.com home. Excerpt verbatim on page. PTG Holroyd part of Precision Technologies Group confirmed; 'world's most accurate helical components' is a vendor marketing claim (qualitative), not a quantified share or named roller-screw customer (matches stored limitation). ok_exact."
+    },
+    {
+      "id": "ev_humanoid_picea_profile",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched piceamotiondrive.com Han's Motion company profile. Excerpt verbatim on page. Confirms Shenzhen PICEA Motion (formerly Shenzhen Han's Motion Technology Co., Ltd.), founded 2015, specializing in R&D/design/manufacturing/sales of precision harmonic drives. Establishes identity + rebrand; no share quantified (matches stored limitation). ok_exact."
+    },
+    {
+      "id": "ev_humanoid_picea_humanoid",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetched piceamotiondrive.com humanoid harmonic-reducer page. Excerpt verbatim on page INCLUDING '14 harmonic drives needed for each humanoid robot'. Number is on the page at the claimed basis (per-robot reducer count). Per stored limitation it is a vendor design estimate, not an audited BOM — supported as a vendor-stated figure, not an independently verified share. ok_exact; numberInQuote true at vendor-stated per-robot basis."
+    },
+    {
+      "id": "ev_humanoid_ewellix_schaeffler",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched triton-partners.com Ewellix sale release. Excerpt verbatim on page. Confirms Triton Fund V completed sale of Ewellix (global manufacturer of linear motion and actuation solutions) to Schaeffler AG, completed Jan 3 2023. Establishes ownership; does not quantify roller-screw share (matches stored limitation). ok_exact."
+    },
+    {
+      "id": "ev_humanoid_ewellix_rollerscrew",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched same triton-partners.com release. Excerpt 'Ewellix is a global innovator and manufacturer of actuation and linear motion solutions.' verbatim on page. NOTE: the page does NOT name 'roller screws' specifically (matches stored limitation; roller-screw product line is in Ewellix's own 403-blocked catalogue). Excerpt supports corporate-level actuation/linear-motion identity only. ok_exact for the quoted claim."
+    },
+    {
+      "id": "ev_humanoid_harmonic_capacity_gating",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetched harmonicdrive.net capacity update. Excerpt verbatim on page; numbers 150,000 -> 220,000 units/month, Ariake Plant (Nagano), Aug 2022 all confirmed at the all-strain-wave-applications basis (matches stored limitation — not humanoid-specific). Used as qualitative capacity-gating evidence; figure genuinely on page at stated basis. ok_exact; numberInQuote true."
+    },
+    {
+      "id": "ev_humanoid_roller_screw_scarcity",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetched interestingengineering.com article. Both excerpt fragments verbatim on page. Trade-press synthesis used as a QUALITATIVE scarcity/expertise constraint; no single firm's share quantified (matches stored limitation). No number claimed in excerpt. ok_exact for the qualitative claim."
+    }
+  ],
+  "repaired": [],
+  "escalations": [
+    {
+      "id": "ev_humanoid_rollvis_identity",
+      "question": "The 'GSA + Rollvis together hold >50% of the high-precision planetary roller-screw world market' claim (carried qualitatively on humanoid_planetary_roller_screw and in task_humanoid_roller_screw_swiss_corner) is NOT stated on either firm's primary site — Rollvis says only 'a world leader', GSA says only 'in-house in Switzerland', neither gives a %. The breadth agent traced the >50% figure to SEO/vendor blogs (screw-tech, kggfa) which are banned for numbers (acceptance-standard B5 / brief §4.5). Need one primary or two independent quality sources (IFR / interact-analysis / TrendForce / Yole / Reuters-class) for any >50% combined-Swiss-share assertion, or keep it qualitative. Which authoritative source, if any, states the >50% world-market share at a named basis?"
+    },
+    {
+      "id": "ev_humanoid_gsa_rgti",
+      "question": "The 'Tesla Optimus sources GSA's RGTI 12.8 inverted roller screw' sourcing claim (in task_humanoid_roller_screw_swiss_corner and GSA node/edge claim text) is NOT on GSA's primary site (no Tesla/Optimus mention) and was traced by the breadth agent to SEO/vendor blogs only. A specific named-customer (Tesla->GSA) claim needs one primary or two independent quality sources. Which authoritative source confirms Tesla Optimus sources GSA's RGTI, or should the Tesla->GSA sourcing stay an unasserted candidate?"
+    }
+  ],
+  "tickerAudit": [
+    {
+      "orgId": "org_humanoid_gsa",
+      "storedTicker": "private",
+      "verdict": "correct",
+      "correctTicker": "private",
+      "correctListingStatus": "private",
+      "source": "GSA AG / Gewinde Satelliten Antriebe AG (est. 1982), spun from Gewinde Ziegler AG (Horriwil, Solothurn; thread grinding since 1932). Both Swiss Aktiengesellschaft, privately held; no public shareholder disclosure and no listing found (gsascrews.com, gewindeziegler.ch, moneyhouse.ch/business-monitor.ch CH registry). private is correct."
+    },
+    {
+      "orgId": "org_humanoid_rollvis",
+      "storedTicker": "private",
+      "verdict": "correct",
+      "correctTicker": "private",
+      "correctListingStatus": "private",
+      "source": "Rollvis SA, Geneva/Plan-les-Ouates, founded 1970 (rollvis.com/about-us; D&B, Crunchbase, CB Insights profiles). Privately held; no exchange listing or listed parent found. private is correct."
+    },
+    {
+      "orgId": "org_humanoid_drake_manufacturing",
+      "storedTicker": "private",
+      "verdict": "correct",
+      "correctTicker": "private",
+      "correctListingStatus": "private",
+      "source": "Drake Manufacturing Services Co., Warren, Ohio, est. 1972 (drakemfg.com; gearsolutions.com profile; BBB lists 'Drake Manufacturing LLC'). Privately held; no public listing found. private is correct."
+    },
+    {
+      "orgId": "org_humanoid_ptg_holroyd",
+      "storedTicker": "private",
+      "verdict": "correct_but_incomplete",
+      "correctTicker": "private",
+      "correctListingStatus": "private (entity) — listed ultimate parent: Chongqing Machinery & Electric Co. Ltd, 2722.HK (Hong Kong)",
+      "source": "PTG Holroyd is itself a private UK Ltd, so stored 'private' is correct for the entity. HOWEVER it was acquired 2010-06-01 by Chongqing Machinery & Electric (CQME), publicly listed on HKEX as 2722.HK (Drives & Controls Magazine 2010 £20m deal report; Yahoo Finance 2722.HK; Morningstar 02722). EXPOSURE NOTE: PTG Holroyd's grinder business rolls up to HK-listed CQME (2722.HK) — node description omits this listed-parent linkage; recommend adding it so the equipment-tier exposure is investable. Not a wrong ticker, an incomplete listing characterization."
+    },
+    {
+      "orgId": "org_humanoid_picea_motion",
+      "storedTicker": "private",
+      "verdict": "correct_but_incomplete",
+      "correctTicker": "private",
+      "correctListingStatus": "private (entity) — listed parent: Han's Laser Technology Industry Group, 002008.SZ (Shenzhen)",
+      "source": "Shenzhen PICEA Motion / formerly Shenzhen Han's Motion Technology Co. (est. 2015) is itself unlisted, so stored 'private' is correct for the entity. HOWEVER independent sources (automation.com supplier listing; chinabgao harmonic-reducer brand reports) describe Han's Motion / 大族传动 as a Han's Laser subsidiary, and Han's Laser's OWN primary site (hanslaser.com/pro-harmonicdrive.html) markets 大族激光 harmonic reducers (谐波减速器) as a group product line. Han's Laser = Shenzhen-listed 002008.SZ. EXPOSURE NOTE: the node's hedge ('company's own site presents it independently') is defensible because PICEA's own site downplays parentage, but the listed-parent linkage to Han's Laser 002008.SZ is well-supported (1 parent primary site + multiple independent sources) and should be surfaced for exposure. Not a wrong ticker. (automation.com WebFetch 403'd; used zh WebSearch + Han's Laser primary site.)"
+    },
+    {
+      "orgId": "org_nidec",
+      "storedTicker": "6594.T",
+      "verdict": "correct",
+      "correctTicker": "6594.T",
+      "correctListingStatus": "public (Tokyo Stock Exchange)",
+      "source": "Reused org (not lane-added) — spot-checked. Nidec Corporation trades on Tokyo Stock Exchange code 6594 (Nidec official IR PDF 'Tokyo Stock Exchange code: 6594'; Yahoo Finance 6594.T; CNBC 6594.T-JP). 6594.T correct."
+    },
+    {
+      "orgId": "org_schaeffler",
+      "storedTicker": "SHA.DE",
+      "verdict": "correct",
+      "correctTicker": "SHA.DE",
+      "correctListingStatus": "public (Xetra / Deutsche Börse)",
+      "source": "Reused org (not lane-added) — spot-checked. Schaeffler AG (Herzogenaurach) trades on Xetra under ticker SHA (MarketScreener, Bloomberg SHA0:GR; some data vendors render the common-share line as SHA0/SHA0.DE). Stored SHA.DE (Xetra suffix .DE) correct; no change needed."
+    }
+  ]
+}

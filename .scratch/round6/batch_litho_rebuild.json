@@ -1,7 +1,7 @@
 {
   "nodes": [
     {
-      "id": "foundry_capacity_tsmc",
+      "id": "foundry_capacity_tsmc_r6l",
       "name": "TSMC leading-edge foundry capacity (3nm, 5nm, 7nm)",
       "kind": "equipment",
       "domain": ["ai_compute_chain"],
@@ -31,7 +31,7 @@
       "reviewStatus": "unreviewed"
     },
     {
-      "id": "asml_lithography_systems",
+      "id": "asml_lithography_systems_r6l",
       "name": "ASML EUV lithography systems (NXE:3600D and successors)",
       "kind": "equipment",
       "domain": ["ai_compute_chain"],
@@ -69,7 +69,7 @@
       "reviewStatus": "unreviewed"
     },
     {
-      "id": "euv_projection_optics",
+      "id": "euv_projection_optics_r6l",
       "name": "EUV projection optics (Carl Zeiss SMT)",
       "kind": "equipment",
       "domain": ["ai_compute_chain"],
@@ -96,8 +96,8 @@
   "edges": [
     {
       "id": "e_acc_r6l_tsmc_capacity__requires__asml_euv",
-      "source": "foundry_capacity_tsmc",
-      "target": "asml_lithography_systems",
+      "source": "foundry_capacity_tsmc_r6l",
+      "target": "asml_lithography_systems_r6l",
       "relation": "requires",
       "confidence": "high",
       "evidenceIds": ["ev_acc_r6l_asml_sole_supplier"],
@@ -105,8 +105,8 @@
     },
     {
       "id": "e_acc_r6l_asml_euv__requires__zeiss_optics",
-      "source": "asml_lithography_systems",
-      "target": "euv_projection_optics",
+      "source": "asml_lithography_systems_r6l",
+      "target": "euv_projection_optics_r6l",
       "relation": "requires",
       "confidence": "high",
       "evidenceIds": ["ev_acc_r6l_zeiss_sole_source"],
@@ -114,7 +114,7 @@
     },
     {
       "id": "e_acc_r6l_zeiss_optics__manufactured_by__zeiss_smt",
-      "source": "euv_projection_optics",
+      "source": "euv_projection_optics_r6l",
       "target": "org_carl_zeiss_smt",
       "relation": "manufactured_by",
       "confidence": "high",
@@ -148,7 +148,7 @@
       "excerpt": "48 EUV lithography systems were sold in units during the year [2025].",
       "url": "https://www.asml.com/investors/annual-report/2025",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["asml_lithography_systems"],
+      "supportsNodeIds": ["asml_lithography_systems_r6l"],
       "supportsEdgeIds": ["e_acc_r6l_asml_euv__manufactured_by__asml"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
@@ -163,7 +163,7 @@
       "excerpt": "As of 2025, ASML had 83 percent of the worldwide sales of lithography machines.",
       "url": "https://en.wikipedia.org/wiki/ASML_Holding",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["asml_lithography_systems"],
+      "supportsNodeIds": ["asml_lithography_systems_r6l"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
     },
@@ -177,7 +177,7 @@
       "excerpt": "ASML...is the only company that produces and sells EUV systems for chip production [as of 2025]. Reuters reported in December 2025 that China had developed its own prototype EUV system.",
       "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["asml_lithography_systems"],
+      "supportsNodeIds": ["asml_lithography_systems_r6l"],
       "supportsEdgeIds": ["e_acc_r6l_tsmc_capacity__requires__asml_euv"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
@@ -192,7 +192,7 @@
       "excerpt": "The light is bounced off Zeiss mirrors onto the surface of a silicon wafer to form the designs for the chip...Germany's Carl Zeiss [works with ASML]. Zeiss produces the most precise mirrors in the world [via] ion beam figuring [to knock off] individual molecules [to correct imperfections].",
       "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["euv_projection_optics"],
+      "supportsNodeIds": ["euv_projection_optics_r6l"],
       "supportsEdgeIds": ["e_acc_r6l_asml_euv__requires__zeiss_optics", "e_acc_r6l_zeiss_optics__manufactured_by__zeiss_smt"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
@@ -207,7 +207,7 @@
       "excerpt": "ASML purchased a 24.9% minority stake in Carl Zeiss SMT for €1 billion and committed approximately €760 million over six years to support Carl Zeiss SMT's research, development, and capital expenditures...ASML and ZEISS are looking beyond this important milestone to develop optics with higher numerical aperture (NA greater than 0.5, compared to current 0.33 NA).",
       "url": "https://www.asml.com/news/press-releases/2016/zeiss-and-asml-strengthen-partnership-for-next-generation-of-euv-lithography",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["euv_projection_optics"],
+      "supportsNodeIds": ["euv_projection_optics_r6l"],
       "supportsEdgeIds": ["e_acc_r6l_zeiss_optics__manufactured_by__zeiss_smt"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
@@ -222,7 +222,7 @@
       "excerpt": "TSMC holds a commanding majority in the semiconductor foundry market, accounting for approximately 70% of the global market share.",
       "url": "https://en.wikipedia.org/wiki/Taiwan_Semiconductor_Manufacturing_Company",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["foundry_capacity_tsmc"],
+      "supportsNodeIds": ["foundry_capacity_tsmc_r6l"],
       "supportsEdgeIds": ["e_acc_r6l_tsmc_capacity__manufactured_by__tsmc"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
@@ -237,7 +237,7 @@
       "excerpt": "TSMC's production output reached 15.02 million 12-inch equivalent wafers (2025)...by late 2025, the company had transitioned to its 2 nm technology (N2)...providing a 10 to 15% performance boost or a 25 to 30% reduction in power consumption compared to the enhanced 3 nm process.",
       "url": "https://en.wikipedia.org/wiki/Taiwan_Semiconductor_Manufacturing_Company",
       "sourceStatus": "fetch_ok",
-      "supportsNodeIds": ["foundry_capacity_tsmc"],
+      "supportsNodeIds": ["foundry_capacity_tsmc_r6l"],
       "confidence": "high",
       "reviewStatus": "unreviewed"
     }

@@ -1,0 +1,121 @@
+[
+  {
+    "id": "ev_humanoid_nvidia_use_case",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "NVIDIA Isaac technologies provide an end-to-end stack for training, simulating, and deploying humanoid robot \"brains.\" An on-robot runtime computer, such as NVIDIA Jetson Thor, can run low-latency, high-throughput inference.",
+    "note": "Supports edge AI compute (Jetson Thor) and NVIDIA as end-to-end physical-AI/humanoid platform supplier; also covers Isaac GR00T VLA models."
+  },
+  {
+    "id": "ev_humanoid_figure_battery",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "The F.03 battery is also the first humanoid robot battery in process to be certified to both UN38.3 and UL2271. The custom BMS includes an array of sensors, switches and fuses to prevent fault conditions.",
+    "note": "Backs battery pack architecture, BMS, abuse/safety certification (UN38.3, UL2271) for a humanoid robot battery system."
+  },
+  {
+    "id": "ev_humanoid_figure_botq",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "BotQ's first generation manufacturing line will be capable of manufacturing up to 12,000 humanoids per year. In addition to manufacturing at high rates, we are also ramping up our focus on robot reliability.",
+    "note": "Supports high-volume humanoid manufacturing, actuation supply scale, and reliability loop; no verbatim on dexterous hands/MTBF/field-service specifically but core actuation+manufacturing+reliability claims covered."
+  },
+  {
+    "id": "ev_humanoid_ti_bms",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Our integrated circuits and reference designs help you create humanoid battery management system (BMS) for monitoring, protecting, cell-balancing and gauging of battery packs.",
+    "note": "Directly supports TI as humanoid-robot BMS / cell-monitoring / balancing / protection semiconductor supplier."
+  },
+  {
+    "id": "ev_humanoid_nmb_thermal",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "CPUs, servo controllers, batteries, and motors generate localized heat—especially in the head, chest, and leg compartments. Without effective thermal management, this heat can reduce performance, shorten component life, or even lead to system failure.",
+    "note": "Backs thermal management of motors/drives/battery/compute and duty-cycle impact; motor/joint thermal path also referenced (knee/hip spot cooling)."
+  },
+  {
+    "id": "ev_humanoid_tactile_review",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "closed-loop tactile-informed control that processes high-dimensional contact data for precise, adaptive manipulation",
+    "note": "Open-access article; supports dexterous hand + fingertip/dense tactile array (10,000 taxels cm-2, 15-DoF hand) and tactile-informed grasp/manipulation control."
+  },
+  {
+    "id": "ev_humanoid_iso_ts_15066_collaborative_safety",
+    "verdict": "paywalled",
+    "sourceStatus": "paywalled_snippet",
+    "excerpt": "",
+    "note": "iso.org returned HTTP 403 on standard page and OBP viewer; ISO/TS 15066 is a sold standard, full scope text not freely accessible."
+  },
+  {
+    "id": "ev_humanoid_ul_consumer_commercial_robot_certification",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "We offer robot testing and certification to standards including UL 3300, now part of OSHA's NRTL Program's List of Appropriate Test Standards. In addition to mechanical and electrical safety, additional safety concerns must be addressed, such as those associated with robot-human interaction.",
+    "note": "Supports UL as consumer/commercial robot safety testing & certification body covering functional/human-interaction safety."
+  },
+  {
+    "id": "ev_humanoid_battery_constraint_review",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Battery technology now represents a primary system-level constraint... combining high energy density, robust power output, and stringent safety within severe mass and volume constraints. Current lithium-ion batteries (LIBs) struggle to satisfy these competing demands.",
+    "note": "Abstract is openly visible (full text paywalled); the visible abstract verbatim supports battery as central bottleneck, Li-ion cell-selection trade-offs, thermal safety, and runtime/energy-density constraints."
+  },
+  {
+    "id": "ev_humanoid_nabtesco_precision",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Nabtesco's precision reduction gears are lightweight and compact while maintaining high accuracy and rigidity. Precision reduction gears are key components of industrial robots used on automobile production lines.",
+    "note": "Supports Nabtesco as precision-reducer supplier with low-backlash/high-rigidity robot reducers (reducer exposure, not confirmed humanoid BOM, consistent with claim)."
+  },
+  {
+    "id": "ev_humanoid_yaskawa_motion",
+    "verdict": "demote",
+    "sourceStatus": "generic_homepage",
+    "excerpt": "",
+    "note": "Page is a navigation/template hub with only menu items (Sigma-X/Sigma-7, machine controllers); no substantive verbatim sentences about servo/motion-control to quote."
+  },
+  {
+    "id": "ev_humanoid_nidec_ir",
+    "verdict": "demote",
+    "sourceStatus": "generic_homepage",
+    "excerpt": "",
+    "note": "Generic investor-relations landing page (IR News, Financial Information nav); no quotable sentence identifying Nidec as a motor supplier."
+  },
+  {
+    "id": "ev_humanoid_te_robotics_connectors",
+    "verdict": "demote",
+    "sourceStatus": "unreachable",
+    "excerpt": "",
+    "note": "te.com robotics page failed to load on 3 attempts (socket closed twice, then 60s timeout); no content retrieved."
+  },
+  {
+    "id": "ev_humanoid_unitree_g1_price_joint_count",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Price from $13.5K. Total Degrees of Freedom（Joint Freedom）: 23 - 43. Low inertia high-speed internal rotor PMSM(permanent magnet synchronous motor,better response speed and heat dissipation).",
+    "note": "Supports Unitree G1 price (from $13.5K), joint/DoF count (23-43 joint motors), and actuator/motor stack (PMSM joint motors, crossed-roller bearings, dual encoders)."
+  },
+  {
+    "id": "ev_humanoid_figure03_production_ramp",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "increasing our production rate from 1 Figure 03 per day to 1 per hour - a 24x throughput improvement. we have produced over 9,000 actuators across more than 10 distinct SKUs.",
+    "note": "Supports Figure 03 production ramp, actuation system at volume (9,000+ actuators, 10+ SKUs), and manufacturing/assembly/test loop (inspection points, first-pass yield)."
+  },
+  {
+    "id": "ev_humanoid_harmonic_drive_precision_products",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Harmonic Drive® rotary actuators are the easiest solution for your high precision motion control applications. Zero backlash Harmonic Drive® strain wave gears with a precision output bearing & flange.",
+    "note": "Supports Harmonic Drive as strain-wave (zero-backlash) precision reducer/gearing supplier; consistent with reducer-exposure claim."
+  },
+  {
+    "id": "ev_humanoid_leaderdrive_humanoid",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Humanoid robots must have at least 30 degrees of freedom in all limb joints, and each joint mechanism requires a strain wave gear harmonic reducer to reduce speed and increase torque. Leaderdrive provides precision gearing and rotational components for humanoid robot developers around the world.",
+    "note": "Directly supports Leaderdrive as strain-wave/harmonic reducer + rotary actuator supplier for humanoid robot applications."
+  }
+]

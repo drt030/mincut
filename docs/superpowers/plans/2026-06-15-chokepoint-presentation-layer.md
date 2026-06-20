@@ -30,7 +30,7 @@ Wire `package.json` `"check:disclosure": "tsx scripts/check-disclosure.ts"`. It 
 - Render a first-glance headline `data-testid="detail-chokepoint-headline"`: the chokepoint verdict (band via `chokepointBandFor` → "Chokepoint" at the top band(s), else a lower-key label) + the elevated axis as a CONCRETE sentence (never a raw tag). Copy (EN / 中文):
   - cost → `Cost driver · {X}% of build cost` / `成本大头 · 占 {X}%`
   - criticality → `Load-bearing · {N} subsystems depend on it` / `关键件 · {N} 处依赖`
-  - concentration → `Concentrated supply · {N} makers` / `供应集中 · 仅 {N} 家`
+  - concentration → `Modeled holders · {N}` / `供应方覆盖 · 已建模 {N} 家`
   - barrier → `High barrier · {must-build | hard to replicate}` / `高壁垒 · {必自建 | 难复制}`
   - composite line → `Chokepoint: {elevated label}` / `卡点：{那根轴}`
   - `incomplete` product/root node → `Structural root · not itself a chokepoint` / `结构根 · 本身不是卡点`

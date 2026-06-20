@@ -1,0 +1,369 @@
+{
+  "_meta": {
+    "domain": "spacex_reusable_launch",
+    "root": "spacex_reusable_launch_stack",
+    "generatedBy": "decomposition-deepening analysis (read-only)",
+    "generatedAt": "2026-06-16",
+    "renderMechanic": {
+      "treeEdges": "Rendered focal tree built ONLY from `requires` + `has_route` + `implemented_by`->know-how (src/lib/canvasGraph.ts isCanvasTreeEdge). `part_of` is NOT a tree edge; organization nodes are stripped on the gated `space` route; material nodes render only if explicitly_key (hard_to_develop/bottleneck/bottleneckOf/frontierFor).",
+      "depthCap": "DEFAULT_CANVAS_MAX_DEPTH = 4. Focal product is depth 0; BFS stops expanding a node once depth>=4, so children added below an existing depth-4 node DO NOT RENDER. Every proposed node must land at depth<=4 to count toward the rendered floor.",
+      "scoping": "loadActiveGraphData(root) -> scopeGraphToReachableNodes (forward BFS over ALL relations, no depth cap) decides the TOTAL node set; orgs reachable only via a supplier edge to an UNWIRED component are excluded from total until that component is wired with `requires`."
+    },
+    "currentState": {
+      "renderedFocalTreeGated": 53,
+      "renderedFocalTreeUngated": 53,
+      "totalScopedUngated": 90,
+      "orgsInExposureFile": 47,
+      "orgsReachableInScope": 27,
+      "flagshipRenderedReference": 86,
+      "flagshipTotalReference": 209,
+      "note": "Brief cited 36/74 and 69/205; live numbers are 53 rendered / 90 total (74 counts only spacex_reusable_launch.json; the live tree also pulls space_spacex.json). Floor is unchanged: rendered>=60, total>=160."
+    },
+    "targets": { "renderedFocalTreeFloor": 60, "totalFloor": 160 },
+    "structuralDiagnosis": "Deficit is NOT shallowness (SpaceX spine already reaches depth 6, deeper than flagship's 4). It is (a) NARROW TOP: tree splits at layer-1 into 2 vehicle technical_routes (Falcon9 / Starship) + 2 small modules = 4 first-layer children, vs flagship's 7 parallel SUBSYSTEM modules; (b) ORPHANED EVIDENCED NODES: ~19 already-authored, ok_exact-cited component nodes (TVC actuators, valves, igniters, bearings, AM machines, radhard FPGA, IMU/GNSS, star tracker, connectors, FTS ordnance, PICA/ceramic tiles, carbon fiber) attach ONLY via `part_of` (wrong relation) + supplier edges (stripped), so they are invisible; (c) ENGINE INTERNALS are DEPTH-BLOCKED: Falcon9 booster->engine cluster and Starship vehicle->booster->engine sit at d3-d5, so adding engine sub-components hits the depth-4 wall. The flagship gets width by enumerating, per subsystem module at d1, every key EQUIPMENT + PROCESS + input MATERIAL as sibling d2 children. SpaceX instead chains engineering_method know-how nodes downward. The deepening must add real sibling component/material/process children at the SHALLOW frontiers (avionics d2, fairing d2, second stage d2, ground d2, structures/legs/grid-fin/COPV d3) where depth budget (4-depth) >= 1.",
+    "depthBudgetByAttachPoint": {
+      "spacex_reusable_launch_stack": "d0 budget4",
+      "falcon9_reusable_launch_branch": "d1 budget3",
+      "starship_superheavy_reusable_branch": "d1 budget3",
+      "reusable_launch_common_enablers": "d1 budget3",
+      "spacex_launch_ground_stack": "d1 budget3",
+      "falcon9_fault_tolerant_avionics_gnc": "d2 budget2",
+      "falcon9_fairing_recovery_reuse": "d2 budget2",
+      "falcon9_second_stage_payload_delivery": "d2 budget2",
+      "autonomous_flight_safety_system": "d2 budget2",
+      "starship_superheavy_vehicle_stack": "d2 budget2",
+      "methane_oxygen_ground_propellant_system": "d2 budget2",
+      "falcon9_aluminum_lithium_tank_structure": "d3 budget1",
+      "launch_vehicle_copv_pressurant_vessel": "d4 budget0 (DEPTH-BLOCKED; sits under tank at d3 -> a child lands d5 and will NOT render; re-home its sub-parts to the tank at d3)",
+      "falcon9_grid_fin_reentry_control": "d3 budget1",
+      "falcon9_landing_legs": "d3 budget1",
+      "falcon9_merlin_engine_cluster": "d3 budget1",
+      "merlin_vacuum_upper_stage_engine": "d3 budget1",
+      "starship_ship_reusable_upper_stage": "d3 budget1",
+      "superheavy_reusable_booster": "d3 budget1",
+      "starship_stainless_steel_primary_structure": "d3 budget1 (material; needs hard_to_develop tag to render as key)"
+    },
+    "estimatedDeltaSummary": {
+      "wireExistingOrphans_renderedDelta": "+7 (avionics FPGA/IMU/star-tracker/connectors/COTS-silicon at d3, FTS at d3, TVC at d4). Engine-internal orphans (valves/igniter/AM-machines/bearings) land at d5+ and DO NOT render without re-homing.",
+      "wireExistingOrphans_totalDelta": "+34 (90 -> 124: pulls orphan components + 9 more exposure orgs into scope)",
+      "newComponentFrontiers_renderedDelta": "+12 to +18 (genuine sibling components at shallow d2/d3 frontiers)",
+      "newComponentFrontiers_totalDelta": "+40 to +60 (each component brings 1 node + 2-4 merchant orgs + occasional input material)",
+      "combinedAchievable": "rendered 68-72 (clears 60), total 165-185 (clears 160), via ~22-26 genuine tasks. No padding required."
+    }
+  },
+  "tasks": [
+    {
+      "id": "T01-avionics-wire-orphans",
+      "subsystem": "Avionics & rad-tolerant electronics (GNC)",
+      "attachUnderNodeId": "falcon9_fault_tolerant_avionics_gnc",
+      "rationale": "Highest-value, lowest-risk task. This d2 module currently has ZERO requires-children but FIVE already-authored, ok_exact-evidenced component nodes hanging off it by `part_of` only (invisible). Wiring them via `requires` surfaces 5 real avionics components at d3 AND pulls their merchant orgs (BAE, Frontgrade, Microchip, AMD/Xilinx, SkyWater, Honeywell, Northrop, Sodern, Jena-Optronik, Glenair, TE, Amphenol) into scope. Pure wiring of existing evidenced nodes.",
+      "proposedNodes": [
+        { "suggestedId": "falcon9_strategic_radhard_processor_fpga", "kind": "equipment", "name": "Strategic radiation-hardened processor / FPGA (EXISTING - wire only)", "whatItIs": "Rad-hard/rad-tolerant compute silicon for flight control; chokepoint class (few qualified fabs/parts).", "industryBasis": "Real ITAR-class rad-hard part category (BAE RAD750/RAD5500, Microchip/Microsemi RTG4, Xilinx/AMD Versal/Kintex rad-tol, Frontgrade Aeroflex). SkyWater is a US strategic rad-hard foundry.", "likelyCitableSource": "Existing evidence records in spacex_reusable_launch_evidence.json (already ok_exact); BAE/Microchip/Frontgrade product pages." },
+        { "suggestedId": "launch_cots_upscreened_avionics_silicon", "kind": "manufacturing_process", "name": "COTS-upscreened avionics silicon (Falcon-class) (EXISTING - wire only)", "whatItIs": "SpaceX's documented approach of radiation-tolerant-by-architecture using upscreened COTS parts + triple-redundancy rather than full rad-hard.", "industryBasis": "Public SpaceX avionics talks (triple-redundant x86 flight computers, COTS-upscreen philosophy).", "likelyCitableSource": "Existing evidence; SpaceX avionics engineering talks (Microsoft/IEEE writeups)." },
+        { "suggestedId": "launch_vehicle_space_imu_gnss", "kind": "equipment", "name": "Space-grade IMU / inertial reference / GNSS (EXISTING - wire only)", "whatItIs": "Inertial measurement + GNSS for navigation state; a real merchant tier.", "industryBasis": "Honeywell space IMUs, Northrop Grumman (Litef/LN-200 class) inertial.", "likelyCitableSource": "Existing reported_capable_supplier edges (Honeywell, Northrop); vendor space-IMU pages." },
+        { "suggestedId": "launch_vehicle_star_tracker", "kind": "equipment", "name": "Star tracker / stellar attitude sensor (EXISTING - wire only)", "whatItIs": "Optical attitude determination; merchant tier with named suppliers.", "industryBasis": "Sodern (Auriga/Hydra), Jena-Optronik (ASTRO), Ball/BAE star trackers.", "likelyCitableSource": "Existing reported_capable_supplier edges; Sodern/Jena-Optronik product pages." },
+        { "suggestedId": "space_grade_connector_harness_launch", "kind": "equipment", "name": "Space-grade connectors & flight harness (EXISTING - wire only)", "whatItIs": "Qualified connectors/harnessing; constrained merchant tier.", "industryBasis": "Glenair, TE Connectivity (Deutsch), Amphenol space-grade connectors.", "likelyCitableSource": "Existing reported_capable_supplier edges; vendor space-connector pages." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "falcon9_strategic_radhard_processor_fpga", "relation": "requires" },
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "launch_cots_upscreened_avionics_silicon", "relation": "requires" },
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "launch_vehicle_space_imu_gnss", "relation": "requires" },
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "launch_vehicle_star_tracker", "relation": "requires" },
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "space_grade_connector_harness_launch", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "falcon9_strategic_radhard_processor_fpga -> BAE Systems, Frontgrade, Microchip, AMD/Xilinx, SkyWater (capacity), Mercury Systems (already mapped as reported_capable/capacity)",
+        "launch_vehicle_space_imu_gnss -> Honeywell Aerospace, Northrop Grumman (mapped); add Safran/Thales as breadth",
+        "launch_vehicle_star_tracker -> Sodern, Jena-Optronik, BAE (mapped); add Ball/Terma as breadth",
+        "space_grade_connector_harness_launch -> Glenair, TE Connectivity, Amphenol (mapped)"
+      ],
+      "estRenderedNodeDelta": 5,
+      "overfitRisk": "low",
+      "notes": "Nodes already exist with ok_exact evidence; this is a relation fix (part_of -> requires) the renderer needs, not new content. Verify each `requires` edge carries a citation per Gate B4. Star-tracker/connector orgs currently have edges with org as SOURCE (reported_capable_supplier org->component); keep that direction, it is correct ADR-0009 semantics."
+    },
+    {
+      "id": "T02-avionics-new-flight-computer-power-rf",
+      "subsystem": "Avionics & rad-tolerant electronics (GNC)",
+      "attachUnderNodeId": "falcon9_fault_tolerant_avionics_gnc",
+      "rationale": "Avionics is a d2 module with budget=2 and is the single richest shallow frontier. Beyond the 5 wired orphans, three more REAL merchant component classes are genuinely missing and decision-relevant: the flight computer/avionics box, the power-distribution + flight battery, and the RF telemetry/command transponder. Each is a distinct procurable tier with named suppliers.",
+      "proposedNodes": [
+        { "suggestedId": "launch_flight_computer_avionics_merchant", "kind": "equipment", "name": "Flight computer / avionics box (merchant tier)", "whatItIs": "The integrated flight-control computer/avionics unit; SpaceX builds in-house but a merchant tier exists for the broader reusable-launch industry (the brief scope = industry chain, not SpaceX-captive).", "industryBasis": "Merchant flight-computer/avionics suppliers: Moog (avionics), Innoflight, Beyond Gravity (RUAG), Airbus Defence avionics, BAE. A real, named tier for non-captive launch programs.", "likelyCitableSource": "Beyond Gravity / Innoflight / Moog avionics product pages; trade press on launch-vehicle avionics suppliers." },
+        { "suggestedId": "launch_power_distribution_battery_merchant", "kind": "equipment", "name": "Flight power distribution unit & battery (merchant tier)", "whatItIs": "Power conditioning/distribution and flight batteries (Li-ion) for the vehicle.", "industryBasis": "EaglePicher, Saft (TotalEnergies) space batteries; Vicor/Crane power modules. Named merchant tier.", "likelyCitableSource": "EaglePicher / Saft space-battery product pages; Vicor space power pages." },
+        { "suggestedId": "launch_rf_telemetry_transponder_merchant", "kind": "equipment", "name": "RF telemetry / command transponder (merchant tier)", "whatItIs": "S-band/X-band telemetry, tracking & command transponders for range comms and FTS link.", "industryBasis": "L3Harris, Safran Data Systems (Zodiac), Quasonix telemetry transmitters; a constrained, qualified merchant tier.", "likelyCitableSource": "L3Harris / Quasonix / Safran Data Systems product pages." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "launch_flight_computer_avionics_merchant", "relation": "requires" },
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "launch_power_distribution_battery_merchant", "relation": "requires" },
+        { "source": "falcon9_fault_tolerant_avionics_gnc", "target": "launch_rf_telemetry_transponder_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "launch_flight_computer_avionics_merchant -> Beyond Gravity (RUAG), Innoflight, Moog, BAE",
+        "launch_power_distribution_battery_merchant -> EaglePicher, Saft (TotalEnergies, TTE), Vicor",
+        "launch_rf_telemetry_transponder_merchant -> L3Harris (LHX), Quasonix, Safran Data Systems"
+      ],
+      "estRenderedNodeDelta": 3,
+      "overfitRisk": "low",
+      "notes": "Mark in-house-vs-merchant honestly per scope lock §1 (SpaceX builds avionics/power in-house; the merchant tier is the INDUSTRY chain a non-captive reusable program buys). Set maturityLabel commercially_available; tag the flight computer hard_to_develop if it is the constraint, else leave commodity. All three are procurable tiers, so they render only if NOT material — they are equipment, so they render regardless of key-status."
+    },
+    {
+      "id": "T03-fts-wire-ordnance",
+      "subsystem": "Range safety / flight termination",
+      "attachUnderNodeId": "autonomous_flight_safety_system",
+      "rationale": "autonomous_flight_safety_system is a d2 module (budget 2). The flight-termination ordnance / safe-and-arm node already exists with evidence but attaches by `part_of` only. Wire it via `requires` to surface the FTS ordnance tier at d3.",
+      "proposedNodes": [
+        { "suggestedId": "flight_termination_ordnance_safe_arm", "kind": "equipment", "name": "Flight-termination ordnance & safe-and-arm device (EXISTING - wire only)", "whatItIs": "Linear shaped charge / FTS initiators + safe-and-arm; a tightly-controlled ordnance tier.", "industryBasis": "Pacific Scientific EMC (PacSci EMC), Ensign-Bickford / EBAD; ITAR ordnance, very few qualified makers.", "likelyCitableSource": "Existing evidence; PacSci EMC product pages." }
+      ],
+      "proposedEdges": [
+        { "source": "autonomous_flight_safety_system", "target": "flight_termination_ordnance_safe_arm", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "flight_termination_ordnance_safe_arm -> Pacific Scientific EMC (mapped); add Ensign-Bickford Aerospace & Defense (EBAD) as breadth/corner"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "low",
+      "notes": "Genuine ≤3-holder chokepoint (ADR-0005 concentration override applies even though ordnance is 'mature'). Existing ok_exact evidence."
+    },
+    {
+      "id": "T04-fairing-recovery-decompose",
+      "subsystem": "Aerostructures (payload fairing recovery)",
+      "attachUnderNodeId": "falcon9_fairing_recovery_reuse",
+      "rationale": "Fairing recovery is a d2 module (budget 2) with only one requires-child (carbon fiber). The fairing reuse story has real decomposable content: the composite sandwich half-shell, the recovery RCS/cold-gas attitude system, and the parafoil/guided-recovery + maritime catch. Add the composite panel (key material) + recovery control as siblings at d3.",
+      "proposedNodes": [
+        { "suggestedId": "fairing_composite_sandwich_panel", "kind": "material", "name": "Fairing composite sandwich panel (CFRP / aluminum-honeycomb)", "whatItIs": "The large carbon-fiber/honeycomb sandwich half-shell structure of the payload fairing; reuse requires surviving reentry heating + saltwater.", "industryBasis": "Real aerostructure: CFRP over aluminum honeycomb; merchant fabricators incl. Ruag/Beyond Gravity (fairings for Atlas/Ariane), Spirit AeroSystems composites.", "likelyCitableSource": "Beyond Gravity payload-fairing pages; composites trade press (CompositesWorld) on launch fairings." },
+        { "suggestedId": "fairing_recovery_rcs_cold_gas", "kind": "equipment", "name": "Fairing recovery cold-gas RCS / guided parafoil system", "whatItIs": "Cold-gas attitude thrusters + steerable parafoil used to guide each fairing half to a controlled water/ship recovery.", "industryBasis": "Documented Falcon fairing recovery hardware (cold-gas thrusters + parafoil); parafoil suppliers (Airborne Systems) are a named merchant tier.", "likelyCitableSource": "SpaceX fairing-recovery press; Airborne Systems guided-parafoil pages." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_fairing_recovery_reuse", "target": "fairing_composite_sandwich_panel", "relation": "requires" },
+        { "source": "falcon9_fairing_recovery_reuse", "target": "fairing_recovery_rcs_cold_gas", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "fairing_composite_sandwich_panel -> Toray/Hexcel/Teijin (prepreg, already in graph), Beyond Gravity (RUAG), Spirit AeroSystems",
+        "fairing_recovery_rcs_cold_gas -> Airborne Systems (parafoil); Moog/Bradford cold-gas thrusters"
+      ],
+      "estRenderedNodeDelta": 2,
+      "overfitRisk": "med",
+      "notes": "fairing_composite_sandwich_panel is a material -> renders ONLY if tagged hard_to_develop or frontierFor (key). Tag it key (the large CFRP shell IS a fabrication frontier). The recovery RCS is equipment (renders regardless). Reuse existing carbon-fiber org cluster rather than re-adding."
+    },
+    {
+      "id": "T05-second-stage-decompose",
+      "subsystem": "Upper stage / second stage",
+      "attachUnderNodeId": "falcon9_second_stage_payload_delivery",
+      "rationale": "Second stage is a d2 module (budget 2) with only MVac engine + stage separation. Real missing decision-relevant content: the RCS attitude-control thruster set and the upper-stage cold-gas/draco-class system. Add RCS thruster tier at d3.",
+      "proposedNodes": [
+        { "suggestedId": "launch_rcs_cold_gas_thruster_merchant", "kind": "equipment", "name": "Reaction-control cold-gas / monoprop thruster set (merchant tier)", "whatItIs": "Small attitude-control thrusters for coast/reorientation; merchant tier with named makers.", "industryBasis": "Moog (monoprop thrusters), Aerojet Rocketdyne (L3Harris) MR-series, Bradford ECAPS, ArianeGroup. Real procurable tier.", "likelyCitableSource": "Moog / Aerojet Rocketdyne / Bradford ECAPS thruster product pages." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_second_stage_payload_delivery", "target": "launch_rcs_cold_gas_thruster_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "launch_rcs_cold_gas_thruster_merchant -> Moog (mapped elsewhere), Aerojet Rocketdyne (L3Harris/LHX), Bradford ECAPS, ArianeGroup"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "med",
+      "notes": "SpaceX uses in-house cold-gas/Draco; the merchant tier is the industry chain (scope lock §1). Equipment -> renders regardless of key status."
+    },
+    {
+      "id": "T06-engine-rehome-merchant-components",
+      "subsystem": "Engines & turbomachinery (merchant component tiers)",
+      "attachUnderNodeId": "falcon9_merlin_engine_cluster",
+      "rationale": "Five evidenced engine-component orphans (TVC actuators, propellant/pneumatic valves, igniters, precision bearings, metal-AM machines, AM powder) attach by `part_of` ONLY to nodes that sit at d3-d5, so wiring them under those parents lands them at d5+ (BELOW the depth-4 cap = invisible). To make them render they must be RE-HOMED one layer up. falcon9_merlin_engine_cluster is d3 (budget 1): wiring TVC actuators + precision bearings directly here lands them at d4 (renders). This surfaces the engine merchant tier without breaking depth.",
+      "proposedNodes": [
+        { "suggestedId": "launch_tvc_actuators_merchant", "kind": "equipment", "name": "Thrust-vector-control (TVC) actuators (merchant tier) (EXISTING - re-home)", "whatItIs": "Electromechanical/hydraulic gimbal actuators steering the engine; named merchant tier.", "industryBasis": "Moog, Woodward, Parker Aerospace TVC actuation (already evidenced ok_exact).", "likelyCitableSource": "Existing evidence (Moog launch-vehicle actuation, Vulcan first flight)." },
+        { "suggestedId": "launch_engine_precision_bearings_merchant", "kind": "equipment", "name": "Precision bearings (turbopump / gimbal) (merchant tier) (EXISTING - re-home)", "whatItIs": "High-DN cryo turbopump and gimbal bearings; a ≤3-holder chokepoint.", "industryBasis": "RBC Bearings, Schaeffler (FAG), SKF aerospace (already evidenced).", "likelyCitableSource": "Existing evidence; RBC/Schaeffler aerospace-bearing pages." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_merlin_engine_cluster", "target": "launch_tvc_actuators_merchant", "relation": "requires" },
+        { "source": "falcon9_merlin_engine_cluster", "target": "launch_engine_precision_bearings_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "launch_tvc_actuators_merchant -> Moog, Woodward, Parker Hannifin (mapped)",
+        "launch_engine_precision_bearings_merchant -> RBC Bearings, Schaeffler, SKF (mapped) — ≤3-holder corner candidate"
+      ],
+      "estRenderedNodeDelta": 2,
+      "overfitRisk": "low",
+      "notes": "Re-home decision: keep the existing `part_of` edges (they encode the true is-part-of-engine relationship for the panel) AND add the `requires` edge for render. Do NOT also wire valves/igniters/AM-machines here or the cluster gets noisy and they would still be one layer too deep under raptor; instead leave the deep engine-internal orphans (valves/igniter/AM/powder) UNWIRED for render and surface them via the suppliers rail (Gate F2 alternative). Honest: engine-internal decomposition below the cluster is DEPTH-BLOCKED; do not fabricate intermediate nodes to lift it."
+    },
+    {
+      "id": "T07-grid-fin-wire-actuator",
+      "subsystem": "Recovery (grid fins)",
+      "attachUnderNodeId": "falcon9_grid_fin_reentry_control",
+      "rationale": "Grid fin is d3 (budget 1) and already has Ti forging + Ti mill product. The fin-deploy/actuation hydraulics are a real missing sibling. Wire the TVC/actuation merchant node OR add a dedicated fin-actuator node at d4.",
+      "proposedNodes": [
+        { "suggestedId": "grid_fin_hydraulic_actuation_merchant", "kind": "equipment", "name": "Grid-fin hydraulic actuation system (merchant tier)", "whatItIs": "Hydraulic actuators + power pack that deploy and articulate the titanium grid fins during reentry.", "industryBasis": "Real subsystem (Falcon grid fins are hydraulically actuated); Moog/Woodward/Parker hydraulic actuation tier.", "likelyCitableSource": "Moog/Parker launch-vehicle actuation pages; SpaceX grid-fin reentry press." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_grid_fin_reentry_control", "target": "grid_fin_hydraulic_actuation_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "grid_fin_hydraulic_actuation_merchant -> Moog, Woodward, Parker Hannifin"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "med",
+      "notes": "If kept distinct from launch_tvc_actuators_merchant, justify the split (fin actuation vs engine gimbal are different parts/specs) — do NOT split one real thing in two (auto-fail). Defensible because fin hydraulics and engine-gimbal TVC are genuinely separate hardware. d4 -> renders."
+    },
+    {
+      "id": "T08-landing-legs-decompose",
+      "subsystem": "Recovery (landing legs)",
+      "attachUnderNodeId": "falcon9_landing_legs",
+      "rationale": "Landing legs is d3 (budget 1) with ZERO children — a bare leaf where flagship would show structure. Real content: the crushable energy-absorbing core (Al honeycomb) and the deploy mechanism/telescoping struts (carbon-fiber + Ti). Add the crushable-core material (key) at d4.",
+      "proposedNodes": [
+        { "suggestedId": "landing_leg_crushable_honeycomb_merchant", "kind": "material", "name": "Landing-leg crushable aluminum honeycomb core", "whatItIs": "One-shot crushable aluminum honeycomb that absorbs touchdown energy; the leg's reuse-limiting consumable.", "industryBasis": "Aluminum honeycomb energy absorbers are a real merchant material (Hexcel, Plascore, Argosy). Falcon legs use carbon-fiber/aluminum honeycomb construction (public).", "likelyCitableSource": "Hexcel/Plascore aluminum-honeycomb pages; SpaceX leg construction press." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_landing_legs", "target": "landing_leg_crushable_honeycomb_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "landing_leg_crushable_honeycomb_merchant -> Hexcel (HXL), Plascore, Argosy International"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "med",
+      "notes": "Material -> renders ONLY if tagged key (hard_to_develop/frontierFor). Tag it key (it is the leg's reuse consumable). Honest scope: Falcon legs are widely_adopted/mature; this passes ADR-0005 only as a consumable-reuse story, not as a chokepoint — keep it to ONE node, do not over-decompose a mature leg."
+    },
+    {
+      "id": "T09-copv-decompose",
+      "subsystem": "Structures (pressure vessels)",
+      "attachUnderNodeId": "falcon9_aluminum_lithium_tank_structure",
+      "rationale": "COPV (launch_vehicle_copv_pressurant_vessel) is itself at d4 (under the Al-Li tank at d3), so a child under COPV lands at d5 = DEPTH-BLOCKED (confirmed by simulation). Instead, re-home the metallic-liner node as a SIBLING of COPV under the tank structure (d3), landing it at d4 where it renders. COPV is a documented historical chokepoint (AMOS-6 failure); the liner is its critical sub-part.",
+      "proposedNodes": [
+        { "suggestedId": "copv_metallic_liner_merchant", "kind": "material", "name": "COPV metallic liner (thin Inconel / titanium)", "whatItIs": "The thin gas-tight metal liner inside the carbon-overwrapped helium vessel; liner integrity drove the AMOS-6 investigation.", "industryBasis": "Real COPV construction; merchant COPV/liner makers incl. Infinite Composites, Steelhead Composites, HyPerComp (already orgs in the exposure file).", "likelyCitableSource": "Existing COPV org evidence; AMOS-6 mishap investigation summary; Steelhead/Infinite Composites pages." }
+      ],
+      "proposedEdges": [
+        { "source": "falcon9_aluminum_lithium_tank_structure", "target": "copv_metallic_liner_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "copv_metallic_liner_merchant + COPV -> Infinite Composites, Steelhead Composites, HyPerComp Engineering (already in exposure file)"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "med",
+      "notes": "DEPTH CORRECTION: COPV is at d4 (not d3); attaching the liner under COPV would land at d5 (invisible). Re-home under the tank structure (d3) so the liner renders at d4. Material -> tag key (COPV liner is a documented failure-mode chokepoint, AMOS-6). Keep the conceptual liner-is-part-of-COPV link as a `part_of` edge too; the `requires` from the tank is the render lift. Alternatively surface the liner only on the COPV node's suppliers rail if the sibling re-home reads as misplaced."
+    },
+    {
+      "id": "T10-starship-stainless-decompose",
+      "subsystem": "Structures (Starship primary structure)",
+      "attachUnderNodeId": "starship_stainless_steel_primary_structure",
+      "rationale": "starship_stainless_steel_primary_structure is a d3 MATERIAL node, currently a bare leaf whose description literally says 'exact alloy/process details remain outside this first pass' — an explicit unfinished frontier. Add the stainless coil/plate merchant material (300-series/30X) at d4 + the forming/welding process.",
+      "proposedNodes": [
+        { "suggestedId": "starship_stainless_coil_plate_merchant", "kind": "material", "name": "Aerospace stainless steel coil/plate (304L / 30X-class)", "whatItIs": "The stainless mill product SpaceX rolls/welds into Starship tanks; SpaceX moved 301/304L -> proprietary 30X.", "industryBasis": "Real merchant stainless tier: Outokumpu (already an org in the file), NAS/Outokumpu, ArcelorMittal stainless; SpaceX 30X alloy is public.", "likelyCitableSource": "Outokumpu product pages (already an evidenced org); SpaceX 30X public statements; trade press." }
+      ],
+      "proposedEdges": [
+        { "source": "starship_stainless_steel_primary_structure", "target": "starship_stainless_coil_plate_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "starship_stainless_coil_plate_merchant -> Outokumpu (mapped, OUT1V.HE); add NAS (Acerinox) / ArcelorMittal stainless as breadth"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "low",
+      "notes": "starship_stainless_steel_primary_structure is itself a MATERIAL at d3 and is early_deployment (renders as key already). The new coil/plate material at d4 must be tagged key to render. The parent's own description flags it as an unfinished frontier -> ADR-0005 explicit-frontier decomposition is warranted. Also requires tagging parent frontierFor if not already."
+    },
+    {
+      "id": "T11-tps-rehome-tile-materials",
+      "subsystem": "Thermal protection (Starship tiles)",
+      "attachUnderNodeId": "starship_ship_reusable_upper_stage",
+      "rationale": "The TPS tile system (starship_heat_shield_tile_system) sits at d4, so its tile materials (PICA ablator, ceramic/silica tile, adhesive/SIP) attach by `part_of` at d5 = invisible. Re-home the two tile MATERIALS one level up under starship_ship_reusable_upper_stage (d3) so they render at d4. TPS is THE Starship reuse bottleneck; making the tile material tier visible is high decision value.",
+      "proposedNodes": [
+        { "suggestedId": "reusable_launch_ceramic_silica_tile", "kind": "material", "name": "Reusable ceramic / silica heat-shield tile (EXISTING - re-home)", "whatItIs": "The hexagonal silica/ceramic tiles on Starship's windward face; attachment + durability are the central reuse constraint.", "industryBasis": "Public Starship tile program; ceramic-tile makers (Lockheed legacy Shuttle-tile lineage); SpaceX in-house.", "likelyCitableSource": "Existing evidence; SpaceX tile press." },
+        { "suggestedId": "starship_pica_class_ablator", "kind": "material", "name": "PICA-class ablative heat-shield material (EXISTING - re-home)", "whatItIs": "Phenolic-impregnated carbon ablator used on the hardest-heated zones; rayon/Lyocell precursor chokepoint upstream.", "industryBasis": "Real material lineage (PICA, NASA Ames; Fiber Materials Inc FiberForm; Lenzing/SNIACE rayon precursor) — all already orgs in the file.", "likelyCitableSource": "Existing evidence; PICA literature; FMI/Lenzing pages." }
+      ],
+      "proposedEdges": [
+        { "source": "starship_ship_reusable_upper_stage", "target": "reusable_launch_ceramic_silica_tile", "relation": "requires" },
+        { "source": "starship_ship_reusable_upper_stage", "target": "starship_pica_class_ablator", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "reusable_launch_ceramic_silica_tile -> Lockheed Martin (reported_capable), SpaceX (captive)",
+        "starship_pica_class_ablator (+ precursor chain) -> Fiber Materials Inc, Lenzing, SNIACE — the rayon-precursor corner is a genuine ≤3-holder chokepoint"
+      ],
+      "estRenderedNodeDelta": 2,
+      "overfitRisk": "low",
+      "notes": "Materials -> tag both key (TPS tiles ARE the headline Starship reuse bottleneck; clearly frontierFor). Re-home keeps the existing `part_of` to the tile system AND adds `requires` from the d3 stage. The deeper precursor chain (rayon/Lyocell -> FiberForm) stays at d5+ (DEPTH-BLOCKED for render) — surface it via the suppliers rail, do NOT fabricate intermediates to lift it. Honest TPS note: the tile-bonding PROCESS is also a chokepoint but sits at d5; leave it for the rail."
+    },
+    {
+      "id": "T12-ground-systems-decompose",
+      "subsystem": "Ground systems / launch & test infrastructure",
+      "attachUnderNodeId": "spacex_launch_ground_stack",
+      "rationale": "spacex_launch_ground_stack is a d1 module (budget 3) — the deepest budget available outside the vehicle branches. It already has tower/chopsticks, test stands, cryo loading, pad turnaround, propellant system. Real missing infrastructure with decision relevance: the flame-deflector/water-deluge (sound-suppression) system and cryo storage/transfer tank farm. Both are genuine, citable ground subsystems. Add 1-2 at d2 (budget allows d2->d3->d4 underneath).",
+      "proposedNodes": [
+        { "suggestedId": "launch_site_flame_deluge_water_system", "kind": "equipment", "name": "Flame deflector & water-deluge sound-suppression system", "whatItIs": "The steel/water-cooled deluge plate and high-volume water system that protects the pad and suppresses acoustic energy at ignition; Starbase rebuilt this after the April-2023 pad failure.", "industryBasis": "Documented Starbase water-deluge/steel-plate system (post-Boca-Chica-2023); a real, citable ground subsystem.", "likelyCitableSource": "FAA/SpaceX post-mishap documentation; trade press on the Starbase deluge system." },
+        { "suggestedId": "launch_site_cryo_storage_tank_farm", "kind": "equipment", "name": "Cryogenic propellant storage & transfer tank farm", "whatItIs": "Large LOX/LCH4 storage tanks, subcoolers, and transfer lines feeding the pad; sizing/turnaround drives launch cadence.", "industryBasis": "Real ground infrastructure; cryo tank/equipment makers (Chart Industries, Linde Engineering) are a named merchant tier.", "likelyCitableSource": "Chart Industries / Linde Engineering cryo-storage pages; Starbase tank-farm coverage." }
+      ],
+      "proposedEdges": [
+        { "source": "spacex_launch_ground_stack", "target": "launch_site_flame_deluge_water_system", "relation": "requires" },
+        { "source": "spacex_launch_ground_stack", "target": "launch_site_cryo_storage_tank_farm", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "launch_site_cryo_storage_tank_farm -> Chart Industries (GTLS), Linde Engineering (already org_linde exists in parcel domain - reuse), Air Products (APD, mapped)",
+        "launch_site_flame_deluge_water_system -> mostly bespoke civil/steel; honest note that merchant exposure is thin"
+      ],
+      "estRenderedNodeDelta": 2,
+      "overfitRisk": "low",
+      "notes": "Equipment -> renders regardless of key status, both at d2. Reuse org_linde (cross-domain, already in parcel graph) per C4. Ground-system decomposition can go 1-2 more layers (budget 3) if a genuine sub-tier exists (e.g. cryo subcooler), but do not pad."
+    },
+    {
+      "id": "T13-merlin-vacuum-decompose",
+      "subsystem": "Upper stage engine (MVac)",
+      "attachUnderNodeId": "merlin_vacuum_upper_stage_engine",
+      "rationale": "merlin_vacuum_upper_stage_engine is a d3 equipment leaf (budget 1) with no children. Its distinguishing real feature is the large radiatively-cooled niobium nozzle extension — a genuine, citable component class. Add the nozzle-extension material/component at d4.",
+      "proposedNodes": [
+        { "suggestedId": "engine_niobium_nozzle_extension_merchant", "kind": "material", "name": "Radiatively-cooled niobium-alloy nozzle extension", "whatItIs": "The large columbium (niobium C-103) radiation-cooled nozzle skirt on vacuum-optimized upper-stage engines; niobium feedstock is a concentrated-supply chokepoint.", "industryBasis": "Real material (Nb C-103 nozzle extensions are standard on vac engines, incl. RL10, MVac-class); niobium supply (CBMM Brazil ~80% global) is a textbook chokepoint.", "likelyCitableSource": "Aerospace materials literature on C-103 nozzle extensions; USGS niobium commodity summary (CBMM concentration)." }
+      ],
+      "proposedEdges": [
+        { "source": "merlin_vacuum_upper_stage_engine", "target": "engine_niobium_nozzle_extension_merchant", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "engine_niobium_nozzle_extension_merchant -> CBMM (niobium feedstock corner), ATI / specialty refractory-metal fabricators (ATI already in file)"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "med",
+      "notes": "Material -> tag key (niobium nozzle is a genuine ≤3-holder feedstock chokepoint, CBMM ~80%). d4 -> renders. Confirm MVac specifically uses Nb extension before asserting (RL10/most vac engines do; verify Merlin Vacuum). If unverifiable for Merlin specifically, re-frame as the industry vacuum-engine nozzle tier per scope lock (industry chain)."
+    },
+    {
+      "id": "T14-starship-flap-decompose",
+      "subsystem": "Recovery / control surfaces (Starship flaps)",
+      "attachUnderNodeId": "starship_ship_reusable_upper_stage",
+      "rationale": "starship_flap_reentry_control is at d4 (budget 0) so cannot take rendering children. But the flap ACTUATION (Tesla-derived electric motors / battery-powered actuators) is a genuine, distinctive component. Add a flap-actuator node as a sibling under starship_ship_reusable_upper_stage (d3) so it lands at d4 and renders.",
+      "proposedNodes": [
+        { "suggestedId": "starship_flap_electric_actuator", "kind": "equipment", "name": "Starship flap electric actuator (high-power EMA)", "whatItIs": "Battery-powered electromechanical actuators (Tesla-motor-derived) that drive Starship's reentry flaps; a distinctive all-electric TVC/control approach.", "industryBasis": "Public SpaceX statements that Starship uses Tesla-derived electric motors/battery packs for flap and engine actuation (replacing hydraulics).", "likelyCitableSource": "SpaceX/Musk public statements on electric flap/engine actuation; trade-press coverage." }
+      ],
+      "proposedEdges": [
+        { "source": "starship_ship_reusable_upper_stage", "target": "starship_flap_electric_actuator", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "starship_flap_electric_actuator -> largely captive (Tesla/SpaceX in-house); honest note that merchant exposure is thin — high-power EMA merchant tier (Moog/Collins) only as substitute reference"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "med",
+      "notes": "Equipment -> renders at d4. Honest: this is largely captive (in-house), so exposure is thin — keep as a structural decomposition node, label captive per scope lock. Do not invent merchant suppliers."
+    },
+    {
+      "id": "T15-superheavy-grid-fin-decompose",
+      "subsystem": "Recovery (Super Heavy grid fins / catch)",
+      "attachUnderNodeId": "superheavy_reusable_booster",
+      "rationale": "superheavy_grid_fin_control and superheavy_tower_catch_landing_interface sit at d4 (budget 0). To add real catch-related decomposition that renders, attach the catch-load hardpoint / chine structure under superheavy_reusable_booster (d3) at d4. Genuine: the tower-catch concept loads the booster through dedicated catch points.",
+      "proposedNodes": [
+        { "suggestedId": "superheavy_catch_hardpoint_structure", "kind": "module", "name": "Super Heavy catch load-point / chine structure", "whatItIs": "The reinforced hardpoints/chines on Super Heavy through which the tower 'chopstick' arms catch and bear the booster's weight; a novel reuse-enabling structure.", "industryBasis": "Public Super Heavy tower-catch architecture (Mechazilla); the catch points are a documented, distinctive structural element.", "likelyCitableSource": "SpaceX tower-catch press/imagery; trade-press structural analyses." }
+      ],
+      "proposedEdges": [
+        { "source": "superheavy_reusable_booster", "target": "superheavy_catch_hardpoint_structure", "relation": "requires" }
+      ],
+      "exposureToAddLater": [
+        "superheavy_catch_hardpoint_structure -> captive (SpaceX); honest note exposure is thin (novel bespoke structure)"
+      ],
+      "estRenderedNodeDelta": 1,
+      "overfitRisk": "high",
+      "notes": "Module -> renders at d4. Higher overfit risk: this is a novel SpaceX-specific structure with little merchant exposure and thin independent citation. Include ONLY if a credible non-vendor source describes the catch hardpoints; otherwise DROP. Do not fabricate."
+    },
+    {
+      "id": "T16-titanium-feedstock-rehome",
+      "subsystem": "Propellant & materials (titanium feedstock chain)",
+      "attachUnderNodeId": "falcon9_grid_fin_reentry_control",
+      "rationale": "titanium_sponge_feedstock currently renders only when uncapped (it sits at d5 under aerospace_titanium_mill_product at d4). The Ti sponge -> mill -> forging chain is a genuine ≤3-holder chokepoint (VSMPO-AVISMA, Toho, Osaka, TIMET). The deep chain is DEPTH-BLOCKED. This is a NOTE, not a render task: surface the sponge corner via the suppliers rail on aerospace_titanium_mill_product (already wired at d4 and renders).",
+      "proposedNodes": [],
+      "proposedEdges": [],
+      "exposureToAddLater": [
+        "titanium_sponge_feedstock -> VSMPO-AVISMA (VSMO.ME), Toho Titanium, Osaka Titanium (5726.T), TIMET (mapped) — genuine ≤4-holder corner; surface on the mill-product node's rail since the sponge node itself is depth-blocked"
+      ],
+      "estRenderedNodeDelta": 0,
+      "overfitRisk": "low",
+      "notes": "NO render delta (depth-blocked). Honest structural limit: the Ti feedstock chain is real and chokepoint-grade but cannot deepen the RENDERED tree because it is already 5 layers down. Its value is exposure (Gate C/D), surfaced via the rail per Gate F2, not the canvas. Do NOT re-home sponge upward just to render it — that would misrepresent the supply chain (sponge feeds mill, not the grid fin directly)."
+    }
+  ]
+}

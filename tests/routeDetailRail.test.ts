@@ -203,6 +203,13 @@ function selectedSummary(html: string): string {
   return match[0];
 }
 
+function textFromMarkup(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function startHereCard(html: string): string {
   const match = html.match(/<section[^>]*class="[^"]*route-rail-start[^"]*"[\s\S]*?<\/section>/);
   assert.ok(match, `start-here card should be addressable; got: ${html}`);
@@ -241,10 +248,10 @@ test("RouteDetailRail keeps route guide separate from selected-node detail navig
   assert.match(html, /Cost drivers/i);
   assert.match(html, /Start here/i);
   assert.match(html, /Precision gearbox/);
-  assert.match(html, /Modeled cost: p50 RMB 80,000/);
+  assert.match(html, /Modeled cost: est\. RMB 80,000/);
   assert.match(
     html,
-    /aria-label="Precision gearbox, module, 2 links, Modeled cost: p50 RMB 80,000"/,
+    /aria-label="Precision gearbox, module, 2 links, Modeled cost: est\. RMB 80,000"/,
     `route step button should expose a spaced accessible label instead of concatenated child text; got: ${html}`,
   );
   assert.match(html, /Selected/i);
@@ -270,7 +277,7 @@ test("RouteDetailRail selected summary uses rolled-up cost for aggregate nodes",
 
   assert.match(
     html,
-    /Modeled cost: p50 RMB 149,500/,
+    /Modeled cost: est\. RMB 149,500/,
     "selected aggregate node should show the same rolled-up cost signal used by graph edges and detail cards",
   );
 });
@@ -347,38 +354,37 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
     }),
   );
   const summary = selectedSummary(html);
+  const thesis = summary.match(/<div class="route-reader-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(summary, /Bottom line/i);
+  assert.match(summary, /Node interpretation/i);
   assert.match(summary, /Robot arm moves parcels into the sorter\./);
-  assert.match(summary, /Sorting robot depends on this constraint scaling/i);
+  assert.doesNotMatch(summary, /depends on this constraint scaling/i);
+  assert.match(summary, /Capacity \/ scale|Component availability/i);
   assert.doesNotMatch(summary, /Constraint type:|Relief:|Evidence:/i);
   assert.doesNotMatch(summary, /Current signal:/i);
   assert.doesNotMatch(summary, /it is marked as a bottleneck/i);
   assert.doesNotMatch(summary, /\{importance\}/);
   assert.doesNotMatch(summary, /sorter\.\./);
-  assert.match(summary, /Where it is stuck/i);
-  assert.match(summary, /Investor brief/i);
-  assert.match(summary, /Cost \/ gap/i);
-  assert.match(summary, /Supply constraint/i);
+  assert.doesNotMatch(summary, /Where it is stuck|具体卡点/i);
+  assert.match(summary, /Core readout/i);
+  assert.match(summary, /Commercial scale/i);
+  assert.match(summary, /Leading reason/i);
   assert.match(summary, /Capacity \/ scale/i);
   assert.match(summary, /Component availability/i);
   assert.match(summary, /Relief timing/i);
   assert.match(summary, /18 months/i);
   assert.doesNotMatch(summary, /Maturity 58\/100/i);
-  const whereStart = summary.indexOf("Where it is stuck");
-  const whereEnd = summary.indexOf("Investor brief");
-  const whereStuck = whereStart >= 0 ? summary.slice(whereStart, whereEnd >= 0 ? whereEnd : undefined) : "";
   assert.doesNotMatch(
-    whereStuck,
+    summary,
     /Maturity 58\/100/i,
-    `Where it is stuck should show constraint factors, not raw score; got: ${whereStuck}`,
+    `summary should show constraint factors, not raw score; got: ${summary}`,
   );
   assert.doesNotMatch(
-    whereStuck,
+    thesis,
     /RMB|Not priceable/i,
-    `Where it is stuck should not mix in cost or pricing audit gaps; got: ${whereStuck}`,
+    `node interpretation should not mix in cost or pricing audit gaps; got: ${thesis}`,
   );
-  assert.match(summary, /Key sources/i);
+  assert.match(summary, /Evidence trail/i);
   assert.match(summary, /3 sources/i);
   assert.doesNotMatch(summary, /Evidence status/i);
   assert.doesNotMatch(summary, /reviewed \/ .*total evidence records/i);
@@ -388,14 +394,14 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.match(summary, /Vision kit/);
   assert.doesNotMatch(summary, /Vacuum end effector/);
 
-  const thesisIndex = summary.indexOf("Bottom line");
+  const thesisIndex = summary.indexOf("Node interpretation");
   assert.ok(thesisIndex >= 0, `selected summary should start with a bottleneck thesis; got: ${summary}`);
   assert.doesNotMatch(summary, /Heat \d+\/100/i);
   assert.doesNotMatch(summary, /Secondary signals/i);
   assert.doesNotMatch(summary, /Full-free flagship demo/i);
 });
 
-test("RouteDetailRail root selection summarizes the route entry instead of root audit gaps", () => {
+test("RouteDetailRail root selection keeps the route entry in the start card without duplicate selected detail", () => {
   const graph = readerGraphFixture();
   const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
   const selectedNode = graph.nodes.find((entry) => entry.id === "root_product")!;
@@ -414,15 +420,25 @@ test("RouteDetailRail root selection summarizes the route entry instead of root 
       onSelectNode: () => {},
     }),
   );
-  const summary = selectedSummary(html);
+  const start = startHereCard(html);
 
-  assert.match(summary, /Route entry/i);
-  assert.match(summary, /Robot arm/);
-  assert.match(summary, /Capacity \/ scale/i);
-  assert.match(summary, /Component availability/i);
-  assert.match(summary, /18 months/i);
-  assert.doesNotMatch(summary, /Constraint not classified yet/i);
-  assert.doesNotMatch(summary, /Not priceable from reviewed data/i);
+  assert.equal(
+    html.indexOf('data-testid="route-rail-selected-summary"'),
+    -1,
+    `default/root route state should not duplicate the start card as selected-node detail; got: ${html}`,
+  );
+  assert.doesNotMatch(
+    html,
+    /Structural root · not itself a chokepoint|结构根 · 本身不是卡点/i,
+    `default/root route state should not lead with a root-node detail verdict; got: ${html}`,
+  );
+  assert.match(start, /Start here/i);
+  assert.match(start, /Robot arm/);
+  assert.match(start, /Capacity \/ scale/i);
+  assert.match(start, /Component availability/i);
+  assert.match(start, /18 months/i);
+  assert.doesNotMatch(start, /Constraint not classified yet/i);
+  assert.doesNotMatch(start, /Not priceable from reviewed data/i);
 });
 
 test("RouteDetailRail selected summary omits internal Heat and access state by default", () => {
@@ -441,17 +457,18 @@ test("RouteDetailRail selected summary omits internal Heat and access state by d
     }),
   );
   const summary = selectedSummary(html);
-  const thesisIndex = summary.indexOf("Bottom line");
+  const thesisIndex = summary.indexOf("Node interpretation");
 
   assert.ok(thesisIndex >= 0, `selected summary should include a thesis; got: ${summary}`);
-  assert.match(summary, /Evidence strength/i);
+  assert.match(summary, /Evidence trail/i);
   assert.doesNotMatch(summary, /Heat/i);
   assert.doesNotMatch(summary, /route-reader-secondary-signals/i);
   assert.doesNotMatch(summary, /Full-free flagship demo/i);
   assert.doesNotMatch(summary, /Maturity/i);
+  assert.doesNotMatch(summary, /maturity proxy/i);
 });
 
-test("RouteDetailRail names unknown cost and lead-time as audit gaps, not internal fields", () => {
+test("RouteDetailRail names unknown cost and estimated relief timing as user-facing audit gaps", () => {
   const graph: GraphData = {
     graphVersion: "route-detail-rail-audit-gap-test",
     evidence: [],
@@ -480,7 +497,7 @@ test("RouteDetailRail names unknown cost and lead-time as audit gaps, not intern
   const summary = selectedSummary(html);
 
   assert.match(summary, /Cost gap unknown/i);
-  assert.match(summary, /Lead-time not yet quantified/i);
+  assert.match(summary, /Estimated 12 months; proxy based on node type and deployment proxy/i);
   assert.doesNotMatch(summary, /Cost not modeled yet/i);
   assert.doesNotMatch(summary, /Lead time not modeled yet/i);
 });
@@ -561,9 +578,10 @@ test("RouteDetailRail labels heuristic route cost signals as estimated", () => {
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Estimated cost: p50 RMB 250,000/i);
+  assert.match(summary, /Estimated cost: est\. RMB 250,000/i);
   assert.match(summary, /Estimate; needs supplier quote or BOM validation/i);
   assert.doesNotMatch(summary, /domain\/tag heuristic|Basis:/i);
+  assert.doesNotMatch(summary, /\bp50\b/i);
 });
 
 test("RouteDetailRail relief timing explains the kind of unresolved constraint", () => {
@@ -604,9 +622,9 @@ test("RouteDetailRail relief timing explains the kind of unresolved constraint",
     }),
   ));
 
-  assert.match(renderSelected("economics"), /Unknown until demand, utilization, and unit economics are validated/i);
-  assert.match(renderSelected("material"), /material supply and qualification must scale together/i);
-  assert.match(renderSelected("component"), /qualified components or second sources must scale/i);
+  assert.match(renderSelected("economics"), /Estimated 36 months; proxy based on regulatory or safety approval cycle/i);
+  assert.match(renderSelected("material"), /Estimated 36 months; proxy based on regulatory or safety approval cycle/i);
+  assert.match(renderSelected("component"), /qualified components or alternate suppliers must scale/i);
 });
 
 test("RouteDetailRail selected summary does not lead with raw kind or domain tags", () => {
@@ -628,7 +646,7 @@ test("RouteDetailRail selected summary does not lead with raw kind or domain tag
 
   assert.doesNotMatch(summary, /internal_tag_should_not_lead/);
   assert.doesNotMatch(summary, />module</i);
-  assert.match(summary, /Bottom line/i);
+  assert.match(summary, /Node interpretation/i);
   assert.doesNotMatch(summary, /Heat \d+\/100/i);
 });
 
@@ -652,17 +670,16 @@ test("RouteDetailRail start-here and chokepoints explain why without exposing He
   );
 
   const start = startHereCard(html);
-  assert.match(start, /Bottom line/i);
+  assert.match(start, /Node interpretation/i);
   assert.match(start, /Precision gearbox limits repeatable arm motion\./);
-  assert.match(start, /Sorting robot depends on this constraint scaling/i);
-  assert.match(start, /Investor brief/i);
-  assert.match(start, /Cost \/ gap/i);
-  assert.match(start, /Supply constraint/i);
+  assert.doesNotMatch(start, /depends on this constraint scaling/i);
+  assert.match(start, /Constraint mechanism|Component availability|Capacity \/ scale|Technical maturity/i);
+  assert.match(start, /Core readout/i);
+  assert.match(start, /Commercial scale/i);
+  assert.match(start, /Leading reason/i);
   assert.match(start, /Relief timing/i);
-  assert.ok(
-    start.indexOf("Where it is stuck") < start.indexOf("Investor brief"),
-    `start-here stuck-factor tags should appear before investor brief; got: ${start}`,
-  );
+  assert.equal(start.indexOf('data-testid="route-start-where-stuck"'), -1, `start-here should not add a separate stuck-factor block; got: ${start}`);
+  assert.doesNotMatch(start, /Where it is stuck|具体卡点/i, `start-here should keep the sample-style summary hierarchy; got: ${start}`);
   assert.doesNotMatch(start, /Current signal:/i);
   assert.doesNotMatch(start, /it is marked as a bottleneck/i);
   assert.doesNotMatch(start, /\{importance\}/);
@@ -675,10 +692,63 @@ test("RouteDetailRail start-here and chokepoints explain why without exposing He
   assert.match(chokepoints, /Precision gearbox/);
   assert.match(chokepoints, /Precision gearbox limits repeatable arm motion\./);
   assert.doesNotMatch(chokepoints, /Maturity 42\/100/);
-  assert.doesNotMatch(chokepoints, /p50 RMB 80,000/);
-  assert.match(chokepoints, /Evidence coverage is still thin\./);
+  assert.doesNotMatch(chokepoints, /\bp50\b/i);
+  assert.match(chokepoints, /High barrier · hard to replicate/);
+  assert.doesNotMatch(chokepoints, /Evidence coverage is still thin\./);
   assert.match(chokepoints, /class="route-step-signal"[\s\S]*(?:Barrier|Dependency|Concentration) \d+\/100/i);
   assert.doesNotMatch(chokepoints, /Heat \d+\/100/i);
+});
+
+test("RouteDetailRail filters non-top entries out of Key chokepoints", () => {
+  const graph = readerGraphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode: graph.nodes.find((entry) => entry.id === "arm")!,
+      analysisMode: "bottleneck-risk",
+      priorityEntries: [
+        { nodeId: "gearbox", rank: 1, band: 5 },
+        { nodeId: "motor", rank: 2, band: 4 },
+        { nodeId: "vision", rank: 3, band: 3 },
+      ],
+      exposureAccess: { status: "full-free" },
+      onSelectNode: () => {},
+    }),
+  );
+
+  const chokepoints = keyChokepointsCard(html);
+  assert.match(chokepoints, /Precision gearbox/);
+  assert.doesNotMatch(chokepoints, /Servo motor/);
+  assert.doesNotMatch(chokepoints, /Vision kit/);
+});
+
+test("RouteDetailRail selected summary suppresses duplicate role text in stuck reason", () => {
+  const graph = readerGraphFixture();
+  const route = selectCostDriverRoute(graph, "root_product", { limit: 2 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "arm")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      priorityEntries: [{ nodeId: "arm", rank: 1, band: 5 }],
+      exposureAccess: { status: "full-free" },
+      onSelectNode: () => {},
+    }),
+  );
+
+  const summaryText = textFromMarkup(selectedSummary(html));
+  const repeated = summaryText.match(/Robot arm moves parcels into the sorter\./gi) ?? [];
+  assert.equal(
+    repeated.length,
+    1,
+    `selected summary should not repeat the same role sentence across the primary copy; got: ${summaryText}`,
+  );
 });
 
 test("RouteDetailRail know-how layer names the technical view and starts from selected know-how", () => {
@@ -781,7 +851,7 @@ test("AI compute Start here prefers the HBM / advanced-packaging mainline over s
   assert.match(start, /capacity, yield, and supplier concentration/i);
   assert.match(start, /Suppliers &amp; tickers/i);
   assert.match(start, /Evidence/i);
-  assert.match(start, /Bottom line/i);
+  assert.match(start, /Node interpretation/i);
   assert.ok(
     start.indexOf("Evidence") < start.indexOf("Suppliers &amp; tickers"),
     `Start here should send readers to evidence before supplier/ticker exposure; got: ${start}`,
@@ -805,6 +875,74 @@ test("AI compute Start here prefers the HBM / advanced-packaging mainline over s
   assert.doesNotMatch(start, /\d+ reviewed \/ \d+ total evidence records/i);
   assert.doesNotMatch(html, /77 suppliers hidden/i);
   assert.doesNotMatch(html, /paid exposure layer/i);
+});
+
+test("RouteDetailRail AI compute substrate summary uses concrete mechanisms instead of holder coverage as the reason", () => {
+  const graph = loadGraphData();
+  const rootId = "ai_accelerator_module_hbm_cowos";
+  const route = selectCostDriverRoute(graph, rootId, { limit: 4 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "substrate_and_interposer")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      exposureAccess: { status: "full-free" },
+      systemNodeIds: directRequiresChildren(graph, rootId),
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = textFromMarkup(selectedSummary(html));
+
+  assert.doesNotMatch(
+    summary,
+    /Holder coverage gap|holder 覆盖缺口/,
+    `selected substrate summary must not use holder coverage as the concrete reason; got: ${summary}`,
+  );
+  assert.match(
+    summary,
+    /Organic substrate build-up|Silicon interposer \/ RDL|Dense substrate PDN/,
+    `selected substrate summary should expose concrete substrate/interposer mechanisms; got: ${summary}`,
+  );
+  assert.doesNotMatch(
+    summary,
+    /Where it is stuck\s+Constraint type not yet clear|具体卡点\s+约束类型尚不清楚/i,
+    `selected summary should not present an unknown constraint type as the specific chokepoint; got: ${summary}`,
+  );
+  assert.doesNotMatch(summary, /Supply sources unverified|供应来源未验证|证据还比较薄/i);
+});
+
+test("RouteDetailRail AI compute logic die summary uses mechanisms instead of modeled holder count as the reason", () => {
+  const graph = loadGraphData();
+  const rootId = "ai_accelerator_module_hbm_cowos";
+  const route = selectCostDriverRoute(graph, rootId, { limit: 4 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "logic_die_fabrication")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      exposureAccess: { status: "full-free" },
+      systemNodeIds: directRequiresChildren(graph, rootId),
+      onSelectNode: () => {},
+    }),
+  );
+  const summary = textFromMarkup(selectedSummary(html));
+
+  assert.doesNotMatch(
+    summary,
+    /Modeled holders|供应方覆盖|Holder coverage gap|holder 覆盖缺口/,
+    `selected logic-die summary must not use holder coverage as the concrete reason; got: ${summary}`,
+  );
+  assert.match(
+    summary,
+    /Leading-edge foundry allocation|EUV lithography\/tool cycles|Process yield ramp/,
+    `selected logic-die summary should expose concrete manufacturing mechanisms; got: ${summary}`,
+  );
 });
 
 test("RouteDetailRail treats AI compute locked access input as silently available", () => {
@@ -968,7 +1106,7 @@ test("RouteDetailRail audit-preview detail keeps supplier exposure hidden until 
     ),
   );
 
-  assert.match(html, /Key sources/i);
+  assert.match(html, /Evidence trail/i);
   assert.doesNotMatch(html, /data-testid="route-detail-access-boundary"/);
   assert.doesNotMatch(html, /Company exposure locked/i);
   assert.doesNotMatch(html, /Company identities and listing details open only when this paid domain launches/i);
@@ -1030,7 +1168,7 @@ test("RouteDetailRail selected summary says when there is no direct evidence", (
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Evidence strength/i);
+  assert.match(summary, /Evidence trail/i);
   assert.match(summary, /No direct evidence/i);
 });
 

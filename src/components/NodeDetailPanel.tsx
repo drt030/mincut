@@ -39,7 +39,12 @@ import {
   type ChokepointResult,
 } from "@/lib/chokepointScore";
 import {
-  readerFacingConstraintReason,
+  commercialScaleAnswerForOrganization,
+  leadTimeAnswerForGraphNode,
+  type CommercialScaleAnswer,
+  type LeadTimeAnswer,
+} from "@/lib/commercialDataCompleteness";
+import {
   readerFacingCostAnswer,
   readerFacingCostSignalText,
   readerFacingNote,
@@ -181,10 +186,10 @@ function ListingChip({ org }: { org: Node }) {
   const label = info.ticker ? (venue ? `${info.ticker} · ${venue}` : info.ticker) : info.status;
   return (
     <span
+      className="listing-chip"
       data-listing-status={info.status}
       data-listing-venue={venue ?? undefined}
       title={info.ticker && venue ? `${info.ticker} listing venue: ${venue}` : undefined}
-      style={{ fontSize: 11, background: "#f1f5f9", borderRadius: 4, padding: "0 4px", marginLeft: 6 }}
     >
       {label}
     </span>
@@ -215,7 +220,7 @@ export function NodeDetailContent({
   showExposureSummary?: boolean;
   defaultOpenExposureSummary?: boolean;
 }) {
-  const { kindName, nodeName, t } = useLanguage();
+  const { kindName, language, nodeDescription, nodeName, t } = useLanguage();
   const rawLockedEntry = useLockedDomainForNode(node);
   const lockedEntry = isAiComputeNode(node) ? null : rawLockedEntry;
   const holderTeaser = useHolderTeaser(node.id);
@@ -324,6 +329,15 @@ export function NodeDetailContent({
   const isDeprecated = node.reviewStatus === "deprecated";
   const isDisputed = node.reviewStatus === "disputed";
   const evidenceCount = evidence.length;
+  const localizedDescription =
+    language === "zh"
+      ? nodeDescription(node.id, node.description ?? "") || node.description
+      : node.description;
+  const heroQuote = firstSentenceDescription(
+    isAiComputeNode(node) && node.kind === "product"
+      ? t("readerAiComputeImportance")
+      : localizedDescription,
+  );
   const hasSecondaryResearch =
     ((node.kind === "product" || node.kind === "module") && rankedInspectCandidatesForNode(graph, node).length > 0) ||
     opportunityCandidates.length > 0 ||
@@ -343,12 +357,13 @@ export function NodeDetailContent({
      */
     <div
       ref={panelRef}
-      className="detail-list"
+      className="detail-list detail-commercial-supplier-ia"
       role="region"
       aria-live="polite"
       aria-labelledby="detail-heading"
     >
-      <div className="detail-reader-header">
+      <div className="detail-reader-header detail-reader-hero">
+        <span className="detail-reader-context">{kindName(node.kind)}</span>
         <h2 id="detail-heading">
           {nodeName(node.id, node.name)}
           {isDeprecated ? (
@@ -370,6 +385,14 @@ export function NodeDetailContent({
             </span>
           ) : null}
         </h2>
+        <div className="detail-reader-tags" aria-label="Node tags">
+          <span>{kindName(node.kind)}</span>
+          {isFrontierByJudgment ? <span className="frontier">{t("frontierPill")}</span> : null}
+          {isHardToDevelop ? <span>{t("hardToDevelopGlyphTooltip")}</span> : null}
+        </div>
+        {heroQuote ? (
+          <p className="detail-reader-quote">{heroQuote}</p>
+        ) : null}
       </div>
       <NodeReaderPriority
         graph={graph}
@@ -514,6 +537,9 @@ export function NodeDetailContent({
         <summary>
           <strong>{t("detailSupplementaryAppendix")}</strong>
         </summary>
+        <section className="detail-supplementary-section" data-testid="detail-model-breakdown">
+          <ChokepointAxisBreakdown graph={graph} node={node} />
+        </section>
         <section className="detail-supplementary-section" data-testid="detail-full-evidence-list">
           <strong>{t("fullEvidenceList")}</strong>
           <EvidenceList evidence={evidence} />
@@ -1099,15 +1125,6 @@ function sentenceClause(text: string): string {
   return `${trimmed}.`;
 }
 
-function normalizeReaderText(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/<[^>]*>/g, " ")
-    .replace(/[.!?。！？…]+$/u, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 function readerClauseFragment(text: string): string {
   return text.trim().replace(/[.!?。！？…]+$/u, "");
 }
@@ -1165,46 +1182,21 @@ function detailBottleneckThesisText(
     where,
     impact,
     factors: constraintSummaryText(graph, node, t),
-    relief: readerClauseFragment(reliefTimingText(node, t)),
+    relief: readerClauseFragment(reliefTimingText(graph, node, t)),
     evidence: readerClauseFragment(readerEvidenceStatusText(evidence, t)),
   });
 }
 
 function structuralConstraintSignals(graph: GraphData, node: Node, t: (key: string) => string): string[] {
   const headline = chokepointHeadlineFor(graph, node, t);
-  if (headline.elevated && headline.axisSentence && headline.axisSentence !== t("chokepointAxisConcentrationGap")) {
+  if (
+    headline.axisSentence &&
+    headline.axisSentence !== t("chokepointAxisConcentrationGap") &&
+    headline.axisSentence !== t("chokepointVerdictFlagged")
+  ) {
     return [headline.axisSentence];
   }
   return [];
-}
-
-function detailWhereStuckFactors(graph: GraphData, node: Node, t: (key: string) => string): string[] {
-  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  if (factors.length === 0 && isAiComputeNode(node) && node.kind === "product") {
-    return [
-      t("readerAiComputeStuckHbmCapacity"),
-      t("readerAiComputeStuckPackagingCapacity"),
-      t("readerAiComputeStuckYieldLearning"),
-      t("readerAiComputeStuckSupplierConcentration"),
-    ];
-  }
-  if (factors.length === 0) factors.push(...structuralConstraintSignals(graph, node, t));
-  if (factors.length === 0) factors.push(...decompositionConstraintSignals(graph, node, t));
-  if (factors.length === 0) factors.push(t("readerConstraintUnclassified"));
-  return factors.slice(0, 4);
-}
-
-function detailWhereStuckReason(
-  node: Node,
-  t: (key: string) => string,
-  // FF-3 (Gate F): zh-aware body. readerFacingConstraintReason's keyword
-  // heuristic + sentence splitter are English-only, so in zh mode the caller
-  // passes the already-first-sentence zh body and we skip the English cleaner.
-  localized?: { language: "en" | "zh"; description: string | undefined },
-): string {
-  if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeStuckReason");
-  if (localized?.language === "zh") return firstSentenceDescription(localized.description) ?? "";
-  return readerFacingConstraintReason(localized?.description ?? node.description);
 }
 
 function constraintSummaryText(graph: GraphData, node: Node, t: (key: string) => string): string {
@@ -1216,9 +1208,16 @@ function constraintSummaryText(graph: GraphData, node: Node, t: (key: string) =>
   return t("readerConstraintUnclassified");
 }
 
-function reliefTimingText(node: Node, t: (key: string) => string): string {
-  const months = node.capacityLeadTimeMonths;
-  if (typeof months === "number") {
+function reliefTimingText(graph: GraphData, node: Node, t: (key: string) => string): string {
+  const answer = leadTimeAnswerForGraphNode(graph, node);
+  if (answer) {
+    const { months } = answer;
+    if (answer.basis === "estimated") {
+      return formatCopy(t("readerReliefTimingEstimated"), {
+        months,
+        reason: leadTimeReasonText(answer, t),
+      });
+    }
     if (months <= 3) return formatCopy(t("readerReliefTimingShort"), { months });
     if (months <= 12) return formatCopy(t("readerReliefTimingMedium"), { months });
     const reason = reliefTimingReasonText(node, t);
@@ -1229,6 +1228,37 @@ function reliefTimingText(node: Node, t: (key: string) => string): string {
   }
   if (isAiComputeNode(node) && node.kind === "product") return t("readerReliefTimingLikelyLong");
   return reliefTimingReasonText(node, t);
+}
+
+function leadTimeReasonText(answer: LeadTimeAnswer, t: (key: string) => string): string {
+  const key = (() => {
+    switch (answer.reasonCode) {
+      case "capacity_tooling":
+        return "readerReliefReasonCapacityTooling";
+      case "material_qualification":
+        return "readerReliefReasonMaterialQualification";
+      case "component_second_source":
+        return "readerReliefReasonComponentSecondSource";
+      case "regulatory_external":
+        return "readerReliefReasonRegulatoryExternal";
+      case "economic_validation":
+        return "readerReliefReasonEconomicValidation";
+      case "engineering_qualification":
+        return "readerReliefReasonEngineeringQualification";
+      case "early_product":
+        return "readerReliefReasonEarlyProduct";
+      case "mature_commodity":
+        return "readerReliefReasonMatureCommodity";
+      case "child_decomposition":
+        return "readerReliefReasonChildDecomposition";
+      case "default_proxy":
+      case "explicit":
+      default:
+        return "readerReliefReasonDefaultProxy";
+    }
+  })();
+  const localized = t(key);
+  return localized === key ? answer.reason : localized;
 }
 
 function reliefTimingReasonText(node: Node, t: (key: string) => string): string {
@@ -1402,6 +1432,14 @@ function elevatedAxisSentence(
   }
 }
 
+function concreteMechanismSentence(graph: GraphData, node: Node, t: (key: string) => string): string | null {
+  const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
+  if (factors.length > 0) return factors.slice(0, 3).join(" · ");
+  const decompositionSignals = decompositionConstraintSignals(graph, node, t);
+  if (decompositionSignals.length > 0) return decompositionSignals.slice(0, 3).join(" · ");
+  return null;
+}
+
 function chokepointHeadlineFor(
   graph: GraphData,
   node: Node,
@@ -1458,6 +1496,39 @@ function chokepointHeadlineFor(
   for (const { axis } of known) {
     const sentence = elevatedAxisSentence(graph, node, axis, t);
     if (sentence) {
+      if (axis === "concentration" && sentence !== t("chokepointAxisConcentrationGap")) {
+        const concrete = concreteMechanismSentence(graph, node, t);
+        if (concrete) {
+          return { band, verdictKey, structuralRoot: false, elevated: null, axisSentence: concrete, costSentence, axes };
+        }
+      }
+      if (axis === "barrier") {
+        const decompositionSignals = decompositionConstraintSignals(graph, node, t);
+        if (decompositionSignals.length > 0) {
+          return {
+            band,
+            verdictKey,
+            structuralRoot: false,
+            elevated: "barrier",
+            axisSentence: decompositionSignals.slice(0, 3).join(" · "),
+            costSentence,
+            axes,
+          };
+        }
+      }
+      if (sentence === t("chokepointAxisConcentrationGap")) {
+        const concrete = concreteMechanismSentence(graph, node, t);
+        if (concrete) {
+          return { band, verdictKey, structuralRoot: false, elevated: null, axisSentence: concrete, costSentence, axes };
+        }
+        return { band, verdictKey, structuralRoot: false, elevated: "concentration", axisSentence: sentence, costSentence, axes };
+      }
+      if (axis === "barrier") {
+        const concrete = concreteMechanismSentence(graph, node, t);
+        if (concrete) {
+          return { band, verdictKey, structuralRoot: false, elevated: axis, axisSentence: concrete, costSentence, axes };
+        }
+      }
       return { band, verdictKey, structuralRoot: false, elevated: axis, axisSentence: sentence, costSentence, axes };
     }
   }
@@ -1466,6 +1537,9 @@ function chokepointHeadlineFor(
   // reason ("Flagged bottleneck"); otherwise leave the why-line empty.
   const authoredFallback =
     (node.bottleneckOf?.length ?? 0) > 0 ? t("chokepointVerdictFlagged") : null;
+  if (authoredFallback) {
+    return { band, verdictKey, structuralRoot: false, elevated: null, axisSentence: authoredFallback, costSentence, axes };
+  }
   return { band, verdictKey, structuralRoot: false, elevated: null, axisSentence: authoredFallback, costSentence, axes };
 }
 
@@ -1485,11 +1559,12 @@ export function ChokepointHeadline({ graph, node }: { graph: GraphData; node: No
   const whyLine = headline.structuralRoot ? t("chokepointStructuralRoot") : headline.axisSentence;
   return (
     <div
-      className="detail-chokepoint-headline"
+      className="detail-decision-tile tone-verdict detail-chokepoint-headline"
       data-testid="detail-chokepoint-headline"
       data-chokepoint-band={headline.band}
       data-elevated-axis={headline.elevated ?? (headline.structuralRoot ? "structural-root" : "none")}
     >
+      <span className="detail-core-tile-label">{t("detailChokepointVerdict")}</span>
       <span className="detail-chokepoint-verdict">{verdict}</span>
       {whyLine ? <strong className="detail-chokepoint-axis">{whyLine}</strong> : null}
       {/* Cost is the orthogonal $-overlay — its OWN line, separate from the
@@ -1503,8 +1578,7 @@ export function ChokepointHeadline({ graph, node }: { graph: GraphData; node: No
   );
 }
 
-/** Four-axis breakdown for the drill-in (each axis rank + known/unknown),
- *  folded into the existing Investor brief so there is no competing panel. */
+/** Four-axis model breakdown for the collapsed diagnostic appendix. */
 function ChokepointAxisBreakdown({ graph, node }: { graph: GraphData; node: Node }) {
   const { t } = useLanguage();
   const headline = chokepointHeadlineFor(graph, node, t);
@@ -1531,13 +1605,15 @@ function ChokepointAxisBreakdown({ graph, node }: { graph: GraphData; node: Node
 function DecisionBrief({
   graph,
   node,
-  evidence,
 }: {
   graph: GraphData;
   node: Node;
-  evidence: Evidence[];
 }) {
   const { t } = useLanguage();
+  const headline = chokepointHeadlineFor(graph, node, t);
+  const whyLine = headline.structuralRoot
+    ? t("chokepointStructuralRoot")
+    : headline.axisSentence ?? constraintSummaryText(graph, node, t);
   const modeledCostText = detailCostSignalText(graph, node);
   const estimatedCost = modeledCostText ? null : estimatedCostForNode(node);
   const valueText = modeledCostText
@@ -1568,27 +1644,23 @@ function DecisionBrief({
   }
   return (
     <div className="detail-decision-brief" data-testid="detail-decision-brief">
-      <strong>{t("readerDecisionBrief")}</strong>
+      <strong>{t("detailCoreReadout")}</strong>
       <div className="detail-decision-grid">
-        <div title={cost.full}>
-          <span>{t("readerCostMagnitude")}</span>
+        <ChokepointHeadline graph={graph} node={node} />
+        <div className="detail-decision-tile tone-reason">
+          <span>{t("detailLeadingReason")}</span>
+          <strong>{whyLine}</strong>
+        </div>
+        <div className="detail-decision-tile tone-commercial" title={cost.full}>
+          <span>{t("detailCommercialScale")}</span>
           <strong>{cost.primary}</strong>
           {cost.secondary ? <small>{cost.secondary}</small> : null}
         </div>
-        <div>
-          <span>{t("readerSupplyConstraint")}</span>
-          <strong>{constraintSummaryText(graph, node, t)}</strong>
-        </div>
-        <div>
+        <div className="detail-decision-tile tone-relief">
           <span>{t("readerReliefTiming")}</span>
-          <strong>{reliefTimingText(node, t)}</strong>
-        </div>
-        <div>
-          <span>{t("readerSourceTrail")}</span>
-          <strong>{readerEvidenceStatusText(evidence, t)}</strong>
+          <strong>{reliefTimingText(graph, node, t)}</strong>
         </div>
       </div>
-      <ChokepointAxisBreakdown graph={graph} node={node} />
     </div>
   );
 }
@@ -1615,39 +1687,20 @@ function NodeReaderPriority({
   const { language, nodeDescription, nodeName, t } = useLanguage();
   const quickPath = evidenceQuickPathForNode(graph, node, evidence, t);
   // FF-3 (Gate F): resolve the zh description body (falling back to English)
-  // so the Detail-tab 核心判断 / 具体卡点 render Chinese in zh mode.
+  // so the Detail-tab 核心判断 / 节点解读 render Chinese in zh mode.
   const localizedDescription = language === "zh"
     ? nodeDescription(node.id, node.description ?? "") || node.description
     : node.description;
-  const rawWhereStuckReason = detailWhereStuckReason(node, t, { language, description: localizedDescription });
-  const roleSentence = firstSentenceDescription(localizedDescription) ?? "";
-  const whereStuckReason = normalizeReaderText(rawWhereStuckReason) === normalizeReaderText(roleSentence)
-    ? ""
-    : rawWhereStuckReason;
-  const whereStuckFactors = detailWhereStuckFactors(graph, node, t);
-  const hasConcreteWhereStuck = whereStuckFactors.some((factor) => factor !== t("readerConstraintUnclassified"));
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
-      <ChokepointHeadline graph={graph} node={node} />
-      <div className="detail-reader-role" data-testid="detail-bottleneck-thesis">
-        <span>{t("readerBottleneckThesis")}</span>
+      <DecisionBrief graph={graph} node={node} />
+      <div className="detail-reader-role detail-reader-section" data-testid="detail-bottleneck-thesis">
+        <span>{t("detailNodeInterpretation")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence, localizedDescription)}</p>
       </div>
-      <div className="detail-reader-role" data-testid="detail-where-stuck">
-        <span>{hasConcreteWhereStuck ? t("readerWhereStuck") : t("readerRouteRole")}</span>
-        <div className="pill-row">
-          {whereStuckFactors.map((factor) => (
-            <span className="pill" key={factor}>{factor}</span>
-          ))}
-        </div>
-        {whereStuckReason ? (
-          <p className="detail-reader-stuck-note">{whereStuckReason}</p>
-        ) : null}
-      </div>
-      <DecisionBrief graph={graph} node={node} evidence={evidence} />
       {beforeEvidence}
-      <div className="detail-reader-role" data-testid="detail-evidence-summary">
-        <span>{t("readerKeyEvidenceSummary")}</span>
+      <div className="detail-reader-role detail-reader-section detail-evidence-card" data-testid="detail-evidence-summary">
+        <span>{t("detailEvidenceTrail")}</span>
         <p>{quickPath.text}</p>
       </div>
       {showExposureSummary ? (
@@ -1825,6 +1878,8 @@ function SupplierLeadCard({
   const position = supplierChainPositionText(candidate, nodeName, t);
   const associationBasis = supplierAssociationBasisText(candidate, nodeName, relationName, t);
   const evidenceLinks = evidenceForEdge(graph, candidate.edge);
+  const evidenceLimitations = supplierEvidenceLimitations(evidenceLinks);
+  const sourceCheck = supplierSourceCheckText(evidenceLinks, t);
   const metricSummary = organizationMetricSummary(candidate.organization, {
     includeDescriptions: false,
     limit: 2,
@@ -1871,6 +1926,33 @@ function SupplierLeadCard({
               <p className="muted">{t("supplierEvidenceMissing")}</p>
             )}
           </div>
+          <div>
+            <span className="detail-reader-mini-heading">{t("supplierTrustContext")}</span>
+            <dl className="detail-supplier-card-collapsed">
+              <div>
+                <dt>{t("supplierRelationshipType")}</dt>
+                <dd>{supplierRelationTypeText(candidate, relationName)}</dd>
+              </div>
+              <div>
+                <dt>{t("supplierRelationshipConfidence")}</dt>
+                <dd>{supplierConfidenceText(candidate.edge, t)}</dd>
+              </div>
+              <div>
+                <dt>{t("supplierReviewState")}</dt>
+                <dd>{supplierReviewStateText(candidate.edge, t)}</dd>
+              </div>
+              <div>
+                <dt>{t("supplierEvidenceSourceCheck")}</dt>
+                <dd>{sourceCheck}</dd>
+              </div>
+            </dl>
+          </div>
+          {evidenceLimitations ? (
+            <div>
+              <span className="detail-reader-mini-heading">{t("supplierEvidenceLimitations")}</span>
+              <p className="muted">{evidenceLimitations}</p>
+            </div>
+          ) : null}
           {metricSummary ? (
             <div>
               <span className="detail-reader-mini-heading">{t("supplierFinancialCapacityClues")}</span>
@@ -1893,6 +1975,61 @@ function evidenceForEdge(graph: GraphData, edge: Edge | null): Evidence[] {
   return edge.evidenceIds
     .map((id) => byId.get(id))
     .filter((item): item is Evidence => Boolean(item && item.reviewStatus !== "deprecated"));
+}
+
+function supplierRelationTypeText(
+  candidate: ExposureCandidate,
+  relationName: (relation: string) => string,
+): string {
+  if (candidate.relation === "organization") return relationName(candidate.relation);
+  const label = relationName(candidate.relation);
+  return label.includes("_") ? label.replace(/_/g, " ") : label;
+}
+
+function supplierConfidenceText(edge: Edge | null, t: (key: string) => string): string {
+  switch (edge?.confidence) {
+    case "high":
+      return t("supplierConfidenceHigh");
+    case "medium":
+      return t("supplierConfidenceMedium");
+    case "low":
+      return t("supplierConfidenceLow");
+    default:
+      return t("supplierConfidenceMissing");
+  }
+}
+
+function supplierReviewStateText(edge: Edge | null, t: (key: string) => string): string {
+  switch (edge?.reviewStatus) {
+    case "reviewed":
+      return t("supplierReviewReviewed");
+    case "disputed":
+      return t("supplierReviewDisputed");
+    case "deprecated":
+      return t("supplierReviewDeprecated");
+    case "unreviewed":
+    default:
+      return t("supplierReviewNeedsHuman");
+  }
+}
+
+function supplierSourceCheckText(evidence: Evidence[], t: (key: string) => string): string {
+  if (evidence.length === 0) return t("supplierSourceCheckNotChecked");
+  const verified = evidence.filter((item) => item.machineCheck?.status === "verified").length;
+  if (verified > 0) return formatCopy(t("supplierSourceCheckVerified"), { n: verified });
+  const failed = evidence.filter((item) => item.machineCheck?.status === "failed").length;
+  if (failed > 0) return formatCopy(t("supplierSourceCheckFailed"), { n: failed });
+  const needsFetch = evidence.filter((item) => item.machineCheck?.status === "needs_fetch").length;
+  if (needsFetch > 0) return formatCopy(t("supplierSourceCheckNeedsFetch"), { n: needsFetch });
+  return t("supplierSourceCheckNotChecked");
+}
+
+function supplierEvidenceLimitations(evidence: Evidence[]): string | null {
+  const limitations = [...new Set(evidence.map((item) => item.limitations?.trim()).filter(Boolean) as string[])];
+  if (limitations.length === 0) return null;
+  const visible = limitations.slice(0, 2);
+  const suffix = limitations.length > visible.length ? ` +${limitations.length - visible.length}` : "";
+  return `${visible.join(" ")}${suffix}`;
 }
 
 function supplierChainPositionText(
@@ -2253,14 +2390,14 @@ function DecompositionRationalePanel({
   return (
     <div className="detail-decomposition-rationale" data-testid="detail-decomposition-rationale">
       <div className="detail-decomposition-head">
-        <strong>{t("decompositionRationaleTitle")}</strong>
+        <strong>{t("detailDecomposition")}</strong>
         {entries.length > 0 ? (
           <span>{formatCopy(t("decompositionRationaleChildCount"), { count: entries.length })}</span>
         ) : null}
       </div>
       <p>{summary}</p>
       {entries.length > 0 ? (
-        <ul className="detail-decomposition-list">
+        <ul className="detail-decomposition-list detail-decomposition-table">
           {entries.map(({ child, edge, reason }) => (
             <li key={edge.id}>
               <div className="detail-decomposition-item-head">
@@ -2961,9 +3098,9 @@ function OrganizationListItem({
   link: OrganizationLink;
   onSelectNode?: (nodeId: string) => void;
 }) {
-  const { nodeName } = useLanguage();
+  const { nodeName, t } = useLanguage();
   const { edge, organization } = link;
-  const summary = organizationMetricSummary(organization);
+  const summary = organizationMetricSummary(organization, { t });
   return (
     <li>
       <div>
@@ -2985,7 +3122,7 @@ function candidateExposureSummary(organization: Node, displayName: string): stri
 
 function organizationMetricSummary(
   organization: Node,
-  options: { includeDescriptions?: boolean; limit?: number } = {},
+  options: { includeDescriptions?: boolean; limit?: number; t?: (key: string) => string } = {},
 ): string | null {
   const includeDescriptions = options.includeDescriptions ?? true;
   const limit = options.limit ?? 3;
@@ -3005,7 +3142,29 @@ function organizationMetricSummary(
     .slice(0, limit)
     .map((metric) => formatOrganizationMetric(metric, { includeDescription: includeDescriptions }))
     .filter((item): item is string => Boolean(item));
-  return summary.length ? summary.join(" · ") : null;
+  if (summary.length) return summary.join(" · ");
+  const scale = commercialScaleAnswerForOrganization(organization);
+  if (scale.basis === "estimated") return commercialScaleProxyText(scale, options.t);
+  return scale.text || null;
+}
+
+function commercialScaleProxyText(answer: CommercialScaleAnswer, t?: (key: string) => string): string {
+  if (!t || answer.basis === "explicit") return answer.text;
+  const ticker = answer.ticker ?? t("supplierScaleProxyTickerUnavailable");
+  const key = (() => {
+    switch (answer.proxyKind) {
+      case "public":
+        return "supplierScaleProxyPublic";
+      case "subsidiary":
+        return "supplierScaleProxySubsidiary";
+      case "private":
+        return "supplierScaleProxyPrivate";
+      case "unknown":
+      default:
+        return "supplierScaleProxyUnknown";
+    }
+  })();
+  return formatCopy(t(key), { ticker });
 }
 
 function formatOrganizationMetric(
@@ -3022,7 +3181,7 @@ function formatOrganizationMetric(
 function formatOrganizationMetricValue(value: MetricValue, unit?: string): string {
   if (typeof value === "number") return `${formatOrganizationNumber(value)}${unit === "%" ? "%" : unit ? ` ${unit}` : ""}`;
   if (typeof value === "string") return value;
-  return `p50 ${formatOrganizationNumber(value.typical)}${unit === "%" ? "%" : unit ? ` ${unit}` : ""}`;
+  return `est. ${formatOrganizationNumber(value.typical)}${unit === "%" ? "%" : unit ? ` ${unit}` : ""}`;
 }
 
 function formatOrganizationNumber(value: number): string {

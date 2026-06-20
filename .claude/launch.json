@@ -18,6 +18,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "/Users/wth/dev/civilization/.claude/worktrees/product-knowhow-layers", "run", "dev", "--", "-p", "3100"],
       "port": 3100
+    },
+    {
+      "name": "chokepoint-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "/Users/wth/dev/civilization-chokepoint", "run", "dev", "--", "-p", "3110"],
+      "port": 3110
     }
   ]
 }

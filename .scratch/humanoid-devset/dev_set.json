@@ -1,0 +1,267 @@
+[
+  {
+    "episode_id": "humanoid_rare_earth_magnet_export_control_2025",
+    "title": "China April 2025 export controls on medium/heavy rare earths and NdFeB magnets disrupt humanoid actuator motor supply",
+    "period": "2025-04 to 2026 (ongoing)",
+    "module": "humanoid_actuation_system",
+    "constrained_item": "Sintered NdFeB permanent magnets and the heavy/medium rare-earth elements (dysprosium, terbium, samarium, gadolinium, lutetium, scandium, yttrium) used in the frameless torque / servo motors of humanoid joint actuators",
+    "constrained_suppliers": [
+      {
+        "name": "China Ministry of Commerce (MOFCOM) export-licensing regime governing Chinese rare-earth magnet producers",
+        "ticker_or_null": null,
+        "role": "Export-control authority; China dominates global heavy-rare-earth separation and NdFeB magnet output, so the licensing requirement is the binding constraint on magnet supply"
+      },
+      {
+        "name": "MP Materials",
+        "ticker_or_null": "MP",
+        "role": "Largest US rare-earth miner / nascent ex-China NdFeB magnet maker, cited as only reaching ~1,000 tons NdFeB magnet output by end of 2025 (illustrates how thin non-China magnet capacity is)"
+      },
+      {
+        "name": "JL MAG Rare-Earth",
+        "ticker_or_null": "300748.SZ",
+        "role": "Major Chinese sintered-NdFeB magnet maker that stood up a dedicated humanoid-robot magnetic-component business unit; its magnets sit inside the controlled-export regime, so its output is the supply that the licensing constraint gates"
+      }
+    ],
+    "nature": "export-control / allocation (licensing requirement on the seven controlled medium-and-heavy rare earths and finished magnets)",
+    "citations": [
+      {
+        "url": "https://www.csis.org/analysis/consequences-chinas-new-rare-earths-export-restrictions",
+        "sourceName": "CSIS (Center for Strategic and International Studies)",
+        "verbatim_quote": "On April 4, China's Ministry of Commerce imposed export restrictions on seven rare earth elements (REEs) and magnets used in the defense, energy, and automotive sectors ... The restrictions apply to seven medium and heavy rare earths: samarium, gadolinium, terbium, dysprosium, lutetium, scandium, and yttrium. ... they require firms to apply for a license to export rare earths",
+        "asOf": "2025-04-14"
+      },
+      {
+        "url": "https://www.theregister.com/2025/04/23/tesla_optimus_china/",
+        "sourceName": "The Register",
+        "verbatim_quote": "We're working through that with China. Hopefully, we'll get a license to use the rare earth magnets. ... China wants assurances that these are not used for military purposes, which obviously they're not. ... There's not like an existing supply chain for the motors, gearboxes, electronics, actuators, really anything in the Optimus apart from the AI4.",
+        "asOf": "2025-04-23"
+      },
+      {
+        "url": "https://news.metal.com/en/newscontent/103258209",
+        "sourceName": "Shanghai Metal Market (SMM / metal.com)",
+        "verbatim_quote": "The company has upgraded the humanoid robot magnetic component technology R&D department to the humanoid robot magnetic component business unit ... high-performance magnetic material blank production of about 29,300 mt, up 39.48% YoY",
+        "asOf": "2025-04-01"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_harmonic_strain_wave_reducer_capacity_2021_2026",
+    "title": "Harmonic Drive strain-wave reducer capacity is precision-bound and slow to scale as humanoid joint demand surges",
+    "period": "2021-10 to 2026 (ongoing capacity build-out)",
+    "module": "humanoid_actuation_system",
+    "constrained_item": "Strain-wave (harmonic) gear reducers used in the rotary joint actuators of humanoid robots; high-precision flexspline manufacturing is concentrated and capital/qualification intensive",
+    "constrained_suppliers": [
+      {
+        "name": "Harmonic Drive Systems Inc.",
+        "ticker_or_null": "6324.T",
+        "role": "Dominant maker of high-end strain-wave gear reducers; its own disclosures show capacity being stepped up in fixed increments (150k to 220k units/month) gated by a multi-year capital project, illustrating that supply cannot be added quickly"
+      },
+      {
+        "name": "Nabtesco",
+        "ticker_or_null": "6268.T",
+        "role": "Second major precision-reducer maker (RV cycloidal + strain-wave class); named alongside Harmonic Drive as the concentrated supplier base for humanoid-joint gearboxes"
+      },
+      {
+        "name": "Leaderdrive (Shenzhen Leaderdrive)",
+        "ticker_or_null": null,
+        "role": "Emerging Chinese harmonic-reducer challenger frequently cited as the domestic alternative as humanoid volumes scale"
+      }
+    ],
+    "nature": "capacity / expansion-lead-time constraint (precision-bound, capital- and qualification-intensive gearbox manufacturing that scales far slower than electronics)",
+    "citations": [
+      {
+        "url": "https://www.harmonicdrive.net/about-us/capacity-update",
+        "sourceName": "Harmonic Drive Systems Inc. (company capacity disclosure / IR)",
+        "verbatim_quote": "increase production capacity of Harmonic Drive® strain wave gearing devices from 150,000 units/month to 220,000 units/month by August 2022. ... to meet the continuous demand for industrial robot and semiconductor manufacturing equipment as well as to meet rapidly growing demand for industrial machinery and automotive applications.",
+        "asOf": "2021-10-13"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_planetary_roller_screw_supply_2025",
+    "title": "Planetary roller screws are supply-limited and dependent on specialized manufacturing expertise, constraining humanoid linear actuators",
+    "period": "2024-2026 (reported as humanoid linear-actuator scale-up bottleneck)",
+    "module": "humanoid_actuation_system",
+    "constrained_item": "Planetary roller screws used in the linear (ball-screw / roller-screw) actuators of humanoid limbs; bottleneck rooted in thread-grinding / precision manufacturing expertise and a thin specialist supplier base",
+    "constrained_suppliers": [
+      {
+        "name": "Specialized planetary-roller-screw makers (e.g. Rollvis, Ewellix/SKF, GSA, and emerging Chinese entrants such as Shanghai Beite and Shenzhen Nuoshi Robot)",
+        "ticker_or_null": null,
+        "role": "Small population of precision roller-screw specialists; reported 'limited supply', 'long delivery cycles', and the 'specialized manufacturing expertise required' are the binding constraints on humanoid linear-actuator scale-up"
+      }
+    ],
+    "nature": "supply scarcity / capacity & lead-time constraint driven by specialized precision manufacturing (internal-thread grinding) expertise and high production cost",
+    "citations": [
+      {
+        "url": "https://interestingengineering.com/innovation/china-grip-on-humanoid-robot-future",
+        "sourceName": "Interesting Engineering",
+        "verbatim_quote": "Currently, both ball and planetary roller screws are used for humanoids, but this is largely due to the limited supply and cost of planetary roller screws ... the widespread adoption of planetary roller screws has been constrained by their high production cost, which can be primarily attributed to the specialized manufacturing expertise required",
+        "asOf": "2025-04-16"
+      },
+      {
+        "url": "https://eu.36kr.com/en/p/3254097128796169",
+        "sourceName": "36Kr (English)",
+        "verbatim_quote": "dexterous hands have a high demand for micro screws. However, in the large-scale mass production stage, they have long faced severe challenges such as high costs and long delivery cycles. ... mass production of planetary roller screws in large quantities, at low cost, and in a miniaturized form is a 'bottleneck' problem common to the global manufacturing industry.",
+        "asOf": "2025-04-18"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_robotics_lidar_china_concentration_2025_2026",
+    "title": "Chinese LiDAR makers Hesai and RoboSense consolidate the robotics/humanoid perception-sensor supply chain",
+    "period": "2025-2026",
+    "module": "humanoid_perception_sensing_stack",
+    "constrained_item": "LiDAR / depth-sensing modules used in the humanoid perception stack; supply is concentrating in two Chinese firms as automotive-LiDAR leaders pivot to robotics",
+    "constrained_suppliers": [
+      {
+        "name": "Hesai Group",
+        "ticker_or_null": "HSAI",
+        "role": "Described as 'the world's largest producer of lidar sensors'; pivoting capacity to robotics/humanoid sensing, deepening single-country concentration of the perception layer"
+      },
+      {
+        "name": "RoboSense Technology",
+        "ticker_or_null": "2498.HK",
+        "role": "Other of China's two biggest automotive-LiDAR makers; top robotics-LiDAR share, supplying humanoid robots (e.g. Active Camera AC1 on humanoid platforms)"
+      }
+    ],
+    "nature": "supply concentration / single-country dependency (two Chinese firms consolidating the global robotics LiDAR supply chain)",
+    "citations": [
+      {
+        "url": "https://www.scmp.com/business/china-business/article/3347995/chinas-lidar-giants-pivot-robotics-jensen-huang-praises-chinese-supply-chain",
+        "sourceName": "South China Morning Post",
+        "verbatim_quote": "China's two biggest makers of lidar sensors for cars, Hesai Group and RoboSense Technology, have ramped up investments in robotics products as the country consolidates its leading position in building a global supply chain for the fast-growing sector. ... Shanghai-based Hesai, the world's largest producer of lidar sensors that help cars map terrain, planned to spend 200 million yuan (US$28.9 million) this year to design and manufacture 'eyes and muscles' for robots",
+        "asOf": "2026-03-26"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_optimus_china_manufacturing_base_concentration_2026",
+    "title": "Tesla Optimus component manufacturing concentrated in China ('Optimus chain'); de-risking would multiply unit cost",
+    "period": "2025-2026",
+    "module": "humanoid_manufacturing_test_safety_service",
+    "constrained_item": "The physical manufacturing base for humanoid core components (actuators, motors, reducers, vision systems) is concentrated in China; final assembly in the US depends on this China-made component chain",
+    "constrained_suppliers": [
+      {
+        "name": "Chinese humanoid-component manufacturing cluster (the 'Optimus chain' of Chinese suppliers of actuators, motors, reducers, vision systems)",
+        "ticker_or_null": null,
+        "role": "Reported to manufacture the majority of Optimus' parts; removing Chinese components is reported to raise total cost from ~US$46,000 to ~US$131,000, quantifying the concentration/dependency"
+      }
+    ],
+    "nature": "supply concentration / single-country manufacturing dependency (de-risking carries a large quantified cost penalty)",
+    "citations": [
+      {
+        "url": "https://interestingengineering.com/innovation/chinese-parts-cloud-tesla-humanoid-robot-growth",
+        "sourceName": "Interesting Engineering",
+        "verbatim_quote": "These parts include actuators (driving devices that move robot joints), motors, reducers, and vision systems. ... the majority of Optimus' parts are manufactured in China, resulting in what suppliers call an 'Optimus chain' similar to Apple's iPhone supply chain ... excluding Chinese components from the Optimus Gen 2 supply chain could raise total costs to $131,000 from $46,000",
+        "asOf": "2026-02-03"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_dedicated_battery_gap_samsung_sdi_2025",
+    "title": "No dedicated humanoid battery exists; robots forced to repurpose power-tool/LEV cells under tight space constraints",
+    "period": "2025-02 (Samsung SDI x Hyundai/Kia robot-battery program)",
+    "module": "humanoid_battery_power_charging_system",
+    "constrained_item": "Robot-optimized Li-ion cells/packs: the absence of a dedicated humanoid battery forces use of power-tool / light-EV cells, and limited installation space caps output as cell size shrinks",
+    "constrained_suppliers": [
+      {
+        "name": "Samsung SDI",
+        "ticker_or_null": "006400.KS",
+        "role": "Major cell maker; in its own newsroom states the robotics industry lacks dedicated batteries (forced to use power-tool/LEV cells) and is co-developing a space-optimized high-energy-density robot battery with Hyundai/Kia"
+      }
+    ],
+    "nature": "capability gap / product-availability constraint (no dedicated humanoid cell; space-limited installation forces a trade-off between size and output)",
+    "citations": [
+      {
+        "url": "https://www.samsungsdi.com/sdi-now/sdi-news/4248.html",
+        "sourceName": "Samsung SDI (company newsroom / IR)",
+        "verbatim_quote": "Currently, most sectors in the robotics industry lack dedicated batteries, so they are forced to use those designed for power tools or light electric vehicles (LEVs). ... Due to robots' complex and irregular nature, space for battery installation is limited, and using smaller cells reduces output capacity.",
+        "asOf": "2025-02-25"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_coreless_hollow_cup_motor_concentration_2023_2025",
+    "title": "Hollow-cup (coreless) micromotors for humanoid hands concentrated in a few foreign specialists; thin mass-production base",
+    "period": "2023-2025 (foreign concentration + domestic-substitution push)",
+    "module": "humanoid_dexterous_hand_tactile_system",
+    "constrained_item": "Hollow-cup / coreless micromotors that actuate humanoid dexterous-hand fingers; market dominated by a handful of foreign specialists with few firms able to mass-produce",
+    "constrained_suppliers": [
+      {
+        "name": "Maxon",
+        "ticker_or_null": null,
+        "role": "One of four foreign makers cited as >65% combined share of the hollow-cup motor market (Swiss precision micromotor specialist)"
+      },
+      {
+        "name": "Faulhaber",
+        "ticker_or_null": null,
+        "role": "German coreless micromotor specialist; part of the >65%-share foreign group"
+      },
+      {
+        "name": "Portescap",
+        "ticker_or_null": null,
+        "role": "Coreless/micromotor specialist; part of the >65%-share foreign group"
+      },
+      {
+        "name": "Allied Motion Technologies",
+        "ticker_or_null": null,
+        "role": "Motion specialist; part of the cited >65%-share foreign group (note: Allied Motion merged into Allient Inc., ALNT)"
+      }
+    ],
+    "nature": "supply concentration / thin mass-production base (foreign specialists hold >65% share; few enterprises can mass-produce, especially outside the low-end)",
+    "citations": [
+      {
+        "url": "https://www.yicaiglobal.com/star50news/2023_08_166590357218288205869",
+        "sourceName": "Yicai Global",
+        "verbatim_quote": "Major manufacturers in the industry, Maxon, Faulhaber, Portescap, and Allied Motion Technologies account for more than 65% of the market share ... there are fewer enterprises with the capacity of mass production of hollow cup motors",
+        "asOf": "2023-08-16"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_onboard_ai_compute_nvidia_jetson_thor_concentration_2025",
+    "title": "Leading humanoid makers converge on NVIDIA Jetson Thor as the onboard AI compute platform (single-vendor concentration)",
+    "period": "2025-08 (Jetson Thor general availability) onward",
+    "module": "humanoid_onboard_compute_control_electronics",
+    "constrained_item": "High-end onboard 'physical AI' compute module (edge GPU/SoC) running humanoid foundation/manipulation models on-robot; the merchant high-end market is concentrated in NVIDIA",
+    "constrained_suppliers": [
+      {
+        "name": "NVIDIA",
+        "ticker_or_null": "NVDA",
+        "role": "Supplier of the Jetson Thor (Blackwell) onboard compute module adopted across leading humanoid developers; near-sole merchant source for top-end on-robot AI inference"
+      }
+    ],
+    "nature": "single-vendor concentration (industry-wide convergence of leading humanoid makers on one supplier's onboard-compute platform)",
+    "citations": [
+      {
+        "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-powered-jetson-thor-now-available-accelerating-the-age-of-general-robotics",
+        "sourceName": "NVIDIA Newsroom",
+        "verbatim_quote": "Jetson Thor unlocks real-time inference, critical for highly performant physical AI applications spanning humanoid robotics, agriculture and surgical assistance. ... The development of capable humanoid robots hinges on our ability to run powerful AI models directly on the robot, enabling real-time learning and interaction.",
+        "asOf": "2025-08-25"
+      }
+    ]
+  },
+  {
+    "episode_id": "humanoid_schaeffler_actuator_strategic_supply_2026",
+    "title": "Schaeffler locked in as preferred actuator supplier for >50% of Humanoid's joint actuators through 2031",
+    "period": "2026-05 (five-year agreement to 2031)",
+    "module": "humanoid_actuation_system",
+    "constrained_item": "Joint actuators (and their bearings/precision-drive content) for a humanoid OEM; supply concentrated under a single preferred supplier via a multi-year binding agreement",
+    "constrained_suppliers": [
+      {
+        "name": "Schaeffler",
+        "ticker_or_null": "SHA.DE",
+        "role": "Preferred actuator supplier to UK humanoid maker 'Humanoid', contracted to cover more than 50% of its joint-actuator needs (seven-digit unit volume) through 2031; also a key bearings/precision-drive supplier to the sector"
+      }
+    ],
+    "nature": "strategic-supply concentration (binding multi-year preferred-supplier agreement covering >50% of an OEM's joint-actuator demand)",
+    "citations": [
+      {
+        "url": "https://drivesncontrols.com/schaeffler-humanoid-deal-could-deliver-more-than-50000-robots-in-5-years/",
+        "sourceName": "Drives & Controls",
+        "verbatim_quote": "Schaeffler will become Humanoid's 'preferred' actuator supplier covering 'more than 50%' of its needs ... supply it with a 'seven-digit' number of actuators for the joints of its wheeled humanoid robots in the period to 2031",
+        "asOf": "2026-05-15"
+      }
+    ]
+  }
+]

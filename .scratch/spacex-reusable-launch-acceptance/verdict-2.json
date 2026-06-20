@@ -1,0 +1,79 @@
+{
+  "domain": "spacex_reusable_launch",
+  "overall": "ACCEPTED",
+  "judge": "independent adversarial acceptance judge (verdict-2) — re-derived every gate by running commands + inspecting files; ignored all prior self-claims and verdict-1",
+  "date": "2026-06-15",
+  "gates": {
+    "A": {
+      "pass": true,
+      "numbers": {
+        "A1_validate_data": "PASS — 'Data validation passed: 1003 nodes, 1452 edges, 775 evidence items.' 0 violations. Only non-blocking ADR-0008 transactability warnings (46 know-how nodes, NONE in spacex_reusable_launch).",
+        "A2_audit_buckets": "PASS — `npm run audit:evidence -- --domain spacex-reusable-launch` buckets { demote: 2, needs_fetch: 48, structural_ok: 51 }. failed=0 (the '## failed (fix list)' section is empty; report explicitly states 'Would auto-apply: ... failed=0'). The 2 records verdict-1 flagged as missing-excerpt (ev_space_velo3d_nasdaq_relisting, ev_space_nikon_slm_acquisition) now have excerpts (162 / 50 chars), sourceStatus=ok_exact, machineCheck=verified. needs_fetch=48 are all structurally OK (have excerpts) high-stakes records handed to the verifier; demote=2 are the dead spacex.com SPA homepages → rejectedEvidenceIds.",
+        "A3_active_graph_scope": "PASS (exit 0).",
+        "A4_graph_ux": "PASS — Graph UX + topology checks passed. spacex-reusable-launch root=spacex_reusable_launch_stack structural=53 primaryEdges=52.",
+        "A5_commercial_readiness": "PASS (exit 0). spacex-reusable-launch state=audit-preview (correctly NOT flipped), auditPreviewTopGaps=0/3, all top nodes {ready}, reviewedEvidence=1/59.",
+        "A6_lint_build_test": "PASS — lint exit 0; npm test 507 tests / 502 pass / 0 fail / 5 skip (skips are UX-smoke needing a live dev server, not data gates); npm run build succeeded (12/12 static pages).",
+        "A7_zh_coverage": "PASS — languageCoverage.test.ts green. Spot-checked 7 NEW ids in src/components/LanguageProvider.tsx, all present with accurate zh: launch_tvc_actuators_merchant, org_moog, aerospace_titanium_mill_product, launch_vehicle_copv_pressurant_vessel, helium_pressurant_supply, org_vsmpo_avisma, starship_heat_shield_tile_bonding_process. (This is the exact A7 blocker verdict-1 raised — now resolved; the zh sidecars were merged into LanguageProvider since verdict-1.)",
+        "A8_data_quality_test": "PASS — tests/spacexDataQuality.test.ts present and green (isolated + full suite). Pins starship_heat_shield_tile_bonding_process: kind=manufacturing_process, transactability=must_build, capacityLeadTimeMonths>=24, hasCostDisclosure, constraint_technical_maturity + constraint_maintenance_operations + constraint_integration_commissioning tags, a 'Cost disclosure' metric naming inspection-hours/replacement-rate/reflight-qualification, >=1 direct independent non-vendor NASA evidence, no deprecated evidence."
+      },
+      "findings": [
+        "All A1–A8 re-run and genuinely green. The three blockers from verdict-1 (A2 missing-excerpt x2, A7 zh-merge, B integrity) have all been remediated in the workspace since that snapshot."
+      ]
+    },
+    "B": {
+      "pass": true,
+      "evidence_integrity": 0.9674,
+      "evidence_integrity_full_in_domain": 0.9505,
+      "findings": [
+        "FILE SCOPE (data/evidence/spacex_reusable_launch_evidence.json): 89/92 = 0.9674 carry (machineCheck.status==verified OR sourceStatus==ok_exact) WITH a non-empty verbatim excerpt. >= 0.95 threshold met. The 3 non-qualifying records (ev_space_parker_aerospace_launch_propulsion, ev_space_eaton_space_propulsion_tanks, ev_space_toray_pan_precursor_share) are sourceStatus=fetch_ok with excerpts present (not orphans) and are honestly flagged as open escalations in the review queue.",
+        "FULL AUDIT IN-DOMAIN SCOPE (101 records incl. legacy space_spacex): 96/101 = 0.9505, also >= 0.95. The 2 extra non-qualifiers are the dead spacex.com SPA homepages (ev_space_spacex_falcon9 / ev_space_spacex_starship, generic_homepage) slated for demote.",
+        "0 orphan numbers — every record in the file has a non-empty excerpt (0 empty); no quantified claim lacks excerpt support.",
+        "0 bare manufactured_by edges — all 26 carry evidenceIds. Relation discipline is honest per ADR-0009 B4: 41 reported_capable_supplier (unverified capability) vs 26 manufactured_by (verified who-makes-what), plus 1 qualified_supplier + 1 capacity_provider.",
+        "JUDGE WEBFETCH SPOT-CHECK of 3 RANDOM ok_exact urls — ALL 3 stored excerpts verbatim-present on the live page: (1) ev_space_pcc_berkshire_complex precast.com 'Precision Castparts Corp. is a worldwide, diversified manufacturer of complex metal components and products.' EXACT; (2) ev_space_pacsci_fts_launch psemc.com 'PacSci EMC's flight termination system is the most reliable and trustworthy system developed.' EXACT; (3) ev_space_nikon_slm_acquisition 3dprint.com 'now a wholly-owned subsidiary of Nikon (TYO: 7731)' EXACT.",
+        "Contrast with verdict-1 (integrity 0.07): the verifier verdicts WERE applied to the data after that snapshot — 89/92 records now show machineCheck.status=verified."
+      ]
+    },
+    "C": {
+      "pass": true,
+      "findings": [
+        "C1 three passes EVIDENT: UPSTREAM merchant tiers (titanium_sponge_feedstock <- Osaka; aerospace_aluminum_lithium_plate_sheet <- Constellium/Kaiser/Arconic; aerospace_carbon_fiber_composite_material <- Hexcel/Mitsubishi/Toray; AM powder <- ATI/Carpenter; pica_rayon_lyocell_carbon_precursor <- Lenzing). BREADTH (rad-hard FPGA tier names 6 houses; star trackers 3; COPV 3; helium 4–5). CORNERS (titanium sponge near-single-geography; PICA rayon precursor single-source; castings Arconic/PCC duopoly).",
+        "C2: max orgs on a component = 6 (falcon9_strategic_radhard_processor_fpga: BAE/Frontgrade/Microchip/AMD/Mercury as reported_capable_supplier + SkyWater as capacity_provider). All other components <=5. This marginally exceeds the <=5 guideline, but the 6th (SkyWater) is a capacity_provider (trusted-foundry role), a different relation than the 5 chip houses — a defensible, honest modeling choice, not a fabrication. Non-blocking nuance.",
+        "C3: tickers present and marked 'verified this round' — stored in a 'Public listing' metric for 22 orgs (Moog MOG.A, Woodward WWD, Parker PH, ATI ATI, Toray 3402.T, Hexcel HXL, Teijin 3401.T, Mitsubishi 4188.T, GD, APD, Nikon-SLM 7731.T, Lenzing LNZ, Carpenter CRS ...) and in the notes field with explicit 'verified IR/exchange this round' for the rest (Constellium NYSE:CSTM, Howmet NYSE:HWM, BAE BA.L, Microchip MCHP, VSMPO Moscow VSMO). Captive primes honestly carry no ticker (org_spacex).",
+        "C4: 0 duplicate node ids across all data/nodes files. Cross-domain orgs reused, not duplicated (org_te_connectivity, org_amphenol, org_honeywell_aerospace_space, org_linde, org_air_liquide wired in via edges).",
+        "C5 captive honesty STRONG: 10 captive-relevant nodes (Merlin/Raptor engine clusters, Merlin-Vac, fairing recovery, ceramic + Starship tiles, tile-bonding, Falcon-9 + Super-Heavy grid fins) all have ZERO supplier/manufactured_by edges — no invented merchant supplier for any declared-captive part. The Moog node description explicitly says it is 'the merchant TVC tier for ... programs other than SpaceX (whose engine actuation is captive).' COPV correctly modeled as a merchant tier (GD-OTS/HyPerComp/Infinite) distinct from SpaceX's captive COPV.",
+        "Honest frontier gaps documented, NOT auto-added (avoids holdout overfit): Blue Origin (competitor captive prime), L3Harris/Aerojet RL10 (exists as org_l3harris_space but tagged orbital_data_center, not wired to launch), Barber-Nichols/Marotta/VACCO (deep turbopump/valve), Terma star tracker, AST COPV, Qatar Ras Laffan He feedstock, GenOx CH4 logistics."
+      ]
+    },
+    "D": {
+      "pass": true,
+      "exposure_recall": 0.7273,
+      "segment_recall": 1.0,
+      "chokepoint_flag_rate": 1.0,
+      "evidence_integrity": 0.9674,
+      "findings": [
+        "exposure_recall = 24/33 = 0.7273 >= 0.65. Independently re-derived: answer_key.json has 38 entries; 33 are merchant_or_captive==merchant (the recall denominator; 5 captive entries — SpaceX engines/stainless/tiles/grid-fins + Rocket Lab Neutron — correctly excluded). STRICT name+alias matching (NO notes-substring credit, to avoid false positives) against the 58 orgs wired into the spacex_reusable_launch graph yields 24 matches. After catching and removing false-positive substring collisions (e.g. 'Blue Origin' matching org_constellium via its notes, 'Honeywell' matching org_northrop, 'Hexcel' matching org_hypercomp), the strict count is 24.",
+        "9 genuine misses (no false-negative under-credit): Blue Origin, L3Harris/Aerojet (org_l3harris_space exists but is NOT wired into this domain), Barber-Nichols, Marotta, VACCO, Terma, AST, Qatar Ras Laffan, GenOx — verified absent or out-of-domain; misses cluster on propulsion (captive at SpaceX) + deep turbopump/valve + He/CH4 logistics.",
+        "segment_recall = 6/6 = 1.0 >= 0.85. All 6 dev-set modules (airframe_structures_tankage, propellants_fluids, avionics_gnc_flight_computer, thermal_protection_system, production_test_qualification, launch_regulatory_license) have clear graph coverage (13/10/6/7/5/2 matching domain nodes respectively).",
+        "chokepoint_flag_rate = 10/10 = 1.0 >= 0.95. Every one of the 10 dev-set episodes' constrained components maps to a graph node flagged as a bottleneck (bottleneckOf non-empty OR constraint_* tag): titanium sponge/mill, Al-Li plate, LOX, helium, rad-hard FPGA, PICA rayon precursor + FiberForm, castings/forgings, FAA license + range-safety.",
+        "evidence_integrity = 0.9674 (file) / 0.9505 (in-domain) >= 0.95 (re-stated from Gate B).",
+        "NOTE on holdout protocol (from .eval/budget.md): this domain used a lighter protocol than the GPU sealed-pre-freeze holdout (no brief-freeze seal, no forward-validation). The exposure_recall is a credible estimate. 1/3 graded touches used. This is a method caveat, not a gate failure — all four axes clear their thresholds."
+      ]
+    },
+    "E": {
+      "pass": true,
+      "findings": [
+        "E1 SATISFIED: docs/agents/review-queue-spacex-reusable-launch.md delivered as a top-15 owner-review queue (15 numbered bottleneck claims: 6 flip-candidates, 6 honest-unreviewed, 3 flagged/open-escalation), per-FACT not per-node, with 8 source escalations spelled out for the owner.",
+        "Real ids/sourceStatus: spot-checked 14 cited evidence ids against the live data — 14/14 sourceStatus values match the doc exactly (ok_exact, fetch_ok, generic_homepage, vendor_marketing, paywalled_snippet all correctly labelled).",
+        "reviewStatus NOT flipped: 0 domain nodes and 0 records in spacex_reusable_launch_evidence.json carry reviewStatus=reviewed. The doc header explicitly states reviewStatus: not_reviewed on all. The single in-domain reviewed record (ev_space_faa_starship_cadence, in legacy space_spacex_evidence.json) is a PRE-EXISTING owner flip from commit 691483f that predates this round's commit ce712ce (git-verified) — not an agent-introduced flip this round.",
+        "E2 (owner flip to reviewed + portfolioState audit-preview→paid-candidate) is correctly DEFERRED and not required for this verdict."
+      ]
+    }
+  },
+  "blockers": [],
+  "worklist": [],
+  "claim_audit": [
+    "verdict-1 (NOT_ACCEPTED) was an accurate snapshot of an EARLIER state; its 3 blockers (A2 missing-excerpt x2, A7 zh-not-merged, B integrity 0.07) are ALL independently confirmed RESOLVED now: failed-bucket=0, all spot-checked new ids have zh + languageCoverage green, evidence_integrity=0.9674 with 89/92 verified. The intervening remediation landed the verifier verdicts and the zh sidecar merge.",
+    "Minor, non-blocking: one component (falcon9_strategic_radhard_processor_fpga) carries 6 supplier orgs vs the <=5 C2 guideline; the 6th is a capacity_provider (SkyWater foundry), a different relation than the 5 chip houses. Honest modeling, overflow could be moved to notes if the owner wants strict <=5.",
+    "Holdout protocol is lighter than the GPU sealed-room (budget.md self-discloses this); exposure_recall 0.7273 is a credible estimate, not a GPU-grade sealed number — but it clears the 0.65 bar with margin and the 9 misses were deliberately NOT copied into the graph (no overfit)."
+  ]
+}

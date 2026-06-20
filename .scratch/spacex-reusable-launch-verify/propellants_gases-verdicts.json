@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "domain": "spacex_reusable_launch",
+    "lane": "propellants_gases",
+    "verifier": "Opus 4.8 evidence-verifier + ticker-auditor",
+    "date": "2026-06-15",
+    "brief": "docs/agents/evidence-audit-brief.md (binding) + docs/agents/reusable-launch-decomposition-brief.md (§4 whitelist, §0.2 forbidden)",
+    "method": "WebFetch each url; quoteMatch exact|partial|absent vs stored excerpt verbatim; numberInQuote at same basis/scope. USGS binary PDF resolved via curl(200, intact 777722B)+pypdf from the official PDF. Tickers audited against independent exchange/financial/IR sources, never memory.",
+    "queryLog": ".scratch/spacex-reusable-launch-verify/propellants_gases-queries.log",
+    "ruleCompliance": "No reviewStatus/human-review emitted. ok_exact is this verifier's grant. No §0.2/forbidden targets queried. No fabrication."
+  },
+  "verified": [
+    {
+      "id": "ev_space_nasa_helium_contract",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "NASA.gov press release, fetched 200. All five constituent sentences verbatim on page: 'Air Products and Chemicals, Inc of Allentown, Pennsylvania'; '33 million liters of liquid helium' to Kennedy; 'sole source contract includes the lease of six proprietary liquid helium pumps'; 'approximately $1.07 billion'; and the helium-use sentence ('inert gas for purging hydrogen systems, a pressurizing agent for ground and flight fluid systems, and a cryogenic cooling agent'). Numbers (33M L, $1.07B) supported at the stated basis. Stored excerpt condenses four individually-verbatim sentences — faithful. Correctly a NASA (not SpaceX-specific) sole-source contract; used for the concentrated launch-helium structure + Air Products' role."
+    },
+    {
+      "id": "ev_space_usgs_helium_2024",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "USGS MCS 2024 helium PDF. WebFetch rendered binary as flagged; re-fetched fresh via curl (HTTP 200, 777722 bytes, intact — not a JS shell) and extracted text with pypdf from the OFFICIAL PDF (not a reconstruction). Source text verbatim: 'aerospace, pressuring, and purging (9%)' within the end-use list, and 'Import Sources (2019–22): Qatar, 47%; Canada, 31%; Algeria, 11%; Russia, 4%; and other, 7%.' Numbers exact. Only difference vs stored excerpt is hyphen '2019-22' vs source en-dash '2019–22' (typographic, not substantive). 9% is a US apparent-consumption end-use share (demand side), correctly described as such, not launch-specific or supplier-share. Agent's binary-PDF flag RESOLVED."
+    },
+    {
+      "id": "ev_space_linde_mims_2022",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Linde plc IR release, fetched 200. Both sentences verbatim: 'Linde today announced it has signed another long-term agreement with a major space launch company in Florida' and 'Linde will supply the customer with liquid oxygen and nitrogen from its air separation plant at Mims, Florida.' CONFIRMED: the word 'SpaceX' does NOT appear on this primary page; customer is 'a major space launch company' / 'the customer' only. No numeric claim attached. Excerpt and the node/edge wording correctly avoid naming SpaceX from this source. Agent flag (Linde never names SpaceX directly) CONFIRMED true for the primary source."
+    },
+    {
+      "id": "ev_space_brownsville_linde_spacex",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "City of Brownsville (municipal gov) announcement, fetched 200. Both sentences verbatim: 'The new facility will produce liquid oxygen and nitrogen—two essential gases used in SpaceX’s Starship development and launch operations at Starbase.' and the 'proximity to SpaceX ... rapid launch cadence' sentence. 'Linde', 'SpaceX', 'Starbase', and '$100 million' all present. This SECONDARY (municipal, not Linde/SpaceX primary) source is what supplies the explicit SpaceX-customer identification for the Brownsville LOX/LN2 plant. Quote verified; see escalation on the edge-level 'SpaceX's main supplier' framing being secondary-only."
+    },
+    {
+      "id": "ev_space_linde_brownsville_spacex",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "ConstructConnect trade-press, fetched 200. Sentence 1 verbatim: 'Linde announced it broke ground on a $100 million air separation plant.' Sentence 2 near-verbatim with one comma difference: page reads 'liquid oxygen and nitrogen, essential for rocket launches, directly to SpaceX’s Starbase facility' whereas stored excerpt drops the second comma ('...rocket launches directly to...'). Content/meaning identical and fully supported (SpaceX, Starbase, Brownsville, $100 million, 'less than 50 miles' all confirmed on page). Marked partial only on the comma-level typographic drift; substance verified. Recommend trivially re-aligning the excerpt comma to exact."
+    },
+    {
+      "id": "ev_space_airliquide_space_gases",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Air Liquide USA space page (vendor_marketing per ADR-0009 — valid for who-supplies-what role, weak for share/structure). Sentence verbatim in the Ground-systems section: 'supply liquid hydrogen and oxygen for the launch vehicles’ propulsion, liquid nitrogen for inerting, and the helium that is indispensable for pressurization, cool-down, and cleaning.' No numeric claim. SpaceX NOT named; page is Ariane/Kourou heritage ('360 cryogenic tanks since 1979', 'Ariane cryogenic launch complexes in Kourou') — consistent with the record being used for general launch-gas roles + Air Liquide capability, not a SpaceX contract. Supports the methane node only for the general launch-propulsion-fuels framing (page does not state a methane-supplier claim), as the limitations field already notes."
+    },
+    {
+      "id": "ev_space_nipponsanso_helium",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Nippon Sanso Matheson helium page (vendor_marketing). Both sentences verbatim: 'Nippon Sanso Matheson is one of only a handful of global producers and suppliers of helium.' and 'Nippon Sanso Matheson’s helium position is extremely strong and includes long term supply contracts with helium producers' (page continues '..., both foreign and domestic.'). Also confirmed on page: 'We own rights to helium sources in various parts of the world, complemented by a network of transfills.' No numeric claim. Space launch NOT mentioned (listed uses: welding, medical USP, MRI/NMR magnets, lasers, fiber-optic cooling, leak detection, weather balloons) — record is correctly used for the concentrated-helium-structure + Nippon Sanso role, a vendor self-description corroborated by USGS few-source structure; not a SpaceX-specific supply claim."
+    },
+    {
+      "id": "ev_space_messer_federal_helium",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Messer (messer-us.com) corporate press release, fetched 200. All three constituent sentences verbatim: 'Messer, the largest privately held industrial gas company in the world...'; 'The Federal Helium System includes the Federal Helium Reserve, the Cliffside Field with its wells and gathering system, the 423-mile-long crude helium pipeline, and additional operational assets.'; 'Since April 2022, Messer has operated the Cliffside Gas Plant under contract with the BLM.' No market-share % stated on page (the ~15-17% secondary figure is correctly NOT used). GIC not mentioned on this page (GIC minority status is independently sourced — see ticker audit). Confirms Messer's private status and the Federal Helium System assets/Cliffside operation."
+    }
+  ],
+  "repaired": [],
+  "escalations": [
+    {
+      "id": "e_space_lox__manufactured_by__linde",
+      "question": "The Linde→SpaceX-customer identification for the Brownsville ASU rests ONLY on secondary sources (ConstructConnect trade press + City of Brownsville municipal release, both naming SpaceX/Starbase); Linde's own primary IR release (ev_space_linde_mims_2022) names the customer only as 'a major space launch company in Florida' and never says 'SpaceX'. The per-record quotes are all verified exact, and the brief's bar (§4.5) for a named-customer 'only/main-supplier' edge is 'one primary OR two independent quality sources'. Two independent secondaries (trade press + gov) do name SpaceX for Brownsville — does that satisfy the bar for the 'manufactured_by / SpaceX’s main industrial-gas supplier' edge framing, or should the edge be softened (e.g. relation downgraded / claim hedged to 'reported, per secondary sources') given no Linde-or-SpaceX primary confirms the SpaceX relationship? (Mims sub-claim is fine — it is correctly stated as 'major space launch company in Florida', matching the Linde primary.)"
+    }
+  ],
+  "tickerAudit": [
+    {
+      "orgId": "org_air_products",
+      "storedTicker": "APD",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "NYSE: APD confirmed across multiple independent sources — CNBC (cnbc.com/quotes/APD), Google Finance (APD:NYSE), Yahoo Finance (APD), and Air Products' own IR domain investors.airproducts.com/stock-information. Public. Ticker and listingStatus correct. (Non-ticker aside: current corporate HQ is Trexlertown, PA; the node/NASA-release 'Allentown, PA' wording is verbatim-faithful to the NASA source and not a ticker concern.)"
+    },
+    {
+      "orgId": "org_nippon_sanso_holdings",
+      "storedTicker": "4091.T",
+      "storedListingStatus": "public",
+      "verdict": "match",
+      "source": "Tokyo Stock Exchange local code 4091 confirmed across Bloomberg (4091:JP), CNBC (4091.T-JP), Yahoo Finance (4091.T), TradingView (TSE:4091), and JPX listed-company search for 4091. The '.T' suffix is the standard exchange/data-vendor convention for a TSE listing; ticker and public listingStatus correct. (Formerly Taiyo Nippon Sanso; renamed Nippon Sanso Holdings Oct 2020 — matches node.)"
+    },
+    {
+      "orgId": "org_messer",
+      "storedTicker": null,
+      "storedListingStatus": "private",
+      "verdict": "match",
+      "source": "Confirmed PRIVATE / no public listing — world's largest privately held industrial-gas company; majority owned by the founding family + Dr. Hans Messer Stiftung (GIC newsroom, gasworld, CHEManager, Bloomberg). GIC is a long-term MINORITY shareholder (<25% stake, paid ~€2B, €12B+ valuation) per GIC newsroom + Bloomberg (2023-05-30), matching the node's 'minority partner GIC' note. Correctly modeled with no ticker per ADR-0009 honesty rule. listingStatus 'private' correct."
+    }
+  ]
+}

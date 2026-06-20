@@ -1,0 +1,222 @@
+{
+  "lane": "composites_copv",
+  "domain": "spacex_reusable_launch",
+  "status": "complete",
+  "verified": [
+    {
+      "id": "ev_space_spacex_builds_own_copv",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld article. Exact: 'the company builds its own COPVs.' No numeric claim; captive-fab claim fully supported. ok_exact."
+    },
+    {
+      "id": "ev_space_copv_carbon_over_aluminum_liner",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld article. Exact: 'These COPVs use the industry standard of carbon fiber composite wrapped over an aluminum liner'. Helium-pressurant function present ('designed to hold super-cold helium (He) under high pressure'). ok_exact."
+    },
+    {
+      "id": "ev_space_toray_world_largest_capacity",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld. Exact verbatim incl. 'almost 58,000 tons of regular tow and large tow carbon fiber via plants in Japan, France, Korea, Hungary, Mexico and the U.S.' Total-company tow-capacity basis as labelled. ok_exact."
+    },
+    {
+      "id": "ev_space_toray_im_aerospace_fiber",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch toraycma.com. Exact: 'As the largest carbon fiber producer in the world, Toray manufactures 29,100 metric tons annually'. 29,100 t is the CMA US-entity figure as labelled (distinct from 58k total-company). IM aerospace primary-structure use also on page (T800S/T800H 'used in primary structure of commercial aircraft'). vendor_claim, ok for who-makes-what. ok_exact."
+    },
+    {
+      "id": "ev_space_hexcel_hextow_aerospace",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch hexcel.com HexTow page. Exact: 'HexTow carbon fiber is the preferred carbon fiber for the world's most advanced aerospace and industrial composite applications including: Airbus A350 XWB, JSF, F18 E/F, A380, Eurofighter Typhoon, Airbus A400M, V22 Osprey, Boeing 787, and GEnx Engines.' In-house PAN sentence also exact. vendor_claim. ok_exact."
+    },
+    {
+      "id": "ev_space_syensqo_teijin_aero_qualification",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld. Exact: 'Syensqo has achieved FAA-sponsored NCAMP qualification for its Prism EP2400 epoxy resin system in combination with Teijin Carbon's Tenax IMS65 E23 24K noncrimp fabrics (NCF) and unidirectional (UD) woven reinforcements.' NMS 241 / NPS 82401, FAA+EASA, Atlanta GA + Rockwood TN all confirmed. ok_exact."
+    },
+    {
+      "id": "ev_space_mitsubishi_pyrofil_aero_structures",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch us.mitsubishi-chemical.com/industry/aero. Exact: 'Our unique range of materials are used within interior parts as well as systems and structural parts for all types of aircrafts as well as missiles, rockets and satellites.' vendor_claim, who-makes-what. ok_exact."
+    },
+    {
+      "id": "ev_space_mitsubishi_capacity_doubling",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "WebFetch compositesworld. Substance fully supported: capacity doubling 2025-2027, Tokai (Aichi) + Sacramento, aerospace named among high-end apps. Stored excerpt ('...by effectively leveraging its existing facilities in Japan and the U.S.') is a near-verbatim paraphrase; page wording is 'enhance its carbon fiber production capacity in Japan and the U.S. for high-end applications...'. Claim (capacity expansion, no absolute tonnage) supported; minor wording drift only. Treated verified — not high-stakes, no number-basis issue."
+    },
+    {
+      "id": "ev_space_infinite_composites_launch_copv",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch infinitecomposites.com. Exact: 'Composite overwrap pressure (COPVs) are state-of-the-art for most launch vehicle or spacecraft applications today'. Linerless/Type V iCPV for launch+spacecraft pressurant/propellant tanks; gov customers (NASA, USAF, US Army, LANL, NSF) confirmed. vendor_claim (capability not contract). ok_exact."
+    },
+    {
+      "id": "ev_space_steelhead_launch_copv",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch steelheadcomposites.com. Exact: 'Steelhead's high-performance composite overwrapped pressure vessels (COPVs) are integrated into launch vehicle propulsion systems where weight, reliability, and pressure containment are mission-critical.' Spacecraft propulsion tanks also covered. vendor_claim. ok_exact."
+    },
+    {
+      "id": "ev_space_hexcel_hypercomp_type4_copv",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch hexcel.com CAMX 2025 release. Exact: 'the debut of a Type IV carbon overwrap pressure vessel (COPV), engineered in collaboration with HyPerComp Engineering Inc. (HEI) and built using Hexcel's high-performance HexTow IM11-R/12K carbon fiber'. 'space launch and other applications' present; certification described as in-progress ('well along the path for certification') not flight-qualified — matches limitation note. ok_exact."
+    },
+    {
+      "id": "ev_space_teijin_tenax_leading_maker",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch teijincarbon.com. Exact: 'Teijin is one of the world's leading manufacturers of high-performance carbon fiber products.' Tenax brand named immediately after. vendor_claim, who-makes-what. ok_exact."
+    },
+    {
+      "id": "ev_space_gdots_sls_satellite_copv",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch gdots.com. Exact: 'Lincoln Operations is the design authority for both the Core Stage Composite Overwrapped Pressure Vessel and the Upper Stage Composite Overwrapped Pressure Vessel.' Satellite-propulsion COPVs (compressed gas for propulsion subsystems) also confirmed on page. vendor_claim, SLS+satellites not SpaceX. ok_exact."
+    },
+    {
+      "id": "ev_space_hypercomp_launch_copv",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch /About returned HTTP 404 (JS-rendered SPA: raw HTTP yields the SPA's 404 route; root '/' returns only 155 chars of pre-render text). Quote confirmed via WebSearch index of the SAME URL (hypercompeng.com/About) which returns verbatim: 'specializes in the design, analysis, development, testing, manufacture, and certification of filament wound high pressure composite vessels', founded 1996 by James Patterson, Brigham City UT, products 'used in space launch vehicles'. Method: alternate (search-index of same page) since JS shell not fetchable raw. Quote genuinely on-page; 404 is a non-JS-client routing artifact. Record's limitation (page doesn't verbatim say 'space launch vehicles') is now outdated — current page text DOES say it; launch link no longer rests solely on the Hexcel CAMX companion record. ok_exact."
+    }
+  ],
+  "repaired": [
+    {
+      "id": "ev_space_falcon9_fairing_carbon_honeycomb",
+      "issue": "MISATTRIBUTED URL + paraphrased excerpt. Stored url (innovationintextiles.com/advanced-composites-used-in-falcon-9-rocket) is a 22-Oct-2013 TenCate Advanced Composites press release congratulating SpaceX on a Falcon 9 launch. It does NOT contain the words 'carbon fiber-aluminum honeycomb', 'autoclave', 'Hawthorne', or even 'carbon fiber' (full 5.8KB body extracted via curl; quoteMatch=ABSENT on stored url). The stored excerpt was a search-summary paraphrase stitched from a different source.",
+      "quoteMatchOnStoredUrl": "absent",
+      "repair": {
+        "url": "https://www.teslarati.com/spacex-photos-falcon-9-fairings-parasailing-splashdown/",
+        "excerpt": "As a result of their carbon fiber-aluminum honeycomb construction, each half inherently takes a disproportionate amount of time to manufacture ... exaggerated by the need for massive and expensive curing autoclaves (a mix of an oven and a pressure chamber), of which only a handful can fit inside SpaceX's Hawthorne factory",
+        "sourceName": "Teslarati (Eric Ralph)",
+        "type": "news",
+        "quoteMatch": "exact",
+        "method": "WebFetch teslarati parasailing-splashdown article returned both verbatim fragments. Note: two adjacent on-page sentences; the '...' joins them. The claim (carbon-fiber+aluminum-honeycomb fairing; autoclave/Hawthorne capacity constraint; captive SpaceX cure) is fully supported."
+      },
+      "note": "Trade-press source for an engineering-construction claim (not a market-share number); confidence medium is appropriate. Captive-fab + honeycomb-construction substance UNCHANGED — only the URL+excerpt are corrected to a source that actually carries the words."
+    },
+    {
+      "id": "ev_space_hexcel_customer_concentration_10k",
+      "issue": "Prior run could not render the primary 10-K (SEC EDGAR returned HTTP 403 to a generic agent; PDF was binary) and demoted it to sourceStatus=paywalled_snippet, confidence=low, pending owner re-fetch. This is the brief's explicitly-flagged high-stakes record.",
+      "repair": {
+        "method": "Fetched the primary 10-K HTML directly from SEC EDGAR via curl with a compliant descriptive User-Agent + contact email (SEC blocks generic UAs; the fix is 'civilization-research phi.wth@gmail.com'). HTTP 200, 5.4MB XML/HTML, parsed to text.",
+        "url_confirmed": "https://www.sec.gov/Archives/edgar/data/717605/000095017025014412/hxl-20241231.htm",
+        "verbatimAirbus": "Approximately 40%, 39% and 38% of our 2024, 2023 and 2022 net sales, respectively, were to Airbus and its subcontractors. Of the 40% of overall sales to Airbus and its subcontractors in 2024, 37% related to Commercial Aerospace market applications and 3% related to Space & Defense market applications.",
+        "verbatimBoeing": "Approximately 15%, 15% and 14% of our 2024, 2023 and 2022 net sales, respectively, were to Boeing and its subcontractors. Of the 15% of overall sales to Boeing and its subcontractors in 2024, 13% related to Commercial Aerospace market applications and 2% related to Space & Defense market applications.",
+        "quoteMatch": "exact",
+        "numberInQuote": true
+      },
+      "note": "ALL stored figures confirmed against rendered PRIMARY 10-K at the right basis (customer-concentration, % of 2024 net sales): Airbus 40% (37% Commercial Aero + 3% Space&Defense); Boeing 15% (13% + 2%). Recommend owner: sourceStatus paywalled_snippet -> fetch_ok/verified, confidence low -> medium/high, replace excerpt with verbatim sentences above. Number-basis fully clean. (reviewStatus flip remains owner-only per ADR-0001.)"
+    },
+    {
+      "id": "ev_space_carbon_fiber_export_control_wassenaar",
+      "issue": "Prior run paraphrased control thresholds from a search summary (limitation note asked owner to confirm exact list-entry text e.g. 1C010). PDF is binary to WebFetch.",
+      "repair": {
+        "method": "WebFetch saved the 1.2MB PDF locally; extracted full text with pypdf (591KB text). Located the carbon-fiber control entry.",
+        "verbatim": "Carbon \"fibrous or filamentary materials\" having all of the following: a. A \"specific modulus\" exceeding 10.15 x 10^6 m; and b. A \"specific tensile strength\" exceeding 17.7 x 10^4 m",
+        "listEntry": "Thresholds 10.15x10^6 m modulus / 17.7x10^4 m tensile appear under 1.C.10 (incl. 1.A.2 metal/carbon-matrix carbon-fiber clause and 1.C.10.e.1.b). Standalone 1.C.10.b carbon-fiber entry uses HIGHER thresholds (14.65x10^6 m / 26.82x10^4 m). The cited 10.15/17.7 pair is a genuine Wassenaar carbon-fibrous-material control threshold.",
+        "quoteMatch": "exact",
+        "numberInQuote": true
+      },
+      "note": "Stored excerpt's values confirmed verbatim against primary Wassenaar PDF. Recommend owner update excerpt to the exact quote above and optionally cite the specific clause. Claim (high-modulus/high-strength carbon fibre is export-controlled under Wassenaar dual-use list) supported. Standing-regime framing correct."
+    }
+  ],
+  "escalations": [
+    {
+      "id": "ev_space_toray_pan_precursor_share",
+      "question": "Toray '>50% of the global PAN fiber market' is single-sourced to CompositesWorld ('reportedly'); a second-source search found NO same-basis corroboration and surfaced conflicting OTHER-basis figures (market-research reports put Toray at ~34-36% of FINISHED carbon-fiber capacity, and top-3 players at 35-45% combined). Is the >50% genuinely PAN-PRECURSOR-market basis (where Toray can be higher) vs finished-fiber basis? Quote-on-page is exact, but per the record's own limitation + audit-brief rule this single-source 'reportedly >50%' needs a second quality source at the same precursor basis before any flip; recommend remediation rung 1 (re-source same basis) or rung 2 (downgrade to estimate/qualitative '>50% reportedly')."
+    }
+  ],
+  "tickerAudit": [
+    {
+      "orgId": "org_toray",
+      "storedTicker": "3402.T",
+      "verdict": "correct",
+      "verifiedEntity": "Toray Industries, Inc.",
+      "exchange": "Tokyo Stock Exchange (securities code 3402; TOPIX 100 / Nikkei 225)",
+      "source": "CNBC/Bloomberg/Yahoo/MarketScreener (3402.T-JP). Carbon Fiber Composite Material is a named TSE-disclosed segment. Identity unambiguous.",
+      "method": "WebSearch exchange/aggregator listings (not memory)."
+    },
+    {
+      "orgId": "org_hexcel",
+      "storedTicker": "HXL",
+      "verdict": "correct",
+      "verifiedEntity": "Hexcel Corporation (Hexcel Corp /DE/)",
+      "exchange": "New York Stock Exchange",
+      "source": "PRIMARY: Hexcel 2024 Form 10-K cover page verbatim 'COMMON STOCK, par value $0.01 | HXL | New York Stock Exchange'. Cross-confirmed by SEC official company_tickers.json: HXL -> CIK 717605 -> HEXCEL CORP /DE/ (same CIK as the 10-K URL).",
+      "method": "Primary SEC filing + SEC authoritative ticker-CIK map (exchange-grade)."
+    },
+    {
+      "orgId": "org_teijin",
+      "storedTicker": "3401.T",
+      "verdict": "correct",
+      "verifiedEntity": "Teijin Limited",
+      "exchange": "Tokyo Stock Exchange (securities code 3401; Nikkei 225)",
+      "source": "CNBC/Investing/MarketScreener (3401.T). Carbon fiber/Tenax (Toho Tenax, majority-owned since 2000) is a named business. Identity unambiguous.",
+      "method": "WebSearch exchange/aggregator listings (not memory)."
+    },
+    {
+      "orgId": "org_mitsubishi_chemical",
+      "storedTicker": "4188.T",
+      "verdict": "correct",
+      "verifiedEntity": "Mitsubishi Chemical Group Corporation (HQ Chiyoda; segments Specialty Materials / Industrial Gases / Health Care / MMA / Basic Materials; founded 1933)",
+      "exchange": "Tokyo Stock Exchange (securities code 4188)",
+      "source": "CNBC/Bloomberg/Yahoo/TradingView (4188.T). Pyrofil carbon fiber sits in Specialty Materials.",
+      "distinctnessCheck": "CONFIRMED DISTINCT from the two collision risks the brief named: (a) Mitsubishi GAS Chemical Company = code 4182 (founded 1918; Natural Gas Chemicals/Aromatics/Functional Chemicals) -- different code, different company; (b) Mitsubishi ELECTRIC Corporation = code 6503 (incorporated 1921, Chiyoda; electrical/electronic equipment) -- different code, different company. 4188 != 4182 != 6503.",
+      "method": "WebSearch exchange/aggregator listings for all three Mitsubishi entities (not memory)."
+    },
+    {
+      "orgId": "org_syensqo",
+      "storedTicker": "SYENS",
+      "verdict": "correct",
+      "verifiedEntity": "Syensqo S.A. (specialty/advanced materials; 2023 spin-off of Solvay's specialty business; BEL 20 constituent)",
+      "exchange": "Euronext Brussels (EUR); ISIN BE0003851681",
+      "source": "ad-hoc-news (repeatedly cites 'Syensqo S.A. stock (BE0003851681)' trading on Euronext Brussels under SYENS) + Wikipedia. ISIN matches the stored note exactly. Correctly NOT attributed to legacy Solvay ticker.",
+      "method": "WebSearch exchange listings + ISIN match (not memory)."
+    },
+    {
+      "orgId": "org_infinite_composites",
+      "storedTicker": "private (none)",
+      "verdict": "correct",
+      "verifiedEntity": "Infinite Composites, Inc. (Tulsa OK; founded 2010)",
+      "exchange": "none (privately held)",
+      "source": "SEC Reg A offering memorandum dated 2021-10-20 (a PRIVATE capital raise, not an exchange listing) + PitchBook/Crunchbase private profiles. No exchange listing exists.",
+      "method": "WebSearch; confirmed no public listing. Record correctly carries no ticker (not guessed)."
+    },
+    {
+      "orgId": "org_steelhead_composites",
+      "storedTicker": "private (none)",
+      "verdict": "correct",
+      "verifiedEntity": "Steelhead Composites, Inc. (Golden CO; founded 2012)",
+      "exchange": "none (privately held)",
+      "source": "PitchBook 'Valuation, Funding & Investors' + Crunchbase + CB Insights private profiles. No exchange listing exists.",
+      "method": "WebSearch; confirmed no public listing. Record correctly carries no ticker (not guessed)."
+    },
+    {
+      "orgId": "org_hypercomp_engineering",
+      "storedTicker": "private (none)",
+      "verdict": "correct",
+      "verifiedEntity": "HyPerComp Engineering, Inc. (HEI; Brigham City UT; founded 1996 by James Patterson)",
+      "exchange": "none (privately held)",
+      "source": "Crunchbase + SBIR.gov + sourcehere company profile; no exchange listing. (Company site is a JS SPA.)",
+      "method": "WebSearch; confirmed no public listing. Record correctly carries no ticker (not guessed)."
+    },
+    {
+      "orgId": "org_gd_ots",
+      "storedTicker": "GD",
+      "verdict": "correct",
+      "verifiedEntity": "General Dynamics Corporation (parent; GD-OTS / Lincoln Operations is a non-listed subsidiary)",
+      "exchange": "New York Stock Exchange",
+      "source": "SEC official company_tickers.json: GD -> CIK 40533 -> GENERAL DYNAMICS CORP. Cross-confirmed CNBC/Bloomberg/Yahoo (NYSE: GD).",
+      "method": "SEC authoritative ticker-CIK map + exchange listings. listingStatus=subsidiary correctly flags that GD is the parent's ticker, not the unit's."
+    }
+  ]
+}

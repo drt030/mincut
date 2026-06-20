@@ -1,0 +1,297 @@
+[
+  {
+    "episode_id": "rl_dev_titanium_russia_vsmpo_2022",
+    "title": "Russian aerospace-titanium supply risk; Boeing suspends VSMPO-AVISMA buys (2022)",
+    "period": "2022",
+    "module": "airframe_structures_tankage",
+    "constrained_item": "Aerospace mill titanium (plate/forgings) and the upstream titanium sponge from Russia's VSMPO-AVISMA, the world's largest titanium supplier",
+    "constrained_suppliers": [
+      {
+        "name": "VSMPO-AVISMA Corp.",
+        "ticker_or_null": "VSMO.ME",
+        "role": "World's largest titanium producer; supplied ~1/3 of Boeing's and ~1/2 of Airbus's titanium needs; Russia-based (25% Rostec-owned), exposed to post-2022 sanctions"
+      }
+    ],
+    "nature": "export_control",
+    "citations": [
+      {
+        "url": "https://www.euronews.com/next/2022/03/07/ukraine-crisis-boeing-russia",
+        "sourceName": "Euronews",
+        "verbatim_quote": "We have suspended purchasing titanium from Russia. Our inventory and diversity of titanium sources provide sufficient supply for airplane production",
+        "asOf": "2022-03-07"
+      },
+      {
+        "url": "https://www.euronews.com/next/2022/03/07/ukraine-crisis-boeing-russia",
+        "sourceName": "Euronews",
+        "verbatim_quote": "Airbus relies on Russia for half of its overall titanium needs, while VSMPO-AVISMA provides a third of Boeing's requirements.",
+        "asOf": "2022-03-07"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_us_titanium_sponge_import_reliance_2020_2024",
+    "title": "U.S. titanium sponge production collapses to ~zero; ~100% import-reliant, mostly on Japan (2020-2024)",
+    "period": "2020-2024",
+    "module": "airframe_structures_tankage",
+    "constrained_item": "Titanium sponge (the feedstock for all aerospace mill titanium); U.S. domestic production ceased, leaving near-total import dependence",
+    "constrained_suppliers": [
+      {
+        "name": "TIMET (Titanium Metals Corp., a PCC company)",
+        "ticker_or_null": null,
+        "role": "Operated the last large U.S. titanium-sponge plant (Henderson, NV; ~12,600 t/yr), idled since 2020; Commerce's Section 232 review found only one U.S. sponge producer remaining by 2019"
+      }
+    ],
+    "nature": "capacity",
+    "citations": [
+      {
+        "url": "https://www.thompsonhinesmartrade.com/2021/08/commerce-releases-titanium-sponge-section-232-national-security-report/",
+        "sourceName": "Thompson Hine SmarTrade (summarizing U.S. Commerce Section 232 report)",
+        "verbatim_quote": "The United States imports 68 percent of the titanium sponge needed to fulfill domestic demand",
+        "asOf": "2021-08"
+      },
+      {
+        "url": "https://www.thompsonhinesmartrade.com/2021/08/commerce-releases-titanium-sponge-section-232-national-security-report/",
+        "sourceName": "Thompson Hine SmarTrade (summarizing U.S. Commerce Section 232 report)",
+        "verbatim_quote": "only one producer by 2019 capable of producing the product for defense, commercial and industrial applications",
+        "asOf": "2021-08"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_ati_aero_titanium_nickel_tight_supply_2023",
+    "title": "ATI expands aerospace titanium melt ~35% and locks $1.2B of Ti/Ni commitments amid 'tight supply for critical materials' (2023)",
+    "period": "2023",
+    "module": "airframe_structures_tankage",
+    "constrained_item": "Aerospace/defense-grade titanium melt capacity and premium nickel/titanium mill products for engine and airframe applications",
+    "constrained_suppliers": [
+      {
+        "name": "ATI Inc. (Allegheny Technologies)",
+        "ticker_or_null": "ATI",
+        "role": "U.S. specialty-materials maker; expanding titanium melt (Richland, WA) and signing multi-year aerospace/defense supply commitments to assure constrained material supply"
+      }
+    ],
+    "nature": "capacity",
+    "citations": [
+      {
+        "url": "https://ir.atimaterials.com/news-events/news-details/2023/ATI-announces-Richland-Washington-as-site-of-titanium-melt-expansion/default.aspx",
+        "sourceName": "ATI Inc. Investor Relations (company press release)",
+        "verbatim_quote": "The expansion will increase ATI's production of aerospace and defense-grade titanium by approximately 35% over the 2022 baseline levels",
+        "asOf": "2023-07-19"
+      },
+      {
+        "url": "https://ir.atimaterials.com/news-events/news-details/2023/ATI-secures-estimated-1.2-billion-in-aerospace-and-defense-sales-commitments/default.aspx",
+        "sourceName": "ATI Inc. Investor Relations (company press release)",
+        "verbatim_quote": "During this time of tight supply for critical materials, ATI is partnering with customers to assure secured supply",
+        "asOf": "2023-06-19"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_constellium_alli_airbus_lockin_2024",
+    "title": "Constellium signs 10-year Airbus deal to secure aluminum-lithium (Airware) capacity (2024)",
+    "period": "2024",
+    "module": "airframe_structures_tankage",
+    "constrained_item": "Aerospace aluminum-lithium plate/sheet (Airware) and rolled/extruded aero aluminum — qualified capacity scarce enough to warrant decade-long OEM lock-ins (Al-Li is used in launch-vehicle tankage, e.g. Falcon 9)",
+    "constrained_suppliers": [
+      {
+        "name": "Constellium SE",
+        "ticker_or_null": "CSTM",
+        "role": "Leading aerospace aluminum / Al-Li (Airware) producer; OEM locking in multi-year qualified capacity (plants at Issoire & Montreuil-Juigne, France and Ravenswood, WV)"
+      }
+    ],
+    "nature": "capacity",
+    "citations": [
+      {
+        "url": "https://www.constellium.com/news/constellium-signs-a-multi-year-contract-with-airbus-to-supply-aerospace-aluminium-products-and-solutions",
+        "sourceName": "Constellium SE (company press release)",
+        "verbatim_quote": "Constellium will continue to supply its proprietary aluminium-lithium alloy solutions, Airware®, a proven technology offering a combination of unique strength and weight properties.",
+        "asOf": "2024"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_lox_covid_shortage_2021",
+    "title": "2021 COVID liquid-oxygen shortage diverts LOX from launchpads to hospitals (2021)",
+    "period": "2021",
+    "module": "propellants_fluids",
+    "constrained_item": "Liquid oxygen (LOX) launch propellant — supply diverted to hospitals for COVID ventilator demand, plus a constrained cryogenic-tanker delivery network",
+    "constrained_suppliers": [
+      {
+        "name": "Industrial-gas merchant supply (LOX) — affected SpaceX and ULA launch operations",
+        "ticker_or_null": null,
+        "role": "Merchant LOX supply diverted to medical use; SpaceX (private) and ULA (private JV of Boeing/Lockheed) publicly warned of launch impact; constraint was in the shared LOX supply/delivery network, not one named gas producer"
+      }
+    ],
+    "nature": "shortage",
+    "citations": [
+      {
+        "url": "https://www.space.com/spacex-rocket-fuel-liquid-oxygen-shortage-covid-19",
+        "sourceName": "Space.com",
+        "verbatim_quote": "We're actually going to be impacted this year with the lack of liquid oxygen for launch.",
+        "asOf": "2021-08-26"
+      },
+      {
+        "url": "https://www.space.com/spacex-rocket-fuel-liquid-oxygen-shortage-covid-19",
+        "sourceName": "Space.com",
+        "verbatim_quote": "Liquid oxygen (LOX) is in short supply as demand rises with COVID-19 cases in the United States.",
+        "asOf": "2021-08-26"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_helium_pressurant_supply_2022",
+    "title": "2022 helium supply tightness; NASA locks a $1.07B sole-source liquid-helium contract for launch pressurant/purge (2022)",
+    "period": "2022",
+    "module": "propellants_fluids",
+    "constrained_item": "Helium for pressurizing flight/ground fluid systems and purging hydrogen/LOX lines — a concentrated, periodically-short commodity that launch operators must secure",
+    "constrained_suppliers": [
+      {
+        "name": "Air Products and Chemicals, Inc.",
+        "ticker_or_null": "APD",
+        "role": "Awarded NASA's sole-source liquid-helium supply contract (33M liters, ~$1.07B) for KSC/Cape Canaveral launch operations including SLS"
+      }
+    ],
+    "nature": "allocation",
+    "citations": [
+      {
+        "url": "https://www.nasa.gov/news-release/nasa-awards-contract-for-liquid-helium-acquisition-at-kennedy/",
+        "sourceName": "NASA (agency press release)",
+        "verbatim_quote": "NASA has selected Air Products and Chemicals, Inc of Allentown, Pennsylvania, to supply 33 million liters of liquid helium to the agency's Kennedy Space Center in Florida.",
+        "asOf": "2022-11"
+      },
+      {
+        "url": "https://www.nasa.gov/news-release/nasa-awards-contract-for-liquid-helium-acquisition-at-kennedy/",
+        "sourceName": "NASA (agency press release)",
+        "verbatim_quote": "Helium is an inert gas for purging hydrogen systems, a pressurizing agent for ground and flight fluid systems, and a cryogenic cooling agent.",
+        "asOf": "2022-11"
+      },
+      {
+        "url": "https://aerospaceglobalnews.com/news/nasa-artemis-ii-sls-roll-back-helium-leak/",
+        "sourceName": "Aerospace Global News",
+        "verbatim_quote": "Helium plays a critical role in rocket operations, used to pressurise propellant tanks and purge fuel lines.",
+        "asOf": "2026-03"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_radhard_microelectronics_skywater_2019_2022",
+    "title": "Strategic rad-hard microelectronics treated as a supply gap; DoD funds onshore SkyWater capacity ($170M then +$99M) (2019-2022)",
+    "period": "2019-2022",
+    "module": "avionics_gnc_flight_computer",
+    "constrained_item": "Strategic radiation-hardened microelectronics (90nm RH90 process) — few trusted foundries; DoD funded a domestic capacity build to broaden onshore rad-hard supply",
+    "constrained_suppliers": [
+      {
+        "name": "SkyWater Technology, Inc.",
+        "ticker_or_null": "SKYT",
+        "role": "DMEA Cat-1A Trusted Foundry; recipient of DoD funding (up to $170M, then +$99M in Sept 2022) to build/qualify domestic strategic rad-hard (RH90) production"
+      }
+    ],
+    "nature": "lead_time",
+    "citations": [
+      {
+        "url": "https://www.skywatertechnology.com/u-s-department-of-defense-awards-skywater-up-to-99m-in-additional-funding-to-advance-rad-hard-technology-to-productization-and-qualification/",
+        "sourceName": "SkyWater Technology (company press release)",
+        "verbatim_quote": "Department of Defense (DOD) has awarded the company up to $99 million as a continuation of the previous initiative to broaden onshore production capabilities for strategic radiation-hardened (rad-hard) electronics.",
+        "asOf": "2022-09-27"
+      },
+      {
+        "url": "https://www.skywatertechnology.com/us-department-of-defense-to-invest-up-to-170m-at-skywater-for-rad-hard-technology/",
+        "sourceName": "SkyWater Technology (company press release)",
+        "verbatim_quote": "the US Department of Defense (DOD) is planning to invest up to $170 million for a multi-phase project",
+        "asOf": "2019-10-21"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_pica_rayon_precursor_sole_source",
+    "title": "PICA ablative heatshield's rayon carbon precursor (SNIACE) ceases production; repeated requalification crisis",
+    "period": "2016-2021",
+    "module": "thermal_protection_system",
+    "constrained_item": "Rayon-based carbon precursor for PICA (Phenolic Impregnated Carbon Ablator) reentry heatshield preforms — a sole-qualified-supplier raw material requiring repeated substitution/requalification",
+    "constrained_suppliers": [
+      {
+        "name": "SNIACE (heritage rayon precursor supplier) / Fiber Materials Inc. (FiberForm preform)",
+        "ticker_or_null": null,
+        "role": "Heritage rayon precursor supplier ceased production, breaking the PICA supply chain; NASA drove a domestic Lyocell-based replacement (PICA-D). PICA-class ablators are the heatshield basis for capsules/entry systems"
+      }
+    ],
+    "nature": "shortage",
+    "citations": [
+      {
+        "url": "https://ntrs.nasa.gov/citations/20180001911",
+        "sourceName": "NASA Technical Reports Server (NTRS)",
+        "verbatim_quote": "The rayon based carbon precursor raw material used in PICA preform manufacturing has experienced multiple supply chain issues",
+        "asOf": "2018"
+      },
+      {
+        "url": "https://ntrs.nasa.gov/citations/20180001911",
+        "sourceName": "NASA Technical Reports Server (NTRS)",
+        "verbatim_quote": "required replacement and requalification at least twice in the past 25 years and a third substitution is now needed",
+        "asOf": "2018"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_aero_castings_duopoly_chokepoint",
+    "title": "Aerospace investment castings a 'well-known choke point'; Arconic/Howmet + PCC duopoly capacity-constrained",
+    "period": "2020-2024",
+    "module": "production_test_qualification",
+    "constrained_item": "High-end aerospace investment castings/forgings (single-crystal turbine parts, structural castings) — a near-duopoly that is a persistent capacity bottleneck for engine/airframe production",
+    "constrained_suppliers": [
+      {
+        "name": "Howmet Aerospace (castings business spun from Arconic in 2020)",
+        "ticker_or_null": "HWM",
+        "role": "One of the two dominant aerospace investment-casting producers; persistent delivery/capacity constraints to engine OEMs"
+      },
+      {
+        "name": "Precision Castparts Corp. (PCC, a Berkshire Hathaway company)",
+        "ticker_or_null": null,
+        "role": "Other dominant aerospace casting producer; 'restrained by capacity' on narrowbody-engine ramp (private; owned by Berkshire Hathaway BRK.B)"
+      }
+    ],
+    "nature": "capacity",
+    "citations": [
+      {
+        "url": "https://aviationweek.com/mro/while-arconic-pcc-continue-castings-dominance-new-rival-rises",
+        "sourceName": "Aviation Week Network",
+        "verbatim_quote": "Castings have been a well-known choke point for growth in commercial aircraft manufacturing and the aftermarket business for years.",
+        "asOf": "2024"
+      },
+      {
+        "url": "https://aviationweek.com/mro/while-arconic-pcc-continue-castings-dominance-new-rival-rises",
+        "sourceName": "Aviation Week Network",
+        "verbatim_quote": "The aerospace castings sector, a roughly $10 billion industry, is dominated by two leading providers: Arconic and Precision Castparts (PCC).",
+        "asOf": "2024"
+      }
+    ]
+  },
+  {
+    "episode_id": "rl_dev_faa_ast_licensing_throughput_2024",
+    "title": "FAA commercial-space licensing throughput strained as U.S. launch cadence jumps ~30% YoY, SpaceX-dominated (2024)",
+    "period": "2023-2024",
+    "module": "launch_regulatory_license",
+    "constrained_item": "FAA/AST launch & reentry licensing throughput (Part 450) — regulatory capacity lagging a sharply rising, SpaceX-dominated launch cadence",
+    "constrained_suppliers": [
+      {
+        "name": "FAA Office of Commercial Space Transportation (AST)",
+        "ticker_or_null": null,
+        "role": "Sole U.S. licensing authority for commercial launch/reentry; processing throughput strained by ~30% YoY growth in operations and SpaceX's dominant share (regulatory chokepoint, not a manufactured part)"
+      }
+    ],
+    "nature": "capacity",
+    "citations": [
+      {
+        "url": "https://www.flyingmag.com/faa-moves-to-streamline-launch-licenses-for-commercial-space-firms/",
+        "sourceName": "FLYING Magazine",
+        "verbatim_quote": "commercial space operators launched from or landed on U.S. soil 137 times during fiscal year 2024—an uptick of 30 percent year over year",
+        "asOf": "2024-11-14"
+      },
+      {
+        "url": "https://breakingdefense.com/2024/11/faa-initiates-review-of-commercial-launch-rules-industry-claims-throttle-innovation-new-entrants/",
+        "sourceName": "Breaking Defense",
+        "verbatim_quote": "SpaceX, in effect, has a monopoly on US space launch",
+        "asOf": "2024-11"
+      }
+    ]
+  }
+]

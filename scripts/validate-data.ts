@@ -1,5 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import {
+  commercialScaleRollupViolations,
+  commercialScaleMissingSupplierOrganizations,
+  explicitLeadTimeHierarchyViolations,
+  structuralLeadTimeMissingNodes,
+} from "../src/lib/commercialDataCompleteness";
 import { loadGateQuestions, loadGateReports, loadGraphData, loadTasks, validateGraphReferences } from "../src/lib/graphLoader";
 import {
   maturityAsOfRequiredMessage,
@@ -101,6 +107,7 @@ errors.push(...validateDeprecatedHasNotes(graph));
 errors.push(...validateCostMetricFreshness(graph));
 errors.push(...validateProductTargetCostHasNoNumbers(graph));
 errors.push(...validateMaturityHistoryOrdering(graph));
+errors.push(...validateCommercialDataCompleteness(graph));
 
 const transactabilityWarnings = warnKnowHowTransactability(graph);
 for (const warning of transactabilityWarnings) console.warn(warning);
@@ -307,6 +314,36 @@ function validateMaturityLabelPresence(graph: GraphData): string[] {
         `Node ${node.id} is missing maturityLabel. Per ADR-0005 every node must carry a maturityLabel so the decomposition stop condition is defined.`,
       );
     }
+  }
+  return errors;
+}
+
+/**
+ * Commercial reader surfaces must never silently render blank core data.
+ * Direct values remain preferred; when direct sourcing is unavailable, the
+ * product uses low-confidence proxy estimates that are visibly labeled in UI.
+ */
+function validateCommercialDataCompleteness(graph: GraphData): string[] {
+  const errors: string[] = [];
+  for (const nodeId of structuralLeadTimeMissingNodes(graph)) {
+    errors.push(
+      `Node ${nodeId} has no explicit or estimated relief-cycle answer. Add capacityLeadTimeMonths or make the node kind/maturity/tags estimable.`,
+    );
+  }
+  for (const nodeId of commercialScaleMissingSupplierOrganizations(graph)) {
+    errors.push(
+      `Supplier organization ${nodeId} has no explicit or proxy commercial-scale answer. Add revenue/share/capacity/listing metric or listingStatus/ticker proxy data.`,
+    );
+  }
+  for (const violation of commercialScaleRollupViolations(graph)) {
+    errors.push(
+      `${violation}. Parent commercial scale must be derived from, or at least not contradict, direct structural children.`,
+    );
+  }
+  for (const violation of explicitLeadTimeHierarchyViolations(graph)) {
+    errors.push(
+      `${violation}. Parent capacityLeadTimeMonths must be at least the max of explicit direct structural children.`,
+    );
   }
   return errors;
 }

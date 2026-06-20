@@ -1,0 +1,668 @@
+{
+  "nodes": [
+    {
+      "id": "aerospace_carbon_fiber_composite_material",
+      "name": "Aerospace carbon-fiber composite material (fairings & structures)",
+      "kind": "material",
+      "domain": ["spacex_reusable_launch"],
+      "description": "Aerospace-grade PAN-based carbon fiber plus matrix resin / prepreg used to build payload fairings and other composite primary structures on reusable launch vehicles. On Falcon 9 the payload fairing is a carbon fiber-aluminum honeycomb sandwich. Fairing FABRICATION is substantially captive at SpaceX (its own Hawthorne autoclaves); the MERCHANT exposure is the upstream carbon-fiber + resin material tier (Toray, Hexcel, Teijin, Mitsubishi Chemical, Syensqo). High-modulus / high-strength aerospace carbon fiber sits under a standing export-control regime (Wassenaar dual-use list; U.S. EAR/ITAR), a structural constraint on who may supply and to whom.",
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["material", "carbon_fiber", "composite", "decomposition_frontier", "export_controlled"],
+      "notes": "Merchant tier = carbon-fiber + resin material; fairing lay-up/cure is captive at SpaceX. Single-/near-single-source character lives in aerospace-QUALIFIED intermediate-modulus tow, where a handful of producers (Toray, Hexcel, Teijin, Mitsubishi Chemical) are qualified into flight programs and Toray controls >50% of upstream PAN precursor. Export-control regime (Wassenaar/EAR) is a standing constraint, not a dated episode.",
+      "reviewStatus": "unreviewed",
+      "evidenceIds": [
+        "ev_space_falcon9_fairing_carbon_honeycomb",
+        "ev_space_carbon_fiber_export_control_wassenaar"
+      ]
+    },
+    {
+      "id": "launch_vehicle_copv_pressurant_vessel",
+      "name": "Composite-overwrapped pressure vessel (COPV) for helium pressurant",
+      "kind": "module",
+      "domain": ["spacex_reusable_launch"],
+      "description": "Composite-overwrapped pressure vessel storing high-pressure helium used to pressurize a launch vehicle's propellant tanks as engines consume propellant. Industry-standard construction is carbon-fiber composite overwrapped over a thin metal (e.g. aluminum) liner; newer Type IV/Type V designs use polymer-lined or linerless carbon overwrap. On Falcon 9 the COPVs sit inside the propellant tanks and SpaceX BUILDS ITS OWN COPVs (captive). The merchant population — Infinite Composites, Steelhead Composites, HyPerComp, General Dynamics-OTS — supplies COPVs to the broader launch / spacecraft industry and is the investable exposure for non-captive programs; the carbon-fiber overwrap itself ties back to the same aerospace carbon-fiber material tier.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["pressurant", "copv", "composite", "helium", "decomposition_frontier"],
+      "notes": "CAPTIVE at SpaceX (builds its own COPVs). Merchant COPV makers exist for the wider industry (Infinite Composites, Steelhead, HyPerComp, GD-OTS) and are mapped as reported_capable_supplier, not as SpaceX's manufacturer. Single-source history: the CRS-7 (2015) and AMOS-6 (2016) Falcon 9 losses both traced to COPV behavior, underscoring the qualification difficulty of this part.",
+      "reviewStatus": "unreviewed",
+      "evidenceIds": [
+        "ev_space_spacex_builds_own_copv",
+        "ev_space_copv_carbon_over_aluminum_liner"
+      ]
+    },
+    {
+      "id": "org_toray",
+      "name": "Toray Industries",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Japanese chemicals/materials group; the world's largest carbon fiber producer (TORAYCA brand; owns Zoltek for large-tow industrial fiber). Supplies aerospace-grade intermediate-/high-modulus carbon fiber used in commercial-aircraft primary structures and, as a material tier, in launch-vehicle composite structures (fairings) and COPV overwrap. Also dominant in the upstream PAN precursor that nearly all carbon fiber requires.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Global carbon fiber capacity",
+          "unit": "metric tons/year",
+          "currentValue": 58000,
+          "description": "CompositesWorld: Toray has 'a capacity to produce almost 58,000 tons of regular tow and large tow carbon fiber' across plants in Japan, France, Korea, Hungary, Mexico and the U.S. Total-company tow capacity basis (regular + large tow, not aerospace-only)."
+        },
+        {
+          "name": "Global PAN precursor share",
+          "unit": "%",
+          "currentValue": 50,
+          "description": "CompositesWorld: Toray 'reportedly controls more than 50% of the global polyacrylonitrile (PAN) fiber market'; PAN is the precursor for >2 lb per 1 lb of carbon fiber. Qualitative '>50%' floor, precursor-market basis."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "3402.T"
+        }
+      ],
+      "tags": ["manufacturer", "carbon_fiber", "public_company", "material_supplier"],
+      "notes": "World's largest carbon fiber producer; merchant material tier feeding fairing/structure lay-up and COPV overwrap. Ticker 3402.T (Tokyo) verified this round via exchange listing. Aerospace qualification + Wassenaar/EAR export control narrow who can ship high-modulus tow.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "3402.T",
+      "evidenceIds": [
+        "ev_space_toray_world_largest_capacity",
+        "ev_space_toray_pan_precursor_share",
+        "ev_space_toray_im_aerospace_fiber"
+      ]
+    },
+    {
+      "id": "org_hexcel",
+      "name": "Hexcel Corporation",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "U.S. advanced-composites maker (NYSE: HXL); HexTow carbon fiber and HexPly prepreg are primary-structure materials on major commercial and military aircraft (A350 XWB, Boeing 787, JSF). Intermediate-modulus fiber leader with in-house PAN precursor. As a material tier it feeds launch-vehicle composite structures and, via HexTow IM-grade fiber, COPV overwrap (e.g. a Type IV COPV co-developed with HyPerComp).",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "2024 net sales to Airbus + subcontractors",
+          "unit": "%",
+          "currentValue": 40,
+          "description": "Hexcel 2024 Form 10-K (per filing text): ~40% of 2024 net sales were to Airbus and its subcontractors (37% Commercial Aerospace, 3% Space & Defense). Customer-concentration basis. NOTE: primary 10-K PDF/HTML did not render readable text to this agent; figure corroborated across multiple secondary reports of the 10-K — treat as paywalled_snippet pending owner re-fetch."
+        },
+        {
+          "name": "2024 net sales to Boeing + subcontractors",
+          "unit": "%",
+          "currentValue": 15,
+          "description": "Hexcel 2024 Form 10-K (per filing text): ~15% of 2024 net sales were to Boeing and its subcontractors (13% Commercial Aerospace, 2% Space & Defense). Customer-concentration basis. Same fetch caveat as the Airbus figure."
+        },
+        {
+          "name": "Public listing",
+          "currentValue": "HXL"
+        }
+      ],
+      "tags": ["manufacturer", "carbon_fiber", "prepreg", "public_company", "material_supplier"],
+      "notes": "Merchant carbon-fiber + prepreg tier; also a COPV-relevant fiber supplier (HexTow IM11-R in a Type IV COPV with HyPerComp). Ticker HXL (NYSE) verified this round. Customer-concentration percentages flagged paywalled_snippet: the 10-K primary text was not machine-readable to this agent.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "HXL",
+      "evidenceIds": [
+        "ev_space_hexcel_hextow_aerospace",
+        "ev_space_hexcel_customer_concentration_10k"
+      ]
+    },
+    {
+      "id": "org_teijin",
+      "name": "Teijin",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Japanese materials group (Tokyo: 3401); Teijin Carbon makes high-performance carbon fiber under the Tenax brand. Tenax intermediate-modulus fiber (e.g. IMS65) is qualified into aerospace structural use (NCAMP qualification with Syensqo resin; separately qualified by Collins Aerospace). Part of the merchant aerospace carbon-fiber material tier feeding launch-vehicle composite structures.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "3401.T"
+        }
+      ],
+      "tags": ["manufacturer", "carbon_fiber", "public_company", "material_supplier"],
+      "notes": "Tenax carbon fiber; aerospace-qualified (NCAMP with Syensqo Prism EP2400; Collins Aerospace). Ticker 3401.T (Tokyo) verified this round. No launch-program-specific share found; mapped as material-tier reported_capable_supplier.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "3401.T",
+      "evidenceIds": [
+        "ev_space_teijin_tenax_leading_maker",
+        "ev_space_syensqo_teijin_aero_qualification"
+      ]
+    },
+    {
+      "id": "org_mitsubishi_chemical",
+      "name": "Mitsubishi Chemical Group",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Japanese chemicals group (Tokyo: 4188); makes Pyrofil PAN carbon fiber and Newport composites used in aircraft systems and structural parts as well as missiles, rockets and satellites. Has Pyrofil intermediate-modulus aerospace grades and is doubling carbon-fiber capacity at Tokai (Japan) and Sacramento (US) over 2025-2027 for high-end applications including aerospace. Part of the merchant aerospace carbon-fiber material tier.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "4188.T"
+        }
+      ],
+      "tags": ["manufacturer", "carbon_fiber", "public_company", "material_supplier"],
+      "notes": "Pyrofil carbon fiber used in aircraft/missile/rocket/satellite structures; capacity doubling 2025-2027 (Tokai + Sacramento). Ticker 4188.T (Tokyo) verified this round — NOTE distinct from existing org_mitsubishi_gas_chemical and org_mitsubishi_electric. No launch-program-specific share; material-tier reported_capable_supplier.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "4188.T",
+      "evidenceIds": [
+        "ev_space_mitsubishi_pyrofil_aero_structures",
+        "ev_space_mitsubishi_capacity_doubling"
+      ]
+    },
+    {
+      "id": "org_syensqo",
+      "name": "Syensqo",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Specialty-materials company (Euronext Brussels: SYENS) carved out of Solvay in December 2023; holds the legacy Solvay/Cytec composite-materials business. Supplies aerospace-qualified epoxy resin systems and prepregs (e.g. Prism EP2400, NCAMP-qualified with Teijin Tenax fiber) plus carbon fiber for aerospace structures. Represents the resin/prepreg (matrix) half of the merchant carbon-composite material tier that feeds launch-vehicle composite structures.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "SYENS"
+        }
+      ],
+      "tags": ["manufacturer", "resin", "prepreg", "carbon_fiber", "public_company", "material_supplier"],
+      "notes": "Holds legacy Solvay/Cytec composites business post Dec-2023 spin-off; aerospace-qualified resin/prepreg (Prism EP2400, NCAMP). Listed Euronext Brussels SYENS (ISIN BE0003851681) — verified this round; do NOT attribute to legacy Solvay ticker. Resin/matrix-tier reported_capable_supplier.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "SYENS",
+      "evidenceIds": [
+        "ev_space_syensqo_teijin_aero_qualification"
+      ]
+    },
+    {
+      "id": "org_infinite_composites",
+      "name": "Infinite Composites",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "U.S. (Tulsa, OK) maker of linerless (Type V) composite pressure vessels and COPVs for pressurant and propellant tanks in launch vehicles, satellites, lunar landers and space fueling depots. Private company; government/research customers shown include NASA, U.S. Air Force, U.S. Army. Represents the merchant COPV population that non-captive launch programs can buy (SpaceX itself builds COPVs in-house).",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "private"
+        }
+      ],
+      "tags": ["manufacturer", "copv", "pressure_vessel", "private_company"],
+      "notes": "Private; merchant COPV / linerless CPV maker for launch vehicles & spacecraft. No verified ticker (private) — not guessed. reported_capable_supplier to the COPV component (SpaceX COPV is captive).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "private",
+      "evidenceIds": [
+        "ev_space_infinite_composites_launch_copv"
+      ]
+    },
+    {
+      "id": "org_steelhead_composites",
+      "name": "Steelhead Composites",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "U.S. (Golden, CO) maker of high-performance COPVs integrated into launch-vehicle propulsion systems and used as primary/auxiliary tanks for spacecraft propulsion, with liners selected for hypergolic, cryogenic or pressurized-gas propellant compatibility. Private company; part of the merchant COPV population for the broader launch/space industry.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "private"
+        }
+      ],
+      "tags": ["manufacturer", "copv", "pressure_vessel", "private_company"],
+      "notes": "Private; merchant COPV maker for launch-vehicle propulsion & spacecraft. No verified ticker (private) — not guessed. reported_capable_supplier to the COPV component.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "private",
+      "evidenceIds": [
+        "ev_space_steelhead_launch_copv"
+      ]
+    },
+    {
+      "id": "org_hypercomp_engineering",
+      "name": "HyPerComp Engineering",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "U.S. (Brigham City, UT) developer, qualifier and producer of composite-overwrapped pressure vessels (COPVs); AS9100-D, products used in space launch vehicles among other applications. Co-developed a Type IV carbon-overwrap COPV with Hexcel using HexTow IM11-R/12K carbon fiber for aerospace and space. Private company; part of the merchant COPV population.",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing",
+          "currentValue": "private"
+        }
+      ],
+      "tags": ["manufacturer", "copv", "pressure_vessel", "private_company"],
+      "notes": "Private (founded 1996, <20 employees, AS9100-D); merchant COPV maker for space launch vehicles. No verified ticker (private). reported_capable_supplier; also links the carbon-fiber tier (Hexcel HexTow IM11-R) into COPV overwrap.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "private",
+      "evidenceIds": [
+        "ev_space_hypercomp_launch_copv",
+        "ev_space_hexcel_hypercomp_type4_copv"
+      ]
+    },
+    {
+      "id": "org_gd_ots",
+      "name": "General Dynamics Ordnance and Tactical Systems",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Composite-structures unit (Lincoln Operations) of General Dynamics (NYSE: GD). Design authority for the NASA SLS Core Stage and Upper Stage COPVs and for multiple satellite COPVs that provide compressed gas for propulsion subsystems; applications also include launch-vehicle and satellite propulsion. Listed via parent General Dynamics. Part of the merchant COPV population (SLS, satellites — not SpaceX, which is captive).",
+      "confidence": "medium",
+      "metrics": [
+        {
+          "name": "Public listing (parent)",
+          "currentValue": "GD"
+        }
+      ],
+      "tags": ["manufacturer", "copv", "pressure_vessel", "public_company", "subsidiary"],
+      "notes": "GD-OTS Lincoln Operations; design authority for SLS Core/Upper Stage COPVs and satellite COPVs. Listed via parent General Dynamics (NYSE: GD) — subsidiary; ticker is the parent's, verified this round. reported_capable_supplier to the COPV component.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "subsidiary",
+      "ticker": "GD",
+      "evidenceIds": [
+        "ev_space_gdots_sls_satellite_copv"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_space_fairing__requires__carbon_fiber_material",
+      "source": "falcon9_fairing_recovery_reuse",
+      "target": "aerospace_carbon_fiber_composite_material",
+      "relation": "requires",
+      "claim": "Falcon 9 payload fairings (and other launch-vehicle composite structures) are built from aerospace carbon-fiber composite; the fiber+resin material is the merchant tier while fairing lay-up/cure is captive at SpaceX.",
+      "confidence": "high",
+      "weight": 0.7,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_falcon9_fairing_carbon_honeycomb"]
+    },
+    {
+      "id": "e_space_tank__requires__copv_pressurant",
+      "source": "falcon9_aluminum_lithium_tank_structure",
+      "target": "launch_vehicle_copv_pressurant_vessel",
+      "relation": "requires",
+      "claim": "COPVs storing high-pressure helium sit inside the propellant tankage and pressurize the tanks as propellant is consumed; the pressurant-vessel sub-component hangs off the tank/airframe structure module.",
+      "confidence": "high",
+      "weight": 0.7,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_copv_carbon_over_aluminum_liner"]
+    },
+    {
+      "id": "e_space_copv__requires__carbon_fiber_material",
+      "source": "launch_vehicle_copv_pressurant_vessel",
+      "target": "aerospace_carbon_fiber_composite_material",
+      "relation": "requires",
+      "claim": "COPV overwrap is aerospace carbon-fiber composite over a metal/polymer liner, tying the pressurant vessel back to the same merchant carbon-fiber material tier.",
+      "confidence": "high",
+      "weight": 0.5,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_copv_carbon_over_aluminum_liner"]
+    },
+    {
+      "id": "e_space_carbon_fiber__manufactured_by__toray",
+      "source": "aerospace_carbon_fiber_composite_material",
+      "target": "org_toray",
+      "relation": "manufactured_by",
+      "claim": "Toray is the world's largest carbon fiber producer and supplies aerospace-grade intermediate-/high-modulus fiber used in aircraft primary structure and the launch-vehicle composite material tier.",
+      "confidence": "high",
+      "weight": 0.9,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_toray_world_largest_capacity", "ev_space_toray_im_aerospace_fiber"]
+    },
+    {
+      "id": "e_space_carbon_fiber__manufactured_by__hexcel",
+      "source": "aerospace_carbon_fiber_composite_material",
+      "target": "org_hexcel",
+      "relation": "manufactured_by",
+      "claim": "Hexcel HexTow carbon fiber and HexPly prepreg are preferred aerospace primary-structure materials (787, A350 XWB, JSF); a merchant carbon-fiber + prepreg supplier in this tier.",
+      "confidence": "high",
+      "weight": 0.85,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_hexcel_hextow_aerospace"]
+    },
+    {
+      "id": "e_space_carbon_fiber__manufactured_by__teijin",
+      "source": "aerospace_carbon_fiber_composite_material",
+      "target": "org_teijin",
+      "relation": "manufactured_by",
+      "claim": "Teijin Carbon's Tenax intermediate-modulus carbon fiber is aerospace-qualified (NCAMP with Syensqo resin; Collins Aerospace) — a merchant supplier in the aerospace carbon-fiber tier.",
+      "confidence": "medium",
+      "weight": 0.7,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_teijin_tenax_leading_maker", "ev_space_syensqo_teijin_aero_qualification"]
+    },
+    {
+      "id": "e_space_carbon_fiber__manufactured_by__mitsubishi_chemical",
+      "source": "aerospace_carbon_fiber_composite_material",
+      "target": "org_mitsubishi_chemical",
+      "relation": "manufactured_by",
+      "claim": "Mitsubishi Chemical Pyrofil PAN carbon fiber and Newport composites are used in aircraft, missile, rocket and satellite structural parts — a merchant supplier in the aerospace carbon-fiber tier, expanding capacity 2025-2027.",
+      "confidence": "medium",
+      "weight": 0.7,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_mitsubishi_pyrofil_aero_structures", "ev_space_mitsubishi_capacity_doubling"]
+    },
+    {
+      "id": "e_space_carbon_fiber__manufactured_by__syensqo",
+      "source": "aerospace_carbon_fiber_composite_material",
+      "target": "org_syensqo",
+      "relation": "manufactured_by",
+      "claim": "Syensqo (legacy Solvay/Cytec composites) supplies aerospace-qualified epoxy resin systems and prepregs (Prism EP2400, NCAMP-qualified) plus carbon fiber — the resin/matrix half of the merchant carbon-composite material tier.",
+      "confidence": "medium",
+      "weight": 0.7,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_syensqo_teijin_aero_qualification"]
+    },
+    {
+      "id": "e_space_copv__manufactured_by__spacex_captive",
+      "source": "launch_vehicle_copv_pressurant_vessel",
+      "target": "org_spacex",
+      "relation": "manufactured_by",
+      "claim": "SpaceX builds its own COPVs in-house (captive) for Falcon 9 helium pressurant storage.",
+      "confidence": "high",
+      "weight": 0.9,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_spacex_builds_own_copv"]
+    },
+    {
+      "id": "e_space_copv__reported_capable__infinite_composites",
+      "source": "launch_vehicle_copv_pressurant_vessel",
+      "target": "org_infinite_composites",
+      "relation": "reported_capable_supplier",
+      "claim": "Infinite Composites makes COPVs / linerless CPVs for pressurant and propellant tanks in launch vehicles and spacecraft — merchant supplier to the wider industry (SpaceX COPV is captive).",
+      "confidence": "medium",
+      "weight": 0.5,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_infinite_composites_launch_copv"]
+    },
+    {
+      "id": "e_space_copv__reported_capable__steelhead",
+      "source": "launch_vehicle_copv_pressurant_vessel",
+      "target": "org_steelhead_composites",
+      "relation": "reported_capable_supplier",
+      "claim": "Steelhead Composites makes COPVs integrated into launch-vehicle propulsion systems and spacecraft propulsion tanks — merchant supplier to the wider industry.",
+      "confidence": "medium",
+      "weight": 0.5,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_steelhead_launch_copv"]
+    },
+    {
+      "id": "e_space_copv__reported_capable__hypercomp",
+      "source": "launch_vehicle_copv_pressurant_vessel",
+      "target": "org_hypercomp_engineering",
+      "relation": "reported_capable_supplier",
+      "claim": "HyPerComp Engineering develops/qualifies/produces COPVs used in space launch vehicles; Type IV COPV co-developed with Hexcel HexTow IM11-R fiber — merchant supplier to the wider industry.",
+      "confidence": "medium",
+      "weight": 0.5,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_hypercomp_launch_copv", "ev_space_hexcel_hypercomp_type4_copv"]
+    },
+    {
+      "id": "e_space_copv__reported_capable__gd_ots",
+      "source": "launch_vehicle_copv_pressurant_vessel",
+      "target": "org_gd_ots",
+      "relation": "reported_capable_supplier",
+      "claim": "GD-OTS Lincoln Operations is design authority for NASA SLS Core/Upper Stage COPVs and satellite propulsion COPVs — merchant supplier to the wider launch/space industry (not SpaceX, which is captive).",
+      "confidence": "medium",
+      "weight": 0.5,
+      "reviewStatus": "unreviewed",
+      "evidenceIds": ["ev_space_gdots_sls_satellite_copv"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_space_falcon9_fairing_carbon_honeycomb",
+      "type": "news",
+      "title": "Innovation in Textiles — Advanced composites used in Falcon 9 rocket (fairing carbon fiber-aluminum honeycomb, SpaceX-cured)",
+      "url": "https://www.innovationintextiles.com/advanced-composites-used-in-falcon-9-rocket/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Innovation in Textiles",
+      "excerpt": "the fairing halves have a carbon fiber-aluminum honeycomb construction and require massive and expensive curing autoclaves, of which only a handful can fit inside SpaceX's Hawthorne factory",
+      "supportsNodeIds": ["aerospace_carbon_fiber_composite_material"],
+      "supportsEdgeIds": ["e_space_fairing__requires__carbon_fiber_material"],
+      "limitations": "Trade/industry outlet (not primary SpaceX doc). Establishes captive fairing fabrication + carbon-fiber-honeycomb construction; not a market-share claim. Quote surfaced via search summary of this page; owner should confirm exact on-page wording.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_carbon_fiber_export_control_wassenaar",
+      "type": "standard",
+      "title": "Wassenaar Arrangement dual-use list — high-modulus / high-strength carbon fibrous materials controlled",
+      "url": "https://www.wassenaar.org/app/uploads/2021/12/Public-Docs-Vol-II-2021-List-of-DU-Goods-and-Technologies-and-Munitions-List-Dec-2021.pdf",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Wassenaar Arrangement (List of Dual-Use Goods and Technologies)",
+      "excerpt": "carbon 'fibrous or filamentary materials' having a 'specific modulus' exceeding 10.15 x 10^6 m and a 'specific tensile strength' exceeding 17.7 x 10^4 m",
+      "supportsNodeIds": ["aerospace_carbon_fiber_composite_material"],
+      "limitations": "Standing export-control regime (Wassenaar dual-use list; mirrored in U.S. EAR/ITAR), not a dated supply episode. Control thresholds paraphrased from search summary of the Wassenaar list; owner should confirm exact list-entry text (e.g. 1C010) on the PDF.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_spacex_builds_own_copv",
+      "type": "news",
+      "title": "CompositesWorld — SpaceX announces COPV's role in Sept rocket explosion (SpaceX builds its own COPVs)",
+      "url": "https://www.compositesworld.com/articles/spacex-announces-copvs-role-in-sept-rocket-explosion",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "CompositesWorld",
+      "excerpt": "the company builds its own COPVs",
+      "supportsNodeIds": ["launch_vehicle_copv_pressurant_vessel"],
+      "supportsEdgeIds": ["e_space_copv__manufactured_by__spacex_captive"],
+      "limitations": "First-tier trade press. Establishes captive COPV fabrication at SpaceX; not a market-structure claim.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_copv_carbon_over_aluminum_liner",
+      "type": "news",
+      "title": "CompositesWorld — COPV construction: carbon fiber composite over an aluminum liner, holds helium to pressurize tanks",
+      "url": "https://www.compositesworld.com/articles/spacex-announces-copvs-role-in-sept-rocket-explosion",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "CompositesWorld",
+      "excerpt": "use the industry standard of carbon fiber composite wrapped over an aluminum liner",
+      "supportsNodeIds": ["launch_vehicle_copv_pressurant_vessel"],
+      "supportsEdgeIds": ["e_space_tank__requires__copv_pressurant", "e_space_copv__requires__carbon_fiber_material"],
+      "limitations": "First-tier trade press. Describes COPV construction + helium-pressurant function; ties COPV overwrap to the carbon-fiber material tier.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_toray_world_largest_capacity",
+      "type": "news",
+      "title": "CompositesWorld — Toray world's leading carbon fiber maker, ~58,000 t capacity",
+      "url": "https://www.compositesworld.com/news/toray-announces-growth-investment-in-carbon-fiber-composite-materials",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "CompositesWorld",
+      "excerpt": "Toray is reportedly the world's leading manufacturer of carbon fiber, with a capacity to produce almost 58,000 tons of regular tow and large tow carbon fiber via plants in Japan, France, Korea, Hungary, Mexico and the U.S.",
+      "supportsNodeIds": ["org_toray"],
+      "supportsEdgeIds": ["e_space_carbon_fiber__manufactured_by__toray"],
+      "limitations": "First-tier trade press ('reportedly'). Total-company tow capacity, not aerospace-qualified-only. asOf is the article's stated capacity snapshot.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_toray_pan_precursor_share",
+      "type": "news",
+      "title": "CompositesWorld — Toray controls >50% of global PAN precursor market",
+      "url": "https://www.compositesworld.com/news/toray-announces-growth-investment-in-carbon-fiber-composite-materials",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "CompositesWorld",
+      "excerpt": "Toray reportedly controls more than 50% of the global polyacrylonitrile (PAN) fiber market",
+      "supportsNodeIds": ["org_toray"],
+      "limitations": "First-tier trade press ('reportedly'). PAN precursor-market basis (upstream feedstock), not carbon-fiber market share. Single-source >50% claim — owner should seek a second quality source before flip.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_toray_im_aerospace_fiber",
+      "type": "vendor_claim",
+      "title": "Toray Composite Materials America — intermediate-modulus aerospace carbon fiber; 'largest carbon fiber producer in the world'",
+      "url": "https://www.toraycma.com/products/carbon-fiber/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Toray Composite Materials America (vendor page)",
+      "excerpt": "As the largest carbon fiber producer in the world, Toray manufactures 29,100 metric tons annually",
+      "supportsNodeIds": ["org_toray"],
+      "supportsEdgeIds": ["e_space_carbon_fiber__manufactured_by__toray"],
+      "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what, weak for market structure. The 29,100 t figure is the Toray CMA (U.S.) entity, NOT total-company; do not conflate with the ~58,000 t total-company capacity. IM-aerospace-fiber 'used in primary structure of commercial aircraft' also on this page.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_hexcel_hextow_aerospace",
+      "type": "vendor_claim",
+      "title": "Hexcel — HexTow carbon fiber preferred for advanced aerospace (787, A350 XWB, JSF); IM-fiber leader with in-house PAN",
+      "url": "https://www.hexcel.com/products/carbon-fiber/hextow-continuous-carbon-fiber/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Hexcel (vendor product page)",
+      "excerpt": "Hexcel's HexTow® carbon fiber which is the preferred carbon fiber for the world's most advanced aerospace and industrial applications including: Airbus A350 XWB, JSF, F18 E/F, A380, Eurofighter Typhoon, Airbus A400M, V22 Osprey, Boeing 787, and GEnx Engines",
+      "supportsNodeIds": ["org_hexcel"],
+      "supportsEdgeIds": ["e_space_carbon_fiber__manufactured_by__hexcel"],
+      "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what. Same page: 'Hexcel is a technology leader in Intermediate Modulus fiber with an in-house Polyacrylonitrile (PAN) domestic supply'.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_hexcel_customer_concentration_10k",
+      "type": "news",
+      "title": "Hexcel 2024 Form 10-K — ~40% of net sales to Airbus, ~15% to Boeing (customer concentration)",
+      "url": "https://www.sec.gov/Archives/edgar/data/717605/000095017025014412/hxl-20241231.htm",
+      "sourceStatus": "paywalled_snippet",
+      "sourceName": "Hexcel Corporation 2024 Form 10-K (SEC)",
+      "excerpt": "Approximately 40% of Hexcel's 2024 net sales were to Airbus and its subcontractors ... approximately 15% of their 2024 net sales were to Boeing and its subcontractors",
+      "supportsNodeIds": ["org_hexcel"],
+      "limitations": "Primary 10-K PDF returned binary (unreadable) and the SEC EDGAR HTML returned HTTP 403 to this agent; figure is corroborated across multiple secondary reports of the 10-K text but NOT confirmed against rendered primary text here. Marked paywalled_snippet; owner must re-fetch the 10-K and confirm the exact sentence (incl. 37%/3% and 13%/2% Commercial-Aerospace vs Space-&-Defense split) before any flip.",
+      "confidence": "low",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_teijin_tenax_leading_maker",
+      "type": "vendor_claim",
+      "title": "Teijin Carbon — 'one of the world's leading manufacturers of high-performance carbon fiber products' (Tenax)",
+      "url": "https://www.teijincarbon.com/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Teijin Carbon (vendor page)",
+      "excerpt": "Teijin is one of the world's leading manufacturers of high-performance carbon fiber products.",
+      "supportsNodeIds": ["org_teijin"],
+      "supportsEdgeIds": ["e_space_carbon_fiber__manufactured_by__teijin"],
+      "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what, not market structure. Tenax brand; aerospace use corroborated by the separate NCAMP-qualification record.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_syensqo_teijin_aero_qualification",
+      "type": "news",
+      "title": "CompositesWorld — Syensqo (Prism EP2400 resin) + Teijin Carbon (Tenax IMS65) achieve FAA/EASA NCAMP aerospace qualification",
+      "url": "https://www.compositesworld.com/news/syensqo-teijin-carbon-achieve-aerospace-qualification-for-composite-resin",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "CompositesWorld",
+      "excerpt": "Syensqo (Atlanta, Ga., U.S.) has achieved FAA-sponsored NCAMP qualification for its Prism EP2400 epoxy resin system ... Teijin Carbon's (Rockwood, Tenn., U.S.) Tenax IMS65 E23 24K noncrimp fabrics (NCF) and unidirectional (UD) woven reinforcements",
+      "supportsNodeIds": ["org_syensqo", "org_teijin"],
+      "supportsEdgeIds": ["e_space_carbon_fiber__manufactured_by__syensqo", "e_space_carbon_fiber__manufactured_by__teijin"],
+      "limitations": "First-tier trade press. Establishes aerospace qualification of Syensqo resin + Teijin Tenax fiber (FAA/EASA, NMS 241 / NPS 82401); not a launch-program-specific claim or share.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_mitsubishi_pyrofil_aero_structures",
+      "type": "vendor_claim",
+      "title": "Mitsubishi Chemical America — Pyrofil carbon fiber used in aircraft systems/structural parts, missiles, rockets, satellites",
+      "url": "https://us.mitsubishi-chemical.com/industry/aero/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Mitsubishi Chemical America (vendor page)",
+      "excerpt": "Our unique range of materials are used within interior parts as well as systems and structural parts for all types of aircrafts as well as missiles, rockets and satellites.",
+      "supportsNodeIds": ["org_mitsubishi_chemical"],
+      "supportsEdgeIds": ["e_space_carbon_fiber__manufactured_by__mitsubishi_chemical"],
+      "limitations": "Vendor marketing page (vendor_claim): fine for who-makes-what. Pyrofil PAN carbon fiber; rocket/satellite structural use stated by vendor.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_mitsubishi_capacity_doubling",
+      "type": "news",
+      "title": "CompositesWorld — Mitsubishi Chemical doubling Tokai (Aichi) + Sacramento carbon-fiber capacity 2025-2027 for high-end incl. aerospace",
+      "url": "https://www.compositesworld.com/news/mitsubishi-chemical-to-double-aichi-sacramento-carbon-fiber-plant-production-capacity",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "CompositesWorld",
+      "excerpt": "Mitsubishi Chemical has decided to enhance its carbon fiber production capacity by effectively leveraging its existing facilities in Japan and the U.S.",
+      "supportsNodeIds": ["org_mitsubishi_chemical"],
+      "limitations": "First-tier trade press. Capacity doubling 2025-2027 at Tokai (Aichi) + Sacramento for high-end incl. aerospace; article gives no absolute tonnage. Lead-time/capacity context, not a share claim.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_infinite_composites_launch_copv",
+      "type": "vendor_claim",
+      "title": "Infinite Composites — COPVs / linerless CPVs for launch-vehicle and spacecraft pressurant & propellant tanks",
+      "url": "https://www.infinitecomposites.com/infinite-composite-pressure-vessels",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Infinite Composites (vendor page)",
+      "excerpt": "Composite overwrap pressure (COPVs) are state-of-the-art for most launch vehicle or spacecraft applications today",
+      "supportsNodeIds": ["org_infinite_composites"],
+      "supportsEdgeIds": ["e_space_copv__reported_capable__infinite_composites"],
+      "limitations": "Vendor marketing page (vendor_claim): establishes capability/application, not an awarded SpaceX contract. Customers shown are gov/research (NASA, USAF, USA, LANL, NSF); no named commercial-launch customer.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_steelhead_launch_copv",
+      "type": "vendor_claim",
+      "title": "Steelhead Composites — COPVs integrated into launch-vehicle propulsion systems and spacecraft propulsion",
+      "url": "https://steelheadcomposites.com/industries/aerospace-space-defense",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Steelhead Composites (vendor page)",
+      "excerpt": "Steelhead's high-performance composite overwrapped pressure vessels (COPVs) are integrated into launch vehicle propulsion systems where weight, reliability, and pressure containment are mission-critical.",
+      "supportsNodeIds": ["org_steelhead_composites"],
+      "supportsEdgeIds": ["e_space_copv__reported_capable__steelhead"],
+      "limitations": "Vendor marketing page (vendor_claim): establishes capability/application, not an awarded SpaceX contract.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_hypercomp_launch_copv",
+      "type": "vendor_claim",
+      "title": "HyPerComp Engineering — designs/manufactures composite pressure vessels; space-composites heritage (Brigham City UT)",
+      "url": "https://www.hypercompeng.com/About",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "HyPerComp Engineering (vendor About page)",
+      "excerpt": "specializes in the design, analysis, development, testing, manufacture, and certification of filament wound high pressure composite vessels",
+      "supportsNodeIds": ["org_hypercomp_engineering"],
+      "supportsEdgeIds": ["e_space_copv__reported_capable__hypercomp"],
+      "limitations": "Vendor About page (fetch_ok). Confirms COPV design/manufacture + 'heritage on the cutting edge of the space composites industry'; the fetched page did NOT verbatim state 'space launch vehicles' — the launch-application link rests on the companion Hexcel/HyPerComp Type IV COPV record (ev_space_hexcel_hypercomp_type4_copv), which states 'space launch'. Private company; capability claim, not a SpaceX contract.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_hexcel_hypercomp_type4_copv",
+      "type": "news",
+      "title": "Hexcel — Type IV COPV co-developed with HyPerComp using HexTow IM11-R/12K carbon fiber, for aerospace & space launch",
+      "url": "https://www.hexcel.com/hexcel-and-hypercomp-unveil-advanced-composite-pressure-vessel-at-camx-2025/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Hexcel (company news release)",
+      "excerpt": "the debut of a Type IV carbon overwrap pressure vessel (COPV), engineered in collaboration with HyPerComp Engineering Inc. (HEI) and built using Hexcel's high-performance HexTow® IM11-R/12K carbon fiber",
+      "supportsNodeIds": ["org_hypercomp_engineering", "org_hexcel"],
+      "supportsEdgeIds": ["e_space_copv__reported_capable__hypercomp"],
+      "limitations": "Company news release (vendor-origin but specific, dated CAMX 2025). Links carbon-fiber tier (Hexcel HexTow IM11-R) into COPV overwrap; 'space launch and other applications' stated. Certification described as in-progress, not flight-qualified on a named program.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_gdots_sls_satellite_copv",
+      "type": "vendor_claim",
+      "title": "GD-OTS — design authority for NASA SLS Core/Upper Stage COPVs and satellite propulsion COPVs",
+      "url": "https://www.gdots.com/composite-structures-2017/pressure-vessels/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "General Dynamics Ordnance and Tactical Systems (vendor page)",
+      "excerpt": "Lincoln Operations is the design authority for both the Core Stage Composite Overwrapped Pressure Vessel and the Upper Stage Composite Overwrapped Pressure Vessel",
+      "supportsNodeIds": ["org_gd_ots"],
+      "supportsEdgeIds": ["e_space_copv__reported_capable__gd_ots"],
+      "limitations": "Vendor marketing page (vendor_claim): establishes COPV capability on SLS + satellites (NOT SpaceX). Listed via parent General Dynamics (NYSE: GD).",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "tasks": []
+}

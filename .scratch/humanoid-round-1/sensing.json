@@ -1,0 +1,914 @@
+{
+ "nodes": [
+  {
+   "id": "org_humanoid_renishaw",
+   "name": "Renishaw",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "UK LSE-listed precision metrology and position-encoder maker; non-contact magnetic/optical absolute encoders (AksIM, Orbis via RLS JV) supplier candidate for humanoid joint position feedback.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "RSW.L",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "encoder"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_renishaw_pal"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_heidenhain",
+   "name": "HEIDENHAIN",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Private German precision encoder maker (group includes AMO and RENCO); secondary angle/rotary encoders mounted after gear trains for robot-joint position feedback. Supplier candidate.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "encoder"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_heidenhain_robot_encoders"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_broadcom",
+   "name": "Broadcom Inc.",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "US NASDAQ-listed semiconductor maker; absolute magnetic motor-feedback encoders (AS20/AR49/AEAT-99 series) supplier candidate for robot joint and dexterous-hand actuator positioning.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "AVGO",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "encoder"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_broadcom_encoders"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_netzer",
+   "name": "Netzer Precision",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Private Israeli maker of contactless capacitive (Electric Encoder) absolute hollow-shaft encoders; immune to magnetic interference near frameless-motor magnets, used in humanoid/space robot arm joints (e.g. NASA Robonaut 2). Supplier candidate.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "encoder"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_netzer_robotics"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_novanta_ati",
+   "name": "Novanta (ATI Industrial Automation)",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "US NASDAQ-listed precision-technology group; its ATI Industrial Automation division is a long-incumbent maker of multi-axis (six-axis) force/torque sensors for robotic force control, a supplier candidate for humanoid wrist/hand force-torque sensing.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "NOVT",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "force_torque_sensor"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_ati_novanta_ft"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_bota_systems",
+   "name": "Bota Systems",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Private Swiss (Zurich) maker of compact 6-axis force/torque sensors, torque sensors and tactile sensors for humanoid, medical and collaborative robots (MiniONE, PixONE). Supplier candidate for humanoid force-torque / fingertip sensing.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "force_torque_sensor"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_bota_ft"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_sri_sunrise",
+   "name": "Sunrise Instruments (SRI)",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Privately-held six-axis force/torque sensor and multi-axis load-cell maker (HQ Canton, Michigan, US; manufacturing in China) with a dedicated humanoid-robot 6-axis force/torque sensor line (C025XX-C060XX). Supplier candidate.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "force_torque_sensor"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_sri_ft"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_xela_robotics",
+   "name": "XELA Robotics",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Private (Waseda University spin-out, Tokyo) maker of uSkin high-density three-axis tactile skin sensors covering fingertips, phalanges and palm for humanoid and industrial robot hands/grippers. Supplier candidate for humanoid tactile sensing.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "tactile_sensor"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_xela_uskin",
+    "ev_humanoid_xela_tesollo"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_paxini",
+   "name": "PaXini Technology",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Private Chinese maker of multidimensional tactile sensors (PX-6AX series, Hall-effect 6D force/torque) and tactile dexterous hands (DexH13) for humanoid / embodied-AI robots; full-stack tactile + hand + robot supplier candidate.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "tactile_sensor"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_paxini_tactile"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_bosch_sensortec",
+   "name": "Bosch Sensortec",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "MEMS sensor subsidiary of Robert Bosch GmbH (private); high-performance IMUs (BMI088, BMI323, BMI563) explicitly targeted at robotics incl. agile humanoid and social robots. Supplier candidate for humanoid IMU/attitude sensing.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "imu_mems"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_bosch_sensortec_imu"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_hesai",
+   "name": "Hesai Group",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Chinese LiDAR maker, dual-listed Nasdaq (HSAI) / HKEX (2525); JT-series mini 360° 3D robotics LiDAR for mobile/humanoid robots; named only LiDAR firm on Morgan Stanley's Humanoid Tech 25. Supplier candidate for humanoid depth/LiDAR perception.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "HSAI",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "lidar_depth"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_hesai_humanoid_tech25"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_robosense",
+   "name": "RoboSense Technology",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Chinese LiDAR / robotic-vision maker, HKEX-listed (2498.HK); Active Camera (AC1/AC2) fused LiDAR+RGB+IMU vision and dexterous hands for humanoid robots; partnerships with multiple humanoid firms. Supplier candidate for humanoid perception.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "2498.HK",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "lidar_depth"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_robosense_humanoid_order"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_orbbec",
+   "name": "Orbbec",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Chinese 3D-vision camera maker, Shanghai STAR-listed (688322.SS); Gemini-series stereo-vision depth cameras for robotics/embodied AI (HONOR humanoid, Reachy 2; Jetson Thor integration); reported >70% 3D-vision share in China service robots / Korea mobile robots. Supplier candidate.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "688322.SS",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "depth_camera"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_orbbec_honor"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_humanoid_realsense",
+   "name": "RealSense Inc.",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Stereo depth-camera maker spun out of Intel into a standalone private company (2025; ~$50M Series A, NVIDIA collaboration). D4xx depth cameras (e.g. D455 in Agility Digit's neck); reports working with ~60% of AMR and humanoid developers. Supplier candidate for humanoid depth/RGB perception.",
+   "maturityLabel": "unknown",
+   "listingStatus": "private",
+   "confidence": "medium",
+   "tags": [
+    "private_company",
+    "supplier_candidate",
+    "depth_camera"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_realsense_independent"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_humanoid_joint_encoder__manufactured_by__renishaw",
+   "source": "humanoid_joint_encoder_position",
+   "target": "org_humanoid_renishaw",
+   "relation": "manufactured_by",
+   "claim": "Renishaw non-contact magnetic absolute encoders (AksIM, Orbis) are a supplier candidate for humanoid joint position feedback; documented in PAL Robotics REEM-C knee/wrist/elbow joints. Exposure candidate, not a confirmed BOM claim for any specific commercial humanoid OEM.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_renishaw_pal"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_joint_encoder__manufactured_by__heidenhain",
+   "source": "humanoid_joint_encoder_position",
+   "target": "org_humanoid_heidenhain",
+   "relation": "manufactured_by",
+   "claim": "HEIDENHAIN (with AMO) secondary angle/rotary encoders are a supplier candidate for robot-joint position feedback mounted after the gear train. Exposure candidate, not a confirmed humanoid BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_heidenhain_robot_encoders"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_joint_encoder__manufactured_by__broadcom",
+   "source": "humanoid_joint_encoder_position",
+   "target": "org_humanoid_broadcom",
+   "relation": "manufactured_by",
+   "claim": "Broadcom absolute magnetic motor-feedback encoders are a supplier candidate for robot joint / hand-actuator position feedback. Exposure candidate, not a confirmed humanoid BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_broadcom_encoders"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_joint_encoder__manufactured_by__netzer",
+   "source": "humanoid_joint_encoder_position",
+   "target": "org_humanoid_netzer",
+   "relation": "manufactured_by",
+   "claim": "Netzer contactless capacitive absolute hollow-shaft encoders are a supplier candidate for humanoid robot-arm joint feedback (documented in NASA Robonaut 2 humanoid). Exposure candidate, not a confirmed commercial-humanoid BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_netzer_robotics"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_force_torque__manufactured_by__novanta_ati",
+   "source": "humanoid_force_torque_sensing",
+   "target": "org_humanoid_novanta_ati",
+   "relation": "manufactured_by",
+   "claim": "ATI Industrial Automation (a Novanta division) six-axis force/torque sensors are a supplier candidate for humanoid wrist/hand force-torque sensing. Exposure candidate; incumbent in industrial robotic F/T but no confirmed humanoid-OEM BOM claim found this round.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_ati_novanta_ft"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_force_torque__manufactured_by__bota",
+   "source": "humanoid_force_torque_sensing",
+   "target": "org_humanoid_bota_systems",
+   "relation": "manufactured_by",
+   "claim": "Bota Systems compact 6-axis force/torque sensors are a supplier candidate for humanoid force-torque and fingertip sensing; vendor explicitly markets to humanoid robots. Exposure candidate, not a confirmed named-OEM BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_bota_ft"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_force_torque__manufactured_by__sri",
+   "source": "humanoid_force_torque_sensing",
+   "target": "org_humanoid_sri_sunrise",
+   "relation": "manufactured_by",
+   "claim": "Sunrise Instruments (SRI) sells a dedicated humanoid-robot six-axis force/torque sensor line and is a supplier candidate for humanoid force-torque sensing. Exposure candidate, not a confirmed named-OEM BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_sri_ft"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_fingertip_tactile__manufactured_by__xela",
+   "source": "humanoid_fingertip_tactile_array",
+   "target": "org_humanoid_xela_robotics",
+   "relation": "manufactured_by",
+   "claim": "XELA Robotics uSkin three-axis tactile skin sensors are a supplier candidate for humanoid fingertip/phalange/palm tactile arrays; integrated into the Tesollo DG-5F anthropomorphic hand. Exposure candidate, not a confirmed named-humanoid-OEM BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_xela_uskin",
+    "ev_humanoid_xela_tesollo"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_fingertip_tactile__manufactured_by__paxini",
+   "source": "humanoid_fingertip_tactile_array",
+   "target": "org_humanoid_paxini",
+   "relation": "manufactured_by",
+   "claim": "PaXini multidimensional tactile sensors (PX-6AX) and tactile dexterous hands are a supplier candidate for humanoid fingertip/hand tactile sensing. Exposure candidate, not a confirmed third-party-OEM BOM claim (PaXini also builds its own hands/robots).",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_paxini_tactile"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_imu__manufactured_by__bosch_sensortec",
+   "source": "humanoid_imu_attitude_sensing",
+   "target": "org_humanoid_bosch_sensortec",
+   "relation": "manufactured_by",
+   "claim": "Bosch Sensortec MEMS IMUs (BMI088 class) are a supplier candidate for humanoid IMU/attitude sensing; vendor names agile humanoids among robotics targets. Exposure candidate, not a confirmed named-OEM BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_bosch_sensortec_imu"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_depth_lidar__manufactured_by__hesai",
+   "source": "humanoid_depth_camera_lidar",
+   "target": "org_humanoid_hesai",
+   "relation": "manufactured_by",
+   "claim": "Hesai JT-series 3D robotics LiDAR is a supplier candidate for the humanoid depth/LiDAR perception layer; named only LiDAR firm on Morgan Stanley Humanoid Tech 25. Exposure candidate, not a confirmed named-humanoid-OEM BOM claim.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_hesai_humanoid_tech25"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_depth_lidar__manufactured_by__robosense",
+   "source": "humanoid_depth_camera_lidar",
+   "target": "org_humanoid_robosense",
+   "relation": "manufactured_by",
+   "claim": "RoboSense Active Camera (AC1/AC2) fused LiDAR+RGB+IMU vision is a supplier candidate for the humanoid depth/LiDAR perception layer; secured an order from a European humanoid robotics firm. Exposure candidate.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_robosense_humanoid_order"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_depth_lidar__manufactured_by__orbbec",
+   "source": "humanoid_depth_camera_lidar",
+   "target": "org_humanoid_orbbec",
+   "relation": "manufactured_by",
+   "claim": "Orbbec Gemini-series stereo-vision depth cameras are a supplier candidate for the humanoid depth-camera perception layer (featured in HONOR's humanoid). Exposure candidate; reported >70% China service-robot 3D-vision share.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_orbbec_honor"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_stereo_camera__manufactured_by__orbbec",
+   "source": "humanoid_stereo_rgb_camera",
+   "target": "org_humanoid_orbbec",
+   "relation": "manufactured_by",
+   "claim": "Orbbec Gemini stereo-vision 3D cameras are a supplier candidate for the humanoid stereo RGB camera module (HONOR humanoid; Reachy 2). Exposure candidate.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_orbbec_honor"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_depth_lidar__manufactured_by__realsense",
+   "source": "humanoid_depth_camera_lidar",
+   "target": "org_humanoid_realsense",
+   "relation": "manufactured_by",
+   "claim": "RealSense stereo depth cameras (D4xx; D455 in Agility Digit) are a supplier candidate for the humanoid depth-camera perception layer; RealSense reports working with ~60% of AMR and humanoid developers. Exposure candidate.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_realsense_independent"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_humanoid_renishaw_pal",
+   "type": "vendor_claim",
+   "title": "PAL Robotics integrates magnetic encoder technology into robots to achieve balance — Renishaw",
+   "url": "https://www.renishaw.com/en/pal-robotics-integrates-magnetic-encoder-technology-into-robots-to-achieve-balance--43036",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Renishaw",
+   "date": "2026-06-15",
+   "excerpt": "rotary encoders such as AksIM™ and Orbis™ which are integrated into knee, wrist and elbow joints ... High-quality encoder feedback is required for the servo-control of each joint in terms of applied torque, velocity and position.",
+   "summary": "Renishaw/RLS magnetic absolute encoders (AksIM, Orbis) integrated into the knee, wrist and elbow joints of PAL Robotics' REEM-C humanoid for joint servo control. Vendor case study; supports Renishaw joint-encoder exposure.",
+   "supportsNodeIds": [
+    "humanoid_joint_encoder_position",
+    "org_humanoid_renishaw"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_joint_encoder__manufactured_by__renishaw"
+   ],
+   "limitations": "Vendor case study on PAL REEM-C (a research humanoid), not independent market-share evidence and not a commercial-OEM BOM claim.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_heidenhain_robot_encoders",
+   "type": "vendor_claim",
+   "title": "Industrial robots: Encoders for tool center point accuracy — HEIDENHAIN",
+   "url": "https://www.heidenhain.us/resources-and-news/industrial-robots-encoders-tool-accuracy/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "HEIDENHAIN",
+   "date": "2026-06-15",
+   "excerpt": "high-accuracy angle encoders or rotary encoders at every robot axis. These so-called secondary encoders, which are mounted after each gear train, capture the actual position of every robot joint. ... All of this results in a 70 to 80 percent improvement of the absolute position accuracy at the tool center point.",
+   "summary": "HEIDENHAIN (and group brand AMO) secondary angle/rotary encoders (ECA 4000, ECI 4000, AMO WMR) mounted after each gear train capture true joint position, improving TCP accuracy 70-80%. Vendor technical article; supports Heidenhain joint-encoder exposure.",
+   "supportsNodeIds": [
+    "humanoid_joint_encoder_position",
+    "org_humanoid_heidenhain"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_joint_encoder__manufactured_by__heidenhain"
+   ],
+   "limitations": "Vendor article framed for industrial robots/cobots (transferable to humanoid joints); not independent market-share data.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_broadcom_encoders",
+   "type": "vendor_claim",
+   "title": "Broadcom Encoders — EBV Elektronik / Avnet (Broadcom product highlight)",
+   "url": "https://my.avnet.com/ebv/products/product-highlights/broadcom-encoders/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "EBV Elektronik (Avnet) / Broadcom",
+   "date": "2026-06-15",
+   "excerpt": "AS20-M42M ... an absolute magnetic encoder comprising a default 18-bit single-turn (ST) and 24-bit multi-turn (MT) counts ... In the mobile robotics world, robotic hands are capable of performing amazing functions mimicking human hands ... Low-profile encoders and small-sized encoders are required to provide accurate positioning feedback.",
+   "summary": "Broadcom absolute magnetic encoders (AS20-M42M, AR49-M49M, AEAT-9988M) for motor feedback, with stated mobile-robotics/robotic-hand positioning use case. Distributor/vendor page; supports Broadcom joint/hand encoder exposure.",
+   "supportsNodeIds": [
+    "humanoid_joint_encoder_position",
+    "org_humanoid_broadcom"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_joint_encoder__manufactured_by__broadcom"
+   ],
+   "limitations": "Distributor product-highlight page (vendor-class); names products + robotics use but no humanoid-OEM design win or market share.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_netzer_robotics",
+   "type": "vendor_claim",
+   "title": "Netzer Precision — Electric Encoders for Robotics (markets/robotics)",
+   "url": "https://netzerprecision.com/markets/robotics/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Netzer Precision",
+   "date": "2026-06-15",
+   "excerpt": "From sophisticated automation to cutting-edge robotics, our products are meticulously designed to meet the highest demands of diverse industries. ... DS | Encapsulated | Hollow Shaft ... VLX | Robotics & Industry | Hollow Shaft",
+   "summary": "Netzer contactless capacitive (Electric Encoder) absolute hollow-shaft encoders (DS, VLX) positioned for robotics; immunity to magnetic interference suits placement near frameless-motor magnets in robot arm joints. Vendor page; supports Netzer joint-encoder exposure.",
+   "supportsNodeIds": [
+    "humanoid_joint_encoder_position",
+    "org_humanoid_netzer"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_joint_encoder__manufactured_by__netzer"
+   ],
+   "limitations": "Vendor marketing page; the NASA Robonaut 2 humanoid case study (separate Netzer page) could not be fetched (body empty) this round. No market-share data.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_ati_novanta_ft",
+   "type": "vendor_claim",
+   "title": "Robotic Force Control Solutions Made Easier — ATI Industrial Automation (a Novanta company)",
+   "url": "https://ati.novanta.com/robotic-force-control-solutions-made-easier/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "ATI Industrial Automation / Novanta",
+   "date": "2026-06-15",
+   "excerpt": "a Novanta company ... ATI Industrial Automation's Six-Axis Force/Torque Sensors and ArtiMinds RPS robot programming software make robotic force control easy to program",
+   "summary": "ATI Industrial Automation, identified as 'a Novanta company', makes six-axis force/torque sensors for robotic force control. Vendor page; supports Novanta/ATI force-torque exposure and the ATI->NOVT parent link.",
+   "supportsNodeIds": [
+    "humanoid_force_torque_sensing",
+    "org_humanoid_novanta_ati"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_force_torque__manufactured_by__novanta_ati"
+   ],
+   "limitations": "Vendor page; confirms product class + Novanta ownership but not humanoid market share or a specific humanoid-OEM design win.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_bota_ft",
+   "type": "vendor_claim",
+   "title": "6-Axis Force Torque Sensors for Robotics — Bota Systems",
+   "url": "https://botasys.com/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Bota Systems",
+   "date": "2026-06-15",
+   "excerpt": "Bota Systems designs and manufactures force torque sensors in Switzerland, delivering reliable, high-precision force data for real robotic applications. ... High-precision, compact 6-axis force torque sensors, torque sensors, tactile sensors and software that enable robots to feel, learn, and interact with the physical world.",
+   "summary": "Bota Systems (Zurich, Switzerland) designs/manufactures compact 6-axis force/torque + torque + tactile sensors for robots incl. humanoid/medical/collaborative robots (MiniONE, PixONE). Vendor page; supports Bota force-torque exposure.",
+   "supportsNodeIds": [
+    "humanoid_force_torque_sensing",
+    "org_humanoid_bota_systems"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_force_torque__manufactured_by__bota"
+   ],
+   "limitations": "Vendor page; humanoid named among target robot types but no specific OEM design win or market share.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_sri_ft",
+   "type": "vendor_claim",
+   "title": "6 Axis Force Torque Sensor For Robot — SRI / Sunrise Instruments",
+   "url": "https://www.srisensor.com/6-axis-force-torque-sensor-for-robot/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Sunrise Instruments (SRI)",
+   "date": "2026-06-15",
+   "excerpt": "C025XX - C060XX Humanoid Robot 6 Axis ForceTorque Sensor ... Address:8534 N Canton Center Rd, Canton, MI, USA 48187",
+   "summary": "SRI / Sunrise Instruments lists a dedicated 'Humanoid Robot 6 Axis Force/Torque Sensor' product line (C025XX-C060XX); HQ Canton, Michigan, US. Vendor page; supports SRI humanoid force-torque exposure.",
+   "supportsNodeIds": [
+    "humanoid_force_torque_sensing",
+    "org_humanoid_sri_sunrise"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_force_torque__manufactured_by__sri"
+   ],
+   "limitations": "Vendor catalog page; product line named for humanoids but no independent share/volume data.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_xela_uskin",
+   "type": "vendor_claim",
+   "title": "XELA Robotics Unlocks Enhanced Automation for Humanoid and Industrial Robots — XELA Robotics",
+   "url": "https://xelarobotics.com/press-release/xela-robotics-unlocks-enhanced-automation-for-humanoid-and-industrial-robots/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "XELA Robotics",
+   "date": "2026-06-15",
+   "excerpt": "Unlike most robotic hands on the market, which only have sensors in the fingertips, XELA Robotics can integrate its sensors in a significantly larger surface area, fingertips, phalanges and the palm, making it much closer to the real thing. ... the fast-growing market for humanoid and industrial robot hands and grippers",
+   "summary": "XELA Robotics uSkin tactile sensors cover fingertips, phalanges and palm for humanoid/industrial robot hands. Vendor press release; supports XELA tactile-skin exposure.",
+   "supportsNodeIds": [
+    "humanoid_fingertip_tactile_array",
+    "org_humanoid_xela_robotics"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_fingertip_tactile__manufactured_by__xela"
+   ],
+   "limitations": "Vendor press release; humanoid market targeted, integration partners named, but no specific commercial-humanoid-OEM design win or share figure.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_xela_tesollo",
+   "type": "news",
+   "title": "XELA Robotics adds uSkin tactile sensors to Tesollo DG-5F robot hand — Robotics & Automation News",
+   "url": "https://roboticsandautomationnews.com/2025/12/04/xela-robotics-adds-high-precision-tactile-sensing-to-tesollo-robot-hand/97352/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Robotics & Automation News",
+   "date": "2026-06-15",
+   "excerpt": "successfully integrated its uSkin sensors into a Tesollo DG-5F five-fingered anthropomorphic robot hand ... The company's proprietary high-density three-axis tactile sensors address the fast-growing market for humanoid and industrial robot hands and grippers ... Commercial orders will be accepted beginning in the late first quarter of 2026.",
+   "summary": "Trade-press report: XELA uSkin three-axis tactile sensors integrated into the Tesollo DG-5F five-finger anthropomorphic hand; commercial orders from late Q1 2026. Independent source; supports XELA tactile-skin exposure.",
+   "supportsNodeIds": [
+    "humanoid_fingertip_tactile_array",
+    "org_humanoid_xela_robotics"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_fingertip_tactile__manufactured_by__xela"
+   ],
+   "limitations": "Trade press relaying a vendor announcement; design win is with a hand maker (Tesollo), not a named end-humanoid OEM.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_paxini_tactile",
+   "type": "vendor_claim",
+   "title": "PaXini Unveils the 'Tactile Infrastructure' for Embodied AI ... at CES 2026 — PR Newswire",
+   "url": "https://www.prnewswire.com/news-releases/paxini-unveils-the-tactile-infrastructure-for-embodied-ai-redefining-full-stack-product-matrix-at-ces-2026-302655238.html",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "PaXini Technology (PR Newswire)",
+   "date": "2026-06-15",
+   "excerpt": "The PX-6AX-GEN3 multidimensional tactile sensor is pivotal for hand perception. It spans three product series and 12 models ... and simultaneously measures 15 sensing dimensions, including six-axis force. ... The DexH13 multidimensional tactile dexterous hand ... 1,140 ITPU multidimensional tactile processing units",
+   "summary": "PaXini (Chinese robotics company) makes multidimensional tactile sensors (PX-6AX) and tactile dexterous hands (DexH13) for humanoid/embodied-AI robots. Vendor press release; supports PaXini tactile-skin exposure.",
+   "supportsNodeIds": [
+    "humanoid_fingertip_tactile_array",
+    "org_humanoid_paxini"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_fingertip_tactile__manufactured_by__paxini"
+   ],
+   "limitations": "Vendor PR; PaXini is partly captive (builds its own hands + robots) so merchant-supply scope to third-party OEMs is unquantified; no share data.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_bosch_sensortec_imu",
+   "type": "vendor_claim",
+   "title": "Inertial Measurement Unit BMI088 — Bosch Sensortec",
+   "url": "https://www.bosch-sensortec.com/en/products/motion-sensors/imus/bmi088",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Bosch Sensortec",
+   "date": "2026-06-15",
+   "excerpt": "The BMI088 is the ideal IMU solution for drone and robotics applications. ... From agile humanoids and social robots to autonomous mobile platforms and robust industrial arms – our MEMS sensors are at the heart of every intelligent movement and interaction.",
+   "summary": "Bosch Sensortec BMI088 IMU is positioned for drone/robotics, and Bosch Sensortec MEMS sensors are marketed for agile humanoids and social robots. Vendor page; supports Bosch Sensortec IMU exposure.",
+   "supportsNodeIds": [
+    "humanoid_imu_attitude_sensing",
+    "org_humanoid_bosch_sensortec"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_imu__manufactured_by__bosch_sensortec"
+   ],
+   "limitations": "Vendor product page; humanoid named as target application but no specific humanoid-OEM design win or share figure.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_hesai_humanoid_tech25",
+   "type": "vendor_claim",
+   "title": "Hesai Recognized as the Only Lidar Company on Morgan Stanley's 'Humanoid Tech 25' — Hesai (PR Newswire)",
+   "url": "https://www.prnewswire.com/news-releases/hesai-recognized-as-the-only-lidar-company-on-morgan-stanleys-humanoid-tech-25-of-global-robotics-leaders-302642179.html",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Hesai Group (PR Newswire)",
+   "date": "2026-06-15",
+   "excerpt": "Hesai is the only lidar company included on the shortlist ... The JT series is trusted by leading players across robotics, industrial, logistics, and autonomous driving systems ... surpassing 200,000 cumulative deliveries since launch.",
+   "summary": "Hesai named only LiDAR company on Morgan Stanley's Humanoid Tech 25; JT-series 3D robotics LiDAR has 200k+ cumulative deliveries. Vendor PR citing third-party (Morgan Stanley) recognition; supports Hesai humanoid depth/LiDAR exposure.",
+   "supportsNodeIds": [
+    "humanoid_depth_camera_lidar",
+    "org_humanoid_hesai"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_depth_lidar__manufactured_by__hesai"
+   ],
+   "limitations": "Vendor PR; Morgan Stanley list is influence not market share; JT deliveries span all robotics not humanoid-only. Dev set already covers Hesai robotics-LiDAR concentration (SCMP).",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_robosense_humanoid_order",
+   "type": "news",
+   "title": "RoboSense's Active Camera Series Secures Order from Leading Humanoid Robotics Firm — Gasgoo",
+   "url": "https://autonews.gasgoo.com/articles/icv/robosenses-active-camera-series-secures-order-from-leading-humanoid-robotics-firm-2043940954359115776",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Gasgoo Auto News",
+   "date": "2026-06-15",
+   "excerpt": "RoboSense secured an order from a leading European humanoid robotics firm for its Active Camera (AC) series.",
+   "summary": "Trade press: RoboSense Active Camera (AC) series secured an order from a leading European humanoid robotics firm. Independent source; supports RoboSense humanoid perception exposure.",
+   "supportsNodeIds": [
+    "humanoid_depth_camera_lidar",
+    "org_humanoid_robosense"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_depth_lidar__manufactured_by__robosense"
+   ],
+   "limitations": "Customer unnamed ('leading European humanoid robotics firm'); single order, not a share figure. Dev set covers RoboSense robotics-LiDAR position.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_orbbec_honor",
+   "type": "vendor_claim",
+   "title": "HONOR Debuts Its First Humanoid Robot Featuring Orbbec's Stereo Vision 3D Camera — Orbbec",
+   "url": "https://www.orbbec.com/news/honor-debuts-its-first-humanoid-robot-featuring-orbbecs-stereo-vision-3d-camera/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Orbbec",
+   "date": "2026-06-15",
+   "excerpt": "Equipped with an Orbbec Gemini 330 Series stereo vision 3D camera, the robot made its debut with a live dance performance ... The company holds over 70% market share in 3D vision for service robots in China and mobile robots in South Korea",
+   "summary": "Orbbec Gemini 330 stereo-vision 3D camera featured in HONOR's first humanoid robot; Orbbec claims >70% 3D-vision share in China service robots and Korea mobile robots. Vendor page; supports Orbbec humanoid depth/stereo exposure.",
+   "supportsNodeIds": [
+    "humanoid_depth_camera_lidar",
+    "humanoid_stereo_rgb_camera",
+    "org_humanoid_orbbec"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_depth_lidar__manufactured_by__orbbec",
+    "e_humanoid_stereo_camera__manufactured_by__orbbec"
+   ],
+   "limitations": "Vendor self-reported share; scope is service/mobile robots (not humanoid-specific) and excludes ex-China markets. Verify the >70% against an independent house in corners pass before any flip.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_realsense_independent",
+   "type": "news",
+   "title": "After Intel exit, RealSense maps its own future in 3D vision — The Robot Report",
+   "url": "https://www.therobotreport.com/after-intel-exit-realsense-maps-its-own-future-in-3d-vision/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "The Robot Report",
+   "date": "2026-06-15",
+   "excerpt": "RealSense, known for its 3D depth cameras for robotics, is officially operating as an independent company. ... The company claimed that it's already working with 60% of AMR and humanoid developers, including companies such as Geek+ and Agility Robotics.",
+   "summary": "RealSense (spun out of Intel) now an independent company; claims it works with 60% of AMR and humanoid developers (Geek+, Agility Robotics). Independent trade press; supports RealSense humanoid depth-camera exposure.",
+   "supportsNodeIds": [
+    "humanoid_depth_camera_lidar",
+    "org_humanoid_realsense"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_depth_lidar__manufactured_by__realsense"
+   ],
+   "limitations": "'60% of AMR and humanoid developers' is a vendor claim relayed by trade press and is developer-relationship breadth, NOT unit share; the separate '80% of humanoid robots' figure seen in search snippets could not be fetched this round and is NOT asserted.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": [
+  {
+   "title": "Joint-encoder corner",
+   "reason": "Joint-encoder corner: high-end absolute encoder supply for robot joints is concentrated among a few precision specialists (Renishaw, HEIDENHAIN/AMO, Broadcom, Netzer) plus Sankyo/Nidec-Tamagawa, Sick, Posital — no quantified single-source claim found this round; flag as concentrated-not-monopoly. Verify in upstream/corners pass.",
+   "priority": "medium"
+  },
+  {
+   "title": "Cross-domain org folds for orchestrator",
+   "reason": "Cross-domain org folds for orchestrator: org_humanoid_renishaw=org_renishaw(RSW.L); org_humanoid_heidenhain=org_heidenhain(private); org_humanoid_broadcom=org_broadcom(AVGO). RLS = Renishaw/RLS JV (Orbis/AksIM brands) -> keep under Renishaw, do not create separate node.",
+   "priority": "medium"
+  },
+  {
+   "title": "Heidenhain humanoid robotics page (heidenhain.com/industries/robotics)",
+   "reason": "Heidenhain humanoid robotics page (heidenhain.com/industries/robotics) returned HTTP 403 this round; retry from a different network or use heidenhain.us article (used here). KCI 120 dual-feedback claim seen in search snippet but NOT in fetched body -> not asserted.",
+   "priority": "medium"
+  },
+  {
+   "title": "F/T sensor breadth overflow (>5 cap)",
+   "reason": "F/T sensor breadth overflow (>5 cap): Hypersen (海伯森, Shenzhen) explicitly markets six-axis F/T 'for humanoid robots' (en.hypersen.com/application/six-axis-force-torque-sensors...); also Kunwei/Coined/宇立(SRI cn), Nordbo, OnRobot/HEX, Robotous (Korea). Add in breadth pass if room. SRI corrected: US HQ (Canton MI), not China-only.",
+   "priority": "medium"
+  },
+  {
+   "title": "F/T sensor structure",
+   "reason": "F/T sensor structure: incumbent ATI (Novanta NOVT) historically dominant in industrial six-axis F/T; humanoid wave is drawing in Bota (CH) + many Chinese entrants. No quantified share found this round -> qualitative 'incumbent + fragmenting'. Quantify in corners/upstream pass.",
+   "priority": "medium"
+  },
+  {
+   "title": "Tactile-skin breadth overflow (>5 cap)",
+   "reason": "Tactile-skin breadth overflow (>5 cap): Contactile (PapillArray/Force Button, AU), Wonik Robotics (KR), Tashan/塔尚, Tacterion (DE), Tekscan, Pressure Profile Systems, SingleTact, plus Chinese e-skin (Huaweike ~200 humanoids 2024->~1000 Q1'25 per Mordor). Add in breadth pass.",
+   "priority": "medium"
+  },
+  {
+   "title": "CAPTIVE HONESTY",
+   "reason": "CAPTIVE HONESTY: tactile is often vertically integrated by hand/robot makers (PaXini builds hands+robots; Tesla, Sanctuary, etc. develop in-house tactile). Merchant tactile-skin supply to third-party humanoid OEMs is an emerging, not yet share-quantified, market.",
+   "priority": "medium"
+  },
+  {
+   "title": "IMU component coverage",
+   "reason": "IMU component coverage: TDK/InvenSense edge (humanoid_imu_attitude_sensing->org_humanoid_tdk, TDK 6762.T) ALREADY exists in repo data/edges/humanoid_robotics_edges.json (e_humanoid_imu__manufactured_by__tdk) -> NOT duplicated here. This round adds Bosch Sensortec. With STMicro task below, IMU tier = TDK + Bosch + STMicro.",
+   "priority": "medium"
+  },
+  {
+   "title": "STMicro IMU DEFERRED",
+   "reason": "STMicro IMU DEFERRED: org_humanoid_stmicroelectronics (STM) already exists. Verified search snippet shows ISM330DLC iNEMO 6-axis industrial IMU listing 'robots, drones' as applications, but st.com/ism330dlc + embedded.com + eejournal + electronicsmaker mirrors ALL blocked (socket-closed/timeout/403/ECONNREFUSED) this round -> no fetchable verbatim. Breadth pass: add edge humanoid_imu_attitude_sensing->org_humanoid_stmicroelectronics with a fetched ST IMU quote (try mouser.com/digikey ISM330DLC product page, which usually renders).",
+   "priority": "medium"
+  },
+  {
+   "title": "IMU/MEMS upstream/corners note",
+   "reason": "IMU/MEMS upstream/corners note: high-end MEMS IMU merchant market concentrated in Bosch Sensortec, TDK/InvenSense, STMicro (plus Analog Devices/ADI for tactical-grade, Murata). For dynamic humanoid balance, higher-grade (lower-bias) IMUs matter -> consider ADI ADIS line in breadth pass.",
+   "priority": "medium"
+  },
+  {
+   "title": "CAPTIVE HONESTY (Tesla camera-only)",
+   "reason": "CAPTIVE HONESTY (Tesla camera-only): Tesla Optimus uses Tesla's in-house camera-only vision (the AI4/FSD vision stack), no LiDAR and no merchant depth-camera/LiDAR for primary perception -> the depth/LiDAR exposure above does NOT apply to Tesla. Add a captive note on humanoid_perception_sensing_stack or humanoid_depth_camera_lidar. (Dev-set Register quote: Optimus shares the AI4 with the car.)",
+   "priority": "medium"
+  },
+  {
+   "title": "Camera/depth/LiDAR CORNER candidate",
+   "reason": "Camera/depth/LiDAR CORNER candidate: Orbbec self-claims >70% 3D-vision share (China service / Korea mobile robots); RealSense claims ~60% of AMR+humanoid developers; Hesai+RoboSense duopolize robotics LiDAR (dev set). Corners pass: get an independent (Yole/analyst) figure for image-sensor + depth-camera + robotics-LiDAR share before any 'only/>X%' flip. Upstream pass: the CMOS image sensors inside all these cameras -> Sony Semiconductor (IMX), onsemi, OmniVision/Will Semi 603501.SS, Samsung LSI -> likely a deeper merchant chokepoint than the module assemblers.",
+   "priority": "medium"
+  },
+  {
+   "title": "Camera/depth breadth overflow (>5 cap at depth leaf)",
+   "reason": "Camera/depth breadth overflow (>5 cap at depth leaf): Luxonis (OAK), Stereolabs (ZED), Framos, e-con Systems, Leopard Imaging for stereo/depth modules; Livox (DJI), Ouster for additional robotics LiDAR. Add in breadth pass.",
+   "priority": "medium"
+  },
+  {
+   "title": "Ticker provenance (verified this round)",
+   "reason": "Ticker provenance (verified this round): Hesai HSAI (Nasdaq) + 2525.HK; RoboSense 2498.HK; Orbbec 688322.SS (Shanghai STAR, self-stated 'SHA: 688322'); RealSense private (ex-Intel spinout). Hesai/RoboSense tickers also match the dev-set LiDAR episode.",
+   "priority": "medium"
+  },
+  {
+   "title": "org-fold note: org_humanoid_renishaw",
+   "reason": "Cross-domain org: also org_renishaw (parcel_sorting_robot). Orchestrator: fold to single node.",
+   "priority": "low"
+  },
+  {
+   "title": "org-fold note: org_humanoid_heidenhain",
+   "reason": "Cross-domain org: also org_heidenhain (parcel_sorting_robot). Orchestrator: fold.",
+   "priority": "low"
+  },
+  {
+   "title": "org-fold note: org_humanoid_broadcom",
+   "reason": "Cross-domain org: also org_broadcom (ai_compute_chain). Orchestrator: fold.",
+   "priority": "low"
+  },
+  {
+   "title": "org-fold note: org_humanoid_novanta_ati",
+   "reason": "ATI Industrial Automation is a division of Novanta Inc (NOVT). One node for the public parent.",
+   "priority": "low"
+  },
+  {
+   "title": "org-fold note: org_humanoid_bosch_sensortec",
+   "reason": "Bosch Sensortec is a subsidiary of privately-held Robert Bosch GmbH; if a parent org_bosch node exists elsewhere, orchestrator may fold.",
+   "priority": "low"
+  },
+  {
+   "title": "org-fold note: org_humanoid_hesai",
+   "reason": "Dual-listed: HSAI (Nasdaq, primary used) + 2525.HK. One node.",
+   "priority": "low"
+  },
+  {
+   "title": "org-fold note: org_humanoid_realsense",
+   "reason": "Formerly Intel RealSense; now standalone RealSense Inc (Intel Capital portfolio). If org_intel exists cross-domain, do NOT fold — this is a separate spun-out company.",
+   "priority": "low"
+  }
+ ]
+}

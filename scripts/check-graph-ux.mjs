@@ -169,6 +169,10 @@ requireMatch(
     !/targetAnchor:\s*displayMode === "detail"/.test(graphExplorer),
 );
 requireMatch(
+  "GraphExplorer must not pass hidden cross edges to React Flow in label/overview mode, because empty edge groups are focusable but have no readable path.",
+  /if \(edgeKind === "cross" && displayMode !== "detail"\) continue;/.test(graphExplorer),
+);
+requireMatch(
   "RadialEdge must honor explicit card-edge ports in band 2 label mode, not only in band 3 detail mode.",
   /const hasExplicitAnchors = band >= 2/.test(radialEdge) &&
     !/const hasDetailAnchors = band === 3/.test(radialEdge),

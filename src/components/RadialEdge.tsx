@@ -42,6 +42,12 @@ export type RadialEdgeProps = {
   /** Optional card-edge target port in canvas coordinates. */
   targetAnchorX?: number;
   targetAnchorY?: number;
+  /** Optional rendered source node centre in canvas coordinates. */
+  sourceCenterX?: number;
+  sourceCenterY?: number;
+  /** Optional rendered target node centre in canvas coordinates. */
+  targetCenterX?: number;
+  targetCenterY?: number;
   /** Radius used to trim the path away from the source node centre. */
   sourceRadius?: number;
   /** Radius used to trim the path away from the target node centre. */
@@ -87,6 +93,11 @@ const ARROW_LENGTH_TO_STROKE = 3.2;
 const ARROW_HEIGHT_TO_STROKE = 2.6;
 const DETAIL_CARD_BOX = { width: 136, height: 72 } as const;
 const DETAIL_EDGE_GAP = 7;
+const LABEL_EDGE_GAP = 3;
+const LABEL_MAX_MARKER_RADIUS = 18;
+const DETAIL_CURVE_RATIO = 0.34;
+const DETAIL_CURVE_MIN = 24;
+const DETAIL_CURVE_MAX = 120;
 
 function svgNumber(value: number): string {
   if (Math.abs(value) < 1e-9) return "0";
@@ -340,11 +351,83 @@ function outwardUnit(
   return { x: 0, y: dy >= 0 ? 1 : -1 };
 }
 
+function normalizedVector(
+  vx: number,
+  vy: number,
+  fallbackX: number,
+  fallbackY: number,
+): { x: number; y: number } {
+  const length = Math.hypot(vx, vy);
+  if (length > 1e-9) return { x: vx / length, y: vy / length };
+  const fallbackLength = Math.hypot(fallbackX, fallbackY);
+  if (fallbackLength > 1e-9) return { x: fallbackX / fallbackLength, y: fallbackY / fallbackLength };
+  return { x: 1, y: 0 };
+}
+
+function markerPortFromAnchor({
+  anchorX,
+  anchorY,
+  centerX,
+  centerY,
+  radius,
+  fallbackX,
+  fallbackY,
+}: {
+  anchorX: number;
+  anchorY: number;
+  centerX: number;
+  centerY: number;
+  radius: number;
+  fallbackX: number;
+  fallbackY: number;
+}): { x: number; y: number; normalX: number; normalY: number } {
+  const normal = normalizedVector(
+    anchorX - centerX,
+    anchorY - centerY,
+    fallbackX,
+    fallbackY,
+  );
+  return {
+    x: centerX + normal.x * radius,
+    y: centerY + normal.y * radius,
+    normalX: normal.x,
+    normalY: normal.y,
+  };
+}
+
+function arrowTailForTip(
+  sourceX: number,
+  sourceY: number,
+  targetTipX: number,
+  targetTipY: number,
+  arrowLength: number,
+): { x: number; y: number } {
+  const tangent = normalizedVector(targetTipX - sourceX, targetTipY - sourceY, 1, 0);
+  return {
+    x: targetTipX - tangent.x * arrowLength,
+    y: targetTipY - tangent.y * arrowLength,
+  };
+}
+
+function detailPortLinePath({
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+}: {
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
+}): string {
+  return `M ${sourceX} ${sourceY} L ${targetX} ${targetY}`;
+}
+
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
-function detailPortCurvePath({
+function controlledPortCurvePath({
   sourceX,
   sourceY,
   targetX,
@@ -353,6 +436,9 @@ function detailPortCurvePath({
   sourceNormalY,
   targetNormalX,
   targetNormalY,
+  ratio,
+  minControl,
+  maxControl,
 }: {
   sourceX: number;
   sourceY: number;
@@ -362,15 +448,100 @@ function detailPortCurvePath({
   sourceNormalY: number;
   targetNormalX: number;
   targetNormalY: number;
+  ratio: number;
+  minControl: number;
+  maxControl: number;
 }): string {
-  const distance = Math.hypot(targetX - sourceX, targetY - sourceY);
-  const controlDistance = clamp(distance * 0.34, 44, 150);
+  const length = Math.hypot(targetX - sourceX, targetY - sourceY);
+  if (length < 24) return detailPortLinePath({ sourceX, sourceY, targetX, targetY });
+  const safeMax = Math.min(maxControl, length * 0.42);
+  const safeMin = Math.min(minControl, safeMax);
+  const controlDistance = clamp(length * ratio, safeMin, safeMax);
   return [
     `M ${sourceX} ${sourceY}`,
     `C ${sourceX + sourceNormalX * controlDistance} ${sourceY + sourceNormalY * controlDistance}`,
     `${targetX + targetNormalX * controlDistance} ${targetY + targetNormalY * controlDistance}`,
     `${targetX} ${targetY}`,
   ].join(" ");
+}
+
+function softChordCurvePath({
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+}: {
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
+}): string {
+  const length = Math.hypot(targetX - sourceX, targetY - sourceY);
+  if (length < 24) return detailPortLinePath({ sourceX, sourceY, targetX, targetY });
+  const axis = normalizedVector(targetX - sourceX, targetY - sourceY, 1, 0);
+  const normal = { x: -axis.y, y: axis.x };
+  const midpoint = { x: (sourceX + targetX) / 2, y: (sourceY + targetY) / 2 };
+  const outward = normalizedVector(midpoint.x, midpoint.y, normal.x, normal.y);
+  const sign = normal.x * outward.x + normal.y * outward.y >= 0 ? 1 : -1;
+  const bow = clamp(length * 0.06, 8, 28);
+  const c1 = {
+    x: sourceX + axis.x * length * 0.34 + normal.x * sign * bow,
+    y: sourceY + axis.y * length * 0.34 + normal.y * sign * bow,
+  };
+  const c2 = {
+    x: sourceX + axis.x * length * 0.68 + normal.x * sign * bow,
+    y: sourceY + axis.y * length * 0.68 + normal.y * sign * bow,
+  };
+  return [
+    `M ${sourceX} ${sourceY}`,
+    `C ${c1.x} ${c1.y}`,
+    `${c2.x} ${c2.y}`,
+    `${targetX} ${targetY}`,
+  ].join(" ");
+}
+
+function lowCurvaturePortPath({
+  sourceX,
+  sourceY,
+  targetX,
+  targetY,
+  sourceNormalX,
+  sourceNormalY,
+  targetNormalX,
+  targetNormalY,
+  band,
+}: {
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
+  sourceNormalX: number;
+  sourceNormalY: number;
+  targetNormalX: number;
+  targetNormalY: number;
+  band: 2 | 3;
+}): string {
+  if (band === 2) {
+    return softChordCurvePath({
+      sourceX,
+      sourceY,
+      targetX,
+      targetY,
+    });
+  }
+  return controlledPortCurvePath({
+    sourceX,
+    sourceY,
+    targetX,
+    targetY,
+    sourceNormalX,
+    sourceNormalY,
+    targetNormalX,
+    targetNormalY,
+    ratio: DETAIL_CURVE_RATIO,
+    minControl: DETAIL_CURVE_MIN,
+    maxControl: DETAIL_CURVE_MAX,
+  });
 }
 
 export function RadialEdge({
@@ -388,11 +559,14 @@ export function RadialEdge({
   sourceAnchorY,
   targetAnchorX,
   targetAnchorY,
+  sourceCenterX,
+  sourceCenterY,
+  targetCenterX,
+  targetCenterY,
   sourceRadius = 0,
   targetRadius = 0,
   stroke = DEFAULT_STROKE,
   strokeWidth = DEFAULT_WIDTH,
-  rootNodeId,
   dim = false,
   highlighted = false,
   emphasis = "normal",
@@ -437,17 +611,88 @@ export function RadialEdge({
     targetAnchorY !== undefined;
   const anchored = hasExplicitAnchors
     ? (() => {
-      const sourceNormal = outwardUnit(sourceAnchorX, sourceAnchorY, sourceX, sourceY);
-      const targetNormal = outwardUnit(targetAnchorX, targetAnchorY, targetX, targetY);
+      if (band === 2) {
+        const sourceCenterForMarkerX = sourceCenterX ?? sourceX;
+        const sourceCenterForMarkerY = sourceCenterY ?? sourceY;
+        const targetCenterForMarkerX = targetCenterX ?? targetX;
+        const targetCenterForMarkerY = targetCenterY ?? targetY;
+        const sourceRadiusForMarker = Math.min(
+          sourceRadius > 0 ? sourceRadius : LABEL_MAX_MARKER_RADIUS,
+          LABEL_MAX_MARKER_RADIUS,
+        );
+        const targetRadiusForMarker = Math.min(
+          targetRadius > 0 ? targetRadius : LABEL_MAX_MARKER_RADIUS,
+          LABEL_MAX_MARKER_RADIUS,
+        );
+        const sourcePort = markerPortFromAnchor({
+          anchorX: sourceAnchorX,
+          anchorY: sourceAnchorY,
+          centerX: sourceCenterForMarkerX,
+          centerY: sourceCenterForMarkerY,
+          radius: sourceRadiusForMarker,
+          fallbackX: targetCenterForMarkerX - sourceCenterForMarkerX,
+          fallbackY: targetCenterForMarkerY - sourceCenterForMarkerY,
+        });
+        const targetPort = markerPortFromAnchor({
+          anchorX: targetAnchorX,
+          anchorY: targetAnchorY,
+          centerX: targetCenterForMarkerX,
+          centerY: targetCenterForMarkerY,
+          radius: targetRadiusForMarker,
+          fallbackX: sourceCenterForMarkerX - targetCenterForMarkerX,
+          fallbackY: sourceCenterForMarkerY - targetCenterForMarkerY,
+        });
+        const visibleSourceX = sourcePort.x + sourcePort.normalX * LABEL_EDGE_GAP;
+        const visibleSourceY = sourcePort.y + sourcePort.normalY * LABEL_EDGE_GAP;
+        const visibleTargetTipX = targetPort.x + targetPort.normalX * LABEL_EDGE_GAP;
+        const visibleTargetTipY = targetPort.y + targetPort.normalY * LABEL_EDGE_GAP;
+        const targetTail = arrowTailForTip(
+          visibleSourceX,
+          visibleSourceY,
+          visibleTargetTipX,
+          visibleTargetTipY,
+          arrowLength,
+        );
+        return {
+          sourceX: visibleSourceX,
+          sourceY: visibleSourceY,
+          targetX: targetTail.x,
+          targetY: targetTail.y,
+          sourceNormalX: sourcePort.normalX,
+          sourceNormalY: sourcePort.normalY,
+          targetNormalX: targetPort.normalX,
+          targetNormalY: targetPort.normalY,
+        };
+      }
+
+      const sourceNormal = outwardUnit(
+        sourceAnchorX,
+        sourceAnchorY,
+        sourceCenterX ?? sourceX,
+        sourceCenterY ?? sourceY,
+      );
+      const targetNormal = outwardUnit(
+        targetAnchorX,
+        targetAnchorY,
+        targetCenterX ?? targetX,
+        targetCenterY ?? targetY,
+      );
       const visibleSourceX = sourceAnchorX + sourceNormal.x * DETAIL_EDGE_GAP;
       const visibleSourceY = sourceAnchorY + sourceNormal.y * DETAIL_EDGE_GAP;
       const visibleTargetTipX = targetAnchorX + targetNormal.x * DETAIL_EDGE_GAP;
       const visibleTargetTipY = targetAnchorY + targetNormal.y * DETAIL_EDGE_GAP;
+      const targetTail = arrowTailForTip(
+        visibleSourceX,
+        visibleSourceY,
+        visibleTargetTipX,
+        visibleTargetTipY,
+        arrowLength,
+      );
       return {
         sourceX: visibleSourceX,
         sourceY: visibleSourceY,
-        targetX: visibleTargetTipX + targetNormal.x * arrowLength,
-        targetY: visibleTargetTipY + targetNormal.y * arrowLength,
+        targetX: targetTail.x,
+        targetY: targetTail.y,
         sourceNormalX: sourceNormal.x,
         sourceNormalY: sourceNormal.y,
         targetNormalX: targetNormal.x,
@@ -481,8 +726,8 @@ export function RadialEdge({
 
   const pathD = edgeKind === "cross"
     ? crossSectorPath(trimmed.sourceX, trimmed.sourceY, trimmed.targetX, trimmed.targetY)
-    : anchored && source !== rootNodeId && target !== rootNodeId
-      ? detailPortCurvePath({
+    : anchored
+      ? lowCurvaturePortPath({
         sourceX: anchored.sourceX,
         sourceY: anchored.sourceY,
         targetX: anchored.targetX,
@@ -491,6 +736,7 @@ export function RadialEdge({
         sourceNormalY: anchored.sourceNormalY,
         targetNormalX: anchored.targetNormalX,
         targetNormalY: anchored.targetNormalY,
+        band: band === 2 ? 2 : 3,
       })
       : band === 2
         ? radialBranchPath(trimmed.sourceX, trimmed.sourceY, trimmed.targetX, trimmed.targetY, { forceCurve: true, forceLine })

@@ -1,6 +1,10 @@
 # Commercial Portfolio v1 Readiness Plan
 
-Updated: 2026-06-12.
+Updated: 2026-06-17.
+
+Current acceptance comes from `docs/ACCEPTANCE.md` and `docs/QA-agent.md`.
+Historical baseline notes below may mention grey/neutral nodes as audit
+findings; they are not approval to render grey user-facing nodes.
 
 This plan resets the launch definition from "AI compute page is live" to
 "the product reads as a credible multi-domain chokepoint-map portfolio."
@@ -8,18 +12,17 @@ It is the execution contract for the next commercial-readiness pass.
 
 ## Goal
 
-Capability Graph Explorer v1 should present a small portfolio of real
-research domains with clear access states:
+MinCut v1 should present a small portfolio of real research domains with
+clear access states and a consistent free/paid boundary:
 
 - AI compute: complete full-free flagship demo and trust proof.
 - Parcel robot: complete full-free depth demo proving recursive
   decomposition.
-- Humanoid robotics: priority emerging-domain candidate, at least
-  preview/waitlist until its graph, evidence, route, and gate state are
-  strong enough for a paid/live drop.
-- Controlled fusion: priority emerging-domain candidate, at least
-  preview/waitlist until it is promoted from fixture-grade data into a
-  formal domain.
+- SpaceX reusable launch: primary hot-domain QA path and future paid/preview
+  candidate until its access state is intentionally promoted.
+- Humanoid robotics: primary hot-domain QA path and future paid/preview
+  candidate until its graph, evidence, route, and gate state support a
+  paid/live drop.
 
 The graph pages must pass topology, visual-readability, and information
 disclosure gates. A user must not see unclassified grey nodes, chaotic
@@ -58,9 +61,11 @@ Checked against the pre-reset worktree on 2026-06-12:
   but no real-data acceptance gate verifies whether the default viewport is
   visually readable.
 
-## Current Implementation Evidence
+## 2026-06-12 Implementation Snapshot
 
-Updated after the 2026-06-12 reset pass:
+Historical snapshot after the 2026-06-12 reset pass. Re-run the route
+registry, topology, and browser checks for current truth before using these
+numbers in a QA report:
 
 - `src/lib/domains.ts` now separates portfolio entries from live graph
   routes. `/d/ai-compute` and `/d/parcel-robot` are the only live routes.
@@ -109,8 +114,8 @@ Required route states:
 | --- | --- | --- |
 | AI compute | `full-free flagship` | Complete graph, suppliers, tickers, evidence, and gate context visible without unlock. |
 | Parcel robot | `full-free depth demo` | Complete graph and exposure visible without unlock; secondary to AI compute. |
-| Humanoid robotics | `preview` or `waitlist` until promoted | Clear candidate status; no claim that paid/live access exists before graph readiness. |
-| Controlled fusion | `preview` or `waitlist` until promoted | Clear candidate status; not hidden in test fixtures. |
+| SpaceX reusable launch | `preview`, `audit-preview`, or paid/future-paid candidate until promoted | Primary hot-domain QA path; access state must match graph/evidence/readiness. |
+| Humanoid robotics | `preview`, `audit-preview`, or paid/future-paid candidate until promoted | Primary hot-domain QA path; access state must match graph/evidence/readiness. |
 
 Done means a first-time retail/investing reader can answer:
 
@@ -145,11 +150,14 @@ following are true:
 
 Every domain graph used in a user-facing route must satisfy:
 
-- Non-material grey nodes in the default canvas equal zero, unless each is
-  explicitly labeled as cross-domain, external, or intentionally unclassified.
+- Visible user-facing grey/unclassified nodes in the default canvas equal
+  zero. This includes material nodes; if a node cannot receive a meaningful
+  color family, hide it from the primary graph or move it to a secondary
+  surface until its display semantics are defined.
 - Canvas tree semantics and color ancestry semantics agree on relation set.
-  If `implemented_by -> know-how` places a node on the canvas, hue assignment
-  must also trace that relation or the node must receive an explicit family.
+  Know-how should stay hidden from the default artifact map and appear only
+  in the Barrier Sources layer or detail panel. If a secondary layer renders
+  know-how, artifact context must keep a meaningful subsystem color family.
 - Every multi-parent visible canvas node has exactly one primary layout
   parent.
 - Secondary parent edges must not affect node position. They render only as
@@ -231,13 +239,12 @@ Owner surface:
 Deliverables:
 
 - Decide and document the canvas relation set for color ancestry.
-- Fix parcel non-material grey nodes by aligning hue ancestry with
-  `implemented_by -> know-how` canvas edges or by explicitly assigning
-  family metadata.
+- Eliminate user-facing grey/unclassified graph nodes by assigning meaningful
+  display semantics or moving unsuitable records out of the primary map.
 - Add an automated route-level verifier that reports:
   - structural node count
-  - neutral material count
-  - neutral non-material count and ids
+  - neutral/material audit buckets when useful for debugging
+  - any user-facing grey/unclassified node ids
   - primary edge count
   - cross edge count
   - multi-parent visible nodes and chosen primary parent
@@ -248,7 +255,8 @@ Validation:
 - `npm run check:graph-ux`
 - `npm run check:graph-topology`
 - focused tests for layout/hue
-- verifier output for `/d/ai-compute` and `/d/parcel-robot`
+- verifier output for `/d/ai-compute`, `/d/spacex-reusable-launch`,
+  `/d/humanoid-robotics`, and `/d/parcel-robot` when the regression graph is relevant
 
 ### Task B: Portfolio IA and Route States
 
@@ -269,7 +277,8 @@ Deliverables:
 - Add explicit route state metadata such as `full-free-flagship`,
   `full-free-depth-demo`, `waitlist`, `preview`, and `paid-candidate`.
 - Landing page and header show the portfolio states without implying
-  humanoid/fusion are live.
+  SpaceX reusable launch or humanoid robotics are paid/live before their
+  access states intentionally say so.
 - Future paid copy ties monetization to verified living maps, updates, and
   curated exposure for under-disclosed domains.
 - AI compute remains free everywhere.
@@ -277,25 +286,22 @@ Deliverables:
 Validation:
 
 - landing/header route tests
-- browser smoke on `/`, `/d/ai-compute`, `/d/parcel-robot`
+- browser smoke on `/`, `/d/ai-compute`, `/d/spacex-reusable-launch`,
+  `/d/humanoid-robotics`, and `/d/parcel-robot` when the regression graph is relevant
 - copy grep: no AI-compute paid checkout language
 
-### Task C: Humanoid Readiness Audit
+### Task C: Humanoid Robotics Readiness Audit
 
 Owner surface:
 
 - `docs/agents/humanoid-decomposition-brief.md`
-- `data/nodes/humanoid_actuator.json`
-- `data/edges/humanoid_actuator_edges.json`
+- current humanoid domain node/edge/evidence files
 - `src/lib/graphTraversal.ts`
 - `src/lib/domains.ts`
 
 Deliverables:
 
-- Decide root model:
-  - capability landing route that includes inbound enabled products, or
-  - first paid/preview route rooted at one concrete product such as
-    `rotary_actuator_harmonic`.
+- Confirm the current whole-robot root model and product boundary.
 - Identify missing decomposition and evidence needed before preview/live.
 - Do not register as live paid until the promotion gate passes.
 - If shown before ready, show as waitlist/researching with the missing pieces.
@@ -306,7 +312,7 @@ Validation:
 - data validation
 - gate dry-run if/when promoted beyond waitlist
 
-### Task D: Controlled Fusion Readiness Audit
+### Task D: Future Controlled Fusion Readiness Audit
 
 Owner surface:
 
@@ -325,6 +331,7 @@ Deliverables:
 - Move only validated, launch-appropriate data out of test fixtures into
   formal domain files.
 - Define the minimum evidence/review/gate bar for preview state.
+- This is not a primary 2026-06-17 QA path unless the owner promotes it.
 - Keep route as waitlist if fixture-grade data remains the source.
 
 Validation:
@@ -359,7 +366,8 @@ Deliverables:
 Validation:
 
 - focused component tests
-- browser read-order smoke for AI compute and parcel
+- browser read-order smoke for AI compute, SpaceX reusable launch, humanoid robotics,
+  and parcel when the regression graph is relevant
 - screenshot/DOM smoke confirming mobile rail-first and no first-screen
   floating-control overlap
 
@@ -378,7 +386,7 @@ Reviewers:
 
 - Consumer reviewer for retail/investor questions.
 - Attention reviewer for visual hierarchy.
-- Graph-topology reviewer for grey nodes, primary/cross edges, and root
+- Graph-topology reviewer for unclassified/grey nodes, primary/cross edges, and root
   traversal.
 
 Acceptance:
@@ -403,12 +411,12 @@ Acceptance:
 The commercial portfolio v1 goal is complete only when:
 
 - `docs/plans/MASTER-PLAN.md` points to this readiness plan.
-- Product UI clearly presents AI compute, parcel robot, humanoid robotics,
-  and controlled fusion with truthful access states.
+- Product UI clearly presents AI compute, parcel robot, SpaceX reusable launch,
+  and humanoid robotics with truthful access states.
 - AI compute and parcel remain complete free demos.
-- Humanoid and fusion have honest audit-preview states, or are promoted only
+- SpaceX reusable launch and humanoid robotics have honest preview/audit-preview states, or are promoted only
   after the domain promotion gate passes.
-- Route-level graph verifier passes with no unexplained non-material grey
+- Route-level graph verifier passes with no user-facing grey/unclassified
   nodes.
 - `npm run check:graph-topology` passes for every live domain route.
 - Multi-parent layout reports exactly one primary parent per visible shared

@@ -93,6 +93,10 @@ type RadialEdgeTestProps = {
   sourceAnchorY?: number;
   targetAnchorX?: number;
   targetAnchorY?: number;
+  sourceCenterX?: number;
+  sourceCenterY?: number;
+  targetCenterX?: number;
+  targetCenterY?: number;
   sourceRadius?: number;
   targetRadius?: number;
   stroke?: string;
@@ -118,6 +122,12 @@ function renderEdge(props: RadialEdgeTestProps): string {
   return renderToStaticMarkup(
     React.createElement(RadialEdge as unknown as React.FC<RadialEdgeTestProps>, props),
   );
+}
+
+function edgePathNumbers(html: string): number[] {
+  const dMatches = [...html.matchAll(/\sd=["']([^"']+)["']/g)];
+  const d = dMatches.at(-1)?.[1] ?? "";
+  return (d.match(/-?\d+(?:\.\d+)?/g) ?? []).map(Number);
 }
 
 // -------------------- radialBandFor pure helper --------------------
@@ -642,7 +652,7 @@ test("RadialEdge detail primary edges use smooth port curves so card endpoints s
   assert.match(html, /<path[^>]+d=["'][^"']+ L [^"']+["']/, `detail primary edge without explicit ports should keep the fallback straight trim; got: ${html}`);
 });
 
-test("RadialEdge detail mode can use explicit card-edge ports", () => {
+test("RadialEdge detail mode uses explicit card-edge ports with bounded historical-style curves", () => {
   const html = renderEdge({
     ...SAMPLE_EDGE_PROPS_BASE,
     zoom: 2.0,
@@ -657,15 +667,30 @@ test("RadialEdge detail mode can use explicit card-edge ports", () => {
     sourceAnchorY: 10,
     targetAnchorX: 132,
     targetAnchorY: 10,
+    sourceCenterX: 0,
+    sourceCenterY: 0,
+    targetCenterX: 200,
+    targetCenterY: 0,
   });
+  const pathNumbers = edgePathNumbers(html);
+  assert.equal(pathNumbers.length, 8, `detail explicit port edge should use one cubic curve; got: ${html}`);
+  const [sourceX, sourceY, c1x, c1y, c2x, c2y, targetX, targetY] = pathNumbers;
+  assert.equal(sourceX, 75);
+  assert.equal(sourceY, 10);
+  assert.equal(targetX, 117);
+  assert.equal(targetY, 10);
+  assert.ok(
+    c1x > sourceX && c1x < c2x && c2x < targetX && Math.abs(c1y - sourceY) < 1 && Math.abs(c2y - targetY) < 1,
+    `detail cubic controls should stay between endpoints instead of making a loop; got ${c1x},${c1y} and ${c2x},${c2y} from ${html}`,
+  );
   assert.match(
     html,
-    /d=["']M 75 10 C [^"']+ 117 10["']/,
-    `detail edge should start just outside the assigned source port and curve into the arrow tail outside the assigned target port; got: ${html}`,
+    /d=["'][^"']+ C [^"']+["']/,
+    `detail primary edge should retain the smoother historical cubic curve style; got: ${html}`,
   );
 });
 
-test("RadialEdge label mode can use explicit ports to split dense sibling edge bundles", () => {
+test("RadialEdge label mode uses bounded historical-style curves without detached endpoints", () => {
   const html = renderEdge({
     ...SAMPLE_EDGE_PROPS_BASE,
     zoom: 1.0,
@@ -680,11 +705,34 @@ test("RadialEdge label mode can use explicit ports to split dense sibling edge b
     sourceAnchorY: 10,
     targetAnchorX: 132,
     targetAnchorY: 10,
+    sourceCenterX: 0,
+    sourceCenterY: 0,
+    targetCenterX: 200,
+    targetCenterY: 0,
   });
+  const pathNumbers = edgePathNumbers(html);
+  assert.equal(pathNumbers.length, 8, `label-mode explicit port edge should use one cubic curve; got: ${html}`);
+  const [sourceX, sourceY, c1x, c1y, c2x, c2y, targetX, targetY] = pathNumbers;
+  assert.ok(
+    sourceX > 12 && sourceX < 18 && Math.abs(sourceY) < 6,
+    `label-mode source endpoint should sit just outside the visible marker, not on the hidden card edge; got ${sourceX},${sourceY} from ${html}`,
+  );
+  assert.ok(
+    targetX > 170 && targetX < 182 && Math.abs(targetY) < 8,
+    `label-mode target arrow tail should keep the arrow tip near the visible marker, not near the hidden card edge; got ${targetX},${targetY} from ${html}`,
+  );
+  assert.ok(
+    c1x > sourceX && c1x < c2x && c2x < targetX,
+    `label-mode cubic controls should move monotonically between endpoints instead of looping back; got ${c1x} and ${c2x} from ${html}`,
+  );
+  assert.ok(
+    Math.abs(c1y - sourceY) < 16 && Math.abs(c2y - targetY) < 16,
+    `label-mode control points should add only a mild curve, not a large decorative bend; got ${c1x},${c1y} and ${c2x},${c2y} from ${html}`,
+  );
   assert.match(
     html,
-    /d=["']M 75 10 C [^"']+ 117 10["']/,
-    `label-mode edge should use explicit source/target ports so high-fanout nodes do not collapse into one line bundle; got: ${html}`,
+    /d=["'][^"']+ C [^"']+["']/,
+    `label-mode primary edge should keep the smoother historical cubic curve style; got: ${html}`,
   );
 });
 
@@ -818,4 +866,33 @@ test("RadialNode renders red-ring bottleneck badge with count at band 2", () => 
     }),
   );
   assert.match(html, /data-knowhow-bottlenecks="2"/);
+  assert.match(
+    html,
+    /Hidden Barrier-source bottlenecks: 2/,
+    `know-how bottleneck count badge must have an inspectable meaning; got: ${html}`,
+  );
+});
+
+test("RadialNode band 3 know-how bottleneck badge has an inspectable meaning", () => {
+  const html = renderToStaticMarkup(
+    React.createElement(RadialNode, {
+      id: "host",
+      name: "Host module",
+      fill: "hsl(200, 60%, 50%)",
+      maturityLabel: "mature",
+      zoom: 2.0,
+      knowHowBottleneckCount: 1,
+    }),
+  );
+  assert.match(html, /data-knowhow-bottlenecks="1"/);
+  assert.match(
+    html,
+    /title="Hidden Barrier-source bottlenecks: 1"/,
+    `detail-card badge should explain the count through title text; got: ${html}`,
+  );
+  assert.match(
+    html,
+    /aria-label="Hidden Barrier-source bottlenecks: 1"/,
+    `detail-card badge should explain the count to assistive tech; got: ${html}`,
+  );
 });

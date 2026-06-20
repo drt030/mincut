@@ -1,0 +1,130 @@
+{
+  "verified": [
+    {
+      "id": "ev_humanoid_qualcomm_dragonwing_iq10",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (qualcomm.com release, 2026-01). All three assembled sentences present verbatim: 'Dragonwing IQ10 Series is its leading and latest addition to premium-tier robotics processors for humanoids and advanced autonomous mobile robots (AMRs)'; \"'Brain of the Robot' capabilities\"; and the Figure collaboration sentence. Release also states IQ10 is a 'high performance robotics processor for industrial AMRs and advanced full-size humanoids'. No TOPS/spec figures on page; excerpt carries no numeric claim, so numberInQuote=false (no number to support). Vendor PR — collaboration named, not a proven design win (limitations already note this)."
+    },
+    {
+      "id": "ev_humanoid_nxp_humanoid_edge",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (Robotics & Automation News, 2026-03-17). Both excerpt sentences present verbatim: i.MX 95 machine-vision node 'delivering high-bandwidth data to the robot brain', and i.MX RT1180 crossover-MCU 'kinematic chain ... aggregated by NXP's S32J TSN switch directly connecting to the brain'. Supports both edges (e_humanoid_edge_ai__manufactured_by__nxp and e_humanoid_mcu__manufactured_by__nxp). No quantitative claim in excerpt (model numbers only), numberInQuote=false. Trade-press secondary; reference architecture not proven design win."
+    },
+    {
+      "id": "ev_humanoid_rockchip_rk3588",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (36Kr English, 2026). Excerpt present verbatim under 'Domestic breakthrough' section: 'RK3588 and RK3588S chips have been adopted by humanoid robots such as ZHIYUAN Lingxi X2, Zhujidongli LimX Oli, and Gaoqing Pi/Pi +.' All three robot models confirmed. Page also cites 6 TOPS / 8-core but excerpt itself carries no number, so numberInQuote=false. Trade-press naming robot models, not BOM disclosure."
+    },
+    {
+      "id": "ev_humanoid_d_robotics_rdk_s100",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (Yicai Global, 2025). All five assembled fragments present verbatim: 'one-year-old robot chip spinoff from Chinese autonomous driving firm Horizon Robotics'; 'completed a USD100 million Series A funding round'; 'plans to launch the RDK S100 robot development kit'; 'industry's first system-on-a-chip platform to integrate computing and control functions into a single unit' (page reads 'system-on-a-chip'; excerpt reads 'system-on-chip' — immaterial hyphenation drift, still exact in substance); 'designing foundational computing chips for developers of humanoid robots, quadruped robot dogs, logistics robots, and robotic vacuum cleaners'. USD100M Series A confirmed. The 80-128 TOPS figure in the node description is NOT on this page and NOT in the excerpt, so numberInQuote=false (no numeric claim in the stored excerpt to support); the org-node's 80-128 TOPS spec is unsourced here — noted for owner, but excerpt-level verification is clean."
+    },
+    {
+      "id": "ev_humanoid_infineon_motor_control",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (Robotics & Automation News, 2025-08-25, confirms Aug-2025 NVIDIA collaboration). All three excerpt sentences present verbatim: PSOC Control C3 family integrating with NVIDIA Holoscan Sensor Bridge to Jetson Thor; 'integration of Infineon's gate drivers and current sensors helps control communication and design challenges in humanoid robotics'; 'full motor control chip set including the company's latest transistor technology based on gallium nitride (GaN)'. Supports both edges (gate_driver + mcu). No numeric claim in excerpt; numberInQuote=false. Trade-press carrying PR claims; portfolio/reference path not proven design win."
+    },
+    {
+      "id": "ev_humanoid_epc_humanoid_joint",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (Semiconductor Today, 2026-02). CRITICAL ATTRIBUTION CONFIRMED: company is Efficient Power Conversion Corp (EPC) of El Segundo, CA — NOT Microchip. Both excerpt sentences present verbatim: 'EPC91122, a high-performance 3-phase brushless DC (BLDC) motor drive inverter evaluation board specifically engineered for humanoid robot joint applications' and 'The EPC91122 is suitable for humanoid robot joints, compact servo drives, robotics, drones, and eMobility platforms'. eGaN power stage confirmed. Page carries specs (20A RMS / 100V / 150kHz / $470) but excerpt has no numeric claim; numberInQuote=false. Evaluation board (reference design), not a confirmed production design win; EPC private (no ticker)."
+    },
+    {
+      "id": "ev_humanoid_microchip_integrated_motor_driver",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "WebFetch OK (Electronic Specifier, 2024-02). ATTRIBUTION CONFIRMED: article is genuinely about MICROCHIP Technology's dsPIC33 DSC-based integrated motor drivers (NOT EPC). Both excerpt sentences present verbatim: 'These devices incorporate a dsPIC33 digital signal controller (DSC), a three-phase MOSFET gate driver and optional LIN or CAN FD transceiver into one package.' and the component-count-reduction sentence. Confirms dsPIC33 DSC + 3-phase MOSFET gate driver + LIN/CAN FD for BLDC/PMSM FOC. Article does NOT mention humanoid robots — general industrial/commercial motor control — which correctly supports the reported_capable_supplier relation (not manufactured_by). No numeric claim in excerpt; numberInQuote=false. EPC<->Microchip split is clean: two separate articles, two separate companies, correctly attributed (Microchip rightly downgraded to reported_capable; the BLDC-for-humanoid-hands article is EPC's, not Microchip's)."
+    }
+  ],
+  "repaired": [],
+  "escalations": [],
+  "tickerAudit": [
+    {
+      "org": "org_humanoid_qualcomm",
+      "name": "Qualcomm",
+      "ticker": "QCOM",
+      "exchange": "Nasdaq",
+      "status": "correct",
+      "source": "Qualcomm IR FAQ (investor.qualcomm.com) + Nasdaq listing — 'Qualcomm is listed on the NASDAQ under the symbol QCOM'. Entity Qualcomm Incorporated. Matches."
+    },
+    {
+      "org": "org_humanoid_rockchip",
+      "name": "Fuzhou Rockchip Electronics",
+      "ticker": "603893.SS",
+      "exchange": "Shanghai Stock Exchange",
+      "status": "correct",
+      "source": "Bloomberg 603893:CH + Investing.com SS:603893 + MarketScreener (ISIN CNE100003RK2) — 'Fuzhou Rockchip Electronics Co Ltd', Shanghai SE, code 603893. The .SS suffix is the standard Yahoo/exchange convention for Shanghai-listed shares. Name and 6-digit code both match exactly."
+    },
+    {
+      "org": "org_humanoid_d_robotics",
+      "name": "D-Robotics",
+      "ticker": null,
+      "exchange": null,
+      "status": "correct",
+      "source": "Private (Series-A funded spinoff of Horizon Robotics per Yicai Global). listingStatus=private, no ticker — correct. NOTE: do NOT confuse with parent-lineage Horizon Robotics (HKEX 9660), a separate listed entity; D-Robotics itself is unlisted. Node correctly carries no ticker."
+    },
+    {
+      "org": "org_humanoid_infineon",
+      "name": "Infineon Technologies",
+      "ticker": "IFX.DE",
+      "exchange": "Frankfurt / Xetra",
+      "status": "correct",
+      "source": "Bloomberg IFX:GR + CNBC IFX-DE + Yahoo IFX.DE + Infineon IR (infineon.com/about/investor), ISIN DE0006231004 — Infineon Technologies AG, home exchange Xetra, ticker IFX. The .DE suffix is the standard Yahoo convention for Xetra/Frankfurt. Matches. (Same ticker also on duplicate node org_infineon — consistent.)"
+    },
+    {
+      "org": "org_humanoid_epc",
+      "name": "Efficient Power Conversion (EPC)",
+      "ticker": null,
+      "exchange": null,
+      "status": "correct",
+      "source": "Private (Efficient Power Conversion Corp, El Segundo CA, per Semiconductor Today). listingStatus=private, no ticker — correct. Not to be confused with EPC stock tickers of unrelated companies; this EPC is privately held."
+    },
+    {
+      "org": "org_humanoid_microchip",
+      "name": "Microchip Technology",
+      "ticker": "MCHP",
+      "exchange": "Nasdaq",
+      "status": "correct",
+      "source": "Nasdaq (nasdaq.com/market-activity/stocks/mchp) + Yahoo/CNBC/TradingView NASDAQ:MCHP — Microchip Technology Incorporated, Chandler AZ, ticker MCHP on Nasdaq. Matches."
+    },
+    {
+      "org": "org_humanoid_nvidia",
+      "name": "NVIDIA",
+      "ticker": "NVDA",
+      "exchange": "Nasdaq",
+      "status": "correct",
+      "source": "Reused org. NVIDIA Corp trades on Nasdaq as NVDA (Alpha Spread nasdaq/nvda + multiple). Matches."
+    },
+    {
+      "org": "org_humanoid_nxp / org_nxp",
+      "name": "NXP Semiconductors",
+      "ticker": "NXPI",
+      "exchange": "Nasdaq",
+      "status": "correct",
+      "source": "Reused org. NXP IR (investors.nxp.com) + Nasdaq — 'shares traded on Nasdaq under the ticker symbol NXPI', NXP Semiconductors N.V. Matches. (Both org_humanoid_nxp and reused org_nxp carry NXPI — consistent.)"
+    },
+    {
+      "org": "org_humanoid_texas_instruments",
+      "name": "Texas Instruments",
+      "ticker": "TXN",
+      "exchange": "Nasdaq",
+      "status": "correct",
+      "source": "Reused org. Texas Instruments trades on Nasdaq under TXN. Matches."
+    },
+    {
+      "org": "org_humanoid_stmicroelectronics",
+      "name": "STMicroelectronics",
+      "ticker": "STM",
+      "exchange": "NYSE",
+      "status": "correct",
+      "source": "Reused org. STMicroelectronics N.V. trades on NYSE as STM (also Euronext Paris STMPA / Borsa Italiana STMMI). Node ticker STM corresponds to the NYSE ADR-style listing. Matches."
+    }
+  ]
+}

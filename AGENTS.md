@@ -2,17 +2,15 @@
 
 ## Project Context
 
-Capability Graph Explorer is a local-first, graph-first research tool for mapping how real-world products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and widely adopted.
+MinCut is a local-first, graph-first research tool for mapping how real-world products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and widely adopted. The current commercial audience is public-market retail investors who want to learn an industrial chain for free, then inspect company/supplier/ticker exposure as a paid or future-paid diligence layer.
 
 The graph is the reasoning substrate. Nodes, edges, metrics, evidence, maturity calculations, validation gate reports, and research tasks should stay grounded in local graph data.
 
-Current v0 focus:
+Current focus:
 
-```text
-low_cost_parcel_sorting_robot_300k_rmb
-```
-
-The first goal is to make one product domain work end to end before expanding. Do not fill many planned domains with shallow data.
+- Commercial QA and user-facing work prioritizes `ai-compute` as the full-free trust demo, plus `spacex-reusable-launch` and `humanoid-robotics` as primary hot-domain journeys.
+- `low_cost_parcel_sorting_robot_300k_rmb` remains the internal v0 development/regression target for gate, graph, data-model, and product-boundary checks.
+- Do not promote a new commercial domain unless its product boundary, graph topology, evidence state, and route access state are explicit. Avoid broad shallow expansion.
 
 ## Core Modeling Principles
 
@@ -70,6 +68,10 @@ The first goal is to make one product domain work end to end before expanding. D
    - Keep the first screen useful, dense, and readable.
    - The app should remain usable in both English and Simplified Chinese.
    - Use `LanguageProvider` for switchable UI labels and `nodeName(id, fallback)` for graph node display names.
+   - Default graph views are artifact maps: product, technical route, module, equipment, and key material nodes. Organization, metric, evidence, and context records stay in detail/evidence/gate surfaces.
+   - Know-how nodes (`engineering_method`, `manufacturing_process`) are **Barrier Sources**: hidden by default, summarized on host artifacts, and shown only in an explicit secondary layer or detail surface when they explain Barrier, holder scarcity, evidence gaps, or chokepoint logic.
+   - Reader-facing graph lenses are **System decomposition**, **Chokepoint**, and **Cost**. Maturity/readiness is an internal input to Barrier, not a public lens.
+   - No user-facing graph node may be grey or unclassified. If a node cannot receive a meaningful color family, hide it from the primary map or move it to a secondary surface.
 
 11. Avoid broad rewrites.
    - Follow existing file organization and helper APIs.
@@ -91,6 +93,14 @@ The first goal is to make one product domain work end to end before expanding. D
 
 ## Handoff Checklist
 
+- Product-facing issue intake is acceptance-first, fix-second:
+  - Before changing product code for a user-reported UI, graph, commercial, data-display, or QA failure, map the reported symptom to `docs/ACCEPTANCE.md` and `docs/QA-agent.md`.
+  - This checklist explicitly authorizes Codex to spawn a sub-agent for the independent QA replay required below. Treat this as the user's explicit sub-agent authorization for that bounded replay task; do not wait for a separate chat message before using a sub-agent when the replay is required.
+  - For any QA miss or acceptance miss, run an independent QA replay against the affected URL/surface using the current QA docs before the product fix. Do not give the replay agent the user's exact symptom list; use it to test whether the acceptance process can discover the failure class on its own.
+  - If the independent replay misses any user-reported failure class, improve `docs/QA-agent.md`, `docs/ACCEPTANCE.md`, `docs/agents/acceptance-judge-prompt.md`, or the relevant machine/test gate first, then rerun an independent QA replay. Repeat until the replay reports the failure class or a real blocker is documented.
+  - If the failure mode is already covered, cite the exact section/bullet in the work notes and add or run a focused failing check against that rule before the product fix when a reasonable automated seam exists.
+  - If the failure mode is missing or only covered by broad language, update `docs/QA-agent.md`, `docs/ACCEPTANCE.md`, or the relevant machine/test gate first. Do not proceed to the product fix until the acceptance delta is explicit in the diff.
+  - Final handoff must state either the exact existing acceptance rule that covered the issue or the QA/acceptance/machine-gate change that now covers it, plus whether the independent replay found the issue after the acceptance update.
 - Run `npm run agent:context -- --stage verify` before final verification for broad changes.
 - Run `npm run validate:data` if graph data changed.
 - Run `npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run` if gate logic or parcel data changed.
@@ -102,7 +112,6 @@ The first goal is to make one product domain work end to end before expanding. D
 - Run `npm run build` for UI or app-router changes.
 - Run `npm run agent:audit` if harness files changed.
 - For UI/interaction/display changes, test the changed surface in a clean browser session or fresh dev server port. If browser verification is not reliable, explicitly report what was not verified and why.
-- After fixing any product-facing error, close the loop by updating one of: `docs/QA-agent.md`, `docs/ACCEPTANCE.md`, or the relevant machine/test gate. If the existing QA/acceptance contract already covers it, state which item covers it in the final handoff instead of silently shipping only the code fix.
 - Keep dev server running on the tested URL if the user is testing in browser.
 - Summarize changed files, automated validation results, browser interactions tested, and remaining risks.
 

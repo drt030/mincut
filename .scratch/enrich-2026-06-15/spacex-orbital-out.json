@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ev_space_spacex_starship",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond.",
+    "note": "Rendered page (JS SPA; plain fetch returned empty). Backs fully-reusable stack, ship upper stage, Super Heavy booster, 100t mass-to-orbit, payload bay. Page does NOT mention heat-shield tiles verbatim, so the tile sub-claim is unsupported by this URL (covered instead by the prospectus, p111)."
+  },
+  {
+    "id": "ev_space_spacex_prospectus_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Comprising the Super Heavy booster (powered by 33 Raptor engines) and the Starship upper stage (with three sea-level and three vacuum Raptor engines), Starship V3 is designed to deliver 100 metric tons to space in a fully reusable configuration",
+    "note": "PDF (p110). Single sentence backs Super Heavy reusable booster, 33-Raptor cluster, sea-level+vacuum Raptor mix, Starship/Super Heavy reusable branch, mass-to-orbit. Owner identity 'Space Exploration Technologies Corp.' on p1; reusable Falcon 9/Falcon Heavy, Dragon, Starlink on p8/p71; orbital data centers on p67."
+  },
+  {
+    "id": "ev_space_fcc_orbital_data_center_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "The proposed satellites will use high-bandwidth optical inter-satellite links and conduct telemetry, tracking, and command (TT&C) operations.",
+    "note": "PDF (DA 26-113, Feb 4 2026). Backs orbital data center system (accepted-for-filing, NGSO up to 1M sats), optical ISL fabric, TT&C layer, Starlink Gen1/Gen2 interconnect, and license/waiver status (milestone/deployment & surety-bond waiver requests = public-notice stage, not commercial deployment)."
+  },
+  {
+    "id": "ev_space_starlink_technology_lasers",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Each Starlink satellite contains 3 space lasers (Optical Intersatellite Links or ISLs) operating at up to 200 Gbps, which together across the constellation form a global internet mesh that can connect customers anywhere in the world.",
+    "note": "Rendered page (JS SPA; plain fetch returned empty). Backs optical ISL network fabric and laser-terminal backhaul (200 Gbps). Latency/bandwidth sub-claim also backed: 'latency is significantly lower-around 25 ms vs 600+ ms.'"
+  },
+  {
+    "id": "ev_space_nasa_thermal_control",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "In a vacuum, heat is transferred only by radiation and conduction with no convection. A deployable radiator is stowed during transit or when the radiator is not needed and deployed when excess heat dissipation is required.",
+    "note": "Backs orbital thermal rejection (radiate-only constraint), deployable radiator panels, heat-pipe transport, and coating degradation ('Coatings will darken due to atomic oxygen bombardment ... This will increase the solar absorptance values'). No verbatim TVAC-test sentence on page; that sub-claim is the weakest fit but core thermal claims hold."
+  },
+  {
+    "id": "ev_space_nasa_nepp_radiation_effects",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Single Event Latchup (SEL) - a condition which causes loss of device functionality due to a single event induced high current state. An SEL may or may not cause permanent device damage, but requires power strobing of the device to resume normal device operation.",
+    "note": "PDF slide deck (NASA NEPP 'Radiation Effects 101'). Backs SEE/SEU/SEL/latchup watchdog-recovery, TID shielding ('Total Ionizing Dose (TID) ... Can partially mitigate with shielding'), ECC/data-integrity ('error detection and correction (EDAC) on large memory arrays'), parts selection (RHA), and ground radiation test campaign ('All devices with unknown characteristics should be ground radiation tested (TID and SEE)')."
+  }
+]

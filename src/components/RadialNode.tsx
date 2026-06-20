@@ -87,6 +87,8 @@ export type RadialNodeProps = {
    * layer keeps answering "where is the biggest bottleneck".
    */
   knowHowBottleneckCount?: number;
+  /** Inspectable explanation for the hidden know-how bottleneck count badge. */
+  knowHowBottleneckLabel?: string;
 };
 
 /**
@@ -414,10 +416,25 @@ function lineBreakText(lines: string[], index: number): string {
   return `${line} `;
 }
 
-function KnowHowBottleneckBadge({ count, cx, cy }: { count: number; cx: number; cy: number }) {
+function defaultKnowHowBottleneckLabel(count: number): string {
+  return `Hidden Barrier-source bottlenecks: ${count}`;
+}
+
+function KnowHowBottleneckBadge({
+  count,
+  cx,
+  cy,
+  label,
+}: {
+  count: number;
+  cx: number;
+  cy: number;
+  label: string;
+}) {
   if (count <= 0) return null;
   return (
-    <g data-knowhow-bottlenecks={count}>
+    <g data-knowhow-bottlenecks={count} aria-label={label} role="img">
+      <title>{label}</title>
       <circle cx={cx} cy={cy} r={9} fill="#fff" stroke="#dc2626" strokeWidth={2} />
       <text x={cx} y={cy + 3.5} textAnchor="middle" fontSize={10} fontWeight={700} fill="#dc2626">
         {count}
@@ -437,8 +454,10 @@ export function RadialNode({
   showLabel = true,
   shape = "circle",
   knowHowBottleneckCount = 0,
+  knowHowBottleneckLabel,
 }: RadialNodeProps) {
   const band = radialBandFor(zoom);
+  const badgeLabel = knowHowBottleneckLabel ?? defaultKnowHowBottleneckLabel(knowHowBottleneckCount);
   // Keep node contour neutral: active analysis colour belongs to edges,
   // while this outline only carries selection affordance.
   const outline = outlineColor ?? "#888";
@@ -541,6 +560,7 @@ export function RadialNode({
             count={knowHowBottleneckCount}
             cx={BAND2_CENTER_X + r}
             cy={BAND2_CIRCLE_Y - r}
+            label={badgeLabel}
           />
           {showLabel ? (
             <text
@@ -622,6 +642,8 @@ export function RadialNode({
             {knowHowBottleneckCount > 0 ? (
               <span
                 data-knowhow-bottlenecks={knowHowBottleneckCount}
+                title={badgeLabel}
+                aria-label={badgeLabel}
                 style={{
                   position: "absolute",
                   top: 4,

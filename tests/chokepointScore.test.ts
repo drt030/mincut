@@ -130,9 +130,11 @@ test("barrierValue is low for a procurable, mature node", () => {
   assert.ok(r.value < 0.2, `expected low barrier, got ${r.value}`);
 });
 
-test("barrierValue is unknown when no barrier signal is present", () => {
+test("barrierValue uses an estimated relief-cycle proxy when no explicit barrier signal is present", () => {
   const g = graph([node("bare", { kind: "module" })], []);
-  assert.equal(barrierValue(g.nodes[0]).known, false);
+  const r = barrierValue(g.nodes[0]);
+  assert.equal(r.known, true);
+  assert.ok(r.value > 0, `expected proxy barrier contribution, got ${r.value}`);
 });
 
 test("a high-criticality, concentrated, high-barrier node outranks a false bottleneck", () => {

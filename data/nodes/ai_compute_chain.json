@@ -25,12 +25,12 @@
   },
   {
     "id": "ai_accelerator_module_hbm_cowos",
-    "name": "AI accelerator module (leading-edge logic + HBM on 2.5D advanced package)",
+    "name": "AI chip / GPU compute module",
     "kind": "product",
     "domain": [
       "ai_compute_chain"
     ],
-    "description": "Flagship AI accelerator module architecture: a leading-edge logic die (or die pair) co-packaged with high-bandwidth-memory stacks on a 2.5D/3D advanced package (silicon interposer / local interconnect bridge class), carried on a high-layer-count organic substrate, with high-speed electrical/optical interconnect off-module, multi-hundred-watt power delivery, and liquid-class thermal management. This is the architecture shipping in volume in 2024–2026 datacenter accelerators.",
+    "description": "Reader-facing boundary: this is the AI chip / GPU compute module, not a single bare die. Technically, it is a leading-edge logic die (or die pair) co-packaged with high-bandwidth-memory stacks on a 2.5D/3D advanced package (silicon interposer / local interconnect bridge class), carried on a high-layer-count organic substrate, with high-speed electrical/optical interconnect off-module, multi-hundred-watt power delivery, and liquid-class thermal management. This is the architecture shipping in volume in 2024–2026 datacenter accelerators.",
     "maturityScore": 82,
     "maturityLabel": "widely_adopted",
     "maturityAsOf": "2026-06",

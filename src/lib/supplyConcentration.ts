@@ -6,8 +6,9 @@ import type { GraphData, Node } from "./schema";
  * `implemented_by` edges at read time and never stored on nodes.
  *
  * "Holder" = a non-deprecated organization the node points to via a
- * non-deprecated `manufactured_by` or `implemented_by` edge. `listed`
- * counts holders that are publicly visible: `listingStatus` of
+ * non-deprecated `manufactured_by` or `implemented_by` edge. This is modeled
+ * graph coverage, not a real-world census and not proof of sole-source supply.
+ * `listed` counts holders that are publicly visible: `listingStatus` of
  * `public` / `subsidiary` when the field is set, falling back to the
  * ai-chain data convention of a `public_company` tag.
  */
@@ -52,9 +53,10 @@ export function holdersForNode(graph: GraphData, nodeId: string): HolderSummary 
 }
 
 /**
- * True when the node's holder count is at or below
+ * True when the node's modeled holder count is at or below
  * `CONCENTRATION_THRESHOLD` — including zero holders, which is either
- * a data gap or true scarcity and is surfaced as the strongest flag.
+ * a data gap or true scarcity and must be surfaced as coverage state unless
+ * separate evidence supports a real-world scarcity / sole-source claim.
  */
 export function isSupplyConcentrated(graph: GraphData, nodeId: string): boolean {
   return holdersForNode(graph, nodeId).total <= CONCENTRATION_THRESHOLD;

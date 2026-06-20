@@ -1,0 +1,104 @@
+[
+  {
+    "id": "ev_humanoid_nvidia_use_case",
+    "url": "https://www.nvidia.com/en-us/use-cases/humanoid-robots/",
+    "title": "Humanoid Robots | NVIDIA use case",
+    "claim": "Humanoid robot key component stack: A commercial humanoid robot platform component stack for early fleet deployment: actuators, hands, battery and power, thermal management, sensing, onboard compu | Onboard compute and control electronics: Edge AI compute, real-time controllers, motor-control networking, power isolation, and safety electronics. It must fit autonomy into a tight power and heat enve | Manipulation AI and data stack: Vision-language-action policies, grasp planning, teleoperation data, imitation/RL training, task planning, and fleet learning. | Vision-language-action policy model: Embodied AI model that maps instructions and perception to action sequences. | NVIDIA: Public US-listed robotics compute and physical-AI platform supplier candidate."
+  },
+  {
+    "id": "ev_humanoid_figure_battery",
+    "url": "https://www.figure.ai/news/f-03-battery-development",
+    "title": "F.03 Battery Development",
+    "claim": "Humanoid robot key component stack: A commercial humanoid robot platform component stack for early fleet deployment: actuators, hands, battery and power, thermal management, sensing, onboard compu | Battery, power, and charging system: Cell selection, pack architecture, BMS, power distribution, docking, and certification. It gates runtime, fleet uptime, abuse tolerance, and deployability. | Battery pack enclosure and interconnect: Mechanical pack, interconnect, fuse, contactor, sealing, and abuse protection for a moving robot body. It gates runtime and safety because pack packaging must a | Battery pack safety certification: UN38.3, UL-class, transport, abuse, and functional safety requirements for mobile robot batteries."
+  },
+  {
+    "id": "ev_humanoid_figure_botq",
+    "url": "https://www.figure.ai/news/botq",
+    "title": "BotQ: A High-Volume Manufacturing Facility for Humanoid Robots",
+    "claim": "Humanoid robot key component stack: A commercial humanoid robot platform component stack for early fleet deployment: actuators, hands, battery and power, thermal management, sensing, onboard compu | Actuation system: Joint modules, reducers, motors, bearings, encoders, and drive electronics. It bottlenecks payload, walking stability, duty cycle, noise, and service life. | Dexterous hand and tactile system: Hand mechanisms, finger actuation, tactile arrays, slip detection, and local hand control. It determines whether the robot can do useful manipulation rather tha | Structure, materials, and harness: Skeleton, enclosures, skin, cable routing, connectors, feet, and serviceable modules. Weight, stiffness, wire fatigue, and assembly tolerance decide real fleet  | Manufacturing, test, safety, and service: Assembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops. | High-volume joint assembly: Assembly of motors, reducers, bearings, sensors, drives, harness, and housings at repeatable quality. | Reliability and MTBF tracking: Fleet telemetry and root-cause loop for joint, hand, battery, thermal, and sensor failures. | Field service and spares loop: Service workflow for replacement joints, hands, batteries, sensors, calibration, and refurbishment. It gates TCO because a pilot fleet becomes expensive if fail"
+  },
+  {
+    "id": "ev_humanoid_ti_bms",
+    "url": "https://www.ti.com/solution/humanoid-robot-bms",
+    "title": "Humanoid robot battery management system solution",
+    "claim": "Battery management system: Cell monitoring, balancing, state estimation, protection, diagnostics, and certification interface. | Battery, power, and charging system: Cell selection, pack architecture, BMS, power distribution, docking, and certification. It gates runtime, fleet uptime, abuse tolerance, and deployability. | Texas Instruments: Public US-listed analog, BMS, current-sensing, and motor-control semiconductor supplier candidate."
+  },
+  {
+    "id": "ev_humanoid_nmb_thermal",
+    "url": "https://nmbtc.com/blog/thermal-management-humanoid-robots/",
+    "title": "Thermal Management for Humanoid Robots",
+    "claim": "Thermal management system: Thermal paths for motors, drives, battery, and edge compute. Poor thermal design shortens useful duty cycle and turns demos into short bursts. | Motor and joint thermal path: Heat conduction from winding, drive, gearbox, and bearing stack to housing without creating touch-temperature or reliability issues."
+  },
+  {
+    "id": "ev_humanoid_tactile_review",
+    "url": "https://www.nature.com/articles/s42256-025-01053-3",
+    "title": "Robot tactile sensing research article",
+    "claim": "Dexterous hand and tactile system: Hand mechanisms, finger actuation, tactile arrays, slip detection, and local hand control. It determines whether the robot can do useful manipulation rather tha | Fingertip tactile array: Dense pressure/shear sensing at the fingertip for slip detection and grasp control."
+  },
+  {
+    "id": "ev_humanoid_iso_ts_15066_collaborative_safety",
+    "url": "https://www.iso.org/standard/62996.html",
+    "title": "ISO/TS 15066:2016 Robots and robotic devices - Collaborative robots",
+    "claim": "Manufacturing, test, safety, and service: Assembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops. | Functional safety and E-stop: Safety architecture for stop states, safe torque off, power isolation, human proximity, and incident logging. | Proximity and touch safety sensing: Close-range detection and contact sensing for human-robot interaction and collision mitigation."
+  },
+  {
+    "id": "ev_humanoid_ul_consumer_commercial_robot_certification",
+    "url": "https://www.ul.com/services/consumer-and-commercial-robots",
+    "title": "UL Solutions consumer and commercial robot testing and certification",
+    "claim": "Manufacturing, test, safety, and service: Assembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops. | Functional safety and E-stop: Safety architecture for stop states, safe torque off, power isolation, human proximity, and incident logging. | Runtime safety monitor: Independent health and safety monitor for torque, temperature, battery, perception, and human proximity constraints."
+  },
+  {
+    "id": "ev_humanoid_battery_constraint_review",
+    "url": "https://www.the-innovation.org/article/doi/10.59717/ipj.energy-use.2026.100032",
+    "title": "Powering Humanoid Robots: The Central Role of Battery Technology",
+    "claim": "Battery, power, and charging system: Cell selection, pack architecture, BMS, power distribution, docking, and certification. It gates runtime, fleet uptime, abuse tolerance, and deployability. | Lithium-ion cell selection: Cell chemistry and format trade-off across energy density, discharge power, safety, and cycle life. | Battery thermal safety: Cell temperature monitoring, heat spreading, runaway containment, and pack-level shutoff. | Thermal management system: Thermal paths for motors, drives, battery, and edge compute. Poor thermal design shortens useful duty cycle and turns demos into short bursts."
+  },
+  {
+    "id": "ev_humanoid_nabtesco_precision",
+    "url": "https://www.nabtesco.com/en/products/robot/",
+    "title": "Precision Reduction Gears | Nabtesco",
+    "claim": "Reducer and transmission stack: Strain-wave, planetary, cycloidal, or screw transmission choices that set backlash, stiffness, torque density, and lifetime. The bottleneck is not only precisio | Nabtesco: Public Japan-listed precision reducer supplier candidate; graph link is reducer exposure, not confirmed humanoid BOM."
+  },
+  {
+    "id": "ev_humanoid_yaskawa_motion",
+    "url": "https://www.yaskawa.com/products/motion/integrated-solutions",
+    "title": "Yaskawa integrated motion and robotics solutions",
+    "claim": "Motor stack: Frameless BLDC, direct-drive, or quasi-direct-drive motors sized for compact torque and heat rejection. Motor choice gates noise, duty cycle, efficiency, magnet | Yaskawa Electric: Public Tokyo-listed servo and motion-control supplier candidate; ticker 6506.T is Japan-listed exposure, not a US primary listing."
+  },
+  {
+    "id": "ev_humanoid_nidec_ir",
+    "url": "https://www.nidec.com/en/ir/",
+    "title": "Nidec investor relations",
+    "claim": "Motor stack: Frameless BLDC, direct-drive, or quasi-direct-drive motors sized for compact torque and heat rejection. Motor choice gates noise, duty cycle, efficiency, magnet | Nidec: Public Tokyo-listed motor supplier candidate; ticker 6594.T is Japan-listed exposure, not a US primary listing."
+  },
+  {
+    "id": "ev_humanoid_te_robotics_connectors",
+    "url": "https://www.te.com/en/industries/industrial-machinery/applications/robotics.html",
+    "title": "Robotics for Factory Automation",
+    "claim": "Wiring harness and connectors: High-flex harness, connectors, strain relief, and service routing through moving limbs. It gates reliability because every joint adds bend cycles, EMI, connecto | TE Connectivity: Public NYSE-listed connector and sensor supplier candidate."
+  },
+  {
+    "id": "ev_humanoid_unitree_g1_price_joint_count",
+    "url": "https://www.unitree.com/g1",
+    "title": "Unitree G1 humanoid robot",
+    "claim": "Humanoid robot key component stack: A commercial humanoid robot platform component stack for early fleet deployment: actuators, hands, battery and power, thermal management, sensing, onboard compu | Actuation system: Joint modules, reducers, motors, bearings, encoders, and drive electronics. It bottlenecks payload, walking stability, duty cycle, noise, and service life. | Reducer and transmission stack: Strain-wave, planetary, cycloidal, or screw transmission choices that set backlash, stiffness, torque density, and lifetime. The bottleneck is not only precisio"
+  },
+  {
+    "id": "ev_humanoid_figure03_production_ramp",
+    "url": "https://www.figure.ai/news/ramping-figure-03-production",
+    "title": "Ramping Figure 03 Production",
+    "claim": "Humanoid robot key component stack: A commercial humanoid robot platform component stack for early fleet deployment: actuators, hands, battery and power, thermal management, sensing, onboard compu | Actuation system: Joint modules, reducers, motors, bearings, encoders, and drive electronics. It bottlenecks payload, walking stability, duty cycle, noise, and service life. | Manufacturing, test, safety, and service: Assembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops."
+  },
+  {
+    "id": "ev_humanoid_harmonic_drive_precision_products",
+    "url": "https://www.harmonicdrive.net/",
+    "title": "Harmonic Drive high precision technology",
+    "claim": "Reducer and transmission stack: Strain-wave, planetary, cycloidal, or screw transmission choices that set backlash, stiffness, torque density, and lifetime. The bottleneck is not only precisio | Strain-wave reducer: Compact high-ratio reducer option with low backlash but lifetime and cost pressure at humanoid volumes. | Harmonic Drive Systems: Public Japan-listed supplier candidate for precision strain-wave gearing exposure; ticker 6324.T is Tokyo-listed exposure, not a US primary listing. Graph link "
+  },
+  {
+    "id": "ev_humanoid_leaderdrive_humanoid",
+    "url": "https://www.leaderdrive.com/app/8.html",
+    "title": "Leaderdrive mobile humanoid robots application",
+    "claim": "Reducer and transmission stack: Strain-wave, planetary, cycloidal, or screw transmission choices that set backlash, stiffness, torque density, and lifetime. The bottleneck is not only precisio | Strain-wave reducer: Compact high-ratio reducer option with low backlash but lifetime and cost pressure at humanoid volumes. | Leaderdrive / Leader Harmonious Drive Systems: China-listed strain-wave reducer and rotary actuator supplier candidate for humanoid reducer exposure; ticker 688017.SS is Shanghai-listed exposure, not a US pr"
+  }
+]

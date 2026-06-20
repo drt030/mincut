@@ -33,3 +33,17 @@ test("AI compute interconnect and optics keeps seven outgoing edges on distinct 
     `interconnect_and_optics ports should be visibly separated; got ${interconnect.minimumSourceAnchorDistance.toFixed(1)}px`,
   );
 });
+
+test("AI compute product-layer primary edges stay within the current crossing budget", () => {
+  const audit = auditGraphGeometry(
+    loadActiveGraphData("ai_accelerator_module_hbm_cowos"),
+    "ai_accelerator_module_hbm_cowos",
+    { maxEdgeCrossings: 10, maxEdgeNodeIntersections: 90, maxEdgeOverlaps: 0 },
+  );
+
+  assert.ok(
+    audit.edgeCrossings.length <= 10,
+    `AI compute primary edge crossings exceeded the current budget; got ${JSON.stringify(audit.edgeCrossings.slice(0, 3))}`,
+  );
+  assert.deepEqual(audit.edgeGeometryFailures, []);
+});

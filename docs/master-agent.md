@@ -45,10 +45,11 @@ Use this loop for substantial work:
    - Decide what outcome this round should achieve.
    - Keep the scope small enough for one implementation/QA cycle.
    - Preserve the v0 focus unless the user explicitly changes it.
+   - For any user-reported product-facing defect or QA miss, run acceptance coverage preflight before delegation: map the symptom to `docs/ACCEPTANCE.md` / `docs/QA-agent.md`, send an independent QA replay that does not receive the exact symptom list, and compare whether it independently reports the failure class. If it misses the class or coverage is only broad, update the acceptance/QA/machine-gate rule first, then rerun a fresh replay before asking a coding agent to fix product code.
 
 3. Delegate implementation.
    - Send a bounded task to a coding agent.
-   - Include objective, scope, non-goals, acceptance criteria, and required verification.
+   - Include objective, scope, non-goals, the exact acceptance rule or new acceptance delta, the independent replay result, and required verification.
    - Avoid giving implementation agents broad product-strategy authority.
 
 4. Review implementation handoff.
@@ -124,8 +125,8 @@ For handoff continuity, read when relevant:
 
 Keep the repo aligned with the user's desired product, not merely with completed tasks.
 
-- Prefer one complete v0 loop over many shallow features.
-- Keep `low_cost_parcel_sorting_robot_300k_rmb` as the current product focus unless the user changes it.
+- Prefer complete, defensible domain loops over many shallow features.
+- Keep `low_cost_parcel_sorting_robot_300k_rmb` as the internal regression/depth-demo target; commercial QA currently prioritizes AI compute, SpaceX reusable launch, and humanoid robotics unless the user changes it again.
 - Treat product and demand as separate concepts.
 - Keep graph claims explicit in local data.
 - Keep gate logic local-data-only.

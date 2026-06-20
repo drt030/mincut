@@ -110,23 +110,32 @@ export function computeRectEdgePorts<T extends RectPortEdge>(
     return delta === 0 ? a.id.localeCompare(b.id) : delta;
   });
 
-  for (const group of sourceGroups.values()) {
-    const sorted = sortByCounterpart(group, "source");
-    sorted.forEach((edge, index) => {
-      const center = nodePositions.get(edge.source);
-      if (!center) return;
-      sourceAnchorByEdge.set(
-        edge.id,
-        rectPortPoint(center, edge.side, rectPortOffset(index, sorted.length, edge.side, box), box),
-      );
-    });
-  }
   for (const group of targetGroups.values()) {
     const sorted = sortByCounterpart(group, "target");
     sorted.forEach((edge, index) => {
       const center = nodePositions.get(edge.target);
       if (!center) return;
       targetAnchorByEdge.set(
+        edge.id,
+        rectPortPoint(center, edge.side, rectPortOffset(index, sorted.length, edge.side, box), box),
+      );
+    });
+  }
+  for (const group of sourceGroups.values()) {
+    const sorted = group.sort((a, b) => {
+      const axis = a.side === "left" || a.side === "right" ? "y" : "x";
+      const aTargetAnchor = targetAnchorByEdge.get(a.id);
+      const bTargetAnchor = targetAnchorByEdge.get(b.id);
+      const aCounterpart = nodePositions.get(a.target);
+      const bCounterpart = nodePositions.get(b.target);
+      const delta = (aTargetAnchor?.[axis] ?? aCounterpart?.[axis] ?? 0) -
+        (bTargetAnchor?.[axis] ?? bCounterpart?.[axis] ?? 0);
+      return delta === 0 ? a.id.localeCompare(b.id) : delta;
+    });
+    sorted.forEach((edge, index) => {
+      const center = nodePositions.get(edge.source);
+      if (!center) return;
+      sourceAnchorByEdge.set(
         edge.id,
         rectPortPoint(center, edge.side, rectPortOffset(index, sorted.length, edge.side, box), box),
       );

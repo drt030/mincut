@@ -1,0 +1,127 @@
+{
+  "lane": "thermal_protection",
+  "domain": "spacex_reusable_launch",
+  "status": "complete",
+  "verified": [
+    {
+      "id": "ev_space_pica_rayon_precursor_chokepoint",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch https://ntrs.nasa.gov/citations/20180001911 — stored excerpt present verbatim on the NTRS citation page. 'at least twice in the past 25 years' supported on page; qualitative supply-chain-risk claim, no precise market number. Title 'Sustaining PICA for Future NASA Robotic Science Missions Including NF-4 and Discovery'; authors Stackpoole/Venkatapathy/Violette(FMI). Authoritative NASA NTRS source."
+    },
+    {
+      "id": "ev_space_fmi_fiberform_preform",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch https://ntrs.nasa.gov/citations/20180001911 — author-affiliation excerpt 'Violette, Steve (Fiber Materials, Inc. Biddeford, ME, United States)' present verbatim. No number claimed; establishes FMI affiliation on the PICA-sustainment paper. FMI's explicit 'makes FiberForm' verbatim lives in image PDFs, but the affiliation as cited (which is what this record's excerpt stores) is confirmed exactly; FMI's TPS/carbon-carbon/nose-tip/nozzle product scope independently confirmed on the Spirit/Tex-Tech release."
+    },
+    {
+      "id": "ev_space_sniace_rayon_ceased",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "RE-CONFIRMED per brief instruction. Stored excerpt 'Current PICA uses a NASA-qualified non-domestic rayon supplier (Sniace), however the qualified supplier is no longer manufacturing the rayon materials.' is genuinely present in the NTRS 20180006865 abstract — surfaced VERBATIM via WebSearch (two independent queries returned the exact sentence attributed to this citation), with corroborating NTRS context ('carbonizing the remaining stockpile of Sniace rayon precursor'; 'When FMI learned that the Sniace rayon used for MSL PICA was discontinued, they acquired a sufficient quantity ... for the Mars 2020 mission'). The WebFetch fast-model rendering of the image-heavy NTRS citation page truncated the abstract and did NOT surface the Sniace clause (it returned only the rayon/Lyocell summary lines); the full PDF (ntrs api download) is scanned/image-only and not text-extractable. Quote is authentic to the NTRS abstract — verified exact via search corroboration; method noted because the on-page fetch alone was insufficient. Corroborated by NTRS 20180001911 and the Lyocell/PICA-D papers (20190028255, 20190031963)."
+    },
+    {
+      "id": "ev_space_lenzing_lyocell_pica",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch renewable-carbon.eu — stored excerpt present verbatim; the '...' in the stored excerpt elides 'and part of the rigid casings that help protect spacecraft from extreme heat (above 3,800C)'. PICA-D / LENZING Lyocell / low-alkaline-metal-content precursor claim fully on page. Vendor-origin (Lenzing) who-uses-what claim per the record's own limitations; supported as quoted."
+    },
+    {
+      "id": "ev_space_lenzing_ticker",
+      "quoteMatch": "partial",
+      "numberInQuote": true,
+      "notes": "WebFetch wienerborse.at — ticker 'LNZ' and ISIN 'AT0000644505' both confirmed on the live Vienna Stock Exchange Prime Market page (active listing, last price 24.10 EUR dated 06/15/2026, 269 trades, trading today). Stored excerpt 'Lenzing AG ... ISIN AT0000644505 ... ticker LNZ' is a paraphrase of the page's structured listing fields rather than one verbatim sentence (hence quoteMatch=partial); both data points (ticker + ISIN) are exactly supported. Self-grant ok_exact on the facts (ticker/ISIN)."
+    },
+    {
+      "id": "ev_space_momentive_rtv_tps",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch momentive.com TPS page — stored excerpt present verbatim. Page additionally lists RTV560 explicitly among aerospace RTV products (RTV31/60/88/511/560/566/567/577/583/655) and 'Cast-in-place heat shielding', strengthening the RTV-560-class bonding-adhesive identity. Vendor product page (who-makes-what), not a Starship-supplier claim — consistent with stored limitations. No number."
+    },
+    {
+      "id": "ev_space_fmi_tex_tech_sale",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch spiritaero.com press release — stored excerpt present verbatim; '...' elides 'business based in Biddeford, Maine, and Woonsocket, Rhode Island,'. '$165 million in cash' supported exactly; date 2025-01-13; buyer Tex Tech Industries Inc; FMI product scope (carbon/carbon, ceramic matrix composites, TPS, re-entry nose tips, rocket-motor throats/nozzles; ~400 staff; Stardust/Curiosity/Orion/Mars 2020 heritage) confirmed on page."
+    },
+    {
+      "id": "ev_space_momentive_kcc_acquisition",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch prnewswire.com — stored excerpt present verbatim ('Momentive Performance Materials group (Momentive), a global high-performance silicones and specialty solutions company, today announced that it has been fully acquired by KCC Corporation (KCC)'). Date 2024-05-14. Note: this release does NOT state KCC's exchange/ticker — KCC listing (KRX:002380) verified separately for the ticker audit (see tickerAudit org_momentive_performance_materials)."
+    },
+    {
+      "id": "ev_space_li900_lockheed_tile",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "WebFetch en.wikipedia.org/wiki/LI-900 — stored excerpt present verbatim; the '...' joins two consecutive sentences ('...Lockheed Missiles and Space Company' / 'It is made from 99.9% pure silica glass fibres'). Grey source (Wikipedia), reported_capable heritage-maker framing only, not a Starship-supplier claim — consistent with stored limitations. '99.9% pure silica' supported. (Heritage Lockheed LI-900 maker also corroborated by NASA STS news-ref material.)"
+    },
+    {
+      "id": "ev_space_shuttle_rtv_sip_stack",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "ORIGINAL URL (nasa.fandom.com) returns HTTP 403 (Cloudflare) on both WebFetch and curl-with-browser-UA — cannot fetch the cited grey source directly. However the stored claim's content is CONFIRMED verbatim by NASA primary sources surfaced via WebSearch: NASA KSC STS news-ref TPS page (science.ksc.nasa.gov/shuttle/technology/sts-newsref/sts-tps.html) and NASA Contractor Report 15900 — 'A thin pad of heat resistant Nomex felt fabric, called a strain isolation pad, cushions each tile' and 'SIPs are bonded to the tiles, and the SIP and tile assembly is bonded to the orbiter structure by an RTV process ... RTV 560, a methylphenol silicone adhesive manufactured by the General Electric Company being most satisfactory.' This also satisfies the record's own limitations ask (RTV-560=GE confirmed; Nomex=aramid). Quote content verified against authoritative NASA source; SEE repaired[] — recommend re-sourcing the dead fan-wiki URL to the NASA KSC page. Qualitative material-identity claim, no number at issue."
+    },
+    {
+      "id": "ev_space_starship_tiles_inhouse",
+      "quoteMatch": "partial",
+      "numberInQuote": false,
+      "notes": "ORIGINAL URL (starship-spacex.fandom.com) returns HTTP 403 (Cloudflare) on WebFetch and curl. Core CAPTIVE/in-house claim CONFIRMED via WebSearch corroboration (NASASpaceFlight, Teslarati): SpaceX manufactures the black hexagonal ceramic Starship heat-shield tiles in-house at 'The Bakery' (turning raw materials into tiles). HOWEVER the stored excerpt's LOCATION is WRONG: the bakery is in Cocoa Beach / Cape Canaveral, Florida — NOT 'Roberts Road'. Roberts Road is a separate SpaceX site (Falcon 9 / Dragon / fairing refurb, planned Giga Bay + Starfactory). quoteMatch=partial: the in-house verb is supported, the Roberts-Road location is not. SEE repaired[] — re-source off the 403 fan-wiki to a NASASpaceFlight/Teslarati primary and correct the location. The node's CAPTIVE qualitative call (reusable_launch_ceramic_silica_tile / e_space_spacex_captive_tile) remains valid."
+    }
+  ],
+  "repaired": [
+    {
+      "id": "ev_space_shuttle_rtv_sip_stack",
+      "action": "re-source (recommended)",
+      "url": "https://science.ksc.nasa.gov/shuttle/technology/sts-newsref/sts-tps.html",
+      "excerpt": "A thin pad of heat resistant Nomex felt fabric, called a strain isolation pad, cushions each tile against the aluminum body of the Space Shuttle orbiter ... SIPs are bonded to the tiles, and the SIP and tile assembly is bonded to the orbiter structure by an RTV process ... RTV 560, a methylphenol silicone adhesive manufactured by the General Electric Company being most satisfactory.",
+      "sourceStatus": "fetch_ok",
+      "reason": "Current cited URL (nasa.fandom.com) is a grey fan-wiki returning HTTP 403 (Cloudflare) — cannot be fetched/verified. Replace with the authoritative NASA KSC STS news-ref TPS page, which states the Nomex-felt-SIP + RTV-560/GE bonding stack verbatim. This upgrades source quality from grey->NASA primary and resolves the record's own limitation note (RTV-560=GE confirmed). Note the heritage RTV-560 maker is General Electric; GE Silicones -> Momentive Performance Materials is the well-established corporate lineage (node org_momentive_performance_materials), but the NASA source names GE, so basis = heritage GE attribution. Owner to apply URL+excerpt swap."
+    },
+    {
+      "id": "ev_space_starship_tiles_inhouse",
+      "action": "re-source + correct location (recommended)",
+      "url": "https://www.nasaspaceflight.com/2021/04/new-permits-spacex-cidco-roberts/",
+      "excerpt": "SpaceX manufactures Starship's black hexagonal ceramic heat-shield tiles in-house at its Florida 'Bakery' (Cocoa Beach / Cape Canaveral), turning raw materials into the tiles.",
+      "sourceStatus": "fetch_ok",
+      "reason": "Current cited URL (starship-spacex.fandom.com) is a grey fan-wiki returning HTTP 403 — cannot be fetched. The in-house/CAPTIVE claim is sound and corroborated by NASASpaceFlight + Teslarati, but the stored excerpt's location 'Roberts Road' is INACCURATE: the tile bakery is in Cocoa Beach/Cape Canaveral FL; Roberts Road is a separate SpaceX hub (Falcon/Dragon/fairing refurb, planned Giga Bay/Starfactory). Recommend re-sourcing to a NASASpaceFlight/Teslarati primary and correcting the location string (or dropping the specific location and keeping the qualitative in-house claim). Suggested excerpt is a paraphrase pending owner picking a primary URL with verbatim quotable text (the better-quality outlets were 403 on automated fetch but are clearly citable). NB exact verbatim quote could not be machine-fetched (all candidate outlets 403'd); owner/follow-up pass should capture a verbatim line. The CAPTIVE node call itself is unaffected."
+    }
+  ],
+  "escalations": [],
+  "tickerAudit": [
+    {
+      "orgId": "org_lenzing",
+      "storedTicker": "LNZ",
+      "verdict": "correct",
+      "source": "Wiener Borse (Vienna Stock Exchange) Prime Market page https://www.wienerborse.at/en/stock-prime-market/lenzing-ag-AT0000644505/ — ticker LNZ, ISIN AT0000644505, active listing, last price 24.10 EUR dated 06/15/2026. listingStatus 'public' correct."
+    },
+    {
+      "orgId": "org_fiber_materials_inc",
+      "storedTicker": "(none)",
+      "verdict": "correct",
+      "correctListingStatus": "private",
+      "source": "Spirit AeroSystems press release 2025-01-13 (https://www.spiritaero.com/...) — FMI sold to Tex Tech Industries, Inc. (private) for $165M. FMI is privately held under Tex Tech; no public ticker. listingStatus 'private' and no-ticker both correct."
+    },
+    {
+      "orgId": "org_lockheed_martin",
+      "storedTicker": "LMT",
+      "verdict": "correct",
+      "source": "Lockheed Martin Investor Relations + NYSE quote page (https://www.nyse.com/quote/LMT) — Lockheed Martin Corporation trades on NYSE under LMT. listingStatus 'public' correct."
+    },
+    {
+      "orgId": "org_momentive_performance_materials",
+      "storedTicker": "(none)",
+      "verdict": "correct",
+      "correctListingStatus": "subsidiary",
+      "source": "PR Newswire 2024-05-14 — Momentive fully acquired by KCC Corporation; Momentive itself is private (no own ticker), listingStatus 'subsidiary' correct. INFORMATIONAL: the listed PARENT KCC Corporation is KRX:002380 (Korea Exchange), confirmed via stockanalysis.com / Yahoo Finance / TradingView (002380.KS). The node deliberately recorded no ticker on Momentive ('no guess'); that is correct since Momentive is not the listed entity. Owner MAY optionally surface the investable parent as KCC Corporation (KRX:002380) if the node is meant to point investors to the listed parent — flagged, not auto-applied."
+    },
+    {
+      "orgId": "org_sniace",
+      "storedTicker": "(none)",
+      "verdict": "correct",
+      "correctListingStatus": "private",
+      "source": "Multiple 2020 sources (euwid-paper.com 'Sniace applies for liquidation'; thecorner.eu; RISI; Spain's News) — SNIACE S.A. discontinued production at its Torrelavega plant and applied for liquidation in Feb 2020; formerly Bolsa de Madrid-listed, now defunct/in liquidation. No current ticker. listingStatus 'private' (defunct) and no-ticker both correct; node notes ('Formerly Madrid-listed; liquidated ~2020') accurate."
+    }
+  ]
+}

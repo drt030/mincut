@@ -1,4 +1,5 @@
 .next/
+.next-*/
 node_modules/
 out/
 dist/
@@ -9,6 +10,7 @@ data/gate_reports/*.json
 tsconfig.tsbuildinfo
 .tmp/
 .superpowers/
+.scratch/chokepoint-atlas-research/
 # Held-out evaluation workspace: sealed test sets, owner-only reports, eval
 # bookkeeping. Must never be committed or pushed (see
 # docs/agents/handoff-2026-06-10-gpu-chain.md Part 2).

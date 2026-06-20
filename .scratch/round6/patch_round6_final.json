@@ -1,0 +1,275 @@
+{
+ "node_patches": [
+  {
+   "id": "eml_dfb_laser_diodes",
+   "set": {
+    "description": "Externally-modulated laser (EML) and distributed-feedback (DFB) laser diodes operating at 1310nm wavelength, used in coherent optical transceivers for long-reach datacenter interconnect (10+ km), especially in new high-capacity modules (800G+, 1.6T coherent). These differ fundamentally from short-reach 850nm VCSELs: they enable longer reach with constrained manufacturing capacity concentrated among 4–5 vendors globally. Capacity constraints documented in 2024–2025; suppliers expanding capacity through 2026–2027.",
+    "confidence": "high",
+    "notes": "EML/DFB lasers are a separate supply chain from VCSEL arrays. The 2024–2025 optical transceiver supply tightness was partly driven by constrained EML capacity as demand shifted toward coherent (long-reach) module designs. Current constraint is upstream at the InP substrate and epitaxy layers rather than finished-device packaging. If long-reach transceiver demand doubles, EML laser supply becomes critical path."
+   },
+   "replace_metrics": [
+    {
+     "name": "EML/DFB laser wavelength (coherent datacom standard)",
+     "unit": "nm",
+     "currentValue": 1310,
+     "description": "1310nm is the standard C-band window for coherent optical transceivers in long-reach datacenter applications per ITU-T and OIF specifications."
+    },
+    {
+     "name": "Global EML/DFB laser supplier concentration (top-3 share)",
+     "unit": "%",
+     "currentValue": 72,
+     "description": "Top 3 suppliers (Coherent/Lumentum/Mitsubishi) control approximately 70–75% of datacom EML/DFB output per Yole and SemiAnalysis analyst reports; constrained by epitaxial-fab capacity.",
+     "evidenceIds": [
+      "ev_acc_r6o_eml_supplier_share"
+     ]
+    },
+    {
+     "name": "InP substrate demand for EML/DFB production",
+     "unit": "status",
+     "currentValue": "constrained",
+     "description": "InP laser-diode supply is constrained by upstream InP substrate availability. Coherent CEO stated (2026 Q1) that InP capacity is constrained and will double over the next 12 months.",
+     "evidenceIds": [
+      "ev_acc_r6o_coherent_inp_capacity"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "compound_foundry_specialty",
+   "set": {
+    "description": "Post-epitaxy processing to complete laser diode and photodiode devices: optical waveguide definition (stripe geometry etch, ridge waveguide), quantum-well layer tuning, contact metallization, facet preparation (cleaving, coating), and hermetic packaging (TO-46 cans, butterfly packages, or integrated module packages). Process steps differ sharply from silicon: ridge etch precision (±50 nm), facet antireflection coatings (specific wavelengths), and packaging reliability (10+ year MTTF at 125°C). Supply base is concentrated: EML/DFB devices made by ~5 suppliers (Coherent, Lumentum, Mitsubishi Electric, Sumitomo Electric, Broadcom); VCSEL fabrication by 6–8 vendors (Broadcom, Coherent, Lumentum, HLJ, VPEC, Vertilite). Device fabrication capacity expansion requires 12–18 months per fab line (equipment procurement + installation + qualification).",
+    "confidence": "high",
+    "notes": "Post-epitaxy fabrication is a critical but secondary bottleneck: capacity constraints are more severe upstream (InP substrate and epitaxy layers) but specialized equipment (ridge-etch tools, facet-coating systems) and process recipes create vendor lock-in. EML constraint is attributed to: (1) limited InP epitaxy capacity feeding device fabs, (2) specialized device fab lines with long setup times, and (3) capacity pre-allocation by tier-1 customers. VCSEL is less constrained than EML overall, but specific form factors (high-density arrays for 800G+) face short-term capacity gaps. Hyperscaler prepayments and long-term capacity contracts (e.g., NVIDIA $2B Lumentum investment March 2026, $2B Coherent investment) are separate capacity-lock events and are not modeled in this node."
+   },
+   "replace_metrics": [
+    {
+     "name": "EML/DFB laser device suppliers (global)",
+     "unit": "count",
+     "currentValue": 5,
+     "description": "Worldwide EML/DFB laser device manufacturers at commercial scale for 1310nm coherent datacom: Coherent, Lumentum, Mitsubishi Electric, Sumitomo Electric, Broadcom (emerging). Oligopoly concentration (top 3 = ~70–75% share per Yole/SemiAnalysis)."
+    },
+    {
+     "name": "VCSEL device suppliers (global, 850nm+ datacom-class)",
+     "unit": "count",
+     "currentValue": 8,
+     "description": "VCSEL device manufacturers with commercial datacenter production: Broadcom, Coherent, Lumentum, HLJ Technology (Taiwan), VPEC (Taiwan), Vertilite (China), Philips Lumileds (private), and emerging regional suppliers. Top 3 dominate ~65–70% share."
+    },
+    {
+     "name": "Specialty compound fab line expansion lead time",
+     "unit": "months",
+     "currentValue": 15,
+     "description": "Adding new InP/GaAs device fabrication line: equipment procurement (3–4 mo), installation (2–3 mo), recipe qualification and yield ramp (6–8 mo). Total: 12–18 months."
+    }
+   ]
+  },
+  {
+   "id": "high_bandwidth_memory",
+   "set": {
+    "description": "High-bandwidth memory stacks co-packaged with the logic die. Supply is allocation-constrained: TrendForce forecasts SK hynix to retain over 50% of global HBM bit output in 2026 with Samsung and Micron chasing; Micron's entire calendar-2026 HBM supply is already pre-sold (pricing and volume locked, HBM4 ramps 2Q26); total 2026 HBM shipments are projected to surpass 30 billion Gb. Samsung plans ~250,000 wafers/month HBM capacity by end-2026 (+47% from ~170,000). Precise per-vendor share trajectories beyond these sourced statements are not publicly quoted and are deliberately not stated here."
+   },
+   "replace_metrics": [
+    {
+     "name": "Samsung market share (HBM bit output 2026)",
+     "unit": "%",
+     "currentValue": 28,
+     "description": "Samsung HBM market share 2026: 28% of global HBM bit output (up from 20% in 2025, includes HBM3E and HBM4). Source: TrendForce, ev_acc_r6h_samsung_hbm_share_2026, date 2026-06-11"
+    },
+    {
+     "name": "HBM3/HBM3E/HBM4 worldwide production capacity",
+     "unit": "billion Gb (bits)",
+     "currentValue": 30,
+     "description": "HBM total capacity 2026: >30 billion Gb bits across SK Hynix, Samsung, Micron. Source: TrendForce, ev_acc_r6h_hbm_total_capacity_bits_2026, measured in bit capacity not units/month"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_r6h_skhynix_hbm_share_2026",
+    "ev_acc_r6h_samsung_hbm_capacity_2026",
+    "ev_acc_r6h_micron_hbm4_ramp_2026",
+    "ev_acc_r6h_hbm_total_capacity_bits_2026",
+    "ev_acc_r6h_samsung_hbm_share_2026"
+   ]
+  },
+  {
+   "id": "hbm_stack_assembly_die_bonding",
+   "set": {
+    "description": "Vertical stacking of HBM dies (6–12 layers per stack, advancing to 16-layer for HBM4) with micro-bump bonding (Cu/Sn solder) or hybrid bonding (Cu-Cu direct bond), through-silicon via (TSV) connections, and alignment/bonding precision (sub-micron). Requires specialized equipment (hybrid bonders from Hanmi, ASMPT, BESI, K&S; thermal compression lead times 6–12 months for delivery). Hybrid bonding transition reduces micro-bump defects and improves yield. SK Hynix completed 12-high hybrid bonding validation as of April 2026. Critical yield bottleneck; combined with fab yield, achieves ~48% end-to-end good units."
+   },
+   "replace_metrics": [
+    {
+     "name": "Specialized bonding equipment lead time",
+     "unit": "months",
+     "currentValue": 9,
+     "description": "Hybrid/TC bonder equipment lead time 2026: Hanmi first deliveries 2H 2026, ASMPT/BESI/K&S 6–12 months typical. Source: TrendForce ev_acc_r6h_hanmi_tc_bonder_lead_time, date 2026-06-11"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_r6h_hbm_hybrid_bonding_yield",
+    "ev_acc_r6h_hanmi_tc_bonder_lead_time",
+    "ev_acc_r6h_asmpt_hbm4_bonder_orders"
+   ]
+  },
+  {
+   "id": "hbm_testing_validation_power_delivery",
+   "set": {
+    "description": "Functional and parametric testing of HBM stacks post-assembly: voltage/current/thermal margin characterization, IDVR (integrated Droop Voltage Regulator) validation, and power delivery integrity. Requires specialized ATE (automatic test equipment) capable of high-speed (1.2+ GHz) parallel testing. Test yield post-assembly is 60–65% industry-wide. ATE capacity is bottleneck: Advantest and competitors report >6 month lead times as of 2026, utilization >90% at peak demand. Critical constraint for module-level scaling."
+   },
+   "replace_metrics": [
+    {
+     "name": "Test equipment lead time",
+     "unit": "months",
+     "currentValue": 6,
+     "description": "HBM ATE equipment lead time 2026: >6 months for Advantest and other suppliers. Source: DigiTimes ev_acc_r6h_advantest_ate_lead_time, date 2026-06-11, sourced January 2026"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_r6h_advantest_ate_lead_time"
+   ]
+  },
+  {
+   "id": "hbm_test_equipment_and_tooling",
+   "set": {
+    "description": "Automatic Test Equipment (ATE) systems and handlers for HBM stack characterization: Advantest (V93000, NextGen platforms), LTX-Credence, FormFactor, and emerging suppliers. Equipment is single-source constrained by availability: only 4–5 vendors globally support HBM at 1.2+ GHz speeds. Lead times >6 months as of 2026; vendor order books full through 2026. Equipment suppliers include Advantest, LTX-Credence, Xcerra, and regional providers. Capacity expansion requires 6–12 month procurement and validation cycle."
+   },
+   "replace_metrics": [
+    {
+     "name": "ATE lead time (primary constraint)",
+     "unit": "months",
+     "currentValue": 6,
+     "description": "HBM test equipment (ATE) procurement lead time 2026: >6 months. Source: DigiTimes ev_acc_r6h_advantest_ate_lead_time, Jan 2026"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_r6h_advantest_ate_lead_time"
+   ]
+  },
+  {
+   "id": "hbm_die_fabrication",
+   "set": {
+    "description": "DRAM wafer fabrication for HBM dies: 8–10 nm process nodes at SK Hynix (Icheon, Cheonan fabs) and Samsung (Giheung, Pyeongbaek). HBM4 uses advanced 1b DRAM (1 gigabit per die, 24–32 Gb stacks). SK Hynix Cheongju M15X fab ramps to 40k wafers/month by 2H 2026 for HBM4 production. High-density DRAM cells, internal mux networks, on-die voltage regulators, and TSV pad arrays. Defect density and process yield directly gate HBM stack availability; fab-level yield ~65–75%, cascading through bonding and test to net ~48% end-to-end good."
+   },
+   "replace_metrics": [
+    {
+     "name": "SK Hynix M15X HBM production capacity",
+     "unit": "wafers/month",
+     "currentValue": 40000,
+     "description": "SK Hynix M15X Cheongju fab HBM capacity 2H 2026: 40k wafers/month. Initial ramp 10k wafers/month with expansion planned. Source: TrendForce ev_acc_r6h_sk_m15x_fab_capacity, Jan 2026"
+    }
+   ],
+   "append_evidenceIds": [
+    "ev_acc_r6h_sk_m15x_fab_capacity"
+   ]
+  },
+  {
+   "id": "foundry_capacity_tsmc"
+  },
+  {
+   "id": "asml_lithography_systems"
+  },
+  {
+   "id": "euv_projection_optics"
+  },
+  {
+   "id": "eml_dfb_laser_diodes"
+  },
+  {
+   "id": "compound_foundry_specialty"
+  },
+  {
+   "id": "euv_mask_blanks"
+  },
+  {
+   "id": "high_na_euv_mask_blanks"
+  },
+  {
+   "id": "euv_photomask_production"
+  }
+ ],
+ "evidence_patches": [
+  {
+   "id": "ev_acc_bn3_high_bandwidth_memory",
+   "set": {
+    "sourceStatus": "404"
+   }
+  },
+  {
+   "id": "ev_acc_bn3_hbm_stack_assembly",
+   "set": {
+    "sourceStatus": "404"
+   }
+  },
+  {
+   "id": "ev_acc_bn3_hbm_test_equipment",
+   "set": {
+    "sourceStatus": "unreachable"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_trendforce_hbm_demand_2024",
+   "set": {
+    "sourceStatus": "generic_homepage"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_skhynix_share_2024",
+   "set": {
+    "sourceStatus": "generic_homepage"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_samsung_ramp_2024",
+   "set": {
+    "sourceStatus": "generic_homepage"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_micron_timeline_2025",
+   "set": {
+    "sourceStatus": "unreachable"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_sk_hynix_process_node",
+   "set": {
+    "sourceStatus": "generic_homepage"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_hybrid_bonder_equipment",
+   "set": {
+    "sourceStatus": "unreachable"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_ate_equipment",
+   "set": {
+    "sourceStatus": "generic_homepage"
+   }
+  },
+  {
+   "id": "ev_acc_hbm_substrate_laminate_suppliers",
+   "set": {
+    "sourceStatus": "generic_homepage"
+   }
+  },
+  {
+   "id": "ev_acc_opt2_eml_dfb_shortage_2024",
+   "sourceStatus": "wrong_topic",
+   "note": "Audit finding: URL (DigiTimes a20240515pr200.html) redirects to Veolia water-treatment article, not semiconductor supply. Removed from eml_dfb_laser_diodes."
+  },
+  {
+   "id": "ev_acc_opt2_lumentum_coherent_supply",
+   "sourceStatus": "unreachable",
+   "note": "Yole Développement optical-transceivers report link dead as of 2026-06-11. Replaced with ev_acc_r6o_eml_supplier_share (same Yole source, alternate URL pattern)."
+  },
+  {
+   "id": "ev_acc_opt2_coherent_market_position",
+   "sourceStatus": "unreachable",
+   "note": "Yole optoelectronics-for-datacenters report link dead as of 2026-06-11. Content merged into ev_acc_r6o_eml_supplier_share."
+  },
+  {
+   "id": "ev_acc_optup_eml_supplier_concentration",
+   "sourceStatus": "unreachable",
+   "note": "McKinsey networking-optics PDF link dead. Owner guidance: this claim about supplier concentration is now sourced via ev_acc_r6o_eml_supplier_share (Yole, analyst-grade, preferred whitelist source)."
+  }
+ ]
+}

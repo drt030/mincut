@@ -450,6 +450,7 @@
       "e_servo_motor_requires_pm_rotor",
       "e_servo_motor_requires_encoder_feedback",
       "e_servo_motor_requires_assembly_test_process",
+      "e_impl_servo_motor_assembly_test_mitsubishi",
       "e_servo_motor_implemented_by_feedback_alignment",
       "e_servo_motor_requires_brake_option_for_safety"
     ],
@@ -1336,6 +1337,7 @@
       "e_mfg_robot_controller_io_mitsubishi",
       "e_mfg_robot_controller_cpu_module_mitsubishi",
       "e_impl_servo_drive_motion_loop_mitsubishi",
+      "e_impl_servo_motor_assembly_test_mitsubishi",
       "e_impl_robot_realtime_control_runtime_mitsubishi"
     ],
     "limitations": "Product-family evidence; supports Mitsubishi as a supplier candidate for automation/controller/servo categories, not target-cell adoption, share, detailed robot runtime internals, servo thermal design, or servo motor subcomponent manufacturing.",

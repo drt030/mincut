@@ -1,0 +1,79 @@
+[
+  {
+    "id": "ev_perf_abb_robotic_parcel_inductor_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Achieves up to 1,500 picks per hour at peak rates with >99.5 percent picking accuracy to enable businesses to handle more orders without increasing headcount or time. Pre-engineered module ... solves the core challenges of item picking - detection, grasping and motion control.",
+    "note": "Throughput (1,500 pph), >99.5% pick accuracy, and detection/grasping/motion + AI-vision all supported verbatim on ABB product page (fetched via browser UA; WebFetch timed out)."
+  },
+  {
+    "id": "ev_perf_wayzim_robotic_parcel_infeed_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Infeed efficiency ≥ 1,500 pph. Grasp success rate ≥ 99%. Double-parcel grasp efficiency ≤ 0.1%. ... the system can accurately identify various parcels such as small parcels, boxes, foam packages, and odd-shaped items.",
+    "note": "Throughput, grasp/sorting accuracy, double-feed (jam) rate, and parcel detection supported verbatim. Human-intervention, singulation-spacing and exception-recovery facets not stated on page."
+  },
+  {
+    "id": "ev_perf_mesh_xinduct_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "up to 1,800 picks per hour per robot ... Barcode scanning is performed on both the top and bottom of each parcel, achieving 99%+ read rates. ... Eliminates manual bulk package loading ... Using adaptive 3D vision technology, XInduct can accurately identify and pick: Irregular parcels, Overlapping packages, Stacked items.",
+    "note": "Throughput, 99%+ barcode read rate (sorting accuracy / barcode-OCR), labor elimination (human intervention), and induction/singulation via 3D vision all supported verbatim."
+  },
+  {
+    "id": "ev_perf_flostor_parcel_sortation_roi_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Both handle thousands of packages per hour with better than 99.9% accuracy. ... Parcel sortation automation typically achieves ROI within 24-48 months through labor cost reduction, increased throughput capacity, improved sort accuracy, and avoided facility expansion costs.",
+    "note": "Throughput, >99.9% sort accuracy, and 24-48 month payback supported verbatim; page also covers induction-station conveyor and WMS/WCS interface integration."
+  },
+  {
+    "id": "ev_maintenance_robot_annual_cost_benchmark_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Annual robot maintenance costs 5-15% of the original purchase price, averaging $3,000-$15,000 per robot per year. ... Visual inspection of cables, connectors, and hoses ... Calibrate tool center point and positioning ... Full axis calibration and accuracy verification.",
+    "note": "Maintenance cost figures and inspection/calibration workflow supported verbatim. Robot-arm-body facet only appears as cost-table line items (no structural description)."
+  },
+  {
+    "id": "ev_maintenance_robot_cost_range_rcc_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Maintenance typically accounts for 5 % to 15 % of a robot's purchase price every year ... between €2,000 and €15,000 per robot per year. ... A replacement gearbox for a mid-range industrial robot runs €3,000–€8,000. A servo motor, €1,500–€4,000. ... Most manufacturers recommend inspections every 3–6 months.",
+    "note": "Cost breakdown (labor, spare gearbox/servo/cable, downtime) and inspection-interval workflow supported verbatim. Robot-arm-body components named in spares list, not described structurally."
+  },
+  {
+    "id": "ev_maintenance_abb_robotics_service_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Maintenance from ABB Robotics includes preventive maintenance, remote condition monitoring, life cycle assessment, inspection and diagnostics, refurbishment and reconditioning services. ... Scheduled preventive maintenance reduces the likelihood of a failure or component deterioration.",
+    "note": "Maintenance workflow (preventive maintenance, inspection/diagnostics) and ABB Robotics as supplier supported verbatim (browser-UA fetch). Page is a service overview; no cost figures and no robot-arm-body description."
+  },
+  {
+    "id": "ev_maintenance_fanuc_pm_checklist_2023",
+    "verdict": "demote",
+    "sourceStatus": "unreachable",
+    "excerpt": "",
+    "note": "Page returns a Cloudflare 'Just a moment...' / 'Enable JavaScript' interstitial to WebFetch (403) and to browser-UA curl (403 challenge body). No article content recoverable; not enriched."
+  },
+  {
+    "id": "ev_maintenance_conveyor_cost_factors_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Conveyors need preventive maintenance, belt tracking, lubrication, roller inspection, motor cleaning, and sensor alignment. ... fully automated packaging lines with PLC controls, servo indexing ... Controls and automation typically account for 15-40% of total cost on automated conveyor systems. This includes the PLC, HMI, VFDs, servo drives, sensors, control panels, wiring, and programming.",
+    "note": "Conveyor integration (mechanical/electrical/controls, PLC/HMI/VFD/sensors) and maintenance workflow supported verbatim. Cost is relative ($-$$$$), no dollar maintenance figure. Page says 'Photo-eye sensors' (supports photoelectric facet); 'encoder'/'speed encoder' facet NOT mentioned."
+  },
+  {
+    "id": "ev_vision_control_machine_vision_components",
+    "verdict": "demote",
+    "sourceStatus": "unreachable",
+    "excerpt": "",
+    "note": "Page returns a 'Vercel Security Checkpoint / We're verifying your browser' challenge to WebFetch (403) and browser-UA curl (429 challenge body); Google cache dead. No component text recoverable; not enriched."
+  },
+  {
+    "id": "ev_compute_nvidia_jetson_orin_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Embedded AI modules for next-gen robotics and edge apps ... Edge AI solutions for real-time processing and decisions at the edge ... Jetson AGX Orin modules deliver up to 275 TOPS of AI performance with power configurable between 15W and 60W.",
+    "note": "NVIDIA Jetson Orin as edge-AI/robotics compute, real-time vision processing, and power envelope supported verbatim. TensorRT/runtime-stack and fanless-thermal facets not named on this overview page."
+  }
+]

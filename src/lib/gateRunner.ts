@@ -808,7 +808,7 @@ function excludedClaimsResult(
  *     perfect target match — per dispatch instructions, "a coverage gap of
  *     50% should not score 5/5".
  *   - **Target proximity component (0–2 points)**: if both the rolled-up
- *     p50 and the target p50 are present, distance = |rolled - target|
+ *     typical estimate and the target estimate are present, distance = |rolled - target|
  *     / target. distance ≤ 0.05 → 2; ≤ 0.20 → 1.5; ≤ 0.50 → 1; > 0.50 → 0.
  *     If either side is missing, this component is 0 (we cannot honestly
  *     judge proximity).
@@ -860,7 +860,7 @@ function costConstraintsResult(
   // Proximity component. Per iter-15 review (P0 #1), when no subsystem
   // contributed real cost data (`anyChildContributed === false`), the
   // rolled-up `{0,0,0}` is meaningless and proximity must be 0 — and the
-  // answer text must say so honestly rather than implying `p50=0` is
+  // answer text must say so honestly rather than implying a zero estimate is
   // a real number.
   let proximityScore = 0;
   let proximityNote = "";
@@ -870,24 +870,24 @@ function costConstraintsResult(
     else if (distance <= 0.2) proximityScore = 1.5;
     else if (distance <= 0.5) proximityScore = 1;
     else proximityScore = 0;
-    proximityNote = `Rolled-up p50 ${formatRmb(rollup.rolledUp.typical)} vs target p50 ${formatRmb(target.range.typical)} → distance ${(distance * 100).toFixed(1)}%.`;
+    proximityNote = `Rolled-up est. ${formatRmb(rollup.rolledUp.typical)} vs target est. ${formatRmb(target.range.typical)} → distance ${(distance * 100).toFixed(1)}%.`;
   } else if (!target) {
     proximityNote = "No target cost metric found on the product (looked for a measured_by metric with a currency unit and a numeric targetValue).";
   } else if (!rollup.anyChildContributed) {
     proximityNote = "No subsystem cost data was entered, so proximity to the target cannot be judged.";
   } else {
-    proximityNote = "Cost rollup produced no p50 value (no cost data reachable in the requires subtree).";
+    proximityNote = "Cost rollup produced no estimate value (no cost data reachable in the requires subtree).";
   }
 
   const score = Math.max(0, Math.min(5, Math.round(coverageScore + proximityScore)));
 
   const rollupSummary = rollup.anyChildContributed
-    ? `Rolled-up cost (RMB): p50=${formatRmb(rollup.rolledUp.typical)}, range=${formatRmb(rollup.rolledUp.min)}–${formatRmb(rollup.rolledUp.max)}`
+    ? `Rolled-up cost (RMB): est. ${formatRmb(rollup.rolledUp.typical)}, range=${formatRmb(rollup.rolledUp.min)}–${formatRmb(rollup.rolledUp.max)}`
     : "No subsystem cost data has been entered, so no rolled-up cost is available.";
 
   const answer = [
     rollupSummary,
-    target ? `Target cost (RMB): p50=${formatRmb(target.range.typical)}` : "No target cost on product.",
+    target ? `Target cost (RMB): est. ${formatRmb(target.range.typical)}` : "No target cost on product.",
     `Coverage gap: ${rollup.coverageGap.length} node(s)${rollup.coverageGap.length ? ` — ${sampleIds(rollup.coverageGap)}` : ""}`,
     rollup.costAsOf ? `Earliest costAsOf: ${rollup.costAsOf}` : "No costAsOf year recorded.",
     proximityNote,

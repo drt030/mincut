@@ -50,13 +50,13 @@ test("ux smoke: /graph ships radial canvas chrome", async (t) => {
   assert.match(html, /Vision \/ barcode \/ label recognition/);
 });
 
-test("ux smoke: /product page shows p50 cost rollup section + breakdown row", async (t) => {
+test("ux smoke: /product page shows estimated cost rollup section + breakdown row", async (t) => {
   if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/product/low_cost_parcel_sorting_robot_300k_rmb");
-  // Smoke-check the p50 rollup is rendered so we know the current cost
+  // Smoke-check the estimated rollup is rendered so we know the current cost
   // walker is in the serving build (not just in tests).
   assert.match(html, /cost-rollup-card/);
-  assert.match(html, /p50 473,384/, "/product should show the current rolled-up p50");
+  assert.match(html, /est\. 473,384/, "/product should show the current rolled-up cost estimate");
   // Slice-4 polish: ProductView now also shows the direct/children
   // breakdown row.
   assert.match(html, /cost-rollup-breakdown/);

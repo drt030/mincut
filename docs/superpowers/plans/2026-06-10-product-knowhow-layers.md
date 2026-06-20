@@ -1,14 +1,19 @@
 # Product / Know-how Layer Split Implementation Plan
 
+Status: historical execution plan. The work has been merged; do not treat the
+worktree, merge, or grey-placeholder instructions below as current operator
+commands. Current graph-layer behavior is governed by ADR-0008 amended
+2026-06-17, `docs/ACCEPTANCE.md`, and `docs/GRAPH_UX.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Implement the spec `docs/superpowers/specs/2026-06-10-product-knowhow-layers-design.md`: a default product layer (artifact kinds only) and a know-how layer (engineering_method / manufacturing_process colored by transactability) on the /graph radial canvas, plus schema fields (`transactability`, `listingStatus`, `ticker`, `capacityLeadTimeMonths`), a derived supply-concentration signal, the ADR-0005 stop-condition amendment, parcel-graph data backfill, and documentation updates.
+**Goal:** Implement the spec `docs/superpowers/specs/2026-06-10-product-knowhow-layers-design.md`: a default product layer (artifact kinds only) and a know-how layer (engineering_method / manufacturing_process colored by transactability) on the /graph radial canvas, plus schema fields (`transactability`, `listingStatus`, `ticker`, `capacityLeadTimeMonths`), a derived supply-concentration signal, the ADR-0005 stop-condition amendment, parcel-graph data backfill, and documentation updates. Current terminology calls this secondary layer **Barrier Sources** and forbids grey user-facing nodes.
 
 **Architecture:** Layers are display-level lenses over one persistent radial map (ADR-0007 stable identity). `filterCanvasGraph` builds a union graph (artifact skeleton + know-how nodes attached via `requires` and `implemented_by`); positions are computed once over the union; a `GraphLayer` state in `GraphExplorer` filters node/edge visibility and swaps node styling. Supply concentration is derived from existing `manufactured_by` / `implemented_by` edges, never stored. Org listing info reads new schema fields first and falls back to the existing ai-chain convention (`public_company` tag + "Public listing" metric) so the hot `ai_compute_chain.json` file is not touched.
 
 **Tech Stack:** Next.js 15 / React 19, @xyflow/react, zod, Node built-in test runner via `tsx --test`.
 
-**Worktree:** Execute in a dedicated worktree (branch `product-knowhow-layers`) created via the superpowers:using-git-worktrees skill. **Do NOT merge** — the user reviews and merges. Base: current `master` HEAD.
+**Historical worktree instruction:** This plan originally executed in a dedicated worktree (branch `product-knowhow-layers`). That instruction is no longer active.
 
 **⚠️ Concurrent-work constraints (another active session is editing this repo):**
 - Do NOT touch `data/nodes/ai_compute_chain.json`, `data/evidence/ai_compute_chain_evidence.json`, `src/components/AppHeader.tsx`, or the `V0_TARGET_NODE_ID` constant line in `src/lib/graphTraversal.ts` (its value is being changed in an uncommitted edit elsewhere; our edits to other lines of that file are fine).
@@ -814,7 +819,8 @@ import { isCanvasTreeEdge, isKnowHowNode } from "./canvasGraph";
  *
  *  - "product": artifact kinds only — answers "what do you buy/build".
  *  - "knowhow": know-how nodes light up colored by transactability;
- *    artifact nodes stay as dimmed grey context.
+ *    artifact context stays in a muted subsystem color (2026-06-17
+ *    amendment: no grey user-facing nodes).
  */
 export type GraphLayer = "product" | "knowhow";
 
@@ -827,8 +833,8 @@ export const KNOW_HOW_FILLS = Object.freeze({
   unset: "hsl(215, 12%, 64%)",
 });
 
-/** Grey context fill for artifact nodes inside the know-how layer. */
-export const ARTIFACT_DIM_FILL = "hsl(215, 14%, 84%)";
+/** Muted subsystem context fill for artifact nodes inside the know-how layer. */
+export const ARTIFACT_CONTEXT_FILL = "hsl(215, 24%, 78%)";
 
 export function knowHowFill(node: Node): string {
   if (node.transactability === "procurable") return KNOW_HOW_FILLS.procurable;
@@ -1339,7 +1345,7 @@ Run: `npm test` — Expected: PASS (layer default is "product"; tests that pin c
 
 `npm run dev` → `http://localhost:3000/graph`:
 - Default: no engineering_method / manufacturing_process nodes on canvas; hosts with hidden bottleneck know-how show red-ring count badges.
-- Toggle → 技术诀窍: same positions; artifact nodes grey; know-how diamonds in green/amber/grey (all grey until Task 10 backfills transactability).
+- Toggle → 技术诀窍: same positions; artifact context keeps muted subsystem color; know-how diamonds show purposeful Barrier-source styling.
 - Toggle back: identical positions. No console errors.
 
 - [ ] **Step 9: Commit**
@@ -1877,8 +1883,8 @@ high-barrier, supply-concentrated, market-ignored upstream segments.
    only), `capacityLeadTimeMonths` (reserved, unpopulated).
 3. /graph is one persistent radial map with two layers (ADR-0007
    stable identity): the default product layer renders artifact kinds
-   only; the know-how layer dims artifacts to grey and lights know-how
-   nodes as diamonds colored by transactability.
+   only; the know-how layer keeps artifact context in muted subsystem color
+   and lights know-how nodes as Barrier-source diamonds.
 4. The canvas tree includes `implemented_by` edges whose target is a
    know-how node, so implemented_by-only know-how attaches to its host.
 5. Bottlenecks must survive the split: product-layer hosts carry a
@@ -1932,7 +1938,7 @@ derived from `implemented_by` / `manufactured_by` edges at read time.
 _Avoid_: capability (reserved for the demand container), skill, craft.
 ```
 
-(b) In the **Graph visualization conventions** section, update the first bullet's node accounting: canvas kinds split into the product layer (default: product, module, equipment, material) and the know-how layer (engineering_method, manufacturing_process as transactability-colored diamonds over a greyed artifact skeleton); the canvas union gains the 5 implemented_by-attached know-how nodes (update the "77 structural nodes" figure to the observed union count from Task 5, and note the layer toggle bottom-left above the color-mode floret).
+(b) In the **Graph visualization conventions** section, update the first bullet's node accounting: canvas kinds split into the product layer (default: product, module, equipment, material) and the know-how layer (engineering_method, manufacturing_process as Barrier-source diamonds over muted subsystem artifact context); the canvas union gains the 5 implemented_by-attached know-how nodes (update the "77 structural nodes" figure to the observed union count from Task 5, and note the layer toggle bottom-left above the color-mode floret).
 
 - [ ] **Step 3: Update `docs/investor-operator-scenarios.md`**
 
@@ -1967,12 +1973,12 @@ Append to `## Scenario Questions`:
     product candidates are maturing under the same capability?
 ```
 
-- [ ] **Step 4: Mark the spec implemented**
+- [ ] **Step 4: Historical status update**
 
 In `docs/superpowers/specs/2026-06-10-product-knowhow-layers-design.md`, change the `**Status**:` line to:
 
 ```markdown
-**Status**: implemented on branch `product-knowhow-layers` (2026-06-10); pending user review/merge
+**Status**: historical implementation design; current behavior is governed by ADR-0008 amended 2026-06-17, `docs/ACCEPTANCE.md`, and `docs/GRAPH_UX.md`
 ```
 
 - [ ] **Step 5: Commit**
@@ -2008,5 +2014,8 @@ With `npm run dev`:
 
 - [ ] **Step 3: Summarize for review**
 
-Do NOT merge. Produce a summary for the user: branch name, commit list (`git log --oneline master..HEAD`), test/verify output, the pinned-count updates made in Tasks 3/5 with justifications, screenshots-worthy states (product layer with badges; know-how layer colors), and the recorded follow-ups (ai-chain transactability backfill; opportunity color mode; evidence feed; chain cards; humanoid expansion).
+Historical instruction: this plan was originally review-before-merge. Do not
+follow that merge instruction now. For current work, summarize the changed
+files, verification output, relevant browser states, and follow-ups according
+to `AGENTS.md` and `docs/TESTING.md`.
 ```

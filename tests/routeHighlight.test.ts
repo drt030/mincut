@@ -57,19 +57,19 @@ function testGraph(): GraphData {
   };
 }
 
-test("selectCostDriverRoute highlights only real requires paths from root to cost drivers", () => {
+test("selectCostDriverRoute highlights real requires paths, including rolled-up aggregate cost drivers", () => {
   const route = selectCostDriverRoute(testGraph(), rootId, { limit: 2 });
 
   assert.equal(route.mode, "cost-drivers");
-  assert.deepEqual(route.targetNodeIds, ["gearbox", "motor"]);
+  assert.deepEqual(route.targetNodeIds, ["arm", "gearbox"]);
   assert.equal(route.nodeIds.has(rootId), true);
   assert.equal(route.nodeIds.has("arm"), true);
   assert.equal(route.nodeIds.has("gearbox"), true);
-  assert.equal(route.nodeIds.has("motor"), true);
+  assert.equal(route.nodeIds.has("motor"), false);
   assert.equal(route.nodeIds.has("orphan_expensive"), false);
   assert.deepEqual(
     [...route.edgeIds].sort(),
-    ["e_arm_gearbox", "e_arm_motor", "e_root_arm"],
+    ["e_arm_gearbox", "e_root_arm"],
   );
 });
 
@@ -79,8 +79,8 @@ test("selectCostDriverRoute returns ordered learning steps with cost values", ()
   assert.deepEqual(
     route.steps.map((step) => [step.nodeId, step.costTypicalRmb]),
     [
+      ["arm", 149_500],
       ["gearbox", 80_000],
-      ["motor", 50_000],
     ],
   );
 });

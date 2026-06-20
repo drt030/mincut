@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "domain": "spacex_reusable_launch",
+    "round": 0,
+    "agent": "Opus evidence verifier + repairer",
+    "checkedAsOf": "2026-06-15",
+    "dataFileUntouched": "data/evidence/space_spacex_evidence.json (NOT edited, per instruction)",
+    "scope": "9 records: 7 needs_fetch + 2 failed. Records outside this domain dispatch (orbital_data_center / thermal / radiation / other vendor org pages) were NOT in scope and were not re-checked.",
+    "note": "No reviewStatus emitted. machineCheck verified is the verifier grant after fetch+quote. Only the owner flips reviewed."
+  },
+  "verified": [
+    {
+      "id": "ev_space_falcon_users_guide_2025",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Falcon Payload User's Guide 2025-05-09 PDF fetched (WebFetch returned binary; extracted locally with pypdf, 128pp). All three condensed fragments are verbatim on the page: (a) 'A single Merlin Vacuum (MVac) engine powers the second stage, using a fixed 165:1 expansion nozzle.' (165:1 number supported at the engine-nozzle basis); (b) 'Falcon launch vehicle avionics, and guidance, navigation, and control systems use a fault-tolerant architecture that provides full vehicle single-fault tolerance' (verbatim incl. 'full vehicle single-fault tolerance'); (c) '...restraint, release, and separation systems use pneumatic devices that provide low-shock release and positive force separation'. Excerpt's '...' elisions each correspond to a verbatim source sentence. Earlier exact-string MISSes were pypdf intra-word spacing artifacts ('us e', 'release ,'), resolved with a whitespace-insensitive match."
+    },
+    {
+      "id": "ev_space_nasa_crew2_reuse",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "NASA Commercial Crew blog (2021-04-23) fetched via WebFetch. Stored excerpt 'First reuse of the Crew Dragon spacecraft and Falcon 9 rocket on a crew mission - Crew Dragon Endeavour flew the historic Demo-2 mission and the Falcon 9 flew astronauts on the Crew-1 mission' returned verbatim. No standalone numeric claim; the 'first reuse on a crew mission' qualitative fact is directly stated. Supports falcon9_reusable_launch_branch."
+    },
+    {
+      "id": "ev_space_spacex_prospectus_2026",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "SpaceX EU Prospectus (BaFin-approved, 2026-06-05) PDF fetched (WebFetch returned binary; extracted locally with pypdf, 400pp). Stored excerpt 'Comprising the Super Heavy booster (powered by 33 Raptor engines) and the Starship upper stage (with three sea-level and three vacuum Raptor engines), Starship V3 is designed to deliver 100 metric tons to space in a fully reusable configuration' is verbatim. Numbers supported at the right basis: 33 Raptor engines (Super Heavy), 3 sea-level + 3 vacuum Raptor (Starship upper stage), 100 metric tons to space (Starship V3, fully reusable). Owner identity 'Space Exploration Technologies Corp.' also present, supporting org_spacex. Issuer evidence (not independent technical validation) - correctly labelled as such on the record."
+    },
+    {
+      "id": "ev_space_faa_starship_cadence",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "FAA Starship/Super Heavy stakeholder page. WebFetch 403s (bot block, as record notes); fetched via curl with browser UA (HTTP 200, 113KB). Stored excerpt 'Under the Proposed Action, the FAA would modify SpaceX's existing vehicle operator license to authorize: Up to 25 annual Starship/Super Heavy orbital launches, including: Up to 25 annual landings of Starship (Second stage) Up to 25 annual landings of Super Heavy (First stage)' is verbatim. The 25-annual cadence figure is supported at the licensing/Proposed-Action basis. NOTAM / Aircraft Hazard Area / airspace language also present on the page, backing the range-safety sub-claim. (Record already carried owner reviewStatus 'reviewed'; this is an independent machine re-confirm - I do NOT emit reviewStatus.)"
+    },
+    {
+      "id": "ev_space_nasa_orbiter_tps_maintenance",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "NASA Kennedy Orbiter TPS PDF (8pp) fetched (WebFetch returned binary; extracted locally with pypdf). All fragments verbatim: 'An average of 50 tiles are replaced after each mission, either due to handling damage or accumulated repairs.' (50-tile figure supported at per-mission basis); 'The tiles are bonded to the orbiter with a silicone adhesive.'; 'The tiles are first bonded to a strain isolator pad'; 'a light-weight, reusable thermal protection system composed of entirely new materials'. Note: this is Shuttle-orbiter TPS evidence used by analogy to back the Starship tile maintenance/bonding/inspection BOTTLENECK logic (not a SpaceX-specific tile spec); the record's summary frames it that way correctly."
+    }
+  ],
+  "repaired": [
+    {
+      "id": "ev_space_smithsonian_grid_fin",
+      "action": "excerpt_found",
+      "url": "https://airandspace.si.edu/collection-objects/grid-fin-rocket-launch-vehicle-falcon-9/nasm_A20220607000",
+      "excerpt": "The first stage of the SpaceX Falcon 9 launch vehicle can land vertically, making it recoverable and therefore reusable. Many components contribute to the control system used for reentry and landing. One of these components is the grid fins. Located near the top of the rocket's first stage, grid fins are deployed during reentry. They help control lift during reentry, thereby guiding the booster to a soft landing on a landing pad or on a spaceport drone ship.",
+      "sourceStatus": "fetch_ok",
+      "basis": "Smithsonian NASM object record (Falcon 9 flown grid fin, Koreasat-5A, 2017-10-30); qualitative function/recovery description, no numeric claim",
+      "asOf": "accessed 2026-06-15",
+      "reason": "Missing excerpt repaired with verbatim Smithsonian object text. FULLY supports falcon9_grid_fin_reentry_control (grid fins deployed during reentry, control lift during reentry, guide booster to soft landing). CAVEAT for the orchestrator: the record also lists falcon9_boostback_entry_landing_burns, but this page does NOT name the boostback / entry / landing BURN sequence (the propulsive maneuvers) - it only says the stage 'can land vertically', describes a 'soft landing', and a 'control system used for reentry and landing'. Recommend the orchestrator either (a) narrow this evidence's supportsNodeIds to falcon9_grid_fin_reentry_control only, or (b) treat its link to falcon9_boostback_entry_landing_burns as qualitative/landing-context only and source the burn-sequence claim separately. I did NOT fabricate a burns quote."
+    },
+    {
+      "id": "ev_space_rocket_lab_capabilities",
+      "action": "resourced",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001819994/000162828025008658/rklb-ex99_1.htm",
+      "excerpt": "Founded in 2006, Rocket Lab is an end-to-end space company with an established track record of mission success. We deliver reliable launch services, satellite manufacture, spacecraft components, and on-orbit management solutions that make it faster, easier, and more affordable to access space. Headquartered in Long Beach, California, Rocket Lab designs and manufactures the Electron small orbital launch vehicle, a family of flight-proven spacecraft, and the Company is developing the large Neutron launch vehicle for constellation deployment.",
+      "sourceStatus": "fetch_ok",
+      "basis": "Rocket Lab USA SEC 8-K exhibit 99.1 (CIK 0001819994, accession 000162828025008658), 'About Rocket Lab' boilerplate; comparable-capability claim for org_rocket_lab (NOT a SpaceX-supplier claim)",
+      "asOf": "accessed 2026-06-15",
+      "reason": "Original url https://www.rocketlabusa.com/ 301-redirects to https://rocketlabcorp.com/, which (and its press/investor pages) 403/timeouts to automated fetch and is a JS app with no server-accessible verbatim text - so a verbatim vendor-homepage excerpt could not be captured. Re-sourced (ladder rung 1) to the company's own SEC 8-K, which carries the identical 'About Rocket Lab' boilerplate verbatim and is an independent, whitelist-grade filing (stronger than vendor marketing). Limited use stands: comparable reusable-launch capability for org_rocket_lab, not SpaceX supply. Orchestrator may keep type as the org-exposure tag; sourceStatus upgrades from vendor_marketing to a filed-document fetch_ok. (Verbatim copy also independently confirmed via WebSearch of the live rocketlabcorp.com boilerplate.)"
+    }
+  ],
+  "escalations": [
+    {
+      "id": "ev_space_spacex_falcon9",
+      "question": "spacex.com/vehicles/falcon-9 is a client-rendered SPA: WebFetch and curl (browser UA) both return only a ~3.1KB JS shell (readable text = 'SpaceX'), and the latest Wayback snapshot (20260612132115) is the same shell with no body text - so the stored excerpt ('Falcon 9 is a reusable, two-stage rocket...world's first orbital class reusable rocket...nine Merlin engines...four hypersonic grid fins...') cannot be confirmed verbatim by any machine fetch. The copy is plausible standard SpaceX wording, but I cannot grant ok_exact without a fetch+quote. Please confirm the four sentences via a browser render of the live page (or supply a browser-captured DOM), or re-source the falcon9 stack/Merlin/grid-fin claims to the Falcon User's Guide (already verified: MVac/nozzle, avionics) + Smithsonian (grid fins, verified this round)."
+    },
+    {
+      "id": "ev_space_spacex_starship",
+      "question": "spacex.com/vehicles/starship is the same client-rendered SPA: WebFetch and curl (browser UA) return only the ~3.1KB JS shell ('SpaceX'); Wayback CDX has no usable snapshot (empty, then 503). The stored excerpt ('SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond.') cannot be confirmed verbatim by machine fetch. Note the BaFin prospectus (verified this round) independently states Starship is fully reusable and carries 100 metric tons to space, but does NOT contain this exact spacex.com sentence. Please confirm via browser render, or re-anchor the Starship 'fully reusable / crew+cargo / 100t' claims to the prospectus excerpt (ev_space_spacex_prospectus_2026, verified) and drop reliance on the SPA page for the verbatim quote."
+    }
+  ],
+  "rejectedEvidenceIds": []
+}

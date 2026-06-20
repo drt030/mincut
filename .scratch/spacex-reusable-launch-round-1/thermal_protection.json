@@ -1,0 +1,466 @@
+{
+  "nodes": [
+    {
+      "id": "starship_pica_class_ablator",
+      "name": "PICA-class ablative heat-shield material",
+      "kind": "material",
+      "domain": ["spacex_reusable_launch"],
+      "description": "Phenolic Impregnated Carbon Ablator (PICA)-class low-density ablative thermal-protection material — the heritage reusable/entry-vehicle heatshield basis for capsules and entry systems. Built from a carbon FiberForm preform (made from a rayon/Lyocell carbon precursor) impregnated with phenolic resin. Distinct from Starship's reusable silica ceramic tiles, but the same supply tier (carbon precursor -> preform) is the documented thermal-protection chokepoint for the U.S. reusable-launch / entry-vehicle base.",
+      "maturityLabel": "mature",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["tps", "ablative", "material", "decomposition_frontier"],
+      "evidenceIds": ["ev_space_pica_rayon_precursor_chokepoint", "ev_space_fmi_tex_tech_sale"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "pica_rayon_lyocell_carbon_precursor",
+      "name": "PICA rayon / Lyocell carbon precursor",
+      "kind": "material",
+      "domain": ["spacex_reusable_launch"],
+      "description": "Cellulosic carbon precursor fiber (non-woven rayon, now domestic Lyocell) that is carbonized into the FiberForm preform inside PICA-class ablators. This is the documented single/near-single-source corner: the heritage NASA-qualified rayon supplier (SNIACE, Spain) ceased production, forcing repeated requalification and a NASA-driven switch to a domestic Lyocell precursor (PICA-D). The single hardest-to-second-source item in the ablative-TPS chain.",
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "capacityLeadTimeMonths": 36,
+      "tags": ["tps", "ablative", "material", "single_source", "bottleneck", "constraint_component_availability", "constraint_supply_concentration"],
+      "bottleneckOf": ["spacex_reusable_launch_stack"],
+      "evidenceIds": ["ev_space_pica_rayon_precursor_chokepoint", "ev_space_sniace_rayon_ceased", "ev_space_lenzing_lyocell_pica"],
+      "notes": "Documented chokepoint (dev set rl_dev_pica_rayon_precursor_sole_source). Heritage rayon (SNIACE) is the historic sole-qualified precursor that ceased; domestic Lyocell replacement precursor is supplied by Lenzing AG (LENZING Lyocell). Rayon no longer a viable process in US/Europe for environmental reasons, removing alternative rayon sources.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "pica_carbon_fiberform_preform",
+      "name": "PICA carbon FiberForm preform",
+      "kind": "material",
+      "domain": ["spacex_reusable_launch"],
+      "description": "Low-density carbon-fiber 'FiberForm' preform — the rigid carbonized cellulosic-fiber matrix that, once impregnated with phenolic, becomes a PICA-class ablator. Made by Fiber Materials Inc (FMI, Biddeford ME); NASA Ames worked with FMI to upgrade facilities to make an aerospace-grade FiberForm from the Lyocell precursor (PICA-D). A near-single-source aerospace preform tier feeding entry-vehicle heatshields.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "capacityLeadTimeMonths": 24,
+      "tags": ["tps", "ablative", "material", "near_single_source", "constraint_component_availability"],
+      "evidenceIds": ["ev_space_fmi_fiberform_preform", "ev_space_fmi_tex_tech_sale"],
+      "notes": "FMI is the named FiberForm preform maker (Steve Violette, FMI, is a co-author on NASA's PICA-sustainment papers). FMI acquired by Spirit AeroSystems 2020, sold to Tex Tech Industries (private) Jan 2025 for $165M.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "reusable_launch_ceramic_silica_tile",
+      "name": "Reusable ceramic / silica heat-shield tile",
+      "kind": "material",
+      "domain": ["spacex_reusable_launch"],
+      "description": "Rigid high-purity silica/ceramic reusable surface-insulation tile (Shuttle-heritage LI-900/LI-2200 class; Starship hexagonal silica ceramic tile). The reusable counterpart to ablative PICA: meant for repeated reentry without replacement. For Starship specifically this tile is SpaceX-CAPTIVE — produced in-house at SpaceX's tile 'bakery' (Roberts Road), not bought from a merchant tile maker — so genuine merchant exposure here is thin. Heritage industry tile maker was Lockheed Missiles & Space (LI-900).",
+      "maturityLabel": "prototype",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["tps", "ceramic", "material", "captive", "reusable"],
+      "evidenceIds": ["ev_space_starship_tiles_inhouse", "ev_space_li900_lockheed_tile"],
+      "notes": "CAPTIVE call: Starship tiles are made in-house by SpaceX; no public merchant silica supplier is named for Starship. Merchant tier shown here is the heritage Shuttle-class tile maker (Lockheed Martin, LI-900) for industry framing, not a verified Starship supplier.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "reusable_launch_tps_tile_adhesive_sip",
+      "name": "High-temp TPS tile adhesive & strain-isolator pad",
+      "kind": "material",
+      "domain": ["spacex_reusable_launch"],
+      "description": "High-temperature room-temperature-vulcanizing (RTV) silicone tile adhesive plus the Nomex-felt strain-isolator pad (SIP) that decouples a rigid TPS tile from the vehicle's structural deflection. Shuttle-heritage stack: RTV-560 silicone bonds the tile to a Nomex felt SIP, which bonds to the airframe. Merchant materials exist (silicone RTV; aramid felt), but Starship's specific tile-attachment method is SpaceX-defined and not publicly sourced to these vendors.",
+      "maturityLabel": "commercially_available",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["tps", "adhesive", "material", "strain_isolator"],
+      "evidenceIds": ["ev_space_momentive_rtv_tps", "ev_space_shuttle_rtv_sip_stack"],
+      "notes": "Industry merchant material tier (RTV silicone + aramid felt SIP). RTV-560 historically made by GE, now Momentive Performance Materials (KCC-owned); Nomex felt is a DuPont aramid. These are reported_capable industry materials, NOT verified as Starship's bonding suppliers (Starship tile attach is captive).",
+      "reviewStatus": "unreviewed"
+    },
+
+    {
+      "id": "org_lenzing",
+      "name": "Lenzing AG",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Austrian cellulosic-fiber producer; maker of LENZING / TENCEL Lyocell. Its Lyocell fiber is the domestic-replacement carbon precursor for NASA's PICA-D ablative heatshields (low alkaline-metal content makes it suitable as a carbon-fiber precursor). The publicly investable face of the otherwise sole-source PICA precursor corner.",
+      "confidence": "medium",
+      "metrics": [
+        { "name": "Public listing", "currentValue": "LNZ" }
+      ],
+      "evidenceIds": ["ev_space_lenzing_lyocell_pica", "ev_space_lenzing_ticker"],
+      "tags": ["material_supplier", "tps", "precursor", "public_company"],
+      "notes": "Lyocell precursor for PICA-D heatshields. Listed on Vienna Stock Exchange (Wiener Borse), ISIN AT0000644505. Ticker verified on exchange page this round.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "LNZ"
+    },
+    {
+      "id": "org_fiber_materials_inc",
+      "name": "Fiber Materials Inc (FMI)",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Biddeford, Maine high-temperature carbon/carbon and reinforced-composites maker; produces the low-density carbon FiberForm preform used in PICA-class ablators, plus re-entry nose tips and rocket-motor throats/nozzles. NASA Ames partnered with FMI to make aerospace-grade FiberForm from the Lyocell precursor (PICA-D). The near-single-source aerospace preform supplier.",
+      "confidence": "high",
+      "metrics": [
+        { "name": "Ownership", "currentValue": "Tex Tech Industries (private), since Jan 2025" }
+      ],
+      "evidenceIds": ["ev_space_fmi_fiberform_preform", "ev_space_fmi_tex_tech_sale"],
+      "tags": ["material_supplier", "tps", "preform", "private_company", "near_single_source"],
+      "notes": "FMI acquired by Spirit AeroSystems Jan 2020 ($120M); sold to Tex Tech Industries (private) Jan 2025 ($165M). No public ticker — owned by private Tex Tech. (Spirit AeroSystems itself is being acquired by Boeing, but FMI left Spirit before that closed.)",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "private"
+    },
+    {
+      "id": "org_lockheed_martin",
+      "name": "Lockheed Martin",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "U.S. aerospace/defense prime; Lockheed Missiles & Space Company (Sunnyvale CA) developed and manufactured the Shuttle's LI-900 / LI-2200 reusable silica surface-insulation tiles (99.9% pure silica glass fibers). Heritage merchant maker of reusable ceramic TPS tiles — industry reference point for the reusable-tile tier (Starship's own tiles are captive).",
+      "confidence": "high",
+      "metrics": [
+        { "name": "Public listing", "currentValue": "LMT" }
+      ],
+      "evidenceIds": ["ev_space_li900_lockheed_tile"],
+      "tags": ["material_supplier", "tps", "ceramic_tile", "public_company", "heritage_supplier"],
+      "notes": "Heritage Shuttle LI-900 tile maker; reported_capable for reusable ceramic TPS tiles, NOT a verified Starship supplier. NYSE: LMT (established listing).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "public",
+      "ticker": "LMT"
+    },
+    {
+      "id": "org_momentive_performance_materials",
+      "name": "Momentive Performance Materials",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Global high-performance silicones maker; supplies RTV silicones for aerospace thermal-protection systems (cast-in-place heat shielding, thermal-blanket adhesion). Maker of the RTV-560-class red phenyl-methyl silicone historically used to bond Shuttle TPS tiles to strain-isolator pads. Industry RTV-adhesive tier for the tile-bonding process.",
+      "confidence": "medium",
+      "metrics": [
+        { "name": "Ownership", "currentValue": "KCC Corporation (South Korea), since May 2024" }
+      ],
+      "evidenceIds": ["ev_space_momentive_rtv_tps", "ev_space_momentive_kcc_acquisition"],
+      "tags": ["material_supplier", "tps", "adhesive", "subsidiary"],
+      "notes": "Fully acquired by KCC Corporation (Seoul-listed) 2024-05-14; Momentive itself is private. KCC parent ticker NOT verified this round -> no ticker recorded (no guess). reported_capable industry RTV-adhesive supplier, not a verified Starship supplier.",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "subsidiary"
+    },
+    {
+      "id": "org_sniace",
+      "name": "SNIACE S.A.",
+      "kind": "organization",
+      "domain": ["spacex_reusable_launch", "investable_supplier"],
+      "description": "Spanish specialty-cellulose and viscose/rayon producer (Torrelavega). Was NASA's qualified non-domestic rayon supplier for the PICA carbon precursor; its rayon was carbonized into FiberForm for PICA heatshields. Ceased rayon/viscose production and entered liquidation, breaking the heritage PICA precursor supply chain and triggering the NASA Lyocell (PICA-D) substitution.",
+      "confidence": "medium",
+      "metrics": [
+        { "name": "Status", "currentValue": "Ceased production; liquidation (Torrelavega mill stopped, ~2019-2020)" }
+      ],
+      "evidenceIds": ["ev_space_sniace_rayon_ceased"],
+      "tags": ["material_supplier", "tps", "precursor", "defunct", "single_source"],
+      "notes": "Historic sole-qualified PICA rayon precursor supplier that ceased production — the root of the documented chokepoint. Formerly Madrid-listed; liquidated ~2020 -> treated as private/defunct, no current ticker (no guess).",
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown",
+      "listingStatus": "private"
+    }
+  ],
+
+  "edges": [
+    {
+      "id": "e_space_pica_ablator_part_of_tile_system",
+      "source": "starship_pica_class_ablator",
+      "target": "starship_heat_shield_tile_system",
+      "relation": "part_of",
+      "claim": "PICA-class ablative material is the heritage ablative branch of reusable/entry thermal protection, parent to the heat-shield tile system module.",
+      "confidence": "medium",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_precursor_part_of_ablator",
+      "source": "pica_rayon_lyocell_carbon_precursor",
+      "target": "starship_pica_class_ablator",
+      "relation": "part_of",
+      "claim": "The rayon/Lyocell carbon precursor is carbonized into the FiberForm preform that forms the PICA-class ablator.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_preform_part_of_ablator",
+      "source": "pica_carbon_fiberform_preform",
+      "target": "starship_pica_class_ablator",
+      "relation": "part_of",
+      "claim": "The carbon FiberForm preform is the rigid matrix impregnated with phenolic to make a PICA-class ablator.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_precursor_requires_preform",
+      "source": "pica_carbon_fiberform_preform",
+      "target": "pica_rayon_lyocell_carbon_precursor",
+      "relation": "requires",
+      "claim": "FiberForm preform is manufactured by carbonizing the rayon/Lyocell cellulosic precursor.",
+      "confidence": "high",
+      "evidenceIds": ["ev_space_pica_rayon_precursor_chokepoint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_ceramic_tile_part_of_tile_system",
+      "source": "reusable_launch_ceramic_silica_tile",
+      "target": "starship_heat_shield_tile_system",
+      "relation": "part_of",
+      "claim": "Rigid silica/ceramic reusable surface-insulation tile is the reusable-tile material of the heat-shield tile system.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_adhesive_sip_part_of_bonding",
+      "source": "reusable_launch_tps_tile_adhesive_sip",
+      "target": "starship_heat_shield_tile_bonding_process",
+      "relation": "part_of",
+      "claim": "RTV silicone adhesive + Nomex-felt strain-isolator pad are the bonding-material inputs to the tile bonding/inspection process.",
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+
+    {
+      "id": "e_space_lenzing_precursor",
+      "source": "pica_rayon_lyocell_carbon_precursor",
+      "target": "org_lenzing",
+      "relation": "manufactured_by",
+      "claim": "Lenzing AG (LENZING Lyocell) supplies the domestic Lyocell carbon precursor used in NASA's PICA-D heatshields.",
+      "confidence": "medium",
+      "context": "Lyocell low alkaline-metal content makes it suitable as the carbon-fiber precursor; PICA-D is the NASA domestic replacement for the discontinued rayon precursor.",
+      "evidenceIds": ["ev_space_lenzing_lyocell_pica"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_sniace_precursor",
+      "source": "pica_rayon_lyocell_carbon_precursor",
+      "target": "org_sniace",
+      "relation": "qualified_supplier",
+      "claim": "SNIACE was NASA's qualified (non-domestic) rayon precursor supplier for PICA before it ceased production.",
+      "confidence": "medium",
+      "context": "Heritage sole-qualified rayon precursor; cessation is the documented chokepoint that forced the Lyocell substitution.",
+      "evidenceIds": ["ev_space_sniace_rayon_ceased"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_fmi_preform",
+      "source": "pica_carbon_fiberform_preform",
+      "target": "org_fiber_materials_inc",
+      "relation": "manufactured_by",
+      "claim": "Fiber Materials Inc (FMI) manufactures the low-density carbon FiberForm preform used in PICA-class ablators.",
+      "confidence": "high",
+      "context": "NASA Ames upgraded FMI facilities to make aerospace-grade FiberForm from the Lyocell precursor (PICA-D).",
+      "evidenceIds": ["ev_space_fmi_fiberform_preform"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_lockheed_ceramic_tile",
+      "source": "reusable_launch_ceramic_silica_tile",
+      "target": "org_lockheed_martin",
+      "relation": "reported_capable_supplier",
+      "claim": "Lockheed Missiles & Space (Lockheed Martin) developed/manufactured the Shuttle LI-900/LI-2200 reusable silica tiles — heritage maker of reusable ceramic TPS tiles.",
+      "confidence": "medium",
+      "context": "Heritage/industry reference for the reusable-tile tier; NOT a verified Starship supplier (Starship tiles are captive).",
+      "evidenceIds": ["ev_space_li900_lockheed_tile"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_spacex_captive_tile",
+      "source": "reusable_launch_ceramic_silica_tile",
+      "target": "org_spacex",
+      "relation": "manufactured_by",
+      "claim": "SpaceX manufactures Starship's hexagonal silica ceramic heat-shield tiles in-house (captive) at its tile 'bakery' on Roberts Road.",
+      "confidence": "medium",
+      "context": "Captive production; no public merchant silica tile supplier is named for Starship.",
+      "evidenceIds": ["ev_space_starship_tiles_inhouse"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_momentive_rtv_adhesive",
+      "source": "reusable_launch_tps_tile_adhesive_sip",
+      "target": "org_momentive_performance_materials",
+      "relation": "reported_capable_supplier",
+      "claim": "Momentive Performance Materials supplies RTV silicones for aerospace thermal-protection systems (heritage RTV-560-class tile-bonding adhesive).",
+      "confidence": "medium",
+      "context": "Industry RTV-adhesive tier; NOT a verified Starship bonding supplier (Starship tile attach is captive).",
+      "evidenceIds": ["ev_space_momentive_rtv_tps"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_space_dupont_nomex_sip",
+      "source": "reusable_launch_tps_tile_adhesive_sip",
+      "target": "org_dupont",
+      "relation": "reported_capable_supplier",
+      "claim": "DuPont's Nomex aramid felt is the heritage strain-isolator-pad (SIP) material between rigid TPS tiles and the airframe.",
+      "confidence": "medium",
+      "context": "Industry SIP material; NOT a verified Starship supplier.",
+      "evidenceIds": ["ev_space_shuttle_rtv_sip_stack"],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+
+  "evidence": [
+    {
+      "id": "ev_space_pica_rayon_precursor_chokepoint",
+      "type": "paper",
+      "title": "Sustaining PICA for Future NASA Robotic Science Missions (NTRS 20180001911) — rayon precursor supply-chain risk",
+      "url": "https://ntrs.nasa.gov/citations/20180001911",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "NASA Technical Reports Server (NTRS)",
+      "date": "2018",
+      "excerpt": "The rayon based carbon precursor raw material used in PICA preform manufacturing has experienced multiple supply chain issues and required replacement and requalification at least twice in the past 25 years and a third substitution is now needed",
+      "supportsNodeIds": ["pica_rayon_lyocell_carbon_precursor", "starship_pica_class_ablator", "pica_carbon_fiberform_preform"],
+      "supportsEdgeIds": ["e_space_precursor_requires_preform"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_sniace_rayon_ceased",
+      "type": "paper",
+      "title": "Sustaining PICA TPS for Future NASA Robotic Science Missions (NTRS 20180006865) — SNIACE rayon ceased; Lyocell replacement",
+      "url": "https://ntrs.nasa.gov/citations/20180006865",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "NASA Technical Reports Server (NTRS)",
+      "date": "2018",
+      "excerpt": "Current PICA uses a NASA-qualified non-domestic rayon supplier (Sniace), however the qualified supplier is no longer manufacturing the rayon materials.",
+      "supportsNodeIds": ["org_sniace", "pica_rayon_lyocell_carbon_precursor"],
+      "supportsEdgeIds": ["e_space_sniace_precursor"],
+      "confidence": "medium",
+      "limitations": "Quote surfaced via the NTRS citation page summary; underlying full PDF is image-based and not text-extractable. Corroborated by NTRS 20180001911 and Lenzing/PICA-D coverage. Verifier should re-confirm verbatim against the PDF.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_lenzing_lyocell_pica",
+      "type": "news",
+      "title": "From Tea Bags to Spacecraft: Lenzing cellulosic Lyocell fibers in industrial applications (renewable-carbon.eu)",
+      "url": "https://renewable-carbon.eu/news/from-tea-bags-to-spacecraft-how-lenzing-is-high-performing-with-cellulosic-lyocell-fibers-in-a-wide-range-of-industrial-applications/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Renewable Carbon News",
+      "date": "2024",
+      "excerpt": "A component of aeroshells known as Domestic Phenolic Impregnated Carbon Ablators (PICA-D) ... uses LENZING Lyocell fibers because their low alkaline metal content makes them suitable as the precursor for carbon fibers used in these heat shields.",
+      "supportsNodeIds": ["org_lenzing", "pica_rayon_lyocell_carbon_precursor"],
+      "supportsEdgeIds": ["e_space_lenzing_precursor"],
+      "confidence": "medium",
+      "limitations": "Trade/industry news echoing a Lenzing claim about LENZING Lyocell in PICA-D; vendor-origin claim for the application, treat as who-uses-what not market structure. Corroborates the Lyocell-precursor identity.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_lenzing_ticker",
+      "type": "regulatory_approval",
+      "title": "Lenzing AG listing — Vienna Stock Exchange (Wiener Borse) prime-market page",
+      "url": "https://www.wienerborse.at/en/stock-prime-market/lenzing-ag-AT0000644505/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Wiener Borse (Vienna Stock Exchange)",
+      "date": "2026",
+      "excerpt": "Lenzing AG ... ISIN AT0000644505 ... ticker LNZ",
+      "supportsNodeIds": ["org_lenzing"],
+      "confidence": "high",
+      "limitations": "Exchange listing page used to verify ticker LNZ and ISIN AT0000644505. Excerpt paraphrases the page's structured listing fields.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_fmi_fiberform_preform",
+      "type": "paper",
+      "title": "PICA sustainment papers — Fiber Materials Inc (FMI) FiberForm preform (NTRS 20180001911 author affiliation)",
+      "url": "https://ntrs.nasa.gov/citations/20180001911",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "NASA Technical Reports Server (NTRS)",
+      "date": "2018",
+      "excerpt": "Violette, Steve (Fiber Materials, Inc. Biddeford, ME, United States)",
+      "supportsNodeIds": ["org_fiber_materials_inc", "pica_carbon_fiberform_preform"],
+      "supportsEdgeIds": ["e_space_fmi_preform"],
+      "confidence": "medium",
+      "limitations": "FMI's FiberForm role is established by author affiliation on NASA PICA-sustainment papers plus FMI/Spirit/Tex-Tech product descriptions (carbon/carbon, TPS, nose tips, nozzles). Direct 'FMI makes FiberForm' verbatim is in the image-based full PDFs; verifier to confirm.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_fmi_tex_tech_sale",
+      "type": "news",
+      "title": "Spirit Announces Sale of Fiber Materials Inc. (FMI) to Tex Tech Industries (Spirit AeroSystems press release)",
+      "url": "https://www.spiritaero.com/pages/release/spirit-announces-sale-of-fiber-materials-inc-fmi-to-tex-tech-industries/",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Spirit AeroSystems (company press release)",
+      "date": "2025-01-13",
+      "excerpt": "announced the sale of Fiber Materials Inc (\"FMI\") business ... to Tex Tech Industries, Inc. (\"Tex-Tech\") for $165 million in cash.",
+      "supportsNodeIds": ["org_fiber_materials_inc", "pica_carbon_fiberform_preform", "starship_pica_class_ablator"],
+      "confidence": "high",
+      "limitations": "Establishes FMI ownership (Tex Tech, private, since 2025-01-13) and FMI product scope (TPS, carbon/carbon, re-entry nose tips, rocket-motor throats/nozzles).",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_starship_tiles_inhouse",
+      "type": "news",
+      "title": "SpaceX Starship hexagonal ceramic heat-shield tiles produced in-house ('bakery', Roberts Road)",
+      "url": "https://starship-spacex.fandom.com/wiki/Starship_Thermal_Protection_System_(TPS)",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Starship SpaceX Wiki (Fandom) — grey source, pointer only",
+      "date": "2024",
+      "excerpt": "SpaceX produces the tiles at their 'bakery' in Roberts Road, manufacturing them in-house.",
+      "supportsNodeIds": ["reusable_launch_ceramic_silica_tile"],
+      "supportsEdgeIds": ["e_space_spacex_captive_tile"],
+      "confidence": "low",
+      "limitations": "Grey source (fan wiki) used only to support the CAPTIVE/in-house qualitative call, not any number. No primary SpaceX source prices or quantifies tile production; verifier to upgrade with a primary source if available.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_li900_lockheed_tile",
+      "type": "historical_source",
+      "title": "LI-900 reusable surface-insulation tile — developed/manufactured by Lockheed Missiles & Space",
+      "url": "https://en.wikipedia.org/wiki/LI-900",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Wikipedia (grey source, pointer only)",
+      "date": "2025",
+      "excerpt": "LI-900 is a type of reusable surface insulation tile developed and manufactured by Lockheed Missiles and Space Company ... made from 99.9% pure silica glass fibres.",
+      "supportsNodeIds": ["org_lockheed_martin", "reusable_launch_ceramic_silica_tile"],
+      "supportsEdgeIds": ["e_space_lockheed_ceramic_tile"],
+      "confidence": "low",
+      "limitations": "Grey source establishing the heritage Shuttle tile maker only; reported_capable framing, not a Starship-supplier claim. Verifier to corroborate with a NASA/Lockheed primary source.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_momentive_rtv_tps",
+      "type": "product_page",
+      "title": "Momentive — RTV Silicones for Thermal Protection Systems (aerospace)",
+      "url": "https://www.momentive.com/en-us/industry/aerospace-aviation-defense/aerospace/thermal-protection-systems",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "Momentive Performance Materials (vendor product page)",
+      "date": "2026",
+      "excerpt": "Momentive's advanced RTV silicones are able to maintain critical properties for an extended time over the wide range of extreme temperatures typically encountered by aircraft and spacecraft.",
+      "supportsNodeIds": ["org_momentive_performance_materials", "reusable_launch_tps_tile_adhesive_sip"],
+      "supportsEdgeIds": ["e_space_momentive_rtv_adhesive"],
+      "confidence": "medium",
+      "limitations": "Vendor marketing page (tag vendor_claim): establishes Momentive supplies RTV silicones for aerospace TPS (cast-in-place heat shielding), not that it supplies Starship. Who-makes-what only.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_momentive_kcc_acquisition",
+      "type": "news",
+      "title": "KCC Corporation Completes Acquisition of Momentive Performance Materials Group (PR Newswire)",
+      "url": "https://www.prnewswire.com/news-releases/kcc-corporation-completes-acquisition-of-momentive-performance-materials-group-302145115.html",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "PR Newswire (KCC/Momentive press release)",
+      "date": "2024-05-14",
+      "excerpt": "Momentive Performance Materials group (Momentive) ... today announced that it has been fully acquired by KCC Corporation (KCC)",
+      "supportsNodeIds": ["org_momentive_performance_materials"],
+      "confidence": "high",
+      "limitations": "Establishes Momentive ownership (KCC, since 2024-05-14). KCC's own exchange ticker not verified this round, so no ticker recorded on the node.",
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "ev_space_shuttle_rtv_sip_stack",
+      "type": "historical_source",
+      "title": "Space Shuttle TPS tile-bonding stack — RTV-560 silicone + Nomex felt strain-isolator pad (NASA TPS overview)",
+      "url": "https://nasa.fandom.com/wiki/Space_Shuttle_thermal_protection_system",
+      "sourceStatus": "fetch_ok",
+      "sourceName": "NASA Wiki (Fandom) — grey source, pointer only",
+      "date": "2024",
+      "excerpt": "The underside is glued to Nomex Felt Strain Isolation Pads (SIP) with Room Temperature Vulcanization (RTV) silicone adhesive.",
+      "supportsNodeIds": ["reusable_launch_tps_tile_adhesive_sip"],
+      "supportsEdgeIds": ["e_space_dupont_nomex_sip"],
+      "confidence": "low",
+      "limitations": "Grey source describing the heritage Shuttle bonding stack (RTV silicone + Nomex felt SIP); establishes the industry material identities only, not Starship suppliers. Verifier to corroborate Nomex=DuPont and RTV-560=GE/Momentive with primary sources.",
+      "reviewStatus": "unreviewed"
+    }
+  ],
+
+  "tasks": []
+}

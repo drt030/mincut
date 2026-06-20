@@ -1,0 +1,779 @@
+{
+  "slug": "humanoid-robotics",
+  "counts": {
+    "needs_fetch": 33,
+    "structural_ok": 77
+  },
+  "worklist": [
+    {
+      "id": "ev_humanoid_nvidia_use_case",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nvidia_jetson_thor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_unitree_g1",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_figure_battery",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_figure_botq",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ti_bms",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ti_robotics",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_st_reference",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_tdk_robotics",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nmb_thermal",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_tactile_review",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_iso_ts_15066_collaborative_safety",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ul_consumer_commercial_robot_certification",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_battery_constraint_review",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_harmonic_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nabtesco_precision",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_yaskawa_motion",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nidec_ir",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_te_robotics_connectors",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_samsung_sdi_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_lg_energy_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_catl_profile",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_unitree_g1_price_joint_count",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_figure03_production_ramp",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_harmonic_drive_precision_products",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_leaderdrive_humanoid",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_leaderdrive_ticker",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_harmonic_capacity_gating",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nidec_flexwave",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_gsa_rgti",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_gsa_inhouse",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_rollvis_identity",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_roller_screw_scarcity",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ewellix_schaeffler",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ewellix_rollerscrew",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_drake_thread_grinder",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_holroyd_thread_grinder",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_picea_profile",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_picea_humanoid",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_jlmag_humanoid_unit",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_jlmag_blank_output",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_shinetsu_nd_magnet",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_proterial_neomax",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_mp_independence_magnet",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_csis_rare_earth_export_control",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_kollmorgen_frameless_joints",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_regal_altra_kollmorgen",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_parker_frameless_tk",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_moog_frameless",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_maxon_ec_frameless",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_renishaw_pal",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_heidenhain_robot_encoders",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_broadcom_encoders",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_netzer_robotics",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ati_novanta_ft",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_bota_ft",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_sri_ft",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_xela_uskin",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_xela_tesollo",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_paxini_tactile",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_bosch_sensortec_imu",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_hesai_humanoid_tech25",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_robosense_humanoid_order",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_orbbec_honor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_realsense_independent",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_eve_energy_solid_state",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_molicel_applications",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_lg_energy_six_robotics_customers",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_panasonic_2170_cylindrical",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_infineon_humanoid_blocks",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nxp_mobile_robotics_bms",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_qualcomm_dragonwing_iq10",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nxp_humanoid_edge",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_rockchip_rk3588",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_d_robotics_rdk_s100",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_infineon_motor_control",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_epc_humanoid_joint",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_microchip_integrated_motor_driver",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nsk_irex_humanoid_bearing",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nsk_delta_actuator",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_schaeffler_humanoid_actuator_bearing",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_schaeffler_preferred_supplier",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_rbc_thin_section_robotics",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_thk_ticker",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ntn_ticker",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_victrex_robotics",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_victrex_ticker",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_evonik_vestakeep_robotics",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_syensqo_listing",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_sanhua_thermal_capability",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_sanhua_humanoid_actuator_focus",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_henkel_bergquist_tim",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_iko_ir_bearings",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_smm_ir_cathode",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_asahi_kasei_ir_separator",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_shenzhen_senior_separator",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_sony_image_sensor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_adi_battery_imu",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_ams_osram_encoder_asic",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_mpwr_position_sensor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nxp_mc33774_battery_cell_controller",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_st_l9963e_bms_monitor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_adi_max17854_battery_monitor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_thk_cross_roller_robot_joints",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_iko_crossed_roller_industrial_robots",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_nsk_crossed_roller_robot_joints",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_schaeffler_xzu_robotics_humanoids",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_senior_europe_separator_film",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_sony_tof_depth_sensor",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_humanoid_adi_mems_imu_brochure",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    }
+  ]
+}

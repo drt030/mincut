@@ -1,0 +1,95 @@
+{
+  "nodes": [],
+  "edges": [
+    {
+      "id": "e_acc_euv_mask_blanks__manufactured_by__org_agc",
+      "source": "euv_mask_blanks",
+      "target": "org_agc",
+      "relation": "manufactured_by",
+      "claim": "AGC is a major EUV blank supplier (59% market share by one 2025 report)",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_r6_euv_blanks_agc_hoya_duopoly"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "e_acc_euv_mask_blanks__manufactured_by__org_hoya",
+      "source": "euv_mask_blanks",
+      "target": "org_hoya",
+      "relation": "manufactured_by",
+      "claim": "Hoya is a major EUV blank supplier (34% market share by one 2025 report, or 75%+ by alternative source)",
+      "confidence": "medium",
+      "evidenceIds": ["ev_acc_r6_euv_blanks_agc_hoya_duopoly"],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_acc_r6_euv_blanks_agc_hoya_duopoly",
+      "type": "paper",
+      "title": "EUV Mask Blanks Market Size, Share & Growth Forecast 2026-2032",
+      "url": "https://www.intelmarketresearch.com/euv-mask-blanks-market-11463",
+      "date": "2025-06",
+      "sourceStatus": "market_report_seo",
+      "excerpt": "Key players include AGC Inc (59% market share) and Hoya (34% market share), accounting for 93% of global market. However, in High-NA EUV segment, Hoya exceeds 75% by volume, with superior process qualifications.",
+      "summary": "Market report giving overall EUV blank market share: AGC 59%, Hoya 34%, combined 93% duopoly. Notes High-NA segment with Hoya 75%+ but no separate High-NA share breakdown provided. Scope: appears to be value-based, all grades combined.",
+      "supportsNodeIds": [
+        "euv_mask_blanks",
+        "high_na_euv_mask_blanks"
+      ],
+      "confidence": "medium",
+      "reviewStatus": "unreviewed",
+      "limitations": "Market-report page (SEO characteristics); conflicts with prior graph claims (Hoya 75%+/AGC 20-25%). Segment breakdown not separately quantified. No access to underlying primary sources."
+    },
+    {
+      "id": "ev_acc_r6_euv_blanks_market_conflict_note",
+      "type": "internal_note",
+      "title": "Evidence Rebuild: Market Share Conflict Documentation",
+      "date": "2026-06-11",
+      "sourceStatus": "ok_exact",
+      "summary": "This node contains conflicting market-share claims. Prior graph stated Hoya 75%+/AGC 20-25% (per SemiAnalysis/Yole/Morningstar). Verified fetch of intelmarketresearch 2025 report shows AGC 59%/Hoya 34%. Likely causes: different basis (value vs volume), different scope (commodity vs all-grades), aging of sources. Honest resolution: state both numbers with scope caveat and mark as unresolved.",
+      "supportsNodeIds": ["euv_mask_blanks"],
+      "reviewStatus": "unreviewed",
+      "limitations": "Internal documentation; not a primary source. Inaccessible sources: Hoya IR (404), AGC IR (TLS error), Yole (timeout). Prior analyst claims (SemiAnalysis, Yole) could not be re-verified."
+    },
+    {
+      "id": "ev_acc_r6_high_na_hoya_lead_position",
+      "type": "news",
+      "title": "Hoya Expands EUV Photomask Blank Capabilities for High-NA Systems",
+      "url": "https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/",
+      "date": "2025-06",
+      "sourceStatus": "fetch_ok",
+      "excerpt": "As of Q1 2025, Hoya is understood to be the only vendor with validated blank products for High-NA EUV systems—critical for logic nodes below 2 nm.",
+      "summary": "Blog article on Hoya's High-NA EUV blank expansion. States Hoya as 'only vendor with validated blanks' but without supporting qualification documentation, ASML specs, or foundry statements. Describes importance of stricter standards under High-NA shift.",
+      "supportsNodeIds": ["high_na_euv_mask_blanks"],
+      "confidence": "low",
+      "reviewStatus": "unreviewed",
+      "limitations": "Blog/news aggregator source. Claim of single-source qualification stated without citation to official ASML lists or foundry announcements. ASML High-NA product pages do not name suppliers. Appears to be inference from Hoya announcements rather than documented qualification."
+    },
+    {
+      "id": "ev_acc_r6_high_na_qualification_unverified",
+      "type": "internal_note",
+      "title": "High-NA EUV Mask Blank Qualification Status: Unverified",
+      "date": "2026-06-11",
+      "sourceStatus": "ok_exact",
+      "summary": "Prior graph claimed Hoya 100% exclusive/only qualified supplier for High-NA blanks. Rebuild research found: (1) ASML High-NA pages do not list qualified blank suppliers; (2) no Hoya investor docs or ASML qualification matrix accessed; (3) no customer announcement naming exclusive Hoya sourcing found; (4) imec's March 2026 High-NA demo made no mention of supply constraints or exclusive sourcing. Single-source claim lacks verification. Recommendation: downgrade to 'Hoya reported furthest along; qualification status unconfirmed.'",
+      "supportsNodeIds": ["high_na_euv_mask_blanks"],
+      "reviewStatus": "unreviewed",
+      "limitations": "Inaccessible primary sources: Hoya annual report, ASML qualification docs, Intel/Samsung/TSMC supply statements. Without these, the 100% claim cannot be validated. Assessment: plausible but unverified."
+    },
+    {
+      "id": "ev_acc_r6_asml_high_na_timeline",
+      "type": "product_page",
+      "title": "ASML TWINSCAN EXE High-NA Lithography Systems",
+      "url": "https://www.asml.com/en/products/euv-lithography-systems",
+      "date": "2026-06",
+      "sourceStatus": "fetch_ok",
+      "excerpt": "The first High NA EUV lithography system was delivered in December 2023... expect the platform to support high-volume chip manufacturing in 2025–2026.",
+      "summary": "ASML product page describing High-NA EUV lithography systems (EXE:5000/5200B). Timeline: first delivery Dec 2023, volume 2025-2026. Technical specs: 0.55 NA, 8 nm printing. Confirms segment emergence but does not address mask blank suppliers or qualification.",
+      "supportsNodeIds": ["high_na_euv_mask_blanks"],
+      "confidence": "high",
+      "reviewStatus": "unreviewed",
+      "limitations": "Silent on mask blank sourcing and supplier qualification. Confirms technical timeline and specs only."
+    }
+  ],
+  "tasks": []
+}

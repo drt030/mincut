@@ -1,0 +1,113 @@
+{
+  "domain": "spacex_reusable_launch",
+  "overall": "NOT_ACCEPTED",
+  "judge": "independent adversarial acceptance judge (re-derived every gate; ignored all prior self-claims)",
+  "date": "2026-06-15",
+  "gates": {
+    "A": {
+      "pass": false,
+      "numbers": {
+        "A1_validate_data": "PASS — 'Data validation passed: 1003 nodes, 1452 edges, 775 evidence items.' 0 violations (only non-blocking ADR-0008 transactability warnings; 0 of them are spacex_reusable_launch nodes)",
+        "A2_audit_buckets": "FAIL — audit:evidence --domain spacex-reusable-launch buckets: { demote: 2, needs_fetch: 48, structural_ok: 49, failed: 2 }. failed=2 (ev_space_velo3d_nasdaq_relisting, ev_space_nikon_slm_acquisition) — both 'missing excerpt'. A2 pass line = 0 in failed bucket.",
+        "A3_active_graph_scope": "PASS (exit 0)",
+        "A4_graph_ux": "PASS (Graph UX + topology checks passed; spacex-reusable-launch root=spacex_reusable_launch_stack structural=53)",
+        "A5_commercial_readiness": "PASS (exit 0; spacex-reusable-launch state=audit-preview, correctly NOT flipped)",
+        "A6_lint_test": "PASS — lint exit 0; npm test 502 pass / 0 fail / 5 skip (skips are UX-smoke needing a live dev server, not domain-data gates)",
+        "A7_zh_coverage": "FAIL — 74/74 new round-1 node ids in data/nodes/spacex_reusable_launch.json have ZERO zh entries in src/components/LanguageProvider.tsx. Spot-checked org_moog, org_northrop_grumman, aerospace_investment_casting_forging, reusable_launch_tps_tile_adhesive_sip, org_carpenter_additive, org_mercury_systems, starship_heat_shield_tile_bonding_process — all absent. Legacy falcon9_/starship_ ids ARE translated (control passes). Scratch zh sidecars (.scratch/spacex-reusable-launch-round-1/zh_structural_metals.json + actuation_engine_merchant.zh.json) cover only 30/74 and were never merged into LanguageProvider.",
+        "A8_data_quality_test": "PASS — tests/spacexDataQuality.test.ts pins starship_heat_shield_tile_bonding_process: transactability=must_build, capacityLeadTimeMonths>=24, hasCostDisclosure, constraint_* tags, >=1 direct independent non-vendor (NASA) evidence. Runs green in isolation and in the full suite."
+      },
+      "findings": [
+        "A2 BLOCKER: 2 records in failed bucket (missing excerpt) — these are exactly the velo3d/nikon records the Gate-B verifier flagged for 'REPAIR' (see actuation_engine_merchant-queries.log) but the repair was never applied to data.",
+        "A7 BLOCKER: the entire round-1 expansion (every merchant org, material, subsystem) has no Chinese label in the live LanguageProvider; only the pre-existing legacy launch nodes are translated.",
+        "A1/A3/A4/A5/A6/A8 all green and genuinely so (re-ran each)."
+      ]
+    },
+    "B": {
+      "pass": false,
+      "evidence_integrity": 0.07,
+      "evidence_integrity_new_file_only": 0.0,
+      "findings": [
+        "FORMAL evidence_integrity = 7/100 = 0.07 across the full in-domain population (91 records in spacex_reusable_launch_evidence.json + 9 legacy space_spacex records). The 7 passing records are all LEGACY space_spacex evidence verified in a prior round; the NEW round-1 file is 0/91.",
+        "0 of 92 new-file records carry sourceStatus==ok_exact; 0 carry machineCheck.status==verified. All are agent self-reported fetch_ok(87)/paywalled_snippet(3)/vendor_marketing(2). Per ADR-0009 B3, ok_exact is verifier-granted only — and the verifier output was never applied.",
+        "0 records have basis / asOf / scope fields (B1 metadata is thin), though no orphan NUMBERS exist (see below).",
+        "B1 GOOD: 0 orphan numbers — every numeric metric on a node has excerpt-backed evidence or carries no number.",
+        "B4 GOOD: 0 bare manufactured_by edges (all 26 carry evidenceIds). Relation discipline is honest: 41 reported_capable_supplier (unverified capability) vs 26 manufactured_by — correct ADR-0009 usage.",
+        "B5/B6 GOOD: 2 generic_homepage records correctly slated for demote; source classes look disciplined.",
+        "JUDGE WEBFETCH SPOT-CHECK (3 random quantified-claim urls) — ALL 3 excerpts verbatim-accurate on the live page: (1) Thompson Hine Section-232 'only one producer by 2019...' EXACT; (2) 3DPrintingIndustry SpaceX/Velo3D '$5M technologies + $3M engineering, Raptor 3D printing' EXACT; (3) Glenair Mighty Mouse 'de facto...former users of D38999' EXACT. So the underlying excerpts are real and good — the failure is purely that the FORMAL ok_exact verification was never landed in the data.",
+        "ROOT CAUSE: a Gate-B Opus verifier fleet DID run on 2026-06-15 (query logs for all 6 lanes show WebFetch quote+ticker verification, repeatedly noting 'EXACT match'/'OK exact'), but (a) only 1 of 6 lanes (propellants_gases) emitted a machine-readable *-verdicts.json (8 verified, 1 escalation, 3 ticker audits), and (b) the apply step never ran. The evidence file mtime (02:44:20) PRE-DATES the verdicts file (02:52:10); an untracked .scratch/apply-verify-verdicts.mjs exists but 0/8 propellants verdicts are reflected in the data (all still machineCheck=NONE)."
+      ]
+    },
+    "C": {
+      "pass": true,
+      "findings": [
+        "C1 three passes EVIDENT: upstream merchant tiers (titanium_sponge_feedstock->Toho/Osaka/TIMET; pica_rayon_lyocell_carbon_precursor->Lenzing/SNIACE), in-tier breadth (carbon fiber: Toray/Hexcel/Teijin/Mitsubishi/Syensqo; valves: Moog/Woodward/Parker), corners (helium, Section-232 single Ti-sponge producer, PICA precursor, castings Arconic+PCC duopoly).",
+        "C2: <=5 orgs/component, most-concentrated first — max observed = 5 (carbon fiber, COPV). 0 violations.",
+        "C3: all 47 new org nodes carry a ticker / private / subsidiary / state-owned signal (0 without). Tickers are plausible and brief-consistent (Moog MOG.A, Howmet HWM, Constellium CSTM, Toray 3402.T, Hexcel HXL, BAE BA.L, Microchip MCHP, Carpenter CRS, VSMPO VSMO.ME; TIMET & PCC -> BRK.B correct as Berkshire-owned). Independent ticker audit in the propellants verdicts file marked APD/4091.T/Messer all 'match'.",
+        "C4: 0 duplicate org ids across all node files; cross-domain orgs reused (TE Connectivity resolves to org_humanoid_te_connectivity).",
+        "C5 captive honesty STRONG: 18 nodes explicitly labelled captive; 9 honest decomposition_frontier boundary notes (COPV 'CAPTIVE at SpaceX...merchant makers exist for the wider industry'; fairing lay-up captive). No invented supplier found for a declared-captive part — Merlin/Raptor engine core is not given a fake merchant.",
+        "Frontier still undone (honest, documented, NOT auto-added to avoid holdout overfit): Blue Origin (competitor prime, merchant BE-4 to ULA), deep turbopump tier (Barber-Nichols/Graham GHM), propulsion valves (Marotta, VACCO/ESCO), Terma star trackers, AST COPV, Qatar Ras Laffan He feedstock, GenOx CH4 logistics."
+      ]
+    },
+    "D": {
+      "pass": false,
+      "exposure_recall": 0.7576,
+      "segment_recall": 1.0,
+      "chokepoint_flag_rate": 1.0,
+      "evidence_integrity": 0.07,
+      "findings": [
+        "exposure_recall = 25/33 merchant entries = 0.7576 — INDEPENDENTLY re-derived with STRICT identity matching (matched on org NAME field, then eyeballed each match to reject fuzzy collisions). >= 0.65 PASS. Matches the budget.md claim of ~0.76 (25-26/33); the claim holds up.",
+        "8 honest misses (same set budget.md declares): Blue Origin, Barber-Nichols/Graham, Marotta, VACCO/ESCO, Terma, AST, Qatar Ras Laffan, GenOx. The turbopump/valve tier miss (Barber-Nichols/Marotta/VACCO) is a genuine merchant gap, not captive.",
+        "segment_recall = 7/7 base subsystems covered (propulsion, structures&tankage, TPS, avionics&rad-hard, recovery, composites, propellants&gases) = 1.00 >= 0.85 PASS.",
+        "chokepoint_flag_rate = 10/10 dev-set episodes have a corresponding flagged node (constraint_* tag / bottleneck / single-source|duopoly|shortage|Section-232 language) = 1.00 >= 0.95 PASS.",
+        "evidence_integrity = 0.07 << 0.95 FAIL (see Gate B). This single axis sinks Gate D.",
+        "Prerequisites present: dev set .eval/dev/spacex_reusable_launch_public_chokepoints.json (10 episodes, visible/seeded — acceptable), independent 38-entry holdout answer key; 1/3 touches logged. Protocol honestly self-described as lighter than the GPU sealed-pre-freeze holdout (credible estimate, not a sealed number)."
+      ]
+    },
+    "E": {
+      "pass": false,
+      "findings": [
+        "E1 NOT DELIVERED: no top-15 owner review-queue doc for spacex_reusable_launch. docs/agents/ contains only review-queue-ai-compute.md (the flagship domain). The .scratch CONSOLIDATION_NOTES.md is not an owner queue.",
+        "E1 also cannot be satisfied yet on the merits: it requires the top-15 claims to have ok_exact + verbatim quote + single fact + scope/basis + asOf + correct edge type, but 0 records are ok_exact and 0 carry basis/asOf/scope.",
+        "E2 (owner flip to reviewStatus:reviewed) correctly DEFERRED — all 92 records are reviewStatus:unreviewed; no agent wrote 'reviewed'. portfolioState correctly still audit-preview. Good discipline.",
+        "An ESCALATIONS bucket for the owner queue was started in the propellants verdicts file (1 escalation: Linde->SpaceX customer identification rests on secondary sources only) but never assembled into a delivered queue doc."
+      ]
+    }
+  },
+  "blockers": [
+    "A2: 2 evidence records in the audit 'failed' bucket (missing excerpt) — ev_space_velo3d_nasdaq_relisting, ev_space_nikon_slm_acquisition.",
+    "A7: 74/74 new round-1 node ids have no zh label in LanguageProvider.tsx (zh sidecars prepared for only 30/74 and never merged).",
+    "B / D-axis-4: evidence_integrity = 0.07 (new-file 0.00) vs threshold 0.95 — no record carries verifier-granted ok_exact or machineCheck.status=verified; the Gate-B verifier ran but its verdicts were never applied, and 5 of 6 lanes never emitted machine-readable verdicts.",
+    "E1: no top-15 owner review-queue doc delivered for the domain."
+  ],
+  "worklist": [
+    "1. Finish + apply the Gate-B verification. Make the 5 missing lanes (thermal_protection, composites_copv, structural_metals, avionics_radhard, actuation_engine_merchant) emit <lane>-verdicts.json in the same shape as propellants_gases-verdicts.json (verified[]/repaired[]/escalations[]/tickerAudit[]) — the WebFetch work is already logged, only the structured verdicts are missing. Then run .scratch/apply-verify-verdicts.mjs so machineCheck.status=verified (and ok_exact where granted) lands on the evidence records. Re-confirm evidence_integrity >= 0.95.",
+    "2. Repair the 2 failed-bucket records: add the verbatim excerpt to ev_space_velo3d_nasdaq_relisting (Velo3D Nasdaq/VELO relisting) and ev_space_nikon_slm_acquisition (Nikon/SLM takeover) — the verifier already attempted both (logged as REPAIR). Re-run `npm run audit:evidence -- --domain spacex-reusable-launch` and confirm failed=0. Also action the 2 generic_homepage demotes (ev_space_spacex_falcon9, ev_space_spacex_starship).",
+    "3. Merge zh labels for all 74 new node ids into src/components/LanguageProvider.tsx. Start from the 2 existing scratch sidecars (covers 30), then translate the remaining 44 (orgs + materials + subsystems). Re-run the spot-check: every id in data/nodes/spacex_reusable_launch.json must resolve in LanguageProvider.",
+    "4. Deliver docs/agents/review-queue-spacex-reusable-launch.md — top-15 highest-stakes claims (e.g. Ti-sponge Section-232 single-source, He NASA sole-source $1.07B, castings Arconic/PCC duopoly, PICA rayon precursor, ATI 35% melt, Constellium Al-Li), each with the (now-applied) ok_exact evidence, single fact, scope/basis/asOf, and the exact flip decision for the owner — matching the review-queue-ai-compute.md format. Roll the propellants escalation (Linde secondary-source customer ID) into it.",
+    "5. (Optional, do NOT add merely to chase the holdout) consider round-2 frontier decomposition of the propulsion valve/turbopump tier (Marotta, VACCO/ESCO, Barber-Nichols/Graham) if it surfaces organically — exposure_recall already passes at 0.76 without it.",
+    "6. Re-run the full Gate A battery + re-confirm Gate D evidence_integrity, then re-judge."
+  ],
+  "claim_audit": [
+    {
+      "claim": "budget.md round-1: exposure_recall ~0.76 (25-26/33) PASS",
+      "verdict": "HOLDS — independently re-derived 25/33 = 0.7576 with strict identity matching.",
+      "note": "An automated substring match initially over-counted (false positives like Howmet->org_arconic, AMD->org_microchip); after verifying each match against the org NAME field the number lands at exactly 0.7576."
+    },
+    {
+      "claim": "budget.md round-1: segment 7/7 PASS, chokepoint corners flagged PASS",
+      "verdict": "HOLDS — segment_recall 1.00 (7/7), chokepoint_flag_rate 1.00 (10/10 dev episodes flagged)."
+    },
+    {
+      "claim": "budget.md round-1: 'evidence_integrity pending Gate B verify fleet'",
+      "verdict": "HONEST but DAMNING — it is not merely pending: the verify fleet RAN (02:52 logs) yet its verdicts were never applied (evidence file mtime 02:44, 0/8 propellants verdicts in data) and 5/6 lanes produced no machine-readable verdicts. Live evidence_integrity = 0.07, not a near-miss."
+    },
+    {
+      "claim": "Implied: domain is at/near flagship parity / round 1 complete",
+      "verdict": "DOES NOT HOLD — 3 of 4 D-axes pass and Gate C is strong, but A2, A7, B/D-integrity, and E1 all fail. This is in_progress, not ACCEPTED."
+    },
+    {
+      "claim": "Excerpt quality / no-quote-no-number discipline",
+      "verdict": "HOLDS — 3/3 WebFetch spot-checks verbatim-accurate; 0 orphan numbers; 0 bare manufactured_by edges. The data substance is good; the gating gap is the unapplied formal verification, the missing zh, the 2 broken records, and the missing owner queue."
+    }
+  ]
+}

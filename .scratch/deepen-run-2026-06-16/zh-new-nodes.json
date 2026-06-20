@@ -1,0 +1,290 @@
+{
+  "launch_flight_computer_avionics_merchant": {
+    "nameZh": "飞行计算机 / 集成航电单元（商用层）",
+    "descriptionZh": "运行制导、导航与控制并完成飞行时序的集成飞控计算机 / 航电单元。SpaceX 围绕三重冗余、按架构实现抗辐照的计算自研 Falcon 与 Starship 飞行计算机，但确有面向非垂直整合的可重复使用运载行业的商用层：Beyond Gravity（原 RUAG Space）、Innoflight、Moog 及 Airbus Defence / BAE 供应运载与航天器级航电单元。此处映射为不自研航电的型号会外采的产业链层，而非确认的 SpaceX 采购。"
+  },
+  "launch_power_distribution_battery_merchant": {
+    "nameZh": "飞行配电单元与电池（商用层）",
+    "descriptionZh": "在上升与回收全程为航电、作动器与火工品供电的电源调理 / 配电电子与飞行电池（通常为锂离子）。商用层已相当成熟：EaglePicher 与 Saft（TotalEnergies）是西方主导的航天电池厂商，Vicor 与 Crane Aerospace 供应高密度电源变换模块。SpaceX 自研集成自家电源电子，故此为非自研型号会外采的产业链层。"
+  },
+  "launch_rf_telemetry_transponder_merchant": {
+    "nameZh": "射频遥测 / 指令应答机（商用层）",
+    "descriptionZh": "将飞行器遥测下传至靶场、并接收指令 / 飞行终止上行的 S 频段 / X 频段遥测、跟踪与指令应答机及发射机。这是一个受限、重鉴定的商用层：L3Harris、Safran Data Systems（原 Zodiac/Cobham）与 Quasonix 供应靶场遥测硬件。既关乎靶场通信，也关乎喂给飞行安全系统的指令链路。"
+  },
+  "fairing_composite_sandwich_panel": {
+    "nameZh": "整流罩复合材料夹层壁板（碳纤维 / 铝蜂窝）",
+    "descriptionZh": "构成有效载荷整流罩的大型碳纤维增强聚合物面板覆于铝蜂窝夹芯之上的半壳。整流罩复用要求壁板能承受上升载荷、再入加热与海水浸泡后再翻新——对大型、薄壁、热压罐或非热压罐固化的复合壳体而言这是真正的制造前沿。商用气动结构制造商（Beyond Gravity / RUAG，制造 Atlas 与 Ariane 整流罩；Spirit AeroSystems 复合件）界定了产业层；SpaceX 自研制造 Falcon 整流罩。"
+  },
+  "fairing_recovery_rcs_cold_gas": {
+    "nameZh": "整流罩回收冷气 RCS / 可控翼伞系统",
+    "descriptionZh": "在分离后调整每半整流罩姿态、并将其引导至受控落水或船上回收的冷气姿控推力器加可操纵翼伞——正是这套硬件把整流罩从一次性件变为复用件。可控翼伞系统是一个具名的商用层（Airborne Systems）；冷气推力器模块来自 Moog、Bradford 等供应商。SpaceX 在 Falcon 整流罩上自研集成回收系统。"
+  },
+  "fairing_separation_pneumatic_system": {
+    "nameZh": "整流罩分离气动推开系统",
+    "descriptionZh": "在抛罩时分开并推开两半整流罩的低冲击气动推杆 / 分离机构。Falcon 9 采用气动（而非纯火工）整流罩分离系统以降低冲击并避免碎片——一项有意兼顾复用与载荷友好的设计取舍。与分离后才动作的回收冷气 / 翼伞硬件是不同的机构。"
+  },
+  "launch_rcs_cold_gas_thruster_merchant": {
+    "nameZh": "反作用控制冷气 / 单组元推力器组（商用层）",
+    "descriptionZh": "上面级用于滑行段重定向、沉底点火与指向的小型姿控推力器。SpaceX 的 Falcon 上面级采用自研冷气（氮气）RCS 与 Draco 级单组元推力器；真正的商用层——Moog、Aerojet Rocketdyne（L3Harris）MR 系列、Bradford ECAPS、ArianeGroup——向更广的运载与航天器行业供应同类推力器组。"
+  },
+  "falcon9_interstage_stage_separation_structure": {
+    "nameZh": "级间段与级分离结构",
+    "descriptionZh": "连接助推级与第二级、并容纳级分离系统的复合材料级间段。在 Falcon 9 上级间段承载气动级分离推杆与栅格舵的助推级侧安装座，须在分离时干净释放，同时为复用而经受助推级再入。这是有别于其上下两级发动机的独立结构 / 机构子系统。"
+  },
+  "grid_fin_hydraulic_actuation_merchant": {
+    "nameZh": "栅格舵液压作动系统（商用层）",
+    "descriptionZh": "展开并操纵钛栅格舵、在再入与下降中操控助推级的液压作动器与动力包。Falcon 9 的栅格舵为液压作动；该作动硬件与发动机万向节推力矢量控制作动器确有本质区别（载荷、占空比与安装均不同）。商用液压作动供应商（Moog、Woodward、Parker Hannifin）界定产业层。"
+  },
+  "landing_leg_crushable_honeycomb_merchant": {
+    "nameZh": "着陆腿可压溃铝蜂窝芯",
+    "descriptionZh": "着陆腿内部一次性可压溃铝蜂窝吸能件，通过塑性变形耗散触地能量。作为一次性耗材，它是腿部复用的限制环节（每次飞行间更换），有别于碳纤维 / 铝伸缩腿结构本身。可压溃铝蜂窝吸能件是真实的商用材料层（Hexcel、Plascore、Argosy）。"
+  },
+  "copv_metallic_liner_merchant": {
+    "nameZh": "COPV 金属内衬（薄壁 Inconel / 钛）",
+    "descriptionZh": "复合材料缠绕压力容器（COPV）内部储存高压氦气以增压贮箱的薄壁气密金属内衬。内衬完整性以及内衬 / 缠绕层 / 推进剂界面是 Falcon 9 AMOS-6（2016）台上爆炸调查的核心，使内衬成为有据可查的失效模式卡点。商用 COPV / 内衬厂商（Infinite Composites、Steelhead Composites、HyPerComp Engineering）界定产业层。"
+  },
+  "starship_stainless_coil_plate_merchant": {
+    "nameZh": "航天不锈钢卷材 / 板材（304L / 30X 级）",
+    "descriptionZh": "SpaceX 轧制、成形并焊接为 Starship 与 Super Heavy 贮箱筒段与封头的不锈钢轧材（卷材与板材）。SpaceX 已从 301/304L 不锈钢转向其自研内部合金 30X，以提升低温强度与复用性。商用钢厂层——Outokumpu、North American Stainless / Acerinox、ArcelorMittal 不锈——供应基础卷 / 板材；30X 成分为 SpaceX 专有。"
+  },
+  "starship_header_tank_landing_propellant": {
+    "nameZh": "Starship 集液贮箱（着陆推进剂储存）",
+    "descriptionZh": "储存 Starship 着陆点火专用甲烷与氧气的较小集液贮箱，与主箱隔离，以便翻转着陆机动时有沉底、经调温的推进剂可用。甲烷集液箱位于头锥内，经穿过主箱的下导管供给；这套推进剂管理架构是 Starship 上面级一项标志性的使能复用子系统。"
+  },
+  "engine_niobium_nozzle_extension_merchant": {
+    "nameZh": "辐射冷却铌合金喷管延伸段",
+    "descriptionZh": "装于真空优化上面级发动机上的大型辐射冷却铌（铌合金，通常为 C-103）喷管裙，薄壁难熔金属延伸段烧得通红、靠辐射散热而非再生冷却。C-103 喷管延伸段在全行业真空发动机上属标准件（如 RL10 级）。铌原料本身是教科书式的供应卡点——单一生产商（巴西 CBMM）占世界铌产量绝大多数。"
+  },
+  "launch_site_flame_deluge_water_system": {
+    "nameZh": "导流槽与喷水降噪系统",
+    "descriptionZh": "在点火与起飞时保护发射台面、抑制声学与超压能量的钢制导流装置与大流量喷水系统。Starship 首次整体飞行（2023 年 4 月）将 Starbase 发射台炸出弹坑后，SpaceX 在轨道发射台座下方建造了水冷钢制喷淋板与大型水系统——一项真实、有据可查、制约发射节奏与发射台存活性的地面子系统。"
+  },
+  "launch_site_cryo_storage_tank_farm": {
+    "nameZh": "低温推进剂储存与转注罐区",
+    "descriptionZh": "由大型液氧及（对 Starship）液甲烷储罐，加上向发射台供给的转注管线与泵组成的地面罐区。罐区容量、补充与预冷驱动高飞行率可重复使用型号的周转时间与发射节奏。低温储罐与设备是具名的商用层（Chart Industries、Linde Engineering、Air Products）。"
+  },
+  "launch_site_propellant_subcooler_skid": {
+    "nameZh": "推进剂过冷 / 加密撬装",
+    "descriptionZh": "将液氧（及 Falcon 9 上的 RP-1）冷却至常压沸点以下以提高推进剂密度的地面过冷 / 加密撬装，使飞行器在固定箱容内能装入更多质量。加密推进剂加注是 Falcon 9 Full Thrust 的标志性特征，并直接喂入晚加注低温时序。是位于储罐区之下的独立地面子系统。"
+  },
+  "launch_site_gse_umbilical_quick_disconnect": {
+    "nameZh": "地面支持脐带与快速断开板",
+    "descriptionZh": "在发射台上向飞行器输送推进剂、增压气、吹除气、电力与数据、并在发射时干净脱开的地面支持脐带管线与快速断开（QD）板。在 Starbase，塔架上的助推级与飞船 QD 板（以及塔架的零级脐带）是复用关键接口，每次飞行都须可靠对接与脱开。是有别于储存与喷淋系统的独立地面 / 接口子系统。"
+  },
+  "starship_flap_electric_actuator": {
+    "nameZh": "Starship 襟翼电动作动器（大功率 EMA）",
+    "descriptionZh": "在腹拍下降与翻转中驱动 Starship 前后再入襟翼的电池供电机电作动器。SpaceX 已公开表示 Starship 采用源自 Tesla 的电机与电池包进行襟翼（及发动机）作动，取代早期飞行器所用液压——一种标志性的全电控制面作动方案。基本为自研封闭（Tesla / SpaceX 自研）；大功率 EMA 商用层（Moog、Collins）仅作替代参照。"
+  },
+  "starship_hot_stage_separation_ring": {
+    "nameZh": "Starship 热分离环",
+    "descriptionZh": "位于 Super Heavy 顶部、实现热分级的带排气级间环——在两级仍连接时点燃飞船发动机，使其尾焰在级分离时穿环排出。该结构在飞行 1 之后加入 Starship 架构，并为复用而改进（初为一次性，后保留于助推级），是 Super Heavy / Starship 分离事件中一项标志性、公开记录的结构子系统。"
+  },
+  "org_innoflight": {
+    "nameZh": "Innoflight 公司",
+    "descriptionZh": "美国（加州圣迭戈）航天航电公司（成立于 2004 年），制造用于运载与航天器的紧凑型飞行计算机与集成航电——其 CFC-400X 紧凑型飞行计算机被 L3Harris 选用于太空发展局跟踪层项目。未上市（无公开代码）。面向非自研可重复使用运载 / 航天型号的商用飞行计算机层供应商。"
+  },
+  "org_beyond_gravity": {
+    "nameZh": "Beyond Gravity（原 RUAG Space）",
+    "descriptionZh": "总部位于瑞士 / 瑞典的航天供应商（原 RUAG Space；隶属 RUAG International Holding AG），由瑞士联邦 100% 持有（中期目标私有化，未上市）。运载航电与有效载荷整流罩的标杆商用供应商——为欧洲 Ariane 与 Vega 火箭及众多美国 ULA 火箭供应整流罩。面向非自研可重复使用运载型号的产业链能力敞口。"
+  },
+  "org_eaglepicher": {
+    "nameZh": "EaglePicher Technologies 公司",
+    "descriptionZh": "美国（密苏里州乔普林）航天与国防电池厂商；美国最强的航天电池名号，曾为美国极大份额的航天任务（火星巡视器、哈勃、国际空间站、运载火箭）供应电池。未上市——自 2023 年 10 月起由 Tuthill Corporation 持有（此前为 GTCR 私募），故无公开代码。面向非自研运载型号的商用飞行电池层。"
+  },
+  "org_totalenergies": {
+    "nameZh": "道达尔能源（Saft 集团母公司）",
+    "descriptionZh": "法国综合能源巨头（总部巴黎），Saft 集团母公司，后者制造航天与航空级锂离子电池。Saft 已不再单独上市（2016 年 8 月被道达尔收购后退市），故获取航天电池公开股权敞口的途径是母公司道达尔能源，于纽交所与泛欧巴黎以 TTE 上市。敞口被大幅稀释（电池仅占道达尔能源收入极小一片）。"
+  },
+  "org_quasonix": {
+    "nameZh": "Quasonix 公司",
+    "descriptionZh": "美国（俄亥俄州西切斯特）遥测电子厂商（S 类公司，成立于 2002 年）；用于飞行试验与靶场遥测的航空遥测发射机（TIMTER/nanoTX 产品线）商用供应商。未上市——无公开代码。与发射靶场 / 指令链路相关的商用射频遥测发射机层供应商。"
+  },
+  "org_safran": {
+    "nameZh": "赛峰集团（Safran Data Systems）",
+    "descriptionZh": "法国航空航天与国防集团（总部巴黎），于泛欧巴黎（CAC 40）以 SAF 上市（ADR 为 SAFRY）。其 Safran Data Systems 部门（原 Zodiac Data Systems）制造遥测 / TT&C 硬件，赛峰亦供应惯性导航系统（Sigma / 航天 INS）。对射频遥测层或 IMU 层的敞口均被稀释（数据系统 / INS 是这家以推进为主集团的次要板块）。"
+  },
+  "org_thales": {
+    "nameZh": "泰雷兹集团",
+    "descriptionZh": "法国航空航天 / 国防 / 数字集团（总部巴黎），于泛欧巴黎（CAC 40）以 HO 上市。制造用于航空与陆 / 天导航的惯性测量 / 导航系统（TopAxyz IMU/INS，激光陀螺与 MEMS 等级）。商用高等级 IMU 层供应商；敞口被稀释（惯性导航仅占泰雷兹一小片）。"
+  },
+  "org_transdigm": {
+    "nameZh": "TransDigm 集团（Airborne Systems 所有者）",
+    "descriptionZh": "美国航空零部件集团（俄亥俄州克利夫兰），于纽交所以 TDG 上市；自 2013 年起拥有 Airborne Systems——制导空投货运与有效载荷投送翼伞的全球市场与技术领导者。Airborne 的精确制导翼伞是整流罩回收下降控制的相关商用层。敞口被大幅稀释（Airborne 只是 TransDigm 数十个单元之一）。"
+  },
+  "org_plascore": {
+    "nameZh": "Plascore 公司",
+    "descriptionZh": "美国（密歇根州齐兰）蜂窝芯厂商（成立于 1977 年，约 225 名员工），为航空航天与国防的吸能与结构应用生产铝蜂窝。可压溃铝蜂窝芯方面相对 Hexcel 的第二来源。未上市——无公开代码。"
+  },
+  "org_acerinox": {
+    "nameZh": "Acerinox 公司（North American Stainless 母公司）",
+    "descriptionZh": "西班牙不锈钢生产商（总部马德里），于马德里 BME 以 ACX 上市（ISIN ES0132105018）。拥有 North American Stainless（NAS）这一美国不锈钢厂路线。喂给运载主结构的商用基础卷 / 板不锈钢层；SpaceX 的 Starship 30X 合金为自研专有，故此为商品级广度敞口而非卡点。"
+  },
+  "org_cbmm": {
+    "nameZh": "巴西冶金矿业公司（CBMM）",
+    "descriptionZh": "巴西铌生产商（米纳斯吉拉斯州阿拉沙）——世界主导的铌供应商，铌是 C-103 真空发动机喷管延伸段的难熔金属原料。据报约占世界铌市场 75–82%，而巴西供应全球约 90% 的铌产量（USGS）。未上市（Moreira Salles 家族约 70%，日韩财团约 15%，中国财团约 15%）——无公开代码。本敞口计划中唯一最强、经核实的卡点，但无法直接投资。"
+  },
+  "org_chart_industries": {
+    "nameZh": "Chart Industries 公司",
+    "descriptionZh": "美国低温设备厂商（佐治亚州 Ball Ground），于纽交所以 GTLS 上市；低温储罐与设备的主导商用供应商，据报全球约 90% 的 LNG 项目使用其低温装备（这是 LNG 项目渗透率口径，而非发射低温份额）。与地面低温推进剂储存罐区层相关。并购提示：正被 Baker Hughes（BKR）收购，预计约 2026 年中完成。"
+  },
+  "humanoid_reducer_flexspline": {
+    "nameZh": "柔轮（薄壁柔性齿杯）",
+    "descriptionZh": "在波发生器作用下变形的薄壁圆柱形钢杯，外缘带齿；是谐波减速器中疲劳最高、最难制造的部件。由精密锻造并热处理的马氏体时效钢或合金钢制成，再切齿磨削。行业依据：谐波传动标准将减速器定义为恰好三件——波发生器、柔轮、刚轮——而柔轮疲劳寿命是该减速器的寿命瓶颈，也是多项柔轮制造专利（如金属增材、块体金属玻璃路线）所瞄准的制造卡点。"
+  },
+  "humanoid_reducer_circular_spline": {
+    "nameZh": "刚轮（刚性内齿圈）",
+    "descriptionZh": "内缘带齿（比柔轮多两齿）的刚性外圈，与变形后的柔轮啮合；是精密滚齿并磨削的硬化钢圈。行业依据：谐波减速器三大典型部件之二；比柔轮多两齿的齿数差决定减速比，并要求与柔轮匹配的精密磨齿。"
+  },
+  "humanoid_reducer_wave_generator": {
+    "nameZh": "波发生器（椭圆凸轮 + 柔性轴承）",
+    "descriptionZh": "装有薄壁、可椭圆变形球轴承的椭圆钢凸轮，将行进的变形波施加于柔轮；由中心凸轮塞与一只专用可变形轴承组合而成。行业依据：谐波减速器三大典型部件之三，通常描述为中心轮毂加一只薄壁、可椭圆变形的专用球轴承；该柔性（可变形）轴承本身即是少数厂商才能生产的专用件。"
+  },
+  "humanoid_cross_roller_bearing": {
+    "nameZh": "输出交叉滚子轴承（薄断面）",
+    "descriptionZh": "在纤薄包络内承受关节复合力矩、径向与轴向载荷的单列交叉滚子轴承，集成于谐波减速器输出端或关节壳体。RA 系列薄断面尺寸是有据可查的人形髋 / 肩部件。行业依据：工业机器人关节主要采用交叉滚子轴承以在多轴载荷下获得高刚度；合格厂商集合高度集中（THK、IKO、舍弗勒 / INA，加上减速器集成轴承），按 ADR-0005 的集中度豁免使其成为可拆解部件。"
+  },
+  "humanoid_bearing_steel_feedstock": {
+    "nameZh": "高洁净轴承钢（100Cr6 / GCr15）",
+    "descriptionZh": "控氧、控夹杂洁净度的全淬透铬轴承钢（DIN 100Cr6 / GB GCr15 / AISI 52100）；交叉滚子轴承、波发生器柔性轴承与滚柱丝杠滚柱的原料。行业依据：100Cr6/GCr15/52100 是标准精密轴承钢，而轴承疲劳寿命随钢洁净度（真空脱气 / VIM-VAR 级）提升，故顶级洁净轴承钢由少数专业钢厂供应，构成供应集中的原料卡点。"
+  },
+  "humanoid_roller_screw_threaded_shaft": {
+    "nameZh": "滚柱丝杠螺纹轴（中心丝杠）",
+    "descriptionZh": "带精密多头螺纹、供行星滚柱滚动的中心丝杠；是行星滚柱丝杠精磨的核心。行业依据：专利与厂商拆解将行星滚柱丝杠描述为「带外螺纹的丝杠、一个螺母和若干纵向滚柱」；专用螺纹磨床（如 EMAG WPG）正是为以最高精度要求加工人形机器人直线作动器用滚柱丝杠轴而推出。"
+  },
+  "humanoid_roller_screw_rollers": {
+    "nameZh": "行星滚柱（单头开槽滚柱）",
+    "descriptionZh": "位于丝杠与螺母之间、带凸形单头廓形的螺纹滚柱组，以倍增接触点获得高力密度；精磨并与螺母螺纹廓形匹配。行业依据：滚柱螺纹须有一致的凸形廓形且角度与螺母螺纹匹配以分散接触应力；滚柱磨削是最难的工序，制约滚柱丝杠厂商的产出。"
+  },
+  "humanoid_roller_screw_nut": {
+    "nameZh": "滚柱丝杠螺母（内螺纹 + 齿圈）",
+    "descriptionZh": "带内多头螺纹与集成定时齿圈的同轴螺母；精密加工的硬化钢，通常带内齿圈与保持架 / 隔圈。行业依据：滚柱丝杠组件被描述为「同轴套于丝杠外、带内螺纹的螺母」加「内齿圈与保持架或隔圈」；集成齿圈滚柱丝杠制造受专利覆盖（如 US10041573）。"
+  },
+  "humanoid_hand_hollow_cup_motor": {
+    "nameZh": "空心杯 / 无铁芯微型电机",
+    "descriptionZh": "驱动单个手部自由度的小型无铁芯（空心转子）有刷或无槽 BLDC 电机，因低惯量、高加速度而选用于前臂安装的作动器组。行业依据：2025–2026 年 Tesla Optimus Gen-3 手部采用空心杯电机 + 丝杠 + 绳传动方案，每只手约十余颗无铁芯 / 无槽电机且作动器移至前臂；maxon 与深圳 PICEA Motion 是具名空心杯电机供应商。"
+  },
+  "humanoid_hand_micro_leadscrew": {
+    "nameZh": "手部微型丝杠 / 滚珠丝杠传动",
+    "descriptionZh": "将空心杯电机旋转转换为对手指腱的直线拉力的微型梯形丝杠或滚珠丝杠；是每根手指传动的旋转转直线环节。行业依据：Optimus Gen-3 手部报道描述电机旋转经丝杠转换为直线运动，进而拉动连接手指骨的腱，手部很可能采用齿轮箱 + 丝杠 + 腱传动。"
+  },
+  "humanoid_fingertip_tactile_element": {
+    "nameZh": "指尖触觉传感元件（MEMS / 磁式 / 视触觉）",
+    "descriptionZh": "指尖触觉阵列内部的换能器——MEMS 气压 / 电容芯片、磁式（霍尔）触觉单元，或基于相机的视触觉模组——将接触力与滑移转换为信号。行业依据：触觉指尖传感器提供每个指尖的力反馈硬件，触觉感知是灵巧操作具名的关键使能要素；图谱内供应商包括 PaXini、XELA Robotics（触觉）与 TE Connectivity（力）。"
+  },
+  "humanoid_cell_cathode_active_material": {
+    "nameZh": "正极活性材料（高镍 NMC）",
+    "descriptionZh": "决定电芯能量密度并占其大部分成本、并牵引镍 / 钴 / 锂原料的富镍层状氧化物（NMC，如约 8:1:1 Ni:Mn:Co）正极粉。行业依据：锂离子电芯由正极 + 负极 + 隔膜 + 电解液构成，高能量人形电芯采用 NMC 化学体系；正极是电芯成本与能量的主导项，其前驱体 / 活性材料供应高度集中。"
+  },
+  "humanoid_cell_anode_active_material": {
+    "nameZh": "负极活性材料（石墨 / 硅混合）",
+    "descriptionZh": "石墨（天然或人造）负极材料，并日益加入硅添加剂以提升容量；是电芯的第二种核心电极材料。行业依据：负极是电芯四大典型组分之一，硅掺混石墨是通往人形占空比所需更高质量能量的路径；石墨供应（尤其人造石墨与高纯天然石墨）在地理上高度集中。"
+  },
+  "humanoid_cell_separator": {
+    "nameZh": "电池隔膜（微孔聚烯烃）",
+    "descriptionZh": "通常带陶瓷涂层、防止正负极接触同时让离子通过的微孔 PE/PP 膜；是安全关键、供应集中的专用薄膜。行业依据：隔膜在让载流离子通过的同时防止正极直接接触负极，高功率隔膜膜是公认的卡点，合格厂商寥寥。"
+  },
+  "humanoid_bms_analog_frontend": {
+    "nameZh": "BMS 模拟前端 / 电量计 IC",
+    "descriptionZh": "测量每节电芯电压、温度与电流并均衡电芯的多节监测模拟前端（AFE）IC；是电池管理模块的硅核心。行业依据：BMS 监测电芯电压、温度与电流并均衡负载，AFE / 电量计 IC 由少数厂商供应（TI、Analog Devices、NXP）；德州仪器与 NXP 已在图谱内。"
+  },
+  "humanoid_motor_stator_lamination_steel": {
+    "nameZh": "电工（硅）钢叠片",
+    "descriptionZh": "叠成电机定 / 转子铁芯的薄取向或无取向硅铁叠片；低损耗电工钢是供应集中的专用材料。行业依据：无框力矩电机采用电工钢叠片铁芯，用于高速机器人电机的薄高等级无取向电工钢由少数钢厂制造（新日铁、POSCO、JFE、宝武）；机器人电机原料清单包含铁 / 钢与铜。"
+  },
+  "humanoid_motor_copper_magnet_wire": {
+    "nameZh": "铜漆包线（电磁线）",
+    "descriptionZh": "电机定子绕组用绝缘铜绕线；线规与绝缘等级决定槽满率与热额定。行业依据：铜漆包线是通用的电机绕组材料，也是机器人 / 电动车电机的明确原料输入；槽满率与绝缘等级制约转矩密度与占空比。按 ADR-0005，在缺乏特定机器人级专用环节时，保留为材料叶节点（锭 / 线级别为商品），不过度拆解。"
+  },
+  "humanoid_ndfeb_magnet_feedstock": {
+    "nameZh": "烧结钕铁硼磁体原料（Nd2Fe14B + Dy/Tb）",
+    "descriptionZh": "烧结钕铁硼磁体毛坯（加 Dy/Tb 以获得高温矫顽力）——稀土磁体供应节点据以加工成成品弧形磁体的上游原料。行业依据：钕铁硼（Nd2Fe14B）是磁能积最高的永磁体、也是标准机器人电机磁体，加 Dy/Tb 重稀土可为高温关节电机提升矫顽力；烧结磁体原料供应是公认的中国高度集中卡点。"
+  },
+  "humanoid_ft_elastic_element": {
+    "nameZh": "传感器弹性体（柔性辐条 / 马耳他十字体）",
+    "descriptionZh": "精密加工的金属弹性体（辐条 / 马耳他十字 / 柔性梁形式），其应变编码六轴载荷；是力 / 力矩传感器的机械核心。行业依据：六轴力 / 力矩传感器采用精密加工弹性体，其上排布金属应变片构成多组惠斯通电桥，而弹性体设计（低维间耦合）是该传感器的核心 IP。"
+  },
+  "humanoid_ft_strain_transducer": {
+    "nameZh": "应变换能元件（箔式应变片 / 硅压阻）",
+    "descriptionZh": "粘贴于弹性体并接入惠斯通电桥的箔式应变片或硅压阻芯片；是力 / 力矩传感器的换能元件。行业依据：应变片贴于弹性体梁面构成惠斯通电桥，MEMS 变体则采用离子注入压阻；电桥调阻与应变片粘贴是其精密制造工序。"
+  },
+  "humanoid_encoder_magnetic_asic": {
+    "nameZh": "磁编码器 ASIC（霍尔阵列）+ 径向磁体",
+    "descriptionZh": "一颗径向充磁磁体在 ASIC 霍尔传感器阵列上方旋转以解算绝对角度；是主导的紧凑型机器人关节编码器类型。行业依据：一颗小型径向充磁磁体在含霍尔阵列的 ASIC 上方旋转并随之产生电压，磁编码器 ASIC 由少数厂商供应（如 AMS-OSRAM、Renishaw、MPS）。"
+  },
+  "humanoid_encoder_optical_codedisk": {
+    "nameZh": "光学码盘 + 光电探测器（高分辨绝对，输出侧可选）",
+    "descriptionZh": "由 LED / 光电探测器阵列读取的刻蚀玻璃或金属码盘，用于磁分辨率不足处的高分辨绝对位置，在双编码器设计中作输出侧编码器（并非每个关节的通用要求）。行业依据：光学编码器包含码盘、传感器与处理器，绝对式光学编码器以同心图案使每一刻线给出唯一二进制码；输出侧光学编码器与电机侧磁编码器在有据可查的混合设计中共存。"
+  },
+  "humanoid_struct_magnesium_alloy": {
+    "nameZh": "镁合金（压铸结构件）",
+    "descriptionZh": "用于骨架 / 关节壳体与外壳以减重并助散热的最轻结构金属（密度约 1.8 g/cm³）。行业依据：镁合金被描述为 Tesla Optimus Gen 2 的核心材料，有助减重并增强热管理。按 ADR-0005，在缺乏机器人专用铸镁专门环节时保留为材料叶节点（锭级别为商品）。"
+  },
+  "humanoid_struct_peek_cf": {
+    "nameZh": "PEEK / 碳纤维增强聚合物",
+    "descriptionZh": "用于关节机构、支架与易损件的高性能热塑性塑料（PEEK），常以碳纤维增强——以低质量获得类金属比强度。行业依据：PEEK 的比强度超过许多常规金属，用于骨架结构与关节机构，常以碳纤维增强；Victrex（PEEK）与 Evonik 已是图谱内供应商，合格高性能 PEEK 供应高度集中。"
+  },
+  "humanoid_struct_aluminum_alloy": {
+    "nameZh": "航空 / 结构铝合金",
+    "descriptionZh": "用于主框架构件与支架的机加或铸造铝合金（密度约 2.7 g/cm³，约为钢的三分之一）。行业依据：铝合金密度约为钢的三分之一，并具良好铸造性、可加工性与耐蚀性，是标准的人形框架材料。按 ADR-0005 保留为材料叶节点（锭级别为商品）。"
+  },
+  "humanoid_inverter_power_switch": {
+    "nameZh": "功率开关器件（Si MOSFET / GaN FET）",
+    "descriptionZh": "切换关节电机相电流、并决定逆变器效率、体积与热负荷的低压功率 MOSFET 或 GaN FET。行业依据：约 48 V 人形电机的关节逆变器采用低压 Si MOSFET 或 GaN FET，GaN 是活跃的功率密度前沿；供应商 Infineon、EPC（GaN）、德州仪器与意法半导体均在图谱内。为避免堆量，建模为单一器件节点（Si/GaN）而不拆分。"
+  },
+  "humanoid_depth_image_sensor": {
+    "nameZh": "CMOS 图像传感器 + 深度发射器（VCSEL / IR）",
+    "descriptionZh": "与结构光或飞行时间发射器（VCSEL/IR）共同构成深度相机前端的 CMOS/RGBIR 图像传感器。行业依据：深度相机参考设计集成用于立体深度的 RGBIR 图像传感器与一颗 ToF LiDAR 模块，ToF 将选通发射器耦合至 CMOS 传感器；深度传感器供应商 Orbbec、RealSense 与意法半导体在图谱内。"
+  },
+  "humanoid_imu_mems_die": {
+    "nameZh": "MEMS IMU 芯片（陀螺 + 加速度计）",
+    "descriptionZh": "IMU 模组内提供姿态与平衡感知的六轴 MEMS 惯性芯片（三轴陀螺仪加三轴加速度计）。行业依据：人形传感器组将 IMU 部件与深度 / 立体感知结合，MEMS IMU 芯片由少数厂商供应（Bosch Sensortec、意法、TDK/InvenSense、ADI）；Bosch Sensortec、TDK 与意法半导体在图谱内。"
+  },
+  "humanoid_edge_inference_soc": {
+    "nameZh": "边缘 AI 推理 SoC（机器人大脑）",
+    "descriptionZh": "运行机载感知与视觉-语言-动作推理的系统级芯片（如 NVIDIA Jetson Thor 级、Qualcomm、Rockchip、D-Robotics）；在机器人功耗预算内决定机载 AI 吞吐。行业依据：人形机载计算是具名的 SoC 卡点，验收标准明确将具名计算 SoC 纳入范围；供应商 NVIDIA（Jetson/Thor）、Qualcomm、Rockchip 与 D-Robotics 均在图谱内。"
+  },
+  "humanoid_compute_lpddr_memory": {
+    "nameZh": "LPDDR / 模组上内存",
+    "descriptionZh": "与推理 SoC 共封装或并置的低功耗 DRAM（LPDDR5/5X）与存储；制约机载模型规模与内存带宽。行业依据：边缘 AI 计算模组将 SoC 与 LPDDR 内存配对，内存带宽制约端侧模型规模。本节点刻意保持浅层：DRAM/HBM 制造链是位于 ai_compute_chain 域的有据边界，故内存在此不再进一步拆解。"
+  },
+  "humanoid_heat_pipe_vapor_chamber": {
+    "nameZh": "热管 / 均热板",
+    "descriptionZh": "将热量从电机或计算搬运至外壳或冷却回路的密封两相散热器；是紧凑高占空比机器人中的主力被动热通路（并非每台人形机器人通用）。行业依据：紧凑高功率电子采用热管与均热板散热，类似旗舰中建模的两相冷却回路；两相散热器是公认供应集中的部件（Aavid/Boyd、Auras、AVC）。"
+  },
+  "humanoid_thermal_interface_material": {
+    "nameZh": "热界面材料（TIM）",
+    "descriptionZh": "置于发热芯片 / 电机与散热器之间、决定接触热阻的填隙材料、导热膏或导热垫。行业依据：TIM 是机器人计算与电机热通路中热源与散热器之间的标准界面，高性能 TIM 是专用材料供应（汉高、陶氏、信越）；信越已在图谱内。"
+  },
+  "org_ikont_nipponthompson": {
+    "nameZh": "日本东晟（Nippon Thompson，IKO）",
+    "descriptionZh": "东京上市的精密轴承专业厂商（IKO 品牌），作为薄断面交叉滚子及柔性 / 谐波减速器轴承的候选供应商；代码 6480.T 为东京上市敞口，非美国主上市。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_sumitomo_metal_mining": {
+    "nameZh": "住友金属矿山株式会社",
+    "descriptionZh": "东京上市的有色金属与电池材料厂商，作为富镍正极活性材料（NCA/NMC）的候选供应商；代码 5713.T 为东京上市敞口，非美国主上市。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_asahi_kasei": {
+    "nameZh": "旭化成株式会社",
+    "descriptionZh": "东京上市的多元化化学厂商（Hipore 锂离子隔膜），作为微孔电池隔膜膜的候选供应商；代码 3407.T 为东京上市敞口，非美国主上市。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_shenzhen_senior": {
+    "nameZh": "深圳市星源材质科技股份有限公司",
+    "descriptionZh": "深圳上市的锂离子电池隔膜厂商（干法 / 湿法 / 涂覆膜），作为微孔电池隔膜膜的候选供应商；代码 300568.SZ 为深圳上市敞口，非美国主上市。法定主体名称（非「SEMCORP」）。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_sony": {
+    "nameZh": "索尼集团公司",
+    "descriptionZh": "东京上市的集团，其索尼半导体解决方案是领先的商用 CMOS 图像传感器厂商；作为深度相机图像传感器的候选供应商。代码 6758.T 为东京上市敞口（ADR SONY 亦交易），此处未建模为美国主上市。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_analog_devices": {
+    "nameZh": "亚德诺半导体（Analog Devices）",
+    "descriptionZh": "纳斯达克上市的模拟 / 混合信号半导体厂商（含 Maxim 产品线），作为电池监测 AFE / 电量计 IC 与高性能 MEMS IMU 芯片的候选供应商。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_ams_osram": {
+    "nameZh": "ams-OSRAM 公司",
+    "descriptionZh": "瑞士证券交易所上市的光学 / 传感半导体厂商，作为旋转磁式位置编码器 ASIC（AS5xxx 霍尔阵列系列）的候选供应商；代码 AMS.SW 为瑞士上市敞口，非美国主上市。图谱链接为部件敞口，而非确认的人形 BOM。"
+  },
+  "org_monolithic_power": {
+    "nameZh": "芯源系统（Monolithic Power Systems）",
+    "descriptionZh": "纳斯达克上市的半导体厂商，作为机器人用角度 / 位置传感器（MagAlpha）与电机驱动 IC 的候选供应商。图谱链接为部件敞口，而非确认的人形 BOM。"
+  }
+}

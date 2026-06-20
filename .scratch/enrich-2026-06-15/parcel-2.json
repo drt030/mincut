@@ -1,0 +1,68 @@
+[
+  {
+    "id": "ev_compute_intel_openvino_2026",
+    "url": "https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/overview.html",
+    "title": "Intel OpenVINO toolkit overview",
+    "claim": "Intel: U.S. semiconductor and edge-computing supplier; OpenVINO and Intel CPU/GPU/NPU platforms are relevant to low-cost computer-vision inference. | Vision processing compute: Industrial PC, smart camera, embedded processor, or accelerator that runs barcode/OCR, detection, tracking, and integration logic. | Industrial edge-AI computer: Fanless industrial PC, embedded Jetson/Intel edge box, or smart-camera compute module that executes parcel vision inference and barcode/OCR workloads  | Low-cost real-time vision compute integration: Integration method for choosing low-cost edge compute, camera SDKs, inference runtime, thermal envelope, and latency budget so parcel detection and tr | Vision model deployment optimization: Conversion, quantization, batching, memory layout, and deployment tuning needed to run parcel detection/OCR models on low-cost edge hardware. | Vision inference runtime stack: Runtime stack such as TensorRT, OpenVINO, or equivalent vendor libraries used to execute optimized parcel vision models on edge hardware."
+  },
+  {
+    "id": "ev_compute_basler_pylon_sdk_2026",
+    "url": "https://www.baslerweb.com/en/software/pylon/",
+    "title": "Basler pylon software for image capture",
+    "claim": "Camera SDK frame acquisition pipeline: Camera SDK, driver, buffer, trigger, and frame-transfer pipeline that moves parcel images from industrial cameras into the inference/runtime process w | Low-cost real-time vision compute integration: Integration method for choosing low-cost edge compute, camera SDKs, inference runtime, thermal envelope, and latency budget so parcel detection and tr | Vision latency budget and timestamping: End-to-end latency budget from trigger/frame capture through inference, decision handoff, and conveyor/robot timestamp alignment."
+  },
+  {
+    "id": "ev_compute_genicam_machine_vision_standards_2026",
+    "url": "https://www.emva.org/standards-technology/genicam/introduction-new/",
+    "title": "GenICam generic camera programming interface",
+    "claim": "Camera SDK frame acquisition pipeline: Camera SDK, driver, buffer, trigger, and frame-transfer pipeline that moves parcel images from industrial cameras into the inference/runtime process w | Low-cost real-time vision compute integration: Integration method for choosing low-cost edge compute, camera SDKs, inference runtime, thermal envelope, and latency budget so parcel detection and tr | Vision latency budget and timestamping: End-to-end latency budget from trigger/frame capture through inference, decision handoff, and conveyor/robot timestamp alignment."
+  },
+  {
+    "id": "ev_banner_conveying_sortation_sensors",
+    "url": "https://www.bannerengineering.com/za/en/industries/material-handling/conveying-and-sortation.html",
+    "title": "Conveying and Sortation",
+    "claim": "Barcode / OCR reading software: Software pipeline for reading barcodes, labels, and OCR fields from parcel images and outputting a parcel identity or destination token. | Conveyor photoelectric sensors: Photoelectric or background-suppression sensors used to detect parcels entering, leaving, spacing, or jamming in the sorting cell. | Conveyor speed encoder tracking: Encoder or drive feedback that maps parcel detections into conveyor position so vision, robot motion, and destination timing stay synchronized. | Parcel induction and spacing control: Controls logic, sensor feedback, and conveyor-drive setup that keep parcels singulated, spaced, and recoverable enough for scanning and robot-arm inte | PLC and WCS integration: PLC, robot controller, warehouse control system, and I/O integration that turns parcel identity into synchronized sorting actions. | Jam detection and recovery: Detection logic, alerts, and recovery workflow for parcels stuck in conveyor, chute, or robot-handling areas. | Induction sensor array: Photoelectric, presence, barcode/vision, and optional dimensioning sensors used around induction to detect parcel leading edges, doubles, spacing, sid | Banner Engineering: Industrial automation sensor supplier with conveying and sortation sensing applications for product spacing, tracking, barcode reading, destination ve"
+  },
+  {
+    "id": "ev_interroll_sorter_platform",
+    "url": "https://www.interroll.com/products/sorters",
+    "title": "High-performance sorters for unit handling",
+    "claim": "Conveyor integration: Mechanical, electrical, and controls integration with conveyor flow, induction, sensors, spacing, and downstream chutes. | Parcel induction and spacing control: Controls logic, sensor feedback, and conveyor-drive setup that keep parcels singulated, spaced, and recoverable enough for scanning and robot-arm inte | PLC and WCS integration: PLC, robot controller, warehouse control system, and I/O integration that turns parcel identity into synchronized sorting actions. | Sortation chutes and bins: Physical outputs, chutes, bins, or lanes that receive parcels after the robot-arm sorting action."
+  },
+  {
+    "id": "ev_barcode_ocr_cognex_no_reads_2026",
+    "url": "https://www.cognex.cn/zh-cn/blogs/industrial-barcode-reader/no-reads",
+    "title": "Cognex no-read guidance for industrial barcode readers",
+    "claim": "Barcode / OCR reading software: Software pipeline for reading barcodes, labels, and OCR fields from parcel images and outputting a parcel identity or destination token. | Barcode / OCR no-read recovery: Exception-handling loop for failed barcode or OCR reads, including retry logic, confidence thresholds, diagnostics, manual keying handoff, and WCS exc | Barcode / OCR benchmark protocol: Benchmark protocol for read rate, no-read rate, false read rate, latency, damaged-label coverage, OCR confidence, and manual-exception rate under parc | Parcel label training dataset: Curated parcel-label image and annotation set for localization, OCR, no-read analysis, glare/occlusion cases, and parcel-type coverage."
+  },
+  {
+    "id": "ev_barcode_ocr_zebra_fis_mv_2025",
+    "url": "https://investors.zebra.com/news-and-events/news/news-details/2025/Zebra-Technologies-Unveils-Solutions-Advancing-Intelligent-Automation-at-ProMat-2025/default.aspx",
+    "title": "Zebra fixed industrial scanning and logistics automation releases",
+    "claim": "Zebra Technologies: U.S. enterprise-asset and barcode supplier with fixed industrial scanning, machine vision, Aurora software, and high-speed logistics scan-tunnel produ | Barcode / OCR reading software: Software pipeline for reading barcodes, labels, and OCR fields from parcel images and outputting a parcel identity or destination token. | Parcel label localization: Vision software that finds barcode and text label regions on parcels before decoding or OCR, including multi-label, skew, glare, and partial-occlusion | Industrial barcode decoding runtime: Industrial decoder runtime for 1D and 2D parcel barcodes, including high-speed conveyor operation, multiple symbologies, damaged-code handling, and re | Parcel OCR model runtime: OCR runtime for parcel label text such as printed addresses, route codes, service labels, or fallback tokens when barcode reads are unavailable. | Barcode / OCR no-read recovery: Exception-handling loop for failed barcode or OCR reads, including retry logic, confidence thresholds, diagnostics, manual keying handoff, and WCS exc | Parcel label training dataset: Curated parcel-label image and annotation set for localization, OCR, no-read analysis, glare/occlusion cases, and parcel-type coverage."
+  },
+  {
+    "id": "ev_barcode_ocr_sick_clv65x_2026",
+    "url": "https://www.sick.com/us/en/catalog/products/machine-vision-and-identification/fixed-mount-barcode-scanners/clv65x/c/g79879",
+    "title": "SICK CLV65x fixed-mount barcode scanner",
+    "claim": "SICK: German sensor and machine-safety supplier covering safety light curtains, laser scanners, LiDAR, photoelectric sensors, conveyor object detection, fix | Barcode / OCR reading software: Software pipeline for reading barcodes, labels, and OCR fields from parcel images and outputting a parcel identity or destination token. | Industrial barcode decoding runtime: Industrial decoder runtime for 1D and 2D parcel barcodes, including high-speed conveyor operation, multiple symbologies, damaged-code handling, and re | Barcode / OCR no-read recovery: Exception-handling loop for failed barcode or OCR reads, including retry logic, confidence thresholds, diagnostics, manual keying handoff, and WCS exc | Barcode / OCR benchmark protocol: Benchmark protocol for read rate, no-read rate, false read rate, latency, damaged-label coverage, OCR confidence, and manual-exception rate under parc"
+  },
+  {
+    "id": "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+    "url": "https://www.wayzim.com/en/product/detail/1003",
+    "title": "Wayzim Automated Robotic Parcel Infeed System",
+    "claim": "Wayzim: Chinese intelligent logistics equipment supplier with cross-belt sorters, automated robotic parcel infeed, and vision systems. | Parcel induction and spacing control: Controls logic, sensor feedback, and conveyor-drive setup that keep parcels singulated, spaced, and recoverable enough for scanning and robot-arm inte | Parcel singulation and metering: Method for turning irregular or bunched parcel flow into a mostly one-at-a-time stream with predictable pitch before scanning, weighing, or robot hand | Induction exception recovery: Rules and operator workflow for double feeds, unreadable parcels, side-by-side parcels, oversized/unstable parcels, and induction jams before they cas"
+  },
+  {
+    "id": "ev_mfg_dematic_sortation_controls",
+    "url": "https://www.dematic.com/en-us/solutions/sortation-systems/",
+    "title": "Dematic automated sortation systems",
+    "claim": "Dematic / KION: Warehouse automation and sortation supplier under KION, covering sorters, conveyors, robotics, controls, and software. | Parcel induction and spacing control: Controls logic, sensor feedback, and conveyor-drive setup that keep parcels singulated, spaced, and recoverable enough for scanning and robot-arm inte | Dynamic gap control logic: Controls logic that adjusts belt speeds, release timing, and merge behavior so gaps are large enough for scanning/sorting but not so large that throug | Induction sensor array: Photoelectric, presence, barcode/vision, and optional dimensioning sensors used around induction to detect parcel leading edges, doubles, spacing, sid | Variable-speed induction drive: Drive, motorized roller, belt, or conveyor-zone control used to accelerate, decelerate, and release parcels into stable gaps before scan and sort acti"
+  },
+  {
+    "id": "ev_mfg_daifuku_sorting_systems",
+    "url": "https://www.daifuku.com/solution/intralogistics/products/sort/",
+    "title": "Daifuku sorting systems",
+    "claim": "Daifuku: Japanese material-handling and intralogistics automation supplier with sorting systems and conveyor products. | Parcel induction and spacing control: Controls logic, sensor feedback, and conveyor-drive setup that keep parcels singulated, spaced, and recoverable enough for scanning and robot-arm inte"
+  }
+]

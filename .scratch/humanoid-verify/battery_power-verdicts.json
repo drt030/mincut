@@ -1,0 +1,78 @@
+{
+  "verified": [
+    {
+      "id": "ev_humanoid_eve_energy_solid_state",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Fetched Electrek 2025-09-03. Excerpt verbatim on page: 'The Longquan II is a 10-Ah all-solid-state cell with an energy density of up to 300 Wh/kg.' and 'mass production of these ultra-dense cells will eventually power humanoid robots, uncrewed aerial vehicles, and AI equipment.' Numbers 10 Ah and 300 Wh/kg verbatim. Forward-looking 'will eventually power' — limitations field already flags it as intended/future, not current shipment. Capability/intent evidence, not an OEM PO. Correctly modeled."
+    },
+    {
+      "id": "ev_humanoid_molicel_applications",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Fetched Molicel /about/. 'ultra-high power cylindrical cells' verbatim; humanoid relevance verbatim and even more specific than excerpt: 2025 timeline 'INR-21700-P50B has been adopted for humanoid robotics applications'; 'MOLICEL is part of Taiwan Cement Corporation (TCC) Group' verbatim. Vendor self-description (vendor_claim) — application category, not an OEM design-win, as limitations state. No quantitative claim in the excerpt, so numberInQuote=false."
+    },
+    {
+      "id": "ev_humanoid_panasonic_2170_cylindrical",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Fetched Panasonic newsroom en251125-2. Excerpt verbatim: 'Panasonic Energy's 2170 cells, offering superior energy density, safety and reliability, are crucial for Zoox's high-performance robotaxis.' CONFIRMED: zero humanoid mention; application is unambiguously Zoox ROBOTAXI (wheeled vehicle), not a humanoid robot. Record correctly models this as 2170 cylindrical form-factor capability evidence only — edge claim explicitly states 'a confirmed Panasonic supply to a named humanoid OEM was not found' and context labels it 'capability evidence, not a humanoid purchase order.' No humanoid over-claim. '2170' is a format designator, not a quantitative metric at a basis, so numberInQuote=false."
+    },
+    {
+      "id": "ev_humanoid_infineon_humanoid_blocks",
+      "quoteMatch": "exact",
+      "numberInQuote": false,
+      "notes": "Fetched Yahoo Finance mirror of Infineon Business Wire release; full body text resolves (not a stub). Excerpt verbatim: 'Infineon enables the key functional blocks in humanoid robots with a broad portfolio of dedicated products and technologies - from power switches to microcontrollers, sensors and connectivity.' NVIDIA Jetson Thor partnership confirmed in body. NUANCE for owner: the release frames 'dedicated' as existing product families (PSOC, AURIX, CoolGaN, XENSIV) applied to / 'dedicated solutions for' humanoid robots, NOT silicon exclusively designed only for humanoids. The stored excerpt is verbatim-accurate and the edge context already says the BMS firmware is the integrator's (captive). Edge claim phrase 'humanoid-dedicated product line' is supported by the press release's own 'dedicated products and technologies ... humanoid robots' language but should be read as dedicated-portfolio-positioning, not humanoid-exclusive parts. No quantitative figure in excerpt, numberInQuote=false."
+    },
+    {
+      "id": "ev_humanoid_nxp_mobile_robotics_bms",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "Fetched NXP gitbook rddrone-bms772. Excerpt verbatim: 'The RDDRONE-BMS772 is a standalone BMS Reference Design suitable for mobile robotics such as drones and rovers, supporting 3-6 cell batteries.' Cell-count '3-6 cells' confirmed verbatim at the stated basis; application 'mobile robotics such as drones and rovers' verbatim. Humanoid relevance is by category adjacency only (mobile robotics, not humanoid specifically) — limitations field correctly states this; reference design / merchant silicon, not a confirmed humanoid pack supply. numberInQuote=true for the 3-6 cell figure."
+    }
+  ],
+  "repaired": [],
+  "escalations": [],
+  "tickerAudit": [
+    {
+      "org": "org_eve_energy",
+      "name": "EVE Energy",
+      "claimedTicker": "300014.SZ",
+      "verdict": "correct",
+      "source": "Shenzhen Stock Exchange ChiNext; EVE Energy Co., Ltd. listed 2009 under 300014 (A-share). Confirmed via Google Finance 300014:SHE, stockanalysis.com she/300014, en.wikipedia.org/wiki/EVE_Energy.",
+      "notes": "Ticker correct. Record's framing ('A-share, not a US primary listing') accurate."
+    },
+    {
+      "org": "org_molicel",
+      "name": "Molicel (E-One Moli Energy)",
+      "claimedTicker": "1101.TW",
+      "verdict": "correct_with_note",
+      "source": "Taiwan Stock Exchange 1101 (TWSE:1101). Molicel = 'a subsidiary of the TCC Group' (parent relationship confirmed via Molicel newsroom + Wikipedia/Molicel). Molicel itself is not separately listed.",
+      "notes": "Ticker 1101.TW correct and parent/subsidiary relationship confirmed. NAMING-STALENESS for owner: the listed entity renamed from 'Taiwan Cement Corp' to 'TCC Group Holdings Co., Ltd.' in May 2024 (ticker unchanged). The org description/excerpt says 'Taiwan Cement Corporation (TCC) Group' (pre-2024 name) — accurate as Molicel's own page still uses 'Taiwan Cement Corporation (TCC) Group', but the exchange listing now shows 'TCC Group Holdings'. Optional cosmetic update; ticker NOT wrong."
+    },
+    {
+      "org": "org_panasonic",
+      "name": "Panasonic (Panasonic Energy / Panasonic Holdings)",
+      "claimedTicker": "6752.T",
+      "verdict": "correct",
+      "source": "Tokyo Stock Exchange 6752 (TSE:6752). Panasonic Holdings operates five segments incl. 'Energy' (automotive cylindrical Li-ion) — confirms 'Panasonic Energy is its battery segment'. Via marketscreener 6492473, tradingview TSE-6752, Yahoo 6752.T.",
+      "notes": "Ticker correct. Parent-holdings vs Energy-segment framing accurate."
+    },
+    {
+      "org": "org_infineon",
+      "name": "Infineon Technologies",
+      "claimedTicker": "IFX.DE",
+      "verdict": "correct",
+      "source": "Frankfurt/Xetra XTRA:IFX (IFX.DE); US OTC IFNNY. Confirmed via portfolioslab IFX.DE, comparably/seekingalpha Infineon vs NXPI.",
+      "notes": "Both the primary IFX.DE and the record's parenthetical US OTC IFNNY are correct."
+    },
+    {
+      "org": "org_nxp",
+      "name": "NXP Semiconductors",
+      "claimedTicker": "NXPI",
+      "verdict": "correct",
+      "source": "NASDAQ: NXPI (NXP Semiconductors N.V.). Confirmed via stockstory nasdaq/nxpi, koalagains NASDAQ/NXPI, nxp.com newsroom.",
+      "notes": "Ticker correct; the record's 'US NASDAQ-listed (NXPI)' framing accurate. (Only org in batch with a US primary listing.)"
+    }
+  ]
+}

@@ -29,8 +29,9 @@ high-barrier, supply-concentrated, market-ignored upstream segments.
    only), `capacityLeadTimeMonths` (reserved, unpopulated).
 3. /graph is one persistent radial map with two layers (ADR-0007
    stable identity): the default product layer renders artifact kinds
-   only; the know-how layer dims artifacts to grey and lights know-how
-   nodes as diamonds colored by transactability.
+   only; the know-how layer keeps artifact context visible with low-saturation
+   subsystem color and lights know-how nodes as diamonds. User-facing graph
+   nodes must not be grey.
 4. The canvas tree includes `implemented_by` edges whose target is a
    know-how node, so implemented_by-only know-how attaches to its host.
 5. Bottlenecks must survive the split: product-layer hosts carry a
@@ -65,3 +66,47 @@ high-barrier, supply-concentrated, market-ignored upstream segments.
 - ai-chain know-how transactability backfill is a follow-up
   (validate-data warns until then).
 - Market attention / expectation gap is deliberately not modelled.
+
+## Amendment — 2026-06-17: display taxonomy and barrier-source UI contract
+
+Schema `kind` is not the same as reader-facing node type. User-facing graph
+work must use this display taxonomy:
+
+| Display layer | Schema kinds | Default canvas | Purpose |
+|---|---|---|---|
+| Artifact / 产业链实体 | `product`, `technical_route`, `module`, `equipment`, key `material` | visible | what is bought, built, integrated, or depended on |
+| Know-how / 壁垒来源 | `engineering_method`, `manufacturing_process` | hidden by default; visible in the Barrier Sources layer and detail panels | how the artifact is made or implemented, and why it is hard to replicate |
+| Market actor / 公司组织 | `organization` | never visible as a default graph node | supplier, holder, listing, and paid exposure evidence |
+| Measurement / evidence | `metric`, `evidence` | never visible as graph nodes | values, source trail, review state, and audit details |
+| Context / background | `capability`, principles, standards/regulations | normally detail/gate-only | demand containers, scientific/regulatory context, validation background |
+
+A know-how record should become an independent graph node only when it carries
+at least one reader-facing signal:
+
+- it contributes to Barrier (`transactability`, `must_build`, `hard_to_develop`,
+  long lead time, qualification/yield/replication difficulty);
+- it has modeled holders or organization exposure;
+- it is shared by multiple artifacts or explains a route-level chokepoint;
+- it carries `bottleneckOf`, `frontierFor`, metrics, or direct evidence;
+- it needs its own review status or evidence trail.
+
+Low-signal process/method notes stay inside the host artifact detail instead of
+becoming graph nodes.
+
+UI contract:
+
+- The default product/artifact map stays readable and does not render
+  know-how, organization, metric, or evidence nodes.
+- Artifact nodes may summarize attached know-how as a Barrier signal
+  (count, strongest must-build/process barrier, holder scarcity, or evidence
+  gap), but the artifact remains the primary map object.
+- The secondary layer should read as **Barrier Sources** (or equivalent
+  reader-facing wording), not as an internal technical-node dump.
+- In that layer, know-how nodes are diamonds; size, outline, saturation, or
+  edge weight may encode Barrier contribution, `must_build`, holder scarcity,
+  or authored bottleneck state.
+- Artifact context in the Barrier Sources layer keeps low-saturation subsystem
+  color. Grey user-facing nodes are a hard fail because they make hierarchy and
+  routing read as unclassified.
+- Organization nodes remain exposure/evidence records in panels and paid
+  surfaces; they do not become default canvas nodes.

@@ -2,11 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { formatMetricValue } from "../src/lib/metricValueFormat";
 
-test("range metric display leads with p50 and keeps range in full form", () => {
+test("range metric display leads with estimate wording and keeps range in full form", () => {
   const formatted = formatMetricValue({ min: 14_000, typical: 26_000, max: 45_000 }, "RMB", "RMB");
 
-  assert.equal(formatted.compact, "p50 26k RMB");
-  assert.equal(formatted.full, "p50 26,000 (range 14,000–45,000) RMB");
+  assert.equal(formatted.compact, "est. 26k RMB");
+  assert.equal(formatted.full, "est. 26,000 (range 14,000–45,000) RMB");
   assert.equal(formatted.isRange, true);
 });
 
@@ -17,7 +17,7 @@ test("RMB range full display rounds fractional rollups to whole yuan", () => {
     "RMB",
   );
 
-  assert.equal(formatted.full, "p50 309,994 (range 160,433–550,280) RMB");
+  assert.equal(formatted.full, "est. 309,994 (range 160,433–550,280) RMB");
 });
 
 test("currency display preserves decimals for million and billion unit metrics", () => {
@@ -29,7 +29,7 @@ test("currency display preserves decimals for million and billion unit metrics",
 test("non-currency range full display preserves meaningful fractional values", () => {
   const formatted = formatMetricValue({ min: 98, typical: 99, max: 99.5 }, "%");
 
-  assert.equal(formatted.full, "p50 99 (range 98–99.5) %");
+  assert.equal(formatted.full, "est. 99 (range 98–99.5) %");
 });
 
 test("degenerate range metric still collapses to scalar display", () => {

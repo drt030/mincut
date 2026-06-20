@@ -1,0 +1,132 @@
+{
+  "domain": "humanoid_robotics",
+  "overall": "NOT_ACCEPTED",
+  "judge": "independent adversarial acceptance judge (fresh, no stake)",
+  "judged_at": "2026-06-15",
+  "decision_rule": "Per acceptance-standard §8 + dispatch: ACCEPTED iff A1..A8 AND B AND C AND all-4-D-axes AND E1. B, C, all of D, and E1 PASS; A7 (zh coverage) and A8 (humanoid data-quality test) FAIL -> NOT_ACCEPTED. The substantive decomposition/exposure/evidence work is at parity; the two open items are mechanical Gate-A deliverables.",
+  "gates": {
+    "A": {
+      "pass": false,
+      "numbers": {
+        "validate_data": "PASS — 0 violations (1038 nodes / 1508 edges / 840 evidence). Only non-blocking warnings: 46 know-how nodes (all in OTHER domains, none humanoid) missing ADR-0008 transactability backfill.",
+        "audit_evidence_humanoid": "PASS for A2 — buckets needs_fetch=33, structural_ok=59, failed=0 (0 missing excerpt). needs_fetch = high-stakes records WITH excerpts flagged for the Gate-B WebFetch verifier, NOT missing-excerpt failures.",
+        "check_graph_ux": "PASS (graph-ux + topology green; humanoid root=humanoid_robot_key_component_stack structural=78)",
+        "check_active_graph_scope": "PASS (no output = green)",
+        "check_commercial_readiness": "PASS (humanoid-robotics state=audit-preview, auditPreviewTopGaps=0/3, gating correct, no leaks)",
+        "lint": "PASS (eslint clean)",
+        "test": "PASS — 507 tests: 502 pass, 0 fail, 5 skipped (the 5 skipped are UX-smoke tests needing a live dev server; expected)",
+        "build": "PASS (next build succeeded, all routes compiled)",
+        "A7_zh_coverage": "FAIL (substantive) — 0/129 humanoid nodes have a zh entry in src/components/LanguageProvider.tsx nodeTextZh dict. Spot-checked org_humanoid_harmonic_drive_systems, org_jl_mag_rare_earth, org_humanoid_drake_manufacturing, org_humanoid_bota_systems, org_humanoid_rollvis, org_shin_etsu_chemical, org_proterial -> all 0 matches. The wired languageCoverage.test.ts only checks loadActiveGraphData() + fixed parcel-robot roots, so it passes GREEN despite full humanoid zh absence; the A7 requirement ('0 missing zh for every new node') is NOT met.",
+        "A8_data_quality_test": "FAIL (absent) — no tests/humanoidDataQuality.test.ts; only tests/spacexDataQuality.test.ts exists and it contains 0 humanoid references. No test pins humanoid headline-bottleneck decision fields (transactability / lead time / constraint tags / non-vendor evidence)."
+      },
+      "findings": [
+        "A1-A6 all green (validate:data 0 violations; audit failed=0; graph-ux/active-scope/commercial-readiness green; lint clean; 502/0 tests; build OK).",
+        "A2 nuance: the 33 needs_fetch records all carry non-empty excerpts (verified by code path in src/lib/evidenceAudit.ts: needs_fetch = structural_ok promoted by high-stakes, NOT a missing-excerpt bucket). failed bucket = 0. A2 PASS.",
+        "A7 BLOCKER: humanoid domain has zero zh node-name coverage (0/129). Round-1 zh was not merged into LanguageProvider.tsx. Brief explicitly anticipated this gap.",
+        "A8 BLOCKER: humanoid data-quality unit test does not exist."
+      ]
+    },
+    "B": {
+      "pass": true,
+      "evidence_integrity": 1.0,
+      "numbers": {
+        "records_in_file": 92,
+        "machineCheck_verified": 92,
+        "non_empty_excerpt": 92,
+        "fraction_verified_with_excerpt": 1.0,
+        "sourceStatus": { "ok_exact": 13, "fetch_ok": 70, "vendor_marketing": 5, "paywalled_snippet": 4 },
+        "quoteMatch": { "exact": 91, "partial": 1 },
+        "bare_manufactured_by_edges_without_evidence": 0,
+        "manufactured_by_total": 59,
+        "reported_capable_supplier_total": 11,
+        "orphan_number_nodes": 0,
+        "webfetch_spotchecks_passed": "3/3"
+      },
+      "findings": [
+        "evidence_integrity = 92/92 = 1.00 (>= 0.95). All records machineCheck.status=verified with a non-empty verbatim excerpt.",
+        "Verification trail is GENUINE, not blanket-stamped: per-segment Opus verdict files exist (.scratch/humanoid-verify/{reducers_screws,motors_magnets,sensing,battery_power,compute_control,structure_bearings_thermal}-verdicts.json, 71 ids) + round0 verdicts (13 ids), applied via .scratch/apply-humanoid-verify.mjs. quoteMatch records 1 'partial' and numberInQuote 33 False -> honest, not rubber-stamped.",
+        "WebFetch SPOT-CHECK 3/3 confirmed verbatim excerpts on live pages: ev_humanoid_gsa_rgti (gsascrews.com — exact, and Tesla/Optimus correctly NOT on page), ev_humanoid_moog_frameless (moog.com — exact), ev_humanoid_nmb_thermal (nmbtc.com — exact).",
+        "B4 PASS: 0 bare manufactured_by edges without a citation (all 59 supported). The 1 reported_capable_supplier edge without evidence (e_humanoid_rare_earth__reported_capable_supplier__tdk) is HONESTLY self-documenting: claim text says 'this batch verifies no TDK-specific NdFeB-for-humanoid quote, so reported-capable, not confirmed manufacture', confidence:low — correct ADR-0009 downgrade, not a violation.",
+        "B1 PASS: 0 orphan-number nodes (no quantified claim sits on a node with 0 evidence).",
+        "Demote-don't-fabricate confirmed: the unsourced '>50% GSA+Rollvis world share' and 'Tesla->GSA RGTI' claims were STRIPPED from humanoid_planetary_roller_screw (no '50%' remains; replaced by qualitative description) and routed to owner ESCALATIONS (.scratch/humanoid-verify/ESCALATIONS.json), while the page-level excerpts were re-verified. This is exactly the discipline Gate B wants."
+      ]
+    },
+    "C": {
+      "pass": true,
+      "numbers": {
+        "in_file_org_nodes": 47,
+        "domain_org_universe_incl_cross_domain": 60,
+        "in_domain_duplicate_org_nodes": 0,
+        "orgs_with_ticker": 31,
+        "orgs_private_labeled": 5,
+        "orgs_no_ticker_field": 11
+      },
+      "findings": [
+        "C4 PASS: 0 in-domain duplicate org nodes — every org name in humanoid_robotics.json is distinct; no two organization ids map to the same company. The 5 ticker='private' collisions are 5 genuinely different private firms (GSA, Rollvis, Drake, PTG Holroyd, PICEA), not dups. Cross-domain org_X reuse (CATL, NSK, Schaeffler, MP Materials, etc. referenced by humanoid edges) is the sanctioned one-company-one-node pattern.",
+        "Three exposure passes evident: upstream (rare-earth/NdFeB, bearing steel, thread-grinding equipment), breadth (HDS/Nabtesco/Leaderdrive/Nidec reducers; GSA/Rollvis/Ewellix roller screws; maxon/Kollmorgen/Moog/Nidec motors; JL Mag/Shin-Etsu/Proterial/MP magnets; CATL/LG/Samsung/EVE/Molicel/Panasonic cells; ATI/Bota/SRI F/T; Hesai/RoboSense/Orbbec/RealSense vision), corners (thread-grinding equipment, NdFeB+heavy-REE, harmonic flexspline). 47->modeled organically (budget.md: 13->49 supplier orgs in round 1).",
+        "C3 PASS: public orgs carry tickers; the 11 with no ticker all carry listingStatus='private' with detailed honest notes (Bosch Sensortec->Bosch GmbH private, D-Robotics->Horizon 9660.HK lineage, RealSense spun out of Intel, maxon/Proterial/EPC/Netzer/Bota/XELA/PaXini/SRI private) — honest 'say so' per brief, not faked.",
+        "Captive-vs-merchant honesty central and correct: software/AI stacks (humanoid_locomotion_control_software, humanoid_manipulation_ai_data_stack) kept as captive modules (no invented merchant suppliers); Tesla Optimus framed as captive camera-only+actuator integrator; Figure battery/vision captive; merchant cell suppliers carry ticker-vs-parent caveats (Molicel->Taiwan Cement parent, Panasonic Energy->Panasonic Holdings, EVE ChiNext-not-US)."
+      ]
+    },
+    "D": {
+      "pass": true,
+      "exposure_recall": 0.933,
+      "segment_recall": 1.0,
+      "chokepoint_flag_rate": 1.0,
+      "evidence_integrity": 1.0,
+      "numbers": {
+        "answer_key_total": 18,
+        "answer_key_merchant": 15,
+        "answer_key_captive": 3,
+        "merchant_matched_to_domain_orgs": 14,
+        "exposure_recall_strict": "14/15 = 0.933 (the 1 miss is 'China (rare-earth mine/processing)', a country/material concentration with NO nameable org node; excluding it = 14/14 = 1.00)",
+        "dev_set_episodes": 9,
+        "distinct_modules_present": "6/6",
+        "segment_recall": "9/9 episodes = 1.00",
+        "chokepoint_flag_rate": "9/9 dev-set constrained items have a bottleneck-flagged node = 1.00",
+        "graded_holdout_touches": "1/3 (logged in .eval/budget.md)"
+      },
+      "findings": [
+        "exposure_recall = 0.933 (>= 0.65), independently recomputed by strict-matching the 15 merchant answer-key entries to the 60-org humanoid domain universe (in-file orgs + cross-domain orgs referenced by humanoid edges). HITS: Leaderdrive, NVIDIA, LG Energy, Bota, GSA, Rollvis, Nidec, Sanhua, NSK, Harmonic Drive, Bosch Sensortec, MP Materials, Schaeffler, Kollmorgen(Regal Rexnord). Only non-hit = 'China' country entry (un-nodeable). Confirmed LG Energy + MP Materials ARE present (the budget.md 'misses' were matcher false-negatives).",
+        "segment_recall = 1.00 (>= 0.85): all 6 distinct modules referenced by the 9 dev-set episodes exist in the graph (actuation, perception, manufacturing, battery, dexterous-hand, onboard-compute).",
+        "chokepoint_flag_rate = 1.00 (>= 0.95): every dev-set constrained item maps to a bottleneck-flagged node — rare_earth_magnet_supply (bottleneckOf motor_stack), reducer_transmission_stack (bottleneckOf actuation), planetary_roller_screw (tags:bottleneck + thread-grinding corner), perception_sensing_stack, manufacturing_test_safety_service, battery_pack_enclosure, dexterous_hand_tactile_system, edge_ai_compute_module (tags:bottleneck), rotary_joint_module. Verified flags are genuine (bottleneckOf edges OR explicit tags:['bottleneck']), not coincidental substring hits.",
+        "evidence_integrity = 1.00 (>= 0.95) per Gate B.",
+        "ALL FOUR D AXES PASS."
+      ]
+    },
+    "E": {
+      "pass": true,
+      "numbers": {
+        "review_queue_doc": "docs/agents/review-queue-humanoid-robotics.md (delivered, v1 2026-06-15)",
+        "claim_sections": "exactly 15 (top-15) + section 16 escalations",
+        "subject_ids_present_in_data": "15/15",
+        "evidence_sourceStatus_mismatches": 0,
+        "reviewStatus_improperly_flipped": 0,
+        "disposition": "2 flip-candidates (single facts) / 5 honest-unreviewed / 8 flagged"
+      },
+      "findings": [
+        "E1 PASS: top-15 owner review queue delivered, per-claim + per-fact, with the exact owner flip decision framed for each. All 15 subject ids exist in data/nodes or data/edges (14 nodes + 1 edge e_humanoid_joint_bearing__manufactured_by__schaeffler).",
+        "Sampled 10 cited evidence ids -> 0 sourceStatus mismatches vs data/evidence/humanoid_robotics_evidence.json (ok_exact/fetch_ok/vendor_marketing/paywalled_snippet all match).",
+        "reviewStatus stays not_reviewed on every node/edge/evidence — nothing flipped (E2 owner flip correctly deferred). No 'reviewed' written. Honest frame stated up front: most corpus is fetch_ok (verbatim but not ok_exact reviewer-confirmed tier), so most facts are HONEST UNREVIEWED even with verbatim quotes — accurate self-characterization.",
+        "Queue is adversarially honest: it does NOT chase 15/15 flips; it surfaces the real escalations (GSA/Rollvis >50% share unsourced, Tesla->GSA sourcing unsourced, multiple ticker-in-body-only records, D-Robotics 80-128 TOPS absent from source, Sanhua thermal weak-sourced) rather than asserting them."
+      ]
+    }
+  },
+  "blockers": [
+    "A7: humanoid zh node-name coverage is 0/129 — round-1 zh not merged into src/components/LanguageProvider.tsx nodeTextZh. (Green-passing languageCoverage.test.ts does not cover the audit-preview humanoid domain, so the check is a false green.)",
+    "A8: no humanoid data-quality unit test (tests/humanoidDataQuality.test.ts absent) pinning the headline bottleneck decision-grade fields."
+  ],
+  "worklist": [
+    "Add zh entries for all 129 humanoid_robotics nodes (modules, components, processes, AND the round-1 supplier orgs) to the nodeTextZh dict in src/components/LanguageProvider.tsx. Then EITHER extend tests/languageCoverage.test.ts to also assert coverage over the humanoid root (humanoid_robot_key_component_stack) so the gate actually guards this domain, OR add a humanoid-scoped coverage assertion — otherwise A7 will keep false-passing.",
+    "Add tests/humanoidDataQuality.test.ts mirroring tests/spacexDataQuality.test.ts: pin decision-grade fields on the headline bottleneck(s) (e.g. humanoid_planetary_roller_screw / humanoid_strain_wave_reducer / humanoid_rare_earth_magnet_supply / humanoid_edge_ai_compute_module): bottleneck flag/bottleneckOf, maturity triple, >=1 direct independent non-vendor evidence, correct edge semantics. Wire into npm test.",
+    "(Optional, not blocking) ADR-0008: 46 know-how nodes repo-wide (none humanoid) still lack transactability — separate backfill, surfaced as warnings by validate:data.",
+    "(Owner, E2 — deferred, NOT a blocker) work the §16 escalations in the review queue before any reviewStatus flip: GSA/Rollvis >50% share (keep qualitative or find primary/2-independent), Tesla->GSA sourcing, Harmonic Drive / Samsung SDI / Leaderdrive ticker-in-body records, D-Robotics 80-128 TOPS, Sanhua thermal claim."
+  ],
+  "claim_audit": [
+    "CLAIM 'evidence_integrity 1.00 / all 92 verified' — HOLDS. Backed by a genuine per-segment Opus verdict trail + 3/3 independent WebFetch verbatim confirmations. Not a blanket stamp.",
+    "CLAIM (budget.md) 'exposure_recall ~1.0, the 2 misses are matcher false-negatives' — HOLDS for LG Energy + MP Materials (both present). My strict independent recompute = 14/15 = 0.933 (or 1.00 excluding the un-nodeable 'China' entry); either way >= 0.65.",
+    "CLAIM 'A2 0-failed therefore evidence floor clear' — HOLDS literally (failed bucket = 0), but note the 33 needs_fetch records are the high-stakes set the Gate-B verifier had to WebFetch; that work IS done (machineCheck verified).",
+    "GAP not to round up: zh coverage and the data-quality test are real, unmet A-gate deliverables. The work is otherwise at flagship parity on B/C/D/E1; calling it 'done/ACCEPTED' would be premature by exactly two mechanical items.",
+    "NOTE: validate:data warnings about know-how transactability are cross-domain (ai_compute/fusion/spacex/iphone/ak47/glp1 etc.), NOT humanoid — they do not bear on this domain's acceptance."
+  ]
+}

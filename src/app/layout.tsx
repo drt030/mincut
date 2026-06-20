@@ -7,15 +7,15 @@ import { LanguageProvider } from "@/components/LanguageProvider";
 import { SkipToContent } from "@/components/SkipToContent";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://drt030.com";
-const siteTitle = "Capability Graph Explorer";
+const siteTitle = "MinCut";
 const siteDescription =
-  "Interactive bottleneck maps of real supply chains. A cited research tool for tracing maturity, exposure, and chokepoints; not investment advice.";
+  "Find the bottlenecks in how things get made. Interactive bottleneck maps of real supply chains; not investment advice.";
 const defaultOgImage = "/og/default.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteTitle} - interactive bottleneck maps of real supply chains`,
+    default: `${siteTitle} - find the bottlenecks in how things get made`,
     template: `%s | ${siteTitle}`,
   },
   description: siteDescription,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: `${siteTitle} - interactive bottleneck maps of real supply chains`,
+    title: `${siteTitle} - find the bottlenecks in how things get made`,
     description: siteDescription,
     url: "/",
     siteName: siteTitle,
@@ -33,13 +33,13 @@ export const metadata: Metadata = {
         url: defaultOgImage,
         width: 1200,
         height: 630,
-        alt: "Capability Graph Explorer bottleneck map preview",
+        alt: "MinCut bottleneck map preview",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteTitle} - interactive bottleneck maps`,
+    title: `${siteTitle} - find the bottlenecks`,
     description: siteDescription,
     images: [defaultOgImage],
   },

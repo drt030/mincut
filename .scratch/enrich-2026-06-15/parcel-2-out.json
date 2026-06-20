@@ -1,0 +1,79 @@
+[
+  {
+    "id": "ev_compute_intel_openvino_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "OpenVINO™ toolkit is an open source toolkit that accelerates AI inference with lower latency and higher throughput while maintaining accuracy, reducing model footprint, and optimizing hardware use.",
+    "note": "Page returned HTTP 403 to WebFetch; rendered in browser. Excerpt trimmed to first verbatim sentence for length. Page also states it 'streamlines AI development and integration of deep learning in domains like computer vision' and 'Deploy across a mix of Intel hardware and environments, on-premise and on-device', covering CV inference on Intel/edge hardware."
+  },
+  {
+    "id": "ev_compute_basler_pylon_sdk_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "pylon offers reliable, certified drivers for many vision interfaces, as well as powerful and simple programming interfaces and convenient camera setup tools.",
+    "note": "Supports camera SDK + driver + frame-transfer pipeline; page also states 'Stable real-time image acquisition thanks to excellent performance in terms of latency and jitter.'"
+  },
+  {
+    "id": "ev_compute_genicam_machine_vision_standards_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "The goal of GenICam® (Generic Interface for Cameras) is to provide a generic programming interface for all kinds of devices (mainly cameras), no matter what interface technology (GigE Vision, USB3 Vision, CoaXPress, Camera Link HS, Camera Link etc.) they are using or what features they are implementing.",
+    "note": "Supports generic camera programming interface / standardized API for the frame-acquisition pipeline across interface technologies."
+  },
+  {
+    "id": "ev_banner_conveying_sortation_sensors",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Our products regulate the cycling of motors on a conveyor, help maintain the required space between products, identify and track parcels as they travel through the system, and verify that a parcel has arrived at its intended destination.",
+    "note": "Supports conveyor photoelectric sensing, spacing, parcel tracking, destination verification; ABR barcode readers and Q30FF chute jam-detection also described, covering barcode + jam-detection cluster."
+  },
+  {
+    "id": "ev_interroll_sorter_platform",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Our Sorter Solution Platform offers a full range of proven solutions for reliable and cost-effective sorting of unit loads such as cartons, parcels, packaged food, etc.",
+    "note": "Supports sorter platform for parcels; 'bringing the goods gently to their desired destination' supports conveyor/chute delivery and induction integration."
+  },
+  {
+    "id": "ev_barcode_ocr_cognex_no_reads_2026",
+    "verdict": "demote",
+    "sourceStatus": "404",
+    "excerpt": "",
+    "note": "URL is dead. WebFetch returned 403; browser render shows the Cognex 404 page (title '未找到 | 康耐视' / Not Found), body: '您点击或键入的链接不会导致任何内容' (the link leads to no content). No supporting content exists at this URL."
+  },
+  {
+    "id": "ev_barcode_ocr_zebra_fis_mv_2025",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "These capabilities include dimensioning, AI-powered HAZMAT/Dangerous Goods label detection, optical character recognition (OCR), and package damage inspection",
+    "note": "Supports Zebra fixed industrial scanning + machine vision + OCR; page also references the 'Aurora Velocity™ scan tunnel that ensures efficient, error-free package sorting and routing,' covering scan-tunnel + Aurora claims."
+  },
+  {
+    "id": "ev_barcode_ocr_sick_clv65x_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "It combines high-performance reading with the further enhanced SMART code reconstruction system, a reading algorithm that can accurately detect and decode barcodes even if they are damaged, poorly printed, or partially covered.",
+    "note": "Page returned only a header to WebFetch (JS-only); rendered in browser. Supports industrial barcode decoding runtime, damaged-code handling, and conveyor use ('ideally suited for use in storage and conveyor systems'). Caveat: CLV65x is a 1D scanner, so the '2D' part of the decoding-runtime claim is not supported by this source."
+  },
+  {
+    "id": "ev_mfg_wayzim_robotic_parcel_infeed_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Equipped with smart cameras and high-speed six-axis robots, the system can efficiently and accurately identify parcels and calculate the spatial position information of the parcels based on the instance segmentation deep learning network and 3D space point cloud algorithm.",
+    "note": "Supports Wayzim automated robotic parcel infeed with vision + robot. Page describes identify/grasp/infeed; does not use the words 'singulation' or 'metering' verbatim, but covers the robotic-infeed/induction core."
+  },
+  {
+    "id": "ev_mfg_dematic_sortation_controls",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Dematic sortation systems are managed as a single, integrated machine that coordinates induction, gapping, scanning, divert control, and delivery confirmation.",
+    "note": "Strongly supports induction/gapping/dynamic-gap and PLC/WCS controls cluster. Caveat: the KION ownership claim is not stated on this page."
+  },
+  {
+    "id": "ev_mfg_daifuku_sorting_systems",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "High capacity case sorter designed for mass sortation at distribution centers.",
+    "note": "Supports Daifuku as material-handling/intralogistics supplier with sorting systems (case sorter, put-to-light, sorting transfer robot listed under Conveyors & Sorters). Page does not give verbatim parcel-spacing/induction detail."
+  }
+]

@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Node Detail IA Preview - Precision Reducer</title>
+  <style>
+    :root {
+      --bg: #f6f7f4;
+      --panel: #fbfcf9;
+      --ink: #162033;
+      --muted: #667085;
+      --line: #d8ddd5;
+      --soft: #eef2ee;
+      --red: #c7353f;
+      --red-soft: #fff1f2;
+      --amber: #a15c06;
+      --amber-soft: #fff7e8;
+      --green: #1f7a55;
+      --green-soft: #eaf7ef;
+      --blue: #315d9c;
+      --blue-soft: #eef5ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .canvas {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(420px, 1fr) 430px;
+      gap: 22px;
+      padding: 28px;
+    }
+
+    .map-side {
+      position: relative;
+      min-height: 920px;
+      border: 1px solid #dfe3de;
+      background:
+        linear-gradient(120deg, rgba(246, 238, 232, .86), rgba(232, 244, 242, .84)),
+        #f7f5ef;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .map-title {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .map-title strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    .lens {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .lens span {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .74);
+      padding: 6px 9px;
+      border-radius: 6px;
+      color: #344054;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .lens .active {
+      background: #17243d;
+      color: #fff;
+      border-color: #17243d;
+    }
+
+    .map-node {
+      position: absolute;
+      width: 132px;
+      min-height: 48px;
+      border-radius: 8px;
+      border: 1px solid rgba(31, 41, 55, .14);
+      background: rgba(255, 255, 255, .88);
+      padding: 9px 10px;
+      box-shadow: 0 10px 24px rgba(31, 41, 55, .08);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .map-node strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .map-node.focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(199, 53, 63, .12), 0 12px 26px rgba(31, 41, 55, .12);
+    }
+
+    .n1 { left: 90px; top: 260px; }
+    .n2 { left: 280px; top: 180px; }
+    .n3 { left: 450px; top: 330px; }
+    .n4 { left: 260px; top: 470px; }
+    .n5 { left: 70px; top: 580px; }
+    .n6 { left: 480px; top: 610px; }
+
+    .rail {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-height: 920px;
+      box-shadow: 0 16px 34px rgba(16, 24, 40, .12);
+      padding: 18px;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      letter-spacing: 0;
+    }
+
+    .chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      font-size: 12px;
+      line-height: 1;
+      padding: 6px 8px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: #344054;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .chip.warning {
+      color: var(--amber);
+      background: var(--amber-soft);
+      border-color: #f2c980;
+    }
+
+    .role {
+      border-left: 3px solid #28364f;
+      padding: 8px 0 8px 12px;
+      margin: 2px 0 16px;
+      font-size: 14px;
+      line-height: 1.55;
+      color: #28364f;
+    }
+
+    .section {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-top: 14px;
+    }
+
+    .section h2 {
+      font-size: 13px;
+      line-height: 1;
+      margin: 0 0 10px;
+      color: #344054;
+    }
+
+    .readout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px;
+      min-height: 78px;
+    }
+
+    .tile span {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .tile strong {
+      display: block;
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .tile small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+      margin-top: 5px;
+    }
+
+    .tile.alert {
+      border-color: #f0b6bb;
+      background: var(--red-soft);
+    }
+
+    .tile.money {
+      border-color: #d8c6a8;
+      background: #fffaf0;
+    }
+
+    .tile.evidence {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    .why {
+      font-size: 14px;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .why strong {
+      color: var(--red);
+    }
+
+    .structure {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 10px;
+      padding: 10px 12px;
+      border-top: 1px solid #edf0ec;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .row:first-child { border-top: 0; }
+    .row strong { font-size: 13px; }
+    .row span { color: var(--muted); }
+
+    .evidence-box {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .health {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: #344054;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 99px;
+      background: var(--amber);
+      flex: 0 0 auto;
+    }
+
+    .source {
+      border-top: 1px solid #edf0ec;
+      padding-top: 10px;
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .source strong { display: block; }
+    .source span { color: var(--muted); }
+
+    .exposure {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .exposure-head {
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-bottom: 1px solid #edf0ec;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .company {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid #edf0ec;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .company:first-of-type { border-top: 0; }
+    .ticker {
+      font-variant-numeric: tabular-nums;
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-radius: 999px;
+      padding: 4px 7px;
+      height: max-content;
+      white-space: nowrap;
+    }
+
+    .company span {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .appendix {
+      border: 1px dashed #cbd5c6;
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      background: #fcfdfb;
+    }
+
+    @media (max-width: 900px) {
+      .canvas {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+
+      .map-side {
+        min-height: 220px;
+      }
+
+      .map-node { display: none; }
+      .rail { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="canvas" aria-label="Node detail information architecture preview">
+    <section class="map-side" aria-label="Graph context preview">
+      <div class="map-title">
+        <div>
+          产品视图
+          <strong>30 万 RMB 包裹分拣机器人</strong>
+        </div>
+        <div class="lens" aria-label="Graph lens">
+          <span>系统分解</span>
+          <span>成本</span>
+          <span class="active">卡点</span>
+        </div>
+      </div>
+      <div class="map-node n1"><strong>工业机械臂本体</strong><span>成本驱动</span></div>
+      <div class="map-node n2"><strong>伺服电机</strong><span>成熟供应</span></div>
+      <div class="map-node n3 focus"><strong>精密减速器</strong><span>当前详情</span></div>
+      <div class="map-node n4"><strong>伺服驱动</strong><span>控制与安全</span></div>
+      <div class="map-node n5"><strong>真空末端执行器</strong><span>抓取可靠性</span></div>
+      <div class="map-node n6"><strong>柔轮 / 刚轮</strong><span>下层分解</span></div>
+    </section>
+
+    <aside class="rail" aria-label="Node detail preview">
+      <div class="eyebrow">30 万 RMB 包裹分拣机器人 / 工业机械臂本体</div>
+      <h1>精密减速器 / 齿轮箱</h1>
+      <div class="chips">
+        <span class="chip">模块</span>
+        <span class="chip">机械臂关节</span>
+        <span class="chip warning">待继续分解</span>
+      </div>
+
+      <p class="role">
+        负责把电机输出转成机器人关节需要的扭矩、精度和寿命，是机械臂成本与可靠性的重要部件。
+      </p>
+
+      <section class="section" aria-label="Core readout">
+        <h2>核心读数</h2>
+        <div class="readout">
+          <div class="tile alert">
+            <span>卡点判断</span>
+            <strong>非顶级卡点</strong>
+            <small>但成本和制造壁垒都值得跟踪</small>
+          </div>
+          <div class="tile">
+            <span>主导原因</span>
+            <strong>高壁垒 / 难复制</strong>
+            <small>寿命、精度、批量一致性需要验证</small>
+          </div>
+          <div class="tile money">
+            <span>商业规模</span>
+            <strong>p50 55.4k RMB</strong>
+            <small>约 12% build cost；Cost 不是卡点原因</small>
+          </div>
+          <div class="tile evidence">
+            <span>证据状态</span>
+            <strong>2 条直接来源</strong>
+            <small>0 reviewed；需要报价/BOM 与寿命数据</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Judgement reason">
+        <h2>为什么这样判断</h2>
+        <p class="why">
+          它不是当前最高 Chokepoint，因为依赖范围有限；但它是机械臂里的高成本部件，并且 <strong>制造、寿命测试和润滑验证</strong> 会影响可靠性、替代供应商选择和长期维护成本。
+        </p>
+      </section>
+
+      <section class="section" aria-label="Decomposition">
+        <h2>分解结构</h2>
+        <div class="structure">
+          <div class="row"><strong>波发生器</strong><span>驱动柔轮变形，决定啮合动作</span></div>
+          <div class="row"><strong>柔轮</strong><span>薄壁弹性件，影响寿命和加工难度</span></div>
+          <div class="row"><strong>刚轮</strong><span>齿形精度和装配一致性敏感</span></div>
+          <div class="row"><strong>输出轴承</strong><span>承受关节载荷，影响刚性和回差</span></div>
+          <div class="row"><strong>润滑与寿命测试</strong><span>Barrier Source；决定量产可靠性</span></div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Evidence summary">
+        <h2>证据摘要</h2>
+        <div class="evidence-box">
+          <div class="health"><span class="dot"></span><strong>证据偏弱：</strong> 有组件和供应商来源，但缺少已复审 BOM 报价、寿命测试和替代供应商验证。</div>
+          <div class="source">
+            <strong>Harmonic Drive strain-wave gear technology</strong>
+            <span>product page · medium confidence · supports reducer component decomposition</span>
+          </div>
+          <div class="source">
+            <strong>Nabtesco precision reducer supplier profile</strong>
+            <span>supplier profile · high confidence · supports exposure lead, not confirmed BOM</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Exposure">
+        <h2>公司 / 股票线索</h2>
+        <div class="exposure">
+          <div class="exposure-head">图谱连接线索，不等于确认 BOM，不等于投资建议。关系类型和证据强度必须一起展示。</div>
+          <div class="company">
+            <div><strong>Nabtesco</strong><span>manufactured_by · major precision reducer supplier candidate</span></div>
+            <div class="ticker">6268.T</div>
+          </div>
+          <div class="company">
+            <div><strong>Harmonic Drive Systems</strong><span>manufactured_by · compact strain-wave reducer candidate</span></div>
+            <div class="ticker">6324.T</div>
+          </div>
+          <div class="company">
+            <div><strong>Leaderdrive</strong><span>manufactured_by · domestic harmonic reducer candidate</span></div>
+            <div class="ticker">688017.SS</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-label="Appendix">
+        <h2>折叠附录</h2>
+        <div class="appendix">
+          完整证据列表、source audit 细节、maturity history、raw relations、被隐藏的低优先级指标。
+        </div>
+      </section>
+    </aside>
+  </main>
+</body>
+</html>

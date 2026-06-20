@@ -1,0 +1,601 @@
+[
+  {
+    "_meta": {
+      "domain": "spacex_reusable_launch",
+      "generatedBy": "Gate-C three-pass merchant-exposure verification (READ-ONLY; no data/source edits)",
+      "generatedAt": "2026-06-16",
+      "scope": "Verified merchant-exposure plan for the NEW/frontier reusable-launch decomposition tiers named in gap-spacex.json exposureToAddLater. Tickers verified THIS round by WebFetch/WebSearch of IR/exchange/official pages (never from memory). Existing org ids reused (marked 'existing'); only genuinely-absent orgs proposed as new.",
+      "adr0009RelationDefault": "reported_capable_supplier unless the SpaceX/program supply link is independently verified -> manufactured_by.",
+      "rosterCheck": "grep of all data/nodes/*.json org_ ids (296 unique) + spacex_reusable_launch.json (46 orgs) + space_spacex.json (6 orgs) + cross-domain reuse (org_vicor in ai_compute_chain, org_arcelormittal in parcel, org_linde in ai_compute, org_l3harris_space in space_spacex). No duplicate org proposed.",
+      "tickerErrorsCaught": "Several memory-tickers were WRONG/STALE and corrected by verification: Saft is NOT separately listed (delisted 2016, now TotalEnergies TTE); Spirit AeroSystems SPR delisted Dec-2025 (Boeing-owned); EaglePicher private (Tuthill); Chart Industries GTLS under Baker Hughes acquisition (closes mid-2026); Aerojet Rocketdyne propulsion 60% being sold by L3Harris to AE Industrial (private). These are M&A/listing flags, recorded in escalations.",
+      "newPublicOrgsTickerVerifiedThisRound": {
+        "org_chart_industries": "NYSE: GTLS - https://www.chartindustries.com/News-And-Events/Baker-Hughes-to-Acquire-Chart-Industries",
+        "org_totalenergies": "NYSE+Euronext Paris: TTE - https://totalenergies.com/news/press-releases/totalenergies-announces-commencement-trading-its-ordinary-shares-nyse",
+        "org_acerinox": "BME Madrid: ACX - https://www.bolsasymercados.es/bme-exchange/en/Prices-and-Markets/Shares/Main-Market/Details/Acerinox-ES0132105018 (+ acerinox.com confirms NAS subsidiary ownership)",
+        "org_safran": "Euronext Paris: SAF - https://live.euronext.com/en/product/equities/FR0000073272-XPAR",
+        "org_thales": "Euronext Paris: HO - (CAC 40; confirmed via thalesgroup.com IMU press + market sources)",
+        "org_transdigm": "NYSE: TDG - https://en.wikipedia.org/wiki/TransDigm_Group (owner of Airborne Systems guided parafoils)",
+        "org_vicor_EXISTS": "NASDAQ: VICR - already org_vicor in ai_compute_chain.json; reuse, do not duplicate",
+        "org_l3harris_EXISTS": "NYSE: LHX - already org_l3harris_space; reuse"
+      }
+    }
+  },
+  {
+    "component": "Strategic radiation-hardened processor / FPGA (flight compute silicon)",
+    "matchToNodeConcept": "falcon9_strategic_radhard_processor_fpga (gap T01) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = rad-hard wafer foundry (SkyWater is the named US strategic Trusted foundry) + the rad-hard IP/part vendors (BAE RAD750/RAD5500, Microchip/Microsemi RTG4, Frontgrade Aeroflex, AMD/Xilinx Versal/Kintex rad-tol). All five already org nodes in-file.",
+      "breadth": "Every publicly-named constrained supplier in the tier: BAE Systems (RAD-series), Frontgrade (Aeroflex), Microchip (RTG4 RT FPGA), AMD/Xilinx (Versal/Kintex rad-tol), SkyWater (foundry capacity), Mercury Systems (rad-tol modules). Six known; >5 so #6 Mercury -> note.",
+      "corners": "Rad-hard processor parts are a textbook <=3-qualified-part chokepoint (RAD750 dominated flight CPUs for ~2 decades). SkyWater is the sole US commercial rad-hard/Trusted foundry of record -> genuine corner. Reject pseudo-corner: AMD/Xilinx rad-tol is a broad merchant part, not single-source."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_bae_systems", "relation": "reported_capable_supplier" },
+      { "id": "org_frontgrade_technologies", "relation": "reported_capable_supplier" },
+      { "id": "org_microchip_technology", "relation": "reported_capable_supplier" },
+      { "id": "org_amd", "relation": "reported_capable_supplier" },
+      { "id": "org_skywater_technology", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "org_mercury_systems already exists and is mapped capacity/reported_capable -> overflow beyond the 5-org cap; keep on the suppliers rail, do not add a 6th wired edge to the component node.",
+      "No quality NUMBER for rad-hard CPU market share found from a citable (non-SEO) source this round; tier stays QUALITATIVE ('few qualified rad-hard parts; RAD750 long-dominant; SkyWater sole US commercial rad-hard foundry'). Any '>X% rad-hard share' would be SEO-farm sourced -> rejected per ADR-0009 B5."
+    ]
+  },
+  {
+    "component": "Flight computer / avionics box (merchant tier)",
+    "matchToNodeConcept": "launch_flight_computer_avionics_merchant (gap T02) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = the rad-hard/COTS-upscreened silicon tier above + connectors/harness. The merchant flight-computer integrators consume those parts.",
+      "breadth": "Industry (non-SpaceX-captive) merchant flight computers: Beyond Gravity (ex-RUAG Space), Innoflight (CFC-400X; L3Harris/Northrop customers), Moog (avionics), BAE. SpaceX itself builds in-house (triple-redundant x86) -> label captive for the SpaceX column, merchant tier for the industry chain per scope-lock §1.",
+      "corners": "No single-source corner; this is a competitive merchant tier. Honest: the chokepoint is one layer down (rad-hard silicon), not the box integrator."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_moog", "relation": "reported_capable_supplier" },
+      { "id": "org_bae_systems", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_innoflight",
+        "name": "Innoflight, Inc.",
+        "ticker": null,
+        "tickerVerifiedUrl": "https://innoflight.com/ (private company; confirmed not listed via PitchBook/Crunchbase/ZoomInfo profiles; West-coast US space-avionics firm, founded 2004)",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://innoflight.com/l3harris-selects-innoflights-cfc-400x-compact-flight-computer-for-the-space-development-agency-tracking-layer-program/",
+        "sourceClass": "vendor_pr (who-makes-what OK; weak for market structure per ADR-0009 B5)",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "PRIVATE -> no ticker (honest qualitative). Real merchant compact flight computer (CFC-400X) with named customers (L3Harris SDA Tracking Layer, Northrop). Not a SpaceX-confirmed supplier -> reported_capable_supplier."
+      },
+      {
+        "suggestedId": "org_beyond_gravity",
+        "name": "Beyond Gravity (formerly RUAG Space; RUAG International Holding AG)",
+        "ticker": null,
+        "tickerVerifiedUrl": "https://www.beyondgravity.com/en/about (state-owned: 100% Swiss Confederation, privatization targeted mid-term; NOT listed)",
+        "shareMetric": "Supplies payload fairings on 'all European Ariane and Vega rockets and many U.S. ULA rockets' (qualitative reach, not a % share)",
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://spacenews.com/ruag-space-is-now-beyond-gravity/",
+        "sourceClass": "trade_press + vendor (SpaceNews / CompositesWorld)",
+        "relation": "reported_capable_supplier",
+        "confidence": "high",
+        "note": "STATE-OWNED, not listed -> no ticker. Strong merchant position in launch avionics AND payload fairings (see also fairing component). Capability/industry-chain exposure, not a SpaceX supplier."
+      }
+    ],
+    "escalations": [
+      "Beyond Gravity & Innoflight are private/state-owned: no equity exposure for a public-ticker screen. Keep as industry-chain capability nodes, flagged for the owner queue as non-investable.",
+      "Scope-lock honesty: SpaceX builds its flight computer in-house (COTS-upscreen, triple-redundant). The merchant tier here is the INDUSTRY chain a non-captive program buys; label captive-vs-merchant explicitly (Gate F / scope-lock §1)."
+    ]
+  },
+  {
+    "component": "Flight power distribution unit & battery (merchant tier)",
+    "matchToNodeConcept": "launch_power_distribution_battery_merchant (gap T02) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = Li-ion cells (CATL/LG/Samsung SDI commodity cells exist as orgs but space-grade packs are bespoke) + rad-tolerant power semis.",
+      "breadth": "Space battery leaders: EaglePicher (most space missions of any supplier), Saft (TotalEnergies sub). Rad-tolerant DC-DC power modules: Vicor (FPA rad-tol). Three named; all distinct sub-tiers (battery vs power-conversion).",
+      "corners": "EaglePicher is a near-corner in US flight/defense space batteries ('more space missions than any other company' - its own claim, qualitative). Reject pseudo-corner: commodity Li-ion cells are not concentrated; only the space-qualified pack integration is."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_vicor", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_eaglepicher",
+        "name": "EaglePicher Technologies, LLC",
+        "ticker": null,
+        "tickerVerifiedUrl": "https://www.eaglepicher.com/industries/space/space-exploration/ (PRIVATE: owned by Tuthill Corporation since Oct-2023, prior GTCR PE; not listed)",
+        "shareMetric": "'has supplied batteries for more space missions than any other company' (vendor qualitative claim; named missions: Mars rovers, Hubble, ISS, launch vehicles)",
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.afslaw.com/perspectives/press-releases/arentfox-schiff-represents-tuthill-corporation-eaglepicher-technologies",
+        "sourceClass": "vendor product page (who-makes-what OK) + M&A press for ownership",
+        "relation": "reported_capable_supplier",
+        "confidence": "high",
+        "note": "PRIVATE -> no ticker. Strongest US space-battery name. SpaceX link not confirmed (SpaceX flight batteries are largely in-house Li-ion) -> reported_capable_supplier."
+      },
+      {
+        "suggestedId": "org_totalenergies",
+        "name": "TotalEnergies SE (parent of Saft Groupe)",
+        "ticker": "TTE",
+        "tickerVerifiedUrl": "https://totalenergies.com/news/press-releases/totalenergies-announces-commencement-trading-its-ordinary-shares-nyse",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://en.wikipedia.org/wiki/Saft_(company)",
+        "sourceClass": "official IR (ticker) + encyclopedia (Saft ownership)",
+        "relation": "reported_capable_supplier",
+        "confidence": "high",
+        "note": "TICKER CORRECTION: Saft is NOT separately listed (delisted Aug-2016). Exposure routes to parent TotalEnergies TTE (NYSE + Euronext Paris, verified on official press release). Saft makes space/aviation Li-ion. Diffuse exposure (battery is a tiny slice of TTE energy revenue) -> low investability; flag for owner queue."
+      }
+    ],
+    "escalations": [
+      "Saft -> TotalEnergies (TTE) is a DILUTED exposure (battery << TTE total revenue); record honestly as low-purity exposure, not a pure-play.",
+      "No citable space-battery market-share NUMBER (only EaglePicher's own 'more than any other' qualitative claim). Any '%' would be SEO market-report-farm (the GlobeNewswire/MarketsandMarkets 'Space Battery Market $6.56B' hits are exactly the report-farm class ADR-0009 B5 forbids) -> kept qualitative."
+    ]
+  },
+  {
+    "component": "RF telemetry / command transponder (merchant tier)",
+    "matchToNodeConcept": "launch_rf_telemetry_transponder_merchant (gap T02) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = RF/microwave semis + space-grade connectors.",
+      "breadth": "Telemetry/TT&C transponder & transmitter merchant tier: L3Harris (space comms/TT&C), Quasonix (aeronautical telemetry transmitter market leader), Safran Data Systems (ex-Zodiac). Three named, distinct.",
+      "corners": "Quasonix is described (vendor) as the aeronautical-telemetry-transmitter market leader -> near-corner in flight-test telemetry transmitters (qualitative). Reject pseudo-corner: space TT&C transponders broadly are competitive (L3Harris, Safran, GD, etc.)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_l3harris_space", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_quasonix",
+        "name": "Quasonix, Inc.",
+        "ticker": null,
+        "tickerVerifiedUrl": "https://www.quasonix.com/about/ (PRIVATE: West Chester OH, Subchapter-S corp, founded 2002; confirmed not public via PitchBook/Crunchbase)",
+        "shareMetric": "described as market leader in aeronautical telemetry transmitters (vendor/trade qualitative)",
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.quasonix.com/press-releases/quasonix-wins-5-year-army-transmitter-contract/",
+        "sourceClass": "vendor + govtribe contract record",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "PRIVATE -> no ticker. Real telemetry-transmitter leader; flight-test/range telemetry. SpaceX link unverified -> reported_capable_supplier."
+      },
+      {
+        "suggestedId": "org_safran",
+        "name": "Safran S.A. (Safran Data Systems)",
+        "ticker": "SAF",
+        "tickerVerifiedUrl": "https://live.euronext.com/en/product/equities/FR0000073272-XPAR",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.thalesgroup.com/en/worldwide/aerospace/press_release/thales-announces-next-generation-inertial-measurement-unit-imu",
+        "sourceClass": "official exchange (ticker)",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "Euronext Paris SAF (CAC 40; ADR SAFRY). Safran Data Systems (ex-Zodiac Data Systems) makes telemetry/TT&C. Diffuse exposure (telemetry is small slice of Safran propulsion-heavy revenue). Safran ALSO reappears as IMU breadth below - same org id, wire once."
+      }
+    ],
+    "escalations": [
+      "Quasonix private -> non-investable; capability node for the owner queue.",
+      "Safran (SAF) exposure is diluted (data-systems is a minor segment). Record low-purity."
+    ]
+  },
+  {
+    "component": "Space-grade IMU / inertial reference / GNSS",
+    "matchToNodeConcept": "launch_vehicle_space_imu_gnss (gap T01) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = MEMS/RLG/FOG gyro + accelerometer sensing elements (often captive to the IMU maker).",
+      "breadth": "Honeywell Aerospace (space IMUs), Northrop Grumman (LITEF/LN-200 class) already in-file. Breadth adds: Safran (Sigma/space INS) + Thales (TopAxyz IMU). Four named; cap respected.",
+      "corners": "High-grade space-rated IMU is a concentrated tier (Honeywell/Northrop dominate US flight IMU). Genuine near-corner for the highest grade; reject pseudo-corner for MEMS-grade (broad)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_honeywell_aerospace_space", "relation": "reported_capable_supplier" },
+      { "id": "org_northrop_grumman", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_thales",
+        "name": "Thales S.A.",
+        "ticker": "HO",
+        "tickerVerifiedUrl": "https://www.thalesgroup.com/en/worldwide/aerospace/press_release/thales-announces-next-generation-inertial-measurement-unit-imu (CAC 40; Euronext Paris HO; corroborated CNBC/MarketScreener)",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.thalesgroup.com/en/markets/aerospace/navigation-solutions/topaxyz-imu/topaxyz-inertial-navigation-system-land",
+        "sourceClass": "official vendor (product) + market sources (ticker)",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "Euronext Paris HO. Real IMU/INS maker (TopAxyz, RLG/MEMS). SpaceX link unverified -> reported_capable_supplier. Diffuse exposure (INS small slice of Thales). NOTE: Safran (SAF, defined above in RF tier) is ALSO an IMU breadth supplier (Sigma INS) - reuse org_safran, do not duplicate."
+      }
+    ],
+    "escalations": [
+      "org_safran already proposed (RF tier) -> reuse for IMU breadth; one node, two component links.",
+      "No citable IMU market-share number; tier stays qualitative ('Honeywell/Northrop concentrated at the high grade')."
+    ]
+  },
+  {
+    "component": "Star tracker / stellar attitude sensor",
+    "matchToNodeConcept": "launch_vehicle_star_tracker (gap T01) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = space-grade image sensors/optics (often captive).",
+      "breadth": "Sodern (Auriga/Hydra), Jena-Optronik (ASTRO), BAE/Ball already mapped or in-file. Breadth: add Terma (private/Danish) only as a note.",
+      "corners": "Sodern + Jena-Optronik are the two European volume leaders -> near-duopoly in merchant star trackers (qualitative). Genuine concentration."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_sodern", "relation": "reported_capable_supplier" },
+      { "id": "org_jena_optronik", "relation": "reported_capable_supplier" },
+      { "id": "org_bae_systems", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Sodern ticker in-file is missing; Jena-Optronik in-file ticker = AIR.PA (Airbus parent) - SUSPECT (Jena-Optronik is an Airbus DS subsidiary so AIR.PA is defensible as PARENT exposure, but it should be labelled parent-proxy not the entity's own listing). FLAG for owner ticker re-verification (existing-org hygiene, out of this exposure plan's scope but recorded).",
+      "Terma (Danish star-tracker/space) is private/foundation-owned -> note only, no node."
+    ]
+  },
+  {
+    "component": "Space-grade connectors & flight harness",
+    "matchToNodeConcept": "space_grade_connector_harness_launch (gap T01) under falcon9_fault_tolerant_avionics_gnc",
+    "pass": {
+      "upstream": "Feeds = contacts/insulators (commodity).",
+      "breadth": "Glenair, TE Connectivity (Deutsch), Amphenol - the three named space-grade connector houses. All already org nodes in the broader roster.",
+      "corners": "Glenair is privately-held and a near-corner in mil/space circular connectors & harness (qualitative); TE/Amphenol are broad public majors. Reject pseudo-corner for TE/Amphenol."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_glenair", "relation": "reported_capable_supplier" },
+      { "id": "org_te_connectivity", "relation": "reported_capable_supplier" },
+      { "id": "org_amphenol", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Glenair in-file has no ticker (correctly - it is private). TE (TEL) / Amphenol (APH) exist in the cross-domain roster as org_te_connectivity / org_amphenol - reuse, do not duplicate."
+    ]
+  },
+  {
+    "component": "Flight-termination ordnance & safe-and-arm device",
+    "matchToNodeConcept": "flight_termination_ordnance_safe_arm (gap T03) under autonomous_flight_safety_system",
+    "pass": {
+      "upstream": "Feeds = energetic materials / initiators (ITAR-controlled).",
+      "breadth": "Pacific Scientific EMC (PacSci EMC) already in-file; Ensign-Bickford Aerospace & Defense (EBAD) is the second named FTS-ordnance maker; General Dynamics OTS (org_gd_ots) is a third energetics house.",
+      "corners": "ITAR linear-shaped-charge / safe-and-arm is a genuine <=3-qualified-maker chokepoint (ADR-0005 concentration override even though 'mature'). PacSci EMC + EBAD are the two flight-FTS names."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_pacsci_emc", "relation": "reported_capable_supplier" },
+      { "id": "org_gd_ots", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_ensign_bickford_ebad",
+        "name": "Ensign-Bickford Aerospace & Defense (EBAD)",
+        "ticker": null,
+        "tickerVerifiedUrl": "PENDING - EBAD is part of privately-held Ensign-Bickford Industries (EBI), not listed; proposed as private (no ticker). Ticker-verification not applicable (private).",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "PENDING - not fetched this round (deprioritized vs higher-value avionics tiers); honest gap.",
+        "sourceClass": "to_verify",
+        "relation": "reported_capable_supplier",
+        "confidence": "low",
+        "note": "PRIVATE (Ensign-Bickford Industries). One of two flight-FTS ordnance houses (with PacSci). NOT independently fetched/verified this round -> ESCALATION, low confidence; do not wire until a vendor/contract source confirms the FTS line. Honest miss flagged."
+      }
+    ],
+    "escalations": [
+      "org_ensign_bickford_ebad is LOW-CONFIDENCE and NOT verified by an independent fetch this round - listed for the owner queue, not for immediate wiring. PacSci EMC (in-file, ticker RAL = parent Royal-class? SUSPECT, flag) + GD OTS (GD) carry the verified exposure.",
+      "PacSci EMC in-file ticker 'RAL' is SUSPECT (PacSci EMC is owned by Fairbanks Morse Defense / Arcline - private; 'RAL' does not match). FLAG for owner ticker re-verification (existing-org hygiene)."
+    ]
+  },
+  {
+    "component": "Fairing composite sandwich panel (CFRP / aluminum honeycomb)",
+    "matchToNodeConcept": "fairing_composite_sandwich_panel (gap T04, material-key) under falcon9_fairing_recovery_reuse",
+    "pass": {
+      "upstream": "Feeds = carbon-fiber prepreg (Toray/Hexcel/Teijin already in graph) + aluminum honeycomb core (Hexcel/Plascore).",
+      "breadth": "Fairing fabricators: Beyond Gravity (Ariane/Vega/ULA fairings - see flight-computer tier, reuse), Spirit AeroSystems (composites). Prepreg: Toray/Hexcel/Teijin (in graph).",
+      "corners": "Prepreg carbon fiber is the real upstream corner (Toray dominant) - already modeled. Fairing fab is competitive, not a corner."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_toray", "relation": "reported_capable_supplier" },
+      { "id": "org_hexcel", "relation": "reported_capable_supplier" },
+      { "id": "org_teijin", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Beyond Gravity (org_beyond_gravity, proposed in flight-computer tier) is also the marquee fairing fabricator -> reuse, link to this component too. State-owned, non-investable.",
+      "Spirit AeroSystems: TICKER CORRECTION - SPR DELISTED Dec-8-2025 (acquired by Boeing). Exposure now routes to Boeing (BA). Do NOT create org_spirit_aerosystems with a live SPR ticker. Recorded as escalation; if wanted, model as Boeing (BA) capability or drop. Carbon-fiber org cluster already covers the upstream corner - Spirit is optional."
+    ]
+  },
+  {
+    "component": "Fairing recovery cold-gas RCS / guided parafoil system",
+    "matchToNodeConcept": "fairing_recovery_rcs_cold_gas (gap T04) under falcon9_fairing_recovery_reuse",
+    "pass": {
+      "upstream": "Feeds = cold-gas thrusters (Moog/Bradford) + guided parafoil canopy + GPS guidance unit.",
+      "breadth": "Guided parafoil: Airborne Systems (market/tech leader in guided aerial cargo/parafoil) -> owned by TransDigm (TDG). Cold-gas thrusters: Moog (in-file).",
+      "corners": "Airborne Systems is the named leader in precision-guided parafoils (vendor/trade qualitative) -> near-corner for that canopy class. SpaceX-Airborne link NOT confirmed by search -> reported_capable_supplier."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_moog", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_transdigm",
+        "name": "TransDigm Group Incorporated (owner of Airborne Systems)",
+        "ticker": "TDG",
+        "tickerVerifiedUrl": "https://en.wikipedia.org/wiki/TransDigm_Group",
+        "shareMetric": "Airborne Systems = 'worldwide market and technology leader in ... guided aerial cargo and payload delivery' (acquisition press qualitative)",
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.prnewswire.com/news-releases/transdigm-to-acquire-airborne-systems-from-metalmark-capital-234064501.html",
+        "sourceClass": "M&A press (ownership) + vendor (capability); NYSE listing corroborated by SEC 8-K and multiple market sources",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "NYSE TDG. Airborne Systems (TransDigm subsidiary since 2013) makes guided parafoils. SpaceX fairing-parafoil supplier NOT confirmed by independent source -> reported_capable_supplier (capability). Diffuse exposure (Airborne is one of dozens of TDG units) -> low purity. Wikipedia used for ticker as IR page 403'd; ticker corroborated across SEC 8-K / Crain's / PRNewswire."
+      }
+    ],
+    "escalations": [
+      "TransDigm (TDG) exposure to fairing recovery is DILUTED (Airborne Systems is a small slice of TDG). Low purity; owner-queue flag.",
+      "SpaceX-Airborne parafoil supply UNVERIFIED (search could not confirm SpaceX uses Airborne canopies) -> strictly capability/reported, not manufactured_by."
+    ]
+  },
+  {
+    "component": "Reaction-control cold-gas / monoprop thruster set (merchant tier)",
+    "matchToNodeConcept": "launch_rcs_cold_gas_thruster_merchant (gap T05) under falcon9_second_stage_payload_delivery; also feeds grid-fin / upper-stage RCS",
+    "pass": {
+      "upstream": "Feeds = valves, catalyst beds (engine-internal, depth-blocked).",
+      "breadth": "Moog (monoprop thrusters, in-file), Aerojet Rocketdyne MR-series (now under L3Harris LHX, but propulsion being sold to AE Industrial), Bradford ECAPS (green monoprop, private), ArianeGroup (JV, private).",
+      "corners": "Aerojet Rocketdyne MR-series is the classic US monoprop thruster line -> near-corner, BUT ownership in flux (see escalation). Reject pseudo-corner: cold-gas thrusters broadly are simple/competitive."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_moog", "relation": "reported_capable_supplier" },
+      { "id": "org_l3harris_space", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Aerojet Rocketdyne MR-series exposure mapped via org_l3harris_space (LHX) - but FLAG: in 2026 L3Harris is selling 60% of the Aerojet Rocketdyne propulsion business ('Rocketdyne') to AE Industrial Partners (AEI, private) for $845M, retaining 40%. Going forward the thruster exposure is becoming PRIVATE (AEI-majority). Record as a live M&A flag; LHX retains only 40%. https://payloadspace.com/l3harris-sells-majority-of-propulsion-business-to-aei-for-845m/",
+      "Bradford ECAPS (green monoprop) and ArianeGroup (JV) are private/JV -> notes only, no nodes.",
+      "SpaceX uses in-house Draco/cold-gas; this is the INDUSTRY merchant tier (scope-lock §1) -> all reported_capable_supplier."
+    ]
+  },
+  {
+    "component": "Thrust-vector-control (TVC) actuators (merchant tier)",
+    "matchToNodeConcept": "launch_tvc_actuators_merchant (gap T06, re-home) under falcon9_merlin_engine_cluster",
+    "pass": {
+      "upstream": "Feeds = precision bearings (below) + hydraulic/EMA components.",
+      "breadth": "Moog, Woodward, Parker Hannifin (Parker Aerospace) - all already in-file with verified tickers (MOG.A, WWD, PH). The canonical launch-vehicle actuation triad.",
+      "corners": "Moog + Woodward dominate launch TVC actuation -> near-duopoly (qualitative). Genuine concentration; already evidenced ok_exact (Vulcan first flight)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_moog", "relation": "manufactured_by" },
+      { "id": "org_woodward", "relation": "reported_capable_supplier" },
+      { "id": "org_parker_hannifin", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Moog relation set to manufactured_by ONLY IF existing in-file evidence verifies actual launch-TVC supply (gap says ok_exact Vulcan evidence exists); verifier must confirm the SpaceX/program link before promoting from reported_capable_supplier. Default stays reported_capable_supplier if the cited evidence is capability-only."
+    ]
+  },
+  {
+    "component": "Precision bearings (turbopump / gimbal) (merchant tier)",
+    "matchToNodeConcept": "launch_engine_precision_bearings_merchant (gap T06, re-home) under falcon9_merlin_engine_cluster",
+    "pass": {
+      "upstream": "Feeds = bearing steel / ceramic balls (commodity-ish, some concentration).",
+      "breadth": "RBC Bearings, Schaeffler (FAG), SKF aerospace - all in the roster (RBC in-file; Schaeffler/SKF cross-domain). High-DN cryo turbopump bearings.",
+      "corners": "Cryo turbopump bearings are a genuine <=3-holder chokepoint (very few qualify for rocket-engine DN/temperature). RBC/Schaeffler/SKF. Strong corner."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_rbc_bearings", "relation": "reported_capable_supplier" },
+      { "id": "org_schaeffler", "relation": "reported_capable_supplier" },
+      { "id": "org_skf", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "org_schaeffler / org_skf live in the cross-domain roster (humanoid/ai_compute) - reuse, do not duplicate. RBC Bearings in-file ticker RBC (verified-in-file).",
+      "No citable bearing market-share number for the rocket-grade niche; qualitative <=3-holder tag only."
+    ]
+  },
+  {
+    "component": "Grid-fin hydraulic actuation system (merchant tier)",
+    "matchToNodeConcept": "grid_fin_hydraulic_actuation_merchant (gap T07) under falcon9_grid_fin_reentry_control",
+    "pass": {
+      "upstream": "Feeds = hydraulic pumps/valves, power pack.",
+      "breadth": "Moog, Woodward, Parker Hannifin (same actuation triad; fin hydraulics are distinct hardware from engine-gimbal TVC).",
+      "corners": "Same near-duopoly (Moog/Parker) for launch hydraulic actuation. Not an additional corner beyond TVC."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_moog", "relation": "reported_capable_supplier" },
+      { "id": "org_parker_hannifin", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Grid-fin actuation reuses the same actuation triad (Moog/Parker/Woodward). Justify the SEPARATE component node (fin hydraulics != engine gimbal) per gap note; do NOT create new org duplicates - same org ids, second component link.",
+      "SpaceX grid-fin actuation is largely in-house/bespoke -> reported_capable_supplier for the merchant tier."
+    ]
+  },
+  {
+    "component": "Landing-leg crushable aluminum honeycomb core",
+    "matchToNodeConcept": "landing_leg_crushable_honeycomb_merchant (gap T08, material-key) under falcon9_landing_legs",
+    "pass": {
+      "upstream": "Feeds = aluminum foil/alloy (commodity).",
+      "breadth": "Hexcel (in-file, HXL), Plascore (private), Argosy International (private). Aluminum honeycomb energy absorbers.",
+      "corners": "Aerospace aluminum honeycomb is moderately concentrated (Hexcel/Plascore) but not a single-source corner. Reject pseudo-corner; it is a reuse-consumable story (ADR-0005), one node."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_hexcel", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_plascore",
+        "name": "Plascore Incorporated",
+        "ticker": null,
+        "tickerVerifiedUrl": "https://www.plascore.com/company/ (PRIVATE: Zeeland MI, founded 1977, ~225 employees; confirmed not public via Wikipedia/BBB)",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://en.wikipedia.org/wiki/Plascore_Incorporated",
+        "sourceClass": "vendor + encyclopedia",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "PRIVATE -> no ticker. Real aluminum-honeycomb maker (aerospace/defense). Second source to Hexcel for crushable core. Mature/widely-adopted material -> keep ONE node, do not over-decompose (gap T08)."
+      }
+    ],
+    "escalations": [
+      "Argosy International (third honeycomb name) is private/distributor -> note only.",
+      "Investable exposure here = Hexcel (HXL) only; Plascore/Argosy private. Low chokepoint grade (commodity-ish honeycomb)."
+    ]
+  },
+  {
+    "component": "COPV metallic liner (thin Inconel / titanium)",
+    "matchToNodeConcept": "copv_metallic_liner_merchant (gap T09, material-key, re-home under tank) ; parent COPV node launch_vehicle_copv_pressurant_vessel",
+    "pass": {
+      "upstream": "Feeds = thin Inconel/Ti sheet + carbon overwrap (Toray fiber).",
+      "breadth": "COPV/liner makers: Infinite Composites, Steelhead Composites, HyPerComp Engineering - ALL already org nodes in-file. (SpaceX COPVs are largely in-house post-AMOS-6.)",
+      "corners": "COPV is a documented FAILURE-MODE chokepoint (AMOS-6 2016 driven by liner/overwrap buckling). Merchant COPV is a small specialist tier (<=3-4 US names) -> genuine corner. All already mapped."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_infinite_composites", "relation": "reported_capable_supplier" },
+      { "id": "org_steelhead_composites", "relation": "reported_capable_supplier" },
+      { "id": "org_hypercomp_engineering", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "All three COPV specialists are PRIVATE (no tickers in-file, correctly). Non-investable but high chokepoint grade -> capability nodes for the owner queue. SpaceX COPVs are in-house post-AMOS-6, so these are industry-chain/reported_capable, not SpaceX manufactured_by."
+    ]
+  },
+  {
+    "component": "Aerospace stainless steel coil/plate (304L / 30X-class)",
+    "matchToNodeConcept": "starship_stainless_coil_plate_merchant (gap T10, material-key) under starship_stainless_steel_primary_structure",
+    "pass": {
+      "upstream": "Feeds = stainless slab / Cr-Ni alloying (commodity).",
+      "breadth": "Outokumpu (in-file, OUT1V.HE), North American Stainless (= Acerinox subsidiary, ACX), ArcelorMittal stainless (org_arcelormittal exists in parcel domain). SpaceX moved 301/304L -> proprietary 30X (public).",
+      "corners": "Aerospace/launch stainless coil is NOT a corner (commodity-grade 304L is broadly available); SpaceX's 30X is captive/proprietary. Reject pseudo-corner honestly - this is breadth, not a chokepoint."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_outokumpu", "relation": "reported_capable_supplier" },
+      { "id": "org_arcelormittal", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_acerinox",
+        "name": "Acerinox, S.A. (parent of North American Stainless)",
+        "ticker": "ACX",
+        "tickerVerifiedUrl": "https://www.bolsasymercados.es/bme-exchange/en/Prices-and-Markets/Shares/Main-Market/Details/Acerinox-ES0132105018",
+        "shareMetric": null,
+        "basis": "qualitative",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.acerinox.com/en/accionistas-e-inversores/la-accion-y-el-mercado-de-valores/",
+        "sourceClass": "official exchange (BME) + official IR (NAS ownership confirmed on acerinox.com)",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium",
+        "note": "BME Madrid ACX (ISIN ES0132105018; corroborated Yahoo ACX.MC / Investing BME:ACX). Owns North American Stainless (NAS) - the US stainless mill route. SpaceX-NAS supply UNVERIFIED -> reported_capable_supplier. Commodity-grade stainless -> low chokepoint purity (the chokepoint is SpaceX's captive 30X process, not the coil)."
+      }
+    ],
+    "escalations": [
+      "Stainless coil is COMMODITY -> this is breadth/exposure, not a chokepoint; do not tag the org as a corner. 30X is SpaceX-proprietary (captive).",
+      "org_arcelormittal lives in parcel_sorting_robot.json - reuse cross-domain, do not duplicate."
+    ]
+  },
+  {
+    "component": "Radiatively-cooled niobium-alloy nozzle extension (+ niobium feedstock corner)",
+    "matchToNodeConcept": "engine_niobium_nozzle_extension_merchant (gap T13, material-key) under merlin_vacuum_upper_stage_engine",
+    "pass": {
+      "upstream": "Feeds = niobium (columbium) feedstock - the real corner. CBMM (Brazil) ~75-82% of world niobium; Brazil ~90% of global production (USGS). Refractory-metal fabrication: ATI (in-file).",
+      "breadth": "Nb C-103 nozzle fabricators: ATI (in-file), specialty refractory shops. Feedstock: CBMM (dominant), plus minor Brazilian/Canadian producers.",
+      "corners": "CBMM is a TEXTBOOK single-near-source corner (~75-82% global niobium, Moreira Salles family 70% private). Genuine, documented (USGS). The strongest verified chokepoint in this whole plan, though private (no ticker)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_ati", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_cbmm",
+        "name": "Companhia Brasileira de Metalurgia e Mineracao (CBMM)",
+        "ticker": null,
+        "tickerVerifiedUrl": "https://cbmm.com/en/about-cbmm (PRIVATE: Moreira Salles family ~70%, Japanese/Korean consortium 15%, Chinese consortium 15%; NOT listed)",
+        "shareMetric": "~75-82% of world niobium market (Brazil ~90% of global niobium production, USGS)",
+        "basis": "production/capacity share (qualitative range; sources disagree 75 vs 82%)",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.sfa-oxford.com/market-news-and-insights/niobium-swing-producer-cbmm-driving-the-future-of-advanced-materials/",
+        "sourceClass": "USGS (Brazil ~90% production - primary) + SFA Oxford / Wikipedia (CBMM share); the ~80% figure needs a primary cross-check before any '>80%' is asserted as fact",
+        "relation": "reported_capable_supplier",
+        "confidence": "high",
+        "note": "PRIVATE -> no ticker, but the single strongest CHOKEPOINT found. The niobium feedstock corner (not the nozzle fab) is the real bottleneck. Investable proxy is upstream-diluted only. Verify which engines actually use Nb C-103 extensions for Merlin specifically (RL10/most vac engines do; Merlin Vacuum uses a Nb alloy skirt - confirm before asserting Merlin-specific)."
+      }
+    ],
+    "escalations": [
+      "CBMM private -> non-investable directly. The '~80% niobium share' is the kind of single-source/'>X%' claim ADR-0009 flags as highest review tier: USGS confirms Brazil ~90% PRODUCTION (primary), but CBMM's company-specific 75-82% needs a second primary/quality source before it ships as a cited number - else present as 'reported ~75-82%, unverified range'.",
+      "Confirm Merlin-Vacuum-specific niobium nozzle use (gap T13 flagged this); if unverifiable for Merlin, frame as the industry vacuum-engine nozzle tier (scope-lock §1)."
+    ]
+  },
+  {
+    "component": "Reusable ceramic/silica heat-shield tile + PICA-class ablator (Starship TPS)",
+    "matchToNodeConcept": "reusable_launch_ceramic_silica_tile + starship_pica_class_ablator (gap T11, materials-key, re-home under ship stage)",
+    "pass": {
+      "upstream": "PICA precursor corner: rayon/Lyocell carbon-fiber precursor -> FiberForm preform. FMI (Fiber Materials Inc), Lenzing, SNIACE - ALL already org nodes in-file. Ceramic tile: SpaceX in-house (Lockheed legacy lineage).",
+      "breadth": "Tile system is largely SpaceX-captive. Ablator material lineage: FMI (FiberForm), Lenzing/SNIACE (rayon precursor). Lockheed Martin (Shuttle-tile heritage, reported_capable).",
+      "corners": "The rayon/Lyocell aerospace-precursor chain is a genuine <=3-holder chokepoint (FMI + Lenzing + SNIACE) - documented historical PICA precursor scarcity. Strong corner, all in-file. Depth-blocked for render (rail-only per gap)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_fiber_materials_inc", "relation": "reported_capable_supplier" },
+      { "id": "org_lenzing", "relation": "reported_capable_supplier" },
+      { "id": "org_sniace", "relation": "reported_capable_supplier" },
+      { "id": "org_lockheed_martin", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Starship tiles/PICA are largely SpaceX-CAPTIVE (in-house) -> these orgs are industry-chain/precursor exposure (reported_capable), not SpaceX manufactured_by. Surface on the suppliers rail (depth-blocked for render, gap T11/F2).",
+      "SNIACE ceased/insolvent at points historically - verify org_sniace is still an operating supplier before treating as live capacity (existing-org hygiene flag).",
+      "FMI (Fiber Materials Inc) private (no ticker in-file, correct). Lenzing LNZ (Vienna) in-file. Lockheed LMT in-file."
+    ]
+  },
+  {
+    "component": "Cryogenic propellant storage & transfer tank farm (ground)",
+    "matchToNodeConcept": "launch_site_cryo_storage_tank_farm (gap T12) under spacex_launch_ground_stack",
+    "pass": {
+      "upstream": "Feeds = cryo tank steel + insulation + subcoolers.",
+      "breadth": "Cryo storage/equipment merchant tier: Chart Industries (GTLS; cryo tanks - 'used in 90% of LNG projects'), Linde Engineering (org_linde exists in ai_compute), Air Products (org_air_products in-file, APD).",
+      "corners": "Chart Industries is a dominant cryo-equipment name (its cryo gear in ~90% of LNG projects - company/Baker-Hughes claim, qualitative). Near-corner in merchant cryo tanks. Genuine."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_linde", "relation": "reported_capable_supplier" },
+      { "id": "org_air_products", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_chart_industries",
+        "name": "Chart Industries, Inc.",
+        "ticker": "GTLS",
+        "tickerVerifiedUrl": "https://www.chartindustries.com/News-And-Events/Baker-Hughes-to-Acquire-Chart-Industries",
+        "shareMetric": "cryogenic equipment 'used in 90% of LNG projects worldwide' (company/acquirer claim; LNG-project basis, NOT a launch-cryo share)",
+        "basis": "qualitative (LNG-project penetration, not launch-ground share)",
+        "asOf": "2026-06",
+        "independentUrl": "https://www.chartindustries.com/News-And-Events/Baker-Hughes-to-Acquire-Chart-Industries",
+        "sourceClass": "official IR (ticker + the 90% claim is acquirer/company-sourced -> weak for market structure, fine as qualitative reach)",
+        "relation": "reported_capable_supplier",
+        "confidence": "high",
+        "note": "NYSE GTLS - VERIFIED. M&A FLAG: Baker Hughes (NASDAQ BKR) acquiring Chart for $13.6B all-cash ($210/share, approved Oct-2025, expected close MID-2026). Post-close GTLS exposure rolls into BKR. Real merchant cryo-tank leader; SpaceX-Starbase supply UNVERIFIED -> reported_capable_supplier."
+      }
+    ],
+    "escalations": [
+      "Chart Industries GTLS is being ACQUIRED by Baker Hughes (BKR) - closes ~mid-2026; the ticker will disappear. Record the M&A; if modeling forward exposure, note it becomes BKR.",
+      "Flame-deflector/water-deluge system (gap T12, other ground node) = mostly BESPOKE civil/steel work -> merchant exposure is THIN; honest note, no supplier node invented.",
+      "org_linde lives in ai_compute_chain.json (ticker not set in-file) - reuse cross-domain. The '90% of LNG projects' is LNG-basis, not launch-ground-basis -> do not present as a launch-cryo market share."
+    ]
+  },
+  {
+    "component": "Titanium feedstock chain (sponge -> mill -> forging) [RAIL-ONLY, depth-blocked]",
+    "matchToNodeConcept": "titanium_sponge_feedstock (gap T16) - surface on aerospace_titanium_mill_product rail, NOT a render task",
+    "pass": {
+      "upstream": "Ti sponge: VSMPO-AVISMA, Toho Titanium, Osaka Titanium, TIMET. Mill/forging: ATI, Howmet, Precision Castparts (all in-file).",
+      "breadth": "Sponge producers <=4 globally (VSMPO-AVISMA dominant, then Toho/Osaka Japan, TIMET US). All already org nodes in-file.",
+      "corners": "Ti sponge is a genuine <=4-holder corner (VSMPO-AVISMA Russia ~geopolitically constrained; Toho/Osaka Japan; TIMET US). Documented chokepoint. All in-file; rail-only because depth-blocked (5 layers down)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_vsmpo_avisma", "relation": "reported_capable_supplier" },
+      { "id": "org_toho_titanium", "relation": "reported_capable_supplier" },
+      { "id": "org_osaka_titanium", "relation": "reported_capable_supplier" },
+      { "id": "org_timet", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "RAIL-ONLY: surface on the mill-product node's suppliers rail (depth-blocked for canvas render, gap T16). Do NOT re-home sponge upward to force a render (would misrepresent the chain).",
+      "Existing-org ticker hygiene FLAGS (out of this plan's scope but recorded): org_timet ticker in-file = BRK.B (TIMET owned by PCC/Berkshire - parent proxy, label as such); org_precision_castparts = BRK.B (same, PCC is Berkshire-owned, delisted 2016); org_toho_titanium has NO ticker in-file (it IS listed, 5727.T - re-verify); org_vsmpo_avisma = VSMO.ME (Russia, likely untradeable/sanctioned - flag). These are existing nodes; re-verification is owner-queue hygiene, not this exposure plan."
+    ]
+  }
+]

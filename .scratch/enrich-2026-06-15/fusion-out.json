@@ -1,0 +1,135 @@
+[
+  {
+    "id": "ev_fusion_iaea_tokamak_stellarator",
+    "verdict": "demote",
+    "sourceStatus": "unreachable",
+    "excerpt": "",
+    "note": "iaea.org/bulletin returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable."
+  },
+  {
+    "id": "ev_fusion_us_approaches",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "One technique involves using the self-generated magnetic field created by strong electrical current, known as a Z pinch, instead of external magnets. ... tokamaks, stellarators, spheromaks, compact tori such as the field-reversed configuration (FRC), mirror machines",
+    "note": "Supports secondary-route family (FRC, Z-pinch, compact tori). MTF not named verbatim but Z-pinch and FRC are."
+  },
+  {
+    "id": "ev_fusion_iter",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "China, the European Union, India, Japan, Korea, Russia and the United States are participating in the decades-long project to build and operate ITER ... the ITER device—a tokamak—will be the world's largest and most powerful, capable of creating a 'little star' on Earth",
+    "note": "Supports tokamak route + international/government project. Magnet/heating system specifics not quoted on homepage."
+  },
+  {
+    "id": "ev_fusion_iter_blanket",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "The 440 blanket modules that completely cover the inner walls of the vacuum vessel protect the steel structure and the superconducting toroidal field magnets from the heat and high-energy neutrons produced by the fusion reactions.",
+    "note": "Strongly supports breeding blanket / heat extraction / first wall. Page also states first wall removes plasma heat load and discusses tritium breeding modules."
+  },
+  {
+    "id": "ev_fusion_iter_disruption_mitigation",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Disruptions are instabilities that may develop within the tokamak plasma and lead to the degradation or loss of the magnetic confinement of the plasma. ... ITER is planning a disruption mitigation system to cope with these potentially extremely damaging effects.",
+    "note": "Directly supports tokamak disruption mitigation claim."
+  },
+  {
+    "id": "ev_fusion_ipp_w7x",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Wendelstein 7-X at the Greifswald branch of IPP is a large stellarator with modular superconducting coils, which enable steady state plasma operation in order to explore the reactor relevance of this concept.",
+    "note": "Supports stellarator route, 3D non-planar superconducting coils, steady-state, and IPP (Max Planck) operator."
+  },
+  {
+    "id": "ev_fusion_llnl_nif",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "It precisely guides, amplifies, reflects, and focuses 192 powerful laser beams into a target about the size of a pencil eraser in a few billionths of a second ... Those extreme conditions cause hydrogen atoms in the target to fuse and release energy in a controlled thermonuclear reaction.",
+    "note": "Supports laser inertial fusion route + LLNL/NIF laser-driver-compresses-target description."
+  },
+  {
+    "id": "ev_fusion_llnl_ife_refs",
+    "verdict": "unsupported",
+    "sourceStatus": "ok_exact",
+    "excerpt": "",
+    "note": "Page loads but is only a bibliography/citation list of article titles; no running-text sentences that state the claim (laser driver efficiency, target fab/injection, NIF-ignition vs net-electric distinction). Titles are not supporting prose."
+  },
+  {
+    "id": "ev_fusion_llnl_target_fabrication",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "A cryogenic target that can survive the injection speed and thermal load from environment ... Scalable to IFE plant needs: about 10^6 targets per day for less than 50 cents each",
+    "note": "Supports cryogenic target factory, injection, and low-cost high-rep-rate target fabrication for IFE."
+  },
+  {
+    "id": "ev_fusion_general_fusion_mtf",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "When fusion occurs, the reaction is surrounded by a liquid metal wall, which absorbs neutrons emitted from the reaction. ... The liquid metal wall absorbs neutrons and heat from fusion. The hot liquid metal is then pumped through a heat exchanger, producing steam for power generation.",
+    "note": "Verbatim quote is from General Fusion's MTF page https://generalfusion.com/our-fusion-technology/what-sets-mtf-apart/ (the record's /fusion-technology/ URL renders only nav/signup; recommend updating source URL). Supports liquid-metal liner as first wall + heat/neutron capture; piston compression/plasma injection not on this page."
+  },
+  {
+    "id": "ev_fusion_tae_frc",
+    "verdict": "unsupported",
+    "sourceStatus": "ok_exact",
+    "excerpt": "",
+    "note": "tae.com article loads (HTTP 200, title present) but body is client-side rendered; WebFetch retrieves only nav/title/footer, no FRC/aneutronic body text. No verbatim excerpt obtainable from fetched content."
+  },
+  {
+    "id": "ev_fusion_helion_frc",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Deuterium and helium-3 fuel is heated to plasma conditions. Magnets confine the plasma in a Field Reversed Configuration (FRC). ... Helion adiabatically compresses merged FRC plasmas with >15 tesla pulsed magnets to reach fusion temperatures.",
+    "note": "Directly supports FRC route + Helion FRC formation/merging/compression."
+  },
+  {
+    "id": "ev_fusion_sandia_z_machine",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Pulsed power is a technology that concentrates electrical energy and turns it into short pulses of enormous power, which are then used to generate X-rays and gamma rays. ... It uses high magnetic fields associated with high electrical currents to produce high temperatures, high pressures, and powerful X-rays for research in high energy density physics.",
+    "note": "Supports Z-pinch pulsed-power driver + national-lab (Sandia) status. Page states Z is part of Sandia's Pulsed Power program; 'Z-pinch'/'capacitors' not used verbatim."
+  },
+  {
+    "id": "ev_fusion_zap_zpinch",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Zap Energy confines plasma using the magnetic field generated by a powerful electrical current in the plasma instead of using external magnets. ... Sheared-flow stabilization in a Z pinch — a plasma physics innovation pioneered by Zap Energy Co-Founder Uri Shumlak — can theoretically extend the lifetime of a Z-pinched plasma almost indefinitely.",
+    "note": "Strongly supports sheared-flow-stabilized Z-pinch route + stability technique. Fetched from legacy.zapenergy.com/how-it-works."
+  },
+  {
+    "id": "ev_fusion_arpae_alpha",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "ALPHA focused on advancing the science and technology of pulsed, intermediate-density fusion approaches, including magneto-inertial fusion and Z-pinch variants, that have the potential to scale to commercially viable fusion power plants.",
+    "note": "OSTI abstract directly supports secondary-route family (magneto-inertial / MTF / Z-pinch / FRC-adjacent pulsed approaches)."
+  },
+  {
+    "id": "ev_fusion_iter_tritium_breeding",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "If the blanket modules contain lithium, a reaction occurs: the incoming neutron is absorbed by the lithium atom, which recombines into an atom of tritium and an atom of helium. ... A future fusion plant producing large amounts of power will be required to 'breed' all of its own tritium.",
+    "note": "Supports tritium breeding/fuel cycle, lithium breeding material, self-sufficiency. 'Neutron multiplier' not named verbatim."
+  },
+  {
+    "id": "ev_fusion_iaea_tritium_breeding",
+    "verdict": "demote",
+    "sourceStatus": "unreachable",
+    "excerpt": "",
+    "note": "iaea.org event page returned HTTP 402 Payment Required on repeated fetches; page body never retrievable, no verbatim excerpt obtainable."
+  },
+  {
+    "id": "ev_fusion_doe_materials",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "The degradation of fusion reactor core structural materials as a result of energetic neutron bombardment is one of the highest hurdles to realizing a nuclear fusion reactor. ... For example, reactors are bombarded by neutrons from fusion reactions. This weakens reactor materials over time.",
+    "note": "Supports fusion neutron materials lifetime/degradation claim. Helium production / erosion-corrosion not named verbatim."
+  },
+  {
+    "id": "ev_fusion_eurofusion_demo_remote",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Radiation shielding and safety play an overwhelming role in the design, and propagation of safety requirements on the design should not be postponed. An early engagement with licensing regulators would be very useful",
+    "note": "Page supports remote maintenance for in-vessel components, tritium breeding/on-site fuel, qualified plasma-facing materials, licensing/regulation, and net production of 300-500 MWe. Quote shown is the licensing/safety sentence; multiple supporting topics present."
+  }
+]

@@ -1,0 +1,105 @@
+{
+  "slug": "spacex-orbital-data-center",
+  "counts": {
+    "needs_fetch": 6,
+    "failed": 6
+  },
+  "worklist": [
+    {
+      "id": "ev_space_spacex_starship",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_spacex_prospectus_2026",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_fcc_orbital_data_center_2026",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_starlink_technology_lasers",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_nasa_thermal_control",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_nasa_nepp_radiation_effects",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_nasa_spacecraft_bus",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_rocket_lab_capabilities",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_redwire_space_infrastructure",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_l3harris_space",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_honeywell_space_electronics",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_space_rtx_blue_canyon",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    }
+  ]
+}

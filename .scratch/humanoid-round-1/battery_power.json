@@ -1,0 +1,307 @@
+{
+ "nodes": [
+  {
+   "id": "org_eve_energy",
+   "name": "EVE Energy",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Public Shenzhen-listed (ChiNext) lithium-ion and all-solid-state battery cell maker; ticker 300014.SZ is mainland China A-share exposure, not a US primary listing. Cell-merchant supplier candidate; humanoid packs remain integrator-captive.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "300014.SZ",
+   "confidence": "low",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "battery"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_eve_energy_solid_state"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_molicel",
+   "name": "Molicel (E-One Moli Energy)",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Ultra-high-power cylindrical lithium-ion cell maker; merchant cell supplier candidate listing 'humanoid robotics applications' on its product site. Not directly listed; ticker 1101.TW is its parent Taiwan Cement Corporation (TCC) Group on the Taiwan Stock Exchange, i.e. indirect parent-level exposure, not a US primary listing. Humanoid packs remain integrator-captive; Molicel supplies cells.",
+   "maturityLabel": "unknown",
+   "listingStatus": "subsidiary",
+   "ticker": "1101.TW",
+   "confidence": "low",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "battery"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_molicel_applications"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_panasonic",
+   "name": "Panasonic (Panasonic Energy / Panasonic Holdings)",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Major high-power/high-energy cylindrical lithium-ion cell maker (2170 format). Merchant cell supplier candidate; ticker 6752.T is the parent Panasonic Holdings on the Tokyo Stock Exchange (Panasonic Energy is its battery segment), i.e. Japan-listed exposure, not a US primary listing. Humanoids repurpose this high-power cylindrical cell class; packs remain integrator-captive.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "6752.T",
+   "confidence": "low",
+   "tags": [
+    "public_company",
+    "supplier_candidate",
+    "battery"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_panasonic_2170_cylindrical"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_infineon",
+   "name": "Infineon Technologies",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Public power-semiconductor and microcontroller maker (power switches/MOSFETs, gate drivers, battery-monitoring & balancing ICs, MCUs). Merchant-silicon supplier for humanoid power electronics / BMS front-ends; ticker IFX.DE is Frankfurt/Xetra exposure (US OTC: IFNNY), not a US primary listing. Supplies the merchant ICs; the BMS control firmware/algorithm is the robot maker's (captive).",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "IFX.DE",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_infineon_humanoid_blocks"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "org_nxp",
+   "name": "NXP Semiconductors",
+   "kind": "organization",
+   "domain": [
+    "humanoid_robotics"
+   ],
+   "description": "Public NASDAQ-listed (NXPI) semiconductor maker; supplies battery-management ICs and standalone BMS reference designs aimed at mobile robotics (drones/rovers), plus MCUs for BMS/inverter use. Merchant-silicon supplier candidate; the pack BMS firmware/integration remains the robot maker's.",
+   "maturityLabel": "unknown",
+   "listingStatus": "public",
+   "ticker": "NXPI",
+   "confidence": "medium",
+   "tags": [
+    "public_company",
+    "supplier_candidate"
+   ],
+   "evidenceIds": [
+    "ev_humanoid_nxp_mobile_robotics_bms"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "edges": [
+  {
+   "id": "e_humanoid_cells__reported_capable_supplier__eve_energy",
+   "source": "humanoid_lithium_ion_cell_selection",
+   "target": "org_eve_energy",
+   "relation": "reported_capable_supplier",
+   "claim": "EVE Energy mass-produces all-solid-state cells (Longquan II, 10 Ah, up to 300 Wh/kg) intended to power humanoid robots; supply to a specific humanoid OEM not yet verified.",
+   "context": "Cell-level merchant supply candidate (cell, not pack). Trade-press reported, no OEM purchase order confirmed.",
+   "confidence": "low",
+   "evidenceIds": [
+    "ev_humanoid_eve_energy_solid_state"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_cells__reported_capable_supplier__molicel",
+   "source": "humanoid_lithium_ion_cell_selection",
+   "target": "org_molicel",
+   "relation": "reported_capable_supplier",
+   "claim": "Molicel lists 'humanoid robotics applications' among the end-markets for its ultra-high-power cylindrical cells; specific humanoid OEM design-win not independently verified.",
+   "context": "Cell-level merchant supply candidate (high-power cylindrical cell, not pack). Source is Molicel's own product site (vendor claim) — humanoid relevance stated, OEM purchase not proven.",
+   "confidence": "low",
+   "evidenceIds": [
+    "ev_humanoid_molicel_applications"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_cells__reported_capable_supplier__panasonic",
+   "source": "humanoid_lithium_ion_cell_selection",
+   "target": "org_panasonic",
+   "relation": "reported_capable_supplier",
+   "claim": "Panasonic Energy makes high-power-density 2170 cylindrical lithium-ion cells (the form factor the industry reports humanoids repurpose); a confirmed Panasonic supply to a named humanoid OEM was not found.",
+   "context": "Cell-level merchant candidate by form-factor analogy. Verbatim primary quote covers a robotaxi (Zoox) design-win, not a humanoid; included as capability evidence, not a humanoid purchase order.",
+   "confidence": "low",
+   "evidenceIds": [
+    "ev_humanoid_panasonic_2170_cylindrical"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_power_charging__manufactured_by__infineon",
+   "source": "humanoid_battery_power_charging_system",
+   "target": "org_infineon",
+   "relation": "manufactured_by",
+   "claim": "Infineon supplies dedicated merchant semiconductors for humanoid robots spanning power switches, microcontrollers, sensors and connectivity (the power-electronics / BMS-front-end silicon).",
+   "context": "Merchant ICs/power switches (Infineon-made today, humanoid-dedicated product line). The BMS state-of-charge/balancing firmware that runs on top is the integrator's own (captive), not Infineon's.",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_infineon_humanoid_blocks"
+   ],
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "e_humanoid_bms__reported_capable_supplier__nxp",
+   "source": "humanoid_battery_management_system",
+   "target": "org_nxp",
+   "relation": "reported_capable_supplier",
+   "claim": "NXP offers standalone battery-management-system reference designs/ICs for mobile robotics (e.g. RDDRONE-BMS772, 3-6 cells; MR-BMS771, 7-14 cells); not yet tied to a named humanoid OEM.",
+   "context": "Merchant BMS silicon + reference design (NXP-made). 'Mobile robotics (drones, rovers)' is the stated target — adjacent to, not specifically, humanoid; the final pack firmware is the integrator's (captive).",
+   "confidence": "medium",
+   "evidenceIds": [
+    "ev_humanoid_nxp_mobile_robotics_bms"
+   ],
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "evidence": [
+  {
+   "id": "ev_humanoid_eve_energy_solid_state",
+   "type": "news",
+   "title": "Eve Energy rolls solid-state batteries off new assembly line to power humanoids, flying cars",
+   "url": "https://electrek.co/2025/09/03/eve-energy-solid-state-batteries-new-assembly-line-humanoids-flying-cars/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Electrek",
+   "date": "2026-06-15",
+   "summary": "Trade-press report that EVE Energy's Longquan II all-solid-state cell (10 Ah, up to 300 Wh/kg) is intended to power humanoid robots, UAVs and AI equipment.",
+   "excerpt": "The Longquan II is a 10-Ah all-solid-state cell with an energy density of up to 300 Wh/kg. Per EVE Energy, mass production of these ultra-dense cells will eventually power humanoid robots, uncrewed aerial vehicles, and AI equipment.",
+   "supportsNodeIds": [
+    "humanoid_lithium_ion_cell_selection",
+    "org_eve_energy"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_cells__reported_capable_supplier__eve_energy"
+   ],
+   "limitations": "Intended/future application stated by company and reported by trade press; no confirmed supply to a named humanoid OEM. 'Will eventually power' is forward-looking, not current shipment.",
+   "confidence": "low",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_molicel_applications",
+   "type": "vendor_claim",
+   "title": "Molicel — About (applications and ownership)",
+   "url": "https://www.molicel.com/about/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Molicel (E-One Moli Energy)",
+   "date": "2026-06-15",
+   "summary": "Molicel's own About page positions it as an ultra-high-power cylindrical cell maker and lists humanoid robotics among its applications; states it is part of the Taiwan Cement Corporation (TCC) Group.",
+   "excerpt": "E-One Moli has been focusing on ultra-high power cylindrical cells in the niche segment ... humanoid robotics applications ... MOLICEL® is part of Taiwan Cement Corporation (TCC) Group",
+   "supportsNodeIds": [
+    "humanoid_lithium_ion_cell_selection",
+    "org_molicel"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_cells__reported_capable_supplier__molicel"
+   ],
+   "limitations": "Vendor self-description (application list and ownership). 'humanoid robotics applications' is a marketing application category, not evidence of a confirmed cell supply to a specific humanoid OEM. Ticker 1101.TW is the parent TCC listing, not Molicel directly.",
+   "confidence": "low",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_lg_energy_six_robotics_customers",
+   "type": "news",
+   "title": "Humanoid Robots Are Changing Everyday Life: Why Do Batteries Matter? (LG Energy Solution BATTERY INSIDE)",
+   "url": "https://inside.lgensol.com/en/2026/06/humanoid-robots-are-changing-everyday-life-why-do-batteries-matter/",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "LG Energy Solution (BATTERY INSIDE)",
+   "date": "2026-06-15",
+   "summary": "LG Energy Solution's own publication states it built a 2170 cylindrical lineup for humanoid robot applications and is supplying cylindrical cells to six leading robotics companies. Strengthens LG as a humanoid cell-merchant supplier beyond the prior bare IR-listing evidence.",
+   "excerpt": "LG Energy Solution established a cylindrical battery lineup based on the 2170 form factor early on, designed for humanoid robot applications ... its cylindrical batteries have already been recognized by global customers and are currently being supplied to six leading robotics companies",
+   "supportsNodeIds": [
+    "humanoid_lithium_ion_cell_selection",
+    "org_lg_energy_solution"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_cells__manufactured_by__lg_energy"
+   ],
+   "limitations": "Company-owned publication (vendor-side); 'six leading robotics companies' are unnamed and 'robotics' is broader than humanoid specifically. The cell is merchant; the pack/integration remains the robot maker's.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_panasonic_2170_cylindrical",
+   "type": "news",
+   "title": "Panasonic Energy to Supply Lithium-ion Batteries for Zoox (2170 cylindrical cells)",
+   "url": "https://news.panasonic.com/global/press/en251125-2",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Panasonic Newsroom Global",
+   "date": "2026-06-15",
+   "summary": "Panasonic's own press release stating its 2170 cylindrical cells offer high energy density/safety for a high-performance robotic-vehicle (robotaxi) application. Used as capability evidence that Panasonic is a high-power cylindrical cell merchant of the format humanoids repurpose — NOT a humanoid design-win.",
+   "excerpt": "Panasonic Energy's 2170 cells, offering superior energy density, safety and reliability, are crucial for Zoox's high-performance robotaxis.",
+   "supportsNodeIds": [
+    "org_panasonic"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_cells__reported_capable_supplier__panasonic"
+   ],
+   "limitations": "VERBATIM application is a robotaxi (Zoox), not a humanoid robot. Humanoid relevance is by 2170 cylindrical-cell form-factor analogy only; no confirmed Panasonic supply to a humanoid OEM was found. Ticker 6752.T is the parent Panasonic Holdings, not Panasonic Energy directly.",
+   "confidence": "low",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_infineon_humanoid_blocks",
+   "type": "news",
+   "title": "Infineon to Enable Humanoid Robots With Precise Motion and Efficiency Powered by NVIDIA Technology (Business Wire)",
+   "url": "https://finance.yahoo.com/news/infineon-enable-humanoid-robots-precise-153400535.html",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "Business Wire (via Yahoo Finance)",
+   "date": "2026-06-15",
+   "summary": "Infineon's Business Wire release states it provides a dedicated humanoid-robot portfolio spanning power switches, microcontrollers, sensors and connectivity — i.e. merchant power-electronics/BMS-front-end silicon for humanoids.",
+   "excerpt": "Infineon enables the key functional blocks in humanoid robots with a broad portfolio of dedicated products and technologies – from power switches to microcontrollers, sensors and connectivity.",
+   "supportsNodeIds": [
+    "humanoid_battery_power_charging_system",
+    "org_infineon"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_power_charging__manufactured_by__infineon"
+   ],
+   "limitations": "Vendor announcement (distributed via Business Wire; fetched from Yahoo Finance mirror). Describes a 'dedicated' product portfolio and an NVIDIA partnership, not a confirmed shipment to a specific humanoid OEM. infineon.com pages were JS-nav-only / not fetchable, so this mirror carries the body text.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_humanoid_nxp_mobile_robotics_bms",
+   "type": "product_page",
+   "title": "NXP RDDRONE-BMS772 — Smart Battery Management for Mobile Robotics (3-6 cells)",
+   "url": "https://nxp.gitbook.io/rddrone-bms772",
+   "sourceStatus": "fetch_ok",
+   "sourceName": "NXP Semiconductors (RDDRONE-BMS772 docs)",
+   "date": "2026-06-15",
+   "summary": "NXP-hosted documentation states the RDDRONE-BMS772 is a standalone BMS reference design for mobile robotics (drones/rovers), 3-6 cells — evidence NXP is a merchant BMS-IC / reference-design supplier to the robotics power chain.",
+   "excerpt": "The RDDRONE-BMS772 is a standalone BMS Reference Design suitable for mobile robotics such as drones and rovers, supporting 3-6 cell batteries.",
+   "supportsNodeIds": [
+    "humanoid_battery_management_system",
+    "org_nxp"
+   ],
+   "supportsEdgeIds": [
+    "e_humanoid_bms__reported_capable_supplier__nxp"
+   ],
+   "limitations": "Application named is 'mobile robotics such as drones and rovers', not humanoid robots specifically; humanoid relevance is by category adjacency. Reference design / merchant silicon, not a confirmed humanoid pack supply. NXP's main product URLs (MR-BMS771, BATTERY-MANAGEMENT-SYSTEM) 404'd to the fetcher; this gitbook carries the body text.",
+   "confidence": "medium",
+   "reviewStatus": "unreviewed"
+  }
+ ],
+ "tasks": []
+}

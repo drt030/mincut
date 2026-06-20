@@ -1,0 +1,39 @@
+{
+  "verified": [
+    { "id": "ev_acc_pkg_cowos_architecture", "quoteMatch": "exact", "numberInQuote": false, "notes": "CoWoS limiting-factor sentences near-verbatim on semianalysis." },
+    { "id": "ev_acc_pkg_tsmc_cowos_share", "quoteMatch": "exact", "numberInQuote": true, "notes": "Opening para verbatim; 18 fabs + CoWoS/SoIC expansion." },
+    { "id": "ev_acc_pkg_substrate_bottleneck", "quoteMatch": "exact", "numberInQuote": true, "notes": "Ibiden -18%, Nanya PCB >-20% 2024; HDI process phrases present." },
+    { "id": "ev_acc_pkgeq_disco_tech", "quoteMatch": "exact", "numberInQuote": true, "notes": "FY2024 rev Y393.313B +27.9%, debt-free, ROIC 54%, dicing dominance verbatim." },
+    { "id": "ev_acc_r6h_micron_hbm4_ramp_2026", "quoteMatch": "exact", "numberInQuote": true, "notes": "CY2026 HBM supply locked incl HBM4; 2Q26 ramp; FY26 capex $20B." },
+    { "id": "ev_acc_r6h_hbm_total_capacity_bits_2026", "quoteMatch": "exact", "numberInQuote": true, "notes": "TrendForce: HBM shipments surpass 30 billion Gb by 2026 (bit basis)." },
+    { "id": "ev_acc_r6h_hbm_hybrid_bonding_yield", "quoteMatch": "exact", "numberInQuote": false, "notes": "SK hynix 12-hi hybrid-bonding validation done; raising yields; no % (faithful)." },
+    { "id": "ev_acc_r6h_skhynix_hbm_share_2026", "quoteMatch": "exact", "numberInQuote": true, "notes": "SK hynix forecast to retain over 50% share; unqualified basis matches excerpt." },
+    { "id": "ev_acc_r6h_samsung_hbm_capacity_2026", "quoteMatch": "exact", "numberInQuote": true, "notes": "250k wafers/mo by end-2026, ~47% rise from 170k (wafer basis)." },
+    { "id": "ev_acc_r6h_advantest_ate_lead_time", "quoteMatch": "exact", "numberInQuote": true, "notes": "Digitimes preview verbatim: 'average product lead times exceeding six months.'" },
+    { "id": "ev_acc_r6h_asmpt_hbm4_bonder_orders", "quoteMatch": "exact", "numberInQuote": false, "notes": "SK hynix HBM4 TC-bonder order to ASMPT verbatim; unit counts already removed." },
+    { "id": "ev_acc_nc4_hanmi_tcb_1", "quoteMatch": "exact", "numberInQuote": true, "notes": "71.2% TC-bonder revenue share through Q3 verbatim (TechInsights 2025)." },
+    { "id": "ev_acc_r6l_asml_euv_2025", "quoteMatch": "exact", "numberInQuote": true, "notes": "ASML 2025 annual report: 48 EUV of 535 total systems (unit sales)." },
+    { "id": "ev_acc_r6l_asml_litho_share", "quoteMatch": "exact", "numberInQuote": true, "notes": "Wikipedia verbatim: 83% of worldwide litho-machine sales as of 2025." },
+    { "id": "ev_acc_r6l_asml_sole_supplier", "quoteMatch": "exact", "numberInQuote": false, "notes": "ASML the only company producing/selling EUV; Dec-2025 China prototype present." },
+    { "id": "ev_acc_r6l_tsmc_foundry_wiki", "quoteMatch": "exact", "numberInQuote": true, "notes": "TrendForce: 70.4% revenue share among top-10 foundries 4Q25 (basis matches)." },
+    { "id": "ev_acc_r6l_zeiss_asml_partnership", "quoteMatch": "exact", "numberInQuote": true, "notes": "24.9% stake, EUR1bn, EUR220M R&D + EUR540M capex / 6yrs on page." },
+    { "id": "ev_acc_r7_cowos_fully_booked", "quoteMatch": "exact", "numberInQuote": true, "notes": "CoWoS-L/S fully booked; 75-80k to 120-130k wafers/mo end-2026; ASE 20-25k." },
+    { "id": "ev_acc_r7_agc_euvl_capacity_official", "quoteMatch": "exact", "numberInQuote": true, "notes": "AGC world's-only EUVL mask-blank maker; Jan-2024 start; ~+30% capacity 2025." }
+  ],
+  "partialSubstanceConfirmed": [
+    { "id": "ev_acc_pkg_substrate_capacity", "note": "Ibiden Gifu 25%->50% ramp + AI substrate demand confirmed; excerpt wording drifts from source — light excerpt fix then re-verify." },
+    { "id": "ev_acc_r6o_coherent_inp_capacity", "note": "InP capacity 'constrained' + 'double in 12 months' confirmed (optics.org); mechanism wording differs (larger wafers vs process/equipment) — light excerpt fix; also drop the inaccurate 'blocks automated fetch / owner-verified' summary note." }
+  ],
+  "escalations": [
+    { "id": "ev_acc_pkg_test_capacity", "question": "Cohu Q1-2026 10-Q fully retrieved but contains NO 'test cell utilization' / 78% / 76% — figures appear fabricated or from a different doc (earnings call?). Correct the url or drop the numbers?" },
+    { "id": "ev_acc_pkg_tsmc_capacity", "question": "TrendForce confirms 'expand CoWoS capacity >60% by 2027' but NOT the excerpt's '~40,000 -> 140,000-150,000 wafers/month' lead figure. Trim the fabricated wafer/month number or supply a source?" },
+    { "id": "ev_acc_pkg_ibiden_expansion", "question": "Digitimes paywalled: JPY500bn FY2026-2028 investment visible, but 'lines 3->5 by FY2025' and '150% capacity by 2027' are not visible AND internally inconsistent (lines-by-FY2025 predates FY2026 investment). Confirm or drop?" },
+    { "id": "ev_acc_optup_eml_shortage_2024", "question": "TrendForce confirms 24M->63M units + 5 EML vendors, but NVIDIA '$4B lockup / $2B each to Lumentum & Coherent' and '40-60% below demand until 2027' are absent. Re-source or remove as fabricated precision?" },
+    { "id": "ev_acc_hbm_tsv_bonding_yield", "question": "URL is bare gartner.com (403, no article); precise yield chain (~68%/~32%/~70%/~48%) not locatable. Real source URL, or fabricated precision?" },
+    { "id": "ev_acc_optup_epitaxy_capacity_constraint", "question": "Yole page confirms InP/GaAs epitaxy-constraint topic but not the '~2x demand', '~35% open-market', '65% integrated' figures (source intermittently 403). Are these numbers actually in this Yole source + at what as-of date?" },
+    { "id": "ev_acc_nc4_nittobo_monopoly_1", "question": "TrendForce supports only the qualitative T-Glass monopoly; the '90% high-end share', '20% Aug-2025 hike', '20-30% Apr-2026 hike' are not on the page. Source the numbers or downgrade to qualitative?" },
+    { "id": "ev_acc_nc4_tglass_shortage_1", "question": "TrendForce supports the qualitative T-glass shortage but not 'supply gap exceeding 40% in 2H2026'. Is the 40% figure from another report, or drop it?" },
+    { "id": "ev_acc_nc4_asahi_entry_1", "question": "Digitimes paywalled; visible text gives Nittobo '90% market share' (not unqualified 'monopoly') and Asahi entry, but '12-24mo qualification cycle' and 'monopoly persists through 2026' are behind paywall. Cite 90% share + an accessible source for the cycle?" },
+    { "id": "ev_acc_nc4_asmpt_share_gain_1", "question": "Substack paywalled; visible text says only 'major SK Hynix HBM3E order 4Q24', not the excerpt's 'ASMPT guiding 35-40% TCB market share'. Confirm the 35-40% from an accessible source?" }
+  ]
+}

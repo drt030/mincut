@@ -1,0 +1,27 @@
+[
+  {
+    "id": "ev_humanoid_rollvis_identity",
+    "question": "The 'GSA + Rollvis together hold >50% of the high-precision planetary roller-screw world market' claim (carried qualitatively on humanoid_planetary_roller_screw and in task_humanoid_roller_screw_swiss_corner) is NOT stated on either firm's primary site — Rollvis says only 'a world leader', GSA says only 'in-house in Switzerland', neither gives a %. The breadth agent traced the >50% figure to SEO/vendor blogs (screw-tech, kggfa) which are banned for numbers (acceptance-standard B5 / brief §4.5). Need one primary or two independent quality sources (IFR / interact-analysis / TrendForce / Yole / Reuters-class) for any >50% combined-Swiss-share assertion, or keep it qualitative. Which authoritative source, if any, states the >50% world-market share at a named basis?",
+    "_lane": "reducers_screws"
+  },
+  {
+    "id": "ev_humanoid_gsa_rgti",
+    "question": "The 'Tesla Optimus sources GSA's RGTI 12.8 inverted roller screw' sourcing claim (in task_humanoid_roller_screw_swiss_corner and GSA node/edge claim text) is NOT on GSA's primary site (no Tesla/Optimus mention) and was traced by the breadth agent to SEO/vendor blogs only. A specific named-customer (Tesla->GSA) claim needs one primary or two independent quality sources. Which authoritative source confirms Tesla Optimus sources GSA's RGTI, or should the Tesla->GSA sourcing stay an unasserted candidate?",
+    "_lane": "reducers_screws"
+  },
+  {
+    "id": "ev_humanoid_orbbec_honor",
+    "question": "Orbbec's own page (orbbec.com) claims '>70% market share in 3D vision for service robots in China and mobile robots in South Korea' — a VENDOR SELF-CLAIM at a non-humanoid scope (service/mobile robots, China+Korea only, excludes ex-China & humanoid-specific). Verify the >70% against an independent analyst house (e.g. Yole, or a China robotics-vision tracker) at a stated basis before using it for any 'only/>X%' chokepoint flip. The HONOR-humanoid Gemini 330 integration itself is verified and not in question.",
+    "_lane": "sensing"
+  },
+  {
+    "id": "ev_humanoid_realsense_independent",
+    "question": "The Robot Report relays RealSense's claim it is 'working with 60% of AMR and humanoid developers' — this is DEVELOPER-RELATIONSHIP BREADTH (how many developer teams engage RealSense), NOT unit/revenue share, and it is a vendor figure relayed by trade press. Confirm the 60% basis (developer-count vs shipment share) and find an independent source before treating it as market position. (Note on the node description, now resolved during ticker audit: the on-file URL does not say 'Series A' or mention NVIDIA, but the primary Intel Capital / BusinessWire spin-out announcement of 2025-10-08 DOES — '$50 million in Series A funding from Intel Capital, the MediaTek Innovation Fund' and a 'Strategic Collaboration With NVIDIA'. So org_humanoid_realsense's '~$50M Series A, NVIDIA collaboration' description is CORRECT; only this evidence URL is narrower. Optional: add the Intel Capital/BusinessWire URL as supporting evidence for those specifics.)",
+    "_lane": "sensing"
+  },
+  {
+    "id": "ev_humanoid_sanhua_thermal_capability",
+    "question": "Sanhua-as-humanoid-THERMAL/liquid-cooling supplier is not primary-sourceable: Sanhua's own pages (cy.html, newslist_212) name zero robotics; SCMP's 'Optimus chain' article does not name Sanhua; the Longbridge quality note says Sanhua's humanoid focus is electromechanical ACTUATORS, not thermal; and the 'exclusive Optimus liquid-cooling supplier / 50-70% liquid-cooling share / 5bn RMB thermal order / +/-0.01mm' claims trace ONLY to non-whitelist SEO/aggregator/substack (min.news, inf.news, zhaochips, Patrick Zhou/deepfundamental). The one real primary anchor (the ~5bn RMB Tesla order) is for LINEAR-JOINT / actuator products, not thermal modules. KEEP reported_capable; do NOT upgrade to manufactured_by. Owner decision: relabel the edge as actuator-led (matching Longbridge) and demote the thermal angle to qualitative/exploratory, or delete the thermal-supplier framing? edge=e_humanoid_thermal__reported_capable_supplier__sanhua.",
+    "_lane": "structure_bearings_thermal"
+  }
+]

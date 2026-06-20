@@ -6,10 +6,11 @@ This document defines the interaction and visualization rules for graph-facing p
 
 ## Product Goal
 
-Capability Graph Explorer is a research workspace, not a decorative network map. The graph should help a user answer concrete research questions:
+MinCut is a research workspace, not a decorative network map. The graph should help a user answer concrete research questions:
 
 - What is this product made of?
-- Which subsystem, component, process, or material blocks maturity?
+- Which subsystem, component, process, or material forms the chokepoint or barrier?
+- Which artifact has hidden know-how / process barriers?
 - Where is evidence missing?
 - What should be expanded or researched next?
 
@@ -26,6 +27,27 @@ The default `/graph` view is a **Stable Balanced Radial Tree**:
 - Subsystem grouping is a soft visual layer over a readable radial tree, not a hard equal-sector constraint.
 
 The graph should feel like one map viewed through different lenses.
+
+## Display Node Layers
+
+Schema kinds are not reader-facing node types. Graph UI uses these display
+layers:
+
+| Display layer | Schema kinds | Graph behavior |
+|---|---|---|
+| Artifact | `product`, `technical_route`, `module`, `equipment`, key `material` | default canvas structure |
+| Know-how / Barrier Source | `engineering_method`, `manufacturing_process` | hidden by default; summarized on host artifacts; visible in the secondary Barrier Sources layer |
+| Market actor | `organization` | panel/exposure/evidence surface only |
+| Measurement/evidence | `metric`, `evidence` | detail/gate/evidence surface only |
+| Context | `capability`, principles, standards/regulations | detail/gate/background surface only |
+
+Default graph views must read as artifact maps. Know-how exists to explain
+Barrier, holder scarcity, evidence gaps, or authored Chokepoints; it should not
+turn the default map into a process encyclopedia. Low-signal methods/processes
+belong in the host artifact detail instead of becoming graph nodes.
+
+User-facing graph nodes must never be grey. Context should be lower saturation
+within the same subsystem color family, not unclassified grey.
 
 Stable channels:
 
@@ -105,11 +127,17 @@ When a branch is selected:
 - Evidence gaps use dashed / broken marks or hollow gap glyphs.
 - Frontier nodes use a distinct frontier glyph.
 
-Do not switch to an unrelated layout for bottleneck, cost, maturity, or evidence-gap modes. These are overlays on the same radial product map.
+Do not switch to an unrelated layout for Chokepoint, Cost, Barrier Sources, or evidence-gap questions. These are overlays or secondary layers anchored to the same radial product map.
 
 ## Stage 3: Node Detail Lens
 
 Selecting a node opens a detail lens while preserving map context.
+
+Current selected-node detail IA and the supplier/company card contract are
+specified in
+`docs/plans/node-detail-ia-commercial-supplier-lines.md`. Use that document for
+implementation-level ordering and card behavior where it is more specific than
+the general contract below.
 
 Desktop default:
 
@@ -127,12 +155,18 @@ Small screens:
 
 Detail content order:
 
-1. Why this node matters in the selected branch.
-2. Role in the product tree.
-3. Metrics and maturity.
-4. Evidence and review status.
-5. Evidence gaps, frontier state, and research tasks.
-6. Longer notes and source limitations.
+1. Node identity and role in the selected route.
+2. First-glance Chokepoint verdict and structural reason
+   (Dependency / Concentration / Barrier).
+3. Cost as a separate magnitude readout, not the Chokepoint reason.
+4. Node interpretation: why the readout is reasonable and how the node affects
+   the selected product.
+5. Decomposition and Barrier Sources / know-how summary when attached.
+6. Evidence chain, review status, source links, evidence gaps, and research
+   tasks.
+7. Supplier and listed-company exposure when available, using collapsed cards
+   for ticker, chain position, and association basis.
+8. Longer notes and source limitations.
 
 The detail lens is an explanation layer anchored to the map, not an unrelated details page.
 
@@ -143,6 +177,8 @@ Do not make every important signal red.
 | Signal | Visual language | Meaning |
 |---|---|---|
 | Bottleneck | Warm outline, thick emphasized path, high saturation | This node is currently blocking progress |
+| Chokepoint | Warm band / outline from Dependency × Concentration × Barrier | This node is structurally important in the chokepoint model |
+| Barrier Source | Diamond in secondary layer; stronger outline/size for stronger barrier contribution | A method/process explains why an artifact is hard to replicate |
 | Evidence gap | Dashed / broken edge or hollow gap glyph | Important claim lacks sufficient support |
 | Frontier | Hollow diamond / frontier glyph | Decomposition should continue here |
 | Top priority | Small ranked glyph | Current mode ranks this node among the most important |
@@ -154,14 +190,21 @@ Only a small number of high-priority glyphs should appear in overview. Full revi
 
 Color modes are lenses over the stable product map.
 
-Supported modes may include:
+Supported reader-facing lenses:
 
-- **Bottleneck risk**: combines maturity gap and cost/importance share.
-- **Cost**: emphasizes cost-bearing nodes and paths.
-- **Maturity**: emphasizes low versus high maturity.
-- **Evidence gap**: emphasizes unsupported or weakly supported claims.
-- **Overall**: composite signal when useful.
-- **Relation**: legacy/debug mode for edge relation semantics.
+- **System decomposition**: the artifact map with stable subsystem color.
+- **Chokepoint**: the composite Dependency × Concentration × Barrier signal.
+- **Cost**: where the money is; orthogonal to Chokepoint-ness.
+
+Secondary layer:
+
+- **Barrier Sources**: reveals know-how nodes (`engineering_method` /
+  `manufacturing_process`) as diamonds attached to host artifacts. It explains
+  why an artifact is hard to replicate, who holds the process when modeled, and
+  whether the know-how is procurable or must-build.
+
+There is no reader-facing Maturity lens. Maturity/readiness can feed Barrier,
+but should not be the lens or headline vocabulary.
 
 Across modes, keep binning aligned when the same scalar is redundantly encoded. For example, if edge color and edge width both encode cost, they must use the same thresholds.
 

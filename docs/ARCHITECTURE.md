@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Capability Graph Explorer is a local-first research application. It helps a human reason about the distance between a product/capability concept and mature, scalable, affordable adoption.
+MinCut is a local-first research application. It helps a human reason about the distance between a product/capability concept and mature, scalable, affordable adoption.
 
-The core architectural decision is that the graph is the product's source of truth. UI, maturity scoring, validation, and task generation all derive from local graph data.
+The core architectural decision is that the graph is the product's source of truth. UI, chokepoint scoring, maturity/readiness inputs, validation, and task generation all derive from local graph data.
 
 ## System Shape
 
@@ -54,7 +54,7 @@ low_cost_parcel_sorting_robot_300k_rmb
 
 This target is a concrete product node, not the general demand for low-cost parcel sorting. In v0 it refers to an industrial robot-arm and computer-vision based parcel-sorting robot/cell using a vacuum-suction end-effector. Adjacent solutions such as mechanical-gripper variants, delta robot sorters, humanoid robot sorters, conveyor diverter systems, mobile robot sorting systems, and human-robot assisted workflows should be modeled as separate product candidates unless the product boundary is explicitly changed.
 
-The graph currently includes product, module, metric, bottleneck, placeholder breakthrough, principle, manufacturing, regulation, capability, and evidence nodes. (The schema retains `has_route` and a legacy `technical_route` kind for back-compat, but no `kind: "route"` exists, and per ADR-0004 alternative architectures are modelled as sibling Products under one Capability rather than as routes within a Product.)
+The graph currently includes artifact nodes (`product`, `technical_route`, `module`, `equipment`, key `material`), know-how nodes (`engineering_method`, `manufacturing_process`), organizations, metrics, evidence/context records, and deprecated compatibility kinds. Display layers are stricter than schema kinds: the default canvas is an artifact map; know-how appears as Barrier Sources only in a secondary layer or detail panel; organizations, metrics, evidence, and raw context do not render as default graph nodes. The schema retains `has_route` and a legacy `technical_route` kind for back-compat, but no `kind: "route"` exists, and per ADR-0004 alternative architectures are modelled as sibling Products under one Capability rather than as routes within a Product.
 
 v0 should support a graph expansion loop where an agent can use online search to propose and import additional nodes, edges, evidence, metrics, bottlenecks, and research tasks for a target product. Imported agent records should be treated as candidate knowledge, not trusted facts.
 
@@ -66,13 +66,12 @@ Every concrete product node should be modeled as a recursive dependency graph:
 
 ```text
 product
-  -> subsystem / module
-    -> component / route / capability
-      -> manufacturing process / equipment / material / algorithm / method
-        -> metric / bottleneck / evidence / principle
+  -> artifact subsystem / module / equipment / material
+    -> lower artifact, process constraint, method, material, algorithm, or equipment
+      -> metric / evidence / organization / principle / regulation / task context
 ```
 
-The graph does not need to expand every branch to the same depth. It should expand where the lower layer changes the maturity, feasibility, cost, manufacturability, scalability, reliability, adoption, or bottleneck explanation for the current product boundary.
+The graph does not need to expand every branch to the same depth. It should expand where the lower layer changes maturity/readiness, feasibility, cost, manufacturability, scalability, reliability, adoption, Barrier, Concentration, Dependency, or the Chokepoint explanation for the current product boundary.
 
 For existing or mature products, the decomposition should make the core bill-of-system visible:
 
@@ -84,7 +83,7 @@ For existing or mature products, the decomposition should make the core bill-of-
 
 For immature or target products, the decomposition should make the unresolved path visible:
 
-- the highest-level subsystem or route currently blocking maturity;
+- the highest-level subsystem or artifact currently blocking maturity/readiness;
 - the lower-level component, manufacturing process, metric, algorithm, or principle responsible for the blocker;
 - placeholder breakthroughs where the graph knows a gap exists but evidence is not yet sufficient;
 - missing evidence and under-specified metrics.
@@ -186,7 +185,7 @@ All graph data should parse through these schemas before use.
 
 UI and gate logic should use these helpers instead of rewriting graph traversal locally.
 
-### Maturity
+### Maturity / Readiness
 
 `src/lib/maturity.ts` implements the first transparent maturity model.
 
@@ -197,7 +196,7 @@ Current rules:
 - Product maturity combines product score, module maturity, any present route maturity, and active bottlenecks.
 - Placeholder breakthroughs cap maturity more aggressively.
 
-This is intentionally an explanatory heuristic, not a claim of objective truth. The UI should show the reasoning, not only the score.
+This is intentionally an explanatory heuristic, not a claim of objective truth. Maturity/readiness feeds Barrier and gate reasoning, but it is no longer a reader-facing graph lens or headline axis. UI copy should explain the underlying reason rather than surface raw `maturityLabel` as the main answer.
 
 ### Validation Gate
 
@@ -248,8 +247,9 @@ Per ADR-0007 (2026-05-20), `/graph` should evolve into a Stable Balanced Radial 
 
 Key shape:
 
-- Structural nodes (product, module, material, engineering_method, manufacturing_process) for the focal product render as a radial product decomposition tree: product at center, recursive dependencies radiating outward by depth. Angular space should be allocated by readability — subtree size, depth, label density, and collision avoidance — before subsystem grouping is drawn.
-- The 33 descriptive nodes (`metric`, `bottleneck`, `placeholder_breakthrough`, scientific/empirical principles, regulations, capabilities) never render on canvas. They surface as text in the detail panel of whichever structural node they describe.
+- Default structural nodes (product, technical route, module, equipment, key material) for the focal product render as a radial product decomposition tree: product at center, recursive dependencies radiating outward by depth. Angular space should be allocated by readability — subtree size, depth, label density, and collision avoidance — before subsystem grouping is drawn.
+- Know-how nodes (`engineering_method`, `manufacturing_process`) are hidden from the default map and appear only as Barrier Sources: summarized on host artifacts and shown as purposeful diamonds in the secondary layer when they explain Barrier, holder scarcity, evidence gaps, or authored chokepoints.
+- Descriptive records (`metric`, `bottleneck`, `placeholder_breakthrough`, scientific/empirical principles, regulations, capabilities, evidence) never render as ordinary default canvas nodes. They surface as text in the detail panel of whichever artifact or know-how node they describe.
 - Bottleneck and frontier status are attributes on structural nodes (`bottleneckOf?: string[]`, `frontierFor?: string[]`), not separate `kind`s; the visual presence of a bottleneck emerges from branch emphasis, glyphs, and current mode overlays.
 - Subsystem grouping is expressed through base color, labels, faint region tint, or soft boundaries after the tree is readable. It is not the primary layout constraint.
 - Shared dependencies remain DAG-aware through low-noise overview marks and stronger cross-links on focus / higher zoom.
@@ -257,22 +257,23 @@ Key shape:
 What the graph answers, in this model:
 
 - "What is this product made of?" — visible in the default radial overview without any interaction.
-- "Which subsystem is most complex / most blocked / most expensive?" — encoded geometrically (branch density, path emphasis) and via the active color mode (edge color + thickness + node outline / soft grouping).
+- "Which subsystem is most complex / most blocked / most expensive?" — encoded geometrically (branch density, path emphasis) and via the active lens: System decomposition, Chokepoint, or Cost.
 - "What does this node depend on / what depends on it?" — appears in the detail panel rail (right edge, 64px collapsed, 400px expanded) when the node is selected.
-- "What blocks this product's maturity?" — encoded by color mode (default `bottleneck-risk`); high-risk nodes glow warm; their `bottleneckOf` attribute surfaces in the detail panel.
+- "What blocks this product or creates a company/supplier exposure lead?" — encoded by the Chokepoint lens (Dependency × Concentration × Barrier), Cost lens, Barrier Sources layer, and detail-panel evidence.
 
 Interaction model:
 
 - Click a structural node → highlight the relevant branch, update the detail lens, and keep the broader radial map visible as context.
-- Bottleneck and evidence-gap questions are answered by branch highlight on the same map, not by switching to unrelated layouts.
+- Chokepoint, Cost, Barrier Source, and evidence-gap questions are answered by branch highlight and detail disclosure on the same map, not by switching to unrelated layouts.
 - Esc / empty click / double-click current focus → exit or reduce the current focus state.
 - Cmd+K → fuzzy search across node names and descriptive-node text; Enter flies to the result.
 - Mouse wheel / pinch / keyboard +/- → pure viewport zoom; LOD bands switch at zoom = 0.5 and 1.5.
 
 Display rules:
 
-- `metric`, `bottleneck`, `placeholder_breakthrough` records are surfaced only via the detail panel.
-- `requires`, `manufactured_by`, `implemented_by`, `regulated_by` edges all participate in the radial canvas; `has_route` is schema-preserved but unused in v0 data per ADR-0004; deprecated `bottlenecked_by` edges (replaced by the attribute) are migrated by the slice spec.
+- `metric`, `bottleneck`, `placeholder_breakthrough`, evidence, organization, and context records are surfaced only via detail, evidence, gate, or exposure surfaces.
+- `requires` edges drive the default artifact map. `manufactured_by` / `implemented_by` edges can attach Barrier Sources or exposure context, but they should not make organizations, metrics, evidence, or raw context appear as ordinary default canvas nodes. `has_route` is schema-preserved but unused in v0 data per ADR-0004; deprecated `bottlenecked_by` edges are represented by attributes where migrated.
+- User-facing graph nodes must not be grey or unclassified. If a node lacks a meaningful color family, hide it from the primary map or move it to a secondary surface until its display semantics are defined.
 - If the graph lacks the next layer, expose the gap (decomposition frontier attribute) rather than inventing hidden structure.
 
 The graph remains the source of truth. UI labels, summaries, and bottleneck explanations derive from nodes, typed edges, attributes, evidence records, maturity fields, and gate output — not from hard-coded narrative.
@@ -320,7 +321,7 @@ Chinese support is implemented as a display layer. IDs, schema fields, and sourc
 
 Do not expand every domain at once. Add domains only when the parcel-sorting robot loop is good enough to reveal useful patterns.
 
-Recommended next domain order:
+Historical research roadmap order:
 
 1. `iphone_4`
 2. `glp1_weight_loss_drugs`
@@ -329,13 +330,13 @@ Recommended next domain order:
 5. `ultra_small_nuclear_reactor`
 6. `ak47_rifle_historical_industrial_case`
 
-Each new domain should include Capability and sibling Product nodes (per ADR-0004), required modules, key metrics, bottlenecks, placeholder breakthroughs, evidence, and gate results.
+Current commercial QA priorities are set in `docs/QA-agent.md` and `docs/plans/MASTER-PLAN.md` rather than this historical order. Each promoted domain should include explicit product boundaries, useful decomposition, key metrics, chokepoints, evidence, access state, and gate results.
 
 ## Known Limitations
 
-- Graph layout uses ELK in the main explorer, but advanced incremental layout and semantic zoom are still early.
+- Stable radial layout, topology checks, and semantic zoom are still evolving.
 - Gate scoring is rule-based and domain-specific in places.
-- Evidence coverage is mostly placeholder for the first domain.
+- Evidence coverage varies by domain and review state; agent-generated claims remain `unreviewed` until owner review.
 - Chinese translation currently covers core UI and known node aliases, not all free-text descriptions.
 - Reports are generated locally and not managed by a backend.
 - Task queue is a JSON file, not a workflow engine.

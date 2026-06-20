@@ -1,0 +1,51 @@
+[
+  {
+    "id": "ev_space_spacex_falcon9",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond. Falcon 9 is the world's first orbital class reusable rocket. Falcon 9's first stage incorporates nine Merlin engines. Falcon 9 is equipped with four hypersonic grid fins positioned at the base of the interstage.",
+    "note": "Real Falcon 9 page (JS-rendered; readable only via browser). Covers reusable stack, nine Merlin engines, grid fins; page also states landing legs, single Merlin Vacuum 2nd stage, and fairing recovery for reuse."
+  },
+  {
+    "id": "ev_space_falcon_users_guide_2025",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "A single Merlin Vacuum (MVac) engine powers the second stage, using a fixed 165:1 expansion nozzle. Falcon launch vehicle avionics, and guidance, navigation, and control systems use a fault-tolerant architecture that provides full vehicle single-fault tolerance. The Falcon second stage ... use pneumatic devices that provide low-shock release and positive force separation.",
+    "note": "Falcon User's Guide PDF (128pp). Verbatim quotes for single MVac fixed nozzle, fault-tolerant single-fault avionics/GNC, and pneumatic low-shock stage separation. Excerpt condenses three exact sentences (each individually verbatim)."
+  },
+  {
+    "id": "ev_space_nasa_crew2_reuse",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "First reuse of the Crew Dragon spacecraft and Falcon 9 rocket on a crew mission –Crew Dragon Endeavour flew the historic Demo-2 mission and the Falcon 9 flew astronauts on the Crew-1 mission",
+    "note": "NASA Crew-2 blog loaded fine; verbatim line confirms first booster + Dragon reuse on a crewed Falcon 9 mission, supporting the operational-reuse claim."
+  },
+  {
+    "id": "ev_space_spacex_starship",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "SpaceX's Starship spacecraft and Super Heavy rocket - collectively referred to as Starship - represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond. Starship is the world's most powerful launch vehicle ever developed, designed to carry more than 100 metric tonnes to orbit in a fully reusable configuration.",
+    "note": "Real Starship page (JS-rendered; read via browser). Backs fully-reusable Starship/Super Heavy branch, 100+t payload, ship upper stage, payload bay, mass-to-orbit. NOTE: page does NOT say 'heat shield'/'tile' explicitly (closest: 'rapidly turn around and launch again without refurbishment'); the tile sub-claim is sourced separately by ev_space_nasa_orbiter_tps_maintenance."
+  },
+  {
+    "id": "ev_space_spacex_prospectus_2026",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Comprising the Super Heavy booster (powered by 33 Raptor engines) and the Starship upper stage (with three sea-level and three vacuum Raptor engines), Starship V3 is designed to deliver 100 metric tons to space in a fully reusable configuration. ... we believe SpaceX is uniquely positioned to deploy and operate data centers in orbit.",
+    "note": "SpaceX EU prospectus PDF (400pp, English). Entity confirmed p.1 'Space Exploration Technologies Corp. (a Texas corporation...)'. Single verbatim sentence covers Super Heavy 33-Raptor, sea-level+vacuum Raptor mix, and full reusability; separate verbatim line supports orbital data center intent."
+  },
+  {
+    "id": "ev_space_faa_starship_cadence",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "Under the Proposed Action, the FAA would modify SpaceX's existing vehicle operator license to authorize: Up to 25 annual Starship/Super Heavy orbital launches, including: Up to 25 annual landings of Starship (Second stage) Up to 25 annual landings of Super Heavy (First stage)",
+    "note": "FAA page 403s to WebFetch (bot block) but loads fully in browser. Verbatim cadence figure (25 annual launches/reentries) backs the FAA cadence-license claim; page also has verbatim NOTAM/Aircraft Hazard Area / airspace-closure language for the range-safety claim."
+  },
+  {
+    "id": "ev_space_nasa_orbiter_tps_maintenance",
+    "verdict": "enriched",
+    "sourceStatus": "ok_exact",
+    "excerpt": "An average of 50 tiles are replaced after each mission, either due to handling damage or accumulated repairs. The tiles are bonded to the orbiter with a silicone adhesive. The tiles are first bonded to a strain isolator pad. ... a light-weight, reusable thermal protection system composed of entirely new materials.",
+    "note": "NASA Kennedy Orbiter TPS PDF (8pp). Verbatim quotes for reusable tiles, per-mission tile replacement (~50), tile bonding/attachment via silicone adhesive + strain isolator, and inspection process — backs heat-shield-tile durability/bonding/inspection bottleneck claims."
+  }
+]

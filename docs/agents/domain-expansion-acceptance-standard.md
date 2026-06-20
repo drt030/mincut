@@ -1,9 +1,10 @@
 # Domain Expansion — Agent Acceptance Standard (Flagship Parity)
 
 **Version: v2 · 2026-06-15 · Owner of this file: the orchestrator.**
-**v2 change:** folds the [QA-agent.md](../QA-agent.md) browser user-flow back in as **Gate F**
+**v2 change:** folds browser user-flow acceptance back in as **Gate F**
 (mandatory) — data gates A–E alone no longer grant ACCEPTED. See §0 + §7.5 + §8.
-**Inherits (read first):** [QA-agent.md](../QA-agent.md) (the product user-flow contract — Gate F),
+**Inherits (read first):** [ACCEPTANCE.md](../ACCEPTANCE.md) (the product acceptance contract),
+[QA-agent.md](../QA-agent.md) (the browser QA runbook — Gate F),
 [domain-decomposition-playbook.md](domain-decomposition-playbook.md),
 [evidence-audit-brief.md](evidence-audit-brief.md), ADR-0001 (review ladder), ADR-0004
 (sibling-product boundary), ADR-0005 (decomposition stop + concentration override), ADR-0008
@@ -22,7 +23,7 @@ This document grades **decomposition + exposure + evidence quality** (Gates A–
 correctness is necessary but NOT sufficient** for ACCEPTED: the rendered product must also pass the
 [QA-agent.md](../QA-agent.md) browser user-flow as **Gate F (§7.5)**. A domain that is data-correct
 but renders a thin/unreadable graph, hides the exposure the data claims, or shows
-gray/unclassified nodes is **NOT ACCEPTED** — it is "data-accepted, user-flow pending".
+grey/unclassified user-facing nodes is **NOT ACCEPTED** — it is "data-accepted, user-flow pending".
 (Correction 2026-06-15: an earlier version scoped UI-QA out as a "separate concern"; that gap let a
 data-only loop pass two domains whose product surfaced only ~12 of 53 supplier orgs and carried
 unresolved gray nodes. UI acceptance is folded back in here.)
@@ -70,8 +71,8 @@ thinness now **fails Gate F F3**. Concretely, for each domain:
   or decomposition not grounded in a cited industry fact AUTO-FAILS** (acceptance judge + Gate D
   sealed holdout catch count-gaming; an inflated tree that overfits the holdout fails Gate D).
 - New depth obeys every other gate: ADR-0005 stop conditions, B-gate quote-or-qualitative evidence,
-  C-gate exposure (≤5 verified orgs/component, three passes), A7 zh coverage, F4 no gray non-material
-  / no `unknown`-maturity nodes. Depth that can't be evidenced ships qualitative or not at all.
+  C-gate exposure (≤5 verified orgs/component, three passes), A7 zh coverage, F4 no grey/unclassified
+  user-facing nodes. Depth that can't be evidenced ships qualitative or not at all.
 
 **Repo-native "done":** ACCEPTED (all gates pass) = the domain is eligible to flip its
 `portfolioState` from `audit-preview` → `paid-candidate` (`DOMAIN_PORTFOLIO_STATES` in
@@ -191,9 +192,9 @@ skipped for UI changes"* and *"if a core user journey was not actually tested."*
   decomposition — a thin tree (e.g. the prior SpaceX 36) FAILS F3.** Spot-check that no first-layer
   subsystem dead-ends one layer shallower than its flagship analogue; padding to hit the count also
   fails (call it out).
-- **F4 No gray/unclassified nodes.** Every rendered node has a resolved maturity **and** subsystem
-  classification — no `unknown` maturity, no uncoloured/uncategorised nodes. Day-0 classification
-  debt (e.g. the 16 `unknown`-maturity SpaceX nodes flagged at kickoff) is resolved, not carried.
+- **F4 No grey/unclassified nodes.** Every rendered user-facing graph node has a meaningful
+  subsystem color family or secondary-layer display semantics. There are no grey/unclassified
+  default-map nodes; if a node cannot be classified, it stays out of the primary map until fixed.
 - **F5 EN + zh both usable**; no truncation/overlap of core controls (e.g. the lens toggle), no
   console errors, graceful recovery from missing data.
 - Findings categorised per QA-agent.md (blocker / major / minor / ux / data_model / performance /
@@ -222,7 +223,7 @@ honestly with the failing gate named — never rounded up to "done".
 "ACCEPTED" verdicts were **data-only (A–E)** — Gate F was never run. Both are downgraded to
 **data-accepted, user-flow PENDING** until QA-agent.md passes. (Already surfaced by inspection: the
 rendered SpaceX tree shows ~59 structural nodes with only ~12 of 53 supplier orgs reachable, plus
-gray `unknown`-maturity nodes — exactly the class of defect Gate F exists to catch.)
+grey/unclassified nodes — exactly the class of defect Gate F exists to catch.)
 
 ## 9. Process integrity & cost discipline (binding)
 

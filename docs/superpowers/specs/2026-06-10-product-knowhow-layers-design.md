@@ -2,7 +2,7 @@
 
 **Date**: 2026-06-10
 **Author**: brainstorming session (Claude Fable 5)
-**Status**: implemented on branch `worktree-product-knowhow-layers` (2026-06-10); pending user review/merge
+**Status**: historical implementation design. The branch has since been merged, and the current UI contract is amended by ADR-0008 (2026-06-17), `docs/ACCEPTANCE.md`, and `docs/GRAPH_UX.md`.
 **Related ADRs**: ADR-0004 (capability/product layering, unchanged), ADR-0005 (decomposition stop — amendment required), ADR-0006 / ADR-0007 (graph surface this design extends). A new ADR-0008 will record the ontology decision.
 
 ## Problem
@@ -74,12 +74,12 @@ layer toggle is a lens over one persistent map, not a second map.
 canvas-kind set in `canvasGraph.ts` drops `engineering_method` /
 `manufacturing_process` for this layer.
 
-**Know-how layer.** Same radial skeleton; artifact nodes dim to grey
-placeholders (positions, branch membership, and sector hues preserved);
-know-how nodes light up as diamond markers attached to their structural
-parents. Node fill encodes `transactability` (green = procurable, amber =
-must_build, grey = unset). Kind (`engineering_method` vs
-`manufacturing_process`) demotes to a detail-panel chip.
+**Know-how layer.** Same radial skeleton; know-how nodes light up as diamond
+markers attached to their structural parents. **2026-06-17 amendment:**
+artifact context must keep a muted subsystem color, not grey placeholders,
+and no user-facing graph node may render as grey/unclassified. Node fill
+encodes the current Barrier Sources vocabulary; kind (`engineering_method`
+vs `manufacturing_process`) demotes to a detail-panel chip.
 
 **Bottleneck surfacing across layers.** Hiding know-how must not hide
 bottlenecks (north star + scenario Q1 both depend on the default view

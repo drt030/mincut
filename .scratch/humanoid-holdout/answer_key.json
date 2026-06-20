@@ -1,0 +1,218 @@
+[
+  {
+    "subsystem": "upstream materials - NdFeB rare-earth magnets",
+    "supplier_name": "China (rare-earth mine + separation/processing concentration)",
+    "ticker_or_null": null,
+    "role": "Dominant source of mined rare earths and overwhelmingly dominant in separation/processing; NdFeB sintered magnets are the core material in humanoid servo/torque motors. Export licensing of these magnets directly gates humanoid motor supply.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-rare-earths.pdf",
+      "quote": "China 14255,000 14270,000 ... World total (rounded) 376,000 390,000 ... Import Sources (2020-23): Rare-earth compounds and metals: China,9 70%;",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "actuators - harmonic reducers",
+    "supplier_name": "Leaderdrive (Leader Harmonious Drive Transmission)",
+    "ticker_or_null": "SHE:688017",
+    "role": "China's largest harmonic reducer maker; harmonic reducers function as joints in robotic arms and humanoid machines. Clients include leading humanoid makers (Agibot, UBTech). Holds 30-40% of China's harmonic reducer market.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://e.vnexpress.net/news/tech/personalities/chinese-brothers-behind-robot-joint-maker-leaderdrive-become-billionaires-as-humanoid-demand-surges-5066573.html",
+      "quote": "It has grown into China's largest manufacturer of harmonic reducers, precision gear systems that function as joints in robotic arms and humanoid machines. ... Its domestic clients include world's leading humanoid robot manufacturers such as Agibot and UBTech Robotics.",
+      "asOf": "2026-04-26"
+    }
+  },
+  {
+    "subsystem": "battery & cells",
+    "supplier_name": "Figure AI (custom torso battery pack)",
+    "ticker_or_null": null,
+    "role": "Figure designs its own 2.25 kWh custom battery pack integrated in the robot torso for Figure 02 (pack-level captive integration; cells themselves sourced externally).",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.prnewswire.com/news-releases/figure-unveils-figure-02-its-second-generation-humanoid-setting-new-standards-in-ai-and-robotics-302214889.html",
+      "quote": "2.25 KWh custom battery pack in the robot torso delivers 50%+ more energy to maximize robot runtime.",
+      "asOf": "2024-08-06"
+    }
+  },
+  {
+    "subsystem": "onboard compute / SoC",
+    "supplier_name": "NVIDIA (Jetson AGX Thor / Blackwell)",
+    "ticker_or_null": "NASDAQ:NVDA",
+    "role": "Merchant supplier of humanoid onboard compute. Jetson AGX Thor T5000 (Blackwell GPU, 2,070 FP4 TFLOPS) is the reference onboard compute for the Isaac GR00T humanoid platform; Unitree H2 Plus named partner.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://nvidianews.nvidia.com/news/nvidia-open-humanoid-robot-reference-design",
+      "quote": "NVIDIA Jetson AGX Thor(TM) T5000 onboard compute, featuring an NVIDIA Blackwell GPU with 2,070 FP4 teraflops of AI performance ... built on the NVIDIA Isaac GR00T platform, combining a Unitree H2 Plus humanoid robot",
+      "asOf": "2026-05-31"
+    }
+  },
+  {
+    "subsystem": "perception - cameras",
+    "supplier_name": "Figure AI (6 onboard RGB cameras vision system)",
+    "ticker_or_null": null,
+    "role": "Figure 02 perception is built on 6 onboard RGB cameras feeding an AI-driven vision system (vision-forward sensing stack; no LiDAR emphasized).",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.prnewswire.com/news-releases/figure-unveils-figure-02-its-second-generation-humanoid-setting-new-standards-in-ai-and-robotics-302214889.html",
+      "quote": "Figure 02 perceives and understands the physical world through its AI-driven vision system powered by 6 onboard RGB cameras.",
+      "asOf": "2024-08-06"
+    }
+  },
+  {
+    "subsystem": "battery & cells",
+    "supplier_name": "LG Energy Solution",
+    "ticker_or_null": "KRX:373220",
+    "role": "Merchant cell maker with a dedicated 2170 cylindrical lineup for humanoid robots (M Series energy / H Series power; H52A supports 8C discharge). States it already supplies six leading robotics companies.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://inside.lgensol.com/en/2026/06/humanoid-robots-are-changing-everyday-life-why-do-batteries-matter/",
+      "quote": "LG Energy Solution established a cylindrical battery lineup based on the 2170 form factor early on, designed for humanoid robot applications. ... H52A is an ultra-high-power cell that supports a maximum discharge rate of 8C ... currently being supplied to six leading robotics companies.",
+      "asOf": "2026-06-05"
+    }
+  },
+  {
+    "subsystem": "dexterous hands & tactile sensing",
+    "supplier_name": "Bota Systems",
+    "ticker_or_null": null,
+    "role": "Swiss merchant maker of 6-axis force/torque sensors (PixONE, MiniONE for fingertip sensing, Rokubi for legged ground-reaction). Non-obvious specialist supplier of force-aware sensing for humanoid hands and feet.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.botasys.com/force-torque-sensors/pixone",
+      "quote": "Applications include force aware humanoids and advanced robotics, medical and surgical robots, and purpose-built robotic systems where reliability, precision, and seamless integration are essential.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "actuators - planetary roller screws",
+    "supplier_name": "GSA (Groupe SA / GSA Technologie, Switzerland)",
+    "ticker_or_null": null,
+    "role": "Global market leader in planetary roller screws; named supplier of the 14 planetary roller screws in Tesla Optimus linear joints (arms, thighs, lower legs). Non-obvious Swiss precision bottleneck — together with Rollvis >50% share.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.kggfa.com/news/the-application-of-planetary-roller-screws-in-humanoid-robots-and-market-development/",
+      "quote": "Swiss GSA: The global market leader, together with Rollvis, holds over 50% of the market share. ... The Tesla humanoid robot Optimus, for example, uses 14 planetary roller screws (provided by GSA, Switzerland) for its linear joints",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "actuators - planetary roller screws",
+    "supplier_name": "Rollvis SA (Switzerland)",
+    "ticker_or_null": null,
+    "role": "Second-largest global planetary roller screw maker (Swiss); with GSA holds >50% of the market. Ultra-precision CNC-ground roller screws are a key humanoid linear-actuator chokepoint where China lags.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.kggfa.com/news/the-application-of-planetary-roller-screws-in-humanoid-robots-and-market-development/",
+      "quote": "Swiss GSA: The global market leader, together with Rollvis, holds over 50% of the market share.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "actuators - harmonic reducers",
+    "supplier_name": "Nidec Drive Technology (FLEXWAVE strain wave reducers)",
+    "ticker_or_null": "TSE:6594",
+    "role": "Merchant supplier of Next Generation FLEXWAVE high-precision strain wave gear reducers positioned as the ideal choice for humanoid robot joints (zero backlash, high torque, lightweight).",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.nidec-dtc.com/humanoid-robots/",
+      "quote": "The Next Generation Nidec FLEXWAVE high precision simple contained assembly and component sub-assembly gear reducers are the ideal choice for these types of applications.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "thermal",
+    "supplier_name": "Zhejiang Sanhua Intelligent Controls",
+    "ticker_or_null": "SHE:002050",
+    "role": "Non-obvious thermal play: automotive thermal-management Tier 1 carrying microchannel liquid-cooling tech into humanoids; reported as exclusive supplier of ~50% of Tesla Optimus liquid-cooling modules and a ~5bn RMB Optimus linear-joint order.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.webull.com/news/13684844359585792",
+      "quote": "Sanhua Intelligent Control is a Tier 1 supplier for Tesla's new energy vehicles and is mainly responsible for the supply of components such as thermal manag[ement] ... a large order for Tesla's humanoid robot, amounting to more than 5 billion yuan.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "upstream materials - bearings / bearing steel",
+    "supplier_name": "NSK Ltd.",
+    "ticker_or_null": "TSE:6471",
+    "role": "Major Japanese bearing maker moving upstream into humanoid actuators; announced development of actuators (and bearings/linear-motion) for agile humanoid movement, targeting a 2028 launch. Non-obvious bearing-to-actuator entrant.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.digitimes.com/news/a20251124PD226/nsk-humanoid-robot-development.html",
+      "quote": "Japan-based NSK has announced the development of actuators capable of enabling agile movements in humanoid robots.",
+      "asOf": "2025-11-24"
+    }
+  },
+  {
+    "subsystem": "actuators - harmonic reducers",
+    "supplier_name": "Harmonic Drive Systems Inc.",
+    "ticker_or_null": "TSE:6324",
+    "role": "Inventor/long-time leader of strain wave gearing with the top global market share in precision reducers. A humanoid uses ~20-30 joints, almost all needing precision reducers, making HDS the obvious-but-capacity-constrained reducer leader.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://note.com/aikabu_analysis/n/n90955489852e?hl=en-US",
+      "quote": "it holds the top global market share in this field ... A humanoid robot has an average of 20 to 30 joints (actuators) per unit. Almost all of them require precision reducers.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "perception - IMU",
+    "supplier_name": "Bosch Sensortec",
+    "ticker_or_null": null,
+    "role": "Merchant MEMS supplier of IMUs (e.g. BMI088) and gel-filled barometric pressure sensors for humanoid balance/state-estimation and tactile feedback. Non-obvious component supplier underpinning humanoid motion sensing.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.bosch-sensortec.com/en/applications-solutions/robotics",
+      "quote": "MEMS sensors by Bosch Sensortec give humanoid robots the tactile and motion feedback they need to handle objects precisely and interact naturally.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "upstream materials - NdFeB rare-earth magnets",
+    "supplier_name": "MP Materials",
+    "ticker_or_null": "NYSE:MP",
+    "role": "Non-obvious ex-China alternative: US miner (Mountain Pass) and sintered-NdFeB magnet maker at Fort Worth, explicitly positioning magnets as the connective tissue of advanced robotics / physical AI. The strategic Western hedge to the China magnet chokepoint.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://mpmaterials.com/product/ndfeb-magnets/",
+      "quote": "Magnet-powered actuators are the connective tissue in advanced robotics and physical AI.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "actuators - integrated joint modules (reducers + roller screws + sensors)",
+    "supplier_name": "Schaeffler AG (incl. Ewellix)",
+    "ticker_or_null": "ETR:SHA",
+    "role": "Broad merchant supplier of humanoid joint components: torque sensors for rotary joints, harmonic reducers, roller screws and linear actuators (roller-screw arm via Ewellix). Positioned as a core joint-module supplier (e.g. ROKAE partnership).",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://autonews.gasgoo.com/articles/news/schaeffler-teams-up-with-rokae-to-accelerate-humanoid-robot-industrialization-in-china-2042493218917101569",
+      "quote": "The company already supplies a range of critical components and subsystems for humanoid robots, including torque sensors for rotary joints, harmonic reducers, roller screws, and linear actuators.",
+      "asOf": "2026-04-10"
+    }
+  },
+  {
+    "subsystem": "actuators - frameless torque motors",
+    "supplier_name": "Kollmorgen (Regal Rexnord)",
+    "ticker_or_null": "NYSE:RRX",
+    "role": "Long-time leader in frameless torque motors (e.g. TBM2G series) designed for compact robotic joints; explicitly markets them for humanoid robots. The frameless motor pairs with strain-wave/roller-screw stages to form the humanoid actuator.",
+    "merchant_or_captive": "merchant",
+    "citation": {
+      "url": "https://www.kollmorgen.com/en-us/products/motors/frameless-motors",
+      "quote": "Frameless motors enable the most compact and powerful robotic joints, enhancing the dexterity, versatility and efficiency of surgical robots, humanoid robots and exoskeletons, industrial cobots and more.",
+      "asOf": "2026-06-15"
+    }
+  },
+  {
+    "subsystem": "perception - cameras / depth (vision-only integrator)",
+    "supplier_name": "Tesla (Optimus, captive vision + actuator integrator)",
+    "ticker_or_null": "NASDAQ:TSLA",
+    "role": "Captive designer of Optimus actuators and a camera-only (no-LiDAR) perception stack reusing Autopilot vision. Each Optimus needs ~3.5 kg of high-performance NdFeB magnets, exposing it to the China rare-earth chokepoint.",
+    "merchant_or_captive": "captive",
+    "citation": {
+      "url": "https://www.globaltimes.cn/page/202504/1332704.shtml",
+      "quote": "High-performance neodymium iron boron (NdFeB) permanent magnets are a core material in robotic servo motors ... Taking Tesla's Optimus robot as an example, each unit requires approximately 3.5 kg of high-performance NdFeB magnets.",
+      "asOf": "2025-04-23"
+    }
+  }
+]

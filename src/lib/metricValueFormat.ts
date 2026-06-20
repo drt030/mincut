@@ -12,11 +12,12 @@ import type { MetricValue } from "./schema";
  * key-metrics card. Two render modes:
  *
  *   - `compact`: short string for the strip chips (target <=24 chars). For
- *     non-degenerate ranges this leads with p50, e.g. `"p50 150k RMB"`.
+ *     non-degenerate ranges this leads with an estimate marker, e.g.
+ *     `"est. 150k RMB"`.
  *     Numbers >=10k are abbreviated with a `k`/`M` suffix; smaller numbers
  *     use locale grouping.
  *   - `full`: human-readable string for the detail panels. For ranges this
- *     reads `"p50 150,000 (range 120,000–180,000) RMB"`. Currencies other
+ *     reads `"est. 150,000 (range 120,000–180,000) RMB"`. Currencies other
  *     than RMB are surfaced in the suffix; RMB-as-unit is implicit (RMB shows
  *     because the unit string already contains it). Non-currency units pass
  *     through verbatim.
@@ -129,13 +130,13 @@ function formatRangeCompact(min: number, typical: number, max: number): string {
   if (min === typical && typical === max) return formatNumberCompact(typical);
   // If min === max, collapse to a scalar (degenerate range).
   if (min === max) return formatNumberCompact(typical);
-  return `p50 ${formatNumberCompact(typical)}`;
+  return `est. ${formatNumberCompact(typical)}`;
 }
 
 function formatRangeFull(min: number, typical: number, max: number, wholeNumber: boolean = false): string {
   if (min === typical && typical === max) return formatNumberFull(typical, wholeNumber);
   if (min === max) return formatNumberFull(typical, wholeNumber);
-  return `p50 ${formatNumberFull(typical, wholeNumber)} (range ${formatNumberFull(min, wholeNumber)}–${formatNumberFull(max, wholeNumber)})`;
+  return `est. ${formatNumberFull(typical, wholeNumber)} (range ${formatNumberFull(min, wholeNumber)}–${formatNumberFull(max, wholeNumber)})`;
 }
 
 function trimTrailingZeros(value: string): string {

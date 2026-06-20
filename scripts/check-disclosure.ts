@@ -13,9 +13,11 @@ import fs from "node:fs";
  *   (b) First-glance headline (§3a). `NodeDetailPanel.tsx` renders an
  *       element carrying `data-testid="detail-chokepoint-headline"` so the
  *       chokepoint verdict + elevated axis lead the detail surface.
- *   (c) Zero-holder Concentration wording (§3a). A `0` holder state is a
+ *   (c) Holder-count Concentration wording (§3a). A `0` holder state is a
  *       supply-source gap / unverified-holder state, not a confirmed
- *       "0 suppliers" count.
+ *       "0 suppliers" count. A nonzero holder count is modeled coverage, not
+ *       proof of "only / sole / exclusive / 仅 / 唯一" supply unless a separate
+ *       ADR-0009-grade claim is surfaced.
  *
  * It is mirror-style to `scripts/check-graph-topology.ts` /
  * `scripts/check-graph-ux.mjs`: static analysis over the source of truth,
@@ -116,7 +118,7 @@ if (detailPanel && !/data-testid=["']detail-chokepoint-headline["']/.test(detail
   );
 }
 
-// ── (c) Zero-holder Concentration wording ────────────────────────────────
+// ── (c) Holder-count Concentration wording ────────────────────────────────
 if (detailPanel && !/chokepointAxisConcentrationGap/.test(detailPanel)) {
   failures.push(
     `${NODE_DETAIL_PANEL_PATH}: Concentration headline needs a zero-holder gap branch; zero modeled holders must not render as a confirmed "0 suppliers" count (§3a).`,
@@ -127,6 +129,28 @@ if (languageProvider && !/chokepointAxisConcentrationGap/.test(languageProvider)
   failures.push(
     `${LANGUAGE_PROVIDER_PATH}: missing chokepointAxisConcentrationGap copy for zero-holder Concentration disclosure (§3a).`,
   );
+}
+if (languageProvider) {
+  const concentrationCopies = [
+    ...languageProvider.matchAll(/chokepointAxisConcentration:\s*["']([^"']*)["']/g),
+  ].map((match) => match[1]);
+  if (concentrationCopies.length === 0) {
+    failures.push(
+      `${LANGUAGE_PROVIDER_PATH}: missing chokepointAxisConcentration copy for nonzero holder-count disclosure (§3a).`,
+    );
+  }
+  for (const copy of concentrationCopies) {
+    if (/\b(?:only|sole|exclusive)\b|仅|唯一/i.test(copy)) {
+      failures.push(
+        `${LANGUAGE_PROVIDER_PATH}: chokepointAxisConcentration copy "${copy}" overclaims modeled holder counts as exclusivity; use modeled-holder coverage wording unless a separate ADR-0009 sole-source claim is rendered.`,
+      );
+    }
+    if (!/\bmodeled\b|已建模/i.test(copy)) {
+      failures.push(
+        `${LANGUAGE_PROVIDER_PATH}: chokepointAxisConcentration copy "${copy}" must frame nonzero holder counts as modeled coverage (§3a).`,
+      );
+    }
+  }
 }
 
 if (failures.length > 0) {

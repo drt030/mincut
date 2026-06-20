@@ -1,0 +1,11 @@
+
+> capability-graph-explorer@0.1.0 check:commercial-readiness
+> tsx scripts/check-commercial-readiness.ts
+
+ai-compute: state=full-free-flagship reviewedEvidence=0/349 vendorEvidence=0 gateReport=no topGaps=3/3 top=compound_foundry_specialty{gap:cost|leadTime|constraint|reviewedEvidence}, euv_photomask_production{gap:cost|leadTime|constraint|reviewedEvidence}, active_electrical_cable_aec_retimer_dsp{gap:cost|leadTime|constraint|reviewedEvidence}
+parcel-robot: state=full-free-depth-demo reviewedEvidence=1/226 vendorEvidence=0 gateReport=yes topGaps=3/3 top=jam_detection_and_recovery{gap:leadTime|reviewedEvidence}, induction_exception_recovery{gap:leadTime|constraint|reviewedEvidence}, maintenance_workflow{gap:leadTime|reviewedEvidence}
+humanoid-robotics: state=audit-preview reviewedEvidence=0/24 vendorEvidence=0 gateReport=no topGaps=3/3 top=humanoid_manufacturing_test_safety_service{gap:cost|leadTime|constraint|reviewedEvidence}, humanoid_manipulation_ai_data_stack{gap:cost|leadTime|constraint|reviewedEvidence}, humanoid_dexterous_hand_tactile_system{gap:cost|leadTime|constraint|reviewedEvidence}
+controlled-fusion: state=audit-preview reviewedEvidence=0/19 vendorEvidence=0 gateReport=no topGaps=3/3 top=fusion_breeding_blanket_heat_extraction{gap:cost|leadTime|constraint|reviewedEvidence}, fusion_neutron_materials_lifetime{gap:cost|leadTime|constraint|reviewedEvidence}, controlled_fusion_tritium_breeding_fuel_cycle{gap:cost|leadTime|constraint|reviewedEvidence}
+spacex-reusable-launch: state=audit-preview reviewedEvidence=0/8 vendorEvidence=0 gateReport=no topGaps=3/3 top=launch_pad_rapid_turnaround_process{gap:cost|leadTime|constraint|reviewedEvidence}, starship_superheavy_reusable_branch{gap:cost|leadTime|constraint|reviewedEvidence}, range_safety_airspace_coordination{gap:cost|leadTime|constraint|reviewedEvidence}
+spacex-orbital-data-center: state=audit-preview reviewedEvidence=0/12 vendorEvidence=0 gateReport=no topGaps=3/3 top=orbital_compute_business_model_validation{gap:cost|leadTime|constraint|reviewedEvidence}, fault_tolerant_job_orchestration{gap:cost|leadTime|constraint|reviewedEvidence}, high_volume_compute_satellite_factory_line{gap:cost|leadTime|constraint|reviewedEvidence}
+Commercial readiness checks passed for current route states.

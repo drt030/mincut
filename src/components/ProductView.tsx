@@ -25,6 +25,7 @@ import {
   targetCostFor,
   type CostRollupResult,
 } from "@/lib/costRollup";
+import { commercialScaleAnswerForOrganization } from "@/lib/commercialDataCompleteness";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import {
   readerFacingCostSignalText,
@@ -266,10 +267,10 @@ function ProductInvestorAnswerCard({ graph, product }: { graph: GraphData; produ
               </div>
               <div className="metric-detail-row-values">
                 <span>
-                  <strong>{t("readerWhereStuck")}:</strong>{" "}
+                  <strong>{constraintFactors.length > 0 ? t("readerWhereStuck") : t("readerRouteRole")}:</strong>{" "}
                   {constraintFactors.length > 0
                     ? constraintFactors.map((factor) => factor.label).join(" · ")
-                    : t("readerThesisCandidateConstraint")}
+                    : t("readerConstraintUnclassified")}
                 </span>
                 {entry.costTypicalRmb !== null ? (
                   <span>
@@ -640,7 +641,8 @@ function organizationMetricSummary(organization: Node): string | null {
     const value = formatMetricValue(metric.currentValue, metric.unit, metric.currency).compact;
     return `${metric.name}: ${value}`;
   });
-  return parts.length ? parts.join(" · ") : null;
+  if (parts.length) return parts.join(" · ");
+  return commercialScaleAnswerForOrganization(organization).text || null;
 }
 
 function ProductCostRollupSummary({ graph, product }: { graph: GraphData; product: Node }) {
@@ -919,5 +921,5 @@ function ProductViewTopBlockers({ graph, product }: { graph: GraphData; product:
 
 function blockerSignalText(node: Node, t: (key: string) => string): string {
   const factors = constraintFactorsForNode(node, t).map((factor) => factor.label);
-  return factors.length > 0 ? factors.slice(0, 2).join(" · ") : t("readerThesisCandidateConstraint");
+  return factors.length > 0 ? factors.slice(0, 2).join(" · ") : t("readerConstraintUnclassified");
 }

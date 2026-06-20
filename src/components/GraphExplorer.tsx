@@ -28,7 +28,7 @@ import { useHolderTeasers } from "./HolderTeaserProvider";
 import { selectTopN } from "@/lib/prioritySelection";
 import { effectiveLodZoom, type LodDisplayMode } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
-import { packRectangularNodes } from "@/lib/cardAwareLayout";
+import { edgeAwarePackRectangularNodes, type GeometryLayoutEdge } from "@/lib/edgeAwareLayout";
 import { computeRectEdgePorts } from "@/lib/edgePorts";
 import { subsystemHue } from "@/lib/subsystemHue";
 import {
@@ -113,6 +113,7 @@ type RadialNodeData = {
   onSelect: (nodeId: string) => void;
   shape: "circle" | "diamond";
   knowHowBottleneckCount: number;
+  knowHowBottleneckLabel: string;
 };
 
 const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<RadialNodeData>>) {
@@ -158,6 +159,7 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
         withHandles
         shape={data.shape}
         knowHowBottleneckCount={data.knowHowBottleneckCount}
+        knowHowBottleneckLabel={data.knowHowBottleneckLabel}
       />
     </div>
   );
@@ -173,6 +175,8 @@ type RadialEdgeData = {
   targetRadius: number;
   sourceAnchor?: { x: number; y: number };
   targetAnchor?: { x: number; y: number };
+  sourceCenter?: { x: number; y: number };
+  targetCenter?: { x: number; y: number };
   /** Per-edge stroke + width from `edgeStyleFor` driven by colour mode. */
   stroke: string;
   strokeWidth: number;
@@ -206,6 +210,10 @@ const RadialEdgeFlow = memo(function RadialEdgeFlow(
       sourceAnchorY={data?.sourceAnchor?.y}
       targetAnchorX={data?.targetAnchor?.x}
       targetAnchorY={data?.targetAnchor?.y}
+      sourceCenterX={data?.sourceCenter?.x}
+      sourceCenterY={data?.sourceCenter?.y}
+      targetCenterX={data?.targetCenter?.x}
+      targetCenterY={data?.targetCenter?.y}
       stroke={data?.stroke}
       strokeWidth={data?.strokeWidth}
       rootNodeId={data?.rootNodeId}
@@ -234,9 +242,9 @@ const edgeTypes = {
  * `<ReactFlow>` as a child, it overlays the Background grid but stays
  * below node DOM via `pointerEvents: none` + an explicit `z-index: 0`.
  *
- * Wedge fill opacity stays low so subsystem grouping remains a soft
- * background hint over the balanced tree rather than a rigid sector
- * constraint.
+ * Wedge fill opacity stays visible enough that the branch regions read as
+ * named product modules, while remaining quieter than node fills and edge
+ * overlays.
  */
 function SectorTintLayer({
   wedges,
@@ -270,7 +278,7 @@ function SectorTintLayer({
             key={w.id}
             d={w.d}
             fill={w.fill}
-            fillOpacity={0.045}
+            fillOpacity={0.055}
             stroke="none"
           />
         ))}
@@ -331,7 +339,6 @@ function SectorLabelLayer({
         {labels.map((item) => {
           const labelX = svgNumber(item.x);
           const labelY = svgNumber(item.y);
-          const labelRotate = svgNumber(item.rotate);
           return (
             <text
               key={item.id}
@@ -339,7 +346,6 @@ function SectorLabelLayer({
               x={labelX}
               y={labelY}
               textAnchor="middle"
-              transform={`rotate(${labelRotate} ${labelX} ${labelY})`}
               style={{ fontSize, strokeWidth }}
             >
               {item.label}
@@ -921,6 +927,15 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
   // id (e.g. dim flag, sector-tint colour, viewport math).
   const focusedId = focusPath.length > 0 ? focusPath[0] : null;
 
+  const layerVisibleNodeIds = useMemo(() => {
+    const visible = new Set<string>();
+    for (const node of canvasGraph.nodes) {
+      if (layerHidesNode(node, graphLayer)) continue;
+      visible.add(node.id);
+    }
+    return visible;
+  }, [canvasGraph.nodes, graphLayer]);
+
   // Focal subtree — A3 renders only these nodes. Orphans (sibling
   // products) are hidden per spec.
   const focalSubtree = useMemo(
@@ -946,21 +961,75 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     return raw;
   }, [focalSubtree, layout.positions]);
 
+  // First-layer subsystems for sector tinting, node roles, and edge-aware
+  // endpoint geometry. Order-independent: B2 sorts by id internally.
+  const firstLayerSubsystems = useMemo(() => {
+    const out: string[] = [];
+    for (const edge of canvasGraph.edges) {
+      if (edge.relation !== "requires") continue;
+      if (edge.source !== currentRootId) continue;
+      const target = canvasGraph.nodes.find((n) => n.id === edge.target);
+      if (!target || target.kind === "material") continue;
+      out.push(edge.target);
+    }
+    return out;
+  }, [canvasGraph, currentRootId]);
+  const firstLayerSubsystemSet = useMemo(
+    () => new Set(firstLayerSubsystems),
+    [firstLayerSubsystems],
+  );
+
+  const childrenByParent = useMemo(() => {
+    const out = new Map<string, string[]>();
+    const nodeById = new Map(canvasGraph.nodes.map((n) => [n.id, n]));
+    for (const edge of canvasGraph.edges) {
+      if (!isCanvasTreeEdge(edge, nodeById)) continue;
+      if (!out.has(edge.source)) out.set(edge.source, []);
+      out.get(edge.source)!.push(edge.target);
+    }
+    return out;
+  }, [canvasGraph.edges, canvasGraph.nodes]);
+
   const packedNodePositions = useMemo(() => {
     const sectorBoundsById = new Map<string, { start: number; end: number }>();
     for (const [nodeId, polar] of layout.positions) {
       const sectorBounds = sectorForTheta(polar.theta, layout.sectors);
       if (sectorBounds) sectorBoundsById.set(nodeId, sectorBounds);
     }
-    return packRectangularNodes(radialNodePositions, {
+    const nodeById = new Map(canvasGraph.nodes.map((node) => [node.id, node]));
+    const visualRadiusFor = (nodeId: string): number => {
+      if (!nodeById.has(nodeId)) return 12;
+      if (nodeId === currentRootId) return 26;
+      if (firstLayerSubsystemSet.has(nodeId)) return 22;
+      const hasStructuralChildren = (childrenByParent.get(nodeId) ?? []).some((childId) =>
+        layout.positions.has(childId),
+      );
+      return hasStructuralChildren ? 16 : 10;
+    };
+    const layoutEdges: GeometryLayoutEdge[] = canvasGraph.edges.flatMap((edge) => {
+      if (!isCanvasTreeEdge(edge, nodeById)) return [];
+      if (layout.edges.get(edge.id)?.style !== "primary") return [];
+      if (!layerVisibleNodeIds.has(edge.source) || !layerVisibleNodeIds.has(edge.target)) return [];
+      if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) return [];
+      if (!radialNodePositions.has(edge.source) || !radialNodePositions.has(edge.target)) return [];
+      return [{
+        id: edge.id,
+        source: edge.source,
+        target: edge.target,
+        sourceRadius: visualRadiusFor(edge.source),
+        targetRadius: visualRadiusFor(edge.target),
+      }];
+    });
+    return edgeAwarePackRectangularNodes(radialNodePositions, {
       width: BAND3_BOX.width,
       height: BAND3_BOX.height,
       padding: 36,
       fixedIds: new Set([currentRootId]),
       sectorBoundsById,
       sectorPaddingRadians: 0.1,
+      edges: layoutEdges,
     });
-  }, [radialNodePositions, currentRootId, layout.positions, layout.sectors]);
+  }, [canvasGraph.edges, canvasGraph.nodes, focalSubtree, radialNodePositions, currentRootId, layout.positions, layout.sectors, layout.edges, layerVisibleNodeIds, firstLayerSubsystemSet, childrenByParent]);
 
   // Every LOD band is mounted inside the same 136x72 React Flow node box.
   // Therefore even label mode needs packed centers; otherwise adjacent node
@@ -1011,45 +1080,6 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       setAgentExpansionStatus("error");
     }
   }, [currentRootId]);
-
-  // First-layer subsystems for the sector-tint background layer (B1)
-  // and B2 elastic angle assignment. Order-independent: B2 sorts by id
-  // internally; the tint layer also sorts before rendering.
-  const firstLayerSubsystems = useMemo(() => {
-    const out: string[] = [];
-    for (const edge of canvasGraph.edges) {
-      if (edge.relation !== "requires") continue;
-      if (edge.source !== currentRootId) continue;
-      const target = canvasGraph.nodes.find((n) => n.id === edge.target);
-      if (!target || target.kind === "material") continue;
-      out.push(edge.target);
-    }
-    return out;
-  }, [canvasGraph, currentRootId]);
-  const firstLayerSubsystemSet = useMemo(
-    () => new Set(firstLayerSubsystems),
-    [firstLayerSubsystems],
-  );
-
-  const layerVisibleNodeIds = useMemo(() => {
-    const visible = new Set<string>();
-    for (const node of canvasGraph.nodes) {
-      if (layerHidesNode(node, graphLayer)) continue;
-      visible.add(node.id);
-    }
-    return visible;
-  }, [canvasGraph.nodes, graphLayer]);
-
-  const childrenByParent = useMemo(() => {
-    const out = new Map<string, string[]>();
-    const nodeById = new Map(canvasGraph.nodes.map((n) => [n.id, n]));
-    for (const edge of canvasGraph.edges) {
-      if (!isCanvasTreeEdge(edge, nodeById)) continue;
-      if (!out.has(edge.source)) out.set(edge.source, []);
-      out.get(edge.source)!.push(edge.target);
-    }
-    return out;
-  }, [canvasGraph.edges, canvasGraph.nodes]);
 
   /**
    * Per-node outline colour is intentionally sparse and neutral. The
@@ -1166,13 +1196,17 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
           onSelect,
           shape: graphLayer === "knowhow" && isKh ? ("diamond" as const) : ("circle" as const),
           knowHowBottleneckCount: khBottleneckCounts.get(node.id) ?? 0,
+          knowHowBottleneckLabel: t("knowHowBottleneckBadgeLabel").replaceAll(
+            "{count}",
+            String(khBottleneckCounts.get(node.id) ?? 0),
+          ),
         },
         draggable: false,
         selectable: true,
       });
     }
     return nodes;
-  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes, graphLayer, layerVisibleNodeIds, khBottleneckCounts, khZeroHolderIds]);
+  }, [canvasGraph, currentRootId, focalSubtree, activeNodePositions, layout.positions, focalId, kindName, nodeName, selectedId, onSelect, outlineColorFor, childrenByParent, firstLayerSubsystemSet, subset.nodes, graphLayer, layerVisibleNodeIds, khBottleneckCounts, khZeroHolderIds, t]);
 
   const flowEdges: FlowEdge<RadialEdgeData>[] = useMemo(() => {
     type RenderableEdge = {
@@ -1227,6 +1261,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       const isRouteEdge = routeHighlight?.edgeIds.has(edge.id) ?? false;
       const dim = !subset.edges.has(edge.id) && edge.source !== selectedId && edge.target !== selectedId;
       const edgeKind = layout.edges.get(edge.id)?.style ?? "primary";
+      if (edgeKind === "cross" && displayMode !== "detail") continue;
       const emphasis = isRouteEdge
         ? "branch"
         : edgeKind === "primary" && focusPathPairs.has(`${edge.source}→${edge.target}`)
@@ -1272,6 +1307,8 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
           targetRadius: edge.targetRadius,
           sourceAnchor: sourceAnchorByEdge.get(edge.id),
           targetAnchor: targetAnchorByEdge.get(edge.id),
+          sourceCenter: activeNodePositions.get(edge.source),
+          targetCenter: activeNodePositions.get(edge.target),
           stroke: edge.stroke,
           strokeWidth: edge.strokeWidth,
           rootNodeId: currentRootId,
@@ -1280,7 +1317,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
       });
     }
     return edges;
-  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, routeHighlight, subset.edges, layerVisibleNodeIds]);
+  }, [canvasGraph, workingGraph, focalSubtree, layout, selectedId, colorMode, focusPath, currentRootId, focalId, firstLayerSubsystemSet, childrenByParent, activeNodePositions, routeHighlight, subset.edges, layerVisibleNodeIds, displayMode]);
 
   const backgroundOuterR = useMemo(() => {
     let maxNodeR = 0;
@@ -1721,7 +1758,7 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
                     wedges={sectorTintWedges}
                     backgroundOuterR={backgroundOuterR}
                   />
-                  {displayMode === "detail" ? null : <SectorLabelLayer labels={sectorLabels} />}
+                  <SectorLabelLayer labels={sectorLabels} />
                 </ReactFlow>
               </ZoomBridge>
             </ReactFlowProvider>

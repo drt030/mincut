@@ -1,0 +1,2692 @@
+{
+  "slug": "ai-compute",
+  "counts": {
+    "demote": 94,
+    "failed": 46,
+    "needs_fetch": 55,
+    "structural_ok": 148
+  },
+  "worklist": [
+    {
+      "id": "ev_acc_logic_foundry_capacity",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_tsmc_3nm",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_euv_mask_bottleneck",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_euv_mask_suppliers",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_euv_resist_challenge",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_deposition_equipment",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_plasma_etch",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_cmp_process",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_ion_implant",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_metrology",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_wafer_supply",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_process_gases",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_thermal_processing",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_tsmc_capacity",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_asml_capacity",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic_asml_export_control",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_cowos_architecture",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_tsmc_cowos_share",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_tsmc_capacity",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_osat_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_ibiden_expansion",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_substrate_bottleneck",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_substrate_capacity",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_test_capacity",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_flip_chip_equipment",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_tsv_equipment",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_hdi_laser_drill",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_underfill_material",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_copper_pillar_bump",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkg_sac305_solder",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_trendforce_hbm_demand_2024",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_skhynix_share_2024",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_samsung_ramp_2024",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_micron_timeline_2025",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: unreachable"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_sk_hynix_process_node",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_tsv_bonding_yield",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_test_yield_constraints",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_ate_lead_time",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_hybrid_bonder_equipment",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: unreachable"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_ate_equipment",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_hbm_substrate_laminate_suppliers",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_tsmc_cowos_capacity_2026",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_samsung_iCube_2024",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_ajinomoto_abf_2025",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_ajinomoto_expansion_2030",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_ajinomoto_q4_2025_earnings",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_nittobo_tglass_shortage",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_nittobo_capacity_expansion",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_nittobo_price_increases",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_kinsus_revenue_2025",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_digitimes_substrate_leaders",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_unimicron_market_share",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_mitsubishi_bt_resin",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: unreachable"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_nan_ya_nittobo_partnership",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub_thermal_via_equipment_lead_time",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_broadcom_transceiver_capacity",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_broadcom_transceiver_asic",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_marvell_transceiver_asic",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_intel_transceiver_asic",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_vcsel_supply_constraint",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_osat_substrate_capacity",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt_corning_fiber_optics",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_vrm_architecture_hpc",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_power_stage_shortage_2024",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_mlcc_shortage_2023",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_inductor_market_overview",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_48v_standard_adoption",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_rack_psu_redundancy",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_connector_lead_time_2024",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_vrm_thermal_design",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_renesas_vrm_ic",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_tsmc_capacity_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_samsung_foundry_power_ics",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_murata_mlcc_production",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_tdk_mlcc_capacity",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_samsung_em_mlcc",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_murata_inductor_market",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_tdk_inductor_ferrite",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_vicor_isolated_converter",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_pi_galvanically_isolated",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_delta_datacenter_psu",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_eaton_power_systems",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_molex_high_current_connector",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_te_connectivity_connectors",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_renesas_power_ic_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_samsung_foundry_capacity",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_murata_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_tdk_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_samsung_em_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_vicor_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_pi_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_delta_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pwr_eaton_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_asetek_market_dominance",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_shin_etsu_tim_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_henkel_bergquist_tim",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_asetek_custom_blocks",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_boyd_heat_exchangers",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_lytron_radiators",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_ebara_pumps",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_thm_vertiv_cdu",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_shinko_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_shinko_abf_supply",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_ats_market_share",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_ats_hdi_capacity",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_abf_shortage_2021_2023",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr_murata_6981",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr_nittobo_3110",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_ibiden_abf_concentration",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_ibiden_capacity_expansion",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_ase_packaging_capacity",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_advanced_packaging_multi_source",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub2_samsung_icube_saint",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic2_samsung_foundry_capacity",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic2_asml_optics_zeiss",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic2_euv_mask_duopoly",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_logic2_tsmc_foundry_capacity_updated",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt2_eml_dfb_shortage_2024",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: wrong_topic"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt2_lumentum_supplier_list",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt2_innolight_assembler_role",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_opt2_eoptolink_module_supply",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_cdu_capacity_constraint",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_coolitsystems_cdu",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_schneider_electric_cooling",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_motivair_modular_cooling",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_vertiv_cooling_market",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_henkel_tim_adhesive",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cp2_asetek_liquid_cooling",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_inp_market_2024",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_jx_market_dominance",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_jx_expansion_capex",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_axt_market_position",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_epitaxy_foundry_market",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_epitaxy_capacity_constraint",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_iqe_market_position",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_iqe_capacity_utilization",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_vpec_market_share",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_vpec_mocvd_expansion",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_landmark_market_position",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_intelliepi_expansion",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_sumitomo_chem_epi",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_eml_shortage_2024",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_vcsel_supplier_count",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_optup_fab_lead_time",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_gaa_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_sic_oversupply",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_inp_shortage_optical",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_samsung_gan_foundry",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_gf_gan_tsmc_license",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_sumitomo_gaas_triopoly",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_intelliepi_growth",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_epitaxial_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_win_capacity_growth",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_coherent_inp_constraint",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_coherent_nvidia_deal",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: unreachable"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_coherent_capacity_ramp",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_optical_foundry",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_samsung_device_quality",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_gf_navitas_partnership",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_db_hitek_delay",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_power_gan_demand",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_thermal_optical",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_foundry_wafer_link",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_foundry_epi_link",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_intelliepi_chips_act",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_cmpd_wolfspeed_300mm",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_retimer_market_2024",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_marvell_alaska_p_pcie6",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_marvell_taurus_acc_2025",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_acc_vs_dac_2024",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_3nm_aec_retimer_roadmap",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_pcie_cxl_switch_market_2025",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_ualink_spec_april2025",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_broadcom_retimer_2024",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_astera_labs_ipo_2024",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_icsi_credo_3nm_development",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_xray_comet",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_xray_camtek",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_xray_onto",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_xray_kla",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_optical_camtek",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_optical_confovis",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_optical_resolution",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_optical_onto",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_w2w_evg",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_w2w_suss",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_w2w_hybrid",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_w2w_besi",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_tcb_asmpt",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_tcb_leadtime",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_tcb_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_tcb_kulicke",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: unreachable"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_underfill_asymtek",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_underfill_itw",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_underfill_axxon",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_underfill_throughput",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_thermal_kic",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_thermal_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_probe_teradyne",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_probe_cohu",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_ate_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_disco_market",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_disco_tech",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_dicing_growth",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_plasma_keylink",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_plasma_nordson",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_furnace_despatch",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_chamber_thermal",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_xray_process",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_optical_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_w2w_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_tcb_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_underfill_process",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_thermal_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_probe_test",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_dicing_process",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_plasma_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_furnace_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_onto_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_onto_qualification",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_camtek_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_comet_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_comet_ca20",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_confovis_product",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_besi_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_besi_orders",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_evg_marketshare",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_evg_product",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_suss_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_suss_xbc300",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_asmpt_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_asmpt_firebird",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_nordson_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_nordson_asymtek",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_itw_camalot",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_kic_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_keylink_product",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_disco_ir",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_disco_fy24",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_axxon_product",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_despatch_product",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_chamber_process",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_pkgeq_tcb_besi",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_bn3_hbm_testing",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_bn3_optical_transceiver",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_bn3_sealed_cooling",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sb4_optical_transceiver_coherent",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sb4_avc_thermal_tracker",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sb4_innoscience_gan",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_hoya_highna_1",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_hoya_highna_2",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_hanmi_tcb_1",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_asmpt_share_gain_1",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_inp_shortage_1",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_jx_expansion_1",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_coherent_guidance_1",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_nittobo_monopoly_1",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_tglass_shortage_1",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_asahi_entry_1",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_hoya_euv_1",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_nc4_euv_market_1",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr4_jx_tse_listing",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr4_nordson_nasdaq",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr4_suss_xetra",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr4_landmark_tpe",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_tkr4_wolfspeed_ch11",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_sub4_mgc_bt_independent",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_edge4_amphenol_optical_connectors",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_edge5_amphenol_electrical_connectors",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_edge6_marvell_redriver_chiplet",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_advantest_ate_memory",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_amkor_flip_chip",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_ase_flip_chip",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_asmpt_flip_chip",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_unimicron_substrate",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_shinko_substrate",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_kinsus_substrate",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_teradyne_ate",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_kla_inspection",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_camtek_inspection",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_onto_inspection",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_teradyne_hbm_test",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_lumentum_compound",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_coherent_compound",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_sumitomo_electric_compound",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: unreachable"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_broadcom_compound",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5w_mitsubishi_electric_compound",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: 404"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_rdl_photoresist_market_tam",
+      "bucket": "demote",
+      "reasons": [
+        "dead source: generic_homepage"
+      ],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_cmp_consumables_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_cmp_formulation_leadtime",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_dicing_blade_market",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_dicing_blade_suppliers",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_dicing_blade_consumption",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r5n_ncf_underfill_qualification",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_skhynix_hbm_share_2026",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_samsung_hbm_capacity_2026",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_micron_hbm4_ramp_2026",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_hbm_total_capacity_bits_2026",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_sk_m15x_fab_capacity",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_hbm_hybrid_bonding_yield",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_hanmi_tc_bonder_lead_time",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_advantest_ate_lead_time",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6h_asmpt_hbm4_bonder_orders",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6l_asml_euv_2025",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6l_asml_litho_share",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6l_asml_sole_supplier",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6l_zeiss_sole_source",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6l_zeiss_asml_partnership",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6l_tsmc_foundry_wiki",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6o_coherent_inp_capacity",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6o_eml_supplier_share",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6_euv_blanks_market_conflict_note",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6_high_na_hoya_lead_position",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6_high_na_qualification_unverified",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r6_asml_high_na_timeline",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7_cowos_fully_booked",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7_ecolab_coolit",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_004_coherent_eml",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_005_mitsubishi_eml",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_006_sumitomo_eml",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_007_motivair_cdu",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_008_hlj_laser_array",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_009_wolfspeed_wafers",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_010_sumitomo_wafers",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_011_win_foundry",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_012_astera_retimer",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_013_credo_pcie",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_014_credo_aec",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_015_astera_fabric",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_017_merck_rdl",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_019_entegris_cmp",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_020_hanmi_tcb",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7e_021_asmpt_tcb",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7_agc_euvl_capacity_official",
+      "bucket": "needs_fetch",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7_axt_inp_backlog_q1_2026",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_acc_r7_axt_capacity_roadmap",
+      "bucket": "structural_ok",
+      "reasons": [],
+      "hasExcerpt": true,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_mitsubishi_servo_drive_safety",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_mfg_mitsubishi_plc_servo",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_mfg_schneider_modicon_plc",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_mitsubishi_integrated_report_2025_factory_automation",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_schneider_fy2025_industrial_automation_results",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_mitsubishi_power_modules_motion_control_2026",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    },
+    {
+      "id": "ev_ibiden_integrated_report_2025_ic_package_substrates",
+      "bucket": "failed",
+      "reasons": [
+        "missing excerpt"
+      ],
+      "hasExcerpt": false,
+      "numberSupported": null
+    }
+  ]
+}

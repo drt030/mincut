@@ -1,0 +1,98 @@
+{
+  "humanoidInitialP1": {
+    "bodyHasOldThesis": false,
+    "paywallText": "Company exposure lockedCompany identities and listing details open only when this paid domain launches.",
+    "routeChip": "Future paid domain",
+    "selectedOrder": [
+      {
+        "exists": true,
+        "selector": "[data-testid=\"route-rail-selected-summary\"] .route-reader-thesis",
+        "text": "Bottom lineAssembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops. It matters because Humanoid robot key component stack depends on this constraint",
+        "top": 1479
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"route-rail-selected-summary\"] .route-reader-stuck",
+        "text": "Where it is stuckIntegration / commissioningMaintenance / operationsAssembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops.",
+        "top": 1543
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"route-rail-selected-summary\"] [data-testid=\"route-selected-decision-brief\"]",
+        "text": "Investor briefCost / gapCost gap unknownNeeds proxy price, BOM quote, or capacity/capex source.Supply constraintIntegration / commissioning · Maintenance / operations · Capacity / scaleRelief timing18 months; Likely long",
+        "top": 1635
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"route-rail-selected-summary\"] .route-reader-evidence-summary",
+        "text": "Key sources5 sources",
+        "top": 1778
+      }
+    ],
+    "startOrder": [
+      {
+        "exists": true,
+        "selector": ".route-rail-start .route-reader-thesis",
+        "text": "Bottom lineAssembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops. It matters because Humanoid robot key component stack depends on this constraint",
+        "top": 476
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"route-start-where-stuck\"]",
+        "text": "Where it is stuckIntegration / commissioningMaintenance / operationsAssembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops.",
+        "top": 590
+      },
+      {
+        "exists": true,
+        "selector": ".route-rail-start [data-testid=\"route-selected-decision-brief\"]",
+        "text": "Investor briefCost / gapCost gap unknownNeeds proxy price, BOM quote, or capacity/capex source.Supply constraintIntegration / commissioning · Maintenance / operations · Capacity / scaleRelief timing18 months; Likely long",
+        "top": 694
+      },
+      {
+        "exists": true,
+        "selector": ".route-rail-start .route-rail-chip-row[aria-label]",
+        "text": "EvidenceOpen DetailPaid exposureLocked until launchBottom lineOpen Detail",
+        "top": 830
+      }
+    ],
+    "title": "Humanoid robotics component stack | Capability Graph Explorer",
+    "url": "http://127.0.0.1:3007/d/humanoid-robotics?root=humanoid_robot_key_component_stack"
+  },
+  "currentHumanoidDetailP1": {
+    "bodyHasOldThesis": false,
+    "detailOrder": [
+      {
+        "exists": true,
+        "selector": "[data-testid=\"detail-bottleneck-thesis\"]",
+        "text": "Bottom lineAssembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops. It matters because Humanoid robot key component stack depends on this constraint",
+        "top": 377
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"detail-where-stuck\"]",
+        "text": "Where it is stuckIntegration / commissioningMaintenance / operationsCapacity / scaleAssembly, calibration, burn-in, traceability, functional safety, E-stop, duty-cycle validation, field service, and spares loops.",
+        "top": 466
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"detail-decision-brief\"]",
+        "text": "Investor briefCost / gapCost gap unknownNeeds proxy price, BOM quote, or capacity/capex source.Supply constraintIntegration / commissioning · Maintenance / operations · Capacity / scaleRelief timing18 months; Likely long",
+        "top": 562
+      },
+      {
+        "exists": true,
+        "selector": "[data-testid=\"detail-evidence-summary\"]",
+        "text": "Key sources5 sources. Best source: ISO/TS 15066:2016 Robots and robotic devices - Collaborative robots (standard · International Organization for Standardization · high confidence). Caveat: used only as a standards-adjac",
+        "top": 708
+      },
+      {
+        "exists": false,
+        "selector": "[data-testid=\"detail-exposure-evidence-summary\"]",
+        "text": null,
+        "top": null
+      }
+    ],
+    "fullDetailVisible": true,
+    "url": "http://127.0.0.1:3007/d/humanoid-robotics?root=humanoid_robot_key_component_stack&focus=humanoid_manufacturing_test_safety_service&path=humanoid_manufacturing_test_safety_service"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "nodes": [
+    {
+      "id": "humanoid_robot_actuator_joint",
+      "name": "Humanoid robot actuated joints (capability)",
+      "kind": "capability",
+      "domain": ["humanoid_actuator"],
+      "description": "The capability to actuate commercial humanoid robot joints: rotary joints (hips/shoulders/knees), linear joints, and dexterous hand/finger actuation, at the torque density, backdrivability, precision, and unit cost humanoid programs require. Structural container per ADR-0004; the three sibling products below are alternative joint architectures.",
+      "targetContext": {
+        "targetUseCase": "Commercial humanoid robot programs (2025-2027 pilot-to-production wave)",
+        "targetScale": "10k-100k+ robots/year per leading program target; ~30-50 actuated joints per robot",
+        "targetPerformance": "High torque density, low backlash, backdrivable or force-controlled joints",
+        "targetDate": "2026",
+        "region": "Global demand; supply concentrated Japan/China/Europe"
+      },
+      "confidence": "high",
+      "tags": ["humanoid", "capability_root"],
+      "reviewStatus": "unreviewed",
+      "maturityLabel": "unknown"
+    },
+    {
+      "id": "rotary_actuator_harmonic",
+      "name": "Rotary actuator joint (harmonic reducer)",
+      "kind": "product",
+      "domain": ["humanoid_actuator"],
+      "description": "Rotary humanoid joint module: strain-wave (harmonic) gear reducer + frameless torque motor + joint encoder + bearing + housing, integrated as a torque-dense rotary actuator. The architecture used for most rotary joints in current humanoid prototypes and early production runs.",
+      "maturityScore": 58,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["humanoid", "rotary_joint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "linear_actuator_roller_screw",
+      "name": "Linear actuator joint (planetary roller screw)",
+      "kind": "product",
+      "domain": ["humanoid_actuator"],
+      "description": "Linear humanoid joint module: planetary roller screw + motor (frameless or integrated) + sensing, converting rotary drive to high-force linear motion for legs/torso. Selected by several leading humanoid programs for high load joints; supply story dominated by precision thread-grinding capacity.",
+      "maturityScore": 50,
+      "maturityLabel": "early_deployment",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["humanoid", "linear_joint"],
+      "reviewStatus": "unreviewed"
+    },
+    {
+      "id": "dexterous_hand_actuator",
+      "name": "Dexterous hand actuation",
+      "kind": "product",
+      "domain": ["humanoid_actuator"],
+      "description": "Hand/finger actuation for humanoids: tendon/cable drives or micro linear drives, micro motors and leadscrews, integrated tactile/force sensing, packaged at finger scale. The least mature of the three joint architectures; designs vary widely across programs.",
+      "maturityScore": 42,
+      "maturityLabel": "prototype",
+      "maturityAsOf": "2026-06",
+      "confidence": "medium",
+      "tags": ["humanoid", "hand"],
+      "reviewStatus": "unreviewed"
+    }
+  ],
+  "edges": [
+    {"id": "e_hum_rotary__enables__capability", "source": "rotary_actuator_harmonic", "target": "humanoid_robot_actuator_joint", "relation": "enables", "claim": "Harmonic rotary joints are the dominant architecture for humanoid rotary DoF. Product->Capability per ADR-0004.", "confidence": "high", "reviewStatus": "unreviewed"},
+    {"id": "e_hum_linear__enables__capability", "source": "linear_actuator_roller_screw", "target": "humanoid_robot_actuator_joint", "relation": "enables", "claim": "Roller-screw linear joints serve high-load humanoid DoF in several leading programs.", "confidence": "high", "reviewStatus": "unreviewed"},
+    {"id": "e_hum_hand__enables__capability", "source": "dexterous_hand_actuator", "target": "humanoid_robot_actuator_joint", "relation": "enables", "claim": "Dexterous hand actuation covers the hand/finger DoF of the capability.", "confidence": "high", "reviewStatus": "unreviewed"}
+  ],
+  "evidence": [],
+  "tasks": []
+}

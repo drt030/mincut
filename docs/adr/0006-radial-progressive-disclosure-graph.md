@@ -116,7 +116,7 @@ Right-edge rail, replacing the current side panel:
 - Subsystem name labels: rendered inside the canvas at sector outer perimeters (band 2+).
 - Cmd+K search: no visible button; fuzzy-searches node names and metric/evidence text; Enter flies-to.
 - Zoom +/-/0: keyboard only.
-- Global header (能力图谱探索器 + 中英 + nav): unchanged.
+- Global header (MinCut + 中英 + nav): unchanged.
 
 **Transitional exception** (see `docs/design-principles.md`):
 - High-risk dependency pill banner survives at the top of the canvas until a glyph language for top-N priorities exists. Retire in Phase C.

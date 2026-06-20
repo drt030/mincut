@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ev_humanoid_st_reference",
+    "question": "st.com hard-blocks direct fetch (Akamai); STSPIN/current-sensing excerpt was obtained via r.jina.ai reader-proxy + corroborated by WebSearch but not a primary fetch — confirm the exact verbatim wording in the humanoid-robot-reference-guide.pdf, or substitute an accessible ST humanoid page (e.g. st.com/en/applications/robotics/humanoid-robots.html)."
+  },
+  {
+    "id": "ev_humanoid_yaskawa_motion",
+    "question": "Yaskawa Sigma-7 rotary-servo-motors page is JS-rendered (direct WebFetch sees only nav shell); the re-source excerpt came from the WebSearch index, not a primary fetch — confirm the exact 'Sigma-7 line of AC brushless rotary servo motors...' wording, or accept supplier-identity qualitatively (ticker 6506.T)."
+  },
+  {
+    "id": "ev_humanoid_te_robotics_connectors",
+    "question": "Every te.com page is unreachable from this environment (timeout/HTTP 000); the INTERCONTEC re-source excerpt came from the WebSearch index, not a primary fetch — confirm the exact INTERCONTEC wording, or keep the harness/connector exposure as a qualitative supplier-identity claim."
+  },
+  {
+    "id": "ev_humanoid_samsung_sdi_ir",
+    "question": "Stock code 006400 is NOT in quotable body text on samsungsdi.com/ir/financial (nav links only), and Yahoo 006400.KS returned HTTP 503 (rate-limited) this run — re-confirm the 006400.KS ticker from a clean primary source, or downgrade to qualitative supplier-identity (Samsung SDI = listed battery-cell maker)."
+  },
+  {
+    "id": "ev_humanoid_harmonic_ir",
+    "question": "On hds.co.jp/english/ir the securities code 6324 appears only inside an embedded image-link URL (sharedresearch.jp/en/companies/6324), not as quotable body text, and Yahoo 6324.T returned HTTP 503 this run — re-confirm the 6324.T ticker from a clean primary source, or rely on harmonicdrive.net (already verified) for the Harmonic-Drive strain-wave-reducer supplier claim."
+  }
+]

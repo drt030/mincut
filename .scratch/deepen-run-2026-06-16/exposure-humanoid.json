@@ -1,0 +1,668 @@
+[
+  {
+    "component": "Flexspline (thin-wall flexible gear cup)",
+    "matchToNodeConcept": "humanoid_harmonic_flexspline (NEW, under humanoid_strain_wave_reducer)",
+    "pass": {
+      "upstream": "Feedstock = high-cleanliness through-hardening / maraging alloy steel, gear-cut + heat-treated. Upstream merchant tier wired to humanoid_bearing_steel_feedstock (H1 material): org_nippon_steel (owns Ovako, global high-cleanliness bearing-steel leader) + org_proterial (specialty steel). No additional flexspline-specific steel maker is publicly named beyond these.",
+      "breadth": "Flexspline is NOT sold as a merchant part — it is captive inside the harmonic-drive maker. Publicly-named integrated makers: Harmonic Drive Systems (defines+makes it), Nabtesco, Leaderdrive, Nidec (Nidec Drive Technology / ex-Shimpo), PICEA Motion. All already in graph and already wired to the reducer/reducer-stack.",
+      "corners": "Harmonic Drive Systems is the originator and reference maker of the strain-wave gear; flexspline fatigue fabrication is the gear's life-limiter and the manufacturing bottleneck (multiple AM/BMG patents target it). Near-single-source at the high-precision end = Harmonic Drive Systems; Leaderdrive is the principal China second-source. Honest: NOT a true single-source globally (Nabtesco/Leaderdrive/Nidec all ship), so framed as concentrated, not monopoly."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_harmonic_drive_systems", "relation": "manufactured_by" },
+      { "id": "org_humanoid_leaderdrive", "relation": "manufactured_by" },
+      { "id": "org_humanoid_nabtesco", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "No merchant flexspline supplier exists to add — it is a captive subcomponent. Wiring the integrated reducer makers to the flexspline node is a who-makes-what (vendor-grounded) decision; the Harmonic Drive AG technology page is the primary part-definition source (verbatim: flexspline = 'a flexible cylinder with teeth cut around its outer circumference'). Keep Nabtesco as reported_capable (no flexspline-specific supply quote)."
+    ]
+  },
+  {
+    "component": "Circular spline (rigid internal ring gear)",
+    "matchToNodeConcept": "humanoid_harmonic_circular_spline (NEW, under humanoid_strain_wave_reducer)",
+    "pass": {
+      "upstream": "Hardened steel ring, precision gear-hobbed/ground. Same bearing/precision-steel feedstock tier as flexspline (org_nippon_steel, org_proterial via humanoid_bearing_steel_feedstock).",
+      "breadth": "Captive subcomponent of the same harmonic-drive makers; no separate merchant tier. Matched precision gear grinding pairs it to the flexspline (2-tooth differential).",
+      "corners": "Same concentration profile as the flexspline (it is the mating member). Harmonic Drive Systems reference; Leaderdrive / Nabtesco / Nidec second sources. No standalone corner beyond the reducer makers."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_harmonic_drive_systems", "relation": "manufactured_by" },
+      { "id": "org_humanoid_leaderdrive", "relation": "manufactured_by" },
+      { "id": "org_humanoid_nabtesco", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Same as flexspline: captive part, no merchant org to add. Source = Harmonic Drive AG glossary/technology page (verbatim: circular spline = 'rigid solid steel ring with internally cut teeth'). Vendor-grounded who-makes-what only."
+    ]
+  },
+  {
+    "component": "Wave generator (elliptical cam + flex bearing)",
+    "matchToNodeConcept": "humanoid_harmonic_wave_generator (NEW, under humanoid_strain_wave_reducer)",
+    "pass": {
+      "upstream": "Two inputs: (a) elliptical steel cam plug (precision-machined hardened steel, same steel tier); (b) a specialty thin, elliptically-deformable ball bearing (the flex bearing). The flex bearing pulls the same high-cleanliness bearing-steel feedstock (humanoid_bearing_steel_feedstock).",
+      "breadth": "The wave-generator assembly is captive to the harmonic-drive maker. BUT the specialty deformable flex bearing is the one element a thin-section bearing specialist could second-source: THK / IKO (Nippon Thompson) / Schaeffler-INA make thin-section + flexible/harmonic-reducer bearings (F-series). Harmonic Drive Systems makes its own integrated flex bearing.",
+      "corners": "Flex (deformable) bearing is itself a specialty item few makers produce — the deformable-bearing-on-cam is a recognized sub-chokepoint. Concentrated to Harmonic Drive Systems (integrated) + the thin-section bearing trio (THK/IKO/Schaeffler-INA). Honest: bearing makers are capability-class for THIS exact flex bearing (no public manufactured_by quote tying them to a named humanoid wave generator) -> reported_capable_supplier."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_harmonic_drive_systems", "relation": "manufactured_by" },
+      { "id": "org_thk", "relation": "reported_capable_supplier" },
+      { "id": "org_schaeffler", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_ikont_nipponthompson",
+        "name": "Nippon Thompson Co., Ltd. (IKO)",
+        "ticker": "6480.T",
+        "tickerVerifiedUrl": "https://www.ikont.co.jp/eg/ir/equity/eq01.html",
+        "shareMetric": "qualitative: one of the three global thin-section / crossed-roller + flexible-bearing specialists (IKO CRB/CRBC/CRBH ranges); makes harmonic-reducer-class bearings",
+        "basis": "product-line presence (who-makes-what), not market share",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://en.wikipedia.org/wiki/Nippon_Thompson",
+        "sourceClass": "vendor_ir + encyclopedia (who-makes-what); NO share number asserted",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "Flex-bearing supply by THK/IKO/Schaeffler to a NAMED humanoid wave generator is capability-only (no manufactured_by quote) -> all three reported_capable_supplier. The cam+integrated-bearing is captive to Harmonic Drive Systems (manufactured_by, vendor-grounded). IKO ticker 6480.T verified this round from IR (Tokyo SE)."
+    ]
+  },
+  {
+    "component": "Output cross-roller bearing (thin-section, RA-series)",
+    "matchToNodeConcept": "humanoid_cross_roller_bearing (NEW, under humanoid_strain_wave_reducer)",
+    "pass": {
+      "upstream": "High-cleanliness bearing steel (humanoid_bearing_steel_feedstock) -> org_nippon_steel (owns Ovako) + org_proterial. Precision through-hardening + grinding under 5 micron.",
+      "breadth": "Publicly-named crossed-roller-bearing makers for robot joints: THK (RA/RAU/RB/RE/RU), IKO/Nippon Thompson (CRB/CRBC/CRBH), Schaeffler-INA (YRT/XSU rotary-table), NSK, NTN, plus Harmonic Drive Systems' integrated output bearing. All are existing org ids.",
+      "corners": "Concentrated maker set (high stiffness, multi-axis moment load in a slim envelope). THK and IKO are the reference crossed-roller suppliers; THK RA-series (RA5008/RA10008) cited as the documented hip/shoulder humanoid parts. Honest: this is an oligopoly (5-6 makers), NOT single-source — framed as concentrated."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_thk", "relation": "manufactured_by" },
+      { "id": "org_schaeffler", "relation": "reported_capable_supplier" },
+      { "id": "org_nsk", "relation": "reported_capable_supplier" },
+      { "id": "org_ntn", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_harmonic_drive_systems", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_ikont_nipponthompson",
+        "name": "Nippon Thompson Co., Ltd. (IKO)",
+        "ticker": "6480.T",
+        "tickerVerifiedUrl": "https://www.ikont.co.jp/eg/ir/equity/eq01.html",
+        "shareMetric": "qualitative: one of two reference crossed-roller-bearing makers (with THK) for precision/robot joints",
+        "basis": "product-line presence (CRB/CRBC/CRBH crossed-roller ranges)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://en.wikipedia.org/wiki/Nippon_Thompson",
+        "sourceClass": "vendor_ir + encyclopedia (who-makes-what); robot-joint crossed-roller share is SEO-only -> NOT quantified",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "RA5008/RA10008 'humanoid hip/shoulder part' claim and the maker-share split are SEO-sourced (jiabearing / made-in-china) -> kept qualitative, NOT a cited number. THK wired manufactured_by (reference robot-joint crossed-roller maker, also already wired to humanoid_joint_bearing_sealing as reported_capable); rest reported_capable. 6 orgs named -> within ADR soft cap; THK+IKO are the concentrated front, others are overflow second-sources (note).",
+      "OVERFLOW note: IKO + THK are the most-concentrated pair; Schaeffler/NSK/NTN/Harmonic Drive are the breadth tail."
+    ]
+  },
+  {
+    "component": "High-cleanliness bearing steel (100Cr6 / GCr15 / 52100)",
+    "matchToNodeConcept": "humanoid_bearing_steel_feedstock (NEW material, under humanoid_strain_wave_reducer; also feeds roller-screw rollers H2)",
+    "pass": {
+      "upstream": "Raw: VIM-VAR / vacuum-degassed / ESR remelted chromium bearing steel; fatigue life scales with O2/inclusion cleanliness. This IS the upstream material node.",
+      "breadth": "Premium high-cleanliness bearing steel is a short specialty-mill list. VERIFIED relationships: Nippon Steel owns Ovako (global high-cleanliness bearing-steel technology leader) + Sanyo Special Steel (bearing steel). Proterial (ex-Hitachi Metals) makes specialty/bearing steel. Other named mills (Ovako standalone, Sanyo) fold into Nippon Steel.",
+      "corners": "Cleanliness-grade bearing steel is a recognized chokepoint feeding bearings + roller-screw rollers. Concentrated to Nippon Steel group (Ovako + Sanyo) + Proterial + a few CN/EU mills. Honest: maker-share numbers exist only in SEO/trade-listing sources -> qualitative concentration only."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_nippon_steel", "relation": "manufactured_by" },
+      { "id": "org_proterial", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Sanyo Special Steel (5481.T) was a candidate but is DELISTED (Nippon Steel cash-out completed ~18 Mar 2025) -> NOT added as a live ticker; folded under org_nippon_steel. Ovako is PRIVATE (Nippon Steel subsidiary since 2018) -> represented by org_nippon_steel, qualitative. No verified maker-share number -> bearing-steel concentration shipped as an honest qualitative tag (ADR-0009 ladder step 3)."
+    ]
+  },
+  {
+    "component": "Roller-screw threaded shaft (central screw)",
+    "matchToNodeConcept": "humanoid_roller_screw_threaded_shaft (NEW, under humanoid_planetary_roller_screw)",
+    "pass": {
+      "upstream": "Precision-ground multi-start thread on hardened steel; ground by thread/screw grinders (humanoid_thread_grinding_equipment) -> Drake, PTG Holroyd (existing). Steel feedstock = humanoid_bearing_steel_feedstock (52100-class).",
+      "breadth": "Captive to the roller-screw maker. Publicly-named planetary-roller-screw makers (all existing): Rollvis, GSA (Gewinde Ziegler), Schaeffler (Ewellix), Drake Manufacturing, PICEA Motion.",
+      "corners": "Planetary-roller-screw supply is famously concentrated (Rollvis/GSA/Ewellix-Schaeffler dominate; precision thread grinding gates volume). Honest: the 26/26/14% share split is SEO-only (kggfa/datainsightsmarket) -> NOT cited; concentration kept qualitative."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_rollvis", "relation": "manufactured_by" },
+      { "id": "org_humanoid_gsa", "relation": "manufactured_by" },
+      { "id": "org_schaeffler", "relation": "manufactured_by" },
+      { "id": "org_humanoid_drake_manufacturing", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_picea_motion", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Schaeffler already wired manufactured_by to humanoid_planetary_roller_screw (via Ewellix, 2022 acquisition) — reuse. Roller-screw maker share split is SEO-only -> qualitative (matches prior-round GSA/Rollvis SEO flag). Schaeffler humanoid press release (primary, 403 on fetch but confirmed by search) supports who-makes-what only."
+    ]
+  },
+  {
+    "component": "Planetary rollers (single-start grooved rollers)",
+    "matchToNodeConcept": "humanoid_roller_screw_rollers (NEW, under humanoid_planetary_roller_screw)",
+    "pass": {
+      "upstream": "52100-class bearing steel (humanoid_bearing_steel_feedstock -> org_nippon_steel/org_proterial). Convex single-start profile, profile-matched to nut; roller grinding is the hardest step and gates output volume.",
+      "breadth": "Captive to the roller-screw makers (same set as shaft: Rollvis, GSA, Schaeffler/Ewellix, Drake, PICEA). Roller grinding equipment overlaps thread-grinder makers (Drake, PTG Holroyd).",
+      "corners": "Roller grinding is the volume-gating chokepoint step inside the most concentrated mechanism in the actuator. Same concentration as shaft. No separate merchant roller supplier."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_rollvis", "relation": "manufactured_by" },
+      { "id": "org_humanoid_gsa", "relation": "manufactured_by" },
+      { "id": "org_schaeffler", "relation": "manufactured_by" },
+      { "id": "org_humanoid_picea_motion", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Rollers are not sold separately — captive. Reuse the roller-screw maker set; no new org. Concentration qualitative (SEO-share flag respected)."
+    ]
+  },
+  {
+    "component": "Roller-screw nut (internal-thread + ring gears)",
+    "matchToNodeConcept": "humanoid_roller_screw_nut (NEW, under humanoid_planetary_roller_screw)",
+    "pass": {
+      "upstream": "Precision-machined hardened steel, internal multi-start thread + integrated ring gears + cage/retainer. Same steel tier.",
+      "breadth": "Captive to roller-screw makers. Same set.",
+      "corners": "Same concentration. No standalone merchant nut tier."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_rollvis", "relation": "manufactured_by" },
+      { "id": "org_humanoid_gsa", "relation": "manufactured_by" },
+      { "id": "org_schaeffler", "relation": "manufactured_by" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Captive part. Reuse roller-screw makers only. No new org; no quantified share."
+    ]
+  },
+  {
+    "component": "Coreless / hollow-cup micro motor (hand DoF drive)",
+    "matchToNodeConcept": "humanoid_hand_hollow_cup_motor (NEW, under humanoid_micro_hand_actuator)",
+    "pass": {
+      "upstream": "Needs NdFeB micro-magnets (humanoid_rare_earth_magnet_supply -> humanoid_ndfeb_magnet_feedstock H5) + copper magnet wire. Edge to humanoid_rare_earth_magnet_supply already in gap proposal.",
+      "breadth": "Publicly-named coreless / slotless micro-motor suppliers for dexterous hands: maxon (existing), PICEA Motion / Shenzhen PICEA (existing, ex-Han's Motion). Both already in graph.",
+      "corners": "Coreless hollow-cup micro-motors at the size/inertia for a 13-17-motor forearm pack are a precision-motor niche. maxon is the Western reference; PICEA the China challenger. Honest: not single-source; concentrated."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_maxon", "relation": "manufactured_by" },
+      { "id": "org_humanoid_picea_motion", "relation": "manufactured_by" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Tesla Optimus Gen-3 '13-17 coreless motors per hand / hollow-cup + lead screw + rope' is robottoday/foxtech (trade-blog) sourcing -> kept architecture-level, NO exact Tesla part count asserted as fact. Both motor orgs already in graph; manufactured_by is who-makes-what (vendor-grounded)."
+    ]
+  },
+  {
+    "component": "Hand micro lead-screw / ball-screw drive",
+    "matchToNodeConcept": "humanoid_hand_micro_leadscrew (NEW, under humanoid_micro_hand_actuator)",
+    "pass": {
+      "upstream": "Miniature precision lead/ball screw; precision-ground. Steel feedstock shared with roller-screw tier.",
+      "breadth": "Miniature precision screws overlap the roller-screw specialists where they make small screws (Rollvis/GSA) plus dedicated micro-screw makers. No NEW public-equity name found that is humanoid-specific and verifiable -> reuse roller-screw makers as reported_capable.",
+      "corners": "Micro lead-screw for a finger tendon drive is an emerging frontier (Optimus Gen-3). Honest: maker set not yet publicly crystallized for humanoid hands -> qualitative, capability-class."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_rollvis", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_gsa", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "No verifiable humanoid-specific public micro-lead-screw supplier beyond the roller-screw specialists -> reported_capable_supplier only, qualitative. Flag for owner: precision micro-screw is a thin-coverage frontier; revisit when a named supply emerges."
+    ]
+  },
+  {
+    "component": "Fingertip tactile sensing element (MEMS / magnetic / visuotactile)",
+    "matchToNodeConcept": "humanoid_fingertip_tactile_element (NEW, under humanoid_fingertip_tactile_array)",
+    "pass": {
+      "upstream": "Transducer die (MEMS barometric/capacitive, Hall tactile cell, or camera-based visuotactile module).",
+      "breadth": "Publicly-named tactile suppliers (all existing): PaXini, XELA Robotics, TE Connectivity (force). These are the named dexterous-hand tactile players in graph.",
+      "corners": "Fingertip tactile sensing is the named critical enabler for dexterous manipulation; supplier set is fragmented/emerging (many private startups). Honest: no dominant public corner -> concentrated-emerging, capability-class for several."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_paxini", "relation": "manufactured_by" },
+      { "id": "org_humanoid_xela_robotics", "relation": "manufactured_by" },
+      { "id": "org_humanoid_te_connectivity", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "PaXini/XELA are the named tactile makers already wired to humanoid_fingertip_tactile_array -> reuse to the element. No verified public share. TE Connectivity = force-sensing capability (reported_capable). Many tactile players are private -> no new public org added."
+    ]
+  },
+  {
+    "component": "Cathode active material (high-nickel NMC / NCA)",
+    "matchToNodeConcept": "humanoid_cell_cathode_active_material (NEW material, under humanoid_lithium_ion_cell_selection)",
+    "pass": {
+      "upstream": "Pulls nickel/cobalt/lithium feedstock; nickel-rich layered oxide powder; dominant cost/energy driver.",
+      "breadth": "Publicly-named cathode-active-material (CAM) makers: Sumitomo Metal Mining (NCA, co-developed with Panasonic), plus L&F, Umicore, Ronbay, EcoPro (CN/KR). Strongest verifiable public = Sumitomo Metal Mining.",
+      "corners": "Sumitomo Metal Mining is the world-leading NCA / nickel-rich CAM pioneer and the bulk historical NCA cathode-powder supplier for Panasonic/Tesla cells -> a genuine cathode corner (esp. high-Ni NCA). Honest: NMC overall is less concentrated than NCA; framed as 'leading nickel-rich CAM maker', not monopoly."
+    },
+    "existingOrgsToWire": [],
+    "newOrgs": [
+      {
+        "suggestedId": "org_sumitomo_metal_mining",
+        "name": "Sumitomo Metal Mining Co., Ltd.",
+        "ticker": "5713.T",
+        "tickerVerifiedUrl": "https://www.smm.co.jp/en/ir/stock/description/",
+        "shareMetric": "qualitative: 'world-class leader, pioneered nickel-rich cathode active materials'; co-developed NCA with Panasonic and 'manufactured the bulk of the world's NCA cathode powders' (2016 basis); expanding CAM capacity ~60kt->180kt/yr by 2030 (company-reported)",
+        "basis": "NCA/CAM production leadership (qualitative) + company-reported capacity (volume, tonnes/yr)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://www.mining.com/web/sumitomo-metal-aims-to-boost-battery-materials-output/",
+        "sourceClass": "quality trade press (greencarcongress, mining.com); NO precise market-share % asserted (SEO-only)",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "SMM verbatim TSE code 'Tokyo (Code : 5713)' verified from official IR page this round. Cathode CAM market-share % is SEO-only -> SMM tagged qualitatively as the leading nickel-rich CAM maker; capacity numbers attributed to company/mining.com, basis=tonnes/yr, NOT cited as share. relation = reported_capable_supplier (no manufactured_by quote tying SMM CAM to a NAMED humanoid cell)."
+    ]
+  },
+  {
+    "component": "Anode active material (graphite / Si-blend)",
+    "matchToNodeConcept": "humanoid_cell_anode_active_material (NEW material, under humanoid_lithium_ion_cell_selection)",
+    "pass": {
+      "upstream": "Natural/synthetic graphite + Si additive; second core electrode.",
+      "breadth": "Named anode makers: BTR, Shanshan, POSCO Future M, Mitsubishi Chemical, Resonac (CN/KR/JP). No anode maker is currently an existing org id and none surfaced with a verifiable humanoid-specific tie this round.",
+      "corners": "Synthetic graphite + Si-blend is China-concentrated (BTR/Shanshan dominate) but the data point is SEO/market-report territory; no quality-source share found this round."
+    },
+    "existingOrgsToWire": [],
+    "newOrgs": [],
+    "escalations": [
+      "No anode-active-material supplier added: the dominant makers (BTR, Shanshan, POSCO Future M) only surfaced via SEO/market-report sources this round, and none has a verifiable humanoid-specific supply tie. Per ADR-0009 (no quote, no org) the anode material node ships with NO org rather than an unverified one. Flag for owner: anode-CAM concentration (China graphite) is a real chokepoint worth a dedicated verified pass."
+    ]
+  },
+  {
+    "component": "Battery separator (microporous polyolefin)",
+    "matchToNodeConcept": "humanoid_cell_separator (NEW material, under humanoid_lithium_ion_cell_selection)",
+    "pass": {
+      "upstream": "Microporous PE/PP film, often ceramic-coated; safety-critical specialty film.",
+      "breadth": "Publicly-named separator makers: Asahi Kasei (Hipore, wet-process leader), Toray (Setela), Shenzhen Senior Technology Material (300568, NOT 'SEMCORP'), SK IE Technology, Entek. Top concentration in Asahi Kasei + Toray (JP) + the leading CN makers.",
+      "corners": "Separator film is a recognized chokepoint (few qualified high-power makers; every GWh needs ~2.5M m2). Asahi Kasei is the reference ex-China wet-process leader. Honest: a 5-player ~60% group per SEO sources (NOT cited); concentration kept qualitative with C&EN as the quality anchor."
+    },
+    "existingOrgsToWire": [],
+    "newOrgs": [
+      {
+        "suggestedId": "org_asahi_kasei",
+        "name": "Asahi Kasei Corporation",
+        "ticker": "3407.T",
+        "tickerVerifiedUrl": "https://www.asahi-kasei.com/ir/stock_information/basic_information/",
+        "shareMetric": "qualitative: reference ex-China wet-process Li-ion separator leader (Hipore); investing >$1bn in a Canada wet-separator plant",
+        "basis": "separator-film production leadership (qualitative); capex event (USD)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://cen.acs.org/energy/energy-storage-/Japans-battery-separator-makers-rethink/103/web/2025/10",
+        "sourceClass": "quality journalism (C&EN / ACS); share % only in SEO farms -> NOT quantified",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      },
+      {
+        "suggestedId": "org_shenzhen_senior",
+        "name": "Shenzhen Senior Technology Material Co., Ltd.",
+        "ticker": "300568.SZ",
+        "tickerVerifiedUrl": "https://stockanalysis.com/quote/she/300568/",
+        "shareMetric": "qualitative: one of the leading Chinese Li-ion separator makers (dry/wet/coated)",
+        "basis": "separator-film product-line presence (who-makes-what)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://stockanalysis.com/quote/she/300568/company/",
+        "sourceClass": "exchange mirror (ticker+business) + SEO (share, NOT cited)",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "'SEMCORP 300568' from gap file CORRECTED to legal name Shenzhen Senior Technology Material (300568.SZ) — verified this round. Toray (3402.T, also verified) is a third option but capped at the 2 most-concentrated (Asahi Kasei + Shenzhen Senior); Toray noted as overflow. Separator share % is SEO-only -> qualitative; C&EN is the quality anchor for the concentration claim. relation = reported_capable_supplier (no manufactured_by to a NAMED humanoid cell).",
+      "OVERFLOW note: Toray Industries (3402.T, verified) and SK IE Technology / Entek are the breadth tail beyond the named 2."
+    ]
+  },
+  {
+    "component": "BMS analog front-end / fuel-gauge IC",
+    "matchToNodeConcept": "humanoid_bms_analog_frontend (NEW, under humanoid_battery_management_system)",
+    "pass": {
+      "upstream": "Mixed-signal IC (multi-cell monitoring AFE / fuel-gauge); fab via standard analog foundry.",
+      "breadth": "Named BMS-AFE / fuel-gauge makers: Texas Instruments, Analog Devices (Maxim), NXP, STMicroelectronics. TI/NXP/ST already in graph; ADI is the notable missing pure-play analog leader.",
+      "corners": "Multi-cell BMS AFE is a concentrated analog niche (TI + ADI/Maxim dominate the high-cell-count AFE). Honest: oligopoly, not single-source."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_texas_instruments", "relation": "manufactured_by" },
+      { "id": "org_nxp", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_stmicroelectronics", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_analog_devices",
+        "name": "Analog Devices, Inc.",
+        "ticker": "ADI",
+        "tickerVerifiedUrl": "https://stockanalysis.com/stocks/ADI/",
+        "shareMetric": "qualitative: top-tier battery-monitoring AFE / fuel-gauge supplier (incl. Maxim portfolio); a leading high-cell-count BMS AFE maker alongside TI",
+        "basis": "product-line presence (who-makes-what)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://www.analog.com/en/product-category/battery-management.html",
+        "sourceClass": "vendor product page + exchange mirror (who-makes-what); no share number asserted",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "TI already wired manufactured_by to humanoid_battery_management_system -> reuse to the AFE node. ADI (NASDAQ: ADI, verified) added as the missing analog BMS-AFE leader, capability-class. No quantified AFE share found in a quality source -> qualitative."
+    ]
+  },
+  {
+    "component": "Electrical (silicon) steel laminations",
+    "matchToNodeConcept": "humanoid_motor_stator_lamination_steel (NEW material, under humanoid_frameless_bldc_motor)",
+    "pass": {
+      "upstream": "Thin non-oriented / grain-oriented Si-Fe; low-loss electrical steel.",
+      "breadth": "Named electrical-steel mills: Nippon Steel (existing), POSCO (existing), JFE, Baowu/Baosteel (existing). Thin high-grade non-oriented for high-speed robot motors is a short-list specialty.",
+      "corners": "Thin high-grade non-oriented electrical steel is supply-concentrated (a handful of mills). Honest: maker-share figures are SEO/trade -> qualitative; Nippon Steel is the verified reference."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_nippon_steel", "relation": "reported_capable_supplier" },
+      { "id": "org_posco", "relation": "reported_capable_supplier" },
+      { "id": "org_baosteel", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Electrical-steel makers reuse existing parcel ids (org_nippon_steel/org_posco/org_baosteel). No humanoid-specific supply quote -> reported_capable_supplier, qualitative. ADR-0005: keep as material leaf; do NOT decompose commodity ingot further. No verified share."
+    ]
+  },
+  {
+    "component": "Copper magnet (enamelled) wire",
+    "matchToNodeConcept": "humanoid_motor_copper_magnet_wire (NEW material, under humanoid_frameless_bldc_motor)",
+    "pass": {
+      "upstream": "Insulated copper winding wire (IEC 60317 classes).",
+      "breadth": "Largely commodity; makers are numerous (no <=3-holder corner). No verifiable humanoid-grade specialty corner found.",
+      "corners": "Per ADR-0005, NOT a chokepoint at the ingot/wire level -> keep as material leaf, no orgs."
+    },
+    "existingOrgsToWire": [],
+    "newOrgs": [],
+    "escalations": [
+      "Copper magnet wire is commodity (ADR-0005): NO org added. Material leaf only. Do not over-decompose. (Flag only if a high-temp robot-grade <=3-holder specialty emerges — none found this round.)"
+    ]
+  },
+  {
+    "component": "Sintered NdFeB magnet feedstock (Nd2Fe14B + Dy/Tb)",
+    "matchToNodeConcept": "humanoid_ndfeb_magnet_feedstock (NEW material, under humanoid_rare_earth_magnet_supply)",
+    "pass": {
+      "upstream": "Sintered NdFeB blanks (+ Dy/Tb heavy-rare-earth for hot-joint coercivity); China-concentrated. Feeds the rare-earth-magnet-supply node that makes finished arc magnets.",
+      "breadth": "Named NdFeB makers: JL MAG Rare-Earth (existing, China leader), Proterial (existing, ex-Hitachi Metals magnets), MP Materials (existing, US ex-China), Shin-Etsu (existing). All already org ids.",
+      "corners": "Sintered NdFeB (esp. with Dy/Tb) is a recognized China-concentrated chokepoint; JL MAG is the China reference, MP Materials the principal ex-China alternative. Honest: concentrated by geography (China ~90% of supply per general consensus, NOT cited to a number here) -> qualitative geo-concentration."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_jl_mag_rare_earth", "relation": "manufactured_by" },
+      { "id": "org_proterial", "relation": "manufactured_by" },
+      { "id": "org_mp_materials", "relation": "reported_capable_supplier" },
+      { "id": "org_shin_etsu_chemical", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "All four NdFeB orgs already exist AND are already wired to humanoid_rare_earth_magnet_supply (JL MAG/Shin-Etsu/Proterial manufactured_by; MP Materials manufactured_by; TDK reported_capable). Re-wire to the NEW feedstock node deepens by one layer. JL MAG 300748.SZ re-verified this round. China ~90% NdFeB share is consensus/qualitative -> NOT asserted as a cited number."
+    ]
+  },
+  {
+    "component": "Sensor elastic element (compliant spoke / Maltese-cross body)",
+    "matchToNodeConcept": "humanoid_ft_elastic_element (NEW, under humanoid_force_torque_sensing)",
+    "pass": {
+      "upstream": "Precision-machined metal elastomer (Al/steel); low cross-axis-coupling design is the core IP.",
+      "breadth": "Captive to the F/T sensor maker. Publicly-named 6-axis F/T makers (all existing): ATI (Novanta), Bota Systems, Sunrise Instruments/SRI, TE Connectivity.",
+      "corners": "Elastic-element design is the core 6-axis F/T IP; ATI is the Western reference. Sensor makers are concentrated but multi-source (ATI/Bota/Sunrise/+CN). Honest: not single-source."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_novanta_ati", "relation": "manufactured_by" },
+      { "id": "org_humanoid_bota_systems", "relation": "manufactured_by" },
+      { "id": "org_humanoid_sri_sunrise", "relation": "manufactured_by" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Elastic element is captive to the F/T sensor makers already wired to humanoid_force_torque_sensing -> reuse. No merchant elastic-element supplier; no new org; no quantified share."
+    ]
+  },
+  {
+    "component": "Strain transducer (foil gauge / silicon piezoresistor)",
+    "matchToNodeConcept": "humanoid_ft_strain_transducer (NEW, under humanoid_ft_elastic_element)",
+    "pass": {
+      "upstream": "Foil strain gauges or silicon piezoresistive die, bonded + Wheatstone-bridge-trimmed.",
+      "breadth": "Named strain-gauge specialists: HBK/Hottinger (private, part of Spectris), Kyowa (private/JP), plus the F/T makers' in-house gauges. No verifiable NEW public-equity pure-play surfaced.",
+      "corners": "Foil-gauge bonding + bridge trimming is a precision step; specialist makers (HBK, Kyowa) are mostly private. Honest: capability-class, private-heavy -> qualitative."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_te_connectivity", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Strain-gauge specialists (HBK/Hottinger, Kyowa) are PRIVATE -> no public org added; kept qualitative. TE Connectivity (existing) carries force/strain-sensing capability (reported_capable). Flag for owner: strain-gauge tier is private-dominated, so qualitative coverage is the honest ceiling."
+    ]
+  },
+  {
+    "component": "Magnetic encoder ASIC (Hall array) + diametric magnet",
+    "matchToNodeConcept": "humanoid_encoder_magnetic_asic (NEW, under humanoid_joint_encoder_position)",
+    "pass": {
+      "upstream": "Diametrically-polarized magnet over an ASIC Hall-sensor array; mixed-signal IC.",
+      "breadth": "Named magnetic-encoder-ASIC makers: ams-OSRAM (AS5xxx, the reference), Renishaw (existing, makes position encoders), Monolithic Power Systems (MagAlpha), Broadcom (existing), TDK (existing, Hall/magnetic). Concentrated short list.",
+      "corners": "Magnetic encoder ASICs are a concentrated specialty (ams-OSRAM is the dominant rotary magnetic-position ASIC supplier). Honest: a few makers (ams-OSRAM/MPS/Renishaw) -> concentrated, not monopoly."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_renishaw", "relation": "reported_capable_supplier" },
+      { "id": "org_broadcom", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_tdk", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_ams_osram",
+        "name": "ams-OSRAM AG",
+        "ticker": "AMS.SW",
+        "tickerVerifiedUrl": "https://www.six-group.com/en/market-data/shares/share-explorer/share-details.AT0000A3EPA4CHF4.html",
+        "shareMetric": "qualitative: reference supplier of rotary magnetic position-encoder ASICs (AS5xxx Hall-array family)",
+        "basis": "product-line leadership in magnetic position ASICs (who-makes-what)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://en.wikipedia.org/wiki/AMS-Osram",
+        "sourceClass": "exchange page (SIX) + encyclopedia (who-makes-what); no share number asserted",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      },
+      {
+        "suggestedId": "org_monolithic_power",
+        "name": "Monolithic Power Systems, Inc.",
+        "ticker": "MPWR",
+        "tickerVerifiedUrl": "https://stockanalysis.com/stocks/MPWR/",
+        "shareMetric": "qualitative: angular/position-sensor (MagAlpha) and motor-drive supplier for robotics",
+        "basis": "product-line presence (who-makes-what)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://www.monolithicpower.com/en/products/position-sensors.html",
+        "sourceClass": "vendor product page + exchange mirror (who-makes-what); no share number asserted",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "ams-OSRAM (AMS.SW, verified from SIX exchange page) and MPS (MPWR, verified) are the missing magnetic-ASIC leaders -> capability-class. Renishaw already wired manufactured_by to humanoid_joint_encoder_position (encoder maker) -> here reported_capable for the ASIC specifically. No quantified magnetic-ASIC share in a quality source -> qualitative. 5 orgs named -> at cap (ams-OSRAM + MPS most-concentrated; Renishaw/Broadcom/TDK breadth)."
+    ]
+  },
+  {
+    "component": "Optical code disk + photodetector (high-res absolute, output-side)",
+    "matchToNodeConcept": "humanoid_encoder_optical_codedisk (NEW, under humanoid_joint_encoder_position)",
+    "pass": {
+      "upstream": "Etched glass/metal code disk + LED/photodetector array; high-res absolute where magnetic resolution is insufficient.",
+      "breadth": "Named optical-encoder makers: HEIDENHAIN (existing, the optical-encoder reference), Renishaw (existing), Broadcom (existing, optical encoders). All existing.",
+      "corners": "HEIDENHAIN is the dominant high-resolution optical-encoder maker (private). Honest: NOT every humanoid joint carries an optical disk -> framed as the high-res/output-side option, not universal (overfit guard per gap note)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_heidenhain", "relation": "manufactured_by" },
+      { "id": "org_renishaw", "relation": "reported_capable_supplier" },
+      { "id": "org_broadcom", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "HEIDENHAIN + Renishaw + Broadcom already wired to humanoid_joint_encoder_position -> reuse to the optical-disk node. HEIDENHAIN is PRIVATE (no ticker). Frame optical disk as the high-res/output-side option (not universal) to avoid overfit miss. No quantified share."
+    ]
+  },
+  {
+    "component": "Structural materials (Mg alloy / PEEK-CF / Al alloy)",
+    "matchToNodeConcept": "humanoid_struct_magnesium_alloy + humanoid_struct_peek_cf + humanoid_struct_aluminum_alloy (NEW materials, under skeleton frame / torso enclosure)",
+    "pass": {
+      "upstream": "PEEK (and CF-reinforced) is the only one with a concentrated specialty maker tier; Mg/Al are commodity at ingot level (ADR-0005: keep as leaves).",
+      "breadth": "PEEK makers (existing): Victrex (PEEK reference), Evonik (VESTAKEEP), Syensqo (ex-Solvay KetaSpire). All already wired to humanoid_structure_materials_harness.",
+      "corners": "PEEK is supply-concentrated (Victrex is the reference high-performance PEEK maker). Mg/Al alloys are NOT chokepoints at ingot level -> no orgs (ADR-0005)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_victrex", "relation": "manufactured_by" },
+      { "id": "org_humanoid_evonik", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "PEEK-CF -> Victrex (manufactured_by) + Evonik (reported_capable), both already wired to humanoid_structure_materials_harness -> reuse to humanoid_struct_peek_cf. Mg alloy + Al alloy = commodity (ADR-0005): NO orgs added, material leaves only. Syensqo (existing) is overflow PEEK alt (note). No quantified share."
+    ]
+  },
+  {
+    "component": "Power switching device (Si MOSFET / GaN FET)",
+    "matchToNodeConcept": "humanoid_inverter_power_switch (NEW, under humanoid_inverter_power_stage)",
+    "pass": {
+      "upstream": "Low-voltage Si MOSFET or GaN FET for ~48V joint-motor phase switching; GaN is the power-density frontier.",
+      "breadth": "Named power-switch makers (all existing): Infineon (LV MOSFET leader), EPC (GaN pure-play), STMicroelectronics, NXP, TI. Strong existing exposure, no new org needed.",
+      "corners": "LV power MOSFET is Infineon-led; GaN is an EPC/Infineon/Navitas frontier. Honest: concentrated but multi-source -> oligopoly. Keep as ONE node (Si/GaN), do not split (padding guard)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_infineon", "relation": "manufactured_by" },
+      { "id": "org_humanoid_epc", "relation": "manufactured_by" },
+      { "id": "org_humanoid_stmicroelectronics", "relation": "reported_capable_supplier" },
+      { "id": "org_nxp", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_texas_instruments", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Infineon + EPC already wired (Infineon manufactured_by to humanoid_battery_power_charging_system / current_sense_gate_driver; EPC manufactured_by to current_sense_gate_driver) -> reuse to the power-switch node. All 5 existing. No new org; no quantified share. Keep Si+GaN in ONE node (padding guard)."
+    ]
+  },
+  {
+    "component": "CMOS image sensor + depth emitter (VCSEL/IR)",
+    "matchToNodeConcept": "humanoid_depth_image_sensor (NEW, under humanoid_depth_camera_lidar)",
+    "pass": {
+      "upstream": "CMOS/RGBIR image sensor + structured-light/ToF emitter (VCSEL/IR).",
+      "breadth": "Named: Sony (CMOS image-sensor global leader), STMicroelectronics (existing, VB1940 RGBIR + VL53L9CX ToF), Orbbec/RealSense (existing, depth-module integrators). Sony is the missing merchant image-sensor corner.",
+      "corners": "Sony is the dominant merchant CMOS image-sensor supplier (the genuine corner for the imager itself); ST is the integrated depth/ToF reference. Orbbec/RealSense are module integrators (vendor self-claims flagged prior round -> kept qualitative)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_stmicroelectronics", "relation": "manufactured_by" },
+      { "id": "org_humanoid_orbbec", "relation": "reported_capable_supplier" },
+      { "id": "org_humanoid_realsense", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_sony",
+        "name": "Sony Group Corporation",
+        "ticker": "6758.T",
+        "tickerVerifiedUrl": "https://stockanalysis.com/quote/tyo/6758/",
+        "shareMetric": "qualitative: global leader in merchant CMOS image sensors (imaging & sensing solutions segment)",
+        "basis": "image-sensor product leadership (who-makes-what)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://en.wikipedia.org/wiki/Sony_Semiconductor_Solutions",
+        "sourceClass": "exchange mirror (ticker) + encyclopedia (who-makes-what); image-sensor share % (SEO/analyst) NOT asserted here",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "Sony (6758.T, verified) added as the verified merchant CMOS image-sensor corner — replaces leaning on Orbbec/RealSense vendor self-claims (prior-round flag respected: Orbbec/RealSense kept reported_capable, no new self-claim share). ST already wired manufactured_by to humanoid_depth_camera_lidar -> reuse. relation Sony = reported_capable (no humanoid-named supply quote). No cited share."
+    ]
+  },
+  {
+    "component": "MEMS IMU die (gyro + accelerometer)",
+    "matchToNodeConcept": "humanoid_imu_mems_die (NEW, under humanoid_imu_attitude_sensing)",
+    "pass": {
+      "upstream": "6-axis MEMS inertial die (3-axis gyro + 3-axis accel).",
+      "breadth": "Named MEMS-IMU makers: Bosch Sensortec (existing), STMicroelectronics (existing), TDK/InvenSense (existing), Analog Devices (high-perf tactical-grade). Top-3 consumer = ST/TDK-InvenSense/Bosch.",
+      "corners": "Concentrated to ST + TDK InvenSense + Bosch Sensortec (Yole: smartphone IMU share ST ~50%, TDK InvenSense 27%, Bosch 17% — quality source, but basis = smartphone, not robot). Genuine concentration corner."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_bosch_sensortec", "relation": "manufactured_by" },
+      { "id": "org_humanoid_stmicroelectronics", "relation": "manufactured_by" },
+      { "id": "org_humanoid_tdk", "relation": "manufactured_by" }
+    ],
+    "newOrgs": [
+      {
+        "suggestedId": "org_analog_devices",
+        "name": "Analog Devices, Inc.",
+        "ticker": "ADI",
+        "tickerVerifiedUrl": "https://stockanalysis.com/stocks/ADI/",
+        "shareMetric": "qualitative: high-performance / tactical-grade MEMS IMU supplier (industrial/robotics, beyond the consumer top-3)",
+        "basis": "product-line presence (who-makes-what)",
+        "asOf": "2026-06-16",
+        "independentUrl": "https://www.analog.com/en/product-category/mems-inertial-measurement-units.html",
+        "sourceClass": "vendor product page + exchange mirror (who-makes-what); consumer-IMU share is ST/TDK/Bosch (Yole), ADI is the high-perf tail",
+        "relation": "reported_capable_supplier",
+        "confidence": "medium"
+      }
+    ],
+    "escalations": [
+      "Bosch Sensortec/ST/TDK already wired (Bosch + TDK manufactured_by to humanoid_imu_attitude_sensing) -> reuse to the IMU die. ADI (verified) added as the high-perf IMU supplier. Yole smartphone-IMU share (ST~50/TDK27/Bosch17) is a QUALITY-source number but basis=smartphone shipments (NOT robot) -> if used, must carry basis+scope; safest as qualitative concentration. 4 orgs (ST/TDK/Bosch most-concentrated; ADI tail)."
+    ]
+  },
+  {
+    "component": "Edge AI inference SoC (robot brain)",
+    "matchToNodeConcept": "humanoid_edge_inference_soc (NEW, under humanoid_edge_ai_compute_module)",
+    "pass": {
+      "upstream": "Onboard perception/VLA inference SoC within the robot power budget. In-scope per the standard ('the named compute SoC').",
+      "breadth": "Named SoC makers (all existing): NVIDIA (Jetson/Thor), Qualcomm, Rockchip, D-Robotics. Strong existing exposure.",
+      "corners": "NVIDIA Jetson/Thor is the de-facto high-end humanoid inference SoC reference; Qualcomm/Rockchip/D-Robotics are the alternatives. Honest: NVIDIA-led, multi-source at lower tiers."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_humanoid_nvidia", "relation": "manufactured_by" },
+      { "id": "org_humanoid_qualcomm", "relation": "manufactured_by" },
+      { "id": "org_humanoid_rockchip", "relation": "manufactured_by" },
+      { "id": "org_humanoid_d_robotics", "relation": "manufactured_by" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "All 4 SoC makers exist AND are already wired to humanoid_edge_ai_compute_module (NVIDIA/Qualcomm/Rockchip/D-Robotics) -> reuse to the SoC node. No new org. No quantified share (Jetson humanoid-share is not in a quality source)."
+    ]
+  },
+  {
+    "component": "LPDDR / on-module memory",
+    "matchToNodeConcept": "humanoid_compute_lpddr_memory (NEW, under humanoid_edge_ai_compute_module; WITH ai_compute_chain boundary note)",
+    "pass": {
+      "upstream": "LPDDR5/5X DRAM co-packaged with the inference SoC; gates on-device model size/bandwidth. Deep DRAM/HBM chain lives in ai_compute_chain (documented boundary).",
+      "breadth": "Named DRAM makers (existing in ai_compute_chain): SK Hynix, Micron, Samsung. Reuse those ids; do NOT decompose memory further here.",
+      "corners": "LPDDR/DRAM is a 3-maker oligopoly (SK Hynix, Micron, Samsung) — a genuine chokepoint, but it is the ai_compute_chain's chokepoint (boundary, not duplicate). Keep shallow here."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_skhynix", "relation": "reported_capable_supplier" },
+      { "id": "org_micron", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Memory node MUST carry a decomposition_frontier boundary note pointing at ai_compute_chain (DRAM/HBM lives there) -> documented boundary, not scope bleed (Day-0 rule). Reuse org_skhynix + org_micron (existing ai_compute ids); do NOT add Samsung as a new id if org_samsung exists there — grep before wiring. relation = reported_capable (no humanoid-named LPDDR supply quote). Keep memory shallow; no further decomposition."
+    ]
+  },
+  {
+    "component": "Heat pipe / vapor chamber",
+    "matchToNodeConcept": "humanoid_heat_pipe_vapor_chamber (NEW, under humanoid_motor_joint_thermal_path)",
+    "pass": {
+      "upstream": "Sealed two-phase heat-spreader (heat pipe / vapor chamber) for motors/compute.",
+      "breadth": "Named two-phase-spreader makers: Auras Technology (existing ai_compute id), Asia Vital Components/AVC (existing ai_compute id), Boyd/Aavid (existing, private). All existing.",
+      "corners": "Two-phase spreaders are a supply-concentrated item (Auras/AVC/Boyd + Taiwanese cluster). Honest: framed as the high-duty-cycle option (not every humanoid uses two-phase cooling, per gap overfit guard)."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_auras", "relation": "reported_capable_supplier" },
+      { "id": "org_avc", "relation": "reported_capable_supplier" },
+      { "id": "org_boyd", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Auras (3324.TWO) + AVC (3017.TW) tickers VERIFIED this round (were missing/blank on the existing ai_compute org records) -> supply verified ticker when wiring. Boyd is private (existing). Frame heat pipe/vapor chamber as high-duty-cycle option (overfit guard). No quantified humanoid-thermal share -> qualitative. All reuse existing ids."
+    ]
+  },
+  {
+    "component": "Thermal interface material (TIM)",
+    "matchToNodeConcept": "humanoid_thermal_interface_material (NEW material, under humanoid_compute_heat_spreader)",
+    "pass": {
+      "upstream": "Gap-filler/grease/pad between dies/motors and spreaders.",
+      "breadth": "Named TIM makers (all existing): Shin-Etsu Chemical, Henkel, Dow. All existing org ids.",
+      "corners": "High-performance TIM is a specialty-materials niche (Henkel/Dow/Shin-Etsu lead). Honest: concentrated, multi-source -> oligopoly."
+    },
+    "existingOrgsToWire": [
+      { "id": "org_shin_etsu_chemical", "relation": "reported_capable_supplier" },
+      { "id": "org_henkel", "relation": "reported_capable_supplier" },
+      { "id": "org_dow", "relation": "reported_capable_supplier" }
+    ],
+    "newOrgs": [],
+    "escalations": [
+      "Shin-Etsu (existing, also wired to rare-earth-magnet supply), Henkel (existing, wired to humanoid_thermal_management_system reported_capable), Dow (existing parcel id) -> all reuse. NO new org. Sanhua NOT wired here (prior-round thermal mis-scope flag respected — Sanhua is valve/thermal-loop, not TIM). No quantified share -> qualitative."
+    ]
+  }
+]

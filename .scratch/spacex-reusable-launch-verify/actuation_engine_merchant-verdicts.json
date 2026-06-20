@@ -1,0 +1,207 @@
+{
+  "lane": "actuation_engine_merchant",
+  "domain": "spacex_reusable_launch",
+  "verifier": "Opus 4.8 (evidence verifier + ticker auditor)",
+  "runDate": "2026-06-15",
+  "note": "Run 2 — prior run fetched sources but hung without emitting; this run re-verified all records, completed the two empty-excerpt repairs, and audited all 9 org tickers. Written incrementally per record. ok_exact grants are this verifier's, never self-assigned by the decomposition pass. Wikipedia/vendor pages are grey/pointer per whitelist §4 and are accepted only for structural/qualitative facts (tagged vendor_claim/historical_source).",
+
+  "verified": [
+    {
+      "id": "ev_space_moog_launch_tvc_actuators",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "moog.com launch-vehicle/booster/missile actuation page. Stored excerpt 'In-house manufacturing of core building blocks - actuators, controllers, servodrives, and servomotors.' + 'Actuators can be combined with controllers for a thrust vector control (TVC) system solution.' both present verbatim. Named programs Castor 30 / Centaur / NASA Ares Upper Stage / Orbital Antares First Stage confirmed on page. No market-share number claimed (none needed). Merchant TVC tier on non-SpaceX programs — honest altitude."
+    },
+    {
+      "id": "ev_space_moog_vulcan_first_flight",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "moog.com 2024 press release. Excerpt 'Moog designed and manufactured new hydraulic actuators for the thrust vector control system first stage main engines.' present verbatim. Vulcan inaugural launch date confirmed on page as January 8, 2024 (record's '~Jan 2024 inaugural' correct). Vendor PR, explicitly ULA Vulcan (not SpaceX)."
+    },
+    {
+      "id": "ev_space_moog_propellant_valves",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "moog.com space-propulsion launch-vehicles page. Excerpt 'Propellant and pressurant control valves are highly responsive and compatible with cryogenic or storable gas and fluid propellants. Moog's engine control valve solutions include ball, poppet, and pilot operated designs.' present verbatim. No share number claimed. Industry altitude."
+    },
+    {
+      "id": "ev_space_woodward_launch_vehicle_controls",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "woodward.com Space & Defense page. Full excerpt 'We leverage decades of hydraulic and electromechanical actuation to enable secure and reliable launch vehicles to escape Earth's gravity and return to land safely. We specialize in main engine controls, flight control actuation, thrust vector control actuation, control valves, and servo valves.' present verbatim. 'return to land safely' = reusable-launch relevance. Industry altitude, not SpaceX-specific."
+    },
+    {
+      "id": "ev_space_velo3d_spacex_licensing",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "3dprintingindustry.com. Verbatim: 'Space Exploration Technologies Corp (SpaceX) will pay five million dollars for Velo3D additive manufacturing technologies'; '$3M for the provision of certain related engineering and other support services'; 'builds on previous contracts to supply SpaceX with 3D printers'; 'SpaceX has used 3D printing in its Raptor engines.' Supports the org_velo3d 'SpaceX technology licence value = USD 5M (2024)' metric at the stated basis (licence portion only; $8M total is licence+engineering). This is the lane's ONLY confirmed SpaceX-specific merchant relationship."
+    },
+    {
+      "id": "ev_space_eos_space_rocket_engine_am",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "eos.info/industries/space. Excerpt 'The combustion chamber, 3D printed from a copper alloy on AMCM's M4K machines, is the largest single-piece combustion chamber for liquid rocket engines in the world.' + injector head 'all-in-one Design (AiO) ... with 122 injection elements' both present verbatim. ArianeGroup injector-head consolidation confirmed: page states 247 parts eliminated (248 consolidated to 1) — matches record's '247+ parts'. Vendor page; EOS private (no ticker); named users ArianeGroup/Launcher — not SpaceX-specific."
+    },
+    {
+      "id": "ev_space_nikon_slm_reusable_rocket_engine",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "nikon-slm-solutions.com success story. Excerpt 'Integrate cooling channels directly into the thrust chamber wall using Inconel 718.' + 'Achieved 7.2kN during a hot-fire campaign.' present verbatim. SLM-500 confirmed; reusable engine by Karman Space Programme (university-tier), reported_capable_supplier altitude — not SpaceX-specific. 7.2 kN figure at correct basis (single hot-fire campaign)."
+    },
+    {
+      "id": "ev_space_carpenter_additive_aero_powders",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "carpenteradditive.com aerospace-defense page. Stored excerpt fragments are verbatim substrings: page reads 'high-quality iron, nickel, cobalt, and titanium-based aerospace alloys' and footer 'Carpenter Additive is a business unit of Carpenter Technology Corporation'. No share number. Page emphasizes airframe/turbine; rocket-combustion-chamber use not explicit (record already flags this). Industry altitude."
+    },
+    {
+      "id": "ev_space_ati_aero_powder_superalloy",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "atimaterials.com aerospace products page. Excerpt 'ATI supplies powder and powder metal near-net shape products to the aerospace industry. Our powders include titanium, titanium aluminides, and nickel- & cobalt-based alloys and superalloys.' present verbatim. 'Jet engine' framing (not rocket-specific) — record already flags. Industry altitude."
+    },
+    {
+      "id": "ev_space_rbc_fibriloidcr_launch_bearings",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "rbcbearings.com Transport Dynamics page. Excerpt fragments all present verbatim: 'The FibriloidCR™ series has been tested and flight proven...', '...best suited for high load, pivoting or angular misalignment operation at low oscillation in Space Launch Vehicle and Satellite applications', 'Wide temperature range (°F): -320° (Cryogenic Range) to +450°'. Named launch-specific merchant bearing product. 'flight proven' is a vendor claim (noted). Not SpaceX-specific."
+    },
+    {
+      "id": "ev_space_superheavy_electric_tvc_captive",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "notes": "en.wikipedia.org SpaceX Super Heavy. Excerpt 'The inner thirteen engines are equipped with gimbal actuators and reignite for the boostback and landing burns. The outer 20 engines, arranged in a ring, are fixed in place. ... After Starship's first flight test, this gimbaling system was switched from a hydraulic system to an electric one, enabling the removal of the hydraulic power units.' present verbatim. GREY/POINTER source per whitelist §4 — accepted here only for the structural/qualitative captive (in-house electric) TVC fact, no market number. Owner may upgrade to primary later."
+    }
+  ],
+
+  "repaired": [
+    {
+      "id": "ev_space_velo3d_nasdaq_relisting",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001825079/000149315226002877/form424b3.htm",
+      "fetchMethod": "curl with SEC-compliant User-Agent 'MinCut Research evidence-audit phi.wth@gmail.com' (WebFetch returns 403 on EDGAR; SEC requires a UA with contact). HTTP 200, 112KB.",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "repairAction": "Extracted verbatim excerpt for the listing/L-PBF fact this SEC filing ACTUALLY supports. Recommended excerpt: \"Our common stock is listed on the Nasdaq Capital Market under the symbol “VELO.” On January 12, 2026, the closing price for our common stock was $22.09 per share.\" plus (technology) \"We produce a fully integrated hardware and software solution based on our proprietary laser powder bed fusion (“L-PBF”) technology, which greatly reduces and often eliminates the need for support structures.\" The 1-for-15 reverse split is also documented in the same filing.",
+      "scopeCorrection": "IMPORTANT — the prompt asked to extract an excerpt for 'Velo3D Nasdaq relisting / SpaceX-Raptor LPBF use'. The SpaceX-Raptor connection is NOT in this 424B3 (full-text scan: 'rocket' appears once, 'SpaceX'/'Raptor' zero times). The SpaceX-Raptor-LPBF claim is carried separately by ev_space_velo3d_spacex_licensing (3D Printing Industry), which is verified above. This record should support ONLY the VELO ticker + Nasdaq Capital Market listing + L-PBF technology basis; do not attach a SpaceX-Raptor claim to the SEC filing or it would be an unsupported-source mismatch.",
+      "notes": "VELO currency CONFIRMED current: Nasdaq Capital Market, $22.09 close on 2026-01-12 in this FY2026 424B3 (relisted 2025-08 post reverse-split as the record states). Financial-distress history acknowledged; listing is live. sourceStatus fetch_ok confirmed (200 via compliant UA, not by-class assumption)."
+    },
+    {
+      "id": "ev_space_nikon_slm_acquisition",
+      "originalUrl": "https://www.metal-am.com/nikon-completes-its-takeover-of-slm-solutions/",
+      "resolution": "RE-SOURCED (ladder rung 1). metal-am.com is bot-walled (403 on WebFetch and curl both runs) so it cannot be verified as cited. Replaced with two whitelist-quality alternates that carry the exact ownership/delisting fact verbatim.",
+      "recommendedUrl": "https://3dprint.com/303541/nikon-slm-solutions-debuts-with-gkn-aerospace-deal-and-corporate-rebranding/",
+      "corroboratingUrl": "https://www.tctmagazine.com/nikon-corporation-completes-slm-solutions-takeover/",
+      "fetchMethod": "WebFetch (both alternates resolved cleanly).",
+      "quoteMatch": "exact",
+      "numberInQuote": true,
+      "repairAction": "Recommended verbatim excerpt (from 3dprint.com): \"now a wholly-owned subsidiary of Nikon (TYO: 7731)\" and \"This action ... automatically delisted its shares from the Frankfurt Stock Exchange (FSE)\" following the squeeze-out (Sept 1 2023 rebrand to Nikon SLM Solutions). TCT corroborates completion + delisting provisions + 92.38% acceptance.",
+      "notes": "Confirms the org_nikon_slm_solutions note exactly: wholly-owned subsidiary of Nikon Corporation (Tokyo 7731), SLM delisted from Frankfurt via squeeze-out, public exposure via parent 7731.T. Owner should swap the record's url to the 3dprint.com (or tctmagazine.com) alternate since the cited metal-am.com URL is unverifiable behind a bot-wall."
+    }
+  ],
+
+  "escalations": [
+    {
+      "id": "ev_space_eaton_space_propulsion_tanks",
+      "question": "Eaton record/edge e_space_eaton_valves_tanks asserts a LAUNCH-vehicle valve/tank merchant role, but the only fetched source (satnews.com, exact-quote-matched) is explicitly SATELLITE propulsion — 'transfer of fuel to the satellite's propulsion system during orbit', MDA AURORA LEO constellation, zero launch-vehicle mention. The launch role is unsupported by this source. Remediation ladder: rung 1 re-source to an Eaton launch-vehicle hydraulics/fuel-conveyance page (heritage is real — Eaton/Aeroquip launch-vehicle hydraulic pumps — but the cited 2016 page was unreachable both runs), OR rung 3 downgrade the edge to qualitative satellite-propulsion capability and drop the launch-vehicle framing. Edge is already reported_capable_supplier / confidence low; recommend NOT marking verified for launch until re-sourced."
+    },
+    {
+      "id": "ev_space_parker_aerospace_launch_propulsion",
+      "question": "Parker record cannot be verified as cited: the source PDF (parker.com FSD-Overview.pdf) is bot-walled — 403 on WebFetch and on curl with both SEC-style and Safari UAs, both runs (533-byte error page). Additionally the stored excerpt is only a GENERAL engine-fuel-systems leadership claim with no launch-vehicle content, so even if reachable it would not support edge e_space_parker_valves (launch valves, SLS/Orion named). Remediation: rung 1 re-source — FOUND target: Parker blog states 'Parker Aerospace is making the voyage to the moon and beyond with NASA's Space Launch System (SLS) rocket and the Orion deep-space capsule' and parker.com/us/en/divisions/fluid-systems-division.html lists launch-vehicle valves (vent/heater/breakaway/pressure-regulating-shutoff etc.); replace url+excerpt with the SLS/Orion page to support the launch claim at the right altitude. Recommend NOT marking verified until re-sourced; confidence stays low."
+    }
+  ],
+
+  "deferredFixes": [
+    "ev_space_velo3d_nasdaq_relisting: after owner adds the recommended verbatim excerpt, update sourceStatus note to 'fetch_ok via SEC-compliant UA (curl)'; current record had an empty excerpt (acceptance blocker now cleared with the recommended quote).",
+    "ev_space_nikon_slm_acquisition: swap cited url metal-am.com -> 3dprint.com (or tctmagazine.com) and add the recommended excerpt; metal-am.com is bot-walled and unverifiable.",
+    "Schaeffler / SKF bearing edges (e_space_schaeffler_bearings, e_space_skf_bearings) carry NO evidence record in this batch and are qualitative cross-domain reuse at confidence low — left to deterministic structural_ok; flagged for the owner as the weakest two edges in the lane (no launch-specific source).",
+    "Parker excerpt should be upgraded to a launch-specific primary even if the FSD PDF becomes reachable — the current general 'global leader in engine fuel/lubrication/thermal management' quote is industry-leadership boilerplate, not launch evidence."
+  ],
+
+  "tickerAudit": [
+    {
+      "org": "org_moog",
+      "ticker": "MOG.A",
+      "exchange": "NYSE",
+      "verdict": "correct",
+      "source": "Nasdaq.com listing 'Moog Inc. Class A Common Stock (MOG.A)'; SEC EDGAR CIK 0000067887; Class B trades MOG.B. Verified vs exchange listing, not memory.",
+      "currency": "current"
+    },
+    {
+      "org": "org_woodward",
+      "ticker": "WWD",
+      "exchange": "Nasdaq (Global Select)",
+      "verdict": "correct",
+      "source": "Nasdaq.com 'Woodward, Inc. Common Stock (WWD)'; Bloomberg 'NASDAQ GS'. (Former symbol WGOV pre-2011.) Verified vs exchange.",
+      "currency": "current"
+    },
+    {
+      "org": "org_parker_hannifin",
+      "ticker": "PH",
+      "exchange": "NYSE",
+      "verdict": "correct",
+      "source": "investors.parker.com IR portal + NYSE listing pages. Verified vs IR/exchange.",
+      "currency": "current"
+    },
+    {
+      "org": "org_velo3d",
+      "ticker": "VELO",
+      "exchange": "Nasdaq Capital Market",
+      "verdict": "correct",
+      "source": "Velo3D Form 424B3 (SEC EDGAR CIK 0001825079, FY2026, curl 200 with compliant UA): 'Our common stock is listed on the Nasdaq Capital Market under the symbol “VELO.” On January 12, 2026, the closing price ... was $22.09.' Relisted 2025-08-19 post 1-for-15 reverse split.",
+      "currency": "current — confirmed live in FY2026 SEC filing (close $22.09, 2026-01-12); financial-distress history noted but listing is current"
+    },
+    {
+      "org": "org_eos_gmbh",
+      "ticker": null,
+      "exchange": "n/a (private)",
+      "verdict": "correct — no ticker",
+      "source": "EOS GmbH is privately held (founder/family-owned); record correctly lists listingStatus private with no ticker. Did not guess one.",
+      "currency": "n/a"
+    },
+    {
+      "org": "org_nikon_slm_solutions",
+      "ticker": "7731.T",
+      "exchange": "Tokyo Stock Exchange (parent Nikon Corporation)",
+      "verdict": "correct",
+      "source": "Tokyo SE code 7731 for Nikon Corporation (Yahoo 7731.T / Bloomberg 7731:JP / CNBC 7731.T-JP). SLM Solutions itself is a wholly-owned Nikon subsidiary delisted from Frankfurt (re-sourced via 3dprint.com 'wholly-owned subsidiary of Nikon (TYO: 7731)'); exposure correctly mapped to parent 7731.T.",
+      "currency": "current"
+    },
+    {
+      "org": "org_carpenter_additive",
+      "ticker": "CRS",
+      "exchange": "NYSE (parent Carpenter Technology Corporation)",
+      "verdict": "correct",
+      "source": "ir.carpentertechnology.com IR + NYSE 'NYSE: CRS'. Carpenter Additive is a business unit of Carpenter Technology Corporation (confirmed verbatim on carpenteradditive.com). Subsidiary/parent-ticker mapping correct.",
+      "currency": "current"
+    },
+    {
+      "org": "org_ati",
+      "ticker": "ATI",
+      "exchange": "NYSE",
+      "verdict": "correct",
+      "source": "ir.atimaterials.com IR + NYSE 'NYSE: ATI'. ATI Inc. (formerly Allegheny Technologies Incorporated). Verified vs IR/exchange.",
+      "currency": "current"
+    },
+    {
+      "org": "org_rbc_bearings",
+      "ticker": "RBC",
+      "exchange": "NYSE",
+      "verdict": "correct",
+      "source": "RBC Bearings SEC 8-K (CIK 0001324948) + investor.rbcbearings.com: common stock began trading on NYSE 2022-09-26 under 'RBC' (transferred from Nasdaq Global Select Market; preferred 'RBCP'). Record's note 'transferred Nasdaq->NYSE Sept 2022, symbol unchanged RBC' is precisely correct.",
+      "currency": "current"
+    }
+  ],
+
+  "summary": {
+    "verifiedCount": 11,
+    "repairedCount": 2,
+    "escalationCount": 2,
+    "tickerAuditCount": 9,
+    "wrongTickers": [],
+    "unsupportableRecords": ["ev_space_eaton_space_propulsion_tanks (launch role)", "ev_space_parker_aerospace_launch_propulsion (cited PDF bot-walled + boilerplate excerpt)"],
+    "repairOutcomes": {
+      "ev_space_velo3d_nasdaq_relisting": "REPAIRED — SEC 424B3 fetched (curl 200, compliant UA); verbatim VELO/Nasdaq Capital Market + L-PBF excerpt extracted. Scope note: SpaceX-Raptor claim is NOT in this filing — it belongs to ev_space_velo3d_spacex_licensing.",
+      "ev_space_nikon_slm_acquisition": "REPAIRED via re-source — cited metal-am.com is bot-walled; replaced with 3dprint.com (+ tctmagazine.com corroboration) carrying verbatim 'wholly-owned subsidiary of Nikon (TYO: 7731)' + Frankfurt delisting/squeeze-out."
+    }
+  }
+}

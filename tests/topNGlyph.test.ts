@@ -852,6 +852,41 @@ test("route-led desktop layout keeps the graph dominant over the detail rail", (
   );
 });
 
+test("commercial supplier detail shell inherits rail width and reflows dense grids", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const detailModeBlock = css.match(/\.route-detail-rail-detail-mode\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+  const decisionGridBlock =
+    css.match(/\.detail-commercial-supplier-ia\s+\.detail-decision-grid\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+  const axesGridBlock =
+    css.match(/\.detail-commercial-supplier-ia\s+\.detail-chokepoint-axes-grid\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
+
+  assert.doesNotMatch(
+    detailModeBlock,
+    /\bwidth\s*:/,
+    "sample-style detail mode should inherit the route rail width instead of defining its own width",
+  );
+  assert.match(
+    decisionGridBlock,
+    /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)/,
+    "sample-style core readout tiles should stay in one compact four-column row when the rail is wide enough",
+  );
+  assert.match(
+    decisionGridBlock,
+    /display:\s*grid/,
+    "sample-style core readout must declare its own grid display instead of depending on generic cascade",
+  );
+  assert.match(
+    css,
+    /@media\s*\(max-width:\s*520px\)[\s\S]*?\.detail-commercial-supplier-ia\s+\.detail-decision-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/,
+    "core readout should only fall back to a 2-column grid on genuinely narrow screens",
+  );
+  assert.match(
+    axesGridBlock,
+    /grid-template-columns:\s*repeat\(auto-fit,\s*minmax\(92px,\s*1fr\)\)/,
+    "four-axis drill-in should use responsive columns instead of forcing four narrow columns",
+  );
+});
+
 test("desktop graph layer toggle stays in the toolbar instead of covering the graph", () => {
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
   const explorerSource = fs.readFileSync(
@@ -883,13 +918,19 @@ test("desktop graph layer toggle stays in the toolbar instead of covering the gr
   );
 });
 
-test("route-led graph hides oversized sector labels by default", () => {
+test("route-led graph keeps in-canvas sector labels visible without a separate module legend strip", () => {
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const graphExplorer = fs.readFileSync(path.join(process.cwd(), "src", "components", "GraphExplorer.tsx"), "utf8");
 
-  assert.match(
+  assert.doesNotMatch(
     css,
     /\.graph-canvas-route-led\s+\.sector-label-layer\s*\{[\s\S]*display:\s*none/,
-    "route-led graph views should not let large sector labels compete with the reader rail or overlap controls",
+    "route-led graph views must not hide sector labels; coloured regions need named module context",
+  );
+  assert.doesNotMatch(
+    graphExplorer,
+    /SectorLegendStrip|sector-legend-strip/,
+    "route-led graph views should not add a redundant module legend strip above the canvas",
   );
 });
 
@@ -1190,15 +1231,10 @@ test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration
     /const labelY = svgNumber\(item\.y\);/,
     "sector label y coordinates must use svgNumber before SVG render to avoid SSR/client float drift",
   );
-  assert.match(
-    sectorLabelBlock,
-    /const labelRotate = svgNumber\(item\.rotate\);/,
-    "sector label rotation must use svgNumber before SVG render to avoid SSR/client float drift",
-  );
   assert.equal(
-    /x=\{item\.x\}|y=\{item\.y\}|rotate\(\$\{item\.rotate\}/.test(sectorLabelBlock),
+    /x=\{item\.x\}|y=\{item\.y\}|rotate\(/.test(sectorLabelBlock),
     false,
-    "SectorLabelLayer must not write raw floating-point values into SVG attributes",
+    "SectorLabelLayer must not write raw floating-point values into SVG attributes or rotate labels",
   );
 });
 

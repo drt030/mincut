@@ -7,6 +7,8 @@
 > - **OBSOLETE**: assumes the two-stage exploration model, mode tabs, advanced filters, or `bottleneck`-kind nodes. Do not run; will be rewritten when the relevant phase ships.
 >
 > When the Stable Balanced Radial Tree iteration lands, replace the obsolete flows with equivalents for: overview readability, balanced radial layout, branch highlight, semantic zoom, distinct signal vocabulary, cmd+K, and detail lens.
+>
+> **2026-06-17 alignment**: current reader-facing graph lenses are **System decomposition**, **Chokepoint**, and **Cost**. Know-how appears as **Barrier Sources** in a secondary layer. There is no reader-facing Maturity lens and no `Bottleneck risk` label. Any tour that checks old five-mode behavior is historical unless rewritten below.
 
 End-to-end user flows the agent walks through using `chrome-devtools` MCP after **significant changes**. Output a scored markdown report under `docs/ux-flow-reports/<HEAD>-<flow>.md` (committed) so we have a history.
 
@@ -32,7 +34,7 @@ Verification commands (`npm run lint`, `npm run check:graph-ux`, `npm test`, `np
 
 - **Clarity** — can a new user understand what they're seeing without help?
 - **Responsiveness** — does the interaction feel instant / smoothly animated?
-- **Fit-for-purpose** — does this step move the user toward their goal (find bottleneck / read maturity / compare modes)?
+- **Fit-for-purpose** — does this step move the user toward their goal (find a Chokepoint, understand the elevated structural axis, separate Cost from the Chokepoint reason, inspect Barrier Sources, or compare lenses)?
 
 Average all three, then average across steps. **Average ≥ 3.5 = pass, < 3.5 = next iter priority.**
 
@@ -55,7 +57,7 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 
 | # | Action | Expected | Score |
 | --- | --- | --- | --- |
-| 1.1 | `navigate_page /` | Hero "Capability Graph Explorer", current product callout | / |
+| 1.1 | `navigate_page /` | Hero "MinCut", current product callout | / |
 | 1.2 | Click "Open the active graph" link or navigate `/graph` | stage="overview", 13 nodes (focus + 12 children), heat blocks visible | / |
 | 1.3 | DOM check: find the warmest `--heat-color` on the children row | one child should be visibly red (high risk) — identify by id | / |
 | 1.4 | Click that child card | stage="focused", `viewport.scale > 0.7`, target node centered, neighbors visible, `↩ Global view` button appears | / |
@@ -63,18 +65,18 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 | 1.6 | If selected node has `directLowerThanChildren=true`, find the ⚠ badge | Badge present with text "direct < children" | / |
 | 1.7 | Press `Escape` | stage="overview", viewport returns to fit-view | / |
 
-## Flow 2 — Compare cost mode and maturity mode
+## Flow 2 — Compare Chokepoint and Cost lenses
 
-**Post-ADR-0006: PARTIAL.** The 5 color modes survive, but K4 layering changes what to verify: per-mode assertions should check node fill (always subsystem hue, never changes with mode), sector background tint (changes per mode aggregate), edge color (changes per target-node mode band), edge thickness (aligned to edge color binning). Rewrite when Phase B-1 lands.
+**2026-06-17: CURRENT.** Verify the current three reader-facing lenses. Maturity/readiness is internal to Barrier and must not appear as a selectable lens.
 
 | # | Action | Expected | Score |
 | --- | --- | --- | --- |
-| 2.1 | `navigate_page /graph` | Bottleneck mode by default — heat colors per `nodeRisk` | / |
-| 2.2 | Change `ColorModeSelect` to `cost` | Edges to expensive children turn warm (industrial_robot_arm_body 60k = red) | / |
-| 2.3 | Read 3 distinct edge stroke colors | At least 3 distinct hex values across visible edges | / |
-| 2.4 | Change to `maturity` | Edges colored by maturityLabel (Likert red→green) | / |
-| 2.5 | Change to `relation` | Falls back to CSS class default (gray + relation-specific colors) | / |
-| 2.6 | Change back to `bottleneck` | Same colors as 2.1 (sanity check, deterministic) | / |
+| 2.1 | `navigate_page /graph` or a commercial `/d/<slug>` route | Chokepoint is available and clearly labelled; default lens matches current route contract | / |
+| 2.2 | Switch to **System decomposition** | Node identity, branch membership, and subsystem color remain stable; analysis heat is removed or visually demoted | / |
+| 2.3 | Switch to **Chokepoint** | Edge/outline emphasis communicates the Dependency × Concentration × Barrier composite and matches the legend/detail copy | / |
+| 2.4 | Switch to **Cost** | Cost emphasis changes without claiming Cost is the Chokepoint reason | / |
+| 2.5 | Check lens list | No reader-facing Maturity or Bottleneck risk option is present | / |
+| 2.6 | Return to Chokepoint | Node positions and selected node identity remain stable | / |
 
 ## Flow 3 — Drill into the cost-inversion node
 
@@ -90,21 +92,21 @@ The agent missed exactly these in the first Flow 1 run — the focused-stage con
 | 3.6 | Double-click the card | If implemented as expand: children appear / re-layout fires | / |
 | 3.7 | Press Escape | Returns to overview | / |
 
-## Flow 4 — Color-mode consistency
+## Flow 4 — Lens consistency
 
-**Post-ADR-0006: PARTIAL.** The 5-mode selector survives (relocated to floating button bottom-left); switching mode should re-render edges + sector tints + node outlines (band 2+) within ~200ms. Re-verify post-Phase-B-1 with K4 layering checks. The "no visual artifacts" assertion stays valid.
+**2026-06-17: CURRENT.** Switching lenses should re-render overlays without changing the underlying artifact map or contradicting the detail panel.
 
-Verifies the 5-mode dropdown changes edge colors as expected, and that switching modes produces no visual artifacts.
+Verifies that the three reader-facing lenses and the Barrier Sources secondary layer use consistent vocabulary and no visual artifacts.
 
 | # | Action | Expected | Score |
 | --- | --- | --- | --- |
-| 4.1 | Open `/graph` | Default bottleneck-risk mode, edges heat-colored | / |
-| 4.2 | DOM check: count distinct edge stroke values across all edges | ≥ 4 distinct hex strokes in bottleneck mode | / |
-| 4.3 | Switch ColorMode to `cost` | Re-render within 200ms; ≥ 3 distinct strokes; expensive children warmer | / |
-| 4.4 | Switch to `maturity` | Likert-mapped; low-maturity targets warm, mature targets green | / |
-| 4.5 | Switch to `overall` | Continuous red→green ramp; no jarring transitions | / |
-| 4.6 | Switch to `relation` | Falls back to CSS class strokes (gray + relation accents) | / |
-| 4.7 | Switch back to `bottleneck` | Same colors as 4.1 (deterministic; no state drift) | / |
+| 4.1 | Open `/graph` or a commercial `/d/<slug>` route | Artifact map renders; no user-facing node is grey/unclassified | / |
+| 4.2 | Switch System decomposition → Chokepoint → Cost | Overlays update promptly; node coordinates and branch identity stay stable | / |
+| 4.3 | Compare legend and selected-node detail | Lens label, edge/outline meaning, and detail-panel vocabulary agree | / |
+| 4.4 | Open Barrier Sources / know-how layer if present | Know-how nodes appear as purposeful Barrier-source diamonds; artifact context keeps muted subsystem color | / |
+| 4.5 | Return to default layer/lens | Same selected node and spatial memory are preserved | / |
+| 4.6 | Scan controls | No Maturity, Bottleneck risk, relation-only, or overall legacy lens appears as a reader-facing option | / |
+| 4.7 | Check console/runtime overlay | No errors, no visual artifacts, no label overlap severe enough to obscure the primary route | / |
 
 ## Flow 5 — Multi-layer expand drill-down
 

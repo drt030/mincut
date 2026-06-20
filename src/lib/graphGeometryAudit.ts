@@ -1,6 +1,14 @@
 import { filterCanvasGraph, isCanvasTreeEdge } from "./canvasGraph";
-import { packRectangularNodes } from "./cardAwareLayout";
 import { computeRectEdgePorts } from "./edgePorts";
+import {
+  edgeAwarePackRectangularNodes,
+  scoreEdgeGeometry,
+  type EdgeCrossingIssue,
+  type EdgeNodeIntersectionIssue,
+  type EdgeOverlapIssue,
+  type GeometryLayoutEdge,
+} from "./edgeAwareLayout";
+import { layerHidesNode } from "./knowHowLayer";
 import { radialLayout } from "./radialLayout";
 import type { Edge, GraphData } from "./schema";
 
@@ -21,13 +29,21 @@ export type HighFanoutPortAudit = {
 export type GraphGeometryAudit = {
   rootId: string;
   visibleEdgeCount: number;
+  geometryScore: number;
   highFanoutNodes: HighFanoutPortAudit[];
   fanoutPortFailures: string[];
+  edgeCrossings: EdgeCrossingIssue[];
+  edgeNodeIntersections: EdgeNodeIntersectionIssue[];
+  edgeOverlaps: EdgeOverlapIssue[];
+  edgeGeometryFailures: string[];
 };
 
 type GraphGeometryAuditOptions = {
   highFanoutThreshold?: number;
   minimumAnchorDistance?: number;
+  maxEdgeCrossings?: number;
+  maxEdgeNodeIntersections?: number;
+  maxEdgeOverlaps?: number;
 };
 
 function polarToPoint(polar: { r: number; theta: number }): { x: number; y: number } {
@@ -78,9 +94,15 @@ export function auditGraphGeometry(
 ): GraphGeometryAudit {
   const highFanoutThreshold = options.highFanoutThreshold ?? 6;
   const minimumAnchorDistance = options.minimumAnchorDistance ?? 6;
+  const maxEdgeCrossings = options.maxEdgeCrossings ?? 0;
+  const maxEdgeNodeIntersections = options.maxEdgeNodeIntersections ?? 90;
+  const maxEdgeOverlaps = options.maxEdgeOverlaps ?? 0;
   const canvas = filterCanvasGraph(graph, rootId);
   const layout = radialLayout(canvas, rootId);
   const nodeById = new Map(canvas.nodes.map((node) => [node.id, node]));
+  const visibleNodeIds = new Set(
+    canvas.nodes.flatMap((node) => layerHidesNode(node, "product") ? [] : [node.id]),
+  );
   const rawPositions = new Map<string, { x: number; y: number }>();
   const sectorBoundsById = new Map<string, { start: number; end: number }>();
 
@@ -91,21 +113,60 @@ export function auditGraphGeometry(
     if (sector) sectorBoundsById.set(nodeId, sector);
   }
 
-  const packedPositions = packRectangularNodes(rawPositions, {
+  const visibleEdges = canvas.edges.filter((edge) =>
+    isCanvasTreeEdge(edge, nodeById) &&
+    layout.edges.get(edge.id)?.style === "primary" &&
+    visibleNodeIds.has(edge.source) &&
+    visibleNodeIds.has(edge.target) &&
+    packedEdgeEndpointsExist(rawPositions, edge)
+  );
+  const firstLayerSubsystemSet = new Set(
+    canvas.edges.flatMap((edge) => {
+      if (edge.relation !== "requires" || edge.source !== rootId) return [];
+      const target = nodeById.get(edge.target);
+      return target && target.kind !== "material" ? [edge.target] : [];
+    }),
+  );
+  const childrenByParent = new Map<string, string[]>();
+  for (const edge of canvas.edges) {
+    if (!isCanvasTreeEdge(edge, nodeById)) continue;
+    const children = childrenByParent.get(edge.source) ?? [];
+    children.push(edge.target);
+    childrenByParent.set(edge.source, children);
+  }
+  const visualRadiusFor = (nodeId: string): number => {
+    if (!nodeById.has(nodeId)) return 12;
+    if (nodeId === rootId) return 26;
+    if (firstLayerSubsystemSet.has(nodeId)) return 22;
+    const hasStructuralChildren = (childrenByParent.get(nodeId) ?? []).some((childId) =>
+      layout.positions.has(childId),
+    );
+    return hasStructuralChildren ? 16 : 10;
+  };
+  const layoutEdges: GeometryLayoutEdge[] = visibleEdges.map((edge) => ({
+    id: edge.id,
+    source: edge.source,
+    target: edge.target,
+    sourceRadius: visualRadiusFor(edge.source),
+    targetRadius: visualRadiusFor(edge.target),
+  }));
+
+  const packedPositions = edgeAwarePackRectangularNodes(rawPositions, {
     width: DETAIL_BOX.width,
     height: DETAIL_BOX.height,
     padding: 36,
     fixedIds: new Set([rootId]),
     sectorBoundsById,
     sectorPaddingRadians: 0.1,
+    edges: layoutEdges,
   });
 
-  const visibleEdges = canvas.edges.filter((edge) =>
-    isCanvasTreeEdge(edge, nodeById) &&
-    layout.edges.has(edge.id) &&
-    packedPositions.has(edge.source) &&
-    packedPositions.has(edge.target)
-  );
+  const geometry = scoreEdgeGeometry({
+    edges: layoutEdges,
+    positions: packedPositions,
+    box: DETAIL_BOX,
+  });
+
   const { sourceAnchorByEdge } = computeRectEdgePorts(visibleEdges, packedPositions, DETAIL_BOX);
   const outgoingBySource = new Map<string, Edge[]>();
   for (const edge of visibleEdges) {
@@ -153,10 +214,39 @@ export function auditGraphGeometry(
   );
   fanoutPortFailures.sort((a, b) => a.localeCompare(b));
 
+  const edgeGeometryFailures: string[] = [];
+  if (geometry.edgeCrossings.length > maxEdgeCrossings) {
+    edgeGeometryFailures.push(
+      `edge crossings ${geometry.edgeCrossings.length} exceed ${maxEdgeCrossings}`,
+    );
+  }
+  if (geometry.edgeNodeIntersections.length > maxEdgeNodeIntersections) {
+    edgeGeometryFailures.push(
+      `edge-node intersections ${geometry.edgeNodeIntersections.length} exceed ${maxEdgeNodeIntersections}`,
+    );
+  }
+  if (geometry.edgeOverlaps.length > maxEdgeOverlaps) {
+    edgeGeometryFailures.push(
+      `edge overlaps ${geometry.edgeOverlaps.length} exceed ${maxEdgeOverlaps}`,
+    );
+  }
+
   return {
     rootId,
     visibleEdgeCount: visibleEdges.length,
+    geometryScore: geometry.score,
     highFanoutNodes,
     fanoutPortFailures,
+    edgeCrossings: geometry.edgeCrossings,
+    edgeNodeIntersections: geometry.edgeNodeIntersections,
+    edgeOverlaps: geometry.edgeOverlaps,
+    edgeGeometryFailures,
   };
+}
+
+function packedEdgeEndpointsExist(
+  positions: ReadonlyMap<string, { x: number; y: number }>,
+  edge: Pick<Edge, "source" | "target">,
+): boolean {
+  return positions.has(edge.source) && positions.has(edge.target);
 }

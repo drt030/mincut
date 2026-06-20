@@ -1,5 +1,13 @@
 # Commercial Launch Week Implementation Plan (rev 3, 2026-06-10)
 
+Status: historical launch-week execution plan. Use it for context, not as the
+current acceptance or QA contract. Current commercial strategy lives in
+`docs/plans/MASTER-PLAN.md`; current acceptance and browser QA live in
+`docs/ACCEPTANCE.md` and `docs/QA-agent.md`. Mentions of
+`bottleneck-risk`, "Risk", or reader-facing "Maturity" in this historical
+plan describe the pre-ADR-0010 UI and are superseded by the current
+System decomposition / Chokepoint / Cost lens contract.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Launch a retail-focused chokepoint-map product with the GPU/AI-compute chain as the **full-free flagship/trust demo** (Fri 6/12). AI compute should expose the whole map, evidence ladder, and supplier exposure for free because the obvious AI-compute exposure set is already externally over-disclosed. Paid/waitlist demand now shifts to less over-disclosed emerging domains such as humanoid robotics, world models, controlled fusion, and later domains; do not present humanoid/power/fusion as live unless the data, route, review state, and Stripe target actually support it.
@@ -21,7 +29,7 @@
 3. **Positioning:** we map chains ourselves from supply-chain facts; exposure falls out of the data. NOT a Serenity tracker, no copying his picks, no buy/sell language. Disclaimer site-wide.
 4. **MVP fixes from exploration ship before launch:** default lens = bottleneck-risk + URL deep links; Investor panel promoted to first screen after node click; "Risk 46%" relabeled to heat score with plain-language tooltip.
 5. **Referral** ("invite 3 signups → priority/future unlock") ships only when there is a real paid emerging-domain target; before then it collects waitlist/referral demand.
-6. **RESOLVED 2026-06-10:** domain = **drt030.com** (purchased). Display brand stays "Capability Graph Explorer" for launch (rename is a one-line metadata change later if desired).
+6. **RESOLVED 2026-06-10; updated 2026-06-15:** domain = **drt030.com** (purchased). Display brand is now "MinCut".
 7. **Information architecture (2026-06-10, strategy-migrated):** one site, one route per ready domain — `/d/ai-compute` and `/d/parcel-robot` are full-free; `/d/humanoid-actuators` or other emerging-domain routes should only be promoted when backed by real data. Header switcher, per-domain OG/metadata/gate, and `/unlock` remain, but `/unlock` redirects only for an actually live paid domain or founding target.
 8. **Teaser rule ("tuna free, perilla paid") for future paid domains only:** a famous supplier can remain free as a trust builder; obscure/single-source suppliers may stay locked. AI compute does not use teaser gating because the entire flagship is free.
 9. **Stripe hardening (per stripe-best-practices):** the `/unlock` route uses a **Restricted API Key** (Checkout Sessions read-only), not the full secret key; separate test/live keys; keys only in `.env.local`/Vercel env vars. Do not switch AI-compute checkout live; owner-only live Stripe targets the next paid emerging-domain/founding stream.

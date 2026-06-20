@@ -14,7 +14,7 @@ These images are visual references for improving the `/graph` canvas. They are n
 | `wide-tree-of-life-timeline.png` | A tree can feel organic and readable when major branches have strong shape, clear labels, and empty interior breathing room. |
 | `dense-tree-of-life-map.jpg` | Extreme density is acceptable only when macro-regions remain readable from far away. |
 
-## Direction For Capability Graph Explorer
+## Direction For MinCut
 
 The current graph reads as an abstract point cloud: nodes are tiny, edges are faint, sectors are pastel washes, and the user cannot identify the product, subsystem boundaries, or critical paths without interacting. The references point toward a different first impression: a radial technical map with visible structure.
 

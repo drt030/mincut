@@ -1,6 +1,10 @@
-# Capability Graph Explorer
+# MinCut
 
-A graph-backed research tool for reasoning about how products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and adopted. The graph is the reasoning substrate — visualization, maturity estimates, validation reports, and research tasks all derive from structured local graph data.
+Find the bottlenecks in how things get made.
+
+MinCut is a graph-backed research tool for reasoning about how products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and adopted. The graph is the reasoning substrate — visualization, maturity/readiness inputs, validation reports, and research tasks all derive from structured local graph data.
+
+The current commercial surface is for public-market retail investors. The free layer teaches an industrial chain and its chokepoints; the paid or future-paid layer can expose company, supplier, ticker, and evidence trails tied to those chokepoints. This is diligence support, not buy/sell advice.
 
 ## Project purpose (north star)
 
@@ -36,11 +40,16 @@ _Avoid_: Critical technology, hard tech (these are fine in conversation but stic
 **Know-how (技术诀窍)**:
 Display-layer umbrella term for `kind: "engineering_method"` and
 `kind: "manufacturing_process"` nodes — embodied activities and
-knowledge, as opposed to purchasable artifacts. Each know-how node carries a `transactability` field: either `procurable` (a real market sells it as a
-service/dataset/license — conceptually a service product) or
-`must_build` (embodied in firms; not separately transactable — the
-moat/bottleneck habitat). Supply concentration (holder count) is
-derived from `implemented_by` / `manufactured_by` edges at read time.
+knowledge, as opposed to purchasable artifacts. In the UI, know-how is a
+**Barrier Source**: hidden from the default artifact map, summarized on
+host artifacts, and visible only in the secondary Barrier Sources layer or
+detail panel when it explains Barrier, holder scarcity, evidence gaps, or
+authored chokepoints. Each know-how node carries a `transactability` field:
+either `procurable` (a real market sells it as a service/dataset/license —
+conceptually a service product) or `must_build` (embodied in firms; not
+separately transactable — the moat/bottleneck habitat). Supply
+concentration (holder count) is derived from `implemented_by` /
+`manufactured_by` edges at read time.
 _Avoid_: capability (reserved for the demand container), skill, craft.
 
 **Active v0 graph**:
@@ -78,6 +87,15 @@ The asymmetry between `unreviewed` and `disputed` is deliberate: rewarding `disp
 A scoring procedure that answers predefined competency questions about a Product node using only local graph data. Must not consult the web, model memory, or external search at gate time. The agent-assisted online research/import workflow is a separate loop that runs *before* the gate.
 _Avoid_: Gate, scorer (used informally — prefer the full term in docs).
 
+**Chokepoint model**:
+The reader-facing analysis model has four readouts and one composite:
+**Cost**, **Dependency**, **Concentration**, **Barrier**, and
+**Chokepoint**. Chokepoint is the geometric mean of Dependency,
+Concentration, and Barrier. Cost is an orthogonal magnitude/opportunity
+overlay; it is not a structural reason a node is a chokepoint. Maturity and
+readiness remain data inputs, but they feed Barrier and must not appear as a
+reader-facing lens or headline axis.
+
 **Node maturity**:
 Per-node `maturityScore` (0–100) and `maturityLabel` (`unknown` … `mature` / `blocked`) representing **the maturity of that technology / capability / module / Product *in the world*** at a specific point in time. For a Product node, the answer to *"how mature is a product matching this architecture and target, commercially, *as of* a given date?"*. Always paired with **`maturityAsOf`** — an ISO date string (`YYYY-MM` precision in v0) marking when the assessment is valid. Required whenever any maturity field is set. **Slow-changing**: a prototype-stage product scores around 45–60 and stays there until the world changes, not as our model improves.
 
@@ -94,7 +112,7 @@ The schema's `has_route` relation remains, but **a Product is committed to a sin
 ## Relationships
 
 - A **Capability node** has one or more **Product nodes** as alternative ways to satisfy it. Boundary distinctions live at this layer.
-- A **Product node** has zero or more **Routes** (inside its boundary) and recursively decomposes into modules, methods, materials, etc. Decomposition does not encounter boundary distinctions.
+- A **Product node** recursively decomposes into artifacts, know-how, materials, metrics, organizations, and evidence/context records. Decomposition does not encounter boundary distinctions. `has_route` is schema-preserved but not used in v0 data unless a future ADR defines a genuine intra-product variant.
 - The **Active v0 graph** is the recursive closure of one **Product node** under allowed relations.
 - **Candidate records** are imported as `unreviewed`, then human-reviewed before they raise the **Validation gate** score.
 - A **Decomposition frontier** marks where the agent-assisted import loop is expected to extend the graph next.
@@ -104,17 +122,41 @@ The schema's `has_route` relation remains, but **a Product is committed to a sin
 
 ## Graph visualization conventions
 
-Per ADR-0006 (`docs/adr/0006-radial-progressive-disclosure-graph.md`, 2026-05-13). Implementation slices: `docs/superpowers/specs/2026-05-13-graph-radial-progressive-disclosure.md`. Detailed contract: `docs/GRAPH_UX.md`. Three governing design principles: `docs/design-principles.md`.
+Current graph UX is governed by `docs/GRAPH_UX.md`, ADR-0007, ADR-0008
+(amended 2026-06-17), and ADR-0010. Older ADR-0006/spec text is historical
+where it conflicts with these documents.
 
-- **Radial progressive-disclosure canvas** — `/graph` is one persistent radial map with the product layer as default (ADR-0007 stable identity). Focal product sits at canvas origin; 12 first-layer subsystems on a ring at equal 30° angular spacing; descendants in concentric radial layers inside each sector; 10 materials on an outermost neutral-grey ring. The product layer renders artifact kinds only (product, module, equipment, material). All artifact-kind structural nodes render simultaneously at the lowest LOD. Descriptive nodes (`metric`, `bottleneck`, `placeholder_breakthrough`, principles, regulations, capability — 33 in current data) never render on canvas; they appear as text in the detail panel.
-- **Know-how layer** — toggle at bottom-left above the color-mode floret. When enabled, artifacts dim to grey and engineering_method / manufacturing_process nodes light up as transactability-colored diamonds (green for `procurable`, amber for `must_build`, grey for unset). The canvas union also attaches know-how reachable only via `implemented_by` edges (per ADR-0008).
-- **Bottleneck and frontier as attributes** — per ADR-0006, `kind: "bottleneck"` and `kind: "placeholder_breakthrough"` become attributes `bottleneckOf?: string[]` and `frontierFor?: string[]` on the affected module/material. `bottlenecked_by` edges follow. A node is visually a "bottleneck" via its mode color (low maturity, high cost, high risk), not via a separate node. In the product layer, hosts of hidden bottleneck know-how carry a red-ring count badge (ADR-0008).
-- **Color modes** — five modes (`bottleneck-risk` default, `cost`, `maturity`, `overall`, `relation`) layered redundantly across visual channels (K4): node fill = subsystem hue family (permanent), sector background = sector-aggregate mode value (<15% opacity), edge stroke color = target-node mode band, edge stroke width = same 5 bands aligned to color bins, node outline (at LOD band 2+) = per-node mode band.
-- **LOD (semantic zoom)** — three discrete bands: band 1 (zoom < 0.5) 5px dots no labels; band 2 (0.5 ≤ zoom < 1.5) 12px markers with truncated names; band 3 (zoom ≥ 1.5) full 80×40 cards with badges. Components subscribe via `useStore((s) => Math.floor(s.transform[2] * 2))` so re-render only fires on band crossing.
-- **Focus interaction** — clicking a structural node expands its sector elastically (30° → 120°, others compress) over 600ms; viewport softly zooms (~1.5×); focused subtree stays saturated, everything else desaturates to greyscale. Position never changes — the focal product stays at canvas origin. Esc / empty click / double-click returns to the higher level.
-- **Layout** — `src/lib/radialLayout.ts` is a pure function over `GraphData`, computed once at mount; ELK is removed from runtime. Shared structural nodes (19 with 2+ `requires` parents in current data) get a canonical primary-parent position; secondary parents render as dashed cross-sector arcs.
-- **Detail panel** — right-edge rail, 64px when collapsed (shows focused node name + one badge), expands to 400px on click (full content: description, metrics, evidence, bottleneck note, frontier note, upstream/downstream, sibling products, cost rollup, regulations).
-- **Chrome** — deleted: mode tabs, advanced filters, KPI counter row, "high-risk dependency" pill banner (transitional exception until a glyph language ships in Phase C of the spec), "回到全局" / "收起所选" buttons. Kept: floating color-mode button bottom-left, in-canvas sector labels at outer perimeter (band 2+), cmd+K search, keyboard zoom.
+- **Default canvas = artifact map** — the primary graph shows product,
+  technical route, module, equipment, and key material nodes. Organization,
+  metric, evidence, capability/context, principle, and regulation records do
+  not render as ordinary default graph nodes.
+- **Barrier Sources layer** — `engineering_method` and
+  `manufacturing_process` nodes are hidden by default, summarized on their
+  host artifacts, and shown as purposeful diamonds only in the secondary
+  Barrier Sources layer or detail panel. They exist to explain Barrier,
+  holder scarcity, evidence gaps, or authored chokepoints, not to turn the
+  graph into a process encyclopedia.
+- **No grey user-facing nodes** — visible graph nodes must carry a meaningful
+  subsystem color family. Context may be lower saturation, but not
+  unclassified grey.
+- **Bottleneck and frontier as attributes** — per ADR-0006,
+  `kind: "bottleneck"` and `kind: "placeholder_breakthrough"` become
+  attributes `bottleneckOf?: string[]` and `frontierFor?: string[]` on the
+  affected artifact/know-how node. A node is visually important through the
+  Chokepoint/Cost overlays and detail explanation, not by becoming a
+  separate canvas node.
+- **Reader-facing lenses** — exactly System decomposition, Chokepoint, and
+  Cost. Dependency, Concentration, Barrier, maturity/readiness, evidence, and
+  review state are drill-in/detail signals unless a future ADR changes the
+  contract.
+- **Stable radial map** — analysis modes change overlays without scrambling
+  node identity or learned position. Shared dependencies stay DAG-aware
+  through low-noise cross-links and focus/high-zoom emphasis.
+- **Detail panel** — first glance must answer: what this node is, whether it
+  is a chokepoint, which structural axis drives it (Dependency,
+  Concentration, Barrier), what Cost magnitude exists, which Barrier Sources
+  are attached, which company/ticker leads are connected, and what evidence
+  or review gaps remain.
 
 ## Example dialogue
 

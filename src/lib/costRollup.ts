@@ -71,6 +71,7 @@ export type CostRollupResult = {
 const INTEGRATION_OVERHEAD = 1.15;
 const COMMODIFIED_LABELS = new Set(["mature", "widely_adopted"]);
 const COST_CURRENCIES = new Set<MetricCurrency>(["RMB", "USD", "EUR", "JPY"]);
+const SUPERSEDED_BY_CHILD_COST_ROLLUP_TAG = "superseded_by_child_cost_rollup";
 
 type CurrentCostExtraction = {
   range: CostRange;
@@ -340,7 +341,7 @@ function directCostForNode(graph: GraphData, node: Node): CurrentCostExtraction 
   // The node may itself be a cost-bearing metric record (e.g.
   // `total_system_cost` for the v0 product target). In that case we read
   // the value off its own `metrics[0]`.
-  const ownReading = extractCostReading(node);
+  const ownReading = isSupersededByChildCostRollup(node) ? null : extractCostReading(node);
   if (ownReading) return ownReading;
 
   const measuredByEdges = outgoingEdges(graph, node.id, "measured_by");
@@ -348,10 +349,15 @@ function directCostForNode(graph: GraphData, node: Node): CurrentCostExtraction 
     const metricNode = nodeById(graph, edge.target);
     if (!metricNode || metricNode.kind !== "metric") continue;
     if (metricNode.reviewStatus === "deprecated") continue;
+    if (isSupersededByChildCostRollup(metricNode)) continue;
     const reading = extractCostReading(metricNode);
     if (reading) return reading;
   }
   return null;
+}
+
+function isSupersededByChildCostRollup(node: Node): boolean {
+  return Boolean(node.tags?.includes(SUPERSEDED_BY_CHILD_COST_ROLLUP_TAG));
 }
 
 /**

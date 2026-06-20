@@ -384,8 +384,11 @@ export function nodeCostDriverRmb(
   node: Node,
   graph: GraphData,
 ): { value: number; kind: Exclude<CostSignalKind, "missing"> } | null {
-  const direct = nodeTypicalCostRmb(node, graph);
-  if (direct !== null && direct > 0) return { value: direct, kind: "modeled" };
+  const signal = nodeCostSignalRmb(node, graph);
+  const signalKind = nodeCostSignalKind(node, graph);
+  if (signal !== null && signal > 0 && signalKind !== "missing") {
+    return { value: signal, kind: signalKind };
+  }
   const estimate = estimatedCostForNode(node)?.range.typical ?? null;
   if (estimate !== null && estimate > 0) return { value: estimate, kind: "estimated" };
   return null;

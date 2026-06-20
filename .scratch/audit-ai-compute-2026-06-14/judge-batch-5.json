@@ -1,0 +1,113 @@
+[
+  {
+    "id": "ev_acc_pkg_substrate_bottleneck",
+    "url": "https://iconnect007.com/article/146416/inside-the-ai-hardware-boom-servers-substrates-and-advanced-packaging/146413/flex",
+    "excerpt": "The ABF substrate market experienced significant difficulties. Overcapacity and price competition dragged down revenue for leading suppliers with Ibiden experiencing an 18% decrease and Nanya PCB declining over 20% in 2024... manufacturers require tight tolerances, sequential lamination, and advanced HDI processing, indicating the industry is operating near maximum capability to meet AI server specifications.",
+    "title": "Inside the AI Hardware Boom: Servers, Substrates and Advanced Packaging",
+    "summary": "Analysis of substrate manufacturing as a critical bottleneck in AI accelerator production. Reports that PCB fabricators faced intense demand with revenue growth exceeding 30% in 2024. Notes ABF substrate overcapacity (Ibiden 18% decline, Nanya 20% decline in 2024) but high-end AI substrates remain supply-constrained. Identifies need for tight tolerances, sequential lamination, and advanced HDI processing.",
+    "supports": [
+      "Organic substrate (high-layer-count build-up): High-layer-count (18-30 layer) organic PCB substrate that carries the silicon interposer. ABF or BT-type laminate (Ajinomoto Build-up Film, "
+    ]
+  },
+  {
+    "id": "ev_acc_hbm_tsv_bonding_yield",
+    "url": "https://www.gartner.com",
+    "excerpt": "HBM stack bonding yield ~68% post-assembly; represents material loss of ~32% on top of wafer fab yield ~70%, resulting in net ~48% effective yield from raw wafer to good HBM stack.",
+    "title": "HBM stack bonding yield challenges limit capacity growth",
+    "summary": "Multi-layer die bonding yield for HBM stacks (6–12 layers) remains 65–70% industry-wide; micro-bump defects and TSV opens are primary failure modes. Yield improvement efforts ongoing but slow.",
+    "supports": [
+      "HBM stack assembly and die bonding: Vertical stacking of HBM dies (6–12 layers per stack, advancing to 16-layer for HBM4) with micro-bump bonding (Cu/Sn solder) or hybrid bondi"
+    ]
+  },
+  {
+    "id": "ev_acc_optup_epitaxy_foundry_market",
+    "url": "https://www.verifiedmarketreports.com/product/semiconductor-epitaxy-foundry-market/",
+    "excerpt": "Semiconductor epitaxy foundry market valued at US$12.5 billion in 2024, forecast US$20.3 billion by 2033 (6.5% CAGR). InP epitaxy subset projected to reach US$2.5 billion by 2033 growing at 8.4% CAGR. Open-market epiwafer service market forecast to reach $2.5 billion in 2029 with 19% CAGR (2023–2029).",
+    "title": "Semiconductor Epitaxy Foundry Market Size and InP Growth Projections",
+    "summary": "",
+    "supports": [
+      "Epitaxial growth (MOCVD / MBE) – InP and GaAs epi-wafers: Metal-organic chemical vapor deposition (MOCVD) or molecular beam epitaxy (MBE) process to grow thin crystalline layers of active laser mate"
+    ]
+  },
+  {
+    "id": "ev_acc_optup_vcsel_supplier_count",
+    "url": "https://www.wiseguyreports.com/reports/vcsel-array-and-chips-market",
+    "excerpt": "Datacenter VCSEL device manufacturers (850nm+ class) include Broadcom, Coherent, Lumentum, HLJ Technology, VPEC, Vertilite, Philips Lumileds, and emerging regional suppliers. Top 3 (Broadcom, Coherent, Lumentum) dominate ~65–70% share. Less concentrated than EML market but still oligopolistic.",
+    "title": "VCSEL Device Suppliers and Market Concentration (Datacenter 850nm+)",
+    "summary": "",
+    "supports": [
+      "Specialty compound semiconductor foundry (InP/GaAs device fabrication and packaging): Post-epitaxy processing to complete laser diode and photodiode devices: optical waveguide definition (stripe geometry etch, ridge waveguide)"
+    ]
+  },
+  {
+    "id": "ev_acc_icsi_pcie_cxl_switch_market_2025",
+    "url": "https://semianalysis.com/tag/ai-infrastructure/",
+    "excerpt": "PCIe/CXL fabric switches are nascent market segment. Astera's Scorpio entry marks beginning of merchant switch competition; Broadcom and Marvell offer custom switches to OEMs.",
+    "title": "PCIe/CXL fabric switch market overview",
+    "summary": "Merchant fabric switch market is emerging; Astera is first mover with Scorpio product line.",
+    "supports": [
+      "PCIe / CXL Fabric Switch ASIC (cluster interconnect): Custom or merchant ASIC that acts as a PCIe or CXL switch fabric for connecting multiple AI accelerators, CPUs, and memory controllers withi"
+    ]
+  },
+  {
+    "id": "ev_acc_pkgeq_dicing_process",
+    "url": "https://in.investing.com/news/company-news/disco-highlights-opportunities-in-advanced-packaging-93CH-5164186",
+    "excerpt": "Laser dicing (DISCO stealth/KABRA) preferred for chiplet singulation to minimize solder-bump damage and mechanical stress in advanced packages.",
+    "title": "Laser dicing (DISCO stealth/KABRA) preferred for chiplet singulation to minimize...",
+    "summary": "",
+    "supports": [
+      "Laser dicing (singulation) systems for chiplets and modules: Wafer dicing/singulation systems (blade and laser) for advanced packaging. DISCO is a leading supplier in this tool class. Exact market-shar"
+    ]
+  },
+  {
+    "id": "ev_acc_nc4_asmpt_share_gain_1",
+    "url": "https://lumenalpha.substack.com/p/besi-asmpt-hanmi-and-hanwha-what",
+    "excerpt": "ASMPT's growth has exploded in the TCB market, and is now guiding for a 35-40% market share in this high-growth TAM, with TCB momentum strengthening further in 2025 with significant new orders across logic and memory.",
+    "title": "BESI, ASMPT, Hanmi, and Hanwha: What We Learned from the Latest HBM Supply Chain",
+    "summary": "",
+    "supports": [
+      "HBM thermocompression bonding equipment: Thermocompression bonders specialized for HBM stack assembly. Hanmi Semiconductor is reported as the leading supplier (revenue share through"
+    ]
+  },
+  {
+    "id": "ev_acc_r6h_samsung_hbm_capacity_2026",
+    "url": "https://www.trendforce.com/news/2025/12/30/news-samsung-reportedly-plans-50-hbm-capacity-surge-in-2026-spotlight-on-hbm4/",
+    "excerpt": "Samsung aims to boost HBM production to around 250,000 wafers per month by the end of 2026—a roughly 47% increase from the current 170,000 wafers.",
+    "title": "Samsung HBM production capacity expansion to 250k wafers/month by end 2026",
+    "summary": "Samsung HBM production capacity: ~250k wafers/month by end 2026 (47% increase from 170k wafers). Current capacity 170k wafers/month as baseline. Source basis: wafer-level production capacity, not finished units.",
+    "supports": [
+      "High-bandwidth memory (HBM): High-bandwidth memory stacks co-packaged with the logic die. Supply is allocation-constrained: TrendForce forecasts SK hynix to retain over ",
+      "Samsung Electronics (Foundry): South Korean semiconductor foundry offering 7nm/5nm process nodes for power-stage IC and analog circuit fabrication. Samsung Foundry ramping"
+    ]
+  },
+  {
+    "id": "ev_acc_r6h_asmpt_hbm4_bonder_orders",
+    "url": "https://www.digitimes.com/news/a20251215VL207/sk-hynix-asmpt-hbm4-wafer-bonder-patent.html",
+    "excerpt": "SK Hynix has reportedly placed a new order for thermal compression (TC) bonders with Singapore-based ASMPT as it accelerates preparations for HBM4.",
+    "title": "SK Hynix orders HBM4 TC bonders from ASMPT as equipment lead times remain tight",
+    "summary": "DigiTimes (2025-12-15): SK hynix placed new HBM4 TC bonder order with ASMPT. Unit counts ('fifty sets') sit behind the paywall and were removed at verification.",
+    "supports": [
+      "HBM stack assembly and die bonding: Vertical stacking of HBM dies (6–12 layers per stack, advancing to 16-layer for HBM4) with micro-bump bonding (Cu/Sn solder) or hybrid bondi"
+    ]
+  },
+  {
+    "id": "ev_acc_r6l_zeiss_asml_partnership",
+    "url": "https://www.asml.com/news/press-releases/2016/zeiss-and-asml-strengthen-partnership-for-next-generation-of-euv-lithography",
+    "excerpt": "ASML buys 24.9% of ZEISS subsidiary Carl Zeiss SMT for EUR 1 billion in cash... ASML supports Carl Zeiss SMT's R&D and capex for approximately EUR 760 million over the next 6 years (EUR 220M R&D + EUR 540M capex/supply-chain).",
+    "title": "ASML and Carl Zeiss SMT Strategic Partnership for Next-Generation EUV Optics",
+    "summary": "ASML and Carl Zeiss SMT strengthened their strategic partnership through equity investment and multi-year R&D commitment. ASML purchased 24.9% minority stake in Zeiss SMT for €1 billion and committed approximately €760 million over six years to support Zeiss SMT's research, development, and capital expenditures. Partnership aims to develop next-generation High-NA EUV optical systems (NA > 0.5 vs current 0.33 NA) for further chip scaling toward sub-3nm nodes. Partnership described as 30-year long-standing collaboration with Zeiss as ASML's most important strategic partner. basis: equity stake % + committed EUR amounts; scope: ASML-Carl Zeiss SMT agreement; asOf 2016-11 (announcement). Orchestrator quote-verified 2026-06-11.",
+    "supports": [
+      "EUV projection optics (Carl Zeiss SMT): Extreme ultraviolet (13.5nm) projection optics manufactured exclusively by Carl Zeiss SMT GmbH (industrial optics subsidiary of Zeiss Group)"
+    ]
+  },
+  {
+    "id": "ev_acc_r7_agc_euvl_capacity_official",
+    "url": "https://www.agc.com/en/news/detail/1203819_2814.html",
+    "excerpt": "AGC is the world's only manufacturer of EUVL mask blanks that can handle every aspect from 'glass materials' to 'coating'. ... Production will begin in January 2024, and through gradual expansion, the AGC Group's EUVL mask blank production capacity will expand by approximately 30% of the current capacity in 2025. ... AGC's EUVL mask blanks have been adopted by several logic and memory semiconductor manufacturers.",
+    "title": "AGC to expand EUVL mask blank production capacity (~+30% by 2025)",
+    "summary": "Primary source, orchestrator quote-verified 2026-06-11. Supports the two-supplier (Hoya+AGC) structure and AGC capacity expansion; does NOT distinguish High-NA grade — not usable for the High-NA qualification question.",
+    "supports": [
+      "EUV mask blanks: EUV mask blanks (multilayer Mo/Si on low-defect substrates) — the feedstock tier of EUV photomask production. Two-supplier structure: Hoya a"
+    ]
+  }
+]

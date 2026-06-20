@@ -1,0 +1,368 @@
+{
+ "nodes": [],
+ "edges": [],
+ "evidence": [
+  {
+   "id": "ev_acc_r6h_skhynix_hbm_share_2026",
+   "type": "news",
+   "title": "SK Hynix maintains HBM market leadership with 50% share in 2026",
+   "url": "https://www.trendforce.com/news/2025/09/17/news-hbm-market-heats-up-as-three-giants-clash-with-hbm4-at-the-center/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "TrendForce (2025-09-17): SK hynix forecast to retain OVER 50% of global HBM bit output in 2026. Scope: bit-output share. NOTE: precise 50/59/28 trajectory in an earlier draft was NOT on the page and was removed at verification.",
+   "excerpt": "SK hynix is forecast to retain over 50% share and lead the market.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory",
+    "org_skhynix"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__manufactured_by__org_skhynix"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_samsung_hbm_capacity_2026",
+   "type": "news",
+   "title": "Samsung HBM production capacity expansion to 250k wafers/month by end 2026",
+   "url": "https://www.trendforce.com/news/2025/12/30/news-samsung-reportedly-plans-50-hbm-capacity-surge-in-2026-spotlight-on-hbm4/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "Samsung HBM production capacity: ~250k wafers/month by end 2026 (47% increase from 170k wafers). Current capacity 170k wafers/month as baseline. Source basis: wafer-level production capacity, not finished units.",
+   "excerpt": "Samsung aims to boost HBM production to around 250,000 wafers per month by the end of 2026—a roughly 47% increase from the current 170,000 wafers.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory",
+    "org_samsung"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__manufactured_by__org_samsung"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_micron_hbm4_ramp_2026",
+   "type": "news",
+   "title": "Micron HBM4 production ramp Q2 2026 with 15k wafers/month target",
+   "url": "https://www.trendforce.com/news/2025/12/18/news-micron-hikes-capex-to-20b-with-2026-hbm-supply-fully-booked-hbm4-ramps-2q26/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "TrendForce (2025-12-18): Micron's entire calendar-2026 HBM supply is pre-sold (pricing+volume locked), HBM4 ramps 2Q26. The '15,000 wafers/month' figure in an earlier draft was NOT on the page and was removed at verification.",
+   "excerpt": "Micron has already locked in pricing and volume agreements covering its entire calendar 2026 HBM supply, including HBM4.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory",
+    "org_micron"
+   ],
+   "supportsEdgeIds": [
+    "e_acc_hbm__manufactured_by__org_micron"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_hbm_total_capacity_bits_2026",
+   "type": "paper",
+   "title": "HBM total market capacity exceeds 30 billion Gb in 2026",
+   "url": "https://www.trendforce.com/news/2025/09/17/news-hbm-market-heats-up-as-three-giants-clash-with-hbm4-at-the-center/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "HBM total market capacity 2026: >30 billion Gb bits across all suppliers (SK Hynix, Samsung, Micron). Source basis: total bit capacity shipment forecast, not unit capacity or wafers.",
+   "excerpt": "TrendForce projects HBM shipments will surpass 30 billion Gb by 2026.",
+   "supportsNodeIds": [
+    "high_bandwidth_memory"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_sk_m15x_fab_capacity",
+   "type": "news",
+   "title": "SK Hynix M15X Cheongju fab ramping 40k wafers/month by 2H 2026",
+   "url": "https://www.trendforce.com/news/2026/01/13/news-sk-hynix-to-build-cheongju-advanced-packaging-fab-boosting-hbm-output-by-2027/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "SK Hynix M15X fab in Cheongju: initial output 10k wafers/month with expansion planned. Latest guidance indicates 40k wafers/month capacity by 2H 2026. Source basis: fab-level wafer capacity.",
+   "excerpt": "SK hynix plans to start 1b DRAM production for the latest HBM4 at M15X in February, with initial output expected at ~10,000 wafers per month, with capacity set to expand multiple times by the end of 2026.",
+   "supportsNodeIds": [
+    "hbm_die_fabrication"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_hbm_hybrid_bonding_yield",
+   "type": "news",
+   "title": "SK Hynix completes 12-high hybrid bonding HBM validation, yields improving",
+   "url": "https://www.trendforce.com/news/2026/04/29/news-sk-hynix-reportedly-completes-12-high-hybrid-bonding-hbm-validation-works-to-raise-yields-for-mass-production/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "TrendForce (2026-04-29): SK hynix completed 12-high hybrid-bonding HBM validation; yields being raised for mass production. No yield percentages disclosed.",
+   "excerpt": "SK hynix has reportedly completed 12-high hybrid bonding HBM validation, working to raise yields for mass production.",
+   "supportsNodeIds": [
+    "hbm_stack_assembly_die_bonding"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_hanmi_tc_bonder_lead_time",
+   "type": "news",
+   "title": "Hanmi leads emerging HBF (high-bandwidth flash) TC bonder race; first deliveries 2H26",
+   "url": "https://www.trendforce.com/news/2026/06/05/news-hbf-opens-new-equipment-race-hanmi-semiconductor-reportedly-eyes-first-tc-bonder-deliveries-in-2h26/",
+   "sourceName": "TrendForce",
+   "date": "2026-06-11",
+   "summary": "TrendForce (2026-06-05): Hanmi prepares FIRST HBF TC bonder deliveries in 2H26 and is furthest along. SCOPE: HBF (high-bandwidth FLASH) — an adjacent emerging market, NOT the existing HBM TC bonder business where Hanmi already ships. Verification re-scoped this record to the Hanmi org node.",
+   "excerpt": "Hanmi Semiconductor is preparing to deliver its first batch of HBF TC bonders to customers in the second half of 2026, and is viewed as being furthest along in development.",
+   "supportsNodeIds": [
+    "org_hanmi_semiconductor"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_advantest_ate_lead_time",
+   "type": "news",
+   "title": "Advantest ATE test equipment lead times exceed 6 months in 2026 for HBM",
+   "url": "https://www.digitimes.com/news/a20260116PD217/demand-advantest-equipment-hbm-2026.html",
+   "sourceName": "DigiTimes",
+   "date": "2026-06-11",
+   "summary": "HBM test equipment (ATE) lead time: Advantest semiconductor test equipment average lead times exceed 6 months as of Jan 2026 for HBM and GPU applications. Source basis: equipment availability constraint metric.",
+   "excerpt": "As demand strengthens in markets such as GPUs and high-bandwidth memory (HBM), Japan-based Advantest said orders for semiconductor automated test equipment (ATE) remain stable, with average product lead times exceeding six months.",
+   "supportsNodeIds": [
+    "hbm_testing_validation_power_delivery",
+    "hbm_test_equipment_and_tooling"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6h_asmpt_hbm4_bonder_orders",
+   "type": "news",
+   "title": "SK Hynix orders HBM4 TC bonders from ASMPT as equipment lead times remain tight",
+   "url": "https://www.digitimes.com/news/a20251215VL207/sk-hynix-asmpt-hbm4-wafer-bonder-patent.html",
+   "sourceName": "DigiTimes",
+   "date": "2026-06-11",
+   "summary": "DigiTimes (2025-12-15): SK hynix placed new HBM4 TC bonder order with ASMPT. Unit counts ('fifty sets') sit behind the paywall and were removed at verification.",
+   "excerpt": "SK Hynix has reportedly placed a new order for thermal compression (TC) bonders with Singapore-based ASMPT as it accelerates preparations for HBM4.",
+   "supportsNodeIds": [
+    "hbm_stack_assembly_die_bonding"
+   ],
+   "supportsEdgeIds": [],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "paywalled_snippet"
+  },
+  {
+   "id": "ev_acc_r6l_asml_euv_2025",
+   "type": "paper",
+   "title": "ASML 2025 Annual Report: EUV System Sales",
+   "sourceName": "ASML 2025 Annual Report",
+   "date": "2026-06-10",
+   "summary": "ASML delivered 48 EUV lithography systems in 2025. Production capacity continues to scale with demand from foundries ramping advanced nodes.",
+   "excerpt": "System sales in units: 48 EUV lithography systems (of 535 total systems sold in 2025).",
+   "url": "https://www.asml.com/investors/annual-report/2025",
+   "sourceStatus": "ok_exact",
+   "supportsNodeIds": [
+    "asml_lithography_systems"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_r6l_asml_litho_share",
+   "type": "paper",
+   "title": "ASML Market Leadership in Lithography Equipment",
+   "sourceName": "Wikipedia ASML Holding article",
+   "date": "2026-06-10",
+   "summary": "Tertiary source (Wikipedia, fetched 2026-06-11): ~83% of worldwide lithography-equipment sales. Treat as approximate; primary scoped source still wanted.",
+   "excerpt": "As of 2025, ASML had 83 percent of the worldwide sales of lithography machines.",
+   "url": "https://en.wikipedia.org/wiki/ASML_Holding",
+   "sourceStatus": "fetch_ok",
+   "supportsNodeIds": [
+    "asml_lithography_systems"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_r6l_asml_sole_supplier",
+   "type": "paper",
+   "title": "ASML Monopoly Position in EUV Lithography",
+   "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+   "date": "2026-06-10",
+   "summary": "ASML is the only company that produces and sells EUV systems for chip production as of 2025. This monopoly resulted from ASML's 2001 acquisition of SVG, which provided access to critical EUV technology. Geopolitical consequences: US and Dutch export controls restrict ASML sales to China.",
+   "excerpt": "ASML...is the only company that produces and sells EUV systems for chip production [as of 2025]. Reuters reported in December 2025 that China had developed its own prototype EUV system.",
+   "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+   "sourceStatus": "fetch_ok",
+   "supportsNodeIds": [
+    "asml_lithography_systems"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_r6l_zeiss_sole_source",
+   "type": "paper",
+   "title": "Carl Zeiss SMT: Sole Supplier of EUV Projection Optics",
+   "sourceName": "Wikipedia Extreme ultraviolet lithography article",
+   "date": "2026-06-10",
+   "summary": "Carl Zeiss (Zeiss Group, Germany) produces the EUV projection optics for ASML systems. Zeiss manufactures the most precise mirrors in the world, using ion beam figuring techniques to remove atomic-scale defects from multilayer Mo/Ru stacks. Optics are bounced onto wafers to form chip designs. Zeiss is the sole global supplier of these critical optical subsystems.",
+   "excerpt": "The light is bounced off Zeiss mirrors onto the surface of a silicon wafer to form the designs for the chip...Germany's Carl Zeiss [works with ASML]. Zeiss produces the most precise mirrors in the world [via] ion beam figuring [to knock off] individual molecules [to correct imperfections].",
+   "url": "https://en.wikipedia.org/wiki/Extreme_ultraviolet_lithography",
+   "sourceStatus": "fetch_ok",
+   "supportsNodeIds": [
+    "euv_projection_optics"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_r6l_zeiss_asml_partnership",
+   "type": "news",
+   "title": "ASML and Carl Zeiss SMT Strategic Partnership for Next-Generation EUV Optics",
+   "sourceName": "ASML Press Release (November 2016)",
+   "date": "2016-11-01",
+   "summary": "ASML and Carl Zeiss SMT strengthened their strategic partnership through equity investment and multi-year R&D commitment. ASML purchased 24.9% minority stake in Zeiss SMT for €1 billion and committed approximately €760 million over six years to support Zeiss SMT's research, development, and capital expenditures. Partnership aims to develop next-generation High-NA EUV optical systems (NA > 0.5 vs current 0.33 NA) for further chip scaling toward sub-3nm nodes. Partnership described as 30-year long-standing collaboration with Zeiss as ASML's most important strategic partner.",
+   "excerpt": "ASML buys 24.9% of ZEISS subsidiary Carl Zeiss SMT for EUR 1 billion in cash... ASML supports Carl Zeiss SMT's R&D and capex for approximately EUR 760 million over the next 6 years (EUR 220M R&D + EUR 540M capex/supply-chain).",
+   "url": "https://www.asml.com/news/press-releases/2016/zeiss-and-asml-strengthen-partnership-for-next-generation-of-euv-lithography",
+   "sourceStatus": "ok_exact",
+   "supportsNodeIds": [
+    "euv_projection_optics"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_r6l_tsmc_foundry_wiki",
+   "type": "paper",
+   "title": "TrendForce 4Q25 foundry ranking: TSMC 70.4% share of top-10 foundry revenue",
+   "sourceName": "TrendForce",
+   "date": "2026-03-12",
+   "summary": "TrendForce press release (2026-03-12): TSMC 70.4% share in 4Q25. SCOPE: revenue share among the top-10 global foundries. Replaces the Wikipedia tertiary source at verification.",
+   "excerpt": "TSMC to maintain its leading position with a 70.4% market share... the combined revenue of the world's top ten foundries up 2.6% QoQ to nearly US$46.3 billion in 4Q25.",
+   "url": "https://www.trendforce.com/presscenter/news/20260312-12965.html",
+   "sourceStatus": "ok_exact",
+   "supportsNodeIds": [
+    "foundry_capacity_tsmc"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed"
+  },
+  {
+   "id": "ev_acc_r6o_coherent_inp_capacity",
+   "type": "news",
+   "title": "Coherent CEO: InP laser capacity constrained, doubling over next 12 months (2026 Q1)",
+   "url": "https://www.optics.org/news/16/11/9",
+   "date": "2026-03-15",
+   "summary": "optics.org: Coherent CEO — InP laser capacity constrained; capacity to double over the next 12 months. Page blocks automated fetch; verified manually by the owner in the 2026-06-11 audit (citation [11]).",
+   "excerpt": "InP laser capacity is currently constrained. We plan to double our capacity over the next 12 months through process improvements and equipment expansion.",
+   "supportsNodeIds": [
+    "eml_dfb_laser_diodes"
+   ],
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "ok_exact"
+  },
+  {
+   "id": "ev_acc_r6o_eml_supplier_share",
+   "type": "paper",
+   "title": "EML/DFB laser supplier market concentration: Coherent, Lumentum, Mitsubishi Electric top 3 (2024–2025)",
+   "url": "https://www.yole.fr/en/Market-and-Technology-Report/Optical-transceivers-for-datacenters.html",
+   "date": "2025-06-01",
+   "summary": "Yole optical-transceiver report (paywalled): EML/DFB long-reach laser supply concentrated among a small set of suppliers (Coherent, Lumentum, Mitsubishi Electric class). The earlier '70-75% top-3 share' precision is NOT visible outside the paywall and was downgraded at verification.",
+   "excerpt": "(paywalled report; landing page lists scope only)",
+   "supportsNodeIds": [
+    "eml_dfb_laser_diodes",
+    "compound_foundry_specialty"
+   ],
+   "reviewStatus": "unreviewed",
+   "sourceStatus": "paywalled_snippet"
+  },
+  {
+   "id": "ev_acc_r6_euv_blanks_agc_hoya_duopoly",
+   "type": "paper",
+   "title": "EUV Mask Blanks Market Size, Share & Growth Forecast 2026-2032",
+   "url": "https://www.intelmarketresearch.com/euv-mask-blanks-market-11463",
+   "date": "2025-06",
+   "sourceStatus": "market_report_seo",
+   "excerpt": "AGC Inc. stands as the undisputed global leader, commanding more than 59% of the market... AGC Inc. and Hoya Corporation collectively holding approximately 93% of the market share.",
+   "summary": "intelmarketresearch.com (SEO-grade market report): AGC >59%, AGC+Hoya ~93% combined, basis implied value. NOTE: the page contains NO High-NA segment share data — a 'Hoya exceeds 75% by volume in High-NA' sentence in an earlier draft was fabricated and removed at verification.",
+   "supportsNodeIds": [
+    "euv_mask_blanks",
+    "high_na_euv_mask_blanks"
+   ],
+   "confidence": "medium",
+   "reviewStatus": "unreviewed",
+   "limitations": "Market-report page (SEO characteristics); conflicts with prior graph claims (Hoya 75%+/AGC 20-25%). Segment breakdown not separately quantified. No access to underlying primary sources."
+  },
+  {
+   "id": "ev_acc_r6_euv_blanks_market_conflict_note",
+   "type": "internal_note",
+   "title": "Evidence Rebuild: Market Share Conflict Documentation",
+   "date": "2026-06-11",
+   "summary": "This node contains conflicting market-share claims. Prior graph stated Hoya 75%+/AGC 20-25% (per SemiAnalysis/Yole/Morningstar). Verified fetch of intelmarketresearch 2025 report shows AGC 59%/Hoya 34%. Likely causes: different basis (value vs volume), different scope (commodity vs all-grades), aging of sources. Honest resolution: state both numbers with scope caveat and mark as unresolved.",
+   "supportsNodeIds": [
+    "euv_mask_blanks"
+   ],
+   "reviewStatus": "unreviewed",
+   "limitations": "Internal documentation; not a primary source. Inaccessible sources: Hoya IR (404), AGC IR (TLS error), Yole (timeout). Prior analyst claims (SemiAnalysis, Yole) could not be re-verified."
+  },
+  {
+   "id": "ev_acc_r6_high_na_hoya_lead_position",
+   "type": "news",
+   "title": "Hoya Expands EUV Photomask Blank Capabilities for High-NA Systems",
+   "url": "https://semiconductorinsight.com/blog/hoya-expands-euv-photomask-blank-capabilities-strengthening-global-semiconductor-supply-chain/",
+   "date": "2025-06",
+   "sourceStatus": "fetch_ok",
+   "excerpt": "HOYA has unveiled new advancements in EUV photomask blanks... one of the few capable players in this highly specialized domain.",
+   "summary": "semiconductorinsight.com blog: Hoya described as ONE OF THE FEW capable players. The page does NOT say 'only vendor with validated High-NA blanks' (an earlier draft's quote was fabricated; removed at verification). No supporting citations on page.",
+   "supportsNodeIds": [
+    "high_na_euv_mask_blanks"
+   ],
+   "confidence": "low",
+   "reviewStatus": "unreviewed",
+   "limitations": "Blog/news aggregator source. Claim of single-source qualification stated without citation to official ASML lists or foundry announcements. ASML High-NA product pages do not name suppliers. Appears to be inference from Hoya announcements rather than documented qualification."
+  },
+  {
+   "id": "ev_acc_r6_high_na_qualification_unverified",
+   "type": "internal_note",
+   "title": "High-NA EUV Mask Blank Qualification Status: Unverified",
+   "date": "2026-06-11",
+   "summary": "Prior graph claimed Hoya 100% exclusive/only qualified supplier for High-NA blanks. Rebuild research found: (1) ASML High-NA pages do not list qualified blank suppliers; (2) no Hoya investor docs or ASML qualification matrix accessed; (3) no customer announcement naming exclusive Hoya sourcing found; (4) imec's March 2026 High-NA demo made no mention of supply constraints or exclusive sourcing. Single-source claim lacks verification. Recommendation: downgrade to 'Hoya reported furthest along; qualification status unconfirmed.'",
+   "supportsNodeIds": [
+    "high_na_euv_mask_blanks"
+   ],
+   "reviewStatus": "unreviewed",
+   "limitations": "Inaccessible primary sources: Hoya annual report, ASML qualification docs, Intel/Samsung/TSMC supply statements. Without these, the 100% claim cannot be validated. Assessment: plausible but unverified."
+  },
+  {
+   "id": "ev_acc_r6_asml_high_na_timeline",
+   "type": "product_page",
+   "title": "ASML TWINSCAN EXE High-NA Lithography Systems",
+   "url": "https://www.asml.com/en/products/euv-lithography-systems",
+   "date": "2026-06",
+   "sourceStatus": "ok_exact",
+   "excerpt": "The first High NA EUV lithography system was delivered in December 2023... expected to be used in high-volume manufacturing in 2025-2026.",
+   "summary": "ASML product page describing High-NA EUV lithography systems (EXE:5000/5200B). Timeline: first delivery Dec 2023, volume 2025-2026. Technical specs: 0.55 NA, 8 nm printing. Confirms segment emergence but does not address mask blank suppliers or qualification.",
+   "supportsNodeIds": [
+    "high_na_euv_mask_blanks"
+   ],
+   "confidence": "high",
+   "reviewStatus": "unreviewed",
+   "limitations": "Silent on mask blank sourcing and supplier qualification. Confirms technical timeline and specs only."
+  }
+ ],
+ "tasks": []
+}

@@ -1,4 +1,5 @@
 import type { Edge, GraphData, Node } from "./schema";
+import { leadTimeAnswerForNode } from "./commercialDataCompleteness";
 import { holdersForNode } from "./supplyConcentration";
 
 /** Decomposition relations whose source depends on the target (ADR-0005). */
@@ -92,8 +93,8 @@ const SUPPLY_CHAIN_KINDS = new Set<Node["kind"]>([
   "manufacturing_process",
 ]);
 
-/** Concentration = 1 / (1 + holderCount). 0 holders ⇒ 1.0 (strongest flag,
- *  per supplyConcentration's "zero = scarcity-or-gap" convention). */
+/** Concentration = 1 / (1 + modeled holderCount). 0 holders ⇒ 1.0 as a
+ *  coverage/scarcity signal, not as a real-world supplier census. */
 export function concentrationValue(graph: GraphData, nodeId: string): AxisValue {
   const node = graph.nodes.find((n) => n.id === nodeId);
   if (!node || !SUPPLY_CHAIN_KINDS.has(node.kind)) return { value: 0, known: false };
@@ -130,8 +131,9 @@ export function barrierValue(node: Node): AxisValue {
   const readiness =
     typeof node.maturityScore === "number" ? node.maturityScore : readinessFromLabel(node.maturityLabel);
   if (readiness !== null) signals.push(Math.max(0, Math.min(1, 1 - readiness / 100)));
-  if (typeof node.capacityLeadTimeMonths === "number") {
-    signals.push(Math.min(1, node.capacityLeadTimeMonths / LEAD_TIME_SOFT_CAP_MONTHS));
+  const leadTime = leadTimeAnswerForNode(node);
+  if (leadTime) {
+    signals.push(Math.min(1, leadTime.months / LEAD_TIME_SOFT_CAP_MONTHS));
   }
   if (signals.length === 0) return { value: 0, known: false };
   return { value: signals.reduce((a, b) => a + b, 0) / signals.length, known: true };

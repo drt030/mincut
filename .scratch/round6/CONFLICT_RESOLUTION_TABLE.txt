@@ -1,0 +1,103 @@
+================================================================================
+EUV MASK BLANKS EVIDENCE REBUILD — CONFLICT RESOLUTION TABLE (2026-06-11)
+================================================================================
+
+NODE: euv_mask_blanks
+═════════════════════════════════════════════════════════════════════════════
+
+CLAIM #1: HOYA MARKET SHARE
+─────────────────────────────
+OLD:     Hoya 75%+ by volume | Source: SemiAnalysis/Yole/Morningstar (2025)
+NEW:     "Hoya 34% (by value, all grades) OR 75%+ (by volume, alternative source)"
+         Scope: Exact measurement basis and segment breakdown unresolved
+STATUS:  CONFLICT DOCUMENTED (both figures presented with caveat)
+BASIS:   Verified fetch of intelmarketresearch.com (2025-06) shows AGC 59% / Hoya 34%
+REASON:  Likely different basis (value vs volume) or scope (all-grades vs standard only)
+QUOTE:   "AGC Inc (59% market share) and Hoya (34% market share), accounting for 93% of global market"
+
+CLAIM #2: AGC MARKET SHARE  
+─────────────────────────────
+OLD:     AGC 20-25% | Source: Industry analyst consensus (2025)
+NEW:     "AGC 59% (by value, all grades) OR 20-25% (by volume, alternative source)"
+         Scope: Exact measurement basis and segment breakdown unresolved
+STATUS:  CONFLICT DOCUMENTED (both figures presented with caveat)
+BASIS:   Verified fetch of intelmarketresearch.com (2025-06) shows AGC 59% / Hoya 34%
+REASON:  Likely different basis (value vs volume) or scope (all-grades vs standard only)
+QUOTE:   "AGC Inc (59% market share) and Hoya (34% market share), accounting for 93% of global market"
+
+CONFIDENCE:  high → medium  (conflict unresolved; multiple sources contradict)
+SOURCE STATUS: Previous evidence marked "404" or "generic"; new evidence marked "market_report_seo"
+
+═════════════════════════════════════════════════════════════════════════════
+
+NODE: high_na_euv_mask_blanks
+═════════════════════════════════════════════════════════════════════════════
+
+CLAIM #1: HOYA HIGH-NA EXCLUSIVITY
+────────────────────────────────────
+OLD:     Hoya 100% (market share) | "Only vendor with validated blanks"
+         Source: SemiAnalysis Q1 2025 survey
+NEW:     "Hoya lead position (unverified single-source)"
+         "Hoya reported furthest along; qualification status unconfirmed"
+STATUS:  DOWNGRADED (unverified → low confidence claim)
+BASIS:   No primary evidence found:
+         - ASML qualification docs: Not on public pages
+         - Hoya IR: 404 error
+         - Customer statements: Not found
+         - ASML High-NA pages: Silent on supplier qualifications
+EVIDENCE: Semiconductorinsight.com blog repeats "only vendor" claim but cites no supporting documentation
+METRIC REWRITE:
+  OLD:  "Market share (High-NA EUV blanks): 100% ... Source: SemiAnalysis Q1 2025"
+  NEW:  "Supplier concentration claim: Hoya lead position (unverified single-source)"
+        "... no independent confirmation of 100% single-source found."
+
+CONFIDENCE: high → low  (primary evidence unavailable; claim downgraded)
+MATURITY:   mature (80) → early_deployment (72)  (reflects unverified status)
+SOURCE STATUS: Previous evidence marked "404" or "unverified"; new evidence marked "fetch_ok" with limitations noted
+
+═════════════════════════════════════════════════════════════════════════════
+
+SUMMARY OF CHANGES
+═════════════════════════════════════════════════════════════════════════════
+
+euv_mask_blanks:
+  Description:   EXPANDED (conflict explicitly stated; both figures presented)
+  Metrics:       REPLACED (dual-source data with scope caveats)
+  Confidence:    high → medium
+  Notes:         EXPANDED (conflict documentation added)
+  Evidence:      UPDATED (old 404 records marked bad; new records with proper sourceStatus)
+
+high_na_euv_mask_blanks:
+  Description:   EXTENSIVELY REVISED (exclusivity claim downgraded to unverified)
+  Metrics:       REPLACED (100% monopoly → "unverified lead position")
+  Confidence:    high → low
+  Maturity:      mature (80) → early_deployment (72)
+  Notes:         EXPANDED (unverified status and search limitation documented)
+  Evidence:      UPDATED (old unverified records replaced; new records with proper limitations)
+
+═════════════════════════════════════════════════════════════════════════════
+
+SCOPE & LIMITATION SUMMARY
+═════════════════════════════════════════════════════════════════════════════
+
+WHAT WAS VERIFIED:
+  ✓ AGC + Hoya duopoly structure (both sources confirm ~93% combined)
+  ✓ ASML High-NA timeline (first delivery Dec 2023, volume 2025-2026)
+  ✓ Secondary suppliers at pilot/research scale exist
+  ✓ High-NA is emerging segment (acknowledged in market reports)
+
+WHAT REMAINS UNRESOLVED:
+  ✗ Exact AGC vs Hoya share split (59%/34% vs 75%/20-25% conflict unresolved)
+  ✗ Basis for split (value vs volume vs customer-set vs regional)
+  ✗ Hoya 100% High-NA exclusivity (no primary source evidence found)
+  ✗ AGC's High-NA qualification status (not mentioned in accessible sources)
+
+SOURCES THAT WOULD RESOLVE CONFLICTS (IF ACCESSIBLE):
+  - Hoya annual report 2024-2025 (IR page: 404)
+  - AGC annual report 2024-2025 (IR page: TLS error)
+  - Yole detailed EUV blank analysis (timeout)
+  - TechInsights institutional research (paywall)
+  - ASML qualified-vendor documentation (not on public pages)
+  - Foundry sourcing statements from TSMC/Samsung/Intel (not found)
+
+═════════════════════════════════════════════════════════════════════════════

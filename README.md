@@ -1,8 +1,12 @@
-# Capability Graph Explorer
+# MinCut
 
-Capability Graph Explorer is an interactive graph-based research tool for understanding how products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and widely adopted.
+Find the bottlenecks in how things get made.
 
-The project goal is not to draw a pretty graph after the fact. The graph is the reasoning substrate: capabilities, sibling products, modules, metrics, bottlenecks, placeholder breakthroughs, evidence, maturity estimates, validation reports, and research tasks should all be represented as structured local data.
+MinCut is an interactive graph-based research tool for understanding how products, technologies, and capabilities become mature, manufacturable, scalable, affordable, and widely adopted.
+
+The current commercial surface is aimed at public-market retail investors: the free layer teaches the industrial chain and its chokepoints; the paid or future-paid layer can expose company, supplier, ticker, and evidence trails tied to those chokepoints. MinCut is an analytical research tool, not stock advice.
+
+The project goal is not to draw a pretty graph after the fact. The graph is the reasoning substrate: products, sibling products, artifacts, know-how, organizations, metrics, evidence, maturity/readiness inputs, validation reports, and research tasks should all be represented as structured local data.
 
 ## Project purpose (north star)
 
@@ -30,16 +34,24 @@ These ADRs codify the v0 model and are reflected in the schema, gate, and UI:
 - **Time-stamped maturity + future time slider** (ADR-0002). Every maturity assessment carries a `maturityAsOf`. `maturityHistory` is reserved for the time-slider that powers retrospective mode.
 - **Decomposition stop = commodified leaves** (ADR-0005). Stop decomposing when a node represents a commodified input in the Product's region/era, unless an explicit override reason is recorded. Frontier nodes mark deliberate expansion candidates.
 - **Cost model with range-valued metrics + RMB primary** (ADR-0003). Costs are `{min, typical, max}` with a per-layer 15% integration overhead, multi-currency leaves, and a green/amber/red coverage dot in the rollup.
+- **Know-how as Barrier Sources** (ADR-0008, amended 2026-06-17). The default graph is an artifact map; `engineering_method` and `manufacturing_process` nodes stay hidden until a secondary Barrier Sources layer or detail surface needs them.
+- **Chokepoint factor model** (ADR-0010). Reader-facing analysis uses System decomposition, Chokepoint, and Cost. Maturity/readiness feeds Barrier internally; it is not a public lens.
 
 ## Current Focus
 
-v0 intentionally starts with one complete domain:
+Commercial QA currently prioritizes:
+
+- `ai-compute`: full-free trust demo with company/ticker exposure visible enough to judge the method.
+- `spacex-reusable-launch`: hot-domain route for graph, evidence, and future paid/future-preview checks.
+- `humanoid-robotics`: hot-domain route for graph, evidence, and future paid/future-preview checks.
+
+The internal v0 regression target remains:
 
 ```text
 low_cost_parcel_sorting_robot_300k_rmb
 ```
 
-This product node represents a parcel-sorting robot or sorting cell that can be sold or deployed at roughly 300,000 RMB total system cost. The current implementation is meant to prove one closed loop:
+This product node represents a parcel-sorting robot or sorting cell that can be sold or deployed at roughly 300,000 RMB total system cost. It is primarily used to prove and guard one closed loop:
 
 1. Load local graph data.
 2. Render the graph.
@@ -50,17 +62,16 @@ This product node represents a parcel-sorting robot or sorting cell that can be 
 7. Run a validation gate using only graph data.
 8. Generate follow-up research tasks.
 
-Other domains are intentionally deferred until this loop is useful.
-Deferred sample product data may remain under `/data` as fixtures for direct product-page checks, but it is not part of the default active home or graph surface.
-Default next-task selection is scoped to the active v0 graph; deferred fixture tasks remain available but are not part of the current v0 closed loop.
+Parcel robot is no longer the main commercial first-run journey unless explicitly promoted. It remains the development graph for boundary, gate, import, and regression checks.
 
 ## Current Capabilities
 
 - Next.js App Router application.
 - TypeScript and Zod schemas for graph data.
 - Local JSON graph storage under `/data`.
-- Radial graph explorer: current implementation follows ADR-0006's progressive-disclosure canvas; the next graph UX direction is ADR-0007's Stable Balanced Radial Tree, where overview and branch highlight are prioritized before path extraction or time replay.
-- 5 color modes (bottleneck-risk default, cost, maturity, overall, relation) layered redundantly across node fill, edges (color + thickness), and sector tint.
+- Radial graph explorer following the Stable Balanced Radial Tree direction in ADR-0007 and `docs/GRAPH_UX.md`.
+- Three reader-facing graph lenses: System decomposition, Chokepoint, and Cost. There is no reader-facing Maturity lens.
+- Secondary Barrier Sources layer for know-how nodes when methods or manufacturing processes explain why an artifact is hard to replicate.
 - Node detail panel (collapsible right-edge rail) with metrics, evidence, upstream/downstream, cost rollup, sibling products.
 - Product view for the parcel-sorting robot node.
 - Capability-grouped sibling Product layout (per ADR-0004): alternative architectures render as sibling Products under one Capability rather than as routes within a single Product.
@@ -150,11 +161,13 @@ http://localhost:3000
 
 The main graph entities are:
 
-- `Node`: product, capability, module, technical route, metric, bottleneck, evidence, and related concepts.
+- `Node`: artifacts (`product`, `technical_route`, `module`, `equipment`, key `material`), know-how (`engineering_method`, `manufacturing_process`), organizations, metrics/context records, and deprecated compatibility kinds.
 - `Edge`: typed relationship between nodes, such as `requires`, `has_route`, `measured_by`, or `bottlenecked_by`.
 - `Evidence`: source or note supporting nodes or edges.
 - `GateReport`: structured output from the validation gate.
 - `ResearchTask`: follow-up work generated from graph gaps.
+
+Display layers are stricter than schema kinds: the default graph canvas shows artifact nodes; know-how appears as Barrier Sources only in a secondary layer or detail; organizations, metrics, evidence, and context records stay off the default canvas.
 
 All important JSON files should validate with:
 

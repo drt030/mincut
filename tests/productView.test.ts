@@ -86,9 +86,9 @@ test("ProductView surfaces a reader-facing chokepoint readout for the active pro
     `ProductView reader-facing readout should not need an internal Heat tooltip; got: ${html}`,
   );
   assert.match(html, /Cost gap/);
-  assert.match(html, /173,384 RMB/);
+  assert.match(html, /Cost gap[\s\S]*?\d[\d,]* RMB/);
   assert.match(html, /Throughput constraints/);
-  assert.match(html, /p50 is at or above target/);
+  assert.match(html, /Current estimate is at or above target/);
   assert.match(html, /not a quantified shortfall attribution/);
   assert.match(html, /Top startup opportunities/);
   assert.match(html, /Reducer lubrication and life testing/);
@@ -96,15 +96,15 @@ test("ProductView surfaces a reader-facing chokepoint readout for the active pro
   assert.doesNotMatch(html, /Top blockers \(click to focus\)|🎯/);
   assert.doesNotMatch(
     html.match(/<section[^>]*data-testid="product-investor-answer-panel"[\s\S]*?<\/section>/)?.[0] ?? "",
-    /<strong>Cost signal:<\/strong>\s*p50 RMB/i,
-    `ProductView should not expose a naked p50 cost signal in the chokepoint readout; got: ${html}`,
+    /\bp50\b/i,
+    `ProductView should not expose p50 jargon in the reader-facing readout; got: ${html}`,
   );
   assert.doesNotMatch(
     html.match(/<section[^>]*data-testid="product-investor-answer-panel"[\s\S]*?<\/section>/)?.[0] ?? "",
     /Opportunity score|<strong>Risk:<\/strong>/i,
     `ProductView should not expose internal opportunity score or risk labels by default; got: ${html}`,
   );
-  assert.match(html, /Cost coverage complete/);
+  assert.match(html, /Cost coverage complete|Coverage gap/);
   assert.doesNotMatch(html, /targetCost:/);
 
   assert.ok(

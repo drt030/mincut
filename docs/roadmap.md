@@ -1,4 +1,9 @@
-# Capability Graph Explorer Roadmap
+# MinCut Roadmap
+
+Status: long-term research roadmap. Current commercial QA priorities are in
+`docs/QA-agent.md` and `docs/plans/MASTER-PLAN.md`. Where this roadmap
+conflicts with 2026-06-17 acceptance, graph-layer, or commercial-focus
+decisions, the newer documents win.
 
 ## Long-Term Goal
 
@@ -21,13 +26,19 @@ The graph is the reasoning substrate. Visualization, maturity estimates, validat
 
 ## Product Strategy
 
-Start narrow and deep. The first complete domain is:
+Start narrow and deep, but keep internal development and commercial QA
+separate. The internal regression domain is:
 
 ```text
 low_cost_parcel_sorting_robot_300k_rmb
 ```
 
-Do not build a civilization-scale graph in the first version. Prove that one product line can be represented, inspected, scored, and expanded through an agent-assisted online research loop. Then expand domain by domain.
+Do not build a civilization-scale graph in the first version. Prove that one
+product line can be represented, inspected, scored, and expanded through an
+agent-assisted online research loop. For the commercial surface, current
+first-run QA prioritizes AI compute as the full-free trust demo plus SpaceX
+reusable launch and humanoid robotics as hot-domain journeys. Parcel robot
+remains the regression graph unless explicitly promoted.
 
 ## Phase 0: Repo And Foundation
 
@@ -78,7 +89,9 @@ Exit criteria:
 - Each sibling Product candidate under the active Capability has required enablers, bottlenecks, metrics, and evidence coverage (per ADR-0004 sibling-Product layering).
 - Gate **overall score** (0–5 scale, the average across competency-question scores) reaches at least 4.0 without hiding missing evidence. This is *graph-modelling completeness*, not the Product's `maturityScore` (0–100, world-state maturity); the Product is expected to remain in prototype/early-deployment range (≈45–60 maturityScore) at v0 exit.
 
-  Current gate overall: **2.94/5** — capped at 3 by unreviewed cost data per the ADR-0001 cost-scoped review cap. Reviewing cost evidence (promoting cost claims from `unreviewed` to `reviewed`) is the path from 2.94 to 4.0; modelling-completeness gaps are smaller than the review-status gap.
+  Do not treat older hard-coded gate scores as current truth. Run the dry-run
+  gate command for the current baseline and report the date/commit with the
+  score.
 - Given a target product and boundary, an agent can search online sources and import a reviewable batch of candidate graph records.
 - Agent-imported records are marked `unreviewed` and include evidence/provenance or explicit gaps.
 
@@ -196,10 +209,14 @@ These should not be implemented until the controlled agent-assisted import and h
 
 Highest priority:
 
-1. Add reviewed field evidence for parcel throughput, jam rate, intervention rate, installation time, and maintenance cost.
-2. Add a simple cost model for the 300,000 RMB system target.
-3. Define the first agent-assisted online research/import format for candidate nodes, edges, evidence, and tasks.
-4. Implement a first bounded import loop for expanding one frontier node such as `industrial_servo_motor`.
-5. Improve route-level maturity explanations.
-6. Make gate reports easier to inspect in the UI.
-7. Add more Chinese aliases for nodes, relations, and common maturity labels.
+1. Keep `docs/ACCEPTANCE.md`, `docs/QA-agent.md`, and `docs/GRAPH_UX.md`
+   aligned as the current product/QA contract.
+2. Browser-QA AI compute as the full-free trust demo.
+3. Browser-QA SpaceX reusable launch and humanoid robotics as primary hot-domain journeys.
+4. Improve node detail first-glance disclosure: Chokepoint verdict,
+   elevated structural reason, Cost as separate magnitude, Barrier Sources,
+   company/ticker exposure, and evidence state.
+5. Continue evidence/source review for surfaced company/ticker and
+   chokepoint claims; agents never promote `reviewStatus: "reviewed"`.
+6. Preserve parcel robot as the internal regression path for product
+   boundary, graph topology, import, and validation-gate behavior.

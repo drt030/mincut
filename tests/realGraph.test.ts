@@ -18,14 +18,14 @@ import { manufacturersForNode, siblingProductsForProduct } from "../src/lib/grap
 
 const graph = loadGraphData();
 
-test("real graph: parcel_manipulation_or_diverter surfaces the cost inversion", () => {
-  // The headline user-reported bug. parent direct 4k vs child rollup 60k+
-  // should now resolve to (a) rolled-up ≥ 69k, (b) directLowerThanChildren
-  // = true.
+test("real graph: parcel_manipulation_or_diverter uses child rollup after stale direct cost is superseded", () => {
+  // Parent-level historical direct cost metrics that are lower than a
+  // decomposed child rollup are tagged superseded_by_child_cost_rollup and no
+  // longer count as direct commercial-scale readings.
   const result = rollupCost(graph, "parcel_manipulation_or_diverter");
-  assert.ok(result.rolledUp.typical >= 60_000 * 1.15, `expected rolled-up ≥ 69k, got ${result.rolledUp.typical}`);
-  assert.equal(result.directLowerThanChildren, true, "inversion badge should fire on this node");
-  assert.ok(result.directOnly?.typical === 4_000, `direct 4k preserved; got ${result.directOnly?.typical}`);
+  assert.ok(result.rolledUp.typical >= 200_000, `expected child rollup ≥ 200k, got ${result.rolledUp.typical}`);
+  assert.equal(result.directLowerThanChildren, false, "superseded direct cost should not trigger inversion");
+  assert.equal(result.directOnly, null, "superseded direct cost metric should not be treated as direct commercial scale");
 });
 
 test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", () => {
@@ -42,15 +42,17 @@ test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", ()
   // base-alignment allocations, moving it to ~421.8k. The 2026-06-08 robot-arm
   // recalibration raises the direct arm-body p50 above low-end marketplace
   // samples and moves the live rollup to ~451.8k. The 2026-06-08 manufacturing
-  // process backfill adds explicit assembly/test allocations and moves it to
-  // ~469.1k.
-  // Lock that value in so a future change that accidentally hides child
-  // cost drivers is caught.
+  // process backfill adds explicit assembly/test allocations and moved it to
+  // ~469.1k. The 2026-06-20 consistency gate marks stale parent-level direct
+  // cost metrics as superseded by child rollups, leaving the live child-derived
+  // total at ~430.7k.
+  // Lock that value in so a future change that accidentally re-admits stale
+  // direct parent costs or hides child cost drivers is caught.
   const result = rollupCost(graph, "low_cost_parcel_sorting_robot_300k_rmb");
   assert.equal(result.directOnly, null, "annual maintenance cost must not be treated as direct product capex");
   assert.ok(
-    result.rolledUp.typical > 464_000 && result.rolledUp.typical < 474_000,
-    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~469.1k)`,
+    result.rolledUp.typical > 425_000 && result.rolledUp.typical < 436_000,
+    `flagship rolled-up typical drifted: ${result.rolledUp.typical} (expected ~430.7k)`,
   );
 });
 

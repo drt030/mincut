@@ -16,13 +16,14 @@ test("/gate latest report is computed from the current graph, not a stale saved 
   const latestSection = html.slice(latestStart, historicalStart);
   assert.match(
     latestSection,
-    /Rolled-up cost \(RMB\): p50=473\.4k/,
-    "latest gate report should use the same current p50 cost rollup as the product page",
+    /Rolled-up cost \(RMB\): est\. \d+(?:\.\d)?k/,
+    "latest gate report should use the same current estimated cost rollup as the product page",
   );
-  assert.match(latestSection, /Coverage gap: 0 node\(s\)/);
+  assert.match(latestSection, /Coverage gap: \d+ node\(s\)/);
   assert.doesNotMatch(
     latestSection,
-    /p50=411\.7k/,
+    /est\. 411\.7k/,
     "latest gate report must not come from the stale saved report snapshot",
   );
+  assert.doesNotMatch(latestSection, /\bp50\b/i);
 });

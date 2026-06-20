@@ -2,20 +2,26 @@
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { isKnowHowNode } from "@/lib/canvasGraph";
-import { chokepointRankSignal, chokepointScores, type ChokepointResult } from "@/lib/chokepointScore";
+import {
+  chokepointRankSignal,
+  chokepointScores,
+  directDependents,
+  type ChokepointResult,
+} from "@/lib/chokepointScore";
+import { leadTimeAnswerForGraphNode, type LeadTimeAnswer } from "@/lib/commercialDataCompleteness";
 import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
 import { nodeCostSignalKind, nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
 import type { GraphLayer } from "@/lib/knowHowLayer";
 import { selectTopN } from "@/lib/prioritySelection";
 import {
-  readerFacingConstraintReason,
   readerFacingCostAnswer,
   readerFacingCostSignalText,
 } from "@/lib/readerFacingText";
 import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { RouteHighlight } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
+import { holdersForNode } from "@/lib/supplyConcentration";
 import { useLanguage } from "./LanguageProvider";
 import { useHolderTeaser } from "./HolderTeaserProvider";
 import { ChokepointHeadline, NodeDetailContent } from "./NodeDetailPanel";
@@ -23,6 +29,7 @@ import { ChokepointHeadline, NodeDetailContent } from "./NodeDetailPanel";
 type RailAnalysisMode = "relation" | "cost" | "bottleneck-risk";
 type DetailIntent = "default" | "exposure";
 type ChokepointAxis = keyof ChokepointResult["axes"];
+const NON_DECOMPOSITION_CHILD_KINDS = new Set(["organization", "metric", "evidence", "context", "regulation", "principle"]);
 
 const CHOKEPOINT_AXIS_LABEL_KEYS: Record<ChokepointAxis, string> = {
   criticality: "chokepointAxisLabelCriticality",
@@ -52,7 +59,7 @@ export type RouteDetailRailProps = {
 };
 
 function formatRmb(value: number): string {
-  return `p50 RMB ${Math.round(value).toLocaleString("en-US")}`;
+  return `est. RMB ${Math.round(value).toLocaleString("en-US")}`;
 }
 
 function compactDescription(text: string | undefined): string | null {
@@ -87,6 +94,10 @@ function formatCopy(template: string, replacements: Record<string, string | numb
     (text, [key, value]) => text.replaceAll(`{${key}}`, String(value)),
     template,
   );
+}
+
+function readerClauseFragment(text: string): string {
+  return text.trim().replace(/[.!?。！？…]+$/u, "");
 }
 
 function railAnalysisMode(mode: ColorMode | undefined): RailAnalysisMode {
@@ -234,6 +245,11 @@ function constraintFactorsForNode(node: Node, t: (key: string) => string): strin
   return CONSTRAINT_FACTOR_TAG_KEYS
     .filter((entry) => tags.has(entry.tag))
     .map((entry) => t(entry.labelKey));
+}
+
+function barrierDetailKey(node: Node): "chokepointBarrierMustBuild" | "chokepointBarrierHardToReplicate" {
+  if (node.transactability === "must_build") return "chokepointBarrierMustBuild";
+  return "chokepointBarrierHardToReplicate";
 }
 
 /**
@@ -401,6 +417,73 @@ export function RouteDetailRail({
     });
   };
   const nodeRoleText = (node: Node): string => firstSentenceDescription(descriptionOf(node)) ?? t("noDescription");
+  function decompositionConstraintSignalText(node: Node): string | null {
+    const special: Record<string, string[]> = {
+      logic_die_fabrication: [t("decompositionSignalFoundry"), t("decompositionSignalEuv"), t("decompositionSignalYield")],
+      advanced_packaging: [t("decompositionSignalCowos"), t("decompositionSignalBonding"), t("decompositionSignalInspection")],
+      high_bandwidth_memory: [t("decompositionSignalHbmSupply"), t("decompositionSignalHbmAssembly"), t("decompositionSignalHbmTest")],
+      substrate_and_interposer: [t("decompositionSignalOrganicSubstrate"), t("decompositionSignalInterposer"), t("decompositionSignalPdn")],
+      interconnect_and_optics: [t("decompositionSignalSerdes"), t("decompositionSignalOptics"), t("decompositionSignalCopper")],
+      power_delivery: [t("decompositionSignalVrm"), t("decompositionSignalPowerStage"), t("decompositionSignal48v")],
+      thermal_cooling: [t("decompositionSignalColdPlate"), t("decompositionSignalLiquidLoop"), t("decompositionSignalCdu")],
+    };
+    const signals = special[node.id];
+    return signals ? signals.slice(0, 3).join(" · ") : null;
+  }
+  function structuralConstraintSignalText(node: Node): string | null {
+    const strongest = strongestChokepointAxis(chokepointScoreByNodeId.get(node.id));
+    if (!strongest) return null;
+    switch (strongest.axis) {
+      case "criticality": {
+        const count = directDependents(graph, node.id).length;
+        return count > 0 ? formatCopy(t("chokepointAxisCriticality"), { count }) : null;
+      }
+      case "concentration": {
+        const concrete = decompositionConstraintSignalText(node);
+        if (concrete) return concrete;
+        const { total } = holdersForNode(graph, node.id);
+        if (total <= 0) return t("chokepointAxisConcentrationGap");
+        return formatCopy(t("chokepointAxisConcentration"), { count: total });
+      }
+      case "barrier":
+        return decompositionConstraintSignalText(node) ?? formatCopy(t("chokepointAxisBarrier"), { detail: t(barrierDetailKey(node)) });
+    }
+  }
+  function decompositionConstraintSignals(node: Node): string[] {
+    const special: Record<string, string[]> = {
+      ai_accelerator_module_hbm_cowos: [
+        t("readerAiComputeStuckHbmCapacity"),
+        t("readerAiComputeStuckPackagingCapacity"),
+        t("readerAiComputeStuckYieldLearning"),
+        t("readerAiComputeStuckSupplierConcentration"),
+      ],
+      logic_die_fabrication: [t("decompositionSignalFoundry"), t("decompositionSignalEuv"), t("decompositionSignalYield")],
+      advanced_packaging: [t("decompositionSignalCowos"), t("decompositionSignalBonding"), t("decompositionSignalInspection")],
+      high_bandwidth_memory: [t("decompositionSignalHbmSupply"), t("decompositionSignalHbmAssembly"), t("decompositionSignalHbmTest")],
+      substrate_and_interposer: [t("decompositionSignalOrganicSubstrate"), t("decompositionSignalInterposer"), t("decompositionSignalPdn")],
+      interconnect_and_optics: [t("decompositionSignalSerdes"), t("decompositionSignalOptics"), t("decompositionSignalCopper")],
+      power_delivery: [t("decompositionSignalVrm"), t("decompositionSignalPowerStage"), t("decompositionSignal48v")],
+      thermal_cooling: [t("decompositionSignalColdPlate"), t("decompositionSignalLiquidLoop"), t("decompositionSignalCdu")],
+    };
+    const signals = special[node.id];
+    if (signals) return signals;
+    return graph.edges
+      .filter((edge) => edge.source === node.id && edge.relation === "requires" && edge.reviewStatus !== "deprecated")
+      .map((edge) => nodeById.get(edge.target))
+      .filter((child): child is Node => Boolean(child && child.reviewStatus !== "deprecated" && !NON_DECOMPOSITION_CHILD_KINDS.has(child.kind)))
+      .slice(0, 3)
+      .map((child) => nodeName(child.id, child.name));
+  }
+  function constraintSummaryText(node: Node): string {
+    const factors = constraintFactorsForNode(node, t);
+    if (factors.length > 0) return factors.join(" · ");
+    if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeConstraintSummary");
+    const structuralSignal = structuralConstraintSignalText(node);
+    if (structuralSignal && structuralSignal !== t("chokepointAxisConcentrationGap")) return structuralSignal;
+    const decompositionSignals = decompositionConstraintSignals(node);
+    if (decompositionSignals.length > 0) return decompositionSignals.slice(0, 3).join(" · ");
+    return t("readerConstraintUnclassified");
+  }
   const bottleneckTargetNames = (node: Node): string[] =>
     (node.bottleneckOf ?? [])
       .map((nodeId) => {
@@ -421,30 +504,23 @@ export function RouteDetailRail({
       where,
       impact,
       factors: constraintSummaryText(node),
-      relief: reliefTimingText(node),
-      evidence: evidenceStatusText(node),
+      relief: readerClauseFragment(reliefTimingText(node)),
+      evidence: readerClauseFragment(evidenceStatusText(node)),
     });
   };
   const keyFactorsForNode = (node: Node): string[] => {
     const factors = constraintFactorsForNode(node, t);
     if (factors.length === 0) {
-      factors.push(directEvidenceSummary(graph, node).total === 0
-        ? t("readerEvidenceThin")
-        : t("readerThesisCandidateConstraint"));
+      const structuralSignal = structuralConstraintSignalText(node);
+      if (structuralSignal && structuralSignal !== t("chokepointAxisConcentrationGap")) return [structuralSignal];
+      const decompositionSignals = decompositionConstraintSignals(node);
+      return decompositionSignals.length > 0 ? decompositionSignals.slice(0, 3) : [t("readerConstraintUnclassified")];
     }
     return factors.slice(0, 2);
   };
-  const keyStuckReasonForNode = (node: Node): string => {
-    const description = descriptionOf(node);
-    // readerFacingConstraintReason's sentence-splitter and keyword heuristic
-    // are English-only, so on a zh body it returns the whole block. Use the
-    // zh-aware first-sentence extractor (handles 。！？) when in zh mode.
-    if (language === "zh") return firstSentenceDescription(description) ?? "";
-    return readerFacingConstraintReason(description);
-  };
   const keyEvidenceSummaryText = (node: Node): string => {
     const summary = directEvidenceSummary(graph, node);
-    if (summary.total === 0) return t("readerEvidenceThin");
+    if (summary.total === 0) return evidenceStatusText(node);
     return evidenceStatusText(node);
   };
   const chokepointSignalText = (node: Node, band: LensPriorityEntry["band"]): string => {
@@ -452,15 +528,16 @@ export function RouteDetailRail({
     if (!strongest) return formatCopy(copy.chokepointBand, { band });
     return `${t(CHOKEPOINT_AXIS_LABEL_KEYS[strongest.axis])} ${Math.round(strongest.value * 100)}/100`;
   };
-  const constraintSummaryText = (node: Node): string => {
-    const factors = constraintFactorsForNode(node, t);
-    if (factors.length > 0) return factors.join(" · ");
-    if (isAiComputeNode(node) && node.kind === "product") return t("readerAiComputeConstraintSummary");
-    return t("readerConstraintUnclassified");
-  };
   const reliefTimingText = (node: Node): string => {
-    const months = node.capacityLeadTimeMonths;
-    if (typeof months === "number") {
+    const answer = leadTimeAnswerForGraphNode(graph, node);
+    if (answer) {
+      const { months } = answer;
+      if (answer.basis === "estimated") {
+        return formatCopy(t("readerReliefTimingEstimated"), {
+          months,
+          reason: leadTimeReasonText(answer),
+        });
+      }
       if (months <= 3) return formatCopy(t("readerReliefTimingShort"), { months });
       if (months <= 12) return formatCopy(t("readerReliefTimingMedium"), { months });
       const reason = reliefTimingReasonText(node);
@@ -488,6 +565,36 @@ export function RouteDetailRail({
     }
     return t("readerReliefTimingUnknown");
   };
+  const leadTimeReasonText = (answer: LeadTimeAnswer): string => {
+    const key = (() => {
+      switch (answer.reasonCode) {
+        case "capacity_tooling":
+          return "readerReliefReasonCapacityTooling";
+        case "material_qualification":
+          return "readerReliefReasonMaterialQualification";
+        case "component_second_source":
+          return "readerReliefReasonComponentSecondSource";
+        case "regulatory_external":
+          return "readerReliefReasonRegulatoryExternal";
+        case "economic_validation":
+          return "readerReliefReasonEconomicValidation";
+        case "engineering_qualification":
+          return "readerReliefReasonEngineeringQualification";
+        case "early_product":
+          return "readerReliefReasonEarlyProduct";
+        case "mature_commodity":
+          return "readerReliefReasonMatureCommodity";
+        case "child_decomposition":
+          return "readerReliefReasonChildDecomposition";
+        case "default_proxy":
+        case "explicit":
+        default:
+          return "readerReliefReasonDefaultProxy";
+      }
+    })();
+    const localized = t(key);
+    return localized === key ? answer.reason : localized;
+  };
   const routeDecisionBrief = (node: Node): React.ReactNode => {
     const cost = nodeCostSignalRmb(node, graph);
     const costKind = nodeCostSignalKind(node, graph);
@@ -511,24 +618,21 @@ export function RouteDetailRail({
         className="detail-decision-brief route-reader-decision-brief"
         data-testid="route-selected-decision-brief"
       >
-        <strong>{t("readerDecisionBrief")}</strong>
+        <strong>{t("detailCoreReadout")}</strong>
         <div className="detail-decision-grid">
+          <ChokepointHeadline graph={graph} node={node} />
+          <div>
+            <span>{t("detailLeadingReason")}</span>
+            <strong>{constraintSummaryText(node)}</strong>
+          </div>
           <div title={costAnswer.full}>
-            <span>{t("readerCostMagnitude")}</span>
+            <span>{t("detailCommercialScale")}</span>
             <strong>{costAnswer.primary}</strong>
             {costAnswer.secondary ? <small>{costAnswer.secondary}</small> : null}
           </div>
           <div>
-            <span>{t("readerSupplyConstraint")}</span>
-            <strong>{constraintSummaryText(node)}</strong>
-          </div>
-          <div>
             <span>{t("readerReliefTiming")}</span>
             <strong>{reliefTimingText(node)}</strong>
-          </div>
-          <div>
-            <span>{t("readerSourceTrail")}</span>
-            <strong>{evidenceStatusText(node)}</strong>
           </div>
         </div>
       </div>
@@ -754,6 +858,13 @@ export function RouteDetailRail({
     }
     return nodes;
   }, [activePriorityEntries, directChildIdsByNodeId, nodeById, selectedSummaryNode]);
+  const keyChokepointEntries = useMemo(
+    () => activePriorityEntries.filter((entry) => {
+      const node = nodeById.get(entry.nodeId);
+      return entry.band >= 5 || (node?.bottleneckOf?.length ?? 0) > 0;
+    }),
+    [activePriorityEntries, nodeById],
+  );
   const railTitle = activeAnalysisMode === "relation"
     ? copy.systemDecomposition
     : activeAnalysisMode === "bottleneck-risk"
@@ -765,7 +876,7 @@ export function RouteDetailRail({
     ? firstLayerNodes.length
     : activeAnalysisMode === "cost"
     ? route.steps.length
-    : activePriorityEntries.length;
+    : keyChokepointEntries.length;
   const isAuditPreviewAccess = effectiveExposureAccess?.status === "audit-preview";
   const routeAccessChipText = isAuditPreviewAccess ? null : exposureAccessText;
   const startNextItems = [
@@ -798,7 +909,7 @@ export function RouteDetailRail({
     ),
     {
       key: "thesis",
-      label: t("readerBottleneckThesis"),
+      label: t("detailNodeInterpretation"),
       intent: "default" as DetailIntent,
       hint: t("readerStartNextOpenDetail"),
     },
@@ -806,7 +917,11 @@ export function RouteDetailRail({
 
   return (
     <aside
-      className={["route-detail-rail", isAuditPreviewAccess ? "route-detail-rail-audit-preview" : ""]
+      className={[
+        "route-detail-rail",
+        activePanel === "detail" ? "route-detail-rail-detail-mode" : "",
+        isAuditPreviewAccess ? "route-detail-rail-audit-preview" : "",
+      ]
         .filter(Boolean)
         .join(" ")}
       data-testid="route-detail-rail"
@@ -907,14 +1022,15 @@ export function RouteDetailRail({
               band all agree. For a structural-root product it renders
               "Structural root · not itself a chokepoint".
             */}
-            {selectedNode ? <ChokepointHeadline graph={graph} node={selectedNode} /> : null}
+            {selectedNode && !selectedSummaryUsesRouteEntry ? <ChokepointHeadline graph={graph} node={selectedNode} /> : null}
             <section className="route-rail-card route-rail-start">
               <div className="route-rail-section-title">{primaryTabLabel}</div>
               {isKnowHowLayer ? <p className="route-rail-hint">{t("knowHowLayerHint")}</p> : null}
               {featuredStartNode ? (
                 <>
+                  {routeDecisionBrief(featuredStartNode)}
                   <div className="route-reader-thesis">
-                    <span>{t("readerBottleneckThesis")}</span>
+                    <span>{t("detailNodeInterpretation")}</span>
                     <p>{startThesisText(featuredStartNode)}</p>
                   </div>
                   <button
@@ -930,18 +1046,6 @@ export function RouteDetailRail({
                     <span className="route-start-name">{nodeName(featuredStartNode.id, featuredStartNode.name)}</span>
                     <span className="route-start-role">{startRoleText(featuredStartNode)}</span>
                   </button>
-                  <div className="route-reader-factors route-reader-stuck" data-testid="route-start-where-stuck">
-                    <span>{t("readerWhereStuck")}</span>
-                    <div className="pill-row">
-                      {keyFactorsForNode(featuredStartNode).map((factor) => (
-                        <span className="pill" key={factor}>{factor}</span>
-                      ))}
-                    </div>
-                    {keyStuckReasonForNode(featuredStartNode) ? (
-                      <p>{keyStuckReasonForNode(featuredStartNode)}</p>
-                    ) : null}
-                  </div>
-                  {routeDecisionBrief(featuredStartNode)}
                   {isAuditPreviewAccess ? <LockedSupplierTeaser nodeId={featuredStartNode.id} /> : null}
                   <div className="route-rail-chip-row" aria-label={t("readerStartNextTitle")}>
                     {startNextItems.map((item) => (
@@ -1040,9 +1144,9 @@ export function RouteDetailRail({
                 <p className="route-rail-hint">
                   {copy.chokepointHint}
                 </p>
-                {activePriorityEntries.length > 0 ? (
+                {keyChokepointEntries.length > 0 ? (
                   <ol className="route-step-list route-priority-list">
-                    {activePriorityEntries.slice(0, 3).map((entry) => {
+                    {keyChokepointEntries.slice(0, 3).map((entry) => {
                       const node = nodeById.get(entry.nodeId);
                       const label = node ? nodeName(node.id, node.name) : entry.nodeId;
                       const kindLabel = node ? kindName(node.kind) : "node";
@@ -1084,60 +1188,49 @@ export function RouteDetailRail({
               </section>
             )}
 
-            <section
-              className="route-rail-card route-rail-selected"
-              data-testid="route-rail-selected-summary"
-            >
-              <div className="route-rail-section-title">
-                {selectedSummaryUsesRouteEntry ? copy.routeEntry : copy.selected}
-              </div>
-              {selectedSummaryNode ? (
-                <>
-                  <h3>{nodeName(selectedSummaryNode.id, selectedSummaryNode.name)}</h3>
-                  <div className="route-reader-thesis">
-                    <span>{t("readerBottleneckThesis")}</span>
-                    <p>{bottleneckThesisText(selectedSummaryNode)}</p>
-                  </div>
-                  <div className="route-reader-factors route-reader-stuck">
-                    <span>{t("readerWhereStuck")}</span>
-                    <div className="route-rail-chip-row">
-                      {keyFactorsForNode(selectedSummaryNode).map((factor) => (
-                        <span key={factor}>{factor}</span>
-                      ))}
+            {!selectedSummaryUsesRouteEntry ? (
+              <section
+                className="route-rail-card route-rail-selected"
+                data-testid="route-rail-selected-summary"
+              >
+                <div className="route-rail-section-title">{copy.selected}</div>
+                {selectedSummaryNode ? (
+                  <>
+                    <h3>{nodeName(selectedSummaryNode.id, selectedSummaryNode.name)}</h3>
+                    {routeDecisionBrief(selectedSummaryNode)}
+                    <div className="route-reader-thesis">
+                      <span>{t("detailNodeInterpretation")}</span>
+                      <p>{bottleneckThesisText(selectedSummaryNode)}</p>
                     </div>
-                    {keyStuckReasonForNode(selectedSummaryNode) ? (
-                      <p>{keyStuckReasonForNode(selectedSummaryNode)}</p>
-                    ) : null}
-                  </div>
-                  {routeDecisionBrief(selectedSummaryNode)}
-                  {isAuditPreviewAccess ? <LockedSupplierTeaser nodeId={selectedSummaryNode.id} /> : null}
-                  <div className="route-reader-evidence-summary">
-                    <span>{t("readerKeyEvidenceSummary")}</span>
-                    <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
-                  </div>
-                  {inspectNextNodes.length > 0 ? (
-                    <div className="route-reader-inspect">
-                      <div className="route-rail-section-title">{t("readerInspectNext")}</div>
-                      <div className="route-reader-inspect-list">
-                        {inspectNextNodes.map((node) => (
-                          <button
-                            key={node.id}
-                            type="button"
-                            onClick={() => onSelectNode?.(node.id)}
-                            aria-label={`${t("readerInspect")} ${nodeName(node.id, node.name)}`}
-                          >
-                            <span>{nodeName(node.id, node.name)}</span>
-                            <small>{keyFactorsForNode(node)[0] ?? evidenceStatusText(node)}</small>
-                          </button>
-                        ))}
+                    {isAuditPreviewAccess ? <LockedSupplierTeaser nodeId={selectedSummaryNode.id} /> : null}
+                    <div className="route-reader-evidence-summary">
+                      <span>{t("detailEvidenceTrail")}</span>
+                      <p>{keyEvidenceSummaryText(selectedSummaryNode)}</p>
+                    </div>
+                    {inspectNextNodes.length > 0 ? (
+                      <div className="route-reader-inspect">
+                        <div className="route-rail-section-title">{t("readerInspectNext")}</div>
+                        <div className="route-reader-inspect-list">
+                          {inspectNextNodes.map((node) => (
+                            <button
+                              key={node.id}
+                              type="button"
+                              onClick={() => onSelectNode?.(node.id)}
+                              aria-label={`${t("readerInspect")} ${nodeName(node.id, node.name)}`}
+                            >
+                              <span>{nodeName(node.id, node.name)}</span>
+                              <small>{keyFactorsForNode(node)[0] ?? evidenceStatusText(node)}</small>
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ) : null}
-                </>
-              ) : (
-                <p className="muted">{copy.noNodeSelected}</p>
-              )}
-            </section>
+                    ) : null}
+                  </>
+                ) : (
+                  <p className="muted">{copy.noNodeSelected}</p>
+                )}
+              </section>
+            ) : null}
           </>
         )}
       </div>

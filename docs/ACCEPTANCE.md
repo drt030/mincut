@@ -2,9 +2,9 @@
 
 > **MinCut** — *Find the bottlenecks in how things get made.*
 >
-> This is the single front door for "is this change done, and does it meet the bar?" It exists so that **"an agent says pass" and "the owner spots a problem on sight" converge**. Per the project rule: for ANY new requirement or change, this standard is updated and approved BEFORE implementation starts.
+> This is the single front door for "is this change done, and does it meet the bar?" It exists so that **"an agent says pass" and "the owner spots a problem on sight" converge**. Per the project rule: for ANY new requirement, change, or owner-reported QA miss, this standard or the QA runbook is updated and replay-verified BEFORE implementation starts.
 
-Status: active working standard, updated 2026-06-17. Owner decisions from 2026-06-17 supersede older docs where conflicts exist. This document defines *what counts as pass*; `docs/QA-agent.md` defines *how to run* the QA agent and points back here.
+Status: active working standard, updated 2026-06-18. Owner decisions from 2026-06-18 supersede older docs where conflicts exist. This document defines *what counts as pass*; `docs/QA-agent.md` defines *how to run* the QA agent, including feedback-driven independent replay, and points back here.
 
 ---
 
@@ -67,11 +67,25 @@ For any node a user inspects, at **first glance** they can answer — in plain l
 
 - **Is it a chokepoint, and how much of one?** (the composite verdict)
 - **Which structural axis makes it one?** — the *elevated* chokepoint axis among Dependency / Concentration / Barrier, stated concretely (e.g. "可外购，但供应高度集中（2–3 家）" / "多个关键模块依赖它"), **not** a raw tag like `maturity: prototype`.
-- **If Concentration is elevated, is the supplier state worded honestly?** A known small holder set may say "2–3 家" / "{N} makers"; a zero-holder model state means supply-source gap or unverified holder coverage, not a confirmed "0 suppliers" / "仅 0 家" count.
+- **If Concentration is elevated, is the supplier state worded honestly?** Holder counts derived from graph edges are **modeled holder coverage**, not proof that the real world has only that many suppliers. A known small holder set may say "modeled holders: {N}" / "已建模供应方 {N} 家"; it must not say or imply "only / sole / exclusive / 仅 / 唯一" unless a separate high-tier sole-source / supplier-concentration claim is explicitly evidenced per ADR-0009. A zero-holder model state means supply-source gap or unverified holder coverage, not a confirmed "0 suppliers" / "仅 0 家" count.
 - **How much money is attached?** — Cost may appear as a separate magnitude line or Cost lens, but must not be phrased as the reason the node is a chokepoint.
+- **Are estimated / typical values worded for readers?** User-facing numeric estimates must not expose internal percentile jargon such as `P50` / `p50`. Use reader language such as `est.` in English or `估算` / `约` in Chinese, and keep the explicit range separate when shown.
+- **What is the relief / mitigation cycle?** Every user-facing structural node needs either explicit `capacityLeadTimeMonths` or a clearly labeled proxy estimate. "Not yet quantified" is not acceptable as a final first-glance readout; if no direct source exists, show a conservative estimated band and state that it needs source replacement.
+- **What commercial scale is attached to supplier leads?** Every surfaced supplier / company lead needs either an explicit revenue, share, capacity, shipment, listing, or enterprise-value metric, or a clearly labeled commercial-scale proxy from available graph facts such as listing status and relationship type. The proxy must not be presented as reviewed financial data.
+- **Do parent and child scale/timing readouts make graph sense?** For direct structural decomposition edges, a parent node's displayed commercial scale must not be lower than the sum/rollup of its displayed children, and a parent node's displayed relief / mitigation cycle must not be shorter than any direct structural child. If a parent carries a direct authored value that is below its child-derived rollup, the data must be corrected or blocked by a machine gate rather than silently normalized in UI.
 - The Cost + Dependency + Concentration + Barrier breakdown is available on drill-in, with Cost visually and verbally separated from the structural Chokepoint reason.
+- When a saved node-detail IA sample exists, the rendered detail must preserve the same visible hierarchy, not only the same text order. For `docs/plans/assets/node-detail-ia-commercial-supplier-lines-v4.png`, the first reader path requires a sample-style identity hero, leading quote block, 2x2 core readout, decomposition table/card treatment, evidence card, and supplier/company cards.
+- Default route entry state is not selected-node detail. On first route load before the user clicks a graph node, the rail may show route guidance / a start card, but it must not also render a duplicate selected-node summary for the same start node.
+- The core readout must stay compact. When the rail has enough inline width for four usable tiles, the four readout tiles should render in one row; the 2x2 fallback is only for genuinely narrow widths.
+- The saved-sample primary reader path must not insert a separate "Where it is stuck" / "具体卡点" section between `Node interpretation` / `节点解读` and `Decomposition` / `结构拆解`. Concrete constraint mechanisms belong in the core `Leading reason` tile, the `Node interpretation` paragraph, and the decomposition rows.
+- The saved-sample primary reader path must not add raw model diagnostics that are not in the sample. The Cost / Dependency / Concentration / Barrier axis grid may remain available in an explicit drill-in or supplementary appendix, but a standalone "Chokepoint axes" / "卡点四轴" block is not part of the first-glance core readout.
+- Weak/thin evidence and missing holder coverage are data-quality states. They must be visible, but they must not be used as the concrete "why this is a chokepoint" / "具体卡点" reason.
+- Missing or sparse modeled holder coverage must be worded as a model/evidence coverage state, not as a confirmed real-world absence, exclusivity, or sole-source conclusion.
+- Chokepoint explanations must name the concrete mechanism: constrained holder set, capacity expansion lead time, process yield, equipment lead time, material shortage, substitution barrier, routing dependency, or another graph-backed reason. "This route's scale depends on this constraint" is not enough.
+- Key Chokepoints surfaces contain only top-band Chokepoints or explicitly authored bottlenecks. Lower-band constraints, ordinary dependency nodes, and evidence gaps belong in decomposition, inspect-next, evidence, or research-gap surfaces unless clearly labeled as candidates.
+- Non-top ordinary nodes must not receive the same "Where it is stuck" / "具体卡点" treatment as confirmed Chokepoints. If they are shown as candidate constraints, that uncertainty must be explicit.
 
-**Fails** if: the answer is buried (needs digging), shown as internal jargon, the elevated axis isn't surfaced, or a zero-holder Concentration gap is presented as a confirmed supplier count. (Whether each nonzero number is *correct* is the audit agent's job, not this checklist's.)
+**Fails** if: the answer is buried (needs digging), shown as internal jargon, estimated or typical values are labeled with `P50` / `p50` in user-facing UI or reports, the elevated axis isn't surfaced, the explanation only restates that the node is important, relief timing or supplier commercial scale is blank / silently omitted / left as an unqualified unknown, a proxy estimate is presented as reviewed fact, a parent structural node's commercial scale is below its child rollup, a parent structural node's relief / mitigation cycle is shorter than a direct structural child, a zero-holder Concentration gap is presented as a confirmed supplier count, a nonzero modeled holder count is presented as "only / sole / exclusive / 仅 / 唯一" without an explicit ADR-0009-grade sole-source claim, weak evidence / missing holder coverage is presented as the bottleneck reason, saved node-detail sample visual hierarchy is replaced by the old sidebar/card treatment even when the text order is correct, or ordinary non-top nodes are dressed as confirmed Chokepoints. (Whether each nonzero number is *correct* is the audit agent's job, not this checklist's; whether the UI overclaims what the count means is this checklist's job.)
 
 ### 3b. Vocabulary consistency
 
@@ -108,6 +122,17 @@ outgoing decomposition child;
 six or more visible same-layer edges from one node collapse into an
 indistinguishable line bundle instead of using readable port/anchor separation
 or another explicit grouping treatment;
+edge endpoints or arrowheads appear detached from the rendered source/target
+node or point ambiguously into empty canvas space;
+primary tree edges read as decorative curls, loop-like S-curves, or
+high-curvature cubic bends rather than low-curvature dependency links, even
+when endpoint gap measurements are small;
+QA passes graph geometry without sampling root/top-chokepoint/high-fanout
+incident edges and naming the sampled edge pairs;
+numeric node badges appear without visible/inspectable meaning and can be
+mistaken for rank, evidence count, or score;
+first-layer product sectors appear as unnamed colour regions without visible
+module labels, a sector legend, or an equivalent always-visible explanation;
 reported or key default-visible artifact/material/equipment nodes are clipped
 outside the canvas wrapper on initial load, including cases where fit-view is
 correctly targeting visible nodes but the canvas minimum zoom clamps the actual
@@ -146,6 +171,10 @@ A new automated check (to be built) enforces the cheapest slice without an agent
 
 - the first-glance chokepoint headline is present in the rendered detail surface, with Cost kept separate from the structural reason;
 - the detail headline has a dedicated zero-holder Concentration gap path, so a missing modeled holder set cannot render as "0 suppliers" / "仅 0 家";
+- nonzero holder-count copy is explicitly framed as modeled holder coverage and generic UI strings cannot render "only / sole / exclusive / 仅 / 唯一" from `holdersForNode` counts;
+- user-facing structural nodes and supplier leads have an explicit-or-estimated answer for relief timing and supplier commercial scale, with estimates labeled as proxies rather than reviewed facts;
+- user-facing numeric estimates use reader wording (`est.`, `估算`, or `约`) rather than internal percentile labels such as `P50` / `p50`;
+- parent/child structural decomposition respects commercial-scale rollup and relief-cycle max constraints, so authored parent values cannot be lower or shorter than the direct children shown below them;
 - canvas lens labels match the §2 vocabulary (3b) by static assertion.
 
 It is **necessary, not sufficient** — it cannot judge whether disclosure is *clear*; that stays with the QA agent.
