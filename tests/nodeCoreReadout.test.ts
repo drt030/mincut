@@ -48,6 +48,45 @@ test("AI advanced packaging readout treats alternate suppliers as partial substi
   assert.equal(readout.status.months, 18);
 });
 
+test("AI compute stored readouts cover reader-facing capability, connector, and thermal nodes", () => {
+  const graph = loadActiveGraphData("ai_accelerator_module_hbm_cowos");
+  const cases = [
+    {
+      nodeId: "leading_edge_ai_compute",
+      scope: "product_mainline",
+      substitution: "partial_substitution",
+      blocking: ["capacity_scale", "component_availability", "operations_maintenance"],
+      status: "structural_long_cycle",
+    },
+    {
+      nodeId: "optical_connector_interface",
+      scope: "route_or_module",
+      substitution: "equivalent_substitution",
+      blocking: ["component_availability", "integration_qualification"],
+      status: "partially_easing",
+    },
+    {
+      nodeId: "thermal_cooling",
+      scope: "product_mainline",
+      substitution: "degraded_substitution",
+      blocking: ["capacity_scale", "equipment_lead_time", "integration_qualification", "component_availability"],
+      status: "partially_easing",
+    },
+  ] as const;
+
+  for (const expected of cases) {
+    const readout = readoutFor(graph, expected.nodeId);
+    assert.equal(readout.scope.value, expected.scope);
+    assert.equal(readout.substitution.value, expected.substitution);
+    assert.deepEqual(readout.blocking.values, expected.blocking);
+    assert.equal(readout.status.value, expected.status);
+    assert.equal(readout.scope.basis, "stored_override");
+    assert.equal(readout.substitution.basis, "stored_override");
+    assert.equal(readout.blocking.basis, "stored_override");
+    assert.equal(readout.status.basis, "stored_override");
+  }
+});
+
 test("supplier count alone never upgrades substitution feasibility", () => {
   const graph: GraphData = {
     graphVersion: "supplier-count-not-substitution",

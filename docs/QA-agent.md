@@ -462,17 +462,19 @@ Required paths:
 - Test English and Simplified Chinese for the primary summary layer.
 - On desktop, compare at least one AI compute supplier/capacity detail against `docs/plans/assets/node-detail-ia-commercial-supplier-lines-v4.png`. Passing requires the sample-style visual shell: identity hero, leading quote, 2x2 core readout, decomposition table/card treatment, evidence card, and supplier/company cards. Text order parity alone is a fail if the old sidebar/card treatment remains.
 - On default route entry before a node is clicked, the rail must not show both route guidance and a duplicate selected-node summary for the same recommended start node. A duplicate selected summary makes the route guide look like a node detail.
+- In the selected-node sample detail, inspect the core readout content. It must use the four product-design fields: `Load-bearing scope` / `承载范围`, `Substitution feasibility` / `替代可行性`, `Blocking mode` / `阻断方式`, and `Current status` / `当前状态`. Treat `Cost-scale proxy`, `Leading reason`, `Relief timing`, evidence status, company clues, or Chokepoint-axis diagnostics inside the core readout as stale hierarchy unless they appear in the appropriate interpretation, Cost-lens, evidence, exposure, or supplementary surface.
 - In the selected-node sample detail, inspect the core readout tile layout. The
   four readout tiles should render as a stable 2x2 grid in the rail. Fail the
   screen if they collapse into one cramped four-column row; that is too literal
   to the saved sample width and makes the narrow rail harder to scan. Only
   accept a one-column fallback on genuinely tiny/mobile widths where two columns
   would overflow.
-- The sample-style primary path must go from `Core readout` to `Node interpretation` to `Decomposition` to `Evidence trail` without inserting an extra "Where it is stuck" / "具体卡点" section. The concrete mechanism should be carried by the `Leading reason` tile, interpretation copy, and decomposition rows.
+- The sample-style primary path must go from `Core readout` to `Node interpretation` to `Decomposition` to `Evidence trail` without inserting an extra "Where it is stuck" / "具体卡点" section. The concrete mechanism should be carried by the `Blocking mode` tile, interpretation copy, and decomposition rows.
 
 First-screen order:
 
 - Identity: node name, route/domain context, and enough type context to know whether this is a product, subsystem, material, equipment, know-how, or organization-adjacent exposure.
+- Core readout: the four tiles above should answer scope, substitution feasibility, blocking mode, and current status before raw metadata or supplier/company details.
 - Chokepoint headline: verdict plus the elevated structural reason, in plain language. The allowed structural reasons are Dependency, Concentration, and Barrier. Cost is separate.
 - Cost magnitude: shown only as price, cost share, cost gap, or Cost lens context. It must never be the explanation for why the node is a Chokepoint.
 - Investor brief: a compact set of reader-facing signals before raw metadata:

@@ -142,5 +142,53 @@
       "confidence": "medium"
     },
     "status": { "value": "structural_long_cycle", "basis": "stored_override", "confidence": "low" }
+  },
+  {
+    "nodeId": "leading_edge_ai_compute",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "medium" },
+    "substitution": {
+      "value": "partial_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["capacity_scale", "component_availability", "operations_maintenance"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "structural_long_cycle", "basis": "stored_override", "confidence": "medium", "months": 24 }
+  },
+  {
+    "nodeId": "optical_connector_interface",
+    "scope": { "value": "route_or_module", "basis": "stored_override", "confidence": "medium" },
+    "substitution": {
+      "value": "equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": false
+    },
+    "blocking": {
+      "values": ["component_availability", "integration_qualification"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "partially_easing", "basis": "stored_override", "confidence": "medium" }
+  },
+  {
+    "nodeId": "thermal_cooling",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "degraded_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["capacity_scale", "equipment_lead_time", "integration_qualification", "component_availability"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "partially_easing", "basis": "stored_override", "confidence": "medium", "months": 18 }
   }
 ]
