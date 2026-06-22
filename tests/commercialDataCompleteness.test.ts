@@ -7,6 +7,7 @@ import type { GraphData, Node } from "../src/lib/schema";
 import {
   commercialScaleAnswerForOrganization,
   commercialScaleMissingSupplierOrganizations,
+  duplicateActiveStructuralEdges,
   explicitLeadTimeHierarchyViolations,
   isStructuralLeadTimeNode,
   leadTimeAnswerForGraphNode,
@@ -81,7 +82,7 @@ test("live graph supplier organizations have explicit or proxy commercial scale 
   assert.deepEqual(missing, []);
 });
 
-test("live graph structural commercial-scale readouts never understate child rollups", () => {
+test("live graph structural cost-scale readouts never understate child rollups", () => {
   const graphData = loadGraphData();
   const structuralKinds = new Set<Node["kind"]>([
     "product",
@@ -111,6 +112,11 @@ test("live graph structural commercial-scale readouts never understate child rol
     });
 
   assert.deepEqual(violations, []);
+});
+
+test("live graph has no duplicate active structural edges", () => {
+  const graphData = loadGraphData();
+  assert.deepEqual(duplicateActiveStructuralEdges(graphData), []);
 });
 
 test("live graph structural relief-cycle readouts are at least the direct child max", () => {

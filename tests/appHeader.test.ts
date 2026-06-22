@@ -14,6 +14,14 @@ test("launch header links to registered domain maps", () => {
   assert.match(html, /href="\/d\/parcel-robot"/);
 });
 
+test("launch header tracks client route changes through Next pathname state", async () => {
+  const fs = await import("node:fs/promises");
+  const source = await fs.readFile(new URL("../src/components/AppHeader.tsx", import.meta.url), "utf8");
+
+  assert.match(source, /usePathname/);
+  assert.doesNotMatch(source, /window\.location\.pathname/);
+});
+
 test("launch header includes the registered domain portfolio without calling every route live", () => {
   const html = renderToStaticMarkup(React.createElement(AppHeader));
 

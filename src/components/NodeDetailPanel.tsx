@@ -26,7 +26,7 @@ import {
   type CostRollupResult,
 } from "@/lib/costRollup";
 import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
-import { estimatedCostForNode } from "@/lib/costEstimate";
+import { estimatedCostForGraphNode } from "@/lib/costEstimate";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
 import { nodeCostDriverRmb } from "@/lib/edgeStyleFor";
@@ -1615,7 +1615,7 @@ function DecisionBrief({
     ? t("chokepointStructuralRoot")
     : headline.axisSentence ?? constraintSummaryText(graph, node, t);
   const modeledCostText = detailCostSignalText(graph, node);
-  const estimatedCost = modeledCostText ? null : estimatedCostForNode(node);
+  const estimatedCost = modeledCostText ? null : estimatedCostForGraphNode(graph, node);
   const valueText = modeledCostText
     ? readerFacingCostSignalText({
         valueText: modeledCostText,
@@ -1637,8 +1637,14 @@ function DecisionBrief({
     disclosureSecondary: costEvidenceNeedText(node, t),
   });
   if (estimatedCost && !modeledCostText) {
-    cost.secondary = t("readerCostEstimateBasisShort");
-    cost.full = t("readerCostEstimateCaveat");
+    cost.secondary =
+      estimatedCost.basisKind === "parent_bounded"
+        ? t("readerCostParentBoundedEstimateBasisShort")
+        : t("readerCostEstimateBasisShort");
+    cost.full =
+      estimatedCost.basisKind === "parent_bounded"
+        ? t("readerCostParentBoundedEstimateCaveat")
+        : t("readerCostEstimateCaveat");
   } else if (modeledCostText) {
     cost.secondary = t("readerCostModeledBasisShort");
   }

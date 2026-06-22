@@ -6,7 +6,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { RouteDetailRail } from "../src/components/RouteDetailRail";
-import { loadGraphData } from "../src/lib/graphLoader";
+import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
 import { selectCostDriverRoute } from "../src/lib/routeHighlight";
 import type { Edge, Evidence, GraphData, Node } from "../src/lib/schema";
 
@@ -248,10 +248,10 @@ test("RouteDetailRail keeps route guide separate from selected-node detail navig
   assert.match(html, /Cost drivers/i);
   assert.match(html, /Start here/i);
   assert.match(html, /Precision gearbox/);
-  assert.match(html, /Modeled cost: est\. RMB 80,000/);
+  assert.match(html, /Cost\/capex proxy: est\. RMB 80,000/);
   assert.match(
     html,
-    /aria-label="Precision gearbox, module, 2 links, Modeled cost: est\. RMB 80,000"/,
+    /aria-label="Precision gearbox, module, 2 links, Cost\/capex proxy: est\. RMB 80,000"/,
     `route step button should expose a spaced accessible label instead of concatenated child text; got: ${html}`,
   );
   assert.match(html, /Selected/i);
@@ -277,7 +277,7 @@ test("RouteDetailRail selected summary uses rolled-up cost for aggregate nodes",
 
   assert.match(
     html,
-    /Modeled cost: est\. RMB 149,500/,
+    /Cost\/capex proxy: est\. RMB 149,500/,
     "selected aggregate node should show the same rolled-up cost signal used by graph edges and detail cards",
   );
 });
@@ -299,6 +299,63 @@ test("RouteDetailRail cost lens labels the route as cost, not chokepoint ranking
   assert.match(html, /Primary cost chain/i);
   assert.match(html, /target-node cost percentile/i);
   assert.doesNotMatch(html, /Key chokepoints/i);
+});
+
+test("RouteDetailRail renders AI compute default state as a system overview", () => {
+  const graph = loadActiveGraphData("ai_accelerator_module_hbm_cowos");
+  const route = selectCostDriverRoute(graph, "ai_accelerator_module_hbm_cowos", { limit: 4 });
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode: null,
+      analysisMode: "bottleneck-risk",
+      onSelectNode: () => {},
+    }),
+  );
+
+  assert.match(html, /data-testid="route-rail-system-overview"/);
+  assert.match(html, /System overview/i);
+  assert.match(html, /<section class="route-rail-system-read" data-testid="route-rail-system-overview">/);
+  assert.doesNotMatch(html, /class="route-rail-card route-rail-system-read"/);
+  assert.match(html, /System target/i);
+  assert.match(html, /Production path/i);
+  assert.match(html, /Constraint mechanism/i);
+  assert.match(html, /Improvement path/i);
+  assert.match(html, /Industry-chain impact/i);
+  assert.match(html, /Main risks/i);
+  assert.match(html, /Evidence support/i);
+  assert.match(html, /whether leading-edge silicon, HBM, advanced packaging, substrates, and test can turn into shippable modules/i);
+  assert.doesNotMatch(html, /System core readout/i);
+  assert.doesNotMatch(html, /System read|System layer/i);
+  assert.doesNotMatch(html, /Start here/i);
+  assert.doesNotMatch(html, /TOC lens|MinCut|shown in node detail|click through/i);
+
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const systemReadBlock = css.match(/\.route-rail-system-read\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  assert.match(systemReadBlock, /border:\s*0/, `system overview should not render an outer card border; got: ${systemReadBlock}`);
+  assert.match(systemReadBlock, /box-shadow:\s*none/, `system overview should not render an accent stripe; got: ${systemReadBlock}`);
+});
+
+test("RouteDetailRail treats the selected route root as the same system overview state", () => {
+  const graph = loadActiveGraphData("ai_accelerator_module_hbm_cowos");
+  const route = selectCostDriverRoute(graph, "ai_accelerator_module_hbm_cowos", { limit: 4 });
+  const selectedNode = graph.nodes.find((entry) => entry.id === "ai_accelerator_module_hbm_cowos")!;
+
+  const html = renderToStaticMarkup(
+    React.createElement(RouteDetailRail, {
+      graph,
+      route,
+      selectedNode,
+      analysisMode: "bottleneck-risk",
+      onSelectNode: () => {},
+    }),
+  );
+
+  assert.match(html, /data-testid="route-rail-system-overview"/);
+  assert.doesNotMatch(html, /data-testid="route-rail-selected-summary"/);
+  assert.doesNotMatch(html, /data-testid="route-rail-detail-action"/);
 });
 
 test("RouteDetailRail renders a chokepoint lens summary instead of a cost route", () => {
@@ -367,7 +424,7 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.doesNotMatch(summary, /sorter\.\./);
   assert.doesNotMatch(summary, /Where it is stuck|具体卡点/i);
   assert.match(summary, /Core readout/i);
-  assert.match(summary, /Commercial scale/i);
+  assert.match(summary, /Cost-scale proxy/i);
   assert.match(summary, /Leading reason/i);
   assert.match(summary, /Capacity \/ scale/i);
   assert.match(summary, /Component availability/i);
@@ -675,7 +732,7 @@ test("RouteDetailRail start-here and chokepoints explain why without exposing He
   assert.doesNotMatch(start, /depends on this constraint scaling/i);
   assert.match(start, /Constraint mechanism|Component availability|Capacity \/ scale|Technical maturity/i);
   assert.match(start, /Core readout/i);
-  assert.match(start, /Commercial scale/i);
+  assert.match(start, /Cost-scale proxy/i);
   assert.match(start, /Leading reason/i);
   assert.match(start, /Relief timing/i);
   assert.equal(start.indexOf('data-testid="route-start-where-stuck"'), -1, `start-here should not add a separate stuck-factor block; got: ${start}`);

@@ -89,7 +89,7 @@ Current focus:
 - `docs/plans/parcel-sorting-robot-v0.md`: current product-domain plan and validation focus.
 - `docs/agent-memory.md`: tracked handoff memory for unfinished work.
 - `docs/agent-learn.md`: durable learn log for repeated feedback and prevention items.
-- `docs/ux-flow-tours.md`: three end-to-end UX flow playbooks. The agent runs **only when necessary**: user requested, OR ~8–10 substantive UI commits have landed since the last report under `docs/ux-flow-reports/`, OR the agent has a specific reason to suspect a flow regressed. **Not per-commit.** Tours are expensive (~10–15 min and serious token budget); the cheap verification (`npm run verify`) is the per-commit gate. See "when to run" inside the doc for the full rule.
+- `docs/ux-flow-tours.md`: three end-to-end UX flow playbooks. The agent runs **only when necessary**: user requested, OR ~8–10 substantive UI commits have landed since the last report under `docs/ux-flow-reports/`, OR the agent has a specific reason to suspect a flow regressed. **Not per-commit.** Tours are expensive (~10–15 min and serious token budget); routine work follows the tiered verification policy in `docs/TESTING.md`. See "when to run" inside the doc for the full rule.
 
 ## Handoff Checklist
 
@@ -101,13 +101,15 @@ Current focus:
   - If the failure mode is already covered, cite the exact section/bullet in the work notes and add or run a focused failing check against that rule before the product fix when a reasonable automated seam exists.
   - If the failure mode is missing or only covered by broad language, update `docs/QA-agent.md`, `docs/ACCEPTANCE.md`, or the relevant machine/test gate first. Do not proceed to the product fix until the acceptance delta is explicit in the diff.
   - Final handoff must state either the exact existing acceptance rule that covered the issue or the QA/acceptance/machine-gate change that now covers it, plus whether the independent replay found the issue after the acceptance update.
+- Use the tiered verification policy in `docs/TESTING.md`. Do not run full `npm run verify` by default for a narrow, single-surface change.
+- Run targeted tests first: changed test file(s), relevant script checks, and browser checks for the affected surface.
 - Run `npm run agent:context -- --stage verify` before final verification for broad changes.
 - Run `npm run validate:data` if graph data changed.
 - Run `npm run gate -- --target low_cost_parcel_sorting_robot_300k_rmb --dry-run` if gate logic or parcel data changed.
 - Run `npm run check:graph-ux` if graph UI, layout, hover, click, expansion, or visual behavior changed.
-- Run `npm run verify` (lint + check:graph-ux + node --test) for any code change. Replaces ad-hoc check sequencing for slice work.
-- Walk a UX flow tour (`docs/ux-flow-tours.md`) **only when necessary** (user-requested, long stretch since last run, or you suspect a regression in a specific flow). Skip per-commit; the cheap `npm run verify` is the per-commit gate.
-- Run `npm run verify:ui` for meaningful UI or app-router changes.
+- Run `npm run verify` only for broad or high-risk work: long-running sessions, many files or cross-cutting modules, graph/data/modeling changes with wide blast radius, pre-merge/PR readiness, after repeated failures, or when the user explicitly asks for full validation.
+- Walk a UX flow tour (`docs/ux-flow-tours.md`) **only when necessary** (user-requested, long stretch since last run, or you suspect a regression in a specific flow). Skip per-commit; use the tiered verification policy instead.
+- Run `npm run verify:ui` only for broad UI/app-router changes or final readiness checks. For narrow UI changes, prefer relevant test file(s), `npm run lint`, `npm run build` when TypeScript/app boundaries require it, and a focused browser check.
 - Run `npm run lint` if TypeScript or React code changed.
 - Run `npm run build` for UI or app-router changes.
 - Run `npm run agent:audit` if harness files changed.

@@ -72,12 +72,18 @@ const INTEGRATION_OVERHEAD = 1.15;
 const COMMODIFIED_LABELS = new Set(["mature", "widely_adopted"]);
 const COST_CURRENCIES = new Set<MetricCurrency>(["RMB", "USD", "EUR", "JPY"]);
 const SUPERSEDED_BY_CHILD_COST_ROLLUP_TAG = "superseded_by_child_cost_rollup";
+const DIRECT_COST_METRIC_PATTERN =
+  /\b(cost|price|capex|bom|quote)\b|capital expenditure|capital cost|bill of materials|fab cost|system cost|unit cost/i;
+const NON_DIRECT_COST_METRIC_PATTERN =
+  /revenue|sales|market size|market cap|market share|bookings|backlog|shipment|shipments|public listing|utilization|lead time|supplier count/i;
 
 type CurrentCostExtraction = {
   range: CostRange;
   currency: FxCurrency;
   costAsOf?: string;
 };
+
+type InlineMetric = NonNullable<Node["metrics"]>[number];
 
 export function rollupCost(graph: GraphData, productNodeId: string): CostRollupResult {
   const root = nodeById(graph, productNodeId);
@@ -244,13 +250,25 @@ function walk(
       directRange = rangeToRmb(direct.range, direct.currency);
     }
 
-    // Commodified leaf short-circuit: `mature` or `widely_adopted` nodes
-    // stop decomposing per ADR-0005. If a direct reading is present we
-    // return it; otherwise this node is a coverage gap (the upstream
-    // commodity-price source hasn't been recorded yet).
+    const requiresChildren = outgoingEdges(graph, node.id, "requires")
+      .filter((edge) => edge.reviewStatus !== "deprecated" && edge.reviewStatus !== "disputed")
+      .map((edge) => edge.target)
+      .filter((targetId) => {
+        const child = nodeById(graph, targetId);
+        if (!child) return false;
+        if (isNonCostRequiresChild(child)) return false;
+        if (child.reviewStatus === "deprecated") return false;
+        return true;
+      });
+
+    // Commodified non-product short-circuit: `mature` or `widely_adopted`
+    // component/material/process nodes stop decomposing per ADR-0005. Product
+    // nodes remain rollup containers even when the product itself is already
+    // widely adopted; otherwise a live product route with priced children
+    // would show "cost-scale unknown" at the root.
     const isCommodified =
       node.maturityLabel && COMMODIFIED_LABELS.has(node.maturityLabel);
-    if (isCommodified) {
+    if (isCommodified && (node.kind !== "product" || requiresChildren.length === 0)) {
       if (directRange) {
         memo.set(nodeId, directRange);
         return directRange;
@@ -263,16 +281,6 @@ function walk(
     // Sum `requires` children. Non-cost kinds (metric / evidence /
     // bottleneck / placeholder_breakthrough / capability / principle) are
     // skipped per ADR-0003; deprecated records per ADR-0001.
-    const requiresChildren = outgoingEdges(graph, node.id, "requires")
-      .map((edge) => edge.target)
-      .filter((targetId) => {
-        const child = nodeById(graph, targetId);
-        if (!child) return false;
-        if (isNonCostRequiresChild(child)) return false;
-        if (child.reviewStatus === "deprecated") return false;
-        return true;
-      });
-
     let childrenRange: CostRange | null = null;
     if (requiresChildren.length > 0) {
       let summed: CostRange = { min: 0, typical: 0, max: 0 };
@@ -312,7 +320,7 @@ function walk(
   }
 }
 
-function isNonCostRequiresChild(node: Node): boolean {
+export function isNonCostRequiresChild(node: Node): boolean {
   return (
     node.kind === "metric" ||
     node.kind === "evidence" ||
@@ -340,12 +348,13 @@ function maxRange(a: CostRange, b: CostRange): CostRange {
 function directCostForNode(graph: GraphData, node: Node): CurrentCostExtraction | null {
   // The node may itself be a cost-bearing metric record (e.g.
   // `total_system_cost` for the v0 product target). In that case we read
-  // the value off its own `metrics[0]`.
+  // the first cost-like value off its own metrics list.
   const ownReading = isSupersededByChildCostRollup(node) ? null : extractCostReading(node);
   if (ownReading) return ownReading;
 
   const measuredByEdges = outgoingEdges(graph, node.id, "measured_by");
   for (const edge of measuredByEdges) {
+    if (edge.reviewStatus === "deprecated" || edge.reviewStatus === "disputed") continue;
     const metricNode = nodeById(graph, edge.target);
     if (!metricNode || metricNode.kind !== "metric") continue;
     if (metricNode.reviewStatus === "deprecated") continue;
@@ -369,15 +378,53 @@ function isSupersededByChildCostRollup(node: Node): boolean {
  * — the gate compares them, the walker doesn't conflate them.
  */
 function extractCostReading(node: Node): CurrentCostExtraction | null {
-  const metric = node.metrics?.[0];
-  if (!metric) return null;
+  for (const metric of node.metrics ?? []) {
+    const reading = extractCostReadingFromMetric(metric);
+    if (reading) return reading;
+  }
+  return null;
+}
+
+function extractCostReadingFromMetric(metric: InlineMetric): CurrentCostExtraction | null {
+  if (!isDirectCostMetric(metric)) return null;
   const unit = metric.unit;
   if (!unit) return null;
   const currency = inferCurrencyFromMetric(metric.currency, unit);
   if (!currency) return null;
   const range = toRange(metric.currentValue);
   if (!range) return null;
-  return { range, currency, costAsOf: metric.costAsOf };
+  return {
+    range: scaleRange(range, currencyUnitMultiplier(unit)),
+    currency,
+    costAsOf: metric.costAsOf,
+  };
+}
+
+function isDirectCostMetric(metric: InlineMetric): boolean {
+  const text = `${metric.name} ${metric.description ?? ""}`.toLowerCase();
+  if (NON_DIRECT_COST_METRIC_PATTERN.test(text) && !DIRECT_COST_METRIC_PATTERN.test(text)) return false;
+  if (isRecurringCurrencyRate(metric.unit)) return false;
+  return DIRECT_COST_METRIC_PATTERN.test(text);
+}
+
+function isRecurringCurrencyRate(unit: string | undefined): boolean {
+  const normalized = unit?.toLowerCase() ?? "";
+  return (
+    normalized.includes("/year") ||
+    normalized.includes("per year") ||
+    normalized.includes("annual") ||
+    normalized.includes("/quarter") ||
+    normalized.includes("per quarter") ||
+    normalized.includes("quarterly")
+  );
+}
+
+function currencyUnitMultiplier(unit: string | undefined): number {
+  const normalized = unit?.toLowerCase() ?? "";
+  if (/\bbillions?\b/.test(normalized)) return 1_000_000_000;
+  if (/\bmillions?\b/.test(normalized)) return 1_000_000;
+  if (/\bthousands?\b/.test(normalized)) return 1_000;
+  return 1;
 }
 
 function inferCurrencyFromMetric(explicit: string | undefined, unit: string): FxCurrency | null {
@@ -474,7 +521,7 @@ export function targetCostFor(graph: GraphData, productNodeId: string): { range:
     if (!currency) continue;
     const range = toRange(metric.targetValue);
     if (!range) continue;
-    const rmbRange = rangeToRmb(range, currency);
+    const rmbRange = rangeToRmb(scaleRange(range, currencyUnitMultiplier(unit)), currency);
     return { range: rmbRange, currency: "RMB" satisfies FxCurrency, costAsOf: metric.costAsOf };
   }
   return null;

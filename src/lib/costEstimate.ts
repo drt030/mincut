@@ -1,5 +1,7 @@
 import { isArtifactCanvasNode } from "./canvasGraph";
-import type { Node } from "./schema";
+import { isNonCostRequiresChild, rollupCost } from "./costRollup";
+import { incomingEdges, nodeById, outgoingEdges } from "./graphTraversal";
+import type { GraphData, Node } from "./schema";
 
 export type EstimatedCostRangeRmb = {
   min: number;
@@ -10,11 +12,15 @@ export type EstimatedCostRangeRmb = {
 export type EstimatedCostSignal = {
   range: EstimatedCostRangeRmb;
   basis: string;
+  basisKind: "heuristic" | "parent_bounded";
   confidence: "low";
   costAsOf: "2026";
+  parentId?: string;
+  parentName?: string;
 };
 
 const ESTIMATE_SPREAD = { min: 0.4, max: 2.5 } as const;
+const graphEstimateCache = new WeakMap<GraphData, Map<string, EstimatedCostSignal | null>>();
 
 export function estimatedCostForNode(node: Node): EstimatedCostSignal | null {
   if (!isArtifactCanvasNode(node)) return null;
@@ -45,18 +51,142 @@ export function estimatedCostForNode(node: Node): EstimatedCostSignal | null {
   return makeEstimate(genericTypicalRmb(node, text), node);
 }
 
+export function estimatedCostForGraphNode(graph: GraphData, node: Node): EstimatedCostSignal | null {
+  let cache = graphEstimateCache.get(graph);
+  if (!cache) {
+    cache = new Map<string, EstimatedCostSignal | null>();
+    graphEstimateCache.set(graph, cache);
+  }
+  if (cache.has(node.id)) return cache.get(node.id)!;
+
+  const baseline = estimatedCostForNode(node);
+  if (!baseline) {
+    cache.set(node.id, null);
+    return null;
+  }
+
+  const bounded = parentBoundedEstimateFor(graph, node, baseline);
+  const result = bounded ?? baseline;
+  cache.set(node.id, result);
+  return result;
+}
+
 function makeEstimate(typical: number | null, node: Node): EstimatedCostSignal | null {
   if (typical === null || typical <= 0) return null;
   return {
-    range: {
-      min: Math.round(typical * ESTIMATE_SPREAD.min),
-      typical: Math.round(typical),
-      max: Math.round(typical * ESTIMATE_SPREAD.max),
-    },
+    range: rangeFromTypical(typical),
     basis: `Low-confidence heuristic estimate from node kind (${node.kind}), domain, tags, and bottleneck labels. Not a supplier quote, audited BOM, or reviewed capex source.`,
+    basisKind: "heuristic",
     confidence: "low",
     costAsOf: "2026",
   };
+}
+
+function rangeFromTypical(typical: number): EstimatedCostRangeRmb {
+  return {
+    min: Math.round(typical * ESTIMATE_SPREAD.min),
+    typical: Math.round(typical),
+    max: Math.round(typical * ESTIMATE_SPREAD.max),
+  };
+}
+
+function parentBoundedEstimateFor(
+  graph: GraphData,
+  node: Node,
+  baseline: EstimatedCostSignal,
+): EstimatedCostSignal | null {
+  let strictest: EstimatedCostSignal | null = null;
+  for (const edge of incomingEdges(graph, node.id, "requires")) {
+    if (edge.reviewStatus === "deprecated" || edge.reviewStatus === "disputed") continue;
+    const parent = nodeById(graph, edge.source);
+    if (!parent || parent.reviewStatus === "deprecated") continue;
+    const allocation = allocateFromDirectParentBudget(graph, parent, node, baseline);
+    if (!allocation) continue;
+    if (!strictest || allocation.range.typical < strictest.range.typical) {
+      strictest = allocation;
+    }
+  }
+  return strictest;
+}
+
+function allocateFromDirectParentBudget(
+  graph: GraphData,
+  parent: Node,
+  node: Node,
+  baseline: EstimatedCostSignal,
+): EstimatedCostSignal | null {
+  const parentDirect = directParentBudgetTypical(graph, parent.id);
+  if (parentDirect === null || parentDirect <= 0) return null;
+
+  const children = activeCostChildren(graph, parent.id);
+  if (!children.some((child) => child.id === node.id)) return null;
+
+  let knownChildrenTypical = 0;
+  let unknownBaselineTypical = 0;
+  for (const child of children) {
+    const known = sourcedCostTypicalRmb(graph, child.id);
+    if (known !== null && known > 0) {
+      knownChildrenTypical += known;
+      continue;
+    }
+    const childEstimate = child.id === node.id ? baseline : estimatedCostForNode(child);
+    if (childEstimate) unknownBaselineTypical += childEstimate.range.typical;
+  }
+
+  const remainingBudget = parentDirect - knownChildrenTypical;
+  if (remainingBudget <= 0 || unknownBaselineTypical <= 0) {
+    return null;
+  }
+  if (unknownBaselineTypical <= remainingBudget) {
+    return null;
+  }
+
+  const allocatedTypical = baseline.range.typical * (remainingBudget / unknownBaselineTypical);
+  if (!Number.isFinite(allocatedTypical) || allocatedTypical <= 0) return null;
+  if (allocatedTypical >= baseline.range.typical) return null;
+
+  return {
+    range: rangeFromTypical(allocatedTypical),
+    basis:
+      `Low-confidence heuristic estimate scaled against direct parent cost/capex on ${parent.id}. ` +
+      "Known child rollups are subtracted first; remaining budget is allocated across unpriced children by heuristic weight. Not a supplier quote, audited BOM, or reviewed capex source.",
+    basisKind: "parent_bounded",
+    confidence: "low",
+    costAsOf: "2026",
+    parentId: parent.id,
+    parentName: parent.name,
+  };
+}
+
+function directParentBudgetTypical(graph: GraphData, parentId: string): number | null {
+  try {
+    const result = rollupCost(graph, parentId);
+    return result.directOnly?.typical ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function sourcedCostTypicalRmb(graph: GraphData, nodeId: string): number | null {
+  try {
+    const result = rollupCost(graph, nodeId);
+    if (result.directOnly || result.anyChildContributed) return result.rolledUp.typical;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function activeCostChildren(graph: GraphData, parentId: string): Node[] {
+  const children: Node[] = [];
+  for (const edge of outgoingEdges(graph, parentId, "requires")) {
+    if (edge.reviewStatus === "deprecated" || edge.reviewStatus === "disputed") continue;
+    const child = nodeById(graph, edge.target);
+    if (!child || child.reviewStatus === "deprecated") continue;
+    if (isNonCostRequiresChild(child)) continue;
+    children.push(child);
+  }
+  return children;
 }
 
 function hasAny(text: string, terms: readonly string[]): boolean {

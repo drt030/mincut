@@ -4,12 +4,75 @@ import { DOMAIN_ROUTES, domainBySlug } from "../src/lib/domains";
 import { loadActiveGraphData, loadGateReports, loadGraphData } from "../src/lib/graphLoader";
 import { reachableNodeIdsFrom, V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 import { resolveRouteExposureAccess } from "../src/lib/routeAccess";
+import { systemOverviewForRoot, systemOverviewRootIds } from "../src/lib/systemOverview";
 
 test("every registered domain slug resolves to a product node that exists in data", () => {
   const graph = loadGraphData();
   const ids = new Set(graph.nodes.map((node) => node.id));
   for (const domain of DOMAIN_ROUTES) {
     assert.ok(ids.has(domain.rootId), `${domain.slug} → ${domain.rootId} missing from data`);
+  }
+});
+
+test("every live domain route has a route-default system overview in both languages", () => {
+  const configured = new Set(systemOverviewRootIds());
+  for (const domain of DOMAIN_ROUTES) {
+    assert.ok(configured.has(domain.rootId), `${domain.slug} → ${domain.rootId} missing system overview copy`);
+    for (const locale of ["zh", "en"] as const) {
+      const overview = systemOverviewForRoot(domain.rootId, locale);
+      assert.ok(overview, `${domain.slug} missing ${locale} system overview`);
+      assert.equal(overview.rows.length, 7, `${domain.slug} ${locale} should keep the full System read contract`);
+      assert.deepEqual(
+        overview.rows.map((row) => row.key),
+        [
+          "systemTarget",
+          "productionPath",
+          "constraintMechanism",
+          "improvementPath",
+          "industryChainImpact",
+          "mainRisks",
+          "evidenceSupport",
+        ],
+      );
+    }
+  }
+});
+
+test("live domain system overviews avoid internal QA, framework, and navigation copy", () => {
+  const forbiddenReaderCopy = [
+    /TOC lens/i,
+    /MinCut/i,
+    /Start here/i,
+    /从这里开始/,
+    /节点详情/,
+    /shown in node detail/i,
+    /click through/i,
+    /needs evidence/i,
+    /still missing/i,
+    /not ready/i,
+    /卡点四轴/,
+    /具体卡点/,
+    /increase the bottleneck/i,
+    /improve the bottleneck/i,
+    /shortest resource/i,
+  ];
+
+  for (const domain of DOMAIN_ROUTES) {
+    for (const locale of ["zh", "en"] as const) {
+      const overview = systemOverviewForRoot(domain.rootId, locale)!;
+      const visibleCopy = [
+        overview.title,
+        overview.subtitle,
+        ...overview.rows.flatMap((row) => [row.label, row.value]),
+      ].join("\n");
+
+      for (const pattern of forbiddenReaderCopy) {
+        assert.doesNotMatch(visibleCopy, pattern, `${domain.slug} ${locale} overview contains ${pattern}`);
+      }
+      for (const row of overview.rows) {
+        assert.ok(row.value.length >= 40, `${domain.slug} ${locale} ${row.key} should be substantive system copy`);
+      }
+    }
   }
 });
 

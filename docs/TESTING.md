@@ -8,6 +8,11 @@ After changing any feature, run the narrowest relevant automated checks first. I
 
 If a browser check cannot be completed reliably, report exactly what was not verified and why. Do not present build, lint, or static checks as proof that an interaction feels good.
 
+Do not run full `npm run verify` reflexively. It is intentionally broad and
+slow: it runs lint, graph UX/geometry/topology/leak checks, and the full node
+test suite. For a narrow, single-surface change, prefer targeted tests and
+only escalate when the risk profile calls for it.
+
 **Acceptance is defined by `docs/ACCEPTANCE.md`.** §6 routes each change type to its gates; any change a user can see also runs the QA agent against §3 (machine-green is never sufficient for a UI / product change).
 
 For user-reported product defects and QA misses, update or cite the acceptance rule before changing the product implementation. First run an independent QA replay against the affected surface without giving the replay agent the exact symptom list. If the replay misses a reported failure class, add or sharpen the QA/acceptance/machine-gate rule first, then rerun a fresh replay until it independently reports the class or a concrete blocker is documented. Only then write the concrete fix and verify against that rule. Do not leave acceptance coverage as a final cleanup step.
@@ -18,6 +23,81 @@ That QA is organized around commercial promise, paid insight trust, graph
 map readability, node-detail investor summary, and release guardrails.
 Automated commands are supporting evidence; they are not a substitute for
 the commercial QA gates.
+
+## Verification Levels
+
+Use the lowest level that proves the changed behavior. Escalate only when the
+change scope, failure history, or release risk justifies the additional cost.
+
+### Level 1: Focused
+
+Use for copy-only changes, one component, one helper, one route, or one
+regression test.
+
+For docs-only or process-policy changes, `git diff --check` plus targeted `rg`
+searches are usually enough unless the doc change also edits executable code or
+requires a generated artifact.
+
+Typical commands:
+
+```bash
+npx tsx --test tests/<changed-file>.test.ts
+npm run lint
+git diff --check -- <changed files>
+```
+
+For UI work at this level, also browser-check the changed route or component
+state. Do not replace that interaction check with full automated tests.
+
+### Level 2: Related Surface
+
+Use when a change touches a graph surface, domain route, data loader,
+acceptance gate, or shared helper used by several nearby tests, but the blast
+radius is still bounded.
+
+Typical commands:
+
+```bash
+npm run check:graph-ux        # graph UI / layout / interaction changes
+npm run check:graph-layouts   # generated layout artifact freshness
+npm run validate:data         # graph data changes
+npm run check:disclosure      # first-glance chokepoint/lens vocabulary changes
+npx tsx --test tests/<area>*.test.ts
+```
+
+### Level 3: Build / UI Readiness
+
+Use for meaningful app-router or UI work that crosses component boundaries,
+changes CSS/layout, or changes TypeScript types that the focused tests do not
+fully cover.
+
+Typical commands:
+
+```bash
+npm run lint
+npm run build
+```
+
+Run `npm run verify:ui` only for broad UI/app-router changes, before a formal
+handoff where production build confidence matters, or after repeated UI
+failures. Avoid running `verify:ui` while a dev server is actively being used
+for manual testing unless you intentionally restart or replace that server.
+
+### Level 4: Full Verification
+
+Use `npm run verify` only when the work is broad or high risk:
+
+- a long-running session has accumulated many changes;
+- many files or cross-cutting modules changed;
+- graph data, layout, routing, access redaction, or modeling logic changed in
+  ways that can affect multiple domains;
+- a previous focused/related check failed and the fix may have wider effects;
+- preparing a commit, PR, release, or other formal handoff that needs full
+  repo confidence;
+- the user explicitly asks for full validation.
+
+Do not run Level 4 just because any code changed. State why Level 4 was or was
+not run in the final handoff when the distinction matters.
 
 ## Automated Checks
 
@@ -66,6 +146,11 @@ npm run agent:context -- --stage verify
 - ELK worker is served as a static asset.
 
 This script is necessary but not sufficient. It cannot judge whether the graph is pleasant or clear to use.
+
+`npm run check:graph-layouts` verifies that every live domain route has current
+generated graph layout artifacts for the product and Barrier Sources layers.
+Run `npm run generate:graph-layouts` after intentional graph/layout changes,
+then commit the updated files under `data/layouts/`.
 
 ## Required Browser Checks For UI Work
 

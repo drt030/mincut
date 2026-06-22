@@ -3,7 +3,7 @@ import { FX_TO_RMB_2025, type FxCurrency } from "../../scripts/fx-constants";
 import { chokepointVerdictBandFor } from "./chokepointScore";
 import { nodeRisk } from "./nodeRisk";
 import { rollupCost } from "./costRollup";
-import { estimatedCostForNode } from "./costEstimate";
+import { estimatedCostForGraphNode } from "./costEstimate";
 
 /**
  * Per ADR-0006 §"Color mode (cost / maturity / risk) — K4 layering" and
@@ -346,7 +346,7 @@ export function nodeCostSignalRmb(node: Node, graph: GraphData): number | null {
       ? direct
       : null;
   if (value === null) {
-    value = estimatedCostForNode(node)?.range.typical ?? null;
+    value = estimatedCostForGraphNode(graph, node)?.range.typical ?? null;
   }
   graphCache.set(node.id, value);
   return value;
@@ -375,7 +375,7 @@ export function nodeCostSignalKind(node: Node, graph: GraphData): CostSignalKind
     // Keep falling through to the heuristic estimate.
   }
 
-  const kind: CostSignalKind = estimatedCostForNode(node) ? "estimated" : "missing";
+  const kind: CostSignalKind = estimatedCostForGraphNode(graph, node) ? "estimated" : "missing";
   graphCache.set(node.id, kind);
   return kind;
 }
@@ -389,7 +389,7 @@ export function nodeCostDriverRmb(
   if (signal !== null && signal > 0 && signalKind !== "missing") {
     return { value: signal, kind: signalKind };
   }
-  const estimate = estimatedCostForNode(node)?.range.typical ?? null;
+  const estimate = estimatedCostForGraphNode(graph, node)?.range.typical ?? null;
   if (estimate !== null && estimate > 0) return { value: estimate, kind: "estimated" };
   return null;
 }

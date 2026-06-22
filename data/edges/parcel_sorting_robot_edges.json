@@ -7503,13 +7503,14 @@
     "target": "fanless_compute_thermal_management",
     "relation": "requires",
     "claim": "Product-layer structural edge: the vision compute module needs fanless thermal management for sustained deployment. The real-time integration node remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_low_cost_vision_compute_requires_thermal_management, which already models the same vision compute -> fanless thermal management dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_compute_nvidia_jetson_orin_2026",
       "ev_compute_advantech_edge_ai_systems_2026",
       "ev_compute_adlink_edge_ai_2026"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_product_conveyor_requires_induction_sensor_array",
@@ -7517,13 +7518,14 @@
     "target": "induction_sensor_array",
     "relation": "requires",
     "claim": "Product-layer structural edge: conveyor integration needs induction sensor feedback hardware. Parcel induction and spacing control remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_induction_spacing_requires_sensor_array, which already models the same conveyor integration -> induction sensor array dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_banner_conveying_sortation_sensors",
       "ev_induction_dematic_sortation_gapping_2026",
       "ev_mfg_dematic_sortation_controls"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_product_conveyor_requires_variable_speed_induction_drive",
@@ -7531,12 +7533,13 @@
     "target": "variable_speed_induction_drive",
     "relation": "requires",
     "claim": "Product-layer structural edge: conveyor integration needs variable-speed induction drive hardware. Parcel induction and spacing control remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_induction_spacing_requires_variable_speed_drive, which already models the same conveyor integration -> variable-speed induction drive dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_induction_dematic_sortation_gapping_2026",
       "ev_mfg_interroll_mcp_play_2026",
       "ev_mfg_dematic_sortation_controls"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   }
 ]

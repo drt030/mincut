@@ -7,11 +7,13 @@ import { ExposureAccessBanner } from "@/components/ExposureAccessBanner";
 import { ExposureLockProvider } from "@/components/ExposureLockCta";
 import { HolderTeaserProvider } from "@/components/HolderTeaserProvider";
 import { GraphExplorer } from "@/components/GraphExplorer";
+import { HomeMapDock } from "@/components/HomeMapDock";
 import { ENTITLEMENT_COOKIE, readEntitlements } from "@/lib/entitlements";
 import { computeHolderTeasers } from "@/lib/holderTeasers";
 import { stripExposureLayer } from "@/lib/exposureGate";
 import { domainBySlug } from "@/lib/domains";
 import { loadActiveGraphData } from "@/lib/graphLoader";
+import { loadCurrentGraphLayoutArtifactsForRoot } from "@/lib/graphLayoutArtifacts";
 import { resolveRouteExposureAccess } from "@/lib/routeAccess";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -59,6 +61,7 @@ export default async function DomainPage({ params }: PageProps) {
   const full = loadActiveGraphData(domain.rootId);
   const entitlements = await readEntitlements((await cookies()).get(ENTITLEMENT_COOKIE)?.value);
   const holderTeasers = computeHolderTeasers(full);
+  const graphLayouts = loadCurrentGraphLayoutArtifactsForRoot(domain.rootId, full);
   const { graph, locked } = stripExposureLayer(full, entitlements);
   const exposureAccess = resolveRouteExposureAccess(domain, locked);
   const evidenceSummary = graph.evidence.reduce(
@@ -72,23 +75,29 @@ export default async function DomainPage({ params }: PageProps) {
     { reviewed: 0, sourceChecked: 0, total: 0 },
   );
   return (
-    <div className="page graph-page">
-      <DomainThesisBanner domain={domain} evidence={evidenceSummary} />
-      <Suspense fallback={<div className="panel">Loading graph...</div>}>
-        <div id="domain-graph">
-          <ExposureLockProvider locked={locked}>
-            <HolderTeaserProvider teasers={holderTeasers}>
-              <GraphExplorer
-                graph={graph}
-                initialRootId={domain.rootId}
-                exposureAccess={exposureAccess}
-                operatorMode={false}
-              />
-            </HolderTeaserProvider>
-          </ExposureLockProvider>
+    <div className="graph-first-home graph-domain-page">
+      <HomeMapDock activeSlug={domain.slug} />
+      <div className="graph-first-home-main">
+        <div className="page graph-page">
+          <DomainThesisBanner domain={domain} evidence={evidenceSummary} />
+          <Suspense fallback={<div className="panel">Loading graph...</div>}>
+            <div id="domain-graph">
+              <ExposureLockProvider locked={locked}>
+                <HolderTeaserProvider teasers={holderTeasers}>
+                  <GraphExplorer
+                    graph={graph}
+                    initialRootId={domain.rootId}
+                    precomputedLayouts={graphLayouts}
+                    exposureAccess={exposureAccess}
+                    operatorMode={false}
+                  />
+                </HolderTeaserProvider>
+              </ExposureLockProvider>
+            </div>
+          </Suspense>
+          <ExposureAccessBanner domain={domain} locked={locked} />
         </div>
-      </Suspense>
-      <ExposureAccessBanner domain={domain} locked={locked} />
+      </div>
     </div>
   );
 }

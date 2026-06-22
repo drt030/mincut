@@ -18,6 +18,9 @@ import fs from "node:fs";
  *       "0 suppliers" count. A nonzero holder count is modeled coverage, not
  *       proof of "only / sole / exclusive / 仅 / 唯一" supply unless a separate
  *       ADR-0009-grade claim is surfaced.
+ *   (d) Selected-node core readout layout (§3a). The four first-glance readout
+ *       tiles stay in a stable 2x2 rail grid instead of collapsing into a
+ *       cramped one-row, four-column layout.
  *
  * It is mirror-style to `scripts/check-graph-topology.ts` /
  * `scripts/check-graph-ux.mjs`: static analysis over the source of truth,
@@ -31,6 +34,7 @@ import fs from "node:fs";
 const GRAPH_CONTROLS_PATH = "src/components/GraphControls.tsx";
 const NODE_DETAIL_PANEL_PATH = "src/components/NodeDetailPanel.tsx";
 const LANGUAGE_PROVIDER_PATH = "src/components/LanguageProvider.tsx";
+const GLOBALS_CSS_PATH = "src/app/globals.css";
 
 // The §2 vocabulary: exactly these three lens labels, no more, no less.
 const REQUIRED_LENS_LABELS = ["System decomposition", "Chokepoint", "Cost"];
@@ -71,6 +75,11 @@ function extractRecord(source: string, name: string): Record<string, string> | n
     record[pair[1]] = pair[2];
   }
   return record;
+}
+
+function extractCssBlock(source: string, selector: string): string {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+  return source.match(new RegExp(`${escaped}\\s*\\{[\\s\\S]*?\\n\\}`))?.[0] ?? "";
 }
 
 // ── (a) Lens vocabulary ──────────────────────────────────────────────────
@@ -150,6 +159,30 @@ if (languageProvider) {
         `${LANGUAGE_PROVIDER_PATH}: chokepointAxisConcentration copy "${copy}" must frame nonzero holder counts as modeled coverage (§3a).`,
       );
     }
+  }
+}
+
+// ── (d) Selected-node core readout 2x2 layout ─────────────────────────────
+const globalsCss = readSource(GLOBALS_CSS_PATH);
+if (globalsCss) {
+  const baseDecisionGrid = extractCssBlock(globalsCss, ".detail-decision-grid");
+  const sampleDecisionGrid = extractCssBlock(globalsCss, ".detail-commercial-supplier-ia .detail-decision-grid");
+  const twoColumnGridPattern = /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/;
+
+  if (!twoColumnGridPattern.test(baseDecisionGrid)) {
+    failures.push(
+      `${GLOBALS_CSS_PATH}: .detail-decision-grid must use a stable 2x2 rail layout (§3a); expected repeat(2, minmax(0, 1fr)).`,
+    );
+  }
+  if (!twoColumnGridPattern.test(sampleDecisionGrid)) {
+    failures.push(
+      `${GLOBALS_CSS_PATH}: .detail-commercial-supplier-ia .detail-decision-grid must preserve the sample-style 2x2 core readout (§3a); expected repeat(2, minmax(0, 1fr)).`,
+    );
+  }
+  if (/\.detail-commercial-supplier-ia\s+\.detail-decision-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(4,/.test(globalsCss)) {
+    failures.push(
+      `${GLOBALS_CSS_PATH}: selected-node core readout still forces four cramped columns; §3a requires the rail-default 2x2 layout.`,
+    );
   }
 }
 

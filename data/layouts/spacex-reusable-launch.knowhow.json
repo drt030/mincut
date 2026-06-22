@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "slug": "spacex-reusable-launch",
+  "rootId": "spacex_reusable_launch_stack",
+  "layer": "knowhow",
+  "fingerprint": "a7a3a8b750986fab3ed5f13c3566915876c40e2be5f975c6ac27d945a2fec50d",
+  "generatedAt": "2026-06-21T19:32:52.621Z",
+  "nodePositions": {
+    "aerospace_aluminum_lithium_plate_sheet": {
+      "x": 718.974218,
+      "y": 72.138042
+    },
+    "aerospace_titanium_mill_product": {
+      "x": 530.153232,
+      "y": 558.982106
+    },
+    "autonomous_flight_safety_system": {
+      "x": -325.386983,
+      "y": -78.452927
+    },
+    "copv_metallic_liner_merchant": {
+      "x": 704.630879,
+      "y": 216.786211
+    },
+    "cryo_ground_loading_sequence": {
+      "x": -243.908478,
+      "y": -302.03634
+    },
+    "engine_niobium_nozzle_extension_merchant": {
+      "x": -719.067651,
+      "y": -26.323143
+    },
+    "fairing_composite_sandwich_panel": {
+      "x": -182.048814,
+      "y": 803.679869
+    },
+    "fairing_recovery_rcs_cold_gas": {
+      "x": -80.076683,
+      "y": 387.177519
+    },
+    "fairing_separation_pneumatic_system": {
+      "x": -156.876073,
+      "y": 700.821042
+    },
+    "falcon9_aluminum_lithium_tank_structure": {
+      "x": 376.786608,
+      "y": 37.804761
+    },
+    "falcon9_boostback_entry_landing_burns": {
+      "x": 362.779529,
+      "y": 122.041205
+    },
+    "falcon9_booster_reuse_stack": {
+      "x": 189.261403,
+      "y": 179.554669
+    },
+    "falcon9_droneship_rtls_recovery_ops": {
+      "x": 359.897716,
+      "y": 203.275966
+    },
+    "falcon9_engine_chamber_nozzle_life_margin": {
+      "x": 300.552767,
+      "y": 554.470996
+    },
+    "falcon9_engine_turbopump_reuse_inspection": {
+      "x": 237.449485,
+      "y": 655.657909
+    },
+    "falcon9_fairing_recovery_reuse": {
+      "x": -77.771135,
+      "y": 283.243809
+    },
+    "falcon9_fault_tolerant_avionics_gnc": {
+      "x": -235.067296,
+      "y": 174.8733
+    },
+    "falcon9_grid_fin_reentry_control": {
+      "x": 317.627616,
+      "y": 287.992402
+    },
+    "falcon9_interstage_stage_separation_structure": {
+      "x": -444.379809,
+      "y": 145.411372
+    },
+    "falcon9_landing_legs": {
+      "x": 260.283113,
+      "y": 386.212969
+    },
+    "falcon9_landing_propellant_margin": {
+      "x": 530.164212,
+      "y": 263.18238
+    },
+    "falcon9_merlin_engine_cluster": {
+      "x": 91.867029,
+      "y": 381.911363
+    },
+    "falcon9_pneumatic_stage_separation": {
+      "x": -444.793918,
+      "y": 89.79263
+    },
+    "falcon9_postflight_inspection_refurb": {
+      "x": -41.387645,
+      "y": 489.607792
+    },
+    "falcon9_reusable_launch_branch": {
+      "x": -16.378179,
+      "y": 177.317218
+    },
+    "falcon9_second_stage_payload_delivery": {
+      "x": -273.70579,
+      "y": 66.823667
+    },
+    "falcon9_stage_structural_fatigue_life": {
+      "x": 547.255294,
+      "y": 54.90868
+    },
+    "falcon9_strategic_radhard_processor_fpga": {
+      "x": -200.827438,
+      "y": 610.463757
+    },
+    "flight_termination_ordnance_safe_arm": {
+      "x": -501.271051,
+      "y": -125.785262
+    },
+    "grid_fin_hydraulic_actuation_merchant": {
+      "x": 431.618794,
+      "y": 370.012088
+    },
+    "helium_pressurant_supply": {
+      "x": -554.877916,
+      "y": -770.728472
+    },
+    "integrated_launch_tower_chopsticks": {
+      "x": -231.29429,
+      "y": -367.296872
+    },
+    "landing_leg_crushable_honeycomb_merchant": {
+      "x": 428.971209,
+      "y": 663.693392
+    },
+    "large_aerospace_titanium_forging_casting": {
+      "x": 429.575264,
+      "y": 458.638788
+    },
+    "launch_cots_upscreened_avionics_silicon": {
+      "x": -236.050613,
+      "y": 529.68172
+    },
+    "launch_engine_precision_bearings_merchant": {
+      "x": 129.974347,
+      "y": 490.647175
+    },
+    "launch_flight_computer_avionics_merchant": {
+      "x": -262.655398,
+      "y": 456.167274
+    },
+    "launch_pad_rapid_turnaround_process": {
+      "x": -32.883862,
+      "y": -424.917711
+    },
+    "launch_power_distribution_battery_merchant": {
+      "x": -247.159323,
+      "y": 281.264076
+    },
+    "launch_rcs_cold_gas_thruster_merchant": {
+      "x": -447.719951,
+      "y": 35.194421
+    },
+    "launch_rf_telemetry_transponder_merchant": {
+      "x": -330.268004,
+      "y": 387.483742
+    },
+    "launch_site_cryo_storage_tank_farm": {
+      "x": -197.031419,
+      "y": -446.253794
+    },
+    "launch_site_flame_deluge_water_system": {
+      "x": -180.354301,
+      "y": -531.069645
+    },
+    "launch_site_gse_umbilical_quick_disconnect": {
+      "x": -60.211427,
+      "y": -237.197927
+    },
+    "launch_site_propellant_subcooler_skid": {
+      "x": -206.792903,
+      "y": -624.27783
+    },
+    "launch_tvc_actuators_merchant": {
+      "x": 66.460517,
+      "y": 592.283033
+    },
+    "launch_vehicle_copv_pressurant_vessel": {
+      "x": 533.341901,
+      "y": 158.062789
+    },
+    "launch_vehicle_space_imu_gnss": {
+      "x": -416.759973,
+      "y": 322.688774
+    },
+    "launch_vehicle_star_tracker": {
+      "x": -417.663381,
+      "y": 261.168181
+    },
+    "liquid_methane_lch4_supply": {
+      "x": -386.323951,
+      "y": -772.100445
+    },
+    "liquid_oxygen_lox_supply": {
+      "x": -394.441971,
+      "y": -876.999626
+    },
+    "merlin_1d_reuse_qualification": {
+      "x": 14.969624,
+      "y": 693.866587
+    },
+    "merlin_vacuum_upper_stage_engine": {
+      "x": -508.342519,
+      "y": -18.609059
+    },
+    "methalox_engine_test_stands": {
+      "x": -33.119455,
+      "y": -330.826715
+    },
+    "methane_oxygen_ground_propellant_system": {
+      "x": -362.717249,
+      "y": -467.060068
+    },
+    "range_safety_airspace_coordination": {
+      "x": -332.545602,
+      "y": -132.139948
+    },
+    "reusable_launch_ceramic_silica_tile": {
+      "x": 197.93364,
+      "y": -841.841741
+    },
+    "reusable_launch_common_enablers": {
+      "x": -164.805621,
+      "y": -39.735712
+    },
+    "reuse_acceptance_static_fire_test_process": {
+      "x": -287.375937,
+      "y": -185.930152
+    },
+    "space_grade_connector_harness_launch": {
+      "x": -418.404147,
+      "y": 202.378307
+    },
+    "spacex_launch_ground_stack": {
+      "x": -87.584726,
+      "y": -139.976026
+    },
+    "spacex_reusable_launch_stack": {
+      "x": 0,
+      "y": 0
+    },
+    "starship_engine_mix_sea_level_vacuum": {
+      "x": 77.122308,
+      "y": -625.05088
+    },
+    "starship_flap_electric_actuator": {
+      "x": 89.131437,
+      "y": -524.43495
+    },
+    "starship_flap_reentry_control": {
+      "x": 215.137214,
+      "y": -740.755924
+    },
+    "starship_header_tank_landing_propellant": {
+      "x": 247.366354,
+      "y": -650.150474
+    },
+    "starship_heat_shield_tile_system": {
+      "x": 277.56103,
+      "y": -567.282492
+    },
+    "starship_hot_stage_separation_ring": {
+      "x": 416.398365,
+      "y": -355.562717
+    },
+    "starship_payload_deployment_bay": {
+      "x": 338.674071,
+      "y": -493.128479
+    },
+    "starship_pica_class_ablator": {
+      "x": 418.663085,
+      "y": -672.124739
+    },
+    "starship_raptor_engine_cluster_33": {
+      "x": 452.377846,
+      "y": -292.990235
+    },
+    "starship_reentry_landing_burn_profile": {
+      "x": 359.176278,
+      "y": -422.9544
+    },
+    "starship_ship_reusable_upper_stage": {
+      "x": 172.908127,
+      "y": -382.037817
+    },
+    "starship_stainless_coil_plate_merchant": {
+      "x": 514.878841,
+      "y": -564.772466
+    },
+    "starship_stainless_steel_primary_structure": {
+      "x": 530.549454,
+      "y": -460.654963
+    },
+    "starship_superheavy_reusable_branch": {
+      "x": 171.62628,
+      "y": -146.522076
+    },
+    "starship_superheavy_vehicle_stack": {
+      "x": 239.480278,
+      "y": -253.720217
+    },
+    "subcooled_methane_oxygen_propellant_ops": {
+      "x": 481.807239,
+      "y": -231.795282
+    },
+    "superheavy_grid_fin_control": {
+      "x": 517.117289,
+      "y": -170.942001
+    },
+    "superheavy_reusable_booster": {
+      "x": 345.50529,
+      "y": -124.502109
+    },
+    "superheavy_rtls_boostback_profile": {
+      "x": 522.423101,
+      "y": -110.940367
+    },
+    "superheavy_tower_catch_landing_interface": {
+      "x": 515.426568,
+      "y": -51.715156
+    },
+    "vehicle_health_monitoring_telemetry": {
+      "x": -364.068305,
+      "y": -240.066628
+    }
+  }
+}

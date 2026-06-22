@@ -109,6 +109,7 @@ function appendSuffix(body: string, suffix: string): string {
 function formatNumberCompact(n: number): string {
   if (!Number.isFinite(n)) return String(n);
   const abs = Math.abs(n);
+  if (abs >= 1_000_000_000) return `${trimTrailingZeros((n / 1_000_000_000).toFixed(1))}B`;
   if (abs >= 1_000_000) return `${trimTrailingZeros((n / 1_000_000).toFixed(1))}M`;
   if (abs >= 10_000) return `${trimTrailingZeros((n / 1_000).toFixed(1))}k`;
   if (abs >= 1) return n.toLocaleString("en-US");

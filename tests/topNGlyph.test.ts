@@ -867,18 +867,18 @@ test("commercial supplier detail shell inherits rail width and reflows dense gri
   );
   assert.match(
     decisionGridBlock,
-    /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)/,
-    "sample-style core readout tiles should stay in one compact four-column row when the rail is wide enough",
+    /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/,
+    "sample-style core readout tiles should use a stable 2x2 rail layout",
   );
   assert.match(
     decisionGridBlock,
     /display:\s*grid/,
     "sample-style core readout must declare its own grid display instead of depending on generic cascade",
   );
-  assert.match(
+  assert.doesNotMatch(
     css,
-    /@media\s*\(max-width:\s*520px\)[\s\S]*?\.detail-commercial-supplier-ia\s+\.detail-decision-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/,
-    "core readout should only fall back to a 2-column grid on genuinely narrow screens",
+    /\.detail-commercial-supplier-ia\s+\.detail-decision-grid\s*\{[\s\S]*?grid-template-columns:\s*repeat\(4,/,
+    "sample-style core readout must not force four cramped columns in the rail",
   );
   assert.match(
     axesGridBlock,
@@ -1239,36 +1239,30 @@ test("GraphExplorer.tsx regression guard: sector label SVG numbers are hydration
 });
 
 test("GraphExplorer.tsx regression guard: card packing preserves radial sector membership", () => {
-  const filePath = path.join(
-    process.cwd(),
-    "src",
-    "components",
-    "GraphExplorer.tsx",
-  );
+  const filePath = path.join(process.cwd(), "src", "lib", "graphLayoutPositions.ts");
   const raw = fs.readFileSync(filePath, "utf8");
   const noBlockComments = raw.replace(/\/\*[\s\S]*?\*\//g, "");
   const noLineComments = noBlockComments.replace(/(^|[^:])\/\/.*$/gm, "$1");
-  const packedPositionsBlock = noLineComments.match(/const packedNodePositions = useMemo\(\(\) => \{[\s\S]*?\n  \}, \[[^\]]*\]\);/)?.[0] ?? "";
 
   assert.match(
     noLineComments,
     /function sectorForTheta\(/,
-    "GraphExplorer should keep an explicit sector lookup helper for final canvas packing",
+    "graph layout computation should keep an explicit sector lookup helper for final canvas packing",
   );
   assert.match(
-    packedPositionsBlock,
+    noLineComments,
     /const sectorBoundsById = new Map/,
-    "GraphExplorer should build per-node sector bounds before packing detail-sized nodes",
+    "graph layout computation should build per-node sector bounds before packing detail-sized nodes",
   );
   assert.match(
-    packedPositionsBlock,
-    /sectorBoundsById,/,
-    "GraphExplorer must pass sector bounds into packRectangularNodes so overlap resolution cannot move nodes into the wrong subsystem wedge",
+    noLineComments,
+    /edgeAwarePackRectangularNodes\([\s\S]*sectorBoundsById,/,
+    "graph layout computation must pass sector bounds into packRectangularNodes so overlap resolution cannot move nodes into the wrong subsystem wedge",
   );
   assert.match(
-    packedPositionsBlock,
+    noLineComments,
     /sectorPaddingRadians:\s*0\.1/,
-    "GraphExplorer should keep a visible angular margin inside each sector so packed nodes do not read as belonging to a neighboring branch",
+    "graph layout computation should keep a visible angular margin inside each sector so packed nodes do not read as belonging to a neighboring branch",
   );
 });
 

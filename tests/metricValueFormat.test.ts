@@ -26,6 +26,12 @@ test("currency display preserves decimals for million and billion unit metrics",
   assert.equal(formatted.full, "17.788 EUR billion");
 });
 
+test("compact RMB display uses billions for large cost-scale rollups", () => {
+  const formatted = formatMetricValue(144_000_000_000, "RMB", "RMB");
+
+  assert.equal(formatted.compact, "144B RMB");
+});
+
 test("non-currency range full display preserves meaningful fractional values", () => {
   const formatted = formatMetricValue({ min: 98, typical: 99, max: 99.5 }, "%");
 

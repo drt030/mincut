@@ -1,0 +1,354 @@
+{
+  "schemaVersion": 1,
+  "slug": "ai-compute",
+  "rootId": "ai_accelerator_module_hbm_cowos",
+  "layer": "product",
+  "fingerprint": "382a8a3dfa9bb68fc58d7afb827a0046de82b6e831185656546e8620df937311",
+  "generatedAt": "2026-06-21T19:31:13.859Z",
+  "nodePositions": {
+    "48v_converter_module": {
+      "x": -16.839973,
+      "y": -470.876091
+    },
+    "abf_build_up_film": {
+      "x": 288.331558,
+      "y": -784.760007
+    },
+    "active_copper_cable_linear_equalizer": {
+      "x": -449.357031,
+      "y": 64.136358
+    },
+    "active_electrical_cable_aec_retimer_dsp": {
+      "x": -453.986577,
+      "y": 9.770932
+    },
+    "advanced_packaging": {
+      "x": 50.70526,
+      "y": 100.816205
+    },
+    "ai_accelerator_module_hbm_cowos": {
+      "x": 0,
+      "y": 0
+    },
+    "asml_lithography_systems": {
+      "x": -431.342471,
+      "y": -415.389767
+    },
+    "backplane_substrate_and_routing": {
+      "x": -190.872318,
+      "y": 351.165795
+    },
+    "bump_height_curing_furnace": {
+      "x": 380.416024,
+      "y": 203.330929
+    },
+    "cdu_rapid_deployment_kit": {
+      "x": 539.618381,
+      "y": -367.69465
+    },
+    "chiplet_interconnect_substrate": {
+      "x": -178.096228,
+      "y": 339.78087
+    },
+    "cmp_process_equipment": {
+      "x": -212.104244,
+      "y": -146.421836
+    },
+    "cold_plate_water_block": {
+      "x": 508.779797,
+      "y": -157.555481
+    },
+    "compound_crystal_wafer_substrates": {
+      "x": -491.597045,
+      "y": -210.285646
+    },
+    "compound_foundry_specialty": {
+      "x": -468.695184,
+      "y": 571.422294
+    },
+    "cooling_distribution_unit_cdu": {
+      "x": 403.454943,
+      "y": -274.913215
+    },
+    "copper_trace_routing": {
+      "x": 219.844206,
+      "y": -531.680187
+    },
+    "direct_contact_thermal_lid": {
+      "x": 352.202951,
+      "y": -111.930348
+    },
+    "eml_dfb_laser_diodes": {
+      "x": -373.366621,
+      "y": 373.390706
+    },
+    "environmental_test_chambers_qualification": {
+      "x": 376.110684,
+      "y": 92.820919
+    },
+    "epitaxial_growth_inp_gaas": {
+      "x": -470.651838,
+      "y": 472.658176
+    },
+    "epitaxial_layer_growth_and_materials": {
+      "x": -652.423289,
+      "y": -209.417432
+    },
+    "euv_mask_blanks": {
+      "x": -602.48678,
+      "y": -424.846752
+    },
+    "euv_photomask_production": {
+      "x": -267.758695,
+      "y": -189.288063
+    },
+    "euv_photoresist_materials": {
+      "x": -387.520656,
+      "y": -622.994853
+    },
+    "euv_projection_optics": {
+      "x": -265.039657,
+      "y": -259.862134
+    },
+    "extreme_ultraviolet_lithography": {
+      "x": -289.545086,
+      "y": -289.708492
+    },
+    "flip_chip_bonding": {
+      "x": 374.227129,
+      "y": 154.320671
+    },
+    "foundry_capacity_tsmc": {
+      "x": -239.852219,
+      "y": -456.251745
+    },
+    "hbm_die_fabrication": {
+      "x": 61.972393,
+      "y": 650.495975
+    },
+    "hbm_stack_assembly_die_bonding": {
+      "x": 38.76736,
+      "y": 454.339485
+    },
+    "hbm_substrate_integration_and_solder": {
+      "x": 41.358489,
+      "y": 547.965864
+    },
+    "hbm_tc_bonding_equipment": {
+      "x": 0.887451,
+      "y": 365.983512
+    },
+    "hbm_test_equipment_and_tooling": {
+      "x": -41.847249,
+      "y": 282.206673
+    },
+    "hbm_testing_validation_power_delivery": {
+      "x": -133.089,
+      "y": 495.711211
+    },
+    "hbm_thermal_management_copper_pillar": {
+      "x": -130.287059,
+      "y": 591.880661
+    },
+    "hdi_drilling_via_plating": {
+      "x": 248.792217,
+      "y": -677.144686
+    },
+    "heat_exchanger_radiator": {
+      "x": 356.117354,
+      "y": -65.026826
+    },
+    "high_bandwidth_memory": {
+      "x": -24.204048,
+      "y": 196.30263
+    },
+    "interconnect_and_optics": {
+      "x": -225.526229,
+      "y": 63.385106
+    },
+    "ion_implantation_equipment": {
+      "x": -226.806326,
+      "y": -499.126105
+    },
+    "laser_array_and_photodiodes": {
+      "x": -428.471048,
+      "y": 278.90682
+    },
+    "logic_die_fabrication": {
+      "x": -68.117474,
+      "y": -147.106814
+    },
+    "micropump_circulation": {
+      "x": 509.079856,
+      "y": -51.07836
+    },
+    "mocvd_equipment_systems": {
+      "x": -541.907323,
+      "y": 373.118739
+    },
+    "module_level_vrm": {
+      "x": 13.512818,
+      "y": -573.586078
+    },
+    "on_module_hbm_interconnect": {
+      "x": -150.004103,
+      "y": 197.976583
+    },
+    "on_module_serdes_phy_chiplet": {
+      "x": -217.447396,
+      "y": 192.72976
+    },
+    "optical_bump_metrology_inspection": {
+      "x": 370.786193,
+      "y": 395.141258
+    },
+    "optical_module_enclosure_and_cooling": {
+      "x": -446.911041,
+      "y": 225.596803
+    },
+    "optical_transceiver_host_silicon": {
+      "x": -426.783136,
+      "y": 132.904686
+    },
+    "optical_transceiver_module": {
+      "x": -293.43079,
+      "y": 268.460585
+    },
+    "organic_substrate_base_structure": {
+      "x": 225.312171,
+      "y": -435.8457
+    },
+    "organic_substrate_buildup": {
+      "x": 214.796675,
+      "y": -584.618074
+    },
+    "pcie_cxl_fabric_switch_asic": {
+      "x": -467.117114,
+      "y": -49.319034
+    },
+    "pcie_retimer_ic": {
+      "x": -458.148476,
+      "y": -124.257858
+    },
+    "plasma_etch_equipment": {
+      "x": -291.512422,
+      "y": -350.267014
+    },
+    "plasma_surface_activation_systems": {
+      "x": 353.795966,
+      "y": 308.68114
+    },
+    "power_delivery": {
+      "x": 14.117831,
+      "y": -257.758856
+    },
+    "power_delivery_network_substrate": {
+      "x": 256.23039,
+      "y": -343.309494
+    },
+    "power_stage_ic": {
+      "x": 72.865239,
+      "y": -475.351539
+    },
+    "process_control_metrology": {
+      "x": -168.37568,
+      "y": -589.264274
+    },
+    "process_equipment_deposition": {
+      "x": -163.831419,
+      "y": -682.02123
+    },
+    "rack_power_supply_unit": {
+      "x": 56.336171,
+      "y": -367.520728
+    },
+    "redistribution_layer_rdl": {
+      "x": 541.748297,
+      "y": 200.542387
+    },
+    "sealed_liquid_cooling_loop": {
+      "x": 361.332658,
+      "y": -176.648324
+    },
+    "short_reach_copper_signal_conditioning_silicon": {
+      "x": -304.820007,
+      "y": 0.092134
+    },
+    "silicon_interposer_fabrication": {
+      "x": 334.487162,
+      "y": 33.56066
+    },
+    "silicon_interposer_rdl": {
+      "x": 260.076797,
+      "y": -271.867629
+    },
+    "singulation_laser_dicing_systems": {
+      "x": 219.513627,
+      "y": 179.297686
+    },
+    "specialty_analog_power_foundry": {
+      "x": -269.052181,
+      "y": -90.994493
+    },
+    "substrate_and_interposer": {
+      "x": 111.417119,
+      "y": -114.291342
+    },
+    "t_glass_fabric": {
+      "x": 420.927671,
+      "y": -607.684161
+    },
+    "test_and_inspection": {
+      "x": 209.812864,
+      "y": 124.856435
+    },
+    "thermal_cooling": {
+      "x": 170.383504,
+      "y": -17.095373
+    },
+    "thermal_interface_substrate_vias": {
+      "x": 345.104404,
+      "y": -34.625937
+    },
+    "thermal_processing_furnaces": {
+      "x": -87.789648,
+      "y": -365.463499
+    },
+    "thermal_profiling_and_process_control": {
+      "x": 226.320402,
+      "y": 258.385725
+    },
+    "thermal_via_filling": {
+      "x": 190.731316,
+      "y": -195.651603
+    },
+    "thermocompression_bonding_systems": {
+      "x": 224.616482,
+      "y": 308.983061
+    },
+    "tsv_process_deep_reactive_ion_etch": {
+      "x": 381.611811,
+      "y": 477.820831
+    },
+    "ualink_phy_silicon": {
+      "x": -375.281235,
+      "y": 741.621433
+    },
+    "underfill_dispensing_equipment": {
+      "x": 241.26652,
+      "y": 383.711856
+    },
+    "wafer_bonding_alignment_systems": {
+      "x": 222.198242,
+      "y": 484.025027
+    },
+    "wafer_probe_testing_advanced_packaging": {
+      "x": 202.99682,
+      "y": 552.502081
+    },
+    "x_ray_inspection_advanced_packaging": {
+      "x": 237.986295,
+      "y": 647.733906
+    }
+  }
+}

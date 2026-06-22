@@ -1,5 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
@@ -798,7 +800,7 @@ test("expanded: selected-node detail follows the commercial supplier IA order", 
   assert.match(coreReadout, /Core readout/i, `core readout should use the v4 IA title; got: ${coreReadout}`);
   assert.match(coreReadout, /Chokepoint verdict/i, `core readout should expose the verdict tile; got: ${coreReadout}`);
   assert.match(coreReadout, /Leading reason/i, `core readout should expose the leading structural reason tile; got: ${coreReadout}`);
-  assert.match(coreReadout, /Commercial scale/i, `core readout should expose the commercial-scale tile; got: ${coreReadout}`);
+  assert.match(coreReadout, /Cost-scale proxy/i, `core readout should expose the cost-scale proxy tile; got: ${coreReadout}`);
   assert.match(coreReadout, /Relief timing/i, `core readout should expose the relief-timing tile; got: ${coreReadout}`);
   assert.doesNotMatch(
     coreReadout,
@@ -844,11 +846,33 @@ test("expanded: selected-node detail carries the commercial supplier visual shel
   assert.match(html, /class="[^"]*detail-reader-quote/, `detail should render the sample-style leading quote block; got: ${html}`);
   assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-verdict/, `core readout needs a tinted verdict tile; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-reason/, `core readout needs a reason tile; got: ${priority}`);
-  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-commercial/, `core readout needs a commercial-scale tile; got: ${priority}`);
+  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-commercial/, `core readout needs a cost-scale proxy tile; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-relief/, `core readout needs a relief-timing tile; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-decomposition-table/, `decomposition should use the sample table/card treatment; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-evidence-card/, `evidence trail should use the sample evidence-card treatment; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-supplier-card/, `supplier leads should use sample-style company cards; got: ${priority}`);
+});
+
+test("expanded: selected-node core readout uses a stable 2x2 rail layout", () => {
+  const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
+  const baseGrid = css.match(/\.detail-decision-grid\s*\{[\s\S]*?\}/)?.[0] ?? "";
+  const sampleGrid = css.match(/\.detail-commercial-supplier-ia \.detail-decision-grid\s*\{[\s\S]*?\}/)?.[0] ?? "";
+
+  assert.match(
+    baseGrid,
+    /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/,
+    `base core readout grid should be 2x2 in the rail; got: ${baseGrid}`,
+  );
+  assert.match(
+    sampleGrid,
+    /grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\);/,
+    `sample-style core readout grid should be 2x2 in the rail; got: ${sampleGrid}`,
+  );
+  assert.doesNotMatch(
+    sampleGrid,
+    /repeat\(4/,
+    `sample-style rail must not force four cramped columns; got: ${sampleGrid}`,
+  );
 });
 
 test("expanded: primary path has one source summary and exposure stays focused on company leads", () => {
@@ -1471,8 +1495,8 @@ test("expanded: detail decision brief labels modeled cost before showing estimat
   });
   const decision = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
 
-  assert.match(decision, /Modeled cost: est\./i);
-  assert.match(decision, /Model\/rollup; needs supplier quote or audited BOM validation/i);
+  assert.match(decision, /Cost\/capex proxy: est\./i);
+  assert.match(decision, /Authored cost\/capex or child rollup; needs supplier quote or audited BOM validation/i);
   assert.doesNotMatch(decision, /Basis: graph model|Basis:/i);
   assert.doesNotMatch(
     decision,
@@ -1745,7 +1769,7 @@ test("expanded: product detail surfaces a reader-facing product readout, not an 
   );
   assert.match(
     html,
-    /Top cost driver[\s\S]*Modeled cost:/,
+    /Top cost driver[\s\S]*Cost\/capex proxy:/,
     `investor panel must surface the highest estimated cost driver with a cost signal; got: ${html}`,
   );
   assert.doesNotMatch(html, /\bp50\b/i);

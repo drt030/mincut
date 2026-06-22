@@ -3,6 +3,7 @@ import path from "node:path";
 import {
   commercialScaleRollupViolations,
   commercialScaleMissingSupplierOrganizations,
+  duplicateActiveStructuralEdges,
   explicitLeadTimeHierarchyViolations,
   structuralLeadTimeMissingNodes,
 } from "../src/lib/commercialDataCompleteness";
@@ -338,6 +339,11 @@ function validateCommercialDataCompleteness(graph: GraphData): string[] {
   for (const violation of commercialScaleRollupViolations(graph)) {
     errors.push(
       `${violation}. Parent commercial scale must be derived from, or at least not contradict, direct structural children.`,
+    );
+  }
+  for (const violation of duplicateActiveStructuralEdges(graph)) {
+    errors.push(
+      `${violation}. Duplicate active structural edges make decomposition and commercial-scale rollups ambiguous; deprecate or merge one edge with context.`,
     );
   }
   for (const violation of explicitLeadTimeHierarchyViolations(graph)) {

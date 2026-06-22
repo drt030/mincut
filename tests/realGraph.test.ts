@@ -21,11 +21,11 @@ const graph = loadGraphData();
 test("real graph: parcel_manipulation_or_diverter uses child rollup after stale direct cost is superseded", () => {
   // Parent-level historical direct cost metrics that are lower than a
   // decomposed child rollup are tagged superseded_by_child_cost_rollup and no
-  // longer count as direct commercial-scale readings.
+  // longer count as direct cost-scale readings.
   const result = rollupCost(graph, "parcel_manipulation_or_diverter");
   assert.ok(result.rolledUp.typical >= 200_000, `expected child rollup ≥ 200k, got ${result.rolledUp.typical}`);
   assert.equal(result.directLowerThanChildren, false, "superseded direct cost should not trigger inversion");
-  assert.equal(result.directOnly, null, "superseded direct cost metric should not be treated as direct commercial scale");
+  assert.equal(result.directOnly, null, "superseded direct cost metric should not be treated as direct cost scale");
 });
 
 test("real graph: flagship rolled-up moves with the new walker (not 274.7k)", () => {

@@ -51,6 +51,13 @@ const OUTGOING_STRUCTURAL_DECOMPOSITION_RELATIONS = new Set<Edge["relation"]>([
   "implemented_by",
 ]);
 
+const ACTIVE_STRUCTURAL_EDGE_RELATIONS = new Set<Edge["relation"]>([
+  "requires",
+  "has_route",
+  "implemented_by",
+  "part_of",
+]);
+
 const NON_STRUCTURAL_DECOMPOSITION_CHILD_KINDS = new Set<Node["kind"]>([
   "metric",
   "evidence",
@@ -131,13 +138,32 @@ export function commercialScaleRollupViolations(graph: GraphData): string[] {
       const result = rollupCost(graph, node.id);
       if (!result.directOnly || !result.fromChildren || !result.directLowerThanChildren) continue;
       violations.push(
-        `${node.id} direct commercial-scale cost ${Math.round(result.directOnly.typical)} RMB is below child rollup ${Math.round(result.fromChildren.typical)} RMB`,
+        `${node.id} direct cost-scale proxy ${Math.round(result.directOnly.typical)} RMB is below child rollup ${Math.round(result.fromChildren.typical)} RMB`,
       );
     } catch {
       // rollupCost's cycle/missing-node failures are covered by existing graph validation.
     }
   }
   return violations;
+}
+
+export function duplicateActiveStructuralEdges(graph: GraphData): string[] {
+  const seen = new Map<string, Edge>();
+  const duplicates: string[] = [];
+  for (const edge of graph.edges) {
+    if (edge.reviewStatus === "deprecated" || edge.reviewStatus === "disputed") continue;
+    if (!ACTIVE_STRUCTURAL_EDGE_RELATIONS.has(edge.relation)) continue;
+    const key = `${edge.source}\u0000${edge.target}\u0000${edge.relation}`;
+    const first = seen.get(key);
+    if (first) {
+      duplicates.push(
+        `${edge.source} -> ${edge.target} (${edge.relation}) is duplicated by active edges ${first.id} and ${edge.id}`,
+      );
+      continue;
+    }
+    seen.set(key, edge);
+  }
+  return duplicates;
 }
 
 export function explicitLeadTimeHierarchyViolations(graph: GraphData): string[] {

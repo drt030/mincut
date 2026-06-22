@@ -1,10 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { isArtifactCanvasNode } from "../src/lib/canvasGraph";
-import { estimatedCostForNode } from "../src/lib/costEstimate";
+import { estimatedCostForGraphNode, estimatedCostForNode } from "../src/lib/costEstimate";
 import { DOMAIN_ROUTES } from "../src/lib/domains";
 import { nodeCostSignalKind, nodeCostSignalRmb, nodeTypicalCostRmb } from "../src/lib/edgeStyleFor";
 import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
+import type { GraphData } from "../src/lib/schema";
 
 test("estimatedCostForNode supplies low-confidence estimates without overwriting authored cost metrics", () => {
   const graph = loadGraphData();
@@ -65,4 +66,82 @@ test("all graph artifact nodes expose a modeled or estimated cost signal", () =>
     [],
     "artifact nodes should never leave reader-facing cost drivers blank; use low-confidence estimates when audited cost is absent",
   );
+});
+
+test("estimatedCostForGraphNode bounds unsourced child estimates against direct parent capex", () => {
+  const graph: GraphData = {
+    graphVersion: "parent-bounded-estimate-test",
+    evidence: [],
+    nodes: [
+      {
+        id: "parent_module",
+        name: "Parent module",
+        kind: "module",
+        domain: ["ai_compute_chain"],
+        maturityLabel: "early_deployment",
+        maturityAsOf: "2026-06",
+        metrics: [
+          {
+            name: "Module capex",
+            unit: "RMB",
+            currentValue: 100_000_000,
+            currency: "RMB",
+            costAsOf: "2026",
+          },
+        ],
+      },
+      {
+        id: "high_na_euv_child",
+        name: "High-NA EUV lithography child",
+        kind: "equipment",
+        domain: ["ai_compute_chain"],
+        maturityLabel: "early_deployment",
+        maturityAsOf: "2026-06",
+      },
+      {
+        id: "cooling_child",
+        name: "Cooling child",
+        kind: "equipment",
+        domain: ["ai_compute_chain"],
+        maturityLabel: "early_deployment",
+        maturityAsOf: "2026-06",
+      },
+    ],
+    edges: [
+      {
+        id: "parent_requires_euv",
+        source: "parent_module",
+        target: "high_na_euv_child",
+        relation: "requires",
+      },
+      {
+        id: "parent_requires_cooling",
+        source: "parent_module",
+        target: "cooling_child",
+        relation: "requires",
+      },
+    ],
+  };
+  const euv = graph.nodes.find((node) => node.id === "high_na_euv_child")!;
+  const cooling = graph.nodes.find((node) => node.id === "cooling_child")!;
+
+  const baseline = estimatedCostForNode(euv);
+  const boundedEuv = estimatedCostForGraphNode(graph, euv);
+  const boundedCooling = estimatedCostForGraphNode(graph, cooling);
+
+  assert.equal(baseline?.range.typical, 300_000_000);
+  assert.equal(boundedEuv?.basisKind, "parent_bounded");
+  assert.equal(boundedCooling?.basisKind, "parent_bounded");
+  assert.ok(
+    boundedEuv && boundedEuv.range.typical < baseline!.range.typical,
+    `expected EUV estimate to be scaled below ${baseline?.range.typical}, got ${boundedEuv?.range.typical}`,
+  );
+  assert.ok(
+    boundedEuv && boundedCooling && boundedEuv.range.typical + boundedCooling.range.typical <= 100_000_000,
+    `bounded child estimates should fit the parent capex budget, got ${
+      (boundedEuv?.range.typical ?? 0) + (boundedCooling?.range.typical ?? 0)
+    }`,
+  );
+  assert.equal(nodeCostSignalKind(euv, graph), "estimated");
+  assert.equal(nodeCostSignalRmb(euv, graph), boundedEuv?.range.typical);
 });

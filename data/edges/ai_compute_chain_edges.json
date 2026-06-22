@@ -2137,8 +2137,9 @@
     "target": "compound_crystal_wafer_substrates",
     "relation": "requires",
     "claim": "Logic-die fabrication does not directly require compound crystal wafers; this edge is a boundary marker documenting that compound/specialty wafer feedstock is NOT a bottleneck for silicon-logic AI accelerator modules but is a critical feedstock tier for power-delivery and optical-interconnect specialty devices in the broader AI platform ecosystem.",
+    "context": "Deprecated 2026-06-21: this was a negative/boundary note encoded as active requires, which incorrectly pulled compound-crystal wafer market metrics into logic-die structural and commercial-scale rollups. Keep the claim text for audit history, but do not use it as a decomposition edge.",
     "confidence": "high",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_power_delivery__requires__specialty_foundry",
@@ -3416,8 +3417,9 @@
     "target": "euv_photomask_production",
     "relation": "requires",
     "claim": "Product-layer structural edge: leading-edge logic die fabrication depends on EUV mask supply. The EUV lithography know-how node remains as the explanatory process layer, not the artifact parent.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_acc_logic_euv__requires__euv_mask, which already models the same logic-die -> EUV mask dependency.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_logic_die__requires__euv_photoresist_materials",
@@ -3425,11 +3427,12 @@
     "target": "euv_photoresist_materials",
     "relation": "requires",
     "claim": "Product-layer structural edge: leading-edge logic die fabrication depends on EUV photoresist materials. The EUV process node remains as know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_acc_logic_euv__requires__euv_resist, which already models the same logic-die -> EUV photoresist dependency with the same evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_acc_logic_euv_resist_challenge"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_logic_die__requires__euv_projection_optics",
@@ -3437,8 +3440,9 @@
     "target": "euv_projection_optics",
     "relation": "requires",
     "claim": "Product-layer structural edge: leading-edge logic die fabrication depends on EUV tool optics capacity. The lithography process node explains why the optics bottleneck matters.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_euv_lithography__requires__euv_optics, which already models the same logic-die -> EUV projection optics dependency with a stronger supplier/lead-time claim.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_hbm__requires__hbm_tc_bonding_equipment",
@@ -3446,11 +3450,12 @@
     "target": "hbm_tc_bonding_equipment",
     "relation": "requires",
     "claim": "Product-layer structural edge: HBM capacity depends on specialized thermocompression bonding equipment. The stack assembly process remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_acc_hbm_stack_assembly_die_bonding__requires__hbm_specialized_thermocompression_bonding_equipment, which already models the same HBM -> TCB equipment dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_acc_nc4_hanmi_tcb_1"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_hbm__requires__hbm_test_equipment_and_tooling",
@@ -3458,12 +3463,13 @@
     "target": "hbm_test_equipment_and_tooling",
     "relation": "requires",
     "claim": "Product-layer structural edge: HBM supply depends on test, inspection, metrology, and ATE tooling. The testing process node remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_acc_hbm_testing__requires__equipment, which already models the same HBM -> test equipment dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_acc_hbm_test_cohu_neon_2026",
       "ev_acc_r6h_advantest_ate_lead_time"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_adv_pkg__requires__underfill_dispensing_equipment",
@@ -3471,8 +3477,9 @@
     "target": "underfill_dispensing_equipment",
     "relation": "requires",
     "claim": "Product-layer structural edge: advanced packaging capacity depends on underfill dispensing equipment. Flip-chip bonding remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_flip_chip_requires_underfill, which already models the same advanced packaging -> underfill equipment dependency.",
     "confidence": "medium",
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_adv_pkg__requires__wafer_probe_testing_equipment",
@@ -3480,11 +3487,12 @@
     "target": "wafer_probe_testing_advanced_packaging",
     "relation": "requires",
     "claim": "Product-layer structural edge: advanced packaging capacity depends on fine-pitch wafer probe and contactor tooling. Test and inspection remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_adv_pkg_requires_probe_testing, which already models the same advanced packaging -> wafer probe testing dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_acc_pkgeq_probe_test"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_adv_pkg__requires__environmental_test_chambers",
@@ -3492,11 +3500,12 @@
     "target": "environmental_test_chambers_qualification",
     "relation": "requires",
     "claim": "Product-layer structural edge: advanced packaging qualification capacity depends on environmental test chambers. Reliability testing remains know-how context.",
+    "context": "Deprecated 2026-06-21: duplicate active structural edge. Superseded by e_test_insp_requires_env_chamber, which already models the same advanced packaging -> environmental test chamber dependency with evidence.",
     "confidence": "medium",
     "evidenceIds": [
       "ev_acc_pkgeq_chamber_process"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "deprecated"
   },
   {
     "id": "e_acc_product_eml_dfb_laser__requires__mocvd_equipment",

@@ -25,10 +25,11 @@ import { RouteDetailRail } from "./RouteDetailRail";
 import { CmdKSearch, handleCmdKKeydown } from "./CmdKSearch";
 import { LayerToggleFloatingButton } from "./LayerToggleFloatingButton";
 import { useHolderTeasers } from "./HolderTeaserProvider";
+import { graphLayoutPositionMap, type GraphLayoutArtifact } from "@/lib/graphLayoutArtifactTypes";
+import { computeGraphLayoutPositions } from "@/lib/graphLayoutPositions";
 import { selectTopN } from "@/lib/prioritySelection";
 import { effectiveLodZoom, type LodDisplayMode } from "@/lib/lod";
 import { radialLayout, type PolarPosition } from "@/lib/radialLayout";
-import { edgeAwarePackRectangularNodes, type GeometryLayoutEdge } from "@/lib/edgeAwareLayout";
 import { computeRectEdgePorts } from "@/lib/edgePorts";
 import { subsystemHue } from "@/lib/subsystemHue";
 import {
@@ -606,6 +607,7 @@ type Props = {
   graph: GraphData;
   /** Per-domain routes (/d/[slug]) pin the canvas root server-side; ?root= still wins for in-canvas navigation. */
   initialRootId?: string;
+  precomputedLayouts?: readonly GraphLayoutArtifact[];
   exposureAccess?: RouteExposureAccessState;
   operatorMode?: boolean;
 };
@@ -646,19 +648,6 @@ function polarToCartesian(polar: PolarPosition): { x: number; y: number } {
     x: polar.r * PX_SCALE * Math.cos(polar.theta),
     y: polar.r * PX_SCALE * Math.sin(polar.theta),
   };
-}
-
-function sectorForTheta(
-  theta: number,
-  sectors: ReadonlyMap<string, { center: number; width: number }>,
-): { start: number; end: number } | null {
-  const normalized = ((theta % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-  for (const sector of sectors.values()) {
-    const start = sector.center - sector.width / 2;
-    const end = sector.center + sector.width / 2;
-    if (normalized >= start - 1e-9 && normalized <= end + 1e-9) return { start, end };
-  }
-  return null;
 }
 
 /**
@@ -799,7 +788,13 @@ function parentResearchRootId(graph: GraphData, currentRootId: string, baseRootI
   return incomingParents[0] ?? null;
 }
 
-export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureAccess, operatorMode = OPERATOR_MODE }: Props) {
+export function GraphExplorer({
+  graph,
+  initialRootId: initialRootProp,
+  precomputedLayouts = [],
+  exposureAccess,
+  operatorMode = OPERATOR_MODE,
+}: Props) {
   const { kindName, nodeName, t } = useLanguage();
   const holderTeasers = useHolderTeasers();
   const searchParams = useSearchParams();
@@ -990,46 +985,22 @@ export function GraphExplorer({ graph, initialRootId: initialRootProp, exposureA
     return out;
   }, [canvasGraph.edges, canvasGraph.nodes]);
 
-  const packedNodePositions = useMemo(() => {
-    const sectorBoundsById = new Map<string, { start: number; end: number }>();
-    for (const [nodeId, polar] of layout.positions) {
-      const sectorBounds = sectorForTheta(polar.theta, layout.sectors);
-      if (sectorBounds) sectorBoundsById.set(nodeId, sectorBounds);
+  const precomputedNodePositions = useMemo(() => {
+    const artifact = precomputedLayouts.find(
+      (layout) => layout.rootId === currentRootId && layout.layer === graphLayer,
+    );
+    if (!artifact) return null;
+    const positions = graphLayoutPositionMap(artifact);
+    for (const nodeId of radialNodePositions.keys()) {
+      if (!positions.has(nodeId)) return null;
     }
-    const nodeById = new Map(canvasGraph.nodes.map((node) => [node.id, node]));
-    const visualRadiusFor = (nodeId: string): number => {
-      if (!nodeById.has(nodeId)) return 12;
-      if (nodeId === currentRootId) return 26;
-      if (firstLayerSubsystemSet.has(nodeId)) return 22;
-      const hasStructuralChildren = (childrenByParent.get(nodeId) ?? []).some((childId) =>
-        layout.positions.has(childId),
-      );
-      return hasStructuralChildren ? 16 : 10;
-    };
-    const layoutEdges: GeometryLayoutEdge[] = canvasGraph.edges.flatMap((edge) => {
-      if (!isCanvasTreeEdge(edge, nodeById)) return [];
-      if (layout.edges.get(edge.id)?.style !== "primary") return [];
-      if (!layerVisibleNodeIds.has(edge.source) || !layerVisibleNodeIds.has(edge.target)) return [];
-      if (!focalSubtree.has(edge.source) || !focalSubtree.has(edge.target)) return [];
-      if (!radialNodePositions.has(edge.source) || !radialNodePositions.has(edge.target)) return [];
-      return [{
-        id: edge.id,
-        source: edge.source,
-        target: edge.target,
-        sourceRadius: visualRadiusFor(edge.source),
-        targetRadius: visualRadiusFor(edge.target),
-      }];
-    });
-    return edgeAwarePackRectangularNodes(radialNodePositions, {
-      width: BAND3_BOX.width,
-      height: BAND3_BOX.height,
-      padding: 36,
-      fixedIds: new Set([currentRootId]),
-      sectorBoundsById,
-      sectorPaddingRadians: 0.1,
-      edges: layoutEdges,
-    });
-  }, [canvasGraph.edges, canvasGraph.nodes, focalSubtree, radialNodePositions, currentRootId, layout.positions, layout.sectors, layout.edges, layerVisibleNodeIds, firstLayerSubsystemSet, childrenByParent]);
+    return positions;
+  }, [currentRootId, graphLayer, precomputedLayouts, radialNodePositions]);
+
+  const packedNodePositions = useMemo(() => {
+    if (precomputedNodePositions) return precomputedNodePositions;
+    return computeGraphLayoutPositions(workingGraph, currentRootId, graphLayer);
+  }, [currentRootId, graphLayer, precomputedNodePositions, workingGraph]);
 
   // Every LOD band is mounted inside the same 136x72 React Flow node box.
   // Therefore even label mode needs packed centers; otherwise adjacent node

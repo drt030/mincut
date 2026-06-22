@@ -92,7 +92,7 @@ test("ProductView surfaces a reader-facing chokepoint readout for the active pro
   assert.match(html, /not a quantified shortfall attribution/);
   assert.match(html, /Top startup opportunities/);
   assert.match(html, /Reducer lubrication and life testing/);
-  assert.match(html, /Modeled cost: [^<]+RMB/);
+  assert.match(html, /Cost\/capex proxy: [^<]+RMB/);
   assert.doesNotMatch(html, /Top blockers \(click to focus\)|🎯/);
   assert.doesNotMatch(
     html.match(/<section[^>]*data-testid="product-investor-answer-panel"[\s\S]*?<\/section>/)?.[0] ?? "",

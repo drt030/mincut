@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "check:graph-topology": "tsx scripts/check-graph-topology.ts",
     "check:graph-geometry": "tsx scripts/check-graph-geometry.ts",
+    "generate:graph-layouts": "tsx scripts/generate-graph-layouts.ts",
+    "check:graph-layouts": "tsx scripts/generate-graph-layouts.ts --check",
     "check:disclosure": "tsx scripts/check-disclosure.ts",
     "check:commercial-readiness": "tsx scripts/check-commercial-readiness.ts",
     "check:node-detail-ia": "tsx scripts/check-node-detail-ia.ts",

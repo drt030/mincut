@@ -22,6 +22,7 @@ import type { RouteExposureAccessState } from "@/lib/routeAccess";
 import type { RouteHighlight } from "@/lib/routeHighlight";
 import type { GraphData, Node } from "@/lib/schema";
 import { holdersForNode } from "@/lib/supplyConcentration";
+import { systemOverviewForRoot } from "@/lib/systemOverview";
 import { useLanguage } from "./LanguageProvider";
 import { useHolderTeaser } from "./HolderTeaserProvider";
 import { ChokepointHeadline, NodeDetailContent } from "./NodeDetailPanel";
@@ -690,6 +691,13 @@ export function RouteDetailRail({
   );
   const isAiComputeFlagship = isAiComputeRoute || isAiComputeNode(startNode);
   const routeRoot = nodeById.get(route.rootId) ?? null;
+  const systemOverview = systemOverviewForRoot(route.rootId, language === "zh" ? "zh" : "en");
+  const isSystemOverviewState = Boolean(
+    systemOverview &&
+    activePanel === "route" &&
+    !isKnowHowLayer &&
+    (!selectedNode || selectedNode.id === route.rootId),
+  );
   const isHumanoidRoute = Boolean(
     routeRoot?.domain?.includes("humanoid_robotics") ||
     startNode?.domain?.includes("humanoid_robotics") ||
@@ -870,7 +878,11 @@ export function RouteDetailRail({
     : activeAnalysisMode === "bottleneck-risk"
     ? copy.chokepointSignals
     : copy.costDrivers;
-  const displayRailTitle = isKnowHowLayer ? t("knowHowLayerTitle") : railTitle;
+  const displayRailTitle = isSystemOverviewState && systemOverview
+    ? systemOverview.title
+    : isKnowHowLayer
+      ? t("knowHowLayerTitle")
+      : railTitle;
   const primaryTabLabel = isKnowHowLayer ? t("knowHowStartHere") : t("readerStartHere");
   const railCount = activeAnalysisMode === "relation"
     ? firstLayerNodes.length
@@ -932,7 +944,7 @@ export function RouteDetailRail({
           <div className="route-rail-kicker">{isKnowHowLayer ? t("knowHowLayerKicker") : copy.fullSystem}</div>
           <h2>{activePanel === "detail" ? copy.nodeDetail : displayRailTitle}</h2>
         </div>
-        {activePanel === "route" ? (
+        {activePanel === "route" && !isSystemOverviewState ? (
           <div className="route-rail-header-badges">
             {routeAccessChipText ? (
               <span className={`route-access-chip ${routeAccessChipText.className}`}>
@@ -944,7 +956,7 @@ export function RouteDetailRail({
         ) : null}
       </header>
 
-      {selectedNode ? (
+      {selectedNode && !isSystemOverviewState ? (
         <div className="route-rail-panel-actions" aria-label="Route rail panel actions">
           {activePanel === "detail" ? (
             <button
@@ -1011,6 +1023,23 @@ export function RouteDetailRail({
               defaultOpenExposureSummary={detailIntent === "exposure"}
             />
           </section>
+        ) : isSystemOverviewState && systemOverview ? (
+          <>
+            <section
+              className="route-rail-system-read"
+              data-testid="route-rail-system-overview"
+            >
+              <p className="route-system-overview-subtitle">{systemOverview.subtitle}</p>
+              <div className="route-system-read-table">
+                {systemOverview.rows.map((row) => (
+                  <div key={row.key} className="route-system-read-row">
+                    <span>{row.label}</span>
+                    <strong>{row.value}</strong>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
         ) : (
           <>
             {/*

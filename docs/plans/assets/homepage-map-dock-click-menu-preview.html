@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Map dock click-menu interaction preview</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --ink: #14213d;
+        --line: rgba(15, 23, 42, 0.14);
+        --teal: #0f766e;
+      }
+
+      body {
+        background: #f7f4ed;
+        color: var(--ink);
+        margin: 0;
+        padding: 28px;
+      }
+
+      .preview {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 80px 360px 360px;
+      }
+
+      .dock {
+        background: rgba(255, 253, 248, 0.96);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 8px;
+        justify-items: center;
+        padding: 8px;
+        width: 56px;
+      }
+
+      .maps {
+        align-items: center;
+        background: var(--ink);
+        border-radius: 8px;
+        color: white;
+        display: flex;
+        font-size: 11px;
+        font-weight: 900;
+        height: 34px;
+        justify-content: center;
+        width: 48px;
+      }
+
+      .shortcut {
+        align-items: center;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: flex;
+        font-size: 12px;
+        font-weight: 900;
+        height: 38px;
+        justify-content: center;
+        position: relative;
+        width: 38px;
+      }
+
+      .shortcut.active {
+        background: #e8faf5;
+        border-color: rgba(15, 118, 110, 0.35);
+        color: #115e59;
+      }
+
+      .tooltip {
+        background: #14213d;
+        border-radius: 6px;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 800;
+        left: 54px;
+        padding: 7px 9px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+      }
+
+      .menu {
+        background: rgba(255, 253, 248, 0.98);
+        border: 1px solid rgba(15, 23, 42, 0.16);
+        border-radius: 8px;
+        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.18);
+        display: grid;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      p {
+        color: #475569;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 4px;
+        padding: 9px;
+      }
+
+      .item.active {
+        background: #e8faf5;
+        border-color: rgba(15, 118, 110, 0.35);
+        box-shadow: inset 4px 0 0 var(--teal);
+      }
+
+      .item strong {
+        font-size: 13px;
+        line-height: 1.15;
+      }
+
+      .item span {
+        color: #475569;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .caption {
+        align-content: start;
+        display: grid;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview">
+      <div class="dock" aria-label="Closed dock preview">
+        <div class="maps">Maps</div>
+        <div class="shortcut">AI</div>
+        <div class="shortcut">PR</div>
+        <div class="shortcut active">SX</div>
+        <div class="shortcut">HR</div>
+        <div class="shortcut">CF</div>
+        <div class="shortcut">OD</div>
+      </div>
+
+      <div class="caption">
+        <h1>Shortcut hover state</h1>
+        <p>Hovering a domain shortcut explains the abbreviation only. It does not open the full portfolio menu.</p>
+        <div class="dock">
+          <div class="maps">Maps</div>
+          <div class="shortcut">AI</div>
+          <div class="shortcut active">SX <span class="tooltip">SpaceX reusable launch stack</span></div>
+        </div>
+      </div>
+
+      <div class="caption">
+        <h1>Maps click state</h1>
+        <p>Clicking Maps opens the complete portfolio menu. Selecting a card switches domains.</p>
+        <div class="menu">
+          <div>
+            <h2>Domains</h2>
+            <p>Switch maps without leaving the graph workspace.</p>
+          </div>
+          <div class="item">
+            <strong>AI compute chain</strong>
+            <span>Full-free flagship demo</span>
+          </div>
+          <div class="item active">
+            <strong>SpaceX reusable launch stack</strong>
+            <span>Preview; exposure locked</span>
+          </div>
+          <div class="item">
+            <strong>Humanoid robotics component stack</strong>
+            <span>Preview; exposure locked</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

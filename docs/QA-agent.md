@@ -87,8 +87,9 @@ For the current graph/detail class of defects, QA must explicitly distinguish:
 - top Chokepoints from non-top candidate constraints or ordinary decomposition nodes;
 - weak evidence disclosure from the actual bottleneck reason.
 - missing relief-cycle or supplier commercial-scale data from a legitimate low-confidence proxy estimate; blank / omitted first-glance data is a failure, while an explicitly labeled proxy estimate is an acceptable temporary data-quality state.
+- structural-node cost-scale / capex proxy from broad market size, TAM, revenue, or supplier commercial scale. Detail tiles and Cost-lens copy should not make users think an authored fab capex or BOM proxy is the same thing as market size.
 - reader-facing estimated / typical numeric values from internal percentile notation; `P50` / `p50` in UI, gate reports, product readouts, route rails, or detail panels is a failure. English should use reader labels such as `est.`; Chinese should use `估算` or `约`.
-- parent/child scale consistency from mere value presence: commercial scale should roll up from direct structural children, and relief / mitigation cycle should be at least the max of direct structural children. A parent with a smaller authored or displayed value is still a failure even when every node has a nonblank value.
+- parent/child scale consistency from mere value presence: structural cost-scale should roll up from direct structural children, relief / mitigation cycle should be at least the max of direct structural children, and low-confidence child cost estimates should be bounded by a direct authored parent cost/capex value when no better child source exists. A parent with a smaller authored or displayed value is still a failure even when every node has a nonblank value.
 
 Current AI compute feedback replay classes that must be covered until fixed:
 
@@ -99,9 +100,13 @@ Current AI compute feedback replay classes that must be covered until fixed:
 - non-top or ordinary dependency nodes appear in the same "Key Chokepoints" / "具体卡点" treatment as confirmed top Chokepoints;
 - weak/thin evidence is surfaced as the concrete "Where it is stuck" / "具体卡点" reason instead of as an evidence limitation.
 - node-detail core readouts or supplier/company cards silently omit relief timing, supplier commercial scale, market-share / revenue / capacity clues, or a labeled proxy estimate when direct data is not yet sourced.
-- structural parent nodes show commercial-scale or relief-cycle readouts that are lower/shorter than the direct child nodes they decompose into; QA should inspect at least one expanded decomposition path when reviewing these fields, not only the selected node's own tile.
+- structural node detail calls a cost/capex proxy broad "commercial scale" or "market size" instead of naming the cost-scale basis.
+- structural parent nodes show cost-scale or relief-cycle readouts that are lower/shorter than the direct child nodes they decompose into; QA should inspect at least one expanded decomposition path when reviewing these fields, not only the selected node's own tile.
+- a child structural node with no sourced cost/capex value shows a low-confidence estimate that visibly exceeds or overfills a direct authored parent cost/capex value instead of being parent-bounded or flagged.
 - saved node-detail sample screens add standalone internal model diagnostics, such as a visible "Chokepoint axes" / "卡点四轴" grid, to the primary reader path instead of keeping that breakdown in explicit drill-in or supplementary surfaces.
 - node-detail or route-detail Concentration copy renders a nonzero holder count as "only / sole / exclusive / 仅 / 唯一" when the graph only provides modeled `manufactured_by` / `implemented_by` holder coverage and no explicit ADR-0009-grade sole-source claim.
+- system overview / route-default rail copy sounds like a generic framework summary rather than a concrete system read; per `docs/ACCEPTANCE.md` §3c it must include `System target`, `Production path`, `Constraint mechanism`, `Improvement path`, `Industry-chain impact`, `Main risks`, and `Evidence support`, with each row grounded in the current graph and useful to the investor/researcher audience.
+- commercial route pages spend seconds before first render because the server recomputes the global packed graph layout on normal user requests instead of loading current generated layout artifacts; `npm run check:graph-layouts` must catch missing or stale artifacts.
 
 ## Feedback-Driven QA Replay Loop
 
@@ -216,6 +221,8 @@ Required paths:
 Acceptance checks:
 
 - The first screen communicates industrial-chain bottleneck research and company/ticker diligence leads without requiring docs.
+- The map portfolio entry is continuous across `/` and every `/d/<slug>` route: after switching domains, the same map switcher remains visible/reachable, marks the current domain, and offers a clear route back to the default AI compute map.
+- The map portfolio has one clear interaction model: compact domain shortcuts are direct quick-switch controls, while the full domain menu opens only from the `Maps` trigger. Hovering a shortcut may show a small label tooltip, but it must not open the full menu or create ambiguity about whether users should click the shortcut or a duplicate expanded card.
 - The free layer is valuable on its own: chain decomposition, chokepoints, evidence summary, Cost/Barrier context, and navigation are usable.
 - The paid layer is visible as a product boundary, but not presented as a hard-sell trap. Users should understand before clicking that company/ticker exposure may be paid outside the free AI-compute demo.
 - AI compute is clearly marked as a full-free trust demo when applicable.
@@ -256,6 +263,111 @@ Hard fails:
 - Free users can see locked company/ticker identities for a paid route.
 - Unreviewed, vendor-only, or internal-note claims are presented as established facts.
 - Gate, route, or evidence traversal mixes unrelated domains into the current paid insight.
+
+### Gate 3: System Overview Read Quality
+
+Target question: Does the route-default system overview tell a first-time
+investor/researcher how this product system works, where the system-level
+constraint sits, what improves the product, what commercial chain positions
+matter, and what current evidence supports?
+
+Required paths:
+
+- `/d/ai-compute` before selecting any graph node, then after clicking blank
+  canvas if that returns to a system overview.
+- At least one other commercial domain overview when present, preferably
+  `/d/spacex-reusable-launch` or `/d/humanoid-robotics`.
+- Chinese first, then English if the route has localized overview copy.
+
+Acceptance checks:
+
+- The overview is visibly different from selected-node detail. It must not show
+  duplicate node-detail sections or a "Start here" / "从这里开始" card as a peer
+  selected-node state.
+- The overview follows `docs/ACCEPTANCE.md` §3c: `System target`,
+  `Production path`, `Constraint mechanism`, `Improvement path`,
+  `Industry-chain impact`, `Main risks`, and `Evidence support`.
+- The seven rows sit directly under the system overview thesis. A visible
+  intermediate label such as `System read`, `System layer`, `系统读法`, or `系统层`
+  is unnecessary and should be removed unless it carries new reader value.
+- The row contract should not be wrapped in a separate bordered card below the
+  `System overview` heading. Fail outer card borders, accent stripes, or nested
+  card framing around the overview rows; light row separators inside the table
+  are acceptable.
+- The overview should not add a separate 2x2 core readout that repeats the
+  graph or the `System read` table. If a compact tile board appears above the
+  table, it must provide a new decision layer; otherwise fail it as duplicated
+  first-screen space.
+- Each row gets a 0/1/2 score:
+  - `0`: generic, tautological, unsupported, or row role is missing.
+  - `1`: directionally right but missing a concrete system object, causal
+    mechanism, observable signal, or decision implication.
+  - `2`: specific to this system, graph-grounded, concise, useful, and still at
+    system level.
+- Any row without a causal mechanism or decision implication is capped at `1`.
+- Any row that can be reused unchanged for a different domain is capped at `1`.
+- Any row that merely restates TOC/MinCut/SWOT/value-chain language is capped at
+  `0.5` and should be reported as a fail if it affects comprehension.
+- `Improvement path` must directly state the current system-level improvement
+  direction. It cannot merely say "improve the bottleneck" or "increase the
+  shortest resource."
+- `Industry-chain impact` must serve the commercial audience by identifying
+  affected chain positions or exposure surfaces such as component classes,
+  capacity holders, equipment/material tiers, or service providers. Do not turn
+  this into buy/sell advice.
+- `Evidence support` must state what current evidence supports. It must not
+  expose internal owner/QA defects such as "needs evidence", "still missing",
+  or "not ready"; if the evidence is insufficient for a reader-facing claim,
+  the claim should not ship.
+- Judge every visible piece of overview text, not only table body rows. This
+  includes small section meta labels, badges, eyebrow text, helper text, tile
+  labels, and button/CTA copy. Framework or internal labels in those small
+  surfaces still count as reader-facing failures.
+- Check grounding priority before accepting a row:
+  active reviewed or machine-verified evidence first; active graph structure
+  and reviewed node descriptions second; unreviewed graph claims only for
+  conservative structural wording; never deprecated/failed/dead-source evidence
+  for reader-facing overview claims.
+- If several direct bottlenecks jointly constrain throughput, allow a coupled
+  constraint / coupled improvement path. Do not force a single top chokepoint
+  unless the graph and active evidence clearly support the ranking.
+- `Improvement path` must name both the constrained system area and the
+  improvement mode: capacity expansion, yield/test improvement, qualification
+  of additional suppliers/routes, second-source ramp, substitution, or
+  integration throughput.
+- `Industry-chain impact` must separate supported commercial claims from
+  diligence focus. "Orders", "pricing power", "capex", "share", or "company
+  exposure" language requires active evidence for that chain position. Without
+  that support, write the impact as a diligence focus rather than a commercial
+  outcome claim.
+- Judge grouped commercial outcomes per chain position and per outcome. If a
+  sentence says several positions will gain orders, pricing power, and capex,
+  each position/outcome pairing needs evidence; otherwise cap the row at `1`
+  and report the unsupported commercial certainty.
+- `Evidence support` may not include UI placement or navigation wording such as
+  "shown in node detail", "click through", "展开", or "see supplier cards".
+- Row score totals do not cancel hard failures. If one row contains valid
+  content plus a forbidden tail, score the useful part at most `1` for reuse,
+  mark the surface failed, and require the forbidden text to be removed before
+  acceptance.
+
+Hard fails:
+
+- Missing `Production path`, `Improvement path`, `Industry-chain impact`, or
+  `Evidence support`.
+- Reader-facing overview uses internal jargon such as `MinCut`, raw four-axis
+  diagnostics, or UI instructions.
+- Reader-facing overview uses framework labels such as `TOC lens` or other
+  methodology badges that explain the framework instead of the system.
+- The overview is a navigation list, supplier/ticker list, or node-detail
+  substitute instead of a system-level read.
+- The overview names companies, tickers, costs, cycles, shares, or capacity
+  numbers that are not supported by the graph/evidence and allowed by the route
+  access state.
+- The overview relies on deprecated, failed, dead-source, or rejected evidence.
+- `Evidence support` describes where information will be shown instead of what
+  current evidence supports.
+- The total row score is below 12/14, or any required row scores `0`.
 
 ### Gate 3A: Graph Map Interaction And Readability
 
@@ -350,7 +462,12 @@ Required paths:
 - Test English and Simplified Chinese for the primary summary layer.
 - On desktop, compare at least one AI compute supplier/capacity detail against `docs/plans/assets/node-detail-ia-commercial-supplier-lines-v4.png`. Passing requires the sample-style visual shell: identity hero, leading quote, 2x2 core readout, decomposition table/card treatment, evidence card, and supplier/company cards. Text order parity alone is a fail if the old sidebar/card treatment remains.
 - On default route entry before a node is clicked, the rail must not show both route guidance and a duplicate selected-node summary for the same recommended start node. A duplicate selected summary makes the route guide look like a node detail.
-- In the selected-node sample detail, inspect the core readout tile layout. If the rail is wide enough for four compact tiles but the UI falls back to a tall 2x2 grid that pushes `节点解读` / `Node interpretation` down, fail the screen.
+- In the selected-node sample detail, inspect the core readout tile layout. The
+  four readout tiles should render as a stable 2x2 grid in the rail. Fail the
+  screen if they collapse into one cramped four-column row; that is too literal
+  to the saved sample width and makes the narrow rail harder to scan. Only
+  accept a one-column fallback on genuinely tiny/mobile widths where two columns
+  would overflow.
 - The sample-style primary path must go from `Core readout` to `Node interpretation` to `Decomposition` to `Evidence trail` without inserting an extra "Where it is stuck" / "具体卡点" section. The concrete mechanism should be carried by the `Leading reason` tile, interpretation copy, and decomposition rows.
 
 First-screen order:
@@ -397,6 +514,8 @@ Hard fails:
 - The first screen leads with internal metadata rather than an investor/research summary.
 - "Start here" and node-specific detail are presented as equivalent modes even though one is route onboarding and the other depends on the selected node.
 - The detail panel calls Cost the reason something is a chokepoint instead of keeping Cost as a separate magnitude overlay.
+- The detail panel labels a structural node's cost/capex proxy as broad commercial scale, market size, TAM, or revenue when the underlying graph value is a cost, BOM, quote, or capex proxy.
+- An unsourced child estimate is not bounded by an available direct authored parent cost/capex value and creates an obvious parent/child inconsistency.
 - Relief timing or supplier/company commercial scale is blank, silently omitted, or left as an unqualified unknown when an explicit value or proxy estimate should be shown.
 - A nonzero modeled holder count is rendered as a confirmed sole-source / only-supplier statement, especially Chinese copy such as `仅 1 家`, `唯一供应商`, or English copy such as `only 1 supplier`, without an explicit ADR-0009-grade sole-source claim.
 - A proxy estimate is phrased as a reviewed metric, audited revenue/share, or established field evidence.
@@ -471,7 +590,7 @@ The repo is not acceptable if any of these are true:
 - A paid/free boundary is misleading, surprising, or technically leaky.
 - Visible user-facing graph nodes appear grey instead of receiving a meaningful color family.
 - Chinese/English switching breaks core workflows.
-- **Compliance (§3d):** any stock-recommendation or unaudited-return language appears (this is an analytical tool, not advice).
+- **Compliance (§3e):** any stock-recommendation or unaudited-return language appears (this is an analytical tool, not advice).
 
 The repo may be acceptable with known gaps only if the gaps are visible, documented, and do not block the v0 closed loop (`conditional_pass`, per §5).
 

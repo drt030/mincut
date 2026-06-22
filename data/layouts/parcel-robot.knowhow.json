@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "slug": "parcel-robot",
+  "rootId": "low_cost_parcel_sorting_robot_300k_rmb",
+  "layer": "knowhow",
+  "fingerprint": "5df1ee40d9c5e148ae19516e9ceba77aeb47f7c5137406477e564687af1fab22",
+  "generatedAt": "2026-06-21T19:31:33.159Z",
+  "nodePositions": {
+    "arm_links_and_joints": {
+      "x": -246.629707,
+      "y": 322.214702
+    },
+    "barcode_ocr_benchmark_metrics": {
+      "x": 170.595479,
+      "y": -720.549517
+    },
+    "barcode_ocr_no_read_recovery": {
+      "x": 148.223158,
+      "y": -626.054837
+    },
+    "barcode_ocr_reading_software": {
+      "x": 80.462964,
+      "y": -339.853964
+    },
+    "camera_sdk_frame_acquisition_pipeline": {
+      "x": 583.437629,
+      "y": -360.534752
+    },
+    "controlled_machine_vision_lighting": {
+      "x": 248.308109,
+      "y": -223.430652
+    },
+    "conveyor_integration": {
+      "x": 217.650373,
+      "y": 65.037606
+    },
+    "conveyor_photoelectric_sensors": {
+      "x": 387.482857,
+      "y": 80.388939
+    },
+    "conveyor_speed_encoder_tracking": {
+      "x": 381.304473,
+      "y": 38.258059
+    },
+    "cost_optimized_hardware_stack": {
+      "x": 99.046201,
+      "y": 161.97291
+    },
+    "dynamic_gap_control_logic": {
+      "x": 468.704061,
+      "y": 452.088017
+    },
+    "end_effector_gripper_or_suction": {
+      "x": -76.999589,
+      "y": 318.097442
+    },
+    "fanless_compute_thermal_management": {
+      "x": 413.183423,
+      "y": -360.830345
+    },
+    "gripper_tcp_pattern_calibration": {
+      "x": 51.122634,
+      "y": 470.734716
+    },
+    "induction_exception_recovery": {
+      "x": 467.964298,
+      "y": 524.781108
+    },
+    "induction_sensor_array": {
+      "x": 433.961473,
+      "y": 144.102559
+    },
+    "industrial_area_scan_camera": {
+      "x": 113.580502,
+      "y": 389.297574
+    },
+    "industrial_barcode_decoding_runtime": {
+      "x": 163.720444,
+      "y": -541.03498
+    },
+    "industrial_edge_ai_computer": {
+      "x": 414.207435,
+      "y": -255.966305
+    },
+    "industrial_robot_arm_body": {
+      "x": -329.61415,
+      "y": 3.943568
+    },
+    "industrial_servo_motor": {
+      "x": -307.855604,
+      "y": 216.295687
+    },
+    "jam_detection_and_recovery": {
+      "x": 436.578801,
+      "y": 208.297245
+    },
+    "low_cost_parcel_sorting_robot_300k_rmb": {
+      "x": 0,
+      "y": 0
+    },
+    "low_cost_realtime_vision_compute_integration": {
+      "x": 420.89828,
+      "y": -157.462797
+    },
+    "machine_vision_lens_and_optics": {
+      "x": 249.320075,
+      "y": -141.455202
+    },
+    "mechanical_structure": {
+      "x": 49.163854,
+      "y": 96.039496
+    },
+    "modular_cell_manufacturing": {
+      "x": 99.773147,
+      "y": 237.687315
+    },
+    "motion_planning": {
+      "x": -87.650694,
+      "y": -343.66636
+    },
+    "parcel_detection_and_tracking": {
+      "x": 91.070031,
+      "y": 312.140533
+    },
+    "parcel_induction_spacing_control": {
+      "x": 283.192802,
+      "y": 345.451957
+    },
+    "parcel_label_localization": {
+      "x": 220.906874,
+      "y": -462.296766
+    },
+    "parcel_label_training_dataset": {
+      "x": 246.568604,
+      "y": -387.288428
+    },
+    "parcel_manipulation_or_diverter": {
+      "x": -207.527286,
+      "y": 108.339081
+    },
+    "parcel_ocr_model_runtime": {
+      "x": 232.746793,
+      "y": -313.856165
+    },
+    "parcel_singulation_and_metering": {
+      "x": 544.214509,
+      "y": 617.884667
+    },
+    "parcel_suction_cup_contact_qualification": {
+      "x": -36.063395,
+      "y": 741.902353
+    },
+    "plc_and_wcs_integration": {
+      "x": 363.343826,
+      "y": 443.223963
+    },
+    "plc_wcs_sorting_handshake_and_fault_recovery": {
+      "x": 576.500662,
+      "y": 703.24274
+    },
+    "precision_reducer_gearbox": {
+      "x": -378.268159,
+      "y": 95.693208
+    },
+    "reducer_lubrication_and_life_test": {
+      "x": -548.841242,
+      "y": 125.896454
+    },
+    "reducer_output_cross_roller_bearing": {
+      "x": -549.202714,
+      "y": 61.549954
+    },
+    "robot_arm_assembly_process": {
+      "x": -376.719697,
+      "y": -80.57454
+    },
+    "robot_base_installation_alignment_process": {
+      "x": -538.700479,
+      "y": -204.136075
+    },
+    "robot_base_mounting_structure": {
+      "x": -368.307832,
+      "y": -164.548853
+    },
+    "robot_cabling_and_power": {
+      "x": -328.221176,
+      "y": -249.038841
+    },
+    "robot_controller_cpu_module": {
+      "x": -498.081276,
+      "y": -274.311396
+    },
+    "robot_controller_diagnostics_interface": {
+      "x": -431.018972,
+      "y": -344.510397
+    },
+    "robot_controller_io": {
+      "x": -259.423411,
+      "y": -348.575766
+    },
+    "robot_external_io_sensor_interface": {
+      "x": -429.802923,
+      "y": -403.254478
+    },
+    "robot_fieldbus_gateway": {
+      "x": -352.917992,
+      "y": -464.286299
+    },
+    "robot_realtime_control_runtime": {
+      "x": -314.602997,
+      "y": -528.726011
+    },
+    "robot_safety_io_interface": {
+      "x": -278.055268,
+      "y": -598.053889
+    },
+    "safety_system": {
+      "x": 22.545429,
+      "y": -237.543497
+    },
+    "servo_drive_controller": {
+      "x": -110.064064,
+      "y": -449.788666
+    },
+    "servo_drive_current_sensing": {
+      "x": -234.18038,
+      "y": -674.03438
+    },
+    "servo_drive_motion_control_loop": {
+      "x": -308.535892,
+      "y": -770.140358
+    },
+    "servo_drive_power_stage": {
+      "x": -138.965125,
+      "y": -770.728103
+    },
+    "servo_drive_safety_sto": {
+      "x": -74.297103,
+      "y": -551.045461
+    },
+    "servo_drive_thermal_emc_design": {
+      "x": -31.792081,
+      "y": -653.654699
+    },
+    "servo_motor_assembly_and_test_process": {
+      "x": -286.168575,
+      "y": 703.604338
+    },
+    "servo_motor_bearings_and_shaft": {
+      "x": -317.670753,
+      "y": 619.749734
+    },
+    "servo_motor_cables_and_connectors": {
+      "x": -347.400339,
+      "y": 544.607895
+    },
+    "servo_motor_encoder_feedback": {
+      "x": -389.553198,
+      "y": 476.231406
+    },
+    "servo_motor_housing_and_thermal_design": {
+      "x": -418.449047,
+      "y": 413.123138
+    },
+    "servo_motor_integrated_brake_option": {
+      "x": -446.476111,
+      "y": 353.878869
+    },
+    "servo_motor_permanent_magnet_rotor": {
+      "x": -478.968198,
+      "y": 297.921953
+    },
+    "servo_motor_stator_core": {
+      "x": -485.415976,
+      "y": 243.282077
+    },
+    "servo_motor_windings": {
+      "x": -499.988412,
+      "y": 189.720127
+    },
+    "sortation_chutes_and_bins": {
+      "x": 267.485723,
+      "y": 257.604268
+    },
+    "sorting_decision_system": {
+      "x": 77.330414,
+      "y": -138.662874
+    },
+    "strain_wave_circular_spline": {
+      "x": -549.380381,
+      "y": -2.729981
+    },
+    "strain_wave_flexspline": {
+      "x": -547.930297,
+      "y": -68.043893
+    },
+    "strain_wave_wave_generator": {
+      "x": -547.737178,
+      "y": -134.905311
+    },
+    "vacuum_blowoff_timing_and_contamination_control": {
+      "x": -206.470585,
+      "y": 798.549151
+    },
+    "vacuum_generator_or_ejector": {
+      "x": 40.446126,
+      "y": 554.268858
+    },
+    "vacuum_pressure_sensing": {
+      "x": 12.957491,
+      "y": 643.473114
+    },
+    "vacuum_suction_cup_array": {
+      "x": -118.712536,
+      "y": 425.628935
+    },
+    "vacuum_valves_and_blowoff": {
+      "x": -145.682907,
+      "y": 528.690867
+    },
+    "variable_speed_induction_drive": {
+      "x": 266.21458,
+      "y": 171.881865
+    },
+    "vision_barcode_label_recognition": {
+      "x": 178.159463,
+      "y": -34.380719
+    },
+    "vision_inference_runtime_stack": {
+      "x": 583.867624,
+      "y": -256.457069
+    },
+    "vision_latency_budget_and_timestamping": {
+      "x": 591.48231,
+      "y": -155.890074
+    },
+    "vision_model_deployment_optimization": {
+      "x": 550.599016,
+      "y": -55.244172
+    },
+    "vision_processing_compute": {
+      "x": 348.709195,
+      "y": -48.570106
+    }
+  }
+}

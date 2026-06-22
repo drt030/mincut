@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MinCut Graph-first Homepage Preview</title>
+    <style>
+      :root {
+        --navy: #14213d;
+        --ink: #172033;
+        --muted: #526173;
+        --line: #d6dbe4;
+        --paper: #f7f5ef;
+        --panel: #fffdf8;
+        --teal: #0f766e;
+        --teal-soft: #e8faf5;
+        --amber: #b45309;
+        --orange-soft: #fff7ed;
+        --blue-soft: #eef4ff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      .shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 52px 1fr 28px;
+      }
+
+      .topbar {
+        align-items: center;
+        background: var(--navy);
+        color: #fff;
+        display: flex;
+        gap: 14px;
+        padding: 0 18px;
+      }
+
+      .brand {
+        font-size: 16px;
+        font-weight: 850;
+        min-width: 170px;
+      }
+
+      .context-strip {
+        align-items: center;
+        display: flex;
+        gap: 8px;
+        min-width: 0;
+        width: 100%;
+      }
+
+      .scope-label {
+        color: #93c5fd;
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      .domain-select {
+        align-items: center;
+        background: #f8fafc;
+        border: 1px solid rgba(255, 255, 255, .28);
+        border-radius: 8px;
+        color: var(--navy);
+        display: flex;
+        flex: 1 1 420px;
+        font-size: 13px;
+        font-weight: 850;
+        justify-content: space-between;
+        min-height: 34px;
+        max-width: 520px;
+        padding: 0 10px;
+      }
+
+      .header-link {
+        color: #dbeafe;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .lang {
+        border: 1px solid rgba(255, 255, 255, .2);
+        border-radius: 8px;
+        display: flex;
+        margin-left: auto;
+        padding: 3px;
+      }
+
+      .lang span {
+        border-radius: 6px;
+        color: #dbeafe;
+        font-size: 12px;
+        font-weight: 800;
+        padding: 5px 8px;
+      }
+
+      .lang span:last-child {
+        background: #f8fafc;
+        color: var(--navy);
+      }
+
+      .workspace {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 64px minmax(520px, 1fr) 330px;
+        min-height: 0;
+        padding: 10px;
+      }
+
+      .rail,
+      .inspector,
+      .graph-wrap {
+        background: rgba(255, 253, 248, .96);
+        border: 1px solid rgba(15, 23, 42, .14);
+        border-radius: 8px;
+        min-width: 0;
+      }
+
+      .rail {
+        display: block;
+        padding: 8px;
+        position: relative;
+      }
+
+      .rail h2,
+      .inspector h2 {
+        font-size: 13px;
+        letter-spacing: .08em;
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      .rail-note {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+        margin: 0;
+      }
+
+      .domain-dock {
+        align-items: center;
+        display: grid;
+        gap: 8px;
+        justify-items: center;
+      }
+
+      .dock-trigger {
+        align-items: center;
+        background: var(--navy);
+        border: 1px solid rgba(15, 23, 42, .18);
+        border-radius: 8px;
+        color: #fff;
+        display: flex;
+        font-size: 11px;
+        font-weight: 900;
+        height: 34px;
+        justify-content: center;
+        width: 48px;
+      }
+
+      .dock-button {
+        align-items: center;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink);
+        display: flex;
+        font-size: 12px;
+        font-weight: 900;
+        height: 38px;
+        justify-content: center;
+        position: relative;
+        width: 38px;
+      }
+
+      .dock-button.active {
+        background: var(--teal-soft);
+        border-color: rgba(15, 118, 110, .35);
+        color: #115e59;
+      }
+
+      .domain-popover {
+        background: rgba(255, 253, 248, .98);
+        border: 1px solid rgba(15, 23, 42, .16);
+        border-radius: 8px;
+        box-shadow: 0 18px 38px rgba(15, 23, 42, .18);
+        display: grid;
+        gap: 10px;
+        left: 56px;
+        opacity: 0;
+        padding: 10px;
+        pointer-events: none;
+        position: absolute;
+        top: 8px;
+        transform: translateX(-6px);
+        transition: opacity 160ms ease, transform 160ms ease;
+        width: 278px;
+        z-index: 20;
+      }
+
+      .rail:hover .domain-popover,
+      .rail:focus-within .domain-popover {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+      }
+
+      .domain-list {
+        display: grid;
+        gap: 7px;
+        align-content: start;
+      }
+
+      .domain {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--ink);
+        display: grid;
+        gap: 4px;
+        padding: 9px;
+      }
+
+      .domain.active {
+        background: var(--teal-soft);
+        border-color: rgba(15, 118, 110, .35);
+        box-shadow: inset 4px 0 0 var(--teal);
+      }
+
+      .domain strong {
+        font-size: 13px;
+        line-height: 1.15;
+      }
+
+      .domain span {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .02em;
+      }
+
+      .domain.preview span {
+        color: #9a3412;
+      }
+
+      .rail-footer {
+        background: #f8fafc;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.35;
+        padding: 8px;
+      }
+
+      .graph-wrap {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        overflow: hidden;
+      }
+
+      .thesis-strip {
+        align-items: start;
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        gap: 8px;
+        grid-template-columns: 1fr auto;
+        padding: 10px 12px;
+      }
+
+      .eyebrow {
+        color: var(--teal);
+        font-size: 11px;
+        font-weight: 850;
+        letter-spacing: .08em;
+        margin: 0 0 3px;
+        text-transform: uppercase;
+      }
+
+      .thesis-strip h1 {
+        color: var(--navy);
+        font-size: 22px;
+        line-height: 1.05;
+        margin: 0 0 3px;
+      }
+
+      .thesis-strip p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+        margin: 0;
+      }
+
+      .state-pill {
+        background: var(--teal-soft);
+        border: 1px solid rgba(15, 118, 110, .2);
+        border-radius: 999px;
+        color: #115e59;
+        font-size: 11px;
+        font-weight: 850;
+        padding: 7px 9px;
+        white-space: nowrap;
+      }
+
+      .toolbar {
+        align-items: center;
+        background: #fbfaf6;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        gap: 8px;
+        padding: 7px 10px;
+      }
+
+      .segmented {
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: flex;
+        padding: 3px;
+      }
+
+      .segmented span {
+        border-radius: 6px;
+        color: #4b5563;
+        font-size: 11px;
+        font-weight: 850;
+        padding: 6px 8px;
+      }
+
+      .segmented .selected {
+        background: var(--navy);
+        color: #fff;
+      }
+
+      .graph-stage {
+        background:
+          linear-gradient(180deg, rgba(255, 253, 248, .08), rgba(255, 253, 248, .08)),
+          url("ai-compute-map-preview.png");
+        background-position: 44% 54%;
+        background-size: cover;
+        min-height: 590px;
+        position: relative;
+      }
+
+      .graph-stage::after {
+        background: linear-gradient(90deg, transparent 74%, rgba(255, 253, 248, .72));
+        content: "";
+        inset: 0;
+        pointer-events: none;
+        position: absolute;
+      }
+
+      .map-chip {
+        background: rgba(255, 255, 255, .94);
+        border: 1px solid rgba(15, 23, 42, .14);
+        border-radius: 999px;
+        color: var(--ink);
+        font-size: 11px;
+        font-weight: 850;
+        left: 16px;
+        padding: 7px 10px;
+        position: absolute;
+        top: 14px;
+      }
+
+      .inspector {
+        display: grid;
+        gap: 10px;
+        grid-template-rows: auto auto 1fr auto;
+        padding: 12px;
+      }
+
+      .inspector h2 {
+        color: var(--teal);
+      }
+
+      .inspector h3 {
+        color: var(--navy);
+        font-size: 22px;
+        line-height: 1.08;
+        margin: 0;
+      }
+
+      .inspector p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      .readout-grid {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .readout {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 5px;
+        min-height: 76px;
+        padding: 9px;
+      }
+
+      .readout span {
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 850;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+      }
+
+      .readout strong {
+        color: var(--ink);
+        font-size: 13px;
+        line-height: 1.25;
+      }
+
+      .callouts {
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+
+      .callout {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 4px;
+        padding: 10px;
+      }
+
+      .callout.exposure {
+        background: var(--teal-soft);
+        border-color: rgba(15, 118, 110, .22);
+      }
+
+      .callout.warning {
+        background: var(--orange-soft);
+        border-color: rgba(180, 83, 9, .22);
+      }
+
+      .callout strong {
+        color: var(--navy);
+        font-size: 14px;
+      }
+
+      .callout span {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .inspector-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .button {
+        align-items: center;
+        background: var(--teal);
+        border-radius: 7px;
+        color: #fff;
+        display: inline-flex;
+        font-size: 13px;
+        font-weight: 850;
+        justify-content: center;
+        min-height: 34px;
+        padding: 0 11px;
+      }
+
+      .button.secondary {
+        background: #334155;
+      }
+
+      .footer-disclosure {
+        align-items: center;
+        border-top: 1px solid var(--line);
+        color: #64748b;
+        display: flex;
+        font-size: 11px;
+        justify-content: center;
+        padding: 0 12px;
+      }
+
+      @media (max-width: 900px) {
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+
+        .rail {
+          display: none;
+        }
+
+        .graph-stage {
+          min-height: 440px;
+        }
+
+        .inspector {
+          grid-row: 2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div class="brand">MinCut</div>
+        <div class="context-strip">
+          <span class="scope-label">Map portfolio</span>
+          <div class="domain-select">
+            <span>AI compute chain</span>
+            <span>Free demo</span>
+          </div>
+          <span class="header-link">Explore</span>
+          <span class="header-link">Gate</span>
+          <div class="lang"><span>中文</span><span>English</span></div>
+        </div>
+      </header>
+
+      <section class="workspace" aria-label="Graph-first homepage preview">
+        <aside class="rail">
+          <div class="domain-dock" aria-label="Collapsed domain switcher">
+            <div class="dock-trigger">Maps</div>
+            <div class="dock-button active" title="AI compute chain">AI</div>
+            <div class="dock-button" title="Parcel-sorting robot">PR</div>
+            <div class="dock-button" title="SpaceX reusable launch">SX</div>
+            <div class="dock-button" title="Humanoid robotics">HR</div>
+            <div class="dock-button" title="Controlled fusion">CF</div>
+          </div>
+          <div class="domain-popover">
+            <div>
+              <h2>Domains</h2>
+              <p class="rail-note">默认收起，hover/click 后展开；图谱空间优先。</p>
+            </div>
+            <div class="domain-list">
+              <div class="domain active">
+                <strong>AI compute chain</strong>
+                <span>Full free demo · suppliers + tickers visible</span>
+              </div>
+              <div class="domain">
+                <strong>Parcel-sorting robot</strong>
+                <span>Free depth demo · recursive decomposition</span>
+              </div>
+              <div class="domain preview">
+                <strong>SpaceX reusable launch</strong>
+                <span>Preview · exposure locked</span>
+              </div>
+              <div class="domain preview">
+                <strong>Humanoid robotics</strong>
+                <span>Preview · exposure locked</span>
+              </div>
+              <div class="domain preview">
+                <strong>Controlled fusion</strong>
+                <span>Preview · organization exposure locked</span>
+              </div>
+            </div>
+            <div class="rail-footer">访问状态只在展开列表里说明，默认 dock 保持安静。</div>
+          </div>
+        </aside>
+
+        <section class="graph-wrap">
+          <div class="thesis-strip">
+            <div>
+              <p class="eyebrow">Research workspace</p>
+              <h1>AI compute chain</h1>
+              <p>Start from the real map: wafer fabrication, CoWoS, HBM, substrates, power delivery, and cooling.</p>
+            </div>
+            <div class="state-pill">Full-free flagship</div>
+          </div>
+          <div class="toolbar">
+            <div class="segmented">
+              <span>System decomposition</span>
+              <span class="selected">Chokepoint</span>
+              <span>Cost</span>
+            </div>
+            <div class="segmented">
+              <span class="selected">Artifact map</span>
+              <span>Barrier Sources</span>
+            </div>
+          </div>
+          <div class="graph-stage">
+            <div class="map-chip">Live graph canvas preview</div>
+          </div>
+        </section>
+
+        <aside class="inspector">
+          <div>
+            <h2>Selected route</h2>
+            <h3>Start with HBM</h3>
+            <p>AI accelerator scaling turns into memory capacity, yield, and supplier concentration before lower-level branches.</p>
+          </div>
+          <div class="readout-grid">
+            <div class="readout">
+              <span>Chokepoint reason</span>
+              <strong>Capacity and yield constrain scale</strong>
+            </div>
+            <div class="readout">
+              <span>Cost</span>
+              <strong>Separate magnitude, not the reason</strong>
+            </div>
+            <div class="readout">
+              <span>Evidence</span>
+              <strong>Source trail visible</strong>
+            </div>
+            <div class="readout">
+              <span>Exposure</span>
+              <strong>Suppliers + tickers included here</strong>
+            </div>
+          </div>
+          <div class="callouts">
+            <div class="callout exposure">
+              <strong>Why this is not a commercial homepage</strong>
+              <span>The commercial boundary is attached to each domain, not presented as a hero pitch.</span>
+            </div>
+            <div class="callout warning">
+              <strong>Future paid domains stay honest</strong>
+              <span>Preview maps show thesis and evidence. Supplier/ticker identities stay locked until launch gates pass.</span>
+            </div>
+            <div class="callout">
+              <strong>What replaces the landing page</strong>
+              <span>Domain rail + route thesis + graph canvas + disclosure footer.</span>
+            </div>
+          </div>
+          <div class="inspector-actions">
+            <div class="button">Open map</div>
+            <div class="button secondary">View evidence</div>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="footer-disclosure">
+        Industrial research only. Company and ticker context supports diligence; it is not investment advice.
+      </footer>
+    </main>
+  </body>
+</html>

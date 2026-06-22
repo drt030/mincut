@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MinCut Economic Importance Preview</title>
+    <style>
+      :root {
+        --ink: #162033;
+        --text: #243044;
+        --muted: #667085;
+        --line: #d8ddd5;
+        --soft: #f7f8f5;
+        --paper: #ffffff;
+        --rose: #fff1f2;
+        --rose-line: #f0b6bb;
+        --gold: #fff8e8;
+        --gold-line: #dcc28f;
+        --blue: #eef5ff;
+        --blue-line: #c8d9f2;
+        --green: #edf7f1;
+        --green-line: #b9d7c4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #eff2ee;
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        margin: 0;
+      }
+
+      .app-shell {
+        display: grid;
+        grid-template-rows: 58px 1fr;
+        min-height: 100vh;
+      }
+
+      .topbar {
+        align-items: center;
+        background: #ffffff;
+        border-bottom: 1px solid #dbe1d8;
+        display: flex;
+        gap: 20px;
+        padding: 0 28px;
+      }
+
+      .brand {
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 780;
+        letter-spacing: 0.01em;
+      }
+
+      .domain-pill {
+        background: #f3f6f1;
+        border: 1px solid #dbe1d8;
+        border-radius: 999px;
+        color: #445064;
+        font-size: 13px;
+        font-weight: 650;
+        padding: 7px 12px;
+      }
+
+      .topbar-spacer {
+        flex: 1;
+      }
+
+      .mode-button {
+        background: #162033;
+        border: 1px solid #162033;
+        border-radius: 999px;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 720;
+        padding: 7px 12px;
+      }
+
+      .workspace {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: minmax(0, 1fr) 430px;
+        padding: 18px 22px 22px;
+      }
+
+      .map-pane,
+      .detail-rail {
+        background: var(--soft);
+        border: 1px solid #d7ddd3;
+        border-radius: 10px;
+        min-height: calc(100vh - 98px);
+      }
+
+      .map-pane {
+        overflow: hidden;
+        position: relative;
+      }
+
+      .map-header {
+        align-items: center;
+        border-bottom: 1px solid #d8ddd5;
+        display: flex;
+        gap: 12px;
+        padding: 18px 20px;
+      }
+
+      .map-header h1 {
+        color: var(--ink);
+        font-size: 21px;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      .map-header p {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 3px 0 0;
+      }
+
+      .lens-tabs {
+        display: flex;
+        gap: 6px;
+        margin-left: auto;
+      }
+
+      .lens-tabs span {
+        border: 1px solid #dbe1d8;
+        border-radius: 999px;
+        color: #4b5565;
+        font-size: 12px;
+        font-weight: 680;
+        padding: 6px 9px;
+      }
+
+      .lens-tabs .active {
+        background: #162033;
+        border-color: #162033;
+        color: #ffffff;
+      }
+
+      .graph-canvas {
+        height: calc(100vh - 160px);
+        position: relative;
+      }
+
+      .node {
+        align-items: center;
+        background: #ffffff;
+        border: 1px solid #ccd5c9;
+        border-radius: 8px;
+        color: #233049;
+        display: flex;
+        font-size: 12px;
+        font-weight: 720;
+        justify-content: center;
+        line-height: 1.25;
+        padding: 10px 12px;
+        position: absolute;
+        text-align: center;
+        width: 138px;
+      }
+
+      .node.root {
+        background: #162033;
+        border-color: #162033;
+        color: #ffffff;
+        left: 43%;
+        top: 42%;
+        width: 160px;
+      }
+
+      .node.selected {
+        background: #fff1f2;
+        border-color: #e899a2;
+        box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.09);
+        left: 25%;
+        top: 25%;
+      }
+
+      .node.hbm {
+        left: 62%;
+        top: 25%;
+      }
+
+      .node.pkg {
+        left: 60%;
+        top: 58%;
+      }
+
+      .node.power {
+        left: 34%;
+        top: 64%;
+      }
+
+      .node.thermal {
+        left: 14%;
+        top: 54%;
+      }
+
+      .node.euv {
+        background: #fff8e8;
+        border-color: #dcc28f;
+        left: 16%;
+        top: 13%;
+      }
+
+      .arc {
+        border: 1px solid #cfd8cb;
+        border-radius: 999px;
+        height: 420px;
+        left: 19%;
+        opacity: 0.5;
+        position: absolute;
+        top: 16%;
+        width: 560px;
+      }
+
+      .arc.two {
+        height: 320px;
+        left: 28%;
+        top: 24%;
+        width: 390px;
+      }
+
+      .map-note {
+        background: rgba(255, 255, 255, 0.86);
+        border: 1px solid #dbe1d8;
+        border-radius: 8px;
+        bottom: 18px;
+        color: var(--muted);
+        font-size: 12px;
+        left: 20px;
+        line-height: 1.45;
+        padding: 10px 12px;
+        position: absolute;
+        width: 310px;
+      }
+
+      .detail-rail {
+        overflow: hidden;
+      }
+
+      .detail-inner {
+        padding: 18px 20px 24px;
+      }
+
+      .hero {
+        display: grid;
+        gap: 8px;
+        padding-bottom: 16px;
+      }
+
+      .eyebrow {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .hero h2 {
+        color: var(--ink);
+        font-size: 22px;
+        letter-spacing: 0;
+        line-height: 1.18;
+        margin: 0;
+      }
+
+      .hero p {
+        color: #445064;
+        font-size: 13px;
+        font-weight: 620;
+        line-height: 1.42;
+        margin: 0;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .tag-row span {
+        background: #ffffff;
+        border: 1px solid #d8ddd5;
+        border-radius: 999px;
+        color: #596579;
+        font-size: 11px;
+        font-weight: 680;
+        padding: 5px 8px;
+      }
+
+      .section {
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 12px;
+        padding-top: 16px;
+      }
+
+      .section + .section {
+        margin-top: 16px;
+      }
+
+      .section-title {
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 780;
+      }
+
+      .core-grid {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .tile {
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 5px;
+        padding: 9px;
+      }
+
+      .tile.verdict {
+        background: var(--rose);
+        border-color: var(--rose-line);
+      }
+
+      .tile.reason {
+        background: #ffffff;
+      }
+
+      .tile.relief {
+        background: var(--blue);
+        border-color: var(--blue-line);
+      }
+
+      .tile.evidence {
+        background: var(--green);
+        border-color: var(--green-line);
+      }
+
+      .tile span,
+      .economic-label {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 760;
+        line-height: 1.25;
+      }
+
+      .tile strong {
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 780;
+        line-height: 1.3;
+      }
+
+      .tile small {
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 640;
+        line-height: 1.35;
+      }
+
+      .economic-card {
+        background: #ffffff;
+        border: 1px solid #d8c6a8;
+        border-radius: 10px;
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .economic-head {
+        display: grid;
+        gap: 5px;
+      }
+
+      .economic-head strong {
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 790;
+        letter-spacing: 0;
+      }
+
+      .economic-head p {
+        color: #4b5565;
+        font-size: 12px;
+        font-weight: 620;
+        line-height: 1.35;
+        margin: 0;
+      }
+
+      .signal-strip {
+        background: #fff8e8;
+        border: 1px solid #dcc28f;
+        border-radius: 8px;
+        display: grid;
+        gap: 4px;
+        padding: 9px 10px;
+      }
+
+      .signal-strip strong {
+        color: #162033;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .signal-strip small {
+        color: #6c5b30;
+        font-size: 12px;
+        font-weight: 650;
+        line-height: 1.35;
+      }
+
+      .economic-rows {
+        border-top: 1px solid #edf0ec;
+        display: grid;
+      }
+
+      .economic-row {
+        display: grid;
+        gap: 8px;
+        grid-template-columns: 82px 1fr;
+        padding: 7px 0;
+      }
+
+      .economic-row + .economic-row {
+        border-top: 1px solid #edf0ec;
+      }
+
+      .economic-row strong {
+        color: #223049;
+        font-size: 13px;
+        font-weight: 780;
+        line-height: 1.35;
+      }
+
+      .economic-row p {
+        color: #4b5565;
+        font-size: 12px;
+        font-weight: 620;
+        line-height: 1.35;
+        margin: 0;
+      }
+
+      .status {
+        background: #f3f6f1;
+        border: 1px solid #dce3d8;
+        border-radius: 999px;
+        color: #526071;
+        display: inline-flex;
+        font-size: 11px;
+        font-weight: 740;
+        margin-left: 5px;
+        padding: 2px 7px;
+      }
+
+      .company-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 5px;
+      }
+
+      .company-line span {
+        background: #f7f8f5;
+        border: 1px solid #d8ddd5;
+        border-radius: 999px;
+        color: #465268;
+        font-size: 11px;
+        font-weight: 720;
+        padding: 4px 7px;
+      }
+
+      .aux-note {
+        background: #f8fafc;
+        border: 1px solid #dbe3ee;
+        border-radius: 8px;
+        color: #465268;
+        font-size: 12px;
+        font-weight: 620;
+        line-height: 1.45;
+        padding: 8px 10px;
+      }
+
+      .aux-note strong {
+        color: #162033;
+        font-weight: 800;
+      }
+
+      .next-section {
+        color: #49556a;
+        font-size: 13px;
+        font-weight: 620;
+        line-height: 1.5;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">MinCut</div>
+        <div class="domain-pill">AI 芯片 / GPU 计算模组</div>
+        <div class="topbar-spacer"></div>
+        <div class="mode-button">卡点视角</div>
+      </header>
+
+      <main class="workspace">
+        <section class="map-pane" aria-label="Graph preview">
+          <div class="map-header">
+            <div>
+              <h1>AI compute chain</h1>
+              <p>从先进制程、HBM、先进封装、基板、电源和冷却看瓶颈与资金流向。</p>
+            </div>
+            <div class="lens-tabs">
+              <span>系统分解</span>
+              <span>成本</span>
+              <span class="active">卡点</span>
+            </div>
+          </div>
+
+          <div class="graph-canvas">
+            <div class="arc"></div>
+            <div class="arc two"></div>
+            <div class="node root">AI accelerator module</div>
+            <div class="node selected">先进工艺制程<br />逻辑芯片制造</div>
+            <div class="node euv">EUV 光刻<br />与掩膜链</div>
+            <div class="node hbm">HBM<br />高带宽存储器</div>
+            <div class="node pkg">CoWoS / 先进封装</div>
+            <div class="node power">电源管理</div>
+            <div class="node thermal">热管理与冷却</div>
+            <div class="map-note">
+              预览重点：右侧详情不再把 144B RMB 当作“规模”，而是把它放进资本强度说明。
+            </div>
+          </div>
+        </section>
+
+        <aside class="detail-rail" aria-label="Node detail preview">
+          <div class="detail-inner">
+            <section class="hero">
+              <div class="eyebrow">模块 · AI compute chain</div>
+              <h2>先进工艺制程逻辑芯片制造</h2>
+              <p>
+        决定先进逻辑 die 是否能以足够良率和产能进入 AI 加速模组主线。
+              </p>
+              <div class="tag-row">
+                <span>卡点候选</span>
+                <span>资本密集</span>
+                <span>EUV / 良率 / 产能</span>
+              </div>
+            </section>
+
+            <section class="section">
+              <div class="section-title">核心读数</div>
+              <div class="core-grid">
+                <div class="tile verdict">
+                  <span>卡点判断</span>
+                  <strong>卡点</strong>
+                  <small>成本是规模感，不是卡点原因。</small>
+                </div>
+                <div class="tile reason">
+                  <span>主导原因</span>
+                  <strong>先进晶圆产能 · EUV 设备周期 · 制程良率爬坡</strong>
+                </div>
+              </div>
+
+              <div class="economic-card">
+                <div class="economic-head">
+                  <span class="economic-label">经济重要性</span>
+                  <strong>钱会流向哪里，而不是这个节点“多少钱”</strong>
+                  <p>
+                    优先显示会影响收入上修、订单周期和上市公司暴露的信号。
+                  </p>
+                </div>
+
+                <div class="signal-strip">
+                  <strong>主信号：增量订单池</strong>
+                  <small>
+                    先进逻辑扩产把新增资本开支导向 WFE、EUV、沉积、刻蚀、计量检测和厂务建设。
+                  </small>
+                </div>
+
+                <div class="economic-rows">
+                  <div class="economic-row">
+                    <strong>年度价值池</strong>
+                    <div>
+                      <p>先进逻辑代工收入池 <span class="status">待补 sourced estimate</span></p>
+                    </div>
+                  </div>
+                  <div class="economic-row">
+                    <strong>增量订单池</strong>
+                    <div>
+                      <p>未来 1-3 年先进制程扩产相关设备、材料与厂务订单。</p>
+                    </div>
+                  </div>
+                  <div class="economic-row">
+                    <strong>可投资捕获</strong>
+                    <div>
+                      <p>哪些上市公司能捕获这笔钱，以及对收入/利润是否足够重要。</p>
+                      <div class="company-line">
+                        <span>TSMC</span>
+                        <span>ASML</span>
+                        <span>AMAT</span>
+                        <span>LRCX</span>
+                        <span>KLAC</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="aux-note">
+                  <strong>辅助解释：</strong>资本强度 144B RMB / 座先进晶圆厂；不是年度市场规模，也不是龙头公司估值。
+                </div>
+              </div>
+
+              <div class="core-grid">
+                <div class="tile relief">
+                  <span>缓解周期</span>
+                  <strong>估算 24 个月</strong>
+                  <small>按图谱直接子节点中的最长缓解周期。</small>
+                </div>
+                <div class="tile evidence">
+                  <span>证据状态</span>
+                  <strong>价值池待补，资本强度已有口径</strong>
+                  <small>展开后显示来源、年份、basis 和缺口。</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="section">
+              <div class="section-title">节点解读</div>
+              <p class="next-section">
+                先进制程不是因为“贵”才是卡点，而是因为 EUV、良率、产能爬坡和代工分配共同限制 AI
+                accelerator 的可交付规模。经济模块负责把这个技术约束翻译成订单、收入池和上市公司暴露。
+              </p>
+            </section>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </body>
+</html>

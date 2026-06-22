@@ -34,7 +34,7 @@ Use this order for the selected-node detail surface:
 3. **Core readout**
    - `卡点判断`
    - `主导原因`
-   - `商业规模`
+   - `成本规模代理值`
    - `缓解节奏`
 4. **`节点解读`**
    - A short interpretation of why the readout says what it says.
@@ -87,7 +87,7 @@ Recommended fields:
 |---|---|
 | `卡点判断` | Composite Chokepoint verdict or candidate status. |
 | `主导原因` | The leading structural reason: Dependency, Concentration, or Barrier in plain language. |
-| `商业规模` | Cost, BOM share, revenue pool, or another modeled commercial magnitude when available. |
+| `成本规模代理值` | Cost, BOM share, capex, or another modeled cost-scale magnitude when available. Supplier/company cards may separately show revenue pool or listing-scale context. |
 | `缓解节奏` | Whether substitution, capacity expansion, or validation timing is known. |
 
 Evidence status does not belong here. Evidence is important, but in this IA it
@@ -296,7 +296,7 @@ Sample core readout:
 |---|---|
 | `卡点判断` | `非顶级卡点` |
 | `主导原因` | `高壁垒 / 难复制` |
-| `商业规模` | `p50 55.4k RMB` |
+| `成本规模代理值` | `est. 55.4k RMB` |
 | `缓解节奏` | `未量化` |
 
 Sample `结构拆解` default rows:

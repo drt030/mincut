@@ -1,18 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { DOMAIN_ROUTES } from "@/lib/domains";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "./LanguageProvider";
 
 export function AppHeader() {
   const { nodeName, t } = useLanguage();
-  const [pathname, setPathname] = useState("");
-
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
+  const pathname = usePathname() ?? "";
+  const activeDomainPath = pathname === "/" ? "/d/ai-compute" : pathname.startsWith("/d/") ? pathname.split("?")[0] : "";
 
   return (
     <header className="app-header">
@@ -27,7 +24,7 @@ export function AppHeader() {
             <select
               data-testid="mobile-domain-select"
               aria-label={t("primaryNavigation")}
-              value={pathname.startsWith("/d/") ? pathname.split("?")[0] : ""}
+              value={activeDomainPath}
               onChange={(event) => {
                 if (event.target.value) window.location.href = event.target.value;
               }}
@@ -44,7 +41,7 @@ export function AppHeader() {
           </label>
           {DOMAIN_ROUTES.map((domain) => {
             const href = `/d/${domain.slug}`;
-            const isActive = pathname === href || pathname.startsWith(`${href}/`);
+            const isActive = activeDomainPath === href || pathname.startsWith(`${href}/`);
             return (
               <Link
                 key={domain.slug}

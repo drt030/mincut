@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "slug": "humanoid-robotics",
+  "rootId": "humanoid_robot_key_component_stack",
+  "layer": "knowhow",
+  "fingerprint": "1f7849fb02b1f82d574cf254b98e57c603ce839ea77698c74f184e6ef389289d",
+  "generatedAt": "2026-06-21T19:31:52.500Z",
+  "nodePositions": {
+    "humanoid_actuation_system": {
+      "x": 171.701408,
+      "y": 77.409637
+    },
+    "humanoid_airflow_liquid_cooling_loop": {
+      "x": 399.277865,
+      "y": -141.024929
+    },
+    "humanoid_audio_microphone_array": {
+      "x": 4.492834,
+      "y": -407.540508
+    },
+    "humanoid_battery_management_system": {
+      "x": -24.652645,
+      "y": 713.24821
+    },
+    "humanoid_battery_pack_enclosure": {
+      "x": -39.51734,
+      "y": 481.394054
+    },
+    "humanoid_battery_pack_eol_test": {
+      "x": -351.932371,
+      "y": -199.470615
+    },
+    "humanoid_battery_power_charging_system": {
+      "x": -14.184836,
+      "y": 201.337192
+    },
+    "humanoid_battery_thermal_safety": {
+      "x": 499.407546,
+      "y": -153.055012
+    },
+    "humanoid_bearing_steel_feedstock": {
+      "x": 696.028738,
+      "y": 206.473201
+    },
+    "humanoid_bms_analog_frontend": {
+      "x": -21.784827,
+      "y": 630.276735
+    },
+    "humanoid_cell_anode_active_material": {
+      "x": -144.595403,
+      "y": 1046.221424
+    },
+    "humanoid_cell_cathode_active_material": {
+      "x": -208.829671,
+      "y": 945.285278
+    },
+    "humanoid_cell_separator": {
+      "x": -214.162525,
+      "y": 739.426066
+    },
+    "humanoid_charging_docking_interface": {
+      "x": -27.609502,
+      "y": 288.570288
+    },
+    "humanoid_compute_heat_spreader": {
+      "x": 341.654422,
+      "y": -34.279784
+    },
+    "humanoid_compute_lpddr_memory": {
+      "x": -274.179848,
+      "y": -540.712531
+    },
+    "humanoid_contact_force_control": {
+      "x": -730.917212,
+      "y": 165.133835
+    },
+    "humanoid_cross_roller_bearing": {
+      "x": 290.146756,
+      "y": 603.525464
+    },
+    "humanoid_current_sense_gate_driver": {
+      "x": 350.284105,
+      "y": 326.392833
+    },
+    "humanoid_depth_camera_lidar": {
+      "x": 9.074939,
+      "y": -361.791592
+    },
+    "humanoid_depth_image_sensor": {
+      "x": 2.193336,
+      "y": -283.867032
+    },
+    "humanoid_dexterous_hand_tactile_system": {
+      "x": -66.719476,
+      "y": 96.376218
+    },
+    "humanoid_edge_ai_compute_module": {
+      "x": -162.397937,
+      "y": -376.061013
+    },
+    "humanoid_edge_inference_soc": {
+      "x": -207.840638,
+      "y": -640.669468
+    },
+    "humanoid_emi_filtering_grounding": {
+      "x": 342.092468,
+      "y": 421.508896
+    },
+    "humanoid_encoder_magnetic_asic": {
+      "x": 217.603861,
+      "y": -702.412657
+    },
+    "humanoid_encoder_optical_codedisk": {
+      "x": 240.280199,
+      "y": -375.42442
+    },
+    "humanoid_end_of_line_calibration_rig": {
+      "x": -301.297709,
+      "y": -161.754728
+    },
+    "humanoid_fall_recovery_safe_stop": {
+      "x": -571.687113,
+      "y": 219.459896
+    },
+    "humanoid_field_service_spares_loop": {
+      "x": -354.085627,
+      "y": -253.708411
+    },
+    "humanoid_fingertip_tactile_array": {
+      "x": -206.191769,
+      "y": 384.06981
+    },
+    "humanoid_fingertip_tactile_element": {
+      "x": -313.496469,
+      "y": 583.944403
+    },
+    "humanoid_five_finger_hand_mechanism": {
+      "x": -217.024204,
+      "y": 297.682905
+    },
+    "humanoid_foot_contact_structure": {
+      "x": 439.773492,
+      "y": -410.388569
+    },
+    "humanoid_force_torque_sensing": {
+      "x": -39.598885,
+      "y": -621.398681
+    },
+    "humanoid_frameless_bldc_motor": {
+      "x": 276.246014,
+      "y": 522.142484
+    },
+    "humanoid_ft_elastic_element": {
+      "x": 18.709143,
+      "y": -1129.07131
+    },
+    "humanoid_ft_strain_transducer": {
+      "x": 19.154201,
+      "y": -1225.795736
+    },
+    "humanoid_functional_safety_estop": {
+      "x": -353.901906,
+      "y": -309.116567
+    },
+    "humanoid_gait_balance_policy": {
+      "x": -395.082368,
+      "y": 103.162369
+    },
+    "humanoid_grasp_planning_policy": {
+      "x": -504.447992,
+      "y": -96.041818
+    },
+    "humanoid_hand_hollow_cup_motor": {
+      "x": -525.820232,
+      "y": 650.28993
+    },
+    "humanoid_hand_micro_leadscrew": {
+      "x": -622.319466,
+      "y": 569.201555
+    },
+    "humanoid_heat_pipe_vapor_chamber": {
+      "x": 775.267161,
+      "y": -96.577459
+    },
+    "humanoid_high_stiffness_low_mass_materials": {
+      "x": 568.011101,
+      "y": -530.057558
+    },
+    "humanoid_high_volume_joint_assembly": {
+      "x": -353.980816,
+      "y": -376.561539
+    },
+    "humanoid_imitation_rl_training_loop": {
+      "x": -335.605039,
+      "y": -81.026511
+    },
+    "humanoid_imu_attitude_sensing": {
+      "x": 69.94124,
+      "y": -386.758325
+    },
+    "humanoid_imu_mems_die": {
+      "x": 135.995334,
+      "y": -609.829211
+    },
+    "humanoid_inverter_power_stage": {
+      "x": 304.189827,
+      "y": 488.585079
+    },
+    "humanoid_inverter_power_switch": {
+      "x": 473.560448,
+      "y": 528.749654
+    },
+    "humanoid_joint_bearing_sealing": {
+      "x": 342.543405,
+      "y": 34.36898
+    },
+    "humanoid_joint_encoder_position": {
+      "x": 174.581423,
+      "y": -534.849875
+    },
+    "humanoid_joint_sensing_feedback": {
+      "x": 349.090703,
+      "y": 77.66529
+    },
+    "humanoid_lightweight_skeleton_frame": {
+      "x": 338.082959,
+      "y": -248.24283
+    },
+    "humanoid_linear_joint_module": {
+      "x": 333.782671,
+      "y": 137.597334
+    },
+    "humanoid_lithium_ion_cell_selection": {
+      "x": -45.817683,
+      "y": 430.219593
+    },
+    "humanoid_locomotion_control_software": {
+      "x": -217.038101,
+      "y": 70.840966
+    },
+    "humanoid_manipulation_ai_data_stack": {
+      "x": -167.882196,
+      "y": -16.844405
+    },
+    "humanoid_manufacturing_test_safety_service": {
+      "x": -140.22023,
+      "y": -90.762843
+    },
+    "humanoid_micro_hand_actuator": {
+      "x": -322.79749,
+      "y": 311.759764
+    },
+    "humanoid_motor_control_network": {
+      "x": -100.937256,
+      "y": -223.971131
+    },
+    "humanoid_motor_drive_power_electronics": {
+      "x": 183.236942,
+      "y": 225.685424
+    },
+    "humanoid_motor_joint_thermal_path": {
+      "x": 556.668345,
+      "y": -162.285445
+    },
+    "humanoid_motor_stack": {
+      "x": 142.564256,
+      "y": 308.014403
+    },
+    "humanoid_motor_stator_lamination_steel": {
+      "x": 387.953759,
+      "y": 800.26397
+    },
+    "humanoid_ndfeb_magnet_feedstock": {
+      "x": 490.898241,
+      "y": 631.260682
+    },
+    "humanoid_onboard_compute_control_electronics": {
+      "x": -87.258046,
+      "y": -173.652796
+    },
+    "humanoid_palm_force_tactile_array": {
+      "x": -247.561412,
+      "y": 265.699985
+    },
+    "humanoid_perception_sensing_stack": {
+      "x": 73.489597,
+      "y": -194.315348
+    },
+    "humanoid_planetary_roller_screw": {
+      "x": 353.061643,
+      "y": 206.921874
+    },
+    "humanoid_power_distribution_bus": {
+      "x": -120.000695,
+      "y": 464.593923
+    },
+    "humanoid_proximity_touch_safety": {
+      "x": 240.6643,
+      "y": -455.28579
+    },
+    "humanoid_rare_earth_magnet_supply": {
+      "x": 401.36541,
+      "y": 704.105866
+    },
+    "humanoid_realtime_mcu_safety_controller": {
+      "x": -180.298123,
+      "y": -291.126571
+    },
+    "humanoid_reducer_circular_spline": {
+      "x": 219.691481,
+      "y": 691.859435
+    },
+    "humanoid_reducer_flexspline": {
+      "x": 157.280197,
+      "y": 779.4392
+    },
+    "humanoid_reducer_transmission_stack": {
+      "x": 129.526439,
+      "y": 404.527104
+    },
+    "humanoid_reducer_wave_generator": {
+      "x": 151.284453,
+      "y": 906.023957
+    },
+    "humanoid_reliability_mtbf_tracking": {
+      "x": -416.556995,
+      "y": -443.129502
+    },
+    "humanoid_robot_key_component_stack": {
+      "x": 0,
+      "y": 0
+    },
+    "humanoid_roller_screw_nut": {
+      "x": 515.217032,
+      "y": 51.694132
+    },
+    "humanoid_roller_screw_rollers": {
+      "x": 524.211424,
+      "y": 146.787358
+    },
+    "humanoid_roller_screw_threaded_shaft": {
+      "x": 523.688121,
+      "y": 241.825652
+    },
+    "humanoid_rotary_joint_module": {
+      "x": 144.593626,
+      "y": 381.161826
+    },
+    "humanoid_runtime_safety_monitor": {
+      "x": -427.025467,
+      "y": 192.544067
+    },
+    "humanoid_safety_power_isolation": {
+      "x": -138.386511,
+      "y": -453.219588
+    },
+    "humanoid_serviceable_modular_design": {
+      "x": 498.90988,
+      "y": -312.054077
+    },
+    "humanoid_sim_to_real_training_pipeline": {
+      "x": -393.324297,
+      "y": 70.358872
+    },
+    "humanoid_slip_detection_policy": {
+      "x": -371.764687,
+      "y": 267.431148
+    },
+    "humanoid_stereo_rgb_camera": {
+      "x": 178.297893,
+      "y": -281.191032
+    },
+    "humanoid_strain_wave_reducer": {
+      "x": 127.860207,
+      "y": 624.06143
+    },
+    "humanoid_struct_peek_cf": {
+      "x": 444.838126,
+      "y": -411.335178
+    },
+    "humanoid_structure_materials_harness": {
+      "x": 154.327021,
+      "y": -108.832636
+    },
+    "humanoid_task_planning_execution": {
+      "x": -339.042873,
+      "y": -34.017755
+    },
+    "humanoid_teleoperation_data_collection": {
+      "x": -668.770735,
+      "y": -90.892124
+    },
+    "humanoid_tendon_cable_transmission": {
+      "x": -216.891731,
+      "y": 156.100682
+    },
+    "humanoid_thermal_management_system": {
+      "x": 170.11612,
+      "y": -17.068545
+    },
+    "humanoid_thermal_sensor_map": {
+      "x": 353.36079,
+      "y": -41.92199
+    },
+    "humanoid_thread_grinding_equipment": {
+      "x": 514.495453,
+      "y": 338.685431
+    },
+    "humanoid_time_sync_sensor_fusion": {
+      "x": -384.369611,
+      "y": 173.310713
+    },
+    "humanoid_torso_enclosure_skin": {
+      "x": 333.64172,
+      "y": -311.348344
+    },
+    "humanoid_vla_policy_model": {
+      "x": -350.597993,
+      "y": -105.654317
+    },
+    "humanoid_whole_body_control_stack": {
+      "x": -381.190002,
+      "y": 38.246574
+    },
+    "humanoid_whole_robot_burn_in": {
+      "x": -498.268685,
+      "y": -530.053647
+    },
+    "humanoid_wiring_harness_connectors": {
+      "x": 326.666294,
+      "y": -203.961894
+    }
+  }
+}

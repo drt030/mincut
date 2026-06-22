@@ -7,6 +7,8 @@ import { ENTITLEMENT_COOKIE, readEntitlements } from "@/lib/entitlements";
 import { computeHolderTeasers } from "@/lib/holderTeasers";
 import { stripExposureLayer } from "@/lib/exposureGate";
 import { loadActiveGraphData } from "@/lib/graphLoader";
+import { loadCurrentGraphLayoutArtifactsForRoot } from "@/lib/graphLayoutArtifacts";
+import { V0_TARGET_NODE_ID } from "@/lib/graphTraversal";
 
 /**
  * Per ADR-0006 §Chrome (toolbar), the previous "图谱浏览器" page heading
@@ -18,13 +20,14 @@ export default async function GraphPage() {
   const full = loadActiveGraphData();
   const entitlements = await readEntitlements((await cookies()).get(ENTITLEMENT_COOKIE)?.value);
   const holderTeasers = computeHolderTeasers(full);
+  const graphLayouts = loadCurrentGraphLayoutArtifactsForRoot(V0_TARGET_NODE_ID, full);
   const { graph, locked } = stripExposureLayer(full, entitlements);
   return (
     <div className="page graph-page">
       <Suspense fallback={<div className="panel">Loading graph...</div>}>
         <ExposureLockProvider locked={locked}>
           <HolderTeaserProvider teasers={holderTeasers}>
-            <GraphExplorer graph={graph} />
+            <GraphExplorer graph={graph} precomputedLayouts={graphLayouts} />
           </HolderTeaserProvider>
         </ExposureLockProvider>
       </Suspense>

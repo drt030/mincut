@@ -58,6 +58,21 @@ The graph should feel like one persistent product map viewed through different l
 - Moving a node far from its learned location because a different metric is selected.
 - Making evidence, task, or bottleneck lists the primary navigation path when the same signal can be shown on the map.
 
+## 5. Preserve approved design previews
+
+Any design preview, mockup, or visual direction that the user approves must be saved as a durable sample before implementation starts. Store the preview source and, when possible, a rendered screenshot under `docs/plans/assets/` or another tracked docs path named for the feature.
+
+**Apply:**
+- Save the approved preview before touching product code.
+- Treat the saved preview as the implementation reference and compare the real UI against it during browser verification.
+- Keep preview samples until the user confirms the implementation is complete and no longer needs the reference.
+- If the final implementation intentionally diverges from the saved preview, record the reason in the design spec, implementation notes, or final handoff.
+
+**Anti-pattern:**
+- Letting ignored local preview files under `.superpowers/`, `.tmp/`, or `.scratch/` be the only record of an approved direction.
+- Iterating until the implementation no longer matches the approved preview without explicitly asking the user.
+- Removing design samples before the user signs off.
+
 ## Active exceptions (transitional)
 
 _None._ The previously-listed `/graph` "High risk dependency" pill banner
