@@ -203,6 +203,12 @@ function selectedSummary(html: string): string {
   return match[0];
 }
 
+function routeCoreReadoutCard(html: string): string {
+  const match = html.match(/<div[^>]*data-testid="route-selected-decision-brief"[\s\S]*?<\/div><div class="route-reader-thesis"/);
+  assert.ok(match, `route core readout should be addressable; got: ${html}`);
+  return match[0];
+}
+
 function textFromMarkup(html: string): string {
   return html
     .replace(/<[^>]*>/g, " ")
@@ -411,6 +417,7 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
     }),
   );
   const summary = selectedSummary(html);
+  const coreReadout = routeCoreReadoutCard(summary);
   const thesis = summary.match(/<div class="route-reader-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
   assert.match(summary, /Node interpretation/i);
@@ -424,12 +431,14 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.doesNotMatch(summary, /sorter\.\./);
   assert.doesNotMatch(summary, /Where it is stuck|具体卡点/i);
   assert.match(summary, /Core readout/i);
-  assert.match(summary, /Cost-scale proxy/i);
-  assert.match(summary, /Leading reason/i);
+  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Substitution feasibility/i);
+  assert.match(summary, /Blocking mode/i);
+  assert.match(summary, /Current status/i);
   assert.match(summary, /Capacity \/ scale/i);
   assert.match(summary, /Component availability/i);
-  assert.match(summary, /Relief timing/i);
   assert.match(summary, /18 months/i);
+  assert.doesNotMatch(coreReadout, /Cost-scale proxy|Leading reason|Relief timing/i);
   assert.doesNotMatch(summary, /Maturity 58\/100/i);
   assert.doesNotMatch(
     summary,
@@ -525,7 +534,7 @@ test("RouteDetailRail selected summary omits internal Heat and access state by d
   assert.doesNotMatch(summary, /maturity proxy/i);
 });
 
-test("RouteDetailRail names unknown cost and estimated relief timing as user-facing audit gaps", () => {
+test("RouteDetailRail keeps unknown cost out of core readout while interpretation carries estimated timing", () => {
   const graph: GraphData = {
     graphVersion: "route-detail-rail-audit-gap-test",
     evidence: [],
@@ -552,14 +561,17 @@ test("RouteDetailRail names unknown cost and estimated relief timing as user-fac
     }),
   );
   const summary = selectedSummary(html);
+  const thesis = summary.match(/<div class="route-reader-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(summary, /Cost gap unknown/i);
-  assert.match(summary, /Estimated 12 months; proxy based on node type and deployment proxy/i);
+  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Current status/i);
+  assert.match(thesis, /Estimated 12 months; proxy based on node type and deployment proxy/i);
+  assert.doesNotMatch(summary, /Cost gap unknown/i);
   assert.doesNotMatch(summary, /Cost not modeled yet/i);
   assert.doesNotMatch(summary, /Lead time not modeled yet/i);
 });
 
-test("RouteDetailRail explains why an explicitly disclosed cost is not verified", () => {
+test("RouteDetailRail does not turn explicit cost disclosure gaps into core readout content", () => {
   const graph: GraphData = {
     graphVersion: "route-detail-rail-cost-disclosure-test",
     evidence: [],
@@ -594,15 +606,17 @@ test("RouteDetailRail explains why an explicitly disclosed cost is not verified"
     }),
   );
   const summary = selectedSummary(html);
+  const thesis = summary.match(/<div class="route-reader-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(summary, /Cost gap unknown/i);
-  assert.match(summary, /Needed evidence: demand, utilization, and unit-economics proxy/i);
-  assert.match(summary, /Needed evidence: qualification cost, lifetime, and replacement-rate basis/i);
-  assert.match(summary, /no public source prices the qualification and utilization reserve/i);
+  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Blocking mode/i);
+  assert.match(summary, /Current status/i);
   assert.match(summary, /18 months/i);
+  assert.doesNotMatch(summary, /Cost gap unknown|Needed evidence|public source prices|BOM|RMB/i);
+  assert.doesNotMatch(thesis, /Cost gap unknown|Needed evidence|public source prices|BOM|RMB/i);
 });
 
-test("RouteDetailRail labels heuristic route cost signals as estimated", () => {
+test("RouteDetailRail keeps heuristic route cost signals out of selected core readout", () => {
   const graph: GraphData = {
     graphVersion: "route-detail-rail-estimated-cost-test",
     evidence: [],
@@ -635,8 +649,11 @@ test("RouteDetailRail labels heuristic route cost signals as estimated", () => {
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Estimated cost: est\. RMB 250,000/i);
-  assert.match(summary, /Estimate; needs supplier quote or BOM validation/i);
+  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Blocking mode/i);
+  assert.match(summary, /Current status/i);
+  assert.match(summary, /18 months/i);
+  assert.doesNotMatch(summary, /Estimated cost|supplier quote|BOM validation|RMB/i);
   assert.doesNotMatch(summary, /domain\/tag heuristic|Basis:/i);
   assert.doesNotMatch(summary, /\bp50\b/i);
 });
@@ -727,14 +744,17 @@ test("RouteDetailRail start-here and chokepoints explain why without exposing He
   );
 
   const start = startHereCard(html);
+  const coreReadout = routeCoreReadoutCard(start);
   assert.match(start, /Node interpretation/i);
   assert.match(start, /Precision gearbox limits repeatable arm motion\./);
   assert.doesNotMatch(start, /depends on this constraint scaling/i);
   assert.match(start, /Constraint mechanism|Component availability|Capacity \/ scale|Technical maturity/i);
   assert.match(start, /Core readout/i);
-  assert.match(start, /Cost-scale proxy/i);
-  assert.match(start, /Leading reason/i);
-  assert.match(start, /Relief timing/i);
+  assert.match(start, /Load-bearing scope/i);
+  assert.match(start, /Substitution feasibility/i);
+  assert.match(start, /Blocking mode/i);
+  assert.match(start, /Current status/i);
+  assert.doesNotMatch(coreReadout, /Cost-scale proxy|Leading reason|Relief timing/i);
   assert.equal(start.indexOf('data-testid="route-start-where-stuck"'), -1, `start-here should not add a separate stuck-factor block; got: ${start}`);
   assert.doesNotMatch(start, /Where it is stuck|具体卡点/i, `start-here should keep the sample-style summary hierarchy; got: ${start}`);
   assert.doesNotMatch(start, /Current signal:/i);

@@ -759,8 +759,10 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.match(html, /Node interpretation/i, `full detail should include node interpretation after the core readout; got: ${html}`);
   assert.doesNotMatch(html, /Where it is stuck|具体卡点/i, `sample-style detail should not expose a separate stuck section; got: ${html}`);
   assert.match(html, /Core readout/i, `full detail should include the v4 core readout; got: ${html}`);
-  assert.match(html, /Leading reason/i, `core readout should classify the bottleneck reason; got: ${html}`);
-  assert.match(html, /Relief timing/i, `decision brief should say whether the constraint is quick or slow to relieve; got: ${html}`);
+  assert.match(html, /Load-bearing scope/i, `core readout should state the node's scope; got: ${html}`);
+  assert.match(html, /Substitution feasibility/i, `core readout should state substitution feasibility; got: ${html}`);
+  assert.match(html, /Blocking mode/i, `core readout should classify the blocking mode; got: ${html}`);
+  assert.match(html, /Current status/i, `core readout should state current status; got: ${html}`);
   assert.match(html.slice(supplementaryIndex, supplementaryIndex + 260), /Supplementary appendix/i);
   assert.match(
     detailDisclosure(html, "detail-full-evidence-list"),
@@ -798,13 +800,13 @@ test("expanded: selected-node detail follows the commercial supplier IA order", 
   const supplementary = html.slice(supplementaryIndex);
 
   assert.match(coreReadout, /Core readout/i, `core readout should use the v4 IA title; got: ${coreReadout}`);
-  assert.match(coreReadout, /Chokepoint verdict/i, `core readout should expose the verdict tile; got: ${coreReadout}`);
-  assert.match(coreReadout, /Leading reason/i, `core readout should expose the leading structural reason tile; got: ${coreReadout}`);
-  assert.match(coreReadout, /Cost-scale proxy/i, `core readout should expose the cost-scale proxy tile; got: ${coreReadout}`);
-  assert.match(coreReadout, /Relief timing/i, `core readout should expose the relief-timing tile; got: ${coreReadout}`);
+  assert.match(coreReadout, /Load-bearing scope/i, `core readout should expose the scope tile; got: ${coreReadout}`);
+  assert.match(coreReadout, /Substitution feasibility/i, `core readout should expose the substitution tile; got: ${coreReadout}`);
+  assert.match(coreReadout, /Blocking mode/i, `core readout should expose the blocking-mode tile; got: ${coreReadout}`);
+  assert.match(coreReadout, /Current status/i, `core readout should expose the current-status tile; got: ${coreReadout}`);
   assert.doesNotMatch(
     coreReadout,
-    /Chokepoint axes|Model breakdown|卡点四轴/i,
+    /Chokepoint verdict|Leading reason|Cost-scale proxy|Relief timing|Chokepoint axes|Model breakdown|卡点四轴/i,
     `raw model-axis diagnostics belong in the supplementary appendix, not the sample-style core readout; got: ${coreReadout}`,
   );
   assert.doesNotMatch(coreReadout, /Evidence strength|Evidence trail|source trail/i, `evidence status belongs in Evidence trail, not the core readout; got: ${coreReadout}`);
@@ -829,6 +831,37 @@ test("expanded: selected-node detail follows the commercial supplier IA order", 
   assert.ok(evidenceIndex < supplierIndex, `Evidence trail should precede Supplier and listed-company leads; got: ${html}`);
 });
 
+test("expanded: AI logic die core readout uses the four product-design fields", () => {
+  const scopedGraph = loadActiveGraphData(AI_COMPUTE_ROOT_ID);
+  const focused = nodeByIdIn(scopedGraph, "logic_die_fabrication");
+  const html = renderWithLockedExposure({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  });
+  const coreReadout = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
+
+  assert.match(coreReadout, /Core readout/i);
+  assert.match(coreReadout, /Load-bearing scope/i);
+  assert.match(coreReadout, /Substitution feasibility/i);
+  assert.match(coreReadout, /Blocking mode/i);
+  assert.match(coreReadout, /Current status/i);
+  assert.match(coreReadout, /Product mainline/i);
+  assert.match(coreReadout, /No equivalent substitute/i);
+  assert.match(coreReadout, /Capacity \/ scale/i);
+  assert.match(coreReadout, /Yield ramp/i);
+  assert.match(coreReadout, /Equipment lead time/i);
+  assert.match(coreReadout, /Expansion relief/i);
+  assert.match(coreReadout, /24 months/i);
+  assert.doesNotMatch(
+    coreReadout,
+    /Cost-scale proxy|Leading reason/i,
+    `core readout should not keep the old economic-signal hierarchy; got: ${coreReadout}`,
+  );
+});
+
 test("expanded: selected-node detail carries the commercial supplier visual shell", () => {
   const scopedGraph = loadActiveGraphData(AI_COMPUTE_ROOT_ID);
   const focused = nodeByIdIn(scopedGraph, "foundry_capacity_tsmc");
@@ -844,10 +877,10 @@ test("expanded: selected-node detail carries the commercial supplier visual shel
   assert.match(html, /class="[^"]*detail-commercial-supplier-ia/, `detail should opt into the v4 visual shell; got: ${html}`);
   assert.match(html, /class="[^"]*detail-reader-hero/, `detail should render the sample-style node identity header; got: ${html}`);
   assert.match(html, /class="[^"]*detail-reader-quote/, `detail should render the sample-style leading quote block; got: ${html}`);
-  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-verdict/, `core readout needs a tinted verdict tile; got: ${priority}`);
-  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-reason/, `core readout needs a reason tile; got: ${priority}`);
-  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-commercial/, `core readout needs a cost-scale proxy tile; got: ${priority}`);
-  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-relief/, `core readout needs a relief-timing tile; got: ${priority}`);
+  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-scope/, `core readout needs a scope tile; got: ${priority}`);
+  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-substitution/, `core readout needs a substitution tile; got: ${priority}`);
+  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-blocking/, `core readout needs a blocking-mode tile; got: ${priority}`);
+  assert.match(priority, /class="[^"]*detail-decision-tile[^"]*tone-status/, `core readout needs a current-status tile; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-decomposition-table/, `decomposition should use the sample table/card treatment; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-evidence-card/, `evidence trail should use the sample evidence-card treatment; got: ${priority}`);
   assert.match(priority, /class="[^"]*detail-supplier-card/, `supplier leads should use sample-style company cards; got: ${priority}`);
@@ -1343,10 +1376,10 @@ test("expanded: detail primary explanation keeps maturity score out of the sampl
   );
 });
 
-test("expanded: detail relief timing distinguishes component, material, and economic constraints", () => {
+test("expanded: detail interpretation distinguishes component, material, and economic relief timing", () => {
   const fusionGraph = loadActiveGraphData("controlled_fusion_route_portfolio");
   const spaceGraph = loadActiveGraphData("spacex_orbital_data_center_system");
-  const renderDecisionBrief = (graphData: GraphData, nodeId: string) => {
+  const renderInterpretation = (graphData: GraphData, nodeId: string) => {
     const html = render({
       graph: graphData,
       focusedNode: nodeByIdIn(graphData, nodeId),
@@ -1354,24 +1387,24 @@ test("expanded: detail relief timing distinguishes component, material, and econ
       onToggleExpand: noop,
       onClose: noop,
     });
-    return detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
+    return detailRegionBetween(html, "detail-bottleneck-thesis", "detail-decomposition-rationale");
   };
 
   assert.match(
-    renderDecisionBrief(fusionGraph, "fusion_breeding_blanket_heat_extraction"),
+    renderInterpretation(fusionGraph, "fusion_breeding_blanket_heat_extraction"),
     /material supply and qualification must scale together/i,
   );
   assert.match(
-    renderDecisionBrief(spaceGraph, "high_volume_compute_satellite_factory_line"),
+    renderInterpretation(spaceGraph, "high_volume_compute_satellite_factory_line"),
     /qualified components or alternate suppliers must scale/i,
   );
   assert.match(
-    renderDecisionBrief(spaceGraph, "orbital_compute_business_model_validation"),
+    renderInterpretation(spaceGraph, "orbital_compute_business_model_validation"),
     /Unknown until demand, utilization, and unit economics are validated/i,
   );
 });
 
-test("expanded: detail decision brief explains explicit cost disclosure gaps", () => {
+test("expanded: detail core readout keeps explicit cost disclosure gaps out of the first screen", () => {
   const scopedGraph: GraphData = {
     graphVersion: "detail-cost-disclosure-test",
     evidence: [],
@@ -1418,11 +1451,11 @@ test("expanded: detail decision brief explains explicit cost disclosure gaps", (
   const decision = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
   const interpretation = detailRegionBetween(html, "detail-bottleneck-thesis", "detail-decomposition-rationale");
 
-  assert.match(decision, /Cost gap unknown/i);
-  assert.match(decision, /Needed evidence: demand, utilization, and unit-economics proxy/i);
-  assert.match(decision, /Needed evidence: qualification cost, lifetime, and replacement-rate basis/i);
-  assert.match(decision, /no public source prices the qualification and utilization reserve/i);
+  assert.match(decision, /Load-bearing scope/i);
+  assert.match(decision, /Blocking mode/i);
+  assert.match(decision, /Current status/i);
   assert.match(decision, /24 months/i);
+  assert.doesNotMatch(decision, /Cost gap unknown|Needed evidence|public source prices|BOM|RMB/i);
   assert.doesNotMatch(
     interpretation,
     /Not priceable|reviewed price|BOM|RMB/i,
@@ -1476,16 +1509,18 @@ test("expanded: missing relief timing and supplier scale render labeled proxy es
     onClose: noop,
   });
   const decision = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
+  const interpretation = detailRegionBetween(html, "detail-bottleneck-thesis", "detail-decomposition-rationale");
   const exposure = detailDisclosure(html, "detail-exposure-evidence-summary");
 
-  assert.match(decision, /Estimated 24 months/i);
+  assert.match(decision, /Current status/i);
+  assert.match(interpretation, /Estimated 24 months/i);
   assert.doesNotMatch(decision, /Lead-time not yet quantified/i);
   assert.match(exposure, /Financial \/ capacity clues/i);
   assert.match(exposure, /Public-market scale proxy/i);
   assert.match(exposure, /PSI/);
 });
 
-test("expanded: detail decision brief labels modeled cost before showing estimate values", () => {
+test("expanded: detail core readout does not label modeled cost as a primary readout", () => {
   const html = render({
     graph,
     focusedNode: nodeById(REDUCER_ID),
@@ -1495,8 +1530,11 @@ test("expanded: detail decision brief labels modeled cost before showing estimat
   });
   const decision = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
 
-  assert.match(decision, /Cost\/capex proxy: est\./i);
-  assert.match(decision, /Authored cost\/capex or child rollup; needs supplier quote or audited BOM validation/i);
+  assert.match(decision, /Load-bearing scope/i);
+  assert.match(decision, /Substitution feasibility/i);
+  assert.match(decision, /Blocking mode/i);
+  assert.match(decision, /Current status/i);
+  assert.doesNotMatch(decision, /Cost\/capex proxy|supplier quote|audited BOM|RMB/i);
   assert.doesNotMatch(decision, /Basis: graph model|Basis:/i);
   assert.doesNotMatch(
     decision,

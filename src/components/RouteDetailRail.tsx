@@ -9,13 +9,11 @@ import {
   type ChokepointResult,
 } from "@/lib/chokepointScore";
 import { leadTimeAnswerForGraphNode, type LeadTimeAnswer } from "@/lib/commercialDataCompleteness";
-import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
 import { defaultFocalProduct } from "@/lib/graphTraversal";
-import { nodeCostSignalKind, nodeCostSignalRmb, type ColorMode } from "@/lib/edgeStyleFor";
+import type { ColorMode } from "@/lib/edgeStyleFor";
 import type { GraphLayer } from "@/lib/knowHowLayer";
 import { selectTopN } from "@/lib/prioritySelection";
 import {
-  readerFacingCostAnswer,
   readerFacingCostSignalText,
 } from "@/lib/readerFacingText";
 import type { RouteExposureAccessState } from "@/lib/routeAccess";
@@ -25,7 +23,7 @@ import { holdersForNode } from "@/lib/supplyConcentration";
 import { systemOverviewForRoot } from "@/lib/systemOverview";
 import { useLanguage } from "./LanguageProvider";
 import { useHolderTeaser } from "./HolderTeaserProvider";
-import { ChokepointHeadline, NodeDetailContent } from "./NodeDetailPanel";
+import { ChokepointHeadline, NodeCoreReadoutBrief, NodeDetailContent } from "./NodeDetailPanel";
 
 type RailAnalysisMode = "relation" | "cost" | "bottleneck-risk";
 type DetailIntent = "default" | "exposure";
@@ -597,46 +595,13 @@ export function RouteDetailRail({
     return localized === key ? answer.reason : localized;
   };
   const routeDecisionBrief = (node: Node): React.ReactNode => {
-    const cost = nodeCostSignalRmb(node, graph);
-    const costKind = nodeCostSignalKind(node, graph);
-    const costAnswer = readerFacingCostAnswer({
-      valueText: cost
-        ? costSignalText(cost, costKind)
-        : null,
-      disclosureText: costDisclosureText(node, t, { includeReason: true }),
-      fallback: t("readerCostNotModeled"),
-      disclosurePrimary: t("readerCostNotPriceableShort"),
-      disclosureSecondary: costEvidenceNeedText(node, t),
-    });
-    if (costKind === "estimated") {
-      costAnswer.secondary = t("readerCostEstimateBasisShort");
-      costAnswer.full = t("readerCostEstimateCaveat");
-    } else if (cost) {
-      costAnswer.secondary = t("readerCostModeledBasisShort");
-    }
     return (
-      <div
-        className="detail-decision-brief route-reader-decision-brief"
-        data-testid="route-selected-decision-brief"
-      >
-        <strong>{t("detailCoreReadout")}</strong>
-        <div className="detail-decision-grid">
-          <ChokepointHeadline graph={graph} node={node} />
-          <div>
-            <span>{t("detailLeadingReason")}</span>
-            <strong>{constraintSummaryText(node)}</strong>
-          </div>
-          <div title={costAnswer.full}>
-            <span>{t("detailCommercialScale")}</span>
-            <strong>{costAnswer.primary}</strong>
-            {costAnswer.secondary ? <small>{costAnswer.secondary}</small> : null}
-          </div>
-          <div>
-            <span>{t("readerReliefTiming")}</span>
-            <strong>{reliefTimingText(node)}</strong>
-          </div>
-        </div>
-      </div>
+      <NodeCoreReadoutBrief
+        graph={graph}
+        node={node}
+        className="route-reader-decision-brief"
+        testId="route-selected-decision-brief"
+      />
     );
   };
   const defaultStartNodeId = activeAnalysisMode === "relation"

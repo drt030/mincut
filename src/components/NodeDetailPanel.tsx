@@ -25,8 +25,6 @@ import {
   targetCostFor,
   type CostRollupResult,
 } from "@/lib/costRollup";
-import { costDisclosureText, costEvidenceNeedText } from "@/lib/costDisclosure";
-import { estimatedCostForGraphNode } from "@/lib/costEstimate";
 import { costAsOfVisualFor, formatMetricValue } from "@/lib/metricValueFormat";
 import { nodeRisk, nodeRiskSignal } from "@/lib/nodeRisk";
 import { nodeCostDriverRmb } from "@/lib/edgeStyleFor";
@@ -45,11 +43,18 @@ import {
   type LeadTimeAnswer,
 } from "@/lib/commercialDataCompleteness";
 import {
-  readerFacingCostAnswer,
   readerFacingCostSignalText,
   readerFacingNote,
   readerFacingStartupOpportunity,
 } from "@/lib/readerFacingText";
+import {
+  CORE_READOUT_BLOCKING_LABEL_KEYS,
+  CORE_READOUT_FIELD_LABEL_KEYS,
+  CORE_READOUT_SCOPE_LABEL_KEYS,
+  CORE_READOUT_STATUS_LABEL_KEYS,
+  CORE_READOUT_SUBSTITUTION_LABEL_KEYS,
+  coreReadoutForNode,
+} from "@/lib/nodeCoreReadout";
 import { selectCostDriverRoute } from "@/lib/routeHighlight";
 import type { Edge, Evidence, GraphData, MetricCurrency, MetricValue, Node } from "@/lib/schema";
 import { EvidenceList } from "./EvidenceList";
@@ -538,6 +543,7 @@ export function NodeDetailContent({
           <strong>{t("detailSupplementaryAppendix")}</strong>
         </summary>
         <section className="detail-supplementary-section" data-testid="detail-model-breakdown">
+          <ChokepointHeadline graph={graph} node={node} />
           <ChokepointAxisBreakdown graph={graph} node={node} />
         </section>
         <section className="detail-supplementary-section" data-testid="detail-full-evidence-list">
@@ -1602,69 +1608,60 @@ function ChokepointAxisBreakdown({ graph, node }: { graph: GraphData; node: Node
   );
 }
 
-function DecisionBrief({
+export function NodeCoreReadoutBrief({
   graph,
   node,
+  className,
+  testId = "detail-decision-brief",
 }: {
   graph: GraphData;
   node: Node;
+  className?: string;
+  testId?: string;
 }) {
   const { t } = useLanguage();
-  const headline = chokepointHeadlineFor(graph, node, t);
-  const whyLine = headline.structuralRoot
-    ? t("chokepointStructuralRoot")
-    : headline.axisSentence ?? constraintSummaryText(graph, node, t);
-  const modeledCostText = detailCostSignalText(graph, node);
-  const estimatedCost = modeledCostText ? null : estimatedCostForGraphNode(graph, node);
-  const valueText = modeledCostText
-    ? readerFacingCostSignalText({
-        valueText: modeledCostText,
-        kind: "modeled",
-        t,
-      })
-    : estimatedCost
-      ? readerFacingCostSignalText({
-          valueText: formatMetricValue(estimatedCost.range, "RMB", "RMB").compact,
-          kind: "estimated",
-          t,
-        })
-      : null;
-  const cost = readerFacingCostAnswer({
-    valueText,
-    disclosureText: costDisclosureText(node, t, { includeReason: true }),
-    fallback: t("readerCostNotModeled"),
-    disclosurePrimary: t("readerCostNotPriceableShort"),
-    disclosureSecondary: costEvidenceNeedText(node, t),
-  });
-  if (estimatedCost && !modeledCostText) {
-    cost.secondary =
-      estimatedCost.basisKind === "parent_bounded"
-        ? t("readerCostParentBoundedEstimateBasisShort")
-        : t("readerCostEstimateBasisShort");
-    cost.full =
-      estimatedCost.basisKind === "parent_bounded"
-        ? t("readerCostParentBoundedEstimateCaveat")
-        : t("readerCostEstimateCaveat");
-  } else if (modeledCostText) {
-    cost.secondary = t("readerCostModeledBasisShort");
+  const readout = coreReadoutForNode(graph, node);
+  const statusParts = [t(CORE_READOUT_STATUS_LABEL_KEYS[readout.status.value])];
+  if (readout.status.months !== undefined) {
+    statusParts.push(formatCopy(t("coreReadoutMonthsSuffix"), { months: readout.status.months }));
   }
   return (
-    <div className="detail-decision-brief" data-testid="detail-decision-brief">
+    <div className={["detail-decision-brief", className].filter(Boolean).join(" ")} data-testid={testId}>
       <strong>{t("detailCoreReadout")}</strong>
       <div className="detail-decision-grid">
-        <ChokepointHeadline graph={graph} node={node} />
-        <div className="detail-decision-tile tone-reason">
-          <span>{t("detailLeadingReason")}</span>
-          <strong>{whyLine}</strong>
+        <div
+          className="detail-decision-tile tone-scope"
+          data-readout-basis={readout.scope.basis}
+          data-readout-value={readout.scope.value}
+        >
+          <span>{t(CORE_READOUT_FIELD_LABEL_KEYS.scope)}</span>
+          <strong>{t(CORE_READOUT_SCOPE_LABEL_KEYS[readout.scope.value])}</strong>
         </div>
-        <div className="detail-decision-tile tone-commercial" title={cost.full}>
-          <span>{t("detailCommercialScale")}</span>
-          <strong>{cost.primary}</strong>
-          {cost.secondary ? <small>{cost.secondary}</small> : null}
+        <div
+          className="detail-decision-tile tone-substitution"
+          data-readout-basis={readout.substitution.basis}
+          data-readout-value={readout.substitution.value}
+        >
+          <span>{t(CORE_READOUT_FIELD_LABEL_KEYS.substitution)}</span>
+          <strong>{t(CORE_READOUT_SUBSTITUTION_LABEL_KEYS[readout.substitution.value])}</strong>
         </div>
-        <div className="detail-decision-tile tone-relief">
-          <span>{t("readerReliefTiming")}</span>
-          <strong>{reliefTimingText(graph, node, t)}</strong>
+        <div
+          className="detail-decision-tile tone-blocking"
+          data-readout-basis={readout.blocking.basis}
+          data-readout-value={readout.blocking.values.join(" ")}
+        >
+          <span>{t(CORE_READOUT_FIELD_LABEL_KEYS.blocking)}</span>
+          <strong>
+            {readout.blocking.values.map((value) => t(CORE_READOUT_BLOCKING_LABEL_KEYS[value])).join(" · ")}
+          </strong>
+        </div>
+        <div
+          className="detail-decision-tile tone-status"
+          data-readout-basis={readout.status.basis}
+          data-readout-value={readout.status.value}
+        >
+          <span>{t(CORE_READOUT_FIELD_LABEL_KEYS.status)}</span>
+          <strong>{statusParts.join(" · ")}</strong>
         </div>
       </div>
     </div>
@@ -1699,7 +1696,7 @@ function NodeReaderPriority({
     : node.description;
   return (
     <section className="detail-reader-priority" data-testid="detail-reader-priority">
-      <DecisionBrief graph={graph} node={node} />
+      <NodeCoreReadoutBrief graph={graph} node={node} />
       <div className="detail-reader-role detail-reader-section" data-testid="detail-bottleneck-thesis">
         <span>{t("detailNodeInterpretation")}</span>
         <p>{detailBottleneckThesisText(graph, node, nodeName, t, evidence, localizedDescription)}</p>

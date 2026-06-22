@@ -1,0 +1,146 @@
+[
+  {
+    "nodeId": "logic_die_fabrication",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "no_equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["capacity_scale", "yield_ramp", "equipment_lead_time"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "expansion_relief", "basis": "stored_override", "confidence": "medium", "months": 24 }
+  },
+  {
+    "nodeId": "advanced_packaging",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "partial_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["capacity_scale", "yield_ramp", "equipment_lead_time", "integration_qualification"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "expansion_relief", "basis": "stored_override", "confidence": "medium", "months": 18 }
+  },
+  {
+    "nodeId": "high_bandwidth_memory",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "no_equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["capacity_scale", "component_availability", "yield_ramp"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "expansion_relief", "basis": "stored_override", "confidence": "medium", "months": 18 }
+  },
+  {
+    "nodeId": "substrate_and_interposer",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "partial_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["capacity_scale", "material_supply", "equipment_lead_time", "integration_qualification"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "expansion_relief", "basis": "stored_override", "confidence": "medium", "months": 24 }
+  },
+  {
+    "nodeId": "euv_photomask_production",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "no_equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["component_availability", "capacity_scale", "yield_ramp"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "constraining_now", "basis": "stored_override", "confidence": "medium", "months": 18 }
+  },
+  {
+    "nodeId": "euv_projection_optics",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "no_equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["component_availability", "capacity_scale", "equipment_lead_time"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "structural_long_cycle", "basis": "stored_override", "confidence": "medium", "months": 24 }
+  },
+  {
+    "nodeId": "hbm_stack_assembly_die_bonding",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "supply_relief",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["yield_ramp", "equipment_lead_time", "integration_qualification"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "qualification", "basis": "stored_override", "confidence": "medium", "months": 12 }
+  },
+  {
+    "nodeId": "t_glass_fabric",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "no_equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["material_supply", "capacity_scale"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "expansion_relief", "basis": "stored_override", "confidence": "medium", "months": 24 }
+  },
+  {
+    "nodeId": "abf_build_up_film",
+    "scope": { "value": "product_mainline", "basis": "stored_override", "confidence": "high" },
+    "substitution": {
+      "value": "no_equivalent_substitution",
+      "basis": "stored_override",
+      "confidence": "medium",
+      "performanceParityRequired": true
+    },
+    "blocking": {
+      "values": ["material_supply", "capacity_scale"],
+      "basis": "stored_override",
+      "confidence": "medium"
+    },
+    "status": { "value": "structural_long_cycle", "basis": "stored_override", "confidence": "low" }
+  }
+]
