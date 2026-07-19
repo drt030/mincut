@@ -2,7 +2,7 @@
 
 import { track } from "@vercel/analytics";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DOMAIN_ROUTES, type DomainRoute } from "@/lib/domains";
 import { useLanguage } from "./LanguageProvider";
 
@@ -38,6 +38,9 @@ export function HomeLaunchSections({
   const { nodeDescription, nodeName, t } = useLanguage();
   const checkoutAvailable = Boolean(foundingCheckoutLink) && !hasAllAccess;
   const purchaseConfirmed = purchaseState === "success" && hasAllAccess;
+  const [mobileOfferExpanded, setMobileOfferExpanded] = useState(
+    hasAllAccess || purchaseState !== null,
+  );
 
   useEffect(() => {
     track("domain_open", {
@@ -70,11 +73,28 @@ export function HomeLaunchSections({
         <span>{t("domainThesisStatusFlagship")}</span>
       </section>
       <section
-        className={`graph-first-waitlist${hasAllAccess ? " graph-first-purchase-success" : ""}`}
+        className={[
+          "graph-first-waitlist",
+          mobileOfferExpanded ? "graph-first-waitlist-mobile-expanded" : "",
+          hasAllAccess ? "graph-first-purchase-success" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
         id="private-beta"
         aria-labelledby="home-waitlist-title"
       >
-        <div>
+        <div className="graph-first-waitlist-mobile-summary">
+          <span>{hasAllAccess ? t("homeAllAccessActive") : t("homeFoundingAccess")}</span>
+          <button
+            type="button"
+            aria-expanded={mobileOfferExpanded}
+            aria-controls="home-access-details"
+            onClick={() => setMobileOfferExpanded((expanded) => !expanded)}
+          >
+            {mobileOfferExpanded ? t("homeFoundingMobileHide") : t("homeFoundingMobileShow")}
+          </button>
+        </div>
+        <div className="graph-first-waitlist-copy" id="home-access-details">
           <p className="graph-first-eyebrow">
             {hasAllAccess ? t("homeAllAccessActive") : t("homeFoundingAccess")}
           </p>

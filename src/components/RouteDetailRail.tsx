@@ -296,6 +296,9 @@ export function RouteDetailRail({
   const [detailIntent, setDetailIntent] = useState<DetailIntent>("default");
   const panel = controlledPanel ?? uncontrolledPanel;
   const activePanel = panel === "detail" && !selectedNode ? "route" : panel;
+  const mobileDetailCloseRef = useRef<HTMLButtonElement | null>(null);
+  const detailOpenScrollYRef = useRef<number | null>(null);
+  const previousPanelRef = useRef(activePanel);
   const isKnowHowLayer = graphLayer === "knowhow";
   const selectedKnowHowNode = selectedNode && isKnowHowNode(selectedNode) ? selectedNode : null;
   const setPanel = (next: "route" | "detail") => {
@@ -383,6 +386,7 @@ export function RouteDetailRail({
       noPriorityNodes: "当前视角暂无可排序节点。",
       noNodeSelected: "未选择节点。",
       routeEntry: "路线入口",
+      backToMap: "返回地图",
     }
     : {
       fullSystem: "Full system",
@@ -405,7 +409,47 @@ export function RouteDetailRail({
       noPriorityNodes: "No sortable nodes in this lens yet.",
       noNodeSelected: "No node selected.",
       routeEntry: "Route entry",
+      backToMap: "Back to map",
     };
+
+  useEffect(() => {
+    const previousPanel = previousPanelRef.current;
+    previousPanelRef.current = activePanel;
+    if (activePanel === "route" && detailIntent !== "default") {
+      setDetailIntent("default");
+    }
+    if (typeof window === "undefined" || !window.matchMedia("(max-width: 900px)").matches) return;
+
+    if (activePanel === "detail") {
+      if (previousPanel !== "detail" || detailOpenScrollYRef.current === null) {
+        detailOpenScrollYRef.current = window.scrollY;
+      }
+      window.requestAnimationFrame(() => {
+        mobileDetailCloseRef.current?.focus({ preventScroll: true });
+      });
+      return;
+    }
+
+    if (previousPanel !== "detail" || !selectedNode) return;
+    const detailOpenScrollY = detailOpenScrollYRef.current;
+    detailOpenScrollYRef.current = null;
+    window.requestAnimationFrame(() => {
+      const graphShell = mobileDetailCloseRef.current?.closest(".graph-explorer-shell") ?? document;
+      const graphNodes = Array.from(
+        graphShell.querySelectorAll<HTMLElement>("[data-graph-node-id]"),
+      );
+      const selectedGraphNode = graphNodes.find(
+        (element) => element.dataset.graphNodeId === selectedNode.id,
+      );
+      const rootGraphNode = graphNodes.find(
+        (element) => element.dataset.graphNodeId === route.rootId,
+      );
+      (selectedGraphNode ?? rootGraphNode ?? graphNodes[0])?.focus({ preventScroll: true });
+      if (detailOpenScrollY !== null && Math.abs(window.scrollY - detailOpenScrollY) > 1) {
+        window.scrollTo({ top: detailOpenScrollY, behavior: "auto" });
+      }
+    });
+  }, [activePanel, detailIntent, route.rootId, selectedNode]);
   const evidenceStatusText = (node: Node): string => {
     const summary = directEvidenceSummary(graph, node);
     if (summary.total === 0) return t("noDirectEvidence");
@@ -891,6 +935,10 @@ export function RouteDetailRail({
       hint: t("readerStartNextOpenDetail"),
     },
   ];
+  const closeDetail = () => {
+    setDetailIntent("default");
+    setPanel("route");
+  };
 
   return (
     <aside
@@ -904,6 +952,22 @@ export function RouteDetailRail({
       data-testid="route-detail-rail"
       aria-label={activePanel === "detail" ? copy.nodeDetail : displayRailTitle}
     >
+      {activePanel === "detail" && selectedNode ? (
+        <div className="route-rail-mobile-detail-header">
+          <div>
+            <span>{copy.nodeDetail}</span>
+            <strong>{nodeName(selectedNode.id, selectedNode.name)}</strong>
+          </div>
+          <button
+            ref={mobileDetailCloseRef}
+            type="button"
+            data-testid="route-rail-mobile-close"
+            onClick={closeDetail}
+          >
+            {copy.backToMap}
+          </button>
+        </div>
+      ) : null}
       <header className="route-rail-header">
         <div>
           <div className="route-rail-kicker">{isKnowHowLayer ? t("knowHowLayerKicker") : copy.fullSystem}</div>

@@ -164,6 +164,25 @@ Route onboarding and node detail are separate information layers. "Start here"
 selected-node detail; the UI must not present it alongside "Detail" / "详情" as
 equivalent selected-node modes.
 
+### 3b.2. Mobile graph continuity
+
+Graph-first routes must remain graph-first on a normal mobile viewport. The
+domain identity and one compact thesis may precede the map, but the map controls
+and a meaningful part of the canvas must appear in the first viewport. A full
+commercial offer, waitlist form, or long system-overview table must not push the
+map below the fold; those surfaces belong after the map or behind one deliberate
+compact action.
+
+Selecting a visible graph node on mobile must preserve spatial context. It must
+not insert a long document-flow detail block above the map, move the canvas by
+multiple viewports, or force the reader to alternate between distant page
+positions. Node detail should use an overlay, bottom sheet, or another bounded
+surface with its own scrolling. Closing or backing out of detail must return to
+the same map position and selected branch without another page jump. A node tap
+that changes outer-document scroll by more than a small browser-adjustment
+tolerance, or makes the map and the start of its detail more than one viewport
+apart, is a hard failure.
+
 The Cost lens must declare what edge color and width encode. If width is route
 contribution, confidence, or another derived signal rather than target-node
 absolute cost, the legend/detail rail must explain that distinction.

@@ -665,14 +665,14 @@ test("GraphExplorer.tsx regression guard: RouteDetailRail receives controlled pa
   );
 });
 
-test("mobile graph route layout shows the reader rail before the map", () => {
+test("mobile graph route layout keeps the map first and node detail in a bounded sheet", () => {
   const css = fs.readFileSync(path.join(process.cwd(), "src", "app", "globals.css"), "utf8");
   const mobileBlock = css.match(/@media \(max-width:\s*900px\)\s*\{[\s\S]*?\n\}/)?.[0] ?? "";
 
   assert.match(
     mobileBlock,
-    /\.graph-map-column\s*\{[\s\S]*order:\s*2/,
-    "mobile graph routes should put the map column after the reader rail so the first screen shows the decision summary",
+    /\.graph-map-column\s*\{[\s\S]*order:\s*1/,
+    "mobile graph routes should put the map column first so the core topology remains visible in the first screen",
   );
   assert.match(
     mobileBlock,
@@ -686,13 +686,28 @@ test("mobile graph route layout shows the reader rail before the map", () => {
   );
   assert.match(
     mobileBlock,
-    /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*order:\s*1/,
-    "mobile graph routes should show the route detail rail before the map column",
+    /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*order:\s*2/,
+    "mobile graph routes should place the long system overview after the map column",
   );
   assert.match(
     mobileBlock,
     /\.graph-layout-radial\s*>\s*\.route-detail-rail\s*\{[\s\S]*max-height:\s*none/,
-    "mobile route detail rail should not clip the Start here / supplier / evidence summary",
+    "the post-map route summary may use its natural document height",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-layout-radial\s*>\s*\.route-detail-rail\.route-detail-rail-detail-mode\s*\{[\s\S]*position:\s*fixed[\s\S]*max-height:\s*calc\(100dvh\s*-\s*12px\)/,
+    "selected-node detail should become a viewport-bounded bottom sheet instead of expanding above the map",
+  );
+  assert.match(
+    mobileBlock,
+    /\.route-detail-rail-detail-mode\s+\.route-rail-node-detail\s+\.detail-list\s*\{[\s\S]*overflow-y:\s*auto/,
+    "the mobile detail sheet should scroll internally without moving the outer document",
+  );
+  assert.match(
+    mobileBlock,
+    /\.graph-layout-radial-mobile-detail-open\s*\{[\s\S]*padding-bottom:\s*100dvh/,
+    "opening a fixed detail sheet should retain enough document height to prevent scroll clamping",
   );
   assert.match(
     mobileBlock,
@@ -718,6 +733,45 @@ test("mobile graph route layout shows the reader rail before the map", () => {
     mobileBlock,
     /\.graph-root-parent-button\s*\{[\s\S]*display:\s*none/,
     "mobile graph routes should hide secondary parent-root navigation from the product strip",
+  );
+
+  const graphExplorerSource = fs.readFileSync(
+    path.join(process.cwd(), "src", "components", "GraphExplorer.tsx"),
+    "utf8",
+  );
+  const routeDetailSource = fs.readFileSync(
+    path.join(process.cwd(), "src", "components", "RouteDetailRail.tsx"),
+    "utf8",
+  );
+  assert.match(
+    graphExplorerSource,
+    /data-graph-node-id=\{data\.id\}/,
+    "graph nodes should expose a stable focus-restoration target",
+  );
+  assert.match(
+    graphExplorerSource,
+    /railPanel === ["']detail["']\s*\?\s*["']graph-layout-radial-mobile-detail-open["']/,
+    "the graph layout should expose its detail-open state to mobile continuity CSS",
+  );
+  assert.match(
+    routeDetailSource,
+    /data-testid=["']route-rail-mobile-close["']/,
+    "the mobile detail sheet should expose an obvious close/back control",
+  );
+  assert.match(
+    routeDetailSource,
+    /focus\(\{\s*preventScroll:\s*true\s*\}\)/,
+    "opening or closing detail should move focus without moving the document",
+  );
+  assert.match(
+    routeDetailSource,
+    /detailOpenScrollYRef/,
+    "the detail sheet should retain the map scroll position captured when it opened",
+  );
+  assert.match(
+    routeDetailSource,
+    /window\.scrollTo\(\{\s*top:\s*detailOpenScrollY/,
+    "closing detail should explicitly restore the captured map position",
   );
 });
 

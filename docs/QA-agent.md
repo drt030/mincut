@@ -223,6 +223,7 @@ Required paths:
 Acceptance checks:
 
 - The first screen communicates industrial-chain bottleneck research and company/ticker diligence leads without requiring docs.
+- In the mobile viewport, the graph controls and a meaningful part of the canvas are visible in the first screen. A full offer/waitlist form or long system overview must not appear before the graph; the paid boundary may use a compact disclosure or CTA without displacing the core research surface.
 - The map portfolio entry is continuous across `/` and every `/d/<slug>` route: after switching domains, the same map switcher remains visible/reachable, marks the current domain, and offers a clear route back to the default AI compute map.
 - The map portfolio has one clear interaction model: compact domain shortcuts are direct quick-switch controls, while the full domain menu opens only from the `Maps` trigger. Hovering a shortcut may show a small label tooltip, but it must not open the full menu or create ambiguity about whether users should click the shortcut or a duplicate expanded card.
 - The free layer is valuable on its own: chain decomposition, chokepoints, evidence summary, Cost/Barrier context, and navigation are usable.
@@ -239,6 +240,7 @@ Hard fails:
 - A paid CTA appears for a route whose data, evidence, checkout, or entitlement path is not ready.
 - The user discovers the paid boundary only after being surprised by a locked company/ticker action.
 - The first screen does not explain the investment-research value.
+- The mobile first screen is dominated by the commercial offer or overview while the graph starts below the first viewport.
 - Chinese mode makes the commercial promise or paid/free boundary unreadable.
 - A paid checkout is offered without a reachable purchase/support policy, or the policy contradicts the checkout price, access scope, renewal, or refund terms.
 - The offer hides an early-research/hypothesis maturity label, or an entitlement silently makes an unlisted route purchasable.
@@ -424,6 +426,8 @@ Acceptance checks:
 - The canvas exposes the intended lens vocabulary: System decomposition, Chokepoint, and Cost. Maturity is an internal Barrier input, not a selectable user-facing lens.
 - Switching lenses changes overlays without scrambling node identity or spatial memory.
 - Clicking a node highlights the relevant branch while preserving enough context to stay oriented.
+- At a mobile viewport, record the outer-document `scrollY`, canvas bounds, and selected-node detail bounds immediately before and after clicking a visible node. The click must not insert a long detail block above the canvas, shift the document by more than a small browser-adjustment tolerance, or separate the canvas and the beginning of detail by more than one viewport.
+- Mobile node detail uses a bounded overlay, bottom sheet, or equivalent independently scrolling surface. Its close/back action restores the prior map scroll position and branch context without a second jump; focus reaches the detail and returns to the triggering node or an equivalent graph control.
 - Cmd+K search, Esc recovery, empty-click recovery, and detail selection behave predictably.
 - Mobile may be reading-first, but it must not have horizontal overflow, unusable controls, or a canvas that visually breaks the page.
 
@@ -453,6 +457,8 @@ Hard fails:
 - Lens changes make the meaning of node color or edge width inconsistent with the legend.
 - The canvas, legend, and detail panel disagree on the same node's Chokepoint verdict or elevated axis.
 - Node click/selection loses the user or breaks spatial memory.
+- On mobile, selecting a visible node changes outer-document scroll by more than 80px after layout settles, pushes the canvas by one or more viewports because detail was inserted before it, or leaves the start of detail more than one viewport from the map.
+- Mobile detail has no obvious close/back control, scrolls as a multi-thousand-pixel block in the main document, or fails to restore the prior map position when dismissed.
 
 ### Gate 3B: Node Detail And Investor Summary
 
@@ -467,6 +473,7 @@ Required paths:
 - Include at least one structural node without an explicit authored relief-cycle field and at least one supplier/company lead without a revenue/share/capacity metric, to verify the UI shows labeled proxy estimates instead of blank/unknown readouts.
 - For AI compute, the detail-regression sample must include `ai_accelerator_module_hbm_cowos`, `advanced_packaging`, `substrate_and_interposer`, `high_bandwidth_memory`, `logic_die_fabrication`, `foundry_capacity_tsmc`, and `power_delivery` when those nodes are reachable. Do not satisfy this gate only by checking an organization detail page.
 - Test desktop rail and mobile reading layout.
+- On mobile, selected-node detail must be a bounded surface near the map, not a long block inserted before the canvas. Verify that its internal content can scroll without moving the underlying document and that dismissing it restores map context.
 - Test English and Simplified Chinese for the primary summary layer.
 - On desktop, compare at least one AI compute supplier/capacity detail against `docs/plans/assets/node-detail-ia-commercial-supplier-lines-v4.png`. Passing requires the sample-style visual shell: identity hero, leading quote, 2x2 core readout, decomposition table/card treatment, evidence card, and supplier/company cards. Text order parity alone is a fail if the old sidebar/card treatment remains.
 - On default route entry before a node is clicked, the rail must not show both route guidance and a duplicate selected-node summary for the same recommended start node. A duplicate selected summary makes the route guide look like a node detail.

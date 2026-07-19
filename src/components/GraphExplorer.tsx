@@ -133,6 +133,7 @@ const RadialDotNode = memo(function RadialDotNode({ data }: NodeProps<FlowNode<R
       style={{ width: box.width, height: box.height, position: "relative" }}
       role="button"
       tabIndex={0}
+      data-graph-node-id={data.id}
       aria-label={`${data.name} · ${data.kindLabel}`}
       aria-pressed={data.selected}
       title={data.name}
@@ -1529,6 +1530,11 @@ export function GraphExplorer({
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         if (cmdKOpen) return;
+        if (railPanel === "detail" && window.matchMedia("(max-width: 900px)").matches) {
+          e.preventDefault();
+          setRailPanel("route");
+          return;
+        }
         setFocusPath((prev) =>
           prev.length === 0 ? prev : prev.slice(0, prev.length - 1),
         );
@@ -1536,7 +1542,7 @@ export function GraphExplorer({
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [cmdKOpen]);
+  }, [cmdKOpen, railPanel]);
 
   // C2: global Cmd+K / Ctrl+K listener. The handler is a pure
   // dispatcher (`handleCmdKKeydown`) so the open/close logic stays
@@ -1630,7 +1636,15 @@ export function GraphExplorer({
     agentExpansionRootId === currentRootId ? agentExpansionProgress : null;
   return (
     <div className="graph-explorer-shell">
-      <div className="graph-layout graph-layout-radial">
+      <div
+        className={[
+          "graph-layout",
+          "graph-layout-radial",
+          railPanel === "detail" ? "graph-layout-radial-mobile-detail-open" : "",
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         <div className="graph-map-column">
           {rootNode && resetRootNode ? (
             <GraphProductStrip

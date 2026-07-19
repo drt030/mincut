@@ -34,11 +34,30 @@ test("root page exposes Buttondown and server-gated founding access", async () =
 test("home founding access keeps a usable single-column mobile layout", async () => {
   const fs = await import("node:fs/promises");
   const css = await fs.readFile(new URL("../src/app/globals.css", import.meta.url), "utf8");
+  const component = await fs.readFile(new URL("../src/components/HomeLaunchSections.tsx", import.meta.url), "utf8");
+
+  assert.match(
+    component,
+    /aria-expanded=\{mobileOfferExpanded\}/,
+    "the mobile commercial band should use one deliberate disclosure action",
+  );
+  assert.match(component, /aria-controls="home-access-details"/);
+  assert.match(component, /id="home-access-details"/);
 
   assert.match(
     css,
     /@media \(max-width:\s*900px\)[\s\S]*?\.graph-first-waitlist\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)/,
     "the founding access band should collapse to one column before its desktop columns overflow",
+  );
+  assert.match(
+    css,
+    /@media \(max-width:\s*900px\)[\s\S]*?\.graph-first-waitlist-mobile-summary\s*\{[\s\S]*?display:\s*flex/,
+    "mobile should show a compact all-access disclosure before the map",
+  );
+  assert.match(
+    css,
+    /@media \(max-width:\s*900px\)[\s\S]*?\.graph-first-waitlist:not\(\.graph-first-waitlist-mobile-expanded\)\s*>\s*\.graph-first-waitlist-copy[\s\S]*?\.graph-first-waitlist:not\(\.graph-first-waitlist-mobile-expanded\)\s*>\s*\.graph-first-waitlist-form\s*\{[\s\S]*?display:\s*none/,
+    "the full offer copy and form should stay collapsed on the default mobile first screen",
   );
   assert.match(
     css,
