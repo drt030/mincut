@@ -16,8 +16,9 @@ const eslintConfig = [
     // output and vendored assets) — never lint another checkout's artifacts.
     ignores: [
       ".next/**",
-      ".next-codex-dev/**",
-      ".next-judge/**",
+      // NEXT_DIST_DIR is intentionally used for isolated QA/build runs. Keep
+      // every .next-* artifact out of release lint, not just today's names.
+      ".next-*/**",
       "node_modules/**",
       "data/gate_reports/*.json",
       "public/elk-worker.min.js",

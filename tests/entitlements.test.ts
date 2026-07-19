@@ -91,6 +91,34 @@ test("production founding checkout rejects test-mode or non-Stripe links", () =>
   );
 });
 
+test("non-Vercel NODE_ENV production enforces live checkout configuration", () => {
+  const productionEnv = {
+    ...checkoutEnv,
+    NODE_ENV: "production",
+  };
+
+  assert.equal(activeFoundingCheckoutLink(productionEnv), null);
+  assert.deepEqual(foundingCheckoutConfigIssues(productionEnv), [
+    "STRIPE_SECRET_KEY must be live mode in production",
+    "NEXT_PUBLIC_STRIPE_LINK_FOUNDING must be a live Stripe Payment Link in production",
+    "NEXT_PUBLIC_SITE_URL must be the HTTPS production origin",
+  ]);
+});
+
+test("explicit Vercel preview allows test-mode checkout under NODE_ENV production", () => {
+  const previewEnv = {
+    ...checkoutEnv,
+    NODE_ENV: "production",
+    VERCEL_ENV: "preview",
+  };
+
+  assert.deepEqual(foundingCheckoutConfigIssues(previewEnv), []);
+  assert.equal(
+    activeFoundingCheckoutLink(previewEnv),
+    checkoutEnv.NEXT_PUBLIC_STRIPE_LINK_FOUNDING,
+  );
+});
+
 test("production site URL must be a bare HTTPS origin", () => {
   const liveEnv = {
     ...checkoutEnv,

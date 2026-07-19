@@ -564,6 +564,14 @@ For an intentionally enabled paid production release, also run:
 npm run verify:paid-release
 ```
 
+When live credentials are not available but the build is being declared ready
+for paid delivery, run the real Stripe test-mode delivery path instead of
+substituting mocks:
+
+```bash
+npm run verify:paid-test-delivery
+```
+
 Acceptance checks:
 
 - The verification surface is clean. Generated artifacts such as `.next`, `.next-judge`, and `.scratch` outputs do not break lint or release checks.
@@ -574,6 +582,7 @@ Acceptance checks:
 - Paid routes do not expose locked organization names, tickers, or paid-only evidence through free HTML/API output.
 - Checkout links are production-ready only when intentionally enabled. Test Stripe links must not appear in a live paid launch.
 - The paid-release gate verifies the live active one-time USD $9 price, the matching Payment Link, the exact `/unlock?session_id={CHECKOUT_SESSION_ID}` return, support address, and entitlement secret. A normal safe-mode build is not evidence that paid release is ready.
+- Without live credentials, paid-delivery readiness is proven by a completed Stripe test-mode `$9` Checkout Session traversing the real `/unlock` route, issuing the secure `all` cookie, delivering all four paid exposure layers, preserving AI Compute as full-free, supporting Session replay, and rejecting an invalid Session without a cookie. Static config checks and mocked Session tests are not substitutes.
 - Offer membership is explicit: only routes with `allAccessRole` may show the global checkout, while `entitlement` remains the broader access/leak-prevention boundary.
 - Sitemap, metadata, robots, and core route health are valid for the intended deployment.
 - Production returns 404 for internal operator routes (`/gate`, `/tasks`, `/graph`, `/explore`, and `/product/*`), while local operator mode can still use them; those paths are also excluded from indexing.
@@ -584,6 +593,7 @@ Hard fails:
 - `npm run verify` or the equivalent full release command fails from the current workspace.
 - A paid layer leaks locked company/ticker identities.
 - Checkout is in test mode while the UI presents it as a real purchase.
+- Paid delivery is claimed ready from configuration or mocked Session tests without either the live transaction path or `verify:paid-test-delivery` succeeding.
 - A production write API is open without explicit operator mode.
 - Gate output or tasks are polluted by unrelated domains.
 

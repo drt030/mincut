@@ -9,11 +9,16 @@ import {
 
 export type UnlockCheckoutSession = {
   payment_status?: string | null;
+  status?: string | null;
+  mode?: string | null;
+  currency?: string | null;
+  amount_total?: number | null;
   line_items?: {
     data?: Array<{
       price?: {
         id?: string | null;
       } | null;
+      quantity?: number | null;
     } | null>;
   } | null;
 };
@@ -54,6 +59,8 @@ const DISABLED_LEGACY_PRICE_REDIRECTS: DisabledPriceRedirect[] = [
   { envKey: "STRIPE_PRICE_AI_COMPUTE", destination: "/d/ai-compute?free=1" },
 ];
 
+const FOUNDING_PRICE_CENTS = 900;
+
 function cookieValue(cookieHeader: string | null, name: string): string | undefined {
   if (!cookieHeader) return undefined;
   const prefix = `${name}=`;
@@ -66,7 +73,7 @@ function cookieValue(cookieHeader: string | null, name: string): string | undefi
 
 function priceUnlockFor(priceId: string, env: UnlockRouteEnv): PriceUnlock | undefined {
   return PRICE_UNLOCKS.find(({ envKey }) => {
-    const configuredPriceId = env[envKey];
+    const configuredPriceId = env[envKey]?.trim();
     return Boolean(configuredPriceId) && configuredPriceId === priceId;
   });
 }
@@ -96,7 +103,7 @@ export function createUnlockGET({ env, retrieveCheckoutSession }: UnlockRouteDep
       return NextResponse.redirect(new URL("/?purchase=config-missing", url.origin));
     }
 
-    const stripeSecretKey = env.STRIPE_SECRET_KEY;
+    const stripeSecretKey = env.STRIPE_SECRET_KEY?.trim();
     if (!stripeSecretKey) return NextResponse.redirect(new URL("/?purchase=config-missing", url.origin));
 
     let session: UnlockCheckoutSession;
@@ -112,7 +119,20 @@ export function createUnlockGET({ env, retrieveCheckoutSession }: UnlockRouteDep
       return NextResponse.redirect(new URL("/?purchase=incomplete", url.origin));
     }
 
-    const priceId = session.line_items?.data?.[0]?.price?.id ?? "";
+    const lineItems = session.line_items?.data ?? [];
+    const lineItem = lineItems[0];
+    if (
+      session.status !== "complete" ||
+      session.mode !== "payment" ||
+      session.currency !== "usd" ||
+      session.amount_total !== FOUNDING_PRICE_CENTS ||
+      lineItems.length !== 1 ||
+      lineItem?.quantity !== 1
+    ) {
+      return NextResponse.redirect(new URL("/?purchase=unknown", url.origin));
+    }
+
+    const priceId = lineItem.price?.id ?? "";
     const disabledLegacyDestination = disabledLegacyDestinationFor(priceId, env);
     if (disabledLegacyDestination) {
       return NextResponse.redirect(redirectUrl(disabledLegacyDestination, url.origin));

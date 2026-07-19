@@ -19,6 +19,7 @@
     "check:client-paid-leaks": "tsx scripts/check-client-paid-leaks.ts",
     "check:paid-launch": "tsx scripts/check-paid-launch.ts",
     "check:paid-test-config": "tsx scripts/check-paid-launch.ts --require-enabled --verify-stripe",
+    "verify:paid-test-delivery": "npm run check:paid-test-config && tsx scripts/verify-paid-test-delivery.ts --create-session --start-server",
     "check:paid-release": "tsx scripts/check-paid-launch.ts --require-enabled --require-live --verify-stripe",
     "verify:paid-release": "npm run check:commercial-readiness && npm run check:node-detail-ia -- --fail-on-warn && npm run check:paid-release && npm run build",
     "check:graph-ux": "node scripts/check-graph-ux.mjs && npm run check:graph-geometry && npm run check:graph-topology && npm run check:locked-identity-leaks",

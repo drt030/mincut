@@ -329,6 +329,12 @@ early-research and hypothesis add-ons must keep those labels after unlock.
 Payment never relaxes the evidence bar: each surfaced company lead still needs
 a concrete graph path, relationship type, visible review/source state, and an
 explicit limitation. An entitlement by itself must never create a checkout.
+Paid-delivery readiness also requires an actual completed Checkout Session to
+traverse `/unlock` and deliver the four exposure layers. When live credentials
+are unavailable, a real Stripe test-mode `$9` Session is sufficient only when
+the repository's delivery verifier also proves the secure cookie, all-access
+scope, AI Compute free state, replay recovery, and invalid-Session failure;
+configuration checks and mocked Stripe responses alone are insufficient.
 
 ---
 

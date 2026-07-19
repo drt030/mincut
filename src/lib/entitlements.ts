@@ -37,7 +37,10 @@ export function foundingCheckoutConfigIssues(env: EntitlementEnv = process.env):
     issues.push("NEXT_PUBLIC_STRIPE_LINK_FOUNDING must be a valid URL");
   }
 
-  if (env.VERCEL_ENV === "production") {
+  if (
+    env.VERCEL_ENV === "production" ||
+    (env.NODE_ENV === "production" && !env.VERCEL_ENV)
+  ) {
     if (!/^(?:sk|rk)_live_/.test(stripeKey)) issues.push("STRIPE_SECRET_KEY must be live mode in production");
     if (checkoutUrl && (checkoutUrl.hostname !== "buy.stripe.com" || checkoutUrl.pathname.startsWith("/test_"))) {
       issues.push("NEXT_PUBLIC_STRIPE_LINK_FOUNDING must be a live Stripe Payment Link in production");

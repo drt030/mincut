@@ -25,11 +25,28 @@ const disabledLegacyAiEnv = {
 
 process.env.ENTITLEMENT_SECRET = "unlock-route-test-secret";
 
-function paidSession(priceId: string, paymentStatus = "paid"): UnlockCheckoutSession {
+type PaidSessionFixture = UnlockCheckoutSession & {
+  status: string;
+  mode: string;
+  currency: string;
+  amount_total: number;
+  line_items: {
+    data: Array<{
+      price: { id: string };
+      quantity: number;
+    }>;
+  };
+};
+
+function paidSession(priceId: string, paymentStatus = "paid"): PaidSessionFixture {
   return {
     payment_status: paymentStatus,
+    status: "complete",
+    mode: "payment",
+    currency: "usd",
+    amount_total: 900,
     line_items: {
-      data: [{ price: { id: priceId } }],
+      data: [{ price: { id: priceId }, quantity: 1 }],
     },
   };
 }
@@ -147,6 +164,26 @@ test("paid founding sessions grant all-access and preserve existing entitlements
   assert.deepEqual((await readEntitlements(cookieValue(cookie))).sort(), ["all", "humanoid"]);
 });
 
+test("normalizes whitespace around the configured Stripe key and founding price", async () => {
+  const get = createUnlockGET({
+    env: {
+      ...paidUnlocksEnabledEnv,
+      STRIPE_SECRET_KEY: `  ${env.STRIPE_SECRET_KEY}  `,
+      STRIPE_PRICE_FOUNDING: `  ${env.STRIPE_PRICE_FOUNDING}  `,
+    },
+    retrieveCheckoutSession: async (sessionId, secretKey) => {
+      assert.equal(sessionId, "cs_test_whitespace");
+      assert.equal(secretKey, env.STRIPE_SECRET_KEY);
+      return paidSession(env.STRIPE_PRICE_FOUNDING);
+    },
+  });
+
+  const response = await get(unlockRequest("/unlock?session_id=cs_test_whitespace"));
+
+  assert.equal(redirectPath(response), "/?purchase=success&access=all&unlocked=1");
+  assert.deepEqual(await readEntitlements(cookieValue(setCookie(response))), ["all"]);
+});
+
 test("a verified paid session can be replayed to restore all-access without duplicating entitlements", async () => {
   let retrieveCalls = 0;
   const get = createUnlockGET({
@@ -184,6 +221,53 @@ test("incomplete payments redirect to an explicit non-grant state", async () => 
   assert.equal(response.status, 307);
   assert.equal(redirectPath(response), "/?purchase=incomplete");
   assert.equal(setCookie(response), null);
+});
+
+test("paid sessions with an invalid $9 Checkout contract fail closed", async (t) => {
+  const invalidSessions: Array<[string, () => UnlockCheckoutSession]> = [
+    ["session is not complete", () => ({ ...paidSession(env.STRIPE_PRICE_FOUNDING), status: "open" })],
+    ["session is not a one-time payment", () => ({ ...paidSession(env.STRIPE_PRICE_FOUNDING), mode: "subscription" })],
+    ["currency is not USD", () => ({ ...paidSession(env.STRIPE_PRICE_FOUNDING), currency: "eur" })],
+    ["amount is not exactly 900 cents", () => ({ ...paidSession(env.STRIPE_PRICE_FOUNDING), amount_total: 899 })],
+    [
+      "session contains more than one line item",
+      () => {
+        const session = paidSession(env.STRIPE_PRICE_FOUNDING);
+        return {
+          ...session,
+          line_items: {
+            data: [...session.line_items.data, { price: { id: env.STRIPE_PRICE_FOUNDING }, quantity: 1 }],
+          },
+        };
+      },
+    ],
+    [
+      "line item quantity is not one",
+      () => {
+        const session = paidSession(env.STRIPE_PRICE_FOUNDING);
+        return {
+          ...session,
+          line_items: {
+            data: [{ ...session.line_items.data[0], quantity: 2 }],
+          },
+        };
+      },
+    ],
+  ];
+
+  for (const [name, createSession] of invalidSessions) {
+    await t.test(name, async () => {
+      const get = createUnlockGET({
+        env: paidUnlocksEnabledEnv,
+        retrieveCheckoutSession: async () => createSession(),
+      });
+
+      const response = await get(unlockRequest());
+
+      assert.equal(redirectPath(response), "/?purchase=unknown");
+      assert.equal(setCookie(response), null);
+    });
+  }
 });
 
 test("temporary Stripe verification failures redirect to a retry-safe issue state", async () => {

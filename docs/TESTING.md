@@ -134,6 +134,50 @@ For broad handoff verification:
 npm run agent:context -- --stage verify
 ```
 
+### Paid test delivery E2E
+
+`check:paid-test-config` verifies the remote test Price, Payment Link, and
+success URL, but it does not prove that a completed Checkout Session grants
+access. Before a paid release, run the separate delivery E2E against a
+production build. It uses Stripe CLI `1.43.8` to create a real test-mode USD
+`$9` paid Checkout Session, then exercises the real Next `/unlock` route over
+HTTP. It never accepts a live key or a non-loopback target.
+
+Prerequisites:
+
+- a fresh `npm run build` output (the verifier rejects a build older than
+  `src`, `data`, `package.json`, or `next.config.ts`);
+- the configured test Payment Link redirect points to
+  `http://localhost:3100/unlock?session_id={CHECKOUT_SESSION_ID}`;
+- `STRIPE_SECRET_KEY` can retrieve Checkout Sessions;
+- `STRIPE_TEST_WRITE_KEY` can create test Checkout objects (it may equal the
+  test key in a disposable sandbox); and
+- the official Stripe CLI binary is exactly `1.43.8`.
+
+Set the following values in the command environment without committing them:
+
+```bash
+export ENABLE_PAID_UNLOCKS=1
+export ENTITLEMENT_SECRET="replace-with-a-random-test-secret-of-at-least-32-characters"
+export SUPPORT_EMAIL="replace-with-a-working-test-support-address"
+export NEXT_PUBLIC_SITE_URL="http://localhost:3100"
+export STRIPE_TEST_WRITE_KEY="replace-with-a-test-mode-write-key"
+export STRIPE_CLI_PATH="/absolute/path/to/stripe-1.43.8"
+npm run verify:paid-test-delivery
+```
+
+The verifier requires port 3100 to be free when it starts and stops its own
+local production server; it will not silently reuse another process. The
+server runs with `VERCEL_ENV=preview`. The verifier proves the Stripe Session
+is test-mode, complete, paid, one-time USD
+`$9`, quantity one, and uses `STRIPE_PRICE_FOUNDING`; verifies the secure
+entitlement cookie and success state; proves all four paid maps deliver a
+previously hidden organization while AI Compute remains fully free; replays
+the Session in a fresh browser state; and proves an invalid Session fails
+closed. It redacts Stripe keys, Session IDs, and entitlement cookies from its
+output. This complements, rather than replaces, a final hosted Payment Link
+smoke test when live deployment credentials are available.
+
 `npm run check:graph-ux` is a regression guard for known graph interaction failures. It checks that:
 
 - React Flow is not remounted or auto-fit on normal graph updates.
