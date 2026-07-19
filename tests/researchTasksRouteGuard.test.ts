@@ -12,3 +12,21 @@ test("research-tasks POST returns 403 when OPERATOR_WRITES is not set", async ()
   );
   assert.equal(res.status, 403);
 });
+
+test("research-tasks POST remains read-only on Vercel even when operator writes are enabled", async () => {
+  process.env.OPERATOR_WRITES = "1";
+  process.env.VERCEL = "1";
+
+  try {
+    const res = await POST(
+      new Request("http://localhost/api/research-tasks", {
+        method: "POST",
+        body: JSON.stringify({ targetNodeId: "anything" }),
+      }),
+    );
+    assert.equal(res.status, 403);
+  } finally {
+    delete process.env.OPERATOR_WRITES;
+    delete process.env.VERCEL;
+  }
+});

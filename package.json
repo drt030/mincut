@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "npm run check:client-paid-leaks && npm run check:paid-launch",
     "start": "next start",
     "lint": "eslint .",
     "check:graph-topology": "tsx scripts/check-graph-topology.ts",
@@ -15,9 +16,14 @@
     "check:commercial-readiness": "tsx scripts/check-commercial-readiness.ts",
     "check:node-detail-ia": "tsx scripts/check-node-detail-ia.ts",
     "check:locked-identity-leaks": "tsx scripts/check-locked-identity-leaks.ts",
+    "check:client-paid-leaks": "tsx scripts/check-client-paid-leaks.ts",
+    "check:paid-launch": "tsx scripts/check-paid-launch.ts",
+    "check:paid-test-config": "tsx scripts/check-paid-launch.ts --require-enabled --verify-stripe",
+    "check:paid-release": "tsx scripts/check-paid-launch.ts --require-enabled --require-live --verify-stripe",
+    "verify:paid-release": "npm run check:commercial-readiness && npm run check:node-detail-ia -- --fail-on-warn && npm run check:paid-release && npm run build",
     "check:graph-ux": "node scripts/check-graph-ux.mjs && npm run check:graph-geometry && npm run check:graph-topology && npm run check:locked-identity-leaks",
     "test": "tsx --test tests/**/*.test.ts",
-    "verify": "npm run lint && npm run check:graph-ux && npm test",
+    "verify": "npm run lint && npm run check:active-graph-scope && npm run check:graph-ux && npm test",
     "verify:ui": "npm run check:graph-ux && npm run lint && npm run build",
     "validate:data": "tsx scripts/validate-data.ts",
     "check:active-graph-scope": "tsx scripts/check-active-graph-scope.ts",
@@ -35,11 +41,12 @@
     "agent:finish": "node scripts/agent-harness.mjs finish"
   },
   "dependencies": {
+    "@next/env": "^15.5.20",
     "@vercel/analytics": "^2.0.1",
     "@xyflow/react": "^12.8.4",
     "elkjs": "^0.11.1",
     "jose": "^6.2.3",
-    "next": "^15.3.1",
+    "next": "^15.5.20",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "stripe": "^22.2.0",
@@ -50,8 +57,11 @@
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "eslint": "^9.25.1",
-    "eslint-config-next": "^15.3.1",
+    "eslint-config-next": "^15.5.20",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "postcss": "8.5.10"
   }
 }

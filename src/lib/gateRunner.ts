@@ -80,10 +80,22 @@ export function runGate(graph: GraphData, questions: GateQuestion[], targetNodeI
   const target = nodeById(graph, targetNodeId);
   if (!target) throw new Error(`Target node not found: ${targetNodeId}`);
 
-  const scopedNodeIds = reachableNodeIdsFrom(graph, targetNodeId);
+  // Organizations are leaf exposure records for product validation. Shared
+  // companies often have outgoing relationships in other domain files; the
+  // gate must not walk through one company and enter an unrelated product.
+  const scopedNodeIds = reachableNodeIdsFrom(graph, targetNodeId, {
+    stopAtOrganizations: true,
+  });
   const scopedNodes = graph.nodes.filter((node) => scopedNodeIds.has(node.id));
   const scopedEdges = graph.edges.filter((edge) => scopedNodeIds.has(edge.source) && scopedNodeIds.has(edge.target));
-  const scopedEvidence = evidenceForScope(graph, scopedNodes, scopedEdges);
+  // Shared organization nodes (for example NVIDIA or Schneider) may carry
+  // evidence from many unrelated product domains. The product gate counts
+  // organization evidence only when it supports a scoped relationship edge;
+  // general organization records must not pull AI/humanoid/space claims into
+  // a parcel-robot decision.
+  const scopedEvidence = evidenceForScope(graph, scopedNodes, scopedEdges, {
+    includeOrganizationEvidence: false,
+  });
 
   // Per ADR-0001, `deprecated` records are fully excluded from gate
   // scoring. We strip them once here so every downstream bucket

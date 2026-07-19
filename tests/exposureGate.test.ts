@@ -230,7 +230,7 @@ test("locked org names are redacted from free prose (description, notes, edge cl
   const node = graph.nodes.find((n) => n.id === "t_glass")!;
   assert.ok(!/Acme/i.test(node.description ?? ""), "description must not name a locked supplier");
   assert.ok(!/Acme/i.test((node as { notes?: string }).notes ?? ""), "notes must not name a locked supplier");
-  assert.match(node.description ?? "", /locked supplier/);
+  assert.match(node.description ?? "", /restricted supplier/);
   const edge = graph.edges.find((e) => e.id === "e_req")!;
   assert.ok(!/Acme/i.test(edge.claim ?? ""), "edge claim must not name a locked supplier");
 });
@@ -243,7 +243,7 @@ test("locked org names are redacted from metric names without deleting free metr
   const node = graph.nodes.find((n) => n.id === "t_glass")!;
   const metrics = node.metrics ?? [];
   const redactedMetric = metrics.find((metric) => metric.currentValue === 43);
-  assert.equal(redactedMetric?.name, "locked supplier market share");
+  assert.equal(redactedMetric?.name, "restricted supplier market share");
   assert.equal(redactedMetric?.currentValue, 43);
   assert.ok(metrics.some((metric) => metric.name === "TSMC qualification status"), "free teaser org name survives");
   assert.ok(metrics.some((metric) => metric.name === "Specialty glass availability"), "clean metric name survives");
@@ -266,7 +266,7 @@ test("component evidence naming a locked org is redacted but stays with visible 
     const evidence = graph.evidence.find((ev) => ev.id === evidenceId) as Record<string, unknown> | undefined;
     assert.ok(evidence, `${evidenceId} stays available as component evidence`);
     assert.doesNotMatch(JSON.stringify(evidence), /Acme Specialty/i, `${evidenceId} must not leak a locked supplier`);
-    assert.match(JSON.stringify(evidence), /locked supplier/i, `${evidenceId} should show redacted source context`);
+    assert.match(JSON.stringify(evidence), /restricted supplier/i, `${evidenceId} should show redacted source context`);
   }
   assert.ok(graph.evidence.some((ev) => ev.id === "ev_clean"), "clean component evidence stays free");
 });
@@ -464,8 +464,32 @@ test("gated routes do not leak the known cross-domain supplier names (Gate-F FF-
 
 test("gated route stripped JSON does not leak locked supplier names, tickers, or named exposure prose (real data)", () => {
   const cases: Array<{ slug: string; deniedTerms: string[] }> = [
-    { slug: "humanoid-robotics", deniedTerms: ["Holroyd", "ADI"] },
-    { slug: "spacex-reusable-launch", deniedTerms: ["Air Products", "Aerojet Rocketdyne"] },
+    { slug: "humanoid-robotics", deniedTerms: ["locked supplier", "Holroyd", "ADI"] },
+    { slug: "controlled-fusion", deniedTerms: ["locked supplier"] },
+    {
+      slug: "spacex-reusable-launch",
+      deniedTerms: [
+        "locked supplier",
+        "Air Products",
+        "Aerojet Rocketdyne",
+        "Honeywell",
+        "Northrop Grumman",
+        "Safran",
+        "L3Harris",
+        "Quasonix",
+      ],
+    },
+    {
+      slug: "spacex-orbital-data-center",
+      deniedTerms: [
+        "locked supplier",
+        "Honeywell",
+        "Northrop Grumman",
+        "Safran",
+        "Moog",
+        "Quasonix",
+      ],
+    },
   ];
 
   for (const { slug, deniedTerms } of cases) {
@@ -488,6 +512,8 @@ test("gated humanoid redaction keeps generic artifact roots intact (real data)",
 
   assert.equal(json.includes("BMS locked supplier front-end"), false);
   assert.equal(json.includes("ultra-locked supplier CNC grinding equipment"), false);
+  assert.equal(json.includes("BMS restricted supplier front-end"), false);
+  assert.equal(json.includes("ultra-restricted supplier CNC grinding equipment"), false);
   assert.ok(
     graph.nodes.some((node) => node.name === "BMS analog front-end / fuel-gauge IC"),
     "BMS analog front-end / fuel-gauge IC should remain a readable artifact name",

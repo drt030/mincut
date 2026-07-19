@@ -66,15 +66,27 @@ function withoutCheckoutLinks() {
   delete process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING;
 }
 
+async function renderBanner(
+  domain: Record<string, unknown>,
+  locked: Array<{ domainTag: string; entitlement: string; hiddenOrgCount: number }>,
+  foundingCheckoutLink: string | null = null,
+) {
+  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
+  const { ExposureLockProvider } = await import("../src/components/ExposureLockCta");
+  return renderToStaticMarkup(
+    React.createElement(
+      ExposureLockProvider,
+      { locked, foundingCheckoutLink },
+      React.createElement(ExposureAccessBanner, { domain, locked }),
+    ),
+  );
+}
+
 test("AI compute does not render a free access banner", async () => {
   withoutCheckoutLinks();
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: aiComputeDomain,
-      locked: [{ domainTag: "ai_compute_chain", entitlement: "ai_compute", hiddenOrgCount: 77 }],
-    }),
-  );
+  const html = await renderBanner(aiComputeDomain, [
+    { domainTag: "ai_compute_chain", entitlement: "ai_compute", hiddenOrgCount: 77 },
+  ]);
 
   assert.equal(html, "");
   assert.doesNotMatch(html, /77 suppliers hidden/);
@@ -83,13 +95,9 @@ test("AI compute does not render a free access banner", async () => {
 
 test("locked future-domain banner explains free vs paid layers and hidden supplier count", async () => {
   withoutCheckoutLinks();
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: futureGatedDomain,
-      locked: [{ domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 }],
-    }),
-  );
+  const html = await renderBanner(futureGatedDomain, [
+    { domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 },
+  ]);
 
   assert.match(html, /data-testid="exposure-access-banner"/);
   assert.match(html, /Supplier exposure policy: 77 records gated/);
@@ -97,60 +105,46 @@ test("locked future-domain banner explains free vs paid layers and hidden suppli
   assert.match(html, /Gated exposure/);
   assert.match(html, /decomposition graph/);
   assert.match(html, /hidden supplier identities/);
-  assert.match(html, /Checkout is not live\./);
-  assert.match(html, /stay in private beta/);
+  assert.match(html, /Supplier\/ticker exposure is the paid layer/);
   assert.match(html, /href="\/#private-beta"/);
-  assert.match(html, /Request private beta access/);
+  assert.match(html, /Join email list/);
+  assert.doesNotMatch(html, /href="https:\/\/buy/);
 });
 
-test("locked banner hides paid links unless paid checkout is explicitly enabled", async () => {
-  process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID = "https://buy.example/humanoid";
-  process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.example/founding";
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: futureGatedDomain,
-      locked: [{ domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 }],
-    }),
+test("locked banner shows founding checkout when the server enables paid access", async () => {
+  const html = await renderBanner(
+    futureGatedDomain,
+    [{ domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 }],
+    "https://buy.example/founding",
   );
 
-  assert.doesNotMatch(html, /href="https:\/\/buy\.example\/humanoid"/);
-  assert.doesNotMatch(html, /href="https:\/\/buy\.example\/founding"/);
-  assert.match(html, /href="\/#private-beta"/);
-  assert.match(html, /Checkout is not live/);
-  assert.doesNotMatch(html, /href="\/#weekly-map"/);
+  assert.match(html, /href="https:\/\/buy\.example\/founding"/);
+  assert.match(html, /Unlock all current maps — \$9/);
+  assert.match(html, /\$9 one-time unlocks the current company\/ticker layer/);
+  assert.match(html, /href="\/policies"/);
+  assert.match(html, /Refund, privacy, and access recovery/);
+  assert.doesNotMatch(html, /href="\/#private-beta"/);
+  assert.doesNotMatch(html, /Join email list/);
 });
 
-test("locked banner stays waitlist-only even when checkout env vars are present", async () => {
+test("locked banner ignores checkout env vars unless the server passes an active link", async () => {
   process.env.NEXT_PUBLIC_ENABLE_PAID_CHECKOUT = "1";
   process.env.NEXT_PUBLIC_STRIPE_LINK_HUMANOID = "https://buy.example/humanoid";
   process.env.NEXT_PUBLIC_STRIPE_LINK_FOUNDING = "https://buy.example/founding";
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: futureGatedDomain,
-      locked: [{ domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 }],
-    }),
-  );
+  const html = await renderBanner(futureGatedDomain, [
+    { domainTag: "humanoid_actuator", entitlement: "humanoid", hiddenOrgCount: 77 },
+  ]);
 
   assert.doesNotMatch(html, /href="https:\/\/buy\.example\/humanoid"/);
   assert.doesNotMatch(html, /href="https:\/\/buy\.example\/founding"/);
-  assert.match(html, /Checkout is not live/);
+  assert.match(html, /Supplier\/ticker exposure is the paid layer/);
   assert.match(html, /href="\/#private-beta"/);
-  assert.doesNotMatch(html, /Unlock all paid maps/);
-  assert.doesNotMatch(html, /\$9/);
   withoutCheckoutLinks();
 });
 
 test("parcel robot does not render a free access banner", async () => {
   withoutCheckoutLinks();
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: parcelDomain,
-      locked: [],
-    }),
-  );
+  const html = await renderBanner(parcelDomain, []);
 
   assert.equal(html, "");
   assert.doesNotMatch(html, /Full-free flagship demo/);
@@ -159,13 +153,7 @@ test("parcel robot does not render a free access banner", async () => {
 
 test("preview portfolio banner does not present a future domain as full-free or unlocked", async () => {
   withoutCheckoutLinks();
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: previewDomain,
-      locked: [],
-    }),
-  );
+  const html = await renderBanner(previewDomain, []);
 
   assert.match(html, /Preview only/);
   assert.match(html, /graph route is not live yet/i);
@@ -175,15 +163,11 @@ test("preview portfolio banner does not present a future domain as full-free or 
   assert.doesNotMatch(html, /Exposure layer unlocked/);
 });
 
-test("audit-preview renders a first-screen access boundary without checkout", async () => {
+test("audit-preview renders a first-screen paid exposure boundary", async () => {
   withoutCheckoutLinks();
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: auditPreviewDomain,
-      locked: [{ domainTag: "spacex_reusable_launch", entitlement: "space", hiddenOrgCount: 3 }],
-    }),
-  );
+  const html = await renderBanner(auditPreviewDomain, [
+    { domainTag: "spacex_reusable_launch", entitlement: "space", hiddenOrgCount: 3 },
+  ]);
 
   assert.match(html, /data-testid="exposure-access-banner"/);
   assert.match(html, /Supplier exposure policy: 3 records gated/);
@@ -191,22 +175,16 @@ test("audit-preview renders a first-screen access boundary without checkout", as
   assert.match(html, /Gated exposure/);
   assert.match(html, /supplier identities/);
   assert.match(html, /ticker/i);
-  assert.match(html, /Checkout is not live/);
+  assert.match(html, /Supplier\/ticker exposure is the paid layer/);
+  assert.doesNotMatch(html, /Future paid domain/);
   assert.match(html, /href="\/#private-beta"/);
-  assert.match(html, /Request private beta access/);
+  assert.match(html, /Join email list/);
   assert.doesNotMatch(html, /href="https?:\/\/buy/);
-  assert.doesNotMatch(html, /\$9/);
 });
 
 test("waitlist portfolio banner does not imply paid or live graph access exists", async () => {
   withoutCheckoutLinks();
-  const { ExposureAccessBanner } = await import("../src/components/ExposureAccessBanner");
-  const html = renderToStaticMarkup(
-    React.createElement(ExposureAccessBanner, {
-      domain: waitlistDomain,
-      locked: [],
-    }),
-  );
+  const html = await renderBanner(waitlistDomain, []);
 
   assert.match(html, /Waitlist domain/);
   assert.match(html, /not a live graph route yet/i);

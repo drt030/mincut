@@ -10,6 +10,19 @@ framed, and `data/nodes/humanoid_robotics.json` already holds the whole-robot sk
 13 orgs / 34 modules). This brief describes that structure and the method to bring it to
 **flagship parity** ([acceptance standard](domain-expansion-acceptance-standard.md)).
 
+Benchmark decision 2026-07-03: use **Figure 03** as the single primary reference platform for
+whole-robot decomposition QA. Unitree H1/R1 remain useful for price, mobility, and developer-platform
+calibration, and Tesla Optimus remains useful for vertical-integration/software-framing sanity checks,
+but Figure 03 is the benchmark that best exercises the full graph: actuators, hands, sensory stack,
+battery/power, charging, data offload, structure, electronics, manufacturing traceability, fleet
+operation, and service. BMW's 2026-06-25 Spartanburg release is the independent customer/workcell
+anchor for Figure 03 logistics sequencing and the predecessor Figure 02 production-environment
+lineage; TIME's 2025-10-09 reporting is the readiness caveat that keeps home/autonomy claims bounded.
+Treat Figure official claims and these machine-checked additions as `unreviewed` until owner review.
+The benchmark is **not decision-grade** until non-vendor evidence separately verifies production ramp,
+uptime/reliability, autonomy rate, safety/certification basis, fleet-learning/data-offload behavior,
+and supplier/BOM exposure. Do not infer suppliers or listed-company exposure from Figure 03 architecture.
+
 ## 0. Hard rules (violating any voids the round)
 
 1. **Never read `.eval/**`** or any `docs/agents/handoff-*` file.

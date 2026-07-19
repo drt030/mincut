@@ -1,9 +1,9 @@
 /**
  * Domain route registry (master-plan Decision 4/7): one site, one route per
  * domain at /d/<slug>, each loading only its root's reachable subgraph.
- * The global V0 closed-loop target stays the parcel robot; flagship switching
- * happens per-route via this registry, never by flipping V0_TARGET_NODE_ID
- * (that flip broke 12 parcel-scoped tests on 2026-06-11 and was reverted).
+ * The global V0 closed-loop target stays the parcel robot for internal
+ * validation, but public portfolio switching happens per-route via this
+ * registry. Do not flip V0_TARGET_NODE_ID to change the commercial homepage.
  */
 export const DOMAIN_PORTFOLIO_STATES = [
   "full-free-flagship",
@@ -15,6 +15,14 @@ export const DOMAIN_PORTFOLIO_STATES = [
 ] as const;
 
 export type DomainPortfolioState = (typeof DOMAIN_PORTFOLIO_STATES)[number];
+
+export const ALL_ACCESS_ROLES = [
+  "core",
+  "early-research-addon",
+  "hypothesis-addon",
+] as const;
+
+export type AllAccessRole = (typeof ALL_ACCESS_ROLES)[number];
 
 type DomainPortfolioBase = {
   slug: string;
@@ -29,6 +37,12 @@ type DomainPortfolioBase = {
   liveGraphRoute: boolean;
   domainTag?: string;
   entitlement?: string;
+  /**
+   * Explicit inclusion in the current $9 snapshot. This is separate from
+   * portfolioState: the role describes the offer, while portfolioState keeps
+   * communicating the research/evidence maturity of the map.
+   */
+  allAccessRole?: AllAccessRole;
 };
 
 export type DomainRoute = DomainPortfolioBase & {
@@ -64,31 +78,18 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     liveGraphRoute: true,
   },
   {
-    slug: "parcel-robot",
-    rootId: "low_cost_parcel_sorting_robot_300k_rmb",
-    domainTag: "parcel_sorting_robot",
-    portfolioState: "full-free-depth-demo",
-    statusLabel: "Depth reference",
-    title: "Parcel-sorting robot",
-    description:
-      "300k-RMB robot-arm parcel-sorting cell decomposed from product architecture to commodity leaves.",
-    detail: "Depth reference map for the v0 parcel-sorting robot graph and validation workflow.",
-    href: "/d/parcel-robot",
-    cta: "Open parcel map",
-    liveGraphRoute: true,
-  },
-  {
     slug: "humanoid-robotics",
     rootId: "humanoid_robot_key_component_stack",
     domainTag: "humanoid_robotics",
     entitlement: "humanoid",
+    allAccessRole: "core",
     portfolioState: "audit-preview",
-    statusLabel: "Future paid domain",
+    statusLabel: "Paid exposure preview",
     title: "Humanoid robotics component stack",
     description:
       "Humanoid robot component chain across actuators, hands, battery, thermal, sensing, compute, control software, manufacturing, and service.",
     detail:
-      "Map, bottleneck thesis, and evidence trail are visible. Supplier/ticker exposure opens only when this paid domain launches.",
+      "Map, bottleneck thesis, and evidence trail are visible. $9 all-access unlocks the current company/ticker mapping layer.",
     href: "/d/humanoid-robotics",
     cta: "Review candidate map",
     liveGraphRoute: true,
@@ -98,13 +99,14 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "controlled_fusion_route_portfolio",
     domainTag: "controlled_fusion",
     entitlement: "power",
+    allAccessRole: "early-research-addon",
     portfolioState: "audit-preview",
-    statusLabel: "Future paid domain",
+    statusLabel: "Paid exposure preview",
     title: "Controlled fusion route portfolio",
     description:
       "Fusion route portfolio comparing tokamak, stellarator, laser inertial, MTF/FRC/Z-pinch, and shared tritium, blanket, materials, and maintenance constraints.",
     detail:
-      "Route logic and evidence are visible. Organization exposure opens only when this paid domain launches.",
+      "Early-research add-on with three currently modeled public-market candidates; $9 all-access opens the current organization layer.",
     href: "/d/controlled-fusion",
     cta: "Review route portfolio",
     liveGraphRoute: true,
@@ -114,13 +116,14 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "spacex_reusable_launch_stack",
     domainTag: "spacex_reusable_launch",
     entitlement: "space",
+    allAccessRole: "core",
     portfolioState: "audit-preview",
-    statusLabel: "Future paid domain",
+    statusLabel: "Paid exposure preview",
     title: "SpaceX reusable launch stack",
     description:
       "SpaceX-centered reusable launch map separating Falcon 9 operational reuse from Starship/Super Heavy rapid-reuse development constraints.",
     detail:
-      "Reuse mechanics, launch cadence, refurbishment constraints, and customer exposure hypotheses are visible. Public-market exposure opens only when this paid domain launches.",
+      "Reuse mechanics, launch cadence, refurbishment constraints, and relationship hypotheses are visible. $9 all-access opens the current public-market mapping layer.",
     href: "/d/spacex-reusable-launch",
     cta: "Open SpaceX reuse map",
     liveGraphRoute: true,
@@ -130,13 +133,14 @@ export const DOMAIN_PORTFOLIO_ENTRIES: readonly DomainPortfolioEntry[] = [
     rootId: "spacex_orbital_data_center_system",
     domainTag: "spacex_orbital_data_center",
     entitlement: "space",
+    allAccessRole: "hypothesis-addon",
     portfolioState: "audit-preview",
-    statusLabel: "Future paid domain",
+    statusLabel: "Paid exposure preview",
     title: "SpaceX orbital data center system",
     description:
       "SpaceX-centered future-product map for orbital AI compute, grounded in FCC application evidence but not presented as a mature commercial service.",
     detail:
-      "Future-product map highlighting power, thermal, radiation, optical-link, launch, and regulatory bottlenecks. Organization exposure opens only when this paid domain launches.",
+      "Hypothesis add-on highlighting power, thermal, radiation, optical-link, launch, and regulatory bottlenecks; companies are capability candidates, not confirmed suppliers.",
     href: "/d/spacex-orbital-data-center",
     cta: "Open orbital compute map",
     liveGraphRoute: true,

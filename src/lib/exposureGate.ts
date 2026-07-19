@@ -26,9 +26,30 @@ export const GATED_DOMAINS: GatedDomain[] = [
  */
 export const FREE_CHAIN_TAGS = ["ai_compute_chain", "parcel_sorting_robot"];
 
-const LOCKED_SUPPLIER_REDACTION = "locked supplier";
+const LOCKED_SUPPLIER_REDACTION = "restricted supplier";
+const LEGACY_LOCKED_SUPPLIER_REDACTION = "locked supplier";
 const ADDITIONAL_LOCKED_EXPOSURE_TERMS_BY_DOMAIN: Record<string, string[]> = {
-  spacex_reusable_launch: ["Aerojet Rocketdyne"],
+  spacex_reusable_launch: [
+    "Aerojet Rocketdyne",
+    "Honeywell",
+    "Northrop Grumman",
+    "Northrop-LITEF",
+    "Safran Data Systems",
+    "Safran",
+    "Moog",
+    "Woodward",
+    "L3Harris",
+    "Quasonix",
+  ],
+  spacex_orbital_data_center: [
+    "Honeywell",
+    "Northrop Grumman",
+    "Northrop-LITEF",
+    "Safran Data Systems",
+    "Safran",
+    "Moog",
+    "Quasonix",
+  ],
 };
 const LOCKED_ORGANIZATION_ALIAS_TERMS: Record<string, string[]> = {
   "air products and chemicals": ["Air Products"],
@@ -178,7 +199,7 @@ function lockedOrganizationNames(
     .flatMap(hiddenOrganizationIdentityTerms)
     .filter((name) => name.length > 0 && !visibleOrgNames.has(name.toLocaleLowerCase()));
 
-  return uniqueTerms([...names, ...additionalTerms]);
+  return uniqueTerms([...names, ...additionalTerms, LEGACY_LOCKED_SUPPLIER_REDACTION]);
 }
 
 function visibleOrganizationIdentityTerms(node: GraphNode): string[] {

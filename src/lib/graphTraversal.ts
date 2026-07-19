@@ -156,15 +156,27 @@ export function metricsForNode(graph: GraphData, nodeId: string): Node[] {
 
 export function evidenceForNode(graph: GraphData, nodeId: string): Evidence[] {
   const node = nodeById(graph, nodeId);
-  const direct = (node?.evidenceIds ?? []).map((id) => evidenceById(graph, id)).filter((item): item is Evidence => Boolean(item));
-  const supporting = graph.evidence.filter((item) => item.supportsNodeIds?.includes(nodeId));
+  const rejected = new Set(node?.rejectedEvidenceIds ?? []);
+  const direct = (node?.evidenceIds ?? [])
+    .filter((id) => !rejected.has(id))
+    .map((id) => evidenceById(graph, id))
+    .filter((item): item is Evidence => Boolean(item));
+  const supporting = graph.evidence.filter(
+    (item) => !rejected.has(item.id) && item.supportsNodeIds?.includes(nodeId),
+  );
   return uniqueEvidence([...direct, ...supporting]);
 }
 
 export function evidenceForEdge(graph: GraphData, edgeId: string): Evidence[] {
   const edge = graph.edges.find((item) => item.id === edgeId);
-  const direct = (edge?.evidenceIds ?? []).map((id) => evidenceById(graph, id)).filter((item): item is Evidence => Boolean(item));
-  const supporting = graph.evidence.filter((item) => item.supportsEdgeIds?.includes(edgeId));
+  const rejected = new Set(edge?.rejectedEvidenceIds ?? []);
+  const direct = (edge?.evidenceIds ?? [])
+    .filter((id) => !rejected.has(id))
+    .map((id) => evidenceById(graph, id))
+    .filter((item): item is Evidence => Boolean(item));
+  const supporting = graph.evidence.filter(
+    (item) => !rejected.has(item.id) && item.supportsEdgeIds?.includes(edgeId),
+  );
   return uniqueEvidence([...direct, ...supporting]);
 }
 
@@ -221,13 +233,18 @@ export function upstream(graph: GraphData, nodeId: string): Node[] {
   return uniqueNodes(sources(graph, nodeId));
 }
 
-export function reachableNodeIdsFrom(graph: GraphData, targetNodeId: string): Set<string> {
+export function reachableNodeIdsFrom(
+  graph: GraphData,
+  targetNodeId: string,
+  options: { stopAtOrganizations?: boolean } = {},
+): Set<string> {
   const ids = new Set<string>([targetNodeId]);
   const queue = [targetNodeId];
 
   while (queue.length) {
     const source = queue.shift();
     if (!source) continue;
+    if (options.stopAtOrganizations && nodeById(graph, source)?.kind === "organization") continue;
     for (const edge of graph.edges.filter((item) => item.source === source)) {
       if (ids.has(edge.target)) continue;
       ids.add(edge.target);
@@ -238,12 +255,22 @@ export function reachableNodeIdsFrom(graph: GraphData, targetNodeId: string): Se
   return ids;
 }
 
-export function evidenceForScope(graph: GraphData, nodes: Node[], edges: Edge[]): Evidence[] {
-  const nodeIds = new Set(nodes.map((node) => node.id));
+export function evidenceForScope(
+  graph: GraphData,
+  nodes: Node[],
+  edges: Edge[],
+  options: { includeOrganizationEvidence?: boolean } = {},
+): Evidence[] {
+  const evidenceNodes = options.includeOrganizationEvidence === false
+    ? nodes.filter((node) => node.kind !== "organization")
+    : nodes;
+  const nodeIds = new Set(evidenceNodes.map((node) => node.id));
   const edgeIds = new Set(edges.map((edge) => edge.id));
+  const scopedNodesById = new Map(evidenceNodes.map((node) => [node.id, node]));
+  const scopedEdgesById = new Map(edges.map((edge) => [edge.id, edge]));
   const evidenceIds = new Set<string>();
 
-  for (const node of nodes) {
+  for (const node of evidenceNodes) {
     for (const id of node.evidenceIds ?? []) evidenceIds.add(id);
   }
   for (const edge of edges) {
@@ -251,8 +278,12 @@ export function evidenceForScope(graph: GraphData, nodes: Node[], edges: Edge[])
   }
 
   return graph.evidence.flatMap((item) => {
-    const supportsNodeIds = item.supportsNodeIds?.filter((id) => nodeIds.has(id));
-    const supportsEdgeIds = item.supportsEdgeIds?.filter((id) => edgeIds.has(id));
+    const supportsNodeIds = item.supportsNodeIds?.filter(
+      (id) => nodeIds.has(id) && !scopedNodesById.get(id)?.rejectedEvidenceIds?.includes(item.id),
+    );
+    const supportsEdgeIds = item.supportsEdgeIds?.filter(
+      (id) => edgeIds.has(id) && !scopedEdgesById.get(id)?.rejectedEvidenceIds?.includes(item.id),
+    );
     const hasScopedSupport = Boolean(supportsNodeIds?.length || supportsEdgeIds?.length);
     const isDirectlyReferenced = evidenceIds.has(item.id);
 

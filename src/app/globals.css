@@ -450,10 +450,24 @@ nav a {
 }
 
 .exposure-access-actions {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 12px;
+}
+
+.purchase-policy-link,
+.graph-first-policy-link a {
+  color: #0f766e;
+  font-size: 12px;
+  font-weight: 750;
+  text-underline-offset: 3px;
+}
+
+.domain-thesis-actions .purchase-policy-link {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .exposure-checkout-missing {
@@ -1081,6 +1095,127 @@ li {
   white-space: nowrap;
 }
 
+.graph-first-waitlist {
+  align-items: center;
+  background: #14213d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #f8fafc;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+  padding: 13px 14px;
+}
+
+.graph-first-waitlist h2 {
+  color: #ffffff;
+  font-size: 19px;
+  line-height: 1.15;
+  margin: 0 0 5px;
+}
+
+.graph-first-waitlist p {
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.graph-first-waitlist > :only-child {
+  grid-column: 1 / -1;
+}
+
+.graph-first-offer-list {
+  display: grid;
+  gap: 5px 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 9px 0 0;
+  padding: 0;
+}
+
+.graph-first-offer-list li {
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.35;
+  min-width: 0;
+  overflow-wrap: normal;
+  padding-left: 14px;
+  position: relative;
+}
+
+.graph-first-offer-role {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.graph-first-offer-list li::before {
+  color: #5eead4;
+  content: "\2713";
+  font-weight: 900;
+  left: 0;
+  position: absolute;
+}
+
+.graph-first-waitlist .graph-first-offer-meta {
+  color: #94a3b8;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.graph-first-waitlist .graph-first-purchase-success {
+  background: rgba(45, 212, 191, 0.12);
+  border: 1px solid rgba(94, 234, 212, 0.32);
+  border-radius: 6px;
+  color: #a7f3d0;
+  font-weight: 800;
+  margin-top: 9px;
+  padding: 8px 10px;
+}
+
+.graph-first-waitlist .link-button {
+  align-items: center;
+  background: #2dd4bf;
+  border-radius: 6px;
+  color: #0f172a;
+  display: inline-flex;
+  font-weight: 850;
+  justify-content: center;
+  margin-top: 10px;
+  min-height: 42px;
+  padding: 0 14px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.graph-first-waitlist .link-button:hover {
+  background: #5eead4;
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.graph-first-waitlist .graph-first-eyebrow {
+  color: #5eead4 !important;
+}
+
+.graph-first-waitlist-form {
+  background: transparent;
+}
+
+.graph-first-waitlist-form label {
+  color: #dbeafe;
+}
+
+.graph-first-waitlist-form input[type="email"] {
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.graph-first-waitlist-form button {
+  background: #2dd4bf;
+  color: #0f172a;
+}
+
 .home-map-dock {
   background: rgba(255, 253, 248, 0.96);
   border: 1px solid rgba(15, 23, 42, 0.14);
@@ -1088,13 +1223,22 @@ li {
   min-width: 0;
   padding: 8px;
   position: relative;
+  transition: box-shadow 160ms ease, width 180ms ease;
+  width: 64px;
+  z-index: 20;
+}
+
+.home-map-dock:hover,
+.home-map-dock:focus-within {
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.16);
+  width: 286px;
 }
 
 .home-map-dock-stack {
-  align-items: center;
+  align-items: flex-start;
   display: grid;
   gap: 8px;
-  justify-items: center;
+  justify-items: flex-start;
 }
 
 .home-map-trigger {
@@ -1128,42 +1272,59 @@ li {
   font-size: 12px;
   font-weight: 900;
   height: 38px;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0;
   position: relative;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease, width 180ms ease;
   width: 38px;
 }
 
-.home-map-shortcut-tooltip {
-  background: #14213d;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 6px;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 850;
-  left: 46px;
-  line-height: 1;
-  opacity: 0;
-  padding: 7px 9px;
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  transform: translate(-4px, -50%);
-  transition: opacity 120ms ease, transform 120ms ease;
-  white-space: nowrap;
-  z-index: 25;
+.home-map-shortcut-code {
+  align-items: center;
+  display: flex;
+  flex: 0 0 36px;
+  height: 100%;
+  justify-content: center;
 }
 
-.home-map-shortcut:hover .home-map-shortcut-tooltip,
-.home-map-shortcut:focus-visible .home-map-shortcut-tooltip {
+.home-map-shortcut-name {
+  display: block;
+  margin-left: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateX(-4px);
+  transition: margin-left 180ms ease, max-width 180ms ease, opacity 120ms ease, transform 180ms ease;
+  white-space: nowrap;
+}
+
+.home-map-dock:hover .home-map-shortcut,
+.home-map-dock:focus-within .home-map-shortcut {
+  width: 268px;
+}
+
+.home-map-dock:hover .home-map-shortcut-name,
+.home-map-dock:focus-within .home-map-shortcut-name {
+  margin-left: 8px;
+  max-width: 210px;
   opacity: 1;
-  transform: translate(0, -50%);
+  transform: translateX(0);
 }
 
 .home-map-shortcut.active {
   background: #e8faf5;
   border-color: rgba(15, 118, 110, 0.35);
   color: #115e59;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-map-dock,
+  .home-map-shortcut,
+  .home-map-shortcut-name {
+    transition: none;
+  }
 }
 
 .home-map-popover {
@@ -4677,6 +4838,11 @@ summary {
   text-decoration: underline;
 }
 
+.exposure-secondary-cta {
+  color: #64748b;
+  font-weight: 700;
+}
+
 .warning {
   color: var(--warning);
   font-weight: 700;
@@ -4776,6 +4942,20 @@ code {
 
   .graph-first-home-thesis > span {
     width: fit-content;
+  }
+
+  .graph-first-waitlist {
+    align-items: stretch;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .graph-first-waitlist > * {
+    min-width: 0;
+  }
+
+  .graph-first-waitlist-form {
+    min-width: 0;
+    width: 100%;
   }
 
   .landing-hero {
@@ -4906,6 +5086,21 @@ code {
   }
 
   .domain-thesis-actions {
+    display: none;
+  }
+
+  .domain-thesis-banner-audit-preview .domain-thesis-actions,
+  .domain-thesis-banner-paid-candidate .domain-thesis-actions {
+    display: flex;
+  }
+
+  .domain-thesis-banner-audit-preview .domain-thesis-actions > p:not(.domain-thesis-evidence),
+  .domain-thesis-banner-paid-candidate .domain-thesis-actions > p:not(.domain-thesis-evidence) {
+    flex-basis: 100%;
+  }
+
+  .domain-thesis-banner-audit-preview .domain-thesis-evidence,
+  .domain-thesis-banner-paid-candidate .domain-thesis-evidence {
     display: none;
   }
 
@@ -5150,6 +5345,28 @@ code {
 
   .buttondown-form button {
     width: 100%;
+  }
+
+  .graph-first-waitlist-form > div {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .graph-first-waitlist-form input[type="email"] {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .graph-first-offer-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .graph-first-waitlist .link-button {
+    width: 100%;
+  }
+
+  .exposure-access-grid {
+    grid-template-columns: 1fr;
   }
 
   .graph-canvas {

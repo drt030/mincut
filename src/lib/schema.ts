@@ -317,6 +317,9 @@ export const edgeSchema = z.object({
   context: z.string().optional(),
   confidence: confidenceSchema.optional(),
   evidenceIds: z.array(z.string()).optional(),
+  /** Evidence rejected for this relationship is retained for audit but never
+   * counted as active support, mirroring the node-level contract above. */
+  rejectedEvidenceIds: z.array(z.string()).optional(),
   routeId: z.string().optional(),
   weight: z.number().min(0).optional(),
   reviewStatus: z.enum(["unreviewed", "reviewed", "disputed", "deprecated"]).optional(),

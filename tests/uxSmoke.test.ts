@@ -15,6 +15,7 @@ import assert from "node:assert/strict";
  */
 
 const BASE = process.env.UX_SMOKE_BASE_URL?.replace(/\/$/, "");
+const EXPECT_PAID_CHECKOUT = process.env.EXPECT_PAID_CHECKOUT === "1";
 
 async function serverIsUp(): Promise<boolean> {
   if (!BASE) return false;
@@ -33,47 +34,72 @@ async function fetchHtml(path: string): Promise<string> {
   return await res.text();
 }
 
-test("ux smoke: home page renders north-star hero", async (t) => {
+async function fetchStatus(path: string): Promise<number> {
+  assert.ok(BASE, "UX_SMOKE_BASE_URL is required for ux smoke tests");
+  const res = await fetch(`${BASE}${path}`);
+  await res.arrayBuffer();
+  return res.status;
+}
+
+test("ux smoke: home page renders the free AI compute map and founding access", async (t) => {
   if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
   const html = await fetchHtml("/");
+  const mainShell = html.slice(html.indexOf("<main"), html.indexOf("</main>") + "</main>".length);
+
   assert.match(html, /MinCut/);
-  assert.match(html, /parcel-sorting robot/i);
+  assert.match(html, /AI compute chain/);
+  assert.match(html, /Full-free flagship/);
+  assert.match(html, /id="private-beta"/);
+  assert.match(html, /buttondown\.com\/api\/emails\/embed-subscribe\/drt030/);
+  assert.doesNotMatch(mainShell, /\/d\/parcel-robot/);
+  if (EXPECT_PAID_CHECKOUT) {
+    assert.match(mainShell, /Buy founding access/);
+    assert.match(mainShell, /buy\.stripe\.com/);
+  } else {
+    assert.doesNotMatch(mainShell, /Stripe|checkout|Checkout|landing-founding-cta|buy\.stripe\.com/);
+  }
 });
 
-test("ux smoke: /graph ships radial canvas chrome", async (t) => {
+test("ux smoke: /d/ai-compute ships the public free graph", async (t) => {
   if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
-  const html = await fetchHtml("/graph");
+  const html = await fetchHtml("/d/ai-compute");
+
   assert.match(html, /data-testid="graph-controls"/);
   assert.match(html, /data-testid="graph-product-strip"/);
   assert.match(html, /sector-label-layer/);
-  assert.match(html, /Conveyor integration/);
-  assert.match(html, /Vision \/ barcode \/ label recognition/);
+  assert.match(html, /AI chip \/ GPU compute module/);
+  assert.match(html, /Free reference map/);
+  assert.doesNotMatch(html, /300,000 RMB parcel-sorting robot/);
 });
 
-test("ux smoke: /product page shows estimated cost rollup section + breakdown row", async (t) => {
+test("ux smoke: audit-preview domain routes render without exposing parcel", async (t) => {
   if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
-  const html = await fetchHtml("/product/low_cost_parcel_sorting_robot_300k_rmb");
-  // Smoke-check the estimated rollup is rendered so we know the current cost
-  // walker is in the serving build (not just in tests).
-  assert.match(html, /cost-rollup-card/);
-  assert.match(html, /est\. 473,384/, "/product should show the current rolled-up cost estimate");
-  // Slice-4 polish: ProductView now also shows the direct/children
-  // breakdown row.
-  assert.match(html, /cost-rollup-breakdown/);
+  const routes = [
+    ["/d/humanoid-robotics", /Humanoid robotics component stack/],
+    ["/d/controlled-fusion", /Controlled fusion route portfolio/],
+    ["/d/spacex-reusable-launch", /SpaceX reusable launch stack/],
+    ["/d/spacex-orbital-data-center", /SpaceX orbital data center system/],
+  ] as const;
+
+  for (const [path, title] of routes) {
+    const html = await fetchHtml(path);
+    assert.match(html, title);
+    assert.match(html, /data-testid="graph-controls"/);
+    assert.doesNotMatch(html, /\/d\/parcel-robot/);
+  }
 });
 
-test("ux smoke: /graph default selection surfaces route detail rail", async (t) => {
+test("ux smoke: parcel domain route is not public", async (t) => {
   if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
-  const html = await fetchHtml("/graph");
-  assert.match(html, /data-testid="route-detail-rail"/);
-  // The cost lens is present on /graph (renamed "Cost drivers" → "Cost" per
-  // ADR-0010); assert it by its stable selector hook, not the display label.
-  assert.match(html, /data-analysis-mode="cost"/);
-  assert.match(html, /300,000 RMB parcel-sorting robot/);
+  assert.equal(await fetchStatus("/d/parcel-robot"), 404);
 });
 
-test("ux smoke: /gate page renders gate report", async (t) => {
+test("ux smoke: sitemap includes only public launch domains", async (t) => {
   if (!(await serverIsUp())) return t.skip("UX_SMOKE_BASE_URL not set or dev server not running");
-  const html = await fetchHtml("/gate");
-  assert.ok(html.length > 1000, `/gate body is suspiciously small: ${html.length} bytes`);
+  const xml = await fetchHtml("/sitemap.xml");
+
+  assert.match(xml, /\/d\/ai-compute/);
+  assert.match(xml, /\/d\/humanoid-robotics/);
+  assert.match(xml, /\/d\/spacex-reusable-launch/);
+  assert.doesNotMatch(xml, /\/d\/parcel-robot/);
 });

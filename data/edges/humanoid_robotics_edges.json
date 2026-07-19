@@ -13,6 +13,24 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_humanoid_stack__validated_by__figure03_reference",
+    "source": "humanoid_robot_key_component_stack",
+    "target": "humanoid_figure03_reference_platform",
+    "relation": "validated_by",
+    "claim": "Figure 03 is the primary benchmark product instance used to check whole-robot decomposition coverage across modules, manufacturing, charging, data offload, and fleet operation. Figure official materials provide the architecture claims, BMW provides an independent customer/workcell anchor, and TIME provides an explicit home-readiness caveat. This does not assert reviewed performance or supplier exposure.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure03_intro_platform",
+      "ev_humanoid_figure03_production_ramp",
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_bmw_figure03_spartanburg_logistics",
+      "ev_humanoid_bmw_figure02_spartanburg_30000_vehicles",
+      "ev_humanoid_time_figure03_domestic_readiness_caveat"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_humanoid_stack__requires__actuation",
     "source": "humanoid_robot_key_component_stack",
     "target": "humanoid_actuation_system",
@@ -163,10 +181,12 @@
     "relation": "requires",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_humanoid_harmonic_ir",
       "ev_humanoid_nabtesco_precision"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_harmonic_ir"
+    ]
   },
   {
     "id": "e_humanoid_actuation__requires__motor_stack",
@@ -221,10 +241,11 @@
     "target": "humanoid_strain_wave_reducer",
     "relation": "requires",
     "confidence": "medium",
-    "evidenceIds": [
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
       "ev_humanoid_harmonic_ir"
-    ],
-    "reviewStatus": "unreviewed"
+    ]
   },
   {
     "id": "e_humanoid_linear__requires__roller_screw",
@@ -333,6 +354,18 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_humanoid_hands__implemented_by__palm_camera",
+    "source": "humanoid_dexterous_hand_tactile_system",
+    "target": "humanoid_hand_palm_camera",
+    "relation": "implemented_by",
+    "claim": "Figure 03 implements close-range grasp perception with embedded palm cameras; this is modeled as a benchmark implementation detail, not a universal hand requirement.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure03_hand_sensory"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_humanoid_hands__implemented_by__slip_policy",
     "source": "humanoid_dexterous_hand_tactile_system",
     "target": "humanoid_slip_detection_policy",
@@ -394,6 +427,18 @@
     "evidenceIds": [
       "ev_humanoid_figure_battery",
       "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "e_humanoid_charging__requires__inductive_dock",
+    "source": "humanoid_charging_docking_interface",
+    "target": "humanoid_inductive_charging_dock",
+    "relation": "requires",
+    "claim": "Figure 03 makes wireless inductive docking a benchmark charging path for near-continuous operation; contact charging and battery swap paths may still exist in other humanoid designs.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure03_wireless_charging"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -789,6 +834,18 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "e_humanoid_ai__implemented_by__fleet_data_offload",
+    "source": "humanoid_manipulation_ai_data_stack",
+    "target": "humanoid_fleet_connectivity_data_offload",
+    "relation": "implemented_by",
+    "claim": "Figure 03 makes fleet wireless data offload a benchmark implementation of the data loop that turns deployed robots into training data for continuous improvement.",
+    "confidence": "medium",
+    "evidenceIds": [
+      "ev_humanoid_figure03_data_offload"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "e_humanoid_ai__implemented_by__training",
     "source": "humanoid_manipulation_ai_data_stack",
     "target": "humanoid_imitation_rl_training_loop",
@@ -901,10 +958,12 @@
     "claim": "Harmonic Drive Systems is a public supplier candidate for strain-wave reducer exposure; not a confirmed humanoid BOM claim.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_humanoid_harmonic_ir",
       "ev_humanoid_harmonic_drive_precision_products"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_harmonic_ir"
+    ]
   },
   {
     "id": "e_humanoid_reducer_stack__manufactured_by__hds",
@@ -914,10 +973,12 @@
     "claim": "Harmonic Drive Systems is modeled as a public strain-wave and precision gear supplier candidate for reducer-stack exposure; not a confirmed humanoid BOM claim.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_humanoid_harmonic_ir",
       "ev_humanoid_harmonic_drive_precision_products"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_harmonic_ir"
+    ]
   },
   {
     "id": "e_humanoid_reducer_stack__manufactured_by__nabtesco",
@@ -939,10 +1000,12 @@
     "claim": "Leaderdrive is modeled as a China-listed strain-wave reducer and rotary actuator supplier candidate for humanoid reducer exposure; not a confirmed humanoid BOM claim.",
     "confidence": "medium",
     "evidenceIds": [
-      "ev_humanoid_leaderdrive_humanoid",
-      "ev_humanoid_leaderdrive_ticker"
+      "ev_humanoid_leaderdrive_humanoid"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_leaderdrive_ticker"
+    ]
   },
   {
     "id": "e_humanoid_motor_stack__manufactured_by__yaskawa",
@@ -1517,12 +1580,13 @@
     "target": "org_infineon",
     "relation": "manufactured_by",
     "claim": "Infineon supplies dedicated merchant semiconductors for humanoid robots spanning power switches, microcontrollers, sensors and connectivity (the power-electronics / BMS-front-end silicon).",
-    "context": "Merchant ICs/power switches (Infineon-made today, humanoid-dedicated product line). The BMS state-of-charge/balancing firmware that runs on top is the integrator's own (captive), not Infineon's.",
+    "context": "Deprecated from the active exposure layer because the cited Infineon humanoid-blocks source now returns 404 and no surviving source directly supports the broad charging/BMS relationship. Retained for audit and possible re-sourcing.",
     "confidence": "medium",
-    "evidenceIds": [
+    "evidenceIds": [],
+    "reviewStatus": "deprecated",
+    "rejectedEvidenceIds": [
       "ev_humanoid_infineon_humanoid_blocks"
-    ],
-    "reviewStatus": "unreviewed"
+    ]
   },
   {
     "id": "e_humanoid_bms__reported_capable_supplier__nxp",
@@ -1736,11 +1800,13 @@
     "target": "org_syensqo",
     "relation": "reported_capable_supplier",
     "claim": "Syensqo (KetaSpire PEEK) is a reported-capable PEEK supplier for humanoid structural/lightweighting material; modeled reported-capable because syensqo.com PEEK pages returned 406 this round (no fetched robotics quote). One of ~4 thousand-ton-scale PEEK makers.",
+    "context": "Deprecated from the active exposure layer because the cited page is unreachable and did not establish a humanoid/robotics relationship. Retained for audit and possible re-sourcing.",
     "confidence": "low",
-    "evidenceIds": [
+    "evidenceIds": [],
+    "reviewStatus": "deprecated",
+    "rejectedEvidenceIds": [
       "ev_humanoid_syensqo_ketaspire_structural"
-    ],
-    "reviewStatus": "unreviewed"
+    ]
   },
   {
     "id": "e_humanoid_thermal__reported_capable_supplier__sanhua",
@@ -2831,14 +2897,18 @@
     ]
   },
   {
-    "id": "e_humanoid_inverter_power_switch__manufactured_by__infineon",
+    "id": "e_humanoid_inverter_power_switch__reported_capable_supplier__infineon",
     "source": "humanoid_inverter_power_switch",
     "target": "org_infineon",
-    "relation": "manufactured_by",
-    "claim": "Infineon is the low-voltage power-MOSFET leader; supplier-candidate (who-makes-what) for the joint inverter power switch, not a confirmed humanoid BOM claim.",
-    "confidence": "medium",
+    "relation": "reported_capable_supplier",
+    "claim": "Infineon offers a GaN transistor chip set for humanoid motor-control solutions and is modeled as a capable joint-inverter power-switch candidate, not a confirmed OEM design win or shipping BOM supplier.",
+    "context": "Trade-press coverage of Infineon's product announcement supports motor-control capability; it does not establish supply to a named humanoid manufacturer.",
+    "confidence": "low",
     "reviewStatus": "unreviewed",
     "evidenceIds": [
+      "ev_humanoid_infineon_motor_control"
+    ],
+    "rejectedEvidenceIds": [
       "ev_humanoid_infineon_humanoid_blocks"
     ]
   },

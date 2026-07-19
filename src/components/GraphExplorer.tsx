@@ -479,9 +479,9 @@ function GraphProductStrip({
       agentQueued: (count: number) => count > 0 ? `已列出 ${count} 个候选` : "证据任务已入队",
       agentError: "加入失败，重试",
       agentProgress: (nodes: number, edges: number) => `已加入 ${nodes} 个节点 / ${edges} 条边；证据收集任务已入队`,
-      auditPreviewOnly: "未来付费领域",
+      auditPreviewOnly: "付费 exposure 预览",
       freeReference: "免费参考图谱",
-      paidLayerLocked: "付费层已锁定",
+      paidLayerLocked: "购买 exposure 访问",
     }
     : {
       product: "Research root",
@@ -496,9 +496,9 @@ function GraphProductStrip({
       agentQueued: (count: number) => count > 0 ? `Listed ${count} candidates` : "Evidence task queued",
       agentError: "Retry queue",
       agentProgress: (nodes: number, edges: number) => `Added ${nodes} nodes / ${edges} edges; evidence task queued`,
-      auditPreviewOnly: "Future paid domain",
+      auditPreviewOnly: "Paid exposure preview",
       freeReference: "Free reference map",
-      paidLayerLocked: "Paid layer locked",
+      paidLayerLocked: "Buy exposure access",
     };
   const agentLabel = agentExpansionStatus === "listing"
     ? copy.agentListing

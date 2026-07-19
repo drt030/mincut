@@ -7,7 +7,6 @@ import { useLanguage } from "./LanguageProvider";
 
 const dockOrder = [
   "ai-compute",
-  "parcel-robot",
   "spacex-reusable-launch",
   "humanoid-robotics",
   "controlled-fusion",
@@ -16,7 +15,6 @@ const dockOrder = [
 
 const abbreviations: Record<string, string> = {
   "ai-compute": "AI",
-  "parcel-robot": "PR",
   "spacex-reusable-launch": "SX",
   "humanoid-robotics": "HR",
   "controlled-fusion": "CF",
@@ -33,13 +31,13 @@ function orderedDomains() {
   return ordered.concat(DOMAIN_ROUTES.filter((domain) => !included.has(domain.slug)));
 }
 
-function statusLabel(portfolioState: string): string {
-  if (portfolioState === "full-free-flagship") return "Full-free flagship demo";
-  if (portfolioState === "full-free-depth-demo") return "Full-free depth demo";
-  if (portfolioState === "audit-preview") return "Preview; exposure locked";
-  if (portfolioState === "paid-candidate") return "Paid-candidate preview";
-  if (portfolioState === "waitlist") return "Waitlist domain";
-  return "Preview domain";
+function statusKey(portfolioState: string): string {
+  if (portfolioState === "full-free-flagship") return "domainThesisStatusFlagship";
+  if (portfolioState === "full-free-depth-demo") return "domainThesisStatusDepthDemo";
+  if (portfolioState === "audit-preview") return "domainThesisStatusAuditPreview";
+  if (portfolioState === "paid-candidate") return "domainThesisStatusPaidCandidate";
+  if (portfolioState === "waitlist") return "domainThesisStatusWaitlist";
+  return "domainThesisStatusPreview";
 }
 
 function domainHref(slug: string): string {
@@ -47,7 +45,7 @@ function domainHref(slug: string): string {
 }
 
 export function HomeMapDock({ activeSlug }: { activeSlug: string }) {
-  const { nodeName } = useLanguage();
+  const { nodeName, t } = useLanguage();
   const dockRef = useRef<HTMLElement | null>(null);
   const [open, setOpen] = useState(false);
   const domains = orderedDomains();
@@ -76,18 +74,18 @@ export function HomeMapDock({ activeSlug }: { activeSlug: string }) {
   }, [open]);
 
   return (
-    <aside className="home-map-dock" aria-label="Map portfolio" ref={dockRef}>
+    <aside className="home-map-dock" aria-label={t("homeMapPortfolioLabel")} ref={dockRef}>
       <div className="home-map-dock-stack">
         <button
           className="home-map-trigger"
           type="button"
-          aria-label="Open map portfolio"
+          aria-label={t("homeMapOpenLabel")}
           aria-controls="home-map-popover"
           aria-expanded={open}
           aria-haspopup="menu"
           onClick={() => setOpen((value) => !value)}
         >
-          Maps
+          {t("homeMapTrigger")}
         </button>
         {domains.map((domain) => {
           const active = domain.slug === activeSlug;
@@ -101,8 +99,10 @@ export function HomeMapDock({ activeSlug }: { activeSlug: string }) {
               aria-label={domainName}
               title={domainName}
             >
-              <span>{abbreviations[domain.slug] ?? domain.title.slice(0, 2).toUpperCase()}</span>
-              <span className="home-map-shortcut-tooltip" aria-hidden="true">
+              <span className="home-map-shortcut-code" aria-hidden="true">
+                {abbreviations[domain.slug] ?? domain.title.slice(0, 2).toUpperCase()}
+              </span>
+              <span className="home-map-shortcut-name" aria-hidden="true">
                 {domainName}
               </span>
             </Link>
@@ -111,10 +111,10 @@ export function HomeMapDock({ activeSlug }: { activeSlug: string }) {
       </div>
 
       {open ? (
-        <div className="home-map-popover" id="home-map-popover" role="menu" aria-label="Map portfolio menu">
+        <div className="home-map-popover" id="home-map-popover" role="menu" aria-label={t("homeMapMenuLabel")}>
           <div>
-            <h2>Domains</h2>
-            <p>Switch maps without leaving the graph workspace.</p>
+            <h2>{t("homeMapDomains")}</h2>
+            <p>{t("homeMapMenuBody")}</p>
           </div>
           <div className="home-map-popover-list">
             {domains.map((domain) => {
@@ -129,12 +129,12 @@ export function HomeMapDock({ activeSlug }: { activeSlug: string }) {
                   role="menuitem"
                 >
                   <strong>{nodeName(domain.rootId, domain.title)}</strong>
-                  <span>{statusLabel(domain.portfolioState)}</span>
+                  <span>{t(statusKey(domain.portfolioState))}</span>
                 </Link>
               );
             })}
           </div>
-          <p className="home-map-popover-note">Access state appears here, not as default dock noise.</p>
+          <p className="home-map-popover-note">{t("homeMapMenuNote")}</p>
         </div>
       ) : null}
     </aside>

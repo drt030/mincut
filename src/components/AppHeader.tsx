@@ -53,13 +53,6 @@ export function AppHeader() {
               </Link>
             );
           })}
-          <span className="header-nav-separator" aria-hidden="true" />
-          <Link href="/explore" className="header-secondary-link">
-            {t("navExplore")}
-          </Link>
-          <Link href="/gate" className="header-secondary-link">
-            {t("navGate")}
-          </Link>
         </nav>
         <LanguageSwitcher />
       </div>

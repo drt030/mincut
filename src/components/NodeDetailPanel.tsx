@@ -1109,6 +1109,18 @@ function formatCopy(template: string, replacements: Record<string, string | numb
   );
 }
 
+function formatReaderList(items: string[], language: "en" | "zh"): string {
+  const visible = items.map((item) => item.trim()).filter(Boolean).slice(0, 3);
+  if (visible.length <= 1) return visible[0] ?? "";
+  if (language === "zh") return visible.join("、");
+  if (visible.length === 2) return `${visible[0]} and ${visible[1]}`;
+  return `${visible.slice(0, -1).join(", ")}, and ${visible[visible.length - 1]}`;
+}
+
+function containsCjk(text: string): boolean {
+  return /[\u3400-\u9fff]/.test(text);
+}
+
 function compactReaderClause(text: string, maxChars = 170): string {
   const compact = text.replace(/\s+/g, " ").trim();
   if (compact.length <= maxChars) return compact;
@@ -2295,6 +2307,7 @@ function directDecompositionEntries(
   node: Node,
   language: "en" | "zh",
   nodeDescription: (id: string, fallback: string) => string,
+  nodeName: (id: string, fallback: string) => string,
   t: (key: string) => string,
 ): DecompositionEntry[] {
   return graph.edges
@@ -2305,26 +2318,34 @@ function directDecompositionEntries(
     .map(({ edge, child }) => ({
       edge,
       child,
-      reason: decompositionChildReason(node, child, edge, language, nodeDescription, t),
+      reason: decompositionChildReason(graph, node, child, edge, language, nodeDescription, nodeName, t),
     }));
 }
 
 function decompositionChildReason(
+  graph: GraphData,
   parent: Node,
   child: Node,
   edge: Edge,
   language: "en" | "zh",
   nodeDescription: (id: string, fallback: string) => string,
+  nodeName: (id: string, fallback: string) => string,
   t: (key: string) => string,
 ): string {
   const aiComputeReason = aiComputeFirstLayerReason(parent.id, child.id, t);
   if (aiComputeReason) return aiComputeReason;
+  const fallbackDescription = child.description ?? "";
   if (language !== "zh" && edge.claim?.trim()) return sentenceClause(edge.claim.trim());
-  const localized = nodeDescription(child.id, child.description ?? "");
+  const localized = nodeDescription(child.id, fallbackDescription);
   const first = firstSentenceDescription(localized);
-  if (first) return first;
-  if (edge.claim?.trim()) return sentenceClause(edge.claim.trim());
-  return t("decompositionRationaleGenericChildReason");
+  if (first && (language !== "zh" || localized !== fallbackDescription)) return first;
+  if (edge.claim?.trim() && (language !== "zh" || containsCjk(edge.claim))) return sentenceClause(edge.claim.trim());
+  const focus = decompositionChildFocusText(graph, child, language, nodeName, t);
+  return formatCopy(t("decompositionRationaleGenericChildReason"), {
+    child: nodeName(child.id, child.name),
+    parent: nodeName(parent.id, parent.name),
+    focus,
+  });
 }
 
 function aiComputeFirstLayerReason(parentId: string, childId: string, t: (key: string) => string): string | null {
@@ -2369,6 +2390,41 @@ function decompositionConstraintSignals(graph: GraphData, node: Node, t: (key: s
   return childNames;
 }
 
+function decompositionChildFocusText(
+  graph: GraphData,
+  child: Node,
+  language: "en" | "zh",
+  nodeName: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+): string {
+  const childSignals = graph.edges
+    .filter((edge) => edge.source === child.id && edge.relation === "requires" && edge.reviewStatus !== "deprecated")
+    .map((edge) => nodeById(graph, edge.target))
+    .filter((entry): entry is Node => Boolean(entry && entry.reviewStatus !== "deprecated" && !NON_DECOMPOSITION_CHILD_KINDS.has(entry.kind)))
+    .slice(0, 3)
+    .map((entry) => nodeName(entry.id, entry.name));
+  return formatReaderList(childSignals, language) || t("decompositionRationaleChildDefaultFocus");
+}
+
+function decompositionSummaryForNode(
+  graph: GraphData,
+  node: Node,
+  entries: DecompositionEntry[],
+  language: "en" | "zh",
+  nodeName: (id: string, fallback: string) => string,
+  t: (key: string) => string,
+): string {
+  if (node.id === "ai_accelerator_module_hbm_cowos") return t("decompositionRationaleAiComputeSummary");
+  if (entries.length === 0) return t("decompositionRationaleFrontierSummary");
+  const children = formatReaderList(entries.map(({ child }) => nodeName(child.id, child.name)), language);
+  const signals = formatReaderList(decompositionConstraintSignals(graph, node, t), language) || children;
+  return formatCopy(t("decompositionRationaleSummary"), {
+    node: nodeName(node.id, node.name),
+    children,
+    signals,
+  });
+}
+
 function DecompositionRationalePanel({
   graph,
   node,
@@ -2380,22 +2436,18 @@ function DecompositionRationalePanel({
 }) {
   const { language, nodeDescription, nodeName, relationName, t } = useLanguage();
   const entries = useMemo(
-    () => directDecompositionEntries(graph, node, language, nodeDescription, t),
-    [graph, language, node, nodeDescription, t],
+    () => directDecompositionEntries(graph, node, language, nodeDescription, nodeName, t),
+    [graph, language, node, nodeDescription, nodeName, t],
   );
   const isFrontier = isDecompositionFrontier(graph, node);
   if (entries.length === 0 && !isFrontier) return null;
-  const summary = node.id === "ai_accelerator_module_hbm_cowos"
-    ? t("decompositionRationaleAiComputeSummary")
-    : entries.length > 0
-      ? t("decompositionRationaleSummary")
-      : t("decompositionRationaleFrontierSummary");
+  const summary = decompositionSummaryForNode(graph, node, entries, language, nodeName, t);
   return (
     <div className="detail-decomposition-rationale" data-testid="detail-decomposition-rationale">
       <div className="detail-decomposition-head">
         <strong>{t("detailDecomposition")}</strong>
         {entries.length > 0 ? (
-          <span>{formatCopy(t("decompositionRationaleChildCount"), { count: entries.length })}</span>
+          <span>{formatCopy(t("decompositionRationaleChildCount"), { count: entries.length, node: nodeName(node.id, node.name) })}</span>
         ) : null}
       </div>
       <p>{summary}</p>

@@ -51,15 +51,16 @@ const NON_ACTIVE_GRAPH_DOMAINS = [
   { root: "humanoid_robot_key_component_stack", file: "humanoid_robotics.json" },
 ] as const;
 
-function nodesFromDataFile(file: string): { id: string; name: string }[] {
+function nodesFromDataFile(file: string): { id: string; kind?: string; name: string }[] {
   const raw = JSON.parse(
     fs.readFileSync(path.join(process.cwd(), "data", "nodes", file), "utf8"),
   ) as unknown;
   const list = Array.isArray(raw)
     ? raw
     : (raw as { nodes?: unknown[] }).nodes ?? [];
-  return (list as Array<{ id: string; label?: string; name?: string }>).map((node) => ({
+  return (list as Array<{ id: string; kind?: string; label?: string; name?: string }>).map((node) => ({
     id: node.id,
+    kind: node.kind,
     name: node.label ?? node.name ?? node.id,
   }));
 }
@@ -93,7 +94,7 @@ test("Chinese node-name dictionary covers all visible active graph roots checked
   );
 });
 
-test("Chinese node-name dictionary covers every node in non-active-graph domains (e.g. humanoid_robotics)", () => {
+test("Chinese node-name dictionary covers every non-organization node in non-active-graph domains", () => {
   const zhKeys = chineseNodeKeys();
   const missing: string[] = [];
 
@@ -104,6 +105,10 @@ test("Chinese node-name dictionary covers every node in non-active-graph domains
       `expected domain root ${domain.root} to exist in data/nodes/${domain.file}`,
     );
     for (const node of nodes) {
+      // Organization identities are entitlement-gated and must not ship in
+      // this public client dictionary. Unlocked records fall back to the
+      // server-provided proper name.
+      if (node.kind === "organization") continue;
       if (!zhKeys.has(node.id)) {
         missing.push(`${domain.root}: ${node.id} | ${node.name}`);
       }
@@ -113,7 +118,7 @@ test("Chinese node-name dictionary covers every node in non-active-graph domains
   assert.deepEqual(
     missing,
     [],
-    `every node in a non-active-graph domain should have a Simplified Chinese label; missing:\n${missing.join("\n")}`,
+    `every non-organization node in a non-active-graph domain should have a Simplified Chinese label; missing:\n${missing.join("\n")}`,
   );
 });
 

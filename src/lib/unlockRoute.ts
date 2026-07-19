@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { ENTITLEMENT_COOKIE, grantCookieValue, readEntitlements } from "./entitlements";
+import {
+  ENTITLEMENT_COOKIE,
+  foundingCheckoutConfigIssues,
+  grantCookieValue,
+  paidUnlocksEnabled,
+  readEntitlements,
+} from "./entitlements";
 
 export type UnlockCheckoutSession = {
   payment_status?: string | null;
@@ -32,11 +38,11 @@ export type UnlockRouteDependencies = {
   retrieveCheckoutSession: RetrieveCheckoutSession;
 };
 
-// Post-purchase destination per Decision 4: one route per domain under
-// /d/[slug]; founding all-access uses a neutral waitlist destination because
-// AI compute is now a free flagship demo, not a paid exposure unlock.
+// The sole live SKU grants the global entitlement, then returns to the landing
+// page's explicit all-access success state. It must never fall through to the
+// waitlist path after Stripe has verified a paid session.
 export const PRICE_UNLOCKS: PriceUnlock[] = [
-  { envKey: "STRIPE_PRICE_FOUNDING", entitlement: "all", destination: "/?purchase=founding&waitlist=1" },
+  { envKey: "STRIPE_PRICE_FOUNDING", entitlement: "all", destination: "/?purchase=success&access=all" },
 ];
 
 // Disabled price ids are recognized only to fail safe: they never grant
@@ -83,11 +89,25 @@ export function createUnlockGET({ env, retrieveCheckoutSession }: UnlockRouteDep
     const url = new URL(request.url);
     const sessionId = url.searchParams.get("session_id");
     if (!sessionId) return NextResponse.redirect(new URL("/", url.origin));
+    if (!paidUnlocksEnabled(env)) {
+      return NextResponse.redirect(redirectUrl("/?purchase=disabled&waitlist=1", url.origin));
+    }
+    if (foundingCheckoutConfigIssues(env).length > 0) {
+      return NextResponse.redirect(new URL("/?purchase=config-missing", url.origin));
+    }
 
     const stripeSecretKey = env.STRIPE_SECRET_KEY;
     if (!stripeSecretKey) return NextResponse.redirect(new URL("/?purchase=config-missing", url.origin));
 
-    const session = await retrieveCheckoutSession(sessionId, stripeSecretKey);
+    let session: UnlockCheckoutSession;
+    try {
+      session = await retrieveCheckoutSession(sessionId, stripeSecretKey);
+    } catch {
+      // A transient Stripe/API failure must not leave a paid customer on a 500.
+      // The original success URL can be retried because Stripe remains the
+      // source of truth and a verified session is intentionally replay-safe.
+      return NextResponse.redirect(new URL("/?purchase=verification-unavailable", url.origin));
+    }
     if (session.payment_status !== "paid") {
       return NextResponse.redirect(new URL("/?purchase=incomplete", url.origin));
     }

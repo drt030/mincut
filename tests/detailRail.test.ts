@@ -45,6 +45,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 // signal we can give the GREEN sub-agent.
 import { NodeDetailRail, handleRailKeydown } from "../src/components/NodeDetailRail";
 import { ChokepointHeadline, NodeDetailContent } from "../src/components/NodeDetailPanel";
+import { LanguageProvider } from "../src/components/LanguageProvider";
 import { chokepointVerdictBandFor } from "../src/lib/chokepointScore";
 import { ExposureLockProvider } from "../src/components/ExposureLockCta";
 import { loadActiveGraphData, loadGraphData } from "../src/lib/graphLoader";
@@ -123,6 +124,33 @@ function renderWithLockedExposure(
       React.createElement(
         NodeDetailRail as unknown as React.FC<NodeDetailRailTestProps>,
         props,
+      ),
+    ),
+  );
+}
+
+function renderWithLanguageAndLockedExposure(
+  props: NodeDetailRailTestProps,
+  language: "en" | "zh",
+  locked = [
+    {
+      domainTag: "ai_compute_chain",
+      entitlement: "ai_compute",
+      hiddenOrgCount: 77,
+    },
+  ],
+): string {
+  return renderToStaticMarkup(
+    React.createElement(
+      LanguageProvider as unknown as React.FC<{ children: React.ReactNode; initialLanguage?: "en" | "zh" }>,
+      { initialLanguage: language },
+      React.createElement(
+        ExposureLockProvider,
+        { locked },
+        React.createElement(
+          NodeDetailRail as unknown as React.FC<NodeDetailRailTestProps>,
+          props,
+        ),
       ),
     ),
   );
@@ -759,7 +787,7 @@ test("expanded: full detail is summary-first before raw technical metadata", () 
   assert.match(html, /Node interpretation/i, `full detail should include node interpretation after the core readout; got: ${html}`);
   assert.doesNotMatch(html, /Where it is stuck|具体卡点/i, `sample-style detail should not expose a separate stuck section; got: ${html}`);
   assert.match(html, /Core readout/i, `full detail should include the v4 core readout; got: ${html}`);
-  assert.match(html, /Load-bearing scope/i, `core readout should state the node's scope; got: ${html}`);
+  assert.match(html, /Impact scope/i, `core readout should state the node's scope; got: ${html}`);
   assert.match(html, /Substitution feasibility/i, `core readout should state substitution feasibility; got: ${html}`);
   assert.match(html, /Blocking mode/i, `core readout should classify the blocking mode; got: ${html}`);
   assert.match(html, /Current status/i, `core readout should state current status; got: ${html}`);
@@ -800,7 +828,7 @@ test("expanded: selected-node detail follows the commercial supplier IA order", 
   const supplementary = html.slice(supplementaryIndex);
 
   assert.match(coreReadout, /Core readout/i, `core readout should use the v4 IA title; got: ${coreReadout}`);
-  assert.match(coreReadout, /Load-bearing scope/i, `core readout should expose the scope tile; got: ${coreReadout}`);
+  assert.match(coreReadout, /Impact scope/i, `core readout should expose the scope tile; got: ${coreReadout}`);
   assert.match(coreReadout, /Substitution feasibility/i, `core readout should expose the substitution tile; got: ${coreReadout}`);
   assert.match(coreReadout, /Blocking mode/i, `core readout should expose the blocking-mode tile; got: ${coreReadout}`);
   assert.match(coreReadout, /Current status/i, `core readout should expose the current-status tile; got: ${coreReadout}`);
@@ -844,7 +872,7 @@ test("expanded: AI logic die core readout uses the four product-design fields", 
   const coreReadout = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
 
   assert.match(coreReadout, /Core readout/i);
-  assert.match(coreReadout, /Load-bearing scope/i);
+  assert.match(coreReadout, /Impact scope/i);
   assert.match(coreReadout, /Substitution feasibility/i);
   assert.match(coreReadout, /Blocking mode/i);
   assert.match(coreReadout, /Current status/i);
@@ -1089,6 +1117,38 @@ test("expanded: AI compute first-layer modules use decomposition mechanisms inst
     assert.match(priorityText, expected, `${id} should show concrete decomposition mechanisms; got: ${priorityText}`);
     assert.doesNotMatch(priorityText, /Where it is stuck|具体卡点/i);
   }
+});
+
+test("expanded: zh AI compute decomposition explains the selected node instead of repeating framework copy", () => {
+  const scopedGraph = loadActiveGraphData(AI_COMPUTE_ROOT_ID);
+  const focused = nodeByIdIn(scopedGraph, "advanced_packaging");
+  const html = renderWithLanguageAndLockedExposure({
+    graph: scopedGraph,
+    focusedNode: focused,
+    expanded: true,
+    onToggleExpand: noop,
+    onClose: noop,
+  }, "zh");
+  const decomposition = detailRegionBetween(html, "detail-decomposition-rationale", "detail-evidence-summary");
+  const text = textFromMarkup(decomposition);
+
+  assert.match(text, /结构拆解/i);
+  assert.match(text, /先进封装（2\.5D\/3D）/);
+  assert.match(
+    text,
+    /CoWoS 类产能|键合 \/ 组装良率|检测与测试产能/,
+    `zh decomposition summary should name current advanced-packaging mechanisms; got: ${text}`,
+  );
+  assert.doesNotMatch(
+    text,
+    /父节点真正需要|每个子节点都可以|直接模块|direct modules|Each child can carry/i,
+    `zh decomposition should not repeat framework copy; got: ${text}`,
+  );
+  assert.doesNotMatch(
+    text,
+    /Fabrication of 2\.5D silicon interposer|Assembly process attaching logic die|High-layer-count organic PCB substrate|Post-assembly X-ray inspection|Thermocompression bonding enables|Underfill dispensing/i,
+    `zh decomposition child rows should not fall back to English explanations; got: ${text}`,
+  );
 });
 
 test("expanded: AI compute detail exposes supplier tickers after the sample-style reasoning sequence without graph appendix noise", () => {
@@ -1451,7 +1511,7 @@ test("expanded: detail core readout keeps explicit cost disclosure gaps out of t
   const decision = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
   const interpretation = detailRegionBetween(html, "detail-bottleneck-thesis", "detail-decomposition-rationale");
 
-  assert.match(decision, /Load-bearing scope/i);
+  assert.match(decision, /Impact scope/i);
   assert.match(decision, /Blocking mode/i);
   assert.match(decision, /Current status/i);
   assert.match(decision, /24 months/i);
@@ -1530,7 +1590,7 @@ test("expanded: detail core readout does not label modeled cost as a primary rea
   });
   const decision = detailRegionBetween(html, "detail-decision-brief", "detail-bottleneck-thesis");
 
-  assert.match(decision, /Load-bearing scope/i);
+  assert.match(decision, /Impact scope/i);
   assert.match(decision, /Substitution feasibility/i);
   assert.match(decision, /Blocking mode/i);
   assert.match(decision, /Current status/i);

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { DOMAIN_ROUTES, domainBySlug } from "../src/lib/domains";
+import { DOMAIN_PORTFOLIO_ENTRIES, DOMAIN_ROUTES, domainBySlug } from "../src/lib/domains";
 import { loadActiveGraphData, loadGateReports, loadGraphData } from "../src/lib/graphLoader";
 import { reachableNodeIdsFrom, V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 import { resolveRouteExposureAccess } from "../src/lib/routeAccess";
@@ -78,7 +78,7 @@ test("live domain system overviews avoid internal QA, framework, and navigation 
 
 test("the v0 closed-loop target stays the parcel robot (flagship switching is per-route, not global)", () => {
   assert.equal(V0_TARGET_NODE_ID, "low_cost_parcel_sorting_robot_300k_rmb");
-  assert.equal(domainBySlug("parcel-robot")?.rootId, V0_TARGET_NODE_ID);
+  assert.equal(domainBySlug("parcel-robot"), undefined);
 });
 
 test("the AI-compute flagship has its own route", () => {
@@ -91,14 +91,6 @@ test("the AI-compute flagship is a full-free route with no entitlement", () => {
   assert.equal(domain.domainTag, "ai_compute_chain");
   assert.equal(domain.entitlement, undefined);
   assert.equal(domain.portfolioState, "full-free-flagship");
-});
-
-test("the parcel robot route is a full-free depth demo", () => {
-  const domain = domainBySlug("parcel-robot");
-  assert.ok(domain, "parcel-robot route should be registered");
-  assert.equal(domain.domainTag, "parcel_sorting_robot");
-  assert.equal(domain.entitlement, undefined);
-  assert.equal(domain.portfolioState, "full-free-depth-demo");
 });
 
 test("humanoid, controlled-fusion, and SpaceX maps stay audit previews until evidence and gate checks pass", () => {
@@ -114,28 +106,32 @@ test("humanoid, controlled-fusion, and SpaceX maps stay audit previews until evi
   assert.equal(humanoid.rootId, "humanoid_robot_key_component_stack");
   assert.equal(humanoid.domainTag, "humanoid_robotics");
   assert.equal(humanoid.entitlement, "humanoid");
+  assert.equal(humanoid.allAccessRole, "core");
   assert.equal(humanoid.portfolioState, "audit-preview");
-  assert.equal(humanoid.statusLabel, "Future paid domain");
-  assert.match(humanoid.detail, /supplier\/ticker exposure opens only when this paid domain launches/i);
+  assert.equal(humanoid.statusLabel, "Paid exposure preview");
+  assert.match(humanoid.detail, /\$9 all-access unlocks the current company\/ticker mapping layer/i);
 
   assert.equal(fusion.rootId, "controlled_fusion_route_portfolio");
   assert.equal(fusion.domainTag, "controlled_fusion");
   assert.equal(fusion.entitlement, "power");
+  assert.equal(fusion.allAccessRole, "early-research-addon");
   assert.equal(fusion.portfolioState, "audit-preview");
-  assert.equal(fusion.statusLabel, "Future paid domain");
-  assert.match(fusion.detail, /organization exposure opens only when this paid domain launches/i);
+  assert.equal(fusion.statusLabel, "Paid exposure preview");
+  assert.match(fusion.detail, /Early-research add-on with three currently modeled public-market candidates/i);
 
   assert.equal(reusableLaunch.rootId, "spacex_reusable_launch_stack");
   assert.equal(reusableLaunch.domainTag, "spacex_reusable_launch");
   assert.equal(reusableLaunch.entitlement, "space");
+  assert.equal(reusableLaunch.allAccessRole, "core");
   assert.equal(reusableLaunch.portfolioState, "audit-preview");
-  assert.equal(reusableLaunch.statusLabel, "Future paid domain");
+  assert.equal(reusableLaunch.statusLabel, "Paid exposure preview");
 
   assert.equal(orbitalDataCenter.rootId, "spacex_orbital_data_center_system");
   assert.equal(orbitalDataCenter.domainTag, "spacex_orbital_data_center");
   assert.equal(orbitalDataCenter.entitlement, "space");
+  assert.equal(orbitalDataCenter.allAccessRole, "hypothesis-addon");
   assert.equal(orbitalDataCenter.portfolioState, "audit-preview");
-  assert.equal(orbitalDataCenter.statusLabel, "Future paid domain");
+  assert.equal(orbitalDataCenter.statusLabel, "Paid exposure preview");
   assert.match(
     orbitalDataCenter.description,
     /future-product map/i,
@@ -231,24 +227,11 @@ test("domain portfolio state model covers free, audit preview, waitlist, and pai
   }
 });
 
-test("portfolio entries expose six commercial domains and all candidate maps have registered routes", async () => {
-  const domainsModule = await import("../src/lib/domains");
-  const portfolio =
-    (domainsModule as {
-      DOMAIN_PORTFOLIO_ENTRIES?: readonly Array<{
-        slug: string;
-        portfolioState: string;
-        liveGraphRoute: boolean;
-        href: string;
-        rootId?: string;
-      }>;
-    }).DOMAIN_PORTFOLIO_ENTRIES ?? [];
-
+test("portfolio entries expose public commercial domains and all candidate maps have registered routes", () => {
   assert.deepEqual(
-    portfolio.map((entry) => entry.slug),
+    DOMAIN_PORTFOLIO_ENTRIES.map((entry) => entry.slug),
     [
       "ai-compute",
-      "parcel-robot",
       "humanoid-robotics",
       "controlled-fusion",
       "spacex-reusable-launch",
@@ -256,10 +239,9 @@ test("portfolio entries expose six commercial domains and all candidate maps hav
     ],
   );
   assert.deepEqual(
-    portfolio.filter((entry) => entry.liveGraphRoute).map((entry) => entry.slug),
+    DOMAIN_PORTFOLIO_ENTRIES.filter((entry) => entry.liveGraphRoute).map((entry) => entry.slug),
     [
       "ai-compute",
-      "parcel-robot",
       "humanoid-robotics",
       "controlled-fusion",
       "spacex-reusable-launch",
@@ -267,7 +249,7 @@ test("portfolio entries expose six commercial domains and all candidate maps hav
     ],
   );
   assert.deepEqual(
-    portfolio.filter((entry) => !entry.liveGraphRoute).map((entry) => [entry.slug, entry.portfolioState]),
+    DOMAIN_PORTFOLIO_ENTRIES.filter((entry) => !entry.liveGraphRoute).map((entry) => [entry.slug, entry.portfolioState]),
     [],
   );
   assert.equal(domainBySlug("humanoid-robotics")?.href, "/d/humanoid-robotics");
@@ -306,31 +288,61 @@ test("AI-compute route access resolves full-free even if a stale locked summary 
 test("future portfolio states do not resolve to full-free just because no entitlement is configured", () => {
   assert.deepEqual(
     resolveRouteExposureAccess(
-      { slug: "humanoid-robotics", domainTag: "humanoid_robotics", portfolioState: "preview" },
+      { domainTag: "humanoid_robotics", portfolioState: "preview" },
       [],
     ),
     { status: "preview" },
   );
   assert.deepEqual(
     resolveRouteExposureAccess(
-      { slug: "controlled-fusion", domainTag: "controlled_fusion", portfolioState: "waitlist" },
+      { domainTag: "controlled_fusion", portfolioState: "waitlist" },
       [],
     ),
     { status: "waitlist" },
   );
   assert.deepEqual(
     resolveRouteExposureAccess(
-      { slug: "spacex-reusable-launch", domainTag: "spacex_reusable_launch", portfolioState: "audit-preview" },
+      { domainTag: "spacex_reusable_launch", portfolioState: "audit-preview" },
       [],
     ),
     { status: "audit-preview" },
   );
   assert.deepEqual(
     resolveRouteExposureAccess(
-      { slug: "future-paid-map", domainTag: "future_paid", portfolioState: "paid-candidate" },
+      { domainTag: "future_paid", portfolioState: "paid-candidate" },
       [],
     ),
     { status: "paid-candidate" },
+  );
+});
+
+test("audit-preview becomes a real locked checkout state, then unlocked after all-access", () => {
+  const domain = domainBySlug("humanoid-robotics");
+  assert.ok(domain);
+  const locked = [
+    { domainTag: "humanoid_robotics", entitlement: "humanoid", hiddenOrgCount: 68 },
+  ];
+
+  assert.deepEqual(resolveRouteExposureAccess(domain, locked), { status: "audit-preview" });
+  assert.deepEqual(resolveRouteExposureAccess(domain, locked, true), {
+    status: "locked",
+    hiddenOrgCount: 68,
+  });
+  assert.deepEqual(resolveRouteExposureAccess(domain, [], true), { status: "unlocked" });
+});
+
+test("an entitlement does not silently put a route into the all-access offer", () => {
+  assert.deepEqual(
+    resolveRouteExposureAccess(
+      {
+        domainTag: "research_preview",
+        entitlement: "legacy",
+        portfolioState: "audit-preview",
+      },
+      [{ domainTag: "research_preview", entitlement: "legacy", hiddenOrgCount: 4 }],
+      true,
+    ),
+    { status: "audit-preview" },
   );
 });
 

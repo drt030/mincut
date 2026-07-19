@@ -76,13 +76,14 @@ For any node a user inspects, at **first glance** they can answer — in plain l
 - The Cost + Dependency + Concentration + Barrier breakdown is available on drill-in, with Cost visually and verbally separated from the structural Chokepoint reason.
 - When a saved node-detail IA sample exists, the rendered detail must preserve the same visible hierarchy, not only the same text order. For `docs/plans/assets/node-detail-ia-commercial-supplier-lines-v4.png`, the first reader path requires a sample-style identity hero, leading quote block, 2x2 core readout, decomposition table/card treatment, evidence card, and supplier/company cards.
 - Default route entry state is not selected-node detail. On first route load before the user clicks a graph node, the rail may show route guidance / a start card, but it must not also render a duplicate selected-node summary for the same start node.
-- The selected-node core readout has exactly four reader-facing tiles: **Load-bearing scope** / **承载范围**, **Substitution feasibility** / **替代可行性**, **Blocking mode** / **阻断方式**, and **Current status** / **当前状态**. Cost/capex scale, Chokepoint-axis diagnostics, evidence state, and supplier/company detail belong in their own detail, Cost-lens, evidence, exposure, or supplementary surfaces, not as extra core-readout tiles.
+- The selected-node core readout has exactly four reader-facing tiles: **Impact scope** / **影响范围**, **Substitution feasibility** / **替代可行性**, **Blocking mode** / **阻断方式**, and **Current status** / **当前状态**. Cost/capex scale, Chokepoint-axis diagnostics, evidence state, and supplier/company detail belong in their own detail, Cost-lens, evidence, exposure, or supplementary surfaces, not as extra core-readout tiles.
 - The selected-node core readout must use a stable 2x2 tile layout in the rail.
   Do not collapse the four readout tiles into a single cramped row just because
   CSS can technically fit four columns; a one-row layout makes the cards harder
   to scan and misuses the narrow detail rail. Only fall back below 2 columns on
   genuinely tiny/mobile widths where two columns would overflow.
 - The saved-sample primary reader path must not insert a separate "Where it is stuck" / "具体卡点" section between `Node interpretation` / `节点解读` and `Decomposition` / `结构拆解`. Concrete constraint mechanisms belong in the core `Blocking mode` tile, the `Node interpretation` paragraph, and the decomposition rows.
+- The selected-node `Decomposition` / `结构拆解` block must explain this node's actual decomposition boundary. Its heading, count line, summary sentence, and child rows should tell the reader what system boundary is being split and why the child modules matter. A reusable template such as "direct modules", "the parent needs these dependencies", or "each child can have its own suppliers/evidence/bottlenecks/cost/lower decomposition" is not sufficient when it repeats across nodes without naming the current mechanism.
 - The saved-sample primary reader path must not add raw model diagnostics that are not in the sample. The Cost / Dependency / Concentration / Barrier axis grid may remain available in an explicit drill-in or supplementary appendix, but a standalone "Chokepoint axes" / "卡点四轴" block is not part of the first-glance core readout.
 - Weak/thin evidence and missing holder coverage are data-quality states. They must be visible, but they must not be used as the concrete "why this is a chokepoint" / "具体卡点" reason.
 - Missing or sparse modeled holder coverage must be worded as a model/evidence coverage state, not as a confirmed real-world absence, exclusivity, or sole-source conclusion.
@@ -90,7 +91,7 @@ For any node a user inspects, at **first glance** they can answer — in plain l
 - Key Chokepoints surfaces contain only top-band Chokepoints or explicitly authored bottlenecks. Lower-band constraints, ordinary dependency nodes, and evidence gaps belong in decomposition, inspect-next, evidence, or research-gap surfaces unless clearly labeled as candidates.
 - Non-top ordinary nodes must not receive the same "Where it is stuck" / "具体卡点" treatment as confirmed Chokepoints. If they are shown as candidate constraints, that uncertainty must be explicit.
 
-**Fails** if: the answer is buried (needs digging), shown as internal jargon, estimated or typical values are labeled with `P50` / `p50` in user-facing UI or reports, the elevated axis isn't surfaced, the explanation only restates that the node is important, structural-node cost/capex proxy is mislabeled as broad market or commercial scale, relief timing or supplier commercial scale is blank / silently omitted / left as an unqualified unknown, a proxy estimate is presented as reviewed fact, a parent structural node's cost-scale proxy is below its child rollup, an unsourced child estimate visibly exceeds or overfills a direct authored parent cost/capex value without being parent-bounded or flagged, a parent structural node's relief / mitigation cycle is shorter than a direct structural child, a zero-holder Concentration gap is presented as a confirmed supplier count, a nonzero modeled holder count is presented as "only / sole / exclusive / 仅 / 唯一" without an explicit ADR-0009-grade sole-source claim, weak evidence / missing holder coverage is presented as the bottleneck reason, saved node-detail sample visual hierarchy is replaced by the old sidebar/card treatment even when the text order is correct, or ordinary non-top nodes are dressed as confirmed Chokepoints. (Whether each nonzero number is *correct* is the audit agent's job, not this checklist's; whether the UI overclaims what the count means is this checklist's job.)
+**Fails** if: the answer is buried (needs digging), shown as internal jargon, estimated or typical values are labeled with `P50` / `p50` in user-facing UI or reports, the elevated axis isn't surfaced, the explanation only restates that the node is important, structural-node cost/capex proxy is mislabeled as broad market or commercial scale, relief timing or supplier commercial scale is blank / silently omitted / left as an unqualified unknown, a proxy estimate is presented as reviewed fact, a parent structural node's cost-scale proxy is below its child rollup, an unsourced child estimate visibly exceeds or overfills a direct authored parent cost/capex value without being parent-bounded or flagged, a parent structural node's relief / mitigation cycle is shorter than a direct structural child, a zero-holder Concentration gap is presented as a confirmed supplier count, a nonzero modeled holder count is presented as "only / sole / exclusive / 仅 / 唯一" without an explicit ADR-0009-grade sole-source claim, weak evidence / missing holder coverage is presented as the bottleneck reason, saved node-detail sample visual hierarchy is replaced by the old sidebar/card treatment even when the text order is correct, selected-node decomposition copy repeats generic framework text instead of naming the current node's decomposition mechanism, or ordinary non-top nodes are dressed as confirmed Chokepoints. (Whether each nonzero number is *correct* is the audit agent's job, not this checklist's; whether the UI overclaims what the count means is this checklist's job.)
 
 ### 3b. Vocabulary consistency
 
@@ -309,6 +310,25 @@ From the rendered site (no repo access), an investor/operator/analyst can answer
 ### 3e. Compliance guardrail
 
 MinCut is an **analytical tool, not stock advice**. No "buy ticker X", no unaudited-return claims, no "Serenity-certified" language. Exposure/ticker context must read as evidence, not a recommendation.
+
+For a paid launch, the purchase and support policy must be reachable before
+checkout and state the actual offer in plain language: the one-time price,
+what the current collection includes, that there is no automatic renewal or
+promised update schedule, the refund window, how to contact support and
+restore access, what payment/usage data is handled, and that the research is
+not investment advice. Internal operator routes must not be publicly reachable
+or indexable in production.
+
+The current low-price snapshot experiment keeps three commercial states
+separate: `entitlement` is the technical access boundary, `allAccessRole`
+declares whether a route is in the current $9 collection, and `portfolioState`
+states research/evidence maturity. A clearly labeled `audit-preview` may be
+included in the current snapshot only when its role and maturity are visible at
+the offer and route entry. `core` is a bundle role, not a higher evidence grade;
+early-research and hypothesis add-ons must keep those labels after unlock.
+Payment never relaxes the evidence bar: each surfaced company lead still needs
+a concrete graph path, relationship type, visible review/source state, and an
+explicit limitation. An entitlement by itself must never create a checkout.
 
 ---
 

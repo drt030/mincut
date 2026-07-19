@@ -431,7 +431,7 @@ test("RouteDetailRail selected summary leads with reader-first node summary", ()
   assert.doesNotMatch(summary, /sorter\.\./);
   assert.doesNotMatch(summary, /Where it is stuck|具体卡点/i);
   assert.match(summary, /Core readout/i);
-  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Impact scope/i);
   assert.match(summary, /Substitution feasibility/i);
   assert.match(summary, /Blocking mode/i);
   assert.match(summary, /Current status/i);
@@ -563,7 +563,7 @@ test("RouteDetailRail keeps unknown cost out of core readout while interpretatio
   const summary = selectedSummary(html);
   const thesis = summary.match(/<div class="route-reader-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Impact scope/i);
   assert.match(summary, /Current status/i);
   assert.match(thesis, /Estimated 12 months; proxy based on node type and deployment proxy/i);
   assert.doesNotMatch(summary, /Cost gap unknown/i);
@@ -608,7 +608,7 @@ test("RouteDetailRail does not turn explicit cost disclosure gaps into core read
   const summary = selectedSummary(html);
   const thesis = summary.match(/<div class="route-reader-thesis"[\s\S]*?<\/div>/)?.[0] ?? "";
 
-  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Impact scope/i);
   assert.match(summary, /Blocking mode/i);
   assert.match(summary, /Current status/i);
   assert.match(summary, /18 months/i);
@@ -649,7 +649,7 @@ test("RouteDetailRail keeps heuristic route cost signals out of selected core re
   );
   const summary = selectedSummary(html);
 
-  assert.match(summary, /Load-bearing scope/i);
+  assert.match(summary, /Impact scope/i);
   assert.match(summary, /Blocking mode/i);
   assert.match(summary, /Current status/i);
   assert.match(summary, /18 months/i);
@@ -750,7 +750,7 @@ test("RouteDetailRail start-here and chokepoints explain why without exposing He
   assert.doesNotMatch(start, /depends on this constraint scaling/i);
   assert.match(start, /Constraint mechanism|Component availability|Capacity \/ scale|Technical maturity/i);
   assert.match(start, /Core readout/i);
-  assert.match(start, /Load-bearing scope/i);
+  assert.match(start, /Impact scope/i);
   assert.match(start, /Substitution feasibility/i);
   assert.match(start, /Blocking mode/i);
   assert.match(start, /Current status/i);
@@ -1130,7 +1130,7 @@ test("RouteDetailRail renders audit previews without surfacing the exposure lock
   const start = startHereCard(html);
 
   assert.doesNotMatch(summary, /Company exposure locked/i);
-  assert.doesNotMatch(summary, /Company identities and listing details open only when this paid domain launches/i);
+  assert.doesNotMatch(summary, /Company identities and listing details are not open in this preview/i);
   assert.doesNotMatch(html, /Under review/i);
   assert.match(start, /Open Detail from here to inspect the thesis, evidence, cost signal, and next chokepoints/i);
   assert.doesNotMatch(summary, /paid access/i);
@@ -1141,9 +1141,8 @@ test("RouteDetailRail renders audit previews without surfacing the exposure lock
   assert.match(start, /Check availability/i);
   assert.doesNotMatch(start, /Paid exposure/i);
   assert.doesNotMatch(start, /Locked until launch/i);
-  assert.doesNotMatch(start, /Company exposure opens only when this paid domain launches/i);
+  assert.doesNotMatch(start, /Company identities and listing details are not open in this preview/i);
   assert.doesNotMatch(start, /Show locked exposure/i);
-  assert.doesNotMatch(html, /checkout/i);
   assert.doesNotMatch(html, /paid unlock/i);
   assert.doesNotMatch(summary, /graph route not live/i);
   assert.doesNotMatch(summary, /Exposure layer unlocked/i);
@@ -1186,7 +1185,7 @@ test("RouteDetailRail audit-preview detail keeps supplier exposure hidden until 
   assert.match(html, /Evidence trail/i);
   assert.doesNotMatch(html, /data-testid="route-detail-access-boundary"/);
   assert.doesNotMatch(html, /Company exposure locked/i);
-  assert.doesNotMatch(html, /Company identities and listing details open only when this paid domain launches/i);
+  assert.doesNotMatch(html, /Company identities and listing details are not open in this preview/i);
   assert.match(html, /No direct evidence linked/i);
   assert.doesNotMatch(html, /paid-candidate route/i);
   assert.doesNotMatch(html, /Supplier\/ticker exposure is gated/i);

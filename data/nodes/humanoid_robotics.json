@@ -34,6 +34,73 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "humanoid_figure03_reference_platform",
+    "name": "Figure 03 reference platform",
+    "kind": "product",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Primary benchmark robot for this humanoid map. Figure 03 is used to check whether the whole-robot decomposition covers actuators, hands, perception, battery and power, charging, data offload, structure, electronics, manufacturing traceability, fleet operation, and service. BMW's Spartanburg project provides an independent customer and workcell anchor, while TIME's reporting keeps home-readiness and autonomy claims caveated. This remains a non-decision-grade reference product instance, not a supplier exposure or mature-performance claim.",
+    "maturityScore": 50,
+    "maturityLabel": "early_deployment",
+    "maturityAsOf": "2026-07",
+    "confidence": "medium",
+    "targetContext": {
+      "targetScale": "Figure-reported BotQ first-generation line up to 12,000 humanoid robots per year, with an April 2026 production-ramp claim from one Figure 03 per day to one per hour. BMW's June 2026 customer anchor says Figure 03 will start at Spartanburg on logistics sequencing after a Figure 02 production-environment deployment. Treat all ramp numbers as vendor-claimed until independently verified.",
+      "targetPerformance": "vendor-claimed general-purpose humanoid capabilities: precise manipulation, navigation, autonomous docking, and fleet data offload. In this graph, only architecture coverage and the BMW industrial/logistics anchor are used; home readiness, autonomy level, uptime, safety certification, fleet-learning impact, and supplier/BOM claims remain audit gaps.",
+      "targetUseCase": "benchmark for checking a deployable, scalable whole-robot humanoid architecture rather than an actuator-only or demo-only platform",
+      "targetEnvironment": "Use Figure 03 as a decomposition benchmark for industrial/logistics and future home-service claims. Treat production ramp, uptime/reliability, autonomy rate, safety/certification, home readiness, fleet-learning/data-offload, and supplier/BOM claims as unreviewed until non-vendor evidence supports each claim at the same basis.",
+      "targetDate": "2026"
+    },
+    "metrics": [
+      {
+        "name": "Independent customer anchor",
+        "unit": "qualitative",
+        "currentValue": "BMW official 2026-06-25: Figure 03 will start at Plant Spartanburg on logistics sequencing; predecessor Figure 02 supported more than 30,000 BMW X3 vehicles over ten months.",
+        "description": "Use as a customer/workcell credibility anchor, not as proof of Figure 03 uptime, autonomy rate, yield, or production cost."
+      },
+      {
+        "name": "Home-readiness caveat",
+        "unit": "qualitative",
+        "currentValue": "TIME reported on 2025-10-09 that Figure 03 would not be ready for domestic use at launch.",
+        "description": "Prevents the benchmark from being interpreted as a reviewed home-deployment platform."
+      },
+      {
+        "name": "Decision-grade evidence status",
+        "unit": "qualitative",
+        "currentValue": "Not decision-grade. Missing non-vendor verification for production ramp, uptime/reliability, autonomy rate, safety/certification, fleet-learning/data-offload, and supplier/BOM claims.",
+        "description": "This audit status deliberately prevents customer-anchor evidence from being over-extended into performance, safety, learning-rate, cost, or supplier-exposure conclusions."
+      }
+    ],
+    "tags": [
+      "benchmark",
+      "figure03",
+      "reference_platform",
+      "independent_customer_anchor",
+      "caveated_benchmark",
+      "needs_independent_review",
+      "not_decision_grade",
+      "audit_gap_production_ramp",
+      "audit_gap_uptime_reliability",
+      "audit_gap_autonomy_rate",
+      "audit_gap_safety_certification",
+      "audit_gap_fleet_learning",
+      "no_supplier_bom_inference"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure03_intro_platform",
+      "ev_humanoid_figure03_wireless_charging",
+      "ev_humanoid_figure03_data_offload",
+      "ev_humanoid_figure03_production_ramp",
+      "ev_humanoid_figure_botq",
+      "ev_humanoid_figure_battery",
+      "ev_humanoid_bmw_figure03_spartanburg_logistics",
+      "ev_humanoid_bmw_figure02_spartanburg_30000_vehicles",
+      "ev_humanoid_time_figure03_domestic_readiness_caveat"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "humanoid_workforce_automation_capability",
     "name": "Human-form-factor workforce automation capability",
     "kind": "capability",
@@ -538,14 +605,16 @@
       "humanoid_actuation_system"
     ],
     "evidenceIds": [
-      "ev_humanoid_harmonic_ir",
       "ev_humanoid_harmonic_drive_precision_products",
       "ev_humanoid_nabtesco_precision",
       "ev_humanoid_leaderdrive_humanoid",
-      "ev_humanoid_leaderdrive_ticker",
       "ev_humanoid_unitree_g1_price_joint_count"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_harmonic_ir",
+      "ev_humanoid_leaderdrive_ticker"
+    ]
   },
   {
     "id": "humanoid_motor_stack",
@@ -679,10 +748,11 @@
       "reducer",
       "bottleneck"
     ],
-    "evidenceIds": [
+    "evidenceIds": [],
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
       "ev_humanoid_harmonic_ir"
-    ],
-    "reviewStatus": "unreviewed"
+    ]
   },
   {
     "id": "humanoid_planetary_roller_screw",
@@ -898,6 +968,29 @@
     "reviewStatus": "unreviewed"
   },
   {
+    "id": "humanoid_hand_palm_camera",
+    "name": "Embedded palm camera",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Close-range palm camera embedded in the hand to keep grasp feedback available when head or torso cameras are occluded. Figure 03 is the benchmark instance; this is not modeled as universal to every humanoid hand.",
+    "maturityScore": 38,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2025-10",
+    "confidence": "medium",
+    "tags": [
+      "hand",
+      "manipulation",
+      "benchmark_figure03",
+      "constraint_integration_commissioning"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure03_hand_sensory"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
     "id": "humanoid_palm_force_tactile_array",
     "name": "Palm force and tactile array",
     "kind": "equipment",
@@ -1058,6 +1151,39 @@
     "evidenceIds": [
       "ev_humanoid_figure_battery",
       "ev_humanoid_ti_bms"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_inductive_charging_dock",
+    "name": "Wireless inductive charging dock",
+    "kind": "equipment",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Charging mat or dock plus robot-side pickup coils that let a humanoid self-dock and recharge without a plug or battery swap. Figure 03 is the benchmark instance because its official materials describe foot-mounted charging coils and 2 kW wireless charging.",
+    "maturityScore": 42,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2025-10",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Figure 03 wireless charging power",
+        "unit": "kW",
+        "currentValue": 2,
+        "costAsOf": "2026",
+        "description": "Vendor-claimed Figure 03 inductive charging power; not an independently verified fleet uptime or thermal-efficiency metric."
+      }
+    ],
+    "tags": [
+      "charging",
+      "dock",
+      "fleet_uptime",
+      "benchmark_figure03",
+      "constraint_integration_commissioning"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure03_wireless_charging"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -1730,6 +1856,40 @@
     "transactability": "must_build",
     "tags": [
       "manipulation"
+    ],
+    "reviewStatus": "unreviewed"
+  },
+  {
+    "id": "humanoid_fleet_connectivity_data_offload",
+    "name": "Fleet connectivity and data offload",
+    "kind": "module",
+    "domain": [
+      "humanoid_robotics"
+    ],
+    "description": "Wireless data-offload, telemetry, dataset upload, and fleet-learning infrastructure that turns deployed robots into a training-data source. Figure 03 is the benchmark instance because its official materials tie mmWave data offload to fleet learning and dock-return shift breaks.",
+    "maturityScore": 40,
+    "maturityLabel": "prototype",
+    "maturityAsOf": "2025-10",
+    "confidence": "medium",
+    "metrics": [
+      {
+        "name": "Figure 03 wireless data offload rate",
+        "unit": "Gbps",
+        "currentValue": 10,
+        "costAsOf": "2026",
+        "description": "Vendor-claimed Figure 03 mmWave data offload capability; not an independently verified sustained fleet upload or learning-rate metric."
+      }
+    ],
+    "tags": [
+      "fleet",
+      "data",
+      "connectivity",
+      "benchmark_figure03",
+      "constraint_capacity_scale",
+      "constraint_integration_commissioning"
+    ],
+    "evidenceIds": [
+      "ev_humanoid_figure03_data_offload"
     ],
     "reviewStatus": "unreviewed"
   },
@@ -2629,10 +2789,12 @@
       "supplier_candidate"
     ],
     "evidenceIds": [
-      "ev_humanoid_harmonic_ir",
       "ev_humanoid_harmonic_drive_precision_products"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_harmonic_ir"
+    ]
   },
   {
     "id": "org_humanoid_nabtesco",
@@ -2672,10 +2834,12 @@
       "supplier_candidate"
     ],
     "evidenceIds": [
-      "ev_humanoid_leaderdrive_humanoid",
-      "ev_humanoid_leaderdrive_ticker"
+      "ev_humanoid_leaderdrive_humanoid"
     ],
-    "reviewStatus": "unreviewed"
+    "reviewStatus": "unreviewed",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_leaderdrive_ticker"
+    ]
   },
   {
     "id": "org_yaskawa_electric",
@@ -3449,16 +3613,17 @@
     "description": "Public power-semiconductor and microcontroller maker (power switches/MOSFETs, gate drivers, battery-monitoring & balancing ICs, MCUs). Merchant-silicon supplier for humanoid power electronics / BMS front-ends; ticker IFX.DE is Frankfurt/Xetra exposure (US OTC: IFNNY), not a US primary listing. Supplies the merchant ICs; the BMS control firmware/algorithm is the robot maker's (captive).",
     "maturityLabel": "unknown",
     "confidence": "medium",
-    "evidenceIds": [
-      "ev_humanoid_infineon_humanoid_blocks"
-    ],
+    "evidenceIds": [],
     "tags": [
       "public_company",
       "supplier_candidate"
     ],
     "reviewStatus": "unreviewed",
     "listingStatus": "public",
-    "ticker": "IFX.DE"
+    "ticker": "IFX.DE",
+    "rejectedEvidenceIds": [
+      "ev_humanoid_infineon_humanoid_blocks"
+    ]
   },
   {
     "id": "org_nxp",

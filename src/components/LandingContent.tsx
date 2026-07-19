@@ -11,7 +11,7 @@ const landingCopy = {
     eyebrow: "MinCut · drt030.com",
     title: "Find the bottlenecks in how things get made.",
     lede:
-      "AI compute is the full free demo. Humanoid robotics, controlled fusion, and the SpaceX maps are future paid domains: the map, bottleneck thesis, and evidence trail are visible, while supplier/ticker exposure stays locked until launch gates pass.",
+      "AI compute is the full free demo. Humanoid robotics, controlled fusion, and the SpaceX maps show the map, bottleneck thesis, and evidence trail; founding access unlocks supplier/ticker exposure.",
     disclaimer: "Industrial research only. Company and ticker context supports diligence; it is not investment advice.",
     primaryCta: "Open the AI compute map",
     secondaryCta: "Preview fusion routes",
@@ -27,18 +27,12 @@ const landingCopy = {
     currentDropsEyebrow: "Current drops",
     currentDropsTitle: "One route per chain, one map you can inspect.",
     currentDropsBody:
-      "Free demos show the full method. Future paid maps show the thesis and evidence while supplier/ticker exposure stays locked until launch gates pass.",
-    offerEyebrow: "Private beta",
-    offerTitle: "Paid domains open only after launch gates pass.",
+      "Free demos show the full method. Paid-preview maps show the thesis and evidence while founding access unlocks supplier/ticker exposure.",
+    offerEyebrow: "Founding access",
+    offerTitle: "Founding access opens the paid exposure layer.",
     offerBody:
-      "Join the waitlist for future paid access. No checkout is live yet; supplier identities, tickers, updates, and curated exposure stay locked until the commercial gate is verified.",
-    offerCta: "Join the waitlist",
-    foundingEyebrow: "Founding access",
-    foundingTitle: "Join the paid-domain waitlist.",
-    foundingBody:
-      "No checkout is live yet. Supplier and ticker exposure opens only after each paid domain passes the commercial launch gate.",
-    foundingCta: "Join the waitlist",
-    foundingUnlockCta: "Join the waitlist",
+      "Buy access when checkout is available, or leave an email for the next access batch. Supplier identities, tickers, updates, and curated exposure stay gated until entitlement is verified.",
+    offerCta: "Join the access list",
     betaEmailLabel: "Work email",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "Request beta access",
@@ -71,7 +65,7 @@ const landingCopy = {
     eyebrow: "MinCut · drt030.com",
     title: "找到东西如何被制造出来时的关键瓶颈。",
     lede:
-      "AI compute 是完整免费的样板图谱。人形机器人、可控核聚变和 SpaceX 图谱是未来付费领域：产品图谱、瓶颈判断和证据链可见，供应商/股票 exposure 会在上线 gate 通过前保持锁定。",
+      "AI compute 是完整免费的样板图谱。人形机器人、可控核聚变和 SpaceX 图谱开放结构、瓶颈判断和证据链；购买创始访问后可解锁供应商 / 股票 exposure。",
     disclaimer: "仅用于产业研究。公司和股票代码是尽调线索，不构成投资建议。",
     primaryCta: "打开 AI compute 图谱",
     secondaryCta: "预览核聚变路线",
@@ -87,18 +81,12 @@ const landingCopy = {
     currentDropsEyebrow: "当前图谱",
     currentDropsTitle: "每条产业链一张可检查的路线图。",
     currentDropsBody:
-      "免费样板展示完整方法。未来付费图谱先展示判断和证据，供应商/股票 exposure 会保持锁定，直到上线 gate 通过。",
-    offerEyebrow: "私测候补",
-    offerTitle: "付费领域必须通过上线 gate 后再开放。",
+      "免费样板展示完整方法。付费预览图谱展示判断和证据，创始访问解锁供应商 / 股票 exposure。",
+    offerEyebrow: "创始访问",
+    offerTitle: "创始访问开放付费 exposure 层。",
     offerBody:
-      "加入未来付费访问候补。当前不提供 checkout；供应商身份、股票代码、更新和 curated exposure 会保持锁定，直到商业 gate 验证完成。",
-    offerCta: "加入候补名单",
-    foundingEyebrow: "创始访问",
-    foundingTitle: "加入付费领域候补名单。",
-    foundingBody:
-      "当前不提供 checkout。每个付费领域必须通过商业上线 gate 后，才会开放供应商与股票 exposure。",
-    foundingCta: "加入候补名单",
-    foundingUnlockCta: "加入候补名单",
+      "购买入口可用时直接购买；也可以留下邮箱进入下一批访问名单。供应商身份、股票代码、更新和 curated exposure 会保持 gated，直到 entitlement 验证通过。",
+    offerCta: "加入访问名单",
     betaEmailLabel: "工作邮箱",
     betaEmailPlaceholder: "you@fund.com",
     betaSubmit: "申请私测访问",
@@ -135,29 +123,24 @@ const domainLandingCopy = {
       detail: "Complete free demo with supplier exposure, tickers, and cited evidence.",
       cta: "Open AI compute map",
     },
-    "parcel-robot": {
-      status: "Depth reference",
-      detail: "Second free reference for inspecting a deeper product chain and validation workflow.",
-      cta: "Open parcel map",
-    },
     "humanoid-robotics": {
-      status: "Future paid domain",
-      detail: "Map, bottlenecks, and evidence are visible. Supplier/ticker exposure stays locked until launch gates pass.",
+      status: "Paid exposure preview",
+      detail: "Map, bottlenecks, and evidence are visible. Founding access unlocks supplier/ticker exposure.",
       cta: "Review candidate map",
     },
     "controlled-fusion": {
-      status: "Future paid domain",
-      detail: "Route logic and evidence are visible. Organization exposure stays locked until launch gates pass.",
+      status: "Paid exposure preview",
+      detail: "Route logic and evidence are visible. Founding access unlocks organization exposure.",
       cta: "Review route portfolio",
     },
     "spacex-reusable-launch": {
-      status: "Future paid domain",
-      detail: "SpaceX-centered reuse map. Exposure opens only when the domain launches.",
+      status: "Paid exposure preview",
+      detail: "SpaceX-centered reuse map. Founding access unlocks exposure.",
       cta: "Open SpaceX reuse map",
     },
     "spacex-orbital-data-center": {
-      status: "Future paid domain",
-      detail: "Future-product map. Exposure opens only when the domain launches.",
+      status: "Paid exposure preview",
+      detail: "Future-product map. Founding access unlocks exposure.",
       cta: "Open orbital compute map",
     },
   },
@@ -167,29 +150,24 @@ const domainLandingCopy = {
       detail: "完整免费样板，包含供应商 exposure、股票代码和引用证据。",
       cta: "打开 AI compute 图谱",
     },
-    "parcel-robot": {
-      status: "深度参考",
-      detail: "第二个免费参考图谱，用来检查更深的产品链和验证流程。",
-      cta: "打开包裹分拣图谱",
-    },
     "humanoid-robotics": {
-      status: "未来付费领域",
-      detail: "图谱、瓶颈和证据可见；供应商/股票 exposure 会在上线 gate 通过前保持锁定。",
+      status: "付费 exposure 预览",
+      detail: "图谱、瓶颈和证据可见；创始访问解锁供应商 / 股票 exposure。",
       cta: "复核候选图谱",
     },
     "controlled-fusion": {
-      status: "未来付费领域",
-      detail: "路线逻辑和证据可见；组织 exposure 会保持锁定，直到上线 gate 通过。",
+      status: "付费 exposure 预览",
+      detail: "路线逻辑和证据可见；创始访问解锁组织 exposure。",
       cta: "复核路线组合",
     },
     "spacex-reusable-launch": {
-      status: "未来付费领域",
-      detail: "围绕 SpaceX 的复用发射图谱；exposure 只会在该领域上线后开放。",
+      status: "付费 exposure 预览",
+      detail: "围绕 SpaceX 的复用发射图谱；创始访问解锁 exposure。",
       cta: "打开 SpaceX 复用图谱",
     },
     "spacex-orbital-data-center": {
-      status: "未来付费领域",
-      detail: "未来产品图谱；exposure 只会在该领域上线后开放。",
+      status: "付费 exposure 预览",
+      detail: "未来产品图谱；创始访问解锁 exposure。",
       cta: "打开轨道计算图谱",
     },
   },
@@ -199,10 +177,6 @@ export function LandingContent() {
   const { language, nodeName } = useLanguage();
   const copy = landingCopy[language];
   const domainCopy = domainLandingCopy[language];
-  // Paid checkout is intentionally off while commercial domains are audit
-  // previews. Env-configured Stripe test links must not surface as live buy
-  // CTAs; this band stays a waitlist capture until the launch gate changes.
-  const foundingLink = undefined;
 
   return (
     <div className="landing-page">
@@ -213,11 +187,6 @@ export function LandingContent() {
           <p className="landing-lede">{copy.lede}</p>
           <p className="landing-disclaimer">{copy.disclaimer}</p>
           <div className="button-row landing-cta-row">
-            {foundingLink ? (
-              <a href={foundingLink} className="button landing-cta-founding" data-testid="hero-founding-cta">
-                {copy.foundingUnlockCta}
-              </a>
-            ) : null}
             <Link href="/d/ai-compute" className="button">
               {copy.primaryCta}
             </Link>
@@ -285,18 +254,9 @@ export function LandingContent() {
 
       <section className="landing-offer-band" id="private-beta" aria-labelledby="offer-title">
         <div>
-          <p className="landing-eyebrow">{foundingLink ? copy.foundingEyebrow : copy.offerEyebrow}</p>
-          <h2 id="offer-title">{foundingLink ? copy.foundingTitle : copy.offerTitle}</h2>
-          <p>{foundingLink ? copy.foundingBody : copy.offerBody}</p>
-          {foundingLink ? (
-            <a
-              className="link-button landing-founding-cta"
-              href={foundingLink}
-              data-testid="landing-founding-cta"
-            >
-              {copy.foundingCta}
-            </a>
-          ) : null}
+          <p className="landing-eyebrow">{copy.offerEyebrow}</p>
+          <h2 id="offer-title">{copy.offerTitle}</h2>
+          <p>{copy.offerBody}</p>
         </div>
         <form action={buttondownEndpoint} method="post" target="_blank" className="buttondown-form landing-beta-form">
           <label htmlFor="beta-email">{copy.betaEmailLabel}</label>

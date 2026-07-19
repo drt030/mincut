@@ -28,6 +28,7 @@ import fs from "node:fs";
  */
 
 const graphExplorer = fs.readFileSync("src/components/GraphExplorer.tsx", "utf8");
+const graphLayoutPositions = fs.readFileSync("src/lib/graphLayoutPositions.ts", "utf8");
 const radialEdge = fs.readFileSync("src/components/RadialEdge.tsx", "utf8");
 const globals = fs.readFileSync("src/app/globals.css", "utf8");
 
@@ -141,13 +142,13 @@ requireMatch(
 );
 requireMatch(
   "GraphExplorer must constrain packed node positions to their radial sectors.",
-  /sectorBoundsById/.test(graphExplorer) &&
-    /sectorForTheta/.test(graphExplorer) &&
-    /sectorBoundsById,/.test(graphExplorer),
+  /sectorBoundsById/.test(graphLayoutPositions) &&
+    /sectorForTheta/.test(graphLayoutPositions) &&
+    /sectorBoundsById,/.test(graphLayoutPositions),
 );
 requireMatch(
   "GraphExplorer must keep an angular margin inside sector bounds when packing labels/cards.",
-  /sectorPaddingRadians:\s*0\.1/.test(graphExplorer),
+  /sectorPaddingRadians:\s*0\.1/.test(graphLayoutPositions),
 );
 requireMatch(
   "GraphExplorer must fit the default reader view to all visible packed canvas nodes so outer-ring materials/equipment are not clipped on first load.",

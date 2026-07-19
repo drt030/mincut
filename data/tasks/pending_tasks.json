@@ -608,5 +608,65 @@
     "id": "task_humanoid_append_domain_cross_orgs",
     "status": "pending",
     "createdAt": "2026-06-15"
+  },
+  {
+    "id": "task_humanoid_figure03_benchmark_independent_verification_20260703",
+    "title": "Independently verify Figure 03 benchmark claims",
+    "reason": "Figure 03 is now modeled as the primary unreviewed benchmark for the humanoid whole-robot stack. BMW and TIME evidence add an independent customer/workcell anchor and a home-readiness caveat, but production ramp, uptime/reliability, autonomy rate, safety/certification status, and fleet-learning/data-offload behavior still need stronger independent verification before treating the benchmark as decision-grade.",
+    "targetNodeId": "humanoid_figure03_reference_platform",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "id": "task_humanoid_figure03_production_ramp_nonvendor_verification_20260703",
+    "title": "Find non-vendor verification for Figure 03 production ramp",
+    "reason": "Figure's production-ramp record states one Figure 03 per hour plus 9,000+ actuators and 10+ SKUs, but this remains a vendor-side production claim. Find customer, filing, facility, or credible third-party evidence for sustained output rate, yield, shipped units, or delivery cadence before using ramp as decision-grade evidence.",
+    "targetNodeId": "humanoid_figure03_reference_platform",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "id": "task_humanoid_figure03_uptime_autonomy_metrics_20260703",
+    "title": "Verify Figure 03 uptime, reliability, and autonomy rate",
+    "reason": "BMW anchors a workcell/project context, but the graph still lacks non-vendor metrics for runtime hours, intervention rate, task success, remote-operation share, maintenance frequency, and fleet uptime. Do not treat the benchmark as mature without these measures.",
+    "targetNodeId": "humanoid_figure03_reference_platform",
+    "suggestedNodeKind": "metric",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "id": "task_humanoid_figure03_safety_certification_customer_acceptance_20260703",
+    "title": "Verify Figure 03 safety certification and customer acceptance basis",
+    "reason": "Current BMW and Figure evidence does not establish safety certification, formal customer acceptance, OSHA/UL/ISO basis, risk assessment scope, or incident/near-miss record. Keep safety maturity caveated until a standard, certification, or customer validation source supports it.",
+    "targetNodeId": "humanoid_figure03_reference_platform",
+    "suggestedNodeKind": "standard_or_regulation",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "id": "task_humanoid_figure03_fleet_learning_data_offload_nonvendor_20260703",
+    "title": "Verify Figure 03 fleet data-offload and learning-loop claims",
+    "reason": "The 10 Gbps mmWave and continuous-learning link is currently a Figure official claim. Find non-vendor evidence for sustained throughput, data quality, privacy/security controls, and whether deployed fleet data measurably improves task performance before using it as a maturity signal.",
+    "targetNodeId": "humanoid_fleet_connectivity_data_offload",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "id": "task_humanoid_figure03_supplier_bom_no_inference_guard_20260703",
+    "title": "Prevent supplier or BOM inference from Figure 03 benchmark evidence",
+    "reason": "Figure 03 is a product benchmark, not supplier exposure evidence. Add supplier/BOM links only when a source directly names the component, supplier, basis, and as-of date; do not infer public-company exposure from benchmark architecture or customer deployment alone.",
+    "targetNodeId": "humanoid_figure03_reference_platform",
+    "suggestedNodeKind": "evidence",
+    "priority": "high",
+    "status": "pending",
+    "createdAt": "2026-07-03T00:00:00.000Z"
   }
 ]

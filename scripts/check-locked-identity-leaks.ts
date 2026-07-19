@@ -2,7 +2,20 @@ import { DOMAIN_ROUTES } from "../src/lib/domains";
 import { stripExposureLayer } from "../src/lib/exposureGate";
 import { loadActiveGraphData } from "../src/lib/graphLoader";
 
-const REQUIRED_LOCKED_IDENTITY_TERMS = ["Holroyd", "ADI", "Air Products", "Aerojet Rocketdyne"];
+const REQUIRED_LOCKED_IDENTITY_TERMS = [
+  "locked supplier",
+  "Holroyd",
+  "ADI",
+  "Air Products",
+  "Aerojet Rocketdyne",
+  "Honeywell",
+  "Northrop Grumman",
+  "Safran",
+  "Moog",
+  "Woodward",
+  "L3Harris",
+  "Quasonix",
+];
 
 type Leak = {
   term: string;

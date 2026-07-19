@@ -1,7 +1,9 @@
 "use client";
 
+import { track } from "@vercel/analytics";
 import Link from "next/link";
-import type { DomainPortfolioState } from "@/lib/domains";
+import { useEffect } from "react";
+import type { AllAccessRole, DomainPortfolioState } from "@/lib/domains";
 import { useLanguage } from "./LanguageProvider";
 
 type DomainThesisBannerDomain = {
@@ -10,6 +12,7 @@ type DomainThesisBannerDomain = {
   title: string;
   description: string;
   portfolioState: DomainPortfolioState;
+  allAccessRole?: AllAccessRole;
 };
 
 type EvidenceReviewSummary = {
@@ -25,9 +28,16 @@ function formatCopy(template: string, replacements: Record<string, string | numb
   );
 }
 
-function statusKey(portfolioState: DomainPortfolioState): string {
+function statusKey(domain: Pick<DomainThesisBannerDomain, "portfolioState" | "allAccessRole">): string {
+  const { portfolioState } = domain;
   if (portfolioState === "full-free-flagship") return "domainThesisStatusFlagship";
   if (portfolioState === "full-free-depth-demo") return "domainThesisStatusDepthDemo";
+  if (portfolioState === "audit-preview" && domain.allAccessRole === "early-research-addon") {
+    return "domainThesisStatusEarlyResearch";
+  }
+  if (portfolioState === "audit-preview" && domain.allAccessRole === "hypothesis-addon") {
+    return "domainThesisStatusHypothesis";
+  }
   if (portfolioState === "audit-preview") return "domainThesisStatusAuditPreview";
   if (portfolioState === "paid-candidate") return "domainThesisStatusPaidCandidate";
   if (portfolioState === "waitlist") return "domainThesisStatusWaitlist";
@@ -51,15 +61,22 @@ function shouldExplainAccess(portfolioState: DomainPortfolioState): boolean {
 export function DomainThesisBanner({
   domain,
   evidence,
+  foundingCheckoutLink = null,
+  isUnlocked = false,
 }: {
   domain: DomainThesisBannerDomain;
   evidence: EvidenceReviewSummary;
+  foundingCheckoutLink?: string | null;
+  isUnlocked?: boolean;
 }) {
-  const { nodeName, t } = useLanguage();
+  const { nodeDescription, nodeName, t } = useLanguage();
   const domainName = nodeName(domain.rootId, domain.title);
+  const domainDescription = nodeDescription(domain.rootId, domain.description);
   const explainsAccess = shouldExplainAccess(domain.portfolioState);
   const showWaitlistCta =
-    domain.portfolioState === "paid-candidate" || domain.portfolioState === "audit-preview";
+    !isUnlocked &&
+    Boolean(domain.allAccessRole) &&
+    (domain.portfolioState === "paid-candidate" || domain.portfolioState === "audit-preview");
   const showAccessDetailsCta = false;
   const evidenceText = domain.portfolioState === "paid-candidate"
     ? t("domainThesisEvidenceCandidate")
@@ -75,6 +92,14 @@ export function DomainThesisBanner({
           total: evidence.total,
         });
 
+  useEffect(() => {
+    track("domain_open", {
+      domain: domain.slug,
+      access: isUnlocked ? "all_access" : domain.portfolioState,
+      surface: "domain_thesis",
+    });
+  }, [domain.portfolioState, domain.slug, isUnlocked]);
+
   return (
     <section
       className={["domain-thesis-banner", explainsAccess ? "" : "domain-thesis-banner-direct"]
@@ -86,17 +111,41 @@ export function DomainThesisBanner({
       <div className="domain-thesis-copy">
         <p className="domain-thesis-eyebrow">{t("domainThesisEyebrow")}</p>
         <h1>{domainName}</h1>
-        <p>{domain.description}</p>
+        <p>{domainDescription}</p>
       </div>
       {explainsAccess ? (
         <div className="domain-thesis-actions" aria-label={t("domainThesisNextSteps")}>
-          <span className="domain-thesis-status">{t(statusKey(domain.portfolioState))}</span>
-          <p>{t(accessKey(domain.portfolioState))}</p>
+          <span className="domain-thesis-status">
+            {isUnlocked
+              ? `${t(statusKey(domain))} · ${t("domainThesisStatusUnlocked")}`
+              : t(statusKey(domain))}
+          </span>
+          <p>{t(isUnlocked ? "domainThesisAccessUnlocked" : accessKey(domain.portfolioState))}</p>
           <p className="domain-thesis-evidence">{evidenceText}</p>
           {showWaitlistCta ? (
-            <Link className="domain-thesis-cta" href="/#private-beta">
-              {t("domainThesisJoinWaitlist")}
-            </Link>
+            foundingCheckoutLink ? (
+              <>
+                <a
+                  className="domain-thesis-cta"
+                  href={foundingCheckoutLink}
+                  onClick={() => track("checkout_click", {
+                    domain: domain.slug,
+                    product: "all_access",
+                    price_usd: 9,
+                    surface: "domain_thesis",
+                  })}
+                >
+                  {t("exposureLockBuy")}
+                </a>
+                <Link className="purchase-policy-link" href="/policies">
+                  {t("homeFoundingPolicyLink")}
+                </Link>
+              </>
+            ) : (
+              <Link className="domain-thesis-cta" href="/#private-beta">
+                {t("domainThesisJoinWaitlist")}
+              </Link>
+            )
           ) : null}
           {showAccessDetailsCta ? (
             <a className="domain-thesis-cta domain-thesis-cta-muted" href="#paid-exposure-access">

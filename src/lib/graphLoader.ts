@@ -116,6 +116,14 @@ export function validateGraphReferences(graph: GraphData): string[] {
     for (const evidenceId of edge.evidenceIds ?? []) {
       if (!evidenceIds.has(evidenceId)) errors.push(`Edge ${edge.id} evidence does not exist: ${evidenceId}`);
     }
+    for (const evidenceId of edge.rejectedEvidenceIds ?? []) {
+      if (!evidenceIds.has(evidenceId)) {
+        errors.push(`Edge ${edge.id} rejected evidence does not exist: ${evidenceId}`);
+      }
+      if ((edge.evidenceIds ?? []).includes(evidenceId)) {
+        errors.push(`Edge ${edge.id} lists ${evidenceId} as both supporting and rejected evidence`);
+      }
+    }
   }
 
   for (const node of graph.nodes) {

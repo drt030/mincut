@@ -83,6 +83,27 @@ const gateReports = loadGateReports();
 const failures: string[] = [];
 
 const auditPreviewStates = new Set(["audit-preview", "paid-candidate"]);
+const expectedAllAccessRoles = new Map([
+  ["humanoid-robotics", "core"],
+  ["spacex-reusable-launch", "core"],
+  ["controlled-fusion", "early-research-addon"],
+  ["spacex-orbital-data-center", "hypothesis-addon"],
+]);
+
+for (const domain of DOMAIN_ROUTES) {
+  const expectedRole = expectedAllAccessRoles.get(domain.slug);
+  if (domain.allAccessRole !== expectedRole) {
+    failures.push(
+      `${domain.slug} allAccessRole=${domain.allAccessRole ?? "none"}; expected ${expectedRole ?? "none"}.`,
+    );
+  }
+  if (domain.allAccessRole && !domain.entitlement) {
+    failures.push(`${domain.slug} is in all-access but has no entitlement boundary.`);
+  }
+  if (domain.allAccessRole && !auditPreviewStates.has(domain.portfolioState)) {
+    failures.push(`${domain.slug} is in all-access with unsupported state ${domain.portfolioState}.`);
+  }
+}
 
 for (const domain of DOMAIN_ROUTES) {
   const graph = loadActiveGraphData(domain.rootId);

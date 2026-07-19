@@ -19,16 +19,30 @@ export type LockedDomainSummary = {
   hiddenOrgCount: number;
 };
 
-const LockedDomainsContext = createContext<LockedDomainSummary[]>([]);
+type ExposureLockContextValue = {
+  locked: LockedDomainSummary[];
+  foundingCheckoutLink: string | null;
+};
+
+const LockedDomainsContext = createContext<ExposureLockContextValue>({
+  locked: [],
+  foundingCheckoutLink: null,
+});
 
 export function ExposureLockProvider({
   locked,
+  foundingCheckoutLink = null,
   children,
 }: {
   locked: LockedDomainSummary[];
+  foundingCheckoutLink?: string | null;
   children: ReactNode;
 }) {
-  return <LockedDomainsContext.Provider value={locked}>{children}</LockedDomainsContext.Provider>;
+  return (
+    <LockedDomainsContext.Provider value={{ locked, foundingCheckoutLink }}>
+      {children}
+    </LockedDomainsContext.Provider>
+  );
 }
 
 /**
@@ -36,26 +50,14 @@ export function ExposureLockProvider({
  * unlocked (or carries no hidden organizations — nothing to sell yet).
  */
 export function useLockedDomainForNode(node: Pick<Node, "domain"> | null | undefined): LockedDomainSummary | null {
-  const locked = useContext(LockedDomainsContext);
+  const { locked } = useContext(LockedDomainsContext);
   if (!node) return null;
   const tags = node.domain ?? [];
   return locked.find((entry) => entry.hiddenOrgCount > 0 && tags.includes(entry.domainTag)) ?? null;
 }
 
-function unlockHrefForEntitlement(entitlement: string): string | undefined {
-  switch (entitlement) {
-    case "humanoid":
-    case "power":
-      return undefined;
-    default:
-      return undefined;
-  }
-}
-
-// Shared so every locked surface stays waitlist-only while paid domains are
-// still audit-preview/private-beta surfaces.
-export function foundingCheckoutHref(): string | undefined {
-  return undefined;
+function useFoundingCheckoutLink(): string | null {
+  return useContext(LockedDomainsContext).foundingCheckoutLink;
 }
 
 export function ExposureCheckoutLinks({
@@ -68,13 +70,25 @@ export function ExposureCheckoutLinks({
   className?: string;
 }) {
   const { t } = useLanguage();
-  const unlockHref = unlockHrefForEntitlement(entry.entitlement);
-  const foundingLink = foundingCheckoutHref();
-
-  if (!unlockHref && !foundingLink) {
-    return (
-      <div className={className}>
-        {missingLabel ? <p className="exposure-checkout-missing">{missingLabel}</p> : null}
+  const foundingCheckoutLink = useFoundingCheckoutLink();
+  const note = foundingCheckoutLink ? t("exposureCheckoutLiveNote") : missingLabel;
+  return (
+    <div className={className}>
+      {note ? <p className="exposure-checkout-missing">{note}</p> : null}
+      {foundingCheckoutLink ? (
+        <>
+          <a
+            className="link-button"
+            href={foundingCheckoutLink}
+            onClick={() => track("checkout_click", { domain: entry.domainTag, product: "all_access", price_usd: 9 })}
+          >
+            {t("exposureLockBuy")}
+          </a>
+          <Link className="purchase-policy-link" href="/policies">
+            {t("homeFoundingPolicyLink")}
+          </Link>
+        </>
+      ) : (
         <Link
           className="link-button"
           href="/#private-beta"
@@ -82,30 +96,7 @@ export function ExposureCheckoutLinks({
         >
           {t("exposureLockWaitlist")}
         </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className={className}>
-      {unlockHref ? (
-        <a
-          className="link-button"
-          href={unlockHref}
-          onClick={() => track("unlock_click", { domain: entry.domainTag })}
-        >
-          {t("exposureLockUnlock")}
-        </a>
-      ) : null}
-      {foundingLink ? (
-        <a
-          className="link-button"
-          href={foundingLink}
-          onClick={() => track("unlock_click", { domain: entry.domainTag, product: "founding" })}
-        >
-          {t("exposureLockFounding")}
-        </a>
-      ) : null}
+      )}
     </div>
   );
 }

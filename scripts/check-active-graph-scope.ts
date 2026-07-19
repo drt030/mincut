@@ -5,7 +5,8 @@ import { loadActiveGraphData, loadGraphData, validateGraphReferences } from "../
 import { nodeById, V0_TARGET_NODE_ID } from "../src/lib/graphTraversal";
 
 const targetNodeId = V0_TARGET_NODE_ID;
-const landingPagePath = join(process.cwd(), "src/app/page.tsx");
+const homePagePath = join(process.cwd(), "src/app/page.tsx");
+const homeLaunchSectionsPath = join(process.cwd(), "src/components/HomeLaunchSections.tsx");
 const explorePagePath = join(process.cwd(), "src/app/explore/page.tsx");
 const graphPagePath = join(process.cwd(), "src/app/graph/page.tsx");
 const domainPagePath = join(process.cwd(), "src/app/d/[slug]/page.tsx");
@@ -55,12 +56,8 @@ if (aiComputeRoute.rootId !== aiComputeRootId) {
 }
 
 const parcelRoute = domainBySlug("parcel-robot");
-if (!parcelRoute) {
-  throw new Error("DOMAIN_ROUTES must register /d/parcel-robot");
-}
-
-if (parcelRoute.rootId !== targetNodeId) {
-  throw new Error(`/d/parcel-robot must be rooted at ${targetNodeId}; found ${parcelRoute.rootId}`);
+if (parcelRoute) {
+  throw new Error("/d/parcel-robot is not part of the public free-launch portfolio; parcel stays an internal target");
 }
 
 for (const domain of DOMAIN_ROUTES) {
@@ -70,10 +67,38 @@ for (const domain of DOMAIN_ROUTES) {
   }
 }
 
-function assertDoesNotUseGraphLoader(pagePath: string): void {
+function assertHomePageUsesAiComputeRoute(pagePath: string, launchSectionsPath: string): void {
   const pageSource = readFileSync(pagePath, "utf8");
-  if (/@\/lib\/graphLoader/.test(pageSource) || /\bload(?:Active)?GraphData\b/.test(pageSource)) {
-    throw new Error(`${pagePath} must not load graph data; root / is the landing page, not the research graph`);
+  if (!/\bdomainBySlug\s*\(\s*["']ai-compute["']\s*\)/.test(pageSource)) {
+    throw new Error(`${pagePath} must resolve root / through the ai-compute domain route`);
+  }
+
+  if (!/\bloadActiveGraphData\s*\(\s*domain\.rootId\s*\)/.test(pageSource)) {
+    throw new Error(`${pagePath} must load the ai-compute route graph through domain.rootId`);
+  }
+
+  if (/\bV0_TARGET_NODE_ID\b/.test(pageSource)) {
+    throw new Error(`${pagePath} must not switch the free homepage by reading V0_TARGET_NODE_ID`);
+  }
+
+  if (!/import\s*{[^}]*\bHomeLaunchSections\b[^}]*}\s*from\s*["']@\/components\/HomeLaunchSections["']/.test(pageSource)) {
+    throw new Error(`${pagePath} must import HomeLaunchSections`);
+  }
+
+  if (!/<HomeLaunchSections\b[\s\S]*\bfoundingCheckoutLink=/.test(pageSource)) {
+    throw new Error(`${pagePath} must render the founding-access launch section`);
+  }
+
+  const launchSectionsSource = readFileSync(launchSectionsPath, "utf8");
+  if (
+    !/\bid="private-beta"/.test(launchSectionsSource) ||
+    !/buttondown\.com\/api\/emails\/embed-subscribe\/drt030/.test(launchSectionsSource)
+  ) {
+    throw new Error(`${launchSectionsPath} must expose the founding-access waitlist fallback`);
+  }
+
+  if (!/href={foundingCheckoutLink}/.test(launchSectionsSource)) {
+    throw new Error(`${launchSectionsPath} must expose the active founding checkout link`);
   }
 }
 
@@ -95,7 +120,7 @@ function assertActiveGraphPageUsesActiveScopedData(pagePath: string): string {
   return pageSource;
 }
 
-assertDoesNotUseGraphLoader(landingPagePath);
+assertHomePageUsesAiComputeRoute(homePagePath, homeLaunchSectionsPath);
 
 const explorePageSource = assertActiveGraphPageUsesActiveScopedData(explorePagePath);
 if (!/import\s*{[\s\S]*?\bHomeContent\b[\s\S]*?}\s*from\s*["']@\/components\/HomeContent["'];?/.test(explorePageSource)) {

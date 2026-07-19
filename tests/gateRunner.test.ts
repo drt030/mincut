@@ -78,3 +78,15 @@ test("gate excluded claims derives sibling products instead of using a stale har
     "gate must flag the gripper sibling product as out-of-bound for the active suction product",
   );
 });
+
+test("parcel gate output does not inherit evidence from unrelated shared-organization domains", () => {
+  const graph = loadGraphData();
+  const questions = loadGateQuestions();
+  const report = runGate(graph, questions, "low_cost_parcel_sorting_robot_300k_rmb");
+  const serialized = JSON.stringify(report);
+
+  assert.doesNotMatch(serialized, /ev_acc_/);
+  assert.doesNotMatch(serialized, /ev_humanoid_/);
+  assert.doesNotMatch(serialized, /ev_space_/);
+  assert.doesNotMatch(serialized, /ev_fusion_/);
+});

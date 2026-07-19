@@ -3,7 +3,7 @@ import { buildAgentExpansionGraphPatch, upsertAgentExpansionTask } from "@/lib/a
 import { appendGraphPatchToParcelData, loadGraphData, loadTasks, writeTasks } from "@/lib/graphLoader";
 
 export async function POST(request: Request) {
-  if (process.env.OPERATOR_WRITES !== "1") {
+  if (process.env.OPERATOR_WRITES !== "1" || process.env.VERCEL === "1") {
     return NextResponse.json({ error: "This deployment is read-only" }, { status: 403 });
   }
   try {

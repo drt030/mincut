@@ -4,10 +4,17 @@ import { ENTITLEMENT_COOKIE, grantCookieValue, readEntitlements } from "../src/l
 import { PRICE_UNLOCKS, createUnlockGET, type UnlockCheckoutSession } from "../src/lib/unlockRoute";
 
 const env = {
+  ENTITLEMENT_SECRET: "a-secure-entitlement-secret-over-32-characters",
+  SUPPORT_EMAIL: "support@example.com",
   STRIPE_SECRET_KEY: "sk_test_unlock",
   STRIPE_PRICE_HUMANOID: "price_humanoid",
   STRIPE_PRICE_POWER: "price_power",
   STRIPE_PRICE_FOUNDING: "price_founding",
+  NEXT_PUBLIC_STRIPE_LINK_FOUNDING: "https://buy.stripe.com/test_example",
+};
+const paidUnlocksEnabledEnv = {
+  ...env,
+  ENABLE_PAID_UNLOCKS: "1",
 };
 
 const DISABLED_LEGACY_AI_PRICE_ENV_KEY = "STRIPE_PRICE_AI_COMPUTE";
@@ -68,9 +75,27 @@ test("redirects home without setting a cookie when session_id is missing", async
   assert.equal(retrieveCalls, 0);
 });
 
+test("paid unlocks fail closed by default even when Stripe env is configured", async () => {
+  let retrieveCalls = 0;
+  const get = createUnlockGET({
+    env,
+    retrieveCheckoutSession: async () => {
+      retrieveCalls += 1;
+      return paidSession(env.STRIPE_PRICE_FOUNDING);
+    },
+  });
+
+  const response = await get(unlockRequest());
+
+  assert.equal(response.status, 307);
+  assert.equal(redirectPath(response), "/?purchase=disabled&waitlist=1");
+  assert.equal(setCookie(response), null);
+  assert.equal(retrieveCalls, 0);
+});
+
 test("legacy paid ai compute sessions redirect to the free demo without granting an entitlement", async () => {
   const get = createUnlockGET({
-    env: disabledLegacyAiEnv,
+    env: { ...disabledLegacyAiEnv, ENABLE_PAID_UNLOCKS: "1" },
     retrieveCheckoutSession: async (sessionId, secretKey) => {
       assert.equal(sessionId, "cs_test_123");
       assert.equal(secretKey, env.STRIPE_SECRET_KEY);
@@ -89,7 +114,7 @@ test("legacy paid ai compute sessions redirect to the free demo without granting
 test("future humanoid and power price ids redirect to a pending state without granting entitlement", async () => {
   for (const priceId of [env.STRIPE_PRICE_HUMANOID, env.STRIPE_PRICE_POWER]) {
     const get = createUnlockGET({
-      env,
+      env: paidUnlocksEnabledEnv,
       retrieveCheckoutSession: async () => paidSession(priceId),
     });
 
@@ -104,7 +129,7 @@ test("future humanoid and power price ids redirect to a pending state without gr
 test("paid founding sessions grant all-access and preserve existing entitlements", async () => {
   const existingValue = await grantCookieValue("humanoid", []);
   const get = createUnlockGET({
-    env,
+    env: paidUnlocksEnabledEnv,
     retrieveCheckoutSession: async () => paidSession(env.STRIPE_PRICE_FOUNDING),
   });
 
@@ -112,14 +137,46 @@ test("paid founding sessions grant all-access and preserve existing entitlements
   const cookie = setCookie(response);
 
   assert.equal(response.status, 307);
-  assert.equal(redirectPath(response), "/?purchase=founding&waitlist=1&unlocked=1");
+  assert.equal(redirectPath(response), "/?purchase=success&access=all&unlocked=1");
+  assert.doesNotMatch(redirectPath(response), /waitlist/);
+  assert.match(cookie ?? "", /Path=\//i);
+  assert.match(cookie ?? "", /Max-Age=34560000/i);
+  assert.match(cookie ?? "", /HttpOnly/i);
+  assert.match(cookie ?? "", /Secure/i);
+  assert.match(cookie ?? "", /SameSite=Lax/i);
   assert.deepEqual((await readEntitlements(cookieValue(cookie))).sort(), ["all", "humanoid"]);
+});
+
+test("a verified paid session can be replayed to restore all-access without duplicating entitlements", async () => {
+  let retrieveCalls = 0;
+  const get = createUnlockGET({
+    env: paidUnlocksEnabledEnv,
+    retrieveCheckoutSession: async (sessionId) => {
+      retrieveCalls += 1;
+      assert.equal(sessionId, "cs_test_restore");
+      return paidSession(env.STRIPE_PRICE_FOUNDING);
+    },
+  });
+
+  const first = await get(unlockRequest("/unlock?session_id=cs_test_restore"));
+  const firstCookie = cookieValue(setCookie(first));
+  assert.deepEqual(await readEntitlements(firstCookie), ["all"]);
+
+  const replayWithCookie = await get(
+    unlockRequest("/unlock?session_id=cs_test_restore", `${ENTITLEMENT_COOKIE}=${firstCookie}`),
+  );
+  assert.deepEqual(await readEntitlements(cookieValue(setCookie(replayWithCookie))), ["all"]);
+
+  const replayOnFreshBrowser = await get(unlockRequest("/unlock?session_id=cs_test_restore"));
+  assert.deepEqual(await readEntitlements(cookieValue(setCookie(replayOnFreshBrowser))), ["all"]);
+  assert.equal(redirectPath(replayOnFreshBrowser), "/?purchase=success&access=all&unlocked=1");
+  assert.equal(retrieveCalls, 3);
 });
 
 test("incomplete payments redirect to an explicit non-grant state", async () => {
   const get = createUnlockGET({
-    env,
-    retrieveCheckoutSession: async () => paidSession(env.STRIPE_PRICE_HUMANOID, "unpaid"),
+    env: paidUnlocksEnabledEnv,
+    retrieveCheckoutSession: async () => paidSession(env.STRIPE_PRICE_FOUNDING, "unpaid"),
   });
 
   const response = await get(unlockRequest());
@@ -129,9 +186,24 @@ test("incomplete payments redirect to an explicit non-grant state", async () => 
   assert.equal(setCookie(response), null);
 });
 
+test("temporary Stripe verification failures redirect to a retry-safe issue state", async () => {
+  const get = createUnlockGET({
+    env: paidUnlocksEnabledEnv,
+    retrieveCheckoutSession: async () => {
+      throw new Error("temporary Stripe outage");
+    },
+  });
+
+  const response = await get(unlockRequest());
+
+  assert.equal(response.status, 307);
+  assert.equal(redirectPath(response), "/?purchase=verification-unavailable");
+  assert.equal(setCookie(response), null);
+});
+
 test("unknown prices redirect to an explicit non-grant state", async () => {
   const get = createUnlockGET({
-    env,
+    env: paidUnlocksEnabledEnv,
     retrieveCheckoutSession: async () => paidSession("price_unknown"),
   });
 
@@ -142,10 +214,23 @@ test("unknown prices redirect to an explicit non-grant state", async () => {
   assert.equal(setCookie(response), null);
 });
 
+test("missing founding price configuration fails closed before payment verification", async () => {
+  const get = createUnlockGET({
+    env: { ...paidUnlocksEnabledEnv, STRIPE_PRICE_FOUNDING: undefined },
+    retrieveCheckoutSession: async () => paidSession(env.STRIPE_PRICE_FOUNDING),
+  });
+
+  const response = await get(unlockRequest());
+
+  assert.equal(response.status, 307);
+  assert.equal(redirectPath(response), "/?purchase=config-missing");
+  assert.equal(setCookie(response), null);
+});
+
 test("missing Stripe secret key fails safe without retrieving the session or granting access", async () => {
   let retrieveCalls = 0;
   const get = createUnlockGET({
-    env: { ...env, STRIPE_SECRET_KEY: undefined },
+    env: { ...paidUnlocksEnabledEnv, STRIPE_SECRET_KEY: undefined },
     retrieveCheckoutSession: async () => {
       retrieveCalls += 1;
       return paidSession(env.STRIPE_PRICE_HUMANOID);
@@ -160,11 +245,28 @@ test("missing Stripe secret key fails safe without retrieving the session or gra
   assert.equal(retrieveCalls, 0);
 });
 
+test("incomplete paid-launch support configuration refuses direct unlock requests", async () => {
+  let retrieveCalls = 0;
+  const get = createUnlockGET({
+    env: { ...paidUnlocksEnabledEnv, SUPPORT_EMAIL: undefined },
+    retrieveCheckoutSession: async () => {
+      retrieveCalls += 1;
+      return paidSession(env.STRIPE_PRICE_FOUNDING);
+    },
+  });
+
+  const response = await get(unlockRequest());
+
+  assert.equal(redirectPath(response), "/?purchase=config-missing");
+  assert.equal(setCookie(response), null);
+  assert.equal(retrieveCalls, 0);
+});
+
 test("missing entitlement secret fails safe without granting founding access", async () => {
   const previousSecret = process.env.ENTITLEMENT_SECRET;
   delete process.env.ENTITLEMENT_SECRET;
   const get = createUnlockGET({
-    env,
+    env: paidUnlocksEnabledEnv,
     retrieveCheckoutSession: async () => paidSession(env.STRIPE_PRICE_FOUNDING),
   });
 
@@ -187,7 +289,7 @@ test("only the founding price mapping grants entitlement", () => {
   assert.deepEqual(
     PRICE_UNLOCKS.map(({ envKey, entitlement, destination }) => ({ envKey, entitlement, destination })),
     [
-      { envKey: "STRIPE_PRICE_FOUNDING", entitlement: "all", destination: "/?purchase=founding&waitlist=1" },
+      { envKey: "STRIPE_PRICE_FOUNDING", entitlement: "all", destination: "/?purchase=success&access=all" },
     ],
   );
 });

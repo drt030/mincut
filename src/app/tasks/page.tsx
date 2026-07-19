@@ -1,10 +1,15 @@
+import { notFound } from "next/navigation";
 import { TaskQueueView } from "@/components/TaskQueueView";
 import { TranslatedHeading } from "@/components/TranslatedText";
 import { loadGateReports, loadGraphData, loadTasks } from "@/lib/graphLoader";
 import { reachableNodeIdsFrom, V0_TARGET_NODE_ID } from "@/lib/graphTraversal";
+import { INTERNAL_ROUTE_METADATA, internalRoutesAvailable } from "@/lib/internalRouteGuard";
 import type { GateReport } from "@/lib/schema";
 
+export const metadata = INTERNAL_ROUTE_METADATA;
+
 export default function TasksPage() {
+  if (!internalRoutesAvailable()) notFound();
   const tasks = loadTasks();
   const graph = loadGraphData();
   const reports = loadGateReports();

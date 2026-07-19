@@ -90,6 +90,7 @@ For the current graph/detail class of defects, QA must explicitly distinguish:
 - structural-node cost-scale / capex proxy from broad market size, TAM, revenue, or supplier commercial scale. Detail tiles and Cost-lens copy should not make users think an authored fab capex or BOM proxy is the same thing as market size.
 - reader-facing estimated / typical numeric values from internal percentile notation; `P50` / `p50` in UI, gate reports, product readouts, route rails, or detail panels is a failure. English should use reader labels such as `est.`; Chinese should use `估算` or `约`.
 - parent/child scale consistency from mere value presence: structural cost-scale should roll up from direct structural children, relief / mitigation cycle should be at least the max of direct structural children, and low-confidence child cost estimates should be bounded by a direct authored parent cost/capex value when no better child source exists. A parent with a smaller authored or displayed value is still a failure even when every node has a nonblank value.
+- selected-node `Decomposition` / `结构拆解` quality from mere presence: the QA agent must inspect the heading, count line, summary sentence, and at least two child rows. A block that repeats framework copy like "direct modules", "the parent needs these dependencies", or "each child can carry suppliers/evidence/bottlenecks/cost/lower layers" without naming the current node's actual system boundary or mechanism is a failure even if the child rows exist.
 
 Current AI compute feedback replay classes that must be covered until fixed:
 
@@ -99,6 +100,7 @@ Current AI compute feedback replay classes that must be covered until fixed:
 - node-detail "why it matters" copy is generic, e.g. only says that route scale depends on the constraint without naming the concrete mechanism, holder, process, capacity, material, equipment, lead time, or routing dependency;
 - non-top or ordinary dependency nodes appear in the same "Key Chokepoints" / "具体卡点" treatment as confirmed top Chokepoints;
 - weak/thin evidence is surfaced as the concrete "Where it is stuck" / "具体卡点" reason instead of as an evidence limitation.
+- selected-node `Decomposition` / `结构拆解` repeats generic framework text such as direct-module counts or "the parent needs these dependencies" across nodes instead of explaining the current node's actual decomposition boundary and child mechanisms.
 - node-detail core readouts or supplier/company cards silently omit relief timing, supplier commercial scale, market-share / revenue / capacity clues, or a labeled proxy estimate when direct data is not yet sourced.
 - structural node detail calls a cost/capex proxy broad "commercial scale" or "market size" instead of naming the cost-scale basis.
 - structural parent nodes show cost-scale or relief-cycle readouts that are lower/shorter than the direct child nodes they decompose into; QA should inspect at least one expanded decomposition path when reviewing these fields, not only the selected node's own tile.
@@ -228,6 +230,9 @@ Acceptance checks:
 - AI compute is clearly marked as a full-free trust demo when applicable.
 - The copy avoids buy/sell/hold language, guaranteed returns, "definitely undervalued" claims, or implied insider knowledge.
 - Disclaimers are visible enough for a public-market retail audience.
+- Before checkout, the buyer can reach a purchase/support policy that states the one-time price, current included collection, no automatic renewal or promised update schedule, refund window, contact and access-recovery path, payment/usage-data handling, and non-investment-advice boundary.
+- The $9 collection distinguishes bundle role from research maturity: Humanoid and reusable launch are core maps, controlled fusion is an early-research add-on, orbital data center is a hypothesis-map add-on, and AI compute remains fully free. `core` must not be read as an evidence grade.
+- Any `audit-preview` included in the current snapshot keeps its maturity label at the homepage offer, route entry, and after unlock. A route with only a legacy entitlement but no explicit `allAccessRole` cannot show checkout.
 
 Hard fails:
 
@@ -235,6 +240,8 @@ Hard fails:
 - The user discovers the paid boundary only after being surprised by a locked company/ticker action.
 - The first screen does not explain the investment-research value.
 - Chinese mode makes the commercial promise or paid/free boundary unreadable.
+- A paid checkout is offered without a reachable purchase/support policy, or the policy contradicts the checkout price, access scope, renewal, or refund terms.
+- The offer hides an early-research/hypothesis maturity label, or an entitlement silently makes an unlisted route purchasable.
 
 ### Gate 2: Paid Insight Trust
 
@@ -255,6 +262,7 @@ Acceptance checks:
 - The UI states why the lead might be wrong or less actionable: weak evidence, revenue exposure too small, valuation already priced in, unverified supply relation, cyclicality, policy risk, or route uncertainty.
 - Review status and source strength are visible and not inflated. Agent-generated records stay unreviewed unless owner-reviewed.
 - Supplier/ticker leads are described as diligence leads or exposure candidates, never as direct investment advice.
+- Paid snapshot membership does not exempt a relationship from evidence disclosure: active supplier relations need linked support or must be removed from the surfaced paid layer; owner review is not required for every lead when unreviewed/source-checked status and limitations are explicit.
 
 Hard fails:
 
@@ -462,7 +470,7 @@ Required paths:
 - Test English and Simplified Chinese for the primary summary layer.
 - On desktop, compare at least one AI compute supplier/capacity detail against `docs/plans/assets/node-detail-ia-commercial-supplier-lines-v4.png`. Passing requires the sample-style visual shell: identity hero, leading quote, 2x2 core readout, decomposition table/card treatment, evidence card, and supplier/company cards. Text order parity alone is a fail if the old sidebar/card treatment remains.
 - On default route entry before a node is clicked, the rail must not show both route guidance and a duplicate selected-node summary for the same recommended start node. A duplicate selected summary makes the route guide look like a node detail.
-- In the selected-node sample detail, inspect the core readout content. It must use the four product-design fields: `Load-bearing scope` / `承载范围`, `Substitution feasibility` / `替代可行性`, `Blocking mode` / `阻断方式`, and `Current status` / `当前状态`. Treat `Cost-scale proxy`, `Leading reason`, `Relief timing`, evidence status, company clues, or Chokepoint-axis diagnostics inside the core readout as stale hierarchy unless they appear in the appropriate interpretation, Cost-lens, evidence, exposure, or supplementary surface.
+- In the selected-node sample detail, inspect the core readout content. It must use the four product-design fields: `Impact scope` / `影响范围`, `Substitution feasibility` / `替代可行性`, `Blocking mode` / `阻断方式`, and `Current status` / `当前状态`. Treat `Cost-scale proxy`, `Leading reason`, `Relief timing`, evidence status, company clues, or Chokepoint-axis diagnostics inside the core readout as stale hierarchy unless they appear in the appropriate interpretation, Cost-lens, evidence, exposure, or supplementary surface.
 - In the selected-node sample detail, inspect the core readout tile layout. The
   four readout tiles should render as a stable 2x2 grid in the rail. Fail the
   screen if they collapse into one cramped four-column row; that is too literal
@@ -550,6 +558,12 @@ npm run build
 npm test
 ```
 
+For an intentionally enabled paid production release, also run:
+
+```bash
+npm run verify:paid-release
+```
+
 Acceptance checks:
 
 - The verification surface is clean. Generated artifacts such as `.next`, `.next-judge`, and `.scratch` outputs do not break lint or release checks.
@@ -559,7 +573,10 @@ Acceptance checks:
 - Entitlements fail closed. Missing or invalid secrets do not grant access.
 - Paid routes do not expose locked organization names, tickers, or paid-only evidence through free HTML/API output.
 - Checkout links are production-ready only when intentionally enabled. Test Stripe links must not appear in a live paid launch.
+- The paid-release gate verifies the live active one-time USD $9 price, the matching Payment Link, the exact `/unlock?session_id={CHECKOUT_SESSION_ID}` return, support address, and entitlement secret. A normal safe-mode build is not evidence that paid release is ready.
+- Offer membership is explicit: only routes with `allAccessRole` may show the global checkout, while `entitlement` remains the broader access/leak-prevention boundary.
 - Sitemap, metadata, robots, and core route health are valid for the intended deployment.
+- Production returns 404 for internal operator routes (`/gate`, `/tasks`, `/graph`, `/explore`, and `/product/*`), while local operator mode can still use them; those paths are also excluded from indexing.
 - Browser console has no runtime errors on the tested paths.
 
 Hard fails:

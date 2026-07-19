@@ -16,7 +16,6 @@ const paidLayerKeys = [
   "exposureAccessPaidTickers",
   "exposureAccessPaidMarketSignals",
   "exposureAccessPaidOrgEvidence",
-  "exposureAccessPaidUpdates",
 ];
 
 type ExposureAccessBannerDomain = {
@@ -165,7 +164,7 @@ export function ExposureAccessBanner({
             ))}
           </ul>
           <ExposureCheckoutLinks
-            entry={{ ...lockedEntry, entitlement: "founding" }}
+            entry={lockedEntry}
             className="exposure-access-actions"
             missingLabel={t("exposureCheckoutMissing")}
           />

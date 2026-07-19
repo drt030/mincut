@@ -11,7 +11,7 @@ test("launch header links to registered domain maps", () => {
 
   assert.match(html, /href="\/"/);
   assert.match(html, /href="\/d\/ai-compute"/);
-  assert.match(html, /href="\/d\/parcel-robot"/);
+  assert.doesNotMatch(html, /href="\/d\/parcel-robot"/);
 });
 
 test("launch header tracks client route changes through Next pathname state", async () => {
@@ -47,6 +47,8 @@ test("launch header does not expose legacy research routes as primary nav", () =
   const html = renderToStaticMarkup(React.createElement(AppHeader));
 
   assert.doesNotMatch(html, /href="\/graph"/);
+  assert.doesNotMatch(html, /href="\/explore"/);
+  assert.doesNotMatch(html, /href="\/gate"/);
   assert.doesNotMatch(html, /href="\/tasks"/);
   assert.doesNotMatch(html, /href="\/product\//);
 });
